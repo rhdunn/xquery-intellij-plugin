@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
@@ -164,6 +165,8 @@ object XQueryElementType {
         XQueryImportPsiImpl::class.java,
         XQuery
     )
+
+    val MODULE = IFileElementType(XQuery)
 
     val OPTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_OPTION_DECL",

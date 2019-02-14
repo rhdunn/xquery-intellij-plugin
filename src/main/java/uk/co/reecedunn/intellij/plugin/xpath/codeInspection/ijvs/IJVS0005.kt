@@ -44,7 +44,7 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", IJVS0005::class.java.classLoader
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun (element) {
-            if (element.parent.node.elementType === XQueryElementType2.MODULE)
+            if (element.parent.node.elementType === XQueryElementType.MODULE)
                 return
 
             if (element.siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() !== null)

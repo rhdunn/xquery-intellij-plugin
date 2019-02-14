@@ -53,7 +53,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     @DisplayName("fileNodeType")
     fun testFileNodeType() {
         val parserDefinition = XQueryParserDefinition()
-        assertThat(parserDefinition.fileNodeType, `is`(XQueryElementType2.MODULE))
+        assertThat(parserDefinition.fileNodeType, `is`(XQueryElementType.MODULE))
     }
 
     @Test

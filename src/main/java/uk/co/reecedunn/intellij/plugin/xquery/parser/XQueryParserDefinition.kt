@@ -40,7 +40,7 @@ class XQueryParserDefinition : ParserDefinition() {
 
     override fun createParser(project: Project): PsiParser = XQueryParser()
 
-    override fun getFileNodeType(): IFileElementType = XQueryElementType2.MODULE
+    override fun getFileNodeType(): IFileElementType = XQueryElementType.MODULE
 
     override fun getWhitespaceTokens(): TokenSet = TokenSet.EMPTY
 

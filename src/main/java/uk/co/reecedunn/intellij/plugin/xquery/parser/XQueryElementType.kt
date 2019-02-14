@@ -90,7 +90,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val MODULE = IFileElementType(XQuery)
     val MAIN_MODULE: IElementType = ICompositeElementType(
         "XQUERY_MAIN_MODULE",
         XQueryMainModulePsiImpl::class.java,
