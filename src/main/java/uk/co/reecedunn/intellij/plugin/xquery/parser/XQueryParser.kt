@@ -5342,7 +5342,7 @@ class XQueryParser : XPathParser() {
             val type: IElementType
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseStringLiteral(builder)) {
-                type = XQueryElementType2.NAMED_TEXT_TEST
+                type = XQueryElementType.NAMED_TEXT_TEST
             } else {
                 type = XPathElementType.ANY_TEXT_TEST
                 builder.errorOnTokenType(XPathTokenType.STAR, XQueryPluginBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0

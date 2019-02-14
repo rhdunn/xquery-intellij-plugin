@@ -1001,6 +1001,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val NAMED_TEXT_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_TEXT_TEST",
+        PluginNamedTextTestPsiImpl::class.java,
+        XQuery
+    )
+
     val NON_DETERMINISTIC_FUNCTION_CALL: IElementType = ICompositeElementType(
         "NON_DETERMINISTIC_FUNCTION_CALL",
         PluginNonDeterministicFunctionCallPsiImpl::class.java,

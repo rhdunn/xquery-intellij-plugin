@@ -203,11 +203,5 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val NAMED_TEXT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NAMED_TEXT_TEST",
-        PluginNamedTextTestPsiImpl::class.java,
-        XQuery
-    )
-
     // endregion
 }
