@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 private val SCRIPTING10 = listOf(ScriptingSpec.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
 
-private val SEPARATOR_TOKENS = TokenSet.create(XQueryTokenType.SEPARATOR, XQueryElementType2.TRANSACTION_SEPARATOR)
+private val SEPARATOR_TOKENS = TokenSet.create(XQueryTokenType.SEPARATOR, XQueryElementType.TRANSACTION_SEPARATOR)
 
 open class ScriptingApplyExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -41,7 +41,7 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) :
     override val requiresConformance
         get(): List<Version> {
             val element = conformanceElement
-            if (element === firstChild || element.node.elementType === XQueryElementType2.TRANSACTION_SEPARATOR) {
+            if (element === firstChild || element.node.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
                 return XQUERY
             }
             return SCRIPTING10

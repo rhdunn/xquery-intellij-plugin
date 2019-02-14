@@ -118,7 +118,7 @@ class XQueryParser : XPathParser() {
                 prologMarker.rollbackTo()
             }
 
-            marker.done(XQueryElementType2.TRANSACTION_SEPARATOR)
+            marker.done(XQueryElementType.TRANSACTION_SEPARATOR)
             return if (haveProlog) TransactionType.WITH_PROLOG else TransactionType.WITHOUT_PROLOG
         }
         return TransactionType.NONE
@@ -1381,7 +1381,7 @@ class XQueryParser : XPathParser() {
                             // Scripting Extension: The semicolon is required to end a ConcatExpr.
                             // MarkLogic Transactions: The last expression must not end with a semicolon.
                             val marker2 = builder.mark()
-                            marker2.done(XQueryElementType2.TRANSACTION_SEPARATOR)
+                            marker2.done(XQueryElementType.TRANSACTION_SEPARATOR)
                         }
                     }
                     return true

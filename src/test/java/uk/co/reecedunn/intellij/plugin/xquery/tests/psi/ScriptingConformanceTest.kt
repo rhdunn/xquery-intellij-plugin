@@ -274,7 +274,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
                 conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.TRANSACTION_SEPARATOR)
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
             )
         }
 
@@ -291,7 +291,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
                 conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.TRANSACTION_SEPARATOR)
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
             )
         }
 
@@ -308,7 +308,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
                 conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.TRANSACTION_SEPARATOR)
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
             )
         }
     }

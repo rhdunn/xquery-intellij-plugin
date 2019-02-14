@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 
 private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
 private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9, ScriptingSpec.NOTE_1_0_20140918)

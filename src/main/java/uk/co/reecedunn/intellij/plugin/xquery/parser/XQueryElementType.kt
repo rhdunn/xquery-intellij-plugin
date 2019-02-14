@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.psi.tree.IElementType
-import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -181,15 +180,6 @@ object XQueryElementType2 {
     val BLOCK_VAR_DECL: IElementType = ICompositeElementType(
         "XQUERY_BLOCK_VAR_DECL",
         ScriptingBlockVarDeclPsiImpl::class.java,
-        XQuery
-    )
-
-    // endregion
-    // region MarkLogic 6.0
-
-    val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType(
-        "XQUERY_TRANSACTION_SEPARATOR",
-        PluginTransactionSeparatorPsiImpl::class.java,
         XQuery
     )
 

@@ -1082,6 +1082,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType(
+        "XQUERY_TRANSACTION_SEPARATOR",
+        PluginTransactionSeparatorPsiImpl::class.java,
+        XQuery
+    )
+
     val TUPLE_FIELD: IElementType = ICompositeElementType(
         "XQUERY_TUPLE_FIELD",
         PluginTupleFieldImpl::class.java,
