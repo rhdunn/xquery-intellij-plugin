@@ -164,15 +164,6 @@ object XQueryElementType2 {
     )
 
     // endregion
-    // region Scripting Extension 1.0
-
-    val BLOCK_VAR_DECL: IElementType = ICompositeElementType(
-        "XQUERY_BLOCK_VAR_DECL",
-        ScriptingBlockVarDeclPsiImpl::class.java,
-        XQuery
-    )
-
-    // endregion
     // region XQuery IntelliJ Plugin
 
     val DIR_ATTRIBUTE: IElementType = ICompositeElementType(

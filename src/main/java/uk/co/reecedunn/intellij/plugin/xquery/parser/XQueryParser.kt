@@ -1275,7 +1275,7 @@ class XQueryParser : XPathParser() {
                 }
             } while (builder.matchTokenType(XPathTokenType.COMMA))
 
-            marker.done(XQueryElementType2.BLOCK_VAR_DECL)
+            marker.done(XQueryElementType.BLOCK_VAR_DECL)
             return status
         }
         return ParseStatus.NOT_MATCHED

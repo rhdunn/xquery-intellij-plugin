@@ -786,6 +786,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val BLOCK_VAR_DECL: IElementType = ICompositeElementType(
+        "XQUERY_BLOCK_VAR_DECL",
+        ScriptingBlockVarDeclPsiImpl::class.java,
+        XQuery
+    )
+
     val CONCAT_EXPR: IElementType = ICompositeElementType(
         "XQUERY_CONCAT_EXPR",
         ScriptingConcatExprPsiImpl::class.java,
