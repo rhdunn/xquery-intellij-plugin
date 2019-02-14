@@ -183,7 +183,7 @@ class XQueryParser : XPathParser() {
             }
 
             if (!builder.matchTokenType(XQueryTokenType.SEPARATOR)) {
-                marker.done(XQueryElementType2.VERSION_DECL)
+                marker.done(XQueryElementType.VERSION_DECL)
                 if (!haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", ";"))
                 }
@@ -193,7 +193,7 @@ class XQueryParser : XPathParser() {
                 return true
             }
 
-            marker.done(XQueryElementType2.VERSION_DECL)
+            marker.done(XQueryElementType.VERSION_DECL)
             return true
         }
         return false

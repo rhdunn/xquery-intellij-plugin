@@ -294,6 +294,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val VERSION_DECL: IElementType = ICompositeElementType(
+        "XQUERY_VERSION_DECL",
+        XQueryVersionDeclPsiImpl::class.java,
+        XQuery
+    )
+
     val WHERE_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_WHERE_CLAUSE",
         XQueryWhereClausePsiImpl::class.java,

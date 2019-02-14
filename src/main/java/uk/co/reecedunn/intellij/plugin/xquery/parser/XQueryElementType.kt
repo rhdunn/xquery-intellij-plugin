@@ -66,11 +66,6 @@ object XQueryElementType2 {
         XQueryModuleDeclPsiImpl::class.java,
         XQuery
     )
-    val VERSION_DECL: IElementType = ICompositeElementType(
-        "XQUERY_VERSION_DECL",
-        XQueryVersionDeclPsiImpl::class.java,
-        XQuery
-    )
 
     val MAIN_MODULE: IElementType = ICompositeElementType(
         "XQUERY_MAIN_MODULE",
