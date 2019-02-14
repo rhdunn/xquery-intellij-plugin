@@ -522,6 +522,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val ENCLOSED_URI_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ENCLOSED_URI_EXPR",
+        XQueryEnclosedUriExprPsiImpl::class.java,
+        XQuery
+    )
+
     val NODE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_NODE_CONSTRUCTOR",
         XQueryNodeConstructorPsiImpl::class.java,

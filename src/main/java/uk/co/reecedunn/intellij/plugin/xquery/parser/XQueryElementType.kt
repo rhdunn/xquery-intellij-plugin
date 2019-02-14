@@ -134,15 +134,6 @@ object XQueryElementType2 {
     )
 
     // endregion
-    // region XQuery 3.1
-
-    val ENCLOSED_URI_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ENCLOSED_URI_EXPR",
-        XQueryEnclosedUriExprPsiImpl::class.java,
-        XQuery
-    )
-
-    // endregion
     // region XQuery IntelliJ Plugin
 
     val DIR_ATTRIBUTE: IElementType = ICompositeElementType(
