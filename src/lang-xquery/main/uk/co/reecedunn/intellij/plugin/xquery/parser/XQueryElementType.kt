@@ -136,6 +136,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val EXPR: IElementType = ICompositeElementType(
+        "XQUERY_EXPR",
+        XQueryExprPsiImpl::class.java,
+        XQuery
+    )
+
     val EXTENSION_EXPR: IElementType = ICompositeElementType(
         "XQUERY_EXTENSION_EXPR",
         XQueryExtensionExprPsiImpl::class.java,

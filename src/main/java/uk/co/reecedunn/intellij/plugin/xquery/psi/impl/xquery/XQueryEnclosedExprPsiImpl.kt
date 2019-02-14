@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructo
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
@@ -68,7 +67,7 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
             return XQUERY31
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType2.EXPR) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType.EXPR) ?: firstChild
 
     // endregion
     // region FoldablePsiElement

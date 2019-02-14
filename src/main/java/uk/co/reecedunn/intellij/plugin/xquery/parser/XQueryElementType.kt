@@ -46,11 +46,6 @@ object XQueryElementType2 {
         XQueryQueryBodyPsiImpl::class.java,
         XQuery
     )
-    val EXPR: IElementType = ICompositeElementType(
-        "XQUERY_EXPR",
-        XQueryExprPsiImpl::class.java,
-        XQuery
-    )
     val ENCLOSED_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ENCLOSED_EXPR",
         XQueryEnclosedExprPsiImpl::class.java,

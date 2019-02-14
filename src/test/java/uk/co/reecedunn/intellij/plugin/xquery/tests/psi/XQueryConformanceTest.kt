@@ -414,7 +414,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -450,7 +450,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -483,7 +483,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -517,7 +517,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -551,7 +551,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -584,7 +584,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -618,7 +618,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -652,7 +652,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -685,7 +685,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -720,7 +720,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -756,7 +756,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -795,7 +795,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -832,7 +832,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -867,7 +867,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -902,7 +902,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -937,7 +937,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
