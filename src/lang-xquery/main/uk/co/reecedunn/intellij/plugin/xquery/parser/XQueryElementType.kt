@@ -405,6 +405,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val INTERMEDIATE_CLAUSE: IElementType = ICompositeElementType(
+        "XQUERY_INTERMEDIATE_CLAUSE",
+        XQueryIntermediateClausePsiImpl::class.java,
+        XQuery
+    )
+
     val LET_BINDING: IElementType = ICompositeElementType(
         "XQUERY_LET_BINDING",
         XQueryLetBindingPsiImpl::class.java,

@@ -1470,7 +1470,7 @@ class XQueryParser : XPathParser() {
             parseCountClause(builder) ||
             parseGroupByClause(builder)
         ) {
-            marker.done(XQueryElementType2.INTERMEDIATE_CLAUSE)
+            marker.done(XQueryElementType.INTERMEDIATE_CLAUSE)
             return true
         }
         marker.drop()

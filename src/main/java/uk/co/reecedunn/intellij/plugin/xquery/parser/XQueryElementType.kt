@@ -109,12 +109,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val INTERMEDIATE_CLAUSE: IElementType = ICompositeElementType(
-        "XQUERY_INTERMEDIATE_CLAUSE",
-        XQueryIntermediateClausePsiImpl::class.java,
-        XQuery
-    )
-
     val PREFIX: IElementType = ICompositeElementType(
         "XQUERY_PREFIX",
         XQueryPrefixPsiImpl::class.java,
