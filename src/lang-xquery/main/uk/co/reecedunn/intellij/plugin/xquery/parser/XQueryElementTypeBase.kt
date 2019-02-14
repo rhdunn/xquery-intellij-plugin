@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 
 open class XQueryElementTypeBase {
     // region Full Text 1.0
@@ -248,6 +249,231 @@ open class XQueryElementTypeBase {
     val FT_IGNORE_OPTION: IElementType = ICompositeElementType(
         "XQUERY_FT_IGNORE_OPTION",
         FTIgnoreOptionPsiImpl::class.java,
+        XQuery
+    )
+
+    // endregion
+    // region XQuery IntelliJ Plugin
+
+    val ANNOTATED_SEQUENCE_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_ANNOTATED_SEQUENCE_TYPE",
+        PluginAnnotatedSequenceTypePsiImpl::class.java,
+        XQuery
+    )
+
+    val ANY_ARRAY_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_ARRAY_NODE_TEST",
+        PluginAnyArrayNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val ANY_BOOLEAN_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_BOOLEAN_NODE_TEST",
+        PluginAnyBooleanNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val ANY_MAP_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_MAP_NODE_TEST",
+        PluginAnyMapNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val ANY_NULL_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_NULL_NODE_TEST",
+        PluginAnyNullNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val ANY_NUMBER_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_NUMBER_NODE_TEST",
+        PluginAnyNumberNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val ATTRIBUTE_DECL_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ATTRIBUTE_DECL_TEST",
+        PluginAttributeDeclTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val BINARY_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_BINARY_CONSTRUCTOR",
+        PluginBinaryConstructorPsiImpl::class.java,
+        XQuery
+    )
+
+    val BINARY_TEST: IElementType = ICompositeElementType(
+        "XQUERY_BINARY_TEST",
+        PluginBinaryTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val BLOCK_VAR_DECL_ENTRY: IElementType = ICompositeElementType(
+        "XQUERY_BLOCK_VAR_DECL_ENTRY",
+        PluginBlockVarDeclEntryPsiImpl::class.java,
+        XQuery
+    )
+
+    val BOOLEAN_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_BOOLEAN_CONSTRUCTOR",
+        PluginBooleanConstructorPsiImpl::class.java,
+        XQuery
+    )
+
+    val COMPLEX_TYPE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_COMPLEX_TYPE_TEST",
+        PluginComplexTypeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType(
+        "XQUERY_DEFAULT_CASE_CLAUSE",
+        PluginDefaultCaseClausePsiImpl::class.java,
+        XQuery
+    )
+
+    val ELEMENT_DECL_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ELEMENT_DECL_TEST",
+        PluginElementDeclTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val FT_FUZZY_OPTION: IElementType = ICompositeElementType(
+        "XQUERY_FT_FUZZY_OPTION",
+        PluginFTFuzzyOptionPsiImpl::class.java,
+        XQuery
+    )
+
+    val NAMED_ARRAY_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_ARRAY_NODE_TEST",
+        PluginNamedArrayNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val NAMED_BOOLEAN_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_BOOLEAN_NODE_TEST",
+        PluginNamedBooleanNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val NAMED_MAP_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_MAP_NODE_TEST",
+        PluginNamedMapNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val NAMED_NULL_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_NULL_NODE_TEST",
+        PluginNamedNullNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val NAMED_NUMBER_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_NUMBER_NODE_TEST",
+        PluginNamedNumberNodeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val NON_DETERMINISTIC_FUNCTION_CALL: IElementType = ICompositeElementType(
+        "NON_DETERMINISTIC_FUNCTION_CALL",
+        PluginNonDeterministicFunctionCallPsiImpl::class.java,
+        XQuery
+    )
+
+    val NULL_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_NULL_CONSTRUCTOR",
+        PluginNullConstructorPsiImpl::class.java,
+        XQuery
+    )
+
+    val NUMBER_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_NUMBER_CONSTRUCTOR",
+        PluginNumberConstructorPsiImpl::class.java,
+        XQuery
+    )
+
+    val SCHEMA_COMPONENT_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_COMPONENT_TEST",
+        PluginSchemaComponentTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val SCHEMA_FACET_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_FACET_TEST",
+        PluginSchemaFacetTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val SCHEMA_PARTICLE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_PARTICLE_TEST",
+        PluginSchemaParticleTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val SCHEMA_ROOT_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_ROOT_TEST",
+        PluginSchemaRootTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val SCHEMA_TYPE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_TYPE_TEST",
+        PluginSchemaTypeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType(
+        "XQUERY_SEQUENCE_TYPE_LIST",
+        PluginSequenceTypeListPsiImpl::class.java,
+        XQuery
+    )
+
+    val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_SIMPLE_INLINE_FUNCTION_EXPR",
+        PluginSimpleInlineFunctionExprImpl::class.java,
+        XQuery
+    )
+
+    val SIMPLE_TYPE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SIMPLE_TYPE_TEST",
+        PluginSimpleTypeTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val STYLESHEET_IMPORT: IElementType = ICompositeElementType(
+        "XQUERY_STYLESHEET_IMPORT",
+        PluginStylesheetImportPsiImpl::class.java,
+        XQuery
+    )
+
+    val TUPLE_FIELD: IElementType = ICompositeElementType(
+        "XQUERY_TUPLE_FIELD",
+        PluginTupleFieldImpl::class.java,
+        XQuery
+    )
+
+    val TUPLE_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_TUPLE_TYPE",
+        PluginTupleTypeImpl::class.java,
+        XQuery
+    )
+
+    val TYPE_DECL: IElementType = ICompositeElementType(
+        "XQUERY_TYPE_DECL",
+        PluginTypeDeclImpl::class.java,
+        XQuery
+    )
+
+    val UNION_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_UNION_TYPE",
+        PluginUnionTypeImpl::class.java,
+        XQuery
+    )
+
+    val UPDATE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_UPDATE_EXPR",
+        PluginUpdateExprPsiImpl::class.java,
         XQuery
     )
 
