@@ -504,6 +504,12 @@ object XQueryElementType {
     // endregion
     // region XQuery 3.1
 
+    val ENCLOSED_CONTENT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ENCLOSED_CONTENT_EXPR",
+        XQueryEnclosedContentExprPsiImpl::class.java,
+        XQuery
+    )
+
     val NODE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_NODE_CONSTRUCTOR",
         XQueryNodeConstructorPsiImpl::class.java,

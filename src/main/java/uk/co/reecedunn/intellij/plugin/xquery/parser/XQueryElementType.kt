@@ -136,11 +136,6 @@ object XQueryElementType2 {
     // endregion
     // region XQuery 3.1
 
-    val ENCLOSED_CONTENT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ENCLOSED_CONTENT_EXPR",
-        XQueryEnclosedContentExprPsiImpl::class.java,
-        XQuery
-    )
     val ENCLOSED_TRY_TARGET_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ENCLOSED_TRY_TARGET_EXPR",
         XQueryEnclosedTryTargetExprPsiImpl::class.java,
