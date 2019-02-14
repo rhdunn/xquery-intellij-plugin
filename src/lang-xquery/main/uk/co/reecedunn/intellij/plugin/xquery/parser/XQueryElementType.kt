@@ -495,6 +495,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val URI_QUALIFIED_NAME: IElementType = ICompositeElementType(
+        "XQUERY_URI_QUALIFIED_NAME",
+        XQueryURIQualifiedNamePsiImpl::class.java,
+        XQuery
+    )
+
     val VAR_DEFAULT_VALUE: IElementType = ICompositeElementType(
         "XQUERY_VAR_DEFAULT_VALUE",
         XQueryVarDefaultValuePsiImpl::class.java,

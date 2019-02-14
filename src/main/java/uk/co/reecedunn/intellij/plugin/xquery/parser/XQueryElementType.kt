@@ -92,12 +92,6 @@ object XQueryElementType2 {
     // endregion
     // region XQuery 3.0
 
-    val URI_QUALIFIED_NAME: IElementType = ICompositeElementType(
-        "XQUERY_URI_QUALIFIED_NAME",
-        XQueryURIQualifiedNamePsiImpl::class.java,
-        XQuery
-    )
-
     val PREFIX: IElementType = ICompositeElementType(
         "XQUERY_PREFIX",
         XQueryPrefixPsiImpl::class.java,
