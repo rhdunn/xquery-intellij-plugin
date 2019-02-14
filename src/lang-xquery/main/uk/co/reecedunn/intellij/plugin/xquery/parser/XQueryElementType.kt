@@ -246,6 +246,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val QUERY_BODY: IElementType = ICompositeElementType(
+        "XQUERY_QUERY_BODY",
+        XQueryQueryBodyPsiImpl::class.java,
+        XQuery
+    )
+
     val SCHEMA_PREFIX: IElementType = ICompositeElementType(
         "XQUERY_SCHEMA_PREFIX",
         XQuerySchemaPrefixPsiImpl::class.java,

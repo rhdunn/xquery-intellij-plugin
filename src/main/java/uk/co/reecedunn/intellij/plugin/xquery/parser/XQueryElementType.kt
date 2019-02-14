@@ -40,12 +40,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val QUERY_BODY: IElementType = ICompositeElementType(
-        "XQUERY_QUERY_BODY",
-        XQueryQueryBodyPsiImpl::class.java,
-        XQuery
-    )
-
     val NAMESPACE_DECL: IElementType = ICompositeElementType(
         "XQUERY_NAMESPACE_DECL",
         XQueryNamespaceDeclPsiImpl::class.java,

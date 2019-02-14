@@ -202,12 +202,12 @@ class XQueryParser : XPathParser() {
     private fun parseMainModule(builder: PsiBuilder): Boolean {
         if (parseProlog(builder, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, XQueryElementType2.QUERY_BODY)) {
+            if (!parseExpr(builder, XQueryElementType.QUERY_BODY)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-query-body"))
             }
             return true
         }
-        return parseExpr(builder, XQueryElementType2.QUERY_BODY)
+        return parseExpr(builder, XQueryElementType.QUERY_BODY)
     }
 
     private fun parseLibraryModule(builder: PsiBuilder): Boolean {
@@ -1361,7 +1361,7 @@ class XQueryParser : XPathParser() {
                     return true
                 }
                 TransactionType.WITHOUT_PROLOG -> {
-                    if (type !== XQueryElementType2.QUERY_BODY) {
+                    if (type !== XQueryElementType.QUERY_BODY) {
                         // Scripting Extension: Use a Separator as part of the ApplyExpr.
                         marker.rollbackTo()
                         builder.matchTokenType(XQueryTokenType.SEPARATOR)
@@ -1374,7 +1374,7 @@ class XQueryParser : XPathParser() {
                 TransactionType.NONE -> {
                     marker.rollbackTo()
                     if (haveConcatExpr) {
-                        if (type !== XQueryElementType2.QUERY_BODY) {
+                        if (type !== XQueryElementType.QUERY_BODY) {
                             // Scripting Extension: The semicolon is required to end a ConcatExpr.
                             builder.error(XPathBundle.message("parser.error.expected", ";"))
                         } else {
