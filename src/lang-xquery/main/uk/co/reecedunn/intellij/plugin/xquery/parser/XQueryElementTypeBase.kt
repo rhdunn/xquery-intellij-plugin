@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
 
 open class XQueryElementTypeBase {
     // region Full Text 1.0
@@ -249,6 +250,77 @@ open class XQueryElementTypeBase {
     val FT_IGNORE_OPTION: IElementType = ICompositeElementType(
         "XQUERY_FT_IGNORE_OPTION",
         FTIgnoreOptionPsiImpl::class.java,
+        XQuery
+    )
+
+    // endregion
+    // region Update Facility 1.0
+
+    val REVALIDATION_DECL: IElementType = ICompositeElementType(
+        "XQUERY_REVALIDATION_DECL",
+        UpdateFacilityRevalidationDeclPsiImpl::class.java,
+        XQuery
+    )
+
+    val INSERT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_INSERT_EXPR",
+        UpdateFacilityInsertExprPsiImpl::class.java,
+        XQuery
+    )
+    val DELETE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_DELETE_EXPR",
+        UpdateFacilityDeleteExprPsiImpl::class.java,
+        XQuery
+    )
+    val REPLACE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_REPLACE_EXPR",
+        UpdateFacilityReplaceExprPsiImpl::class.java,
+        XQuery
+    )
+    val RENAME_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_RENAME_EXPR",
+        UpdateFacilityRenameExprPsiImpl::class.java,
+        XQuery
+    )
+
+    val NEW_NAME_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_NEW_NAME_EXPR",
+        UpdateFacilityNewNameExprPsiImpl::class.java,
+        XQuery
+    )
+    val SOURCE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_SOURCE_EXPR",
+        UpdateFacilitySourceExprPsiImpl::class.java,
+        XQuery
+    )
+    val TARGET_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_TARGET_EXPR",
+        UpdateFacilityTargetExprPsiImpl::class.java,
+        XQuery
+    )
+    val INSERT_EXPR_TARGET_CHOICE: IElementType = ICompositeElementType(
+        "XQUERY_INSERT_EXPR_TARGET_CHOICE",
+        UpdateFacilityInsertExprTargetChoicePsiImpl::class.java,
+        XQuery
+    )
+
+    // endregion
+    // region Update Facility 3.0
+
+    val COPY_MODIFY_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_COPY_MODIFY_EXPR",
+        UpdateFacilityCopyModifyExprPsiImpl::class.java,
+        XQuery
+    )
+    val UPDATING_FUNCTION_CALL: IElementType = ICompositeElementType(
+        "XQUERY_UPDATING_FUNCTION_CALL",
+        UpdateFacilityUpdatingFunctionCallPsiImpl::class.java,
+        XQuery
+    )
+
+    val TRANSFORM_WITH_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_TRANSFORM_WITH_EXPR",
+        UpdateFacilityTransformWithExprPsiImpl::class.java,
         XQuery
     )
 
