@@ -83,11 +83,6 @@ object XQueryElementType2 {
         XQueryMainModulePsiImpl::class.java,
         XQuery
     )
-    val LIBRARY_MODULE: IElementType = ICompositeElementType(
-        "XQUERY_LIBRARY_MODULE",
-        XQueryLibraryModulePsiImpl::class.java,
-        XQuery
-    )
 
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",
