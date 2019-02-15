@@ -58,25 +58,6 @@ private val NAMESPACE_TYPE = mapOf(
     XPathElementType.VAR_NAME to XPathNamespaceType.None
 )
 
-enum class XPathNamespaceType {
-    DefaultElementOrType,
-    DefaultFunction,
-    None,
-    Prefixed,
-    Undefined,
-    XQuery,
-}
-
-interface XPathNamespaceDeclaration {
-    val namespacePrefix: XsNCNameValue?
-
-    val namespaceUri: XsAnyUriValue?
-}
-
-interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
-    val namespaceType: XPathNamespaceType
-}
-
 // region XPath 3.1 (2.1.1) Statically known namespaces
 
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
