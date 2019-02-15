@@ -22,13 +22,31 @@ import com.intellij.openapi.vfs.VirtualFileSystem
 import java.io.IOException
 
 open class VirtualFileSystemImpl(private val protocol: String) : VirtualFileSystem() {
+    private val cache: HashMap<String, VirtualFile?> = HashMap()
+
+    open fun findCacheableFile(path: String): VirtualFile? = null
+
     override fun getProtocol(): String = protocol
 
-    override fun findFileByPath(path: String): VirtualFile? = null
+    override fun findFileByPath(path: String): VirtualFile? {
+        val file = cache[path]
+        return if (file == null) {
+            val cacheableFile = findCacheableFile(path)
+            cache[path] = cacheableFile
+            cacheableFile
+        } else {
+            file
+        }
+    }
 
-    override fun refresh(asynchronous: Boolean) {}
+    override fun refresh(asynchronous: Boolean) {
+        cache.clear()
+    }
 
-    override fun refreshAndFindFileByPath(path: String): VirtualFile? = findFileByPath(path)
+    override fun refreshAndFindFileByPath(path: String): VirtualFile? {
+        refresh(false)
+        return findFileByPath(path)
+    }
 
     override fun addVirtualFileListener(listener: VirtualFileListener) {}
 

@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.vfs
 import com.intellij.openapi.vfs.VirtualFile
 
 object ResourceVirtualFileSystem : VirtualFileSystemImpl("res") {
-    override fun findFileByPath(path: String): VirtualFile? {
+    override fun findCacheableFile(path: String): VirtualFile? {
         return ResourceVirtualFile(ResourceVirtualFileSystem::class.java.classLoader, path, ResourceVirtualFileSystem)
     }
 }
