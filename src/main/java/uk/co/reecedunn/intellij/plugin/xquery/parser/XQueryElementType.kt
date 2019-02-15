@@ -67,12 +67,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val MAIN_MODULE: IElementType = ICompositeElementType(
-        "XQUERY_MAIN_MODULE",
-        XQueryMainModulePsiImpl::class.java,
-        XQuery
-    )
-
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",
         XQueryDirElemConstructorPsiImpl::class.java,

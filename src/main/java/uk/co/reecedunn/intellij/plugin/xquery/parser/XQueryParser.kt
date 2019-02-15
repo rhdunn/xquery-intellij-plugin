@@ -133,7 +133,7 @@ class XQueryParser : XPathParser() {
             marker.done(XQueryElementType.LIBRARY_MODULE)
             return true
         } else if (parseMainModule(builder)) {
-            marker.done(XQueryElementType2.MAIN_MODULE)
+            marker.done(XQueryElementType.MAIN_MODULE)
             return true
         }
 
