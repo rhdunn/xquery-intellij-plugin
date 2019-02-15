@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,10 +36,14 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val project = element!!.project
     val resolvers =
         if (httpOnly)
-            HTTP_ONLY_IMPORT_RESOLVERS
+            sequenceOf(
+                ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
+                HTTP_ONLY_IMPORT_RESOLVERS
+            ).flatten()
         else {
             val file = element!!.containingFile.virtualFile
             sequenceOf(
+                ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
                 STATIC_IMPORT_RESOLVERS,
                 moduleRootImportResolvers(project, JavaSourceRootType.SOURCE),
                 if (file.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.vfs.VirtualFile
 
 interface ImportPathResolver {
+    companion object {
+        val IMPORT_PATH_RESOLVER_EP = ExtensionPointName.create<ImportPathResolver>(
+            "uk.co.reecedunn.intellij.importPathResolver"
+        )
+    }
+
     fun match(path: String): Boolean
 
     fun resolve(path: String): VirtualFile?

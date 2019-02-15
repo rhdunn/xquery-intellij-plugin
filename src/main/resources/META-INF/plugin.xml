@@ -69,6 +69,7 @@
   <depends>com.intellij.modules.xml</depends>
 
   <extensionPoints>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver"/>
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
   </extensionPoints>
 
