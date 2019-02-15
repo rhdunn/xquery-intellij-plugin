@@ -200,6 +200,7 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions"/>
 
