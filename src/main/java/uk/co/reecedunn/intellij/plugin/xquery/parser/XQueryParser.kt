@@ -3680,7 +3680,7 @@ class XQueryParser : XPathParser() {
             ) {
                 //
             } else if (builder.matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)) {
-                marker.done(XQueryElementType2.DIR_ATTRIBUTE_VALUE)
+                marker.done(XQueryElementType.DIR_ATTRIBUTE_VALUE)
                 return true
             } else if (builder.matchTokenType(XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)) {
                 builder.error(XQueryPluginBundle.message("parser.error.incomplete-entity"))
@@ -3689,7 +3689,7 @@ class XQueryParser : XPathParser() {
             } else if (parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) || builder.errorOnTokenType(XPathTokenType.BLOCK_CLOSE, XQueryPluginBundle.message("parser.error.mismatched-exclosed-expr"))) {
                 //
             } else {
-                marker.done(XQueryElementType2.DIR_ATTRIBUTE_VALUE)
+                marker.done(XQueryElementType.DIR_ATTRIBUTE_VALUE)
                 builder.error(XQueryPluginBundle.message("parser.error.incomplete-attribute-value"))
                 return true
             }

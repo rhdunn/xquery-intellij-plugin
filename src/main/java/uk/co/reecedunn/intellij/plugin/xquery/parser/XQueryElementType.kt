@@ -78,11 +78,6 @@ object XQueryElementType2 {
         XQueryDirElemConstructorPsiImpl::class.java,
         XQuery
     )
-    val DIR_ATTRIBUTE_VALUE: IElementType = ICompositeElementType(
-        "XQUERY_DIR_ATTRIBUTE_VALUE",
-        XQueryDirAttributeValuePsiImpl::class.java,
-        XQuery
-    )
 
     // endregion
     // region XQuery 3.0
