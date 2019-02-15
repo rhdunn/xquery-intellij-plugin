@@ -23,12 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 
-interface ImportPathResolver {
-    fun match(path: String): Boolean
-
-    fun resolve(path: String): VirtualFile?
-}
-
 object EmptyPathImportResolver : ImportPathResolver {
     override fun match(path: String): Boolean = path.isEmpty()
 
