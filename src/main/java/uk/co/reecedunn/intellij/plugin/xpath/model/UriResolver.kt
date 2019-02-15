@@ -20,30 +20,32 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
-private val HTTP_ONLY_IMPORT_RESOLVERS = sequenceOf(
-    EmptyPathImportResolver,
-    HttpProtocolImportResolver
-)
+private val HTTP_ONLY_IMPORT_RESOLVERS by lazy {
+    sequenceOf(
+        sequenceOf(EmptyPathImportResolver),
+        ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
+        sequenceOf(HttpProtocolImportResolver)
+    ).flatten()
+}
 
-private val STATIC_IMPORT_RESOLVERS = sequenceOf(
-    EmptyPathImportResolver,
-    HttpProtocolImportResolver,
-    ResProtocolImportResolver
-)
+private val STATIC_IMPORT_RESOLVERS by lazy {
+    sequenceOf(
+        sequenceOf(EmptyPathImportResolver),
+        ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
+        sequenceOf(HttpProtocolImportResolver),
+        sequenceOf(ResProtocolImportResolver)
+    ).flatten()
+}
 
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
     val project = element!!.project
     val resolvers =
         if (httpOnly)
-            sequenceOf(
-                ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
-                HTTP_ONLY_IMPORT_RESOLVERS
-            ).flatten()
+            HTTP_ONLY_IMPORT_RESOLVERS
         else {
             val file = element!!.containingFile.virtualFile
             sequenceOf(
-                ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
                 STATIC_IMPORT_RESOLVERS,
                 moduleRootImportResolvers(project, JavaSourceRootType.SOURCE),
                 if (file.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)
