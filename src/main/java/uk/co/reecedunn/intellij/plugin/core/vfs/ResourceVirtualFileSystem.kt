@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,43 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.openapi.vfs.VirtualFileListener
-import com.intellij.openapi.vfs.VirtualFileSystem
 
-import java.io.IOException
-
-object ResourceVirtualFileSystem : VirtualFileSystem() {
-    override fun getProtocol(): String = "res"
-
+object ResourceVirtualFileSystem : VirtualFileSystemImpl("res") {
     override fun findFileByPath(path: String): VirtualFile? {
         return ResourceVirtualFile(ResourceVirtualFileSystem::class.java.classLoader, path, ResourceVirtualFileSystem)
     }
-
-    override fun refresh(asynchronous: Boolean) {}
-
-    override fun refreshAndFindFileByPath(path: String): VirtualFile? = findFileByPath(path)
-
-    override fun addVirtualFileListener(listener: VirtualFileListener) {}
-
-    override fun removeVirtualFileListener(listener: VirtualFileListener) {}
-
-    @Throws(IOException::class)
-    override fun deleteFile(requestor: Any, vFile: VirtualFile) = TODO()
-
-    @Throws(IOException::class)
-    override fun moveFile(requestor: Any, vFile: VirtualFile, newParent: VirtualFile) = TODO()
-
-    @Throws(IOException::class)
-    override fun renameFile(requestor: Any, vFile: VirtualFile, newName: String) = TODO()
-
-    @Throws(IOException::class)
-    override fun createChildFile(requestor: Any, vDir: VirtualFile, fileName: String): VirtualFile = TODO()
-
-    @Throws(IOException::class)
-    override fun createChildDirectory(requestor: Any, vDir: VirtualFile, dirName: String): VirtualFile = TODO()
-
-    @Throws(IOException::class)
-    override fun copyFile(requestor: Any, virtualFile: VirtualFile, newParent: VirtualFile, copyName: String): VirtualFile = TODO()
-
-    override fun isReadOnly(): Boolean = true
 }
