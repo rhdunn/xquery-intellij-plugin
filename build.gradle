@@ -135,6 +135,7 @@ dependencies {
 
     compile project(':src:plugin-expath')
     compile project(':src:plugin-exquery')
+    compile project(':src:plugin-w3')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')

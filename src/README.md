@@ -33,3 +33,4 @@
 | `plugin-exquery`   | Support for the EXQuery modules. |
 | `plugin-marklogic` | Support for the MarkLogic database. |
 | `plugin-saxon`     | Support for the Saxon XSLT, XPath, and XQuery processor. |
+| `plugin-w3`        | Support for the W3C modules. |

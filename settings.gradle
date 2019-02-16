@@ -15,6 +15,7 @@ include 'src:lang-xslt'
 
 include 'src:plugin-expath'
 include 'src:plugin-exquery'
+include 'src:plugin-w3'
 
 include 'src:plugin-basex'
 include 'src:plugin-existdb'
