@@ -200,6 +200,7 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions"/>

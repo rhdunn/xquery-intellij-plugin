@@ -43,3 +43,15 @@ object StaticContextDefinitions : ImportPathResolver {
         "urn:static-context:w3" to "static-context/www.w3.org/xquery.xqy"
     )
 }
+
+object Annotations : ImportPathResolver {
+    override fun match(path: String): Boolean = MODULES.containsKey(path)
+
+    override fun resolve(path: String): VirtualFile? {
+        return MODULES[path]?.let { XQueryBuiltInModuleFileSystem.findFileByPath(it) }
+    }
+
+    private val MODULES = mapOf(
+        "http://reecedunn.co.uk/xquery/annotations" to "builtin/reecedunn.co.uk/xquery/annotations.xqy"
+    )
+}
