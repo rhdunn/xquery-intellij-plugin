@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,11 +82,11 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
-                "res://basex.org/static-context/xquery.xqy"
+                "urn:static-context:basex"
             XQuerySpec.REC_3_0_20140408 ->
-                "res://basex.org/static-context/xquery.xqy"
+                "urn:static-context:basex"
             XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 ->
-                "res://basex.org/static-context/xquery.xqy"
+                "urn:static-context:basex"
             else -> null
         }
     }
@@ -156,11 +156,11 @@ object EXistDB : Implementation("exist-db", "eXist-db", "http://www.exist-db.org
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "urn:static-context:exist-db"
             XQuerySpec.REC_3_0_20140408 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "urn:static-context:exist-db"
             XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "urn:static-context:exist-db"
             else -> null
         }
     }
@@ -229,9 +229,11 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
         if (productVersion == null) return null
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
-                "res://marklogic.com/static-context/1.0.xqy"
+                "urn:static-context:marklogic:1.0"
+            XQuerySpec.MARKLOGIC_0_9 ->
+                "urn:static-context:marklogic:0.9-ml"
             XQuerySpec.MARKLOGIC_1_0 ->
-                "res://marklogic.com/static-context/1.0-ml.xqy"
+                "urn:static-context:marklogic:1.0-ml"
             else -> null
         }
     }
@@ -326,11 +328,11 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
-                "res://saxon.sf.net/static-context/xquery.xqy"
+                "urn:static-context:saxon"
             XQuerySpec.REC_3_0_20140408 ->
-                "res://saxon.sf.net/static-context/xquery.xqy"
+                "urn:static-context:saxon"
             XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 ->
-                "res://saxon.sf.net/static-context/xquery.xqy"
+                "urn:static-context:saxon"
             else -> null
         }
     }
@@ -402,11 +404,11 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuerySpec.WD_1_0_20030502, XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "urn:static-context:w3"
             XQuerySpec.REC_3_0_20140408 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "urn:static-context:w3"
             XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "urn:static-context:w3"
             else -> null
         }
     }

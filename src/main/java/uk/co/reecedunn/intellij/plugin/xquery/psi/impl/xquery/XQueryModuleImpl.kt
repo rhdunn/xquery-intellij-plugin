@@ -21,13 +21,13 @@ import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.ResProtocolImportResolver
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.model.StaticContextDefinitions
 
 class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
     private val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
@@ -47,7 +47,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
             var context = product?.implementation?.staticContext(product, productVersion, xquery)
             if (context == null) context = defaultStaticContext(xquery)
 
-            val file = context?.let { ResProtocolImportResolver.resolve(it)?.toPsiFile<XQueryModule>(project) }
+            val file = context?.let { StaticContextDefinitions.resolve(it)?.toPsiFile<XQueryModule>(project) }
             val module = file?.children()?.filterIsInstance<XQueryMainModule>()?.firstOrNull()
             staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
         }
@@ -82,3 +82,4 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
 
     override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
 }
+

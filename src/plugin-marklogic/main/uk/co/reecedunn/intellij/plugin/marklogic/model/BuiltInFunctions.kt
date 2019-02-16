@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.model
 
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.openapi.vfs.VirtualFileListener
-import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
