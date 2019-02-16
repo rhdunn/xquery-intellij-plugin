@@ -134,6 +134,7 @@ dependencies {
     compile project(':src:plugin-saxon')
 
     compile project(':src:plugin-expath')
+    compile project(':src:plugin-exquery')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
