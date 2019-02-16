@@ -29,5 +29,6 @@
 | `plugin-api`       | An API for integrating thirdparty applications and libraries. |
 | `plugin-basex`     | Support for the BaseX database. |
 | `plugin-existdb`   | Support for the eXist database. |
+| `plugin-expath`    | Support for the EXPath modules. |
 | `plugin-marklogic` | Support for the MarkLogic database. |
 | `plugin-saxon`     | Support for the Saxon XSLT, XPath, and XQuery processor. |

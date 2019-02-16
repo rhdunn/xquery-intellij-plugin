@@ -1,0 +1,6 @@
+sourceSets.main.java.srcDirs += 'main'
+sourceSets.main.resources.srcDirs += 'main/resources'
+
+dependencies {
+    compile project(':src:lang-xpath')
+}

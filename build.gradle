@@ -133,6 +133,8 @@ dependencies {
     compile project(':src:plugin-marklogic')
     compile project(':src:plugin-saxon')
 
+    compile project(':src:plugin-expath')
+
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
 

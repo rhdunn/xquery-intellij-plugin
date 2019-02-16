@@ -13,6 +13,8 @@ include 'src:lang-xquery'
 include 'src:lang-xqdoc'
 include 'src:lang-xslt'
 
+include 'src:plugin-expath'
+
 include 'src:plugin-basex'
 include 'src:plugin-existdb'
 include 'src:plugin-marklogic'
