@@ -34,6 +34,7 @@ class ResourceVirtualFile(
     private var mParent: String? = null
     private var mName: String? = null
     private var mFile: File? = null
+    private var mPath: String? = null
 
     init {
         val idx = mResource.lastIndexOf('/')
@@ -49,9 +50,11 @@ class ResourceVirtualFile(
         if (url != null) try {
             if (url.protocol == "file") {
                 mFile = File(url.toURI())
+                mPath = mFile?.path
             } else if (url.protocol == "jar") {
                 val connection = url.openConnection() as JarURLConnection
                 mFile = File(connection.jarFileURL.toURI())
+                mPath = "${mFile!!.path}!/$mResource"
             }
         } catch (e: URISyntaxException) {
             //
@@ -63,7 +66,7 @@ class ResourceVirtualFile(
 
     override fun getFileSystem(): VirtualFileSystem = mFileSystem ?: throw UnsupportedOperationException()
 
-    override fun getPath(): String = if (mFile != null) mFile!!.path else ""
+    override fun getPath(): String = mPath ?: ""
 
     override fun isWritable(): Boolean = false
 
