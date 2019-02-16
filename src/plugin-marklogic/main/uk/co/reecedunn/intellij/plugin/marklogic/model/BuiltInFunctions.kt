@@ -49,6 +49,7 @@ object BuiltInFunctions : ImportPathResolver {
         "http://marklogic.com/xdmp/spell" to "builtin/marklogic.com/xdmp/spell.xqy",
         "http://marklogic.com/xdmp/sql" to "builtin/marklogic.com/xdmp/sql.xqy",
         "http://marklogic.com/xdmp/tde" to "builtin/marklogic.com/xdmp/tde.xqy",
-        "http://marklogic.com/xdmp/temporal" to "builtin/marklogic.com/xdmp/temporal.xqy"
+        "http://marklogic.com/xdmp/temporal" to "builtin/marklogic.com/xdmp/temporal.xqy",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" to "builtin/www.w3.org/1999/02/22-rdf-syntax-ns.xqy"
     )
 }
