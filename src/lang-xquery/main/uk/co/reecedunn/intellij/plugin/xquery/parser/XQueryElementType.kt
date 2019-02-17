@@ -106,6 +106,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val DEFAULT_NAMESPACE_DECL: IElementType = ICompositeElementType(
+        "XQUERY_DEFAULT_NAMESPACE_DECL",
+        XQueryDefaultNamespaceDeclPsiImpl::class.java,
+        XQuery
+    )
+
     val DIR_ATTRIBUTE_LIST: IElementType = ICompositeElementType(
         "XQUERY_DIR_ATTRIBUTE_LIST",
         XQueryDirAttributeListPsiImpl::class.java,

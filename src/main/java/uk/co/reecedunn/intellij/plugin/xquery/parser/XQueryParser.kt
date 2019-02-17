@@ -380,7 +380,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseDefaultNamespaceDecl(builder)) {
-                marker.done(XQueryElementType2.DEFAULT_NAMESPACE_DECL)
+                marker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL)
             } else if (parseEmptyOrderDecl(builder)) {
                 marker.done(XQueryElementType.EMPTY_ORDER_DECL)
             } else if (parseDefaultCollationDecl(builder)) {
