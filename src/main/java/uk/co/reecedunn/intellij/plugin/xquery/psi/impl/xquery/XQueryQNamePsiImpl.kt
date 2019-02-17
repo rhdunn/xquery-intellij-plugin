@@ -35,7 +35,10 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
                 is XPathFunctionReference ->
                     XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XPathVariableName ->
-                    XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                    XQueryVariableNameReference(
+                        this,
+                        localName.textRange.shiftRight(-eqnameStart)
+                    )
                 else -> null
             } else {
                 null

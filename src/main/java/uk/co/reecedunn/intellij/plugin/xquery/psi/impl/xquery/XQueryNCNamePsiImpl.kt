@@ -35,7 +35,10 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
                     arrayOf(ref as PsiReference)
                 }
                 is XPathVariableName -> {
-                    val ref = XQueryVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    val ref = XQueryVariableNameReference(
+                        this,
+                        it.textRange.shiftRight(-node.startOffset)
+                    )
                     arrayOf(ref as PsiReference)
                 }
                 else -> null
