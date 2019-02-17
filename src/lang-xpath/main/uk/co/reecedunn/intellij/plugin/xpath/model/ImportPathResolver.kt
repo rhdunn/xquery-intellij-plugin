@@ -16,7 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.testFramework.LightVirtualFileBase
+import org.jetbrains.jps.model.module.JpsModuleSourceRootType
+import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 
 interface ImportPathResolver {
     companion object {
@@ -28,4 +32,35 @@ interface ImportPathResolver {
     fun match(path: String): Boolean
 
     fun resolve(path: String): VirtualFile?
+}
+
+object EmptyPathImportResolver : ImportPathResolver {
+    override fun match(path: String): Boolean = path.isEmpty()
+
+    override fun resolve(path: String): VirtualFile? = null
+}
+
+class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathResolver {
+    override fun match(path: String): Boolean = !path.isEmpty() && !path.contains("://") && !path.startsWith("/")
+
+    override fun resolve(path: String): VirtualFile? {
+        var file: VirtualFile? = file
+        if (file is LightVirtualFileBase) {
+            file = file.originalFile
+        }
+
+        return file?.parent?.findFileByRelativePath(path)
+    }
+}
+
+class ModuleFileImportResolver(private val root: VirtualFile) : ImportPathResolver {
+    override fun match(path: String): Boolean = path.startsWith("/")
+
+    override fun resolve(path: String): VirtualFile? = root.findFileByRelativePath(path)
+}
+
+fun moduleRootImportResolvers(project: Project, rootType: JpsModuleSourceRootType<*>): Sequence<ImportPathResolver> {
+    return project.sourceFolders()
+        .filter { folder -> folder.file != null && folder.rootType === rootType }
+        .map { folder -> ModuleFileImportResolver(folder.file!!) }
 }
