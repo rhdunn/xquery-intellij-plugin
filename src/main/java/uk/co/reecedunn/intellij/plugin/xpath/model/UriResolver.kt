@@ -20,19 +20,10 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
-private val HTTP_ONLY_IMPORT_RESOLVERS by lazy {
-    sequenceOf(
-        sequenceOf(EmptyPathImportResolver),
-        ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
-        sequenceOf(HttpProtocolImportResolver)
-    ).flatten()
-}
-
 private val STATIC_IMPORT_RESOLVERS by lazy {
     sequenceOf(
         sequenceOf(EmptyPathImportResolver),
-        ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
-        sequenceOf(HttpProtocolImportResolver)
+        ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence()
     ).flatten()
 }
 
@@ -41,7 +32,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val project = element!!.project
     val resolvers =
         if (httpOnly)
-            HTTP_ONLY_IMPORT_RESOLVERS
+            STATIC_IMPORT_RESOLVERS
         else {
             val file = element!!.containingFile.virtualFile
             sequenceOf(

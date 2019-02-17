@@ -53,6 +53,10 @@ abstract class ParserTestCase :
         myProject.registerService(ModuleManager::class.java, manager)
 
         registerExtensionPoint(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, ImportPathResolver::class.java)
+        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
+        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
+        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
+        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
     }
 
     @AfterAll

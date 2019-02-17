@@ -20,34 +20,11 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFileBase
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 
 object EmptyPathImportResolver : ImportPathResolver {
     override fun match(path: String): Boolean = path.isEmpty()
 
     override fun resolve(path: String): VirtualFile? = null
-}
-
-object HttpProtocolImportResolver : ImportPathResolver {
-    override fun match(path: String): Boolean = path.startsWith("http://")
-
-    override fun resolve(path: String): VirtualFile? {
-        return when {
-            path.endsWith("#") -> resolvePath("builtin/${path.substring(7, path.length - 1)}.xqy")
-            path.endsWith("/") -> resolvePath("builtin/${path.substring(7)}default.xqy")
-            else -> resolvePath("builtin/${path.substring(7)}.xqy")
-        }
-    }
-
-    private fun resolvePath(path: String): VirtualFile? {
-        val file = ResourceVirtualFile(
-            HttpProtocolImportResolver::class.java.classLoader,
-            path,
-            ResourceVirtualFileSystem
-        )
-        return if (file.isValid) file else null
-    }
 }
 
 class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathResolver {
