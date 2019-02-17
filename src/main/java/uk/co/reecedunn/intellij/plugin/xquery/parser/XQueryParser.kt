@@ -3920,7 +3920,7 @@ class XQueryParser : XPathParser() {
             }
 
             if (
-                !parseEQNameOrWildcard(builder, XQueryElementType2.PREFIX, false) &&
+                !parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false) &&
                 !parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
             ) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
@@ -6014,7 +6014,7 @@ class XQueryParser : XPathParser() {
             builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
             builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
         ) {
-            if (type === XQueryElementType.NCNAME || type === XQueryElementType2.PREFIX) {
+            if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
                 val errorMarker = builder.mark()
                 builder.advanceLexer()
                 errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))

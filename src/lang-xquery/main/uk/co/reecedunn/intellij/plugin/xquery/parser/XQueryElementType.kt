@@ -513,6 +513,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val PREFIX: IElementType = ICompositeElementType(
+        "XQUERY_PREFIX",
+        XQueryPrefixPsiImpl::class.java,
+        XQuery
+    )
+
     val PREVIOUS_ITEM: IElementType = ICompositeElementType(
         "XQUERY_PREVIOUS_ITEM",
         XQueryPreviousItemPsiImpl::class.java,
