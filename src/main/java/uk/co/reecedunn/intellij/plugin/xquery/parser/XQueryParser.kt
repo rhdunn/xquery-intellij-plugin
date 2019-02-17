@@ -742,7 +742,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseSchemaImport(builder)) {
-                marker.done(XQueryElementType2.SCHEMA_IMPORT)
+                marker.done(XQueryElementType.SCHEMA_IMPORT)
             } else if (parseStylesheetImport(builder)) {
                 marker.done(XQueryElementType.STYLESHEET_IMPORT)
             } else if (parseModuleImport(builder)) {

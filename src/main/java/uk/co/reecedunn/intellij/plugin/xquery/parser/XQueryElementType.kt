@@ -39,12 +39,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val SCHEMA_IMPORT: IElementType = ICompositeElementType(
-        "XQUERY_SCHEMA_IMPORT",
-        XQuerySchemaImportPsiImpl::class.java,
-        XQuery
-    )
-
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",
         XQueryDirElemConstructorPsiImpl::class.java,

@@ -288,6 +288,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val SCHEMA_IMPORT: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_IMPORT",
+        XQuerySchemaImportPsiImpl::class.java,
+        XQuery
+    )
+
     val SCHEMA_PREFIX: IElementType = ICompositeElementType(
         "XQUERY_SCHEMA_PREFIX",
         XQuerySchemaPrefixPsiImpl::class.java,
