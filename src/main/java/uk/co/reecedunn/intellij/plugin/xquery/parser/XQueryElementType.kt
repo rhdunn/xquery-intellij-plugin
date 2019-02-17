@@ -21,15 +21,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 
 object XQueryElementType2 {
-    // region XQuery 1.0
-
-    val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_DIR_ELEM_CONSTRUCTOR",
-        XQueryDirElemConstructorPsiImpl::class.java,
-        XQuery
-    )
-
-    // endregion
     // region XQuery 3.0
 
     val PREFIX: IElementType = ICompositeElementType(

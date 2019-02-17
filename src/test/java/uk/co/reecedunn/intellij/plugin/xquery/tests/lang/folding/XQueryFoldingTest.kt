@@ -123,7 +123,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(3))
             assertThat(descriptors[0].range.endOffset, `is`(32))
 
@@ -204,7 +204,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(2))
             assertThat(descriptors[0].range.endOffset, `is`(9))
 
@@ -226,7 +226,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(4))
             assertThat(descriptors[0].range.endOffset, `is`(21))
 
@@ -259,7 +259,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(20))
             assertThat(descriptors[0].range.endOffset, `is`(37))
 

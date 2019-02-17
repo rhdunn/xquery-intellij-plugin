@@ -3608,7 +3608,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryPluginBundle.message("parser.error.incomplete-open-tag"))
             }
 
-            marker.done(XQueryElementType2.DIR_ELEM_CONSTRUCTOR)
+            marker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
             return true
         } else if (depth == 0 && builder.tokenType === XQueryTokenType.CLOSE_XML_TAG) {
             builder.error(XQueryPluginBundle.message("parser.error.unexpected-closing-tag"))
@@ -3617,7 +3617,7 @@ class XQueryParser : XPathParser() {
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
             builder.matchTokenType(XPathTokenType.GREATER_THAN)
 
-            marker.done(XQueryElementType2.DIR_ELEM_CONSTRUCTOR)
+            marker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
             return true
         }
 
