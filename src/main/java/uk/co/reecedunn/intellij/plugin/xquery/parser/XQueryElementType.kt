@@ -55,12 +55,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val MODULE_DECL: IElementType = ICompositeElementType(
-        "XQUERY_MODULE_DECL",
-        XQueryModuleDeclPsiImpl::class.java,
-        XQuery
-    )
-
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",
         XQueryDirElemConstructorPsiImpl::class.java,

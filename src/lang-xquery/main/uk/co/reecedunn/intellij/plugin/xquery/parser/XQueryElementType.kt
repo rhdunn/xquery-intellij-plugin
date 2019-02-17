@@ -204,6 +204,12 @@ object XQueryElementType {
 
     val MODULE = IFileElementType(XQuery)
 
+    val MODULE_DECL: IElementType = ICompositeElementType(
+        "XQUERY_MODULE_DECL",
+        XQueryModuleDeclPsiImpl::class.java,
+        XQuery
+    )
+
     val OPTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_OPTION_DECL",
         XQueryOptionDeclPsiImpl::class.java,

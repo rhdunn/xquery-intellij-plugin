@@ -250,7 +250,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.SEPARATOR)) {
-                marker.done(XQueryElementType2.MODULE_DECL)
+                marker.done(XQueryElementType.MODULE_DECL)
                 if (!haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", ";"))
                 }
@@ -260,7 +260,7 @@ class XQueryParser : XPathParser() {
                 return true
             }
 
-            marker.done(XQueryElementType2.MODULE_DECL)
+            marker.done(XQueryElementType.MODULE_DECL)
             return true
         }
         return false
