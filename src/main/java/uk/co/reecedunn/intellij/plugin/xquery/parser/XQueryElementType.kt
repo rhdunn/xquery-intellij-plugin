@@ -39,11 +39,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val NAMESPACE_DECL: IElementType = ICompositeElementType(
-        "XQUERY_NAMESPACE_DECL",
-        XQueryNamespaceDeclPsiImpl::class.java,
-        XQuery
-    )
     val SCHEMA_IMPORT: IElementType = ICompositeElementType(
         "XQUERY_SCHEMA_IMPORT",
         XQuerySchemaImportPsiImpl::class.java,

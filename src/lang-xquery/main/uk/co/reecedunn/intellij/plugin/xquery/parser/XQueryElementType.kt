@@ -216,6 +216,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val NAMESPACE_DECL: IElementType = ICompositeElementType(
+        "XQUERY_NAMESPACE_DECL",
+        XQueryNamespaceDeclPsiImpl::class.java,
+        XQuery
+    )
+
     val OPTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_OPTION_DECL",
         XQueryOptionDeclPsiImpl::class.java,

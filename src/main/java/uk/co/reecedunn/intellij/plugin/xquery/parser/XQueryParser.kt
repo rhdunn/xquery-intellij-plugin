@@ -340,7 +340,7 @@ class XQueryParser : XPathParser() {
             } else if (parseDefaultDecl(builder, marker, state)) {
                 //
             } else if (parseNamespaceDecl(builder, state)) {
-                marker.done(XQueryElementType2.NAMESPACE_DECL)
+                marker.done(XQueryElementType.NAMESPACE_DECL)
             } else if (parseOptionDecl(builder)) {
                 marker.done(XQueryElementType.OPTION_DECL)
                 return PrologDeclState.BODY_STATEMENT
