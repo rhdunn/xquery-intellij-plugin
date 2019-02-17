@@ -66,7 +66,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             if (start!!.node.elementType === XQueryTokenType.XML_WHITE_SPACE)
                 start = start!!.nextSibling
             if (
-                start!!.node.elementType === XQueryElementType2.NCNAME ||
+                start!!.node.elementType === XQueryElementType.NCNAME ||
                 start!!.node.elementType === XQueryElementType2.QNAME
             )
                 start = start!!.nextSibling

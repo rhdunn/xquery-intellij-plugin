@@ -865,8 +865,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
-            assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType2.NCNAME))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.NCNAME))
         }
 
         @Test

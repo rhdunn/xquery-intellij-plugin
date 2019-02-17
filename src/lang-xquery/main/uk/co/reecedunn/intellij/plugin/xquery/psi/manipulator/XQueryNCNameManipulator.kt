@@ -22,7 +22,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImp
 
 class XQueryNCNameManipulator : AbstractElementManipulator<XQueryNCNamePsiImpl>() {
     @Throws(IncorrectOperationException::class)
-    override fun handleContentChange(element: XQueryNCNamePsiImpl, range: TextRange, newContent: String): XQueryNCNamePsiImpl {
+    override fun handleContentChange(
+        element: XQueryNCNamePsiImpl,
+        range: TextRange,
+        newContent: String
+    ): XQueryNCNamePsiImpl {
         return element
     }
 }

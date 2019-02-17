@@ -222,6 +222,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val NCNAME: IElementType = ICompositeElementType(
+        "XQUERY_NCNAME",
+        XQueryNCNamePsiImpl::class.java,
+        XQuery
+    )
+
     val OPTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_OPTION_DECL",
         XQueryOptionDeclPsiImpl::class.java,

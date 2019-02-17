@@ -231,7 +231,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseQNameOrWildcard(builder, XQueryElementType2.NCNAME, false) && !haveErrors) {
+            if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -471,7 +471,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseQNameOrWildcard(builder, XQueryElementType2.NCNAME, false)) {
+            if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -793,7 +793,7 @@ class XQueryParser : XPathParser() {
         var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseQNameOrWildcard(builder, XQueryElementType2.NCNAME, false)) {
+            if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -859,7 +859,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_NAMESPACE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseQNameOrWildcard(builder, XQueryElementType2.NCNAME, false)) {
+                if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false)) {
                     builder.error(XQueryPluginBundle.message("parser.error.expected-ncname"))
                     haveErrors = true
                 }
@@ -3724,7 +3724,7 @@ class XQueryParser : XPathParser() {
                 haveErrors = true
             }
 
-            if (!parseQNameOrWildcard(builder, XQueryElementType2.NCNAME, false) && !haveErrors) {
+            if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -3982,7 +3982,7 @@ class XQueryParser : XPathParser() {
             }
 
             if (
-                !parseQNameOrWildcard(builder, XQueryElementType2.NCNAME, false) &&
+                !parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) &&
                 !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
             ) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
@@ -5995,7 +5995,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
 
-    override val NCNAME: IElementType = XQueryElementType2.NCNAME
+    override val NCNAME: IElementType = XQueryElementType.NCNAME
     override val QNAME: IElementType = XQueryElementType2.QNAME
 
     private fun parseNCName(builder: PsiBuilder): Boolean {
@@ -6014,7 +6014,7 @@ class XQueryParser : XPathParser() {
             builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
             builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
         ) {
-            if (type === XQueryElementType2.NCNAME || type === XQueryElementType2.PREFIX) {
+            if (type === XQueryElementType.NCNAME || type === XQueryElementType2.PREFIX) {
                 val errorMarker = builder.mark()
                 builder.advanceLexer()
                 errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))

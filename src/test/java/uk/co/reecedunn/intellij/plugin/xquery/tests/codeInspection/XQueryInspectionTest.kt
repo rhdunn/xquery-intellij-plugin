@@ -410,7 +410,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'b' does not match the open tag 'a'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType2.NCNAME))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.NCNAME))
                     assertThat(problems[0].psiElement.text, `is`("b"))
                 }
 
