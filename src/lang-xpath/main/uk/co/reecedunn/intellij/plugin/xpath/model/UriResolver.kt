@@ -37,9 +37,15 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
             val file = element!!.containingFile.virtualFile
             sequenceOf(
                 STATIC_IMPORT_RESOLVERS,
-                moduleRootImportResolvers(project, JavaSourceRootType.SOURCE),
+                moduleRootImportResolvers(
+                    project,
+                    JavaSourceRootType.SOURCE
+                ),
                 if (file.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)
-                    moduleRootImportResolvers(project, JavaSourceRootType.TEST_SOURCE)
+                    moduleRootImportResolvers(
+                        project,
+                        JavaSourceRootType.TEST_SOURCE
+                    )
                 else
                     emptySequence(),
                 sequenceOf(RelativeFileImportResolver(file))
