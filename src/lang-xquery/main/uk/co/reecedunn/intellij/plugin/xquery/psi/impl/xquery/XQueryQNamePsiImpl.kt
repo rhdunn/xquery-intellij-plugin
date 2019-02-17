@@ -33,15 +33,9 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
         val localNameRef: PsiReference? =
             if (localName != null) when (parent) {
                 is XPathFunctionReference ->
-                    XQueryFunctionNameReference(
-                        this,
-                        localName.textRange.shiftRight(-eqnameStart)
-                    )
+                    XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XPathVariableName ->
-                    XQueryVariableNameReference(
-                        this,
-                        localName.textRange.shiftRight(-eqnameStart)
-                    )
+                    XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
             } else {
                 null
@@ -56,19 +50,11 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
         } else {
             if (localNameRef != null) {
                 return arrayOf(
-                    XQueryQNamePrefixReference(
-                        this,
-                        prefix.textRange.shiftRight(-eqnameStart)
-                    ),
+                    XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)),
                     localNameRef
                 )
             }
-            return arrayOf(
-                XQueryQNamePrefixReference(
-                    this,
-                    prefix.textRange.shiftRight(-eqnameStart)
-                )
-            )
+            return arrayOf(XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
         }
     }
 

@@ -689,7 +689,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
             if (!isDefault) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+                if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                     builder.error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -984,7 +984,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1068,7 +1068,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1135,7 +1135,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1156,7 +1156,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-qname"))
                 haveErrors = true
             }
@@ -3217,7 +3217,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -3345,7 +3345,7 @@ class XQueryParser : XPathParser() {
         }
 
         val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+        if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList(builder)) {
                 marker.rollbackTo()
@@ -3584,7 +3584,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.OPEN_XML_TAG)) {
             builder.errorOnTokenType(XQueryTokenType.XML_WHITE_SPACE, XQueryPluginBundle.message("parser.error.unexpected-whitespace"))
-            parseQNameOrWildcard(builder, XQueryElementType2.QNAME, false)
+            parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
 
             parseDirAttributeList(builder)
 
@@ -3595,7 +3595,7 @@ class XQueryParser : XPathParser() {
 
                 if (builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)) {
                     // NOTE: The XQueryLexer ensures that CLOSE_XML_TAG is followed by an NCNAME/QNAME.
-                    parseQNameOrWildcard(builder, XQueryElementType2.QNAME, false)
+                    parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
 
                     builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
                     if (!builder.matchTokenType(XQueryTokenType.END_XML_TAG)) {
@@ -3613,7 +3613,7 @@ class XQueryParser : XPathParser() {
         } else if (depth == 0 && builder.tokenType === XQueryTokenType.CLOSE_XML_TAG) {
             builder.error(XQueryPluginBundle.message("parser.error.unexpected-closing-tag"))
             builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)
-            parseQNameOrWildcard(builder, XQueryElementType2.QNAME, false)
+            parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
             builder.matchTokenType(XPathTokenType.GREATER_THAN)
 
@@ -3648,7 +3648,7 @@ class XQueryParser : XPathParser() {
 
     private fun parseDirAttribute(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+        if (parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             var haveErrors = false
 
             builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
@@ -3856,7 +3856,7 @@ class XQueryParser : XPathParser() {
             }
 
             if (
-                !parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false) &&
+                !parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) &&
                 !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
             ) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
@@ -3888,7 +3888,7 @@ class XQueryParser : XPathParser() {
             }
 
             if (
-                !parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false) &&
+                !parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) &&
                 !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
             ) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
@@ -4829,7 +4829,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -5143,7 +5143,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 builder.error(XPathBundle.message("parser.error.expected", "QName"))
                 haveError = true
             }
@@ -5151,7 +5151,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseEQNameOrWildcard(builder, XQueryElementType2.QNAME, false) && !haveError) {
+                if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected", "QName"))
                     haveError = true
                 }
@@ -5996,7 +5996,7 @@ class XQueryParser : XPathParser() {
     // region Lexical Structure :: Terminal Symbols :: QName
 
     override val NCNAME: IElementType = XQueryElementType.NCNAME
-    override val QNAME: IElementType = XQueryElementType2.QNAME
+    override val QNAME: IElementType = XQueryElementType.QNAME
 
     private fun parseNCName(builder: PsiBuilder): Boolean {
         if (builder.tokenType is INCNameType) {

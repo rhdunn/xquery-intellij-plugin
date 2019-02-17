@@ -23,12 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 object XQueryElementType2 {
     // region XQuery 1.0
 
-    val QNAME: IElementType = ICompositeElementType(
-        "XQUERY_QNAME",
-        XQueryQNamePsiImpl::class.java,
-        XQuery
-    )
-
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",
         XQueryDirElemConstructorPsiImpl::class.java,
