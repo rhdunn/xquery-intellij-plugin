@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator
+package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.HighlighterColors
@@ -24,8 +24,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
@@ -34,11 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(QNameAnnotatorTest::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
-    }
-
     @Nested
     @DisplayName("XPath 3.1 EBNF (123) NCName")
     internal inner class NCName {
@@ -317,7 +310,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("xmlns:prefix")
         fun testDirAttributeList_XmlnsAttribute() {
-            val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
+            val file = parse<XQueryModule>("<a:b xmlns:a=\"http://www.example.com/a\"/>")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(6))
 
@@ -367,7 +360,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("xpath annotator")
         fun xpathAnnotator() {
-            val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
+            val file = parse<XQueryModule>("<a:b xmlns:a=\"http://www.example.com/a\"/>")[0]
             val annotations = annotateTree(file, XPathQNameAnnotator())
             assertThat(annotations.size, `is`(0))
         }
@@ -379,7 +372,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("ncname")
         fun testAnnotation() {
-            val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+            val file = parse<XQueryModule>("declare % private function test ( ) external ;")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
@@ -401,7 +394,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("qname")
         fun testAnnotation_QName() {
-            val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
+            val file = parse<XQueryModule>("declare % xs:string function test ( ) external ;")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(4))
 
@@ -437,7 +430,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("xpath annotator")
         fun xpathAnnotator() {
-            val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
+            val file = parse<XQueryModule>("declare % xs:string function test ( ) external ;")[0]
             val annotations = annotateTree(file, XPathQNameAnnotator())
             assertThat(annotations.size, `is`(0))
         }
