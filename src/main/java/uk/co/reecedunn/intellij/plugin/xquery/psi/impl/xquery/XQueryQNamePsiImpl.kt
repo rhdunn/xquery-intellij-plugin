@@ -56,11 +56,19 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
         } else {
             if (localNameRef != null) {
                 return arrayOf(
-                    XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)),
+                    XQueryQNamePrefixReference(
+                        this,
+                        prefix.textRange.shiftRight(-eqnameStart)
+                    ),
                     localNameRef
                 )
             }
-            return arrayOf(XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
+            return arrayOf(
+                XQueryQNamePrefixReference(
+                    this,
+                    prefix.textRange.shiftRight(-eqnameStart)
+                )
+            )
         }
     }
 
