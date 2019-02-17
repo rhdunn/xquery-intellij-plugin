@@ -243,7 +243,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
                 haveErrors = true
             }
@@ -449,7 +449,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
             }
 
@@ -483,7 +483,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
             }
 
@@ -532,7 +532,7 @@ class XQueryParser : XPathParser() {
     private fun parseDefaultCollationDecl(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XQueryTokenType.K_COLLATION)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
             }
 
@@ -552,7 +552,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
             }
 
@@ -767,7 +767,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveErrors = parseSchemaPrefix(builder)
 
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
                 haveErrors = true
             }
@@ -776,7 +776,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XQueryTokenType.K_AT)) {
                 do {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+                    if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                         builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
                         haveErrors = true
                     }
@@ -841,7 +841,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
             }
 
@@ -873,7 +873,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
                 haveErrors = true
             }
@@ -882,7 +882,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XQueryTokenType.K_AT)) {
                 do {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+                    if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                         builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
                         haveErrors = true
                     }
@@ -2004,7 +2004,7 @@ class XQueryParser : XPathParser() {
 
             if (builder.matchTokenType(XQueryTokenType.K_COLLATION)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL) && !haveErrors) {
+                if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                 }
             }
@@ -2127,7 +2127,7 @@ class XQueryParser : XPathParser() {
         parseWhiteSpaceAndCommentTokens(builder)
         if (builder.matchTokenType(XQueryTokenType.K_COLLATION)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-uri-string"))
             }
         }
@@ -4694,7 +4694,7 @@ class XQueryParser : XPathParser() {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
                 builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
                 haveError = true
             }
@@ -4749,7 +4749,7 @@ class XQueryParser : XPathParser() {
             builder.advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType2.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
                 builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
             }
 

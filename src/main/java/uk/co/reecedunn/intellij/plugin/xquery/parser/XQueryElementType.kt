@@ -33,11 +33,6 @@ object XQueryElementType2 {
         XQueryQNamePsiImpl::class.java,
         XQuery
     )
-    val URI_LITERAL: IElementType = ICompositeElementType(
-        "XQUERY_URI_LITERAL",
-        XQueryUriLiteralPsiImpl::class.java,
-        XQuery
-    )
 
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",

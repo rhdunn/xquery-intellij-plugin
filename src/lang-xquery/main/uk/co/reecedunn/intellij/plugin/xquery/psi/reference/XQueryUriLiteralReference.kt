@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator
+package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
 
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.AbstractElementManipulator
-import com.intellij.util.IncorrectOperationException
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReferenceBase
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl
 
-class XQueryUriLiteralManipulator : AbstractElementManipulator<XQueryUriLiteralPsiImpl>() {
-    @Throws(IncorrectOperationException::class)
-    override fun handleContentChange(element: XQueryUriLiteralPsiImpl, range: TextRange, newContent: String): XQueryUriLiteralPsiImpl {
-        return element
-    }
+class XQueryUriLiteralReference(element: XQueryUriLiteralPsiImpl, range: TextRange) :
+    PsiReferenceBase<XQueryUriLiteralPsiImpl>(element, range) {
+
+    override fun resolve(): PsiElement? = (element.value as XsAnyUriValue).resolveUri()
+
+    override fun getVariants(): Array<Any> = arrayOf()
 }

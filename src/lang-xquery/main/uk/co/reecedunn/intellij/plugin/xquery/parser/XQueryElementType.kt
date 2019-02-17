@@ -324,6 +324,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val URI_LITERAL: IElementType = ICompositeElementType(
+        "XQUERY_URI_LITERAL",
+        XQueryUriLiteralPsiImpl::class.java,
+        XQuery
+    )
+
     val VALIDATE_EXPR: IElementType = ICompositeElementType(
         "XQUERY_VALIDATE_EXPR",
         XQueryValidateExprPsiImpl::class.java,
