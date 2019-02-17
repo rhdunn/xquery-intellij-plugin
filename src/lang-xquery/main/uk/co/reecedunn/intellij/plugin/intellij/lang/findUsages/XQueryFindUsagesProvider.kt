@@ -21,7 +21,7 @@ import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 class XQueryFindUsagesProvider : FindUsagesProvider {
     override fun getWordsScanner(): WordsScanner? {
@@ -38,7 +38,7 @@ class XQueryFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         // TODO: Determine the correct identifier type (namespace, function, variable, element, attribute, data type).
-        return XQueryPluginBundle.message("find-usages.identifier")
+        return XQueryBundle.message("find-usages.identifier")
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
