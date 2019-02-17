@@ -16,12 +16,20 @@
 package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
 import com.intellij.icons.AllIcons
+import com.intellij.openapi.fileTypes.FileTypeConsumer
+import com.intellij.openapi.fileTypes.FileTypeFactory
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 import javax.swing.Icon
 
 object ServerSideJavaScriptFileType : LanguageFileType(ServerSideJavaScript) {
+    object Factory : FileTypeFactory() {
+        override fun createFileTypes(consumer: FileTypeConsumer) {
+            consumer.consume(ServerSideJavaScriptFileType, ServerSideJavaScriptFileType.EXTENSIONS)
+        }
+    }
+
     const val EXTENSIONS = "sjs"
 
     override fun getName(): String = MarkLogicBundle.message("language.sjs.display-name")

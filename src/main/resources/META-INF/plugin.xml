@@ -74,8 +74,6 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
-
     <!-- XML Path Language Support -->
 
     <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
@@ -90,6 +88,8 @@
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.intellij.lang.injection.XPathInXsltLanguageInjection"/>
 
     <!-- XML Query Language Support -->
+
+    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType$Factory"/>
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
@@ -106,6 +106,10 @@
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
+
+    <!-- MarkLogic Server-Side JavaScript Language Support -->
+
+    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType$Factory"/>
 
     <!-- References and Resolve -->
 

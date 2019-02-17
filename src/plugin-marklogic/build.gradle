@@ -7,5 +7,6 @@ dependencies {
     compile project(':src:lang-xquery')
     compile project(':src:lang-xslt')
 
+    testCompile project(':src:intellij-mock')
     testCompile project(':src:kotlin-hamcrest')
 }

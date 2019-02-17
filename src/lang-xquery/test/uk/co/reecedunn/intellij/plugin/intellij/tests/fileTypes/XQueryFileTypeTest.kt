@@ -19,13 +19,14 @@ import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.fileTypes.FileTypeToArrayConsumer
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DisplayName("IntelliJ - Custom Language Support - Registering a File Type")
+@DisplayName("IntelliJ - Custom Language Support - Registering a File Type - XQuery")
 private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     @BeforeAll
     override fun setUp() {
@@ -38,7 +39,20 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     }
 
     @Test
-    @DisplayName("XQuery properties")
+    @DisplayName("factory")
+    fun testFactory() {
+        val consumer = FileTypeToArrayConsumer()
+        XQueryFileType.Factory.createFileTypes(consumer)
+
+        assertThat(consumer.fileTypes.size, `is`(1))
+        assertThat(consumer.fileMatchers.size, `is`(0))
+
+        assertThat(consumer.fileTypes[0].first.javaClass.name, `is`(XQueryFileType::class.java.name))
+        assertThat(consumer.fileTypes[0].second, `is`("xq;xqy;xquery;xqu;xql;xqm;xqws"))
+    }
+
+    @Test
+    @DisplayName("properties")
     fun testProperties() {
         assertThat(XQueryFileType.name, `is`("XQuery"))
         assertThat(XQueryFileType.description, `is`("XML Query Language"))
@@ -46,7 +60,7 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     }
 
     @Nested
-    @DisplayName("XQuery charset")
+    @DisplayName("charset")
     internal inner class XQueryCharset {
         @Test
         @DisplayName("default encoding")
@@ -188,7 +202,7 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     }
 
     @Nested
-    @DisplayName("XQuery charset from contents")
+    @DisplayName("charset from contents")
     internal inner class XQuery {
         @Test
         @DisplayName("default encoding")
