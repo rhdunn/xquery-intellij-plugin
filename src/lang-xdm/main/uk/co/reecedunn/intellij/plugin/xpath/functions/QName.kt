@@ -21,6 +21,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 class UndeclaredNamespacePrefixException(prefix: String) :
     RuntimeException("XPST0081: Undeclared namespace prefix: $prefix")
 
+// region XPath and XQuery Functions and Operators 3.1 (10.2.1) op:QName-equal
+
+@Suppress("FunctionName")
+fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
+    if (arg1.localName?.data?.equals(arg2.localName?.data) == true) {
+        return if (arg1.isLexicalQName && arg2.isLexicalQName) {
+            (arg1.prefix == null && arg2.prefix == null) || arg1.prefix?.data?.equals(arg2.prefix?.data) == true
+        } else {
+            (arg1.namespace == null && arg2.namespace == null) || arg1.namespace?.data?.equals(arg2.namespace?.data) == true
+        }
+    }
+    return false
+}
+
+// endregion
+
 // region XQuery IntelliJ Plugin Functions and Operators (3.1) op:QName-parse
 
 @Suppress("FunctionName")
