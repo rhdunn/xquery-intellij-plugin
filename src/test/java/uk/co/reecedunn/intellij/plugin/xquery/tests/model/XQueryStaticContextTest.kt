@@ -1165,7 +1165,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     val qname = parse<XPathEQName>(
                         """
-                        import module namespace a = "http://basex.org/modules/admin" at "res://basex.org/modules/admin.xqy";
+                        import module namespace a = "http://basex.org/modules/admin";
                         a:sessions()
                         """
                     )[1]
@@ -1378,7 +1378,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     val qname = parse<XPathEQName>(
                         """
-                        import module namespace a = "http://basex.org/modules/admin" at "res://basex.org/modules/admin.xqy";
+                        import module namespace a = "http://basex.org/modules/admin";
                         a:sessions#0
                         """
                     )[1]
@@ -1591,7 +1591,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     val qname = parse<XPathEQName>(
                         """
-                        import module namespace a = "http://basex.org/modules/admin" at "res://basex.org/modules/admin.xqy";
+                        import module namespace a = "http://basex.org/modules/admin";
                         () => a:sessions()
                         """
                     )[1]

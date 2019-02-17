@@ -113,15 +113,6 @@ private class PluginPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("res:// file matching")
-                fun resProtocol() {
-                    val file = parseResource("tests/resolve/files/DirAttributeList_ResourceFile.xq")
-                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
-
-                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                }
-
-                @Test
                 @DisplayName("http:// file matching")
                 fun httpProtocol() {
                     val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol.xq")

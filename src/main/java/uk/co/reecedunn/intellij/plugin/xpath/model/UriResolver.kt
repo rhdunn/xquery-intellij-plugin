@@ -32,8 +32,7 @@ private val STATIC_IMPORT_RESOLVERS by lazy {
     sequenceOf(
         sequenceOf(EmptyPathImportResolver),
         ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence(),
-        sequenceOf(HttpProtocolImportResolver),
-        sequenceOf(ResProtocolImportResolver)
+        sequenceOf(HttpProtocolImportResolver)
     ).flatten()
 }
 

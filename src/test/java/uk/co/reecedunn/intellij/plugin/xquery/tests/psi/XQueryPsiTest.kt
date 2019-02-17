@@ -1923,27 +1923,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("res:// file matching")
-                fun resProtocol() {
-                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
-                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
-
-                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
-                    assertThat(prologs.size, `is`(1))
-
-                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
-                }
-
-                @Test
-                @DisplayName("res:// file missing")
-                fun resProtocolMissing() {
-                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")
-                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
-
-                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                }
-
-                @Test
                 @DisplayName("http:// file matching")
                 fun httpProtocol() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_HttpProtocol.xq")
@@ -2069,15 +2048,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("res:// file matching")
-                fun resProtocol() {
-                    val file = parseResource("tests/resolve/files/NamespaceDecl_ResourceFile.xq")
-                    val psi = file.walkTree().filterIsInstance<XQueryNamespaceDecl>().toList()[0]
-
-                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                }
-
-                @Test
                 @DisplayName("http:// file matching")
                 fun httpProtocol() {
                     val file = parseResource("tests/resolve/files/NamespaceDecl_HttpProtocol.xq")
@@ -2167,15 +2137,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("same directory")
                 fun sameDirectory() {
                     val file = parseResource("tests/resolve/files/DefaultNamespaceDecl_SameDirectory.xq")
-                    val psi = file.walkTree().filterIsInstance<XQueryDefaultNamespaceDecl>().toList()[0]
-
-                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                }
-
-                @Test
-                @DisplayName("res:// file matching")
-                fun resProtocol() {
-                    val file = parseResource("tests/resolve/files/DefaultNamespaceDecl_ResourceFile.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryDefaultNamespaceDecl>().toList()[0]
 
                     assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
