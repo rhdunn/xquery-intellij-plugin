@@ -33,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.expand
+import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -324,7 +326,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     <test/>
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.Undefined))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -335,8 +337,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                assertThat(expanded[0].isLexicalQName, `is`(true))
+                assertThat(expanded[0].namespace, `is`(nullValue()))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))

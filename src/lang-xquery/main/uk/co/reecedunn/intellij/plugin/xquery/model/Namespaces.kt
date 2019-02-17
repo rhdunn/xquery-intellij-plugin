@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.model
+package uk.co.reecedunn.intellij.plugin.xquery.model
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 private val EMPTY_NAMESPACE = XsAnyUri("", null as PsiElement?)
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", null as PsiElement?)
@@ -39,7 +38,7 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
     XQueryElementType.DECIMAL_FORMAT_DECL to XPathNamespaceType.None,
     XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
-    XQueryElementType2.DIR_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
+    //XQueryElementType.DIR_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.ELEMENT_TEST to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.FUNCTION_CALL to XPathNamespaceType.DefaultFunction,
     XQueryElementType.FUNCTION_DECL to XPathNamespaceType.DefaultFunction,
@@ -72,7 +71,8 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
             is XQueryProlog ->
                 node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()
             is XQueryModule ->
-                node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>() ?: emptySequence()
+                node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>()
+                    ?: emptySequence()
             else -> emptySequence()
         }
     }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }
