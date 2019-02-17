@@ -210,6 +210,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val MODULE_IMPORT: IElementType = ICompositeElementType(
+        "XQUERY_MODULE_IMPORT",
+        XQueryModuleImportPsiImpl::class.java,
+        XQuery
+    )
+
     val OPTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_OPTION_DECL",
         XQueryOptionDeclPsiImpl::class.java,

@@ -746,7 +746,7 @@ class XQueryParser : XPathParser() {
             } else if (parseStylesheetImport(builder)) {
                 marker.done(XQueryElementType.STYLESHEET_IMPORT)
             } else if (parseModuleImport(builder)) {
-                marker.done(XQueryElementType2.MODULE_IMPORT)
+                marker.done(XQueryElementType.MODULE_IMPORT)
             } else {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"))
                 marker.done(XQueryElementType.IMPORT)
