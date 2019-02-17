@@ -83,13 +83,4 @@ object XQueryElementType2 {
     )
 
     // endregion
-    // region XQuery IntelliJ Plugin
-
-    val DIR_ATTRIBUTE: IElementType = ICompositeElementType(
-        "XQUERY_DIR_ATTRIBUTE",
-        PluginDirAttributePsiImpl::class.java,
-        XQuery
-    )
-
-    // endregion
 }

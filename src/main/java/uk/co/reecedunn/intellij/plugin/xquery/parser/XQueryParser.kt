@@ -3662,7 +3662,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryPluginBundle.message("parser.error.expected-attribute-string"))
             }
 
-            marker.done(XQueryElementType2.DIR_ATTRIBUTE)
+            marker.done(XQueryElementType.DIR_ATTRIBUTE)
             return true
         }
         marker.drop()

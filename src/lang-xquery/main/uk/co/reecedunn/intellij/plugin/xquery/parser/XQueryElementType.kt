@@ -1058,6 +1058,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val DIR_ATTRIBUTE: IElementType = ICompositeElementType(
+        "XQUERY_DIR_ATTRIBUTE",
+        PluginDirAttributePsiImpl::class.java,
+        XQuery
+    )
+
     val ELEMENT_DECL_TEST: IElementType = ICompositeElementType(
         "XQUERY_ELEMENT_DECL_TEST",
         PluginElementDeclTestPsiImpl::class.java,
