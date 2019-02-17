@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.fileTypes
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.fileTypes.FileTypeToArrayConsumer
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.fileTypes
+package uk.co.reecedunn.intellij.plugin.core.tests.fileTypes
 
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileType
@@ -22,7 +22,7 @@ import com.intellij.openapi.util.Pair
 import org.jetbrains.annotations.NonNls
 import java.util.*
 
-internal class FileTypeToArrayConsumer : FileTypeConsumer {
+class FileTypeToArrayConsumer : FileTypeConsumer {
     val fileTypes: MutableList<Pair<FileType, String>> = ArrayList()
     val fileMatchers: MutableList<Pair<FileType, FileNameMatcher>> = ArrayList()
 
