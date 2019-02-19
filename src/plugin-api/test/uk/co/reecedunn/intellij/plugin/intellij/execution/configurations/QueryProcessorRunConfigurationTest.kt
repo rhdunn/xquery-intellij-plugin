@@ -69,7 +69,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun processorId() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.processorId = 1
         assertThat(settings.processorId, `is`(1))
@@ -80,7 +79,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun rdfOutputFormat() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.rdfOutputFormat = Turtle
         assertThat(settings.rdfOutputFormat, `is`(Turtle))
@@ -91,7 +89,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun updating() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.updating = true
         assertThat(settings.updating, `is`(true))
@@ -102,7 +99,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun server() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.server = "test-server"
         assertThat(settings.server, `is`("test-server"))
@@ -113,7 +109,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun database() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.database = "test-database"
         assertThat(settings.database, `is`("test-database"))
@@ -124,7 +119,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun modulePath() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.modulePath = "/test/path"
         assertThat(settings.modulePath, `is`("/test/path"))
@@ -135,7 +129,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun scriptFile() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.scriptFilePath = "/test/script.xqy"
         assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
@@ -146,7 +139,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     fun getState() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
-        assertThat(settings.language, `is`(XPath))
 
         settings.processorId = 1
         settings.rdfOutputFormat = Turtle
@@ -164,5 +156,31 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(state.database, `is`("test-database"))
         assertThat(state.modulePath, `is`("/test/path"))
         assertThat(state.scriptFile, `is`("/test/script.xqy"))
+    }
+
+    @Test
+    @DisplayName("state; load")
+    fun loadState() {
+        val factory = XPathConfigurationType().configurationFactories[0]
+
+        val state = QueryProcessorRunConfigurationData()
+        state.processorId = 1
+        state.rdfOutputFormat = "text/turtle"
+        state.updating = true
+        state.server = "test-server"
+        state.database = "test-database"
+        state.modulePath = "/test/path"
+        state.scriptFile = "/test/script.xqy"
+
+        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        settings.loadState(state)
+
+        assertThat(settings.processorId, `is`(1))
+        assertThat(settings.rdfOutputFormat, `is`(Turtle))
+        assertThat(settings.updating, `is`(true))
+        assertThat(settings.server, `is`("test-server"))
+        assertThat(settings.database, `is`("test-database"))
+        assertThat(settings.modulePath, `is`("/test/path"))
+        assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
     }
 }
