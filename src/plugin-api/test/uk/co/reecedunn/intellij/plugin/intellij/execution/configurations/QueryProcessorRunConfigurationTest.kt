@@ -15,10 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.psi.PsiFile
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
+import org.jdom.Element
+import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.compat.configurationStore.serializeStateInto
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType
@@ -67,71 +70,162 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @Test
     @DisplayName("setting: processor ID")
     fun processorId() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" value="1" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.processorId = 1
         assertThat(settings.processorId, `is`(1))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
     @DisplayName("setting: RDF output format")
     fun rdfOutputFormat() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" value="text/turtle" />
+            <option name="scriptFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.rdfOutputFormat = Turtle
         assertThat(settings.rdfOutputFormat, `is`(Turtle))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
     @DisplayName("setting: updating")
     fun updating() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="server" />
+            <option name="updating" value="true" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.updating = true
         assertThat(settings.updating, `is`(true))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
     @DisplayName("setting: server")
     fun server() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="server" value="test-server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.server = "test-server"
         assertThat(settings.server, `is`("test-server"))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
     @DisplayName("setting: database")
     fun database() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" value="test-database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.database = "test-database"
         assertThat(settings.database, `is`("test-database"))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
     @DisplayName("setting: module path")
     fun modulePath() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" />
+            <option name="modulePath" value="/test/path" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.modulePath = "/test/path"
         assertThat(settings.modulePath, `is`("/test/path"))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
     @DisplayName("setting: script file")
     fun scriptFile() {
+        val serialized2018_2 = """<configuration>
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" value="/test/script.xqy" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized2018_3 = """<configuration />"""
+
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
 
         settings.scriptFilePath = "/test/script.xqy"
         assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
     }
 
     @Test
@@ -183,4 +277,14 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(settings.modulePath, `is`("/test/path"))
         assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
     }
+
+    // region Serialization Helpers
+
+    private fun serialize(configuration: PersistentStateComponent<*>): String {
+        val element = Element("configuration")
+        serializeStateInto(configuration, element)
+        return XMLOutputter().outputString(element)
+    }
+
+    // endregion
 }
