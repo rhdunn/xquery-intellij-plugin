@@ -30,10 +30,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
-import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
@@ -59,30 +57,28 @@ class QueryProcessorRunConfiguration(
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
     // region QueryProcessorRunConfigurationSettings
 
-    private val data = QueryProcessorRunConfigurationData()
-
     var processorId: Int?
-        get() = data.processorId
+        get() = state!!.processorId
         set(value) {
-            data.processorId = value
+            state!!.processorId = value
         }
 
     var processor: QueryProcessorSettings?
-        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
+        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == state!!.processorId }
         set(value) {
-            data.processorId = value?.id
+            state!!.processorId = value?.id
         }
 
     var rdfOutputFormat: Language?
-        get() = RDF_FORMATS.find { it.mimeTypes.contains(data.rdfOutputFormat) }
+        get() = RDF_FORMATS.find { it.mimeTypes.contains(state!!.rdfOutputFormat) }
         set(value) {
-            data.rdfOutputFormat = value?.mimeTypes?.get(0)
+            state!!.rdfOutputFormat = value?.mimeTypes?.get(0)
         }
 
     var updating: Boolean
-        get() = data.updating
+        get() = state!!.updating
         set(value) {
-            data.updating = value
+            state!!.updating = value
         }
 
     val language: Language
@@ -95,38 +91,38 @@ class QueryProcessorRunConfiguration(
         }
 
     var server: String?
-        get() = data.server
+        get() = state!!.server
         set(value) {
-            data.server = value
+            state!!.server = value
         }
 
     var database: String?
-        get() = data.database
+        get() = state!!.database
         set(value) {
-            data.database = value
+            state!!.database = value
         }
 
     var modulePath: String?
-        get() = data.modulePath
+        get() = state!!.modulePath
         set(value) {
-            data.modulePath = value
+            state!!.modulePath = value
         }
 
     var scriptFilePath: String?
-        get() = data.scriptFile
+        get() = state!!.scriptFile
         set(value) {
-            data.scriptFile = value
+            state!!.scriptFile = value
         }
 
     var scriptFile: VirtualFile?
         get() {
-            return data.scriptFile?.let {
+            return state!!.scriptFile?.let {
                 val url = VfsUtil.pathToUrl(it.replace(File.separatorChar, '/'))
                 url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
             }
         }
         set(value) {
-            data.scriptFile = value?.canonicalPath
+            state!!.scriptFile = value?.canonicalPath
         }
 
     // endregion
@@ -144,13 +140,6 @@ class QueryProcessorRunConfiguration(
             else -> null
         }
     }
-
-    // endregion
-    // region PersistentStateComponent
-
-    override fun getState(): QueryProcessorRunConfigurationData? = data
-
-    override fun loadState(state: QueryProcessorRunConfigurationData) = XmlSerializerUtil.copyBean(state, data)
 
     // endregion
 }
