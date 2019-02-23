@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
-import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.*
 import org.jdom.Element
 import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType

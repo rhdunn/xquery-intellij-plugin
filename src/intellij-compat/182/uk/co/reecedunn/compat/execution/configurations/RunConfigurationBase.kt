@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,22 @@ package uk.co.reecedunn.compat.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.project.Project
+import com.intellij.util.xmlb.XmlSerializerUtil
+import org.jdom.Element
 
 // IntelliJ >= 183 adds a generic parameter to RunConfigurationBase.
 abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationFactory, name: String) :
-    com.intellij.execution.configurations.RunConfigurationBase(project, factory, name)
+    com.intellij.execution.configurations.RunConfigurationBase(project, factory, name) {
+
+    // IntelliJ <= 182 does not implement PersistentStateComponent.getState.
+    @Suppress("UNCHECKED_CAST")
+    fun getState(): T? = options as T?
+
+    // IntelliJ <= 182 does not implement PersistentStateComponent.loadState.
+    fun loadState(state: T) {
+        when (state) {
+            is Element -> super.loadState(state)
+            else -> XmlSerializerUtil.copyBean(state, getState()!!)
+        }
+    }
+}
