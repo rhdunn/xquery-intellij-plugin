@@ -2,6 +2,11 @@
 
 ## 1.4 - (In Development)
 
+Bug Fixes:
+
+1.  Fix an issue with run configuration settings not saving in IntelliJ 2018.3
+    and later.
+
 EXPath Syntax Extensions:
 
 1.  Support the variadic function arguments proposal.

@@ -15,13 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
-import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.*
 import org.jdom.Element
 import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.compat.configurationStore.serializeStateInto
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType
@@ -79,7 +78,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" />
             <option name="updating" value="false" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -87,7 +85,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.processorId = 1
         assertThat(settings.processorId, `is`(1))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -102,7 +100,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" />
             <option name="updating" value="false" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -110,7 +107,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.rdfOutputFormat = Turtle
         assertThat(settings.rdfOutputFormat, `is`(Turtle))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -125,7 +122,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" />
             <option name="updating" value="true" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -133,7 +129,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.updating = true
         assertThat(settings.updating, `is`(true))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -148,7 +144,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" value="test-server" />
             <option name="updating" value="false" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -156,7 +151,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.server = "test-server"
         assertThat(settings.server, `is`("test-server"))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -171,7 +166,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" />
             <option name="updating" value="false" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -179,7 +173,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.database = "test-database"
         assertThat(settings.database, `is`("test-database"))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -194,7 +188,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" />
             <option name="updating" value="false" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -202,7 +195,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.modulePath = "/test/path"
         assertThat(settings.modulePath, `is`("/test/path"))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -217,7 +210,6 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="server" />
             <option name="updating" value="false" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
-        val serialized2018_3 = """<configuration />"""
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -225,7 +217,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.scriptFilePath = "/test/script.xqy"
         assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
 
-        assertThat(serialize(settings), anyOf(`is`(serialized2018_2), `is`(serialized2018_3)))
+        assertThat(serialize(settings), anyOf(`is`(serialized2018_2)))
     }
 
     @Test
@@ -280,9 +272,9 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
 
     // region Serialization Helpers
 
-    private fun serialize(configuration: PersistentStateComponent<*>): String {
+    private fun serialize(configuration: RunConfigurationBase<*>): String {
         val element = Element("configuration")
-        serializeStateInto(configuration, element)
+        configuration.writeExternal(element)
         return XMLOutputter().outputString(element)
     }
 

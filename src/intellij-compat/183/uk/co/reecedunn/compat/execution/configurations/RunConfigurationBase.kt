@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,28 @@ package uk.co.reecedunn.compat.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.project.Project
+import com.intellij.util.xmlb.*
+import org.jdom.Element
+import java.lang.reflect.Type
 
 // IntelliJ >= 183 adds a generic parameter to RunConfigurationBase.
 abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationFactory, name: String) :
-    com.intellij.execution.configurations.RunConfigurationBase<T>(project, factory, name)
+    com.intellij.execution.configurations.RunConfigurationBase<T>(project, factory, name) {
 
+    // Settings serialization bug: https://youtrack.jetbrains.com/issue/IDEA-207705
+    override fun writeExternal(element: Element) {
+        super.writeExternal(element)
+
+        // IntelliJ >= 183 does not serialize the settings for the configuration state object.
+        val beanBinding = serializer.getClassBinding(optionsClass) as BeanBinding
+        beanBinding.serializeInto(options, element, null)
+    }
+}
+
+private val serializer = object : XmlSerializerImpl.XmlSerializerBase() {
+    override fun getClassBinding(aClass: Class<*>, originalType: Type, accessor: MutableAccessor?): Binding {
+        val beanBinding = BeanBinding(aClass, accessor)
+        beanBinding.init(aClass, this)
+        return beanBinding
+    }
+}
