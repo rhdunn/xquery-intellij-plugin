@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
-import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.lang.Language
+import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.compat.execution.configurations.ConfigurationFactory
 
 class QueryProcessorConfigurationFactory(type: ConfigurationType, private vararg val language: Language) :
     ConfigurationFactory(type) {
@@ -27,4 +28,6 @@ class QueryProcessorConfigurationFactory(type: ConfigurationType, private vararg
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
         return QueryProcessorRunConfiguration(project, this, *language)
     }
+
+    override fun getOptionsClass(): Class<out BaseState>? = QueryProcessorRunConfigurationData::class.java
 }
