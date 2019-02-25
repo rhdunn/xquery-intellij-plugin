@@ -57,28 +57,32 @@ class QueryProcessorRunConfiguration(
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
     // region QueryProcessorRunConfigurationSettings
 
+    @Suppress("UsePropertyAccessSyntax") // IntelliJ <= 2018.2 compatibility.
+    private val data: QueryProcessorRunConfigurationData
+        get() = getState()!!
+
     var processorId: Int?
-        get() = state!!.processorId
+        get() = data.processorId
         set(value) {
-            state!!.processorId = value
+            data.processorId = value
         }
 
     var processor: QueryProcessorSettings?
-        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == state!!.processorId }
+        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
         set(value) {
-            state!!.processorId = value?.id
+            data.processorId = value?.id
         }
 
     var rdfOutputFormat: Language?
-        get() = RDF_FORMATS.find { it.mimeTypes.contains(state!!.rdfOutputFormat) }
+        get() = RDF_FORMATS.find { it.mimeTypes.contains(data.rdfOutputFormat) }
         set(value) {
-            state!!.rdfOutputFormat = value?.mimeTypes?.get(0)
+            data.rdfOutputFormat = value?.mimeTypes?.get(0)
         }
 
     var updating: Boolean
-        get() = state!!.updating
+        get() = data.updating
         set(value) {
-            state!!.updating = value
+            data.updating = value
         }
 
     val language: Language
@@ -91,38 +95,38 @@ class QueryProcessorRunConfiguration(
         }
 
     var server: String?
-        get() = state!!.server
+        get() = data.server
         set(value) {
-            state!!.server = value
+            data.server = value
         }
 
     var database: String?
-        get() = state!!.database
+        get() = data.database
         set(value) {
-            state!!.database = value
+            data.database = value
         }
 
     var modulePath: String?
-        get() = state!!.modulePath
+        get() = data.modulePath
         set(value) {
-            state!!.modulePath = value
+            data.modulePath = value
         }
 
     var scriptFilePath: String?
-        get() = state!!.scriptFile
+        get() = data.scriptFile
         set(value) {
-            state!!.scriptFile = value
+            data.scriptFile = value
         }
 
     var scriptFile: VirtualFile?
         get() {
-            return state!!.scriptFile?.let {
+            return data.scriptFile?.let {
                 val url = VfsUtil.pathToUrl(it.replace(File.separatorChar, '/'))
                 url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
             }
         }
         set(value) {
-            state!!.scriptFile = value?.canonicalPath
+            data.scriptFile = value?.canonicalPath
         }
 
     // endregion

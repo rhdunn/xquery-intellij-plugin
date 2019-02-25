@@ -57,7 +57,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(settings.modulePath, `is`(nullValue()))
         assertThat(settings.scriptFilePath, `is`(nullValue()))
 
-        val state = settings.state!!
+        val state = settings.getState()!!
         assertThat(state.processorId, `is`(nullValue()))
         assertThat(state.rdfOutputFormat, `is`(nullValue()))
         assertThat(state.updating, `is`(false))
@@ -235,7 +235,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.modulePath = "/test/path"
         settings.scriptFilePath = "/test/script.xqy"
 
-        val state = settings.state!!
+        val state = settings.getState()!!
         assertThat(state.processorId, `is`(1))
         assertThat(state.rdfOutputFormat, `is`("text/turtle"))
         assertThat(state.updating, `is`(true))
