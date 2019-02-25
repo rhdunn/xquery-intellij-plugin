@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.compat.execution.configurations
 
+import com.intellij.configurationStore.serializeStateInto
 import com.intellij.execution.configurations.ConfigurationFactory
+import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import org.jdom.Element
@@ -34,5 +37,13 @@ abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationF
             is Element -> super.loadState(state)
             else -> XmlSerializerUtil.copyBean(state, getState()!!)
         }
+    }
+}
+
+fun serializeConfigurationInto(configuration: RunConfiguration, element: Element) {
+    if (configuration is PersistentStateComponent<*>) {
+        configuration.serializeStateInto(element)
+    } else {
+        configuration.writeExternal(element)
     }
 }
