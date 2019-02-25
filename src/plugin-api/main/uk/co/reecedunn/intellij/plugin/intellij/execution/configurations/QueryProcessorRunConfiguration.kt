@@ -53,8 +53,7 @@ class QueryProcessorRunConfiguration(
     factory: ConfigurationFactory,
     private vararg val languages: Language
 ) :
-    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, ""),
-    PersistentStateComponent<QueryProcessorRunConfigurationData> {
+    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, "") {
     // region QueryProcessorRunConfigurationSettings
 
     @Suppress("UsePropertyAccessSyntax") // IntelliJ <= 2018.2 compatibility.

@@ -18,6 +18,7 @@ package uk.co.reecedunn.compat.execution.configurations
 import com.intellij.configurationStore.serializeStateInto
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -25,14 +26,17 @@ import org.jdom.Element
 
 // IntelliJ >= 183 adds a generic parameter to RunConfigurationBase.
 abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationFactory, name: String) :
-    com.intellij.execution.configurations.RunConfigurationBase(project, factory, name) {
+    com.intellij.execution.configurations.RunConfigurationBase(project, factory, name),
+    // IntelliJ <= 2018.2 provides a getOptionClass but calls it during initialization,
+    // so it cannot be overridden to call ConfigurationFactory.getOptionClass.
+    PersistentStateComponent<T> {
 
     // IntelliJ <= 182 does not implement PersistentStateComponent.getState.
     @Suppress("UNCHECKED_CAST")
-    fun getState(): T? = options as T?
+    override fun getState(): T? = options as T?
 
     // IntelliJ <= 182 does not implement PersistentStateComponent.loadState.
-    fun loadState(state: T) {
+    override fun loadState(state: T) {
         when (state) {
             is Element -> super.loadState(state)
             else -> XmlSerializerUtil.copyBean(state, getState()!!)
