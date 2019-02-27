@@ -16,9 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xqdoc.parser
 
 import com.intellij.lang.PsiBuilder
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 object XQDocParser {
     fun parseXQDocCommentContents(builder: PsiBuilder): Boolean {
+        while (builder.matchTokenType(XQDocTokenType.XQDOC_TOKENS)) {
+            // Skip unparsed XQDoc tokens so the calling parser can parse its content correctly.
+        }
         return false
     }
 }

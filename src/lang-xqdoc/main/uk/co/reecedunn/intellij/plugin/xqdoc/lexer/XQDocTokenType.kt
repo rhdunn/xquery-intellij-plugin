@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
 import com.intellij.lang.Language
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 
 object XQDocTokenType {
     val XQDoc = Language.ANY
@@ -62,4 +63,17 @@ object XQDocTokenType {
     val CHARACTER_REFERENCE = IElementType("XQDOC_CHARACTER_REFERENCE", XQDoc)
 
     val INVALID = IElementType("XQDOC_INVALID_TOKEN", XQDoc)
+
+    val XQDOC_TOKENS = TokenSet.create(
+        WHITE_SPACE, TRIM,
+        XQDOC_COMMENT_MARKER, CONTENTS,
+        TAG_MARKER, TAG,
+        T_AUTHOR, T_DEPRECATED, T_ERROR, T_PARAM, T_RETURN, T_SEE, T_SINCE, T_VERSION,
+        VARIABLE_INDICATOR, NCNAME,
+        OPEN_XML_TAG, END_XML_TAG, CLOSE_XML_TAG, SELF_CLOSING_XML_TAG,
+        XML_TAG, XML_EQUAL, XML_ATTRIBUTE_VALUE_START, XML_ATTRIBUTE_VALUE_CONTENTS, XML_ATTRIBUTE_VALUE_END,
+        XML_ELEMENT_CONTENTS,
+        PREDEFINED_ENTITY_REFERENCE, PARTIAL_ENTITY_REFERENCE, EMPTY_ENTITY_REFERENCE, CHARACTER_REFERENCE,
+        INVALID
+    )
 }
