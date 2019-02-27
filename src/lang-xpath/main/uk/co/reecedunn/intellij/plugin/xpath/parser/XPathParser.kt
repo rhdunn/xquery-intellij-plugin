@@ -2383,7 +2383,7 @@ open class XPathParser : PsiParser {
         if (builder.tokenType === XPathTokenType.COMMENT_START_TAG) {
             val commentMarker = builder.mark()
             builder.advanceLexer()
-            // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
+            parseCommentContents(builder)
             if (builder.tokenType === XPathTokenType.COMMENT_END_TAG) {
                 builder.advanceLexer()
                 commentMarker.done(XPathElementType.COMMENT)
@@ -2399,6 +2399,11 @@ open class XPathParser : PsiParser {
             errorMarker.error(XPathBundle.message("parser.error.end-of-comment-without-start", "(:"))
             return true
         }
+        return false
+    }
+
+    open fun parseCommentContents(builder: PsiBuilder): Boolean {
+        // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
         return false
     }
 

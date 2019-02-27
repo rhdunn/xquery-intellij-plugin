@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
 
 /**
  * A unified XQuery parser for different XQuery dialects.
@@ -5933,6 +5934,10 @@ class XQueryParser : XPathParser() {
             }
         }
         return false
+    }
+
+    override fun parseCommentContents(builder: PsiBuilder): Boolean {
+        return XQDocParser.parseXQDocCommentContents(builder)
     }
 
     override fun parseWhiteSpaceAndCommentTokens(builder: PsiBuilder): Boolean {
