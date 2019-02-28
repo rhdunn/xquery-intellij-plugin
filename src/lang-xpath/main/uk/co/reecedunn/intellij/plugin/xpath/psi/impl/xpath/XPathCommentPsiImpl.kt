@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016; 2018 Reece H. Dunn
+ * Copyright (C) 2016; 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,19 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
 
 class XPathCommentPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathComment,
     FoldablePsiElement {
+    // region XPathComment
+
+    override val isXQDoc: Boolean
+        get() = firstChild.nextSibling?.node?.elementType === XQDocTokenType.XQDOC_COMMENT_MARKER
+
+    // endregion
     // region FoldablePsiElement
 
     override val foldingRange: TextRange? get() = textRange
