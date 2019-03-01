@@ -30,6 +30,7 @@ private const val STATE_TRIM = 8
 private const val STATE_PARAM_TAG_CONTENTS_START = 9
 private const val STATE_PARAM_TAG_VARNAME = 10
 private const val STATE_XQUERY_CONTENTS = 11
+private const val STATE_XQUERY_CONTENTS_TRIM = 12
 
 // endregion
 // region Special Tag Names
@@ -144,7 +145,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
             }
             '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
                 pushState(STATE_TRIM)
-                stateTrim()
+                stateTrim(STATE_TRIM)
             }
             '&'.toInt() -> matchEntityReference() // XML PredefinedEntityRef and CharRef
             else -> while (true)
@@ -171,13 +172,13 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
         when (c) {
             CodePointRange.END_OF_BUFFER -> mType = null
             '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
-                pushState(STATE_TRIM)
-                stateTrim()
+                pushState(STATE_XQUERY_CONTENTS_TRIM)
+                stateTrim(STATE_XQUERY_CONTENTS_TRIM)
             }
             else -> while (true)
                 when (c) {
                     '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
-                        pushState(STATE_TRIM)
+                        pushState(STATE_XQUERY_CONTENTS_TRIM)
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
@@ -388,7 +389,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
         }
     }
 
-    private fun stateTrim() {
+    private fun stateTrim(state: Int) {
         var c = mTokenRange.codePoint
         when (c) {
             CodePointRange.END_OF_BUFFER -> mType = null
@@ -418,10 +419,15 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
                 mType = XQDocTokenType.TRIM
             }
             '@'.toInt() -> {
-                mTokenRange.match()
-                mType = XQDocTokenType.TAG_MARKER
-                popState()
-                pushState(STATE_TAGGED_CONTENTS)
+                if (state == STATE_TRIM) {
+                    mTokenRange.match()
+                    mType = XQDocTokenType.TAG_MARKER
+                    popState()
+                    pushState(STATE_TAGGED_CONTENTS)
+                } else {
+                    popState()
+                    advance()
+                }
             }
             else -> {
                 popState()
@@ -442,7 +448,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
             STATE_ELEM_CONTENTS -> stateElemContents()
             STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue('"'.toInt())
             STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue('\''.toInt())
-            STATE_TRIM -> stateTrim()
+            STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
             STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
             STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
             STATE_XQUERY_CONTENTS -> stateXQueryContents()

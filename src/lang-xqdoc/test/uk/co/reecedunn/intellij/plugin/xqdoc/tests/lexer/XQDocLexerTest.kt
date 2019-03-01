@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,13 +69,25 @@ class XQDocLexerTest : LexerTestCase() {
 
             lexer.start("Lorem ipsum dolor\n : Alpha beta gamma\n : One two three")
             matchToken(lexer, "Lorem ipsum dolor", 11, 0, 17, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n :", 8, 17, 20, XQDocTokenType.TRIM)
-            matchToken(lexer, " ", 8, 20, 21, XQDocTokenType.WHITE_SPACE)
+            matchToken(lexer, "\n :", 12, 17, 20, XQDocTokenType.TRIM)
+            matchToken(lexer, " ", 12, 20, 21, XQDocTokenType.WHITE_SPACE)
             matchToken(lexer, "Alpha beta gamma", 11, 21, 37, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n :", 8, 37, 40, XQDocTokenType.TRIM)
-            matchToken(lexer, " ", 8, 40, 41, XQDocTokenType.WHITE_SPACE)
+            matchToken(lexer, "\n :", 12, 37, 40, XQDocTokenType.TRIM)
+            matchToken(lexer, " ", 12, 40, 41, XQDocTokenType.WHITE_SPACE)
             matchToken(lexer, "One two three", 11, 41, 54, XQDocTokenType.CONTENTS)
             matchToken(lexer, "", 11, 54, 54, null)
+        }
+
+        @Test
+        @DisplayName("tagged content")
+        fun testTaggedContents() {
+            val lexer = XQDocLexer()
+
+            lexer.start("Lorem\n@ipsum dolor.")
+            matchToken(lexer, "Lorem", 11, 0, 5, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "\n", 12, 5, 6, XQDocTokenType.TRIM)
+            matchToken(lexer, "@ipsum dolor.", 11, 6, 19, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "", 11, 19, 19, null)
         }
     }
 

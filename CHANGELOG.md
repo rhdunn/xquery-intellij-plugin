@@ -6,6 +6,7 @@ Bug Fixes:
 
 1.  Fix an issue with run configuration settings not saving in IntelliJ 2018.3
     and later.
+1.  Don't highlight xqDoc tags in non-xqDoc comments.
 
 EXPath Syntax Extensions:
 
