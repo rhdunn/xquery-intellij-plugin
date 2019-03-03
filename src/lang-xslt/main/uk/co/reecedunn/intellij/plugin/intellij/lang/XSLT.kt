@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 /**
  * XML Stylesheet Language: Transform
  */
-object XSLT : Language("XSLT", "application/xslt+xml") {
+object XSLT : Language("XSLT") {
     const val NAMESPACE = "http://www.w3.org/1999/XSL/Transform"
 
     override fun isCaseSensitive(): Boolean = true
@@ -39,6 +39,8 @@ object XSLT : Language("XSLT", "application/xslt+xml") {
                 ExtensionFileNameMatcher("xsl"),
                 ExtensionFileNameMatcher("xslt")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/xslt+xml")
         })
     }
 

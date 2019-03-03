@@ -29,7 +29,7 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
 
 val SPARQLQuery: Language by lazy {
     Language.findInstancesByMimeType("application/sparql-query").firstOrNull() ?: {
-        val language = object : Language("SPARQLQuery", "application/sparql-query") {
+        val language = object : Language("SPARQLQuery") {
             override fun getDisplayName(): String = "SPARQL Query"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
@@ -37,6 +37,8 @@ val SPARQLQuery: Language by lazy {
                 ExtensionFileNameMatcher("rq"),
                 ExtensionFileNameMatcher("sparql")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/sparql-query")
         })
         language
     }()
@@ -44,13 +46,15 @@ val SPARQLQuery: Language by lazy {
 
 val SPARQLUpdate: Language by lazy {
     Language.findInstancesByMimeType("application/sparql-update").firstOrNull() ?: {
-        val language = object : Language("SPARQLUpdate", "application/sparql-update") {
+        val language = object : Language("SPARQLUpdate") {
             override fun getDisplayName(): String = "SPARQL Update"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("ru")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/sparql-update")
         })
         language
     }()
@@ -58,11 +62,13 @@ val SPARQLUpdate: Language by lazy {
 
 val SQL: Language by lazy {
     Language.findInstancesByMimeType("application/sql").firstOrNull() ?: {
-        val language = object : Language("SQL", "application/sql") {}
+        val language = object : Language("SQL") {}
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("sql")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/sql")
         })
         language
     }()

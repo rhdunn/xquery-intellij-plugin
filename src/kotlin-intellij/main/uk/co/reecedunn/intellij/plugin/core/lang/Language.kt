@@ -26,6 +26,8 @@ interface LanguageData {
     }
 
     val associations: List<FileNameMatcher>
+
+    val mimeTypes: Array<String>
 }
 
 fun Language.getAssociations(): List<FileNameMatcher> {
@@ -49,5 +51,9 @@ fun Array<out Language>.findByAssociations(path: String): Language? {
 }
 
 fun Language.getLanguageMimeTypes(): Array<String> {
-    return mimeTypes
+    val mimeTypes = mimeTypes
+    return if (mimeTypes.isEmpty())
+        this.getUserData(LanguageData.KEY)?.mimeTypes ?: mimeTypes
+    else
+        mimeTypes
 }

@@ -22,13 +22,13 @@ import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 
 val N3: Language by lazy {
     Language.findInstancesByMimeType("text/n3").firstOrNull() ?: {
-        val language = object : Language("N3", "text/n3") {
-            override fun getDisplayName(): String = "N3"
-        }
+        val language = object : Language("N3") {}
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("n3")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("text/n3")
         })
         language
     }()
@@ -36,13 +36,15 @@ val N3: Language by lazy {
 
 val NQuads: Language by lazy {
     Language.findInstancesByMimeType("application/n-quads").firstOrNull() ?: {
-        val language = object : Language("NQuads", "application/n-quads") {
+        val language = object : Language("NQuads") {
             override fun getDisplayName(): String = "N-Quads"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("nq")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/n-quads")
         })
         language
     }()
@@ -50,13 +52,15 @@ val NQuads: Language by lazy {
 
 val NTriples: Language by lazy {
     Language.findInstancesByMimeType("application/n-triples").firstOrNull() ?: {
-        val language = object : Language("NTriples", "application/n-triples") {
+        val language = object : Language("NTriples") {
             override fun getDisplayName(): String = "N-Triples"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("nt")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/n-triples")
         })
         language
     }()
@@ -64,13 +68,15 @@ val NTriples: Language by lazy {
 
 val RdfJson: Language by lazy {
     Language.findInstancesByMimeType("application/rdf+json").firstOrNull() ?: {
-        val language = object : Language("RDFJSON", "application/rdf+json") {
+        val language = object : Language("RDFJSON") {
             override fun getDisplayName(): String = "RDF/JSON"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rj")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/rdf+json")
         })
         language
     }()
@@ -78,13 +84,15 @@ val RdfJson: Language by lazy {
 
 val RdfXml: Language by lazy {
     Language.findInstancesByMimeType("application/rdf+xml").firstOrNull() ?: {
-        val language = object : Language("RDFXML", "application/rdf+xml") {
+        val language = object : Language("RDFXML") {
             override fun getDisplayName(): String = "RDF/XML"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rdf")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/rdf+xml")
         })
         language
     }()
@@ -92,13 +100,15 @@ val RdfXml: Language by lazy {
 
 val TriG: Language by lazy {
     Language.findInstancesByMimeType("application/trig").firstOrNull() ?: {
-        val language = object : Language("TriG", "application/trig") {
+        val language = object : Language("TriG") {
             override fun getDisplayName(): String = "TriG"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("trig")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/trig")
         })
         language
     }()
@@ -106,13 +116,15 @@ val TriG: Language by lazy {
 
 val TripleXml: Language by lazy {
     Language.findInstancesByMimeType("application/vnd.marklogic.triples+xml").firstOrNull() ?: {
-        val language = object : Language("TripleXml", "application/vnd.marklogic.triples+xml") {
+        val language = object : Language("TripleXml") {
             override fun getDisplayName(): String = "MarkLogic Triple/XML"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("xml")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/vnd.marklogic.triples+xml")
         })
         language
     }()
@@ -120,13 +132,15 @@ val TripleXml: Language by lazy {
 
 val Turtle: Language by lazy {
     Language.findInstancesByMimeType("text/turtle").firstOrNull() ?: {
-        val language = object : Language("Turtle", "text/turtle") {
+        val language = object : Language("Turtle") {
             override fun getDisplayName(): String = "Turtle"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("ttl")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("text/turtle")
         })
         language
     }()

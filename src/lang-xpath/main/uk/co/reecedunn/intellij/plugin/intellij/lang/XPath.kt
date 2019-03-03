@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
  * NOTE: The 'XPath' language ID is used by the IntelliJ plugin for the built-in
  * XPath 1.0 and 2.0 support. Using that causes those plugins to fail.
  */
-object XPath : Language("XMLPath", "application/vnd+xpath") {
+object XPath : Language("XMLPath") {
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = "XPath"
@@ -46,6 +46,8 @@ object XPath : Language("XMLPath", "application/vnd+xpath") {
                 ExtensionFileNameMatcher("xpath31"),
                 ExtensionFileNameMatcher("xpa")
             )
+
+            override val mimeTypes: Array<String> = arrayOf("application/vnd+xpath")
         })
     }
 }
