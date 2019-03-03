@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 
 val N3: Language by lazy {
     Language.findInstancesByMimeType("text/n3").firstOrNull() ?: {
         val language = object : Language("N3", "text/n3") {
             override fun getDisplayName(): String = "N3"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("n3")
             )
@@ -39,7 +39,7 @@ val NQuads: Language by lazy {
         val language = object : Language("NQuads", "application/n-quads") {
             override fun getDisplayName(): String = "N-Quads"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("nq")
             )
@@ -53,7 +53,7 @@ val NTriples: Language by lazy {
         val language = object : Language("NTriples", "application/n-triples") {
             override fun getDisplayName(): String = "N-Triples"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("nt")
             )
@@ -67,7 +67,7 @@ val RdfJson: Language by lazy {
         val language = object : Language("RDFJSON", "application/rdf+json") {
             override fun getDisplayName(): String = "RDF/JSON"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rj")
             )
@@ -81,7 +81,7 @@ val RdfXml: Language by lazy {
         val language = object : Language("RDFXML", "application/rdf+xml") {
             override fun getDisplayName(): String = "RDF/XML"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rdf")
             )
@@ -95,7 +95,7 @@ val TriG: Language by lazy {
         val language = object : Language("TriG", "application/trig") {
             override fun getDisplayName(): String = "TriG"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("trig")
             )
@@ -109,7 +109,7 @@ val TripleXml: Language by lazy {
         val language = object : Language("TripleXml", "application/vnd.marklogic.triples+xml") {
             override fun getDisplayName(): String = "MarkLogic Triple/XML"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("xml")
             )
@@ -123,7 +123,7 @@ val Turtle: Language by lazy {
         val language = object : Language("Turtle", "text/turtle") {
             override fun getDisplayName(): String = "Turtle"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("ttl")
             )

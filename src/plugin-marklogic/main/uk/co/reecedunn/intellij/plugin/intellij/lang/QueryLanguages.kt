@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 
 object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogic-javascript") {
@@ -32,7 +32,7 @@ val SPARQLQuery: Language by lazy {
         val language = object : Language("SPARQLQuery", "application/sparql-query") {
             override fun getDisplayName(): String = "SPARQL Query"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rq"),
                 ExtensionFileNameMatcher("sparql")
@@ -47,7 +47,7 @@ val SPARQLUpdate: Language by lazy {
         val language = object : Language("SPARQLUpdate", "application/sparql-update") {
             override fun getDisplayName(): String = "SPARQL Update"
         }
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("ru")
             )
@@ -59,7 +59,7 @@ val SPARQLUpdate: Language by lazy {
 val SQL: Language by lazy {
     Language.findInstancesByMimeType("application/sql").firstOrNull() ?: {
         val language = object : Language("SQL", "application/sql") {}
-        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("sql")
             )

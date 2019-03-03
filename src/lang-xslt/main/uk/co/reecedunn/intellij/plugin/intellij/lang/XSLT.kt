@@ -19,7 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 
 /**
  * XML Stylesheet Language: Transform
@@ -34,7 +34,7 @@ object XSLT : Language("XSLT", "application/xslt+xml") {
     override fun getAssociatedFileType(): LanguageFileType? = null
 
     init {
-        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+        putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("xsl"),
                 ExtensionFileNameMatcher("xslt")
