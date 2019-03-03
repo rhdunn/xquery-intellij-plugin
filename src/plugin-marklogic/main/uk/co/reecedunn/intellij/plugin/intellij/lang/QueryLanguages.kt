@@ -29,7 +29,7 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
 
 val SPARQLQuery: Language by lazy {
     Language.findInstancesByMimeType("application/sparql-query").firstOrNull() ?: {
-        val language = object : Language("SPARQLQuery") {
+        val language = Language.findLanguageByID("SPARQLQuery") ?: object : Language("SPARQLQuery") {
             override fun getDisplayName(): String = "SPARQL Query"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
@@ -46,7 +46,7 @@ val SPARQLQuery: Language by lazy {
 
 val SPARQLUpdate: Language by lazy {
     Language.findInstancesByMimeType("application/sparql-update").firstOrNull() ?: {
-        val language = object : Language("SPARQLUpdate") {
+        val language = Language.findLanguageByID("SPARQLUpdate") ?: object : Language("SPARQLUpdate") {
             override fun getDisplayName(): String = "SPARQL Update"
         }
         language.putUserData(LanguageData.KEY, object : LanguageData {
@@ -62,7 +62,7 @@ val SPARQLUpdate: Language by lazy {
 
 val SQL: Language by lazy {
     Language.findInstancesByMimeType("application/sql").firstOrNull() ?: {
-        val language = object : Language("SQL") {}
+        val language = Language.findLanguageByID("SQL") ?: object : Language("SQL") {}
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("sql")
