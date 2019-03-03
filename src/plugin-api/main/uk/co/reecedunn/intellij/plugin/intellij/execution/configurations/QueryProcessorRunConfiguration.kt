@@ -32,6 +32,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
+import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
@@ -73,9 +74,9 @@ class QueryProcessorRunConfiguration(
         }
 
     var rdfOutputFormat: Language?
-        get() = RDF_FORMATS.find { it.mimeTypes.contains(data.rdfOutputFormat) }
+        get() = RDF_FORMATS.find { it.getLanguageMimeTypes().contains(data.rdfOutputFormat) }
         set(value) {
-            data.rdfOutputFormat = value?.mimeTypes?.get(0)
+            data.rdfOutputFormat = value?.getLanguageMimeTypes()?.get(0)
         }
 
     var updating: Boolean

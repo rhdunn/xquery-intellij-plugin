@@ -20,6 +20,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.async.*
+import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
@@ -51,7 +52,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()
         queryParams.addProperty("mode", mode)
-        queryParams.addProperty("mimetype", language.mimeTypes[0])
+        queryParams.addProperty("mimetype", language.getLanguageMimeTypes()[0])
 
         queryParams.addProperty("module-path", "")
         queryParams.addProperty("query", query.decode()!!)

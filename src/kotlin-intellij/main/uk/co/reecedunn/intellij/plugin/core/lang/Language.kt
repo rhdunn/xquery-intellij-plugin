@@ -47,3 +47,7 @@ fun Array<out Language>.findByAssociations(path: String): Language? {
         } != null
     }
 }
+
+fun Language.getLanguageMimeTypes(): Array<String> {
+    return mimeTypes
+}

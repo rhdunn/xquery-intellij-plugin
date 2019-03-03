@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
@@ -37,7 +38,7 @@ object MarkLogicRest : QueryProcessorApi {
     override val canConnect: Boolean = true
 
     override fun canOutputRdf(language: Language?): Boolean {
-        return language == null || language.mimeTypes.any { RDF_MIMETYPES.contains(it) }
+        return language == null || language.getLanguageMimeTypes().any { RDF_MIMETYPES.contains(it) }
     }
 
     override fun canUpdate(language: Language?): Boolean {

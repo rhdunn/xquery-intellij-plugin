@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
@@ -61,7 +62,7 @@ internal class MarkLogicProfileQuery(
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
-        params.addProperty("rdf-output-format", rdfOutputFormat?.mimeTypes?.get(0) ?: "")
+        params.addProperty("rdf-output-format", rdfOutputFormat?.getLanguageMimeTypes()?.get(0) ?: "")
         params.addProperty("updating", updating.toString())
         params.addProperty("server", server)
         params.addProperty("database", database)

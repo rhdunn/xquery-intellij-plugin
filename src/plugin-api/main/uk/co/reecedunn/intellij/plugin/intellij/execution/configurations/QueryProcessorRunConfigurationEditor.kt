@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescripto
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
+import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
@@ -199,7 +200,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         scriptFile = TextFieldWithBrowseButton()
         scriptFile!!.addBrowseFolderListener(null, null, project, descriptor)
         scriptFile!!.textField.addActionListener {
-            if (languages[0].mimeTypes[0] == "application/sparql-query") {
+            if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
                 updateUI(true)
             }
         }
@@ -235,7 +236,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         if (isSparql) {
             val path = scriptFile!!.textField.text
             val lang = languages.findByAssociations(path) ?: languages[0]
-            updating!!.isSelected = lang.mimeTypes[0] != "application/sparql-query"
+            updating!!.isSelected = lang.getLanguageMimeTypes()[0] != "application/sparql-query"
         }
     }
 
@@ -268,7 +269,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         modulePath!!.textField.text = configuration.modulePath ?: ""
         scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
 
-        updateUI(languages[0].mimeTypes[0] == "application/sparql-query")
+        updateUI(languages[0].getLanguageMimeTypes()[0] == "application/sparql-query")
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
