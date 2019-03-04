@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2182,11 +2182,6 @@ private val HTML5_ENTITIES = listOf("\"",
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - Error and Warning Conditions")
 private class PluginInspectionTest : InspectionTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(PluginInspectionTest::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (D.1) Vendor-Specific Behaviour")
     internal inner class IJVSTest {
@@ -2200,7 +2195,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("XQuery 3.0 VersionDecl in XQuery 1.0")
                 fun testXQuery30VersionDeclInXQuery10() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
-                    val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
+                    val file = parse<XQueryModule>("xquery encoding \"latin1\";")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2218,7 +2213,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("XQuery 3.0 VersionDecl in XQuery 3.0")
                 fun testXQuery30VersionDecl() {
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
-                    val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
+                    val file = parse<XQueryModule>("xquery encoding \"latin1\";")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2234,8 +2229,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacility10_ProductConformsToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
-
-                    val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
+                    val file = parse<XQueryModule>("delete node ${'$'}x")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2247,8 +2241,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacility10_ProductDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
-
-                    val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
+                    val file = parse<XQueryModule>("delete node ${'$'}x")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2267,8 +2260,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacility30_ProductConformsToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
-
-                    val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
+                    val file = parse<XQueryModule>("invoke updating ${'$'}test()")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2280,8 +2272,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacility30_IncompatibleXQueryVersion() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
-
-                    val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
+                    val file = parse<XQueryModule>("invoke updating ${'$'}test()")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2300,8 +2291,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacility30_ProductDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "saxon/EE/v9.5" // Supports Update Facility 1.0, not 3.0
-
-                    val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
+                    val file = parse<XQueryModule>("invoke updating ${'$'}test()")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2320,8 +2310,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacilityBaseX_ProductConformsToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "basex/v8.6"
-
-                    val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
+                    val file = parse<XQueryModule>("${'$'}x transform with { rename node . as \"test\" }")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2333,8 +2322,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testUpdateFacilityBaseX_ProductDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "saxon/EE/v9.5" // Supports Update Facility 1.0, not 3.0
-
-                    val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
+                    val file = parse<XQueryModule>("${'$'}x transform with { rename node . as \"test\" }")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2357,8 +2345,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting10_ProductConformsToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
-
-                    val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
+                    val file = parse<XQueryModule>("while (${'$'}x ge 0) { ${'$'}x := ${'$'}x - 1 }")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2370,8 +2357,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting10_ProductDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
-
-                    val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
+                    val file = parse<XQueryModule>("block {()}")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2394,7 +2380,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun supportedConstructSupportedXQueryVersion() {
                     settings.XQueryVersion = XQuerySpec.WD_1_0_20030502.versionId
                     settings.implementationVersion = "w3c/vwd"
-                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2406,7 +2392,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun unsupportedConstructUnsupportedXQueryVersion() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/v1ed"
-                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2425,7 +2411,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogicXQuery09ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2437,7 +2423,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogicXQuery10ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2456,7 +2442,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogicXQuery10() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2479,7 +2465,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun supportedConstructSupportedXQueryVersion() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/vwd"
-                    val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty-sequence() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2498,7 +2484,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun unsupportedConstructUnsupportedXQueryVersion() {
                     settings.XQueryVersion = XQuerySpec.WD_1_0_20030502.versionId
                     settings.implementationVersion = "w3c/v1ed"
-                    val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty-sequence() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2510,7 +2496,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogicXQuery09ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-                    val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty-sequence() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2529,7 +2515,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogicXQuery10ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-                    val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty-sequence() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2541,7 +2527,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogicXQuery10() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-                    val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as empty-sequence() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2557,8 +2543,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testBaseX_ProductConformsToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "basex/v8.5"
-
-                    val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
+                    val file = parse<XQueryModule>("//item update delete node .")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2570,8 +2555,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testBaseX_ProductDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
-
-                    val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
+                    val file = parse<XQueryModule>("//item update delete node .")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2601,8 +2585,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogic09ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v9.0"
-
-                    val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
+                    val file = parse<XQueryModule>("binary { \"A0\" }")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2614,8 +2597,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogic10ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v9.0"
-
-                    val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
+                    val file = parse<XQueryModule>("binary { \"A0\" }")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2627,8 +2609,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun productDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "saxon/EE/v9.5"
-
-                    val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
+                    val file = parse<XQueryModule>("binary { \"A0\" }")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2651,8 +2632,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogic09ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v7.0"
-
-                    val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as schema-root() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2671,8 +2651,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun markLogic10ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v7.0"
-
-                    val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as schema-root() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2684,8 +2663,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun productDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "saxon/EE/v9.5"
-
-                    val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
+                    val file = parse<XQueryModule>("declare variable ${'$'}one as schema-root() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2708,8 +2686,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun xqueryVersion09ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-
-                    val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+                    val file = parse<XQueryModule>("declare %private function test() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2728,8 +2705,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun xqueryVersion10ml() {
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-
-                    val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+                    val file = parse<XQueryModule>("declare %private function test() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2741,8 +2717,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun xqueryVersion10() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v6.0"
-
-                    val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+                    val file = parse<XQueryModule>("declare %private function test() external;")[0]
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
@@ -2771,13 +2746,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in XQuery 1.0")
                     fun testFunctionCall_MarkLogic80ReservedFunctionName_XQuery10() {
                         settings.implementationVersion = "w3c/spec/v1ed"
-                        val file =
-                            parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+                        val file = parse<XQueryModule>("array-node(*)")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -2786,13 +2757,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in MarkLogic 7.0")
                     fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic70() {
                         settings.implementationVersion = "marklogic/v7"
-                        val file =
-                            parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+                        val file = parse<XQueryModule>("array-node(*)")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -2801,13 +2768,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in MarkLogic 8.0")
                     fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic80() {
                         settings.implementationVersion = "marklogic/v8"
-                        val file =
-                            parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+                        val file = parse<XQueryModule>("array-node(*)")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(1))
 
@@ -2827,12 +2790,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in XQuery 1.0")
                     fun testFunctionCall_Scripting10ReservedFunctionName_XQuery10() {
                         settings.implementationVersion = "saxon/HE/v9.5"
-                        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
+                        val file = parse<XQueryModule>("while()")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -2841,12 +2801,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in Scripting Extension 1.0")
                     fun testFunctionCall_Scripting10ReservedFunctionName_W3C() {
                         settings.implementationVersion = "w3c/spec/v1ed"
-                        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
+                        val file = parse<XQueryModule>("while()")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(1))
 
@@ -2870,12 +2827,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in XQuery 1.0")
                     fun testFunctionDecl_MarkLogic80ReservedFunctionName_XQuery10() {
                         settings.implementationVersion = "w3c/spec/v1ed"
-                        val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
+                        val file = parse<XQueryModule>("declare function array-node() external;")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -2884,12 +2838,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in MarkLogic 7.0")
                     fun testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic70() {
                         settings.implementationVersion = "marklogic/v7"
-                        val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
+                        val file = parse<XQueryModule>("declare function array-node() external;")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -2898,12 +2849,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in MarkLogic 8.0")
                     fun testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic80() {
                         settings.implementationVersion = "marklogic/v8"
-                        val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
+                        val file = parse<XQueryModule>("declare function array-node() external;")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(1))
 
@@ -2923,12 +2871,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in XQuery 1.0")
                     fun testFunctionDecl_Scripting10ReservedFunctionName_XQuery10() {
                         settings.implementationVersion = "saxon/HE/v9.5"
-                        val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
+                        val file = parse<XQueryModule>("declare function while() external;")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -2937,12 +2882,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in Scripting Extension 1.0")
                     fun testFunctionDecl_Scripting10ReservedFunctionName_W3C() {
                         settings.implementationVersion = "w3c/spec/v1ed"
-                        val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
+                        val file = parse<XQueryModule>("declare function while() external;")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(1))
 
@@ -2963,12 +2905,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("XQuery 1.0 reserved function names")
                 fun testNamedFunctionRef_XQuery10ReservedFunctionName() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq")
+                    val file = parse<XQueryModule>("if#0")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0002()
-                    )
+                    val problems = inspect(file, IJVS0002())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -2984,12 +2923,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("XQuery 3.0 reserved function names")
                 fun testNamedFunctionRef_XQuery30ReservedFunctionName() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq")
+                    val file = parse<XQueryModule>("function#0")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0002()
-                    )
+                    val problems = inspect(file, IJVS0002())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -3008,12 +2944,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in XQuery 1.0")
                     fun testNamedFunctionRef_Scripting10ReservedFunctionName_XQuery10() {
                         settings.implementationVersion = "saxon/HE/v9.5"
-                        val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
+                        val file = parse<XQueryModule>("while#0")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(0))
                     }
@@ -3022,12 +2955,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                     @DisplayName("in Scripting Extension 1.0")
                     fun testNamedFunctionRef_Scripting10ReservedFunctionName_W3C() {
                         settings.implementationVersion = "w3c/spec/v1ed"
-                        val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
+                        val file = parse<XQueryModule>("while#0")[0]
 
-                        val problems = inspect(
-                            file,
-                            IJVS0002()
-                        )
+                        val problems = inspect(file, IJVS0002())
                         assertThat(problems, `is`(notNullValue()))
                         assertThat(problems!!.size, `is`(1))
 
@@ -3055,9 +2985,7 @@ private class PluginInspectionTest : InspectionTestCase() {
 
                 val file = parseText(entities)
 
-                val problems = inspect(file,
-                    IJVS0003()
-                )
+                val problems = inspect(file, IJVS0003())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -3295,12 +3223,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testXQuery31_Map_XQuerySeparator() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
-                    val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
+                    val file = parse<XQueryModule>("map { \"1\" : \"one\" }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3310,12 +3235,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testXQuery31_Map_SaxonSeparator() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
-                    val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
+                    val file = parse<XQueryModule>("map { \"1\" := \"one\" }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -3332,12 +3254,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testXQuery31_Map_NoValueAssignmentOperator() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
-                    val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
+                    val file = parse<XQueryModule>("map { ${'$'}a }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3351,12 +3270,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testSaxon94_Map_SaxonSeparator() {
                     settings.implementationVersion = "saxon/EE/v9.5"
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
-                    val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
+                    val file = parse<XQueryModule>("map { \"1\" := \"one\" }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3366,12 +3282,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testSaxon94_Map_XQuerySeparator() {
                     settings.implementationVersion = "saxon/EE/v9.5"
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
-                    val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
+                    val file = parse<XQueryModule>("map { \"1\" : \"one\" }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -3388,12 +3301,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testSaxon94_Map_NoValueAssignmentOperator() {
                     settings.implementationVersion = "saxon/EE/v9.5"
                     settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
-                    val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
+                    val file = parse<XQueryModule>("map { ${'$'}a }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3406,12 +3316,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("MarkLogic ':' assignment operator")
                 fun testMarkLogic80_ObjectNode_MarkLogicSeparator() {
                     settings.implementationVersion = "marklogic/v8"
-                    val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
+                    val file = parse<XQueryModule>("object-node { \"1\" : \"one\" }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3420,12 +3327,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("Saxon ':=' assignment operator")
                 fun testMarkLogic80_ObjectNode_SaxonSeparator() {
                     settings.implementationVersion = "marklogic/v8"
-                    val file = parseResource("tests/psi/marklogic-8.0/MapConstructorEntry_SaxonSeparator.xq")
+                    val file = parse<XQueryModule>("object-node { \"1\" := \"one\" }")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0004()
-                    )
+                    val problems = inspect(file, IJVS0004())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -3450,12 +3354,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testMarkLogic_Single_NoSemicolon() {
                     settings.implementationVersion = "marklogic/v6.0"
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
-                    val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+                    val file = parse<XQueryModule>("2")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3465,12 +3366,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testMarkLogic_Single_Semicolon() {
                     settings.implementationVersion = "marklogic/v6.0"
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
-                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+                    val file = parse<XQueryModule>("2;")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3480,12 +3378,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testMarkLogic_Multiple_SemicolonAtEnd() {
                     settings.implementationVersion = "marklogic/v6.0"
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
-                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+                    val file = parse<XQueryModule>("2; 3;")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3495,12 +3390,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testMarkLogic_Multiple_NoSemicolonAtEnd() {
                     settings.implementationVersion = "marklogic/v6.0"
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
-                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+                    val file = parse<XQueryModule>("2; 3")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3510,12 +3402,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testMarkLogic_WithProlog() {
                     settings.implementationVersion = "marklogic/v6.0"
                     settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
-                    val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+                    val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2 ; xquery version \"1.0-ml\"; 3")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3529,12 +3418,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting_Single_NoSemicolon() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
-                    val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+                    val file = parse<XQueryModule>("2")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3544,12 +3430,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting_Single_Semicolon() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
-                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+                    val file = parse<XQueryModule>("2;")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3559,12 +3442,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting_Multiple_SemicolonAtEnd() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
-                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+                    val file = parse<XQueryModule>("2; 3;")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -3574,12 +3454,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting_Multiple_NoSemicolonAtEnd() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
-                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+                    val file = parse<XQueryModule>("2; 3")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -3596,12 +3473,9 @@ private class PluginInspectionTest : InspectionTestCase() {
                 fun testScripting_WithProlog() {
                     settings.implementationVersion = "w3c/spec/v1ed"
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
-                    val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+                    val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2 ; xquery version \"1.0-ml\"; 3")[0]
 
-                    val problems = inspect(
-                        file,
-                        IJVS0005()
-                    )
+                    val problems = inspect(file, IJVS0005())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
