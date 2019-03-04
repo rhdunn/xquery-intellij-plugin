@@ -1,1 +1,0 @@
-for tumbling window $ x in $ y start when true() end $ a at $ b previous $ c next $ d when true ( ) return $ x

@@ -1,1 +1,0 @@
-declare function function() external;
