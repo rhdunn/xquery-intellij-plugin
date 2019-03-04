@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,11 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Error Conditions")
 private class XPathInspectionTest : InspectionTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(XPathInspectionTest::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
-    }
-
     @Nested
     @DisplayName("XPath (F) XPST - static errors")
     internal inner class XPSTTest {
@@ -47,11 +42,13 @@ private class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("xmlns")
             fun testXmlns() {
-                val file = parseResource("tests/inspections/xpath/XPST0081/xmlns.xq")
+                val file = parse<XQueryModule>(
+                    """
+                    <a:b xmlns:a="http://www.example.com/test"/>
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XPST0081()
-                )
+                val problems = inspect(file, XPST0081())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -59,11 +56,15 @@ private class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("built-in XQuery 1.0/3.0 namespaces")
             fun testBuiltinXQuery() {
-                val file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery.xq")
+                val file = parse<XQueryModule>(
+                    """
+                    declare variable ${'$'}local:x as xs:boolean := fn:true();
+                    declare variable ${'$'}local:y := <a xml:id="1" xsi:a="http://www.example.com/test"/>;
+                    ()
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XPST0081()
-                )
+                val problems = inspect(file, XPST0081())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -71,11 +72,17 @@ private class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("built-in XQuery 3.1 namespaces")
             fun testBuiltinXQuery31() {
-                val file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery-3.1.xq")
+                val file = parse<XQueryModule>(
+                    """
+                    xquery version "3.1";
+                    declare variable ${'$'}local:x as xs:boolean := fn:true();
+                    declare variable ${'$'}local:y := <a xml:id="1" xsi:a="http://www.example.com/test"/>;
+                    declare variable ${'$'}local:z := math:sin(map:size(map {}) div array:size(array {}));
+                    ()
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XPST0081()
-                )
+                val problems = inspect(file, XPST0081())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -85,11 +92,14 @@ private class XPathInspectionTest : InspectionTestCase() {
             fun testBuiltinMarkLogic() {
                 settings.implementationVersion = "marklogic/v8"
                 settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
-                val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
+                val file = parse<XQueryModule>(
+                    """
+                    declare variable ${'$'}x := xdmp:version();
+                    ()
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XPST0081()
-                )
+                val problems = inspect(file, XPST0081())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -98,11 +108,14 @@ private class XPathInspectionTest : InspectionTestCase() {
             @DisplayName("built-in XQuery 1.0 namespaces; different vendor")
             fun testBuiltinMarkLogicNotTargettingMarkLogic() {
                 settings.implementationVersion = "w3c/spec/v1ed"
-                val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
+                val file = parse<XQueryModule>(
+                    """
+                    declare variable ${'$'}x := xdmp:version();
+                    ()
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XPST0081()
-                )
+                val problems = inspect(file, XPST0081())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -115,11 +128,14 @@ private class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("unbound prefix namespace")
             fun testQName() {
-                val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq")
+                val file = parse<XQueryModule>(
+                    """
+                    module namespace test = "http://example.com/test";
+                    declare function x:func() { () };
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XPST0081()
-                )
+                val problems = inspect(file, XPST0081())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
