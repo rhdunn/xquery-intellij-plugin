@@ -323,16 +323,16 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("updating annotation; external (from XQuery Update Facility 1.0)")
         fun testFunctionDecl_Updating() {
-            val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt")
-            val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
+            val expected = loadResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating.txt")
+            val actual = parseResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("updating annotation; function body (from XQuery Update Facility 1.0)")
         fun testFunctionDecl_Updating_EnclosedExpr() {
-            val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
-            val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.xq")
+            val expected = loadResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating_EnclosedExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
