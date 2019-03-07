@@ -61,8 +61,8 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("single expression; no semicolon at end")
         fun testApplyExpr_Single_NoSemicolonAtEnd() {
-            val expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+            val expected = loadResource("tests/parser/xquery-sx-xquery-1.0/IntegerLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-sx-xquery-1.0/IntegerLiteral.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -175,8 +175,8 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("single expression; no semicolon at end")
         fun testQueryBody_Single_NoSemicolonAtEnd() {
-            val expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+            val expected = loadResource("tests/parser/xquery-sx-xquery-1.0/IntegerLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-sx-xquery-1.0/IntegerLiteral.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -291,16 +291,16 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("no annotation; external")
         fun testFunctionDecl() {
-            val expected = loadResource("tests/parser/xquery-1.0/FunctionDecl.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq")
+            val expected = loadResource("tests/parser/xquery-sx-xquery-1.0/FunctionDecl.txt")
+            val actual = parseResource("tests/parser/xquery-sx-xquery-1.0/FunctionDecl.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("no annotation; function body")
         fun testFunctionDecl_EnclosedExpr() {
-            val expected = loadResource("tests/parser/xquery-1.0/EnclosedExpr.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq")
+            val expected = loadResource("tests/parser/xquery-sx-xquery-1.0/EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-sx-xquery-1.0/EnclosedExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -323,16 +323,16 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("updating annotation; external (from XQuery Update Facility 1.0)")
         fun testFunctionDecl_Updating() {
-            val expected = loadResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating.txt")
-            val actual = parseResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating.xq")
+            val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt")
+            val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("updating annotation; function body (from XQuery Update Facility 1.0)")
         fun testFunctionDecl_Updating_EnclosedExpr() {
-            val expected = loadResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
-            val actual = parseResource("tests/parser/xquery-update-sx-1.0/FunctionDecl_Updating_EnclosedExpr.xq")
+            val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 

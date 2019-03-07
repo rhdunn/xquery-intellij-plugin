@@ -13,6 +13,10 @@ src/lang-xpath/test/resources/tests/parser/xpath-ng/xpath/proposal-*/*.xq text e
 
 src/lang-xquery/test/resources/tests/parser/full-text-1.0/*.txt text eol=lf
 src/lang-xquery/test/resources/tests/parser/full-text-1.0/*.xq text eol=lf
+src/lang-xquery/test/resources/tests/parser/xquery-sx-1.0/*.txt text eol=lf
+src/lang-xquery/test/resources/tests/parser/xquery-sx-1.0/*.xq text eol=lf
+src/lang-xquery/test/resources/tests/parser/xquery-sx-xquery-1.0/*.txt text eol=lf
+src/lang-xquery/test/resources/tests/parser/xquery-sx-xquery-1.0/*.xq text eol=lf
 src/lang-xquery/test/resources/tests/parser/xquery-update-1.0/*.txt text eol=lf
 src/lang-xquery/test/resources/tests/parser/xquery-update-1.0/*.xq text eol=lf
 src/lang-xquery/test/resources/tests/parser/xquery-update-3.0/*.txt text eol=lf
@@ -55,7 +59,3 @@ src/test/resources/tests/parser/xquery-3.1/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-3.1/*.xq text eol=lf
 src/test/resources/tests/parser/xquery-semantics-1.0/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-semantics-1.0/*.xq text eol=lf
-src/test/resources/tests/parser/xquery-sx-1.0/*.txt text eol=lf
-src/test/resources/tests/parser/xquery-sx-1.0/*.xq text eol=lf
-src/test/resources/tests/parser/xquery-update-sx-1.0/*.txt text eol=lf
-src/test/resources/tests/parser/xquery-update-sx-1.0/*.xq text eol=lf

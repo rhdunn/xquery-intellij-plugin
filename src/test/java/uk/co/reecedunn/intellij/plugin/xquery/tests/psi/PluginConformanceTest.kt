@@ -726,7 +726,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("single transaction; with semicolon")
         fun testTransactions_Single_Semicolon() {
-            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+            val file = parseResource("tests/parser/xquery-sx-plugin-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
@@ -744,7 +744,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("multiple transactions; semicolon at end; first transaction")
         fun testTransactions_Multiple_First() {
-            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+            val file = parseResource("tests/parser/xquery-sx-plugin-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
@@ -765,7 +765,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("multiple transactions; semicolon at end; last transaction")
         fun testTransactions_Multiple_Last() {
-            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+            val file = parseResource("tests/parser/xquery-sx-plugin-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
@@ -783,7 +783,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("multiple transactions; no semicolon at end; first transaction")
         fun testTransactions_Multiple_NoSemicolonAtEnd_Last() {
-            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+            val file = parseResource("tests/parser/xquery-sx-plugin-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
