@@ -9,4 +9,5 @@ dependencies {
 
     testCompile project(':src:intellij-mock')
     testCompile project(':src:kotlin-hamcrest')
+    testCompile project(':src:plugin-w3')
 }

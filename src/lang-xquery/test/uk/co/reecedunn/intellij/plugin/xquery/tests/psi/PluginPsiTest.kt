@@ -99,7 +99,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("empty")
                 fun empty() {
-                    val file = parseResource("tests/resolve/files/DirAttributeList_Empty.xq")
+                    val file = parseResource("tests/resolve-plugin/files/DirAttributeList_Empty.xq")
                     val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
 
                     assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
@@ -108,7 +108,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("same directory")
                 fun sameDirectory() {
-                    val file = parseResource("tests/resolve/files/DirAttributeList_SameDirectory.xq")
+                    val file = parseResource("tests/resolve-plugin/files/DirAttributeList_SameDirectory.xq")
                     val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
 
                     assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
@@ -117,7 +117,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("http:// file matching")
                 fun httpProtocol() {
-                    val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol.xq")
+                    val file = parseResource("tests/resolve-plugin/files/DirAttributeList_HttpProtocol.xq")
                     val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
 
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
@@ -129,7 +129,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("http:// file missing")
                 fun httpProtocolMissing() {
-                    val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
+                    val file = parseResource("tests/resolve-plugin/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
                     val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
 
                     assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
@@ -172,9 +172,11 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("URIQualifiedName")
             fun testDefaultCaseClause_URIQualifiedName() {
                 val expr = parse<PluginDefaultCaseClause>(
-                    "typeswitch (\$Q{http://www.example.com}x) " +
-                            "default \$Q{http://www.example.com}y " +
-                            "return \$Q{http://www.example.com}z"
+                    """
+                    typeswitch (${'$'}Q{http://www.example.com}x)
+                    default ${'$'}Q{http://www.example.com}y
+                    return ${'$'}Q{http://www.example.com}z
+                    """
                 )[0] as XPathVariableBinding
 
                 val qname = expr.variableName!!
