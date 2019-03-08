@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery 3.1 - Static Context")
 private class XQueryStaticContextTest : ParserTestCase() {
     override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(ResourceVirtualFile(XQueryStaticContextTest::class.java.classLoader, "tests/module"))
+        manager.addModule(ResourceVirtualFile(XQueryStaticContextTest::class.java.classLoader, "tests/module-xquery"))
     }
 
     @Nested
