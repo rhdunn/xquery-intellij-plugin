@@ -1,1 +1,0 @@
-"hello" => fn:upper-case()

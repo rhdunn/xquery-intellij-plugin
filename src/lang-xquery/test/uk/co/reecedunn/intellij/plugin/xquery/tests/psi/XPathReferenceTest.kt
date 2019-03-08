@@ -45,7 +45,7 @@ private class XPathReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XPath 3.1 EBNF (123) NCName")
         fun testEQName_NCName() {
-            val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithNCNameReturnType.xq")
+            val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithNCNameReturnType.xq")
 
             val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
             val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
@@ -60,7 +60,7 @@ private class XPathReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XPath 3.1 EBNF (122) QName")
         fun testEQName_QName() {
-            val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithQNameReturnType.xq")
+            val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithQNameReturnType.xq")
 
             val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
             val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
@@ -93,7 +93,7 @@ private class XPathReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
         fun testEQName_URIQualifiedName() {
-            val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
+            val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
 
             val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
             val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
@@ -112,7 +112,7 @@ private class XPathReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XPath 3.1 EBNF (3) Param")
         fun testParam() {
-            val file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq")
+            val file = parseResource("tests/resolve-xquery/variables/FunctionDecl_ReturningSpecifiedParam.xq")
 
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
