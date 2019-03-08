@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+import java.math.BigDecimal
 import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -191,6 +192,12 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(literal.toInt(), `is`(123))
         }
 
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (220) DecimalLiteral")
+        fun decimalLiteral() {
+            val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
+            assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
+        }
 
         @Nested
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
