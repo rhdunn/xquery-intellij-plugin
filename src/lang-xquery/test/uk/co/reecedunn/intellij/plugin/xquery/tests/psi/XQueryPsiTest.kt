@@ -199,6 +199,13 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
         }
 
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (221) DoubleLiteral")
+        fun doubleLiteral() {
+            val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
+            assertThat(literal.data, `is`(1e3))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {

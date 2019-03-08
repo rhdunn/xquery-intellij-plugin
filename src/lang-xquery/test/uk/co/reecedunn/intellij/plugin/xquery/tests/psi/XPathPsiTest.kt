@@ -31,8 +31,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-import java.math.BigDecimal
-import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
@@ -583,13 +581,6 @@ private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.1 (3.1.1) Literals")
     internal inner class Literals {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
-        fun doubleLiteral() {
-            val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
-            assertThat(literal.data, `is`(1e3))
-        }
-
         @Nested
         @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
         internal inner class StringLiteral {
