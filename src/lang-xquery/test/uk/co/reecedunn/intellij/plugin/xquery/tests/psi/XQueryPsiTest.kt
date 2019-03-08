@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
@@ -178,6 +179,14 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
             }
+        }
+
+        @Test
+        @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : EBNF (4) NCName")
+        fun xmlNCName() {
+            val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
+            assertThat(literal.data, `is`("test"))
+            assertThat(literal.element, sameInstance(literal as PsiElement))
         }
     }
 

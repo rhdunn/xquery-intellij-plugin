@@ -369,14 +369,6 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(name.nameIdentifier?.text, `is`("test"))
             }
         }
-
-        @Test
-        @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : EBNF (4) NCName")
-        fun xmlNCName() {
-            val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
-            assertThat(literal.data, `is`("test"))
-            assertThat(literal.element, sameInstance(literal as PsiElement))
-        }
     }
 
     @Nested

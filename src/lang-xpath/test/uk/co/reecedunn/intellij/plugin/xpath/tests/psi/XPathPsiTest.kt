@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.sameInstance
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -23,10 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimalValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDoubleValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsIntegerValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.toInt
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -34,6 +34,18 @@ import java.math.BigInteger
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XPath 3.1 (2) Basics")
+    internal inner class Basics {
+        @Test
+        @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : EBNF (4) NCName")
+        fun xmlNCName() {
+            val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
+            assertThat(literal.data, `is`("test"))
+            assertThat(literal.element, sameInstance(literal as PsiElement))
+        }
+    }
+
     @Nested
     @DisplayName("XPath 3.1 (3.1.1) Literals")
     internal inner class Literals {
