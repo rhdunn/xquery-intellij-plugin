@@ -39,7 +39,7 @@ private class XQueryFoldingTest : ParserTestCase() {
     @Test
     @DisplayName("no foldable elements")
     fun testNoFoldingDescriptors() {
-        val file = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl.xq")
+        val file = parseResource("tests/folding/BoundarySpaceDecl.xq")
         val builder = FoldingBuilderImpl()
 
         val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
@@ -56,7 +56,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("single line")
         fun testEnclosedExpr() {
-            val file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq")
+            val file = parseResource("tests/folding/EnclosedExpr.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
@@ -148,7 +148,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("single line")
         fun testDirElemConstructor() {
-            val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq")
+            val file = parseResource("tests/folding/DirElemConstructor.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
@@ -159,7 +159,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("single line; self-closing")
         fun testDirElemConstructor_SelfClosing() {
-            val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.xq")
+            val file = parseResource("tests/folding/DirElemConstructor_SelfClosing.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
@@ -273,7 +273,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("single line")
         fun testComment() {
-            val file = parseResource("tests/parser/xquery-1.0/Comment.xq")
+            val file = parseResource("tests/folding/Comment.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, getDocument(file), false)

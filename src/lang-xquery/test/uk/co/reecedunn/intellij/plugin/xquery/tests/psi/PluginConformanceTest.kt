@@ -714,7 +714,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("single transaction; no semicolon")
         fun testTransactions_Single_NoSemicolon() {
-            val file = parseResource("tests/parser/xquery-sx-xquery-1.0/IntegerLiteral.xq")
+            val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi =
@@ -1010,7 +1010,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("or only")
         fun or() {
-            val file = parseResource("tests/parser/xquery-sx-xquery-1.0/OrExpr.xq")
+            val file = parseResource("tests/parser/xquery-1.0/OrExpr.xq")
             val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
@@ -1073,7 +1073,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("and only")
         fun and() {
-            val file = parseResource("tests/parser/xquery-sx-xquery-1.0/AndExpr.xq")
+            val file = parseResource("tests/parser/xquery-1.0/AndExpr.xq")
             val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
@@ -1181,7 +1181,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("without annotations")
         fun noAnnotations() {
-            val file = parseResource("tests/parser/xquery-sx-xquery-1.0/ItemType.xq")
+            val file = parseResource("tests/parser/xquery-1.0/ItemType.xq")
             val versioned = file.walkTree().filterIsInstance<PluginAnnotatedSequenceType>().firstOrNull()
 
             // ItemTypes without annotations only have the direct type

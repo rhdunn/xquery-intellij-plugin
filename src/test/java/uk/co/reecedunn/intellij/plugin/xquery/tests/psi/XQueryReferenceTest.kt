@@ -139,7 +139,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
         fun testForBinding() {
-            val file = parseResource("tests/parser/xquery-1.0/ForClause.xq")
+            val file = parseResource("tests/resolve/xquery-1.0/ForClause.xq")
 
             val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
             val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
@@ -214,7 +214,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
         fun testLetBinding() {
-            val file = parseResource("tests/parser/xquery-1.0/LetClause.xq")
+            val file = parseResource("tests/resolve/xquery-1.0/LetClause.xq")
 
             val letClausePsi = file.descendants().filterIsInstance<XQueryLetClause>().first()
             val letBindingPsi = letClausePsi.children().filterIsInstance<XQueryLetBinding>().first()
@@ -289,7 +289,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
         fun testSlidingWindowClause() {
-            val file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq")
+            val file = parseResource("tests/resolve/xquery-3.0/SlidingWindowClause.xq")
 
             val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
             val slidingWindowClausePsi =
@@ -327,7 +327,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
         fun testTumblingWindowClause() {
-            val file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
+            val file = parseResource("tests/resolve/xquery-3.0/TumblingWindowClause.xq")
 
             val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
             val tumblingWindowClausePsi =

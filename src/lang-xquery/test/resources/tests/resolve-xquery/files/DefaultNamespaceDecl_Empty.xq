@@ -1,0 +1,2 @@
+declare default function namespace "";
+()
