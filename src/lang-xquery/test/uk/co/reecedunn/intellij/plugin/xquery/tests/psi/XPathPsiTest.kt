@@ -584,14 +584,6 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (3.1.1) Literals")
     internal inner class Literals {
         @Test
-        @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
-        fun integerLiteral() {
-            val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
-            assertThat(literal.data, `is`(BigInteger.valueOf(123)))
-            assertThat(literal.toInt(), `is`(123))
-        }
-
-        @Test
         @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
         fun decimalLiteral() {
             val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue

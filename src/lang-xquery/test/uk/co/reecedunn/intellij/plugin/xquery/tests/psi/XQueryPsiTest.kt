@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
@@ -182,6 +183,15 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (3.1.1) Literals")
     internal inner class Literals {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
+        fun integerLiteral() {
+            val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
+            assertThat(literal.data, `is`(BigInteger.valueOf(123)))
+            assertThat(literal.toInt(), `is`(123))
+        }
+
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
