@@ -22,6 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -780,6 +781,56 @@ private class XPathPsiTest : ParserTestCase() {
             fun saxon() {
                 val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
                 assertThat(entry.separator.node.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
+    internal inner class QuantifiedExpressions {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr")
+        internal inner class QuantifiedExpr {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val expr = parse<PluginQuantifiedExprBinding>(
+                    "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun missingVarName() {
+                val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }

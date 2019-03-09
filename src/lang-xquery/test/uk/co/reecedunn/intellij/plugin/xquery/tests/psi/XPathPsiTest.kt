@@ -32,56 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
     @Nested
-    @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
-    internal inner class QuantifiedExpressions {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr")
-        internal inner class QuantifiedExpr {
-            @Test
-            @DisplayName("NCName")
-            fun ncname() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
-
-                val qname = expr.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("QName")
-            fun qname() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
-
-                val qname = expr.variableName!!
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix!!.data, `is`("a"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("URIQualifiedName")
-            fun uriQualifiedName() {
-                val expr = parse<PluginQuantifiedExprBinding>(
-                    "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
-
-                val qname = expr.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("missing VarName")
-            fun missingVarName() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
-                assertThat(expr.variableName, `is`(nullValue()))
-            }
-        }
-    }
-
-    @Nested
     @DisplayName("XPath 3.1 (3.20) Arrow Operator")
     internal inner class ArrowOperator {
         @Nested
