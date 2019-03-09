@@ -1327,6 +1327,23 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.3.5) Abbreviated Syntax")
+    internal inner class AbbreviatedSyntax {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (114) AbbrevForwardStep")
+        internal inner class AbbrevForwardStep {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>("one, @two")
+                assertThat(steps.size, `is`(2))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element))
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.9.1) Direct Element Constructors")
     internal inner class DirectElementConstructors {
         @Nested

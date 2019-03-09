@@ -742,4 +742,21 @@ private class XPathPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.3.5) Abbreviated Syntax")
+    internal inner class AbbreviatedSyntax {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
+        internal inner class AbbrevForwardStep {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>("one, @two")
+                assertThat(steps.size, `is`(2))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element))
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute))
+            }
+        }
+    }
 }
