@@ -33,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
@@ -1685,6 +1687,28 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.11.1) Maps")
+    internal inner class Maps {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (171) MapConstructorEntry")
+        internal inner class MapConstructorEntry {
+            @Test
+            @DisplayName("key, value")
+            fun keyValue() {
+                val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
+                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+            }
+
+            @Test
+            @DisplayName("key, no value")
+            fun noValue() {
+                val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
+                assertThat(entry.separator.node.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
             }
         }
     }

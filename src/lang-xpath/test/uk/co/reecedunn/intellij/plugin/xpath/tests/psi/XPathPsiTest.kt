@@ -23,7 +23,9 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import java.math.BigDecimal
@@ -756,6 +758,28 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(steps.size, `is`(2))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element))
                 assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.11.1) Maps")
+    internal inner class Maps {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (70) MapConstructorEntry")
+        internal inner class MapConstructorEntry {
+            @Test
+            @DisplayName("key, value")
+            fun keyValue() {
+                val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
+                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+            }
+
+            @Test
+            @DisplayName("key, no value")
+            fun saxon() {
+                val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
+                assertThat(entry.separator.node.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
             }
         }
     }

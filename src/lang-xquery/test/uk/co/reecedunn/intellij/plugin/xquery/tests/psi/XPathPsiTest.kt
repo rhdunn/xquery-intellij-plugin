@@ -32,28 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
     @Nested
-    @DisplayName("XPath 3.1 (3.11.1) Maps")
-    internal inner class Maps {
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
-        internal inner class MapConstructorEntry {
-            @Test
-            @DisplayName("key, value")
-            fun keyValue() {
-                val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
-            }
-
-            @Test
-            @DisplayName("key, no value")
-            fun saxon() {
-                val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
-            }
-        }
-    }
-
-    @Nested
     @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested
