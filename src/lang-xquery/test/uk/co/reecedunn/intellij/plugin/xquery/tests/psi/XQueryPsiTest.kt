@@ -739,6 +739,50 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
             @Test
+            @DisplayName("string literal content")
+            fun stringLiteral() {
+                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.element, sameInstance(psi as PsiElement))
+            }
+
+            @Test
+            @DisplayName("unclosed string literal content")
+            fun unclosedStringLiteral() {
+                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("Lorem ipsum."))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val psi = parse<XPathStringLiteral>("'''\"\"'")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("'\"\""))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val psi = parse<XPathStringLiteral>("\"''\"\"\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("''\""))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
+            }
+
+            @Test
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial

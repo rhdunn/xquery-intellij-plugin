@@ -32,58 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
     @Nested
-    @DisplayName("XPath 3.1 (3.1.1) Literals")
-    internal inner class Literals {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
-        internal inner class StringLiteral {
-            @Test
-            @DisplayName("string literal content")
-            fun stringLiteral() {
-                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
-                assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("unclosed string literal content")
-            fun unclosedStringLiteral() {
-                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
-                assertThat(literal.data, `is`("Lorem ipsum."))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("EscapeApos tokens")
-            fun escapeApos() {
-                val psi = parse<XPathStringLiteral>("'''\"\"'")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
-                assertThat(literal.data, `is`("'\"\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("EscapeQuot tokens")
-            fun escapeQuot() {
-                val psi = parse<XPathStringLiteral>("\"''\"\"\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
-                assertThat(literal.data, `is`("''\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-        }
-    }
-
-    @Nested
     @DisplayName("XPath 3.1 (3.1.2) Variable References")
     internal inner class VariableReferences {
         @Nested
