@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -151,6 +152,30 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (235) NCName")
         internal inner class NCName {
             @Test
+            @DisplayName("identifier")
+            fun identifier() {
+                val qname = parse<XPathNCName>("test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("keyword")
+            fun keyword() {
+                val qname = parse<XPathNCName>("order")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("order"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
             @DisplayName("wildcard")
             fun wildcard() {
                 val qname = parse<XPathNCName>("declare option * \"\";")[0] as XsQNameValue
@@ -161,6 +186,18 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
+            }
+
+            @Test
+            @DisplayName("PsiNameIdentifierOwner")
+            fun psiNameIdentifierOwner() {
+                val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
+
+                assertThat(name.name, `is`("test"))
+                assertThat(name.textOffset, `is`(6))
+
+                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+                assertThat(name.nameIdentifier?.text, `is`("test"))
             }
         }
 

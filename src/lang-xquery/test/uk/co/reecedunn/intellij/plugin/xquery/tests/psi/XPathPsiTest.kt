@@ -62,30 +62,6 @@ private class XPathPsiTest : ParserTestCase() {
         @DisplayName("XPath 3.1 EBNF (123) NCName")
         internal inner class NCName {
             @Test
-            @DisplayName("identifier")
-            fun identifier() {
-                val qname = parse<XPathNCName>("test")[0] as XsQNameValue
-
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-            }
-
-            @Test
-            @DisplayName("keyword")
-            fun keyword() {
-                val qname = parse<XPathNCName>("order")[0] as XsQNameValue
-
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("order"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-            }
-
-            @Test
             @DisplayName("expand")
             fun expand() {
                 val qname = parse<XPathNCName>("test")[0] as XsQNameValue
@@ -104,18 +80,6 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
-            }
-
-            @Test
-            @DisplayName("PsiNameIdentifierOwner")
-            fun psiNameIdentifierOwner() {
-                val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
-
-                assertThat(name.name, `is`("test"))
-                assertThat(name.textOffset, `is`(6))
-
-                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
-                assertThat(name.nameIdentifier?.text, `is`("test"))
             }
         }
 

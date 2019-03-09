@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
 import com.intellij.psi.PsiElement
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.sameInstance
+import com.intellij.psi.PsiNameIdentifierOwner
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
@@ -37,6 +38,46 @@ private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.1 (2) Basics")
     internal inner class Basics {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        internal inner class NCName {
+            @Test
+            @DisplayName("identifier")
+            fun identifier() {
+                val qname = parse<XPathNCName>("test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("keyword")
+            fun keyword() {
+                val qname = parse<XPathNCName>("order")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("order"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("PsiNameIdentifierOwner")
+            fun psiNameIdentifierOwner() {
+                val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
+
+                assertThat(name.name, `is`("test"))
+                assertThat(name.textOffset, `is`(6))
+
+                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+                assertThat(name.nameIdentifier?.text, `is`("test"))
+            }
+        }
+
         @Test
         @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : EBNF (4) NCName")
         fun xmlNCName() {
