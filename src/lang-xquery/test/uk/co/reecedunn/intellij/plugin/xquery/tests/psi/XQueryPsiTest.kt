@@ -128,6 +128,23 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (223) URIQualifiedName")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val qname = parse<XPathURIQualifiedName>("declare option Q{http://www.example.com}* \"\";")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (224) BracedURILiteral")
         internal inner class BracedURILiteral {
             @Test
@@ -145,6 +162,106 @@ private class XQueryPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (234) QName")
+        internal inner class QName {
+            @Test
+            @DisplayName("non-keyword prefix; non-keyword local name")
+            fun identifier() {
+                val qname = parse<XPathQName>("fn:true")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("keyword prefix; non-keyword local name")
+            fun keywordPrefix() {
+                val qname = parse<XPathQName>("option:test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("option"))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("non-keyword prefix; keyword local name")
+            fun keywordLocalName() {
+                val qname = parse<XPathQName>("test:case")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("test"))
+                assertThat(qname.localName!!.data, `is`("case"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("missing local name")
+            fun noLocalName() {
+                val qname = parse<XPathQName>("xs:")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("whitespace in QName; before ':'")
+            fun whitespaceInQName_beforeColon() {
+                val qname = parse<XPathQName>("xs :string")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("string"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("whitespace in QName; after ':'")
+            fun whitespaceInQName_afterColon() {
+                val qname = parse<XPathQName>("xs: string")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("string"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("whitespace in QName; before and after ':'")
+            fun whitespaceInQName_beforeAndAfterColon() {
+                val qname = parse<XPathQName>("xs : string")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("string"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("PsiNameIdentifierOwner")
+            fun psiNameIdentifierOwner() {
+                val name = parse<XPathQName>("(: :) a:test")[0] as PsiNameIdentifierOwner
+
+                assertThat(name.name, `is`("test"))
+                assertThat(name.textOffset, `is`(8))
+
+                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+                assertThat(name.nameIdentifier?.text, `is`("test"))
             }
         }
 
@@ -198,23 +315,6 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
                 assertThat(name.nameIdentifier?.text, `is`("test"))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (223) URIQualifiedName")
-        internal inner class URIQualifiedName {
-            @Test
-            @DisplayName("wildcard")
-            fun wildcard() {
-                val qname = parse<XPathURIQualifiedName>("declare option Q{http://www.example.com}* \"\";")[0] as XsQNameValue
-                assertThat(qname.isLexicalQName, `is`(false))
-                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                assertThat(qname.localName!!.data, `is`("*"))
             }
         }
 
