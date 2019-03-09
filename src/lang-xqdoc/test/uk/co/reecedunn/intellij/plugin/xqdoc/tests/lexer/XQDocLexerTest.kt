@@ -79,8 +79,8 @@ class XQDocLexerTest : LexerTestCase() {
         }
 
         @Test
-        @DisplayName("tagged content")
-        fun testTaggedContents() {
+        @DisplayName("tagged content after contents")
+        fun testTaggedContentsAfterContents() {
             val lexer = XQDocLexer()
 
             lexer.start("Lorem\n@ipsum dolor.")
@@ -88,6 +88,16 @@ class XQDocLexerTest : LexerTestCase() {
             matchToken(lexer, "\n", 12, 5, 6, XQDocTokenType.TRIM)
             matchToken(lexer, "@ipsum dolor.", 11, 6, 19, XQDocTokenType.CONTENTS)
             matchToken(lexer, "", 11, 19, 19, null)
+        }
+
+        @Test
+        @DisplayName("tagged content at the start of the comment")
+        fun testTaggedContentsAtStart() {
+            val lexer = XQDocLexer()
+
+            lexer.start("@ipsum dolor.")
+            matchToken(lexer, "@ipsum dolor.", 11, 0, 13, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "", 11, 13, 13, null)
         }
     }
 

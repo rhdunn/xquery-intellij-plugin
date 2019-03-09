@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,7 +128,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
             }
             else -> {
                 pushState(STATE_XQUERY_CONTENTS)
-                pushState(STATE_TRIM)
+                pushState(STATE_XQUERY_CONTENTS_TRIM)
                 advance()
             }
         }
