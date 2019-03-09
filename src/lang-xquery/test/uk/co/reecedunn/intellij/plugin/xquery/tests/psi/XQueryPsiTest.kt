@@ -1036,6 +1036,42 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (168) NamedFunctionRef")
         internal inner class NamedFunctionRef {
             @Test
+            @DisplayName("named function reference")
+            fun namedFunctionRef() {
+                val f = parse<XPathNamedFunctionRef>("true#3")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(3))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("missing arity")
+            fun missingArity() {
+                val f = parse<XPathNamedFunctionRef>("true#")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+                assertThat(f.functionName, `is`(nullValue()))
+            }
+
+            @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathEQName>(
