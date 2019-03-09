@@ -39,26 +39,6 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (2) Basics")
     internal inner class Basics {
         @Nested
-        @DisplayName("XPath 3.1 EBNF (118) BracedURILiteral")
-        internal inner class BracedURILiteral {
-            @Test
-            @DisplayName("braced uri literal content")
-            fun bracedUriLiteral() {
-                val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
-                assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                assertThat(literal.element, sameInstance(literal as PsiElement))
-            }
-
-            @Test
-            @DisplayName("unclosed braced uri literal content")
-            fun unclosedBracedUriLiteral() {
-                val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
-                assertThat(literal.data, `is`("Lorem ipsum."))
-                assertThat(literal.element, sameInstance(literal as PsiElement))
-            }
-        }
-
-        @Nested
         @DisplayName("XPath 3.1 EBNF (123) NCName")
         internal inner class NCName {
             @Test

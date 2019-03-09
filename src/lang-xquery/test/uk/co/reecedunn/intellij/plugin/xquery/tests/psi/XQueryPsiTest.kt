@@ -148,6 +148,22 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (224) BracedURILiteral")
         internal inner class BracedURILiteral {
             @Test
+            @DisplayName("braced uri literal content")
+            fun bracedUriLiteral() {
+                val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.element, sameInstance(literal as PsiElement))
+            }
+
+            @Test
+            @DisplayName("unclosed braced uri literal content")
+            fun unclosedBracedUriLiteral() {
+                val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("Lorem ipsum."))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
+            }
+
+            @Test
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
