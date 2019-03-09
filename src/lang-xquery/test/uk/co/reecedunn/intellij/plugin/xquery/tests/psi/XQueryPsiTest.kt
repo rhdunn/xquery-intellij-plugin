@@ -1102,6 +1102,50 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.3.2.1) Axes")
+    internal inner class Axes {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
+        internal inner class ForwardAxis {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>("""
+                    child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                    following-sibling::six, following::seven, namespace::eight
+                """)
+                assertThat(steps.size, `is`(8))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // child
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // descendant
+                assertThat(steps[2].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute)) // attribute
+                assertThat(steps[3].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // self
+                assertThat(steps[4].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // descendant-or-self
+                assertThat(steps[5].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // following-sibling
+                assertThat(steps[6].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // following
+                assertThat(steps[7].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Namespace)) // namespace
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (116) ReverseAxis")
+        internal inner class ReverseAxis {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>(
+                    "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
+                )
+                assertThat(steps.size, `is`(5))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // parent
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // ancestor
+                assertThat(steps[2].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // preceding-sibling
+                assertThat(steps[3].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // preceding
+                assertThat(steps[4].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // ancestor-or-self
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
         @Nested
@@ -3397,6 +3441,46 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (34) Param")
         internal inner class Param {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val expr = parse<XPathParam>("function (\$x) {}")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun missingVarName() {
+                val expr = parse<XPathParam>("function (\$) {}")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+
             @Test
             @DisplayName("NCName namespace resolution")
             fun ncnameNamespaceResolution() {
