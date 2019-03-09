@@ -922,8 +922,83 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (3.1.5) Static Function Calls")
     internal inner class StaticFunctionCalls {
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (122) ArgumentList")
+        internal inner class ArgumentList {
+            @Test
+            @DisplayName("empty parameters")
+            fun empty() {
+                val args = parse<XPathArgumentList>("fn:true()")[0]
+                assertThat(args.arity, `is`(0))
+            }
+
+            @Test
+            @DisplayName("multiple ExprSingle parameters")
+            fun multiple() {
+                val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
+                assertThat(args.arity, `is`(2))
+            }
+
+            @Test
+            @DisplayName("ArgumentPlaceholder parameter")
+            fun argumentPlaceholder() {
+                val args = parse<XPathArgumentList>("math:sin(?)")[0]
+                assertThat(args.arity, `is`(1))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
         internal inner class FunctionCall {
+            @Test
+            @DisplayName("non-empty ArgumentList")
+            fun nonEmptyArguments() {
+                val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(2))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("math"))
+                assertThat(qname.localName!!.data, `is`("pow"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("empty ArgumentList")
+            fun emptyArguments() {
+                val f = parse<XPathFunctionCall>("fn:true()")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("ArgumentPlaceholder")
+            fun argumentPlaceholder() {
+                val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("math"))
+                assertThat(qname.localName!!.data, `is`("sin"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val f = parse<XPathFunctionCall>(":true()")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+                assertThat(f.functionName, `is`(nullValue()))
+            }
+
             @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
