@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,30 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
-class XQueryPrologPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XQueryProlog,
-    XPathVariableDeclarations {
-
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        cachedVariables.invalidate()
-    }
-
-    override val variables
-        get(): Sequence<XPathVariableDeclaration> = cachedVariables.get() ?: emptySequence()
-
-    private val cachedVariables = CacheableProperty {
-        children().reversed().filterIsInstance<XQueryAnnotatedDecl>().map { decl ->
-            decl.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
-        }.filterNotNull().filter { variable -> variable.variableName != null } `is` Cacheable
-    }
-}
+class XQueryPrologPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryProlog

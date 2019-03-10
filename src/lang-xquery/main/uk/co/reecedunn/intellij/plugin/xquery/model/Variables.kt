@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclarations
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
@@ -152,13 +151,19 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPa
     }
 }
 
+private fun PsiElement.varDecls(): Sequence<XPathVariableDeclaration> {
+    return children().reversed().filterIsInstance<XQueryAnnotatedDecl>().map { decl ->
+        decl.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
+    }.filterNotNull().filter { variable -> variable.variableName != null }
+}
+
 // endregion
 // region XPath 3.1 (2.1.1) In-scope variables
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableName> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
-        is XQueryProlog -> (node as XPathVariableDeclarations).variables
+        is XQueryProlog -> node.varDecls()
         is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XQueryWindowClause -> node.windowClauseVariables(context)

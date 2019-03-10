@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,3 @@ interface XPathVariableDeclaration : XPathVariableName
 interface XPathVariableBinding : XPathVariableName
 
 interface XPathVariableReference : XPathVariableName
-
-interface XPathVariableDeclarations {
-    val variables: Sequence<XPathVariableDeclaration>
-}
