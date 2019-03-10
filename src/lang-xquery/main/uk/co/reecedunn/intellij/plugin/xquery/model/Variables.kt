@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,10 @@ private class InScopeVariableContext {
 }
 
 // ForBinding, LetBinding, GroupingSpec
-private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableBinding> {
+private fun PsiElement.flworBindingVariables(
+    node: PsiElement,
+    context: InScopeVariableContext
+): Sequence<XPathVariableBinding> {
     if (node is XQueryForBinding || node is XQueryLetBinding || node is XQueryGroupingSpec) {
         context.visitedFlworClause = true
         if (context.visitedFlworBinding) {
@@ -67,10 +70,14 @@ private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Se
         context.visitedFlworClause = false
         emptySequence()
     } else {
-        children().flatMap { binding -> when (binding) {
-            is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> binding.flworBindingVariables(this, context)
-            else -> emptySequence()
-        }}
+        children().flatMap { binding ->
+            when (binding) {
+                is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
+                    binding.flworBindingVariables(this, context)
+                }
+                else -> emptySequence()
+            }
+        }
     }
 }
 
@@ -84,15 +91,17 @@ private fun PsiElement.windowConditionVariables(context: InScopeVariableContext)
 
 // WindowClause + (SlidingWindowClause | TumblingWindowClause)
 private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
-    val node = children().map { e -> when (e) {
-        is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e
-        else -> null
-    }}.filterNotNull().firstOrNull() ?: return emptySequence()
+    val node = children().map { e ->
+        when (e) {
+            is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e
+            else -> null
+        }
+    }.filterNotNull().firstOrNull() ?: return emptySequence()
 
     return sequenceOf(
         if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XPathVariableBinding),
         node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e -> e.windowConditionVariables(context) },
-        node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap   { e -> e.windowConditionVariables(context) }
+        node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap { e -> e.windowConditionVariables(context) }
     ).filterNotNull().flatten()
 }
 
@@ -102,23 +111,25 @@ private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): 
 }
 
 private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
-    return children().flatMap { node -> when (node) {
-        is XQueryForClause, is XQueryLetClause ->
-            if (context.visitedFlworClauseAsIntermediateClause) {
-                context.visitedFlworClauseAsIntermediateClause = false
-                emptySequence()
-            } else
-                node.flworClauseVariables(context)
-        is XQueryGroupByClause ->
-            if (context.visitedFlworClauseAsIntermediateClause) {
-                context.visitedFlworClauseAsIntermediateClause = false
-                emptySequence()
-            } else
-                node.groupByClauseVariables(context)
-        is XQueryWindowClause -> node.windowClauseVariables(context)
-        is XPathVariableBinding -> sequenceOf(node as XPathVariableBinding)
-        else -> emptySequence()
-    }}
+    return children().flatMap { node ->
+        when (node) {
+            is XQueryForClause, is XQueryLetClause ->
+                if (context.visitedFlworClauseAsIntermediateClause) {
+                    context.visitedFlworClauseAsIntermediateClause = false
+                    emptySequence()
+                } else
+                    node.flworClauseVariables(context)
+            is XQueryGroupByClause ->
+                if (context.visitedFlworClauseAsIntermediateClause) {
+                    context.visitedFlworClauseAsIntermediateClause = false
+                    emptySequence()
+                } else
+                    node.groupByClauseVariables(context)
+            is XQueryWindowClause -> node.windowClauseVariables(context)
+            is XPathVariableBinding -> sequenceOf(node as XPathVariableBinding)
+            else -> emptySequence()
+        }
+    }
 }
 
 private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
@@ -162,65 +173,73 @@ private fun PsiElement.varDecls(): Sequence<XPathVariableDeclaration> {
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableName> {
     val context = InScopeVariableContext()
-    return walkTree().reversed().flatMap { node -> when (node) {
-        is XQueryProlog -> node.varDecls()
-        is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
-        is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
-        is XQueryWindowClause -> node.windowClauseVariables(context)
-        is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
-        is PluginQuantifiedExprBinding -> {
-            if (context.visitedQuantifiedBinding) {
-                context.visitedQuantifiedBinding = false
-                emptySequence()
-            } else
-                sequenceOf(node as XPathVariableBinding)
-        }
-        is XPathExprSingle -> {
-            when (node.parent) {
+    return walkTree().reversed()
+        .flatMap { node ->
+            when (node) {
+                is XQueryProlog -> node.varDecls()
+                is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
                 is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
-                    context.visitedFlworBinding = true
-                    if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
-                        context.visitedFlworClauseAsIntermediateClause = true
-                    }
+                    node.flworBindingVariables(node, context)
                 }
-                is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> {
-                    context.visitedFlworWindowConditions = true // 'in' expression: don't include window conditions
-                    context.visitedFlworBinding = true
-                    if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
-                        context.visitedFlworClauseAsIntermediateClause = true
-                    }
-                }
+                is XQueryWindowClause -> node.windowClauseVariables(context)
+                is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
                 is PluginQuantifiedExprBinding -> {
-                    context.visitedQuantifiedBinding = true
+                    if (context.visitedQuantifiedBinding) {
+                        context.visitedQuantifiedBinding = false
+                        emptySequence()
+                    } else
+                        sequenceOf(node as XPathVariableBinding)
                 }
-                is PluginBlockVarDeclEntry -> {
-                    context.visitedBlockVarDeclEntry = true
-                    context.visitedBlockVarDecl = true
-                    context.visitedBlockDecls = true
+                is XPathExprSingle -> {
+                    when (node.parent) {
+                        is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
+                            context.visitedFlworBinding = true
+                            if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
+                                context.visitedFlworClauseAsIntermediateClause = true
+                            }
+                        }
+                        is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> {
+                            // 'in' expression: don't include window conditions
+                            context.visitedFlworWindowConditions = true
+                            context.visitedFlworBinding = true
+                            if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
+                                context.visitedFlworClauseAsIntermediateClause = true
+                            }
+                        }
+                        is PluginQuantifiedExprBinding -> {
+                            context.visitedQuantifiedBinding = true
+                        }
+                        is PluginBlockVarDeclEntry -> {
+                            context.visitedBlockVarDeclEntry = true
+                            context.visitedBlockVarDecl = true
+                            context.visitedBlockDecls = true
+                        }
+                        else -> {
+                        }
+                    }
+                    emptySequence()
                 }
-                else -> {}
+                is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
+                is XQueryCaseClause, is PluginDefaultCaseClause -> {
+                    // Only the `case`/`default` clause variable of the return expression is in scope.
+                    if (!context.visitedTypeswitch) {
+                        context.visitedTypeswitch = true
+                        sequenceOf(node as XPathVariableBinding)
+                    } else
+                        emptySequence()
+                }
+                is XQueryTypeswitchExpr -> {
+                    context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
+                    emptySequence()
+                }
+                is XPathParamList -> node.children().filterIsInstance<XPathVariableBinding>()
+                is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
+                is ScriptingBlockVarDecl -> node.blockVarDecl(context)
+                is ScriptingBlockDecls -> node.blockDecls(context)
+                else -> emptySequence()
             }
-            emptySequence()
         }
-        is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
-        is XQueryCaseClause, is PluginDefaultCaseClause -> {
-            // Only the `case`/`default` clause variable of the return expression is in scope.
-            if (!context.visitedTypeswitch) {
-                context.visitedTypeswitch = true
-                sequenceOf(node as XPathVariableBinding)
-            } else
-                emptySequence()
-        }
-        is XQueryTypeswitchExpr -> {
-            context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
-            emptySequence()
-        }
-        is XPathParamList -> node.children().filterIsInstance<XPathVariableBinding>()
-        is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
-        is ScriptingBlockVarDecl -> node.blockVarDecl(context)
-        is ScriptingBlockDecls -> node.blockDecls(context)
-        else -> emptySequence()
-    }}.filterNotNull().filter { variable -> variable.variableName != null }
+        .filter { variable -> variable.variableName != null }
 }
 
 // endregion
