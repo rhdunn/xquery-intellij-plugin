@@ -19,8 +19,10 @@ interface XPathVariableName {
     val variableName: XsQNameValue?
 }
 
-interface XPathVariableDeclaration : XPathVariableName
+interface XPathVariableDefinition : XPathVariableName
 
-interface XPathVariableBinding : XPathVariableName
+interface XPathVariableDeclaration : XPathVariableDefinition
+
+interface XPathVariableBinding : XPathVariableDefinition
 
 interface XPathVariableReference : XPathVariableName
