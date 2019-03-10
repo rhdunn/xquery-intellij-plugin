@@ -241,4 +241,14 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDefinition> {
         .filter { variable -> variable.variableName != null }
 }
 
+fun XPathEQName.variableDefinition(): XPathVariableDefinition? {
+    val name = this as XsQNameValue
+    return inScopeVariables().find { variable ->
+        val qname = variable.variableName!!
+        val matchPrefix = name.prefix?.data == qname.prefix?.data
+        val matchLocalName = name.localName?.data == qname.localName?.data
+        matchPrefix && matchLocalName
+    }
+}
+
 // endregion

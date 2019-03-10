@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +19,11 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xquery.model.variableDefinition
 
 class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
-    override fun resolve(): PsiElement? {
-        val name = element as XsQNameValue
-        val match = element.inScopeVariables().find { variable ->
-            val qname = variable.variableName!!
-            val matchPrefix = name.prefix?.data == qname.prefix?.data
-            val matchLocalName = name.localName?.data == qname.localName?.data
-            matchPrefix && matchLocalName
-        }
-        return match?.variableName as? PsiElement
-    }
+    override fun resolve(): PsiElement? = element.variableDefinition()?.variableName as? PsiElement
 
     override fun getVariants(): Array<Any> {
         return arrayOf()
