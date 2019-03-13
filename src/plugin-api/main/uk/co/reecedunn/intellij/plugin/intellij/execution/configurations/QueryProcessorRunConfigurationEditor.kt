@@ -199,7 +199,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         scriptFile = QueryProcessorDataSource()
         scriptFile!!.addBrowseFolderListener(null, null, project, descriptor)
-        scriptFile!!.textField.addActionListener {
+        scriptFile!!.addActionListener {
             if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
                 updateUI(true)
             }
@@ -236,7 +236,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         updating!!.isEnabled = processor?.api?.canUpdate(languages[0]) == true
 
         if (isSparql) {
-            val path = scriptFile!!.textField.text
+            val path = scriptFile!!.path ?: ""
             val lang = languages.findByAssociations(path) ?: languages[0]
             updating!!.isSelected = lang.getLanguageMimeTypes()[0] != "application/sparql-query"
         }
@@ -258,7 +258,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (modulePath!!.textField.text.nullize() != configuration.modulePath)
             return true
-        if (scriptFile!!.textField.text != configuration.scriptFilePath)
+        if (scriptFile!!.path != configuration.scriptFilePath)
             return true
         return false
     }
@@ -269,7 +269,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         server!!.selectedItem = configuration.server
         database!!.selectedItem = configuration.database
         modulePath!!.textField.text = configuration.modulePath ?: ""
-        scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
+        scriptFile!!.path = configuration.scriptFilePath
 
         updateUI(languages[0].getLanguageMimeTypes()[0] == "application/sparql-query")
     }
@@ -280,7 +280,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String
         configuration.modulePath = modulePath!!.textField.text.nullize()
-        configuration.scriptFilePath = scriptFile!!.textField.text.nullize()
+        configuration.scriptFilePath = scriptFile!!.path
     }
 
     // endregion

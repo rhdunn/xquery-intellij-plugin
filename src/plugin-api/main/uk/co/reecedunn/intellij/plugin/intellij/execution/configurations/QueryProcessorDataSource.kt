@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.TextComponentAccessor
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import javax.swing.*
 
@@ -26,8 +26,11 @@ class QueryProcessorDataSource {
     private var panel: JPanel? = null
     private var scriptFile: TextFieldWithBrowseButton? = null
 
-    val textField: JTextField
-        get() = scriptFile!!.textField
+    var path: String?
+        get() = scriptFile!!.textField.text.nullize()
+        set(value) {
+            scriptFile!!.textField.text = value ?: ""
+        }
 
     fun addBrowseFolderListener(
         @Nls(capitalization = Nls.Capitalization.Title) title: String?,
@@ -36,6 +39,10 @@ class QueryProcessorDataSource {
         fileChooserDescriptor: FileChooserDescriptor
     ) {
         scriptFile!!.addBrowseFolderListener(title, description, project, fileChooserDescriptor)
+    }
+
+    fun addActionListener(listener: () -> Unit) {
+        scriptFile!!.textField.addActionListener { listener() }
     }
 
     fun create(): JComponent {
