@@ -32,6 +32,11 @@ class QueryProcessorDataSource {
             scriptFile!!.textField.text = value ?: ""
         }
 
+    var type: QueryProcessorDataSourceType
+        get() = QueryProcessorDataSourceType.LocalFile
+        set(value) {
+        }
+
     fun addBrowseFolderListener(
         @Nls(capitalization = Nls.Capitalization.Title) title: String?,
         @Nls(capitalization = Nls.Capitalization.Sentence) description: String?,
