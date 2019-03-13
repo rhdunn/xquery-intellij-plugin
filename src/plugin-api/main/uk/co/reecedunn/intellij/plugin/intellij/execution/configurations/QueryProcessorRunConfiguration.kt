@@ -24,6 +24,7 @@ import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.lang.Language
+import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtil
@@ -39,14 +40,15 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.io.File
 
 enum class QueryProcessorDataSourceType {
-    LocalFile;
+    LocalFile, ActiveEditorFile;
 
-    fun find(path: String): VirtualFile? {
+    fun find(path: String?, project: Project): VirtualFile? {
         return when (this) {
-            LocalFile -> {
+            LocalFile -> path?.let {
                 val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
                 url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
             }
+            ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
         }
     }
 }
@@ -138,9 +140,7 @@ class QueryProcessorRunConfiguration(
         }
 
     var scriptFile: VirtualFile?
-        get() = data.scriptFile?.let {
-            data.scriptSource.find(it)
-        }
+        get() = data.scriptSource.find(data.scriptFile, project)
         set(value) {
             data.scriptFile = value?.canonicalPath
         }

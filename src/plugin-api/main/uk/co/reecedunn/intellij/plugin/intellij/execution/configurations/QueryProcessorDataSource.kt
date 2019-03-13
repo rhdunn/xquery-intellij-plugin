@@ -24,17 +24,41 @@ import javax.swing.*
 
 class QueryProcessorDataSource {
     private var panel: JPanel? = null
-    private var scriptFile: TextFieldWithBrowseButton? = null
+
+    private var localFilePath: TextFieldWithBrowseButton? = null
+
+    private var types: ButtonGroup = ButtonGroup()
+    private var localFileType: JRadioButton? = null
+    private var activeEditorFileType: JRadioButton? = null
 
     var path: String?
-        get() = scriptFile!!.textField.text.nullize()
+        get() {
+            return when (type) {
+                QueryProcessorDataSourceType.LocalFile -> localFilePath!!.textField.text.nullize()
+                QueryProcessorDataSourceType.ActiveEditorFile -> null
+            }
+        }
         set(value) {
-            scriptFile!!.textField.text = value ?: ""
+            when (type) {
+                QueryProcessorDataSourceType.LocalFile -> localFilePath!!.textField.text = value ?: ""
+                QueryProcessorDataSourceType.ActiveEditorFile -> {
+                }
+            }
         }
 
     var type: QueryProcessorDataSourceType
-        get() = QueryProcessorDataSourceType.LocalFile
+        get() {
+            return when {
+                localFileType!!.isSelected -> QueryProcessorDataSourceType.LocalFile
+                activeEditorFileType!!.isSelected -> QueryProcessorDataSourceType.ActiveEditorFile
+                else -> QueryProcessorDataSourceType.LocalFile
+            }
+        }
         set(value) {
+            when (value) {
+                QueryProcessorDataSourceType.LocalFile -> localFileType!!.isSelected = true
+                QueryProcessorDataSourceType.ActiveEditorFile -> activeEditorFileType!!.isSelected = true
+            }
         }
 
     fun addBrowseFolderListener(
@@ -43,18 +67,17 @@ class QueryProcessorDataSource {
         project: Project?,
         fileChooserDescriptor: FileChooserDescriptor
     ) {
-        scriptFile!!.addBrowseFolderListener(title, description, project, fileChooserDescriptor)
+        localFilePath!!.addBrowseFolderListener(title, description, project, fileChooserDescriptor)
     }
 
     fun addActionListener(listener: () -> Unit) {
-        scriptFile!!.textField.addActionListener { listener() }
+        localFilePath!!.textField.addActionListener { listener() }
     }
 
     fun create(): JComponent {
-        return panel!!
-    }
+        types.add(localFileType)
+        types.add(activeEditorFileType)
 
-    private fun createUIComponents() {
-        scriptFile = TextFieldWithBrowseButton()
+        return panel!!
     }
 }
