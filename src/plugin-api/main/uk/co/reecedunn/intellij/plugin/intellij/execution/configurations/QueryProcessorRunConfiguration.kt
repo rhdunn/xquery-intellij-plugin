@@ -24,7 +24,6 @@ import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.lang.Language
-import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtil
@@ -39,6 +38,19 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.io.File
 
+enum class QueryProcessorDataSourceType {
+    LocalFile;
+
+    fun find(path: String): VirtualFile? {
+        return when (this) {
+            LocalFile -> {
+                val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
+                url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
+            }
+        }
+    }
+}
+
 data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
     var rdfOutputFormat: String? = null,
@@ -46,7 +58,8 @@ data class QueryProcessorRunConfigurationData(
     var server: String? = null,
     var database: String? = null,
     var modulePath: String? = null,
-    var scriptFile: String? = null
+    var scriptFile: String? = null,
+    var scriptSource: QueryProcessorDataSourceType = QueryProcessorDataSourceType.LocalFile
 ) : RunConfigurationOptions()
 
 class QueryProcessorRunConfiguration(
@@ -118,12 +131,15 @@ class QueryProcessorRunConfiguration(
             data.scriptFile = value
         }
 
+    var scriptSource: QueryProcessorDataSourceType
+        get() = data.scriptSource
+        set(value) {
+            data.scriptSource = value
+        }
+
     var scriptFile: VirtualFile?
-        get() {
-            return data.scriptFile?.let {
-                val url = VfsUtil.pathToUrl(it.replace(File.separatorChar, '/'))
-                url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
-            }
+        get() = data.scriptFile?.let {
+            data.scriptSource.find(it)
         }
         set(value) {
             data.scriptFile = value?.canonicalPath
