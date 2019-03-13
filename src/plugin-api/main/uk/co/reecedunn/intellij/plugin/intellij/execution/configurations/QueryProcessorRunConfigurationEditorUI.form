@@ -38,21 +38,10 @@
         </border>
         <children/>
       </grid>
-      <component id="55968" class="javax.swing.JLabel">
+      <component id="b2008" class="javax.swing.JComponent" binding="scriptFileLayout" custom-create="true">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="87" height="16"/>
-          </grid>
+          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <text resource-bundle="messages/PluginApiBundle" key="xquery.configurations.processor.script-file.label"/>
-        </properties>
-      </component>
-      <component id="3151a" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="scriptFile" custom-create="true">
-        <constraints>
-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
       </component>
       <component id="832bb" class="javax.swing.JLabel">
         <constraints>

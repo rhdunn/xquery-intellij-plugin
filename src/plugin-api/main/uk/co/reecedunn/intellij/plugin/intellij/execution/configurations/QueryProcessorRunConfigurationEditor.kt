@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.lang.Language
-import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
@@ -191,19 +190,22 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Option :: Script File
 
-    private var scriptFile: TextFieldWithBrowseButton? = null
+    private var scriptFile: QueryProcessorDataSource? = null
+    private var scriptFileLayout: JComponent? = null
 
     private fun createScriptFileUI() {
         val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
         descriptor.title = PluginApiBundle.message("browser.choose.script-file")
 
-        scriptFile = TextFieldWithBrowseButton()
+        scriptFile = QueryProcessorDataSource()
         scriptFile!!.addBrowseFolderListener(null, null, project, descriptor)
         scriptFile!!.textField.addActionListener {
             if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
                 updateUI(true)
             }
         }
+
+        scriptFileLayout = scriptFile!!.create()
     }
 
     // endregion
