@@ -208,6 +208,22 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
+    // region Option :: Context Item
+
+    private var contextItem: QueryProcessorDataSource? = null
+    private var contextItemLayout: JComponent? = null
+
+    private fun createContextItemUI() {
+        val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
+        descriptor.title = PluginApiBundle.message("browser.choose.context-item")
+
+        contextItem = QueryProcessorDataSource()
+        contextItem!!.addBrowseFolderListener(null, null, project, descriptor)
+
+        contextItemLayout = contextItem!!.create()
+    }
+
+    // endregion
     // region Form
 
     private var updating: JCheckBox? = null
@@ -221,6 +237,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         createModulePathUI()
         createDatabaseUI()
         createScriptFileUI()
+        createContextItemUI()
     }
 
     private fun updateUI(isSparql: Boolean) {
