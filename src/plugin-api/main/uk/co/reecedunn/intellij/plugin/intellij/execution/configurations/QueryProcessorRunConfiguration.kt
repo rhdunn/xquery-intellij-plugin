@@ -36,11 +36,12 @@ import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule as DatabaseModuleImpl
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.io.File
 
 enum class QueryProcessorDataSourceType {
-    LocalFile, ActiveEditorFile;
+    LocalFile, DatabaseModule, ActiveEditorFile;
 
     fun find(path: String?, project: Project): VirtualFile? {
         return when (this) {
@@ -48,6 +49,7 @@ enum class QueryProcessorDataSourceType {
                 val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
                 url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
             }
+            DatabaseModule -> path?.let { DatabaseModuleImpl(path) }
             ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
         }
     }

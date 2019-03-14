@@ -26,21 +26,25 @@ class QueryProcessorDataSource {
     private var panel: JPanel? = null
 
     private var localFilePath: TextFieldWithBrowseButton? = null
+    private var databaseModulePath: JTextField? = null
 
     private var types: ButtonGroup = ButtonGroup()
     private var localFileType: JRadioButton? = null
+    private var databaseModuleType: JRadioButton? = null
     private var activeEditorFileType: JRadioButton? = null
 
     var path: String?
         get() {
             return when (type) {
                 QueryProcessorDataSourceType.LocalFile -> localFilePath!!.textField.text.nullize()
+                QueryProcessorDataSourceType.DatabaseModule -> databaseModulePath!!.text.nullize()
                 QueryProcessorDataSourceType.ActiveEditorFile -> null
             }
         }
         set(value) {
             when (type) {
                 QueryProcessorDataSourceType.LocalFile -> localFilePath!!.textField.text = value ?: ""
+                QueryProcessorDataSourceType.DatabaseModule -> databaseModulePath!!.text = value ?: ""
                 QueryProcessorDataSourceType.ActiveEditorFile -> {
                 }
             }
@@ -50,6 +54,7 @@ class QueryProcessorDataSource {
         get() {
             return when {
                 localFileType!!.isSelected -> QueryProcessorDataSourceType.LocalFile
+                databaseModuleType!!.isSelected -> QueryProcessorDataSourceType.DatabaseModule
                 activeEditorFileType!!.isSelected -> QueryProcessorDataSourceType.ActiveEditorFile
                 else -> QueryProcessorDataSourceType.LocalFile
             }
@@ -57,6 +62,7 @@ class QueryProcessorDataSource {
         set(value) {
             when (value) {
                 QueryProcessorDataSourceType.LocalFile -> localFileType!!.isSelected = true
+                QueryProcessorDataSourceType.DatabaseModule -> databaseModuleType!!.isSelected = true
                 QueryProcessorDataSourceType.ActiveEditorFile -> activeEditorFileType!!.isSelected = true
             }
         }
@@ -76,6 +82,7 @@ class QueryProcessorDataSource {
 
     fun create(): JComponent {
         types.add(localFileType)
+        types.add(databaseModuleType)
         types.add(activeEditorFileType)
 
         return panel!!

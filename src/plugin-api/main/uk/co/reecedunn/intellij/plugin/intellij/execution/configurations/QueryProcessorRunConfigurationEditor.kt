@@ -258,9 +258,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (modulePath!!.textField.text.nullize() != configuration.modulePath)
             return true
-        if (scriptFile!!.path != configuration.scriptFilePath)
-            return true
         if (scriptFile!!.type != configuration.scriptSource)
+            return true
+        if (scriptFile!!.path != configuration.scriptFilePath)
             return true
         return false
     }
@@ -271,8 +271,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         server!!.selectedItem = configuration.server
         database!!.selectedItem = configuration.database
         modulePath!!.textField.text = configuration.modulePath ?: ""
-        scriptFile!!.path = configuration.scriptFilePath
         scriptFile!!.type = configuration.scriptSource
+        scriptFile!!.path = configuration.scriptFilePath
 
         updateUI(languages[0].getLanguageMimeTypes()[0] == "application/sparql-query")
     }
@@ -283,8 +283,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String
         configuration.modulePath = modulePath!!.textField.text.nullize()
-        configuration.scriptFilePath = scriptFile!!.path
         configuration.scriptSource = scriptFile!!.type
+        configuration.scriptFilePath = scriptFile!!.path
     }
 
     // endregion
