@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
@@ -54,8 +55,13 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         queryParams.addProperty("mode", mode)
         queryParams.addProperty("mimetype", language.getLanguageMimeTypes()[0])
 
-        queryParams.addProperty("module-path", "")
-        queryParams.addProperty("query", query.decode()!!)
+        if (query is DatabaseModule) {
+            queryParams.addProperty("module-path", query.path)
+            queryParams.addProperty("query", "")
+        } else {
+            queryParams.addProperty("module-path", "")
+            queryParams.addProperty("query", query.decode()!!)
+        }
         return queryParams
     }
 

@@ -27,7 +27,7 @@ class DatabaseModule(private val path: String) : VirtualFile() {
 
     override fun getFileSystem(): VirtualFileSystem = TODO("not implemented")
 
-    override fun getPath(): String = TODO("not implemented")
+    override fun getPath(): String = path
 
     override fun isDirectory(): Boolean = TODO("not implemented")
 
