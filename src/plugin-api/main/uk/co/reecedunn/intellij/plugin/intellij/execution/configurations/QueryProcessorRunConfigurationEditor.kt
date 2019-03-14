@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
-import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -211,15 +210,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Form
 
-    private var queryDivider: JPanel? = null
-    private var databaseDivider: JPanel? = null
-
     private var updating: JCheckBox? = null
 
     private fun createUIComponents() {
-        queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
-        databaseDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.database-group.label"))
-
         updating = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.updating.label"))
 
         createQueryProcessorUI()
