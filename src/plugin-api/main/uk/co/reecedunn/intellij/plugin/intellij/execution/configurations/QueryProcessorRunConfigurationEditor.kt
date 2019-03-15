@@ -284,6 +284,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             // Use "Input" instead of "Context Item" for XSLT queries.
             val title = PluginApiBundle.message("xquery.configurations.processor.group.input.label")
             tabbedPane!!.setTitleAt(tabbedPane!!.indexOfComponent(contextItemTab), title)
+        } else if (languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null) {
+            // Server-side JS, SPARQL, and SQL queries don't support an input/context item; XSLT, XQuery, and XPath do.
+            tabbedPane!!.removeTabAt(tabbedPane!!.indexOfComponent(contextItemTab))
         }
 
         queryProcessor!!.childComponent.selectedItem = configuration.processor
