@@ -217,7 +217,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
         descriptor.title = PluginApiBundle.message("browser.choose.context-item")
 
-        contextItem = QueryProcessorDataSource()
+        contextItem = QueryProcessorDataSource(allowUnspecified = true)
         contextItem!!.addBrowseFolderListener(null, null, project, descriptor)
 
         contextItemLayout = contextItem!!.create()
@@ -283,6 +283,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         modulePath!!.textField.text = configuration.modulePath ?: ""
         scriptFile!!.type = configuration.scriptSource
         scriptFile!!.path = configuration.scriptFilePath
+        contextItem!!.type = null
 
         updateUI(languages[0].getLanguageMimeTypes()[0] == "application/sparql-query")
     }
@@ -293,7 +294,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String
         configuration.modulePath = modulePath!!.textField.text.nullize()
-        configuration.scriptSource = scriptFile!!.type
+        configuration.scriptSource = scriptFile?.type!!
         configuration.scriptFilePath = scriptFile!!.path
     }
 

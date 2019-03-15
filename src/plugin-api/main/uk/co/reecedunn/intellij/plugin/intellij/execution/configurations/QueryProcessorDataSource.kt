@@ -22,13 +22,14 @@ import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import javax.swing.*
 
-class QueryProcessorDataSource {
+class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     private var panel: JPanel? = null
 
     private var localFilePath: TextFieldWithBrowseButton? = null
     private var databaseModulePath: JTextField? = null
 
     private var types: ButtonGroup = ButtonGroup()
+    private var notSpecifiedType: JRadioButton? = null
     private var localFileType: JRadioButton? = null
     private var databaseModuleType: JRadioButton? = null
     private var activeEditorFileType: JRadioButton? = null
@@ -36,6 +37,7 @@ class QueryProcessorDataSource {
     var path: String?
         get() {
             return when (type) {
+                null -> null
                 QueryProcessorDataSourceType.LocalFile -> localFilePath!!.textField.text.nullize()
                 QueryProcessorDataSourceType.DatabaseModule -> databaseModulePath!!.text.nullize()
                 QueryProcessorDataSourceType.ActiveEditorFile -> null
@@ -50,9 +52,10 @@ class QueryProcessorDataSource {
             }
         }
 
-    var type: QueryProcessorDataSourceType
+    var type: QueryProcessorDataSourceType?
         get() {
             return when {
+                notSpecifiedType!!.isSelected -> null
                 localFileType!!.isSelected -> QueryProcessorDataSourceType.LocalFile
                 databaseModuleType!!.isSelected -> QueryProcessorDataSourceType.DatabaseModule
                 activeEditorFileType!!.isSelected -> QueryProcessorDataSourceType.ActiveEditorFile
@@ -61,6 +64,13 @@ class QueryProcessorDataSource {
         }
         set(value) {
             when (value) {
+                null -> {
+                    if (allowUnspecified) {
+                        notSpecifiedType!!.isSelected = true
+                    } else {
+                        localFileType!!.isSelected = true
+                    }
+                }
                 QueryProcessorDataSourceType.LocalFile -> localFileType!!.isSelected = true
                 QueryProcessorDataSourceType.DatabaseModule -> databaseModuleType!!.isSelected = true
                 QueryProcessorDataSourceType.ActiveEditorFile -> activeEditorFileType!!.isSelected = true
@@ -81,6 +91,12 @@ class QueryProcessorDataSource {
     }
 
     fun create(): JComponent {
+        if (allowUnspecified) {
+            types.add(notSpecifiedType)
+        } else {
+            notSpecifiedType!!.isVisible = false
+        }
+
         types.add(localFileType)
         types.add(databaseModuleType)
         types.add(activeEditorFileType)
