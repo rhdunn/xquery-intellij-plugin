@@ -301,8 +301,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.modulePath = modulePath!!.textField.text.nullize()
         configuration.scriptSource = scriptFile?.type!!
         configuration.scriptFilePath = scriptFile!!.path
-        configuration.contextItemSource = scriptFile?.type!!
-        configuration.contextItemValue = scriptFile!!.path
+        configuration.contextItemSource = contextItem?.type
+        configuration.contextItemValue = contextItem?.path
     }
 
     // endregion
