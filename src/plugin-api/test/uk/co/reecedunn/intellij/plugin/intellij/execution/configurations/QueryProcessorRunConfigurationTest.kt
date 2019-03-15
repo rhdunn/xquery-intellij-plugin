@@ -55,7 +55,10 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(settings.server, `is`(nullValue()))
         assertThat(settings.database, `is`(nullValue()))
         assertThat(settings.modulePath, `is`(nullValue()))
+        assertThat(settings.scriptSource, `is`(QueryProcessorDataSourceType.LocalFile))
         assertThat(settings.scriptFilePath, `is`(nullValue()))
+        assertThat(settings.contextItemSource, `is`(nullValue()))
+        assertThat(settings.contextItemValue, `is`(nullValue()))
 
         val state = settings.getState()!!
         assertThat(state.processorId, `is`(nullValue()))
@@ -64,13 +67,18 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(state.server, `is`(nullValue()))
         assertThat(state.database, `is`(nullValue()))
         assertThat(state.modulePath, `is`(nullValue()))
+        assertThat(state.scriptSource, `is`(QueryProcessorDataSourceType.LocalFile))
         assertThat(state.scriptFile, `is`(nullValue()))
+        assertThat(state.contextItemSource, `is`(nullValue()))
+        assertThat(state.contextItem, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("setting: processor ID")
     fun processorId() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" />
             <option name="modulePath" />
             <option name="processorId" value="1" />
@@ -94,6 +102,8 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @DisplayName("setting: RDF output format")
     fun rdfOutputFormat() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" />
             <option name="modulePath" />
             <option name="processorId" />
@@ -117,6 +127,8 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @DisplayName("setting: updating")
     fun updating() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" />
             <option name="modulePath" />
             <option name="processorId" />
@@ -140,6 +152,8 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @DisplayName("setting: server")
     fun server() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" />
             <option name="modulePath" />
             <option name="processorId" />
@@ -163,6 +177,8 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @DisplayName("setting: database")
     fun database() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" value="test-database" />
             <option name="modulePath" />
             <option name="processorId" />
@@ -186,6 +202,8 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @DisplayName("setting: module path")
     fun modulePath() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" />
             <option name="modulePath" value="/test/path" />
             <option name="processorId" />
@@ -206,9 +224,36 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     }
 
     @Test
-    @DisplayName("setting: script file")
-    fun scriptFile() {
+    @DisplayName("setting: script file source")
+    fun scriptFileSource() {
         val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="scriptSource" value="ActiveEditorFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+
+        val factory = XPathConfigurationType().configurationFactories[0]
+        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+
+        settings.scriptSource = QueryProcessorDataSourceType.ActiveEditorFile
+        assertThat(settings.scriptSource, `is`(QueryProcessorDataSourceType.ActiveEditorFile))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized)))
+    }
+
+    @Test
+    @DisplayName("setting: script file path")
+    fun scriptFilePath() {
+        val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
             <option name="database" />
             <option name="modulePath" />
             <option name="processorId" />
@@ -229,6 +274,56 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     }
 
     @Test
+    @DisplayName("setting: context item source")
+    fun contextItemSource() {
+        val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" value="ActiveEditorFile" />
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="scriptSource" value="LocalFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+
+        val factory = XPathConfigurationType().configurationFactories[0]
+        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+
+        settings.contextItemSource = QueryProcessorDataSourceType.ActiveEditorFile
+        assertThat(settings.contextItemSource, `is`(QueryProcessorDataSourceType.ActiveEditorFile))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized)))
+    }
+
+    @Test
+    @DisplayName("setting: context item value")
+    fun contextItemValue() {
+        val serialized = """<configuration>
+            <option name="contextItem" value="/test/input.xml" />
+            <option name="contextItemSource" />
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="scriptSource" value="LocalFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+
+        val factory = XPathConfigurationType().configurationFactories[0]
+        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+
+        settings.contextItemValue = "/test/input.xml"
+        assertThat(settings.contextItemValue, `is`("/test/input.xml"))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized)))
+    }
+
+    @Test
     @DisplayName("state; get")
     fun getState() {
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -240,7 +335,10 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.server = "test-server"
         settings.database = "test-database"
         settings.modulePath = "/test/path"
+        settings.scriptSource = QueryProcessorDataSourceType.DatabaseModule
         settings.scriptFilePath = "/test/script.xqy"
+        settings.contextItemSource = QueryProcessorDataSourceType.LocalFile
+        settings.contextItemValue = "/test/input.xml"
 
         val state = settings.getState()!!
         assertThat(state.processorId, `is`(1))
@@ -249,7 +347,10 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(state.server, `is`("test-server"))
         assertThat(state.database, `is`("test-database"))
         assertThat(state.modulePath, `is`("/test/path"))
+        assertThat(state.scriptSource, `is`(QueryProcessorDataSourceType.DatabaseModule))
         assertThat(state.scriptFile, `is`("/test/script.xqy"))
+        assertThat(state.contextItemSource, `is`(QueryProcessorDataSourceType.LocalFile))
+        assertThat(state.contextItem, `is`("/test/input.xml"))
     }
 
     @Test
@@ -264,7 +365,10 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         state.server = "test-server"
         state.database = "test-database"
         state.modulePath = "/test/path"
+        state.scriptSource = QueryProcessorDataSourceType.DatabaseModule
         state.scriptFile = "/test/script.xqy"
+        state.contextItemSource = QueryProcessorDataSourceType.LocalFile
+        state.contextItem = "/test/input.xml"
 
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
         settings.loadState(state)
@@ -275,7 +379,10 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(settings.server, `is`("test-server"))
         assertThat(settings.database, `is`("test-database"))
         assertThat(settings.modulePath, `is`("/test/path"))
+        assertThat(settings.scriptSource, `is`(QueryProcessorDataSourceType.DatabaseModule))
         assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
+        assertThat(settings.contextItemSource, `is`(QueryProcessorDataSourceType.LocalFile))
+        assertThat(settings.contextItemValue, `is`("/test/input.xml"))
     }
 
     // region Serialization Helpers

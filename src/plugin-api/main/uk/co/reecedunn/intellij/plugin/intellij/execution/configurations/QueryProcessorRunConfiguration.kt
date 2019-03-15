@@ -63,7 +63,9 @@ data class QueryProcessorRunConfigurationData(
     var database: String? = null,
     var modulePath: String? = null,
     var scriptFile: String? = null,
-    var scriptSource: QueryProcessorDataSourceType = QueryProcessorDataSourceType.LocalFile
+    var scriptSource: QueryProcessorDataSourceType = QueryProcessorDataSourceType.LocalFile,
+    var contextItem: String? = null,
+    var contextItemSource: QueryProcessorDataSourceType? = null
 ) : RunConfigurationOptions()
 
 class QueryProcessorRunConfiguration(
@@ -72,11 +74,21 @@ class QueryProcessorRunConfiguration(
     private vararg val languages: Language
 ) :
     RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, "") {
-    // region QueryProcessorRunConfigurationSettings
 
     @Suppress("UsePropertyAccessSyntax") // IntelliJ <= 2018.2 compatibility.
     private val data: QueryProcessorRunConfigurationData
         get() = getState()!!
+
+    val language: Language
+        get() {
+            return if (languages.size == 1) {
+                languages[0]
+            } else {
+                languages.findByAssociations(scriptFilePath ?: "") ?: languages[0]
+            }
+        }
+
+    // region Query Processor
 
     var processorId: Int?
         get() = data.processorId
@@ -90,11 +102,17 @@ class QueryProcessorRunConfiguration(
             data.processorId = value?.id
         }
 
+    // endregion
+    // region RDF Output Format
+
     var rdfOutputFormat: Language?
         get() = RDF_FORMATS.find { it.getLanguageMimeTypes().contains(data.rdfOutputFormat) }
         set(value) {
             data.rdfOutputFormat = value?.getLanguageMimeTypes()?.get(0)
         }
+
+    // endregion
+    // region Updating
 
     var updating: Boolean
         get() = data.updating
@@ -102,14 +120,8 @@ class QueryProcessorRunConfiguration(
             data.updating = value
         }
 
-    val language: Language
-        get() {
-            return if (languages.size == 1) {
-                languages[0]
-            } else {
-                languages.findByAssociations(scriptFilePath ?: "") ?: languages[0]
-            }
-        }
+    // endregion
+    // region Server
 
     var server: String?
         get() = data.server
@@ -117,17 +129,26 @@ class QueryProcessorRunConfiguration(
             data.server = value
         }
 
+    // endregion
+    // region Database
+
     var database: String?
         get() = data.database
         set(value) {
             data.database = value
         }
 
+    // endregion
+    // region Module Path
+
     var modulePath: String?
         get() = data.modulePath
         set(value) {
             data.modulePath = value
         }
+
+    // endregion
+    // region Script File
 
     var scriptFilePath: String?
         get() = data.scriptFile
@@ -141,11 +162,24 @@ class QueryProcessorRunConfiguration(
             data.scriptSource = value
         }
 
-    var scriptFile: VirtualFile?
-        get() = data.scriptSource.find(data.scriptFile, project)
+    val scriptFile get(): VirtualFile? = data.scriptSource.find(data.scriptFile, project)
+
+    // endregion
+    // region Context Item
+
+    var contextItemValue: String?
+        get() = data.contextItem
         set(value) {
-            data.scriptFile = value?.canonicalPath
+            data.contextItem = value
         }
+
+    var contextItemSource: QueryProcessorDataSourceType?
+        get() = data.contextItemSource
+        set(value) {
+            data.contextItemSource = value
+        }
+
+    val contextItem get(): VirtualFile? = data.contextItemSource?.find(data.contextItem, project)
 
     // endregion
     // region RunConfigurationBase

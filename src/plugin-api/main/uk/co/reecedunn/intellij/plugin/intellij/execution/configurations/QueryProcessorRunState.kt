@@ -42,6 +42,7 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
                 query.database = configuration.database ?: ""
                 query.server = configuration.server ?: ""
                 query.modulePath = configuration.modulePath ?: ""
+                configuration.contextItem?.let { query.bindContextItem(it, null) }
                 RunnableQueryProcessHandler(query)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
@@ -51,6 +52,7 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
                 query.database = configuration.database ?: ""
                 query.server = configuration.server ?: ""
                 query.modulePath = configuration.modulePath ?: ""
+                configuration.contextItem?.let { query.bindContextItem(it, null) }
                 ProfileableQueryProcessHandler(query)
             }
             else -> throw UnsupportedOperationException()
