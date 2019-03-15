@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import com.google.gson.JsonObject
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
@@ -24,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
@@ -47,14 +50,21 @@ internal class MarkLogicRunQuery(
 
     override var modulePath: String = ""
 
+    private var contextValue: String = ""
+    private var contextPath: String = ""
+
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
         types.addProperty(name, type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
-        // MarkLogic fixes the context item to the content of the MarkLogic database.
-        throw UnsupportedOperationException()
+        // NOTE: Only supported for XSLT files.
+        when (value) {
+            is DatabaseModule -> contextPath = value.path
+            is VirtualFile -> contextValue = value.decode()!!
+            else -> contextValue = value.toString()
+        }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
@@ -66,6 +76,8 @@ internal class MarkLogicRunQuery(
         params.addProperty("server", server)
         params.addProperty("database", database)
         params.addProperty("module-root", modulePath)
+        params.addProperty("context-value", contextValue)
+        params.addProperty("context-path", contextPath)
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()

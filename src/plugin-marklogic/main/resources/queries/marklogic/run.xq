@@ -28,7 +28,8 @@ declare option o:implementation "marklogic/6.0";
  : @param $query The query script to evaluate, or "" for invoked modules.
  : @param $vars A map of the variable values by the variable name.
  : @param $types A map of the variable types by the variable name.
- : @param $context The context item for XSLT queries.
+ : @param $context-value The context item for XSLT queries as an XML object.
+ : @param $context-path The context item for XSLT queries as a module file.
  : @param $rdf-output-format The mimetype to format sem:triple results as, or "" to leave them as is.
  : @param $updating An updating query if "true", or a non-updating query if "false".
  : @param $server The name of the server to use, or "" to not use a server.
@@ -55,7 +56,8 @@ declare variable $module-path as xs:string external;
 declare variable $query as xs:string external;
 declare variable $vars as xs:string external;
 declare variable $types as xs:string external;
-declare variable $context as xs:string external := "";
+declare variable $context-value as xs:string external;
+declare variable $context-path as xs:string external;
 declare variable $rdf-output-format as xs:string external;
 declare variable $updating as xs:string external;
 declare variable $server as xs:string external;
@@ -72,6 +74,15 @@ declare function local:version() {
 
 declare function local:function($ref as xs:string) {
     try { xdmp:eval($ref) } catch * { () }
+};
+
+declare function local:item($path as xs:string, $value as xs:string, $type as xs:string) {
+    if (string-length($value) ne 0) then
+        xdmp:unquote($value)
+    else if (string-length($path) ne 0) then
+        doc($path)
+    else
+        ()
 };
 
 declare function local:cast-as($value, $type) {
@@ -323,11 +334,7 @@ declare function local:xquery() as item()* {
 
 declare function local:xslt() as item()* {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
-    let $input :=
-        if (string-length($context) ne 0) then
-            xdmp:unquote($context)
-        else
-            ()
+    let $input := local:item($context-path, $context-value, "application/xml")
     let $options := local:eval-options()
     return if (string-length($query) ne 0) then
         switch ($mode)
