@@ -22,10 +22,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageCellRenderer
-import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
-import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
-import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
+import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
@@ -226,6 +223,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Form
 
+    private var tabbedPane: JTabbedPane? = null
+    private var contextItemTab: JPanel? = null
+
     private var updating: JCheckBox? = null
 
     private fun createUIComponents() {
@@ -248,7 +248,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         if (isSparql) {
             val path = scriptFile!!.path ?: ""
             val lang = languages.findByAssociations(path) ?: languages[0]
-            updating!!.isSelected = lang.getLanguageMimeTypes()[0] != "application/sparql-query"
+            updating!!.isSelected = !lang.getLanguageMimeTypes().contains("application/sparql-query")
         }
     }
 
@@ -280,6 +280,12 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
+        if (languages.findByMimeType { it == "application/xslt+xml" } != null) {
+            // Use "Input" instead of "Context Item" for XSLT queries.
+            val title = PluginApiBundle.message("xquery.configurations.processor.group.input.label")
+            tabbedPane!!.setTitleAt(tabbedPane!!.indexOfComponent(contextItemTab), title)
+        }
+
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
         server!!.selectedItem = configuration.server
@@ -290,7 +296,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         contextItem!!.type = configuration.contextItemSource
         contextItem!!.path = configuration.contextItemValue
 
-        updateUI(languages[0].getLanguageMimeTypes()[0] == "application/sparql-query")
+        updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {

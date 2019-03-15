@@ -44,9 +44,7 @@ fun Array<out Language>.getAssociations(): List<FileNameMatcher> {
 
 fun Array<out Language>.findByAssociations(path: String): Language? {
     return find { language ->
-        language.getAssociations().find { association ->
-            association.accept(path)
-        } != null
+        language.getAssociations().find { it.accept(path) } != null
     }
 }
 
@@ -56,4 +54,10 @@ fun Language.getLanguageMimeTypes(): Array<String> {
         this.getUserData(LanguageData.KEY)?.mimeTypes ?: mimeTypes
     else
         mimeTypes
+}
+
+fun Array<out Language>.findByMimeType(predicate: (String) -> Boolean): Language? {
+    return find { language ->
+        language.getLanguageMimeTypes().find { predicate(it) } != null
+    }
 }
