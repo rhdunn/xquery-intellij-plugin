@@ -16,7 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import java.util.*
 
-interface ProfileReportListener {
+interface ProfileReportListener : EventListener {
     fun onProfileReport(result: ProfileReport)
 }

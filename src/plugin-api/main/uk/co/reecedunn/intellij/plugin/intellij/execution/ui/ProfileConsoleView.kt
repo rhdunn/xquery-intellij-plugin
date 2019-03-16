@@ -31,7 +31,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.Color
@@ -122,7 +121,7 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
     override fun attachToProcess(processHandler: ProcessHandler?) {
         (processHandler as? ProfileableQueryProcessHandler)?.let {
             it.queryResultListener = this
-            it.profileReportListener = this
+            it.addProfileReportListener(this, this)
         }
     }
 

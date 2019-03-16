@@ -15,22 +15,30 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
+import com.intellij.openapi.Disposable
+import uk.co.reecedunn.intellij.plugin.core.event.Multicaster
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
-import java.lang.ref.WeakReference
 
 class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : QueryProcessHandlerBase() {
     // region Profile Report
 
-    private var mProfileReportListener: WeakReference<ProfileReportListener>? = null
-    var profileReportListener: ProfileReportListener?
-        get() = mProfileReportListener?.get()
-        set(value) {
-            mProfileReportListener = value?.let { WeakReference(it) }
-        }
+    private val profileReportListeners = Multicaster(ProfileReportListener::class.java)
+
+    fun addProfileReportListener(listener: ProfileReportListener) {
+        profileReportListeners.addListener(listener)
+    }
+
+    fun addProfileReportListener(listener: ProfileReportListener, parentDisposable: Disposable) {
+        profileReportListeners.addListener(listener, parentDisposable)
+    }
+
+    fun removeProfileReportListener(listener: ProfileReportListener) {
+        profileReportListeners.removeListener(listener)
+    }
 
     fun notifyProfileReport(report: ProfileReport) {
-        profileReportListener?.onProfileReport(report)
+        profileReportListeners.eventMulticaster.onProfileReport(report)
     }
 
     // endregion
