@@ -60,7 +60,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
 
 private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
 
-class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListener, ProfileReportListener {
+class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultListener, ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null

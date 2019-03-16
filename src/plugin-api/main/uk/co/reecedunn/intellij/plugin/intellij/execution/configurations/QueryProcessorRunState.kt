@@ -29,7 +29,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileConsoleView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileReportTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryResultTableView
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileState {
@@ -73,7 +73,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
     private fun createConsole(executor: Executor): ConsoleView? {
         return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> QueryResultTableView()
-            DefaultProfileExecutor.EXECUTOR_ID -> ProfileConsoleView(environment.project)
+            DefaultProfileExecutor.EXECUTOR_ID -> ProfileReportTableView(environment.project)
             else -> throw UnsupportedOperationException()
         }
     }
