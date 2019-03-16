@@ -15,21 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
+import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
-import com.intellij.execution.configurations.CommandLineState
+import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.ui.ConsoleView
+import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryResultConsoleView
 
-class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
-    override fun startProcess(): ProcessHandler {
+class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileState {
+    override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
+        val processHandler = startProcess()
+        val console = createConsole(executor!!)
+        console?.attachToProcess(processHandler)
+        return DefaultExecutionResult(console, processHandler, *createActions(console, processHandler, executor))
+    }
+
+    private fun startProcess(): ProcessHandler {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
         val source = configuration.scriptFile
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
@@ -59,11 +70,19 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
         }
     }
 
-    override fun createConsole(executor: Executor): ConsoleView? {
+    private fun createConsole(executor: Executor): ConsoleView? {
         return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> QueryResultConsoleView()
             DefaultProfileExecutor.EXECUTOR_ID -> ProfileConsoleView(environment.project)
             else -> throw UnsupportedOperationException()
         }
+    }
+
+    private fun createActions(
+        console: ConsoleView?,
+        processHandler: ProcessHandler,
+        executor: Executor?
+    ): Array<AnAction> {
+        return AnAction.EMPTY_ARRAY
     }
 }
