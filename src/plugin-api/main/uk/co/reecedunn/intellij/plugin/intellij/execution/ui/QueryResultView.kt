@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.io.PrintWriter
 import java.io.StringWriter
 
-class QueryResultTextView(project: Project) : TextConsoleView(project), QueryResultListener {
+class QueryResultView(project: Project) : TextConsoleView(project), QueryResultListener {
     // region ConsoleView
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
