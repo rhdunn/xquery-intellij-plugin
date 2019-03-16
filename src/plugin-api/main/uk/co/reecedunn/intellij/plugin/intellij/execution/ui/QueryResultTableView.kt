@@ -29,7 +29,7 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JTable
 
-class QueryResultConsoleView : ConsoleView, QueryResultListener {
+class QueryResultTableView : ConsoleView, QueryResultListener {
     // region UI
 
     private var panel: JPanel? = null
