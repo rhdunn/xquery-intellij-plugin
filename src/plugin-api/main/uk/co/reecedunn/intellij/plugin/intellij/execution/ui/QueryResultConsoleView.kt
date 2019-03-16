@@ -69,7 +69,7 @@ class QueryResultConsoleView : ConsoleView, QueryResultListener {
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        (processHandler as? QueryProcessHandlerBase)?.queryResultListener = this
+        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
     }
 
     override fun getPreferredFocusableComponent(): JComponent = component

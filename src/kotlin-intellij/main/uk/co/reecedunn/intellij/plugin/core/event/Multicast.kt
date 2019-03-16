@@ -48,7 +48,7 @@ class Multicaster<T : EventListener>(listenerClass: Class<T>) {
         return Proxy.newProxyInstance(listenerClass.classLoader, arrayOf(listenerClass)) { `object`, method, params ->
             listeners.forEach {
                 try {
-                    method.invoke(it, *params)
+                    method.invoke(it, *(params ?: arrayOf()))
                 } catch (e: Throwable) {
                     if (e is InvocationTargetException && e.cause is ProcessCanceledException) {
                         LOG.info(e)

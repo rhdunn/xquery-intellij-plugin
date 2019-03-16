@@ -16,40 +16,42 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.process.ProcessOutputTypes
+import com.intellij.openapi.Disposable
+import uk.co.reecedunn.intellij.plugin.core.event.Multicaster
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.io.OutputStream
-import java.lang.ref.WeakReference
 
 abstract class QueryProcessHandlerBase : ProcessHandler() {
     // region Profile Report
 
-    private var mQueryResultListener: WeakReference<QueryResultListener>? = null
-    var queryResultListener: QueryResultListener?
-        get() = mQueryResultListener?.get()
-        set(value) {
-            mQueryResultListener = value?.let { WeakReference(it) }
-        }
+    private val queryResultListeners = Multicaster(QueryResultListener::class.java)
+
+    fun addQueryResultListener(listener: QueryResultListener) {
+        queryResultListeners.addListener(listener)
+    }
+
+    fun addQueryResultListener(listener: QueryResultListener, parentDisposable: Disposable) {
+        queryResultListeners.addListener(listener, parentDisposable)
+    }
+
+    fun removeQueryResultListener(listener: QueryResultListener) {
+        queryResultListeners.removeListener(listener)
+    }
 
     fun notifyBeginResults() {
-        queryResultListener?.onBeginResults()
+        queryResultListeners.eventMulticaster.onBeginResults()
     }
 
     fun notifyEndResults() {
-        queryResultListener?.onEndResults()
+        queryResultListeners.eventMulticaster.onEndResults()
     }
 
     fun notifyException(e: Throwable) {
-        queryResultListener?.onException(e) ?: {
-            e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
-        }()
+        queryResultListeners.eventMulticaster.onException(e)
     }
 
     fun notifyResult(result: QueryResult) {
-        queryResultListener?.onQueryResult(result) ?: {
-            notifyTextAvailable("----- ${result.type} [${result.mimetype}]\n", ProcessOutputTypes.STDOUT)
-            notifyTextAvailable("${result.value}\n", ProcessOutputTypes.STDOUT)
-        }()
+        queryResultListeners.eventMulticaster.onQueryResult(result)
     }
 
     // endregion

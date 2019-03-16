@@ -16,8 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import java.util.*
 
-interface QueryResultListener {
+interface QueryResultListener : EventListener {
     fun onBeginResults()
 
     fun onEndResults()

@@ -120,7 +120,7 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         (processHandler as? ProfileableQueryProcessHandler)?.let {
-            it.queryResultListener = this
+            it.addQueryResultListener(this, this)
             it.addProfileReportListener(this, this)
         }
     }
