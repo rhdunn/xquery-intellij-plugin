@@ -130,7 +130,7 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     EXPRESSION_COLUMN
 )
 
-class ProfileEntryTable : TableView<ProfileEntry>() {
+class ProfileReportTable : TableView<ProfileEntry>() {
     init {
         setModelAndUpdateColumns(ListTableModel<ProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)

@@ -76,7 +76,7 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
         metadata = JPanel()
         metadata!!.border = PANEL_BORDER
 
-        results = ProfileEntryTable()
+        results = ProfileReportTable()
     }
 
     // endregion
@@ -150,21 +150,21 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
     // region QueryResultListener
 
     override fun onBeginResults() {
-        (results as ProfileEntryTable).let {
+        (results as ProfileReportTable).let {
             it.isRunning = true
             it.hasException = false
         }
     }
 
     override fun onEndResults() {
-        (results as ProfileEntryTable).isRunning = false
+        (results as ProfileReportTable).isRunning = false
     }
 
     override fun onQueryResult(result: QueryResult) {
     }
 
     override fun onException(e: Throwable) {
-        (results as ProfileEntryTable).hasException = true
+        (results as ProfileReportTable).hasException = true
     }
 
     // endregion
@@ -176,7 +176,7 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
         created!!.text = PluginApiBundle.message("profile.console.created.label", formatDate(result.created))
         version!!.text = PluginApiBundle.message("profile.console.version.label", result.version)
-        (results as ProfileEntryTable).let {
+        (results as ProfileReportTable).let {
             it.removeAll()
             result.results.forEach { entry -> it.addRow(entry) }
         }
