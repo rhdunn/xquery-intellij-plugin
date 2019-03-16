@@ -23,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHa
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import java.io.PrintWriter
+import java.io.StringWriter
 
 class QueryResultTextView(project: Project) : ConsoleViewImpl(project, false), QueryResultListener {
     override fun attachToProcess(processHandler: ProcessHandler?) {
@@ -45,12 +47,17 @@ class QueryResultTextView(project: Project) : ConsoleViewImpl(project, false), Q
     }
 
     override fun onException(e: Throwable) {
-        val result =
-            if (e is QueryError)
-                QueryResult(0, e, "fn:error", "text/plain")
-            else
-                QueryResult(0, e, e.javaClass.name, "text/plain")
-        onQueryResult(result)
+        print("${e.message!!}\n", ConsoleViewContentType.ERROR_OUTPUT)
+        if (e is QueryError) {
+            print(
+                "    at ${e.module ?: ""}:${e.lineNumber ?: 0}:${e.columnNumber ?: 0}\n",
+                ConsoleViewContentType.ERROR_OUTPUT
+            )
+        } else {
+            val writer = StringWriter()
+            e.printStackTrace(PrintWriter(writer))
+            print(writer.buffer.toString(), ConsoleViewContentType.ERROR_OUTPUT)
+        }
     }
 
     // endregion
