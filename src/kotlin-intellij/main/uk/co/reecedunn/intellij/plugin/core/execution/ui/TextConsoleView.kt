@@ -17,30 +17,36 @@ package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
 import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.HyperlinkInfo
+import com.intellij.execution.impl.ConsoleViewUtil
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.project.Project
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-open class TextConsoleView(project: Project) : JPanel(BorderLayout()), ConsoleView {
+open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), ConsoleView {
+    var editor: EditorEx? = null
+        private set
+
     override fun hasDeferredOutput(): Boolean = false
 
     override fun clear() {
+        editor!!.document.setText("")
     }
 
     override fun setHelpId(helpId: String) {
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
+        val doc = editor!!.document
+        doc.insertString(doc.textLength, text)
     }
 
-    override fun getContentSize(): Int {
-        return 0
-    }
+    override fun getContentSize(): Int = editor?.document?.textLength ?: 0
 
     override fun setOutputPaused(value: Boolean) {
     }
@@ -49,7 +55,14 @@ open class TextConsoleView(project: Project) : JPanel(BorderLayout()), ConsoleVi
         return AnAction.EMPTY_ARRAY
     }
 
-    override fun getComponent(): JComponent = this
+    override fun getComponent(): JComponent {
+        if (editor == null) {
+            editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
+            editor!!.contextMenuGroupId = null // disabling default context menu
+            add(editor!!.component, BorderLayout.CENTER)
+        }
+        return this
+    }
 
     override fun performWhenNoDeferredOutput(runnable: Runnable) {
     }
