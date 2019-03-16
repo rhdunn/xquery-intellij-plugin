@@ -1,0 +1,57 @@
+/*
+ * Copyright (C) 2019 Reece H. Dunn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
+
+import com.intellij.execution.impl.ConsoleViewImpl
+import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+
+class QueryResultTextView(project: Project) : ConsoleViewImpl(project, false), QueryResultListener {
+    override fun attachToProcess(processHandler: ProcessHandler?) {
+        super.attachToProcess(processHandler)
+        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
+    }
+
+    // region QueryResultListener
+
+    override fun onBeginResults() {
+        clear()
+    }
+
+    override fun onEndResults() {
+    }
+
+    override fun onQueryResult(result: QueryResult) {
+        print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
+        print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+    }
+
+    override fun onException(e: Throwable) {
+        val result =
+            if (e is QueryError)
+                QueryResult(0, e, "fn:error", "text/plain")
+            else
+                QueryResult(0, e, e.javaClass.name, "text/plain")
+        onQueryResult(result)
+    }
+
+    // endregion
+}
