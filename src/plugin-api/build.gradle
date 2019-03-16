@@ -5,6 +5,7 @@ sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
     compile project(':src:intellij-compat')
+    compile project(':src:kotlin-intellij')
     compile project(':src:lang-xdm')
 
     testCompile project(':src:intellij-mock')

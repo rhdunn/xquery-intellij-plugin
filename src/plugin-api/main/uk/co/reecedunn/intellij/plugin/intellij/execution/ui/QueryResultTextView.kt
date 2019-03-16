@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
-import com.intellij.execution.impl.ConsoleViewImpl
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -26,12 +26,14 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.io.PrintWriter
 import java.io.StringWriter
 
-class QueryResultTextView(project: Project) : ConsoleViewImpl(project, false), QueryResultListener {
+class QueryResultTextView(project: Project) : TextConsoleView(project), QueryResultListener {
+    // region ConsoleView
+
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        super.attachToProcess(processHandler)
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
     }
 
+    // endregion
     // region QueryResultListener
 
     override fun onBeginResults() {
