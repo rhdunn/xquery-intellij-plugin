@@ -22,7 +22,11 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
 import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.Project
 import java.awt.BorderLayout
 import javax.swing.JComponent
@@ -52,7 +56,12 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
     }
 
     override fun createConsoleActions(): Array<AnAction> {
-        return AnAction.EMPTY_ARRAY
+        val switchSoftWrapsAction = object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
+            override fun getEditor(e: AnActionEvent): Editor? = editor
+        }
+        return arrayOf(
+            switchSoftWrapsAction
+        )
     }
 
     override fun getComponent(): JComponent {
