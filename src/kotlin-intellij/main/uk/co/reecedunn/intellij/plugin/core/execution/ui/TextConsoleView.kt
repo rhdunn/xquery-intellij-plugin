@@ -26,8 +26,10 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
 import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
 import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.editor.impl.DocumentImpl
 import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.text.StringUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -37,6 +39,12 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
         private set
 
     private var helpId: String? = null
+
+    var emulateCarriageReturn: Boolean = false
+        set(value) {
+            field = value
+            (editor?.document as? DocumentImpl)?.setAcceptSlashR(value)
+        }
 
     // region ConsoleView
 
@@ -51,8 +59,10 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
+        val newText = StringUtil.convertLineSeparators(text, emulateCarriageReturn)
+
         val doc = editor!!.document
-        doc.insertString(doc.textLength, text)
+        doc.insertString(doc.textLength, newText)
     }
 
     override fun getContentSize(): Int = editor?.document?.textLength ?: 0
@@ -75,6 +85,7 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
         if (editor == null) {
             editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
             editor!!.contextMenuGroupId = null // disabling default context menu
+            (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
             add(editor!!.component, BorderLayout.CENTER)
         }
         return this
