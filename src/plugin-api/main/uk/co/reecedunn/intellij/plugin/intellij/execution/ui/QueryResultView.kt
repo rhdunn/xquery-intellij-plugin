@@ -44,7 +44,13 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
     }
 
     override fun onQueryResult(result: QueryResult) {
-        print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
+        when (result.type) {
+            "binary()", "xs:hexBinary", "xs:base64Binary" -> {
+                val length = (result.value as? String)?.length ?: 0
+                print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
+            }
+            else -> print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
+        }
         print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
     }
 
