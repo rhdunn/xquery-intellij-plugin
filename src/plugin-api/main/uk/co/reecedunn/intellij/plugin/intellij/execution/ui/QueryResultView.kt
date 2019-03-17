@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
+import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
@@ -52,7 +53,12 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
                 QueryResultItemTypeColumn(sortable = false),
                 QueryResultMimeTypeColumn(sortable = false)
             )
-            add(JBScrollPane(table), BorderLayout.LINE_END)
+
+            val splitPane = OnePixelSplitter(false)
+            splitPane.firstComponent = createConsoleEditor()
+            splitPane.secondComponent = JBScrollPane(table)
+            splitPane.setHonorComponentsMinimumSize(true)
+            add(splitPane, BorderLayout.CENTER)
         }
         return super.getComponent()
     }

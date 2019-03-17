@@ -48,6 +48,13 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
             (editor?.document as? DocumentImpl)?.setAcceptSlashR(value)
         }
 
+    fun createConsoleEditor(): JComponent {
+        editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
+        editor?.contextMenuGroupId = null // disabling default context menu
+        (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
+        return editor!!.component
+    }
+
     // region ConsoleView
 
     override fun hasDeferredOutput(): Boolean = false
@@ -85,10 +92,7 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
 
     override fun getComponent(): JComponent {
         if (editor == null) {
-            editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
-            editor!!.contextMenuGroupId = null // disabling default context menu
-            (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
-            add(editor!!.component, BorderLayout.CENTER)
+            add(createConsoleEditor(), BorderLayout.CENTER)
         }
         return this
     }
