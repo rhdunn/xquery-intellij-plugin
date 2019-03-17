@@ -55,6 +55,10 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
                 QueryResultMimeTypeColumn(sortable = false)
             )
 
+            table!!.selectionModel.addListSelectionListener {
+                table?.selectedObject?.second?.let { range -> scrollToTop(range.from) }
+            }
+
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = createConsoleEditor()
             splitPane.secondComponent = JBScrollPane(table)

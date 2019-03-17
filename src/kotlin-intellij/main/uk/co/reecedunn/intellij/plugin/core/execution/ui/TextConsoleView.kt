@@ -55,6 +55,17 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
         return editor!!.component
     }
 
+    fun scrollToTop(offset: Int) {
+        ApplicationManager.getApplication().invokeLater {
+            val moveOffset = Math.min(offset, contentSize)
+            val scrolling = editor!!.scrollingModel
+            val caret = editor!!.caretModel
+
+            caret.moveToOffset(moveOffset)
+            scrolling.scrollVertically(editor!!.visualPositionToXY(caret.visualPosition).y)
+        }
+    }
+
     // region ConsoleView
 
     override fun hasDeferredOutput(): Boolean = false
