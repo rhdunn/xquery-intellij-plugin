@@ -20,6 +20,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -76,6 +77,7 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
     }
 
     override fun onQueryResult(result: QueryResult) {
+        val from = contentSize
         when (result.type) {
             "binary()", "xs:hexBinary", "xs:base64Binary" -> {
                 val length = (result.value as? String)?.length ?: 0
@@ -85,7 +87,7 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
         }
         print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
 
-        table?.addRow(result)
+        table?.addRow(result, Range(from, contentSize))
     }
 
     override fun onException(e: Throwable) {

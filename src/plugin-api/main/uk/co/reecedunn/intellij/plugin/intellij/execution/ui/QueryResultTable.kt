@@ -16,41 +16,42 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.ui.table.TableView
+import com.intellij.util.Range
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<QueryResult, String>(
+class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
     PluginApiBundle.message("query.result.table.item-type.column.label")
-), Comparator<QueryResult> {
-    override fun valueOf(item: QueryResult?): String? = item?.type
+), Comparator<Pair<QueryResult, Range<Int>>> {
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): String? = item?.first?.type
 
-    override fun getComparator(): Comparator<QueryResult>? = if (sortable) this else null
+    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
 
-    override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
-        return (o1?.type ?: "").compareTo(o2?.type ?: "")
+    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
+        return (o1?.first?.type ?: "").compareTo(o2?.first?.type ?: "")
     }
 }
 
-class QueryResultMimeTypeColumn(val sortable: Boolean = true) : ColumnInfo<QueryResult, String>(
+class QueryResultMimeTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
     PluginApiBundle.message("query.result.table.mime-type.column.label")
-), Comparator<QueryResult> {
-    override fun valueOf(item: QueryResult?): String? = item?.mimetype
+), Comparator<Pair<QueryResult, Range<Int>>> {
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): String? = item?.first?.mimetype
 
-    override fun getComparator(): Comparator<QueryResult>? = if (sortable) this else null
+    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
 
-    override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
-        return (o1?.mimetype ?: "").compareTo(o2?.mimetype ?: "")
+    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
+        return (o1?.first?.mimetype ?: "").compareTo(o2?.first?.mimetype ?: "")
     }
 }
 
-class QueryResultValueColumn(val sortable: Boolean = true) : ColumnInfo<QueryResult, String>(
+class QueryResultValueColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
     PluginApiBundle.message("query.result.table.value.column.label")
-), Comparator<QueryResult> {
-    override fun valueOf(item: QueryResult?): String? {
-        val value = item?.value
+), Comparator<Pair<QueryResult, Range<Int>>> {
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): String? {
+        val value = item?.first?.value
         return when (value) {
             is QueryError -> value.message
             is Throwable -> value.localizedMessage
@@ -58,16 +59,16 @@ class QueryResultValueColumn(val sortable: Boolean = true) : ColumnInfo<QueryRes
         }
     }
 
-    override fun getComparator(): Comparator<QueryResult>? = if (sortable) this else null
+    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
 
-    override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
-        return o1!!.position.compareTo(o2!!.position)
+    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
+        return o1!!.first.position.compareTo(o2!!.first.position)
     }
 }
 
-class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<QueryResult>() {
+class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryResult, Range<Int>>>() {
     init {
-        setModelAndUpdateColumns(ListTableModel<QueryResult>(*columns))
+        setModelAndUpdateColumns(ListTableModel<Pair<QueryResult, Range<Int>>>(*columns))
         setEnableAntialiasing(true)
 
         updateEmptyText(false, false)
@@ -94,5 +95,5 @@ class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<QueryResult
             updateEmptyText(isRunning, hasException)
         }
 
-    fun addRow(entry: QueryResult) = listTableModel.addRow(entry)
+    fun addRow(entry: QueryResult, range: Range<Int>) = listTableModel.addRow(Pair(entry, range))
 }
