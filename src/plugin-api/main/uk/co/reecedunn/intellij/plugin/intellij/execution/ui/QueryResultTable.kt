@@ -70,16 +70,28 @@ class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<QueryResult
         setModelAndUpdateColumns(ListTableModel<QueryResult>(*columns))
         setEnableAntialiasing(true)
 
-        emptyText.text = PluginApiBundle.message("query.result.table.no-results")
+        updateEmptyText(false, false)
+    }
+
+    private fun updateEmptyText(running: Boolean, exception: Boolean) {
+        if (exception)
+            emptyText.text = PluginApiBundle.message("query.result.table.has-exception")
+        else if (running)
+            emptyText.text = PluginApiBundle.message("query.result.table.results-pending")
+        else
+            emptyText.text = PluginApiBundle.message("query.result.table.no-results")
     }
 
     var isRunning: Boolean = false
         set(value) {
             field = value
-            if (value)
-                emptyText.text = PluginApiBundle.message("query.result.table.results-pending")
-            else
-                emptyText.text = PluginApiBundle.message("query.result.table.no-results")
+            updateEmptyText(isRunning, hasException)
+        }
+
+    var hasException: Boolean = false
+        set(value) {
+            field = value
+            updateEmptyText(isRunning, hasException)
         }
 
     fun addRow(entry: QueryResult) = listTableModel.addRow(entry)

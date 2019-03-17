@@ -36,7 +36,10 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
 
     override fun clear() {
         super.clear()
+
         table?.removeAll()
+        table?.isRunning = false
+        table?.hasException = false
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
@@ -91,6 +94,8 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
             e.printStackTrace(PrintWriter(writer))
             print(writer.buffer.toString(), ConsoleViewContentType.ERROR_OUTPUT)
         }
+
+        table?.hasException = true
     }
 
     // endregion
