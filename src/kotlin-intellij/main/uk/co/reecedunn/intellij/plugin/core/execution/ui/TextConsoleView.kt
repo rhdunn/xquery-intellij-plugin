@@ -21,8 +21,7 @@ import com.intellij.execution.impl.ConsoleViewUtil
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
 import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
@@ -33,9 +32,11 @@ import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), ConsoleView {
+open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), ConsoleView, DataProvider {
     var editor: EditorEx? = null
         private set
+
+    // region ConsoleView
 
     override fun hasDeferredOutput(): Boolean = false
 
@@ -62,6 +63,7 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
                 override fun getEditor(e: AnActionEvent): Editor? = editor
             },
             ScrollToTheEndToolbarAction(editor!!),
+            ActionManager.getInstance().getAction("Print"),
             ClearAllAction(this)
         )
     }
@@ -101,4 +103,17 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
 
     override fun scrollTo(offset: Int) {
     }
+
+    // endregion
+    // region DataProvider
+
+    override fun getData(dataId: String): Any? {
+        return when (dataId) {
+            CommonDataKeys.EDITOR.name -> editor
+            LangDataKeys.CONSOLE_VIEW.name -> this
+            else -> null
+        }
+    }
+
+    // endregion
 }
