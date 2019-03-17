@@ -18,19 +18,37 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
+import com.intellij.ui.components.JBScrollPane
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import java.awt.BorderLayout
 import java.io.PrintWriter
 import java.io.StringWriter
+import javax.swing.JComponent
 
 class QueryResultView(project: Project) : TextConsoleView(project), QueryResultListener {
+    private var table: QueryResultTable? = null
+
     // region ConsoleView
+
+    override fun clear() {
+        super.clear()
+        table?.removeAll()
+    }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
+    }
+
+    override fun getComponent(): JComponent {
+        if (table == null) {
+            table = QueryResultTable()
+            add(JBScrollPane(table), BorderLayout.LINE_END)
+        }
+        return super.getComponent()
     }
 
     // endregion
@@ -38,9 +56,11 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
 
     override fun onBeginResults() {
         clear()
+        table?.isRunning = true
     }
 
     override fun onEndResults() {
+        table?.isRunning = false
     }
 
     override fun onQueryResult(result: QueryResult) {
@@ -52,6 +72,8 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
             else -> print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
         }
         print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+
+        table?.addRow(result)
     }
 
     override fun onException(e: Throwable) {
