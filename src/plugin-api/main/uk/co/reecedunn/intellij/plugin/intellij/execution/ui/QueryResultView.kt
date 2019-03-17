@@ -45,7 +45,7 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
 
     override fun getComponent(): JComponent {
         if (table == null) {
-            table = QueryResultTable()
+            table = QueryResultTable(QUERY_RESULT_ITEM_TYPE_COLUMN, QUERY_RESULT_MIME_TYPE_COLUMN)
             add(JBScrollPane(table), BorderLayout.LINE_END)
         }
         return super.getComponent()

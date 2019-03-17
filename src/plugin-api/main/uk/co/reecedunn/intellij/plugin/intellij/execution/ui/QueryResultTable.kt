@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 @Suppress("ClassName")
-private object ITEM_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
+object QUERY_RESULT_ITEM_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.item-type.column.label")
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? = item?.type
@@ -36,7 +36,7 @@ private object ITEM_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
 }
 
 @Suppress("ClassName")
-private object MIME_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
+object QUERY_RESULT_MIME_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.mime-type.column.label")
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? = item?.mimetype
@@ -49,7 +49,7 @@ private object MIME_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
 }
 
 @Suppress("ClassName")
-private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
+object QUERY_RESULT_VALUE_COLUMN : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.value.column.label")
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? {
@@ -68,15 +68,9 @@ private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
     }
 }
 
-private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
-    VALUE_COLUMN,
-    ITEM_TYPE_COLUMN,
-    MIME_TYPE_COLUMN
-)
-
-class QueryResultTable : TableView<QueryResult>() {
+class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<QueryResult>() {
     init {
-        setModelAndUpdateColumns(ListTableModel<QueryResult>(*COLUMNS))
+        setModelAndUpdateColumns(ListTableModel<QueryResult>(*columns))
         setEnableAntialiasing(true)
 
         emptyText.text = PluginApiBundle.message("query.result.table.no-results")
