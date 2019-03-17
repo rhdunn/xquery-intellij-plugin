@@ -22,34 +22,31 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-@Suppress("ClassName")
-object QUERY_RESULT_ITEM_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
+class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.item-type.column.label")
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? = item?.type
 
-    override fun getComparator(): Comparator<QueryResult>? = this
+    override fun getComparator(): Comparator<QueryResult>? = if (sortable) this else null
 
     override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
         return (o1?.type ?: "").compareTo(o2?.type ?: "")
     }
 }
 
-@Suppress("ClassName")
-object QUERY_RESULT_MIME_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
+class QueryResultMimeTypeColumn(val sortable: Boolean = true) : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.mime-type.column.label")
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? = item?.mimetype
 
-    override fun getComparator(): Comparator<QueryResult>? = this
+    override fun getComparator(): Comparator<QueryResult>? = if (sortable) this else null
 
     override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
         return (o1?.mimetype ?: "").compareTo(o2?.mimetype ?: "")
     }
 }
 
-@Suppress("ClassName")
-object QUERY_RESULT_VALUE_COLUMN : ColumnInfo<QueryResult, String>(
+class QueryResultValueColumn(val sortable: Boolean = true) : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.value.column.label")
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? {
@@ -61,7 +58,7 @@ object QUERY_RESULT_VALUE_COLUMN : ColumnInfo<QueryResult, String>(
         }
     }
 
-    override fun getComparator(): Comparator<QueryResult>? = this
+    override fun getComparator(): Comparator<QueryResult>? = if (sortable) this else null
 
     override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
         return o1!!.position.compareTo(o2!!.position)
