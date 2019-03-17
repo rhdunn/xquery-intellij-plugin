@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultLis
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.awt.BorderLayout
+import java.awt.Dimension
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
@@ -62,6 +63,7 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = createConsoleEditor()
             splitPane.secondComponent = JBScrollPane(table)
+            splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
             add(splitPane, BorderLayout.CENTER)
         }
