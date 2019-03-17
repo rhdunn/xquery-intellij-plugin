@@ -22,7 +22,9 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.ScrollType
 import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
 import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
 import com.intellij.openapi.editor.ex.EditorEx
@@ -116,6 +118,11 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
     }
 
     override fun scrollTo(offset: Int) {
+        ApplicationManager.getApplication().invokeLater {
+            val moveOffset = Math.min(offset, contentSize)
+            editor!!.caretModel.moveToOffset(moveOffset)
+            editor!!.scrollingModel.scrollToCaret(ScrollType.MAKE_VISIBLE)
+        }
     }
 
     // endregion
