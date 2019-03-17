@@ -65,6 +65,7 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
             splitPane.secondComponent = JBScrollPane(table)
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
+            splitPane.setAndLoadSplitterProportionKey(SPLITTER_KEY)
             add(splitPane, BorderLayout.CENTER)
         }
         return super.getComponent()
@@ -113,4 +114,8 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
     }
 
     // endregion
+
+    companion object {
+        const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
+    }
 }
