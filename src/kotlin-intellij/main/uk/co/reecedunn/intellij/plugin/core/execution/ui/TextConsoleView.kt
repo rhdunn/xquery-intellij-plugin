@@ -36,6 +36,8 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
     var editor: EditorEx? = null
         private set
 
+    private var helpId: String? = null
+
     // region ConsoleView
 
     override fun hasDeferredOutput(): Boolean = false
@@ -45,6 +47,7 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
     }
 
     override fun setHelpId(helpId: String) {
+        this.helpId = helpId
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
@@ -109,6 +112,7 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
 
     override fun getData(dataId: String): Any? {
         return when (dataId) {
+            PlatformDataKeys.HELP_ID.name -> helpId
             CommonDataKeys.EDITOR.name -> editor
             LangDataKeys.CONSOLE_VIEW.name -> this
             else -> null
