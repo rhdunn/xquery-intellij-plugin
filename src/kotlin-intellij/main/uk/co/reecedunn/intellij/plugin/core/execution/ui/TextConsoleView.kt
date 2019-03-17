@@ -61,7 +61,8 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
             object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
                 override fun getEditor(e: AnActionEvent): Editor? = editor
             },
-            ScrollToTheEndToolbarAction(editor!!)
+            ScrollToTheEndToolbarAction(editor!!),
+            ClearAllAction(this)
         )
     }
 
