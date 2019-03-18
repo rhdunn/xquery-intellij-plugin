@@ -36,10 +36,10 @@ class BaseXQueryError(msg: String) : QueryError() {
     override val description: String? = parts?.get(6)
 
     override val frame: StackFrame by lazy {
-        object : StackFrame {
-            override val module: String? = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
-            override val lineNumber: Int? = parts?.get(3)?.toIntOrNull()
-            override val columnNumber: Int? = parts?.get(4)?.toIntOrNull()
-        }
+        StackFrame(
+            parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it },
+            parts?.get(3)?.toIntOrNull(),
+            parts?.get(4)?.toIntOrNull()
+        )
     }
 }

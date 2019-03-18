@@ -43,10 +43,10 @@ class EXistDBQueryError(exception: String) : QueryError() {
     override val description: String? = parts[4].substringBefore(" [at ")
 
     override val frame: StackFrame by lazy {
-        object : StackFrame {
-            override val module: String? = xml.root.children("path").first().firstChild.nodeValue
-            override val lineNumber: Int? = locationParts?.get(1)?.toIntOrNull()
-            override val columnNumber: Int? = locationParts?.get(2)?.toIntOrNull()
-        }
+        StackFrame(
+            xml.root.children("path").first().firstChild.nodeValue,
+            locationParts?.get(1)?.toIntOrNull(),
+            locationParts?.get(2)?.toIntOrNull()
+        )
     }
 }

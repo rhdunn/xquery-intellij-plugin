@@ -39,14 +39,10 @@ internal class SaxonQueryError(e: Any, classes: SaxonClasses) : QueryError() {
     }
 
     override val frame: StackFrame by lazy {
-        object : StackFrame {
-            override val module: String? =
-                classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?
-
-            override val lineNumber: Int? =
-                classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?
-
-            override val columnNumber: Int? = 1
-        }
+        StackFrame(
+            classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?,
+            classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?,
+            1
+        )
     }
 }

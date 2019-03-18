@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 class MarkLogicProfileEntry(entry: Element) : ProfileEntry {
     companion object {
-        private val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
+        private const val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
     }
 
     override val id: String by lazy {
@@ -38,16 +38,11 @@ class MarkLogicProfileEntry(entry: Element) : ProfileEntry {
     }
 
     override val frame: StackFrame by lazy {
-        object : StackFrame {
-            override val module: String? =
-                entry.children(XMLNS_PROF, "uri").first().firstChild?.nodeValue
-
-            override val lineNumber: Int? =
-                entry.children(XMLNS_PROF, "line").first().firstChild?.nodeValue?.toInt()
-
-            override val columnNumber: Int? =
-                entry.children(XMLNS_PROF, "column").first().firstChild?.nodeValue?.toInt()
-        }
+        StackFrame(
+            entry.children(XMLNS_PROF, "uri").first().firstChild?.nodeValue,
+            entry.children(XMLNS_PROF, "line").first().firstChild?.nodeValue?.toInt(),
+            entry.children(XMLNS_PROF, "column").first().firstChild?.nodeValue?.toInt()
+        )
     }
 
     override val hits: Int by lazy {
@@ -65,7 +60,7 @@ class MarkLogicProfileEntry(entry: Element) : ProfileEntry {
 
 class MarkLogicProfileReport(override val xml: String) : ProfileReport {
     companion object {
-        private val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
+        private const val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
     }
 
     private val doc = XmlDocument.parse(xml)

@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
-interface StackFrame {
-    val module: String?
-
-    val lineNumber: Int?
-
+data class StackFrame(
+    val module: String?,
+    val lineNumber: Int?,
     val columnNumber: Int?
-}
+)

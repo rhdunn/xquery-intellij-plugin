@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 class MarkLogicQueryError(xml: String) : QueryError() {
     companion object {
-        private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
+        private const val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
     }
 
     private val doc = XmlDocument.parse(xml)
@@ -40,15 +40,10 @@ class MarkLogicQueryError(xml: String) : QueryError() {
     }
 
     override val frame: StackFrame by lazy {
-        object : StackFrame {
-            override val module: String? =
-                doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
-
-            override val lineNumber: Int? =
-                doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
-
-            override val columnNumber: Int? =
-                doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
-        }
+        StackFrame(
+            doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue,
+            doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt(),
+            doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+        )
     }
 }
