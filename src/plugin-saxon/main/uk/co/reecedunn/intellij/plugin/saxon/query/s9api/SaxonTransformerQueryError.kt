@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import javax.xml.transform.TransformerException
 
-private val ERR_NS = "http://www.w3.org/2005/xqt-errors"
+private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
 internal class SaxonTransformerQueryError(e: TransformerException, classes: SaxonClasses) : QueryError() {
     override val standardCode: String by lazy {
@@ -38,7 +38,7 @@ internal class SaxonTransformerQueryError(e: TransformerException, classes: Saxo
 
     override val description: String? = e.message
 
-    override val frame: StackFrame by lazy {
-        StackFrame(e.locator?.systemId, e.locator?.lineNumber, e.locator?.columnNumber)
+    override val frames: List<StackFrame> by lazy {
+        listOf(StackFrame(e.locator?.systemId, e.locator?.lineNumber, e.locator?.columnNumber))
     }
 }

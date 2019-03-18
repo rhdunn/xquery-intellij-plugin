@@ -32,7 +32,7 @@ abstract class QueryError : RuntimeException() {
 
     abstract val description: String?
 
-    abstract val frame: StackFrame
+    abstract val frames: List<StackFrame>
 }
 
 class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")

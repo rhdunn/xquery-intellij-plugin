@@ -46,9 +46,9 @@ class MarkLogicQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
         assertThat(e.description, `is`("Unexpected token"))
-        assertThat(e.frame.module, `is`(nullValue()))
-        assertThat(e.frame.lineNumber, `is`(1))
-        assertThat(e.frame.columnNumber, `is`(6))
+        assertThat(e.frames[0].module, `is`(nullValue()))
+        assertThat(e.frames[0].lineNumber, `is`(1))
+        assertThat(e.frames[0].columnNumber, `is`(6))
     }
 
     @Test
@@ -72,8 +72,8 @@ class MarkLogicQueryErrorTest {
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
         assertThat(e.description, `is`("All modules in a module sequence must use the same XQuery version"))
-        assertThat(e.frame.module, `is`(nullValue()))
-        assertThat(e.frame.lineNumber, `is`(1))
-        assertThat(e.frame.columnNumber, `is`(53))
+        assertThat(e.frames[0].module, `is`(nullValue()))
+        assertThat(e.frames[0].lineNumber, `is`(1))
+        assertThat(e.frames[0].columnNumber, `is`(53))
     }
 }

@@ -42,11 +42,10 @@ class EXistDBQueryError(exception: String) : QueryError() {
 
     override val description: String? = parts[4].substringBefore(" [at ")
 
-    override val frame: StackFrame by lazy {
-        StackFrame(
-            xml.root.children("path").first().firstChild.nodeValue,
-            locationParts?.get(1)?.toIntOrNull(),
-            locationParts?.get(2)?.toIntOrNull()
-        )
+    override val frames: List<StackFrame> by lazy {
+        val path = xml.root.children("path").first().firstChild.nodeValue
+        val line = locationParts?.get(1)?.toIntOrNull()
+        val col = locationParts?.get(2)?.toIntOrNull()
+        listOf(StackFrame(path, line, col))
     }
 }

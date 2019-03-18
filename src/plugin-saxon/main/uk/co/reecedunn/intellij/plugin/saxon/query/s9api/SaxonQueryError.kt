@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
-private val ERR_NS = "http://www.w3.org/2005/xqt-errors"
+private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
 internal class SaxonQueryError(e: Any, classes: SaxonClasses) : QueryError() {
     override val standardCode: String by lazy {
@@ -38,11 +38,9 @@ internal class SaxonQueryError(e: Any, classes: SaxonClasses) : QueryError() {
         classes.saxonApiExceptionClass.getMethod("getMessage").invoke(e) as String?
     }
 
-    override val frame: StackFrame by lazy {
-        StackFrame(
-            classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?,
-            classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?,
-            1
-        )
+    override val frames: List<StackFrame> by lazy {
+        val path = classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?
+        val line = classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?
+        listOf(StackFrame(path, line, 1))
     }
 }

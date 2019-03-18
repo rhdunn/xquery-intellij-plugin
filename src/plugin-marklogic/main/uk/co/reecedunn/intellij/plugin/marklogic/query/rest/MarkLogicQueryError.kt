@@ -39,11 +39,10 @@ class MarkLogicQueryError(xml: String) : QueryError() {
         doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
     }
 
-    override val frame: StackFrame by lazy {
-        StackFrame(
-            doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue,
-            doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt(),
-            doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
-        )
+    override val frames: List<StackFrame> by lazy {
+        val path = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
+        val line = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
+        val col = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+        listOf(StackFrame(path, line, col))
     }
 }

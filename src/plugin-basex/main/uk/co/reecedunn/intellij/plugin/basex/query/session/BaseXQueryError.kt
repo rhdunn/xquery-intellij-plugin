@@ -29,17 +29,17 @@ class BaseXQueryError(msg: String) : QueryError() {
             ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(msg)?.groupValues
     }
 
-    override val standardCode: String = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $msg")
+    override val standardCode: String =
+        parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $msg")
 
     override val vendorCode: String? = null
 
     override val description: String? = parts?.get(6)
 
-    override val frame: StackFrame by lazy {
-        StackFrame(
-            parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it },
-            parts?.get(3)?.toIntOrNull(),
-            parts?.get(4)?.toIntOrNull()
-        )
+    override val frames: List<StackFrame> by lazy {
+        val path = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
+        val line = parts?.get(3)?.toIntOrNull()
+        val col = parts?.get(4)?.toIntOrNull()
+        listOf(StackFrame(path, line, col))
     }
 }
