@@ -121,6 +121,6 @@ class XPathColorSettingsPageTest {
     @DisplayName("display name")
     fun testDisplayName() {
         val settings = XPathColorSettingsPage()
-        assertThat(settings.displayName, `is`("XPath"))
+        assertThat(settings.displayName, `is`("XPath and XSLT"))
     }
 }

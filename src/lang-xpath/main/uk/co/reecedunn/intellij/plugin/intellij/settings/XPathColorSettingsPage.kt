@@ -38,5 +38,5 @@ class XPathColorSettingsPage : ColorSettingsPage {
 
     override fun getColorDescriptors(): Array<ColorDescriptor> = ColorDescriptor.EMPTY_ARRAY
 
-    override fun getDisplayName(): String = "XPath"
+    override fun getDisplayName(): String = "XPath and XSLT"
 }

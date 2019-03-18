@@ -90,8 +90,6 @@
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
-    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.intellij.lang.injection.XPathInXsltLanguageInjection"/>
-
     <!-- XML Query Language Support -->
 
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType$Factory"/>
@@ -111,6 +109,10 @@
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
+
+    <!--
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.intellij.lang.injection.XPathInXsltLanguageInjection"/>
+    -->
 
     <!-- MarkLogic Server-Side JavaScript Language Support -->
 
