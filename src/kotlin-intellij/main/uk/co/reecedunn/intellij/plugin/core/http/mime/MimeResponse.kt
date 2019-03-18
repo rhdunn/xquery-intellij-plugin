@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,10 @@ class MimeResponse(headers: Array<Header>, body: String) {
 
     init {
         val messages = ArrayList<Message>()
-        val contentType = message.getHeader("Content-Type")
-        if (contentType != null && contentType.startsWith("multipart/mixed; boundary=")) {
+        val contentType = message.getHeaders("Content-Type")
+            .filter { contentType -> contentType.startsWith("multipart/mixed; boundary=") }
+            .firstOrNull()
+        if (contentType != null) {
             body.split(("\r\n--" + contentType.split("boundary=".toRegex())[1]).toRegex())
                 .asSequence()
                 .filter { !it.isEmpty() && it != "--\r\n" }

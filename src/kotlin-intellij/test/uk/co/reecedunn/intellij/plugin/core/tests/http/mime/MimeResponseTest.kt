@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,6 +87,36 @@ class MimeResponseTest {
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("98"))
         assertThat(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=212ab95a34643c9d"))
+
+        assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
+        assertThat(response.parts[0].getHeader("X-Primitive"), `is`("integer"))
+        assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
+        assertThat(response.parts[0].body, `is`("15"))
+    }
+
+    @Test
+    @DisplayName("multipart with a single part with overridden Content-Type")
+    fun multipartWithASinglePartWithOverriddenContentType() {
+        // If a MarkLogic query sets the Content-Type header for a request, that value is placed
+        // before the MarkLogic set multipart/mixed Content-Type header.
+        val headers = arrayOf<Header>(
+            BasicHeader("Content-Type", "text/rtf"),
+            BasicHeader("Content-Length", "98"),
+            BasicHeader("Content-Type", "multipart/mixed; boundary=212ab95a34643c9d")
+        )
+        val body =
+            "\r\n" +
+            "--212ab95a34643c9d\r\n" +
+            "Content-Type: text/plain\r\n" +
+            "X-Primitive: integer\r\n" +
+            "\r\n" +
+            "15\r\n" +
+            "--212ab95a34643c9d--\r\n"
+        val response = MimeResponse(headers, body)
+
+        assertThat(response.parts.size, `is`(1))
+        assertThat(response.getHeader("Content-Length"), `is`("98"))
+        assertThat(response.getHeader("Content-Type"), `is`("text/rtf"))
 
         assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
         assertThat(response.parts[0].getHeader("X-Primitive"), `is`("integer"))

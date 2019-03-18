@@ -21,7 +21,6 @@ import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
-import uk.co.reecedunn.intellij.plugin.core.http.mime.get
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
@@ -56,7 +55,8 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        sequenceOf(QueryResult(0, body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
+        val contentType = response.allHeaders.filter { h -> h.name == "ContentType" }.firstOrNull()?.value
+        sequenceOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain"))
     }
 
     override fun close() {

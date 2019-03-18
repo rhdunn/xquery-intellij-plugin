@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.http.mime
 
-import com.intellij.util.ArrayUtil
 import org.apache.http.Header
 
-fun Array<Header>.get(header: String): String? {
-    val index = ArrayUtil.indexOf(this, header) { a, b -> (a as Header).name == b }
-    return if (index >= 0) this[index].value else null
-}
-
 class Message internal constructor(private val headers: Array<Header>, val body: String) {
-    fun getHeader(header: String): String? = this.headers.get(header)
+    fun getHeaders(header: String): Sequence<String> {
+        return this.headers.asSequence().filter { h -> h.name == header }.map { h -> h.value }
+    }
+
+    fun getHeader(header: String): String? = getHeaders(header).firstOrNull()
 }
