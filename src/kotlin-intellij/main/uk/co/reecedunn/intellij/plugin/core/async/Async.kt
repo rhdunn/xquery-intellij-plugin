@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,10 @@ class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), F
                 throw e
             else if (!onerrorCalled) {
                 onerrorCalled = true
-                onerror!!.invoke(e.cause!!)
+                // Ensure any UI updates, etc. don't get called from the dispatch thread.
+                ApplicationManager.getApplication().invokeLater {
+                    onerror!!.invoke(e.cause!!)
+                }
             }
             return null
         }
@@ -91,7 +94,10 @@ class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), F
                 throw e
             else if (!onerrorCalled) {
                 onerrorCalled = true
-                onerror!!.invoke(e.cause!!)
+                // Ensure any UI updates, etc. don't get called from the dispatch thread.
+                ApplicationManager.getApplication().invokeLater {
+                    onerror!!.invoke(e.cause!!)
+                }
             }
             return null
         }
