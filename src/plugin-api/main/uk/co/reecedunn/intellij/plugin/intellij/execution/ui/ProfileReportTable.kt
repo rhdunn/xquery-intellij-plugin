@@ -25,12 +25,12 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 private object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
 ), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): String? = item?.module
+    override fun valueOf(item: ProfileEntry?): String? = item?.frame?.module
 
     override fun getComparator(): Comparator<ProfileEntry>? = this
 
     override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
-        return (o1?.module ?: "").compareTo(o2?.module ?: "")
+        return (o1?.frame?.module ?: "").compareTo(o2?.frame?.module ?: "")
     }
 }
 
@@ -38,12 +38,12 @@ private object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
 private object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.line-number.column.label")
 ), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): Int? = item?.lineNumber
+    override fun valueOf(item: ProfileEntry?): Int? = item?.frame?.lineNumber
 
     override fun getComparator(): Comparator<ProfileEntry>? = this
 
     override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
-        return o1?.lineNumber!!.compareTo(o2?.lineNumber!!)
+        return o1?.frame?.lineNumber!!.compareTo(o2?.frame?.lineNumber!!)
     }
 }
 
@@ -51,12 +51,12 @@ private object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
 private object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.column-number.column.label")
 ), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): Int? = item?.columnNumber
+    override fun valueOf(item: ProfileEntry?): Int? = item?.frame?.columnNumber
 
     override fun getComparator(): Comparator<ProfileEntry>? = this
 
     override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
-        return o1?.columnNumber!!.compareTo(o2?.columnNumber!!)
+        return o1?.frame?.columnNumber!!.compareTo(o2?.frame?.columnNumber!!)
     }
 }
 

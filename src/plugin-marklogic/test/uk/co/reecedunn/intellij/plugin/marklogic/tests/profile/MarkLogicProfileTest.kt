@@ -101,9 +101,9 @@ class MarkLogicProfileTest {
 
         assertThat(results[1].id, `is`("16683152708792260640"))
         assertThat(results[1].expression, `is`("1 to 10"))
-        assertThat(results[1].module, `is`(nullValue()))
-        assertThat(results[1].lineNumber, `is`(1))
-        assertThat(results[1].columnNumber, `is`(12))
+        assertThat(results[1].frame.module, `is`(nullValue()))
+        assertThat(results[1].frame.lineNumber, `is`(1))
+        assertThat(results[1].frame.columnNumber, `is`(12))
         assertThat(results[1].hits, `is`(2))
         assertThat(results[1].shallowTime.months, `is`(XsInteger(BigInteger.ZERO)))
         assertThat(results[1].shallowTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))

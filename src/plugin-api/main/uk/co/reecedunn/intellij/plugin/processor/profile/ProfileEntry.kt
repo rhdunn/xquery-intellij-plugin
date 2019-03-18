@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.profile
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
-interface ProfileEntry : StackFrame {
+interface ProfileEntry {
     val id: String
 
     val expression: String
@@ -28,4 +28,6 @@ interface ProfileEntry : StackFrame {
     val shallowTime: XsDurationValue
 
     val deepTime: XsDurationValue
+
+    val frame: StackFrame
 }
