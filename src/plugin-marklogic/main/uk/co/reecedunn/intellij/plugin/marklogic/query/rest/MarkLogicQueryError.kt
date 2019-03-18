@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 class MarkLogicQueryError(xml: String) : QueryError() {
     companion object {
         private const val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
+        private const val XMLNS_DBG = "http://reecedunn.co.uk/xquery/debug"
     }
 
     private val doc = XmlDocument.parse(xml)
@@ -40,9 +41,12 @@ class MarkLogicQueryError(xml: String) : QueryError() {
     }
 
     override val frames: List<StackFrame> by lazy {
-        val path = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
-        val line = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
-        val col = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
-        listOf(StackFrame(path, line, col))
+        doc.root.children(XMLNS_DBG, "stack").first().children(XMLNS_DBG, "frame").map {
+            val module = it.children(XMLNS_DBG, "module").first()
+            val path = module.firstChild?.nodeValue
+            val line = module.getAttribute("line")?.toInt()
+            val col = module.getAttribute("column")?.toInt()
+            StackFrame(path, line, col)
+        }.toList()
     }
 }
