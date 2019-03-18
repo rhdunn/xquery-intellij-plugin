@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,9 +46,9 @@ class MarkLogicQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
         assertThat(e.description, `is`("Unexpected token"))
-        assertThat(e.module, `is`(nullValue()))
-        assertThat(e.lineNumber, `is`(1))
-        assertThat(e.columnNumber, `is`(6))
+        assertThat(e.frame.module, `is`(nullValue()))
+        assertThat(e.frame.lineNumber, `is`(1))
+        assertThat(e.frame.columnNumber, `is`(6))
     }
 
     @Test
@@ -72,8 +72,8 @@ class MarkLogicQueryErrorTest {
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
         assertThat(e.description, `is`("All modules in a module sequence must use the same XQuery version"))
-        assertThat(e.module, `is`(nullValue()))
-        assertThat(e.lineNumber, `is`(1))
-        assertThat(e.columnNumber, `is`(53))
+        assertThat(e.frame.module, `is`(nullValue()))
+        assertThat(e.frame.lineNumber, `is`(1))
+        assertThat(e.frame.columnNumber, `is`(53))
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getAnyMethod
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import javax.xml.transform.TransformerException
 
@@ -37,9 +38,11 @@ internal class SaxonTransformerQueryError(e: TransformerException, classes: Saxo
 
     override val description: String? = e.message
 
-    override val module: String? = e.locator?.systemId
-
-    override val lineNumber: Int? = e.locator?.lineNumber
-
-    override val columnNumber: Int? = e.locator?.columnNumber
+    override val frame: StackFrame by lazy {
+        object : StackFrame {
+            override val module: String? = e.locator?.systemId
+            override val lineNumber: Int? = e.locator?.lineNumber
+            override val columnNumber: Int? = e.locator?.columnNumber
+        }
+    }
 }

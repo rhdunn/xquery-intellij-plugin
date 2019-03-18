@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,9 +40,9 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("unexpected token: null"))
-        assertThat(e.module, `is`("/db"))
-        assertThat(e.lineNumber, `is`(1))
-        assertThat(e.columnNumber, `is`(7))
+        assertThat(e.frame.module, `is`("/db"))
+        assertThat(e.frame.lineNumber, `is`(1))
+        assertThat(e.frame.columnNumber, `is`(7))
     }
 
     @Test
@@ -60,9 +60,9 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
-        assertThat(e.module, `is`("/db"))
-        assertThat(e.lineNumber, `is`(nullValue()))
-        assertThat(e.columnNumber, `is`(nullValue()))
+        assertThat(e.frame.module, `is`("/db"))
+        assertThat(e.frame.lineNumber, `is`(nullValue()))
+        assertThat(e.frame.columnNumber, `is`(nullValue()))
     }
 
     @Test
@@ -80,8 +80,8 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
-        assertThat(e.module, `is`("/db"))
-        assertThat(e.lineNumber, `is`(1))
-        assertThat(e.columnNumber, `is`(11))
+        assertThat(e.frame.module, `is`("/db"))
+        assertThat(e.frame.lineNumber, `is`(1))
+        assertThat(e.frame.columnNumber, `is`(11))
     }
 }

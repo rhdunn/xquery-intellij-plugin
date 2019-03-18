@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 class MarkLogicQueryError(xml: String) : QueryError() {
@@ -38,15 +39,16 @@ class MarkLogicQueryError(xml: String) : QueryError() {
         doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
     }
 
-    override val module: String? by lazy {
-        doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
-    }
+    override val frame: StackFrame by lazy {
+        object : StackFrame {
+            override val module: String? =
+                doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
 
-    override val lineNumber: Int? by lazy {
-        doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
-    }
+            override val lineNumber: Int? =
+                doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
 
-    override val columnNumber: Int? by lazy {
-        doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+            override val columnNumber: Int? =
+                doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+        }
     }
 }

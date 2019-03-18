@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Incomplete expression."))
-        assertThat(e.module, `is`(nullValue()))
-        assertThat(e.lineNumber, `is`(1))
-        assertThat(e.columnNumber, `is`(7))
+        assertThat(e.frame.module, `is`(nullValue()))
+        assertThat(e.frame.lineNumber, `is`(1))
+        assertThat(e.frame.columnNumber, `is`(7))
     }
 
     @Test
@@ -42,9 +42,9 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Incomplete expression."))
-        assertThat(e.module, `is`(nullValue()))
-        assertThat(e.lineNumber, `is`(1))
-        assertThat(e.columnNumber, `is`(7))
+        assertThat(e.frame.module, `is`(nullValue()))
+        assertThat(e.frame.lineNumber, `is`(1))
+        assertThat(e.frame.columnNumber, `is`(7))
     }
 
     @Test
@@ -54,8 +54,8 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Unknown type: array-node()."))
-        assertThat(e.module, `is`(nullValue()))
-        assertThat(e.lineNumber, `is`(nullValue()))
-        assertThat(e.columnNumber, `is`(nullValue()))
+        assertThat(e.frame.module, `is`(nullValue()))
+        assertThat(e.frame.lineNumber, `is`(nullValue()))
+        assertThat(e.frame.columnNumber, `is`(nullValue()))
     }
 }

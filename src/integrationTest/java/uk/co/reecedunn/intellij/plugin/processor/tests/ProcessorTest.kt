@@ -713,20 +713,20 @@ private class ProcessorTest : PlatformLiteFixture() {
         @Test
         @DisplayName("module")
         fun module() {
-            assertThat(parse("(1, 2,").module, anyOf(`is`(nullValue()), `is`("/db")))
+            assertThat(parse("(1, 2,").frame.module, anyOf(`is`(nullValue()), `is`("/db")))
         }
 
         @Test
         @DisplayName("line number")
         fun lineNumber() {
-            assertThat(parse("(1, 2,").lineNumber, `is`(1))
+            assertThat(parse("(1, 2,").frame.lineNumber, `is`(1))
         }
 
         @Test
         @DisplayName("column number")
         fun columnNumber() {
             // On the ',' (e.g. MarkLogic); after the ',' (e.g. BaseX); or at the start of the line:
-            assertThat(parse("(1, 2,").columnNumber, anyOf(`is`(6), `is`(7), `is`(1)))
+            assertThat(parse("(1, 2,").frame.columnNumber, anyOf(`is`(6), `is`(7), `is`(1)))
         }
     }
 }

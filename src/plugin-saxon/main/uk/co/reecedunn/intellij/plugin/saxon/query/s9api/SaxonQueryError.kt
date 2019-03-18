@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val ERR_NS = "http://www.w3.org/2005/xqt-errors"
@@ -37,13 +38,15 @@ internal class SaxonQueryError(e: Any, classes: SaxonClasses) : QueryError() {
         classes.saxonApiExceptionClass.getMethod("getMessage").invoke(e) as String?
     }
 
-    override val module: String? by lazy {
-        classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?
-    }
+    override val frame: StackFrame by lazy {
+        object : StackFrame {
+            override val module: String? =
+                classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?
 
-    override val lineNumber: Int? by lazy {
-        classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?
-    }
+            override val lineNumber: Int? =
+                classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?
 
-    override val columnNumber: Int? = 1
+            override val columnNumber: Int? = 1
+        }
+    }
 }

@@ -100,8 +100,9 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
     override fun onException(e: Throwable) {
         print("${e.message!!}\n", ConsoleViewContentType.ERROR_OUTPUT)
         if (e is QueryError) {
+            val frame = e.frame
             print(
-                "    at ${e.module ?: ""}:${e.lineNumber ?: 0}:${e.columnNumber ?: 0}\n",
+                "    at ${frame.module ?: ""}:${frame.lineNumber ?: 0}:${frame.columnNumber ?: 0}\n",
                 ConsoleViewContentType.ERROR_OUTPUT
             )
         } else {

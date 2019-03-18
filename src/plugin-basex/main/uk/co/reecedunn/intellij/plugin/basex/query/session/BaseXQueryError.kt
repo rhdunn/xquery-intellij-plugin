@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val RE_BASEX_EXCEPTION =
@@ -34,9 +35,11 @@ class BaseXQueryError(msg: String) : QueryError() {
 
     override val description: String? = parts?.get(6)
 
-    override val module: String? = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
-
-    override val lineNumber: Int? = parts?.get(3)?.toIntOrNull()
-
-    override val columnNumber: Int? = parts?.get(4)?.toIntOrNull()
+    override val frame: StackFrame by lazy {
+        object : StackFrame {
+            override val module: String? = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
+            override val lineNumber: Int? = parts?.get(3)?.toIntOrNull()
+            override val columnNumber: Int? = parts?.get(4)?.toIntOrNull()
+        }
+    }
 }

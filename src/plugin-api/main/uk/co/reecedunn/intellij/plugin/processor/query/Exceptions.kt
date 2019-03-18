@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import java.lang.UnsupportedOperationException
 import java.net.UnknownHostException
 
-abstract class QueryError : RuntimeException(), StackFrame {
+abstract class QueryError : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
     abstract val standardCode: String
@@ -31,6 +31,8 @@ abstract class QueryError : RuntimeException(), StackFrame {
     abstract val vendorCode: String?
 
     abstract val description: String?
+
+    abstract val frame: StackFrame
 }
 
 class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")

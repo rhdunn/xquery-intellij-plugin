@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val RE_EXISTDB_MESSAGE =
@@ -41,9 +42,11 @@ class EXistDBQueryError(exception: String) : QueryError() {
 
     override val description: String? = parts[4].substringBefore(" [at ")
 
-    override val module: String? = xml.root.children("path").first().firstChild.nodeValue
-
-    override val lineNumber: Int? = locationParts?.get(1)?.toIntOrNull()
-
-    override val columnNumber: Int? = locationParts?.get(2)?.toIntOrNull()
+    override val frame: StackFrame by lazy {
+        object : StackFrame {
+            override val module: String? = xml.root.children("path").first().firstChild.nodeValue
+            override val lineNumber: Int? = locationParts?.get(1)?.toIntOrNull()
+            override val columnNumber: Int? = locationParts?.get(2)?.toIntOrNull()
+        }
+    }
 }

@@ -207,9 +207,9 @@ class Response {
         }
 
         assertThat(e.description, `is`("Division by zero"))
-        assertThat(e.module, `is`(nullValue()))
-        assertThat(e.lineNumber, `is`(23))
-        assertThat(e.columnNumber, `is`(3))
+        assertThat(e.frame.module, `is`(nullValue()))
+        assertThat(e.frame.lineNumber, `is`(23))
+        assertThat(e.frame.columnNumber, `is`(3))
         assertThat(e.standardCode, `is`("FOAR0001"))
         assertThat(e.vendorCode, `is`("XDMP-DIVBYZERO"))
     }
