@@ -100,6 +100,13 @@ class QueryResultView(project: Project) : TextConsoleView(project), QueryResultL
     override fun onException(e: Throwable) {
         print("${e.message!!}\n", ConsoleViewContentType.ERROR_OUTPUT)
         if (e is QueryError) {
+            e.value.withIndex().forEach {
+                if (it.index == 0) {
+                    print("  with ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                } else {
+                    print("   and ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                }
+            }
             e.frames.forEach {
                 print(
                     "    at ${it.module ?: ""}:${it.lineNumber ?: 0}:${it.columnNumber ?: 0}\n",

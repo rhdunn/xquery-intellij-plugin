@@ -35,6 +35,8 @@ class EXistDBQueryError(exception: String) : QueryError() {
     }
     private val locationParts = RE_EXISTDB_LOCATION.matchEntire(parts[4].substringAfter(" [at "))?.groupValues
 
+    override val value: List<String> = listOf()
+
     override val standardCode: String =
         (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), "")
 

@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
 internal class SaxonQueryError(e: Any, classes: SaxonClasses) : QueryError() {
+    override val value: List<String> = listOf()
+
     override val standardCode: String by lazy {
         val qname = classes.saxonApiExceptionClass.getMethod("getErrorCode").invoke(e)
         val ns = classes.qnameClass.getMethod("getNamespaceURI").invoke(qname)

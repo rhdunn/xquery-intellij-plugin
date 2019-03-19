@@ -23,6 +23,8 @@ import javax.xml.transform.TransformerException
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
 internal class SaxonTransformerQueryError(e: TransformerException, classes: SaxonClasses) : QueryError() {
+    override val value: List<String> = listOf()
+
     override val standardCode: String by lazy {
         val qname = classes.xpathExceptionClass.getMethod("getErrorCodeQName").invoke(e)
         val ns = classes.structuredQNameClass.getAnyMethod("getURI", "getNamespaceURI").invoke(qname)

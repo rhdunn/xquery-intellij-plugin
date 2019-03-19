@@ -29,6 +29,8 @@ class BaseXQueryError(msg: String) : QueryError() {
             ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(msg)?.groupValues
     }
 
+    override val value: List<String> = listOf()
+
     override val standardCode: String =
         parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $msg")
 

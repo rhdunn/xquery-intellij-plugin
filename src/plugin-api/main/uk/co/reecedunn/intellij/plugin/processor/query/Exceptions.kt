@@ -26,6 +26,8 @@ import java.net.UnknownHostException
 abstract class QueryError : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
+    abstract val value: List<String>
+
     abstract val standardCode: String
 
     abstract val vendorCode: String?

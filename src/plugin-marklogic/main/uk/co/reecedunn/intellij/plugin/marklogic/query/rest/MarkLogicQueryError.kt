@@ -28,6 +28,12 @@ class MarkLogicQueryError(xml: String) : QueryError() {
 
     private val doc = XmlDocument.parse(xml)
 
+    override val value: List<String> by lazy {
+        doc.root.children(XMLNS_ERR, "value").first().children(XMLNS_ERR, "item").map {
+            it.firstChild.nodeValue
+        }.toList()
+    }
+
     override val standardCode: String by lazy {
         doc.root.children(XMLNS_ERR, "code").first().firstChild.nodeValue.replace("^err:".toRegex(), "")
     }
