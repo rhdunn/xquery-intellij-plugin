@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 import com.google.gson.JsonObject
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
@@ -67,7 +68,7 @@ internal class MarkLogicRunQuery(
         }
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+    fun request(): HttpUriRequest {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
@@ -80,9 +81,11 @@ internal class MarkLogicRunQuery(
         params.addProperty("context-path", contextPath)
 
         builder.addParameter("vars", params.toString())
-        val request = builder.build()
+        return builder.build()
+    }
 
-        val response = connection.execute(request)
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+        val response = connection.execute(request())
         val body = EntityUtils.toString(response.entity)
         response.close()
 
