@@ -64,9 +64,14 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     val firstChild: Node? = element.firstChild
 
-    fun getAttribute(attribute: String): String? = element.getAttribute(attribute)
+    fun attribute(qname: String): String? = attribute(qname.toQName(namespaces))
 
-    fun getAttributeNS(ns: String, attribute: String): String? = element.getAttributeNS(ns, attribute)
+    fun attribute(qname: QName): String? {
+        return when {
+            qname.namespaceURI === XMLConstants.NULL_NS_URI -> element.getAttribute(qname.localPart)
+            else -> element.getAttributeNS(qname.namespaceURI, qname.localPart)
+        }
+    }
 
     fun appendChild(child: Node): Node? = element.appendChild(child)
 }

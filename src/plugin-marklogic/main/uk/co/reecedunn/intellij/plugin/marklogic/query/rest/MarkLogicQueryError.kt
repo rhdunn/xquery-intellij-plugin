@@ -49,8 +49,8 @@ class MarkLogicQueryError(xml: String) : QueryError() {
         doc.root.children("dbg:stack").first().children("dbg:frame").map {
             val module = it.children("dbg:module").first()
             val path = module.firstChild?.nodeValue
-            val line = module.getAttribute("line")?.toInt()
-            val col = module.getAttribute("column")?.toInt()
+            val line = module.attribute("line")?.toInt()
+            val col = module.attribute("column")?.toInt()
             StackFrame(path, line, col)
         }.toList()
     }

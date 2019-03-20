@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
     companion object {
-        private const val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
         private val EXIST_NAMESPACES = mapOf(
             "exist" to "http://exist.sourceforge.net/NS/exist"
         )
@@ -67,7 +66,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
         var position: Long = -1
         val result = XmlDocument.parse(body, EXIST_NAMESPACES)
         result.root.children("exist:value").map { value ->
-            val type = value.getAttributeNS(EXIST_NS, "type")!!
+            val type = value.attribute("exist:type")!!
             QueryResult.fromItemType(++position, value.firstChild?.nodeValue ?: "", type)
         }
     }
