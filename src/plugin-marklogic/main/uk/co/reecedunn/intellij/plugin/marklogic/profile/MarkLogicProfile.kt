@@ -25,31 +25,31 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
     override val id: String by lazy {
-        entry.children("prof:expr-id").first().firstChild!!.nodeValue
+        entry.children("prof:expr-id").first().text()!!
     }
 
     override val expression: String by lazy {
-        entry.children("prof:expr-source").first().firstChild!!.nodeValue
+        entry.children("prof:expr-source").first().text()!!
     }
 
     override val frame: StackFrame by lazy {
         StackFrame(
-            entry.children("prof:uri").first().firstChild?.nodeValue,
-            entry.children("prof:line").first().firstChild?.nodeValue?.toInt(),
-            entry.children("prof:column").first().firstChild?.nodeValue?.toInt()
+            entry.children("prof:uri").first().text(),
+            entry.children("prof:line").first().text()?.toInt(),
+            entry.children("prof:column").first().text()?.toInt()
         )
     }
 
     override val hits: Int by lazy {
-        entry.children("prof:count").first().firstChild!!.nodeValue.toInt()
+        entry.children("prof:count").first().text()!!.toInt()
     }
 
     override val shallowTime: XsDurationValue by lazy {
-        entry.children("prof:shallow-time").first().firstChild?.nodeValue?.toXsDuration()!!
+        entry.children("prof:shallow-time").first().text()?.toXsDuration()!!
     }
 
     override val deepTime: XsDurationValue by lazy {
-        entry.children("prof:deep-time").first().firstChild?.nodeValue?.toXsDuration()!!
+        entry.children("prof:deep-time").first().text()?.toXsDuration()!!
     }
 }
 
@@ -64,17 +64,17 @@ class MarkLogicProfileReport(override val xml: String) : ProfileReport {
 
     override val elapsed: XsDurationValue by lazy {
         val metadata = doc.root.children("prof:metadata").first()
-        metadata.children("prof:overall-elapsed").first().firstChild!!.nodeValue.toXsDuration()!!
+        metadata.children("prof:overall-elapsed").first().text()?.toXsDuration()!!
     }
 
     override val created: String by lazy {
         val metadata = doc.root.children("prof:metadata").first()
-        metadata.children("prof:created").first().firstChild!!.nodeValue
+        metadata.children("prof:created").first().text()!!
     }
 
     override val version: String by lazy {
         val metadata = doc.root.children("prof:metadata").first()
-        metadata.children("prof:server-version").first().firstChild!!.nodeValue
+        metadata.children("prof:server-version").first().text()!!
     }
 
     override val results: Sequence<ProfileEntry>

@@ -30,25 +30,25 @@ class MarkLogicQueryError(xml: String) : QueryError() {
     private val doc = XmlDocument.parse(xml, ERROR_NAMESPACES)
 
     override val value: List<String> by lazy {
-        doc.root.children("err:value").first().children("err:item").map { it.firstChild!!.nodeValue }.toList()
+        doc.root.children("err:value").first().children("err:item").map { it.text()!! }.toList()
     }
 
     override val standardCode: String by lazy {
-        doc.root.children("err:code").first().firstChild!!.nodeValue.replace("^err:".toRegex(), "")
+        doc.root.children("err:code").first().text()!!.replace("^err:".toRegex(), "")
     }
 
     override val vendorCode: String? by lazy {
-        doc.root.children("err:vendor-code").first().firstChild?.nodeValue
+        doc.root.children("err:vendor-code").first().text()
     }
 
     override val description: String? by lazy {
-        doc.root.children("err:description").first().firstChild?.nodeValue
+        doc.root.children("err:description").first().text()
     }
 
     override val frames: List<StackFrame> by lazy {
         doc.root.children("dbg:stack").first().children("dbg:frame").map {
             val module = it.children("dbg:module").first()
-            val path = module.firstChild?.nodeValue
+            val path = module.text()
             val line = module.attribute("line")?.toInt()
             val col = module.attribute("column")?.toInt()
             StackFrame(path, line, col)

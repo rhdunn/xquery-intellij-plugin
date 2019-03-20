@@ -62,7 +62,7 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
         }.elements { XmlElement(it, namespaces) }
     }
 
-    val firstChild: Node? = element.firstChild
+    fun text(): String? = element.firstChild?.nodeValue
 
     fun attribute(qname: String): String? = attribute(qname.toQName(namespaces))
 
