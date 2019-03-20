@@ -21,8 +21,6 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 class MarkLogicQueryError(xml: String) : QueryError() {
     companion object {
-        private const val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
-        private const val XMLNS_DBG = "http://reecedunn.co.uk/xquery/debug"
         private val ERROR_NAMESPACES = mapOf(
             "err" to "http://www.w3.org/2005/xqt-errors",
             "dbg" to "http://reecedunn.co.uk/xquery/debug"
@@ -32,26 +30,24 @@ class MarkLogicQueryError(xml: String) : QueryError() {
     private val doc = XmlDocument.parse(xml, ERROR_NAMESPACES)
 
     override val value: List<String> by lazy {
-        doc.root.children(XMLNS_ERR, "value").first().children(XMLNS_ERR, "item").map {
-            it.firstChild!!.nodeValue
-        }.toList()
+        doc.root.children("err:value").first().children("err:item").map { it.firstChild!!.nodeValue }.toList()
     }
 
     override val standardCode: String by lazy {
-        doc.root.children(XMLNS_ERR, "code").first().firstChild!!.nodeValue.replace("^err:".toRegex(), "")
+        doc.root.children("err:code").first().firstChild!!.nodeValue.replace("^err:".toRegex(), "")
     }
 
     override val vendorCode: String? by lazy {
-        doc.root.children(XMLNS_ERR, "vendor-code").first().firstChild?.nodeValue
+        doc.root.children("err:vendor-code").first().firstChild?.nodeValue
     }
 
     override val description: String? by lazy {
-        doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
+        doc.root.children("err:description").first().firstChild?.nodeValue
     }
 
     override val frames: List<StackFrame> by lazy {
-        doc.root.children(XMLNS_DBG, "stack").first().children(XMLNS_DBG, "frame").map {
-            val module = it.children(XMLNS_DBG, "module").first()
+        doc.root.children("dbg:stack").first().children("dbg:frame").map {
+            val module = it.children("dbg:module").first()
             val path = module.firstChild?.nodeValue
             val line = module.getAttribute("line")?.toInt()
             val col = module.getAttribute("column")?.toInt()

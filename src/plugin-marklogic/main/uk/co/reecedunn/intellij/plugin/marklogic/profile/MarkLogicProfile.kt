@@ -24,42 +24,37 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
-    companion object {
-        private const val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
-    }
-
     override val id: String by lazy {
-        entry.children(XMLNS_PROF, "expr-id").first().firstChild!!.nodeValue
+        entry.children("prof:expr-id").first().firstChild!!.nodeValue
     }
 
     override val expression: String by lazy {
-        entry.children(XMLNS_PROF, "expr-source").first().firstChild!!.nodeValue
+        entry.children("prof:expr-source").first().firstChild!!.nodeValue
     }
 
     override val frame: StackFrame by lazy {
         StackFrame(
-            entry.children(XMLNS_PROF, "uri").first().firstChild?.nodeValue,
-            entry.children(XMLNS_PROF, "line").first().firstChild?.nodeValue?.toInt(),
-            entry.children(XMLNS_PROF, "column").first().firstChild?.nodeValue?.toInt()
+            entry.children("prof:uri").first().firstChild?.nodeValue,
+            entry.children("prof:line").first().firstChild?.nodeValue?.toInt(),
+            entry.children("prof:column").first().firstChild?.nodeValue?.toInt()
         )
     }
 
     override val hits: Int by lazy {
-        entry.children(XMLNS_PROF, "count").first().firstChild!!.nodeValue.toInt()
+        entry.children("prof:count").first().firstChild!!.nodeValue.toInt()
     }
 
     override val shallowTime: XsDurationValue by lazy {
-        entry.children(XMLNS_PROF, "shallow-time").first().firstChild?.nodeValue?.toXsDuration()!!
+        entry.children("prof:shallow-time").first().firstChild?.nodeValue?.toXsDuration()!!
     }
 
     override val deepTime: XsDurationValue by lazy {
-        entry.children(XMLNS_PROF, "deep-time").first().firstChild?.nodeValue?.toXsDuration()!!
+        entry.children("prof:deep-time").first().firstChild?.nodeValue?.toXsDuration()!!
     }
 }
 
 class MarkLogicProfileReport(override val xml: String) : ProfileReport {
     companion object {
-        private const val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
         private val PROFILE_NAMESPACES = mapOf(
             "prof" to "http://marklogic.com/xdmp/profile"
         )
@@ -68,23 +63,23 @@ class MarkLogicProfileReport(override val xml: String) : ProfileReport {
     private val doc = XmlDocument.parse(xml, PROFILE_NAMESPACES)
 
     override val elapsed: XsDurationValue by lazy {
-        val metadata = doc.root.children(XMLNS_PROF, "metadata").first()
-        metadata.children(XMLNS_PROF, "overall-elapsed").first().firstChild!!.nodeValue.toXsDuration()!!
+        val metadata = doc.root.children("prof:metadata").first()
+        metadata.children("prof:overall-elapsed").first().firstChild!!.nodeValue.toXsDuration()!!
     }
 
     override val created: String by lazy {
-        val metadata = doc.root.children(XMLNS_PROF, "metadata").first()
-        metadata.children(XMLNS_PROF, "created").first().firstChild!!.nodeValue
+        val metadata = doc.root.children("prof:metadata").first()
+        metadata.children("prof:created").first().firstChild!!.nodeValue
     }
 
     override val version: String by lazy {
-        val metadata = doc.root.children(XMLNS_PROF, "metadata").first()
-        metadata.children(XMLNS_PROF, "server-version").first().firstChild!!.nodeValue
+        val metadata = doc.root.children("prof:metadata").first()
+        metadata.children("prof:server-version").first().firstChild!!.nodeValue
     }
 
     override val results: Sequence<ProfileEntry>
         get() {
-            val histogram = doc.root.children(XMLNS_PROF, "histogram").first()
-            return histogram.children(XMLNS_PROF, "expression").map { expression -> MarkLogicProfileEntry(expression) }
+            val histogram = doc.root.children("prof:histogram").first()
+            return histogram.children("prof:expression").map { expression -> MarkLogicProfileEntry(expression) }
         }
 }

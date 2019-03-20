@@ -66,7 +66,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
 
         var position: Long = -1
         val result = XmlDocument.parse(body, EXIST_NAMESPACES)
-        result.root.children(EXIST_NS, "value").map { value ->
+        result.root.children("exist:value").map { value ->
             val type = value.getAttributeNS(EXIST_NS, "type")!!
             QueryResult.fromItemType(++position, value.firstChild?.nodeValue ?: "", type)
         }

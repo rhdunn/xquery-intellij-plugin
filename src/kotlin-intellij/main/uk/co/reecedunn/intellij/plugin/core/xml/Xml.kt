@@ -22,6 +22,8 @@ import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
 import java.io.StringReader
 import java.io.StringWriter
+import javax.xml.XMLConstants
+import javax.xml.namespace.QName
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
@@ -39,17 +41,25 @@ fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()
 
 fun <E> NodeList.elements(map: (Element) -> E): Sequence<E> = asSequence().filterIsInstance<Element>().map(map)
 
+fun String.toQName(namespaces: Map<String, String>): QName {
+    return when {
+        contains(':') -> split(":").let { QName(namespaces[it[0]], it[1], it[0]) }
+        else -> QName(this)
+    }
+}
+
 class XmlElement(val element: Element, private val namespaces: Map<String, String>) {
     fun children(): Sequence<XmlElement> {
         return element.childNodes.elements { XmlElement(it, namespaces) }
     }
 
-    fun children(localname: String): Sequence<XmlElement> {
-        return element.getElementsByTagName(localname).elements { XmlElement(it, namespaces) }
-    }
+    fun children(qname: String): Sequence<XmlElement> = children(qname.toQName(namespaces))
 
-    fun children(namespace: String, localname: String): Sequence<XmlElement> {
-        return element.getElementsByTagNameNS(namespace, localname).elements { XmlElement(it, namespaces) }
+    fun children(qname: QName): Sequence<XmlElement> {
+        return when {
+            qname.namespaceURI === XMLConstants.NULL_NS_URI -> element.getElementsByTagName(qname.localPart)
+            else -> element.getElementsByTagNameNS(qname.namespaceURI, qname.localPart)
+        }.elements { XmlElement(it, namespaces) }
     }
 
     val firstChild: Node? = element.firstChild
