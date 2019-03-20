@@ -26,7 +26,7 @@ private val RE_EXISTDB_LOCATION =
     "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
 class EXistDBQueryError(exception: String) : QueryError() {
-    private val xml = XmlDocument.parse(exception)
+    private val xml = XmlDocument.parse(exception, mapOf())
     private val parts by lazy {
         val messageText = xml.root.children("message").first().firstChild!!.nodeValue
         RE_EXISTDB_MESSAGE.matchEntire(messageText)?.groupValues

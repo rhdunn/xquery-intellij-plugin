@@ -26,9 +26,14 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
-
 internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
+    companion object {
+        private const val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
+        private val EXIST_NAMESPACES = mapOf(
+            "exist" to "http://exist.sourceforge.net/NS/exist"
+        )
+    }
+
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean = false
@@ -60,7 +65,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
         }
 
         var position: Long = -1
-        val result = XmlDocument.parse(body)
+        val result = XmlDocument.parse(body, EXIST_NAMESPACES)
         result.root.children(EXIST_NS, "value").map { value ->
             val type = value.getAttributeNS(EXIST_NS, "type")!!
             QueryResult.fromItemType(++position, value.firstChild?.nodeValue ?: "", type)

@@ -49,7 +49,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
-                val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
+                val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate, mapOf())
                 xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.decode()!!))
 
                 val builder = RequestBuilder.post("$baseUri/db")

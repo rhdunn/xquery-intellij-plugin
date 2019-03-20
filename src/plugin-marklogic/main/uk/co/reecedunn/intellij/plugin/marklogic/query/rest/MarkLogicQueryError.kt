@@ -23,9 +23,13 @@ class MarkLogicQueryError(xml: String) : QueryError() {
     companion object {
         private const val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
         private const val XMLNS_DBG = "http://reecedunn.co.uk/xquery/debug"
+        private val ERROR_NAMESPACES = mapOf(
+            "err" to "http://www.w3.org/2005/xqt-errors",
+            "dbg" to "http://reecedunn.co.uk/xquery/debug"
+        )
     }
 
-    private val doc = XmlDocument.parse(xml)
+    private val doc = XmlDocument.parse(xml, ERROR_NAMESPACES)
 
     override val value: List<String> by lazy {
         doc.root.children(XMLNS_ERR, "value").first().children(XMLNS_ERR, "item").map {

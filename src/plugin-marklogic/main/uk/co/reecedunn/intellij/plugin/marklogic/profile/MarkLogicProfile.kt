@@ -60,9 +60,12 @@ class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
 class MarkLogicProfileReport(override val xml: String) : ProfileReport {
     companion object {
         private const val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
+        private val PROFILE_NAMESPACES = mapOf(
+            "prof" to "http://marklogic.com/xdmp/profile"
+        )
     }
 
-    private val doc = XmlDocument.parse(xml)
+    private val doc = XmlDocument.parse(xml, PROFILE_NAMESPACES)
 
     override val elapsed: XsDurationValue by lazy {
         val metadata = doc.root.children(XMLNS_PROF, "metadata").first()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,17 +39,17 @@ fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()
 
 fun <E> NodeList.elements(map: (Element) -> E): Sequence<E> = asSequence().filterIsInstance<Element>().map(map)
 
-class XmlElement(val element: Element) {
+class XmlElement(val element: Element, private val namespaces: Map<String, String>) {
     fun children(): Sequence<XmlElement> {
-        return element.childNodes.elements { XmlElement(it) }
+        return element.childNodes.elements { XmlElement(it, namespaces) }
     }
 
     fun children(localname: String): Sequence<XmlElement> {
-        return element.getElementsByTagName(localname).elements { XmlElement(it) }
+        return element.getElementsByTagName(localname).elements { XmlElement(it, namespaces) }
     }
 
     fun children(namespace: String, localname: String): Sequence<XmlElement> {
-        return element.getElementsByTagNameNS(namespace, localname).elements { XmlElement(it) }
+        return element.getElementsByTagNameNS(namespace, localname).elements { XmlElement(it, namespaces) }
     }
 
     val firstChild: Node? = element.firstChild
@@ -61,8 +61,8 @@ class XmlElement(val element: Element) {
     fun appendChild(child: Node): Node? = element.appendChild(child)
 }
 
-class XmlDocument internal constructor(val doc: Document) {
-    val root: XmlElement = XmlElement(doc.documentElement)
+class XmlDocument internal constructor(val doc: Document, namespaces: Map<String, String>) {
+    val root: XmlElement = XmlElement(doc.documentElement, namespaces)
 
     fun toXmlString(): String {
         val writer = StringWriter()
@@ -82,6 +82,8 @@ class XmlDocument internal constructor(val doc: Document) {
             factory.newTransformer()
         }
 
-        fun parse(xml: String): XmlDocument = XmlDocument(builder.parse(InputSource(StringReader(xml))))
+        fun parse(xml: String, namespaces: Map<String, String>): XmlDocument {
+            return XmlDocument(builder.parse(InputSource(StringReader(xml))), namespaces)
+        }
     }
 }
