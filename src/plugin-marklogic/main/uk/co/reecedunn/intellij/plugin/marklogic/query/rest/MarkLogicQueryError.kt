@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
@@ -30,12 +29,12 @@ class MarkLogicQueryError(xml: String) : QueryError() {
 
     override val value: List<String> by lazy {
         doc.root.children(XMLNS_ERR, "value").first().children(XMLNS_ERR, "item").map {
-            it.firstChild.nodeValue
+            it.firstChild!!.nodeValue
         }.toList()
     }
 
     override val standardCode: String by lazy {
-        doc.root.children(XMLNS_ERR, "code").first().firstChild.nodeValue.replace("^err:".toRegex(), "")
+        doc.root.children(XMLNS_ERR, "code").first().firstChild!!.nodeValue.replace("^err:".toRegex(), "")
     }
 
     override val vendorCode: String? by lazy {

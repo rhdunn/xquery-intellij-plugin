@@ -15,16 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
-import org.w3c.dom.Element
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
-class MarkLogicProfileEntry(entry: Element) : ProfileEntry {
+class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
     companion object {
         private const val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
     }

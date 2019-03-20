@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
@@ -63,7 +62,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
         var position: Long = -1
         val result = XmlDocument.parse(body)
         result.root.children(EXIST_NS, "value").map { value ->
-            val type = value.getAttributeNS(EXIST_NS, "type")
+            val type = value.getAttributeNS(EXIST_NS, "type")!!
             QueryResult.fromItemType(++position, value.firstChild?.nodeValue ?: "", type)
         }
     }

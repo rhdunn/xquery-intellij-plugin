@@ -37,20 +37,32 @@ private class NodeListIterator(val nodes: NodeList) : Iterator<Node> {
 
 fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()
 
-fun Element.children(): Sequence<Element> {
-    return childNodes.asSequence().filterIsInstance<Element>()
-}
+fun <E> NodeList.elements(map: (Element) -> E): Sequence<E> = asSequence().filterIsInstance<Element>().map(map)
 
-fun Element.children(localname: String): Sequence<Element> {
-    return getElementsByTagName(localname).asSequence().filterIsInstance<Element>()
-}
+class XmlElement(val element: Element) {
+    fun children(): Sequence<XmlElement> {
+        return element.childNodes.elements { XmlElement(it) }
+    }
 
-fun Element.children(namespace: String, localname: String): Sequence<Element> {
-    return getElementsByTagNameNS(namespace, localname).asSequence().filterIsInstance<Element>()
+    fun children(localname: String): Sequence<XmlElement> {
+        return element.getElementsByTagName(localname).elements { XmlElement(it) }
+    }
+
+    fun children(namespace: String, localname: String): Sequence<XmlElement> {
+        return element.getElementsByTagNameNS(namespace, localname).elements { XmlElement(it) }
+    }
+
+    val firstChild: Node? = element.firstChild
+
+    fun getAttribute(attribute: String): String? = element.getAttribute(attribute)
+
+    fun getAttributeNS(ns: String, attribute: String): String? = element.getAttributeNS(ns, attribute)
+
+    fun appendChild(child: Node): Node? = element.appendChild(child)
 }
 
 class XmlDocument internal constructor(val doc: Document) {
-    val root: Element = doc.documentElement
+    val root: XmlElement = XmlElement(doc.documentElement)
 
     fun toXmlString(): String {
         val writer = StringWriter()

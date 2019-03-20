@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
@@ -29,7 +28,7 @@ private val RE_EXISTDB_LOCATION =
 class EXistDBQueryError(exception: String) : QueryError() {
     private val xml = XmlDocument.parse(exception)
     private val parts by lazy {
-        val messageText = xml.root.children("message").first().firstChild.nodeValue
+        val messageText = xml.root.children("message").first().firstChild!!.nodeValue
         RE_EXISTDB_MESSAGE.matchEntire(messageText)?.groupValues
             ?: throw RuntimeException("Cannot parse eXist-db error message: $messageText")
     }
@@ -45,7 +44,7 @@ class EXistDBQueryError(exception: String) : QueryError() {
     override val description: String? = parts[4].substringBefore(" [at ")
 
     override val frames: List<StackFrame> by lazy {
-        val path = xml.root.children("path").first().firstChild.nodeValue
+        val path = xml.root.children("path").first().firstChild!!.nodeValue
         val line = locationParts?.get(1)?.toIntOrNull()
         val col = locationParts?.get(2)?.toIntOrNull()
         listOf(StackFrame(path, line, col))
