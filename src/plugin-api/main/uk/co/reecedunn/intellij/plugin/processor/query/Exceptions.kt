@@ -19,23 +19,8 @@ import com.intellij.lang.Language
 import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import java.lang.UnsupportedOperationException
 import java.net.UnknownHostException
-
-abstract class QueryError : RuntimeException() {
-    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
-
-    abstract val value: List<String>
-
-    abstract val standardCode: String
-
-    abstract val vendorCode: String?
-
-    abstract val description: String?
-
-    abstract val frames: List<StackFrame>
-}
 
 class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")
 
