@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
-import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRunQuery
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
@@ -56,7 +56,7 @@ class MarkLogicRunQueryTest {
         val processor = create("localhost", 8000, "testuser")
         val query = processor.createRunnableQuery(DatabaseModule("/test/script.xqy"), XQuery)
 
-        val request = (query as MarkLogicRunQuery).request()
+        val request = (query as BuildableQuery).request()
         assertThat(request.method, `is`("POST"))
         assertThat(request.uri.toASCIIString(), `is`("http://localhost:8000/v1/eval"))
 

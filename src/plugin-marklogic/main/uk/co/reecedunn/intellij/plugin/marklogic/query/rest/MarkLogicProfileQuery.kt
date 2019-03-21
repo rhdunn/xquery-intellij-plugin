@@ -37,7 +37,8 @@ internal class MarkLogicProfileQuery(
     val queryParams: JsonObject,
     val connection: HttpConnection
 ) :
-    ProfileableQuery {
+    ProfileableQuery,
+    BuildableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -69,7 +70,7 @@ internal class MarkLogicProfileQuery(
         }
     }
 
-    fun request(): HttpUriRequest {
+    override fun request(): HttpUriRequest {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())

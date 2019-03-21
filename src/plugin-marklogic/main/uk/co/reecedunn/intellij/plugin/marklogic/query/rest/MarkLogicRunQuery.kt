@@ -36,7 +36,8 @@ internal class MarkLogicRunQuery(
     val queryParams: JsonObject,
     val connection: HttpConnection
 ) :
-    RunnableQuery {
+    RunnableQuery,
+    BuildableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -68,7 +69,7 @@ internal class MarkLogicRunQuery(
         }
     }
 
-    fun request(): HttpUriRequest {
+    override fun request(): HttpUriRequest {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
