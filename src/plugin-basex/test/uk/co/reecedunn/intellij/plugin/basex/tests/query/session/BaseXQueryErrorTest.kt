@@ -18,15 +18,15 @@ package uk.co.reecedunn.intellij.plugin.basex.tests.query.session
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXError
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXQueryError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseXQueryError")
 class BaseXQueryErrorTest {
     @Test
     @DisplayName("with context")
     fun withContext() {
-        val e = BaseXQueryError("Stopped at ., 1/7:\r\n[XPST0003] Incomplete expression.")
+        val e = "Stopped at ., 1/7:\r\n[XPST0003] Incomplete expression.".toBaseXError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Incomplete expression."))
@@ -38,7 +38,7 @@ class BaseXQueryErrorTest {
     @Test
     @DisplayName("with context as line/column")
     fun withContextAsLineColumn() {
-        val e = BaseXQueryError("Stopped at line 1, column 7:\r\n[XPST0003] Incomplete expression.")
+        val e = "Stopped at line 1, column 7:\r\n[XPST0003] Incomplete expression.".toBaseXError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Incomplete expression."))
@@ -50,7 +50,7 @@ class BaseXQueryErrorTest {
     @Test
     @DisplayName("without context")
     fun withoutContext() {
-        val e = BaseXQueryError("[XPST0003] Unknown type: array-node().")
+        val e = "[XPST0003] Unknown type: array-node().".toBaseXError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Unknown type: array-node()."))

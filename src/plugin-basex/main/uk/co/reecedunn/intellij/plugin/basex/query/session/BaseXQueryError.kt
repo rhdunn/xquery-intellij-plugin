@@ -17,31 +17,26 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 
 private val RE_BASEX_EXCEPTION =
     "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 private val RE_BASEX_EXCEPTION_LINE_COL =
     "^(Stopped at ()line ([0-9]+), column ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 
-class BaseXQueryError(msg: String) : QueryError() {
-    private val parts by lazy {
-        RE_BASEX_EXCEPTION.matchEntire(msg)?.groupValues
-            ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(msg)?.groupValues
-    }
+fun String.toBaseXError(): QueryError {
+    val parts =
+        RE_BASEX_EXCEPTION.matchEntire(this)?.groupValues
+            ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(this)?.groupValues
 
-    override val value: List<String> = listOf()
-
-    override val standardCode: String =
-        parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $msg")
-
-    override val vendorCode: String? = null
-
-    override val description: String? = parts?.get(6)
-
-    override val frames: List<StackFrame> by lazy {
-        val path = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
-        val line = parts?.get(3)?.toIntOrNull()
-        val col = parts?.get(4)?.toIntOrNull()
-        listOf(StackFrame(path, line, col))
-    }
+    val path = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
+    val line = parts?.get(3)?.toIntOrNull()
+    val col = parts?.get(4)?.toIntOrNull()
+    return QueryErrorImpl(
+        standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),
+        vendorCode = null,
+        description = parts[6],
+        value = listOf(),
+        frames = listOf(StackFrame(path, line, col))
+    )
 }

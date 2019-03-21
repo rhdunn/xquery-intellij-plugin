@@ -47,7 +47,7 @@ internal class BaseXClasses(path: File) {
             f()
         } catch (e: InvocationTargetException) {
             if (basexExceptionClass.isInstance(e.targetException)) {
-                throw BaseXQueryError(e.targetException.message!!)
+                throw e.targetException.message!!.toBaseXError()
             } else if (e.targetException is RuntimeException && e.targetException.message == "Not Implemented.") {
                 throw UnsupportedOperationException()
             } else {
