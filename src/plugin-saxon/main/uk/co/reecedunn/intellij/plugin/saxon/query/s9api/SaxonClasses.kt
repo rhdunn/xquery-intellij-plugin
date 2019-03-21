@@ -200,7 +200,7 @@ internal class SaxonClasses(path: File) {
             f()
         } catch (e: InvocationTargetException) {
             if (saxonApiExceptionClass.isInstance(e.targetException)) {
-                throw SaxonQueryError(e.targetException, this)
+                throw e.targetException.toSaxonError(this)
             } else if (e.targetException is SaxonTransformerQueryError) {
                 throw e.targetException
             } else {

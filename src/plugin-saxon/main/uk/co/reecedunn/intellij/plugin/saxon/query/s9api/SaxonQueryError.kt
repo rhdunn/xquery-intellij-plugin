@@ -17,32 +17,22 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-internal class SaxonQueryError(e: Any, classes: SaxonClasses) : QueryError() {
-    override val value: List<String> = listOf()
-
-    override val standardCode: String by lazy {
-        val qname = classes.saxonApiExceptionClass.getMethod("getErrorCode").invoke(e)
-        val ns = classes.qnameClass.getMethod("getNamespaceURI").invoke(qname)
-        val prefix = classes.qnameClass.getMethod("getPrefix").invoke(qname)
-        val localname = classes.qnameClass.getMethod("getLocalName").invoke(qname)
-        if (ns == ERR_NS || prefix == null)
-            localname as String
-        else
-            "$prefix:$localname"
-    }
-
-    override val vendorCode: String? = null
-
-    override val description: String? by lazy {
-        classes.saxonApiExceptionClass.getMethod("getMessage").invoke(e) as String?
-    }
-
-    override val frames: List<StackFrame> by lazy {
-        val path = classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(e) as String?
-        val line = classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(e) as Int?
-        listOf(StackFrame(path, line, 1))
-    }
+internal fun Any.toSaxonError(classes: SaxonClasses): QueryError {
+    val qname = classes.saxonApiExceptionClass.getMethod("getErrorCode").invoke(this)
+    val ns = classes.qnameClass.getMethod("getNamespaceURI").invoke(qname)
+    val prefix = classes.qnameClass.getMethod("getPrefix").invoke(qname)
+    val localname = classes.qnameClass.getMethod("getLocalName").invoke(qname)
+    val path = classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(this) as String?
+    val line = classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(this) as Int?
+    return QueryErrorImpl(
+        standardCode = if (ns == ERR_NS || prefix == null) localname as String else "$prefix:$localname",
+        vendorCode = null,
+        description = classes.saxonApiExceptionClass.getMethod("getMessage").invoke(this) as String?,
+        value = listOf(),
+        frames = listOf(StackFrame(path, line, 1))
+    )
 }
