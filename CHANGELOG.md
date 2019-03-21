@@ -7,6 +7,8 @@ Bug Fixes:
 1.  Fix an issue with run configuration settings not saving in IntelliJ 2018.3
     and later.
 1.  Don't highlight xqDoc tags in non-xqDoc comments.
+1.  Don't throw an IllegalCharsetNameException if the encoding string spans to
+    the next line.
 
 EXPath Syntax Extensions:
 

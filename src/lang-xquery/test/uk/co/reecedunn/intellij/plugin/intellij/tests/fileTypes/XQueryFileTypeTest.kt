@@ -400,8 +400,8 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
         }
 
         @Test
-        @DisplayName("unsupported/invalid VersionDecl encoding")
-        fun testUnsupportedFileEncodingFromContents() {
+        @DisplayName("encoding: UnsupportedCharsetException")
+        fun encodingUnsupportedCharsetException() {
             val file = createVirtualFile("encoding.xqy", "")
 
             assertThat(
@@ -409,6 +409,20 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
                     null,
                     file,
                     "xquery version \"1.0\" encoding \"utf\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+        }
+
+        @Test
+        @DisplayName("encoding: IllegalCharsetNameException")
+        fun encodingIllegalCharsetNameException() {
+            val file = createVirtualFile("encoding.xqy", "")
+
+            assertThat(
+                XQueryFileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\" encoding \"\nimport namespace test=\"" as CharSequence
                 ).name(), `is`("UTF-8")
             )
         }

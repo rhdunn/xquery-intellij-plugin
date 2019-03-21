@@ -18,6 +18,7 @@
     <ol>
       <li>Fix an issue with run configuration settings not saving in IntelliJ 2018.3 and later.</li>
       <li>Don't highlight xqDoc tags in non-xqDoc comments.</li>
+      <li>Don't throw an IllegalCharsetNameException if the encoding string spans to the next line.</li>
     </ol>
     <p>EXPath Syntax Extensions:</p>
     <ol>

@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
+import java.nio.charset.IllegalCharsetNameException
 import java.nio.charset.UnsupportedCharsetException
 import javax.swing.Icon
 
@@ -115,8 +116,9 @@ object XQueryFileType : LanguageFileType(XQuery) {
             Charset.forName(matchString(lexer, "utf-8")!!)
         } catch (e: UnsupportedCharsetException) {
             UTF_8
+        } catch (e: IllegalCharsetNameException) {
+            UTF_8
         }
-
     }
 
     override fun getCharset(file: VirtualFile, content: ByteArray): String? {
