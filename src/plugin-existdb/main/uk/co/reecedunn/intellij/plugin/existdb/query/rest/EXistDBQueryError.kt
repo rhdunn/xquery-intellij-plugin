@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 
 private val RE_EXISTDB_MESSAGE =
     "^(exerr:ERROR )?(org.exist.xquery.XPathException: )?([^ ]+) (.*)\n?$".toRegex()
@@ -25,28 +26,23 @@ private val RE_EXISTDB_MESSAGE =
 private val RE_EXISTDB_LOCATION =
     "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
-class EXistDBQueryError(exception: String) : QueryError() {
-    private val xml = XmlDocument.parse(exception, mapOf())
-    private val parts by lazy {
-        val messageText = xml.root.children("message").first().text()!!
+fun String.toEXistDBError(): QueryError {
+    val xml = XmlDocument.parse(this, mapOf())
+    val messageText = xml.root.children("message").first().text()!!
+    val parts =
         RE_EXISTDB_MESSAGE.matchEntire(messageText)?.groupValues
             ?: throw RuntimeException("Cannot parse eXist-db error message: $messageText")
-    }
-    private val locationParts = RE_EXISTDB_LOCATION.matchEntire(parts[4].substringAfter(" [at "))?.groupValues
+    val locationParts = RE_EXISTDB_LOCATION.matchEntire(parts[4].substringAfter(" [at "))?.groupValues
 
-    override val value: List<String> = listOf()
+    val path = xml.root.children("path").first().text()
+    val line = locationParts?.get(1)?.toIntOrNull()
+    val col = locationParts?.get(2)?.toIntOrNull()
 
-    override val standardCode: String =
-        (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), "")
-
-    override val vendorCode: String? = null
-
-    override val description: String? = parts[4].substringBefore(" [at ")
-
-    override val frames: List<StackFrame> by lazy {
-        val path = xml.root.children("path").first().text()
-        val line = locationParts?.get(1)?.toIntOrNull()
-        val col = locationParts?.get(2)?.toIntOrNull()
-        listOf(StackFrame(path, line, col))
-    }
+    return QueryErrorImpl(
+        standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),
+        vendorCode = null,
+        description = parts[4].substringBefore(" [at "),
+        value = listOf(),
+        frames = listOf(StackFrame(path, line, col))
+    )
 }

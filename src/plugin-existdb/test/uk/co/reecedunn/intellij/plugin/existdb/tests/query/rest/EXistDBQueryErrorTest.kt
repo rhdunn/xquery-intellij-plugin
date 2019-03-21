@@ -20,7 +20,7 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBQueryError
+import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - EXistDBQueryError")
 class EXistDBQueryErrorTest {
@@ -36,7 +36,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = EXistDBQueryError(exception)
+        val e = exception.toEXistDBError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("unexpected token: null"))
@@ -56,7 +56,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = EXistDBQueryError(exception)
+        val e = exception.toEXistDBError()
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
@@ -76,7 +76,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = EXistDBQueryError(exception)
+        val e = exception.toEXistDBError()
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))

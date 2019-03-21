@@ -59,7 +59,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
         response.close()
 
         if (response.statusLine.statusCode != 200) when (response.statusLine.statusCode) {
-            400 -> throw EXistDBQueryError(body)
+            400 -> throw body.toEXistDBError()
             else -> throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
