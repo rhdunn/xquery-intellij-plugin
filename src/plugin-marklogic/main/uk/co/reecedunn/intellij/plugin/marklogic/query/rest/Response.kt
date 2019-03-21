@@ -30,7 +30,7 @@ fun MimeResponse.queryResults(): Sequence<QueryResult> {
             val primitive = part.getHeader("X-Primitive") ?: "string"
             val derived = getHeader("X-Derived-${index + 1}")
             if (derived == "err:error")
-                throw MarkLogicQueryError(part.body)
+                throw part.body.toMarkLogicError()
             else {
                 val itemType = primitiveToItemType(derived ?: primitive)
                 val contentType = when (itemType) {

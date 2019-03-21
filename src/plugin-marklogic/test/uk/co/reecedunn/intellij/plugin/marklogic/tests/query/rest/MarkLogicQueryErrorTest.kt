@@ -21,7 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryError
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogicQueryError")
 class MarkLogicQueryErrorTest {
@@ -42,7 +42,7 @@ class MarkLogicQueryErrorTest {
             </err:error>
         """
 
-        val e = MarkLogicQueryError(exception)
+        val e = exception.toMarkLogicError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
         assertThat(e.description, `is`("Unexpected token"))
@@ -68,7 +68,7 @@ class MarkLogicQueryErrorTest {
             </err:error>
         """
 
-        val e = MarkLogicQueryError(exception)
+        val e = exception.toMarkLogicError()
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
         assertThat(e.description, `is`("All modules in a module sequence must use the same XQuery version"))

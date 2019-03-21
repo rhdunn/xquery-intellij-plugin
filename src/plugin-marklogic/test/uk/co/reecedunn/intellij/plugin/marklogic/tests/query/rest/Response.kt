@@ -24,8 +24,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogic MIME Response to Query Results")
 class Response {
@@ -202,7 +202,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=fb98e57ec409700a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val e = assertThrows<MarkLogicQueryError>(MarkLogicQueryError::class.java) {
+        val e = assertThrows<QueryError>(QueryError::class.java) {
             MimeResponse(headers, body).queryResults().toList()
         }
 
