@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,6 @@ internal class SaxonErrorListener(var classes: SaxonClasses) : ErrorListener {
     }
 
     override fun fatalError(exception: TransformerException?) {
-        throw SaxonTransformerQueryError(exception!!, classes)
+        throw exception!!.toSaxonError(classes)
     }
 }

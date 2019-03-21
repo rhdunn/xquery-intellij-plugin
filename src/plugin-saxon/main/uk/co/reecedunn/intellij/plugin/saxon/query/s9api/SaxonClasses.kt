@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
 import java.lang.reflect.InvocationTargetException
@@ -201,7 +202,7 @@ internal class SaxonClasses(path: File) {
         } catch (e: InvocationTargetException) {
             if (saxonApiExceptionClass.isInstance(e.targetException)) {
                 throw e.targetException.toSaxonError(this)
-            } else if (e.targetException is SaxonTransformerQueryError) {
+            } else if (e.targetException is QueryError) {
                 throw e.targetException
             } else {
                 throw e

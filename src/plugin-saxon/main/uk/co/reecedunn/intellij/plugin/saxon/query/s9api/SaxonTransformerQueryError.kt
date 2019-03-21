@@ -18,29 +18,21 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import uk.co.reecedunn.intellij.plugin.core.reflection.getAnyMethod
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 import javax.xml.transform.TransformerException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-internal class SaxonTransformerQueryError(e: TransformerException, classes: SaxonClasses) : QueryError() {
-    override val value: List<String> = listOf()
-
-    override val standardCode: String by lazy {
-        val qname = classes.xpathExceptionClass.getMethod("getErrorCodeQName").invoke(e)
-        val ns = classes.structuredQNameClass.getAnyMethod("getURI", "getNamespaceURI").invoke(qname)
-        val prefix = classes.structuredQNameClass.getMethod("getPrefix").invoke(qname)
-        val localname = classes.structuredQNameClass.getAnyMethod("getLocalPart", "getLocalName").invoke(qname)
-        if (ns == ERR_NS || prefix == null)
-            localname as String
-        else
-            "$prefix:$localname"
-    }
-
-    override val vendorCode: String? = null
-
-    override val description: String? = e.message
-
-    override val frames: List<StackFrame> by lazy {
-        listOf(StackFrame(e.locator?.systemId, e.locator?.lineNumber, e.locator?.columnNumber))
-    }
+internal fun TransformerException.toSaxonError(classes: SaxonClasses): QueryError {
+    val qname = classes.xpathExceptionClass.getMethod("getErrorCodeQName").invoke(this)
+    val ns = classes.structuredQNameClass.getAnyMethod("getURI", "getNamespaceURI").invoke(qname)
+    val prefix = classes.structuredQNameClass.getMethod("getPrefix").invoke(qname)
+    val localname = classes.structuredQNameClass.getAnyMethod("getLocalPart", "getLocalName").invoke(qname)
+    return QueryErrorImpl(
+        standardCode = if (ns == ERR_NS || prefix == null) localname as String else "$prefix:$localname",
+        vendorCode = null,
+        description = message,
+        value = listOf(),
+        frames = listOf(StackFrame(locator?.systemId, locator?.lineNumber, locator?.columnNumber))
+    )
 }
