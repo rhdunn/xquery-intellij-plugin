@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 
 private val RE_EXISTDB_MESSAGE =
     "^(exerr:ERROR )?(org.exist.xquery.XPathException: )?([^ ]+) (.*)\n?$".toRegex()
@@ -38,7 +37,7 @@ fun String.toEXistDBError(): QueryError {
     val line = locationParts?.get(1)?.toIntOrNull()
     val col = locationParts?.get(2)?.toIntOrNull()
 
-    return QueryErrorImpl(
+    return QueryError(
         standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),
         vendorCode = null,
         description = parts[4].substringBefore(" [at "),

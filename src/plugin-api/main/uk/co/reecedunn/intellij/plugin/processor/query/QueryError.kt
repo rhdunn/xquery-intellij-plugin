@@ -17,24 +17,12 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 
-abstract class QueryError : RuntimeException() {
+data class QueryError(
+    val standardCode: String,
+    val vendorCode: String?,
+    val description: String?,
+    val value: List<String>,
+    val frames: List<StackFrame>
+) : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
-
-    abstract val standardCode: String
-
-    abstract val vendorCode: String?
-
-    abstract val description: String?
-
-    abstract val value: List<String>
-
-    abstract val frames: List<StackFrame>
 }
-
-data class QueryErrorImpl(
-    override val standardCode: String,
-    override val vendorCode: String?,
-    override val description: String?,
-    override val value: List<String>,
-    override val frames: List<StackFrame>
-) : QueryError()

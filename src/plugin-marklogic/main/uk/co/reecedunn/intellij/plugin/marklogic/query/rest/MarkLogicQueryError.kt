@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 
 private val ERROR_NAMESPACES = mapOf(
     "err" to "http://www.w3.org/2005/xqt-errors",
@@ -27,7 +26,7 @@ private val ERROR_NAMESPACES = mapOf(
 
 fun String.toMarkLogicError(): QueryError {
     val doc = XmlDocument.parse(this, ERROR_NAMESPACES)
-    return QueryErrorImpl(
+    return QueryError(
         standardCode = doc.root.children("err:code").first().text()!!.replace("^err:".toRegex(), ""),
         vendorCode = doc.root.children("err:vendor-code").first().text(),
         description = doc.root.children("err:description").first().text(),

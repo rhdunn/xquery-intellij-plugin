@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryErrorImpl
 
 private val RE_BASEX_EXCEPTION =
     "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
@@ -32,7 +31,7 @@ fun String.toBaseXError(): QueryError {
     val path = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
     val line = parts?.get(3)?.toIntOrNull()
     val col = parts?.get(4)?.toIntOrNull()
-    return QueryErrorImpl(
+    return QueryError(
         standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),
         vendorCode = null,
         description = parts[6],
