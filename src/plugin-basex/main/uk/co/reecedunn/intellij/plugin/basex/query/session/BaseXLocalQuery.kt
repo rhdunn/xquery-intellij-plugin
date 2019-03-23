@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
@@ -50,9 +53,12 @@ internal class BaseXLocalQuery(val session: Any, val queryString: String, val cl
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        classes.localQueryClass
-            .getMethod("context", Any::class.java, String::class.java)
-            .invoke(query, value, mapType(type))
+        val bind = classes.localQueryClass.getMethod("context", Any::class.java, String::class.java)
+        when (value) {
+            is DatabaseModule -> bind.invoke(query, value.path, mapType(type))
+            is VirtualFile -> bind.invoke(query, value.decode()!!, mapType(type))
+            else -> bind.invoke(query, value.toString(), mapType(type))
+        }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
