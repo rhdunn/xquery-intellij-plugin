@@ -24,32 +24,35 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseXQueryError")
 class BaseXQueryErrorTest {
     @Test
-    @DisplayName("with context")
-    fun withContext() {
-        val e = "Stopped at ., 1/7:\r\n[XPST0003] Incomplete expression.".toBaseXError()
+    @DisplayName("at runtime; BaseX 8.0")
+    fun runtime80() {
+        // Query: ```1 div```
+        val e = "Stopped at ., 1/6:\r\n[XPST0003] Calculation is incomplete.".toBaseXError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
-        assertThat(e.description, `is`("Incomplete expression."))
+        assertThat(e.description, `is`("Calculation is incomplete."))
         assertThat(e.frames[0].module, `is`(nullValue()))
         assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(7))
+        assertThat(e.frames[0].columnNumber, `is`(6))
     }
 
     @Test
-    @DisplayName("with context as line/column")
-    fun withContextAsLineColumn() {
-        val e = "Stopped at line 1, column 7:\r\n[XPST0003] Incomplete expression.".toBaseXError()
+    @DisplayName("with context; BaseX 7.0")
+    fun runtime70() {
+        // Query: ```1 div```
+        val e = "Stopped at line 1, column 5:\r\n[XPST0003] Calculation is incomplete.".toBaseXError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
-        assertThat(e.description, `is`("Incomplete expression."))
+        assertThat(e.description, `is`("Calculation is incomplete."))
         assertThat(e.frames[0].module, `is`(nullValue()))
         assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(7))
+        assertThat(e.frames[0].columnNumber, `is`(5))
     }
 
     @Test
-    @DisplayName("without context")
-    fun withoutContext() {
+    @DisplayName("bind context; unknown type")
+    fun bindContextUnknownType() {
+        // Bind context to unknown type -- "[]" as "array-node()".
         val e = "[XPST0003] Unknown type: array-node().".toBaseXError()
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
