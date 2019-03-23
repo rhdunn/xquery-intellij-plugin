@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.getAnyMethod
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import javax.xml.transform.TransformerException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
@@ -33,5 +35,19 @@ internal fun Any.toSaxonError(classes: SaxonClasses): QueryError {
         description = classes.saxonApiExceptionClass.getMethod("getMessage").invoke(this) as String?,
         value = listOf(),
         frames = listOf(StackFrame(path, line, 1))
+    )
+}
+
+internal fun TransformerException.toSaxonError(classes: SaxonClasses): QueryError {
+    val qname = classes.xpathExceptionClass.getMethod("getErrorCodeQName").invoke(this)
+    val ns = classes.structuredQNameClass.getAnyMethod("getURI", "getNamespaceURI").invoke(qname)
+    val prefix = classes.structuredQNameClass.getMethod("getPrefix").invoke(qname)
+    val localname = classes.structuredQNameClass.getAnyMethod("getLocalPart", "getLocalName").invoke(qname)
+    return QueryError(
+        standardCode = if (ns == ERR_NS || prefix == null) localname as String else "$prefix:$localname",
+        vendorCode = null,
+        description = message,
+        value = listOf(),
+        frames = listOf(StackFrame(locator?.systemId, locator?.lineNumber, locator?.columnNumber))
     )
 }
