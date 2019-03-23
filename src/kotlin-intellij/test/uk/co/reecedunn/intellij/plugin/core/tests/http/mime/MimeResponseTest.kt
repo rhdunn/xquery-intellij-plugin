@@ -33,7 +33,7 @@ class MimeResponseTest {
             BasicHeader("Content-Length", "0")
         )
         val body = ""
-        val response = MimeResponse(headers, body)
+        val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("0"))
@@ -54,7 +54,7 @@ class MimeResponseTest {
             BasicHeader("Content-Type", "text/plain")
         )
         val body = "Hello"
-        val response = MimeResponse(headers, body)
+        val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("5"))
@@ -82,7 +82,7 @@ class MimeResponseTest {
             "\r\n" +
             "15\r\n" +
             "--212ab95a34643c9d--\r\n"
-        val response = MimeResponse(headers, body)
+        val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("98"))
@@ -112,7 +112,7 @@ class MimeResponseTest {
             "\r\n" +
             "15\r\n" +
             "--212ab95a34643c9d--\r\n"
-        val response = MimeResponse(headers, body)
+        val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("98"))
@@ -145,7 +145,7 @@ class MimeResponseTest {
             "\r\n" +
             "5\r\n" +
             "--47c813e0bbfa09d4--\r\n"
-        val response = MimeResponse(headers, body)
+        val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(2))
         assertThat(response.getHeader("Content-Length"), `is`("205"))
@@ -178,7 +178,7 @@ class MimeResponseTest {
             "\r\n" +
             "--31c406fa29f12029--\r\n"
         val headers = arrayOf<Header>(BasicHeader("Content-Length", Integer.toString(body.length)), BasicHeader("Content-Type", "multipart/mixed; boundary=31c406fa29f12029"), BasicHeader("X-Content-Type", "text/turtle"))
-        val response = MimeResponse(headers, body)
+        val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("222"))

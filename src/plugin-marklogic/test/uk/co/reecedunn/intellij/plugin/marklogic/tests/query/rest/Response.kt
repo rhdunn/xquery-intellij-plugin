@@ -37,7 +37,7 @@ class Response {
         val headers = arrayOf<Header>(
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(0))
     }
 
@@ -59,7 +59,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=f260e14402e96a50"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -96,7 +96,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=869b5d54aa36954a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(3))
 
         assertThat(results[0].position, `is`(0L))
@@ -140,7 +140,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=3734bc5a2395b3de"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -173,7 +173,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b857af6eabb53cb2"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -203,7 +203,7 @@ class Response {
             BasicHeader("Content-Length", body.length.toString())
         )
         val e = assertThrows<QueryError>(QueryError::class.java) {
-            MimeResponse(headers, body).queryResults().toList()
+            MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         }
 
         assertThat(e.description, `is`("Division by zero"))
@@ -233,7 +233,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=40d8fa04d13bdcb1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -270,7 +270,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b54154d3ae21a0f1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -309,7 +309,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=e59349f9cdb07885"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body).queryResults().toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults().toList()
         assertThat(results.size, `is`(1))
 
         val value = listOf(

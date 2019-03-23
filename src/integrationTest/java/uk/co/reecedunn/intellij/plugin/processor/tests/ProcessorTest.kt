@@ -292,6 +292,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             @Test @DisplayName("xs:QName") fun xsQName() { atomic("xs:string", "xs:QName") }
 
             @Test @DisplayName("xs:string (empty)") fun xsStringEmpty() { atomic("", "xs:string") }
+            @Test @DisplayName("xs:string (unicode)") fun xsStringUnicode() { atomic("•\uD834\uDD1E", "xs:string") }
         }
 
         @Nested

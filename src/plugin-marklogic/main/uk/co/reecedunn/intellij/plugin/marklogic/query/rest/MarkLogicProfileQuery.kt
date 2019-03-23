@@ -96,7 +96,7 @@ internal class MarkLogicProfileQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        MarkLogicProfileQueryResults(MimeResponse(response.allHeaders, body).queryResults().iterator())
+        MarkLogicProfileQueryResults(MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults().iterator())
     }
 
     override fun close() {

@@ -95,7 +95,7 @@ internal class MarkLogicRunQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        MimeResponse(response.allHeaders, body).queryResults()
+        MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults()
     }
 
     override fun close() {
