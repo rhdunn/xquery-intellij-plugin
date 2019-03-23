@@ -61,7 +61,7 @@ class MarkLogicRunQueryTest {
         assertThat(request.uri.toASCIIString(), `is`("http://localhost:8000/v1/eval"))
 
         val body = (request as HttpEntityEnclosingRequest).entity
-        assertThat(body.contentType.value, `is`("application/x-www-form-urlencoded; charset=ISO-8859-1"))
+        assertThat(body.contentType.value, `is`("application/x-www-form-urlencoded; charset=UTF-8"))
         assertThat(body.content.decode(Charsets.US_ASCII), `is`(params.toFormParamString()))
     }
 

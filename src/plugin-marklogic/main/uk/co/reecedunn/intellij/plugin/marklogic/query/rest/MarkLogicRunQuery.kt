@@ -82,6 +82,7 @@ internal class MarkLogicRunQuery(
         params.addProperty("context-path", contextPath)
 
         builder.addParameter("vars", params.toString())
+        builder.charset = Charsets.UTF_8
         return builder.build()
     }
 
