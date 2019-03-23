@@ -2,6 +2,13 @@
 
 ## 1.4 - (In Development)
 
+IntelliJ Integration:
+
+1.  Register the XSLT 3.0 schema with IntelliJ.
+1.  Display the first comment line when the comment is folded.
+1.  Support profiling MarkLogic queries.
+1.  Support configuring the namespace prefix colour.
+
 Bug Fixes:
 
 1.  Fix an issue with run configuration settings not saving in IntelliJ 2018.3
@@ -10,12 +17,9 @@ Bug Fixes:
 1.  Don't throw an IllegalCharsetNameException if the encoding string spans to
     the next line.
 
-EXPath Syntax Extensions:
+XPath and XQuery:
 
-1.  Support the variadic function arguments proposal.
-
-XQuery:
-
+1.  Support the expath-ng variadic function arguments proposal.
 1.  Fix parsing QNames in NameTests where the prefix is `attribute`,
     `element`, `every`, `exit`, `namespace`, `processing-instruction`,
     `return`, or `some`.
@@ -23,10 +27,6 @@ XQuery:
     prefix is `some`, or `every`.
 1.  Fix parsing  ``` ``[`{...}`...`]`` ``` -- `StringConstructorInterpolation`
     at the start of a `StringConstructor`.
-
-XSLT:
-
-1.  Register the XSLT 3.0 schema with IntelliJ.
 
 Static Context:
 
@@ -37,12 +37,6 @@ Static Context:
 Function Resolution:
 
 1.  Correctly match functions with variadic function arguments.
-
-IntelliJ Integration:
-
-1.  Display the first comment line when the comment is folded.
-1.  Support profiling MarkLogic queries.
-1.  Support configuring the namespace prefix colour.
 
 Inspections:
 

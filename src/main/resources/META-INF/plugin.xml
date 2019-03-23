@@ -14,18 +14,22 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.4-dev:</h3>
+    <p>IntelliJ Integration:</p>
+    <ol>
+      <li>Register the XSLT 3.0 schema with IntelliJ.</li>
+      <li>Display the first comment line when the comment is folded.</li>
+      <li>Support profiling MarkLogic queries.</li>
+      <li>Support configuring the namespace prefix colour.</li>
+    </ol>
     <p>Bug Fixes:</p>
     <ol>
       <li>Fix an issue with run configuration settings not saving in IntelliJ 2018.3 and later.</li>
       <li>Don't highlight xqDoc tags in non-xqDoc comments.</li>
       <li>Don't throw an IllegalCharsetNameException if the encoding string spans to the next line.</li>
     </ol>
-    <p>EXPath Syntax Extensions:</p>
+    <p>XPath and XQuery:</p>
     <ol>
-      <li>Support the variadic function arguments proposal.</li>
-    </ol>
-    <p>XQuery:</p>
-    <ol>
+      <li>Support the expath-ng variadic function arguments proposal.</li>
       <li>
         Fix parsing QNames in NameTests where the prefix is <code>attribute</code>,
         <code>element</code>, <code>every</code>, <code>exit</code>, <code>namespace</code>,
@@ -40,10 +44,6 @@
         at the start of a <code>StringConstructor</code>.
       </li>
     </ol>
-    <p>XSLT:</p>
-    <ol>
-      <li>Register the XSLT 3.0 schema with IntelliJ.</li>
-    </ol>
     <p>Static Context:</p>
     <ol>
       <li>
@@ -55,12 +55,6 @@
     <p>Function Resolution:</p>
     <ol>
       <li>Correctly match functions with variadic function arguments.</li>
-    </ol>
-    <p>IntelliJ Integration:</p>
-    <ol>
-      <li>Display the first comment line when the comment is folded.</li>
-      <li>Support profiling MarkLogic queries.</li>
-      <li>Support configuring the namespace prefix colour.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
