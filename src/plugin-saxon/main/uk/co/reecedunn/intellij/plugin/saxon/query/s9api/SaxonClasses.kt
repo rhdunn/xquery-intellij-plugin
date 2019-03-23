@@ -161,7 +161,7 @@ internal class SaxonClasses(path: File) {
     fun toXdmValue(value: Any?, type: String?): Any? {
         return value?.let {
             when (type) {
-                null, "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
+                "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
                 "xs:QName" -> {
                     // The string constructor throws "Requested type is namespace-sensitive"
                     xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(value as String))
@@ -170,7 +170,7 @@ internal class SaxonClasses(path: File) {
                     tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
                 }
                 else -> {
-                    ATOMIC_ITEM_TYPE_NAMES[type]?.let {
+                    ATOMIC_ITEM_TYPE_NAMES[type ?: "xs:string"]?.let {
                         val itemtype = itemTypeClass.getField(it).get(itemTypeClass)
                         xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
                     } ?: throw UnsupportedOperationException()
