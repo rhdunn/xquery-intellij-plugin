@@ -22,7 +22,14 @@ import javax.xml.transform.TransformerException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-internal fun Any.toSaxonError(classes: SaxonClasses): QueryError {
+internal fun Throwable.toSaxonErrorUnchecked(classes: SaxonClasses): QueryError {
+    if (classes.xpathExceptionClass.isInstance(cause)) {
+        return (cause as TransformerException).toSaxonError(classes)
+    }
+    throw cause ?: this
+}
+
+internal fun Throwable.toSaxonErrorChecked(classes: SaxonClasses): QueryError {
     val qname = classes.saxonApiExceptionClass.getMethod("getErrorCode").invoke(this)
     val ns = classes.qnameClass.getMethod("getNamespaceURI").invoke(qname)
     val prefix = classes.qnameClass.getMethod("getPrefix").invoke(qname)

@@ -93,7 +93,6 @@ internal class SaxonClasses(path: File) {
     val itemTypeClass: Class<*>
     val processorClass: Class<*>
     val qnameClass: Class<*>
-    val saxonApiExceptionClass: Class<*>
     val structuredQNameClass: Class<*>
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
@@ -102,7 +101,6 @@ internal class SaxonClasses(path: File) {
     val xdmItemClass: Class<*>
     val xdmSequenceIteratorClass: Class<*>
     val xdmValueClass: Class<*>
-    val xpathExceptionClass: Class<*>
 
     val xpathCompilerClass: Class<*>
     val xpathExecutableClass: Class<*>
@@ -116,6 +114,10 @@ internal class SaxonClasses(path: File) {
     val xsltExecutableClass: Class<*>
     val xsltTransformerClass: Class<*>
 
+    val saxonApiExceptionClass: Class<*>
+    val saxonApiUncheckedExceptionClass: Class<*>
+    val xpathExceptionClass: Class<*>
+
     init {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
 
@@ -126,7 +128,6 @@ internal class SaxonClasses(path: File) {
         itemTypeClass = loader.loadClass("net.sf.saxon.s9api.ItemType")
         processorClass = loader.loadClass("net.sf.saxon.s9api.Processor")
         qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
-        saxonApiExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiException")
         structuredQNameClass = loader.loadClass("net.sf.saxon.om.StructuredQName")
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
@@ -135,7 +136,6 @@ internal class SaxonClasses(path: File) {
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
         xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
-        xpathExceptionClass = loader.loadClass("net.sf.saxon.trans.XPathException")
 
         xpathCompilerClass = loader.loadClass("net.sf.saxon.s9api.XPathCompiler")
         xpathExecutableClass = loader.loadClass("net.sf.saxon.s9api.XPathExecutable")
@@ -148,6 +148,10 @@ internal class SaxonClasses(path: File) {
         xsltCompilerClass = loader.loadClass("net.sf.saxon.s9api.XsltCompiler")
         xsltExecutableClass = loader.loadClass("net.sf.saxon.s9api.XsltExecutable")
         xsltTransformerClass = loader.loadClass("net.sf.saxon.s9api.XsltTransformer")
+
+        saxonApiExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiException")
+        saxonApiUncheckedExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiUncheckedException")
+        xpathExceptionClass = loader.loadClass("net.sf.saxon.trans.XPathException")
     }
 
     fun tryXdmValue(value: Any?, type: String?): Any? {
@@ -202,12 +206,11 @@ internal class SaxonClasses(path: File) {
         return try {
             f()
         } catch (e: InvocationTargetException) {
-            if (saxonApiExceptionClass.isInstance(e.targetException)) {
-                throw e.targetException.toSaxonError(this)
-            } else if (e.targetException is QueryError) {
-                throw e.targetException
-            } else {
-                throw e
+            val target = e.targetException
+            throw when {
+                saxonApiExceptionClass.isInstance(target) -> target.toSaxonErrorChecked(this)
+                saxonApiUncheckedExceptionClass.isInstance(target) -> target.toSaxonErrorUnchecked(this)
+                else -> target
             }
         }
     }
