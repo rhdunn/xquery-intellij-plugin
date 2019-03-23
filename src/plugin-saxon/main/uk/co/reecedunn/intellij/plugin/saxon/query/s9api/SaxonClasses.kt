@@ -159,22 +159,24 @@ internal class SaxonClasses(path: File) {
     }
 
     fun toXdmValue(value: Any?, type: String?): Any? {
-        return when (type) {
-            null, "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
-            "xs:QName" -> {
-                // The string constructor throws "Requested type is namespace-sensitive"
-                xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(value as String))
+        return value?.let {
+            when (type) {
+                null, "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
+                "xs:QName" -> {
+                    // The string constructor throws "Requested type is namespace-sensitive"
+                    xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(value as String))
+                }
+                "xs:numeric" -> {
+                    tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
+                }
+                else -> {
+                    ATOMIC_ITEM_TYPE_NAMES[type]?.let {
+                        val itemtype = itemTypeClass.getField(it).get(itemTypeClass)
+                        xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
+                    } ?: throw UnsupportedOperationException()
+                }
             }
-            "xs:numeric" -> {
-                tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
-            }
-            else -> {
-                ATOMIC_ITEM_TYPE_NAMES[type]?.let {
-                    val itemtype = itemTypeClass.getField(it).get(itemTypeClass)
-                    xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
-                } ?: throw UnsupportedOperationException()
-            }
-        }
+        } ?: xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
     }
 
     fun toQName(qname: String): Any {
