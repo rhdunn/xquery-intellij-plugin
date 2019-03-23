@@ -47,21 +47,27 @@ internal class SaxonXPathRunner(val processor: Any, val query: String, val class
 
     override var modulePath: String = ""
 
+    private var context: Any? = null
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         throw UnsupportedOperationException()
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        val bind = classes.xpathSelectorClass.getMethod("setContextItem", classes.xdmItemClass)
-        when (value) {
-            is DatabaseModule -> bind.invoke(selector, classes.toXdmValue(value.path, type))
-            is VirtualFile -> bind.invoke(selector, classes.toXdmValue(value.decode()!!, type))
-            else -> bind.invoke(selector, classes.toXdmValue(value, type))
+        context = when (value) {
+            is DatabaseModule -> classes.toXdmValue(value.path, type)
+            is VirtualFile -> classes.toXdmValue(value.decode()!!, type)
+            else -> classes.toXdmValue(value, type)
         }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check {
+            context?.let {
+                val bind = classes.xpathSelectorClass.getMethod("setContextItem", classes.xdmItemClass)
+                bind.invoke(selector, context)
+            }
+
             val iterator = classes.xpathSelectorClass.getMethod("iterator").invoke(selector)
             SaxonQueryResultIterator(iterator, classes).asSequence()
         }

@@ -63,6 +63,8 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
 
     override var modulePath: String = ""
 
+    private var context: Any? = null
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         classes.xqueryEvaluatorClass
             .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
@@ -70,16 +72,20 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        val bind = classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass)
-        when (value) {
-            is DatabaseModule -> bind.invoke(evaluator, classes.toXdmValue(value.path, type))
-            is VirtualFile -> bind.invoke(evaluator, classes.toXdmValue(value.decode()!!, type))
-            else -> bind.invoke(evaluator, classes.toXdmValue(value, type))
+        context = when (value) {
+            is DatabaseModule -> classes.toXdmValue(value.path, type)
+            is VirtualFile -> classes.toXdmValue(value.decode()!!, type)
+            else -> classes.toXdmValue(value, type)
         }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check {
+            context?.let {
+                val bind = classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass)
+                bind.invoke(evaluator, context)
+            }
+
             val iterator = classes.xqueryEvaluatorClass.getMethod("iterator").invoke(evaluator)
             SaxonQueryResultIterator(iterator, classes).asSequence()
         }

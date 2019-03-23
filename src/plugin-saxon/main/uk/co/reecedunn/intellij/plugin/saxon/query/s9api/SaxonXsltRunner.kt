@@ -26,10 +26,9 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import javax.xml.transform.Source
+import javax.xml.transform.stream.StreamSource
 
 internal class SaxonXsltRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
-    private var hasContextItem = false
-
     private val compiler by lazy {
         classes.processorClass.getMethod("newXsltCompiler").invoke(processor)
     }
@@ -53,27 +52,28 @@ internal class SaxonXsltRunner(val processor: Any, val query: String, val classe
 
     override var modulePath: String = ""
 
+    private var context: StreamSource? = null
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         throw UnsupportedOperationException()
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        val source = when (value) {
+        context = when (value) {
             is DatabaseModule -> value.path.toStreamSource()
             is VirtualFile -> value.decode()?.toStreamSource()
             else -> value?.toString()?.toStreamSource()
         }
-        hasContextItem = source != null
-        classes.xsltExecutableClass.getMethod("setSource", Source::class.java).invoke(transformer, source)
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check {
-            if (!hasContextItem) {
+            if (context == null) {
                 // The Saxon processor throws a NPE if source is null.
                 val message = PluginApiBundle.message("error.missing-xslt-source")
                 return@check sequenceOf(QueryResult.fromItemType(0, message, "fn:error"))
             }
+            classes.xsltExecutableClass.getMethod("setSource", Source::class.java).invoke(transformer, context)
 
             val destination = classes.rawDestinationClass.getConstructor().newInstance()
             classes.xsltTransformerClass
