@@ -73,7 +73,7 @@ internal class SaxonXsltRunner(val processor: Any, val query: String, val classe
                 val message = PluginApiBundle.message("error.missing-xslt-source")
                 return@check sequenceOf(QueryResult.fromItemType(0, message, "fn:error"))
             }
-            classes.xsltExecutableClass.getMethod("setSource", Source::class.java).invoke(transformer, context)
+            classes.xsltTransformerClass.getMethod("setSource", Source::class.java).invoke(transformer, context)
 
             val destination = classes.rawDestinationClass.getConstructor().newInstance()
             classes.xsltTransformerClass
