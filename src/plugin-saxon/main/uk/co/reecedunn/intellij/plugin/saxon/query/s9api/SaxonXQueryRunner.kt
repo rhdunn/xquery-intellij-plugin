@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import javax.xml.transform.ErrorListener
@@ -67,9 +70,12 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        classes.xqueryEvaluatorClass
-            .getMethod("setContextItem", classes.xdmItemClass)
-            .invoke(evaluator, classes.toXdmValue(value, type))
+        val bind = classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass)
+        when (value) {
+            is DatabaseModule -> bind.invoke(evaluator, classes.toXdmValue(value.path, type))
+            is VirtualFile -> bind.invoke(evaluator, classes.toXdmValue(value.decode()!!, type))
+            else -> bind.invoke(evaluator, classes.toXdmValue(value, type))
+        }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {

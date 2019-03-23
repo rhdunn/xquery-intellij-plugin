@@ -16,10 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import javax.xml.transform.Source
@@ -55,7 +58,11 @@ internal class SaxonXsltRunner(val processor: Any, val query: String, val classe
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        val source = value?.toString()?.toStreamSource()
+        val source = when (value) {
+            is DatabaseModule -> value.path.toStreamSource()
+            is VirtualFile -> value.decode()?.toStreamSource()
+            else -> value?.toString()?.toStreamSource()
+        }
         hasContextItem = source != null
         classes.xsltExecutableClass.getMethod("setSource", Source::class.java).invoke(transformer, source)
     }
