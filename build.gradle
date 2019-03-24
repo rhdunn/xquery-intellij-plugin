@@ -66,7 +66,7 @@ configure(allprojects - project(':src')) {
     apply plugin: 'jacoco'
 
     group 'uk.co.reecedunn.intellij.plugin.xquery'
-    version '1.4'
+    version '1.5-dev'
 
     repositories {
         mavenCentral()
