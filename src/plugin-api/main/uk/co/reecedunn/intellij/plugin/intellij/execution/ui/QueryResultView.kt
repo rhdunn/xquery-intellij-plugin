@@ -26,6 +26,7 @@ import com.intellij.openapi.keymap.ex.KeymapManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.ui.components.panels.Wrapper
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
@@ -66,8 +67,13 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
 
         val toolbar = ActionManagerEx.getInstanceEx().createActionToolbar(ActionPlaces.RUNNER_TOOLBAR, actions, false)
         toolbar.setTargetComponent(text!!)
-        toolbar.component.border = Borders.ConsoleToolbarRight
-        text?.add(toolbar.component, BorderLayout.LINE_START)
+
+        // Setting a border on the toolbar removes the standard padding/spacing,
+        // so set the border on a panel that wraps the toolbar element.
+        val wrapper = Wrapper()
+        wrapper.add(toolbar.component)
+        wrapper.border = Borders.ConsoleToolbarRight
+        text?.add(wrapper, BorderLayout.LINE_START)
     }
 
     // region ConsoleView
