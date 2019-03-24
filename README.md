@@ -39,7 +39,7 @@ can be configured to provide checks for supported vendor extensions.
 
 #### Language Support
 
-The plugin provides rock solid standards conforming XQuery language support
+This plugin provides rock solid standards conforming XQuery language support
 that includes W3C, vendor, and [EXPath](docs/EXPath%20XPath%20NG%20Implementation%20Report.md)
 syntax extensions. This includes error recovery to handle common mistakes when
 writing XQuery code.
@@ -51,12 +51,25 @@ statements, xqDoc comments, and QName prefices.
 
 <img src="images/resolve-uriliteral.png" alt="Resolve URI Literals" width="60%" align="right"/>
 
-The plugin provides integration with the following IntelliJ features:
+This plugin provides integration with the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references;
 1.  Code folding;
 1.  Find usages;
 1.  Paired brace matching;
 1.  Commenting code.
+
+#### Run Configurations
+
+<img src="images/run-query.png" alt="Running Queries" width="50%" align="right"/>
+
+This plugin supports running the following query types on the supported databases and processors:
+
+1.  BaseX &ndash; XQuery
+1.  eXist-db &ndash; XQuery
+1.  MarkLogic &ndash; XQuery, XSLT, SPARQL, SQL, JavaScript
+1.  Saxon &ndash; XPath, XQuery, XSLT
+
+MarkLogic also supports profiling XQuery and XSLT queries.
 
 -----
 
