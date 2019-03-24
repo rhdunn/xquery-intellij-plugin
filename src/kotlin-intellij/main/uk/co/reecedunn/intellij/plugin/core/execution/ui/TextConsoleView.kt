@@ -15,11 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.execution.filters.Filter
-import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.impl.ConsoleViewUtil
-import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.application.ApplicationManager
@@ -34,13 +30,10 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.text.StringUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
-import javax.swing.JPanel
 
-open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), ConsoleView, DataProvider {
+open class TextConsoleView(val project: Project) : ConsoleViewImpl() {
     var editor: EditorEx? = null
         private set
-
-    private var helpId: String? = null
 
     var emulateCarriageReturn: Boolean = false
         set(value) {
@@ -68,14 +61,8 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
 
     // region ConsoleView
 
-    override fun hasDeferredOutput(): Boolean = false
-
     override fun clear() {
         editor!!.document.setText("")
-    }
-
-    override fun setHelpId(helpId: String) {
-        this.helpId = helpId
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
@@ -86,9 +73,6 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
     }
 
     override fun getContentSize(): Int = editor?.document?.textLength ?: 0
-
-    override fun setOutputPaused(value: Boolean) {
-    }
 
     override fun createConsoleActions(): Array<AnAction> {
         return arrayOf(
@@ -108,30 +92,6 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
         return this
     }
 
-    override fun performWhenNoDeferredOutput(runnable: Runnable) {
-    }
-
-    override fun attachToProcess(processHandler: ProcessHandler?) {
-    }
-
-    override fun getPreferredFocusableComponent(): JComponent = this
-
-    override fun isOutputPaused(): Boolean = false
-
-    override fun addMessageFilter(filter: Filter) {
-    }
-
-    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
-    }
-
-    override fun canPause(): Boolean = false
-
-    override fun allowHeavyFilters() {
-    }
-
-    override fun dispose() {
-    }
-
     override fun scrollTo(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
             val moveOffset = Math.min(offset, contentSize)
@@ -145,10 +105,8 @@ open class TextConsoleView(val project: Project) : JPanel(BorderLayout()), Conso
 
     override fun getData(dataId: String): Any? {
         return when (dataId) {
-            PlatformDataKeys.HELP_ID.name -> helpId
             CommonDataKeys.EDITOR.name -> editor
-            LangDataKeys.CONSOLE_VIEW.name -> this
-            else -> null
+            else -> super.getData(dataId)
         }
     }
 
