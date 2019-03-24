@@ -26,6 +26,7 @@ import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Consumer
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -33,14 +34,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
-import java.awt.Color
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTable
-import javax.swing.border.MatteBorder
 
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 private val FILE_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HHmmss")
@@ -58,8 +57,6 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
     }
 }
 
-private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
-
 class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultListener, ProfileReportListener {
     // region UI
 
@@ -74,7 +71,7 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
 
     private fun createUIComponents() {
         metadata = JPanel()
-        metadata!!.border = PANEL_BORDER
+        metadata!!.border = Borders.TableHeaderBottom
 
         results = ProfileReportTable()
     }

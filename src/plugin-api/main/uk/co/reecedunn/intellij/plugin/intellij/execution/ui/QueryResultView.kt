@@ -16,11 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.ide.DataManager
 import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.actionSystem.impl.ActionToolbarImpl
@@ -31,24 +29,20 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Dimension
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
-import javax.swing.JPanel
-import javax.swing.border.MatteBorder
 
 class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
     companion object {
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
-
-        private val PANEL_BORDER = MatteBorder(0, 0, 0, 1, Color(192, 192, 192))
     }
 
     // The TextConsoleView editor provided by the DataProvider interface (needed
@@ -76,7 +70,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
             ActionManagerEx.getInstanceEx(),
             KeymapManagerEx.getInstanceEx()
         )
-        toolbar.border = PANEL_BORDER
+        toolbar.border = Borders.ConsoleToolbarRight
         text?.add(toolbar, BorderLayout.LINE_START)
     }
 
