@@ -64,14 +64,10 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         val actions = DefaultActionGroup()
         actions.addAll(*text!!.createConsoleActions())
 
-        val toolbar = ActionToolbarImpl(
-            ActionPlaces.UNKNOWN, actions, false, false,
-            DataManager.getInstance(),
-            ActionManagerEx.getInstanceEx(),
-            KeymapManagerEx.getInstanceEx()
-        )
-        toolbar.border = Borders.ConsoleToolbarRight
-        text?.add(toolbar, BorderLayout.LINE_START)
+        val toolbar = ActionManagerEx.getInstanceEx().createActionToolbar(ActionPlaces.RUNNER_TOOLBAR, actions, false)
+        toolbar.setTargetComponent(text!!)
+        toolbar.component.border = Borders.ConsoleToolbarRight
+        text?.add(toolbar.component, BorderLayout.LINE_START)
     }
 
     // region ConsoleView
