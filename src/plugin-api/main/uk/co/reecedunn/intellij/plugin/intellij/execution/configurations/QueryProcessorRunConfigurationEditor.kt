@@ -272,6 +272,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (scriptFile!!.path != configuration.scriptFilePath)
             return true
+        if (updating!!.isSelected != configuration.updating)
+            return true
         if (contextItem!!.type != configuration.contextItemSource)
             return true
         if (contextItem!!.path != configuration.contextItemValue)
@@ -296,6 +298,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         modulePath!!.textField.text = configuration.modulePath ?: ""
         scriptFile!!.type = configuration.scriptSource
         scriptFile!!.path = configuration.scriptFilePath
+        updating!!.isSelected = configuration.updating
         contextItem!!.type = configuration.contextItemSource
         contextItem!!.path = configuration.contextItemValue
 
@@ -310,6 +313,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.modulePath = modulePath!!.textField.text.nullize()
         configuration.scriptSource = scriptFile?.type!!
         configuration.scriptFilePath = scriptFile!!.path
+        configuration.updating = updating!!.isSelected
         configuration.contextItemSource = contextItem?.type
         configuration.contextItemValue = contextItem?.path
     }

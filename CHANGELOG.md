@@ -2,6 +2,17 @@
 
 ## 1.5 - (In Development)
 
+Bug Fixes:
+
+1.  Fixed the builtin function definitions to be valid XQuery after the ItemType
+    and SequenceType changes for annotated and union sequence types in 1.4.
+1.  Fixed running queries on MarkLogic prior to 8.0-7 and 9.0-2.
+1.  Persist the updating option in the run configuration settings.
+
+XPath and XQuery:
+
+1.  Removed support for the plugin-specific annotated sequence type syntax.
+
 ## 1.4 - 2019-03-24
 
 IntelliJ Integration:
