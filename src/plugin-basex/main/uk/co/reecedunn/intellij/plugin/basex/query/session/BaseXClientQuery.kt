@@ -24,7 +24,12 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-internal class BaseXClientQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : RunnableQuery {
+internal class BaseXClientQuery(
+    val session: Any,
+    val queryString: String,
+    val queryPath: String,
+    val classes: BaseXClasses
+) : RunnableQuery {
     private var basexQuery: Any? = null
     val query: Any
         get() {
@@ -44,14 +49,14 @@ internal class BaseXClientQuery(val session: Any, val queryString: String, val c
 
     override var modulePath: String = ""
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.clientQueryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
             .invoke(query, name, value, mapType(type))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
+    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
         val bind = classes.clientQueryClass.getMethod("context", Any::class.java, String::class.java)
         when (value) {
             is DatabaseModule -> bind.invoke(query, value.path, mapType(type))
@@ -61,8 +66,8 @@ internal class BaseXClientQuery(val session: Any, val queryString: String, val c
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check {
-            BaseXQueryResultIterator(query, classes, classes.clientQueryClass).asSequence()
+        classes.check(queryPath) {
+            BaseXQueryResultIterator(query, queryPath, classes, classes.clientQueryClass).asSequence()
         }
     }
 

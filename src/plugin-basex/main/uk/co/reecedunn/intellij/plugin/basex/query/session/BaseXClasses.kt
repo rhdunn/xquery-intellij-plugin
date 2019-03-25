@@ -42,12 +42,12 @@ internal class BaseXClasses(path: File) {
         basexExceptionClass = loader.loadClass("org.basex.core.BaseXException")
     }
 
-    fun <T> check(f: () -> T): T {
+    fun <T> check(script: String, f: () -> T): T {
         return try {
             f()
         } catch (e: InvocationTargetException) {
             if (basexExceptionClass.isInstance(e.targetException)) {
-                throw e.targetException.message!!.toBaseXError()
+                throw e.targetException.message!!.toBaseXError(script)
             } else if (e.targetException is RuntimeException && e.targetException.message == "Not Implemented.") {
                 throw UnsupportedOperationException()
             } else {
