@@ -24,7 +24,12 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-internal class SaxonXPathRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
+internal class SaxonXPathRunner(
+    val processor: Any,
+    val query: String,
+    val queryPath: String,
+    val classes: SaxonClasses
+) : RunnableQuery {
     private val compiler by lazy {
         classes.processorClass.getMethod("newXPathCompiler").invoke(processor)
     }
@@ -49,11 +54,11 @@ internal class SaxonXPathRunner(val processor: Any, val query: String, val class
 
     private var context: Any? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
+    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
         context = when (value) {
             is DatabaseModule -> classes.toXdmValue(value.path, type)
             is VirtualFile -> classes.toXdmValue(value.decode()!!, type)
@@ -62,7 +67,7 @@ internal class SaxonXPathRunner(val processor: Any, val query: String, val class
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check {
+        classes.check(queryPath) {
             context?.let {
                 val bind = classes.xpathSelectorClass.getMethod("setContextItem", classes.xdmItemClass)
                 bind.invoke(selector, context)

@@ -22,14 +22,14 @@ import javax.xml.transform.TransformerException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-internal fun Throwable.toSaxonErrorUnchecked(classes: SaxonClasses): QueryError {
+internal fun Throwable.toSaxonErrorUnchecked(script: String, classes: SaxonClasses): QueryError {
     if (classes.xpathExceptionClass.isInstance(cause)) {
-        return (cause as TransformerException).toSaxonError(classes)
+        return (cause as TransformerException).toSaxonError(script, classes)
     }
     throw cause ?: this
 }
 
-internal fun Throwable.toSaxonErrorChecked(classes: SaxonClasses): QueryError {
+internal fun Throwable.toSaxonErrorChecked(script: String, classes: SaxonClasses): QueryError {
     val qname = classes.saxonApiExceptionClass.getMethod("getErrorCode").invoke(this)
     val ns = classes.qnameClass.getMethod("getNamespaceURI").invoke(qname)
     val prefix = classes.qnameClass.getMethod("getPrefix").invoke(qname)
@@ -41,11 +41,11 @@ internal fun Throwable.toSaxonErrorChecked(classes: SaxonClasses): QueryError {
         vendorCode = null,
         description = classes.saxonApiExceptionClass.getMethod("getMessage").invoke(this) as String?,
         value = listOf(),
-        frames = listOf(StackFrame(path, line, 1))
+        frames = listOf(StackFrame(if (path.isNullOrEmpty()) script else path, line, 1))
     )
 }
 
-internal fun TransformerException.toSaxonError(classes: SaxonClasses): QueryError {
+internal fun TransformerException.toSaxonError(script: String, classes: SaxonClasses): QueryError {
     val qname = classes.xpathExceptionClass.getMethod("getErrorCodeQName").invoke(this)
     val ns = classes.structuredQNameClass.getAnyMethod("getURI", "getNamespaceURI").invoke(qname)
     val prefix = classes.structuredQNameClass.getMethod("getPrefix").invoke(qname)
@@ -55,6 +55,6 @@ internal fun TransformerException.toSaxonError(classes: SaxonClasses): QueryErro
         vendorCode = null,
         description = message,
         value = listOf(),
-        frames = listOf(StackFrame(locator?.systemId, locator?.lineNumber, locator?.columnNumber))
+        frames = listOf(StackFrame(locator?.systemId ?: script, locator?.lineNumber, locator?.columnNumber))
     )
 }

@@ -28,7 +28,12 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
 
-internal class SaxonXsltRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
+internal class SaxonXsltRunner(
+    val processor: Any,
+    val query: String,
+    val queryPath: String,
+    val classes: SaxonClasses
+) : RunnableQuery {
     private val compiler by lazy {
         classes.processorClass.getMethod("newXsltCompiler").invoke(processor)
     }
@@ -54,11 +59,11 @@ internal class SaxonXsltRunner(val processor: Any, val query: String, val classe
 
     private var context: StreamSource? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
+    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
         context = when (value) {
             is DatabaseModule -> value.path.toStreamSource()
             is VirtualFile -> value.decode()?.toStreamSource()
@@ -67,7 +72,7 @@ internal class SaxonXsltRunner(val processor: Any, val query: String, val classe
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check {
+        classes.check(queryPath) {
             if (context == null) {
                 // The Saxon processor throws a NPE if source is null.
                 val message = PluginApiBundle.message("error.missing-xslt-source")

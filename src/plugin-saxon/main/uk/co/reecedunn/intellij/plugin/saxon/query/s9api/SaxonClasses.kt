@@ -202,14 +202,14 @@ internal class SaxonClasses(path: File) {
         }
     }
 
-    fun <T> check(f: () -> T): T {
+    fun <T> check(queryPath: String, f: () -> T): T {
         return try {
             f()
         } catch (e: InvocationTargetException) {
             val target = e.targetException
             throw when {
-                saxonApiExceptionClass.isInstance(target) -> target.toSaxonErrorChecked(this)
-                saxonApiUncheckedExceptionClass.isInstance(target) -> target.toSaxonErrorUnchecked(this)
+                saxonApiExceptionClass.isInstance(target) -> target.toSaxonErrorChecked(queryPath, this)
+                saxonApiUncheckedExceptionClass.isInstance(target) -> target.toSaxonErrorUnchecked(queryPath, this)
                 else -> target
             }
         }

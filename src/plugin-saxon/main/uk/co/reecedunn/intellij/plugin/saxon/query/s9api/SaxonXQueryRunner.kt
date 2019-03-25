@@ -25,8 +25,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import javax.xml.transform.ErrorListener
 
-internal class SaxonXQueryRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
-    private val errorListener: ErrorListener = SaxonErrorListener(classes)
+internal class SaxonXQueryRunner(
+    val processor: Any,
+    val query: String,
+    val queryPath: String,
+    val classes: SaxonClasses
+) : RunnableQuery {
+    private val errorListener: ErrorListener = SaxonErrorListener(queryPath, classes)
 
     private val compiler by lazy {
         val ret = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)
@@ -65,13 +70,13 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
 
     private var context: Any? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
         classes.xqueryEvaluatorClass
             .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
             .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value, type))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
+    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
         context = when (value) {
             is DatabaseModule -> classes.toXdmValue(value.path, type)
             is VirtualFile -> classes.toXdmValue(value.decode()!!, type)
@@ -80,7 +85,7 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check {
+        classes.check(queryPath) {
             context?.let {
                 val bind = classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass)
                 bind.invoke(evaluator, context)
