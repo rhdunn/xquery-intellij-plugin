@@ -238,14 +238,8 @@ declare function local:error(
         <err:code>{$err:code}</err:code>
         <err:vendor-code>{$err:additional/error:code/text()}</err:vendor-code>
         <err:description>{$err:additional/error:message/text()}</err:description>
-        <err:value count="{count($err:value)}">{
-            for $item in $err:value
-            return <err:item>{
-                typeswitch ($item)
-                case element() | document-node() | object-node() | array-node() return
-                    xdmp:quote($item)
-                default return $item cast as xs:string
-            }</err:item>
+        <err:value count="{count($err:additional/error:data/error:datum)}">{
+            $err:additional/error:data/error:datum/text() ! <err:item>{.}</err:item>
         }</err:value>
         <err:module line="{$err:line-number}" column="{$err:column-number + 1}">{$err:module}</err:module>
         <dbg:stack>{
