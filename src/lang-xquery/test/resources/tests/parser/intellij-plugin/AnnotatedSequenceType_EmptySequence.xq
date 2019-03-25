@@ -1,1 +1,0 @@
-declare variable $ x as % test for empty-sequence() := 2 ;

@@ -5031,7 +5031,7 @@ class XQueryParser : XPathParser() {
         return (
             parseKindTest(builder) ||
             parseAnyItemType(builder) ||
-            parseAnnotatedFunctionOrSequence(builder) ||
+            parseAnnotatedFunction(builder) ||
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
             parseTupleType(builder) ||
@@ -5170,7 +5170,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseAnnotatedFunctionOrSequence(builder: PsiBuilder): Boolean {
+    override fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
         var haveAnnotations = false
@@ -5179,17 +5179,7 @@ class XQueryParser : XPathParser() {
             haveAnnotations = true
         }
 
-        if (haveAnnotations && builder.tokenType === XPathTokenType.K_FOR) {
-            builder.advanceLexer()
-            parseWhiteSpaceAndCommentTokens(builder)
-
-            if (!parseSequenceType(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-            }
-
-            marker.done(XQueryElementType.ANNOTATED_SEQUENCE_TYPE)
-            return true
-        } else if (parseAnyOrTypedFunctionTest(builder)) {
+        if (parseAnyOrTypedFunctionTest(builder)) {
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else if (haveAnnotations) {

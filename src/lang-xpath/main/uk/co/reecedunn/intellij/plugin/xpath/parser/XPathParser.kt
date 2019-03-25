@@ -1819,7 +1819,7 @@ open class XPathParser : PsiParser {
         return (
             parseKindTest(builder) ||
             parseAnyItemType(builder) ||
-            parseAnnotatedFunctionOrSequence(builder) ||
+            parseAnnotatedFunction(builder) ||
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
             parseAtomicOrUnionType(builder) ||
@@ -1847,7 +1847,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseAnnotatedFunctionOrSequence(builder: PsiBuilder): Boolean {
+    open fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseAnyOrTypedFunctionTest(builder)) {
             marker.done(FUNCTION_TEST)

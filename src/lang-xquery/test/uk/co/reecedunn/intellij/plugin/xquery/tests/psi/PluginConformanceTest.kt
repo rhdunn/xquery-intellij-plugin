@@ -34,7 +34,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -1173,33 +1172,6 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.COMMA))
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (20) ItemType")
-    internal inner class ItemType {
-        @Test
-        @DisplayName("without annotations")
-        fun noAnnotations() {
-            val file = parseResource("tests/parser/xquery-1.0/ItemType.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginAnnotatedSequenceType>().firstOrNull()
-
-            // ItemTypes without annotations only have the direct type
-            // (AnyItemType in this case) in the PSI tree.
-            assertThat(versioned, `is`(nullValue()))
-        }
-
-        @Test
-        @DisplayName("with annotations")
-        fun withAnnotations() {
-            val file = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginAnnotatedSequenceType>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
-
-            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
-        }
     }
 
     @Test

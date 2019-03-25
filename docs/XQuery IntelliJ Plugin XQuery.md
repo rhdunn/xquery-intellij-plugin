@@ -27,7 +27,6 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [2.1.2.6 Sequence Types](#2126-sequence-types)
         - [2.1.2.6.1 Union](#21261-union)
         - [2.1.2.6.2 List](#21262-list)
-      - [2.1.2.7 Annotated Function Tests and Sequence Types](#2127-annotated-function-tests-and-sequence-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -336,33 +335,6 @@ rational or complex numbers.
 > `complex` can be defined as:
 >
 >     declare type complex = (xs:double, xs:double);
-
-##### 2.1.2.7 Annotated Function Tests and Sequence Types
-
-| Ref    | Symbol                        |     | Expression                          | Options |
-|--------|-------------------------------|-----|-------------------------------------|---------|
-| \[89\] | `AnnotatedFunctionOrSequence` | ::= | `AnnotatedSequenceType \| FunctionTest` |     |
-| \[90\] | `AnnotatedSequenceType`       | ::= | `Annotation Annotation* "for" SequenceType` | |
-
-The XQuery IntelliJ Plugin provides a vendor extension to support annotations
-on a type itself, not just on function signatures. This is used in the
-definition of built-in functions for parameters and return types to provide
-information to the plugin on how those types are used.
-
-> __Example:__
->
->     declare function f() as (%since("3.2") %until("4.0") for item() |
->                              %since("4.0") for node()) external;
-
-The construction of annotations on item types is designed to be unambiguous
-with XQuery 3.1 `FunctionTest` that may specify annotations on function signatures.
-
-> __Example:__
->
->     declare function f() as %test for %public function() as item() external;
->
-> In this example, `%test` applies to the type and `%public` applies to the
-> function signature.
 
 ## 3 Expressions
 
@@ -991,8 +963,6 @@ These changes include support for:
 | \[86\]   | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)* ")"` |           |
 | \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
-| \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
-| \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |
 | \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 | \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
 | \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                       |

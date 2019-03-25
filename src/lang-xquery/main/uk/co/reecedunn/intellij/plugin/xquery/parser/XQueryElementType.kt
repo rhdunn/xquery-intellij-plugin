@@ -1034,12 +1034,6 @@ object XQueryElementType {
     // endregion
     // region XQuery IntelliJ Plugin
 
-    val ANNOTATED_SEQUENCE_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_ANNOTATED_SEQUENCE_TYPE",
-        PluginAnnotatedSequenceTypePsiImpl::class.java,
-        XQuery
-    )
-
     val ANY_ARRAY_NODE_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_ARRAY_NODE_TEST",
         PluginAnyArrayNodeTestPsiImpl::class.java,

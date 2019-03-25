@@ -678,14 +678,6 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (90) AnnotatedSequenceType")
-    fun annotatedSequenceType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
     fun ternaryIfExpr() {
         val lexer = createLexer()

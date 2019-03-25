@@ -1,1 +1,0 @@
-declare variable$x as%test for function()as item():=2;
