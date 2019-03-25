@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -263,6 +263,87 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(37))
 
             assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("DirCommentConstructor")
+    internal inner class DirCommentConstructor {
+        @Test
+        @DisplayName("single line")
+        fun testComment() {
+            val file = parseResource("tests/folding/DirCommentConstructor.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines; empty text")
+        fun testComment_MultiLine_EmptyText() {
+            val file = parseResource("tests/folding/DirCommentConstructor_Empty.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_COMMENT_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(8))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("<!--...-->"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun testComment_MultiLine() {
+            val file = parseResource("tests/folding/DirCommentConstructor_MultiLine.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_COMMENT_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(37))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("<!--Lorem ipsum.-->"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple lines; incomplete")
+        fun testComment_MultiLine_Incomplete() {
+            val file = parseResource("tests/folding/DirCommentConstructor_MultiLine_Incomplete.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_COMMENT_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(17))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("<!--Lorem ipsum.-->"))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
         }
     }

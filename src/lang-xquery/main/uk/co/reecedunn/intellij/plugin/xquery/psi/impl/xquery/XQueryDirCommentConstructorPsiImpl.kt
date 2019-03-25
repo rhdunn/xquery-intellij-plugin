@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,31 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
+import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryDirCommentConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirCommentConstructor
+class XQueryDirCommentConstructorPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryDirCommentConstructor,
+    FoldablePsiElement {
+    // region FoldablePsiElement
+
+    override val foldingRange: TextRange? get() = textRange
+
+    override val foldingPlaceholderText: String?
+        get() {
+            var length = textRange.length
+            if (lastChild.node.elementType === XQueryTokenType.XML_COMMENT_END_TAG)
+                length -= 3
+
+            val firstLine = text.substring(4, length).split("\n").firstOrNull { line ->
+                line.trim().isNotEmpty()
+            }
+            return firstLine?.let { "<!--$it-->" } ?: "<!--...-->"
+        }
+
+    // endregion
+}

@@ -14,6 +14,10 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.5-dev:</h3>
+    <p>IntelliJ Integration:</p>
+    <ol>
+      <li>Support code folding for <code>DirCommentConstructor</code> elements (<code>&lt;!--...--&gt;</code>).</li>
+    </ol>
     <p>XPath and XQuery:</p>
     <ol>
       <li>Removed support for the plugin-specific annotated sequence type syntax.</li>

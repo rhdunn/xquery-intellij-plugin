@@ -2,6 +2,10 @@
 
 ## 1.5 - (In Development)
 
+IntelliJ Integration:
+
+1.  Support code folding for `DirCommentConstructor` elements (`<!--...-->`).
+
 XPath and XQuery:
 
 1.  Removed support for the plugin-specific annotated sequence type syntax.
