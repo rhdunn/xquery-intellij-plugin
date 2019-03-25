@@ -22,37 +22,12 @@ declare option o:implements-module "basex/8.0 as expath-file/1.0-20150220";
 declare option o:implements-module "saxon/pe/9.5 as expath-file/1.0-20150220"; (: TODO: Map saxon versions to the correct file versions. :)
 declare option o:implements-module "saxon/ee/9.5 as expath-file/1.0-20150220"; (: TODO: Map saxon versions to the correct file versions. :)
 
-declare type append-params = (
-    %a:since("expath-file", "1.0-20120614") for element(output:serialization-parameters) |
-    %a:since("basex", "7.0") for item()
-);
-
-declare type copy-write-result = (
-    %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614") for xs:boolean |
-    %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") for empty-sequence()
-);
-
-declare type path-uri-result = (
-    %a:since("expath-file", "1.0-20100517") for xs:anyURI |
-    %a:since("basex", "7.0") for xs:string
-);
-
-declare type write-params = (
-    %a:since("expath-file", "1.0-20100517") for node()* |
-    %a:since("basex", "7.0") for item()
-);
-
-declare type any-binary-type = (
-    %a:since("expath-file", "1.0-20120614") for xs:base64Binary |
-    %a:since("basex", "7.0") for (xs:base64Binary | xs:hexBinary)
-);
-
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "file:dir-separator#0") variable $file:directory-separator external;
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "file:path-separator#0") variable $file:path-separator external;
 
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:append($path as xs:string, $items as item()*) as empty-sequence() external;
-declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:append($path as xs:string, $items as item()*, $params as append-params) as empty-sequence() external;
-declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:append-binary($path as xs:string, $value as any-binary-type) as empty-sequence() external;
+declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:append($path as xs:string, $items as item()*, $params (: as [expath-file/1.0-20120614]element(output:serialization-parameters) [basex/7.0]item() :)) as empty-sequence() external;
+declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:append-binary($path as xs:string, $value (: as [expath-file/1.0-20120614]xs:base64Binary [basex/7.6](xs:base64Binary|xs:hexBinary) :)) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") function file:append-text($path as xs:string, $value as xs:string) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") function file:append-text($path as xs:string, $value as xs:string, $encoding as xs:string) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") function file:append-text-lines($path as xs:string, $values as xs:string*) as empty-sequence() external;
@@ -61,7 +36,7 @@ declare %a:until("expath-file", "1.0-20150220") function file:base-dir() as xs:s
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") %a:since("expath-file", "1.0-20131203", "file:name#1") %a:until("basex", "7.8", "file:name#1") function file:base-name($path as xs:string) as xs:string external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") %a:since("expath-file", "1.0-20131203") %a:until("basex", "7.8") function file:base-name($path as xs:string, $suffix as xs:string) as xs:string external;
 declare %a:until("expath-file", "1.0-20150220") function file:children($dir as xs:string) as xs:string* external;
-declare %a:since("expath-file", "1.0-20100517") function file:copy($source as xs:string, $destination as xs:string) as copy-write-result external;
+declare %a:since("expath-file", "1.0-20100517") function file:copy($source as xs:string, $destination as xs:string) (: as [expath-file/1.0-20120614]xs:boolean [basex/7.0]empty-sequence() :) external;
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614") %a:missing("basex", "7.0") function file:copy($source as xs:string, $destination as xs:string, $overwrite as xs:boolean) as xs:boolean external;
 declare %a:since("expath-file", "1.0-20120614") function file:create-dir($dir as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "file:create-dir#1") function file:create-directory($dir as xs:string) as xs:boolean external;
@@ -97,7 +72,7 @@ declare %a:since("expath-file", "1.0-20131203") function file:parent($path as xs
 declare %a:since("expath-file", "1.0-20100517") function file:path-separator() as xs:string external;
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614", "file:path-to-native#1") function file:path-to-full-path($path as xs:string) as xs:string external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:path-to-native($path as xs:string) as xs:string external;
-declare %a:since("expath-file", "1.0-20100517") function file:path-to-uri($path as xs:string) as path-uri-result external;
+declare %a:since("expath-file", "1.0-20100517") function file:path-to-uri($path as xs:string) (: as [expath-file/1.0-20120614]xs:anyURI [basex/7.0]xs:string :) external;
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614", "file:read-binary#1") function file:read($file as xs:string) as xs:base64Binary external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:read-binary($path as xs:string) as xs:base64Binary external;
 declare %a:since("expath-file", "1.0-20131203") function file:read-binary($path as xs:string, $offset as xs:integer) as xs:base64Binary external;
@@ -119,10 +94,10 @@ declare %a:since("basex", "8.2") function file:resolve-path($path as xs:string, 
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:size($file as xs:string) as xs:integer external;
 declare %a:since("expath-file", "1.0-20131203") %a:since("basex", "7.7") function file:temp-dir() as xs:string external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:write($path as xs:string, $items as item()*) as empty-sequence() external;
-declare %a:since("expath-file", "1.0-20100517") function file:write($file as xs:string, $content as item()*, $params as write-params) as copy-write-result external;
+declare %a:since("expath-file", "1.0-20100517") function file:write($file as xs:string, $content as item()*, $params (: as [expath-file/1.0-20120614]node()* [basex/7.0]item() :)) (: as [expath-file/1.0-20120614]xs:boolean [basex/7.0]empty-sequence() :) external;
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614") %a:missing("basex", "7.0") function file:write($file as xs:string, $content as item()*, $params as node()*, $append as xs:boolean) as xs:boolean external;
-declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:write-binary($path as xs:string, $value as any-binary-type) as empty-sequence() external;
-declare %a:since("expath-file", "1.0-20131203") function file:write-binary($path as xs:string, $value as any-binary-type, $offset as xs:integer) as empty-sequence() external;
+declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:write-binary($path as xs:string, $value (: as [expath-file/1.0-20120614]xs:base64Binary [basex/7.0](xs:base64Binary|xs:hexBinary) :)) as empty-sequence() external;
+declare %a:since("expath-file", "1.0-20131203") function file:write-binary($path as xs:string, $value (: as [expath-file/1.0-20120614]xs:base64Binary [basex/7.0](xs:base64Binary|xs:hexBinary) :), $offset as xs:integer) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") function file:write-text($path as xs:string, $value as xs:string) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") function file:write-text($path as xs:string, $value as xs:string, $encoding as xs:string) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") function file:write-text-lines($path as xs:string, $values as xs:string*) as empty-sequence() external;

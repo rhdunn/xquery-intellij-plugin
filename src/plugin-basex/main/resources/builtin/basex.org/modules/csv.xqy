@@ -11,29 +11,7 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/7.7.2";
 
-declare type csv-string = (
-    %a:since("basex", "7.7.2") %a:until("basex", "9.1") for xs:string |
-    %a:since("basex", "9.1") for xs:string?
-);
-
-declare type csv-result = (
-    %a:since("basex", "7.7.2") %a:until("basex", "7.8") for element(csv) |
-    %a:since("basex", "7.8") %a:until("basex", "9.1") for document-node(element(csv)) |
-    %a:since("basex", "9.1") for item()?
-);
-
-declare type csv-options = (
-    %a:since("basex", "7.7.2") %a:until("basex", "8.2.1") for item() |
-    %a:since("basex", "8.2.1") %a:until("basex", "8.6.7") for map(xs:string, item()) |
-    %a:since("basex", "8.6.7") for map(*)?
-);
-
-declare type csv-data = (
-    %a:since("basex", "7.7.2") %a:until("basex", "8.6.7") for node() |
-    %a:since("basex", "8.6.7") for item()?
-);
-
-declare %a:since("basex", "7.7.2") function csv:parse($string as csv-string) as csv-result external;
-declare %a:since("basex", "7.7.2") function csv:parse($string as csv-string, $options as csv-options) as csv-result external;
-declare %a:since("basex", "7.7.2") function csv:serialize($input as csv-data) as xs:string external;
-declare %a:since("basex", "7.7.2") function csv:serialize($input as csv-data, $options as csv-options) as xs:string external;
+declare %a:since("basex", "7.7.2") function csv:parse($string (: as [basex/7.7.2]xs:string [basex/9.1]xs:string? :)) (: as [basex/7.7.2]element(csv) [basex/7.8]document-node(element(csv)) [basex/9.1]item()? :) external;
+declare %a:since("basex", "7.7.2") function csv:parse($string (: as [basex/7.7.2]xs:string [basex/9.1]xs:string? :), $options (: as [basex/7.7.2]item() [basex/8.2.1]map(xs:string, item()) [basex/8.6.7]map(*) :)) (: as [basex/7.7.2]element(csv) [basex/7.8]document-node(element(csv)) [basex/9.1]item()? :) external;
+declare %a:since("basex", "7.7.2") function csv:serialize($input (: as [basex/7.7.2]node() [basex/8.6.7]item()? :)) as xs:string external;
+declare %a:since("basex", "7.7.2") function csv:serialize($input (: as [basex/7.7.2]node() [basex/8.6.7]item()? :), $options (: as [basex/7.7.2]item() [basex/8.2.1]map(xs:string, item()) [basex/8.6.7]map(*) :)) as xs:string external;
