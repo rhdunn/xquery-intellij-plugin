@@ -54,7 +54,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
 
                 val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())
-                EXistDBQuery(builder, connection)
+                EXistDBQuery(builder, query.name, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }

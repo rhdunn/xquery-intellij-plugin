@@ -36,11 +36,11 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError()
+        val e = exception.toEXistDBError("test.xqy")
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("unexpected token: null"))
-        assertThat(e.frames[0].module, `is`("/db"))
+        assertThat(e.frames[0].module, `is`("test.xqy"))
         assertThat(e.frames[0].lineNumber, `is`(1))
         assertThat(e.frames[0].columnNumber, `is`(7))
     }
@@ -56,11 +56,11 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError()
+        val e = exception.toEXistDBError("test.xqy")
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
-        assertThat(e.frames[0].module, `is`("/db"))
+        assertThat(e.frames[0].module, `is`("test.xqy"))
         assertThat(e.frames[0].lineNumber, `is`(nullValue()))
         assertThat(e.frames[0].columnNumber, `is`(nullValue()))
     }
@@ -76,11 +76,11 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError()
+        val e = exception.toEXistDBError("test.xqy")
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
-        assertThat(e.frames[0].module, `is`("/db"))
+        assertThat(e.frames[0].module, `is`("test.xqy"))
         assertThat(e.frames[0].lineNumber, `is`(1))
         assertThat(e.frames[0].columnNumber, `is`(11))
     }

@@ -26,7 +26,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
+internal class EXistDBQuery(
+    val builder: RequestBuilder,
+    val queryPath: String,
+    val connection: HttpConnection
+) : RunnableQuery {
     companion object {
         private val EXIST_NAMESPACES = mapOf(
             "exist" to "http://exist.sourceforge.net/NS/exist"
@@ -59,7 +63,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
         response.close()
 
         if (response.statusLine.statusCode != 200) when (response.statusLine.statusCode) {
-            400 -> throw body.toEXistDBError()
+            400 -> throw body.toEXistDBError(queryPath)
             else -> throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 

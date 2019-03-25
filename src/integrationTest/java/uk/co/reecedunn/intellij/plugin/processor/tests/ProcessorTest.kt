@@ -714,7 +714,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @Test
         @DisplayName("module")
         fun module() {
-            assertThat(parse("(1, 2,").frames[0].module, anyOf(`is`(nullValue()), `is`("test.xqy"), `is`("/db")))
+            assertThat(parse("(1, 2,").frames[0].module, anyOf(`is`(nullValue()), `is`("test.xqy")))
         }
 
         @Test

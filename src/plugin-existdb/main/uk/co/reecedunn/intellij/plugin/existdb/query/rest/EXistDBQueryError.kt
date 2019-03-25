@@ -25,7 +25,7 @@ private val RE_EXISTDB_MESSAGE =
 private val RE_EXISTDB_LOCATION =
     "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
-fun String.toEXistDBError(): QueryError {
+fun String.toEXistDBError(script: String): QueryError {
     val xml = XmlDocument.parse(this, mapOf())
     val messageText = xml.root.children("message").first().text()!!
     val parts =
@@ -42,6 +42,6 @@ fun String.toEXistDBError(): QueryError {
         vendorCode = null,
         description = parts[4].substringBefore(" [at "),
         value = listOf(),
-        frames = listOf(StackFrame(path, line, col))
+        frames = listOf(StackFrame(if (path == "/db") script else path, line, col))
     )
 }
