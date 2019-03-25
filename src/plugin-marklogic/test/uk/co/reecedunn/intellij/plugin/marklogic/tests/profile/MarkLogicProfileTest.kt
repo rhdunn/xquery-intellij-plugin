@@ -44,7 +44,7 @@ class MarkLogicProfileTest {
             </prof:report>
         """
 
-        val p = MarkLogicProfileReport(profile)
+        val p = MarkLogicProfileReport(profile, "test.xqy")
         assertThat(p.elapsed.months, `is`(XsInteger(BigInteger.ZERO)))
         assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000564".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T09:44:37.9608193Z"))
@@ -90,7 +90,7 @@ class MarkLogicProfileTest {
             </prof:report>
         """
 
-        val p = MarkLogicProfileReport(profile)
+        val p = MarkLogicProfileReport(profile, "test.xqy")
         assertThat(p.elapsed.months, `is`(XsInteger(BigInteger.ZERO)))
         assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000435".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T10:50:34.2913686Z"))
@@ -101,7 +101,7 @@ class MarkLogicProfileTest {
 
         assertThat(results[1].id, `is`("16683152708792260640"))
         assertThat(results[1].expression, `is`("1 to 10"))
-        assertThat(results[1].frame.module, `is`(nullValue()))
+        assertThat(results[1].frame.module, `is`("test.xqy"))
         assertThat(results[1].frame.lineNumber, `is`(1))
         assertThat(results[1].frame.columnNumber, `is`(12))
         assertThat(results[1].hits, `is`(2))

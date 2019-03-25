@@ -98,7 +98,7 @@ internal class MarkLogicProfileQuery(
         }
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath).iterator()
-        MarkLogicProfileQueryResults(results)
+        MarkLogicProfileQueryResults(results, queryPath)
     }
 
     override fun close() {

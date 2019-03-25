@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
-class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
+class MarkLogicProfileEntry(entry: XmlElement, script: String) : ProfileEntry {
     override val id: String by lazy {
         entry.children("prof:expr-id").first().text()!!
     }
@@ -33,8 +33,9 @@ class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
     }
 
     override val frame: StackFrame by lazy {
+        val path = entry.children("prof:uri").first().text()
         StackFrame(
-            entry.children("prof:uri").first().text(),
+            if (path.isNullOrEmpty()) script else path,
             entry.children("prof:line").first().text()?.toInt(),
             entry.children("prof:column").first().text()?.toInt()
         )
@@ -53,7 +54,7 @@ class MarkLogicProfileEntry(entry: XmlElement) : ProfileEntry {
     }
 }
 
-class MarkLogicProfileReport(override val xml: String) : ProfileReport {
+class MarkLogicProfileReport(override val xml: String, private val script: String) : ProfileReport {
     companion object {
         private val PROFILE_NAMESPACES = mapOf(
             "prof" to "http://marklogic.com/xdmp/profile"
@@ -80,6 +81,6 @@ class MarkLogicProfileReport(override val xml: String) : ProfileReport {
     override val results: Sequence<ProfileEntry>
         get() {
             val histogram = doc.root.children("prof:histogram").first()
-            return histogram.children("prof:expression").map { expression -> MarkLogicProfileEntry(expression) }
+            return histogram.children("prof:expression").map { expression -> MarkLogicProfileEntry(expression, script) }
         }
 }

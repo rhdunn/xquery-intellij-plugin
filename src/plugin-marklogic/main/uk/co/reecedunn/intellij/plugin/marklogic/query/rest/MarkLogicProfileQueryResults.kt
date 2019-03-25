@@ -20,12 +20,15 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class MarkLogicProfileQueryResults(queryResults: Iterator<QueryResult>) : ProfileQueryResult {
+internal class MarkLogicProfileQueryResults(
+    queryResults: Iterator<QueryResult>,
+    queryPath: String
+) : ProfileQueryResult {
     override val results: Sequence<QueryResult>
     override val report: ProfileReport
 
     init {
-        report = MarkLogicProfileReport(queryResults.next().value as String)
+        report = MarkLogicProfileReport(queryResults.next().value as String, queryPath)
         results = queryResults.asSequence()
     }
 }
