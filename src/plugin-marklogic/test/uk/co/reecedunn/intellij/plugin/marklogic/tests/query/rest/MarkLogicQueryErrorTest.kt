@@ -42,11 +42,11 @@ class MarkLogicQueryErrorTest {
             </err:error>
         """
 
-        val e = exception.toMarkLogicError()
+        val e = exception.toMarkLogicError("test.xqy")
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
         assertThat(e.description, `is`("Unexpected token"))
-        assertThat(e.frames[0].module, `is`(nullValue()))
+        assertThat(e.frames[0].module, `is`("test.xqy"))
         assertThat(e.frames[0].lineNumber, `is`(1))
         assertThat(e.frames[0].columnNumber, `is`(6))
     }
@@ -68,11 +68,11 @@ class MarkLogicQueryErrorTest {
             </err:error>
         """
 
-        val e = exception.toMarkLogicError()
+        val e = exception.toMarkLogicError("test.xqy")
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
         assertThat(e.description, `is`("All modules in a module sequence must use the same XQuery version"))
-        assertThat(e.frames[0].module, `is`(nullValue()))
+        assertThat(e.frames[0].module, `is`("test.xqy"))
         assertThat(e.frames[0].lineNumber, `is`(1))
         assertThat(e.frames[0].columnNumber, `is`(53))
     }

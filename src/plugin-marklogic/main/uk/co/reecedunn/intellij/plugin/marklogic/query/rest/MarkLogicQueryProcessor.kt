@@ -70,7 +70,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
             ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicRunQuery(builder, buildParameters(query, language, "run"), connection)
+                MarkLogicRunQuery(builder, buildParameters(query, language, "run"), query.name, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }
@@ -81,7 +81,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), connection)
+                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), query.name, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }

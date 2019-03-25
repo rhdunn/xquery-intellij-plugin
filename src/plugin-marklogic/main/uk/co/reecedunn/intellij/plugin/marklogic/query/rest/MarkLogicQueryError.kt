@@ -24,7 +24,7 @@ private val ERROR_NAMESPACES = mapOf(
     "dbg" to "http://reecedunn.co.uk/xquery/debug"
 )
 
-fun String.toMarkLogicError(): QueryError {
+fun String.toMarkLogicError(script: String): QueryError {
     val doc = XmlDocument.parse(this, ERROR_NAMESPACES)
     return QueryError(
         standardCode = doc.root.children("err:code").first().text()!!.replace("^err:".toRegex(), ""),
@@ -36,7 +36,7 @@ fun String.toMarkLogicError(): QueryError {
             val path = module.text()
             val line = module.attribute("line")?.toInt()
             val col = module.attribute("column")?.toInt()
-            StackFrame(path, line, col)
+            StackFrame(if (path.isNullOrEmpty()) script else path, line, col)
         }.toList()
     )
 }

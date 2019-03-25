@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 internal class MarkLogicRunQuery(
     val builder: RequestBuilder,
     val queryParams: JsonObject,
+    val queryPath: String,
     val connection: HttpConnection
 ) :
     RunnableQuery,
@@ -95,7 +96,7 @@ internal class MarkLogicRunQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults()
+        MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath)
     }
 
     override fun close() {

@@ -33,7 +33,7 @@ class DatabaseModule(private val path: String) : VirtualFile() {
 
     override fun getTimeStamp(): Long = TODO("not implemented")
 
-    override fun getName(): String = TODO("not implemented")
+    override fun getName(): String = path
 
     override fun contentsToByteArray(): ByteArray = TODO("not implemented")
 

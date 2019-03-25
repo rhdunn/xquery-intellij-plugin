@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemType
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
-fun MimeResponse.queryResults(): Sequence<QueryResult> {
+fun MimeResponse.queryResults(script: String): Sequence<QueryResult> {
     var position: Long = -1
     val responseContentType: String? = getHeader("Content-type")?.substringBefore("; ")
     return parts.asSequence().mapIndexed { index, part ->
@@ -30,7 +30,7 @@ fun MimeResponse.queryResults(): Sequence<QueryResult> {
             val primitive = part.getHeader("X-Primitive") ?: "string"
             val derived = getHeader("X-Derived-${index + 1}")
             if (derived == "err:error")
-                throw part.body.toMarkLogicError()
+                throw part.body.toMarkLogicError(script)
             else {
                 val itemType = primitiveToItemType(derived ?: primitive)
                 val contentType = when (itemType) {

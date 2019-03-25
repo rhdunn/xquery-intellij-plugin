@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 internal class MarkLogicProfileQuery(
     val builder: RequestBuilder,
     val queryParams: JsonObject,
+    val queryPath: String,
     val connection: HttpConnection
 ) :
     ProfileableQuery,
@@ -96,7 +97,8 @@ internal class MarkLogicProfileQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        MarkLogicProfileQueryResults(MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults().iterator())
+        val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath).iterator()
+        MarkLogicProfileQueryResults(results)
     }
 
     override fun close() {
