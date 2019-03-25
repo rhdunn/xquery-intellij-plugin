@@ -27,7 +27,7 @@ private val RE_EXISTDB_LOCATION =
 
 fun String.toEXistDBError(script: String): QueryError {
     val xml = XmlDocument.parse(this, mapOf())
-    val messageText = xml.root.children("message").first().text()!!
+    val messageText = xml.root.children("message").first().text()!!.split("\n")[0]
     val parts =
         RE_EXISTDB_MESSAGE.matchEntire(messageText)?.groupValues
             ?: throw RuntimeException("Cannot parse eXist-db error message: $messageText")

@@ -66,13 +66,37 @@ class EXistDBQueryErrorTest {
     }
 
     @Test
-    @DisplayName("error")
-    fun error() {
+    @DisplayName("single line source")
+    fun singleLineSource() {
         @Language("xml")
         val exception = """<?xml version="1.0" ?>
             <exception>
                 <path>/db</path>
                 <message>err:XPTY0004 Too many operands at the left of * [at line 1, column 11, source: (1, 2, 3) * 2]</message>
+            </exception>
+        """
+
+        val e = exception.toEXistDBError("test.xqy")
+        assertThat(e.standardCode, `is`("XPTY0004"))
+        assertThat(e.vendorCode, `is`(nullValue()))
+        assertThat(e.description, `is`("Too many operands at the left of *"))
+        assertThat(e.frames[0].module, `is`("test.xqy"))
+        assertThat(e.frames[0].lineNumber, `is`(1))
+        assertThat(e.frames[0].columnNumber, `is`(11))
+    }
+
+    @Test
+    @DisplayName("multiple line source")
+    fun multipleLineSource() {
+        @Language("xml")
+        val exception = """<?xml version="1.0" ?>
+            <exception>
+                <path>/db</path>
+                <message>err:XPTY0004 Too many operands at the left of * [at line 1, column 11, source: (
+    1,
+    2,
+    3
+) * 2]</message>
             </exception>
         """
 
