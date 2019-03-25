@@ -72,6 +72,10 @@ declare function local:version() {
     substring-before(xdmp:version(), "-") cast as xs:double
 };
 
+declare function local:version-minor() {
+    substring-after(xdmp:version(), "-") cast as xs:double
+};
+
 declare function local:function($ref as xs:string) {
     try { xdmp:eval($ref) } catch * { () }
 };
@@ -221,7 +225,16 @@ declare function local:eval-options() {
             <root>{(local:nullize($module-root), xdmp:server-root($server))[1]}</root>
         else
             (),
-        <update>{$updating}</update>
+        let $major := local:version()
+        let $minor := local:version-minor()
+        return if ($major lt 7.0 or ($major eq 8.0 and $minor lt 7.0) or ($major eq 9.0 and $minor lt 2.0) or $major gt 9.0) then
+            if ($updating) then
+                <transaction-mode>update</transaction-mode>
+            else
+                <transaction-mode>query</transaction-mode>
+        else
+            (: MarkLogic 8.0-7 and 9.0-2 support <update> :)
+            <update>{$updating}</update>
     }</options>
 };
 
