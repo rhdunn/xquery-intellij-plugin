@@ -25,14 +25,19 @@ declare %a:since("marklogic", "5.0") function dbg:detach($request-id as xs:unsig
 declare %a:since("marklogic", "5.0") function dbg:disconnect($server as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:eval($xquery as xs:string) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function dbg:eval($xquery as xs:string, $vars as item()*) as xs:unsignedLong external;
-declare %a:since("marklogic", "5.0") function dbg:eval($xquery as xs:string, $vars as item()*, $options (: as [5.0]node()? [8.0](element()?|map:map?) :)) as xs:unsignedLong external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "node()?")
+        %a:restrict-since("$options", "marklogic", "8.0", "(element()?|map:map?)")
+        %a:since("marklogic", "5.0") function dbg:eval($xquery as xs:string, $vars as item()*, $options as (node()?|map:map?)) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function dbg:expr($request as xs:unsignedLong, $expression as xs:unsignedLong) as element(dbg:expression) external;
 declare %a:since("marklogic", "5.0") function dbg:finish($request as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:function($request as xs:unsignedLong, $uri as xs:string, $function as xs:QName) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function dbg:invoke($uri as xs:string) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function dbg:invoke($uri as xs:string, $vars as item()*) as xs:unsignedLong external;
-declare %a:since("marklogic", "5.0") function dbg:invoke($uri as xs:string, $vars as item()*, $options (: as [5.0]node()? [8.0](element()?|map:map?) :)) as xs:unsignedLong external;
-declare %a:since("marklogic", "5.0") function dbg:line($request as xs:unsignedLong, $uri as xs:string, $line (: as [5.0]xs:unsigned [8.0]xs:unsignedInt :)) as xs:unsignedLong* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "node()?")
+        %a:restrict-since("$options", "marklogic", "8.0", "(element()?|map:map?)")
+        %a:since("marklogic", "5.0") function dbg:invoke($uri as xs:string, $vars as item()*, $options as (node()?|map:map?)) as xs:unsignedLong external;
+declare %a:restrict-since("line", "marklogic", "8.0", "xs:unsignedInt")
+        %a:since("marklogic", "5.0") function dbg:line($request as xs:unsignedLong, $uri as xs:string, $line as xs:nonNegativeInteger) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function dbg:next($request as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:out($request as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:stack($request as xs:unsignedLong) as element(dbg:stack) external;
