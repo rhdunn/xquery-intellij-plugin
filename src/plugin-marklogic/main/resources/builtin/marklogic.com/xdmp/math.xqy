@@ -39,7 +39,9 @@ declare %a:since("marklogic", "5.0") function math:log10($x as xs:double) as xs:
 declare %a:since("marklogic", "6.0") function math:median($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:mode($arg as xs:anyAtomicType*) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "6.0") function math:mode($arg as xs:anyAtomicType*, $options as xs:string*) as xs:anyAtomicType* external;
-declare %a:since("marklogic", "5.0") function math:modf($x as xs:double) (: as [5.0](xs:double,xs:double) [8.0](xs:double,xs:integer) :) external;
+declare %a:restrict-until("return", "marklogic", "8.0", "(xs:double,xs:double)")
+        %a:restrict-since("return", "marklogic", "8.0", "(xs:double,xs:integer)")
+        %a:since("marklogic", "5.0") function math:modf($x as xs:double) as (xs:double,(xs:double|xs:integer)) external;
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType, $options as xs:string*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percentile($arg as xs:double*, $p as xs:double*) as xs:double* external;
