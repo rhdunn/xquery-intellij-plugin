@@ -54,22 +54,35 @@ declare %a:since("marklogic", "7.0") function cts:boost-query-matching-query($qu
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:bounding-boxes#1") function cts:bounding-boxes($region as cts:region) as cts:box* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:bounding-boxes#2") function cts:bounding-boxes($region as cts:region, $options as xs:string*) as cts:box* external;
 declare %a:since("marklogic", "5.0") function cts:box($south as xs:float, $west as xs:float, $north as xs:float, $east as xs:float) as cts:box external;
-declare %a:since("marklogic", "5.0") function cts:box-east($box as cts:box) (: as [5.0]xs:float [9.0]xs:numeric :) external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:box-east($box as cts:box) as xs:numeric external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:box-intersects#2") function cts:box-intersects($box as cts:box, $region as cts:region*) as xs:boolean external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:box-intersects#3") function cts:box-intersects($box as cts:box, $region as cts:region*, $options as xs:string*) as xs:boolean external;
-declare %a:since("marklogic", "5.0") function cts:box-north($box as cts:box) (: as [5.0]xs:float [9.0]xs:numeric :) external;
-declare %a:since("marklogic", "5.0") function cts:box-south($box as cts:box) (: as [5.0]xs:float [9.0]xs:numeric :) external;
-declare %a:since("marklogic", "5.0") function cts:box-west($box as cts:box) (: as [5.0]xs:float [9.0]xs:numeric :) external;
-declare %a:since("marklogic", "5.0") function cts:circle($radius (: as [5.0]xs:float [8.0]xs:double :), $center as cts:point) as cts:circle external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:box-north($box as cts:box) as xs:numeric external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:box-south($box as cts:box) as xs:numeric external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:box-west($box as cts:box) as xs:numeric external;
+declare %a:restrict-until("$radius", "marklogic", "8.0", "xs:float")
+        %a:restrict-since("$radius", "marklogic", "8.0", "xs:double")
+        %a:since("marklogic", "5.0") function cts:circle($radius as xs:double, $center as cts:point) as cts:circle external;
 declare %a:since("marklogic", "5.0") function cts:circle-center($circle as cts:circle) as cts:point external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:circle-intersects#2") function cts:circle-intersects($circle as cts:circle, $region as cts:region*) as xs:boolean external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:circle-intersects#2") function cts:circle-intersects($circle as cts:circle, $region as cts:region*, $options as xs:string*) as xs:boolean external;
-declare %a:since("marklogic", "5.0") function cts:circle-radius($circle as cts:circle) (: as [5.0]xs:float [9.0]xs:numeric :) external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:circle-radius($circle as cts:circle) as xs:numeric external;
 declare %a:since("marklogic", "8.0") function cts:classify($data-nodes as node()*, $classifier as element(cts:classifier)) as element(cts:label)* external;
-declare %a:since("marklogic", "8.0") function cts:classify($data-nodes as node()*, $classifier as element(cts:classifier), $options (: as [5.0]element() [8.0](element()|map:map)? :)) as element(cts:label)* external;
-declare %a:since("marklogic", "8.0") function cts:classify($data-nodes as node()*, $classifier as element(cts:classifier), $options (: as [5.0]element() [8.0](element()|map:map)? :), $training-nodes as node()*) as element(cts:label)* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "element()")
+        %a:restrict-since("$options", "marklogic", "8.0", "(element()?|map:map?)")
+        %a:since("marklogic", "8.0") function cts:classify($data-nodes as node()*, $classifier as element(cts:classifier), $options as (element()?|map:map?)) as element(cts:label)* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "element()")
+        %a:restrict-since("$options", "marklogic", "8.0", "(element()?|map:map?)")
+        %a:since("marklogic", "8.0") function cts:classify($data-nodes as node()*, $classifier as element(cts:classifier), $options as (element()?|map:map?), $training-nodes as node()*) as element(cts:label)* external;
 declare %a:since("marklogic", "5.0") function cts:cluster($nodes as node()*) as element(cts:clustering) external;
-declare %a:since("marklogic", "5.0") function cts:cluster($nodes as node()*, $options (: as [5.0]element() [8.0](element()|map:map)? :)) as element(cts:clustering) external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "element()")
+        %a:restrict-since("$options", "marklogic", "8.0", "(element()?|map:map?)")
+        %a:since("marklogic", "5.0") function cts:cluster($nodes as node()*, $options as (element()?|map:map?)) as element(cts:clustering) external;
 declare %a:since("marklogic", "5.0") function cts:collection-match($pattern as xs:string) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:collection-match($pattern as xs:string, $options as xs:string*) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:collection-match($pattern as xs:string, $options as xs:string*, $query as cts:query?) as xs:string* external;
@@ -78,7 +91,8 @@ declare %a:since("marklogic", "5.0") function cts:collection-match($pattern as x
 declare %a:since("marklogic", "5.0") function cts:collection-query($uris as xs:string*) as cts:collection-query external;
 declare %a:since("marklogic", "5.0") function cts:collection-query-uris($query as cts:collection-query) as xs:string* external;
 declare %a:since("marklogic", "6.0") function cts:collection-reference() as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:collection-reference($options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:collection-reference($options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "5.0") function cts:collections() as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:collections($start as xs:string?) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:collections($start as xs:string?, $options as xs:string*) as xs:string* external;
@@ -96,7 +110,8 @@ declare %a:since("marklogic", "5.0") function cts:confidence() as xs:float exter
 declare %a:since("marklogic", "5.0") function cts:confidence($node as node()) as xs:float external;
 declare %a:since("marklogic", "8.0") function cts:confidence-order() as cts:order external;
 declare %a:since("marklogic", "8.0") function cts:confidence-order($options as xs:string*) as cts:order external;
-declare %a:since("marklogic", "5.0") function cts:contains($nodes (: as [5.0]node()* [7.0]item()* :), $query as cts:query) as xs:boolean? external;
+declare %a:restrict-until("$nodes", "marklogic", "7.0", "item()*")
+        %a:since("marklogic", "5.0") function cts:contains($nodes as item()*, $query as cts:query) as xs:boolean? external;
 declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:reference, $value2 as cts:reference) as xs:double? external;
 declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:reference, $value2 as cts:reference, $options as xs:string*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:reference, $value2 as cts:reference, $options as xs:string*, $query as cts:query?) as xs:double? external;
@@ -165,12 +180,14 @@ declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query(
 declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query($element-name as xs:QName*, $attribute-name as xs:QName*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*, $weight as xs:double?) as cts:element-attribute-range-query external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query-attribute-name($query as cts:element-attribute-range-query) as xs:QName* external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query-element-name($query as cts:element-attribute-range-query) as xs:QName* external;
-declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query-operator($query as cts:element-attribute-range-query) (: as [5.0]xs:anyAtomicType* [6.0]xs:string :) external;
+declare %a:restrict-since("return", "marklogic", "6.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:element-attribute-range-query-operator($query as cts:element-attribute-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query-options($query as cts:element-attribute-range-query) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query-value($query as cts:element-attribute-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-range-query-weight($query as cts:element-attribute-range-query) as xs:double external;
 declare %a:since("marklogic", "6.0") function cts:element-attribute-reference($element as xs:QName, $attribute as xs:QName) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:element-attribute-reference($element as xs:QName, $attribute as xs:QName, $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:element-attribute-reference($element as xs:QName, $attribute as xs:QName, $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-value-co-occurrences($element-name-1 as xs:QName, $attribute-name-1 as xs:QName?, $element-name-2 as xs:QName, $attribute-name-2 as xs:QName?) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-value-co-occurrences($element-name-1 as xs:QName, $attribute-name-1 as xs:QName?, $element-name-2 as xs:QName, $attribute-name-2 as xs:QName?, $options as xs:string*) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:element-attribute-value-co-occurrences($element-name-1 as xs:QName, $attribute-name-1 as xs:QName?, $element-name-2 as xs:QName, $attribute-name-2 as xs:QName?, $options as xs:string*, $query as cts:query?) as element(cts:co-occurrence)* external;
@@ -265,7 +282,9 @@ declare %a:since("marklogic", "5.0") function cts:element-geospatial-query($elem
 declare %a:since("marklogic", "5.0") function cts:element-geospatial-query($element-name as xs:QName*, $regions as cts:region*, $options as xs:string*, $weight as xs:double?) as cts:element-geospatial-query external;
 declare %a:since("marklogic", "5.0") function cts:element-geospatial-query-element-name($query as cts:element-geospatial-query) as xs:QName* external;
 declare %a:since("marklogic", "5.0") function cts:element-geospatial-query-options($query as cts:element-geospatial-query) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:element-geospatial-query-region($query as cts:element-geospatial-query) (: as [5.0]cts:box* [6.0]cts:region* :) external;
+declare %a:restrict-until("return", "marklogic", "6.0", "cts:box*")
+        %a:restrict-since("return", "marklogic", "6.0", "cts:region*")
+        %a:since("marklogic", "5.0") function cts:element-geospatial-query-region($query as cts:element-geospatial-query) as (cts:box*|cts:region*) external;
 declare %a:since("marklogic", "5.0") function cts:element-geospatial-query-weight($query as cts:element-geospatial-query) as xs:double external;
 declare %a:since("marklogic", "5.0") function cts:element-geospatial-value-match($element-names as xs:QName*, $pattern as xs:anyAtomicType) as cts:point* external;
 declare %a:since("marklogic", "5.0") function cts:element-geospatial-value-match($element-names as xs:QName*, $pattern as xs:anyAtomicType, $options as xs:string*) as cts:point* external;
@@ -312,12 +331,14 @@ declare %a:since("marklogic", "5.0") function cts:element-range-query($element-n
 declare %a:since("marklogic", "5.0") function cts:element-range-query($element-name as xs:QName*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*) as cts:element-range-query external;
 declare %a:since("marklogic", "5.0") function cts:element-range-query($element-name as xs:QName*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*, $weight as xs:double?) as cts:element-range-query external;
 declare %a:since("marklogic", "5.0") function cts:element-range-query-element-name($query as cts:element-range-query) as xs:QName* external;
-declare %a:since("marklogic", "5.0") function cts:element-range-query-operator($query as cts:element-range-query) (: as [5.0]xs:anyAtomicType* [6.0]xs:string :) external;
+declare %a:restrict-since("return", "marklogic", "6.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:element-range-query-operator($query as cts:element-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:element-range-query-options($query as cts:element-range-query) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:element-range-query-value($query as cts:element-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:element-range-query-weight($query as cts:element-range-query) as xs:double external;
 declare %a:since("marklogic", "6.0") function cts:element-reference($element as xs:QName) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:element-reference($element as xs:QName, $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:element-reference($element as xs:QName, $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "5.0") function cts:element-value-co-occurrences($element-name-1 as xs:QName, $element-name-2 as xs:QName) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:element-value-co-occurrences($element-name-1 as xs:QName, $element-name-2 as xs:QName, $options as xs:string*) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:element-value-co-occurrences($element-name-1 as xs:QName, $element-name-2 as xs:QName, $options as xs:string*, $query as cts:query?) as element(cts:co-occurrence)* external;
@@ -358,10 +379,14 @@ declare %a:since("marklogic", "5.0") function cts:element-values($element-names 
 declare %a:since("marklogic", "6.0") function cts:element-walk($node as node(), $element as xs:QName*, $expr as item()*) as node() external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:element-walk($node as node(), $element as xs:QName*, $callback as function(NodeBuilder, node()) as xs:string?, $builder as NodeBuilder) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options (: as [5.0]xs:string [8.0]xs:string* :)) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options (: as [5.0]xs:string [8.0]xs:string* :), $query as cts:query?) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options (: as [5.0]xs:string [8.0]xs:string* :), $query as cts:query?, $quality-weight as xs:double?) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options (: as [5.0]xs:string [8.0]xs:string* :), $query as cts:query?, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as xs:string* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options as xs:string*) as xs:string* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options as xs:string*, $query as cts:query?) as xs:string* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options as xs:string*, $query as cts:query?, $quality-weight as xs:double?) as xs:string* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:element-word-match($element-names as xs:QName*, $pattern as xs:string, $options as xs:string*, $query as cts:query?, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:element-word-query($element-name as xs:QName*, $text as xs:string*) as cts:element-word-query external;
 declare %a:since("marklogic", "5.0") function cts:element-word-query($element-name as xs:QName*, $text as xs:string*, $options as xs:string*) as cts:element-word-query external;
 declare %a:since("marklogic", "5.0") function cts:element-word-query($element-name as xs:QName*, $text as xs:string*, $options as xs:string*, $weight as xs:double?) as cts:element-word-query external;
@@ -399,13 +424,16 @@ declare %a:since("marklogic", "8.0") function cts:false-query() as cts:or-query 
 declare %a:since("marklogic", "5.0") function cts:field-range-query($field-name as xs:string*, $operator as xs:string, $value as xs:anyAtomicType*) as cts:field-range-query external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query($field-name as xs:string*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*) as cts:field-range-query external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query($field-name as xs:string*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*, $weight as xs:double?) as cts:field-range-query external;
-declare %a:since("marklogic", "5.0") function cts:field-range-query-field-name($query as cts:field-range-query) (: as [5.0]xs:string [6.0]xs:string* :) external;
-declare %a:since("marklogic", "5.0") function cts:field-range-query-operator($query as cts:field-range-query) (: as [5.0]xs:anyAtomicType* [6.0]xs:string :) external;
+declare %a:restrict-until("return", "marklogic", "6.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:field-range-query-field-name($query as cts:field-range-query) as xs:string* external;
+declare %a:restrict-since("return", "marklogic", "6.0", "xs:string")
+        %a:since("marklogic", "5.0") function cts:field-range-query-operator($query as cts:field-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query-options($query as cts:field-range-query) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query-value($query as cts:field-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query-weight($query as cts:field-range-query) as xs:double external;
 declare %a:since("marklogic", "6.0") function cts:field-reference($field as xs:string) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:field-reference($field as xs:string, $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:field-reference($field as xs:string, $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "5.0") function cts:field-value-co-occurrences($field-name-1 as xs:string, $field-name-2 as xs:string) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-co-occurrences($field-name-1 as xs:string, $field-name-2 as xs:string, $options as xs:string*) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-co-occurrences($field-name-1 as xs:string, $field-name-2 as xs:string, $options as xs:string*, $query as cts:query?) as element(cts:co-occurrence)* external;
@@ -416,12 +444,16 @@ declare %a:since("marklogic", "5.0") function cts:field-value-match($field-names
 declare %a:since("marklogic", "5.0") function cts:field-value-match($field-names as xs:string*, $pattern as xs:anyAtomicType, $options as xs:string*, $query as cts:query?) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-match($field-names as xs:string*, $pattern as xs:anyAtomicType, $options as xs:string*, $query as cts:query?, $quality-weight as xs:double?) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-match($field-names as xs:string*, $pattern as xs:anyAtomicType, $options as xs:string*, $query as cts:query?, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as xs:anyAtomicType* external;
-declare %a:since("marklogic", "5.0") function cts:field-value-query($field-name as xs:string*, $text (: as [5.0]xs:string* [8.0]xs:anyAtomicType* :)) as cts:field-value-query external;
-declare %a:since("marklogic", "5.0") function cts:field-value-query($field-name as xs:string*, $text (: as [5.0]xs:string* [8.0]xs:anyAtomicType* :), $options as xs:string*) as cts:field-value-query external;
-declare %a:since("marklogic", "5.0") function cts:field-value-query($field-name as xs:string*, $text (: as [5.0]xs:string* [8.0]xs:anyAtomicType* :), $options as xs:string*, $weight as xs:double?) as cts:field-value-query external;
+declare %a:restrict-until("$text", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:field-value-query($field-name as xs:string*, $text as xs:anyAtomicType*) as cts:field-value-query external;
+declare %a:restrict-until("$text", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:field-value-query($field-name as xs:string*, $text as xs:anyAtomicType*, $options as xs:string*) as cts:field-value-query external;
+declare %a:restrict-until("$text", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:field-value-query($field-name as xs:string*, $text as xs:anyAtomicType*, $options as xs:string*, $weight as xs:double?) as cts:field-value-query external;
 declare %a:since("marklogic", "5.0") function cts:field-value-query-field-name($query as cts:field-value-query) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-query-options($query as cts:field-value-query) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:field-value-query-text($query as cts:field-value-query) (: as [5.0]xs:string* [8.0]xs:anyAtomicType* :) external;
+declare %a:restrict-until("return", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:field-value-query-text($query as cts:field-value-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-query-weight($query as cts:field-value-query) as xs:double external;
 declare %a:since("marklogic", "5.0") function cts:field-value-ranges($field-names as xs:string*) as element(cts:range)* external;
 declare %a:since("marklogic", "5.0") function cts:field-value-ranges($field-names as xs:string*, $bounds as xs:anyAtomicType*) as element(cts:range)* external;
@@ -459,7 +491,14 @@ declare %a:since("marklogic", "8.0") function cts:fitness-order() as cts:order e
 declare %a:since("marklogic", "8.0") function cts:fitness-order($options as xs:string*) as cts:order external;
 declare %a:since("marklogic", "5.0") function cts:frequency($value as item()) as xs:integer external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-attribute-pair-reference($element as xs:QName, $lat as xs:QName, $long as xs:QName) as cts:reference external;
-declare %a:since("marklogic", "8.0") function cts:geospatial-attribute-pair-reference($element (: as [6.0]xs:string [8.0]xs:QName :),  $lat (: as [6.0]xs:string [8.0]xs:QName :), $long (: as [6.0]xs:string [8.0]xs:QName :), $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$element", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$element", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$lat", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$lat", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$long", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$long", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "8.0") function cts:geospatial-attribute-pair-reference($element as (xs:string|xs:QName),  $lat as (xs:string|xs:QName), $long as (xs:string|xs:QName), $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-boxes($geo-indexes as cts:reference*) as cts:box* external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-boxes($geo-indexes as cts:reference*, $latitude-bounds as xs:double*) as cts:box* external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-boxes($geo-indexes as cts:reference*, $latitude-bounds as xs:double*, $longitude-bounds as xs:double*) as cts:box* external;
@@ -477,11 +516,26 @@ declare %a:since("marklogic", "5.0") function cts:geospatial-co-occurrences($geo
 declare %a:since("marklogic", "5.0") function cts:geospatial-co-occurrences($geo-element-name-1 as xs:QName, $child-1-name-1 as xs:QName?, $child-1-name-2 as xs:QName?, $geo-element-name-2 as xs:QName, $child-2-name-1 as xs:QName?, $child-2-name-2 as xs:QName?, $options as xs:string*, $query as cts:query?, $quality-weight as xs:double?) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "5.0") function cts:geospatial-co-occurrences($geo-element-name-1 as xs:QName, $child-1-name-1 as xs:QName?, $child-1-name-2 as xs:QName?, $geo-element-name-2 as xs:QName, $child-2-name-1 as xs:QName?, $child-2-name-2 as xs:QName?, $options as xs:string*, $query as cts:query?, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as element(cts:co-occurrence)* external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-element-child-reference($element as xs:QName, $child as xs:QName) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:geospatial-element-child-reference($element (: as [6.0]xs:string [8.0]xs:QName :), $child (: as [6.0]xs:string [8.0]xs:QName :), $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$element", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$element", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$child", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$child", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:geospatial-element-child-reference($element as (xs:string|xs:QName), $child as (xs:string|xs:QName), $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-element-pair-reference($element as xs:QName, $lat as xs:QName, $long as xs:QName) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:geospatial-element-pair-reference($element (: as [6.0]xs:string [8.0]xs:QName :), $lat (: as [6.0]xs:string [8.0]xs:QName :), $long (: as [6.0]xs:string [8.0]xs:QName :), $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$element", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$element", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$lat", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$lat", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$long", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$long", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:geospatial-element-pair-reference($element as (xs:string|xs:QName), $lat as (xs:string|xs:QName), $long as (xs:string|xs:QName), $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-element-reference($element as xs:QName) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:geospatial-element-reference($element (: as [6.0]xs:string [8.0]xs:QName :), $options (: as [6.0]xs:string [8.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$element", "marklogic", "8.0", "xs:string")
+        %a:restrict-since("$element", "marklogic", "8.0", "xs:QName")
+        %a:restrict-until("$options", "marklogic", "8.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:geospatial-element-reference($element as (xs:string|xs:QName), $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-json-property-child-reference($property as xs:string, $child as xs:string) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-json-property-child-reference($property as xs:string, $child as xs:string, $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:geospatial-json-property-pair-reference($property as xs:string, $lat as xs:string, $long as xs:string) as cts:reference external;
@@ -587,10 +641,14 @@ declare %a:since("marklogic", "8.0") function cts:lsqt-query-options($query as c
 declare %a:since("marklogic", "8.0") function cts:lsqt-query-temporal-collection($query as cts:lsqt-query) as xs:string external;
 declare %a:since("marklogic", "8.0") function cts:lsqt-query-timestamp($query as cts:lsqt-query) as xs:dateTime external;
 declare %a:since("marklogic", "8.0") function cts:lsqt-query-weight($query as cts:lsqt-query) as xs:double external;
-declare %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions (: as [8.0]cts:region+ [9.0]cts:region* :)) as item()* external;
-declare %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions (: as [8.0]cts:region+ [9.0]cts:region* :), $options as xs:string*) as item()* external;
-declare %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions (: as [8.0]cts:region+ [9.0]cts:region* :), $options as xs:string*, $query as cts:query?) as item()* external;
-declare %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions (: as [8.0]cts:region+ [9.0]cts:region* :), $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as item()* external;
+declare %a:restrict-until("$regions", "marklogic", "9.0", "cts:region+")
+        %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions as cts:region*) as item()* external;
+declare %a:restrict-until("$regions", "marklogic", "9.0", "cts:region+")
+        %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions as cts:region*, $options as xs:string*) as item()* external;
+declare %a:restrict-until("$regions", "marklogic", "9.0", "cts:region+")
+        %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions as cts:region*, $options as xs:string*, $query as cts:query?) as item()* external;
+declare %a:restrict-until("$regions", "marklogic", "9.0", "cts:region+")
+        %a:since("marklogic", "8.0") function cts:match-regions($range-indexes as cts:reference*, $operation as xs:string, $regions as cts:region*, $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as item()* external;
 declare %a:since("marklogic", "6.0") function cts:max($range-index as cts:reference) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:max($range-index as cts:reference, $options as xs:string*) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:max($range-index as cts:reference, $options as xs:string*, $query as cts:query?) as xs:anyAtomicType? external;
@@ -606,14 +664,17 @@ declare %a:since("marklogic", "5.0") function cts:near-query($queries as cts:que
 declare %a:since("marklogic", "5.0") function cts:near-query($queries as cts:query*, $distance as xs:double?, $options as xs:string*, $distance-weight as xs:double?) as cts:near-query external;
 declare %a:since("marklogic", "5.0") function cts:near-query-distance($query as cts:near-query) as xs:integer external;
 declare %a:since("marklogic", "5.0") function cts:near-query-options($query as cts:near-query) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:near-query-queries($query as cts:near-query) (: as [5.0]cts:query [6.0]cts:query* :) external;
+declare %a:restrict-until("return", "marklogic", "6.0", "cts:query")
+        %a:since("marklogic", "5.0") function cts:near-query-queries($query as cts:near-query) as cts:query* external;
 declare %a:since("marklogic", "5.0") function cts:near-query-weight($query as cts:near-query) as xs:double external;
 declare %a:since("marklogic", "6.0") function cts:not-in-query($positive-query as cts:query, $negative-query as cts:query) as cts:not-in-query external;
 declare %a:since("marklogic", "6.0") function cts:not-in-query-negative-query($query as cts:not-in-query) as cts:query external;
 declare %a:since("marklogic", "6.0") function cts:not-in-query-positive-query($query as cts:not-in-query) as cts:query external;
 declare %a:since("marklogic", "5.0") function cts:not-query($query as cts:query) as cts:not-query external;
 declare %a:since("marklogic", "5.0") function cts:not-query-query($query as cts:not-query) as cts:query external;
-declare %a:since("marklogic", "5.0") function cts:not-query-weight($query (: as [5.0]cts:element-query [8.0]cts:not-query -- TODO: Is the 5.0-7.0 type a documentation bug? :)) as xs:double external;
+declare %a:restrict-until("$query", "marklogic", "8.0", "cts:element-query") (: TODO: Is this a MarkLogic documentation bug? :)
+        %a:restrict-since("$query", "marklogic", "8.0", "cts:not-query")
+        %a:since("marklogic", "5.0") function cts:not-query-weight($query as (cts:element-query|cts:not-query)) as xs:double external;
 declare %a:since("marklogic", "5.0") function cts:or-query($queries as cts:query*) as cts:or-query external;
 declare %a:since("marklogic", "8.0") function cts:or-query($queries as cts:query*, $options as xs:string*) as cts:or-query external;
 declare %a:since("marklogic", "8.0") function cts:or-query-options($query as cts:or-query) as xs:string* external;
@@ -638,7 +699,8 @@ declare %a:since("marklogic", "6.0") function cts:path-range-query-path-name($qu
 declare %a:since("marklogic", "6.0") function cts:path-range-query-value($query as cts:path-range-query) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "6.0") function cts:path-range-query-weight($query as cts:path-range-query) as xs:double external;
 declare %a:since("marklogic", "6.0") function cts:path-reference($path-expression as xs:string) as cts:reference external;
-declare %a:since("marklogic", "6.0") function cts:path-reference($path-expression as xs:string, $options (: as [6.0]xs:string [7.0]xs:string* :)) as cts:reference external;
+declare %a:restrict-until("$options", "marklogic", "7.0", "xs:string")
+        %a:since("marklogic", "6.0") function cts:path-reference($path-expression as xs:string, $options as xs:string*) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:path-reference($path-expression as xs:string, $options as xs:string*, $map as map:map) as cts:reference external;
 declare %a:since("marklogic", "6.0") function cts:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType) as xs:double? external;
 declare %a:since("marklogic", "6.0") function cts:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType, $options as xs:string*) as xs:double? external;
@@ -664,8 +726,10 @@ declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:plan
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:plan($query as cts:query?, $options as (cts:order*|xs:string*), $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as element() external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:plan($query as cts:query?, $options as (cts:order*|xs:string*), $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*, $maximum as xs:double?) as element() external;
 declare %a:since("marklogic", "5.0") function cts:point($latitude as xs:float, $longitude as xs:float) as cts:point external;
-declare %a:since("marklogic", "5.0") function cts:point-latitude($point as cts:point) (: as [5.0]xs:float [9.0]xs:numeric :) external;
-declare %a:since("marklogic", "5.0") function cts:point-longitude($point as cts:point) (: as [5.0]xs:float [9.0]xs:numeric :) external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:point-latitude($point as cts:point) as xs:numeric external;
+declare %a:restrict-until("return", "marklogic", "9.0", "xs:float")
+        %a:since("marklogic", "5.0") function cts:point-longitude($point as cts:point) as xs:numeric external;
 declare %a:since("marklogic", "5.0") function cts:polygon($vertices as cts:point*) as cts:polygon external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:polygon-contains#2") function cts:polygon-contains($polygon as cts:polygon, $region as cts:region*) as xs:boolean external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:polygon-contains#3") function cts:polygon-contains($polygon as cts:polygon, $region as cts:region*, $options as xs:string*) as xs:boolean external;
@@ -681,7 +745,8 @@ declare %a:since("marklogic", "5.0") function cts:quality($node as node()) as xs
 declare %a:since("marklogic", "5.0") %a:until("marklogic", "8.0") function cts:query() as cts:query external;
 declare %a:since("marklogic", "8.0") function cts:quality-order() as cts:order external;
 declare %a:since("marklogic", "8.0") function cts:quality-order($options as xs:string*) as cts:order external;
-declare %a:since("marklogic", "5.0") function cts:query($query (: as [5.0]element() [8.0]node() :)) as cts:query external;
+declare %a:restrict-until("$query", "marklogic", "8.0", "element()")
+        %a:since("marklogic", "5.0") function cts:query($query as node()) as cts:query external;
 declare %a:since("marklogic", "9.0") function cts:range-query($index as cts:reference*, $operator as xs:string, $value as xs:anyAtomicType*) as cts:range-query external;
 declare %a:since("marklogic", "9.0") function cts:range-query($index as cts:reference*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*) as cts:range-query external;
 declare %a:since("marklogic", "9.0") function cts:range-query($index as cts:reference*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*, $weight as xs:double?) as cts:range-query external;
@@ -696,7 +761,8 @@ declare %a:since("marklogic", "9.0") function cts:reference-collation($index as 
 declare %a:since("marklogic", "9.0") function cts:reference-coordinate-system($index as cts:reference) as xs:string external;
 declare %a:since("marklogic", "9.0") function cts:reference-nullable($reference as cts:reference) as xs:boolean external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function cts:reference-parse() as cts:reference external;
-declare %a:since("marklogic", "7.0") function cts:reference-parse($reference (: as [7.0]element() [8.0]node() :)) as cts:reference external;
+declare %a:restrict-until("$reference", "marklogic", "8.0", "element()")
+        %a:since("marklogic", "7.0") function cts:reference-parse($reference as node()) as cts:reference external;
 declare %a:since("marklogic", "8.0") function cts:reference-scalar-type($index as cts:reference) as xs:string external;
 declare %a:since("marklogic", "8.0") %a:deprecated("marklogic", "8.0", "geo:region-contains#2") function cts:region-contains($region as cts:region, $region as cts:region*) as xs:boolean external;
 declare %a:since("marklogic", "8.0") %a:deprecated("marklogic", "8.0", "geo:region-contains#3") function cts:region-contains($region as cts:region, $region as cts:region*, $options as xs:string*) as xs:boolean external;
@@ -723,9 +789,12 @@ declare %a:since("marklogic", "5.0") function cts:score($node as node()) as xs:i
 declare %a:since("marklogic", "8.0") function cts:score-order() as cts:order external;
 declare %a:since("marklogic", "8.0") function cts:score-order($options as xs:string*) as cts:order external;
 declare %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?) as node()* external;
-declare %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?, $options (: as [5.0]xs:string* [8.0](cts:order|xs:string)* :)) as node()* external;
-declare %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?, $options (: as [5.0]xs:string* [8.0](cts:order|xs:string)* :), $quality-weight as xs:double?) as node()* external;
-declare %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?, $options (: as [5.0]xs:string* [8.0](cts:order|xs:string)* :), $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as node()* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?, $options as (cts:order*|xs:string*)) as node()* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?, $options as (cts:order*|xs:string*), $quality-weight as xs:double?) as node()* external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "xs:string*")
+        %a:since("marklogic", "5.0") function cts:search($expression as node()*, $query as cts:query?, $options as (cts:order*|xs:string*), $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as node()* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:region-contains#2") function cts:shortest-distance($p1 as cts:point, $region as cts:region+) as xs:double external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:region-contains#3") function cts:shortest-distance($p1 as cts:point, $region as cts:region+, $options as xs:string*) as xs:double external;
 declare %a:since("marklogic", "5.0") function cts:similar-query($nodes as node()*) as cts:similar-query external;
@@ -757,7 +826,8 @@ declare %a:since("marklogic", "5.0") function cts:tokenize($text as xs:string) a
 declare %a:since("marklogic", "5.0") function cts:tokenize($text as xs:string, $language as xs:string?) as cts:token* external;
 declare %a:since("marklogic", "7.0") function cts:tokenize($text as xs:string, $language as xs:string?, $field as xs:string?) as cts:token* external;
 declare %a:since("marklogic", "5.0") function cts:train($training-nodes as node()*, $labels as element(cts:label)*) as element(cts:classifier)? external;
-declare %a:since("marklogic", "5.0") function cts:train($training-nodes as node()*, $labels as element(cts:label)*, $options (: as [5.0]element()? [8.0](element()|map:map)? :)) as element(cts:classifier)? external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "element()?")
+        %a:since("marklogic", "5.0") function cts:train($training-nodes as node()*, $labels as element(cts:label)*, $options as (element()?|map:map?)) as element(cts:classifier)? external;
 declare %a:since("marklogic", "7.0") function cts:triple-range-query($subject as xs:anyAtomicType*, $predicate as xs:anyAtomicType*, $object as xs:anyAtomicType*) as cts:triple-range-query external;
 declare %a:since("marklogic", "7.0") function cts:triple-range-query($subject as xs:anyAtomicType*, $predicate as xs:anyAtomicType*, $object as xs:anyAtomicType*, $operator as xs:string*) as cts:triple-range-query external;
 declare %a:since("marklogic", "7.0") function cts:triple-range-query($subject as xs:anyAtomicType*, $predicate as xs:anyAtomicType*, $object as xs:anyAtomicType*, $operator as xs:string*, $options as xs:string*) as cts:triple-range-query external;
