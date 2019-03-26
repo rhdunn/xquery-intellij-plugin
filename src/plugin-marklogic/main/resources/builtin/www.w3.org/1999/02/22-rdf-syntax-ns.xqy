@@ -12,4 +12,6 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:requires "marklogic/7.0";
 
 declare %a:since("marklogic", "7.0") function rdf:langString($string as xs:string, $lang as xs:string) as rdf:langString external;
-declare %a:since("marklogic", "7.0") function rdf:langString-language($val (: as [7.0]sem:unknown [8.0]rdf:langString :)) as xs:string external;
+declare %a:restrict-until("$options", "marklogic", "8.0", "sem:unknown")
+        %a:restrict-since("$options", "marklogic", "8.0", "rdf:langString")
+        %a:since("marklogic", "7.0") function rdf:langString-language($val as (sem:unknown|rdf:langString)) as xs:string external;
