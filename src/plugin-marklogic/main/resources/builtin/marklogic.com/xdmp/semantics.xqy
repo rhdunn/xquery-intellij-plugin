@@ -44,7 +44,9 @@ declare %a:since("marklogic", "7.0") function sem:sameTerm($a as xs:anyAtomicTyp
 declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string) as item()* external;
 declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $bindings as map:map?) as item()* external;
 declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*) as item()* external;
-declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*, $query_or_store (: as [7.0]cts:query? [8.0]sem:store* :)) as item()* external;
+declare %a:restrict-until("$query_or_store", "marklogic", "8.0", "cts:query?")
+        %a:restrict-since("$query_or_store", "marklogic", "8.0", "sem:store*")
+        %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*, $query_or_store as (cts:query?|sem:store*)) as item()* external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as item()* external;
 declare %a:since("marklogic", "9.0") function sem:sparql-plan($sparql as xs:string) as element() external;
 declare %a:since("marklogic", "9.0") function sem:sparql-plan($sparql as xs:string, $bindingNames as xs:string*) as element() external;
