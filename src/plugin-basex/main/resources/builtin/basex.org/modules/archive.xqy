@@ -17,7 +17,9 @@ declare %a:since("basex", "8.3") function archive:create-from($path as xs:string
 declare %a:since("basex", "8.3") function archive:create-from($path as xs:string, $options as map(*)?) as xs:base64Binary external;
 declare %a:since("basex", "8.3") function archive:create-from($path as xs:string, $options as map(*)?, $entries as item()*) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function archive:entries($archive as xs:base64Binary) as element(archive:entry)* external;
-declare %a:since("basex", "7.3") function archive:options($archive as xs:base64Binary) (: as [7.3]element(archive:options) [8.5]map(*) :) external;
+declare %a:restrict-until("return", "basex", "8.5", "element(archive:options)")
+        %a:restrict-since("return", "basex", "8.5", "map(*)")
+        %a:since("basex", "7.3") function archive:options($archive as xs:base64Binary) as (element(archive:options)|map(*)) external;
 declare %a:since("basex", "7.3") function archive:extract-text($archive as xs:base64Binary) as xs:string* external;
 declare %a:since("basex", "7.3") function archive:extract-text($archive as xs:base64Binary, $entries as item()*) as xs:string* external;
 declare %a:since("basex", "7.3") function archive:extract-text($archive as xs:base64Binary, $entries as item()*, $encoding as xs:string) as xs:string* external;
