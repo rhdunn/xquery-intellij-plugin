@@ -24,7 +24,11 @@ declare %a:since("basex", "7.0") function ft:count($nodes as node()*) as xs:inte
 declare %a:since("basex", "7.0") function ft:score($item as item()*) as xs:double* external;
 declare %a:since("basex", "7.1") function ft:tokens($db as xs:string) as element(value)* external;
 declare %a:since("basex", "7.1") function ft:tokens($db as xs:string, $prefix as xs:string) as element(value)* external;
-declare %a:since("basex", "7.1") function ft:tokenize($string (: as [basex/7.0]xs:string [basex/9.1]xs:string? :)) as xs:string* external;
-declare %a:since("basex", "7.1") function ft:tokenize($string (: as [basex/7.0]xs:string [basex/9.1]xs:string? :), $options as map(*)?) as xs:string* external;
-declare %a:since("basex", "8.0") function ft:normalize($string (: as [basex/7.0]xs:string [basex/9.1]xs:string? :)) as xs:string external;
-declare %a:since("basex", "8.0") function ft:normalize($string (: as [basex/7.0]xs:string [basex/9.1]xs:string? :), $options as map(*)?) as xs:string external;
+declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:since("basex", "7.1") function ft:tokenize($string as xs:string?) as xs:string* external;
+declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:since("basex", "7.1") function ft:tokenize($string as xs:string?, $options as map(*)?) as xs:string* external;
+declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:since("basex", "8.0") function ft:normalize($string as xs:string?) as xs:string external;
+declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:since("basex", "8.0") function ft:normalize($string as xs:string?, $options as map(*)?) as xs:string external;
