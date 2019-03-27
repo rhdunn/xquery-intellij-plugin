@@ -17,8 +17,10 @@ declare %a:since("basex", "7.0") %a:until("basex", "7.3", "xslt:version#0") vari
 declare %a:since("basex", "7.3") function xslt:processor() as xs:string external;
 declare %a:since("basex", "7.3") function xslt:version() as xs:string external;
 declare %a:since("basex", "7.0") function xslt:transform($input as item(), $stylesheet as item()) as node() external;
-declare %a:since("basex", "7.0") function xslt:transform($input as item(), $stylesheet as item(), $params as map(*)? (: $params [7.0] as map(xs:string, xs:string) [9.0] as map(*)? :)) as node() external;
+declare %a:restrict-until("$params", "basex", "9.0", "map(xs:string, xs:string)")
+        %a:since("basex", "7.0") function xslt:transform($input as item(), $stylesheet as item(), $params as map(*)?) as node() external;
 declare %a:since("basex", "9.0") function xslt:transform($input as item(), $stylesheet as item(), $params as map(*)?, $options as map(*)?) as node() external;
 declare %a:since("basex", "7.6") function xslt:transform-text($input as item(), $stylesheet as item()) as xs:string external;
-declare %a:since("basex", "7.6") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)? (: $params [7.6] as map(xs:string, xs:string) [9.0] as map(*)? :) ) as xs:string external;
+declare %a:restrict-until("$params", "basex", "9.0", "map(xs:string, xs:string)")
+        %a:since("basex", "7.6") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)?) as xs:string external;
 declare %a:since("basex", "9.0") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)?, $options as map(*)?) as xs:string external;
