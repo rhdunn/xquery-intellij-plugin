@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.5 - (In Development)
+## 1.4.1 - 2019-03-27
 
 IntelliJ Integration:
 
