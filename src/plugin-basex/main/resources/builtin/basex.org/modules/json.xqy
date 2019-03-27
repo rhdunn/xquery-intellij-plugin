@@ -11,9 +11,22 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/7.0";
 
-declare %a:since("basex", "7.0") function json:parse($string (: as [basex/7.0]xs:string [basex/9.1]xs:string? :)) (: as [basex/7.0]element(json) [basex/9.1]item()? :) external;
-declare %a:since("basex", "7.7.2") function json:parse($string (: as [basex/7.0]xs:string [basex/9.1]xs:string? :), $options (: as [basex/7.7.2]item() [basex/8.2.1]map(xs:string, xs:string) [basex/8.2.3]map(*) [basex/8.6.7]map(*)? :)) (: as [basex/7.7.2]item() [basex/9.1]item()? :) external;
+declare %a:restrict-until("return", "basex", "9.1", "element(json)")
+        %a:restrict-since("return", "basex", "9.1", "item()?")
+        %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:since("basex", "7.0") function json:parse($string as xs:string?) as (element(json)|item()?) external;
+declare %a:restrict-until("return", "basex", "9.1", "item()")
+        %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:restrict-until("$options", "basex", "8.2.1", "item()")
+        %a:restrict-until("$options", "basex", "8.2.3", "map(xs:string, xs:string)")
+        %a:restrict-until("$options", "basex", "8.6.7", "map(*)")
+        %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:since("basex", "7.7.2") function json:parse($string as xs:string?, $options as item()?) as item()? external;
 declare %a:since("basex", "7.0") function json:serialize($input as item()?) as xs:string external;
-declare %a:since("basex", "7.7.2") function json:serialize($input as item()?, $options (: as [basex/7.7.2]item() [basex/8.2.1]map(xs:string, xs:string) [basex/8.2.3]map(*) [basex/8.6.7]map(*)? :)) as xs:string external;
+declare %a:restrict-until("$options", "basex", "8.2.1", "item()")
+        %a:restrict-until("$options", "basex", "8.2.3", "map(xs:string, xs:string)")
+        %a:restrict-until("$options", "basex", "8.6.7", "map(*)")
+        %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:since("basex", "7.7.2") function json:serialize($input as item()?, $options as item()?) as xs:string external;
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.7.2") function json:serialize-ml($input as node()) as xs:string external;
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.7.2") function json:parse-ml($input as xs:string) as element() external;
