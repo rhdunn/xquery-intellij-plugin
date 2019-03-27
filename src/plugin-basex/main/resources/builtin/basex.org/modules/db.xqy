@@ -40,13 +40,26 @@ declare %a:since("basex", "7.0") function db:attribute-range($db as xs:string, $
 declare %a:since("basex", "8.4") function db:token($db as xs:string, $tokens as xs:string*) as attribute()* external;
 declare %a:since("basex", "8.4") function db:token($db as xs:string, $tokens as xs:string*, $name as xs:string) as attribute()* external;
 declare %a:since("basex", "7.5") function db:create($db as xs:string) as empty-sequence() external;
-declare %a:since("basex", "7.5") function db:create($db as xs:string, $inputs as item()* (: $inputs [7.5] as item() [7.6] as item()* :)) as empty-sequence() external;
-declare %a:since("basex", "7.5") function db:create($db as xs:string, $inputs as item()* (: $inputs [7.5] as item() [7.6] as item()*):), $paths as xs:string* (: $paths [7.5] as xs:string [7.6] as xs:string* :)) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:create($db as xs:string, $inputs as item()* (: $inputs [7.5] as item() [7.6] as item()*):), $paths as xs:string* (: $paths [7.5] as xs:string [7.6] as xs:string* :), $options as map(*)? (: $options [7.7] as item() [8.2.1] as map(xs:string, xs:string) [8.2.3] as map(*) [8.6.7] as map(*)? :)) as empty-sequence() external;
+declare %a:restrict-until("$inputs", "basex", "7.6", "item()")
+        %a:since("basex", "7.5") function db:create($db as xs:string, $inputs as item()*) as empty-sequence() external;
+declare %a:restrict-until("$inputs", "basex", "7.6", "item()")
+        %a:restrict-until("$paths", "basex", "7.6", "xs:string")
+        %a:since("basex", "7.5") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*) as empty-sequence() external;
+declare %a:restrict-until("$inputs", "basex", "7.6", "item()")
+        %a:restrict-until("$paths", "basex", "7.6", "xs:string")
+        %a:restrict-until("$options", "basex", "8.2.1", "item()")
+        %a:restrict-since("$options", "basex", "8.2.1", "map(xs:string, xs:string)")
+        %a:restrict-since("$options", "basex", "8.2.3", "map(*)")
+        %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:since("basex", "7.0") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*, $options as item()?) as empty-sequence() external;
 declare %a:since("basex", "7.5") function db:drop($db as xs:string) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item() (: [7.5] :)) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item() (: [7.5] :), $path as xs:string) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item() (: [7.5] :), $path as xs:string, $options as map(*)? (: $options [7.9] as item() [8.2.1] as map(xs:string, xs:string) [8.2.3] as map(*) [8.6.7] as map(*)? :)) as empty-sequence() external;
+declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item()) as empty-sequence() external;
+declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item(), $path as xs:string) as empty-sequence() external;
+declare %a:restrict-until("$options", "basex", "8.2.1", "item()")
+        %a:restrict-since("$options", "basex", "8.2.1", "map(xs:string, xs:string)")
+        %a:restrict-since("$options", "basex", "8.2.3", "map(*)")
+        %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:since("basex", "7.0") function db:add($db as xs:string, $input as item(), $path as xs:string, $options as item()?) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:delete($db as xs:string, $path as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:copy($db as xs:string, $name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:alter($db as xs:string, $name as xs:string) as empty-sequence() external;
@@ -55,10 +68,18 @@ declare %a:since("basex", "7.8.2") function db:drop-backup($name as xs:string) a
 declare %a:since("basex", "7.8.2") function db:restore($name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:optimize($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:optimize($db as xs:string, $all as xs:boolean) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:optimize($db as xs:string, $all as xs:boolean, $options as map(*)? (: $options [7.7] as item() [8.2.1] as map(xs:string, xs:string) [8.2.3] as map(*) [8.6.7] as map(*)? :))  as empty-sequence() external;
+declare %a:restrict-until("$options", "basex", "8.2.1", "item()")
+        %a:restrict-since("$options", "basex", "8.2.1", "map(xs:string, xs:string)")
+        %a:restrict-since("$options", "basex", "8.2.3", "map(*)")
+        %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:since("basex", "7.0") function db:optimize($db as xs:string, $all as xs:boolean, $options as item()?) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:rename($db as xs:string, $source as xs:string, $target as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:replace($db as xs:string, $path as xs:string, $input as item()) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:replace($db as xs:string, $path as xs:string, $input as item(), $options as map(*)? (: $options [7.9] as item() [8.2.1] as map(xs:string, xs:string) [8.2.3] as map(*) [8.6.7] as map(*)? :)) as empty-sequence() external;
+declare %a:restrict-until("$options", "basex", "8.2.1", "item()")
+        %a:restrict-since("$options", "basex", "8.2.1", "map(xs:string, xs:string)")
+        %a:restrict-since("$options", "basex", "8.2.3", "map(*)")
+        %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:since("basex", "7.0") function db:replace($db as xs:string, $path as xs:string, $input as item(), $options as item()?) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:store($db as xs:string, $path as xs:string, $input as item()) as empty-sequence() external;
 declare %a:since("basex", "7.3") function db:flush($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.7") function db:name($node as node()) as xs:string external;
