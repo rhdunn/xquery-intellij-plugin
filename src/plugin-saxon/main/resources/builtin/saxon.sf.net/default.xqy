@@ -36,20 +36,36 @@ declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:h
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:hexBinary-to-octets($input as xs:hexBinary) as xs:integer* external;
 declare %a:since("saxon/pe", "8.5") %a:since("saxon/ee", "8.5") function saxon:hexBinary-to-string($input as xs:hexBinary, $encoding as xs:string) as xs:string external;
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*) as item()* external;
-declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*, $key as function(*) (: $key [8.1] as jt:net.sf.saxon.functions.Evaluate-PreparedExpression [9.2] as function() [9.5] as function(*) :)) as item()* external;
+declare %a:restrict-until("$key", "saxon/pe", "9.2", "jt:net.sf.saxon.functions.Evaluate-PreparedExpression")
+        %a:restrict-until("$key", "saxon/ee", "9.2", "jt:net.sf.saxon.functions.Evaluate-PreparedExpression")
+        %a:restrict-since("$key", "saxon/pe", "9.2", "function(*)")
+        %a:restrict-since("$key", "saxon/ee", "9.2", "function(*)")
+        %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*, $key as (jt:net.sf.saxon.functions.Evaluate-PreparedExpression|function(*))) as item()* external;
 declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:in-summer-time($date as xs:dateTime, $region as xs:string) as xs:boolean external;
 declare %a:since("saxon/pe", "8.3") %a:since("saxon/ee", "8.3") %a:until("saxon/pe", "9.4") %a:until("saxon/ee", "9.4") function saxon:index($sequence as item()*, $expression as jt:net.sf.saxon.functions.Evaluate-PreparedExpression, $collation as xs:string) as jt:com.saxonica.expr.IndexedSequence external;
-declare %a:since("saxon/pe", "9.5") %a:since("saxon/ee", "9.5") function saxon:index($sequence as item()*, $function as function(item()) as xs:anyAtomicType* (: [9.5] as xs:integer  :)) as map(*) (: [8.3] as jt:com.saxonica.expr.IndexedSequence [9.5] as xs:double [9.7] as map(*) :) external;
+declare %a:since("saxon/pe", "9.5") %a:since("saxon/ee", "9.5") function saxon:index($sequence as item()*, $function as function(item()) as xs:anyAtomicType*) as map(*) external;
 declare %a:since("saxon/ee", "9.7") function saxon:is-defaulted($node as node()) as xs:boolean external;
 declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:is-whole-number($arg as xs:numeric?) as xs:boolean external;
-declare %a:since("saxon/pe", "9.0") %a:since("saxon/ee", "9.0") function saxon:last-modified($uri as xs:string? (: [9.0] () as document-uri($node)) [9.2] $uri as xs:string? :)) as xs:dateTime? external;
-declare %a:since("saxon/pe", "9.0") %a:since("saxon/ee", "9.0") %a:until("saxon/pe", "9.1") %a:until("saxon/ee", "9.1") function saxon:last-modified($node as node()) as xs:dateTime? external;
+declare %a:since("saxon/pe", "9.0") %a:since("saxon/ee", "9.0") %a:until("saxon/pe", "9.1") %a:until("saxon/ee", "9.1") function saxon:last-modified() as xs:dateTime? external;
+declare %a:restrict-until("$file-or-uri", "saxon/pe", "9.2", "node()")
+        %a:restrict-until("$file-or-uri", "saxon/ee", "9.2", "node()")
+        %a:restrict-since("$file-or-uri", "saxon/pe", "9.2", "xs:string?")
+        %a:restrict-since("$file-or-uri", "saxon/ee", "9.2", "xs:string?")
+        %a:since("saxon/pe", "9.0") %a:since("saxon/ee", "9.0") function saxon:last-modified($file-or-uri as (xs:string?|node())) as xs:dateTime? external;
 declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:leading($input as item()*) as item() external;
-declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:leading($input as item()*, $test as function(*) (: [8.0] as jt:net.sf.saxon.functions.Evaluate-PreparedExpression [9.5] as function(*) :)) as item() external;
+declare %a:restrict-until("$test", "saxon/pe", "9.5", "jt:net.sf.saxon.functions.Evaluate-PreparedExpression")
+        %a:restrict-until("$test", "saxon/ee", "9.5", "jt:net.sf.saxon.functions.Evaluate-PreparedExpression")
+        %a:restrict-since("$test", "saxon/pe", "9.5", "function(*)")
+        %a:restrict-since("$test", "saxon/ee", "9.5", "function(*)")
+        %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:leading($input as item()*, $test as (jt:net.sf.saxon.functions.Evaluate-PreparedExpression|function(*))) as item() external;
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:line-number() as xs:integer external;
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:line-number($node as node()) as xs:integer external;
 declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.1") function saxon:lowest($input as item()*) as item()* external;
-declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.1") function saxon:lowest($input as item()*, $key as function(*) (: $key [8.0] as jt:net.sf.saxon.functions.Evaluate-PreparedExpression [9.2] as function() [9.5] as function(*) :)) as item()* external;
+declare %a:restrict-until("$key", "saxon/pe", "9.2", "jt:net.sf.saxon.functions.Evaluate-PreparedExpression")
+        %a:restrict-until("$key", "saxon/ee", "9.2", "jt:net.sf.saxon.functions.Evaluate-PreparedExpression")
+        %a:restrict-since("$key", "saxon/pe", "9.2", "function(*)")
+        %a:restrict-since("$key", "saxon/ee", "9.2", "function(*)")
+        %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.1") function saxon:lowest($input as item()*, $key as (jt:net.sf.saxon.functions.Evaluate-PreparedExpression|function(*))) as item()* external;
 declare %a:since("saxon/pe", "9.9") %a:since("saxon/ee", "9.9") function saxon:map-search($input as item()*, $key as xs:anyAtomicType) as map(*)* external;
 declare %a:since("saxon/pe", "9.9") %a:since("saxon/ee", "9.9") function saxon:map-search($input as item()*, $key as xs:anyAtomicType, $condition as function(item()) as xs:boolean) as map(*)* external;
 declare %a:since("saxon/pe", "9.8") %a:since("saxon/ee", "9.8") function saxon:message-count($errCode as xs:QName?) as xs:integer external;
