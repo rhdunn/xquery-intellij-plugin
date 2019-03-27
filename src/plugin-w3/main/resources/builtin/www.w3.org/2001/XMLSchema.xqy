@@ -17,7 +17,8 @@ declare %a:since("xmlschema", "1.0-20010502") function xs:IDREF($arg as xs:anyAt
 declare %a:since("xmlschema", "1.0-20010502") function xs:NCName($arg as xs:anyAtomicType?) as xs:NCName? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:NMTOKEN($arg as xs:anyAtomicType?) as xs:NMTOKEN? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:Name($arg as xs:anyAtomicType?) as xs:Name? external;
-declare %a:since("xmlschema", "1.0-20010502") function xs:QName($arg (: as [1.0]xs:anyAtomicType [1.1]xs:anyAtomicType? :)) as xs:QName? external;
+declare %a:restrict-until("$arg", "xmlschema", "1.1-20120405", "xs:anyAtomicType")
+        %a:since("xmlschema", "1.0-20010502") function xs:QName($arg as xs:anyAtomicType?) as xs:QName? external;
 
 declare %a:since("xmlschema", "1.0-20010502") function xs:anyURI($arg as xs:anyAtomicType?) as xs:anyURI? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:base64Binary($arg as xs:anyAtomicType?) as xs:base64Binary? external;
