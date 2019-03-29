@@ -47,6 +47,9 @@ declare %a:since("marklogic", "5.0") function map:count($map as map:map) as xs:u
  :
  : This function removes the entry from <code>$map</code> whose key is the same
  : key as <code>$key</code>.
+ :
+ : No failure occurs if an item in <code>$keys</code> does not correspond to any
+ : entry in <code>$map</code>; that key value is simply ignored.
  :)
 declare %a:since("marklogic", "5.0") function map:delete($map as map:map, $key as xs:string) as empty-sequence() external;
 (:~
@@ -72,8 +75,8 @@ declare %a:since("marklogic", "5.0") function map:delete($map as map:map, $key a
  :    map:entry("Sa", "Saturday")
  :    ))</code></pre>
  :
- : The <code>map:new</code> function can be used to construct a map with a
- : variable number of entries, for example:
+ : This function can be used to construct a map with a variable number of entries,
+ : for example:
  :
  : <pre><code>map:new(for $b in //book return map:entry($b/isbn, $b))</code></pre>
  :)
