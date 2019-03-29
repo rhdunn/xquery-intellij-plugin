@@ -3,6 +3,10 @@ xquery version "1.0-ml";
  : MarkLogic math functions
  :
  : @see https://docs.marklogic.com/math
+ :
+ : This documentation includes material copied from or derived from the XPath and
+ : XQuery Functions and Operators 3.1 specifications. Copyright © 2017 W3C®
+ : (MIT, ERCIM, Keio, Beihang).
  :)
 module namespace math = "http://marklogic.com/xdmp/math";
 
@@ -11,6 +15,12 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "marklogic/5.0";
 
+(:~
+ : Returns an approximation to the mathematical constant π.
+ :
+ : This function returns the <code>xs:double</code> value whose lexical
+ : representation is 3.14159265358979e0.
+ :)
 declare %a:since("marklogic", "6.0") %a:until("marklogic", "7.0", "math:pi#0") function math:PI() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:acos($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:asin($x as xs:double) as xs:double external;
@@ -45,6 +55,14 @@ declare %a:restrict-until("return", "marklogic", "8.0", "(xs:double,xs:double)")
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType, $options as xs:string*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percentile($arg as xs:double*, $p as xs:double*) as xs:double* external;
+(:~
+ : Returns an approximation to the mathematical constant π.
+ :
+ : This function was replaced by <code>math:pi()</code> in MarkLogic 7.0.
+ :
+ : This function returns the <code>xs:double</code> value whose lexical
+ : representation is 3.14159265358979e0.
+ :)
 declare %a:since("marklogic", "7.0") function math:pi() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:pow($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:radians($x as xs:double) as xs:double external;

@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/#trigonometry
  :
- : This software includes material copied from or derived from the XPath and
+ : This documentation includes material copied from or derived from the XPath and
  : XQuery Functions and Operators 3.0 specification. Copyright © 2017 W3C®
  : (MIT, ERCIM, Keio, Beihang).
  :)
@@ -24,6 +24,12 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:exp($arg as xs
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp10($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:log($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:log10($arg as xs:double?) as xs:double? external;
+(:~
+ : Returns an approximation to the mathematical constant π.
+ :
+ : This function returns the <code>xs:double</code> value whose lexical
+ : representation is 3.141592653589793e0.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:pi() as xs:double external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:pow($x as xs:double?, $y as xs:numeric) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:sin($θ as xs:double?) as xs:double? external;
