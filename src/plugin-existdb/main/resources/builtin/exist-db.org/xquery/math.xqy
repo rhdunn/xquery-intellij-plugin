@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.0" encoding "UTF-8";
 (:~
  : eXist-db math extensions module functions
  :
@@ -93,7 +93,23 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:atan2") function math-ext:atan2($y as xs:double, $x as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:ceiling") function math-ext:ceil($x as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:cos") function math-ext:cos($x as xs:double) as xs:double external;
+(:~
+ : Returns the cosine of the argument. The argument is an angle in radians.
+ :
+ : The result is the cosine of <code>$θ</code> (which is treated as an angle in
+ : radians) as defined in the IEEE 754-2008 specification of the <code>cos</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, or <code>NaN</code>,
+ : then the result is <code>NaN</code>.
+ :
+ : Otherwise the result is always in the range -1.0e0 to +1.0e0.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:cos") function math-ext:cos($θ as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:degrees($radians as xs:double) as xs:double external;
 (:~
  : Returns an approximation to the mathematical constant e.
@@ -116,6 +132,36 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
 declare %a:since("exist", "4.4") function math-ext:radians($degrees as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:random() as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:round($x as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:sin") function math-ext:sin($x as xs:double) as xs:double external;
+(:~
+ : Returns the sine of the argument. The argument is an angle in radians.
+ :
+ : The result is the sine of <code>$θ</code> (which is treated as an angle in
+ : radians) as defined in the IEEE 754-2008 specification of the <code>sin</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, or <code>NaN</code>,
+ : then the result is <code>NaN</code>.
+ :
+ : Otherwise the result is always in the range -1.0e0 to +1.0e0.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:sin") function math-ext:sin($θ as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:sqrt") function math-ext:sqrt($x as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:tan") function math-ext:tan($radians as xs:double) as xs:double external;
+(:~
+ : Returns the tangent of the argument. The argument is an angle in radians.
+ :
+ : The result is the tangent of <code>$θ</code> (which is treated as an angle in
+ : radians) as defined in the IEEE 754-2008 specification of the <code>tan</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, or <code>NaN</code>,
+ : then the result is <code>NaN</code>.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:tan") function math-ext:tan($θ as xs:double) as xs:double external;

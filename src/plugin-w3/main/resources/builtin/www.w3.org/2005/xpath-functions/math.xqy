@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.0" encoding "UTF-8";
 (:~
  : XPath and XQuery Functions and Operators: Trigonometric and exponential functions
  :
@@ -102,6 +102,25 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:atan($arg as x
  : is <code>math:atan($y div $x) - math:pi()</code>.
  :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:atan2($y as xs:double, $x as xs:double) as xs:double external;
+(:~
+ : Returns the cosine of the argument. The argument is an angle in radians.
+ :
+ : If <code>$θ</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the cosine of <code>$θ</code> (which is treated as
+ : an angle in radians) as defined in the IEEE 754-2008 specification of the
+ : <code>cos</code> function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, or <code>NaN</code>,
+ : then the result is <code>NaN</code>.
+ :
+ : Otherwise the result is always in the range -1.0e0 to +1.0e0.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:cos($θ as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp10($arg as xs:double?) as xs:double? external;
@@ -115,6 +134,42 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:log10($arg as 
  :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:pi() as xs:double external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:pow($x as xs:double?, $y as xs:numeric) as xs:double? external;
+(:~
+ : Returns the sine of the argument. The argument is an angle in radians.
+ :
+ : If <code>$θ</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the sine of <code>$θ</code> (which is treated as
+ : an angle in radians) as defined in the IEEE 754-2008 specification of the
+ : <code>sin</code> function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, or <code>NaN</code>,
+ : then the result is <code>NaN</code>.
+ :
+ : Otherwise the result is always in the range -1.0e0 to +1.0e0.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:sin($θ as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:sqrt($arg as xs:double?) as xs:double? external;
+(:~
+ : Returns the tangent of the argument. The argument is an angle in radians.
+ :
+ : If <code>$θ</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the tangent of <code>$θ</code> (which is treated as
+ : an angle in radians) as defined in the IEEE 754-2008 specification of the
+ : <code>tan</code> function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, or <code>NaN</code>,
+ : then the result is <code>NaN</code>.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:tan($θ as xs:double?) as xs:double? external;

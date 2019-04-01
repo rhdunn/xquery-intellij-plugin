@@ -1,4 +1,4 @@
-xquery version "1.0-ml";
+xquery version "1.0-ml" encoding "UTF-8";
 (:~
  : MarkLogic math functions
  :
@@ -109,7 +109,25 @@ declare %a:since("marklogic", "5.0") function math:atan($x as xs:double) as xs:d
 declare %a:since("marklogic", "5.0") function math:atan2($y as xs:double, $x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:ceil($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:correlation($arg as json:array*) as xs:double? external;
-declare %a:since("marklogic", "5.0") function math:cos($x as xs:double) as xs:double external;
+(:~
+ : Returns the cosine of the argument. The argument is an angle in radians.
+ :
+ : The result is the cosine of <code>$θ</code> (which is treated as an angle in
+ : radians) as defined in the IEEE 754-2008 specification of the <code>cos</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, the dynamic error
+ : <code>XDMP-DOMAIN</code> is produced.
+ :
+ : If <code>$θ</code> is <code>NaN</code>, then the result is <code>NaN</code>.
+ :
+ : Otherwise the result is always in the range -1.0e0 to +1.0e0.
+ :)
+declare %a:since("marklogic", "5.0") function math:cos($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:cosh($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:cot($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:covariance($arg as json:array*) as xs:double? external;
@@ -149,12 +167,46 @@ declare %a:since("marklogic", "5.0") function math:pow($x as xs:double, $y as xs
 declare %a:since("marklogic", "6.0") function math:radians($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType) as xs:integer? external;
 declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType, $options as xs:string*) as xs:integer? external;
-declare %a:since("marklogic", "5.0") function math:sin($x as xs:double) as xs:double external;
+(:~
+ : Returns the sine of the argument. The argument is an angle in radians.
+ :
+ : The result is the sine of <code>$θ</code> (which is treated as an angle in
+ : radians) as defined in the IEEE 754-2008 specification of the <code>sin</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, the dynamic error
+ : <code>XDMP-DOMAIN</code> is produced.
+ :
+ : If <code>$θ</code> is <code>NaN</code>, then the result is <code>NaN</code>.
+ :
+ : Otherwise the result is always in the range -1.0e0 to +1.0e0.
+ :)
+declare %a:since("marklogic", "5.0") function math:sin($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:sinh($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:sqrt($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:stddev($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:stddev-p($arg as xs:double*) as xs:double? external;
-declare %a:since("marklogic", "5.0") function math:tan($x as xs:double) as xs:double external;
+(:~
+ : Returns the tangent of the argument. The argument is an angle in radians.
+ :
+ : The result is the tangent of <code>$θ</code> (which is treated as an angle in
+ : radians) as defined in the IEEE 754-2008 specification of the <code>tan</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, the dynamic error
+ : <code>XDMP-DOMAIN</code> is produced.
+ :
+ : If <code>$θ</code> is <code>NaN</code>, then the result is <code>NaN</code>.
+ :)
+declare %a:since("marklogic", "5.0") function math:tan($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:tanh($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "8.0") function math:trunc($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("marklogic", "6.0") function math:trunc($arg as xs:numeric?, $n as xs:integer) as xs:numeric? external;
