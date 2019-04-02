@@ -107,7 +107,17 @@ declare %a:since("marklogic", "5.0") function math:atan($arg as xs:double) as xs
  : is <code>math:atan($y div $x) - math:pi()</code>.
  :)
 declare %a:since("marklogic", "5.0") function math:atan2($y as xs:double, $x as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:ceil($x as xs:double) as xs:double external;
+(:~
+ : Rounds <code>$arg</code> upwards to a whole number.
+ :
+ : The function returns the smallest (closest to negative infinity) number with
+ : no fractional part that is not less than the value of <code>$arg</code>.
+ :
+ : If the argument is positive zero, then positive zero is returned. If the
+ : argument is negative zero, then negative zero is returned. If the argument
+ : is less than zero and greater than -1, negative zero is returned.
+ :)
+declare %a:since("marklogic", "5.0") %a:see-also("xpath-functions", "1.0-20070123", "fn:ceil") function math:ceil($arg as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:correlation($arg as json:array*) as xs:double? external;
 (:~
  : Returns the cosine of the argument. The argument is an angle in radians.
@@ -141,8 +151,27 @@ declare %a:since("marklogic", "6.0") function math:degrees($x as xs:double) as x
  : <code>exp</code> function applied to 64-bit binary floating point values.
  :)
 declare %a:since("marklogic", "5.0") function math:exp($arg as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:fabs($x as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:floor($x as xs:double) as xs:double external;
+(:~
+ : Returns the absolute value of <code>$arg</code>.
+ :
+ : If <code>$arg</code> is negative the function returns <code>-$arg</code>,
+ : otherwise it returns <code>$arg</code>.
+ :
+ : If the argument is positive zero or negative zero, then positive zero is
+ : returned. If the argument is positive or negative infinity, positive
+ : infinity is returned.
+ :)
+declare %a:since("marklogic", "5.0") %a:see-also("xpath-functions", "1.0-20070123", "fn:abs") function math:fabs($x as xs:double) as xs:double external;
+(:~
+ : Rounds <code>$arg</code> downwards to a whole number.
+ :
+ : The return is the largest (closest to positive infinity) number with no
+ : fractional part that is not greater than the value of <code>$arg</code>.
+ :
+ : If the argument is positive zero, then positive zero is returned. If the
+ : argument is negative zero, then negative zero is returned.
+ :)
+declare %a:since("marklogic", "5.0") function math:floor($arg as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:frexp($x as xs:double) as (xs:double, xs:integer) external;
 declare %a:since("marklogic", "5.0") function math:ldexp($y as xs:double, $i as xs:integer) as xs:double external;

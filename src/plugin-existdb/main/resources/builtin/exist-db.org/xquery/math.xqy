@@ -13,7 +13,17 @@ module namespace math-ext = "http://exist-db.org/xquery/math";
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare %a:since("exist", "4.4") function math-ext:abs($x as xs:double) as xs:double external;
+(:~
+ : Returns the absolute value of <code>$arg</code>.
+ :
+ : If <code>$arg</code> is negative the function returns <code>-$arg</code>,
+ : otherwise it returns <code>$arg</code>.
+ :
+ : If the argument is positive zero or negative zero, then positive zero is
+ : returned. If the argument is positive or negative infinity, positive
+ : infinity is returned.
+ :)
+declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:abs") function math-ext:abs($arg as xs:double) as xs:double external;
 (:~
  : Returns the arc cosine of the argument.
  :
@@ -92,7 +102,17 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  : is <code>math:atan($y div $x) - math:pi()</code>.
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:atan2") function math-ext:atan2($y as xs:double, $x as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:ceiling") function math-ext:ceil($x as xs:double) as xs:double external;
+(:~
+ : Rounds <code>$arg</code> upwards to a whole number.
+ :
+ : The function returns the smallest (closest to negative infinity) number with
+ : no fractional part that is not less than the value of <code>$arg</code>.
+ :
+ : If the argument is positive zero, then positive zero is returned. If the
+ : argument is negative zero, then negative zero is returned. If the argument
+ : is less than zero and greater than -1, negative zero is returned.
+ :)
+declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:ceiling") function math-ext:ceil($arg as xs:double) as xs:double external;
 (:~
  : Returns the cosine of the argument. The argument is an angle in radians.
  :
@@ -130,7 +150,16 @@ declare %a:since("exist", "4.4") function math-ext:e() as xs:double external;
  : <code>exp</code> function applied to 64-bit binary floating point values.
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:exp") function math-ext:exp($arg as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:floor") function math-ext:floor($x as xs:double) as xs:double external;
+(:~
+ : Rounds <code>$arg</code> downwards to a whole number.
+ :
+ : The return is the largest (closest to positive infinity) number with no
+ : fractional part that is not greater than the value of <code>$arg</code>.
+ :
+ : If the argument is positive zero, then positive zero is returned. If the
+ : argument is negative zero, then negative zero is returned.
+ :)
+declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:floor") function math-ext:floor($arg as xs:double) as xs:double external;
 (:~
  : Returns the natural logarithm of the argument.
  :
@@ -156,7 +185,19 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:pow") function math-ext:power($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:radians($degrees as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:random() as xs:double external;
-declare %a:since("exist", "4.4") function math-ext:round($x as xs:double) as xs:double external;
+(:~
+ : Rounds a value to the nearest whole number, rounding upwards if two such
+ : values are equally near.
+ :
+ : The function returns the nearest whole number value to <code>$arg</code>.
+ : If two such values are equally near (for example, if the fractional part
+ : in <code>$arg</code> is exactly <code>.5</code>), the function returns the
+ : one that is closest to positive infinity.
+ :
+ : If <code>$arg</code> is <code>NaN</code>, positive or negative zero, or
+ : positive or negative infinity, then the result is the same as the argument.
+ :)
+declare %a:since("exist", "4.4") function math-ext:round($arg as xs:double) as xs:double external;
 (:~
  : Returns the sine of the argument. The argument is an angle in radians.
  :
