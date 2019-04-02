@@ -40,7 +40,7 @@ declare %a:since("marklogic", "6.0") %a:until("marklogic", "7.0", "math:pi#0") f
  : In other cases the result is an <code>xs:double</code> value representing an
  : angle θ in radians in the range 0 &lt;= θ &lt;= +π.
  :)
-declare %a:since("marklogic", "5.0") function math:acos($x as xs:double) as xs:double external;
+declare %a:since("marklogic", "5.0") function math:acos($arg as xs:double) as xs:double external;
 (:~
  : Returns the arc sine of the argument.
  :
@@ -60,7 +60,7 @@ declare %a:since("marklogic", "5.0") function math:acos($x as xs:double) as xs:d
  : In other cases the result is an <code>xs:double</code> value representing an
  : angle θ in radians in the range -π/2 &lt;= θ &lt;= +π/2.
  :)
-declare %a:since("marklogic", "5.0") function math:asin($x as xs:double) as xs:double external;
+declare %a:since("marklogic", "5.0") function math:asin($arg as xs:double) as xs:double external;
 (:~
  : Returns the arc tangent of the argument.
  :
@@ -81,7 +81,7 @@ declare %a:since("marklogic", "5.0") function math:asin($x as xs:double) as xs:d
  : In other cases the result is an <code>xs:double</code> value representing an
  : angle θ in radians in the range -π/2 &lt;= θ &lt;= +π/2.
  :)
-declare %a:since("marklogic", "5.0") function math:atan($x as xs:double) as xs:double external;
+declare %a:since("marklogic", "5.0") function math:atan($arg as xs:double) as xs:double external;
 (:~
  : Returns the angle in radians subtended at the origin by the point on a plane
  : with coordinates (x, y) and the positive x-axis.
@@ -133,7 +133,14 @@ declare %a:since("marklogic", "6.0") function math:cot($x as xs:double) as xs:do
 declare %a:since("marklogic", "6.0") function math:covariance($arg as json:array*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:covariance-p($arg as json:array*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:degrees($x as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:exp($x as xs:double) as xs:double external;
+(:~
+ : Returns the value of e<sup>x</sup>.
+ :
+ : The result is the mathematical constant <code>e</code> raised to the power of
+ : <code>$arg</code>, as defined in the IEEE 754-2008 specification of the
+ : <code>exp</code> function applied to 64-bit binary floating point values.
+ :)
+declare %a:since("marklogic", "5.0") function math:exp($arg as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:fabs($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:floor($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $y as xs:double) as xs:double external;
@@ -143,8 +150,22 @@ declare %a:since("marklogic", "6.0") function math:linear-model($arg as json:arr
 declare %a:since("marklogic", "6.0") function math:linear-model-coeff($linear-model as math:linear-model) as xs:double* external;
 declare %a:since("marklogic", "6.0") function math:linear-model-intercept($linear-model as math:linear-model) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:linear-model-rsquared($linear-model as math:linear-model) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:log($x as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:log10($x as xs:double) as xs:double external;
+(:~
+ : Returns the natural logarithm of the argument.
+ :
+ : The result is the natural logarithm of <code>$arg</code>, as defined in the
+ : IEEE 754-2008 specification of the <code>log</code> function applied to
+ : 64-bit binary floating point values.
+ :)
+declare %a:since("marklogic", "5.0") function math:log($arg as xs:double) as xs:double external;
+(:~
+ : Returns the base-ten logarithm of the argument.
+ :
+ : The result is the base-10 logarithm of <code>$arg</code>, as defined in the
+ : IEEE 754-2008 specification of the <code>log10</code> function applied to
+ : 64-bit binary floating point values.
+ :)
+declare %a:since("marklogic", "5.0") function math:log10($arg as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:median($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:mode($arg as xs:anyAtomicType*) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "6.0") function math:mode($arg as xs:anyAtomicType*, $options as xs:string*) as xs:anyAtomicType* external;
@@ -163,6 +184,13 @@ declare %a:since("marklogic", "6.0") function math:percentile($arg as xs:double*
  : representation is 3.14159265358979e0.
  :)
 declare %a:since("marklogic", "7.0") function math:pi() as xs:double external;
+(:~
+ : Returns the value of x<sup>y</sup>.
+ :
+ : The result is the value of <code>$x</code> raised to the power of <code>$y</code>
+ : as defined in the IEEE 754-2008 specification of the <code>pow</code> function
+ : applied to two 64-bit binary floating point values.
+ :)
 declare %a:since("marklogic", "5.0") function math:pow($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:radians($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType) as xs:integer? external;
@@ -187,6 +215,22 @@ declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicTyp
  :)
 declare %a:since("marklogic", "5.0") function math:sin($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:sinh($x as xs:double) as xs:double external;
+(:~
+ : Returns the non-negative square root of the argument.
+ :
+ : The result is the mathematical non-negative square root of <code>$arg</code>
+ : as defined in the IEEE 754-2008 specification of the <code>squareRoot</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is positive or negative zero, positive infinity, or
+ : <code>NaN</code>, then the result is <code>$arg</code>. (Negative zero is
+ : the only case where the result can have negative sign.)
+ :
+ : If <code>$arg</code> is negative infinity, the dynamic error
+ : <code>XDMP-DOMAIN</code> is produced.
+ :)
 declare %a:since("marklogic", "5.0") function math:sqrt($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:stddev($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:stddev-p($arg as xs:double*) as xs:double? external;

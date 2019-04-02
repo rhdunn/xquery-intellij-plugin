@@ -122,9 +122,49 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:atan2($y as xs
  : Otherwise the result is always in the range -1.0e0 to +1.0e0.
  :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:cos($θ as xs:double?) as xs:double? external;
+(:~
+ : Returns the value of e<sup>x</sup>.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the mathematical constant <code>e</code> raised to
+ : the power of <code>$arg</code>, as defined in the IEEE 754-2008 specification
+ : of the <code>exp</code> function applied to 64-bit binary floating point values.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp($arg as xs:double?) as xs:double? external;
+(:~
+ : Returns the value of 10<sup>x</sup>.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is ten raised to the power of <code>$arg</code>, as
+ : defined in the IEEE 754-2008 specification of the <code>exp10</code> function
+ : applied to 64-bit binary floating point values.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp10($arg as xs:double?) as xs:double? external;
+(:~
+ : Returns the natural logarithm of the argument.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the natural logarithm of <code>$arg</code>, as defined
+ : in the IEEE 754-2008 specification of the <code>log</code> function applied to
+ : 64-bit binary floating point values.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:log($arg as xs:double?) as xs:double? external;
+(:~
+ : Returns the base-ten logarithm of the argument.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the base-10 logarithm of <code>$arg</code>, as defined
+ : in the IEEE 754-2008 specification of the <code>log10</code> function applied
+ : to 64-bit binary floating point values.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:log10($arg as xs:double?) as xs:double? external;
 (:~
  : Returns an approximation to the mathematical constant π.
@@ -133,6 +173,23 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:log10($arg as 
  : representation is 3.141592653589793e0.
  :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:pi() as xs:double external;
+(:~
+ : Returns the value of x<sup>y</sup>.
+ :
+ : If <code>$x</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : If <code>$y</code> is an instance of <code>xs:integer</code>, the result is
+ : <code>$x</code> raised to the power of <code>$y</code> as defined in the IEEE
+ : 754-2008 specification of the <code>pown</code> function applied to a 64-bit
+ : binary floating point value and an integer.
+ :
+ : Otherwise <code>$y</code> is converted to an <code>xs:double</code> by
+ : numeric promotion, and the result is the value of <code>$x</code> raised to
+ : the power of <code>$y</code> as defined in the IEEE 754-2008 specification
+ : of the <code>pow</code> function applied to two 64-bit binary floating point
+ : values.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:pow($x as xs:double?, $y as xs:numeric) as xs:double? external;
 (:~
  : Returns the sine of the argument. The argument is an angle in radians.
@@ -154,6 +211,25 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:pow($x as xs:d
  : Otherwise the result is always in the range -1.0e0 to +1.0e0.
  :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:sin($θ as xs:double?) as xs:double? external;
+(:~
+ : Returns the non-negative square root of the argument.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the result is the mathematical non-negative square root of
+ : <code>$arg</code> as defined in the IEEE 754-2008 specification of the
+ : <code>squareRoot</code> function applied to 64-bit binary floating point
+ : values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is positive or negative zero, positive infinity, or
+ : <code>NaN</code>, then the result is <code>$arg</code>. (Negative zero is
+ : the only case where the result can have negative sign.)
+ :
+ : If <code>$arg</code> is negative infinity, then the result is <code>NaN</code>.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function math:sqrt($arg as xs:double?) as xs:double? external;
 (:~
  : Returns the tangent of the argument. The argument is an angle in radians.

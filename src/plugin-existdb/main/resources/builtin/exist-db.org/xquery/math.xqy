@@ -29,7 +29,7 @@ declare %a:since("exist", "4.4") function math-ext:abs($x as xs:double) as xs:do
  : In other cases the result is an <code>xs:double</code> value representing an
  : angle θ in radians in the range 0 &lt;= θ &lt;= +π.
  :)
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:acos") function math-ext:acos($x as xs:double) as xs:double external;
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:acos") function math-ext:acos($arg as xs:double) as xs:double external;
 (:~
  : Returns the arc sine of the argument.
  :
@@ -45,7 +45,7 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  : In other cases the result is an <code>xs:double</code> value representing an
  : angle θ in radians in the range -π/2 &lt;= θ &lt;= +π/2.
  :)
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:asin") function math-ext:asin($x as xs:double) as xs:double external;
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:asin") function math-ext:asin($arg as xs:double) as xs:double external;
 (:~
  : Returns the arc tangent of the argument.
  :
@@ -66,7 +66,7 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  : In other cases the result is an <code>xs:double</code> value representing an
  : angle θ in radians in the range -π/2 &lt;= θ &lt;= +π/2.
  :)
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:atan") function math-ext:atan($x as xs:double) as xs:double external;
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:atan") function math-ext:atan($arg as xs:double) as xs:double external;
 (:~
  : Returns the angle in radians subtended at the origin by the point on a plane
  : with coordinates (x, y) and the positive x-axis.
@@ -116,11 +116,29 @@ declare %a:since("exist", "4.4") function math-ext:degrees($radians as xs:double
  :
  : This function returns the <code>xs:double</code> value whose lexical
  : representation is 2.718281828459045e0.
+ :
+ : <h1>Notes</h1>
+ :
+ : This function is equivalent to the function <code>math:exp(1)</code>.
  :)
 declare %a:since("exist", "4.4") function math-ext:e() as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:cos") function math-ext:exp($x as xs:double) as xs:double external;
+(:~
+ : Returns the value of e<sup>x</sup>.
+ :
+ : The result is the mathematical constant <code>e</code> raised to the power of
+ : <code>$arg</code>, as defined in the IEEE 754-2008 specification of the
+ : <code>exp</code> function applied to 64-bit binary floating point values.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:exp") function math-ext:exp($arg as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", "fn:floor") function math-ext:floor($x as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:log") function math-ext:log($x as xs:double) as xs:double external;
+(:~
+ : Returns the natural logarithm of the argument.
+ :
+ : The result is the natural logarithm of <code>$arg</code>, as defined in the
+ : IEEE 754-2008 specification of the <code>log</code> function applied to
+ : 64-bit binary floating point values.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:log") function math-ext:log($arg as xs:double) as xs:double external;
 (:~
  : Returns an approximation to the mathematical constant π.
  :
@@ -128,7 +146,14 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  : representation is 3.141592653589793e0.
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:pi") function math-ext:pi() as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:pow") function math-ext:power($value as xs:double, $power as xs:double) as xs:double external;
+(:~
+ : Returns the value of x<sup>y</sup>.
+ :
+ : The result is the value of <code>$x</code> raised to the power of <code>$y</code>
+ : as defined in the IEEE 754-2008 specification of the <code>pow</code> function
+ : applied to two 64-bit binary floating point values.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:pow") function math-ext:power($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:radians($degrees as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:random() as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:round($x as xs:double) as xs:double external;
@@ -149,7 +174,22 @@ declare %a:since("exist", "4.4") function math-ext:round($x as xs:double) as xs:
  : Otherwise the result is always in the range -1.0e0 to +1.0e0.
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:sin") function math-ext:sin($θ as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:sqrt") function math-ext:sqrt($x as xs:double) as xs:double external;
+(:~
+ : Returns the non-negative square root of the argument.
+ :
+ : The result is the mathematical non-negative square root of <code>$arg</code>
+ : as defined in the IEEE 754-2008 specification of the <code>squareRoot</code>
+ : function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is positive or negative zero, positive infinity, or
+ : <code>NaN</code>, then the result is <code>$arg</code>. (Negative zero is
+ : the only case where the result can have negative sign.)
+ :
+ : If <code>$arg</code> is negative infinity, then the result is <code>NaN</code>.
+ :)
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:sqrt") function math-ext:sqrt($arg as xs:double) as xs:double external;
 (:~
  : Returns the tangent of the argument. The argument is an angle in radians.
  :
