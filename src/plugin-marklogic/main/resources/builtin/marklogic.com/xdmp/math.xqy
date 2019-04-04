@@ -152,7 +152,25 @@ declare %a:since("marklogic", "5.0") function math:cos($θ as xs:double) as xs:d
  : or negative infinity, the result is <code>$θ</code>.
  :)
 declare %a:since("marklogic", "5.0") function math:cosh($θ as xs:double) as xs:double external;
-declare %a:since("marklogic", "6.0") function math:cot($x as xs:double) as xs:double external;
+(:~
+ : Returns the cotangent of the argument. The argument is an angle in radians.
+ :
+ : The result is the cotangent of <code>$θ</code> (which is treated as an angle in
+ : radians), which is the reciprocal of the argument.
+ :
+ : This function is equivalent to <code>1 div math:tan($θ)</code>.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, the result is positive or
+ : negative infinity, depending on the sign of <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, the dynamic error
+ : <code>XDMP-DOMAIN</code> is produced.
+ :
+ : If <code>$θ</code> is <code>NaN</code>, then the result is <code>NaN</code>.
+ :)
+declare %a:since("marklogic", "6.0") function math:cot($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:covariance($arg as json:array*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:covariance-p($arg as json:array*) as xs:double? external;
 (:~
