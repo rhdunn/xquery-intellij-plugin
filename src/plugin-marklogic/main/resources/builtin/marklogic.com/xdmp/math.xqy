@@ -393,7 +393,95 @@ declare %a:since("marklogic", "5.0") function math:tan($θ as xs:double) as xs:d
  : or negative one depending on the sign of <code>$θ</code>.
  :)
 declare %a:since("marklogic", "5.0") function math:tanh($θ as xs:double) as xs:double external;
+(:~
+ : Rounds a value to the nearest whole number, rounding upwards if two such
+ : values are equally near.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : The function returns the nearest whole number value to <code>$arg</code>.
+ : If two such values are equally near (for example, if the fractional part
+ : in <code>$arg</code> is exactly <code>.5</code>), the function returns the
+ : one that is closest to positive infinity.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code>, then the result
+ : may be an instance of <code>xs:integer</code>.
+ :
+ : This function is equivalent to <code>math:round($arg, 0)</code>.
+ :
+ : When <code>$arg</code> is of type <code>xs:float</code> and <code>xs:double</code>:
+ :
+ : <ol>
+ :    <li>If <code>$arg</code> is <code>NaN</code>, positive or negative zero,
+ :        or positive or negative infinity, then the result is the same as the
+ :        argument.</li>
+ :    <li>For other values, the argument is cast to <code>xs:decimal</code>
+ :        using an implementation of <code>xs:decimal</code> that imposes no
+ :        limits on the number of digits that can be represented. The function
+ :        is applied to this <code>xs:decimal</code> value, and the resulting
+ :        <code>xs:decimal</code> is cast back to <code>xs:float</code> or
+ :        <code>xs:double</code> as appropriate to form the function result. If
+ :        the resulting <code>xs:decimal</code> value is zero, then positive or
+ :        negative zero is returned according to the sign of <code>$arg</code>.</li>
+ : </ol>
+ :)
 declare %a:since("marklogic", "8.0") function math:trunc($arg as xs:numeric?) as xs:numeric? external;
-declare %a:since("marklogic", "6.0") function math:trunc($arg as xs:numeric?, $n as xs:integer) as xs:numeric? external;
+(:~
+ : Rounds a value to a specified number of decimal places, rounding upwards if
+ : two such values are equally near.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : The function returns the nearest (that is, numerically closest) value to
+ : <code>$arg</code> that is a multiple of ten to the power of minus
+ : <code>$precision</code>. If two such values are equally near (for example,
+ : if the fractional part in <code>$arg</code> is exactly <code>.5</code>),
+ : the function returns the one that is closest to positive infinity.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code> and
+ : <code>$precision</code> is less than one, then the result may be an
+ : instance of <code>xs:integer</code>.
+ :
+ : When <code>$arg</code> is of type <code>xs:float</code> and <code>xs:double</code>:
+ :
+ : <ol>
+ :    <li>If <code>$arg</code> is <code>NaN</code>, positive or negative zero,
+ :        or positive or negative infinity, then the result is the same as the
+ :        argument.</li>
+ :    <li>For other values, the argument is cast to <code>xs:decimal</code>
+ :        using an implementation of <code>xs:decimal</code> that imposes no
+ :        limits on the number of digits that can be represented. The function
+ :        is applied to this <code>xs:decimal</code> value, and the resulting
+ :        <code>xs:decimal</code> is cast back to <code>xs:float</code> or
+ :        <code>xs:double</code> as appropriate to form the function result. If
+ :        the resulting <code>xs:decimal</code> value is zero, then positive or
+ :        negative zero is returned according to the sign of <code>$arg</code>.</li>
+ : </ol>
+ :
+ : <h1>Notes</h1>
+ :
+ : This function is typically used with a non-zero <code>$precision</code> in
+ : financial applications where the argument is of type <code>xs:decimal</code>.
+ : For arguments of type <code>xs:float</code> and <code>xs:double</code> the
+ : results may be counter-intuitive. For example, consider
+ : <code>math:round(35.425e0, 2)</code>. The result is not <code>35.43</code>, as
+ : might be expected, but <code>35.42</code>. This is because the
+ : <code>xs:double</code> written as <code>35.425e0</code> has an exact value
+ : equal to <code>35.42499999999...</code>, which is closer to
+ : <code>35.42</code> than to <code>35.43</code>.
+ :)
+declare %a:since("marklogic", "6.0") function math:trunc($arg as xs:numeric?, $precision as xs:integer) as xs:numeric? external;
 declare %a:since("marklogic", "6.0") function math:variance($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:variance-p($arg as xs:double*) as xs:double? external;
