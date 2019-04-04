@@ -218,6 +218,12 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  : <code>math:pi() * 4</code>.
  :)
 declare %a:since("exist", "4.4") function math-ext:radians($arg as xs:double) as xs:double external;
+(:~
+ : Returns a random number between 0e0 and 1e0.
+ :
+ : This function returns a random number such that
+ : <code>0e0 <= math-ext:random() < 1e0</code>.
+ :)
 declare %a:since("exist", "4.4") function math-ext:random() as xs:double external;
 (:~
  : Rounds a value to the nearest whole number, rounding upwards if two such
