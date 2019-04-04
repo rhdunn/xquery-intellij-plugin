@@ -138,7 +138,20 @@ declare %a:since("marklogic", "6.0") function math:correlation($arg as json:arra
  : Otherwise the result is always in the range -1.0e0 to +1.0e0.
  :)
 declare %a:since("marklogic", "5.0") function math:cos($θ as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:cosh($x as xs:double) as xs:double external;
+(:~
+ : Returns the hyperbolic cosine of the argument. The argument is an angle in
+ : radians.
+ :
+ : The result is the hyperbolic cosine of <code>$θ</code> (which is treated as
+ : an angle in radians) as defined in the IEEE 754-2008 specification of the
+ : <code>cosh</code> function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, <code>NaN</code>, or positive
+ : or negative infinity, the result is <code>$θ</code>.
+ :)
+declare %a:since("marklogic", "5.0") function math:cosh($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:cot($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:covariance($arg as json:array*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:covariance-p($arg as json:array*) as xs:double? external;
@@ -295,7 +308,20 @@ declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicTyp
  : Otherwise the result is always in the range -1.0e0 to +1.0e0.
  :)
 declare %a:since("marklogic", "5.0") function math:sin($θ as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:sinh($x as xs:double) as xs:double external;
+(:~
+ : Returns the hyperbolic sine of the argument. The argument is an angle in
+ : radians.
+ :
+ : The result is the hyperbolic sine of <code>$θ</code> (which is treated as an
+ : angle in radians) as defined in the IEEE 754-2008 specification of the
+ : <code>sinh</code> function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, <code>NaN</code>, or positive
+ : or negative infinity, the result is <code>$θ</code>.
+ :)
+declare %a:since("marklogic", "5.0") function math:sinh($θ as xs:double) as xs:double external;
 (:~
  : Returns the non-negative square root of the argument.
  :
@@ -332,7 +358,23 @@ declare %a:since("marklogic", "6.0") function math:stddev-p($arg as xs:double*) 
  : If <code>$θ</code> is <code>NaN</code>, then the result is <code>NaN</code>.
  :)
 declare %a:since("marklogic", "5.0") function math:tan($θ as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:tanh($x as xs:double) as xs:double external;
+(:~
+ : Returns the hyperbolic tangent of the argument. The argument is an angle in
+ : radians.
+ :
+ : The result is the hyperbolic tangent of <code>$θ</code> (which is treated as
+ : an angle in radians) as defined in the IEEE 754-2008 specification of the
+ : <code>tanh</code> function applied to 64-bit binary floating point values.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$θ</code> is positive or negative zero, or <code>NaN</code>, the
+ : result is <code>$θ</code>.
+ :
+ : If <code>$θ</code> is positive or negative infinity, the result is positive
+ : or negative one depending on the sign of <code>$θ</code>.
+ :)
+declare %a:since("marklogic", "5.0") function math:tanh($θ as xs:double) as xs:double external;
 declare %a:since("marklogic", "8.0") function math:trunc($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("marklogic", "6.0") function math:trunc($arg as xs:numeric?, $n as xs:integer) as xs:numeric? external;
 declare %a:since("marklogic", "6.0") function math:variance($arg as xs:double*) as xs:double? external;
