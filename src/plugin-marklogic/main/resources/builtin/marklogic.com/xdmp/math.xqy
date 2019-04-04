@@ -230,8 +230,37 @@ declare %a:since("marklogic", "5.0") function math:floor($arg as xs:double) as x
  : <code>mod</code> raises.
  :)
 declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $y as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:frexp($x as xs:double) as (xs:double, xs:integer) external;
-declare %a:since("marklogic", "5.0") function math:ldexp($y as xs:double, $i as xs:integer) as xs:double external;
+(:~
+ : Returns the mantissa and exponent of the argument.
+ :
+ : This function returns a two value sequence, where the first value is the
+ : mntissa of <code>$arg</code> and the second value is the exponent of
+ : <code>$arg</code>.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is positive or negative infinity, or <code>NaN</code>,
+ : the result is <code>($arg, -1)</code>.
+ :
+ : If <code>$arg</code> is positive or negative zero, the first item in the
+ : sequence is <code>$arg</code> and the second item is 0e0.
+ :)
+declare %a:since("marklogic", "5.0") function math:frexp($arg as xs:double) as (xs:double, xs:integer) external;
+(:~
+ : Returns the floating point that corresponds to the given mantissa and exponent.
+ :
+ : This function returns the floating point number that has <code>$mantissa</code>
+ : as the mantissa of the floating point number, and <code>$exponent</code> as the
+ : exponent.
+ :
+ : This function is equivalent to <code>$mantissa * math:pow(2, $exponent)</code>.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$mantissa</code> is positive or negative infinity, <code>NaN</code>,
+ : or positive or negative zero, the result is <code>$mantissa</code>.
+ :)
+declare %a:since("marklogic", "5.0") function math:ldexp($mantissa as xs:double, $exponent as xs:integer) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:linear-model($arg as json:array*) as math:linear-model? external;
 declare %a:since("marklogic", "6.0") function math:linear-model-coeff($linear-model as math:linear-model) as xs:double* external;
 declare %a:since("marklogic", "6.0") function math:linear-model-intercept($linear-model as math:linear-model) as xs:double external;
