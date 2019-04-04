@@ -130,7 +130,24 @@ declare %a:since("exist", "4.4") %a:see-also("xpath-functions", "1.0-20070123", 
  : Otherwise the result is always in the range -1.0e0 to +1.0e0.
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:cos") function math-ext:cos($θ as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") function math-ext:degrees($radians as xs:double) as xs:double external;
+(:~
+ : Returns the radians argument in degrees.
+ :
+ : This function converts <code>$arg</code>, specified in radians, to degrees.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is <code>NaN</code>, positive or negative zero, or
+ : positive or negative infinity, then the result is the same as the argument.
+ :
+ : Otherwise, the result is the argument divided by π/180.
+ :
+ : <h1>Notes</h1>
+ :
+ : The result is not wrapped, so <code>math:degrees(math:pi() * 4)</code> is
+ : <code>720</code>.
+ :)
+declare %a:since("exist", "4.4") function math-ext:degrees($arg as xs:double) as xs:double external;
 (:~
  : Returns an approximation to the mathematical constant e.
  :
@@ -183,7 +200,24 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpat
  : applied to two 64-bit binary floating point values.
  :)
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("xpath-functions", "3.0-20140408", "math:pow") function math-ext:power($x as xs:double, $y as xs:double) as xs:double external;
-declare %a:since("exist", "4.4") function math-ext:radians($degrees as xs:double) as xs:double external;
+(:~
+ : Returns the degrees argument in radians.
+ :
+ : This function converts <code>$arg</code>, specified in degrees, to radians.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is <code>NaN</code>, positive or negative zero, or
+ : positive or negative infinity, then the result is the same as the argument.
+ :
+ : Otherwise, the result is the argument multiplied by π/180.
+ :
+ : <h1>Notes</h1>
+ :
+ : The result is not wrapped, so <code>math:radians(720)</code> is
+ : <code>math:pi() * 4</code>.
+ :)
+declare %a:since("exist", "4.4") function math-ext:radians($arg as xs:double) as xs:double external;
 declare %a:since("exist", "4.4") function math-ext:random() as xs:double external;
 (:~
  : Rounds a value to the nearest whole number, rounding upwards if two such

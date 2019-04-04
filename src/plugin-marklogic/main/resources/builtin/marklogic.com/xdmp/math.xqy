@@ -142,7 +142,24 @@ declare %a:since("marklogic", "5.0") function math:cosh($x as xs:double) as xs:d
 declare %a:since("marklogic", "6.0") function math:cot($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:covariance($arg as json:array*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:covariance-p($arg as json:array*) as xs:double? external;
-declare %a:since("marklogic", "6.0") function math:degrees($x as xs:double) as xs:double external;
+(:~
+ : Returns the radians argument in degrees.
+ :
+ : This function converts <code>$arg</code>, specified in radians, to degrees.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is <code>NaN</code>, positive or negative zero, or
+ : positive or negative infinity, then the result is the same as the argument.
+ :
+ : Otherwise, the result is the argument divided by π/180.
+ :
+ : <h1>Notes</h1>
+ :
+ : The result is not wrapped, so <code>math:degrees(math:pi() * 4)</code> is
+ : <code>720</code>.
+ :)
+declare %a:since("marklogic", "6.0") function math:degrees($arg as xs:double) as xs:double external;
 (:~
  : Returns the value of e<sup>x</sup>.
  :
@@ -221,6 +238,23 @@ declare %a:since("marklogic", "7.0") function math:pi() as xs:double external;
  : applied to two 64-bit binary floating point values.
  :)
 declare %a:since("marklogic", "5.0") function math:pow($x as xs:double, $y as xs:double) as xs:double external;
+(:~
+ : Returns the degrees argument in radians.
+ :
+ : This function converts <code>$arg</code>, specified in degrees, to radians.
+ :
+ : <h1>Notes</h1>
+ :
+ : If <code>$arg</code> is <code>NaN</code>, positive or negative zero, or
+ : positive or negative infinity, then the result is the same as the argument.
+ :
+ : Otherwise, the result is the argument multiplied by π/180.
+ :
+ : <h1>Notes</h1>
+ :
+ : The result is not wrapped, so <code>math:radians(720)</code> is
+ : <code>math:pi() * 4</code>.
+ :)
 declare %a:since("marklogic", "6.0") function math:radians($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType) as xs:integer? external;
 declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType, $options as xs:string*) as xs:integer? external;
