@@ -189,6 +189,15 @@ declare %a:since("marklogic", "5.0") %a:see-also("xpath-functions", "1.0-2007012
  : argument is negative zero, then negative zero is returned.
  :)
 declare %a:since("marklogic", "5.0") function math:floor($arg as xs:double) as xs:double external;
+(:~
+ : Returns the remainder of dividing x by y.
+ :
+ : This function returns the value of the expression <code>$x mod $y</code>.
+ :
+ : If <code>$y</code> is <code>0e0</code>, the dynamic error XDMP-DOMAIN is
+ : produced instead of the FOAR0001 division by zero dynamic error that
+ : <code>mod</code> raises.
+ :)
 declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:frexp($x as xs:double) as (xs:double, xs:integer) external;
 declare %a:since("marklogic", "5.0") function math:ldexp($y as xs:double, $i as xs:integer) as xs:double external;
@@ -215,9 +224,18 @@ declare %a:since("marklogic", "5.0") function math:log10($arg as xs:double) as x
 declare %a:since("marklogic", "6.0") function math:median($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:mode($arg as xs:anyAtomicType*) as xs:anyAtomicType* external;
 declare %a:since("marklogic", "6.0") function math:mode($arg as xs:anyAtomicType*, $options as xs:string*) as xs:anyAtomicType* external;
+(:~
+ : Returns the fraction and integral part of the argument.
+ :
+ : This function returns a two value sequence, where the first value is the
+ : fraction of <code>$arg</code> and the second value is the integral part
+ : of <code>$arg</code>.
+ :
+ : This function is equivalent to <code>($arg mod 1, math:floor($arg))</code>.
+ :)
 declare %a:restrict-until("return", "marklogic", "8.0", "(xs:double,xs:double)")
         %a:restrict-since("return", "marklogic", "8.0", "(xs:double,xs:integer)")
-        %a:since("marklogic", "5.0") function math:modf($x as xs:double) as (xs:double,(xs:double|xs:integer)) external;
+        %a:since("marklogic", "5.0") function math:modf($arg as xs:double) as (xs:double,(xs:double|xs:integer)) external;
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType, $options as xs:string*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percentile($arg as xs:double*, $p as xs:double*) as xs:double* external;
