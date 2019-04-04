@@ -19,6 +19,27 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:requires "xpath-functions/1.0";
 
 declare %a:since("xpath-functions", "1.0-20070123") function fn:QName($paramURI as xs:string?, $paramQName as xs:string) as xs:QName external;
+(:~
+ : Returns the absolute value of <code>$arg</code>.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : If <code>$arg</code> is negative the function returns <code>-$arg</code>,
+ : otherwise it returns <code>$arg</code>.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:positiveInteger</code> then
+ : the value of <code>$arg</code> may be returned unchanged.
+ :
+ : For <code>xs:float</code> and <code>xs:double</code> arguments, if the
+ : argument is positive zero or negative zero, then positive zero is returned.
+ : If the argument is positive or negative infinity, positive infinity is returned.
+ :)
 declare %a:since("xpath-functions", "1.0-20070123") function fn:abs($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:adjust-date-to-timezone($arg as xs:date?) as xs:date? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:adjust-date-to-timezone($arg as xs:date?, $timezone as xs:dayTimeDuration?) as xs:date? external;
@@ -34,6 +55,28 @@ declare %a:since("xpath-functions", "1.0-20070123") function fn:avg($arg as xs:a
 declare %a:since("xpath-functions", "1.0-20070123") function fn:base-uri() as xs:anyURI? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:base-uri($arg as node()?) as xs:anyURI? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:boolean($arg as item()*) as xs:boolean external;
+(:~
+ : Rounds <code>$arg</code> upwards to a whole number.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the return is the smallest (closest to negative infinity) number with
+ : no fractional part that is not less than the value of <code>$arg</code>.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code> then
+ : the result may be an instance of <code>xs:integer</code>.
+ :
+ : For <code>xs:float</code> and <code>xs:double</code> arguments, if the
+ : argument is positive zero, then positive zero is returned. If the argument
+ : is negative zero, then negative zero is returned. If the argument is less
+ : than zero and greater than -1, negative zero is returned.
+ :)
 declare %a:since("xpath-functions", "1.0-20070123") function fn:ceiling($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:codepoint-equal($comparand1 as xs:string?, $comparand2 as xs:string?) as xs:boolean? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:codepoints-to-string($arg as xs:integer*) as xs:string external;
@@ -84,6 +127,27 @@ declare %a:since("xpath-functions", "1.0-20070123") function fn:exactly-one($arg
 declare %a:since("xpath-functions", "1.0-20070123") function fn:exists($arg as item()*) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:false() as xs:boolean external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:filter($seq as item()*, $f as function(item()) as xs:boolean) as item()* external;
+(:~
+ : Rounds <code>$arg</code> downwards to a whole number.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : Otherwise the return is the largest (closest to positive infinity) number with
+ : no fractional part that is not greater than the value of <code>$arg</code>.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code> then
+ : the result may be an instance of <code>xs:integer</code>.
+ :
+ : For <code>xs:float</code> and <code>xs:double</code> arguments, if the
+ : argument is positive zero, then positive zero is returned. If the argument
+ : is negative zero, then negative zero is returned.
+ :)
 declare %a:since("xpath-functions", "1.0-20070123") function fn:floor($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:fold-left($seq as item()*, $zero as item()*, $f as function(item()*, item()) as item()*) as item()* external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:fold-right($seq as item()*, $zero as item()*, $f as function(item()*, item()) as item()*) as item()* external;
@@ -187,9 +251,188 @@ declare %a:since("xpath-functions", "1.0-20070123") function fn:resolve-uri($rel
 declare %a:since("xpath-functions", "1.0-20070123") function fn:reverse($arg as item()*) as item()* external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:root() as node() external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:root($arg as node()?) as node()? external;
+(:~
+ : Rounds a value to the nearest whole number, rounding upwards if two such
+ : values are equally near.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : The function returns the nearest whole number value to <code>$arg</code>.
+ : If two such values are equally near (for example, if the fractional part
+ : in <code>$arg</code> is exactly <code>.5</code>), the function returns the
+ : one that is closest to positive infinity.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code>, then the result
+ : may be an instance of <code>xs:integer</code>.
+ :
+ : This function is equivalent to <code>math:round($arg, 0)</code>.
+ :
+ : When <code>$arg</code> is of type <code>xs:float</code> and <code>xs:double</code>:
+ :
+ : <ol>
+ :    <li>If <code>$arg</code> is <code>NaN</code>, positive or negative zero,
+ :        or positive or negative infinity, then the result is the same as the
+ :        argument.</li>
+ :    <li>For other values, the argument is cast to <code>xs:decimal</code>
+ :        using an implementation of <code>xs:decimal</code> that imposes no
+ :        limits on the number of digits that can be represented. The function
+ :        is applied to this <code>xs:decimal</code> value, and the resulting
+ :        <code>xs:decimal</code> is cast back to <code>xs:float</code> or
+ :        <code>xs:double</code> as appropriate to form the function result. If
+ :        the resulting <code>xs:decimal</code> value is zero, then positive or
+ :        negative zero is returned according to the sign of <code>$arg</code>.</li>
+ : </ol>
+ :)
 declare %a:since("xpath-functions", "1.0-20070123") function fn:round($arg as xs:numeric?) as xs:numeric? external;
+(:~
+ : Rounds a value to a specified number of decimal places, rounding upwards if
+ : two such values are equally near.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : The function returns the nearest (that is, numerically closest) value to
+ : <code>$arg</code> that is a multiple of ten to the power of minus
+ : <code>$precision</code>. If two such values are equally near (for example,
+ : if the fractional part in <code>$arg</code> is exactly <code>.5</code>),
+ : the function returns the one that is closest to positive infinity.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code> and
+ : <code>$precision</code> is less than one, then the result may be an
+ : instance of <code>xs:integer</code>.
+ :
+ : When <code>$arg</code> is of type <code>xs:float</code> and <code>xs:double</code>:
+ :
+ : <ol>
+ :    <li>If <code>$arg</code> is <code>NaN</code>, positive or negative zero,
+ :        or positive or negative infinity, then the result is the same as the
+ :        argument.</li>
+ :    <li>For other values, the argument is cast to <code>xs:decimal</code>
+ :        using an implementation of <code>xs:decimal</code> that imposes no
+ :        limits on the number of digits that can be represented. The function
+ :        is applied to this <code>xs:decimal</code> value, and the resulting
+ :        <code>xs:decimal</code> is cast back to <code>xs:float</code> or
+ :        <code>xs:double</code> as appropriate to form the function result. If
+ :        the resulting <code>xs:decimal</code> value is zero, then positive or
+ :        negative zero is returned according to the sign of <code>$arg</code>.</li>
+ : </ol>
+ :
+ : <h1>Notes</h1>
+ :
+ : This function is typically used with a non-zero <code>$precision</code> in
+ : financial applications where the argument is of type <code>xs:decimal</code>.
+ : For arguments of type <code>xs:float</code> and <code>xs:double</code> the
+ : results may be counter-intuitive. For example, consider
+ : <code>math:round(35.425e0, 2)</code>. The result is not <code>35.43</code>, as
+ : might be expected, but <code>35.42</code>. This is because the
+ : <code>xs:double</code> written as <code>35.425e0</code> has an exact value
+ : equal to <code>35.42499999999...</code>, which is closer to
+ : <code>35.42</code> than to <code>35.43</code>.
+ :)
 declare %a:since("xpath-functions", "3.0-20140408") function fn:round($arg as xs:numeric?, $precision as xs:integer) as xs:numeric? external;
+(:~
+ : Rounds a value to the nearest whole number, rounding to make the last digit
+ : even if two such values are equally near.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : The function returns the nearest (that is, numerically closest) value to
+ : <code>$arg</code> that is a multiple of ten to the power of minus
+ : <code>$precision</code>. If two such values are equally near (e.g. if the
+ : fractional part in <code>$arg</code> is exactly <code>.500...</code>), the
+ : function returns the one whose least significant digit is even.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code>, then the
+ : result may be an instance of <code>xs:integer</code>.
+ :
+ : This function is equivalent to <code>math:round($arg, 0)</code>.
+ :
+ : For arguments of type <code>xs:float</code> and <code>xs:double</code>:
+ :
+ : <ol>
+ :    <li>If the argument is <code>NaN</code>, positive or negative zero, or
+ :        positive or negative infinity, then the result is the same as the
+ :        argument.</li>
+ :    <li>In all other cases, the argument is cast to <code>xs:decimal</code>
+ :        using an implementation of xs:decimal that imposes no limits on the
+ :        number of digits that can be represented. The function is applied to
+ :        this <code>xs:decimal</code> value, and the resulting
+ :        <code>xs:decimal</code> is cast back to <code>xs:float</code> or
+ :        <code>xs:double</code> as appropriate to form the function result.
+ :        If the resulting <code>xs:decimal</code> value is zero, then positive
+ :        or negative zero is returned according to the sign of the original
+ :        argument.</li>
+ : </ol>
+ :)
 declare %a:since("xpath-functions", "1.0-20070123") function fn:round-half-to-even($arg as xs:numeric?) as xs:numeric? external;
+(:~
+ : Rounds a value to a specified number of decimal places, rounding to make the
+ : last digit even if two such values are equally near.
+ :
+ : If <code>$arg</code> is the empty sequence, the function returns the empty
+ : sequence.
+ :
+ : The function returns the nearest (that is, numerically closest) value to
+ : <code>$arg</code> that is a multiple of ten to the power of minus
+ : <code>$precision</code>. If two such values are equally near (e.g. if the
+ : fractional part in <code>$arg</code> is exactly <code>.500...</code>), the
+ : function returns the one whose least significant digit is even.
+ :
+ : For the four types <code>xs:float</code>, <code>xs:double</code>,
+ : <code>xs:decimal</code> and <code>xs:integer</code>, it is guaranteed that
+ : if the type of <code>$arg</code> is an instance of type T then the result
+ : will also be an instance of T. The result may also be an instance of a type
+ : derived from one of these four by restriction. For example, if
+ : <code>$arg</code> is an instance of <code>xs:decimal</code> and
+ : <code>$precision</code> is less than one, then the result may be an instance
+ : of <code>xs:integer</code>.
+ :
+ : For arguments of type <code>xs:float</code> and <code>xs:double</code>:
+ :
+ : <ol>
+ :    <li>If the argument is <code>NaN</code>, positive or negative zero, or
+ :        positive or negative infinity, then the result is the same as the
+ :        argument.</li>
+ :    <li>In all other cases, the argument is cast to <code>xs:decimal</code>
+ :        using an implementation of xs:decimal that imposes no limits on the
+ :        number of digits that can be represented. The function is applied to
+ :        this <code>xs:decimal</code> value, and the resulting
+ :        <code>xs:decimal</code> is cast back to <code>xs:float</code> or
+ :        <code>xs:double</code> as appropriate to form the function result.
+ :        If the resulting <code>xs:decimal</code> value is zero, then positive
+ :        or negative zero is returned according to the sign of the original
+ :        argument.</li>
+ : </ol>
+ :
+ : <h1>Notes</h1>
+ :
+ : This function is typically used in financial applications where the argument
+ : is of type <code>xs:decimal</code>. For arguments of type <code>xs:float</code>
+ : and <code>xs:double</code> the results may be counter-intuitive. For example,
+ : consider <code>math:round-half-to-even(xs:float(150.015), 2)</code>. The result
+ : is not <code>150.02</code> as might be expected, but <code>150.01</code>. This
+ : is because the conversion of the <code>xs:float</code> value represented by the
+ : literal <code>150.015</code> to an xs:decimal produces the <code>xs:decimal</code>
+ : value <code>150.014999389...</code>, which is closer to <code>150.01</code> than
+ : to <code>150.02</code>.
+ :)
 declare %a:since("xpath-functions", "1.0-20070123") function fn:round-half-to-even($arg as xs:numeric?, $precision as xs:integer) as xs:numeric? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:seconds-from-dateTime($arg as xs:dateTime?) as xs:decimal? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:seconds-from-duration($arg as xs:duration?) as xs:decimal? external;

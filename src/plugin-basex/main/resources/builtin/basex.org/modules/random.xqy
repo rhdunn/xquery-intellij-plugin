@@ -11,6 +11,12 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/7.5";
 
+(:~
+ : Returns a random number between 0e0 and 1e0.
+ :
+ : This function returns a random number such that
+ : <code>0e0 <= math-ext:random() < 1e0</code>.
+ :)
 declare %a:since("basex", "7.5") function random:double() as xs:double external;
 declare %a:since("basex", "7.5") function random:integer() as xs:integer external;
 declare %a:since("basex", "7.5") function random:integer($max as xs:integer) as xs:integer external;

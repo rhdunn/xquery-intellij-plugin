@@ -87,6 +87,12 @@ declare %a:since("exist", "4.4") function util:octal-to-int($octal as xs:string)
 declare %a:since("exist", "4.4") function util:parse($to-be-parsed as xs:string?) as document-node()? external;
 declare %a:since("exist", "4.4") function util:parse-html($to-be-parsed as xs:string?) as document-node()? external;
 declare %a:since("exist", "4.4") function util:qname-index-lookup($qname as xs:QName, $comparison-value as xs:anyAtomicType) as node()* external;
+(:~
+ : Returns a random number between 0e0 and 1e0.
+ :
+ : This function returns a random number such that
+ : <code>0e0 <= math-ext:random() < 1e0</code>.
+ :)
 declare %a:since("exist", "4.4") function util:random() as xs:double external;
 declare %a:since("exist", "4.4") function util:random($max as xs:integer) as xs:integer external;
 declare %a:since("exist", "4.4") function util:random-ulong() as xs:unsignedLong external;
