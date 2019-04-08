@@ -151,7 +151,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     }
 
     override fun onException(e: Throwable) {
-        print("${e.message!!}\n", ConsoleViewContentType.ERROR_OUTPUT)
+        print("${e.message ?: e.javaClass.name}\n", ConsoleViewContentType.ERROR_OUTPUT)
         if (e is QueryError) {
             e.value.withIndex().forEach {
                 if (it.index == 0) {
