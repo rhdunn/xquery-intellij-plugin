@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.xml.transform.Source
 
@@ -60,10 +59,6 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
             XSLT -> SaxonXsltRunner(processor, queryText, query.name, classes)
             else -> throw UnsupportedQueryType(language)
         }
-    }
-
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
-        throw UnsupportedOperationException()
     }
 
     override fun close() {

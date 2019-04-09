@@ -26,11 +26,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) :
-    RunnableQueryProvider {
+    RunnableQueryProvider,
+    ProfileableQueryProvider {
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->

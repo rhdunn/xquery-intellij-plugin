@@ -60,10 +60,6 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
         }
     }
 
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
-        throw UnsupportedOperationException()
-    }
-
     override fun close() {
         if (basexSession != null) {
             classes.localSessionClass.getMethod("close").invoke(session)

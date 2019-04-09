@@ -62,9 +62,5 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         }
     }
 
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
-        throw UnsupportedOperationException()
-    }
-
     override fun close() = connection.close()
 }

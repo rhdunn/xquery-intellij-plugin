@@ -51,10 +51,6 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
         }
     }
 
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
-        throw UnsupportedOperationException()
-    }
-
     override fun close() {
         classes.clientSessionClass.getMethod("close").invoke(session)
     }
