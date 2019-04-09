@@ -31,7 +31,9 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
-internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
+internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) :
+    RunnableQueryProvider {
+
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(EXistDBQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
-import java.io.Closeable
 
-interface QueryProcessor : Closeable {
-    val version: ExecutableOnPooledThread<String>
-
-    val servers: ExecutableOnPooledThread<List<String>>
-
-    val databases: ExecutableOnPooledThread<List<String>>
-
-    fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery
+interface RunnableQueryProvider : QueryProcessor {
+    fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery
 }

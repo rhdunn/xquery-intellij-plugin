@@ -28,7 +28,9 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) : QueryProcessor {
+internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
+    RunnableQueryProvider {
+
     private val processor by lazy {
         if (source == null)
             classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)

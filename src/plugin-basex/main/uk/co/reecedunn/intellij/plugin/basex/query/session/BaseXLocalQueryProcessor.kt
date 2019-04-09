@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClasses) : QueryProcessor {
+internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClasses) :
+    RunnableQueryProvider {
+
     private var basexSession: Any? = null
     val session: Any
         get() {

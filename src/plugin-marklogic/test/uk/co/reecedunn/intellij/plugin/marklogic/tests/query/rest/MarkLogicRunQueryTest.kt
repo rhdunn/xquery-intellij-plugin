@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - Running a MarkLogic query")
 class MarkLogicRunQueryTest {
@@ -53,7 +54,7 @@ class MarkLogicRunQueryTest {
             )
         )
 
-        val processor = create("localhost", 8000, "testuser")
+        val processor = create("localhost", 8000, "testuser") as RunnableQueryProvider
         val query = processor.createRunnableQuery(DatabaseModule("/test/script.xqy"), XQuery)
 
         val request = (query as BuildableQuery).request()

@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileReportTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryResultView
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileState {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
@@ -45,9 +46,10 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         val source = configuration.scriptFile
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
 
+        val session = configuration.processor!!.session
         return when (environment.executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> {
-                val query = configuration.processor!!.session.createRunnableQuery(source, configuration.language)
+                val query = (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
                 query.database = configuration.database ?: ""
@@ -57,7 +59,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 RunnableQueryProcessHandler(query)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
-                val query = configuration.processor!!.session.createProfileableQuery(source, configuration.language)
+                val query = session.createProfileableQuery(source, configuration.language)
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
                 query.database = configuration.database ?: ""

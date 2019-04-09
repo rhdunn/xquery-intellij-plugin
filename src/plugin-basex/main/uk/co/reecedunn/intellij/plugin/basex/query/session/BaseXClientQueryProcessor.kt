@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
+internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) :
+    RunnableQueryProvider {
+
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }
