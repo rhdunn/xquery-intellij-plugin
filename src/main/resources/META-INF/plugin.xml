@@ -19,6 +19,7 @@
   <idea-version since-build="161"/>
 
   <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.xdebugger</depends>
   <depends>com.intellij.modules.xml</depends>
 
   <extensionPoints>
