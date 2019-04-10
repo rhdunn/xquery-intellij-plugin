@@ -15,10 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.runners
 
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.RunProfile
+import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.runners.DefaultProgramRunner
+import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.execution.ui.RunContentDescriptor
+import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.xdebugger.XDebugProcessStarter
+import com.intellij.xdebugger.XDebuggerManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 
 class QueryProcessorDebugger : DefaultProgramRunner() {
     override fun getRunnerId(): String = "XIJPQueryProcessorDebugger"
@@ -28,5 +37,27 @@ class QueryProcessorDebugger : DefaultProgramRunner() {
             return false
         }
         return profile.processor?.api?.canExecute(profile.language, executorId) == true
+    }
+
+    override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
+        FileDocumentManager.getInstance().saveAllDocuments()
+        val starter = createProcessStarter(environment.runProfile as QueryProcessorRunConfiguration)
+        val session = XDebuggerManager.getInstance(environment.project).startSession(environment, starter)
+        return session.runContentDescriptor
+    }
+
+    fun createProcessStarter(configuration: QueryProcessorRunConfiguration): XDebugProcessStarter {
+        val session = configuration.processor!!.session
+        val source = configuration.scriptFile
+            ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
+
+        val query = (session as DebuggableQueryProvider).createDebuggableQuery(source, configuration.language)
+        query.rdfOutputFormat = configuration.rdfOutputFormat
+        query.updating = configuration.updating
+        query.database = configuration.database ?: ""
+        query.server = configuration.server ?: ""
+        query.modulePath = configuration.modulePath ?: ""
+        configuration.contextItem?.let { query.bindContextItem(it, null) }
+        return query
     }
 }
