@@ -192,7 +192,7 @@ class QueryProcessorRunConfiguration(
         return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
             DefaultProfileExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
-            DefaultDebugExecutor.EXECUTOR_ID -> null
+            DefaultDebugExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
             else -> null
         }
     }
