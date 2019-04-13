@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import java.io.Closeable
 
 interface Query : Closeable {
     var rdfOutputFormat: Language?
 
     var updating: Boolean
+
+    var xpathSubset: XPathSubset
 
     var server: String
 

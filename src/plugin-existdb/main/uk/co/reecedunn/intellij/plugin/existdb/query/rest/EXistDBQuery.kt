@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
@@ -40,6 +41,8 @@ internal class EXistDBQuery(
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean = false
+
+    override var xpathSubset: XPathSubset = XPathSubset.XPath
 
     override var server: String = ""
 

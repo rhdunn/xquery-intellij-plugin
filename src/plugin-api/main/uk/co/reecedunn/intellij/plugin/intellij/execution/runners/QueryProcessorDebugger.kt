@@ -54,6 +54,7 @@ class QueryProcessorDebugger : DefaultProgramRunner() {
         val query = (session as DebuggableQueryProvider).createDebuggableQuery(source, configuration.language)
         query.rdfOutputFormat = configuration.rdfOutputFormat
         query.updating = configuration.updating
+        query.xpathSubset = configuration.xpathSubset
         query.database = configuration.database ?: ""
         query.server = configuration.server ?: ""
         query.modulePath = configuration.modulePath ?: ""

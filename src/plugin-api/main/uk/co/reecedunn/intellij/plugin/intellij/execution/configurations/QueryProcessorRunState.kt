@@ -53,6 +53,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 val query = (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
+                query.xpathSubset = configuration.xpathSubset
                 query.database = configuration.database ?: ""
                 query.server = configuration.server ?: ""
                 query.modulePath = configuration.modulePath ?: ""
@@ -63,6 +64,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 val query = (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
+                query.xpathSubset = configuration.xpathSubset
                 query.database = configuration.database ?: ""
                 query.server = configuration.server ?: ""
                 query.modulePath = configuration.modulePath ?: ""
@@ -81,6 +83,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun createActions(
         console: ConsoleView?,
         processHandler: ProcessHandler,

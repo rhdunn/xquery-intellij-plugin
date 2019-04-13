@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
@@ -46,6 +47,8 @@ internal class MarkLogicRunQuery(
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean = false
+
+    override var xpathSubset: XPathSubset = XPathSubset.XPath
 
     override var server: String = ""
 
