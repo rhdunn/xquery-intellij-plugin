@@ -20,12 +20,14 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
+import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
@@ -221,6 +223,27 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
+    // region Option :: XPath Subset
+
+    private var xpathSubset: JComboBox<XPathSubset>? = null
+    private var xpathSubsetLabel: JLabel? = null
+
+    private fun createXPathSubsetUI() {
+        xpathSubset = ComboBox()
+        xpathSubset!!.renderer = object : ColoredListCellRenderer<XPathSubset>() {
+            override fun customizeCellRenderer(
+                list: JList<out XPathSubset>, value: XPathSubset?, index: Int, selected: Boolean, hasFocus: Boolean
+            ) {
+                clear()
+                value?.let { append(it.displayName) }
+            }
+        }
+
+        xpathSubset!!.addItem(XPathSubset.XPath)
+        xpathSubset!!.addItem(XPathSubset.XsltPattern)
+    }
+
+    // endregion
     // region Form
 
     private var tabbedPane: JTabbedPane? = null
@@ -238,6 +261,23 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         createDatabaseUI()
         createScriptFileUI()
         createContextItemUI()
+        createXPathSubsetUI()
+    }
+
+    private fun configureUI() {
+        if (languages.findByMimeType { it == "application/xslt+xml" } != null) {
+            // Use "Input" instead of "Context Item" for XSLT queries.
+            val title = PluginApiBundle.message("xquery.configurations.processor.group.input.label")
+            tabbedPane!!.setTitleAt(tabbedPane!!.indexOfComponent(contextItemTab), title)
+        } else if (languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null) {
+            // Server-side JS, SPARQL, and SQL queries don't support an input/context item; XSLT, XQuery, and XPath do.
+            tabbedPane!!.removeTabAt(tabbedPane!!.indexOfComponent(contextItemTab))
+        }
+
+        if (languages.findByMimeType { it == "application/vnd+xpath" } == null) {
+            xpathSubsetLabel!!.isVisible = false
+            xpathSubset!!.isVisible = false
+        }
     }
 
     private fun updateUI(isSparql: Boolean) {
@@ -274,6 +314,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (updating!!.isSelected != configuration.updating)
             return true
+        if (xpathSubset!!.selectedItem != configuration.xpathSubset)
+            return true
         if (contextItem!!.type != configuration.contextItemSource)
             return true
         if (contextItem!!.path != configuration.contextItemValue)
@@ -282,15 +324,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
-        if (languages.findByMimeType { it == "application/xslt+xml" } != null) {
-            // Use "Input" instead of "Context Item" for XSLT queries.
-            val title = PluginApiBundle.message("xquery.configurations.processor.group.input.label")
-            tabbedPane!!.setTitleAt(tabbedPane!!.indexOfComponent(contextItemTab), title)
-        } else if (languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null) {
-            // Server-side JS, SPARQL, and SQL queries don't support an input/context item; XSLT, XQuery, and XPath do.
-            tabbedPane!!.removeTabAt(tabbedPane!!.indexOfComponent(contextItemTab))
-        }
-
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
         server!!.selectedItem = configuration.server
@@ -299,9 +332,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         scriptFile!!.type = configuration.scriptSource
         scriptFile!!.path = configuration.scriptFilePath
         updating!!.isSelected = configuration.updating
+        xpathSubset!!.selectedItem = configuration.xpathSubset
         contextItem!!.type = configuration.contextItemSource
         contextItem!!.path = configuration.contextItemValue
 
+        configureUI()
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
     }
 
@@ -314,6 +349,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.scriptSource = scriptFile?.type!!
         configuration.scriptFilePath = scriptFile!!.path
         configuration.updating = updating!!.isSelected
+        configuration.xpathSubset = xpathSubset!!.selectedItem as XPathSubset
         configuration.contextItemSource = contextItem?.type
         configuration.contextItemValue = contextItem?.path
     }

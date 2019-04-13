@@ -2,6 +2,10 @@
 
 ## 1.5 - (In Development)
 
+Run Configurations:
+
+1.  Support running XPath queries as XSLT patterns on the Saxon query processor.
+
 ## 1.4.1 - 2019-03-27
 
 IntelliJ Integration:

@@ -17,7 +17,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="c5895" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="4">
+          <grid id="c5895" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="4">
             <margin top="4" left="4" bottom="4" right="4"/>
             <constraints>
               <tabbedpane title-resource-bundle="messages/PluginApiBundle" title-key="xquery.configurations.processor.group.query.label"/>
@@ -27,7 +27,7 @@
             <children>
               <component id="fd83" class="javax.swing.JCheckBox" binding="updating" custom-create="true">
                 <constraints>
-                  <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="messages/PluginApiBundle" key="xquery.configurations.processor.updating.label"/>
@@ -35,7 +35,7 @@
               </component>
               <vspacer id="67ee7">
                 <constraints>
-                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
               <component id="b2008" class="javax.swing.JComponent" binding="scriptFileLayout" custom-create="true">
@@ -97,6 +97,20 @@
                   </grid>
                 </constraints>
               </vspacer>
+              <component id="d33f6" class="javax.swing.JLabel" binding="xpathSubsetLabel">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="messages/PluginApiBundle" key="xquery.configurations.processor.xpath-subset.label"/>
+                </properties>
+              </component>
+              <component id="39073" class="javax.swing.JComboBox" binding="xpathSubset" custom-create="true">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
             </children>
           </grid>
           <grid id="9eeec" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="4">
