@@ -36,7 +36,14 @@ internal class SaxonXPathRunner(
     }
 
     private val executable by lazy {
-        classes.xpathCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
+        when (xpathSubset) {
+            XPathSubset.XPath -> {
+                classes.xpathCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
+            }
+            XPathSubset.XsltPattern -> {
+                classes.xpathCompilerClass.getMethod("compilePattern", String::class.java).invoke(compiler, query)
+            }
+        }
     }
 
     private val selector by lazy {
