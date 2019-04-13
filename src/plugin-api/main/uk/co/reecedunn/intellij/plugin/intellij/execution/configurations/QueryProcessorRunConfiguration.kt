@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule as DatabaseModuleImpl
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
@@ -59,6 +60,7 @@ data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
     var rdfOutputFormat: String? = null,
     var updating: Boolean = false,
+    var xpathSubset: XPathSubset = XPathSubset.XPath,
     var server: String? = null,
     var database: String? = null,
     var modulePath: String? = null,
@@ -118,6 +120,15 @@ class QueryProcessorRunConfiguration(
         get() = data.updating
         set(value) {
             data.updating = value
+        }
+
+    // endregion
+    // region XPath Subset
+
+    var xpathSubset: XPathSubset
+        get() = data.xpathSubset
+        set(value) {
+            data.xpathSubset = value
         }
 
     // endregion

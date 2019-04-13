@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Turtle
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -44,6 +45,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
 
     @Test
     @DisplayName("default values")
+    @Suppress("UsePropertyAccessSyntax")
     fun defaultValues() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -52,6 +54,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(settings.processorId, `is`(nullValue()))
         assertThat(settings.rdfOutputFormat, `is`(nullValue()))
         assertThat(settings.updating, `is`(false))
+        assertThat(settings.xpathSubset, `is`(XPathSubset.XPath))
         assertThat(settings.server, `is`(nullValue()))
         assertThat(settings.database, `is`(nullValue()))
         assertThat(settings.modulePath, `is`(nullValue()))
@@ -64,6 +67,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(state.processorId, `is`(nullValue()))
         assertThat(state.rdfOutputFormat, `is`(nullValue()))
         assertThat(state.updating, `is`(false))
+        assertThat(state.xpathSubset, `is`(XPathSubset.XPath))
         assertThat(state.server, `is`(nullValue()))
         assertThat(state.database, `is`(nullValue()))
         assertThat(state.modulePath, `is`(nullValue()))
@@ -87,6 +91,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -112,6 +117,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -137,6 +143,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="true" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -144,6 +151,32 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
 
         settings.updating = true
         assertThat(settings.updating, `is`(true))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized)))
+    }
+
+    @Test
+    @DisplayName("setting: XPath subset")
+    fun xpathSubset() {
+        val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="scriptFile" />
+            <option name="scriptSource" value="LocalFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+            <option name="xpathSubset" value="XsltPattern" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+
+        val factory = XPathConfigurationType().configurationFactories[0]
+        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+
+        settings.xpathSubset = XPathSubset.XsltPattern
+        assertThat(settings.xpathSubset, `is`(XPathSubset.XsltPattern))
 
         assertThat(serialize(settings), anyOf(`is`(serialized)))
     }
@@ -162,6 +195,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" value="test-server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -187,6 +221,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -212,6 +247,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -237,6 +273,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="ActiveEditorFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -262,6 +299,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -287,6 +325,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -312,6 +351,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
             <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
@@ -325,6 +365,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
 
     @Test
     @DisplayName("state; get")
+    @Suppress("UsePropertyAccessSyntax")
     fun getState() {
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
@@ -332,6 +373,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         settings.processorId = 1
         settings.rdfOutputFormat = Turtle
         settings.updating = true
+        settings.xpathSubset = XPathSubset.XsltPattern
         settings.server = "test-server"
         settings.database = "test-database"
         settings.modulePath = "/test/path"
@@ -344,6 +386,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(state.processorId, `is`(1))
         assertThat(state.rdfOutputFormat, `is`("text/turtle"))
         assertThat(state.updating, `is`(true))
+        assertThat(state.xpathSubset, `is`(XPathSubset.XsltPattern))
         assertThat(state.server, `is`("test-server"))
         assertThat(state.database, `is`("test-database"))
         assertThat(state.modulePath, `is`("/test/path"))
@@ -362,6 +405,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         state.processorId = 1
         state.rdfOutputFormat = "text/turtle"
         state.updating = true
+        state.xpathSubset = XPathSubset.XsltPattern
         state.server = "test-server"
         state.database = "test-database"
         state.modulePath = "/test/path"
@@ -376,6 +420,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         assertThat(settings.processorId, `is`(1))
         assertThat(settings.rdfOutputFormat, `is`(Turtle))
         assertThat(settings.updating, `is`(true))
+        assertThat(settings.xpathSubset, `is`(XPathSubset.XsltPattern))
         assertThat(settings.server, `is`("test-server"))
         assertThat(settings.database, `is`("test-database"))
         assertThat(settings.modulePath, `is`("/test/path"))
