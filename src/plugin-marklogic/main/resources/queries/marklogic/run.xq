@@ -200,6 +200,10 @@ declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database := local:nullize($database) ! xdmp:database(.)
     return <options xmlns="xdmp:eval">{
+        if ($mode eq "validate") then
+            <static-check>true</static-check>
+        else
+            (),
         if (exists($database)) then
             <database>{$database}</database>
         else
@@ -337,13 +341,15 @@ declare function local:xquery() as item()* {
     let $options := local:eval-options()
     return if (string-length($query) ne 0) then
         switch ($mode)
-        case "run" return xdmp:eval($query, $variables, $options)
         case "profile" return prof:eval($query, $variables, $options)
+        case "run" return xdmp:eval($query, $variables, $options)
+        case "validate" return xdmp:eval($query, $variables, $options)
         default return ()
     else
         switch ($mode)
-        case "run" return xdmp:invoke($module-path, $variables, $options)
         case "profile" return prof:invoke($module-path, $variables, $options)
+        case "run" return xdmp:invoke($module-path, $variables, $options)
+        case "validate" return xdmp:invoke($module-path, $variables, $options)
         default return ()
 };
 
@@ -353,13 +359,15 @@ declare function local:xslt() as item()* {
     let $options := local:eval-options()
     return if (string-length($query) ne 0) then
         switch ($mode)
-        case "run" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
         case "profile" return prof:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
+        case "run" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
+        case "validate" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
         default return ()
     else
         switch ($mode)
-        case "run" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
         case "profile" return prof:xslt-invoke($module-path, $input, $variables, $options)
+        case "run" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
+        case "validate" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
         default return ()
 };
 

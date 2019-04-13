@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 
 internal class MarkLogicRunQuery(
     val builder: RequestBuilder,
@@ -39,6 +40,7 @@ internal class MarkLogicRunQuery(
     val connection: HttpConnection
 ) :
     RunnableQuery,
+    ValidatableQuery,
     BuildableQuery {
 
     private var variables: JsonObject = JsonObject()
@@ -100,6 +102,23 @@ internal class MarkLogicRunQuery(
         }
 
         MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath)
+    }
+
+    override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
+        val response = connection.execute(request())
+        val body = EntityUtils.toString(response.entity)
+        response.close()
+
+        if (response.statusLine.statusCode != 200) {
+            throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
+        }
+
+        try {
+            MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath)
+            null
+        } catch (e: QueryError) {
+            e
+        }
     }
 
     override fun close() {

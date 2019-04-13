@@ -29,10 +29,13 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) :
+    ProfileableQueryProvider,
     RunnableQueryProvider,
-    ProfileableQueryProvider {
+    ValidatableQueryProvider {
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
@@ -69,6 +72,17 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         return queryParams
     }
 
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
+        return when (language) {
+            XQuery, XSLT -> {
+                val builder = RequestBuilder.post("$baseUri/v1/eval")
+                builder.addParameter("xquery", MarkLogicQueries.Run)
+                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), query.name, connection)
+            }
+            else -> throw UnsupportedQueryType(language)
+        }
+    }
+
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
             ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
@@ -80,12 +94,12 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
+    override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
         return when (language) {
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), query.name, connection)
+                MarkLogicRunQuery(builder, buildParameters(query, language, "validate"), query.name, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }
