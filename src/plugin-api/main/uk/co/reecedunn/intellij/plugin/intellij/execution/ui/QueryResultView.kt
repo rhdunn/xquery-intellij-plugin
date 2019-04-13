@@ -134,6 +134,9 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
 
     override fun onEndResults() {
         table?.isRunning = false
+        if (table?.isEmpty == true) {
+            print("()", ConsoleViewContentType.NORMAL_OUTPUT)
+        }
     }
 
     override fun onQueryResult(result: QueryResult) {
