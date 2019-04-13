@@ -24,8 +24,10 @@ import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
 
@@ -34,7 +36,7 @@ internal class SaxonXsltRunner(
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
-) : RunnableQuery {
+) : RunnableQuery, ValidatableQuery {
     private val compiler by lazy {
         classes.processorClass.getMethod("newXsltCompiler").invoke(processor)
     }
@@ -93,6 +95,15 @@ internal class SaxonXsltRunner(
 
             val iterator = classes.xdmValueClass.getMethod("iterator").invoke(result)
             SaxonQueryResultIterator(iterator, classes).asSequence()
+        }
+    }
+
+    override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
+        try {
+            classes.check(queryPath) { executable } // Compile the query.
+            null
+        } catch (e: QueryError) {
+            e
         }
     }
 

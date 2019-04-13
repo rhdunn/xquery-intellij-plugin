@@ -25,10 +25,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 import javax.xml.transform.Source
 
 internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
-    RunnableQueryProvider {
+    RunnableQueryProvider,
+    ValidatableQueryProvider {
 
     private val processor by lazy {
         if (source == null)
@@ -57,6 +60,15 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
             XPath -> SaxonXPathRunner(processor, queryText, query.name, classes)
             XQuery -> SaxonXQueryRunner(processor, queryText, query.name, classes)
             XSLT -> SaxonXsltRunner(processor, queryText, query.name, classes)
+            else -> throw UnsupportedQueryType(language)
+        }
+    }
+
+    override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
+        val queryText = query.decode()!!
+        return when (language) {
+            XPath -> SaxonXPathRunner(processor, queryText, query.name, classes)
+            XQuery -> SaxonXQueryRunner(processor, queryText, query.name, classes)
             else -> throw UnsupportedQueryType(language)
         }
     }

@@ -22,8 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import javax.xml.transform.ErrorListener
 
 internal class SaxonXQueryRunner(
@@ -31,7 +33,7 @@ internal class SaxonXQueryRunner(
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
-) : RunnableQuery {
+) : RunnableQuery, ValidatableQuery {
     private val errorListener: ErrorListener = SaxonErrorListener(queryPath, classes)
 
     private val compiler by lazy {
@@ -96,6 +98,15 @@ internal class SaxonXQueryRunner(
 
             val iterator = classes.xqueryEvaluatorClass.getMethod("iterator").invoke(evaluator)
             SaxonQueryResultIterator(iterator, classes).asSequence()
+        }
+    }
+
+    override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
+        try {
+            classes.check(queryPath) { executable } // Compile the query.
+            null
+        } catch (e: QueryError) {
+            e
         }
     }
 
