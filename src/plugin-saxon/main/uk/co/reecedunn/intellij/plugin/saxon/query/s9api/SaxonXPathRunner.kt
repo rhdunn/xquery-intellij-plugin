@@ -43,9 +43,7 @@ internal class SaxonXPathRunner(
         }
     }
 
-    private val selector by lazy {
-        classes.xpathExecutableClass.getMethod("load").invoke(executable)
-    }
+    private val selector by lazy { executable.load() }
 
     override var rdfOutputFormat: Language? = null
 

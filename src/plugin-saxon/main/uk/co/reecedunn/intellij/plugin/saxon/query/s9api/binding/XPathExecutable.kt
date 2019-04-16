@@ -15,14 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XPathCompiler(private val `object`: Any, private val `class`: Class<*>) {
-    fun compile(query: String): XPathExecutable {
-        val executable = `class`.getMethod("compile", String::class.java).invoke(`object`, query)
-        return XPathExecutable(executable, `class`.classLoader.loadClass("net.sf.saxon.s9api.XPathExecutable"))
-    }
-
-    fun compilePattern(query: String): XPathExecutable {
-        val executable = `class`.getMethod("compilePattern", String::class.java).invoke(`object`, query)
-        return XPathExecutable(executable, `class`.classLoader.loadClass("net.sf.saxon.s9api.XPathExecutable"))
+class XPathExecutable(private val `object`: Any, private val `class`: Class<*>) {
+    fun load(): Any {
+        return `class`.getMethod("load").invoke(`object`)
     }
 }
