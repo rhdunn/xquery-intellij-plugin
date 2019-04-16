@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
 import java.lang.reflect.InvocationTargetException
@@ -103,8 +102,6 @@ internal class SaxonClasses(path: File) {
     val xdmSequenceIteratorClass: Class<*>
     val xdmValueClass: Class<*>
 
-    val xqueryEvaluatorClass: Class<*>
-
     val xsltCompilerClass: Class<*>
     val xsltExecutableClass: Class<*>
     val xsltTransformerClass: Class<*>
@@ -130,8 +127,6 @@ internal class SaxonClasses(path: File) {
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
         xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
-
-        xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")
 
         xsltCompilerClass = loader.loadClass("net.sf.saxon.s9api.XsltCompiler")
         xsltExecutableClass = loader.loadClass("net.sf.saxon.s9api.XsltExecutable")

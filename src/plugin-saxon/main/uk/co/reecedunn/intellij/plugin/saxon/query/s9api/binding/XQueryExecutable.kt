@@ -16,7 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 class XQueryExecutable(private val `object`: Any, private val `class`: Class<*>) {
-    fun load(): Any {
-        return `class`.getMethod("load").invoke(`object`)
+    fun load(): XQueryEvaluator {
+        val evaluator = `class`.getMethod("load").invoke(`object`)
+        return XQueryEvaluator(evaluator, `class`.classLoader.loadClass("net.sf.saxon.s9api.XQueryEvaluator"))
     }
 }

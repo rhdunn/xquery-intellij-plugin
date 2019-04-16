@@ -66,9 +66,7 @@ internal class SaxonXQueryRunner(
     private var context: Any? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
-        classes.xqueryEvaluatorClass
-            .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
-            .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value, type))
+        evaluator.setExternalVariable(classes.toQName(name), classes.toXdmValue(value, type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
@@ -81,13 +79,8 @@ internal class SaxonXQueryRunner(
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check(queryPath) {
-            context?.let {
-                val bind = classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass)
-                bind.invoke(evaluator, context)
-            }
-
-            val iterator = classes.xqueryEvaluatorClass.getMethod("iterator").invoke(evaluator)
-            SaxonQueryResultIterator(iterator, classes).asSequence()
+            context?.let { evaluator.setContextItem(it) }
+            SaxonQueryResultIterator(evaluator.iterator(), classes).asSequence()
         }
     }
 
