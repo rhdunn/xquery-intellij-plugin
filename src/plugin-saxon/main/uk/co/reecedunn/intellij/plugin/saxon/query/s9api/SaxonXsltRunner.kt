@@ -42,9 +42,7 @@ internal class SaxonXsltRunner(
 
     private val executable by lazy { compiler.compile(query.toStreamSource()) }
 
-    private val transformer by lazy {
-        classes.xsltExecutableClass.getMethod("load").invoke(executable)
-    }
+    private val transformer by lazy { executable.load() }
 
     override var rdfOutputFormat: Language? = null
 
