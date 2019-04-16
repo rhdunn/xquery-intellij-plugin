@@ -15,9 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XPathExecutable(private val `object`: Any, private val `class`: Class<*>) {
-    fun load(): XPathSelector {
-        val selector = `class`.getMethod("load").invoke(`object`)
-        return XPathSelector(selector, `class`.classLoader.loadClass("net.sf.saxon.s9api.XPathSelector"))
+class XPathSelector(private val `object`: Any, private val `class`: Class<*>) {
+    fun setContextItem(item: Any) {
+        val xdmItemClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmItem")
+        `class`.getMethod("setContextItem", xdmItemClass).invoke(`object`, item)
+    }
+
+    fun iterator(): Any {
+        return `class`.getMethod("iterator").invoke(`object`)
     }
 }

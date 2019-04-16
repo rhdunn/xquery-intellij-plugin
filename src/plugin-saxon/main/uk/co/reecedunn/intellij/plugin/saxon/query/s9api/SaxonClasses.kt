@@ -103,8 +103,6 @@ internal class SaxonClasses(path: File) {
     val xdmSequenceIteratorClass: Class<*>
     val xdmValueClass: Class<*>
 
-    val xpathSelectorClass: Class<*>
-
     val xqueryCompilerClass: Class<*>
     val xqueryEvaluatorClass: Class<*>
     val xqueryExecutableClass: Class<*>
@@ -134,8 +132,6 @@ internal class SaxonClasses(path: File) {
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
         xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
-
-        xpathSelectorClass = loader.loadClass("net.sf.saxon.s9api.XPathSelector")
 
         xqueryCompilerClass = loader.loadClass("net.sf.saxon.s9api.XQueryCompiler")
         xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")

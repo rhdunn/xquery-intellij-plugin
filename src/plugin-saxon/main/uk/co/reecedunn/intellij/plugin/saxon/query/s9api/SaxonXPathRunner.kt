@@ -73,13 +73,8 @@ internal class SaxonXPathRunner(
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check(queryPath) {
-            context?.let {
-                val bind = classes.xpathSelectorClass.getMethod("setContextItem", classes.xdmItemClass)
-                bind.invoke(selector, context)
-            }
-
-            val iterator = classes.xpathSelectorClass.getMethod("iterator").invoke(selector)
-            SaxonQueryResultIterator(iterator, classes).asSequence()
+            context?.let { selector.setContextItem(it) }
+            SaxonQueryResultIterator(selector.iterator(), classes).asSequence()
         }
     }
 
