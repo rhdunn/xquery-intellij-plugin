@@ -36,7 +36,10 @@ class Processor {
 
     val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
 
-    fun newXPathCompiler(): Any = `class`.getMethod("newXPathCompiler").invoke(`object`)
+    fun newXPathCompiler(): XPathCompiler {
+        val compiler = `class`.getMethod("newXPathCompiler").invoke(`object`)
+        return XPathCompiler(compiler, `class`.classLoader.loadClass("net.sf.saxon.s9api.XPathCompiler"))
+    }
 
     fun newXQueryCompiler(): Any = `class`.getMethod("newXQueryCompiler").invoke(`object`)
 
