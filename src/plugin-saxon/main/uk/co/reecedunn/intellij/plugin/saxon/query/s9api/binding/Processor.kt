@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
+import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.proxy
 import javax.xml.transform.Source
@@ -41,7 +42,8 @@ class Processor {
     fun setTraceListener(listener: TraceListener) {
         val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
         val listenerClass = `class`.classLoader.loadClass("net.sf.saxon.lib.TraceListener")
-        val proxy = listener.proxy(listenerClass)
+        val listener2Class = `class`.classLoader.loadClassOrNull("net.sf.saxon.lib.TraceListener2")
+        val proxy = listener2Class?.let { listener.proxy(listenerClass, it) } ?: listener.proxy(listenerClass)
 
         val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
         configurationClass.getMethod("setTraceListener", listenerClass).invoke(configuration, proxy)

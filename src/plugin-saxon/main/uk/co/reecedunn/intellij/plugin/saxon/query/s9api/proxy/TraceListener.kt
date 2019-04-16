@@ -31,10 +31,14 @@ interface TraceListener {
     fun startCurrentItem(currentItem: Any)
 
     fun endCurrentItem(currentItem: Any)
+
+    fun startRuleSearch()
+
+    fun endRuleSearch(rule: Any, mode: Any, item: Any)
 }
 
-fun TraceListener.proxy(listenerClass: Class<*>): Any {
-    return Proxy.newProxyInstance(listenerClass.classLoader, arrayOf(listenerClass)) { _, method, params ->
+fun TraceListener.proxy(vararg classes: Class<*>): Any {
+    return Proxy.newProxyInstance(classes[0].classLoader, classes) { _, method, params ->
         when (method.name) {
             "setOutputDestination" -> setOutputDestination(params[0])
             "open" -> open(params[0])
@@ -43,6 +47,9 @@ fun TraceListener.proxy(listenerClass: Class<*>): Any {
             "leave" -> leave(params[0])
             "startCurrentItem" -> startCurrentItem(params[0])
             "endCurrentItem" -> endCurrentItem(params[0])
+            // TraceListener2 (Saxon 9.7+)
+            "startRuleSearch" -> startRuleSearch()
+            "endRuleSearch" -> endRuleSearch(params[0], params[1], params[2])
         }
     }
 }
