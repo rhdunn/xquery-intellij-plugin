@@ -15,9 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XsltExecutable(private val `object`: Any, private val `class`: Class<*>) {
-    fun load(): XsltTransformer {
-        val transformer = `class`.getMethod("load").invoke(`object`)
-        return XsltTransformer(transformer, `class`.classLoader.loadClass("net.sf.saxon.s9api.XsltTransformer"))
+import javax.xml.transform.Source
+
+class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) {
+    fun setSource(source: Source) {
+        `class`.getMethod("setSource", Source::class.java).invoke(`object`, source)
+    }
+
+    fun setDestination(destination: Any) {
+        val destinationClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
+        `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination)
+    }
+
+    fun transform() {
+        `class`.getMethod("transform").invoke(`object`)
     }
 }

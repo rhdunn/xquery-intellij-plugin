@@ -102,8 +102,6 @@ internal class SaxonClasses(path: File) {
     val xdmSequenceIteratorClass: Class<*>
     val xdmValueClass: Class<*>
 
-    val xsltTransformerClass: Class<*>
-
     val saxonApiExceptionClass: Class<*>
     val saxonApiUncheckedExceptionClass: Class<*>
     val xpathExceptionClass: Class<*>
@@ -125,8 +123,6 @@ internal class SaxonClasses(path: File) {
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
         xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
-
-        xsltTransformerClass = loader.loadClass("net.sf.saxon.s9api.XsltTransformer")
 
         saxonApiExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiException")
         saxonApiUncheckedExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiUncheckedException")

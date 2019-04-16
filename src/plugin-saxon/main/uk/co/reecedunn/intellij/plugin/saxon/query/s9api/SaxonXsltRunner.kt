@@ -77,14 +77,12 @@ internal class SaxonXsltRunner(
                 val message = PluginApiBundle.message("error.missing-xslt-source")
                 return@check sequenceOf(QueryResult.fromItemType(0, message, "fn:error"))
             }
-            classes.xsltTransformerClass.getMethod("setSource", Source::class.java).invoke(transformer, context)
+            transformer.setSource(context!!)
 
             val destination = classes.rawDestinationClass.getConstructor().newInstance()
-            classes.xsltTransformerClass
-                .getMethod("setDestination", classes.destinationClass)
-                .invoke(transformer, destination)
+            transformer.setDestination(destination)
 
-            classes.xsltTransformerClass.getMethod("transform").invoke(transformer)
+            transformer.transform()
             val result = classes.rawDestinationClass.getMethod("getXdmValue").invoke(destination)
 
             val iterator = classes.xdmValueClass.getMethod("iterator").invoke(result)
