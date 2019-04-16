@@ -30,7 +30,8 @@ class XQueryCompiler(private val `object`: Any, private val `class`: Class<*>) {
             `class`.getMethod("setUpdatingEnabled", Boolean::class.java).invoke(`object`, value)
         }
 
-    fun compile(query: String): Any {
-        return `class`.getMethod("compile", String::class.java).invoke(`object`, query)
+    fun compile(query: String): XQueryExecutable {
+        val executable = `class`.getMethod("compile", String::class.java).invoke(`object`, query)
+        return XQueryExecutable(executable, `class`.classLoader.loadClass("net.sf.saxon.s9api.XQueryExecutable"))
     }
 }

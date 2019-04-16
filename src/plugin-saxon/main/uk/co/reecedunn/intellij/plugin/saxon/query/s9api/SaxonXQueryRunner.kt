@@ -45,9 +45,7 @@ internal class SaxonXQueryRunner(
 
     private val executable by lazy { compiler.compile(query) }
 
-    private val evaluator by lazy {
-        classes.xqueryExecutableClass.getMethod("load").invoke(executable)
-    }
+    private val evaluator by lazy { executable.load() }
 
     override var rdfOutputFormat: Language? = null
 
