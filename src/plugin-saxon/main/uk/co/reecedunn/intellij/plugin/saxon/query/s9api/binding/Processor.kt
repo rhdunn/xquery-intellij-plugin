@@ -46,5 +46,8 @@ class Processor {
         return XQueryCompiler(compiler, `class`.classLoader.loadClass("net.sf.saxon.s9api.XQueryCompiler"))
     }
 
-    fun newXsltCompiler(): Any = `class`.getMethod("newXsltCompiler").invoke(`object`)
+    fun newXsltCompiler(): XsltCompiler {
+        val compiler = `class`.getMethod("newXsltCompiler").invoke(`object`)
+        return XsltCompiler(compiler, `class`.classLoader.loadClass("net.sf.saxon.s9api.XsltCompiler"))
+    }
 }

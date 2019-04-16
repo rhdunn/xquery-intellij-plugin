@@ -40,10 +40,7 @@ internal class SaxonXsltRunner(
 ) : RunnableQuery, ValidatableQuery {
     private val compiler by lazy { processor.newXsltCompiler() }
 
-    private val executable by lazy {
-        val source = query.toStreamSource()
-        classes.xsltCompilerClass.getMethod("compile", Source::class.java).invoke(compiler, source)
-    }
+    private val executable by lazy { compiler.compile(query.toStreamSource()) }
 
     private val transformer by lazy {
         classes.xsltExecutableClass.getMethod("load").invoke(executable)
