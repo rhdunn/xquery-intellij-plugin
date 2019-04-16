@@ -37,7 +37,7 @@ internal class SaxonXsltRunner(
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
-) : RunnableQuery, ValidatableQuery {
+) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXsltCompiler() }
 
     private val executable by lazy { compiler.compile(query.toStreamSource()) }
@@ -70,8 +70,8 @@ internal class SaxonXsltRunner(
         }
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check(queryPath) {
+    override fun asSequence(): Sequence<QueryResult> {
+        return classes.check(queryPath) {
             if (context == null) {
                 // The Saxon processor throws a NPE if source is null.
                 val message = PluginApiBundle.message("error.missing-xslt-source")
@@ -88,6 +88,10 @@ internal class SaxonXsltRunner(
             val iterator = classes.xdmValueClass.getMethod("iterator").invoke(result)
             SaxonQueryResultIterator(iterator, classes).asSequence()
         }
+    }
+
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+        asSequence()
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {

@@ -34,7 +34,7 @@ internal class SaxonXQueryRunner(
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
-) : RunnableQuery, ValidatableQuery {
+) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val errorListener: ErrorListener = SaxonErrorListener(queryPath, classes)
 
     private val compiler by lazy {
@@ -77,11 +77,15 @@ internal class SaxonXQueryRunner(
         }
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check(queryPath) {
+    override fun asSequence(): Sequence<QueryResult> {
+        return classes.check(queryPath) {
             context?.let { evaluator.setContextItem(it) }
             SaxonQueryResultIterator(evaluator.iterator(), classes).asSequence()
         }
+    }
+
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+        asSequence()
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {

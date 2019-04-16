@@ -33,7 +33,7 @@ internal class SaxonXPathRunner(
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
-) : RunnableQuery, ValidatableQuery {
+) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXPathCompiler() }
 
     private val executable by lazy {
@@ -71,11 +71,15 @@ internal class SaxonXPathRunner(
         }
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check(queryPath) {
+    override fun asSequence(): Sequence<QueryResult> {
+        return classes.check(queryPath) {
             context?.let { selector.setContextItem(it) }
             SaxonQueryResultIterator(selector.iterator(), classes).asSequence()
         }
+    }
+
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+        asSequence()
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
