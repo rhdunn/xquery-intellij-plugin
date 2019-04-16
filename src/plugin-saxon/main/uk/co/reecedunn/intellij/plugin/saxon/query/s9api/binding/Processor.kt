@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.proxy
 import javax.xml.transform.Source
 
 class Processor {
@@ -35,6 +37,15 @@ class Processor {
     val saxonEdition: String? get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
 
     val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
+
+    fun setTraceListener(listener: TraceListener) {
+        val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
+        val listenerClass = `class`.classLoader.loadClass("net.sf.saxon.lib.TraceListener")
+        val proxy = listener.proxy(listenerClass)
+
+        val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
+        configurationClass.getMethod("setTraceListener", listenerClass).invoke(configuration, proxy)
+    }
 
     fun newXPathCompiler(): XPathCompiler {
         val compiler = `class`.getMethod("newXPathCompiler").invoke(`object`)
