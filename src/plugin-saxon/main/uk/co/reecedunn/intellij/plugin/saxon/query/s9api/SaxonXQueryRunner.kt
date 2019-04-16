@@ -26,10 +26,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.ErrorListener
 
 internal class SaxonXQueryRunner(
-    val processor: Any,
+    val processor: Processor,
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
@@ -37,7 +38,7 @@ internal class SaxonXQueryRunner(
     private val errorListener: ErrorListener = SaxonErrorListener(queryPath, classes)
 
     private val compiler by lazy {
-        val ret = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)
+        val ret = processor.newXQueryCompiler()
         classes.xqueryCompilerClass.getMethod("setErrorListener", ErrorListener::class.java)
             .invoke(ret, errorListener)
         ret

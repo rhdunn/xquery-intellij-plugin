@@ -86,12 +86,13 @@ private val ATOMIC_ITEM_TYPE_NAMES = mapOf(
 )
 
 internal class SaxonClasses(path: File) {
+    val loader: ClassLoader
+
     val destinationClass: Class<*>
     val rawDestinationClass: Class<*>
 
     val itemClass: Class<*>
     val itemTypeClass: Class<*>
-    val processorClass: Class<*>
     val qnameClass: Class<*>
     val structuredQNameClass: Class<*>
     val typeClass: Class<*>
@@ -119,14 +120,13 @@ internal class SaxonClasses(path: File) {
     val xpathExceptionClass: Class<*>
 
     init {
-        val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
+        loader = URLClassLoader(arrayOf(path.toURI().toURL()))
 
         destinationClass = loader.loadClass("net.sf.saxon.s9api.Destination")
         rawDestinationClass = loader.loadClass("net.sf.saxon.s9api.RawDestination")
 
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         itemTypeClass = loader.loadClass("net.sf.saxon.s9api.ItemType")
-        processorClass = loader.loadClass("net.sf.saxon.s9api.Processor")
         qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
         structuredQNameClass = loader.loadClass("net.sf.saxon.om.StructuredQName")
         typeClass = loader.loadClass("net.sf.saxon.type.Type")

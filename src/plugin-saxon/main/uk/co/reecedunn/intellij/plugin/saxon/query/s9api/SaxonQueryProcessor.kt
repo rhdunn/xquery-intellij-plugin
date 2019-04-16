@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.Source
 
 internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
@@ -35,15 +36,13 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
 
     private val processor by lazy {
         if (source == null)
-            classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
+            Processor(classes.loader, true)
         else
-            classes.processorClass.getConstructor(Source::class.java).newInstance(source)
+            Processor(classes.loader, source)
     }
 
     override val version: ExecutableOnPooledThread<String> = local_thread {
-        val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String
-        val version = classes.processorClass.getMethod("getSaxonProductVersion").invoke(processor) as String
-        edition?.let { "$it $version" } ?: version
+        processor.saxonEdition?.let { "$it ${processor.saxonProductVersion}" } ?: processor.saxonProductVersion
     }
 
     override val servers: ExecutableOnPooledThread<List<String>> = local_thread {

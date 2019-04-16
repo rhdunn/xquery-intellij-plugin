@@ -28,18 +28,17 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
 
 internal class SaxonXsltRunner(
-    val processor: Any,
+    val processor: Processor,
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
 ) : RunnableQuery, ValidatableQuery {
-    private val compiler by lazy {
-        classes.processorClass.getMethod("newXsltCompiler").invoke(processor)
-    }
+    private val compiler by lazy { processor.newXsltCompiler() }
 
     private val executable by lazy {
         val source = query.toStreamSource()

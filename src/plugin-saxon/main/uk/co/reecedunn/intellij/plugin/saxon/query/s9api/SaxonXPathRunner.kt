@@ -26,16 +26,15 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 
 internal class SaxonXPathRunner(
-    val processor: Any,
+    val processor: Processor,
     val query: String,
     val queryPath: String,
     val classes: SaxonClasses
 ) : RunnableQuery, ValidatableQuery {
-    private val compiler by lazy {
-        classes.processorClass.getMethod("newXPathCompiler").invoke(processor)
-    }
+    private val compiler by lazy { processor.newXPathCompiler() }
 
     private val executable by lazy {
         when (xpathSubset) {
