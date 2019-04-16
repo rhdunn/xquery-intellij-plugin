@@ -39,14 +39,11 @@ internal class SaxonXQueryRunner(
 
     private val compiler by lazy {
         val ret = processor.newXQueryCompiler()
-        classes.xqueryCompilerClass.getMethod("setErrorListener", ErrorListener::class.java)
-            .invoke(ret, errorListener)
+        ret.setErrorListener(errorListener)
         ret
     }
 
-    private val executable by lazy {
-        classes.xqueryCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
-    }
+    private val executable by lazy { compiler.compile(query) }
 
     private val evaluator by lazy {
         classes.xqueryExecutableClass.getMethod("load").invoke(executable)
@@ -55,15 +52,9 @@ internal class SaxonXQueryRunner(
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean
-        get() {
-            return classes.xqueryCompilerClass
-                .getMethod("isUpdatingEnabled")
-                .invoke(compiler) as Boolean
-        }
+        get() = compiler.updatingEnabled
         set(value) {
-            classes.xqueryCompilerClass
-                .getMethod("setUpdatingEnabled", Boolean::class.java)
-                .invoke(compiler, value)
+            compiler.updatingEnabled = value
         }
 
     override var xpathSubset: XPathSubset = XPathSubset.XPath
