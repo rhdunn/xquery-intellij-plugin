@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.marklogic.profile.MarkLogicProfileReport
+import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
@@ -102,7 +102,7 @@ internal class MarkLogicProfileQuery(
         }
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath).iterator()
-        val report = MarkLogicProfileReport(results.next().value as String, queryPath)
+        val report = (results.next().value as String).toMarkLogicProfileReport(queryPath)
         ProfileQueryResult(results.asSequence(), report)
     }
 

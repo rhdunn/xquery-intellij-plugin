@@ -23,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
+private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
+
 class MarkLogicProfileEntry(entry: XmlElement, script: String) : ProfileEntry {
     override val id: String by lazy {
         entry.children("prof:expr-id").first().text()!!
@@ -54,33 +56,15 @@ class MarkLogicProfileEntry(entry: XmlElement, script: String) : ProfileEntry {
     }
 }
 
-class MarkLogicProfileReport(override val xml: String, private val script: String) : ProfileReport {
-    companion object {
-        private val PROFILE_NAMESPACES = mapOf(
-            "prof" to "http://marklogic.com/xdmp/profile"
-        )
-    }
-
-    private val doc = XmlDocument.parse(xml, PROFILE_NAMESPACES)
-
-    override val elapsed: XsDurationValue by lazy {
-        val metadata = doc.root.children("prof:metadata").first()
-        metadata.children("prof:overall-elapsed").first().text()?.toXsDuration()!!
-    }
-
-    override val created: String by lazy {
-        val metadata = doc.root.children("prof:metadata").first()
-        metadata.children("prof:created").first().text()!!
-    }
-
-    override val version: String by lazy {
-        val metadata = doc.root.children("prof:metadata").first()
-        metadata.children("prof:server-version").first().text()!!
-    }
-
-    override val results: Sequence<ProfileEntry>
-        get() {
-            val histogram = doc.root.children("prof:histogram").first()
-            return histogram.children("prof:expression").map { expression -> MarkLogicProfileEntry(expression, script) }
-        }
+fun String.toMarkLogicProfileReport(script: String): ProfileReport {
+    val doc = XmlDocument.parse(this, PROFILE_NAMESPACES)
+    val metadata = doc.root.children("prof:metadata").first()
+    val histogram = doc.root.children("prof:histogram").first()
+    return ProfileReport(
+        xml = this,
+        elapsed = metadata.children("prof:overall-elapsed").first().text()?.toXsDuration()!!,
+        created = metadata.children("prof:created").first().text()!!,
+        version = metadata.children("prof:server-version").first().text()!!,
+        results = histogram.children("prof:expression").map { expression -> MarkLogicProfileEntry(expression, script) }
+    )
 }
