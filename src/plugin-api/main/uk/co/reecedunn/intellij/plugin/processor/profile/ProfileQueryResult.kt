@@ -17,8 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.profile
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-interface ProfileQueryResult {
-    val results: Sequence<QueryResult>
-
+data class ProfileQueryResult(
+    val results: Sequence<QueryResult>,
     val report: ProfileReport
-}
+)
