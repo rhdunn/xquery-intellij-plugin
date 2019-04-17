@@ -23,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
@@ -30,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.Source
 
 internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Source?) :
+    ProfileableQueryProvider,
     RunnableQueryProvider,
     ValidatableQueryProvider {
 
@@ -50,6 +53,11 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Sou
 
     override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
         listOf<String>()
+    }
+
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
+        val runner = createRunnableQuery(query, language)
+        return SaxonQueryProfiler(runner)
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
