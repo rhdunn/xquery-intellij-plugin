@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvide
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
+import uk.co.reecedunn.intellij.plugin.saxon.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.Source
 
@@ -57,7 +58,9 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Sou
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
-        return SaxonQueryProfiler(runner)
+        val listener = SaxonProfileTraceListener()
+        processor.setTraceListener(listener)
+        return SaxonQueryProfiler(runner, listener)
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {

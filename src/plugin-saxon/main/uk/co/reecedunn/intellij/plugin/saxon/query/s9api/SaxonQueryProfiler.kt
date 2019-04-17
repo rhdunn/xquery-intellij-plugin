@@ -21,8 +21,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.saxon.profiler.SaxonProfileTraceListener
 
-internal class SaxonQueryProfiler(val runner: RunnableQuery) : ProfileableQuery {
+internal class SaxonQueryProfiler(
+    val runner: RunnableQuery,
+    val listener: SaxonProfileTraceListener
+) : ProfileableQuery {
     override var rdfOutputFormat: Language?
         get() = runner.rdfOutputFormat
         set(value) {
