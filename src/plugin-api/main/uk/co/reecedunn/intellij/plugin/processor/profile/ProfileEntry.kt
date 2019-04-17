@@ -18,16 +18,11 @@ package uk.co.reecedunn.intellij.plugin.processor.profile
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
-interface ProfileEntry {
-    val id: String
-
-    val expression: String
-
-    val hits: Int
-
-    val shallowTime: XsDurationValue
-
-    val deepTime: XsDurationValue
-
+data class ProfileEntry(
+    val id: String,
+    val expression: String,
+    val hits: Int,
+    val shallowTime: XsDurationValue,
+    val deepTime: XsDurationValue,
     val frame: StackFrame
-}
+)

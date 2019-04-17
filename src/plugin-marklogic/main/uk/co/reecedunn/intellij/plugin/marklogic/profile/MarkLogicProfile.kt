@@ -25,35 +25,20 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 
-class MarkLogicProfileEntry(entry: XmlElement, script: String) : ProfileEntry {
-    override val id: String by lazy {
-        entry.children("prof:expr-id").first().text()!!
-    }
-
-    override val expression: String by lazy {
-        entry.children("prof:expr-source").first().text()!!
-    }
-
-    override val frame: StackFrame by lazy {
-        val path = entry.children("prof:uri").first().text()
-        StackFrame(
+private fun XmlElement.toProfileEntry(script: String): ProfileEntry {
+    val path = children("prof:uri").first().text()
+    return ProfileEntry(
+        id = children("prof:expr-id").first().text()!!,
+        expression = children("prof:expr-source").first().text()!!,
+        frame = StackFrame(
             if (path.isNullOrEmpty()) script else path,
-            entry.children("prof:line").first().text()?.toInt(),
-            entry.children("prof:column").first().text()?.toInt()
-        )
-    }
-
-    override val hits: Int by lazy {
-        entry.children("prof:count").first().text()!!.toInt()
-    }
-
-    override val shallowTime: XsDurationValue by lazy {
-        entry.children("prof:shallow-time").first().text()?.toXsDuration()!!
-    }
-
-    override val deepTime: XsDurationValue by lazy {
-        entry.children("prof:deep-time").first().text()?.toXsDuration()!!
-    }
+            children("prof:line").first().text()?.toInt(),
+            children("prof:column").first().text()?.toInt()
+        ),
+        hits = children("prof:count").first().text()!!.toInt(),
+        shallowTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
+        deepTime = children("prof:deep-time").first().text()?.toXsDuration()!!
+    )
 }
 
 fun String.toMarkLogicProfileReport(script: String): ProfileReport {
@@ -65,6 +50,6 @@ fun String.toMarkLogicProfileReport(script: String): ProfileReport {
         elapsed = metadata.children("prof:overall-elapsed").first().text()?.toXsDuration()!!,
         created = metadata.children("prof:created").first().text()!!,
         version = metadata.children("prof:server-version").first().text()!!,
-        results = histogram.children("prof:expression").map { expression -> MarkLogicProfileEntry(expression, script) }
+        results = histogram.children("prof:expression").map { expression -> expression.toProfileEntry(script) }
     )
 }
