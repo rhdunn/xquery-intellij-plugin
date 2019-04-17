@@ -20,7 +20,6 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
@@ -35,7 +34,7 @@ private fun XmlElement.toProfileEntry(script: String): ProfileEntry {
             children("prof:line").first().text()?.toInt(),
             children("prof:column").first().text()?.toInt()
         ),
-        hits = children("prof:count").first().text()!!.toInt(),
+        count = children("prof:count").first().text()!!.toInt(),
         shallowTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
         deepTime = children("prof:deep-time").first().text()?.toXsDuration()!!
     )

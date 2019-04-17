@@ -61,15 +61,15 @@ private object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
 }
 
 @Suppress("ClassName")
-private object HITS_COLUMN : ColumnInfo<ProfileEntry, Int>(
-    PluginApiBundle.message("profile.entry.table.hits.column.label")
+private object COUNT_COLUMN : ColumnInfo<ProfileEntry, Int>(
+    PluginApiBundle.message("profile.entry.table.count.column.label")
 ), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): Int? = item?.hits
+    override fun valueOf(item: ProfileEntry?): Int? = item?.count
 
     override fun getComparator(): Comparator<ProfileEntry>? = this
 
     override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
-        return o1!!.hits.compareTo(o2!!.hits)
+        return o1!!.count.compareTo(o2!!.count)
     }
 }
 
@@ -124,7 +124,7 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     MODULE_PATH_COLUMN,
     LINE_NUMBER_COLUMN,
     COLUMN_NUMBER_COLUMN,
-    HITS_COLUMN,
+    COUNT_COLUMN,
     SHALLOW_TIME_COLUMN,
     DEEP_TIME_COLUMN,
     EXPRESSION_COLUMN

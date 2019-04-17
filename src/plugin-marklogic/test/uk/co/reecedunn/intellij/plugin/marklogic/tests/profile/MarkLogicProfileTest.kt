@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.profile
 
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -104,7 +103,7 @@ class MarkLogicProfileTest {
         assertThat(results[1].frame.module, `is`("test.xqy"))
         assertThat(results[1].frame.lineNumber, `is`(1))
         assertThat(results[1].frame.columnNumber, `is`(12))
-        assertThat(results[1].hits, `is`(2))
+        assertThat(results[1].count, `is`(2))
         assertThat(results[1].shallowTime.months, `is`(XsInteger(BigInteger.ZERO)))
         assertThat(results[1].shallowTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))
         assertThat(results[1].deepTime.months, `is`(XsInteger(BigInteger.ZERO)))

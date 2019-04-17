@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 data class ProfileEntry(
     val id: String,
     val expression: String,
-    val hits: Int,
+    val count: Int,
     val shallowTime: XsDurationValue,
     val deepTime: XsDurationValue,
     val frame: StackFrame
