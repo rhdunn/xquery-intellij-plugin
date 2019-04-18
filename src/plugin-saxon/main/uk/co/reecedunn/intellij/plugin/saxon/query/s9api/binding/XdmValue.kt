@@ -15,14 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class RawDestination(classLoader: ClassLoader) : Destination {
-    private val `class`: Class<*> = classLoader.loadClass("net.sf.saxon.s9api.RawDestination")
-    override val saxonObject: Any = `class`.getConstructor().newInstance()
-
-    override val destinationClass: Class<*> = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
-
-    fun getXdmValue(): XdmValue {
-        val xdmValueClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
-        return XdmValue(`class`.getMethod("getXdmValue").invoke(saxonObject), xdmValueClass)
+class XdmValue(private val `object`: Any, private val `class`: Class<*>) {
+    fun iterator(): Any {
+        return `class`.getMethod("iterator").invoke(`object`)
     }
 }
