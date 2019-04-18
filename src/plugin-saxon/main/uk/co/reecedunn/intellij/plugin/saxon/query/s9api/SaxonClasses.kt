@@ -87,9 +87,6 @@ private val ATOMIC_ITEM_TYPE_NAMES = mapOf(
 internal class SaxonClasses(path: File) {
     val loader: ClassLoader
 
-    val destinationClass: Class<*>
-    val rawDestinationClass: Class<*>
-
     val itemClass: Class<*>
     val itemTypeClass: Class<*>
     val qnameClass: Class<*>
@@ -108,9 +105,6 @@ internal class SaxonClasses(path: File) {
 
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-
-        destinationClass = loader.loadClass("net.sf.saxon.s9api.Destination")
-        rawDestinationClass = loader.loadClass("net.sf.saxon.s9api.RawDestination")
 
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         itemTypeClass = loader.loadClass("net.sf.saxon.s9api.ItemType")

@@ -15,18 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import javax.xml.transform.Source
+class RawDestination(classLoader: ClassLoader) : Destination {
+    private val `class`: Class<*> = classLoader.loadClass("net.sf.saxon.s9api.RawDestination")
+    override val saxonObject: Any = `class`.getConstructor().newInstance()
 
-class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) {
-    fun setSource(source: Source) {
-        `class`.getMethod("setSource", Source::class.java).invoke(`object`, source)
-    }
+    override val destinationClass: Class<*> = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
 
-    fun setDestination(destination: Destination) {
-        `class`.getMethod("setDestination", destination.destinationClass).invoke(`object`, destination.saxonObject)
-    }
-
-    fun transform() {
-        `class`.getMethod("transform").invoke(`object`)
+    fun getXdmValue(): Any {
+        return `class`.getMethod("getXdmValue").invoke(saxonObject)
     }
 }

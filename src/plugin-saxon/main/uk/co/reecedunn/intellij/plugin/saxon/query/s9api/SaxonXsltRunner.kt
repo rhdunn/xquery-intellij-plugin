@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.RawDestination
 import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
 
@@ -79,11 +80,11 @@ internal class SaxonXsltRunner(
             }
             transformer.setSource(context!!)
 
-            val destination = classes.rawDestinationClass.getConstructor().newInstance()
+            val destination = RawDestination(classes.loader)
             transformer.setDestination(destination)
 
             transformer.transform()
-            val result = classes.rawDestinationClass.getMethod("getXdmValue").invoke(destination)
+            val result = destination.getXdmValue()
 
             val iterator = classes.xdmValueClass.getMethod("iterator").invoke(result)
             SaxonQueryResultIterator(iterator, classes).asSequence()
