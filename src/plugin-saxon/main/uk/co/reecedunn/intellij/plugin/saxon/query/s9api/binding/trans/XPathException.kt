@@ -16,19 +16,35 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans
 
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
+import javax.xml.transform.SourceLocator
 import javax.xml.transform.TransformerException
 
-class XPathException(private val `object`: Throwable, private val `class`: Class<*>) :
-    TransformerException(`object`.message) {
+class XPathException(private val `object`: TransformerException?, private val `class`: Class<*>) :
+    TransformerException(`object`?.message) {
+
+    override fun getLocator(): SourceLocator? {
+        return `object`?.locator
+    }
 
     override fun getException(): Throwable? {
         return cause
     }
 
-    override val cause: Throwable? = `object`.cause
+    override val cause: Throwable? = `object`?.cause
 
-    fun getErrorCodeQName(): StructuredQName {
-        val qname = `class`.getMethod("getErrorCodeQName").invoke(`object`)
-        return StructuredQName(qname, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName"))
+    fun getErrorCodeQName(): StructuredQName? {
+        if (`class`.isInstance(`object`)) {
+            val qname = `class`.getMethod("getErrorCodeQName").invoke(`object`)
+            return StructuredQName(qname, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName"))
+        }
+        return null
     }
+}
+
+fun Throwable.toXPathException(loader: ClassLoader): XPathException {
+    val xpathExceptionClass = loader.loadClass("net.sf.saxon.trans.XPathException")
+    return if (this is TransformerException)
+        XPathException(this, xpathExceptionClass)
+    else
+        XPathException(cause as? TransformerException, xpathExceptionClass)
 }

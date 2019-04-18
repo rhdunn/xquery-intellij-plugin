@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
 import java.lang.reflect.InvocationTargetException
@@ -172,7 +173,7 @@ internal class SaxonClasses(path: File) {
             val target = e.targetException
             throw when {
                 saxonApiExceptionClass.isInstance(target) -> target.toSaxonErrorChecked(queryPath, this)
-                saxonApiUncheckedExceptionClass.isInstance(target) -> target.toSaxonErrorUnchecked(queryPath, this)
+                saxonApiUncheckedExceptionClass.isInstance(target) -> target.toXPathException(loader).toSaxonError(queryPath)
                 else -> target
             }
         }

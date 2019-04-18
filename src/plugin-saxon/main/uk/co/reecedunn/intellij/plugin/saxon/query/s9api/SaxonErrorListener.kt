@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
 import javax.xml.transform.ErrorListener
 import javax.xml.transform.TransformerException
 
@@ -26,6 +27,6 @@ internal class SaxonErrorListener(var queryPath: String, var classes: SaxonClass
     }
 
     override fun fatalError(exception: TransformerException?) {
-        throw exception!!.toSaxonErrorUnchecked(queryPath, classes)
+        throw exception!!.toXPathException(classes.loader).toSaxonError(queryPath)
     }
 }
