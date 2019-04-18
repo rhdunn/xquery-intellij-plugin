@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
 import javax.xml.transform.TransformerException
 
 class XPathException(private val `object`: Throwable, private val `class`: Class<*>) :
@@ -26,7 +27,8 @@ class XPathException(private val `object`: Throwable, private val `class`: Class
 
     override val cause: Throwable? = `object`.cause
 
-    fun getErrorCodeQName(): Any {
-        return `class`.getMethod("getErrorCodeQName").invoke(`object`)
+    fun getErrorCodeQName(): StructuredQName {
+        val qname = `class`.getMethod("getErrorCodeQName").invoke(`object`)
+        return StructuredQName(qname, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName"))
     }
 }

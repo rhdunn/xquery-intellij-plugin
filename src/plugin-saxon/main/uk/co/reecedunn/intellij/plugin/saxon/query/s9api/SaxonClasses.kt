@@ -90,7 +90,6 @@ internal class SaxonClasses(path: File) {
     val itemClass: Class<*>
     val itemTypeClass: Class<*>
     val qnameClass: Class<*>
-    val structuredQNameClass: Class<*>
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
     val xdmAtomicValueClass: Class<*>
@@ -107,7 +106,6 @@ internal class SaxonClasses(path: File) {
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         itemTypeClass = loader.loadClass("net.sf.saxon.s9api.ItemType")
         qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
-        structuredQNameClass = loader.loadClass("net.sf.saxon.om.StructuredQName")
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmAtomicValueClass = loader.loadClass("net.sf.saxon.s9api.XdmAtomicValue")
