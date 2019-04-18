@@ -21,22 +21,6 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathExce
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-internal fun Throwable.toSaxonErrorChecked(script: String, classes: SaxonClasses): QueryError {
-    val qname = classes.saxonApiExceptionClass.getMethod("getErrorCode").invoke(this)
-    val ns = classes.qnameClass.getMethod("getNamespaceURI").invoke(qname)
-    val prefix = classes.qnameClass.getMethod("getPrefix").invoke(qname)
-    val localname = classes.qnameClass.getMethod("getLocalName").invoke(qname)
-    val path = classes.saxonApiExceptionClass.getMethod("getSystemId").invoke(this) as String?
-    val line = classes.saxonApiExceptionClass.getMethod("getLineNumber").invoke(this) as Int?
-    return QueryError(
-        standardCode = if (ns == ERR_NS || prefix == null) localname as String else "$prefix:$localname",
-        vendorCode = null,
-        description = classes.saxonApiExceptionClass.getMethod("getMessage").invoke(this) as String?,
-        value = listOf(),
-        frames = listOf(StackFrame(if (path.isNullOrEmpty()) script else path, line, 1))
-    )
-}
-
 internal fun XPathException.toSaxonError(script: String): QueryError {
     val qname = getErrorCodeQName()
     val ns = qname?.getURI()

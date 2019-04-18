@@ -27,6 +27,6 @@ internal class SaxonErrorListener(var queryPath: String, var classes: SaxonClass
     }
 
     override fun fatalError(exception: TransformerException?) {
-        throw exception!!.toXPathException(classes.loader).toSaxonError(queryPath)
+        throw exception!!.toXPathException(classes.loader)!!.toSaxonError(queryPath)
     }
 }
