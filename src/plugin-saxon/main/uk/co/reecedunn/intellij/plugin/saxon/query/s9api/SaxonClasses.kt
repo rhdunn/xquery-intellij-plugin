@@ -100,7 +100,6 @@ internal class SaxonClasses(path: File) {
 
     val saxonApiExceptionClass: Class<*>
     val saxonApiUncheckedExceptionClass: Class<*>
-    val xpathExceptionClass: Class<*>
 
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
@@ -118,7 +117,6 @@ internal class SaxonClasses(path: File) {
 
         saxonApiExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiException")
         saxonApiUncheckedExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiUncheckedException")
-        xpathExceptionClass = loader.loadClass("net.sf.saxon.trans.XPathException")
     }
 
     fun tryXdmValue(value: Any?, type: String?): Any? {

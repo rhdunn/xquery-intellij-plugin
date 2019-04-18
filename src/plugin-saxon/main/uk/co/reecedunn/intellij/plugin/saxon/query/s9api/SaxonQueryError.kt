@@ -18,13 +18,14 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import uk.co.reecedunn.intellij.plugin.core.reflection.getAnyMethod
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import javax.xml.transform.TransformerException
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
 internal fun Throwable.toSaxonErrorUnchecked(script: String, classes: SaxonClasses): QueryError {
-    if (classes.xpathExceptionClass.isInstance(cause)) {
-        return (cause as TransformerException).toSaxonError(script, classes)
+    val xpathExceptionClass = classes.loader.loadClass("net.sf.saxon.trans.XPathException")
+    if (xpathExceptionClass.isInstance(cause)) {
+        return XPathException(cause!!, xpathExceptionClass).toSaxonError(script, classes)
     }
     throw cause ?: this
 }
@@ -45,8 +46,8 @@ internal fun Throwable.toSaxonErrorChecked(script: String, classes: SaxonClasses
     )
 }
 
-internal fun TransformerException.toSaxonError(script: String, classes: SaxonClasses): QueryError {
-    val qname = classes.xpathExceptionClass.getMethod("getErrorCodeQName").invoke(this)
+internal fun XPathException.toSaxonError(script: String, classes: SaxonClasses): QueryError {
+    val qname = getErrorCodeQName()
     val ns = classes.structuredQNameClass.getAnyMethod("getURI", "getNamespaceURI").invoke(qname)
     val prefix = classes.structuredQNameClass.getMethod("getPrefix").invoke(qname)
     val localname = classes.structuredQNameClass.getAnyMethod("getLocalPart", "getLocalName").invoke(qname)

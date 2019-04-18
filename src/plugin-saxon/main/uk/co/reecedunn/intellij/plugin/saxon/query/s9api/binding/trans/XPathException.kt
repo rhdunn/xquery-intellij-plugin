@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans
 
-import javax.xml.transform.ErrorListener
 import javax.xml.transform.TransformerException
 
-internal class SaxonErrorListener(var queryPath: String, var classes: SaxonClasses) : ErrorListener {
-    override fun warning(exception: TransformerException?) {
+class XPathException(private val `object`: Throwable, private val `class`: Class<*>) :
+    TransformerException(`object`.message) {
+
+    override fun getException(): Throwable? {
+        return cause
     }
 
-    override fun error(exception: TransformerException?) {
-    }
+    override val cause: Throwable? = `object`.cause
 
-    override fun fatalError(exception: TransformerException?) {
-        throw exception!!.toSaxonErrorUnchecked(queryPath, classes)
+    fun getErrorCodeQName(): Any {
+        return `class`.getMethod("getErrorCodeQName").invoke(`object`)
     }
 }
