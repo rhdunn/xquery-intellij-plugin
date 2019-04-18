@@ -18,8 +18,18 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathException
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
+import java.lang.reflect.InvocationTargetException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
+
+fun <T> check(queryPath: String, loader: ClassLoader, f: () -> T): T {
+    return try {
+        f()
+    } catch (e: InvocationTargetException) {
+        throw e.targetException.run { toXPathException(loader)?.toSaxonError(queryPath) ?: this }
+    }
+}
 
 internal fun XPathException.toSaxonError(script: String): QueryError {
     val qname = getErrorCodeQName()

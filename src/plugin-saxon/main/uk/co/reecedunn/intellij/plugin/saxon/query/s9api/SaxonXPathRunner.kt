@@ -59,11 +59,11 @@ internal class SaxonXPathRunner(
 
     private var context: Any? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
         context = when (value) {
             is DatabaseModule -> classes.toXdmValue(value.path, type)
             is VirtualFile -> classes.toXdmValue(value.decode()!!, type)
@@ -72,7 +72,7 @@ internal class SaxonXPathRunner(
     }
 
     override fun asSequence(): Sequence<QueryResult> {
-        return classes.check(queryPath) {
+        return check(queryPath, classes.loader) {
             context?.let { selector.setContextItem(it) }
             SaxonQueryResultIterator(selector.iterator(), classes).asSequence()
         }
@@ -84,7 +84,7 @@ internal class SaxonXPathRunner(
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
         try {
-            classes.check(queryPath) { executable } // Compile the query.
+            check(queryPath, classes.loader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e

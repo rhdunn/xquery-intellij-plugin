@@ -159,12 +159,4 @@ internal class SaxonClasses(path: File) {
             }
         }
     }
-
-    fun <T> check(queryPath: String, f: () -> T): T {
-        return try {
-            f()
-        } catch (e: InvocationTargetException) {
-            throw e.targetException.run { toXPathException(loader)?.toSaxonError(queryPath) ?: this }
-        }
-    }
 }
