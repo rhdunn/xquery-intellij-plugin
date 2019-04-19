@@ -61,6 +61,7 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
     // region UI
 
     private var report: ProfileReport? = null
+    private var save: SaveAction? = null
 
     private var panel: JPanel? = null
     private var metadata: JPanel? = null
@@ -107,7 +108,9 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
             PluginApiBundle.message("console.action.save.profile.description"),
             "xml"
         )
-        return arrayOf(SaveAction(descriptor, component, project, Consumer { onSaveProfileReport(it) }))
+        save = SaveAction(descriptor, component, project, Consumer { onSaveProfileReport(it) })
+        save?.isEnabled = report?.xml != null
+        return arrayOf(save!!)
     }
 
     override fun getComponent(): JComponent = panel!!
@@ -169,6 +172,7 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
 
     override fun onProfileReport(result: ProfileReport) {
         report = result
+        save?.isEnabled = report?.xml != null
 
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
         created!!.text = PluginApiBundle.message("profile.console.created.label", formatDate(result.created))
