@@ -32,8 +32,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
 internal class SaxonXPathRunner(
     val processor: Processor,
     val query: String,
-    val queryPath: String,
-    val classes: SaxonClasses
+    val queryPath: String
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXPathCompiler() }
 
@@ -60,23 +59,22 @@ internal class SaxonXPathRunner(
 
     private var context: XdmItem? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
+    override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, processor.classLoader) {
+        val classLoader = processor.classLoader
         context = when (value) {
-            is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", classes.loader)
-            is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", classes.loader)
-            else -> XdmItem.newInstance(value, type ?: "xs:string", classes.loader)
+            is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", classLoader)
+            is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", classLoader)
+            else -> XdmItem.newInstance(value, type ?: "xs:string", classLoader)
         }
     }
 
-    override fun asSequence(): Sequence<QueryResult> {
-        return check(queryPath, classes.loader) {
-            context?.let { selector.setContextItem(it) }
-            SaxonQueryResultIterator(selector.iterator()).asSequence()
-        }
+    override fun asSequence(): Sequence<QueryResult> = check(queryPath, processor.classLoader) {
+        context?.let { selector.setContextItem(it) }
+        SaxonQueryResultIterator(selector.iterator()).asSequence()
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
@@ -85,7 +83,7 @@ internal class SaxonXPathRunner(
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
         try {
-            check(queryPath, classes.loader) { executable } // Compile the query.
+            check(queryPath, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e

@@ -35,6 +35,8 @@ class Processor {
         `object` = `class`.getConstructor(Source::class.java).newInstance(configuration)
     }
 
+    val classLoader: ClassLoader get() = `class`.classLoader
+
     val saxonEdition: String? get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
 
     val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
