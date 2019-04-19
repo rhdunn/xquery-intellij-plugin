@@ -15,25 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
-    fun iterator(): Any {
-        return `class`.getMethod("iterator").invoke(saxonObject)
-    }
-
-    fun getUnderlyingValue(): Any {
-        return `class`.getMethod("getUnderlyingValue").invoke(saxonObject)
-    }
-
-    override fun toString(): String {
-        return saxonObject.toString()
-    }
-
-    override fun hashCode(): Int {
-        return saxonObject.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (other !is XdmItem) return false
-        return saxonObject == other.saxonObject
-    }
-}
+class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass)

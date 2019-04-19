@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
 
 internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClasses) : Iterator<QueryResult> {
+    private val xdmItemClass = classes.loader.loadClass("net.sf.saxon.s9api.XdmItem")
+
     private val hasNextMethod = classes.xdmSequenceIteratorClass.getMethod("hasNext")
     private val nextMethod = classes.xdmSequenceIteratorClass.getMethod("next")
-    private val getUnderlyingValueMethod = classes.xdmItemClass.getMethod("getUnderlyingValue")
     private val getItemTypeMethod =
         classes.typeClass.getMethod("getItemType", classes.itemClass, classes.typeHierarchyClass)
     private var position: Long = -1
@@ -30,8 +32,8 @@ internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClas
     }
 
     override fun next(): QueryResult {
-        val next = nextMethod.invoke(results)
-        val value = getUnderlyingValueMethod.invoke(next)
+        val next = XdmItem(nextMethod.invoke(results), xdmItemClass)
+        val value = next.getUnderlyingValue()
         val type = getItemTypeMethod.invoke(null, value, null)
         return QueryResult.fromItemType(++position, next.toString(), type.toString())
     }
