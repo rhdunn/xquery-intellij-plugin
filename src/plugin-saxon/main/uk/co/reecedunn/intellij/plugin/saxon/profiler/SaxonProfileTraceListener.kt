@@ -22,12 +22,24 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+
+private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    format.timeZone = TimeZone.getTimeZone("UTC")
+    format
+}
 
 class SaxonProfileTraceListener(val version: String) : TraceListener {
+    var created: Date? = null
+
     override fun setOutputDestination(logger: Any) {
     }
 
     override fun open(controller: Any) {
+        created = Date()
     }
 
     override fun close() {
@@ -56,7 +68,7 @@ fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
     return ProfileReport(
         xml = "",
         elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.ZERO)),
-        created = "",
+        created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
         results = sequenceOf()
     )
