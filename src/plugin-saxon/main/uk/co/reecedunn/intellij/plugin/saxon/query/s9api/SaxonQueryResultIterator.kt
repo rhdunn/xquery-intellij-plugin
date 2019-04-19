@@ -16,23 +16,21 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmSequenceIterator
 
-internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClasses) : Iterator<QueryResult> {
-    private val xdmItemClass = classes.loader.loadClass("net.sf.saxon.s9api.XdmItem")
+internal class SaxonQueryResultIterator(val results: XdmSequenceIterator, val classes: SaxonClasses) :
+    Iterator<QueryResult> {
 
-    private val hasNextMethod = classes.xdmSequenceIteratorClass.getMethod("hasNext")
-    private val nextMethod = classes.xdmSequenceIteratorClass.getMethod("next")
     private val getItemTypeMethod =
         classes.typeClass.getMethod("getItemType", classes.itemClass, classes.typeHierarchyClass)
     private var position: Long = -1
 
     override fun hasNext(): Boolean {
-        return hasNextMethod.invoke(results) as Boolean
+        return results.hasNext()
     }
 
     override fun next(): QueryResult {
-        val next = XdmItem(nextMethod.invoke(results), xdmItemClass)
+        val next = results.next()
         val value = next.getUnderlyingValue()
         val type = getItemTypeMethod.invoke(null, value, null)
         return QueryResult.fromItemType(++position, next.toString(), type.toString())

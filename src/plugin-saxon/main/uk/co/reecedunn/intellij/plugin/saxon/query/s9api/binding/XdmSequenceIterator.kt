@@ -15,14 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XPathSelector(private val `object`: Any, private val `class`: Class<*>) {
-    fun setContextItem(item: XdmItem) {
-        val xdmItemClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmItem")
-        `class`.getMethod("setContextItem", xdmItemClass).invoke(`object`, item.saxonObject)
+class XdmSequenceIterator(private val `object`: Any, private val `class`: Class<*>) :
+    Iterator<XdmItem> {
+
+    private val xdmItemClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmItem")
+
+    override fun hasNext(): Boolean {
+        return `class`.getMethod("hasNext").invoke(`object`) as Boolean
     }
 
-    fun iterator(): XdmSequenceIterator {
-        val xdmSequenceIteratorClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
-        return XdmSequenceIterator(`class`.getMethod("iterator").invoke(`object`), xdmSequenceIteratorClass)
+    override fun next(): XdmItem {
+        return XdmItem(`class`.getMethod("next").invoke(`object`), xdmItemClass)
     }
 }

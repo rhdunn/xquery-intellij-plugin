@@ -38,7 +38,6 @@ internal class SaxonClasses(path: File) {
     val itemClass: Class<*>
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
-    val xdmSequenceIteratorClass: Class<*>
 
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
@@ -46,6 +45,5 @@ internal class SaxonClasses(path: File) {
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
-        xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
     }
 }
