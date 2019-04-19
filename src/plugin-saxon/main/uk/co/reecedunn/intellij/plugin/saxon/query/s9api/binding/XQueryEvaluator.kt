@@ -21,10 +21,11 @@ class XQueryEvaluator(private val `object`: Any, private val `class`: Class<*>) 
         `class`.getMethod("setContextItem", xdmItemClass).invoke(`object`, item)
     }
 
-    fun setExternalVariable(qname: Any, value: Any?) {
-        val qnameClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.QName")
+    fun setExternalVariable(qname: QName, value: Any?) {
         val xdmValueClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
-        `class`.getMethod("setExternalVariable", qnameClass, xdmValueClass).invoke(`object`, qname, value)
+        `class`.getMethod("setExternalVariable", qname.saxonClass, xdmValueClass).invoke(
+            `object`, qname.`object`, value
+        )
     }
 
     fun iterator(): Any {

@@ -16,13 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmEmptySequence
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.toQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
-import java.lang.reflect.InvocationTargetException
 import java.net.URLClassLoader
 
-private val SAXON_NAMESPACES = mapOf(
+val SAXON_NAMESPACES = mapOf(
     // XQuery 1.0
     "xml" to "http://www.w3.org/XML/1998/namespace",
     "xs" to "http://www.w3.org/2001/XMLSchema",
@@ -91,7 +90,6 @@ internal class SaxonClasses(path: File) {
 
     val itemClass: Class<*>
     val itemTypeClass: Class<*>
-    val qnameClass: Class<*>
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
     val xdmAtomicValueClass: Class<*>
@@ -103,7 +101,6 @@ internal class SaxonClasses(path: File) {
 
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         itemTypeClass = loader.loadClass("net.sf.saxon.s9api.ItemType")
-        qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmAtomicValueClass = loader.loadClass("net.sf.saxon.s9api.XdmAtomicValue")
@@ -125,7 +122,8 @@ internal class SaxonClasses(path: File) {
                 "empty-sequence()" -> XdmEmptySequence.getInstance(loader).saxonObject
                 "xs:QName" -> {
                     // The string constructor throws "Requested type is namespace-sensitive"
-                    xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(value as String))
+                    val qname = op_qname_parse(value as String, SAXON_NAMESPACES).toQName(loader)
+                    xdmAtomicValueClass.getConstructor(qname.saxonClass).newInstance(qname.`object`)
                 }
                 "xs:numeric" -> {
                     tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
@@ -138,24 +136,5 @@ internal class SaxonClasses(path: File) {
                 }
             }
         } ?: XdmEmptySequence.getInstance(loader).saxonObject
-    }
-
-    fun toQName(qname: String): Any {
-        val value = op_qname_parse(qname, SAXON_NAMESPACES)
-        return when {
-            value.namespace == null -> {
-                qnameClass.getConstructor(String::class.java).newInstance(value.localName!!.data)
-            }
-            value.prefix == null -> {
-                qnameClass
-                    .getConstructor(String::class.java, String::class.java)
-                    .newInstance(value.namespace!!.data, value.localName!!.data)
-            }
-            else -> {
-                qnameClass
-                    .getConstructor(String::class.java, String::class.java, String::class.java)
-                    .newInstance(value.prefix!!.data, value.namespace!!.data, value.localName!!.data)
-            }
-        }
     }
 }

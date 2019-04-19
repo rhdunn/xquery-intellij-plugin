@@ -27,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.toQName
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import javax.xml.transform.ErrorListener
 
 internal class SaxonXQueryRunner(
@@ -66,7 +68,8 @@ internal class SaxonXQueryRunner(
     private var context: Any? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
-        evaluator.setExternalVariable(classes.toQName(name), classes.toXdmValue(value, type))
+        val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(classes.loader)
+        evaluator.setExternalVariable(qname, classes.toXdmValue(value, type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, classes.loader) {

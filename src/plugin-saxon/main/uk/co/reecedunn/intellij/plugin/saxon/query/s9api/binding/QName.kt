@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-open class QName(protected val `object`: Any, protected val saxonClass: Class<*>) {
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+
+open class QName(val `object`: Any, val saxonClass: Class<*>) {
     open fun getNamespaceURI(): String {
         return saxonClass.getMethod("getNamespaceURI").invoke(`object`) as String
     }
@@ -27,4 +30,24 @@ open class QName(protected val `object`: Any, protected val saxonClass: Class<*>
     open fun getLocalName(): String {
         return saxonClass.getMethod("getLocalName").invoke(`object`) as String
     }
+}
+
+fun XsQNameValue.toQName(loader: ClassLoader): QName {
+    val qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
+    val stringClass = String::class.java
+    val `object` = when {
+        namespace == null -> {
+            val constructor = qnameClass.getConstructor(stringClass)
+            constructor.newInstance(localName!!.data)
+        }
+        prefix == null -> {
+            val constructor = qnameClass.getConstructor(stringClass, stringClass)
+            constructor.newInstance(namespace!!.data, localName!!.data)
+        }
+        else -> {
+            val constructor = qnameClass.getConstructor(stringClass, stringClass, stringClass)
+            constructor.newInstance(prefix!!.data, namespace!!.data, localName!!.data)
+        }
+    }
+    return QName(`object`, qnameClass)
 }
