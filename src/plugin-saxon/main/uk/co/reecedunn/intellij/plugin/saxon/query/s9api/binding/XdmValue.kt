@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SAXON_NAMESPACES
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
+
 open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
     fun iterator(): Any {
         return `class`.getMethod("iterator").invoke(saxonObject)
@@ -35,5 +38,16 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
     override fun equals(other: Any?): Boolean {
         if (other !is XdmItem) return false
         return saxonObject == other.saxonObject
+    }
+
+    companion object {
+        fun newInstance(value: Any?, type: String, loader: ClassLoader): XdmValue {
+            return when (type) {
+                "empty-sequence()" -> XdmEmptySequence.getInstance(loader)
+                "xs:QName" -> XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(loader))
+                "xs:numeric" -> XdmNumeric.newInstance(value as String, loader)
+                else -> XdmAtomicValue(value as String, type, loader)
+            }
+        }
     }
 }
