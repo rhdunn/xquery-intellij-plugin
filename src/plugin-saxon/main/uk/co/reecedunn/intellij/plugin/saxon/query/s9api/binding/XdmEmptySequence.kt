@@ -15,8 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
-    fun iterator(): Any {
-        return `class`.getMethod("iterator").invoke(saxonObject)
+object XdmEmptySequence {
+    private var instance: XdmValue? = null
+
+    fun getInstance(loader: ClassLoader): XdmValue {
+        if (instance == null) {
+            val `class` = loader.loadClass("net.sf.saxon.s9api.XdmEmptySequence")
+            instance = XdmValue(`class`.getMethod("getInstance").invoke(null), `class`)
+        }
+        return instance!!
     }
 }

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmEmptySequence
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
@@ -94,7 +95,6 @@ internal class SaxonClasses(path: File) {
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
     val xdmAtomicValueClass: Class<*>
-    val xdmEmptySequenceClass: Class<*>
     val xdmItemClass: Class<*>
     val xdmSequenceIteratorClass: Class<*>
 
@@ -107,7 +107,6 @@ internal class SaxonClasses(path: File) {
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmAtomicValueClass = loader.loadClass("net.sf.saxon.s9api.XdmAtomicValue")
-        xdmEmptySequenceClass = loader.loadClass("net.sf.saxon.s9api.XdmEmptySequence")
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
     }
@@ -123,7 +122,7 @@ internal class SaxonClasses(path: File) {
     fun toXdmValue(value: Any?, type: String?): Any? {
         return value?.let {
             when (type) {
-                "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
+                "empty-sequence()" -> XdmEmptySequence.getInstance(loader).saxonObject
                 "xs:QName" -> {
                     // The string constructor throws "Requested type is namespace-sensitive"
                     xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(value as String))
@@ -138,7 +137,7 @@ internal class SaxonClasses(path: File) {
                     } ?: throw UnsupportedOperationException()
                 }
             }
-        } ?: xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
+        } ?: XdmEmptySequence.getInstance(loader).saxonObject
     }
 
     fun toQName(qname: String): Any {
