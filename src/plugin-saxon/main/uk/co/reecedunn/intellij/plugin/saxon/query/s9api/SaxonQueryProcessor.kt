@@ -45,7 +45,7 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Sou
     }
 
     override val version: ExecutableOnPooledThread<String> = local_thread {
-        processor.saxonEdition?.let { "$it ${processor.saxonProductVersion}" } ?: processor.saxonProductVersion
+        processor.version
     }
 
     override val servers: ExecutableOnPooledThread<List<String>> = local_thread {
@@ -58,7 +58,7 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Sou
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
-        val listener = SaxonProfileTraceListener()
+        val listener = SaxonProfileTraceListener(processor.version)
         processor.setTraceListener(listener)
         return SaxonQueryProfiler(runner, listener)
     }

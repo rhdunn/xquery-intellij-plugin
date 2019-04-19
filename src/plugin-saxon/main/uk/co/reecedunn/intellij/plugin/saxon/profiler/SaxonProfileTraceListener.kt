@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
 import java.math.BigDecimal
 import java.math.BigInteger
 
-class SaxonProfileTraceListener : TraceListener {
+class SaxonProfileTraceListener(val version: String) : TraceListener {
     override fun setOutputDestination(logger: Any) {
     }
 
@@ -57,7 +57,7 @@ fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
         xml = "",
         elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.ZERO)),
         created = "",
-        version = "",
+        version = version,
         results = sequenceOf()
     )
 }

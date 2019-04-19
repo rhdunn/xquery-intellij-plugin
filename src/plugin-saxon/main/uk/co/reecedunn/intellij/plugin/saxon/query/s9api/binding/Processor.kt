@@ -41,6 +41,8 @@ class Processor {
 
     val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
 
+    val version: String get() = saxonEdition?.let { "$it $saxonProductVersion" } ?: saxonProductVersion
+
     fun setTraceListener(listener: TraceListener) {
         val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
         val listenerClass = `class`.classLoader.loadClass("net.sf.saxon.lib.TraceListener")
