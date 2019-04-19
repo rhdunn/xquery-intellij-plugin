@@ -15,4 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass)
+open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass)
