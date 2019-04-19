@@ -37,7 +37,7 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
 
 class SaxonProfileInstruction(
     val instruction: Any,
-    var shallowTime: Long,
+    var deepTime: Long,
     var count: Int = 1
 )
 
@@ -66,13 +66,13 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
 
     override fun leave(instruction: Any) {
         val current = instructions.pop()
-        current.shallowTime = System.nanoTime() - current.shallowTime
+        current.deepTime = System.nanoTime() - current.deepTime
 
         val result = results[instruction]
         if (result == null) {
             results[instruction] = current
         } else {
-            result.shallowTime += current.shallowTime
+            result.deepTime += current.deepTime
             result.count += 1
         }
     }
@@ -91,12 +91,13 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
 }
 
 fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
+    val deepTimeDuration = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(deepTime, 9)))
     return ProfileEntry(
         id = "",
         expression = "",
         count = count,
-        shallowTime = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(shallowTime, 9))),
-        deepTime = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.ZERO)),
+        shallowTime = deepTimeDuration,
+        deepTime = deepTimeDuration,
         frame = StackFrame(null, null, null)
     )
 }
