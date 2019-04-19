@@ -184,7 +184,7 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
 
     fun onSaveProfileReport(file: VirtualFile) {
         when {
-            report == null -> return
+            report?.xml == null -> return
             file.isDirectory -> {
                 val name = "profile-report-${formatDate(report!!.created, FILE_DATE_FORMAT)}.xml"
                 runUndoTransparentWriteAction {
@@ -192,7 +192,7 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
                 }
             }
             else -> file.getOutputStream(this).use {
-                it.write(report!!.xml.toByteArray())
+                it.write(report?.xml!!.toByteArray())
             }
         }
     }

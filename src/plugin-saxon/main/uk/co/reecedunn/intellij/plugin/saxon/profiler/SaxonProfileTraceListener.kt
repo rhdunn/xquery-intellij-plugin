@@ -105,7 +105,7 @@ fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
 
 fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
     return ProfileReport(
-        xml = "",
+        xml = null,
         elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(elapsed, 9))),
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
