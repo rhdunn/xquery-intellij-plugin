@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 open class QName(val `object`: Any, val saxonClass: Class<*>) {
@@ -51,3 +50,17 @@ fun XsQNameValue.toQName(classLoader: ClassLoader): QName {
     }
     return QName(`object`, qnameClass)
 }
+
+val SAXON_NAMESPACES = mapOf(
+    // XQuery 1.0
+    "xml" to "http://www.w3.org/XML/1998/namespace",
+    "xs" to "http://www.w3.org/2001/XMLSchema",
+    "xsi" to "http://www.w3.org/2001/XMLSchema-instance",
+    "fn" to "http://www.w3.org/2005/xpath-functions",
+    "local" to "http://www.w3.org/2005/xquery-local-functions",
+    // XQuery 3.0
+    "math" to "http://www.w3.org/2005/xpath-functions/math",
+    // XQuery 3.1
+    "map" to "http://www.w3.org/2005/xpath-functions/map",
+    "array" to "http://www.w3.org/2005/xpath-functions/array"
+)

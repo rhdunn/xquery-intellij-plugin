@@ -26,10 +26,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmValue
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.toQName
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import javax.xml.transform.ErrorListener
 

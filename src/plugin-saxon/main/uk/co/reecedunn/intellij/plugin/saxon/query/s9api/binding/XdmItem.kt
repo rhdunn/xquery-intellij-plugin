@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SAXON_NAMESPACES
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 
 open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass) {
