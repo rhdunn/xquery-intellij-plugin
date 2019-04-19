@@ -15,9 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
-import java.io.File
-import java.net.URLClassLoader
-
 val SAXON_NAMESPACES = mapOf(
     // XQuery 1.0
     "xml" to "http://www.w3.org/XML/1998/namespace",
@@ -31,11 +28,3 @@ val SAXON_NAMESPACES = mapOf(
     "map" to "http://www.w3.org/2005/xpath-functions/map",
     "array" to "http://www.w3.org/2005/xpath-functions/array"
 )
-
-internal class SaxonClasses(path: File) {
-    val loader: ClassLoader
-
-    init {
-        loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-    }
-}

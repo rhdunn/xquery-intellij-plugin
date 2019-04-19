@@ -19,7 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
-import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -30,15 +29,15 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProv
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
+internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Source?) :
     RunnableQueryProvider,
     ValidatableQueryProvider {
 
     private val processor by lazy {
         if (source == null)
-            Processor(classes.loader, true)
+            Processor(classLoader, true)
         else
-            Processor(classes.loader, source)
+            Processor(classLoader, source)
     }
 
     override val version: ExecutableOnPooledThread<String> = local_thread {

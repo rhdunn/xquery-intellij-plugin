@@ -20,16 +20,14 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
 import java.io.InputStream
+import java.net.URLClassLoader
 import javax.xml.transform.stream.StreamSource
 
-class Saxon(path: File, private val config: InputStream?) :
-    QueryProcessorInstanceManager {
-    private val classes = SaxonClasses(path)
+class Saxon(path: File, private val config: InputStream?) : QueryProcessorInstanceManager {
+    private val classLoader = URLClassLoader(arrayOf(path.toURI().toURL()))
 
     override fun create(): QueryProcessor {
-        return SaxonQueryProcessor(
-            classes,
-            config?.let { StreamSource(it) })
+        return SaxonQueryProcessor(classLoader, config?.let { StreamSource(it) })
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
