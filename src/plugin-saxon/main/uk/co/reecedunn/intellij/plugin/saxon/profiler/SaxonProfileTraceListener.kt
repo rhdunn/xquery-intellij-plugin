@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.profiler
 
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
@@ -25,6 +27,7 @@ import java.math.BigInteger
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -32,9 +35,17 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
     format
 }
 
+class SaxonProfileInstruction(
+    val instruction: Any,
+    var shallowTime: Long
+)
+
 class SaxonProfileTraceListener(val version: String) : TraceListener {
     var elapsed: Long = 0
     var created: Date? = null
+
+    val instructions: Stack<SaxonProfileInstruction> = Stack()
+    val results: HashMap<Any, SaxonProfileInstruction> = HashMap()
 
     override fun setOutputDestination(logger: Any) {
     }
@@ -49,9 +60,19 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
     }
 
     override fun enter(instruction: Any, context: Any) {
+        instructions.push(SaxonProfileInstruction(instruction, System.nanoTime()))
     }
 
     override fun leave(instruction: Any) {
+        val current = instructions.pop()
+        current.shallowTime = System.nanoTime() - current.shallowTime
+
+        val result = results[instruction]
+        if (result == null) {
+            results[instruction] = current
+        } else {
+            result.shallowTime += current.shallowTime
+        }
     }
 
     override fun startCurrentItem(currentItem: Any) {
@@ -67,12 +88,23 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
     }
 }
 
+fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
+    return ProfileEntry(
+        id = "",
+        expression = "",
+        count = 0,
+        shallowTime = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(shallowTime, 9))),
+        deepTime = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.ZERO)),
+        frame = StackFrame(null, null, null)
+    )
+}
+
 fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
     return ProfileReport(
         xml = "",
         elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(elapsed, 9))),
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
-        results = sequenceOf()
+        results = results.values.asSequence().map { result -> result.toProfileEntry() }
     )
 }
