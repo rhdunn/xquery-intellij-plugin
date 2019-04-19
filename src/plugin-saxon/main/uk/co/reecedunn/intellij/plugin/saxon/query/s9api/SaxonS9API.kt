@@ -45,7 +45,8 @@ object SaxonS9API : QueryProcessorApi {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
         return when (language) {
-            XPath, XQuery, XSLT -> run || profile
+            XQuery, XSLT -> run || profile
+            XPath -> run
             else -> false
         }
     }
