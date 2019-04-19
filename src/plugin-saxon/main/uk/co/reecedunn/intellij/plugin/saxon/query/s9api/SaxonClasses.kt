@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmEmptySequence
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmNumeric
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.toQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
@@ -69,9 +70,7 @@ internal class SaxonClasses(path: File) {
                     // The string constructor throws "Requested type is namespace-sensitive"
                     XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(loader)).saxonObject
                 }
-                "xs:numeric" -> {
-                    tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
-                }
+                "xs:numeric" -> XdmNumeric.newInstance(value as String, loader).saxonObject
                 else -> XdmAtomicValue(value as String, type ?: "xs:string", loader).saxonObject
             }
         } ?: XdmEmptySequence.getInstance(loader).saxonObject
