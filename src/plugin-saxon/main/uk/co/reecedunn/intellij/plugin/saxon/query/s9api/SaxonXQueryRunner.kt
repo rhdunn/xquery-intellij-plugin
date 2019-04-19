@@ -84,7 +84,14 @@ internal class SaxonXQueryRunner(
 
     override fun asSequence(): Sequence<QueryResult> = check(queryPath, processor.classLoader) {
         context?.let { evaluator.setContextItem(it) }
-        SaxonQueryResultIterator(evaluator.iterator()).asSequence()
+
+        val destination = RawDestination(processor.classLoader)
+        evaluator.setDestination(destination)
+
+        evaluator.run()
+        val result = destination.getXdmValue()
+
+        SaxonQueryResultIterator(result.iterator()).asSequence()
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
