@@ -36,10 +36,9 @@ import javax.xml.transform.ErrorListener
 internal class SaxonXQueryRunner(
     val processor: Processor,
     val query: String,
-    val queryPath: String,
-    val classes: SaxonClasses
+    val queryPath: String
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
-    private val errorListener: ErrorListener = SaxonErrorListener(queryPath, classes)
+    private val errorListener: ErrorListener = SaxonErrorListener(queryPath, processor.classLoader)
 
     private val compiler by lazy {
         val ret = processor.newXQueryCompiler()
@@ -69,24 +68,26 @@ internal class SaxonXQueryRunner(
 
     private var context: XdmItem? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
-        val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(classes.loader)
-        evaluator.setExternalVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", classes.loader))
+    override fun bindVariable(name: String, value: Any?, type: String?) {
+        val classLoader = processor.classLoader
+        check(queryPath, classLoader) {
+            val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(classLoader)
+            evaluator.setExternalVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", classLoader))
+        }
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, processor.classLoader) {
+        val classLoader = processor.classLoader
         context = when (value) {
-            is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", classes.loader)
-            is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", classes.loader)
-            else -> XdmItem.newInstance(value, type ?: "xs:string", classes.loader)
+            is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", classLoader)
+            is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", classLoader)
+            else -> XdmItem.newInstance(value, type ?: "xs:string", classLoader)
         }
     }
 
-    override fun asSequence(): Sequence<QueryResult> {
-        return check(queryPath, classes.loader) {
-            context?.let { evaluator.setContextItem(it) }
-            SaxonQueryResultIterator(evaluator.iterator()).asSequence()
-        }
+    override fun asSequence(): Sequence<QueryResult> = check(queryPath, processor.classLoader) {
+        context?.let { evaluator.setContextItem(it) }
+        SaxonQueryResultIterator(evaluator.iterator()).asSequence()
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
@@ -95,7 +96,7 @@ internal class SaxonXQueryRunner(
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
         try {
-            check(queryPath, classes.loader) { executable } // Compile the query.
+            check(queryPath, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e
