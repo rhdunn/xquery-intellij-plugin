@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import java.lang.reflect.Proxy
 
 interface TraceListener {
@@ -24,9 +25,9 @@ interface TraceListener {
 
     fun close()
 
-    fun enter(instruction: Any, context: Any)
+    fun enter(instruction: InstructionInfo, context: Any)
 
-    fun leave(instruction: Any)
+    fun leave(instruction: InstructionInfo)
 
     fun startCurrentItem(currentItem: Any)
 
@@ -38,13 +39,15 @@ interface TraceListener {
 }
 
 fun TraceListener.proxy(vararg classes: Class<*>): Any {
-    return Proxy.newProxyInstance(classes[0].classLoader, classes) { _, method, params ->
+    val classLoader = classes[0].classLoader
+    val instructionInfoClass = classLoader.loadClass("net.sf.saxon.trace.InstructionInfo")
+    return Proxy.newProxyInstance(classLoader, classes) { _, method, params ->
         when (method.name) {
             "setOutputDestination" -> setOutputDestination(params[0])
             "open" -> open(params[0])
             "close" -> close()
-            "enter" -> enter(params[0], params[1])
-            "leave" -> leave(params[0])
+            "enter" -> enter(InstructionInfo(params[0], instructionInfoClass), params[1])
+            "leave" -> leave(InstructionInfo(params[0], instructionInfoClass))
             "startCurrentItem" -> startCurrentItem(params[0])
             "endCurrentItem" -> endCurrentItem(params[0])
             // TraceListener2 (Saxon 9.7+)

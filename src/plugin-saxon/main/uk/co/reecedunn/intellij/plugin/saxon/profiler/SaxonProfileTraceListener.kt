@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.profiler
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
@@ -36,7 +37,7 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
 }
 
 class SaxonProfileInstruction(
-    val instruction: Any,
+    val instruction: InstructionInfo,
     var deepTime: Long,
     var count: Int = 1
 )
@@ -46,7 +47,7 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
     var created: Date? = null
 
     val instructions: Stack<SaxonProfileInstruction> = Stack()
-    val results: HashMap<Any, SaxonProfileInstruction> = HashMap()
+    val results: HashMap<InstructionInfo, SaxonProfileInstruction> = HashMap()
 
     override fun setOutputDestination(logger: Any) {
     }
@@ -60,11 +61,11 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
         elapsed = System.nanoTime() - elapsed
     }
 
-    override fun enter(instruction: Any, context: Any) {
+    override fun enter(instruction: InstructionInfo, context: Any) {
         instructions.push(SaxonProfileInstruction(instruction, System.nanoTime()))
     }
 
-    override fun leave(instruction: Any) {
+    override fun leave(instruction: InstructionInfo) {
         val current = instructions.pop()
         current.deepTime = System.nanoTime() - current.deepTime
 
@@ -98,7 +99,7 @@ fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
         count = count,
         shallowTime = deepTimeDuration,
         deepTime = deepTimeDuration,
-        frame = StackFrame(null, null, null)
+        frame = StackFrame(instruction.getSystemId(), instruction.getLineNumber(), instruction.getColumnNumber())
     )
 }
 
