@@ -86,7 +86,7 @@ internal class SaxonXsltRunner(
             transformer.transform()
             val result = destination.getXdmValue()
 
-            SaxonQueryResultIterator(result.iterator(), classes).asSequence()
+            SaxonQueryResultIterator(result.iterator()).asSequence()
         }
     }
 

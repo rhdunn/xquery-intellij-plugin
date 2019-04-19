@@ -75,7 +75,7 @@ internal class SaxonXPathRunner(
     override fun asSequence(): Sequence<QueryResult> {
         return check(queryPath, classes.loader) {
             context?.let { selector.setContextItem(it) }
-            SaxonQueryResultIterator(selector.iterator(), classes).asSequence()
+            SaxonQueryResultIterator(selector.iterator()).asSequence()
         }
     }
 

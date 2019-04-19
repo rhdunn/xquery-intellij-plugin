@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmSequenceIterator
 
-internal class SaxonQueryResultIterator(val results: XdmSequenceIterator, val classes: SaxonClasses) :
-    Iterator<QueryResult> {
-
+internal class SaxonQueryResultIterator(val results: XdmSequenceIterator) : Iterator<QueryResult> {
     private var position: Long = -1
 
     override fun hasNext(): Boolean {
