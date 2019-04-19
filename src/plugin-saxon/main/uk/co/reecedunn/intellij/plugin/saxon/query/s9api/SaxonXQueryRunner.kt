@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmValue
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.toQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
@@ -66,7 +67,7 @@ internal class SaxonXQueryRunner(
 
     override var modulePath: String = ""
 
-    private var context: Any? = null
+    private var context: XdmItem? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
         val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(classes.loader)
@@ -75,9 +76,9 @@ internal class SaxonXQueryRunner(
 
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
         context = when (value) {
-            is DatabaseModule -> classes.toXdmValue(value.path, type)
-            is VirtualFile -> classes.toXdmValue(value.decode()!!, type)
-            else -> classes.toXdmValue(value, type)
+            is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", classes.loader)
+            is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", classes.loader)
+            else -> XdmItem.newInstance(value, type ?: "xs:string", classes.loader)
         }
     }
 

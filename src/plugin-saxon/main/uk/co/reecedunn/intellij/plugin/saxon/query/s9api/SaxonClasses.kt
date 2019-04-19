@@ -15,11 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmAtomicValue
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmEmptySequence
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmNumeric
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.toQName
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
 import java.net.URLClassLoader
 
@@ -52,27 +47,5 @@ internal class SaxonClasses(path: File) {
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
-    }
-
-    fun tryXdmValue(value: Any?, type: String?): Any? {
-        return try {
-            toXdmValue(value, type)
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    fun toXdmValue(value: Any?, type: String?): Any? {
-        return value?.let {
-            when (type) {
-                "empty-sequence()" -> XdmEmptySequence.getInstance(loader).saxonObject
-                "xs:QName" -> {
-                    // The string constructor throws "Requested type is namespace-sensitive"
-                    XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(loader)).saxonObject
-                }
-                "xs:numeric" -> XdmNumeric.newInstance(value as String, loader).saxonObject
-                else -> XdmAtomicValue(value as String, type ?: "xs:string", loader).saxonObject
-            }
-        } ?: XdmEmptySequence.getInstance(loader).saxonObject
     }
 }
