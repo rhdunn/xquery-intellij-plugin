@@ -58,7 +58,7 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, query.name)
             XQuery -> SaxonXQueryRunner(processor, queryText, query.name)
-            XSLT -> SaxonXsltRunner(processor, queryText, query.name, classes)
+            XSLT -> SaxonXsltRunner(processor, queryText, query.name)
             else -> throw UnsupportedQueryType(language)
         }
     }
@@ -68,6 +68,7 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, query.name)
             XQuery -> SaxonXQueryRunner(processor, queryText, query.name)
+            XSLT -> SaxonXsltRunner(processor, queryText, query.name)
             else -> throw UnsupportedQueryType(language)
         }
     }

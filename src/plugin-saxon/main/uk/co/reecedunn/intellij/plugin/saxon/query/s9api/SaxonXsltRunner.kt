@@ -36,8 +36,7 @@ import javax.xml.transform.stream.StreamSource
 internal class SaxonXsltRunner(
     val processor: Processor,
     val query: String,
-    val queryPath: String,
-    val classes: SaxonClasses
+    val queryPath: String
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXsltCompiler() }
 
@@ -59,11 +58,11 @@ internal class SaxonXsltRunner(
 
     private var context: StreamSource? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
+    override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, classes.loader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, processor.classLoader) {
         context = when (value) {
             is DatabaseModule -> value.path.toStreamSource()
             is VirtualFile -> value.decode()?.toStreamSource()
@@ -72,7 +71,7 @@ internal class SaxonXsltRunner(
     }
 
     override fun asSequence(): Sequence<QueryResult> {
-        return check(queryPath, classes.loader) {
+        return check(queryPath, processor.classLoader) {
             if (context == null) {
                 // The Saxon processor throws a NPE if source is null.
                 val message = PluginApiBundle.message("error.missing-xslt-source")
@@ -80,7 +79,7 @@ internal class SaxonXsltRunner(
             }
             transformer.setSource(context!!)
 
-            val destination = RawDestination(classes.loader)
+            val destination = RawDestination(processor.classLoader)
             transformer.setDestination(destination)
 
             transformer.transform()
@@ -96,7 +95,7 @@ internal class SaxonXsltRunner(
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
         try {
-            check(queryPath, classes.loader) { executable } // Compile the query.
+            check(queryPath, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e
