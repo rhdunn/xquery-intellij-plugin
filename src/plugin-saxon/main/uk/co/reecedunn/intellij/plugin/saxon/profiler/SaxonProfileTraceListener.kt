@@ -93,7 +93,7 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
 fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
     val deepTimeDuration = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(deepTime, 9)))
     return ProfileEntry(
-        id = "",
+        id = instruction.hashCode().toString(),
         expression = "",
         count = count,
         shallowTime = deepTimeDuration,
