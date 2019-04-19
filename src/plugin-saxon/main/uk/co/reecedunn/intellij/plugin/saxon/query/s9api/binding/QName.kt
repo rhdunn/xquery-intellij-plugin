@@ -29,6 +29,10 @@ open class QName(val `object`: Any, val saxonClass: Class<*>) {
     open fun getLocalName(): String {
         return saxonClass.getMethod("getLocalName").invoke(`object`) as String
     }
+
+    override fun toString(): String {
+        return `object`.toString()
+    }
 }
 
 fun XsQNameValue.toQName(classLoader: ClassLoader): QName {

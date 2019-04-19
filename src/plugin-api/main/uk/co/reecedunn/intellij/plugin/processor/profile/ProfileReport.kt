@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.profile
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 data class ProfileReport(
-    val xml: String,
+    val xml: String?,
     val elapsed: XsDurationValue,
     val created: String,
     val version: String,

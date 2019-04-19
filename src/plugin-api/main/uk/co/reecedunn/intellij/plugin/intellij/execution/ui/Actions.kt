@@ -37,8 +37,14 @@ class SaveAction(
     null,
     AllIcons.Actions.Menu_saveall
 ) {
+    var isEnabled: Boolean = true
+
     override fun doAction(e: AnActionEvent) {
         FileChooserFactory.getInstance().createSaveFileDialog(descriptor, null as Project?)
         FileChooser.chooseFile(descriptor, project, parent, null, consumer)
+    }
+
+    override fun update(e: AnActionEvent) {
+        e.presentation.isEnabled = isEnabled
     }
 }

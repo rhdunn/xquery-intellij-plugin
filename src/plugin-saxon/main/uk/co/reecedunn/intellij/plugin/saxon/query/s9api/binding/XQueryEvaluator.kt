@@ -28,8 +28,11 @@ class XQueryEvaluator(private val `object`: Any, private val `class`: Class<*>) 
         )
     }
 
-    fun iterator(): XdmSequenceIterator {
-        val xdmSequenceIteratorClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
-        return XdmSequenceIterator(`class`.getMethod("iterator").invoke(`object`), xdmSequenceIteratorClass)
+    fun setDestination(destination: Destination) {
+        `class`.getMethod("setDestination", destination.destinationClass).invoke(`object`, destination.saxonObject)
+    }
+
+    fun run() {
+        `class`.getMethod("run").invoke(`object`)
     }
 }
