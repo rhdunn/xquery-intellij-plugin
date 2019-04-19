@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.QName
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type.Type
 
 open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) {
@@ -28,6 +30,11 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
 
     fun getColumnNumber(): Int {
         return `class`.getMethod("getColumnNumber").invoke(saxonObject) as Int
+    }
+
+    fun getObjectName(): QName? {
+        val qname = `class`.getMethod("getObjectName").invoke(saxonObject)
+        return qname?.let { StructuredQName(it, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName")) }
     }
 
     override fun toString(): String {

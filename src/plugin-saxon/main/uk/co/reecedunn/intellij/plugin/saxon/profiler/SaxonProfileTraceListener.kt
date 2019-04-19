@@ -95,7 +95,7 @@ fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
     val deepTimeDuration = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(deepTime, 9)))
     return ProfileEntry(
         id = instruction.hashCode().toString(),
-        expression = "",
+        expression = instruction.getObjectName()?.toString() ?: "",
         count = count,
         shallowTime = deepTimeDuration,
         deepTime = deepTimeDuration,
