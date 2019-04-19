@@ -24,11 +24,11 @@ import java.lang.reflect.InvocationTargetException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-fun <T> check(queryPath: String, loader: ClassLoader, f: () -> T): T {
+fun <T> check(queryPath: String, classLoader: ClassLoader, f: () -> T): T {
     return try {
         f()
     } catch (e: InvocationTargetException) {
-        throw e.targetException.run { toXPathException(loader)?.toSaxonError(queryPath) ?: this }
+        throw e.targetException.run { toXPathException(classLoader)?.toSaxonError(queryPath) ?: this }
     }
 }
 

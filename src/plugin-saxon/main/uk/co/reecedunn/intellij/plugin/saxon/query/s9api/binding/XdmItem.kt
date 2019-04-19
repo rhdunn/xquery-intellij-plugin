@@ -20,11 +20,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 
 open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass) {
     companion object {
-        fun newInstance(value: Any?, type: String, loader: ClassLoader): XdmItem {
+        fun newInstance(value: Any?, type: String, classLoader: ClassLoader): XdmItem {
             return when (type) {
-                "xs:QName" -> XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(loader))
-                "xs:numeric" -> XdmNumeric.newInstance(value as String, loader)
-                else -> XdmAtomicValue(value as String, type, loader)
+                "xs:QName" -> XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(classLoader))
+                "xs:numeric" -> XdmNumeric.newInstance(value as String, classLoader)
+                else -> XdmAtomicValue(value as String, type, classLoader)
             }
         }
     }

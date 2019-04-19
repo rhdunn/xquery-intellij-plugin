@@ -25,13 +25,13 @@ class Processor {
     private val `object`: Any
     private val `class`: Class<*>
 
-    constructor(loader: ClassLoader, licensedEdition: Boolean) {
-        `class` = loader.loadClass("net.sf.saxon.s9api.Processor")
+    constructor(classLoader: ClassLoader, licensedEdition: Boolean) {
+        `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
         `object` = `class`.getConstructor(Boolean::class.java).newInstance(licensedEdition)
     }
 
-    constructor(loader: ClassLoader, configuration: Source) {
-        `class` = loader.loadClass("net.sf.saxon.s9api.Processor")
+    constructor(classLoader: ClassLoader, configuration: Source) {
+        `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
         `object` = `class`.getConstructor(Source::class.java).newInstance(configuration)
     }
 

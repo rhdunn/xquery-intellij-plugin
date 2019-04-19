@@ -81,10 +81,10 @@ class XdmAtomicValue(saxonObject: Any, saxonClass: Class<*>) : XdmItem(saxonObje
         saxonClass
     )
 
-    constructor(value: String, itemtype: String, loader: ClassLoader) : this(
+    constructor(value: String, itemtype: String, classLoader: ClassLoader) : this(
         value,
         itemtype,
-        loader.loadClass("net.sf.saxon.s9api.ItemType"),
-        loader.loadClass("net.sf.saxon.s9api.XdmAtomicValue")
+        classLoader.loadClass("net.sf.saxon.s9api.ItemType"),
+        classLoader.loadClass("net.sf.saxon.s9api.XdmAtomicValue")
     )
 }

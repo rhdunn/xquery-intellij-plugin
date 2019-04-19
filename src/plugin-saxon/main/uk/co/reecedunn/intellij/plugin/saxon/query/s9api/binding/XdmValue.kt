@@ -46,10 +46,10 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
     }
 
     companion object {
-        fun newInstance(value: Any?, type: String, loader: ClassLoader): XdmValue {
+        fun newInstance(value: Any?, type: String, classLoader: ClassLoader): XdmValue {
             return when (type) {
-                "empty-sequence()" -> XdmEmptySequence.getInstance(loader)
-                else -> XdmItem.newInstance(value, type, loader)
+                "empty-sequence()" -> XdmEmptySequence.getInstance(classLoader)
+                else -> XdmItem.newInstance(value, type, classLoader)
             }
         }
     }

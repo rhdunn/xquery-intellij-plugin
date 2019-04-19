@@ -16,17 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 object XdmNumeric {
-    fun tryInstance(value: String, itemtype: String, loader: ClassLoader): XdmAtomicValue? {
+    fun tryInstance(value: String, itemtype: String, classLoader: ClassLoader): XdmAtomicValue? {
         return try {
-            XdmAtomicValue(value, itemtype, loader)
+            XdmAtomicValue(value, itemtype, classLoader)
         } catch (e: Throwable) {
             null
         }
     }
 
-    fun newInstance(value: String, loader: ClassLoader): XdmAtomicValue {
-        return tryInstance(value, "xs:double", loader)
-            ?: tryInstance(value, "xs:integer", loader)
-            ?: XdmAtomicValue(value, "xs:decimal", loader)
+    fun newInstance(value: String, classLoader: ClassLoader): XdmAtomicValue {
+        return tryInstance(value, "xs:double", classLoader)
+            ?: tryInstance(value, "xs:integer", classLoader)
+            ?: XdmAtomicValue(value, "xs:decimal", classLoader)
     }
 }

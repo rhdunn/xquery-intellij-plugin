@@ -32,8 +32,8 @@ open class QName(val `object`: Any, val saxonClass: Class<*>) {
     }
 }
 
-fun XsQNameValue.toQName(loader: ClassLoader): QName {
-    val qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
+fun XsQNameValue.toQName(classLoader: ClassLoader): QName {
+    val qnameClass = classLoader.loadClass("net.sf.saxon.s9api.QName")
     val stringClass = String::class.java
     val `object` = when {
         namespace == null -> {

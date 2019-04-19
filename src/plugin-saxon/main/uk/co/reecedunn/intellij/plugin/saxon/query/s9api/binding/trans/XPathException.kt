@@ -42,8 +42,8 @@ class XPathException(private val `object`: TransformerException?, private val `c
     }
 }
 
-fun Throwable.toXPathException(loader: ClassLoader): XPathException? {
-    val xpathExceptionClass = loader.loadClass("net.sf.saxon.trans.XPathException")
+fun Throwable.toXPathException(classLoader: ClassLoader): XPathException? {
+    val xpathExceptionClass = classLoader.loadClass("net.sf.saxon.trans.XPathException")
     return if (this is TransformerException)
         XPathException(this, xpathExceptionClass)
     else if (cause is TransformerException)

@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 object XdmEmptySequence {
     private var instance: XdmValue? = null
 
-    fun getInstance(loader: ClassLoader): XdmValue {
+    fun getInstance(classLoader: ClassLoader): XdmValue {
         if (instance == null) {
-            val `class` = loader.loadClass("net.sf.saxon.s9api.XdmEmptySequence")
+            val `class` = classLoader.loadClass("net.sf.saxon.s9api.XdmEmptySequence")
             instance = XdmValue(`class`.getMethod("getInstance").invoke(null), `class`)
         }
         return instance!!

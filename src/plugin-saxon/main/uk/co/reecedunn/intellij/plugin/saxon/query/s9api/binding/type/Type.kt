@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type
 
 object Type {
-    fun getItemType(value: Any, loader: ClassLoader): Any {
-        val itemClass = loader.loadClass("net.sf.saxon.om.Item")
-        val typeClass = loader.loadClass("net.sf.saxon.type.Type")
-        val typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
+    fun getItemType(value: Any, classLoader: ClassLoader): Any {
+        val itemClass = classLoader.loadClass("net.sf.saxon.om.Item")
+        val typeClass = classLoader.loadClass("net.sf.saxon.type.Type")
+        val typeHierarchyClass = classLoader.loadClass("net.sf.saxon.type.TypeHierarchy")
         return typeClass.getMethod("getItemType", itemClass, typeHierarchyClass).invoke(null, value, null)
     }
 }
