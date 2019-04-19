@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type.Type
+
 open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
     fun iterator(): XdmSequenceIterator {
         val xdmSequenceIteratorClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
@@ -23,6 +25,11 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
 
     fun getUnderlyingValue(): Any {
         return `class`.getMethod("getUnderlyingValue").invoke(saxonObject)
+    }
+
+    fun getItemType(): Any {
+        val value = getUnderlyingValue()
+        return Type.getItemType(value, `class`.classLoader)
     }
 
     override fun toString(): String {

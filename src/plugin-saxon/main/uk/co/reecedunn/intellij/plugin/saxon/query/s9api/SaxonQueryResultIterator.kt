@@ -21,8 +21,6 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmSequenceIter
 internal class SaxonQueryResultIterator(val results: XdmSequenceIterator, val classes: SaxonClasses) :
     Iterator<QueryResult> {
 
-    private val getItemTypeMethod =
-        classes.typeClass.getMethod("getItemType", classes.itemClass, classes.typeHierarchyClass)
     private var position: Long = -1
 
     override fun hasNext(): Boolean {
@@ -31,8 +29,7 @@ internal class SaxonQueryResultIterator(val results: XdmSequenceIterator, val cl
 
     override fun next(): QueryResult {
         val next = results.next()
-        val value = next.getUnderlyingValue()
-        val type = getItemTypeMethod.invoke(null, value, null)
+        val type = next.getItemType()
         return QueryResult.fromItemType(++position, next.toString(), type.toString())
     }
 }

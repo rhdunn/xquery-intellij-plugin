@@ -35,15 +35,7 @@ val SAXON_NAMESPACES = mapOf(
 internal class SaxonClasses(path: File) {
     val loader: ClassLoader
 
-    val itemClass: Class<*>
-    val typeClass: Class<*>
-    val typeHierarchyClass: Class<*>
-
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-
-        itemClass = loader.loadClass("net.sf.saxon.om.Item")
-        typeClass = loader.loadClass("net.sf.saxon.type.Type")
-        typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
     }
 }
