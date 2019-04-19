@@ -15,7 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.profiler
 
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
+import java.math.BigDecimal
+import java.math.BigInteger
 
 class SaxonProfileTraceListener : TraceListener {
     override fun setOutputDestination(logger: Any) {
@@ -44,4 +50,14 @@ class SaxonProfileTraceListener : TraceListener {
 
     override fun endRuleSearch(rule: Any, mode: Any, item: Any) {
     }
+}
+
+fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
+    return ProfileReport(
+        xml = "",
+        elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.ZERO)),
+        created = "",
+        version = "",
+        results = sequenceOf()
+    )
 }

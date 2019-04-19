@@ -17,11 +17,13 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.profiler.SaxonProfileTraceListener
+import uk.co.reecedunn.intellij.plugin.saxon.profiler.toProfileReport
 
 internal class SaxonQueryProfiler(
     val runner: RunnableQuery,
@@ -71,8 +73,9 @@ internal class SaxonQueryProfiler(
         runner.bindContextItem(value, type)
     }
 
-    override fun profile(): ExecutableOnPooledThread<ProfileQueryResult> {
-        TODO()
+    override fun profile(): ExecutableOnPooledThread<ProfileQueryResult> = pooled_thread {
+        val results = (runner as SaxonRunner).asSequence().toList()
+        ProfileQueryResult(results.asSequence(), listener.toProfileReport())
     }
 
     override fun close() {
