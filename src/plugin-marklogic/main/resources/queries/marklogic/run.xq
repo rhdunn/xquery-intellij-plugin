@@ -217,7 +217,7 @@ declare function local:eval-options() {
             <default-coordinate-system>{$server-coordinate-system($server)}</default-coordinate-system>
         else
             (),
-        if (exists($server)) then
+        if (exists($server) and $mimetype eq "application/xquery") then
             <default-xquery-version>{xdmp:server-default-xquery-version($server)}</default-xquery-version>
         else
             (),
