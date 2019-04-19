@@ -22,8 +22,8 @@ class StructuredQName(private val `object`: Any, private val `class`: Class<*>) 
         return `class`.getAnyMethod("getURI", "getNamespaceURI").invoke(`object`) as String
     }
 
-    fun getPrefix(): String? {
-        return `class`.getMethod("getPrefix").invoke(`object`) as String?
+    fun getPrefix(): String {
+        return `class`.getMethod("getPrefix").invoke(`object`) as String
     }
 
     fun getLocalPart(): String {

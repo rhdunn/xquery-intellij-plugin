@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathException
@@ -34,8 +35,8 @@ fun <T> check(queryPath: String, loader: ClassLoader, f: () -> T): T {
 internal fun XPathException.toSaxonError(script: String): QueryError {
     val qname = getErrorCodeQName()
     val ns = qname?.getURI()
-    val prefix = qname?.getPrefix()
-    val localname = qname?.getLocalPart() ?: "FOER0000"
+    val prefix = qname?.getPrefix().nullize()
+    val localname = qname?.getLocalPart()?.nullize() ?: "FOER0000"
     return QueryError(
         standardCode = if (ns == ERR_NS || prefix == null) localname else "$prefix:$localname",
         vendorCode = null,
