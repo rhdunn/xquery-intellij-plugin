@@ -33,16 +33,19 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
 }
 
 class SaxonProfileTraceListener(val version: String) : TraceListener {
+    var elapsed: Long = 0
     var created: Date? = null
 
     override fun setOutputDestination(logger: Any) {
     }
 
     override fun open(controller: Any) {
+        elapsed = System.nanoTime()
         created = Date()
     }
 
     override fun close() {
+        elapsed = System.nanoTime() - elapsed
     }
 
     override fun enter(instruction: Any, context: Any) {
@@ -67,7 +70,7 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
 fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
     return ProfileReport(
         xml = "",
-        elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.ZERO)),
+        elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(elapsed, 9))),
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
         results = sequenceOf()
