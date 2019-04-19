@@ -34,9 +34,9 @@ fun <T> check(queryPath: String, loader: ClassLoader, f: () -> T): T {
 
 internal fun XPathException.toSaxonError(script: String): QueryError {
     val qname = getErrorCodeQName()
-    val ns = qname?.getURI()
+    val ns = qname?.getNamespaceURI()
     val prefix = qname?.getPrefix().nullize()
-    val localname = qname?.getLocalPart()?.nullize() ?: "FOER0000"
+    val localname = qname?.getLocalName()?.nullize() ?: "FOER0000"
     return QueryError(
         standardCode = if (ns == ERR_NS || prefix == null) localname else "$prefix:$localname",
         vendorCode = null,

@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import uk.co.reecedunn.intellij.plugin.core.reflection.getAnyMethod
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.QName
-
-class StructuredQName(`object`: Any, `class`: Class<*>) :
-    QName(`object`, `class`) {
-
-    override fun getNamespaceURI(): String {
-        return saxonClass.getAnyMethod("getURI", "getNamespaceURI").invoke(`object`) as String
+open class QName(protected val `object`: Any, protected val saxonClass: Class<*>) {
+    open fun getNamespaceURI(): String {
+        return saxonClass.getMethod("getNamespaceURI").invoke(`object`) as String
     }
 
-    override fun getLocalName(): String {
-        return saxonClass.getAnyMethod("getLocalPart", "getLocalName").invoke(`object`) as String
+    fun getPrefix(): String {
+        return saxonClass.getMethod("getPrefix").invoke(`object`) as String
+    }
+
+    open fun getLocalName(): String {
+        return saxonClass.getMethod("getLocalName").invoke(`object`) as String
     }
 }

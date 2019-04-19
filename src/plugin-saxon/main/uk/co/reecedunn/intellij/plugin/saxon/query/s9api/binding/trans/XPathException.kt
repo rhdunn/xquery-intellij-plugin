@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.QName
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
 import javax.xml.transform.SourceLocator
 import javax.xml.transform.TransformerException
@@ -32,7 +33,7 @@ class XPathException(private val `object`: TransformerException?, private val `c
 
     override val cause: Throwable? = `object`?.cause
 
-    fun getErrorCodeQName(): StructuredQName? {
+    fun getErrorCodeQName(): QName? {
         if (`class`.isInstance(`object`)) {
             val qname = `class`.getMethod("getErrorCodeQName").invoke(`object`)
             return StructuredQName(qname, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName"))
