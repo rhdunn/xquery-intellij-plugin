@@ -15,12 +15,48 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class RawDestination(classLoader: ClassLoader) : Destination {
-    private val `class`: Class<*> = classLoader.loadClass("net.sf.saxon.s9api.RawDestination")
-    override val saxonObject: Any = `class`.getConstructor().newInstance()
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event.Receiver
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event.SequenceOutputter
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
+
+import java.net.URI
+import java.util.ArrayList
+
+// Saxon 9.8 and earlier do not implement the RawDestination class.
+class RawDestination(val classLoader: ClassLoader) : ProxyDestination {
+    private var baseURI: URI? = null
+    private val listeners = ArrayList<Action>()
+    private var outputter: SequenceOutputter? = null
+
+    override val saxonObject: Any get() = this
 
     fun getXdmValue(): XdmValue {
-        val xdmValueClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
-        return XdmValue(`class`.getMethod("getXdmValue").invoke(saxonObject), xdmValueClass)
+        return XdmValue.wrap(outputter!!.getSequence(), classLoader)
+    }
+
+    override fun setDestinationBaseURI(baseURI: URI?) {
+        this.baseURI = baseURI
+    }
+
+    override fun getDestinationBaseURI(): URI? {
+        return baseURI
+    }
+
+    override fun getReceiver(pipe: Any, params: Any): Receiver {
+        outputter = SequenceOutputter(pipe, classLoader)
+        return outputter!!
+    }
+
+    override fun onClose(listener: Action) {
+        listeners.add(listener)
+    }
+
+    override fun closeAndNotify() {
+        close()
+        listeners.forEach { listener -> listener.act() }
+    }
+
+    override fun close() {
+        outputter?.close()
     }
 }

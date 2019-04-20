@@ -52,5 +52,11 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
                 else -> XdmItem.newInstance(value, type, classLoader)
             }
         }
+
+        fun wrap(sequence: Any, classLoader: ClassLoader): XdmValue {
+            val xdmValueClass = classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
+            val sequenceClass = classLoader.loadClass("net.sf.saxon.om.Sequence")
+            return XdmValue(xdmValueClass.getMethod("wrap", sequenceClass).invoke(null, sequence), xdmValueClass)
+        }
     }
 }
