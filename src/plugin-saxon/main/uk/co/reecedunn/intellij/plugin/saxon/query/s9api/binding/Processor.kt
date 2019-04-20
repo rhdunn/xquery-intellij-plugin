@@ -49,7 +49,10 @@ class Processor {
         val listener2Class = `class`.classLoader.loadClassOrNull("net.sf.saxon.lib.TraceListener2")
         val proxy = listener2Class?.let { listener.proxy(listenerClass, it) } ?: listener.proxy(listenerClass)
 
+        // Call getDefaultStaticQueryContext to ensure the TraceCodeInjector is set,
+        // so the TraceListener events get called the first time the query is run.
         val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
+        configurationClass.getMethod("getDefaultStaticQueryContext").invoke(configuration)
         configurationClass.getMethod("setTraceListener", listenerClass).invoke(configuration, proxy)
     }
 
