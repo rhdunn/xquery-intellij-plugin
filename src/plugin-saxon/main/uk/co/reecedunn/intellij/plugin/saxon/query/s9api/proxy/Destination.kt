@@ -40,11 +40,19 @@ interface Destination : SaxonDestination {
 fun Destination.proxy(vararg classes: Class<*>): Any {
     val classLoader = classes[0].classLoader
     val actionClass = classLoader.loadClassOrNull("net.sf.saxon.s9api.Action")
+    val configurationClass = classLoader.loadClass("net.sf.saxon.Configuration")
     return Proxy.newProxyInstance(classLoader, classes) { _, method, params ->
         when (method.name) {
             "setDestinationBaseURI" -> setDestinationBaseURI(params[0] as URI?)
             "getDestinationBaseURI" -> getDestinationBaseURI()
-            "getReceiver" -> getReceiver(params[0], params.getOrNull(1)).saxonObject
+            "getReceiver" -> {
+                if (params.size == 2) { // Saxon >= 9.9
+                    getReceiver(params[0], params[1]).saxonObject
+                } else { // Saxon <= 9.8
+                    val pipe = configurationClass.getMethod("makePipelineConfiguration").invoke(params[0])
+                    getReceiver(pipe, null).saxonObject
+                }
+            }
             "onClose" -> onClose(Action(params[0], actionClass!!))
             "closeAndNotify" -> closeAndNotify()
             "close" -> close()
