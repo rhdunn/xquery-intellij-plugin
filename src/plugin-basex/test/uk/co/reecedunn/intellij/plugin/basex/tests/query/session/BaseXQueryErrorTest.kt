@@ -18,8 +18,9 @@ package uk.co.reecedunn.intellij.plugin.basex.tests.query.session
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXError
+import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXQueryError
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseXQueryError")
 class BaseXQueryErrorTest {
@@ -27,7 +28,8 @@ class BaseXQueryErrorTest {
     @DisplayName("at runtime; BaseX 8.0")
     fun runtime80() {
         // Query: ```1 div```
-        val e = "Stopped at ., 1/6:\r\n[XPST0003] Calculation is incomplete.".toBaseXError("test.xqy")
+        val e = "Stopped at ., 1/6:\r\n[XPST0003] Calculation is incomplete."
+            .toBaseXQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Calculation is incomplete."))
@@ -40,7 +42,8 @@ class BaseXQueryErrorTest {
     @DisplayName("with context; BaseX 7.0")
     fun runtime70() {
         // Query: ```1 div```
-        val e = "Stopped at line 1, column 5:\r\n[XPST0003] Calculation is incomplete.".toBaseXError("test.xqy")
+        val e = "Stopped at line 1, column 5:\r\n[XPST0003] Calculation is incomplete."
+            .toBaseXQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Calculation is incomplete."))
@@ -53,7 +56,7 @@ class BaseXQueryErrorTest {
     @DisplayName("bind context; unknown type")
     fun bindContextUnknownType() {
         // Bind context to unknown type -- "[]" as "array-node()".
-        val e = "[XPST0003] Unknown type: array-node().".toBaseXError("test.xqy")
+        val e = "[XPST0003] Unknown type: array-node().".toBaseXQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Unknown type: array-node()."))

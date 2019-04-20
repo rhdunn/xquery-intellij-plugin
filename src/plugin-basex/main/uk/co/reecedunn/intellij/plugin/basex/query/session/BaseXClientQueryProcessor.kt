@@ -46,7 +46,7 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
-            XQuery -> BaseXClientQuery(session, query.decode()!!, query.name, classes)
+            XQuery -> BaseXClientQuery(session, query.decode()!!, query, classes)
             else -> throw UnsupportedQueryType(language)
         }
     }

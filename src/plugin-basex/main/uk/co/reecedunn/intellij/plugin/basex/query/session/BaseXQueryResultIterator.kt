@@ -15,18 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 internal class BaseXQueryResultIterator(
     val query: Any,
-    val queryPath: String,
+    val queryFile: VirtualFile,
     val classes: BaseXClasses,
     val queryClass: Class<*>
 ) : Iterator<QueryResult> {
     private var position: Long = -1
 
-    override fun hasNext(): Boolean = classes.check(queryPath) {
+    override fun hasNext(): Boolean = classes.check(queryFile) {
         queryClass.getMethod("more").invoke(query) as Boolean
     }
 

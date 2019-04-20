@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
@@ -23,7 +24,7 @@ private val RE_BASEX_EXCEPTION =
 private val RE_BASEX_EXCEPTION_LINE_COL =
     "^(Stopped at ()line ([0-9]+), column ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 
-fun String.toBaseXError(script: String?): QueryError {
+fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
     val parts =
         RE_BASEX_EXCEPTION.matchEntire(this)?.groupValues
             ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(this)?.groupValues
@@ -36,6 +37,6 @@ fun String.toBaseXError(script: String?): QueryError {
         vendorCode = null,
         description = parts[6],
         value = listOf(),
-        frames = listOf(StackFrame(path ?: script, line, col))
+        frames = listOf(StackFrame(path ?: queryFile.name, line, col))
     )
 }

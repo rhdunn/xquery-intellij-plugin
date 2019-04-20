@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 internal class BaseXClientQuery(
     val session: Any,
     val queryString: String,
-    val queryPath: String,
+    val queryFile: VirtualFile,
     val classes: BaseXClasses
 ) : RunnableQuery {
     private var basexQuery: Any? = null
@@ -52,14 +52,14 @@ internal class BaseXClientQuery(
 
     override var modulePath: String = ""
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryPath) {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryFile) {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.clientQueryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
             .invoke(query, name, value, mapType(type))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryPath) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryFile) {
         val bind = classes.clientQueryClass.getMethod("context", Any::class.java, String::class.java)
         when (value) {
             is DatabaseModule -> bind.invoke(query, value.path, mapType(type))
@@ -69,8 +69,8 @@ internal class BaseXClientQuery(
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check(queryPath) {
-            BaseXQueryResultIterator(query, queryPath, classes, classes.clientQueryClass).asSequence()
+        classes.check(queryFile) {
+            BaseXQueryResultIterator(query, queryFile, classes, classes.clientQueryClass).asSequence()
         }
     }
 
