@@ -4,7 +4,9 @@
 
 Run Configurations:
 
-1.  Support running XPath queries as XSLT patterns on the Saxon query processor.
+1.  Support running XPath queries as XSLT patterns (XPath subset) on the Saxon
+    query processor.
+1.  Support profiling Saxon XSLT and XQuery scripts.
 
 ## 1.4.1 - 2019-03-27
 

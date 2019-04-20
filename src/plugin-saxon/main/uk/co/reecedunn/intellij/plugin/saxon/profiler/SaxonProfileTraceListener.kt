@@ -62,10 +62,20 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
+        // Some instructions (e.g. ClauseInfo) don't provide column information,
+        // and generate different instances for each iteration. Ignore these to
+        // prevent noise in the profile report.
+        if (instruction.getColumnNumber() == -1) return
+
         instructions.push(SaxonProfileInstruction(instruction, System.nanoTime()))
     }
 
     override fun leave(instruction: InstructionInfo) {
+        // Some instructions (e.g. ClauseInfo) don't provide column information,
+        // and generate different instances for each iteration. Ignore these to
+        // prevent noise in the profile report.
+        if (instruction.getColumnNumber() == -1) return
+
         val current = instructions.pop()
         current.deepTime = System.nanoTime() - current.deepTime
 

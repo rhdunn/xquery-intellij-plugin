@@ -16,7 +16,8 @@
     <h3>Release 1.5-dev:</h3>
     <p>Run Configurations:</p>
     <ol>
-      <li>Support running XPath queries as XSLT patterns on the Saxon query processor.</li>
+      <li>Support running XPath queries as XSLT patterns (XPath subset) on the Saxon query processor.</li>
+      <li>Support profiling Saxon XSLT and XQuery scripts.</li>
     </ol>
   ]]></change-notes>
 
