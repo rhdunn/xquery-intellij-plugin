@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Action
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event.Receiver
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Destination as SaxonDestination
 
 import java.lang.reflect.Proxy
@@ -26,7 +27,7 @@ interface Destination : SaxonDestination {
 
     fun getDestinationBaseURI(): URI?
 
-    fun getReceiver(pipe: Any, params: Any): Any
+    fun getReceiver(pipe: Any, params: Any): Receiver
 
     fun onClose(listener: Action)
 
@@ -42,7 +43,7 @@ fun Destination.proxy(vararg classes: Class<*>): Any {
         when (method.name) {
             "setDestinationBaseURI" -> setDestinationBaseURI(params[0] as URI?)
             "getDestinationBaseURI" -> getDestinationBaseURI()
-            "getReceiver" -> getReceiver(params[0], params[1])
+            "getReceiver" -> getReceiver(params[0], params[1]).saxonObject
             "onClose" -> onClose(Action(params[0], actionClass))
             "closeAndNotify" -> closeAndNotify()
             "close" -> close()
