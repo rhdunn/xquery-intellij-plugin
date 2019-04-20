@@ -29,7 +29,8 @@ class XQueryEvaluator(private val `object`: Any, private val `class`: Class<*>) 
     }
 
     fun setDestination(destination: Destination) {
-        `class`.getMethod("setDestination", destination.destinationClass).invoke(`object`, destination.saxonObject)
+        val destinationClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
+        `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination.saxonObject)
     }
 
     fun run() {

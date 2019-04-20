@@ -19,8 +19,6 @@ class RawDestination(classLoader: ClassLoader) : Destination {
     private val `class`: Class<*> = classLoader.loadClass("net.sf.saxon.s9api.RawDestination")
     override val saxonObject: Any = `class`.getConstructor().newInstance()
 
-    override val destinationClass: Class<*> = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
-
     fun getXdmValue(): XdmValue {
         val xdmValueClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
         return XdmValue(`class`.getMethod("getXdmValue").invoke(saxonObject), xdmValueClass)

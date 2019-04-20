@@ -16,7 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 interface Destination {
-    val destinationClass: Class<*>
-
     val saxonObject: Any
 }
