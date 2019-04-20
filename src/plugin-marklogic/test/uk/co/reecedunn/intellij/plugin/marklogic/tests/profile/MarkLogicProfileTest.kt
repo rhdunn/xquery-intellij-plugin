@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
 import java.math.BigInteger
@@ -43,7 +44,7 @@ class MarkLogicProfileTest {
             </prof:report>
         """
 
-        val p = profile.toMarkLogicProfileReport("test.xqy")
+        val p = profile.toMarkLogicProfileReport(DatabaseModule("test.xqy"))
         assertThat(p.elapsed.months, `is`(XsInteger(BigInteger.ZERO)))
         assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000564".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T09:44:37.9608193Z"))
@@ -89,7 +90,7 @@ class MarkLogicProfileTest {
             </prof:report>
         """
 
-        val p = profile.toMarkLogicProfileReport("test.xqy")
+        val p = profile.toMarkLogicProfileReport(DatabaseModule("test.xqy"))
         assertThat(p.elapsed.months, `is`(XsInteger(BigInteger.ZERO)))
         assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000435".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T10:50:34.2913686Z"))

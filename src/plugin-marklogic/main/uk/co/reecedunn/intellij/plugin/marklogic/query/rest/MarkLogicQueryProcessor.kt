@@ -77,7 +77,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), query.name, connection)
+                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), query, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }

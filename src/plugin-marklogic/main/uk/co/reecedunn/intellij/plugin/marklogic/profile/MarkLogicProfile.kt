@@ -15,8 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
@@ -24,13 +27,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 
-private fun XmlElement.toProfileEntry(script: String): ProfileEntry {
+private fun XmlElement.toProfileEntry(queryFile: VirtualFile): ProfileEntry {
     val path = children("prof:uri").first().text()
     return ProfileEntry(
         id = children("prof:expr-id").first().text()!!,
         expression = children("prof:expr-source").first().text()!!,
         frame = StackFrame(
-            if (path.isNullOrEmpty()) script else path,
+            path?.nullize() ?: queryFile.name,
             children("prof:line").first().text()?.toInt(),
             children("prof:column").first().text()?.toInt()
         ),
@@ -40,7 +43,7 @@ private fun XmlElement.toProfileEntry(script: String): ProfileEntry {
     )
 }
 
-fun String.toMarkLogicProfileReport(script: String): ProfileReport {
+fun String.toMarkLogicProfileReport(queryFile: VirtualFile): ProfileReport {
     val doc = XmlDocument.parse(this, PROFILE_NAMESPACES)
     val metadata = doc.root.children("prof:metadata").first()
     val histogram = doc.root.children("prof:histogram").first()
@@ -49,6 +52,6 @@ fun String.toMarkLogicProfileReport(script: String): ProfileReport {
         elapsed = metadata.children("prof:overall-elapsed").first().text()?.toXsDuration()!!,
         created = metadata.children("prof:created").first().text()!!,
         version = metadata.children("prof:server-version").first().text()!!,
-        results = histogram.children("prof:expression").map { expression -> expression.toProfileEntry(script) }
+        results = histogram.children("prof:expression").map { expression -> expression.toProfileEntry(queryFile) }
     )
 }
