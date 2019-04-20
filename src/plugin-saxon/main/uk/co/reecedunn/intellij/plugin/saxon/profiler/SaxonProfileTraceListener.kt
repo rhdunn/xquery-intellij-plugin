@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.profiler
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
@@ -42,7 +44,7 @@ class SaxonProfileInstruction(
     var count: Int = 1
 )
 
-class SaxonProfileTraceListener(val version: String) : TraceListener {
+class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : TraceListener {
     var elapsed: Long = 0
     var created: Date? = null
 
@@ -101,7 +103,7 @@ class SaxonProfileTraceListener(val version: String) : TraceListener {
     }
 }
 
-fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
+fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): ProfileEntry {
     val deepTimeDuration = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(deepTime, 9)))
     return ProfileEntry(
         id = instruction.hashCode().toString(),
@@ -109,7 +111,11 @@ fun SaxonProfileInstruction.toProfileEntry(): ProfileEntry {
         count = count,
         shallowTime = deepTimeDuration,
         deepTime = deepTimeDuration,
-        frame = StackFrame(instruction.getSystemId(), instruction.getLineNumber(), instruction.getColumnNumber())
+        frame = StackFrame(
+            instruction.getSystemId().nullize() ?: query.name,
+            instruction.getLineNumber(),
+            instruction.getColumnNumber()
+        )
     )
 }
 
@@ -119,6 +125,6 @@ fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
         elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(elapsed, 9))),
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
-        results = results.values.asSequence().map { result -> result.toProfileEntry() }
+        results = results.values.asSequence().map { result -> result.toProfileEntry(query) }
     )
 }

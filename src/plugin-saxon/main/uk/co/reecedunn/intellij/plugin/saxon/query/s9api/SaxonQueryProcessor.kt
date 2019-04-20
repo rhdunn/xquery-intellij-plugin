@@ -58,8 +58,10 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Sou
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
-        val listener = SaxonProfileTraceListener(processor.version)
+
+        val listener = SaxonProfileTraceListener(processor.version, query)
         processor.setTraceListener(listener)
+
         return SaxonQueryProfiler(runner, listener)
     }
 
