@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Action
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Destination as SaxonDestination
 
 import java.lang.reflect.Proxy
@@ -27,7 +28,7 @@ interface Destination : SaxonDestination {
 
     fun getReceiver(pipe: Any, params: Any): Any
 
-    fun onClose(listener: Any)
+    fun onClose(listener: Action)
 
     fun closeAndNotify()
 
@@ -36,12 +37,13 @@ interface Destination : SaxonDestination {
 
 fun Destination.proxy(vararg classes: Class<*>): Any {
     val classLoader = classes[0].classLoader
+    val actionClass = classLoader.loadClass("net.sf.saxon.s9api.Action")
     return Proxy.newProxyInstance(classLoader, classes) { _, method, params ->
         when (method.name) {
             "setDestinationBaseURI" -> setDestinationBaseURI(params[0] as URI?)
             "getDestinationBaseURI" -> getDestinationBaseURI()
             "getReceiver" -> getReceiver(params[0], params[1])
-            "onClose" -> onClose(params[0])
+            "onClose" -> onClose(Action(params[0], actionClass))
             "closeAndNotify" -> closeAndNotify()
             "close" -> close()
             else -> null
