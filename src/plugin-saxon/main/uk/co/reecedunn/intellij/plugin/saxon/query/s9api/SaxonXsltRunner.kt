@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamSource
 internal class SaxonXsltRunner(
     val processor: Processor,
     val query: String,
-    val queryPath: String
+    val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXsltCompiler() }
 
@@ -62,7 +62,7 @@ internal class SaxonXsltRunner(
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, processor.classLoader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
         context = when (value) {
             is DatabaseModule -> value.path.toStreamSource()
             is VirtualFile -> value.decode()?.toStreamSource()
@@ -71,7 +71,7 @@ internal class SaxonXsltRunner(
     }
 
     override fun asSequence(): Sequence<QueryResult> {
-        return check(queryPath, processor.classLoader) {
+        return check(queryFile, processor.classLoader) {
             if (context == null) {
                 // The Saxon processor throws a NPE if source is null.
                 val message = PluginApiBundle.message("error.missing-xslt-source")
@@ -95,7 +95,7 @@ internal class SaxonXsltRunner(
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
         try {
-            check(queryPath, processor.classLoader) { executable } // Compile the query.
+            check(queryFile, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e

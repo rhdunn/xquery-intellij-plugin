@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
 internal class SaxonXPathRunner(
     val processor: Processor,
     val query: String,
-    val queryPath: String
+    val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXPathCompiler() }
 
@@ -63,7 +63,7 @@ internal class SaxonXPathRunner(
         throw UnsupportedOperationException()
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryPath, processor.classLoader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
         val classLoader = processor.classLoader
         context = when (value) {
             is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", classLoader)
@@ -72,7 +72,7 @@ internal class SaxonXPathRunner(
         }
     }
 
-    override fun asSequence(): Sequence<QueryResult> = check(queryPath, processor.classLoader) {
+    override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader) {
         context?.let { selector.setContextItem(it) }
         SaxonQueryResultIterator(selector.iterator()).asSequence()
     }
@@ -83,7 +83,7 @@ internal class SaxonXPathRunner(
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
         try {
-            check(queryPath, processor.classLoader) { executable } // Compile the query.
+            check(queryFile, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e

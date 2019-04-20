@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -24,15 +25,15 @@ import java.lang.reflect.InvocationTargetException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
-fun <T> check(queryPath: String, classLoader: ClassLoader, f: () -> T): T {
+fun <T> check(queryFile: VirtualFile, classLoader: ClassLoader, f: () -> T): T {
     return try {
         f()
     } catch (e: InvocationTargetException) {
-        throw e.targetException.run { toXPathException(classLoader)?.toSaxonError(queryPath) ?: this }
+        throw e.targetException.run { toXPathException(classLoader)?.toSaxonQueryError(queryFile) ?: this }
     }
 }
 
-internal fun XPathException.toSaxonError(script: String): QueryError {
+internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile): QueryError {
     val qname = getErrorCodeQName()
     val ns = qname?.getNamespaceURI()
     val prefix = qname?.getPrefix().nullize()
@@ -42,6 +43,6 @@ internal fun XPathException.toSaxonError(script: String): QueryError {
         vendorCode = null,
         description = message,
         value = listOf(),
-        frames = listOf(StackFrame(locator?.systemId ?: script, locator?.lineNumber, locator?.columnNumber))
+        frames = listOf(StackFrame(locator?.systemId ?: queryFile.name, locator?.lineNumber, locator?.columnNumber))
     )
 }
