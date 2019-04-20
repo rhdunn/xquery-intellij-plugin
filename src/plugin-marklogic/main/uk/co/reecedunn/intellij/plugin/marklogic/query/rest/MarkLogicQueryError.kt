@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -24,7 +26,7 @@ private val ERROR_NAMESPACES = mapOf(
     "dbg" to "http://reecedunn.co.uk/xquery/debug"
 )
 
-fun String.toMarkLogicError(script: String): QueryError {
+fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
     val doc = XmlDocument.parse(this, ERROR_NAMESPACES)
     return QueryError(
         standardCode = doc.root.children("err:code").first().text()!!.replace("^err:".toRegex(), ""),
@@ -33,10 +35,10 @@ fun String.toMarkLogicError(script: String): QueryError {
         value = doc.root.children("err:value").first().children("err:item").map { it.text()!! }.toList(),
         frames = doc.root.children("dbg:stack").first().children("dbg:frame").map {
             val module = it.children("dbg:module").first()
-            val path = module.text()
+            val path = module.text().nullize() ?: queryFile.name
             val line = module.attribute("line")?.toInt()
             val col = module.attribute("column")?.toInt()
-            StackFrame(if (path.isNullOrEmpty()) script else path, line, col)
+            StackFrame(path, line, col)
         }.toList()
     )
 }

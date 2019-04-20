@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 internal class MarkLogicRunQuery(
     val builder: RequestBuilder,
     val queryParams: JsonObject,
-    val queryPath: String,
+    val queryFile: VirtualFile,
     val connection: HttpConnection
 ) :
     RunnableQuery,
@@ -101,7 +101,7 @@ internal class MarkLogicRunQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath)
+        MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile)
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
@@ -114,7 +114,7 @@ internal class MarkLogicRunQuery(
         }
 
         try {
-            MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryPath)
+            MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile)
             null
         } catch (e: QueryError) {
             e

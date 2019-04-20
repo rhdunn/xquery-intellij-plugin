@@ -15,12 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemType
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
-fun MimeResponse.queryResults(script: String): Sequence<QueryResult> {
+fun MimeResponse.queryResults(queryFile: VirtualFile): Sequence<QueryResult> {
     var position: Long = -1
     val responseContentType: String? = getHeader("Content-type")?.substringBefore("; ")
     return parts.asSequence().mapIndexed { index, part ->
@@ -30,7 +31,7 @@ fun MimeResponse.queryResults(script: String): Sequence<QueryResult> {
             val primitive = part.getHeader("X-Primitive") ?: "string"
             val derived = getHeader("X-Derived-${index + 1}")
             if (derived == "err:error")
-                throw part.body.toMarkLogicError(script)
+                throw part.body.toMarkLogicQueryError(queryFile)
             else {
                 val itemType = primitiveToItemType(derived ?: primitive)
                 val contentType = when (itemType) {
