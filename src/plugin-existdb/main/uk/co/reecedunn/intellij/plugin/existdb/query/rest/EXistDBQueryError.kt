@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -25,7 +26,7 @@ private val RE_EXISTDB_MESSAGE =
 private val RE_EXISTDB_LOCATION =
     "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
-fun String.toEXistDBError(script: String): QueryError {
+fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
     val xml = XmlDocument.parse(this, mapOf())
     val messageText = xml.root.children("message").first().text()!!.split("\n")[0]
     val parts =
@@ -42,6 +43,6 @@ fun String.toEXistDBError(script: String): QueryError {
         vendorCode = null,
         description = parts[4].substringBefore(" [at "),
         value = listOf(),
-        frames = listOf(StackFrame(if (path == "/db") script else path, line, col))
+        frames = listOf(StackFrame(if (path == "/db") queryFile.name else path, line, col))
     )
 }

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
@@ -29,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class EXistDBQuery(
     val builder: RequestBuilder,
-    val queryPath: String,
+    val queryFile: VirtualFile,
     val connection: HttpConnection
 ) : RunnableQuery {
     companion object {
@@ -66,7 +67,7 @@ internal class EXistDBQuery(
         response.close()
 
         if (response.statusLine.statusCode != 200) when (response.statusLine.statusCode) {
-            400 -> throw body.toEXistDBError(queryPath)
+            400 -> throw body.toEXistDBQueryError(queryFile)
             else -> throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 

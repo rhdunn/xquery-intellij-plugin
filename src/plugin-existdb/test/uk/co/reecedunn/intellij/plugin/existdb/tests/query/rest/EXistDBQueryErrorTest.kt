@@ -20,7 +20,8 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBError
+import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBQueryError
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - EXistDBQueryError")
 class EXistDBQueryErrorTest {
@@ -36,7 +37,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError("test.xqy")
+        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("unexpected token: null"))
@@ -56,7 +57,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError("test.xqy")
+        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
@@ -76,7 +77,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError("test.xqy")
+        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
@@ -100,7 +101,7 @@ class EXistDBQueryErrorTest {
             </exception>
         """
 
-        val e = exception.toEXistDBError("test.xqy")
+        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
