@@ -28,7 +28,7 @@ interface Destination : SaxonDestination {
 
     fun getDestinationBaseURI(): URI?
 
-    fun getReceiver(pipe: Any, params: Any): Receiver
+    fun getReceiver(pipe: Any, params: Any?): Receiver
 
     fun onClose(listener: Action)
 
@@ -44,7 +44,7 @@ fun Destination.proxy(vararg classes: Class<*>): Any {
         when (method.name) {
             "setDestinationBaseURI" -> setDestinationBaseURI(params[0] as URI?)
             "getDestinationBaseURI" -> getDestinationBaseURI()
-            "getReceiver" -> getReceiver(params[0], params[1]).saxonObject
+            "getReceiver" -> getReceiver(params[0], params.getOrNull(1)).saxonObject
             "onClose" -> onClose(Action(params[0], actionClass!!))
             "closeAndNotify" -> closeAndNotify()
             "close" -> close()

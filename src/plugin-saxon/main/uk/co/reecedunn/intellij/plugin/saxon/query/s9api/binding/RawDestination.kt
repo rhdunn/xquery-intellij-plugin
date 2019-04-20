@@ -42,7 +42,7 @@ class RawDestination(val classLoader: ClassLoader) : ProxyDestination {
         return baseURI
     }
 
-    override fun getReceiver(pipe: Any, params: Any): Receiver {
+    override fun getReceiver(pipe: Any, params: Any?): Receiver {
         outputter = SequenceOutputter(pipe, classLoader)
         return outputter!!
     }
