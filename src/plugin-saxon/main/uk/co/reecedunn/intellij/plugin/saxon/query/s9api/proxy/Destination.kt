@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Destination as SaxonDestination
+
 import java.lang.reflect.Proxy
 import java.net.URI
 
-interface Destination {
+interface Destination : SaxonDestination {
     fun setDestinationBaseURI(baseURI: URI?)
 
     fun getDestinationBaseURI(): URI?

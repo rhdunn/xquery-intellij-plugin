@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.proxy
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
+
 class XQueryEvaluator(private val `object`: Any, private val `class`: Class<*>) {
     fun setContextItem(item: XdmItem) {
         val xdmItemClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmItem")
@@ -30,7 +33,12 @@ class XQueryEvaluator(private val `object`: Any, private val `class`: Class<*>) 
 
     fun setDestination(destination: Destination) {
         val destinationClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
-        `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination.saxonObject)
+        if (destination is ProxyDestination) {
+            val proxy = destination.proxy(destinationClass)
+            `class`.getMethod("setDestination", destinationClass).invoke(`object`, proxy)
+        } else {
+            `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination.saxonObject)
+        }
     }
 
     fun run() {

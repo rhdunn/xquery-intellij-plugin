@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.proxy
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
+
 import javax.xml.transform.Source
 
 class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) {
@@ -24,7 +27,12 @@ class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) 
 
     fun setDestination(destination: Destination) {
         val destinationClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
-        `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination.saxonObject)
+        if (destination is ProxyDestination) {
+            val proxy = destination.proxy(destinationClass)
+            `class`.getMethod("setDestination", destinationClass).invoke(`object`, proxy)
+        } else {
+            `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination.saxonObject)
+        }
     }
 
     fun transform() {
