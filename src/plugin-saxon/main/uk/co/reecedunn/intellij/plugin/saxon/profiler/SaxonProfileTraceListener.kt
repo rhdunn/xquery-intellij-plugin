@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.profiler
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
@@ -112,7 +113,7 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): ProfileEntry {
         shallowTime = deepTimeDuration,
         deepTime = deepTimeDuration,
         frame = StackFrame(
-            instruction.getSystemId().nullize() ?: query.name,
+            instruction.getSystemId().nullize()?.let { DatabaseModule(it) } ?: query,
             instruction.getLineNumber(),
             instruction.getColumnNumber()
         )

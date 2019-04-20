@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
@@ -35,7 +36,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
         value = doc.root.children("err:value").first().children("err:item").map { it.text()!! }.toList(),
         frames = doc.root.children("dbg:stack").first().children("dbg:frame").map {
             val module = it.children("dbg:module").first()
-            val path = module.text().nullize() ?: queryFile.name
+            val path = module.text().nullize()?.let { DatabaseModule(it) } ?: queryFile
             val line = module.attribute("line")?.toInt()
             val col = module.attribute("column")?.toInt()
             StackFrame(path, line, col)

@@ -208,7 +208,7 @@ class Response {
         }
 
         assertThat(e.description, `is`("Division by zero"))
-        assertThat(e.frames[0].module, `is`("test.xqy"))
+        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
         assertThat(e.frames[0].lineNumber, `is`(23))
         assertThat(e.frames[0].columnNumber, `is`(3))
         assertThat(e.standardCode, `is`("FOAR0001"))

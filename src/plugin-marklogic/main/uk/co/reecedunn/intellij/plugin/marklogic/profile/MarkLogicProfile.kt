@@ -33,7 +33,7 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): ProfileEntry {
         id = children("prof:expr-id").first().text()!!,
         expression = children("prof:expr-source").first().text()!!,
         frame = StackFrame(
-            path?.nullize() ?: queryFile.name,
+            path?.nullize()?.let { DatabaseModule(it) } ?: queryFile,
             children("prof:line").first().text()?.toInt(),
             children("prof:column").first().text()?.toInt()
         ),

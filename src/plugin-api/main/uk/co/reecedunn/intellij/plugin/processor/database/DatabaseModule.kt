@@ -52,4 +52,17 @@ class DatabaseModule(private val path: String) : VirtualFile() {
         newModificationStamp: Long,
         newTimeStamp: Long
     ): OutputStream = TODO("not implemented")
+
+    override fun toString(): String {
+        return path
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is DatabaseModule) return false
+        return path == other.path
+    }
+
+    override fun hashCode(): Int {
+        return path.hashCode()
+    }
 }

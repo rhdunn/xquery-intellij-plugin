@@ -101,7 +101,7 @@ class MarkLogicProfileTest {
 
         assertThat(results[1].id, `is`("16683152708792260640"))
         assertThat(results[1].expression, `is`("1 to 10"))
-        assertThat(results[1].frame.module, `is`("test.xqy"))
+        assertThat(results[1].frame.module, `is`(DatabaseModule("test.xqy")))
         assertThat(results[1].frame.lineNumber, `is`(1))
         assertThat(results[1].frame.columnNumber, `is`(12))
         assertThat(results[1].count, `is`(2))

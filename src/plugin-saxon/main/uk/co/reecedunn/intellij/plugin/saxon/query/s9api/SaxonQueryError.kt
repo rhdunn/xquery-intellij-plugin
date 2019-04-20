@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathException
@@ -43,6 +44,12 @@ internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile): QueryErro
         vendorCode = null,
         description = message,
         value = listOf(),
-        frames = listOf(StackFrame(locator?.systemId ?: queryFile.name, locator?.lineNumber, locator?.columnNumber))
+        frames = listOf(
+            StackFrame(
+                locator?.systemId?.let { DatabaseModule(it) } ?: queryFile,
+                locator?.lineNumber,
+                locator?.columnNumber
+            )
+        )
     )
 }

@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
+import com.intellij.openapi.vfs.VirtualFile
+
 data class StackFrame(
-    val module: String?,
+    val module: VirtualFile?,
     val lineNumber: Int?,
     val columnNumber: Int?
 )

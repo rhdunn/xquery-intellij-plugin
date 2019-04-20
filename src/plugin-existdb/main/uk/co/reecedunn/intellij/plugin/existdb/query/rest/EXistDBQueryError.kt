@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
@@ -43,6 +44,6 @@ fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
         vendorCode = null,
         description = parts[4].substringBefore(" [at "),
         value = listOf(),
-        frames = listOf(StackFrame(if (path == "/db") queryFile.name else path, line, col))
+        frames = listOf(StackFrame(if (path == "/db" || path == null) queryFile else DatabaseModule(path), line, col))
     )
 }

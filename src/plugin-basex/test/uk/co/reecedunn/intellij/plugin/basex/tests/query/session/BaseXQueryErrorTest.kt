@@ -33,7 +33,7 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Calculation is incomplete."))
-        assertThat(e.frames[0].module, `is`("test.xqy"))
+        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
         assertThat(e.frames[0].lineNumber, `is`(1))
         assertThat(e.frames[0].columnNumber, `is`(6))
     }
@@ -47,7 +47,7 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Calculation is incomplete."))
-        assertThat(e.frames[0].module, `is`("test.xqy"))
+        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
         assertThat(e.frames[0].lineNumber, `is`(1))
         assertThat(e.frames[0].columnNumber, `is`(5))
     }
@@ -60,7 +60,7 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Unknown type: array-node()."))
-        assertThat(e.frames[0].module, `is`("test.xqy"))
+        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
         assertThat(e.frames[0].lineNumber, `is`(nullValue()))
         assertThat(e.frames[0].columnNumber, `is`(nullValue()))
     }

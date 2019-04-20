@@ -25,12 +25,12 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 private object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
 ), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): String? = item?.frame?.module
+    override fun valueOf(item: ProfileEntry?): String? = item?.frame?.module?.name
 
     override fun getComparator(): Comparator<ProfileEntry>? = this
 
     override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
-        return (o1?.frame?.module ?: "").compareTo(o2?.frame?.module ?: "")
+        return (o1?.frame?.module?.path ?: "").compareTo(o2?.frame?.module?.path ?: "")
     }
 }
 
