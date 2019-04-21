@@ -25,7 +25,9 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
     }
 
     fun getSystemId(): String? {
-        return `class`.getMethod("getSystemId").invoke(saxonObject) as String?
+        val id = `class`.getMethod("getSystemId").invoke(saxonObject) as String?
+        // Saxon <= 9.6 report "*module with no systemId*" for the script being run.
+        return if (id == "*module with no systemId*") null else id
     }
 
     fun getLineNumber(): Int {

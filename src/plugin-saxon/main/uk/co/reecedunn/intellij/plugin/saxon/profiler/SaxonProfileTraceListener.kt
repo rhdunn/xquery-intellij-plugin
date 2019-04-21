@@ -119,8 +119,8 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): ProfileEntry {
         deepTime = deepTimeDuration,
         frame = StackFrame(
             instruction.getSystemId().nullize()?.let { DatabaseModule(it) } ?: query,
-            instruction.getLineNumber(),
-            instruction.getColumnNumber()
+            instruction.getLineNumber().run { if(this == -1) null else this },
+            instruction.getColumnNumber().run { if(this == -1) null else this }
         )
     )
 }
