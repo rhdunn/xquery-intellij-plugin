@@ -21,7 +21,7 @@ import java.lang.reflect.Proxy
 interface TraceListener {
     fun setOutputDestination(logger: Any)
 
-    fun open(controller: Any)
+    fun open(controller: Any?)
 
     fun close()
 
@@ -44,7 +44,7 @@ fun TraceListener.proxy(vararg classes: Class<*>): Any {
     return Proxy.newProxyInstance(classLoader, classes) { _, method, params ->
         when (method.name) {
             "setOutputDestination" -> setOutputDestination(params[0])
-            "open" -> open(params[0])
+            "open" -> open(params?.getOrNull(0))
             "close" -> close()
             "enter" -> enter(InstructionInfo(params[0], instructionInfoClass), params[1])
             "leave" -> leave(InstructionInfo(params[0], instructionInfoClass))

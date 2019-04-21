@@ -56,7 +56,7 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : T
     override fun setOutputDestination(logger: Any) {
     }
 
-    override fun open(controller: Any) {
+    override fun open(controller: Any?) {
         // Saxon <= 9.6 call open twice.
         if (started) return
 
