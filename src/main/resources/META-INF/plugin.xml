@@ -19,6 +19,11 @@
       <li>Support running XPath queries as XSLT patterns (XPath subset) on the Saxon query processor.</li>
       <li>Support profiling Saxon XSLT and XQuery scripts.</li>
     </ol>
+    <p>Saxon:</p>
+    <ol>
+      <li>Fix using Saxon 9.2 to 9.8 JAR files: the <code>RawDestination</code> class is not available in these versions.</li>
+      <li>Disable Saxon EE optimizations to prevent the processor throwing a <code>NoClassDefFoundError</code> looking for <code>com/saxonica/ee/bytecode/GeneratedCode</code>.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

@@ -28,11 +28,21 @@ class Processor {
     constructor(classLoader: ClassLoader, licensedEdition: Boolean) {
         `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
         `object` = `class`.getConstructor(Boolean::class.java).newInstance(licensedEdition)
+
+        // Using the Saxon EE optimizer can generate a NoClassDefFoundError
+        // resolving com/saxonica/ee/bytecode/GeneratedCode. This appears to
+        // be due to the way the Saxon processor modifies the Java class loader.
+        setConfigurationProperty("OPTIMIZATION_LEVEL", 0)
     }
 
     constructor(classLoader: ClassLoader, configuration: Source) {
         `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
         `object` = `class`.getConstructor(Source::class.java).newInstance(configuration)
+
+        // Using the Saxon EE optimizer can generate a NoClassDefFoundError
+        // resolving com/saxonica/ee/bytecode/GeneratedCode. This appears to
+        // be due to the way the Saxon processor modifies the Java class loader.
+        setConfigurationProperty("OPTIMIZATION_LEVEL", 0)
     }
 
     val classLoader: ClassLoader get() = `class`.classLoader
@@ -54,6 +64,21 @@ class Processor {
         val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
         configurationClass.getMethod("getDefaultStaticQueryContext").invoke(configuration)
         configurationClass.getMethod("setTraceListener", listenerClass).invoke(configuration, proxy)
+    }
+
+    fun setConfigurationProperty(name: String, value: Any) {
+        val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
+        val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
+
+        val featureClass = `class`.classLoader.loadClassOrNull("net.sf.saxon.lib.Feature")
+        if (featureClass == null) { // Saxon <= 9.7
+            val featureKeysClass = `class`.classLoader.loadClass("net.sf.saxon.lib.FeatureKeys")
+            configurationClass.getMethod("setConfigurationProperty", String::class.java, Any::class.java)
+                .invoke(configuration, featureKeysClass.getField(name).get(null), value)
+        } else { // Saxon >= 9.8
+            configurationClass.getMethod("setConfigurationProperty", featureClass, Any::class.java)
+                .invoke(configuration, featureClass.getField(name).get(null), value)
+        }
     }
 
     fun newXPathCompiler(): XPathCompiler {
