@@ -20,6 +20,10 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQN
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type.Type
 
 open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) {
+    fun isClauseInfo(): Boolean {
+        return `class`.classLoader.loadClass("net.sf.saxon.expr.flwor.ClauseInfo").isInstance(saxonObject)
+    }
+
     fun getSystemId(): String? {
         return `class`.getMethod("getSystemId").invoke(saxonObject) as String?
     }
