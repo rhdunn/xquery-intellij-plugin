@@ -72,7 +72,8 @@ class Processor {
 
         val featureClass = `class`.classLoader.loadClassOrNull("net.sf.saxon.lib.Feature")
         if (featureClass == null) { // Saxon <= 9.7
-            val featureKeysClass = `class`.classLoader.loadClass("net.sf.saxon.lib.FeatureKeys")
+            val featureKeysClass = `class`.classLoader.loadClassOrNull("net.sf.saxon.lib.FeatureKeys") // Saxon >= 9.3
+                ?: `class`.classLoader.loadClass("net.sf.saxon.FeatureKeys") // Saxon <= 9.2.1
             configurationClass.getMethod("setConfigurationProperty", String::class.java, Any::class.java)
                 .invoke(configuration, featureKeysClass.getField(name).get(null), value)
         } else { // Saxon >= 9.8
