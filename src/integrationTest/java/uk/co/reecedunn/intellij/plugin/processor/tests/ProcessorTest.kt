@@ -128,6 +128,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
 
             Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            Assume.assumeThat("Skipping type check for BaseX 7.0 and earlier.", items[0].type, `is`(not("item()")))
             assertThat(items[0].type, typeMatcher)
         }
 
@@ -356,6 +357,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
 
             Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            Assume.assumeThat("Skipping type check for BaseX 7.0 and earlier.", items[0].type, `is`(not("item()")))
             assertThat(items[0].type, `is`("xs:integer"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
@@ -408,6 +410,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
 
             Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            Assume.assumeThat("Skipping type check for BaseX 7.0 and earlier.", items[0].type, `is`(not("item()")))
             assertThat(items[0].type, typeMatcher)
         }
 
@@ -560,6 +563,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
 
             Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            Assume.assumeThat("Skipping type check for BaseX 7.0 and earlier.", items[0].type, `is`(not("item()")))
             assertThat(items[0].type, typeMatcher)
         }
 
