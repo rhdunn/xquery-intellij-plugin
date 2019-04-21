@@ -32,7 +32,7 @@ class Processor {
         // Using the Saxon EE optimizer can generate a NoClassDefFoundError
         // resolving com/saxonica/ee/bytecode/GeneratedCode. This appears to
         // be due to the way the Saxon processor modifies the Java class loader.
-        setConfigurationProperty("OPTIMIZATION_LEVEL", 0)
+        setConfigurationProperty("OPTIMIZATION_LEVEL", "0")
     }
 
     constructor(classLoader: ClassLoader, configuration: Source) {
@@ -42,7 +42,7 @@ class Processor {
         // Using the Saxon EE optimizer can generate a NoClassDefFoundError
         // resolving com/saxonica/ee/bytecode/GeneratedCode. This appears to
         // be due to the way the Saxon processor modifies the Java class loader.
-        setConfigurationProperty("OPTIMIZATION_LEVEL", 0)
+        setConfigurationProperty("OPTIMIZATION_LEVEL", "0")
     }
 
     val classLoader: ClassLoader get() = `class`.classLoader
