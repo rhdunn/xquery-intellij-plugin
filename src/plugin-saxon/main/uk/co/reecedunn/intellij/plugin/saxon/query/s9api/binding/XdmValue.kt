@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type.Type
 
 open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
@@ -55,8 +56,15 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
 
         fun wrap(sequence: Any, classLoader: ClassLoader): XdmValue {
             val xdmValueClass = classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
-            val sequenceClass = classLoader.loadClass("net.sf.saxon.om.Sequence")
-            return XdmValue(xdmValueClass.getMethod("wrap", sequenceClass).invoke(null, sequence), xdmValueClass)
+            val sequenceClass = classLoader.loadClassOrNull("net.sf.saxon.om.Sequence") // Saxon >= 9.5
+            return if (sequenceClass != null) { // Saxon >= 9.5
+                XdmValue(xdmValueClass.getMethod("wrap", sequenceClass).invoke(null, sequence), xdmValueClass)
+            } else { // Saxon <= 9.4
+                val valueRepresentationClass = classLoader.loadClass("net.sf.saxon.om.ValueRepresentation")
+                val wrap = xdmValueClass.getDeclaredMethod("wrap", valueRepresentationClass)
+                wrap.isAccessible = true // XdmValue.wrap is protected.
+                XdmValue(wrap.invoke(null, sequence), xdmValueClass)
+            }
         }
     }
 }
