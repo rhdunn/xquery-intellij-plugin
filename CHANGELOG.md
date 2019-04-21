@@ -10,8 +10,7 @@ Run Configurations:
 
 Saxon:
 
-1.  Fix using Saxon 9.2 to 9.8 JAR files: the `RawDestination` class is not
-    available in these versions.
+1.  Fix using Saxon 9.2 to 9.8 JAR files.
 1.  Disable Saxon EE optimizations to prevent the processor throwing a
     `NoClassDefFoundError` looking for `com/saxonica/ee/bytecode/GeneratedCode`.
 

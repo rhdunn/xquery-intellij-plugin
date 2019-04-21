@@ -15,10 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.getConstructorOrNull
+
 class SequenceOutputter(pipe: Any, classLoader: ClassLoader) : Receiver {
     private val `class` = classLoader.loadClass("net.sf.saxon.event.SequenceOutputter")
-    private val pipelineConfigurationClass = classLoader.loadClass("net.sf.saxon.event.PipelineConfiguration")
-    override val saxonObject: Any = `class`.getConstructor(pipelineConfigurationClass).newInstance(pipe)
+    override val saxonObject: Any
+
+    init {
+        val pipelineConfigurationClass = classLoader.loadClass("net.sf.saxon.event.PipelineConfiguration")
+        val constructor = `class`.getConstructorOrNull(pipelineConfigurationClass)
+        if (constructor != null) { // Saxon >= 9.4
+            saxonObject = constructor.newInstance(pipe)
+        } else { // Saxon <= 9.3
+            saxonObject = `class`.getConstructor().newInstance()
+        }
+    }
 
     fun close() {
         `class`.getMethod("close").invoke(saxonObject)

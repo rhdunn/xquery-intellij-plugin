@@ -15,7 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.reflection
 
+import java.lang.reflect.Constructor
 import java.lang.reflect.Method
+
+fun Class<*>.getConstructorOrNull(vararg parameterTypes: Class<*>): Constructor<*>? {
+    return try {
+        getConstructor(*parameterTypes)
+    } catch (e: NoSuchMethodException) {
+        null
+    }
+}
 
 fun Class<*>.getMethodOrNull(name: String, vararg parameterTypes: Class<*>): Method? {
     return try {
