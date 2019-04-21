@@ -134,22 +134,15 @@ private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThrea
 // region local thread
 
 private class LocalFuture<T>(val value: T?, val error: Throwable?) : FutureException<T> {
-    var onerror: ((Throwable) -> Unit)? = null
-
     override fun onException(f: (Throwable) -> Unit) {
-        onerror = f
+        if (error != null) {
+            f(error)
+        }
     }
 
     override fun isDone(): Boolean = true
 
-    override fun get(): T? {
-        if (error == null)
-            return value
-        if (onerror == null)
-            throw ExecutionException(error)
-        onerror!!.invoke(error)
-        return null
-    }
+    override fun get(): T? = value
 
     override fun get(timeout: Long, unit: TimeUnit?): T? = get()
 
