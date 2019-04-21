@@ -27,6 +27,7 @@ import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
+import org.junit.Assume
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
@@ -124,8 +125,10 @@ private class ProcessorTest : PlatformLiteFixture() {
 
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, valueMatcher)
-            assertThat(items[0].type, typeMatcher)
             assertThat(items[0].mimetype, `is`("text/plain"))
+
+            Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            assertThat(items[0].type, typeMatcher)
         }
 
         private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
@@ -350,8 +353,10 @@ private class ProcessorTest : PlatformLiteFixture() {
 
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, `is`("2"))
-            assertThat(items[0].type, `is`("xs:integer"))
             assertThat(items[0].mimetype, `is`("text/plain"))
+
+            Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            assertThat(items[0].type, `is`("xs:integer"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
             val q = createQuery("declare variable \$Q{http://www.example.co.uk}x external; \$x")
@@ -400,8 +405,10 @@ private class ProcessorTest : PlatformLiteFixture() {
 
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, valueMatcher)
-            assertThat(items[0].type, typeMatcher)
             assertThat(items[0].mimetype, `is`("text/plain"))
+
+            Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            assertThat(items[0].type, typeMatcher)
         }
 
         private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
@@ -550,8 +557,10 @@ private class ProcessorTest : PlatformLiteFixture() {
 
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, valueMatcher)
-            assertThat(items[0].type, typeMatcher)
             assertThat(items[0].mimetype, `is`("text/plain"))
+
+            Assume.assumeThat("Skipping type check for Saxon 9.5.1 and earlier.", items[0].type, `is`(not("text()")))
+            assertThat(items[0].type, typeMatcher)
         }
 
         private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {

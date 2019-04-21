@@ -92,10 +92,10 @@ configure(allprojects - project(':src')) {
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-        testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
+        testCompile "org.junit.jupiter:junit-jupiter-api:5.4.0$junit_milestone"
 
-        testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
-        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
+        testRuntime("org.junit.platform:junit-platform-launcher:1.4.0$junit_milestone")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.0$junit_milestone")
     }
 
     tasks {
