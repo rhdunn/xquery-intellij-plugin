@@ -20,6 +20,7 @@ import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import java.lang.UnsupportedOperationException
+import java.lang.reflect.InvocationTargetException
 import java.net.UnknownHostException
 
 class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")
@@ -42,10 +43,12 @@ fun Throwable.toQueryUserMessage(): String {
             PluginApiBundle.message("processor.exception.host-connection-error", message ?: "")
         is HttpHostConnectException ->
             PluginApiBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
-        is HttpStatusException ->
-            message!!
         is UnsupportedOperationException ->
             PluginApiBundle.message("processor.exception.unsupported-operation")
+        is InvocationTargetException ->
+            targetException.toQueryUserMessage()
+        is HttpStatusException, is IllegalArgumentException, is IllegalStateException ->
+            message!!
         else ->
             throw this
     }
