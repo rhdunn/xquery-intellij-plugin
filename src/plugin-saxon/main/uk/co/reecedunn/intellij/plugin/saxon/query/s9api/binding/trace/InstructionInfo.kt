@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.QName
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type.Type
 
 open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) {
     fun isClauseInfo(): Boolean {
-        return `class`.classLoader.loadClass("net.sf.saxon.expr.flwor.ClauseInfo").isInstance(saxonObject)
+        return `class`.classLoader.loadClassOrNull("net.sf.saxon.expr.flwor.ClauseInfo")?.isInstance(saxonObject) == true
     }
 
     fun getSystemId(): String? {
