@@ -33,8 +33,6 @@ internal class BaseXRunnableQuery(
     val queryFile: VirtualFile,
     val classLoader: ClassLoader
 ) : RunnableQuery {
-    private val query: Query = session.query(queryString)
-
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean = false
@@ -47,26 +45,32 @@ internal class BaseXRunnableQuery(
 
     override var modulePath: String = ""
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(classLoader, queryFile) {
-        // BaseX cannot bind to namespaced variables, so only pass the NCName.
-        query.bind(name, value, mapType(type))
+    private val variables: HashMap<String, Pair<Any?, String?>> = HashMap()
+    private var contextItem: Pair<Any?, String?>? = null
+
+    override fun bindVariable(name: String, value: Any?, type: String?) {
+        variables[name] = Pair(value, mapType(type))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(classLoader, queryFile) {
-        when (value) {
-            is DatabaseModule -> query.context(value.path, mapType(type))
-            is VirtualFile -> query.context(value.decode()!!, mapType(type))
-            else -> query.context(value.toString(), mapType(type))
+    override fun bindContextItem(value: Any?, type: String?) {
+        contextItem = when (value) {
+            is DatabaseModule -> Pair(value.path, mapType(type))
+            is VirtualFile -> Pair(value.decode()!!, mapType(type))
+            else -> Pair(value.toString(), mapType(type))
         }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         check(classLoader, queryFile) {
+            val query: Query = session.query(queryString)
+
+            contextItem?.let { query.context(it.first, it.second) }
+            variables.forEach { query.bind(it.key, it.value.first, it.value.second) }
+
             BaseXQueryResultIterator(query, queryFile, classLoader).asSequence()
         }
     }
 
     override fun close() {
-        query.close()
     }
 }
