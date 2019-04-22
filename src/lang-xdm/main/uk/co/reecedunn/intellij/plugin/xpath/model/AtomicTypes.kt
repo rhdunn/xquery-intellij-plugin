@@ -210,7 +210,11 @@ interface XsIntegerValue : XsAnyAtomicType {
 
 fun XsIntegerValue.toInt(): Int = data.toInt()
 
-data class XsInteger(override val data: BigInteger) : XsIntegerValue
+data class XsInteger(override val data: BigInteger) : XsIntegerValue {
+    companion object {
+        val ZERO = XsInteger(BigInteger.ZERO)
+    }
+}
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.3) xdm:wildcard

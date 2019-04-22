@@ -110,7 +110,7 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : T
 }
 
 fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): ProfileEntry {
-    val deepTimeDuration = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(deepTime, 9)))
+    val deepTimeDuration = XsDuration(XsInteger.ZERO, XsDecimal(BigDecimal.valueOf(deepTime, 9)))
     return ProfileEntry(
         id = instruction.hashCode().toString(),
         expression = instruction.getObjectName()?.toString() ?: "",
@@ -128,7 +128,7 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): ProfileEntry {
 fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
     return ProfileReport(
         xml = null,
-        elapsed = XsDuration(XsInteger(BigInteger.ZERO), XsDecimal(BigDecimal.valueOf(elapsed, 9))),
+        elapsed = XsDuration(XsInteger.ZERO, XsDecimal(BigDecimal.valueOf(elapsed, 9))),
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
         results = results.values.asSequence().map { result -> result.toProfileEntry(query) }
