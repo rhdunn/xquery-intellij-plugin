@@ -23,6 +23,10 @@ class LocalSession(context: Context) : Session {
             ?: context.contextClass.classLoader.loadClass("org.basex.server.LocalSession")
     private val `object`: Any = `class`.getConstructor(context.contextClass).newInstance(context.basexObject)
 
+    override fun execute(command: String): String? {
+        return `class`.getMethod("execute", String::class.java).invoke(`object`, command) as String?
+    }
+
     override fun query(query: String): Query {
         val localQueryClass: Class<*> = `class`.classLoader.loadClassOrNull("org.basex.api.client.LocalQuery")
             ?: `class`.classLoader.loadClass("org.basex.server.LocalQuery")

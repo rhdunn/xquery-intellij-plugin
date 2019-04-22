@@ -31,6 +31,10 @@ class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, usern
         `object` = constructor.newInstance(hostname, port, username, password)
     }
 
+    override fun execute(command: String): String? {
+        return `class`.getMethod("execute", String::class.java).invoke(`object`, command) as String?
+    }
+
     override fun query(query: String): Query {
         val clientQueryClass: Class<*> = `class`.classLoader.loadClassOrNull("org.basex.api.client.ClientQuery")
             ?: `class`.classLoader.loadClass("org.basex.server.ClientQuery")

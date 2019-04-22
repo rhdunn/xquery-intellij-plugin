@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session.binding
 
 interface Session {
+    fun execute(command: String): String?
+
     fun query(query: String): Query
 
     fun close()
