@@ -47,12 +47,12 @@ internal class BaseXRunnableQuery(
 
     override var modulePath: String = ""
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryFile) {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(classes.loader, queryFile) {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         query.bind(name, value, mapType(type))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryFile) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(classes.loader, queryFile) {
         when (value) {
             is DatabaseModule -> query.context(value.path, mapType(type))
             is VirtualFile -> query.context(value.decode()!!, mapType(type))
@@ -61,7 +61,7 @@ internal class BaseXRunnableQuery(
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        classes.check(queryFile) {
+        check(classes.loader, queryFile) {
             BaseXQueryResultIterator(query, queryFile, classes).asSequence()
         }
     }

@@ -15,33 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
-import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import java.io.File
-import java.lang.reflect.InvocationTargetException
 import java.net.URLClassLoader
 
 internal class BaseXClasses(path: File) {
     val loader: ClassLoader
 
-    val basexExceptionClass: Class<*>
-
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-        basexExceptionClass = loader.loadClass("org.basex.core.BaseXException")
-    }
-
-    fun <T> check(queryFile: VirtualFile, f: () -> T): T {
-        return try {
-            f()
-        } catch (e: InvocationTargetException) {
-            if (basexExceptionClass.isInstance(e.targetException)) {
-                throw e.targetException.message!!.toBaseXQueryError(queryFile)
-            } else if (e.targetException is RuntimeException && e.targetException.message == "Not Implemented.") {
-                throw UnsupportedOperationException()
-            } else {
-                throw e
-            }
-        }
     }
 }

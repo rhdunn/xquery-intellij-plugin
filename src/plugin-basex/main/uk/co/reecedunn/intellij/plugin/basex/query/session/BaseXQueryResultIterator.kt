@@ -26,7 +26,7 @@ internal class BaseXQueryResultIterator(
 ) : Iterator<QueryResult> {
     private var position: Long = -1
 
-    override fun hasNext(): Boolean = classes.check(queryFile) {
+    override fun hasNext(): Boolean = check(classes.loader, queryFile) {
         query.more()
     }
 

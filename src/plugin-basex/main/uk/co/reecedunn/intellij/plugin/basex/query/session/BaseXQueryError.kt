@@ -19,11 +19,28 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import java.lang.reflect.InvocationTargetException
 
 private val RE_BASEX_EXCEPTION =
     "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 private val RE_BASEX_EXCEPTION_LINE_COL =
     "^(Stopped at ()line ([0-9]+), column ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
+
+fun <T> check(classLoader: ClassLoader, queryFile: VirtualFile, f: () -> T): T {
+    val basexExceptionClass = classLoader.loadClass("org.basex.core.BaseXException")
+    return try {
+        f()
+    } catch (e: InvocationTargetException) {
+        val target = e.targetException
+        if (basexExceptionClass.isInstance(target)) {
+            throw target.message!!.toBaseXQueryError(queryFile)
+        } else if (target is RuntimeException && target.message == "Not Implemented.") {
+            throw UnsupportedOperationException()
+        } else {
+            throw e
+        }
+    }
+}
 
 fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
     val parts =
