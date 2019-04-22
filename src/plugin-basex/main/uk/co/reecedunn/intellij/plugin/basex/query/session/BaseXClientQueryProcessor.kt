@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientSession
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
@@ -27,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) :
+internal class BaseXClientQueryProcessor(val session: ClientSession, val classes: BaseXClasses) :
     RunnableQueryProvider {
 
     override val version: ExecutableOnPooledThread<String> by cached {
@@ -52,6 +53,6 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
     }
 
     override fun close() {
-        classes.clientSessionClass.getMethod("close").invoke(session)
+        session.close()
     }
 }

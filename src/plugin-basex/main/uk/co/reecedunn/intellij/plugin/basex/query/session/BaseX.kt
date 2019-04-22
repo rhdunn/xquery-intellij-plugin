@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientSession
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Context
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalSession
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
@@ -41,9 +43,9 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
         if (settings.hostname.isEmpty())
             throw UnknownHostException("")
 
-        val session = classes.clientSessionClass.getConstructor(
-            String::class.java, Int::class.java, String::class.java, String::class.java
-        ).newInstance(settings.hostname, settings.databasePort, settings.username, settings.password)
+        val session = ClientSession(
+            classes.loader, settings.hostname, settings.databasePort, settings.username, settings.password
+        )
         return BaseXClientQueryProcessor(session, classes)
     }
 }
