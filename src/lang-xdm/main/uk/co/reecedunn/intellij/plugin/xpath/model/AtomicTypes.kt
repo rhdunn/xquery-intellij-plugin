@@ -61,7 +61,11 @@ interface XsDecimalValue : XsAnyAtomicType {
     val data: BigDecimal
 }
 
-data class XsDecimal(override val data: BigDecimal) : XsDecimalValue
+data class XsDecimal(override val data: BigDecimal) : XsDecimalValue {
+    companion object {
+        fun nano(value: Long): XsDecimal = XsDecimal(BigDecimal.valueOf(value, 9))
+    }
+}
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.5) xs:double
@@ -81,7 +85,11 @@ interface XsDurationValue : XsAnyAtomicType {
 data class XsDuration(
     override val months: XsInteger,
     override val seconds: XsDecimal
-) : XsDurationValue
+) : XsDurationValue {
+    companion object {
+        fun ns(value: Long): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.nano(value))
+    }
+}
 
 private val RE_INVALID_PARTIAL_DURATION = """^-?P(.*T)?${'$'}""".toRegex()
 
