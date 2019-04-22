@@ -17,12 +17,9 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.ide.DataManager
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
-import com.intellij.openapi.actionSystem.impl.ActionToolbarImpl
-import com.intellij.openapi.keymap.ex.KeymapManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
@@ -54,9 +51,9 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
 
     private var table: QueryResultTable? = null
 
-    private fun createTextConsoleView() {
+    private fun createTextConsoleView(): JComponent {
         text = TextConsoleView(project)
-        text?.component // Ensure the text view is initialized.
+        val component = text!!.component // Ensure the text view is initialized.
 
         // Add the text console's action toolbar to the text console itself,
         // not the result view console. This ensures that the text view editor
@@ -74,6 +71,8 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         wrapper.add(toolbar.component)
         wrapper.border = Borders.ConsoleToolbarRight
         text?.add(wrapper, BorderLayout.LINE_START)
+
+        return component
     }
 
     private fun createResultTable(): JComponent {
@@ -111,10 +110,8 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
 
     override fun getComponent(): JComponent {
         if (table == null) {
-            createTextConsoleView()
-
             val splitPane = OnePixelSplitter(false)
-            splitPane.firstComponent = text?.component
+            splitPane.firstComponent = createTextConsoleView()
             splitPane.secondComponent = createResultTable()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
