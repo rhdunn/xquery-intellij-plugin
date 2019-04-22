@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@ import java.lang.reflect.InvocationTargetException
 import java.net.URLClassLoader
 
 internal class BaseXClasses(path: File) {
-    val contextClass: Class<*>
+    val loader: ClassLoader
+
     val localSessionClass: Class<*>
     val clientSessionClass: Class<*>
     val localQueryClass: Class<*>
@@ -30,8 +31,7 @@ internal class BaseXClasses(path: File) {
     val basexExceptionClass: Class<*>
 
     init {
-        val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-        contextClass = loader.loadClass("org.basex.core.Context")
+        loader = URLClassLoader(arrayOf(path.toURI().toURL()))
         localSessionClass = loader.loadClassOrNull("org.basex.api.client.LocalSession")
                 ?: loader.loadClass("org.basex.server.LocalSession")
         clientSessionClass = loader.loadClassOrNull("org.basex.api.client.ClientSession")

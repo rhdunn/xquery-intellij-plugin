@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Context
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
@@ -27,14 +28,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClasses) :
+internal class BaseXLocalQueryProcessor(val context: Context, val classes: BaseXClasses) :
     RunnableQueryProvider {
 
     private var basexSession: Any? = null
     val session: Any
         get() {
             if (basexSession == null) {
-                basexSession = classes.localSessionClass.getConstructor(classes.contextClass).newInstance(context)
+                basexSession = classes.localSessionClass.getConstructor(context.contextClass).newInstance(context.basexObject)
             }
             return basexSession!!
         }

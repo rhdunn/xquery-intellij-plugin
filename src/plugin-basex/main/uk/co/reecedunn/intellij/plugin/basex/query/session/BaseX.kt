@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Context
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
@@ -30,12 +31,7 @@ internal fun mapType(type: String?): String? {
 
 class BaseX(path: File) : QueryProcessorInstanceManager {
     private val classes = BaseXClasses(path)
-    private val context =
-        try {
-            classes.contextClass.getConstructor(Boolean::class.java).newInstance(true)
-        } catch (e: NoSuchMethodException) {
-            classes.contextClass.getConstructor().newInstance()
-        }
+    private val context = Context(classes.loader, true)
 
     override fun create(): QueryProcessor {
         return BaseXLocalQueryProcessor(context, classes)
