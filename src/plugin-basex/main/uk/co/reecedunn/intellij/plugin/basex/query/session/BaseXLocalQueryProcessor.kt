@@ -50,7 +50,7 @@ internal class BaseXLocalQueryProcessor(val context: Context, val classes: BaseX
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
-            XQuery -> BaseXLocalQuery(session, query.decode()!!, query, classes)
+            XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classes)
             else -> throw UnsupportedQueryType(language)
         }
     }

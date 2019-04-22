@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalSession
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Query
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-internal class BaseXLocalQuery(
-    val session: LocalSession,
+internal class BaseXRunnableQuery(
+    val session: Session,
     val queryString: String,
     val queryFile: VirtualFile,
     val classes: BaseXClasses
