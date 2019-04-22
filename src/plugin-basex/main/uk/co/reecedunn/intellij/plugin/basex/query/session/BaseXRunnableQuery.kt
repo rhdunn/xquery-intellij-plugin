@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class BaseXRunnableQuery(
@@ -60,14 +61,15 @@ internal class BaseXRunnableQuery(
         }
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
         check(classLoader, queryFile) {
             val query: Query = session.query(queryString)
 
             contextItem?.let { query.context(it.first, it.second) }
             variables.forEach { query.bind(it.key, it.value.first, it.value.second) }
 
-            BaseXQueryResultIterator(query, queryFile, classLoader).asSequence()
+            val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence()
+            QueryResults(results.toList())
         }
     }
 

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
@@ -94,8 +95,9 @@ internal class SaxonXQueryRunner(
         SaxonQueryResultIterator(result.iterator()).asSequence()
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        asSequence()
+    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+        val results = asSequence().toList()
+        QueryResults(results)
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {

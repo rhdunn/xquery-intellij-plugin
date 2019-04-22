@@ -31,8 +31,6 @@ import org.junit.Assume
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
-import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
@@ -105,7 +103,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     internal inner class ReturnValues {
         private fun node(query: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
             val q = createQuery(query)
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -120,7 +118,7 @@ private class ProcessorTest : PlatformLiteFixture() {
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = createQuery("\"$value\" cast as $type")
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -149,7 +147,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
                 val q = createQuery("()")
-                val items = q.run().execute().get().toList()
+                val items = q.run().execute().get().results
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -157,7 +155,7 @@ private class ProcessorTest : PlatformLiteFixture() {
 
             @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
                 val q = createQuery("(1, 2, 3)")
-                val items = q.run().execute().get().toList()
+                val items = q.run().execute().get().results
                 q.close()
 
                 assertThat(items.size, `is`(3))
@@ -177,7 +175,7 @@ private class ProcessorTest : PlatformLiteFixture() {
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
                 val q = createQuery("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)")
-                val items = q.run().execute().get().toList()
+                val items = q.run().execute().get().results
                 q.close()
 
                 assertThat(items.size, `is`(3))
@@ -349,7 +347,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery("declare variable \$x external; \$x")
             q.bindVariable("x", "2", "xs:integer")
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -364,7 +362,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery("declare variable \$Q{http://www.example.co.uk}x external; \$x")
             q.bindVariable("Q{http://www.example.co.uk}x", "2", "xs:integer")
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -376,7 +374,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery("declare variable \$local:x external; \$x")
             q.bindVariable("local:x", "2", "xs:integer")
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -389,7 +387,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery("declare variable \$x external; \$x")
             q.bindVariable("x", value, type)
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -402,7 +400,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery("declare variable \$x external; \$x")
             q.bindVariable("x", value, type)
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -430,7 +428,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery("declare variable \$x external; \$x")
             q.bindVariable("x", null, "empty-sequence()")
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(0))
@@ -460,7 +458,7 @@ private class ProcessorTest : PlatformLiteFixture() {
                 val q = createQuery("declare variable \$x external; \$x")
                 q.bindVariable("x", "()", "empty-sequence()")
 
-                val items = q.run().execute().get().toList()
+                val items = q.run().execute().get().results
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -542,7 +540,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery(".")
             q.bindContextItem(value, type)
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -555,7 +553,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery(".")
             q.bindContextItem(value, type)
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -583,7 +581,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             val q = createQuery(".")
             q.bindContextItem(null, "empty-sequence()")
 
-            val items = q.run().execute().get().toList()
+            val items = q.run().execute().get().results
             q.close()
 
             assertThat(items.size, `is`(0))
@@ -596,7 +594,7 @@ private class ProcessorTest : PlatformLiteFixture() {
                 val q = createQuery(".")
                 q.bindContextItem("()", "empty-sequence()")
 
-                val items = q.run().execute().get().toList()
+                val items = q.run().execute().get().results
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -694,7 +692,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         fun parse(query: String): QueryError {
             return Assertions.assertThrows(QueryError::class.java) {
                 try {
-                    createQuery(query).use { it.run().execute().get().toList() }
+                    createQuery(query).use { it.run().execute().get().results }
                 } catch (e: ExecutionException) {
                     throw e.cause!!
                 }

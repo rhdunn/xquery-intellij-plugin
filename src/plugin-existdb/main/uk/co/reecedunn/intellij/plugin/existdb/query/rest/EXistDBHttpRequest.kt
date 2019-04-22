@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
@@ -47,7 +48,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
         throw UnsupportedOperationException()
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
         val request = builder.build()
 
         val response =  connection.execute(request)
@@ -59,7 +60,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
         }
 
         val contentType = response.allHeaders.filter { h -> h.name == "ContentType" }.firstOrNull()?.value
-        sequenceOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain"))
+        QueryResults(listOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain")))
     }
 
     override fun close() {

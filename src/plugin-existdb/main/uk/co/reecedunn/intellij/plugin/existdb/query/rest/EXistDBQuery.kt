@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class EXistDBQuery(
@@ -59,7 +60,7 @@ internal class EXistDBQuery(
         throw UnsupportedOperationException()
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
         val request = builder.build()
 
         val response = connection.execute(request)
@@ -73,10 +74,11 @@ internal class EXistDBQuery(
 
         var position: Long = -1
         val result = XmlDocument.parse(body, EXIST_NAMESPACES)
-        result.root.children("exist:value").map { value ->
+        val results = result.root.children("exist:value").map { value ->
             val type = value.attribute("exist:type")!!
             QueryResult.fromItemType(++position, value.text() ?: "", type)
         }
+        QueryResults(results.toList())
     }
 
     override fun close() {

@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-
-interface RunnableQuery : Query {
-    fun run(): ExecutableOnPooledThread<QueryResults>
-}
+data class QueryResults(
+    val results: List<QueryResult>
+)

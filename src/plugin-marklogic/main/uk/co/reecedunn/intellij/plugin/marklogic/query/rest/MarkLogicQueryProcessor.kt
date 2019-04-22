@@ -39,21 +39,21 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.first().value as String }
+            query.run().then { results -> results.results.first().value as String }
         }
     }
 
     override val servers: ExecutableOnPooledThread<List<String>>
         get() {
             return createRunnableQuery(MarkLogicQueries.Servers, XQuery).use { query ->
-                query.run().then { results -> results.map { it.value as String }.toList() }
+                query.run().then { results -> results.results.map { it.value as String } }
             }
         }
 
     override val databases: ExecutableOnPooledThread<List<String>>
         get() {
             return createRunnableQuery(MarkLogicQueries.Databases, XQuery).use { query ->
-                query.run().then { results -> results.map { it.value as String }.toList() }
+                query.run().then { results -> results.results.map { it.value as String } }
             }
         }
 
