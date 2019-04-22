@@ -23,8 +23,10 @@ class LocalSession(context: Context) {
             ?: context.contextClass.classLoader.loadClass("org.basex.server.LocalSession")
     private val `object`: Any = `class`.getConstructor(context.contextClass).newInstance(context.basexObject)
 
-    fun query(query: String): Any {
-        return `class`.getMethod("query", String::class.java).invoke(`object`, query)
+    fun query(query: String): LocalQuery {
+        val localQueryClass: Class<*> = `class`.classLoader.loadClassOrNull("org.basex.api.client.LocalQuery")
+            ?: `class`.classLoader.loadClass("org.basex.server.LocalQuery")
+        return LocalQuery(`class`.getMethod("query", String::class.java).invoke(`object`, query), localQueryClass)
     }
 
     fun close() {
