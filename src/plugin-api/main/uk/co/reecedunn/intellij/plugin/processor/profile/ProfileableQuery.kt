@@ -19,5 +19,5 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 
 interface ProfileableQuery : Query {
-    fun profile(): ExecutableOnPooledThread<ProfileQueryResult>
+    fun profile(): ExecutableOnPooledThread<ProfileQueryResults>
 }

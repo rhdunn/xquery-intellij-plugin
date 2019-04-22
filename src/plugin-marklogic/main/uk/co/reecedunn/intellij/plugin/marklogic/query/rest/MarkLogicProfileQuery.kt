@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
@@ -92,7 +92,7 @@ internal class MarkLogicProfileQuery(
         return builder.build()
     }
 
-    override fun profile(): ExecutableOnPooledThread<ProfileQueryResult> = pooled_thread {
+    override fun profile(): ExecutableOnPooledThread<ProfileQueryResults> = pooled_thread {
         val response = connection.execute(request())
         val body = EntityUtils.toString(response.entity)
         response.close()
@@ -103,7 +103,7 @@ internal class MarkLogicProfileQuery(
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
         val report = (results.next().value as String).toMarkLogicProfileReport(queryFile)
-        ProfileQueryResult(results.asSequence(), report)
+        ProfileQueryResults(results.asSequence(), report)
     }
 
     override fun close() {
