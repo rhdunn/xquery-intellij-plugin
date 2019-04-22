@@ -15,18 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session.binding
 
-class ClientQuery(val `object`: Any, val clientQueryClass: Class<*>) {
-    fun bind(name: String, value: Any?, type: String?) {
+import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
+
+class ClientQuery(private val `object`: Any, private val `class`: Class<*>) : Query {
+    override fun bind(name: String, value: Any?, type: String?) {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
-        clientQueryClass.getMethod("bind", String::class.java, Any::class.java, String::class.java)
+        `class`.getMethod("bind", String::class.java, Any::class.java, String::class.java)
             .invoke(`object`, name, value, type)
     }
 
-    fun context(value: Any?, type: String?) {
-        clientQueryClass.getMethod("context", Any::class.java, String::class.java).invoke(`object`, value, type)
+    override fun context(value: Any?, type: String?) {
+        `class`.getMethod("context", Any::class.java, String::class.java).invoke(`object`, value, type)
     }
 
-    fun close() {
-        clientQueryClass.getMethod("close").invoke(`object`)
+    override fun more(): Boolean {
+        return `class`.getMethod("more").invoke(`object`) as Boolean
+    }
+
+    override fun next(): String? {
+        return `class`.getMethod("next").invoke(`object`) as String?
+    }
+
+    override fun type(): Any? {
+        return `class`.getMethodOrNull("type")?.invoke(`object`)
+    }
+
+    override fun close() {
+        `class`.getMethod("close").invoke(`object`)
     }
 }

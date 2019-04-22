@@ -62,7 +62,7 @@ internal class BaseXLocalQuery(
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check(queryFile) {
-            BaseXQueryResultIterator(query.`object`, queryFile, classes, query.localQueryClass).asSequence()
+            BaseXQueryResultIterator(query, queryFile, classes).asSequence()
         }
     }
 
