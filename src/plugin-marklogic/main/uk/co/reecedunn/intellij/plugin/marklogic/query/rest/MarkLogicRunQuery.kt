@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 internal class MarkLogicRunQuery(
     val builder: RequestBuilder,
@@ -94,10 +95,7 @@ internal class MarkLogicRunQuery(
     }
 
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
-        val start = System.nanoTime()
         val response = connection.execute(request())
-        val end = System.nanoTime()
-
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -105,8 +103,9 @@ internal class MarkLogicRunQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).toList()
-        QueryResults(results, XsDuration.ns(end - start))
+        val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
+        val duration = (results.next().value as String).toXsDuration()
+        QueryResults(results.asSequence().toList(), duration!!)
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {

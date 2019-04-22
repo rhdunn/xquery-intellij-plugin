@@ -281,11 +281,16 @@ declare function local:javascript() as item()* {
         switch ($mode)
         case "run" return
             let $f := local:function("xdmp:javascript-eval#3")
-            return $f($query, $variables, $options)
+            let $start := xdmp:elapsed-time()
+            let $ret := $f($query, $variables, $options)
+            return (xdmp:elapsed-time() - $start, $ret)
         default return ()
     else
         switch ($mode)
-        case "run" return xdmp:invoke($module-path, $variables, $options)
+        case "run" return
+            let $start := xdmp:elapsed-time()
+            let $ret := xdmp:invoke($module-path, $variables, $options)
+            return (xdmp:elapsed-time() - $start, $ret)
         default return ()
 };
 
@@ -297,7 +302,10 @@ declare function local:sparql-query() as item()* {
         else
             () (: TODO: Read the contents of the query file from the modules database. :)
     return switch ($mode)
-    case "run" return sem:sparql($query, $variables)
+    case "run" return
+        let $start := xdmp:elapsed-time()
+        let $ret := sem:sparql($query, $variables)
+        return (xdmp:elapsed-time() - $start, $ret)
     default return ()
 };
 
@@ -314,7 +322,10 @@ declare function local:sparql-update() as item()* {
             "MarkLogic " || xdmp:version() || " does not support SPARQL update queries"
         )
     else switch ($mode)
-    case "run" return sem:sparql-update($query, $variables)
+    case "run" return
+        let $start := xdmp:elapsed-time()
+        let $ret := sem:sparql-update($query, $variables)
+        return (xdmp:elapsed-time() - $start, $ret)
     default return ()
 };
 
@@ -329,10 +340,14 @@ declare function local:sql() as item()* {
     case "run" return
         if (local:version() < 9.0) then
             let $f := local:function("xdmp:sql#1")
-            return $f($query)
+            let $start := xdmp:elapsed-time()
+            let $ret := $f($query)
+            return (xdmp:elapsed-time() - $start, $ret)
         else
             let $f := local:function("xdmp:sql#3")
-            return $f($query, (), $variables)
+            let $start := xdmp:elapsed-time()
+            let $ret := $f($query, (), $variables)
+            return (xdmp:elapsed-time() - $start, $ret)
     default return ()
 };
 
@@ -342,13 +357,19 @@ declare function local:xquery() as item()* {
     return if (string-length($query) ne 0) then
         switch ($mode)
         case "profile" return prof:eval($query, $variables, $options)
-        case "run" return xdmp:eval($query, $variables, $options)
+        case "run" return
+            let $start := xdmp:elapsed-time()
+            let $ret := xdmp:eval($query, $variables, $options)
+            return (xdmp:elapsed-time() - $start, $ret)
         case "validate" return xdmp:eval($query, $variables, $options)
         default return ()
     else
         switch ($mode)
         case "profile" return prof:invoke($module-path, $variables, $options)
-        case "run" return xdmp:invoke($module-path, $variables, $options)
+        case "run" return
+            let $start := xdmp:elapsed-time()
+            let $ret := xdmp:invoke($module-path, $variables, $options)
+            return (xdmp:elapsed-time() - $start, $ret)
         case "validate" return xdmp:invoke($module-path, $variables, $options)
         default return ()
 };
@@ -360,13 +381,20 @@ declare function local:xslt() as item()* {
     return if (string-length($query) ne 0) then
         switch ($mode)
         case "profile" return prof:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
-        case "run" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
+        case "run" return
+            let $query := xdmp:unquote($query)
+            let $start := xdmp:elapsed-time()
+            let $ret := xdmp:xslt-eval($query, $input, $variables, $options)
+            return (xdmp:elapsed-time() - $start, $ret)
         case "validate" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
         default return ()
     else
         switch ($mode)
         case "profile" return prof:xslt-invoke($module-path, $input, $variables, $options)
-        case "run" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
+        case "run" return
+            let $start := xdmp:elapsed-time()
+            let $ret := xdmp:xslt-invoke($module-path, $input, $variables, $options)
+            return (xdmp:elapsed-time() - $start, $ret)
         case "validate" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
         default return ()
 };
