@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientSession
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
@@ -25,12 +25,9 @@ import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXClientQueryProcessor(val session: ClientSession, val classes: BaseXClasses) :
-    RunnableQueryProvider {
-
+internal class BaseXQueryProcessor(val session: Session, val classes: BaseXClasses) : RunnableQueryProvider {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }

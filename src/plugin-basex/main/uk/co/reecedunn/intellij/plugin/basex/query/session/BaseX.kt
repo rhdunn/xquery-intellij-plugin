@@ -36,7 +36,7 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
     private val context = Context(classes.loader, true)
 
     override fun create(): QueryProcessor {
-        return BaseXLocalQueryProcessor(context, classes)
+        return BaseXQueryProcessor(LocalSession(context), classes)
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
@@ -46,6 +46,6 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
         val session = ClientSession(
             classes.loader, settings.hostname, settings.databasePort, settings.username, settings.password
         )
-        return BaseXClientQueryProcessor(session, classes)
+        return BaseXQueryProcessor(session, classes)
     }
 }
