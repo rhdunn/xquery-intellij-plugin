@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXQueryProcessor(val session: Session, val classes: BaseXClasses) : RunnableQueryProvider {
+internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassLoader) : RunnableQueryProvider {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }
@@ -44,7 +44,7 @@ internal class BaseXQueryProcessor(val session: Session, val classes: BaseXClass
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
-            XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classes)
+            XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classLoader)
             else -> throw UnsupportedQueryType(language)
         }
     }

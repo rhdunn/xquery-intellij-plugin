@@ -31,7 +31,7 @@ internal class BaseXRunnableQuery(
     val session: Session,
     val queryString: String,
     val queryFile: VirtualFile,
-    val classes: BaseXClasses
+    val classLoader: ClassLoader
 ) : RunnableQuery {
     private val query: Query = session.query(queryString)
 
@@ -47,12 +47,12 @@ internal class BaseXRunnableQuery(
 
     override var modulePath: String = ""
 
-    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(classes.loader, queryFile) {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = check(classLoader, queryFile) {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         query.bind(name, value, mapType(type))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(classes.loader, queryFile) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(classLoader, queryFile) {
         when (value) {
             is DatabaseModule -> query.context(value.path, mapType(type))
             is VirtualFile -> query.context(value.decode()!!, mapType(type))
@@ -61,8 +61,8 @@ internal class BaseXRunnableQuery(
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        check(classes.loader, queryFile) {
-            BaseXQueryResultIterator(query, queryFile, classes).asSequence()
+        check(classLoader, queryFile) {
+            BaseXQueryResultIterator(query, queryFile, classLoader).asSequence()
         }
     }
 

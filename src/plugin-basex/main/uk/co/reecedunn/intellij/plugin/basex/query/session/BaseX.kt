@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
+import java.net.URLClassLoader
 import java.net.UnknownHostException
 
 internal fun mapType(type: String?): String? {
@@ -32,11 +33,11 @@ internal fun mapType(type: String?): String? {
 }
 
 class BaseX(path: File) : QueryProcessorInstanceManager {
-    private val classes = BaseXClasses(path)
-    private val context = Context(classes.loader, true)
+    private val classLoader = URLClassLoader(arrayOf(path.toURI().toURL()))
+    private val context = Context(classLoader, true)
 
     override fun create(): QueryProcessor {
-        return BaseXQueryProcessor(LocalSession(context), classes)
+        return BaseXQueryProcessor(LocalSession(context), classLoader)
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
@@ -44,8 +45,8 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
             throw UnknownHostException("")
 
         val session = ClientSession(
-            classes.loader, settings.hostname, settings.databasePort, settings.username, settings.password
+            classLoader, settings.hostname, settings.databasePort, settings.username, settings.password
         )
-        return BaseXQueryProcessor(session, classes)
+        return BaseXQueryProcessor(session, classLoader)
     }
 }

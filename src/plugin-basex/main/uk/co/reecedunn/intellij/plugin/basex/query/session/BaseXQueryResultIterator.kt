@@ -22,11 +22,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 internal class BaseXQueryResultIterator(
     val query: Query,
     val queryFile: VirtualFile,
-    val classes: BaseXClasses
+    val classLoader: ClassLoader
 ) : Iterator<QueryResult> {
     private var position: Long = -1
 
-    override fun hasNext(): Boolean = check(classes.loader, queryFile) {
+    override fun hasNext(): Boolean = check(classLoader, queryFile) {
         query.more()
     }
 
