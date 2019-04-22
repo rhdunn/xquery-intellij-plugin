@@ -75,7 +75,7 @@ internal class SaxonQueryProfiler(
 
     override fun profile(): ExecutableOnPooledThread<ProfileQueryResults> = pooled_thread {
         val results = (runner as SaxonRunner).asSequence().toList()
-        ProfileQueryResults(results.asSequence(), listener.toProfileReport())
+        ProfileQueryResults(results, listener.toProfileReport())
     }
 
     override fun close() {

@@ -18,6 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.profile
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 data class ProfileQueryResults(
-    val results: Sequence<QueryResult>,
+    val results: List<QueryResult>,
     val report: ProfileReport
 )

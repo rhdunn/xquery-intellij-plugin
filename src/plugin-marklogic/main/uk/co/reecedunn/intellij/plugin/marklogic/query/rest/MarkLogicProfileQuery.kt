@@ -103,7 +103,7 @@ internal class MarkLogicProfileQuery(
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
         val report = (results.next().value as String).toMarkLogicProfileReport(queryFile)
-        ProfileQueryResults(results.asSequence(), report)
+        ProfileQueryResults(results.asSequence().toList(), report)
     }
 
     override fun close() {
