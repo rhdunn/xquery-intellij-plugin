@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
     override var rdfOutputFormat: Language? = null
@@ -51,7 +52,10 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
         val request = builder.build()
 
-        val response =  connection.execute(request)
+        val start = System.nanoTime()
+        val response = connection.execute(request)
+        val end = System.nanoTime()
+
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -60,7 +64,10 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
         }
 
         val contentType = response.allHeaders.filter { h -> h.name == "ContentType" }.firstOrNull()?.value
-        QueryResults(listOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain")))
+        QueryResults(
+            listOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain")),
+            XsDuration.ns(end - start)
+        )
     }
 
     override fun close() {

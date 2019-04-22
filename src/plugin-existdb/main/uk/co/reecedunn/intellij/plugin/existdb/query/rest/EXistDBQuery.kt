@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 internal class EXistDBQuery(
     val builder: RequestBuilder,
@@ -63,7 +64,10 @@ internal class EXistDBQuery(
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
         val request = builder.build()
 
+        val start = System.nanoTime()
         val response = connection.execute(request)
+        val end = System.nanoTime()
+
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -78,7 +82,7 @@ internal class EXistDBQuery(
             val type = value.attribute("exist:type")!!
             QueryResult.fromItemType(++position, value.text() ?: "", type)
         }
-        QueryResults(results.toList())
+        QueryResults(results.toList(), XsDuration.ns(end - start))
     }
 
     override fun close() {

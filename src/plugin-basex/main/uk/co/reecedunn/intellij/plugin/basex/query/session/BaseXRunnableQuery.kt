@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 internal class BaseXRunnableQuery(
     val session: Session,
@@ -68,8 +69,10 @@ internal class BaseXRunnableQuery(
             contextItem?.let { query.context(it.first, it.second) }
             variables.forEach { query.bind(it.key, it.value.first, it.value.second) }
 
+            val start = System.nanoTime()
             val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence()
-            QueryResults(results.toList())
+            val end = System.nanoTime()
+            QueryResults(results.toList(), XsDuration.ns(end - start))
         }
     }
 

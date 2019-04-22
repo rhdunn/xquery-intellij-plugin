@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 import javax.xml.transform.ErrorListener
 
 internal class SaxonXQueryRunner(
@@ -96,8 +97,10 @@ internal class SaxonXQueryRunner(
     }
 
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+        val start = System.nanoTime()
         val results = asSequence().toList()
-        QueryResults(results)
+        val end = System.nanoTime()
+        QueryResults(results, XsDuration.ns(end - start))
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {

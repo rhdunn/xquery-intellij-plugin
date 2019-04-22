@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 internal class MarkLogicRunQuery(
     val builder: RequestBuilder,
@@ -93,7 +94,10 @@ internal class MarkLogicRunQuery(
     }
 
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+        val start = System.nanoTime()
         val response = connection.execute(request())
+        val end = System.nanoTime()
+
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -102,7 +106,7 @@ internal class MarkLogicRunQuery(
         }
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).toList()
-        QueryResults(results)
+        QueryResults(results, XsDuration.ns(end - start))
     }
 
     override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
