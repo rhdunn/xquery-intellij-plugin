@@ -24,7 +24,6 @@ import java.net.URLClassLoader
 internal class BaseXClasses(path: File) {
     val loader: ClassLoader
 
-    val localSessionClass: Class<*>
     val clientSessionClass: Class<*>
     val localQueryClass: Class<*>
     val clientQueryClass: Class<*>
@@ -32,8 +31,6 @@ internal class BaseXClasses(path: File) {
 
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-        localSessionClass = loader.loadClassOrNull("org.basex.api.client.LocalSession")
-                ?: loader.loadClass("org.basex.server.LocalSession")
         clientSessionClass = loader.loadClassOrNull("org.basex.api.client.ClientSession")
                 ?: loader.loadClass("org.basex.server.ClientSession")
         localQueryClass = loader.loadClassOrNull("org.basex.api.client.LocalQuery")

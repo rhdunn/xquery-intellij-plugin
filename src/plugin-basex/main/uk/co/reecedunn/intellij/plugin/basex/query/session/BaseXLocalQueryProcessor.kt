@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Context
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalSession
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
@@ -31,14 +32,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.*
 internal class BaseXLocalQueryProcessor(val context: Context, val classes: BaseXClasses) :
     RunnableQueryProvider {
 
-    private var basexSession: Any? = null
-    val session: Any
-        get() {
-            if (basexSession == null) {
-                basexSession = classes.localSessionClass.getConstructor(context.contextClass).newInstance(context.basexObject)
-            }
-            return basexSession!!
-        }
+    private var session = LocalSession(context)
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
@@ -62,9 +56,6 @@ internal class BaseXLocalQueryProcessor(val context: Context, val classes: BaseX
     }
 
     override fun close() {
-        if (basexSession != null) {
-            classes.localSessionClass.getMethod("close").invoke(session)
-            basexSession = null
-        }
+        session.close()
     }
 }
