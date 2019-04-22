@@ -76,6 +76,19 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         text?.add(wrapper, BorderLayout.LINE_START)
     }
 
+    private fun createResultTable(): JComponent {
+        table = QueryResultTable(
+            QueryResultItemTypeColumn(sortable = false),
+            QueryResultMimeTypeColumn(sortable = false)
+        )
+
+        table!!.selectionModel.addListSelectionListener {
+            table?.selectedObject?.second?.let { range -> text?.scrollToTop(range.from) }
+        }
+
+        return JBScrollPane(table)
+    }
+
     // region ConsoleView
 
     override fun clear() {
@@ -100,18 +113,9 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         if (table == null) {
             createTextConsoleView()
 
-            table = QueryResultTable(
-                QueryResultItemTypeColumn(sortable = false),
-                QueryResultMimeTypeColumn(sortable = false)
-            )
-
-            table!!.selectionModel.addListSelectionListener {
-                table?.selectedObject?.second?.let { range -> text?.scrollToTop(range.from) }
-            }
-
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = text?.component
-            splitPane.secondComponent = JBScrollPane(table)
+            splitPane.secondComponent = createResultTable()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
             splitPane.setAndLoadSplitterProportionKey(SPLITTER_KEY)
