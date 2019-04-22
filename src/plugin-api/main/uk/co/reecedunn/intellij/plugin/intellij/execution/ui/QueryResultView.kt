@@ -23,6 +23,7 @@ import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.ui.components.panels.VerticalLayout
 import com.intellij.ui.components.panels.Wrapper
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
@@ -30,13 +31,18 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import java.awt.BorderLayout
-import java.awt.Dimension
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import java.awt.*
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
+import javax.swing.JLabel
+import javax.swing.JPanel
+import javax.swing.border.EmptyBorder
 
 class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
     companion object {
@@ -49,6 +55,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     // text console is created as a child of the result view.
     private var text: TextConsoleView? = null
 
+    private var elapsed: JLabel? = null
     private var table: QueryResultTable? = null
 
     private fun createTextConsoleView(): JComponent {
@@ -88,10 +95,37 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         return JBScrollPane(table)
     }
 
+    private fun createResultPanel(): JComponent {
+        elapsed = JLabel()
+
+        val infoPanel = JPanel(VerticalLayout(0))
+        elapsed!!.border = EmptyBorder(4, 4, 4, 4)
+        infoPanel.add(elapsed)
+
+        val panel = JPanel(GridBagLayout())
+        val constraints = GridBagConstraints(
+            0, 0, 1, 1, 1.0, 0.0,
+            GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL,
+            Insets(0, 0, 0, 0),
+            0, 0
+        )
+        panel.add(infoPanel, constraints)
+
+        constraints.gridy = 1
+        constraints.weighty = 1.0
+        constraints.fill = GridBagConstraints.BOTH
+        panel.add(createResultTable(), constraints)
+
+        infoPanel.border = Borders.TableHeaderBottom
+        return panel
+    }
+
     // region ConsoleView
 
     override fun clear() {
         text?.clear()
+
+        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label.no-value")
 
         table?.removeAll()
         table?.isRunning = false
@@ -112,7 +146,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         if (table == null) {
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = createTextConsoleView()
-            splitPane.secondComponent = createResultTable()
+            splitPane.secondComponent = createResultPanel()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
             splitPane.setAndLoadSplitterProportionKey(SPLITTER_KEY)
@@ -177,6 +211,14 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         }
 
         table?.hasException = true
+    }
+
+    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+        when (resultTime) {
+            QueryResultTime.Elapsed -> {
+                elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(time))
+            }
+        }
     }
 
     // endregion

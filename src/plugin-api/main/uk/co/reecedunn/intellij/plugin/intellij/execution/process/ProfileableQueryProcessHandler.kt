@@ -52,6 +52,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                 try {
                     notifyProfileReport(results.report)
                     results.results.forEach { result -> notifyResult(result) }
+                    notifyResultTime(QueryResultTime.Elapsed, results.report.elapsed)
                 } catch (e: Throwable) {
                     notifyException(e)
                 } finally {

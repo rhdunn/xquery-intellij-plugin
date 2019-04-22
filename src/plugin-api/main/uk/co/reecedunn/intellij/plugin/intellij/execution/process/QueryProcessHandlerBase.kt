@@ -19,10 +19,11 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.openapi.Disposable
 import uk.co.reecedunn.intellij.plugin.core.event.Multicaster
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.io.OutputStream
 
 abstract class QueryProcessHandlerBase : ProcessHandler() {
-    // region Profile Report
+    // region Results
 
     private val queryResultListeners = Multicaster(QueryResultListener::class.java)
 
@@ -52,6 +53,10 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
 
     fun notifyResult(result: QueryResult) {
         queryResultListeners.eventMulticaster.onQueryResult(result)
+    }
+
+    fun notifyResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+        queryResultListeners.eventMulticaster.onQueryResultTime(resultTime, time)
     }
 
     // endregion

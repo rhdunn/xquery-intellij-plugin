@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 data class QueryResults(
     val results: List<QueryResult>,
-    val elapsed: XsDuration
+    val elapsed: XsDurationValue
 )

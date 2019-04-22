@@ -15,18 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
-import java.util.*
-
-interface QueryResultListener : EventListener {
-    fun onBeginResults()
-
-    fun onEndResults()
-
-    fun onQueryResult(result: QueryResult)
-
-    fun onException(e: Throwable)
-
-    fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue)
+enum class QueryResultTime {
+    Elapsed,
 }

@@ -26,6 +26,7 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                 try {
                     results.results.forEach { result -> notifyResult(result) }
                     notifyEndResults()
+                    notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
                 } catch (e: Throwable) {
                     notifyEndResults()
                     notifyException(e)

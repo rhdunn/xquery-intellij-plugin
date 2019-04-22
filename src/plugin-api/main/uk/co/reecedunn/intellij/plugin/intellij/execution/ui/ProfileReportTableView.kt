@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -44,7 +45,7 @@ import javax.swing.JTable
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 private val FILE_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HHmmss")
 
-private fun formatDuration(duration: XsDurationValue): String {
+internal fun formatDuration(duration: XsDurationValue): String {
     return "${duration.seconds.data} s"
 }
 
@@ -165,6 +166,14 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
 
     override fun onException(e: Throwable) {
         (results as ProfileReportTable).hasException = true
+    }
+
+    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+        when (resultTime) {
+            QueryResultTime.Elapsed -> {
+                elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(time))
+            }
+        }
     }
 
     // endregion
