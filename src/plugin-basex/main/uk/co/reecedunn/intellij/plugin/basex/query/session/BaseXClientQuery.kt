@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientQuery
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientSession
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
@@ -32,7 +33,7 @@ internal class BaseXClientQuery(
     val queryFile: VirtualFile,
     val classes: BaseXClasses
 ) : RunnableQuery {
-    private val query: Any = session.query(queryString)
+    private val query: ClientQuery = session.query(queryString)
 
     override var rdfOutputFormat: Language? = null
 
@@ -48,23 +49,20 @@ internal class BaseXClientQuery(
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check(queryFile) {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
-        classes.clientQueryClass
-            .getMethod("bind", String::class.java, Any::class.java, String::class.java)
-            .invoke(query, name, value, mapType(type))
+        query.bind(name, value, mapType(type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check(queryFile) {
-        val bind = classes.clientQueryClass.getMethod("context", Any::class.java, String::class.java)
         when (value) {
-            is DatabaseModule -> bind.invoke(query, value.path, mapType(type))
-            is VirtualFile -> bind.invoke(query, value.decode()!!, mapType(type))
-            else -> bind.invoke(query, value.toString(), mapType(type))
+            is DatabaseModule -> query.context(value.path, mapType(type))
+            is VirtualFile -> query.context(value.decode()!!, mapType(type))
+            else -> query.context(value.toString(), mapType(type))
         }
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check(queryFile) {
-            BaseXQueryResultIterator(query, queryFile, classes, classes.clientQueryClass).asSequence()
+            BaseXQueryResultIterator(query.`object`, queryFile, classes, query.clientQueryClass).asSequence()
         }
     }
 

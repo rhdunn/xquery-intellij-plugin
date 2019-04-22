@@ -29,8 +29,10 @@ class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, usern
         `object` = constructor.newInstance(hostname, port, username, password)
     }
 
-    fun query(query: String): Any {
-        return `class`.getMethod("query", String::class.java).invoke(`object`, query)
+    fun query(query: String): ClientQuery {
+        val clientQueryClass: Class<*> = `class`.classLoader.loadClassOrNull("org.basex.api.client.ClientQuery")
+            ?: `class`.classLoader.loadClass("org.basex.server.ClientQuery")
+        return ClientQuery(`class`.getMethod("query", String::class.java).invoke(`object`, query), clientQueryClass)
     }
 
     fun close() {

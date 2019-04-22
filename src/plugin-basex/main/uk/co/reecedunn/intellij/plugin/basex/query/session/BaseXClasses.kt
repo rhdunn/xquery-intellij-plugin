@@ -24,16 +24,10 @@ import java.net.URLClassLoader
 internal class BaseXClasses(path: File) {
     val loader: ClassLoader
 
-    val clientSessionClass: Class<*>
-    val clientQueryClass: Class<*>
     val basexExceptionClass: Class<*>
 
     init {
         loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-        clientSessionClass = loader.loadClassOrNull("org.basex.api.client.ClientSession")
-                ?: loader.loadClass("org.basex.server.ClientSession")
-        clientQueryClass = loader.loadClassOrNull("org.basex.api.client.ClientQuery")
-                ?: loader.loadClass("org.basex.server.ClientQuery")
         basexExceptionClass = loader.loadClass("org.basex.core.BaseXException")
     }
 
