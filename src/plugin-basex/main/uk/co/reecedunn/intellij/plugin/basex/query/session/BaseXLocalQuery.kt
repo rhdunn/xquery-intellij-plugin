@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalQuery
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalSession
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Query
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -33,7 +33,7 @@ internal class BaseXLocalQuery(
     val queryFile: VirtualFile,
     val classes: BaseXClasses
 ) : RunnableQuery {
-    private val query: LocalQuery = session.query(queryString)
+    private val query: Query = session.query(queryString)
 
     override var rdfOutputFormat: Language? = null
 

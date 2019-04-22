@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 
-class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, username: String?, password: String?) {
+class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, username: String?, password: String?) :
+    Session {
+
     private val `class`: Class<*> = classLoader.loadClassOrNull("org.basex.api.client.ClientSession")
         ?: classLoader.loadClass("org.basex.server.ClientSession")
     val `object`: Any
@@ -29,13 +31,13 @@ class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, usern
         `object` = constructor.newInstance(hostname, port, username, password)
     }
 
-    fun query(query: String): ClientQuery {
+    override fun query(query: String): Query {
         val clientQueryClass: Class<*> = `class`.classLoader.loadClassOrNull("org.basex.api.client.ClientQuery")
             ?: `class`.classLoader.loadClass("org.basex.server.ClientQuery")
         return ClientQuery(`class`.getMethod("query", String::class.java).invoke(`object`, query), clientQueryClass)
     }
 
-    fun close() {
+    override fun close() {
         `class`.getMethod("close").invoke(`object`)
     }
 }

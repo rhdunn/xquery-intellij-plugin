@@ -17,19 +17,19 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 
-class LocalSession(context: Context) {
+class LocalSession(context: Context) : Session {
     private val `class`: Class<*> =
         context.contextClass.classLoader.loadClassOrNull("org.basex.api.client.LocalSession")
             ?: context.contextClass.classLoader.loadClass("org.basex.server.LocalSession")
     private val `object`: Any = `class`.getConstructor(context.contextClass).newInstance(context.basexObject)
 
-    fun query(query: String): LocalQuery {
+    override fun query(query: String): Query {
         val localQueryClass: Class<*> = `class`.classLoader.loadClassOrNull("org.basex.api.client.LocalQuery")
             ?: `class`.classLoader.loadClass("org.basex.server.LocalQuery")
         return LocalQuery(`class`.getMethod("query", String::class.java).invoke(`object`, query), localQueryClass)
     }
 
-    fun close() {
+    override fun close() {
         `class`.getMethod("close").invoke(`object`)
     }
 }
