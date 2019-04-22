@@ -26,5 +26,7 @@ interface Query {
 
     fun type(): Any?
 
+    fun info(): String?
+
     fun close()
 }

@@ -40,6 +40,10 @@ class ClientQuery(private val `object`: Any, private val `class`: Class<*>) : Qu
         return `class`.getMethodOrNull("type")?.invoke(`object`)
     }
 
+    override fun info(): String? {
+        return `class`.getMethod("info").invoke(`object`) as String?
+    }
+
     override fun close() {
         `class`.getMethod("close").invoke(`object`)
     }
