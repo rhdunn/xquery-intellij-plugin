@@ -55,8 +55,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     // text console is created as a child of the result view.
     private var text: TextConsoleView? = null
 
-    private var elapsed: JLabel? = null
-    private var count: JLabel? = null
+    private var summary: JLabel? = null
     private var table: QueryResultTable? = null
 
     private fun createTextConsoleView(): JComponent {
@@ -97,14 +96,11 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     }
 
     private fun createResultPanel(): JComponent {
-        elapsed = JLabel()
-        count = JLabel()
+        summary = JLabel()
 
         val infoPanel = JPanel(VerticalLayout(0))
-        elapsed!!.border = EmptyBorder(4, 4, 2, 4)
-        infoPanel.add(elapsed)
-        count!!.border = EmptyBorder(2, 4, 4, 4)
-        infoPanel.add(count)
+        summary!!.border = EmptyBorder(4, 4, 4, 4)
+        infoPanel.add(summary)
 
         val panel = JPanel(GridBagLayout())
         val constraints = GridBagConstraints(
@@ -129,8 +125,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     override fun clear() {
         text?.clear()
 
-        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label.no-value")
-        count!!.text = PluginApiBundle.message("console.result-count.label.no-value")
+        summary!!.text = "\u00A0"
 
         table?.removeAll()
         table?.isRunning = false
@@ -177,8 +172,6 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         if (table?.isEmpty == true) {
             print("()", ConsoleViewContentType.NORMAL_OUTPUT)
         }
-
-        count!!.text = PluginApiBundle.message("console.result-count.label", table?.rowCount ?: 0)
     }
 
     override fun onQueryResult(result: QueryResult) {
@@ -223,7 +216,8 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
         when (resultTime) {
             QueryResultTime.Elapsed -> {
-                elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(time))
+                val count = table?.rowCount ?: 0
+                summary!!.text = PluginApiBundle.message("console.summary.label", count, formatDuration(time))
             }
         }
     }
