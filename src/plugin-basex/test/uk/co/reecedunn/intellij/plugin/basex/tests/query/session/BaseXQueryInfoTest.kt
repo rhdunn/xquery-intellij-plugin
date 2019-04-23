@@ -20,9 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXInfo
-import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXQueryError
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseX info text")
@@ -98,8 +96,14 @@ class BaseXQueryInfoTest {
         @DisplayName("toBaseXInfo")
         fun info() {
             val info = response.toBaseXInfo()
+            val compiling = listOf(
+                "pre-evaluate range expression to range sequence: (1 to 10)",
+                "inline \$v_1"
+            )
 
-            assertThat(info.size, `is`(11))
+            assertThat(info.size, `is`(12))
+            assertThat(info["Compilation"], `is`(compiling))
+            assertThat(info["Optimized Query"], `is`("for \$n_0 in (1 to 10) return (2 * sum((1 to \$n_0)))"))
             assertThat(info["Parsing"], `is`(XsDuration.ns(440000)))
             assertThat(info["Compiling"], `is`(XsDuration.ns(340000)))
             assertThat(info["Evaluating"], `is`(XsDuration.ns(10000)))
@@ -143,8 +147,27 @@ class BaseXQueryInfoTest {
         @DisplayName("toBaseXInfo")
         fun info() {
             val info = response.toBaseXInfo()
+            val queryPlan = listOf(
+                "<QueryPlan compiled=\"true\" updating=\"false\">",
+                "  <GFLWOR type=\"xs:anyAtomicType*\">",
+                "    <For type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\">",
+                "      <RangeSeq from=\"1\" to=\"10\" type=\"xs:integer+\" size=\"10\"/>",
+                "    </For>",
+                "    <Arith op=\"*\" type=\"xs:anyAtomicType?\">",
+                "      <Int type=\"xs:integer\" size=\"1\">2</Int>",
+                "      <FnSum name=\"sum\" type=\"xs:anyAtomicType?\">",
+                "        <Range type=\"xs:integer*\">",
+                "          <Int type=\"xs:integer\" size=\"1\">1</Int>",
+                "          <VarRef type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\"/>",
+                "        </Range>",
+                "      </FnSum>",
+                "    </Arith>",
+                "  </GFLWOR>",
+                "</QueryPlan>"
+            ).joinToString("\n")
 
-            assertThat(info.size, `is`(1))
+            assertThat(info.size, `is`(2))
+            assertThat(info["Query Plan"], `is`(queryPlan))
             assertThat(info["Total Time"], `is`(XsDuration.ns(110410000)))
         }
     }
@@ -157,8 +180,8 @@ class BaseXQueryInfoTest {
             "Query Plan:",
             "<QueryPlan compiled=\"true\" updating=\"false\">",
             "  <GFLWOR type=\"xs:anyAtomicType*\">",
-            "    <For type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\">\n",
-            "      <RangeSeq from=\"1\" to=\"10\" type=\"xs:integer+\" size=\"10\"/>\n",
+            "    <For type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\">",
+            "      <RangeSeq from=\"1\" to=\"10\" type=\"xs:integer+\" size=\"10\"/>",
             "    </For>",
             "    <Arith op=\"*\" type=\"xs:anyAtomicType?\">",
             "      <Int type=\"xs:integer\" size=\"1\">2</Int>",
@@ -166,7 +189,7 @@ class BaseXQueryInfoTest {
             "        <Range type=\"xs:integer*\">",
             "          <Int type=\"xs:integer\" size=\"1\">1</Int>",
             "          <VarRef type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\"/>",
-            "        </Range>,",
+            "        </Range>",
             "      </FnSum>",
             "    </Arith>",
             "  </GFLWOR>",
@@ -201,8 +224,33 @@ class BaseXQueryInfoTest {
         @DisplayName("toBaseXInfo")
         fun info() {
             val info = response.toBaseXInfo()
+            val queryPlan = listOf(
+                "<QueryPlan compiled=\"true\" updating=\"false\">",
+                "  <GFLWOR type=\"xs:anyAtomicType*\">",
+                "    <For type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\">",
+                "      <RangeSeq from=\"1\" to=\"10\" type=\"xs:integer+\" size=\"10\"/>",
+                "    </For>",
+                "    <Arith op=\"*\" type=\"xs:anyAtomicType?\">",
+                "      <Int type=\"xs:integer\" size=\"1\">2</Int>",
+                "      <FnSum name=\"sum\" type=\"xs:anyAtomicType?\">",
+                "        <Range type=\"xs:integer*\">",
+                "          <Int type=\"xs:integer\" size=\"1\">1</Int>",
+                "          <VarRef type=\"xs:integer\" size=\"1\" name=\"\$n\" id=\"0\"/>",
+                "        </Range>",
+                "      </FnSum>",
+                "    </Arith>",
+                "  </GFLWOR>",
+                "</QueryPlan>"
+            ).joinToString("\n")
+            val compiling = listOf(
+                "pre-evaluate range expression to range sequence: (1 to 10)",
+                "inline \$v_1"
+            )
 
-            assertThat(info.size, `is`(11))
+            assertThat(info.size, `is`(13))
+            assertThat(info["Query Plan"], `is`(queryPlan))
+            assertThat(info["Compilation"], `is`(compiling))
+            assertThat(info["Optimized Query"], `is`("for \$n_0 in (1 to 10) return (2 * sum((1 to \$n_0)))"))
             assertThat(info["Parsing"], `is`(XsDuration.ns(788890000)))
             assertThat(info["Compiling"], `is`(XsDuration.ns(63720000)))
             assertThat(info["Evaluating"], `is`(XsDuration.ns(740000)))

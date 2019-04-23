@@ -17,17 +17,41 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
+private fun String.toBaseXInfoBlocks(): Sequence<String> {
+    return replace("\r\n", "\n").replace('\r', '\n').split("\n\n").asSequence().map {
+        when {
+            it.startsWith('\n') -> it.substring(1)
+            it.endsWith('\n') -> it.substring(0, it.length - 1)
+            else -> it
+        }
+    }
+}
+
+private fun String.parseBaseXInfoBlock(info: HashMap<String, Any>) {
+    split('\n').forEach { row ->
+        val data = row.split(": ")
+        if (data[1].endsWith(" ms")) {
+            info[data[0]] = XsDuration.ms(data[1].substringBefore(" ms"))
+        } else {
+            info[data[0]] = data[1]
+        }
+    }
+}
+
 fun String.toBaseXInfo(): Map<String, Any> {
     val info = HashMap<String, Any>()
-    split("(\r\n|\r|\n)".toRegex()).forEach { block ->
+    toBaseXInfoBlocks().forEach { block ->
+        val part = block.substringBefore('\n')
         when {
-            block.contains(": ") -> {
-                val data = block.split(": ")
-                if (data[1].endsWith(" ms")) {
-                    info[data[0]] = XsDuration.ms(data[1].substringBefore(" ms"))
-                } else {
-                    info[data[0]] = data[1]
-                }
+            part.contains(": ") -> block.parseBaseXInfoBlock(info)
+            part == "Query Plan:" -> {
+                info["Query Plan"] = block.substringAfter('\n')
+            }
+            part == "Compiling:" -> {
+                info["Compilation"] = block.substringAfter('\n').split('\n').map { it.substring(2) }
+            }
+            part == "Optimized Query:" -> {
+                info["Optimized Query"] = block.substringAfter('\n')
             }
             block.startsWith("Query executed in ") -> {
                 info["Total Time"] = XsDuration.ms(block.subSequence(18, block.length - 4).toString())
