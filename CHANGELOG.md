@@ -7,6 +7,8 @@ Run Configurations:
 1.  Support running XPath queries as XSLT patterns (XPath subset) on the Saxon
     query processor.
 1.  Support profiling Saxon XSLT and XQuery scripts.
+1.  Display the elapsed time and number of items returned by the query in the
+    results console.
 
 Saxon:
 

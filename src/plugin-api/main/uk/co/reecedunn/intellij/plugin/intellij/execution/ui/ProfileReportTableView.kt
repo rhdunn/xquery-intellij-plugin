@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.text.DateFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
 import javax.swing.JLabel
@@ -44,9 +45,15 @@ import javax.swing.JTable
 
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 private val FILE_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HHmmss")
+private val NANOSECOND_FORMAT = {
+    val nf = NumberFormat.getInstance()
+    nf.minimumFractionDigits = 6
+    nf.maximumFractionDigits = 9
+    nf
+}()
 
 internal fun formatDuration(duration: XsDurationValue): String {
-    return "${duration.seconds.data} s"
+    return "${NANOSECOND_FORMAT.format(duration.seconds.data)} s"
 }
 
 private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance()): String {
