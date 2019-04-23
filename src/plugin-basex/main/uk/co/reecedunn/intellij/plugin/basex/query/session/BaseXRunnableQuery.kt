@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 internal class BaseXRunnableQuery(
     val session: Session,
@@ -69,10 +70,9 @@ internal class BaseXRunnableQuery(
             contextItem?.let { query.context(it.first, it.second) }
             variables.forEach { query.bind(it.key, it.value.first, it.value.second) }
 
-            val start = System.nanoTime()
-            val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence()
-            val end = System.nanoTime()
-            QueryResults(results.toList(), XsDuration.ns(end - start))
+            val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence().toList()
+            val info = query.info()!!.toBaseXInfo()
+            QueryResults(results, info["Total Time"] as XsDurationValue)
         }
     }
 
