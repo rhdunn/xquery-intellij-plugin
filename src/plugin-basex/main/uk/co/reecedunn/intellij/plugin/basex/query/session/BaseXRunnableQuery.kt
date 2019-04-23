@@ -65,6 +65,8 @@ internal class BaseXRunnableQuery(
 
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
         check(classLoader, queryFile) {
+            session.execute("set queryinfo off")
+            session.execute("set xmlplan off")
             val query: Query = session.query(queryString)
 
             contextItem?.let { query.context(it.first, it.second) }
