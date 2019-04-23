@@ -56,6 +56,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
     private var text: TextConsoleView? = null
 
     private var elapsed: JLabel? = null
+    private var count: JLabel? = null
     private var table: QueryResultTable? = null
 
     private fun createTextConsoleView(): JComponent {
@@ -97,10 +98,13 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
 
     private fun createResultPanel(): JComponent {
         elapsed = JLabel()
+        count = JLabel()
 
         val infoPanel = JPanel(VerticalLayout(0))
-        elapsed!!.border = EmptyBorder(4, 4, 4, 4)
+        elapsed!!.border = EmptyBorder(4, 4, 2, 4)
         infoPanel.add(elapsed)
+        count!!.border = EmptyBorder(2, 4, 4, 4)
+        infoPanel.add(count)
 
         val panel = JPanel(GridBagLayout())
         val constraints = GridBagConstraints(
@@ -126,6 +130,7 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         text?.clear()
 
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label.no-value")
+        count!!.text = PluginApiBundle.message("console.result-count.label.no-value")
 
         table?.removeAll()
         table?.isRunning = false
@@ -172,6 +177,8 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         if (table?.isEmpty == true) {
             print("()", ConsoleViewContentType.NORMAL_OUTPUT)
         }
+
+        count!!.text = PluginApiBundle.message("console.result-count.label", table?.rowCount ?: 0)
     }
 
     override fun onQueryResult(result: QueryResult) {
