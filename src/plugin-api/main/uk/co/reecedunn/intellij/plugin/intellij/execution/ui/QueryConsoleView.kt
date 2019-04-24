@@ -21,6 +21,10 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
+import com.intellij.ui.content.ContentManager
+import com.intellij.ui.content.TabbedPaneContentUI
+import com.intellij.ui.content.impl.ContentImpl
+import com.intellij.ui.content.impl.ContentManagerImpl
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -38,6 +42,7 @@ import java.io.StringWriter
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
+import javax.swing.SwingConstants
 import javax.swing.border.EmptyBorder
 
 class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
@@ -45,6 +50,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
     }
 
+    private var contentManager: ContentManager? = null
     private var text: QueryTextConsoleView? = null
 
     private var summary: JLabel? = null
@@ -117,8 +123,13 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     override fun getComponent(): JComponent {
         if (table == null) {
+            val contentUI = TabbedPaneContentUI(SwingConstants.TOP)
+
+            contentManager = ContentManagerImpl(contentUI, false, project)
+            contentManager!!.addContent(ContentImpl(createTextConsoleView(), "Console", false))
+
             val splitPane = OnePixelSplitter(false)
-            splitPane.firstComponent = createTextConsoleView()
+            splitPane.firstComponent = contentManager!!.component
             splitPane.secondComponent = createResultPanel()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
