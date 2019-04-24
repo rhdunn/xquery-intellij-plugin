@@ -19,4 +19,6 @@ import com.intellij.execution.ui.ConsoleView
 
 interface ConsoleViewEx : ConsoleView {
     fun scrollToTop(offset: Int)
+
+    val consoleTitle: String
 }

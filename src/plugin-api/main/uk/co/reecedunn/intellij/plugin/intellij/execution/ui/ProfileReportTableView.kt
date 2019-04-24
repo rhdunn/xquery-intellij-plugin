@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.application.runUndoTransparentWriteAction
@@ -26,6 +25,7 @@ import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Consumer
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -63,7 +63,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
     }
 }
 
-class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultListener, ProfileReportListener {
+class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultListener, ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null
@@ -140,6 +140,14 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
 
     override fun scrollTo(offset: Int) {
     }
+
+    // endregion
+    // region ConsoleViewEx
+
+    override fun scrollToTop(offset: Int) {
+    }
+
+    override val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
 
     // endregion
     // region QueryResultListener

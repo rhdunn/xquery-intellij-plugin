@@ -31,7 +31,7 @@ import com.intellij.openapi.util.text.StringUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
 
-open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
+abstract class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     var editor: EditorEx? = null
         private set
 

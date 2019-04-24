@@ -22,6 +22,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.components.panels.Wrapper
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import java.awt.BorderLayout
 import javax.swing.JComponent
 
@@ -50,6 +51,11 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
 
         return component
     }
+
+    // endregion
+    // region ConsoleViewEx
+
+    override val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
 
     // endregion
 }
