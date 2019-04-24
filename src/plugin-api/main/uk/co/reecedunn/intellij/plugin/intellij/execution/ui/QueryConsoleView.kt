@@ -18,13 +18,12 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
-import com.intellij.ui.content.ContentFactory
 import com.intellij.ui.content.ContentManager
-import com.intellij.ui.content.TabbedPaneContentUI
 import com.intellij.ui.content.impl.ContentImpl
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
@@ -43,7 +42,6 @@ import java.io.StringWriter
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
-import javax.swing.SwingConstants
 import javax.swing.border.EmptyBorder
 
 class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
@@ -80,7 +78,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         summary = JLabel()
 
         val infoPanel = JPanel(VerticalLayout(0))
-        summary!!.border = EmptyBorder(7, 4, 8, 4)
+        summary!!.border = EmptyBorder(5, 4, 5, 4)
         infoPanel.add(summary)
 
         val panel = JPanel(GridBagLayout())
@@ -126,8 +124,8 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     override fun getComponent(): JComponent {
         if (table == null) {
-            val contentUI = TabbedPaneContentUI(SwingConstants.TOP)
-            contentManager = ContentFactory.SERVICE.getInstance().createContentManager(contentUI, true, project)
+            val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
+            contentManager = ui.contentManager
 
             consoles.forEach {
                 contentManager!!.addContent(ContentImpl(it.first.component, it.second, false))
