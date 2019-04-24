@@ -80,7 +80,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         summary = JLabel()
 
         val infoPanel = JPanel(VerticalLayout(0))
-        summary!!.border = EmptyBorder(4, 4, 4, 4)
+        summary!!.border = EmptyBorder(7, 4, 8, 4)
         infoPanel.add(summary)
 
         val panel = JPanel(GridBagLayout())
