@@ -22,10 +22,10 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
+import com.intellij.ui.content.ContentFactory
 import com.intellij.ui.content.ContentManager
 import com.intellij.ui.content.TabbedPaneContentUI
 import com.intellij.ui.content.impl.ContentImpl
-import com.intellij.ui.content.impl.ContentManagerImpl
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
@@ -127,8 +127,8 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     override fun getComponent(): JComponent {
         if (table == null) {
             val contentUI = TabbedPaneContentUI(SwingConstants.TOP)
+            contentManager = ContentFactory.SERVICE.getInstance().createContentManager(contentUI, true, project)
 
-            contentManager = ContentManagerImpl(contentUI, false, project)
             consoles.forEach {
                 contentManager!!.addContent(ContentImpl(it.first.component, it.second, false))
             }
