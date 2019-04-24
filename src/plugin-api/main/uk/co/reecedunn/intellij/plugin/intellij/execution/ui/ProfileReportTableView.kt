@@ -26,7 +26,6 @@ import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Consumer
-import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -39,7 +38,6 @@ import java.text.DateFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
-import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTable
 
@@ -57,11 +55,11 @@ internal fun formatDuration(duration: XsDurationValue): String {
 }
 
 private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance()): String {
-    try {
+    return try {
         val d = ISO_DATE_FORMAT.parse(date.replace("""\\.[0-9]+Z""".toRegex(), ""))
-        return dateFormat.format(d)
+        dateFormat.format(d)
     } catch (e: Exception) {
-        return date
+        date
     }
 }
 
@@ -72,16 +70,9 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
     private var save: SaveAction? = null
 
     private var panel: JPanel? = null
-    private var metadata: JPanel? = null
-    private var elapsed: JLabel? = null
-    private var created: JLabel? = null
-    private var version: JLabel? = null
     private var results: JTable? = null
 
     private fun createUIComponents() {
-        metadata = JPanel()
-        metadata!!.border = Borders.TableHeaderBottom
-
         results = ProfileReportTable()
     }
 
@@ -92,10 +83,6 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
 
     override fun clear() {
         report = null
-
-        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label.no-value")
-        created!!.text = PluginApiBundle.message("profile.console.created.label.no-value")
-        version!!.text = PluginApiBundle.message("profile.console.version.label.no-value")
         results!!.removeAll()
     }
 
@@ -176,11 +163,6 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
-        when (resultTime) {
-            QueryResultTime.Elapsed -> {
-                elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(time))
-            }
-        }
     }
 
     // endregion
@@ -190,9 +172,6 @@ class ProfileReportTableView(val project: Project) : ConsoleView, QueryResultLis
         report = result
         save?.isEnabled = report?.xml != null
 
-        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
-        created!!.text = PluginApiBundle.message("profile.console.created.label", formatDate(result.created))
-        version!!.text = PluginApiBundle.message("profile.console.version.label", result.version)
         (results as ProfileReportTable).let {
             it.removeAll()
             result.results.forEach { entry -> it.addRow(entry) }
