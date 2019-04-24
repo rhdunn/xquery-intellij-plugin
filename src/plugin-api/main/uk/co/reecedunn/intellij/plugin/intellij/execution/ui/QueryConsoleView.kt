@@ -53,14 +53,13 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     private var contentManager: ContentManager? = null
-    private var text: ConsoleView? = null
+    private var consoles: ArrayList<ConsoleView> = ArrayList()
 
     private var summary: JLabel? = null
     private var table: QueryResultTable? = null
 
-    private fun createTextConsoleView(): JComponent {
-        text = QueryTextConsoleView(project)
-        return text!!.component
+    private fun createTextConsoleView() {
+        consoles.add(QueryTextConsoleView(project))
     }
 
     private fun createResultTable(): JComponent {
@@ -70,7 +69,9 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         )
 
         table!!.selectionModel.addListSelectionListener {
-            table?.selectedObject?.second?.let { range -> (text as? ConsoleViewEx)?.scrollToTop(range.from) }
+            table?.selectedObject?.second?.let { range ->
+                consoles.filterIsInstance<ConsoleViewEx>().forEach { it.scrollToTop(range.from) }
+            }
         }
 
         return JBScrollPane(table)
@@ -104,7 +105,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     // region ConsoleView
 
     override fun clear() {
-        text?.clear()
+        consoles.forEach { it.clear() }
 
         summary!!.text = "\u00A0"
 
@@ -114,10 +115,10 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
-        this.text?.print(text, contentType)
+        consoles.forEach { it.print(text, contentType) }
     }
 
-    override fun getContentSize(): Int = text?.contentSize ?: 0
+    override fun getContentSize(): Int = consoles.firstOrNull()?.contentSize ?: 0
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
@@ -125,10 +126,13 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     override fun getComponent(): JComponent {
         if (table == null) {
+            createTextConsoleView()
             val contentUI = TabbedPaneContentUI(SwingConstants.TOP)
 
             contentManager = ContentManagerImpl(contentUI, false, project)
-            contentManager!!.addContent(ContentImpl(createTextConsoleView(), "Console", false))
+            consoles.forEach {
+                contentManager!!.addContent(ContentImpl(it.component, "Console", false))
+            }
 
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = contentManager!!.component
@@ -142,7 +146,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun scrollTo(offset: Int) {
-        text?.scrollTo(offset)
+        consoles.forEach { it.scrollTo(offset) }
     }
 
     // endregion
