@@ -31,7 +31,7 @@ import com.intellij.openapi.util.text.StringUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
 
-open class TextConsoleView(val project: Project) : ConsoleViewImpl() {
+open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     var editor: EditorEx? = null
         private set
 
@@ -48,7 +48,9 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl() {
         return editor!!.component
     }
 
-    fun scrollToTop(offset: Int) {
+    // region ConsoleViewEx
+
+    override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
             val moveOffset = Math.min(offset, contentSize)
             val scrolling = editor!!.scrollingModel
@@ -59,6 +61,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl() {
         }
     }
 
+    // endregion
     // region ConsoleView
 
     override fun clear() {

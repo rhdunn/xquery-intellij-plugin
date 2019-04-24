@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
@@ -26,6 +27,7 @@ import com.intellij.ui.content.TabbedPaneContentUI
 import com.intellij.ui.content.impl.ContentImpl
 import com.intellij.ui.content.impl.ContentManagerImpl
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
@@ -51,7 +53,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     private var contentManager: ContentManager? = null
-    private var text: QueryTextConsoleView? = null
+    private var text: ConsoleView? = null
 
     private var summary: JLabel? = null
     private var table: QueryResultTable? = null
@@ -68,7 +70,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         )
 
         table!!.selectionModel.addListSelectionListener {
-            table?.selectedObject?.second?.let { range -> text?.scrollToTop(range.from) }
+            table?.selectedObject?.second?.let { range -> (text as? ConsoleViewEx)?.scrollToTop(range.from) }
         }
 
         return JBScrollPane(table)
