@@ -20,6 +20,7 @@ import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.fileChooser.FileSaverDescriptor
@@ -151,7 +152,7 @@ class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultL
 
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
-        val content = ui.createContent("Profile", component, consoleTitle, null, null)
+        val content = ui.createContent("Profile", component, consoleTitle, AllIcons.Debugger.Overhead, null)
         content.isCloseable = false
         return content
     }

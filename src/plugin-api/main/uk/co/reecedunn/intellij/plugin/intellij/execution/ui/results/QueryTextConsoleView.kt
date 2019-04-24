@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
@@ -59,7 +60,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
 
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
-        val content = ui.createContent("Results", component, consoleTitle, null, null)
+        val content = ui.createContent("Results", component, consoleTitle, AllIcons.Debugger.Console, null)
         content.isCloseable = false
         return content
     }
