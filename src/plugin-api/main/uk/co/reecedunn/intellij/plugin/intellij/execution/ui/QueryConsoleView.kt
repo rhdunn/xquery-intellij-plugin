@@ -40,7 +40,7 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.border.EmptyBorder
 
-class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
+class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
     companion object {
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
     }
