@@ -152,6 +152,7 @@ class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultL
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
         val content = ui.createContent("Profile", component, consoleTitle, null, null)
+        content.isCloseable = false
         return content
     }
 

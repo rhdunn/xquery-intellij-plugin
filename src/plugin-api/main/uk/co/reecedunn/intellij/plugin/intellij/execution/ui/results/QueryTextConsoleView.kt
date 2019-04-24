@@ -60,6 +60,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
         val content = ui.createContent("Results", component, consoleTitle, null, null)
+        content.isCloseable = false
         return content
     }
 
