@@ -9,6 +9,7 @@ Run Configurations:
 1.  Support profiling Saxon XSLT and XQuery scripts.
 1.  Display the elapsed time and number of items returned by the query in the
     results console.
+1.  Include the console output when profiling queries.
 
 Saxon:
 

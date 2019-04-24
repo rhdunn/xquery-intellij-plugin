@@ -33,7 +33,6 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -53,13 +52,13 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     private var contentManager: ContentManager? = null
-    private var consoles: ArrayList<ConsoleView> = ArrayList()
+    private var consoles: ArrayList<Pair<ConsoleView, String>> = ArrayList()
 
     private var summary: JLabel? = null
     private var table: QueryResultTable? = null
 
-    private fun createTextConsoleView() {
-        consoles.add(QueryTextConsoleView(project))
+    fun addConsoleView(consoleView: ConsoleView, name: String) {
+        consoles.add(Pair(consoleView, name))
     }
 
     private fun createResultTable(): JComponent {
@@ -105,7 +104,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     // region ConsoleView
 
     override fun clear() {
-        consoles.forEach { it.clear() }
+        consoles.forEach { it.first.clear() }
 
         summary!!.text = "\u00A0"
 
@@ -115,23 +114,23 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
-        consoles.forEach { it.print(text, contentType) }
+        consoles.forEach { it.first.print(text, contentType) }
     }
 
-    override fun getContentSize(): Int = consoles.firstOrNull()?.contentSize ?: 0
+    override fun getContentSize(): Int = consoles.firstOrNull()?.first?.contentSize ?: 0
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
+        consoles.forEach { it.first.attachToProcess(processHandler) }
     }
 
     override fun getComponent(): JComponent {
         if (table == null) {
-            createTextConsoleView()
             val contentUI = TabbedPaneContentUI(SwingConstants.TOP)
 
             contentManager = ContentManagerImpl(contentUI, false, project)
             consoles.forEach {
-                contentManager!!.addContent(ContentImpl(it.component, "Console", false))
+                contentManager!!.addContent(ContentImpl(it.first.component, it.second, false))
             }
 
             val splitPane = OnePixelSplitter(false)
@@ -146,7 +145,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun scrollTo(offset: Int) {
-        consoles.forEach { it.scrollTo(offset) }
+        consoles.forEach { it.first.scrollTo(offset) }
     }
 
     // endregion

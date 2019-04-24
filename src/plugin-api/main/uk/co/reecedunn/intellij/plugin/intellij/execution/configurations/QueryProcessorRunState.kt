@@ -31,6 +31,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileReportTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
@@ -76,11 +78,27 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
     }
 
     private fun createConsole(executor: Executor): ConsoleView? {
-        return when (executor.id) {
-            DefaultRunExecutor.EXECUTOR_ID -> QueryConsoleView(environment.project)
-            DefaultProfileExecutor.EXECUTOR_ID -> ProfileReportTableView(environment.project)
+        val consoleView = QueryConsoleView(environment.project)
+        when (executor.id) {
+            DefaultRunExecutor.EXECUTOR_ID -> {
+                consoleView.addConsoleView(
+                    QueryTextConsoleView(environment.project),
+                    PluginApiBundle.message("console.tab.results.label")
+                )
+            }
+            DefaultProfileExecutor.EXECUTOR_ID -> {
+                consoleView.addConsoleView(
+                    QueryTextConsoleView(environment.project),
+                    PluginApiBundle.message("console.tab.results.label")
+                )
+                consoleView.addConsoleView(
+                    ProfileReportTableView(environment.project),
+                    PluginApiBundle.message("console.tab.profile.label")
+                )
+            }
             else -> throw UnsupportedOperationException()
         }
+        return consoleView
     }
 
     @Suppress("UNUSED_PARAMETER")
