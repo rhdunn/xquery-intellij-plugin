@@ -17,21 +17,17 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.DefaultActionGroup
-import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
-import com.intellij.ui.components.panels.Wrapper
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
-import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -49,37 +45,14 @@ class QueryResultView(val project: Project) : ConsoleViewImpl(), QueryResultList
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
     }
 
-    // The TextConsoleView editor provided by the DataProvider interface (needed
-    // to support printing) causes the table to not get the arrow key navigation
-    // events when used as the base for the QueryResultView console. As such, the
-    // text console is created as a child of the result view.
-    private var text: TextConsoleView? = null
+    private var text: QueryTextConsoleView? = null
 
     private var summary: JLabel? = null
     private var table: QueryResultTable? = null
 
     private fun createTextConsoleView(): JComponent {
-        text = TextConsoleView(project)
-        val component = text!!.component // Ensure the text view is initialized.
-
-        // Add the text console's action toolbar to the text console itself,
-        // not the result view console. This ensures that the text view editor
-        // does not grab the table's keyboard navigation events.
-
-        val actions = DefaultActionGroup()
-        actions.addAll(*text!!.createConsoleActions())
-
-        val toolbar = ActionManagerEx.getInstanceEx().createActionToolbar(ActionPlaces.RUNNER_TOOLBAR, actions, false)
-        toolbar.setTargetComponent(text!!)
-
-        // Setting a border on the toolbar removes the standard padding/spacing,
-        // so set the border on a panel that wraps the toolbar element.
-        val wrapper = Wrapper()
-        wrapper.add(toolbar.component)
-        wrapper.border = Borders.ConsoleToolbarRight
-        text?.add(wrapper, BorderLayout.LINE_START)
-
-        return component
+        text = QueryTextConsoleView(project)
+        return text!!.component
     }
 
     private fun createResultTable(): JComponent {
