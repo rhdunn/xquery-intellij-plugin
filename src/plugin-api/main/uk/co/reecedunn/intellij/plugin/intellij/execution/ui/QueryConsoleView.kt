@@ -127,7 +127,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
             contentManager = ui.contentManager
 
             consoles.forEach {
-                contentManager!!.addContent(ContentImpl(it.component, it.consoleTitle, false))
+                contentManager!!.addContent(it.getContent(ui))
             }
 
             val splitPane = OnePixelSplitter(false)

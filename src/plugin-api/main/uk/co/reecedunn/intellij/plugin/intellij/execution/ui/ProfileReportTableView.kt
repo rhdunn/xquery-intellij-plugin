@@ -19,11 +19,13 @@ import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.content.Content
 import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
@@ -147,7 +149,11 @@ class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultL
     override fun scrollToTop(offset: Int) {
     }
 
-    override val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
+    override fun getContent(ui: RunnerLayoutUi): Content {
+        val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
+        val content = ui.createContent("Profile", component, consoleTitle, null, null)
+        return content
+    }
 
     // endregion
     // region QueryResultListener

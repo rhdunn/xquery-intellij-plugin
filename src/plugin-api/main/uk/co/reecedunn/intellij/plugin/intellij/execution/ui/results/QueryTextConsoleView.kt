@@ -15,11 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
+import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.panels.Wrapper
+import com.intellij.ui.content.Content
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -55,7 +57,11 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
     // endregion
     // region ConsoleViewEx
 
-    override val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
+    override fun getContent(ui: RunnerLayoutUi): Content {
+        val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
+        val content = ui.createContent("Results", component, consoleTitle, null, null)
+        return content
+    }
 
     // endregion
 }
