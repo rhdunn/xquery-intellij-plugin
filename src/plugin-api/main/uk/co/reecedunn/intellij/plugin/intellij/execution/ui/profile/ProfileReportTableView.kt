@@ -27,6 +27,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.content.Content
 import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
+import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -36,22 +37,15 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.text.DateFormat
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import javax.swing.JPanel
 import javax.swing.JTable
 
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 private val FILE_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HHmmss")
-private val NANOSECOND_FORMAT = {
-    val nf = NumberFormat.getInstance()
-    nf.minimumFractionDigits = 6
-    nf.maximumFractionDigits = 9
-    nf
-}()
 
 internal fun formatDuration(duration: XsDurationValue): String {
-    return "${NANOSECOND_FORMAT.format(duration.seconds.data)} s"
+    return "${Units.Precision.nano.format(duration.seconds.data)} s"
 }
 
 private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance()): String {
