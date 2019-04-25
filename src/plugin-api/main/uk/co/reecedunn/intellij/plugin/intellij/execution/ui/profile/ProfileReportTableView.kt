@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.RunnerLayoutUi
@@ -99,7 +99,11 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
             PluginApiBundle.message("console.action.save.profile.description"),
             "xml"
         )
-        save = SaveAction(descriptor, panel!!, project, Consumer { onSaveProfileReport(it) })
+        save = SaveAction(
+            descriptor,
+            panel!!,
+            project,
+            Consumer { onSaveProfileReport(it) })
         save?.isEnabled = report?.xml != null
         return arrayOf(save!!)
     }
@@ -161,7 +165,10 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
         when {
             report?.xml == null -> return
             file.isDirectory -> {
-                val name = "profile-report-${formatDate(report!!.created, FILE_DATE_FORMAT)}.xml"
+                val name = "profile-report-${formatDate(
+                    report!!.created,
+                    FILE_DATE_FORMAT
+                )}.xml"
                 runUndoTransparentWriteAction {
                     onSaveProfileReport(file.createChildData(this, name))
                 }

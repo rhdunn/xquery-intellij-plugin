@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo

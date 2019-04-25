@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.formatDuration
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
@@ -182,7 +183,9 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         when (resultTime) {
             QueryResultTime.Elapsed -> {
                 val count = table?.rowCount ?: 0
-                summary!!.text = PluginApiBundle.message("console.summary.label", count, formatDuration(time))
+                summary!!.text = PluginApiBundle.message("console.summary.label", count,
+                    formatDuration(time)
+                )
             }
         }
     }

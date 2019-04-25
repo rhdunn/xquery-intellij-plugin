@@ -29,10 +29,9 @@ import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileReportTableView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.ProfileReportTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
-import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
@@ -85,7 +84,11 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 consoleView.addContentProvider(QueryTextConsoleView(environment.project))
-                consoleView.addContentProvider(ProfileReportTableView(environment.project))
+                consoleView.addContentProvider(
+                    ProfileReportTableView(
+                        environment.project
+                    )
+                )
             }
             else -> throw UnsupportedOperationException()
         }
