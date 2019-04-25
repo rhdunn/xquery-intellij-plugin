@@ -15,9 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.ui.content.Content
 
 interface ContentProvider {
     fun getContent(ui: RunnerLayoutUi): Content
+
+    fun clear()
+
+    fun attachToProcess(processHandler: ProcessHandler?)
 }

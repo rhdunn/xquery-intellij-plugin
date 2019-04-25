@@ -15,12 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
-import com.intellij.execution.filters.Filter
-import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.icons.AllIcons
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.fileChooser.FileSaverDescriptor
@@ -28,7 +26,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.content.Content
 import com.intellij.util.Consumer
-import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -40,7 +38,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.text.DateFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JTable
 
@@ -66,7 +63,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
     }
 }
 
-class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultListener, ProfileReportListener {
+class ProfileReportTableView(val project: Project) : ContentProvider, Disposable, QueryResultListener, ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null
@@ -80,40 +77,29 @@ class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultL
     }
 
     // endregion
-    // region ConsoleView
+    // region ContentProvider
 
-    override fun hasDeferredOutput(): Boolean = false
+    override fun getContent(ui: RunnerLayoutUi): Content {
+        val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
+        val content = ui.createContent("Profile", panel!!, consoleTitle, AllIcons.Debugger.Overhead, null)
+        content.isCloseable = false
+        return content
+    }
 
     override fun clear() {
         report = null
         results!!.removeAll()
     }
 
-    override fun setHelpId(helpId: String) {
-    }
-
-    override fun print(text: String, contentType: ConsoleViewContentType) {
-    }
-
-    override fun getContentSize(): Int = 0
-
-    override fun setOutputPaused(value: Boolean) {
-    }
-
-    override fun createConsoleActions(): Array<AnAction> {
+    fun createActions(): Array<AnAction> {
         val descriptor = FileSaverDescriptor(
             PluginApiBundle.message("console.action.save.profile.title"),
             PluginApiBundle.message("console.action.save.profile.description"),
             "xml"
         )
-        save = SaveAction(descriptor, component, project, Consumer { onSaveProfileReport(it) })
+        save = SaveAction(descriptor, panel!!, project, Consumer { onSaveProfileReport(it) })
         save?.isEnabled = report?.xml != null
         return arrayOf(save!!)
-    }
-
-    override fun getComponent(): JComponent = panel!!
-
-    override fun performWhenNoDeferredOutput(runnable: Runnable) {
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
@@ -123,38 +109,10 @@ class ProfileReportTableView(val project: Project) : ConsoleViewEx, QueryResultL
         }
     }
 
-    override fun getPreferredFocusableComponent(): JComponent = component
-
-    override fun isOutputPaused(): Boolean = false
-
-    override fun addMessageFilter(filter: Filter) {
-    }
-
-    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
-    }
-
-    override fun canPause(): Boolean = false
-
-    override fun allowHeavyFilters() {
-    }
+    // endregion
+    // region Disposable
 
     override fun dispose() {
-    }
-
-    override fun scrollTo(offset: Int) {
-    }
-
-    // endregion
-    // region ConsoleViewEx
-
-    override fun scrollToTop(offset: Int) {
-    }
-
-    override fun getContent(ui: RunnerLayoutUi): Content {
-        val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
-        val content = ui.createContent("Profile", component, consoleTitle, AllIcons.Debugger.Overhead, null)
-        content.isCloseable = false
-        return content
     }
 
     // endregion

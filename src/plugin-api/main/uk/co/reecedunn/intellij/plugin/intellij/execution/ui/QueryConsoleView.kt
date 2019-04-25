@@ -99,7 +99,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     // region ConsoleView
 
     override fun clear() {
-        providers.filterIsInstance<ConsoleViewEx>().forEach { it.clear() }
+        providers.forEach { it.clear() }
         currentSize = 0
 
         summary!!.text = "\u00A0"
@@ -116,7 +116,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     override fun getContentSize(): Int = providers.filterIsInstance<ConsoleViewEx>().firstOrNull()?.contentSize ?: 0
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        providers.filterIsInstance<ConsoleViewEx>().forEach { it.attachToProcess(processHandler) }
+        providers.forEach { it.attachToProcess(processHandler) }
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
     }
 
@@ -125,7 +125,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
             val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
             contentManager = ui.contentManager
 
-            providers.filterIsInstance<ConsoleViewEx>().forEach {
+            providers.forEach {
                 contentManager!!.addContent(it.getContent(ui))
             }
 
