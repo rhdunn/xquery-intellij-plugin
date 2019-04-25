@@ -21,11 +21,14 @@ import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.execution.ui.layout.LayoutAttractionPolicy
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.application.ex.ApplicationManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
@@ -36,6 +39,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTim
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.formatDuration
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.*
 import javax.swing.JComponent
@@ -53,6 +57,8 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     private var providers: ArrayList<ContentProvider> = ArrayList()
 
     private var summary: JLabel? = null
+    private var time: Long = 0
+
     private var table: QueryResultTable? = null
     private var currentSize = 0
 
@@ -104,6 +110,8 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     override fun clear() {
         providers.forEach { it.clear() }
+
+        time = 0
         currentSize = 0
 
         summary!!.text = "\u00A0"
@@ -160,13 +168,32 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     // endregion
     // region QueryResultListener
 
+    fun timer(): ExecutableOnPooledThread<Unit> = pooled_thread {
+        val start = System.nanoTime()
+        while (table?.isRunning == true) {
+            ApplicationManagerEx.getApplication().invokeLater {
+                if (table?.isRunning == true) {
+                    time = System.nanoTime() - start
+                    summary!!.text = formatDuration(XsDuration.ns(time))
+                }
+            }
+            Thread.sleep(10)
+        }
+    }
+
     override fun onBeginResults() {
         clear()
         table?.isRunning = true
+        timer().execute()
     }
 
     override fun onEndResults() {
         table?.isRunning = false
+
+        val count = table?.rowCount ?: 0
+        summary!!.text = PluginApiBundle.message("console.summary.label", count,
+            formatDuration(XsDuration.ns(time)) // Use the recorded time for consistency with the running time.
+        )
     }
 
     override fun onQueryResult(result: QueryResult) {
@@ -180,14 +207,6 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
-        when (resultTime) {
-            QueryResultTime.Elapsed -> {
-                val count = table?.rowCount ?: 0
-                summary!!.text = PluginApiBundle.message("console.summary.label", count,
-                    formatDuration(time)
-                )
-            }
-        }
     }
 
     // endregion
