@@ -22,7 +22,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
-import com.intellij.ui.content.ContentManager
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
@@ -45,7 +44,6 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
     }
 
-    private var contentManager: ContentManager? = null
     private var providers: ArrayList<ContentProvider> = ArrayList()
 
     private var summary: JLabel? = null
@@ -123,14 +121,14 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     override fun getComponent(): JComponent {
         if (table == null) {
             val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
-            contentManager = ui.contentManager
 
+            val contentManager = ui.contentManager
             providers.forEach {
-                contentManager!!.addContent(it.getContent(ui))
+                contentManager.addContent(it.getContent(ui))
             }
 
             val splitPane = OnePixelSplitter(false)
-            splitPane.firstComponent = contentManager!!.component
+            splitPane.firstComponent = contentManager.component
             splitPane.secondComponent = createResultPanel()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
