@@ -15,8 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.execution.ui.ConsoleView
+import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.ui.content.Content
 
-interface ConsoleViewEx : ConsoleView, ContentProvider {
-    fun scrollToTop(offset: Int)
+interface ContentProvider {
+    fun getContent(ui: RunnerLayoutUi): Content
 }

@@ -26,6 +26,7 @@ import com.intellij.ui.content.ContentManager
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -45,14 +46,14 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     private var contentManager: ContentManager? = null
-    private var consoles: ArrayList<ConsoleViewEx> = ArrayList()
+    private var providers: ArrayList<ContentProvider> = ArrayList()
 
     private var summary: JLabel? = null
     private var table: QueryResultTable? = null
     private var currentSize = 0
 
-    fun addConsoleView(consoleView: ConsoleViewEx) {
-        consoles.add(consoleView)
+    fun addContentProvider(provider: ContentProvider) {
+        providers.add(provider)
     }
 
     private fun createResultTable(): JComponent {
@@ -63,7 +64,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
         table!!.selectionModel.addListSelectionListener {
             table?.selectedObject?.second?.let { range ->
-                consoles.forEach { console -> console.scrollToTop(range.from) }
+                providers.filterIsInstance<ConsoleViewEx>().forEach { console -> console.scrollToTop(range.from) }
             }
         }
 
@@ -98,7 +99,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     // region ConsoleView
 
     override fun clear() {
-        consoles.forEach { it.clear() }
+        providers.filterIsInstance<ConsoleViewEx>().forEach { it.clear() }
         currentSize = 0
 
         summary!!.text = "\u00A0"
@@ -109,13 +110,13 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
-        consoles.forEach { it.print(text, contentType) }
+        providers.filterIsInstance<ConsoleViewEx>().forEach { it.print(text, contentType) }
     }
 
-    override fun getContentSize(): Int = consoles.firstOrNull()?.contentSize ?: 0
+    override fun getContentSize(): Int = providers.filterIsInstance<ConsoleViewEx>().firstOrNull()?.contentSize ?: 0
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        consoles.forEach { it.attachToProcess(processHandler) }
+        providers.filterIsInstance<ConsoleViewEx>().forEach { it.attachToProcess(processHandler) }
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
     }
 
@@ -124,7 +125,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
             val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
             contentManager = ui.contentManager
 
-            consoles.forEach {
+            providers.filterIsInstance<ConsoleViewEx>().forEach {
                 contentManager!!.addContent(it.getContent(ui))
             }
 
@@ -140,7 +141,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun scrollTo(offset: Int) {
-        consoles.forEach { it.scrollTo(offset) }
+        providers.filterIsInstance<ConsoleViewEx>().forEach { it.scrollTo(offset) }
     }
 
     // endregion
