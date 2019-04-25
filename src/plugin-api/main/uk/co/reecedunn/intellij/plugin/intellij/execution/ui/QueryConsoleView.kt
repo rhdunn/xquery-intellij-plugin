@@ -32,15 +32,16 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
+import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.formatDuration
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.toSeconds
 import java.awt.*
 import javax.swing.JComponent
 import javax.swing.JLabel
@@ -174,7 +175,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
             ApplicationManagerEx.getApplication().invokeLater {
                 if (table?.isRunning == true) {
                     time = System.nanoTime() - start
-                    summary!!.text = formatDuration(XsDuration.ns(time))
+                    summary!!.text = XsDuration.ns(time).toSeconds()
                 }
             }
             Thread.sleep(10)
@@ -191,9 +192,8 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         table?.isRunning = false
 
         val count = table?.rowCount ?: 0
-        summary!!.text = PluginApiBundle.message("console.summary.label", count,
-            formatDuration(XsDuration.ns(time)) // Use the recorded time for consistency with the running time.
-        )
+        // Use the recorded time for consistency with the running time.
+        summary!!.text = PluginApiBundle.message("console.summary.label", count, XsDuration.ns(time).toSeconds())
     }
 
     override fun onQueryResult(result: QueryResult) {

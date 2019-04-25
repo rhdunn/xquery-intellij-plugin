@@ -33,9 +33,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.core.text.Units
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.text.NumberFormat
 
 // region XML Schema 1.1 Part 2 (3.3.1) xs:string
 
@@ -81,6 +83,10 @@ interface XsDoubleValue : XsAnyAtomicType {
 interface XsDurationValue : XsAnyAtomicType {
     val months: XsInteger
     val seconds: XsDecimal
+}
+
+fun XsDurationValue.toSeconds(precision: NumberFormat = Units.Precision.milli): String {
+    return "${precision.format(seconds.data)} s"
 }
 
 data class XsDuration(

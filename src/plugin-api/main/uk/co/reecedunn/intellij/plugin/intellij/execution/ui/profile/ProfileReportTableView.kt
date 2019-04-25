@@ -27,7 +27,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.content.Content
 import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
-import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -43,10 +42,6 @@ import javax.swing.JTable
 
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 private val FILE_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HHmmss")
-
-internal fun formatDuration(duration: XsDurationValue): String {
-    return "${Units.Precision.nano.format(duration.seconds.data)} s"
-}
 
 private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance()): String {
     return try {
