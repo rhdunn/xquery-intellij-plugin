@@ -91,7 +91,7 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
         results!!.removeAll()
     }
 
-    fun createActions(): Array<AnAction> {
+    override fun createRunnerLayoutActions(): Array<AnAction> {
         val descriptor = FileSaverDescriptor(
             PluginApiBundle.message("console.action.save.profile.title"),
             PluginApiBundle.message("console.action.save.profile.description"),

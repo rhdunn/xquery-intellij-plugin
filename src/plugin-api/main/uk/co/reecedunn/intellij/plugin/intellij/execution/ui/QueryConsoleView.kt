@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
@@ -121,11 +123,14 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     override fun getComponent(): JComponent {
         if (table == null) {
             val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
-
             val contentManager = ui.contentManager
+
+            val actions = DefaultActionGroup()
             providers.forEach {
                 contentManager.addContent(it.getContent(ui))
+                actions.addAll(*it.createRunnerLayoutActions())
             }
+            ui.options.setTopToolbar(actions, ActionPlaces.UNKNOWN)
 
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = contentManager.component

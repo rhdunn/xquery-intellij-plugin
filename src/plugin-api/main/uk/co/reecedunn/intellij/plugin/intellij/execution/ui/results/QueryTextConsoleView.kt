@@ -20,6 +20,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.project.Project
@@ -70,13 +71,17 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     }
 
     // endregion
-    // region ConsoleViewEx
+    // region ContentProvider
 
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
         val content = ui.createContent("Results", component, consoleTitle, AllIcons.Debugger.Console, null)
         content.isCloseable = false
         return content
+    }
+
+    override fun createRunnerLayoutActions(): Array<AnAction> {
+        return AnAction.EMPTY_ARRAY
     }
 
     // endregion
