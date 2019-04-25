@@ -84,11 +84,8 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 consoleView.addContentProvider(QueryTextConsoleView(environment.project))
-                consoleView.addContentProvider(
-                    ProfileReportTableView(
-                        environment.project
-                    )
-                )
+                consoleView.addContentProvider(ProfileReportTableView(environment.project))
+                consoleView.selectContentProvider(1)
             }
             else -> throw UnsupportedOperationException()
         }

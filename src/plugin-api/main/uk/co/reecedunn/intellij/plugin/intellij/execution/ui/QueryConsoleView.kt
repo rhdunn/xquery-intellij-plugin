@@ -32,7 +32,6 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
-import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -56,6 +55,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     private var providers: ArrayList<ContentProvider> = ArrayList()
+    private var defaultProviderIndex: Int = 0
 
     private var summary: JLabel? = null
     private var time: Long = 0
@@ -65,6 +65,10 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     fun addContentProvider(provider: ContentProvider) {
         providers.add(provider)
+    }
+
+    fun selectContentProvider(index: Int) {
+        defaultProviderIndex = index
     }
 
     private fun createResultTable(): JComponent {
@@ -150,6 +154,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
                 }
             }
             ui.options.setTopToolbar(actions, ActionPlaces.UNKNOWN)
+            ui.selectAndFocus(ui.contentManager.getContent(defaultProviderIndex), true, true)
 
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = contentManager.component
