@@ -23,7 +23,6 @@ import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
 import com.intellij.ui.content.ContentManager
-import com.intellij.ui.content.impl.ContentImpl
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
@@ -32,12 +31,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHa
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.*
-import java.io.PrintWriter
-import java.io.StringWriter
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
@@ -53,6 +49,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     private var summary: JLabel? = null
     private var table: QueryResultTable? = null
+    private var currentSize = 0
 
     fun addConsoleView(consoleView: ConsoleViewEx) {
         consoles.add(consoleView)
@@ -102,6 +99,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     override fun clear() {
         consoles.forEach { it.clear() }
+        currentSize = 0
 
         summary!!.text = "\u00A0"
 
@@ -117,8 +115,8 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     override fun getContentSize(): Int = consoles.firstOrNull()?.contentSize ?: 0
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
         consoles.forEach { it.attachToProcess(processHandler) }
+        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
     }
 
     override fun getComponent(): JComponent {
@@ -155,47 +153,15 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
     override fun onEndResults() {
         table?.isRunning = false
-        if (table?.isEmpty == true) {
-            print("()", ConsoleViewContentType.NORMAL_OUTPUT)
-        }
     }
 
     override fun onQueryResult(result: QueryResult) {
-        val from = contentSize
-        when (result.type) {
-            "binary()", "xs:hexBinary", "xs:base64Binary" -> {
-                val length = (result.value as? String)?.length ?: 0
-                print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
-            }
-            else -> print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
-        }
-        print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-
-        table?.addRow(result, Range(from, contentSize))
+        val size = contentSize
+        table?.addRow(result, Range(currentSize, size))
+        currentSize = size
     }
 
     override fun onException(e: Throwable) {
-        print("${e.message ?: e.javaClass.name}\n", ConsoleViewContentType.ERROR_OUTPUT)
-        if (e is QueryError) {
-            e.value.withIndex().forEach {
-                if (it.index == 0) {
-                    print("  with ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
-                } else {
-                    print("   and ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
-                }
-            }
-            e.frames.forEach {
-                print(
-                    "    at ${it.module ?: ""}:${it.lineNumber ?: 0}:${it.columnNumber ?: 0}\n",
-                    ConsoleViewContentType.ERROR_OUTPUT
-                )
-            }
-        } else {
-            val writer = StringWriter()
-            e.printStackTrace(PrintWriter(writer))
-            print(writer.buffer.toString(), ConsoleViewContentType.ERROR_OUTPUT)
-        }
-
         table?.hasException = true
     }
 

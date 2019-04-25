@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
+import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionPlaces
@@ -25,11 +27,19 @@ import com.intellij.ui.components.panels.Wrapper
 import com.intellij.ui.content.Content
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.BorderLayout
+import java.io.PrintWriter
+import java.io.StringWriter
 import javax.swing.JComponent
 
-class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
+class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryResultListener {
     // region ConsoleView
 
     override fun getComponent(): JComponent {
@@ -55,6 +65,10 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
         return component
     }
 
+    override fun attachToProcess(processHandler: ProcessHandler?) {
+        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
+    }
+
     // endregion
     // region ConsoleViewEx
 
@@ -63,6 +77,56 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project) {
         val content = ui.createContent("Results", component, consoleTitle, AllIcons.Debugger.Console, null)
         content.isCloseable = false
         return content
+    }
+
+    // endregion
+    // region QueryResultListener
+
+    override fun onBeginResults() {
+        clear()
+    }
+
+    override fun onEndResults() {
+        if (contentSize == 0) {
+            print("()", ConsoleViewContentType.NORMAL_OUTPUT)
+        }
+    }
+
+    override fun onQueryResult(result: QueryResult) {
+        when (result.type) {
+            "binary()", "xs:hexBinary", "xs:base64Binary" -> {
+                val length = (result.value as? String)?.length ?: 0
+                print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
+            }
+            else -> print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
+        }
+        print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+    }
+
+    override fun onException(e: Throwable) {
+        print("${e.message ?: e.javaClass.name}\n", ConsoleViewContentType.ERROR_OUTPUT)
+        if (e is QueryError) {
+            e.value.withIndex().forEach {
+                if (it.index == 0) {
+                    print("  with ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                } else {
+                    print("   and ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                }
+            }
+            e.frames.forEach {
+                print(
+                    "    at ${it.module ?: ""}:${it.lineNumber ?: 0}:${it.columnNumber ?: 0}\n",
+                    ConsoleViewContentType.ERROR_OUTPUT
+                )
+            }
+        } else {
+            val writer = StringWriter()
+            e.printStackTrace(PrintWriter(writer))
+            print(writer.buffer.toString(), ConsoleViewContentType.ERROR_OUTPUT)
+        }
+    }
+
+    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
     }
 
     // endregion
