@@ -17,7 +17,3 @@ script:
   # Use the gradle wrapper to build and test the project.
   - ./gradlew assemble
   - ./gradlew test
-
-# Code Coverage
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
