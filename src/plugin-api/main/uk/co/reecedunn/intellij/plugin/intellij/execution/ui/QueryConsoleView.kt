@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.execution.ui.layout.LayoutAttractionPolicy
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.project.Project
@@ -44,6 +45,8 @@ import javax.swing.border.EmptyBorder
 class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
     companion object {
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
+
+        private const val NOW = "now"
     }
 
     private var providers: ArrayList<ContentProvider> = ArrayList()
@@ -123,12 +126,18 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     override fun getComponent(): JComponent {
         if (table == null) {
             val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
-            val contentManager = ui.contentManager
+            ui.defaults.initTabDefaults(0, null, null)
 
+            val contentManager = ui.contentManager
             val actions = DefaultActionGroup()
-            providers.forEach {
-                contentManager.addContent(it.getContent(ui))
-                actions.addAll(*it.createRunnerLayoutActions())
+            providers.withIndex().forEach {
+                contentManager.addContent(it.value.getContent(ui))
+                actions.addAll(*it.value.createRunnerLayoutActions())
+                if (it.index == 0) {
+                    ui.defaults.initContentAttraction(it.value.contentId, NOW)
+                } else {
+                    ui.defaults.initContentAttraction(it.value.contentId, NOW, LayoutAttractionPolicy.FocusOnce(false))
+                }
             }
             ui.options.setTopToolbar(actions, ActionPlaces.UNKNOWN)
 

@@ -79,9 +79,11 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
     // endregion
     // region ContentProvider
 
+    override val contentId: String = "Profile"
+
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
-        val content = ui.createContent("Profile", panel!!, consoleTitle, AllIcons.Debugger.Overhead, null)
+        val content = ui.createContent(contentId, panel!!, consoleTitle, AllIcons.Debugger.Overhead, null)
         content.isCloseable = false
         return content
     }

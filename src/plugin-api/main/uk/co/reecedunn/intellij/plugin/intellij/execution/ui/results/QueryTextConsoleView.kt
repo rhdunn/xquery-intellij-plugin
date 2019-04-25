@@ -73,9 +73,11 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     // endregion
     // region ContentProvider
 
+    override val contentId: String = "Results"
+
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
-        val content = ui.createContent("Results", component, consoleTitle, AllIcons.Debugger.Console, null)
+        val content = ui.createContent(contentId, component, consoleTitle, AllIcons.Debugger.Console, null)
         content.isCloseable = false
         return content
     }

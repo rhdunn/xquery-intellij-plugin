@@ -21,6 +21,8 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.ui.content.Content
 
 interface ContentProvider {
+    val contentId: String
+
     fun getContent(ui: RunnerLayoutUi): Content
 
     fun clear()
