@@ -38,7 +38,7 @@ class QueryProcessorProfiler : DefaultProgramRunner() {
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
         FileDocumentManager.getInstance().saveAllDocuments()
         return state.execute(environment.executor, this)?.let {
-            RunContentBuilder(it, environment).showRunContent(environment.contentToReuse)
+            ProfileRunTab(it, environment).showRunContent(environment.contentToReuse)
         }
     }
 }
