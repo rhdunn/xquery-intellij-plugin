@@ -37,6 +37,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JTable
 
@@ -72,10 +73,12 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
 
     override fun getContent(ui: RunnerLayoutUi): Content {
         val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
-        val content = ui.createContent(contentId, panel!!, consoleTitle, AllIcons.Debugger.Overhead, null)
+        val content = ui.createContent(contentId, getComponent(), consoleTitle, AllIcons.Debugger.Overhead, null)
         content.isCloseable = false
         return content
     }
+
+    override fun getComponent(): JComponent = panel!!
 
     override fun clear() {
         report = null
@@ -90,7 +93,7 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
         )
         save = SaveAction(
             descriptor,
-            panel!!,
+            getComponent(),
             project,
             Consumer { onSaveProfileReport(it) })
         save?.isEnabled = report?.xml != null

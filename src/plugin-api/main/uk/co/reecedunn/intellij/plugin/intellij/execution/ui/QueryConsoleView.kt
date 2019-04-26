@@ -137,27 +137,32 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
     }
 
+    private fun createLayoutComponent(): JComponent {
+        if (providers.size == 1) return providers[0].getComponent()
+
+        val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
+        ui.defaults.initTabDefaults(0, null, null)
+
+        val contentManager = ui.contentManager
+        val actions = DefaultActionGroup()
+        providers.withIndex().forEach {
+            contentManager.addContent(it.value.getContent(ui))
+            actions.addAll(*it.value.createRunnerLayoutActions())
+            if (it.index == 0) {
+                ui.defaults.initContentAttraction(it.value.contentId, NOW)
+            } else {
+                ui.defaults.initContentAttraction(it.value.contentId, NOW, LayoutAttractionPolicy.FocusOnce(false))
+            }
+        }
+        ui.options.setTopToolbar(actions, ActionPlaces.UNKNOWN)
+        ui.selectAndFocus(ui.contentManager.getContent(defaultProviderIndex), true, true)
+        return contentManager.component
+    }
+
     override fun getComponent(): JComponent {
         if (table == null) {
-            val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
-            ui.defaults.initTabDefaults(0, null, null)
-
-            val contentManager = ui.contentManager
-            val actions = DefaultActionGroup()
-            providers.withIndex().forEach {
-                contentManager.addContent(it.value.getContent(ui))
-                actions.addAll(*it.value.createRunnerLayoutActions())
-                if (it.index == 0) {
-                    ui.defaults.initContentAttraction(it.value.contentId, NOW)
-                } else {
-                    ui.defaults.initContentAttraction(it.value.contentId, NOW, LayoutAttractionPolicy.FocusOnce(false))
-                }
-            }
-            ui.options.setTopToolbar(actions, ActionPlaces.UNKNOWN)
-            ui.selectAndFocus(ui.contentManager.getContent(defaultProviderIndex), true, true)
-
             val splitPane = OnePixelSplitter(false)
-            splitPane.firstComponent = contentManager.component
+            splitPane.firstComponent = createLayoutComponent()
             splitPane.secondComponent = createResultPanel()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
