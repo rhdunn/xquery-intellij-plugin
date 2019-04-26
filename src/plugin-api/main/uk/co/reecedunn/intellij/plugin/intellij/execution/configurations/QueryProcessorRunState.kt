@@ -29,7 +29,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.ProfileReportTableView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram.ProfileReportTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider

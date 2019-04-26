@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.RunnerLayoutUi
@@ -69,10 +69,10 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
     // endregion
     // region ContentProvider
 
-    override val contentId: String = "Profile"
+    override val contentId: String = "Histogram"
 
     override fun getContent(ui: RunnerLayoutUi): Content {
-        val consoleTitle: String = PluginApiBundle.message("console.tab.profile.label")
+        val consoleTitle: String = PluginApiBundle.message("console.tab.histogram.label")
         val content = ui.createContent(contentId, getComponent(), consoleTitle, AllIcons.Debugger.Overhead, null)
         content.isCloseable = false
         return content
