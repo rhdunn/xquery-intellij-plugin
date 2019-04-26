@@ -17,10 +17,6 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.execution.ui.RunnerLayoutUi
-import com.intellij.execution.ui.layout.LayoutAttractionPolicy
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ex.ApplicationManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
@@ -31,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
-import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -47,29 +42,16 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.border.EmptyBorder
 
-class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultListener {
+class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : ConsoleViewImpl(), QueryResultListener {
     companion object {
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
-
-        private const val NOW = "now"
     }
-
-    private var providers: ArrayList<ContentProvider> = ArrayList()
-    private var defaultProviderIndex: Int = 0
 
     private var summary: JLabel? = null
     private var time: Long = 0
 
     private var table: QueryResultTable? = null
     private var currentSize = 0
-
-    fun addContentProvider(provider: ContentProvider) {
-        providers.add(provider)
-    }
-
-    fun selectContentProvider(index: Int) {
-        defaultProviderIndex = index
-    }
 
     private fun createResultTable(): JComponent {
         table = QueryResultTable(
@@ -79,7 +61,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
 
         table!!.selectionModel.addListSelectionListener {
             table?.selectedObject?.second?.let { range ->
-                providers.filterIsInstance<ConsoleViewEx>().forEach { console -> console.scrollToTop(range.from) }
+                console.scrollToTop(range.from)
             }
         }
 
@@ -114,7 +96,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     // region ConsoleView
 
     override fun clear() {
-        providers.forEach { it.clear() }
+        console.clear()
 
         time = 0
         currentSize = 0
@@ -127,42 +109,20 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
-        providers.filterIsInstance<ConsoleViewEx>().forEach { it.print(text, contentType) }
+        console.print(text, contentType)
     }
 
-    override fun getContentSize(): Int = providers.filterIsInstance<ConsoleViewEx>().firstOrNull()?.contentSize ?: 0
+    override fun getContentSize(): Int = console.contentSize
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        providers.forEach { it.attachToProcess(processHandler) }
+        console.attachToProcess(processHandler)
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
-    }
-
-    private fun createLayoutComponent(): JComponent {
-        if (providers.size == 1) return providers[0].getComponent()
-
-        val ui = RunnerLayoutUi.Factory.getInstance(project).create("QueryRunner", "Query", "Query", this)
-        ui.defaults.initTabDefaults(0, null, null)
-
-        val contentManager = ui.contentManager
-        val actions = DefaultActionGroup()
-        providers.withIndex().forEach {
-            contentManager.addContent(it.value.getContent(ui))
-            actions.addAll(*it.value.createRunnerLayoutActions())
-            if (it.index == 0) {
-                ui.defaults.initContentAttraction(it.value.contentId, NOW)
-            } else {
-                ui.defaults.initContentAttraction(it.value.contentId, NOW, LayoutAttractionPolicy.FocusOnce(false))
-            }
-        }
-        ui.options.setTopToolbar(actions, ActionPlaces.UNKNOWN)
-        ui.selectAndFocus(ui.contentManager.getContent(defaultProviderIndex), true, true)
-        return contentManager.component
     }
 
     override fun getComponent(): JComponent {
         if (table == null) {
             val splitPane = OnePixelSplitter(false)
-            splitPane.firstComponent = createLayoutComponent()
+            splitPane.firstComponent = console.component
             splitPane.secondComponent = createResultPanel()
             splitPane.secondComponent.minimumSize = Dimension(250, -1)
             splitPane.setHonorComponentsMinimumSize(true)
@@ -173,7 +133,7 @@ class QueryConsoleView(val project: Project) : ConsoleViewImpl(), QueryResultLis
     }
 
     override fun scrollTo(offset: Int) {
-        providers.filterIsInstance<ConsoleViewEx>().forEach { it.scrollTo(offset) }
+        console.scrollTo(offset)
     }
 
     // endregion

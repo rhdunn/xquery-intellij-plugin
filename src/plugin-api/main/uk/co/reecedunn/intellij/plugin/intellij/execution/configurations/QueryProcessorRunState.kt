@@ -29,7 +29,6 @@ import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram.ProfileReportTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
@@ -77,19 +76,12 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
     }
 
     private fun createConsole(executor: Executor): ConsoleView? {
-        val consoleView = QueryConsoleView(environment.project)
-        when (executor.id) {
-            DefaultRunExecutor.EXECUTOR_ID -> {
-                consoleView.addContentProvider(QueryTextConsoleView(environment.project))
-            }
-            DefaultProfileExecutor.EXECUTOR_ID -> {
-                consoleView.addContentProvider(QueryTextConsoleView(environment.project))
-                consoleView.addContentProvider(ProfileReportTableView(environment.project))
-                consoleView.selectContentProvider(1)
-            }
+        val console = when (executor.id) {
+            DefaultRunExecutor.EXECUTOR_ID -> QueryTextConsoleView(environment.project)
+            DefaultProfileExecutor.EXECUTOR_ID -> QueryTextConsoleView(environment.project)
             else -> throw UnsupportedOperationException()
         }
-        return consoleView
+        return QueryConsoleView(environment.project, console)
     }
 
     @Suppress("UNUSED_PARAMETER")
