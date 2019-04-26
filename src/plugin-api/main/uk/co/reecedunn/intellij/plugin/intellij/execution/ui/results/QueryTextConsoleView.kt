@@ -17,21 +17,16 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.execution.ui.RunnerLayoutUi
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.panels.Wrapper
-import com.intellij.ui.content.Content
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
-import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
@@ -68,22 +63,6 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
-    }
-
-    // endregion
-    // region ContentProvider
-
-    override val contentId: String = "Results"
-
-    override fun getContent(ui: RunnerLayoutUi): Content {
-        val consoleTitle: String = PluginApiBundle.message("console.tab.results.label")
-        val content = ui.createContent(contentId, component, consoleTitle, AllIcons.Debugger.Console, null)
-        content.isCloseable = false
-        return content
-    }
-
-    override fun createRunnerLayoutActions(): Array<AnAction> {
-        return AnAction.EMPTY_ARRAY
     }
 
     // endregion

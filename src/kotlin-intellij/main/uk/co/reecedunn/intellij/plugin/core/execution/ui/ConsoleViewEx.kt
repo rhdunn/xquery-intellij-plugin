@@ -17,6 +17,6 @@ package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
 import com.intellij.execution.ui.ConsoleView
 
-interface ConsoleViewEx : ConsoleView, ContentProvider {
+interface ConsoleViewEx : ConsoleView {
     fun scrollToTop(offset: Int)
 }
