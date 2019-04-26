@@ -19,14 +19,11 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.ui.content.Content
-import javax.swing.JComponent
 
 interface ContentProvider {
     val contentId: String
 
     fun getContent(ui: RunnerLayoutUi): Content
-
-    fun getComponent(): JComponent
 
     fun clear()
 

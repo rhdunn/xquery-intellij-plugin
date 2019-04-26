@@ -78,7 +78,7 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
         return content
     }
 
-    override fun getComponent(): JComponent = panel!!
+    private fun getComponent(): JComponent = panel!!
 
     override fun clear() {
         report = null
