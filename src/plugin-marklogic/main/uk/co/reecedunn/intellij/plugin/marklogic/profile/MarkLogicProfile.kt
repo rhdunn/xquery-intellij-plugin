@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
@@ -43,11 +43,11 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry 
     )
 }
 
-fun String.toMarkLogicProfileReport(queryFile: VirtualFile): ProfileReport {
+fun String.toMarkLogicProfileReport(queryFile: VirtualFile): FlatProfileReport {
     val doc = XmlDocument.parse(this, PROFILE_NAMESPACES)
     val metadata = doc.root.children("prof:metadata").first()
     val histogram = doc.root.children("prof:histogram").first()
-    return ProfileReport(
+    return FlatProfileReport(
         xml = this,
         elapsed = metadata.children("prof:overall-elapsed").first().text()?.toXsDuration()!!,
         created = metadata.children("prof:created").first().text()!!,

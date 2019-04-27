@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.openapi.Disposable
 import uk.co.reecedunn.intellij.plugin.core.event.Multicaster
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 
 class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : QueryProcessHandlerBase() {
@@ -37,7 +37,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
         profileReportListeners.removeListener(listener)
     }
 
-    fun notifyProfileReport(report: ProfileReport) {
+    fun notifyProfileReport(report: FlatProfileReport) {
         profileReportListeners.eventMulticaster.onProfileReport(report)
     }
 

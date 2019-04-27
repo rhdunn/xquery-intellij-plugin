@@ -20,7 +20,7 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
@@ -121,8 +121,8 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
     )
 }
 
-fun SaxonProfileTraceListener.toProfileReport(): ProfileReport {
-    return ProfileReport(
+fun SaxonProfileTraceListener.toProfileReport(): FlatProfileReport {
+    return FlatProfileReport(
         xml = null,
         elapsed = XsDuration.ns(elapsed),
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",

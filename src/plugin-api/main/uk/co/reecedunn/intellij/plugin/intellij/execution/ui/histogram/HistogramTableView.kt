@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
@@ -58,7 +58,7 @@ class HistogramTableView(val project: Project) :
     ProfileReportListener {
     // region UI
 
-    private var report: ProfileReport? = null
+    private var report: FlatProfileReport? = null
     private var save: SaveAction? = null
 
     private var panel: JPanel? = null
@@ -120,7 +120,7 @@ class HistogramTableView(val project: Project) :
     // endregion
     // region ProfileReportListener
 
-    override fun onProfileReport(result: ProfileReport) {
+    override fun onProfileReport(result: FlatProfileReport) {
         report = result
         save?.isEnabled = report?.xml != null
 

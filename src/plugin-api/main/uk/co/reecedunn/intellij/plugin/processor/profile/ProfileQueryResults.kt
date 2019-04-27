@@ -28,7 +28,7 @@ data class FlatProfileEntry(
     val frame: StackFrame
 )
 
-data class ProfileReport(
+data class FlatProfileReport(
     val xml: String?,
     val elapsed: XsDurationValue,
     val created: String,
@@ -38,5 +38,5 @@ data class ProfileReport(
 
 data class ProfileQueryResults(
     val results: List<QueryResult>,
-    val report: ProfileReport
+    val report: FlatProfileReport
 )

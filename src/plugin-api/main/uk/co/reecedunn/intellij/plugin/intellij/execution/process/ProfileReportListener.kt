@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.util.*
 
 interface ProfileReportListener : EventListener {
-    fun onProfileReport(result: ProfileReport)
+    fun onProfileReport(result: FlatProfileReport)
 }
