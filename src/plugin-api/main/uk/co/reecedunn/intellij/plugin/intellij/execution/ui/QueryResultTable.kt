@@ -100,5 +100,7 @@ class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryR
             updateEmptyText(isRunning, hasException)
         }
 
+    override val itemCount: Int get() = rowCount
+
     fun addRow(entry: QueryResult, range: Range<Int>) = listTableModel.addRow(Pair(entry, range))
 }

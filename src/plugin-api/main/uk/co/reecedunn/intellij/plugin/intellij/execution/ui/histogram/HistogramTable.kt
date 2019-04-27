@@ -165,5 +165,7 @@ class HistogramTable : TableView<ProfileEntry>(), QueryTable {
             updateEmptyText(isRunning, hasException)
         }
 
+    override val itemCount: Int = 0
+
     fun addRow(entry: ProfileEntry) = listTableModel.addRow(entry)
 }

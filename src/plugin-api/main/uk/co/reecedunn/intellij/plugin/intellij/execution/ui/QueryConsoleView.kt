@@ -48,30 +48,37 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     private var summary: JLabel? = null
 
-    private var table: QueryResultTable? = null
+    private var tables: ArrayList<QueryTable> = ArrayList()
     private var currentSize = 0
 
     private var timer = object : Stopwatch() {
-        override fun isRunning(): Boolean = table?.isRunning == true
+        override fun isRunning(): Boolean = tables.first().isRunning
 
         override fun onInterval() {
             val elapsed = XsDuration.ns(elapsedTime).toSeconds(Units.Precision.milliWithZeros)
-            table?.runningText = PluginApiBundle.message("query.result.table.results-elapsed", elapsed)
+            tables.forEach {
+                it.runningText = PluginApiBundle.message("query.result.table.results-elapsed", elapsed)
+            }
         }
     }
 
+    fun registerQueryTable(table: QueryTable) {
+        tables.add(table)
+    }
+
     private fun createResultTable(): JComponent {
-        table = QueryResultTable(
+        val table = QueryResultTable(
             QueryResultItemTypeColumn(sortable = false),
             QueryResultMimeTypeColumn(sortable = false)
         )
 
-        table!!.selectionModel.addListSelectionListener {
-            table?.selectedObject?.second?.let { range ->
+        table.selectionModel.addListSelectionListener {
+            table.selectedObject?.second?.let { range ->
                 console.scrollToTop(range.from)
             }
         }
 
+        registerQueryTable(table)
         return JBScrollPane(table)
     }
 
@@ -109,9 +116,12 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
         summary!!.text = "\u00A0"
 
-        table?.removeAll()
-        table?.isRunning = false
-        table?.hasException = false
+        (tables.first() as QueryResultTable).removeAll()
+
+        tables.forEach {
+            it.isRunning = false
+            it.hasException = false
+        }
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
@@ -126,7 +136,7 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
     }
 
     override fun getComponent(): JComponent {
-        if (table == null) {
+        if (tables.isEmpty()) {
             val splitPane = OnePixelSplitter(false)
             splitPane.firstComponent = console.component
             splitPane.secondComponent = createResultPanel()
@@ -149,28 +159,28 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         clear()
         summary!!.text = "\u00A0"
 
-        table?.isRunning = true
+        tables.forEach { it.isRunning = true }
         timer.start(10)
     }
 
     override fun onEndResults() {
-        table?.isRunning = false
+        tables.forEach { it.isRunning = false }
     }
 
     override fun onQueryResult(result: QueryResult) {
         val size = contentSize
-        table?.addRow(result, Range(currentSize, size))
+        (tables.first() as QueryResultTable).addRow(result, Range(currentSize, size))
         currentSize = size
     }
 
     override fun onException(e: Throwable) {
-        table?.hasException = true
+        tables.forEach { it.hasException = true }
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
         when (resultTime) {
             QueryResultTime.Elapsed -> {
-                val count = table?.rowCount ?: 0
+                val count = tables.first().itemCount
                 val elapsed = time.toSeconds(Units.Precision.nano)
                 summary!!.text = PluginApiBundle.message("console.summary.label", count, elapsed)
             }

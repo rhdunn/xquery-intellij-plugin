@@ -15,12 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
-interface QueryTable {
-    var runningText: String
-
-    var isRunning: Boolean
-
-    var hasException: Boolean
-
-    val itemCount: Int
+interface QueryTableProvider {
+    val table: QueryTable
 }
