@@ -63,7 +63,7 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
     private var results: JTable? = null
 
     private fun createUIComponents() {
-        results = ProfileReportTable()
+        results = HistogramTable()
     }
 
     // endregion
@@ -117,21 +117,21 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
     // region QueryResultListener
 
     override fun onBeginResults() {
-        (results as ProfileReportTable).let {
+        (results as HistogramTable).let {
             it.isRunning = true
             it.hasException = false
         }
     }
 
     override fun onEndResults() {
-        (results as ProfileReportTable).isRunning = false
+        (results as HistogramTable).isRunning = false
     }
 
     override fun onQueryResult(result: QueryResult) {
     }
 
     override fun onException(e: Throwable) {
-        (results as ProfileReportTable).hasException = true
+        (results as HistogramTable).hasException = true
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
@@ -144,7 +144,7 @@ class ProfileReportTableView(val project: Project) : ContentProvider, Disposable
         report = result
         save?.isEnabled = report?.xml != null
 
-        (results as ProfileReportTable).let {
+        (results as HistogramTable).let {
             it.removeAll()
             result.results.forEach { entry -> it.addRow(entry) }
         }
