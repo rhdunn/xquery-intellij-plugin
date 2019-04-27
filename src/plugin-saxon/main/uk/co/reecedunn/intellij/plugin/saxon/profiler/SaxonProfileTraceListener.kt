@@ -122,11 +122,15 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
 }
 
 fun SaxonProfileTraceListener.toProfileReport(): FlatProfileReport {
+    val elapsed = XsDuration.ns(elapsed)
     return FlatProfileReport(
         xml = null,
-        elapsed = XsDuration.ns(elapsed),
+        elapsed = elapsed,
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
-        results = results.values.asSequence().map { result -> result.toProfileEntry(query) }
+        results = sequenceOf(
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(query, null, null))),
+            results.values.asSequence().map { result -> result.toProfileEntry(query) }
+        ).flatten()
     )
 }

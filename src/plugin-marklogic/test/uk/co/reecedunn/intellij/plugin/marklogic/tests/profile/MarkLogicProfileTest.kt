@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.profile
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -51,7 +52,18 @@ class MarkLogicProfileTest {
         assertThat(p.version, `is`("9.0-5"))
 
         val results = p.results.toList()
-        assertThat(results.size, `is`(0))
+        assertThat(results.size, `is`(1))
+
+        assertThat(results[0].id, `is`(""))
+        assertThat(results[0].context, `is`(""))
+        assertThat(results[0].frame.module, `is`(DatabaseModule("test.xqy")))
+        assertThat(results[0].frame.lineNumber, `is`(nullValue()))
+        assertThat(results[0].frame.columnNumber, `is`(nullValue()))
+        assertThat(results[0].count, `is`(1))
+        assertThat(results[0].selfTime.months, `is`(XsInteger.ZERO))
+        assertThat(results[0].selfTime.seconds, `is`(XsDecimal.ZERO))
+        assertThat(results[0].totalTime.months, `is`(XsInteger.ZERO))
+        assertThat(results[0].totalTime.seconds, `is`(XsDecimal("0.0000564".toBigDecimal())))
     }
 
     @Test
@@ -97,17 +109,17 @@ class MarkLogicProfileTest {
         assertThat(p.version, `is`("9.0-5"))
 
         val results = p.results.toList()
-        assertThat(results.size, `is`(2))
+        assertThat(results.size, `is`(3))
 
-        assertThat(results[1].id, `is`("16683152708792260640"))
-        assertThat(results[1].context, `is`("1 to 10"))
-        assertThat(results[1].frame.module, `is`(DatabaseModule("test.xqy")))
-        assertThat(results[1].frame.lineNumber, `is`(1))
-        assertThat(results[1].frame.columnNumber, `is`(12))
-        assertThat(results[1].count, `is`(2))
-        assertThat(results[1].selfTime.months, `is`(XsInteger.ZERO))
-        assertThat(results[1].selfTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))
-        assertThat(results[1].totalTime.months, `is`(XsInteger.ZERO))
-        assertThat(results[1].totalTime.seconds, `is`(XsDecimal("0.0000014".toBigDecimal())))
+        assertThat(results[2].id, `is`("16683152708792260640"))
+        assertThat(results[2].context, `is`("1 to 10"))
+        assertThat(results[2].frame.module, `is`(DatabaseModule("test.xqy")))
+        assertThat(results[2].frame.lineNumber, `is`(1))
+        assertThat(results[2].frame.columnNumber, `is`(12))
+        assertThat(results[2].count, `is`(2))
+        assertThat(results[2].selfTime.months, `is`(XsInteger.ZERO))
+        assertThat(results[2].selfTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))
+        assertThat(results[2].totalTime.months, `is`(XsInteger.ZERO))
+        assertThat(results[2].totalTime.seconds, `is`(XsDecimal("0.0000014".toBigDecimal())))
     }
 }
