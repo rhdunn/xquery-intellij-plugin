@@ -23,6 +23,18 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
+class QueryResultIndexColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, Long>(
+    PluginApiBundle.message("query.result.table.index.column.label")
+), Comparator<Pair<QueryResult, Range<Int>>> {
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): Long? = item?.first?.position
+
+    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
+
+    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
+        return (o1?.first?.position ?: 0).compareTo(o2?.first?.position ?: 0)
+    }
+}
+
 class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
     PluginApiBundle.message("query.result.table.item-type.column.label")
 ), Comparator<Pair<QueryResult, Range<Int>>> {

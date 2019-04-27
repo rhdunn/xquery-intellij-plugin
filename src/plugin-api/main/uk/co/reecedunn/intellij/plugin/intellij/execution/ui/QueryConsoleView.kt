@@ -68,6 +68,7 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     private fun createResultTable(): JComponent {
         val table = QueryResultTable(
+            QueryResultIndexColumn(sortable = false),
             QueryResultItemTypeColumn(sortable = false),
             QueryResultMimeTypeColumn(sortable = false)
         )
