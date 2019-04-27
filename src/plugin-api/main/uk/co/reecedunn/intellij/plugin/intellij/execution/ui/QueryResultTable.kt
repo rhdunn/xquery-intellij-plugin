@@ -66,7 +66,7 @@ class QueryResultValueColumn(val sortable: Boolean = true) : ColumnInfo<Pair<Que
     }
 }
 
-class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryResult, Range<Int>>>() {
+class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {
     init {
         setModelAndUpdateColumns(ListTableModel<Pair<QueryResult, Range<Int>>>(*columns))
         setEnableAntialiasing(true)
@@ -75,27 +75,26 @@ class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryR
     }
 
     private fun updateEmptyText(running: Boolean, exception: Boolean) {
-        if (exception)
-            emptyText.text = PluginApiBundle.message("query.result.table.has-exception")
-        else if (running)
-            emptyText.text = runningText
-        else
-            emptyText.text = PluginApiBundle.message("query.result.table.no-results")
+        when {
+            exception -> emptyText.text = PluginApiBundle.message("query.result.table.has-exception")
+            running -> emptyText.text = runningText
+            else -> emptyText.text = PluginApiBundle.message("query.result.table.no-results")
+        }
     }
 
-    var runningText: String = PluginApiBundle.message("query.result.table.results-pending")
+    override var runningText: String = PluginApiBundle.message("query.result.table.results-pending")
         set(value) {
             field = value
             updateEmptyText(isRunning, hasException)
         }
 
-    var isRunning: Boolean = false
+    override var isRunning: Boolean = false
         set(value) {
             field = value
             updateEmptyText(isRunning, hasException)
         }
 
-    var hasException: Boolean = false
+    override var hasException: Boolean = false
         set(value) {
             field = value
             updateEmptyText(isRunning, hasException)

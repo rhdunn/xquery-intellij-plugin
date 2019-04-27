@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 
@@ -130,7 +131,7 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     EXPRESSION_COLUMN
 )
 
-class HistogramTable : TableView<ProfileEntry>() {
+class HistogramTable : TableView<ProfileEntry>(), QueryTable {
     init {
         setModelAndUpdateColumns(ListTableModel<ProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)
@@ -139,21 +140,26 @@ class HistogramTable : TableView<ProfileEntry>() {
     }
 
     private fun updateEmptyText(running: Boolean, exception: Boolean) {
-        if (exception)
-            emptyText.text = PluginApiBundle.message("profile.entry.table.has-exception")
-        else if (running)
-            emptyText.text = PluginApiBundle.message("profile.entry.table.results-pending")
-        else
-            emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
+        when {
+            exception -> emptyText.text = PluginApiBundle.message("profile.entry.table.has-exception")
+            running -> emptyText.text = runningText
+            else -> emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
+        }
     }
 
-    var isRunning: Boolean = false
+    override var runningText: String = PluginApiBundle.message("query.result.table.results-pending")
         set(value) {
             field = value
             updateEmptyText(isRunning, hasException)
         }
 
-    var hasException: Boolean = false
+    override var isRunning: Boolean = false
+        set(value) {
+            field = value
+            updateEmptyText(isRunning, hasException)
+        }
+
+    override var hasException: Boolean = false
         set(value) {
             field = value
             updateEmptyText(isRunning, hasException)
