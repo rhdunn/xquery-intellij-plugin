@@ -57,7 +57,6 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         override fun onInterval() {
             val elapsed = XsDuration.ns(elapsedTime).toSeconds(Units.Precision.milliWithZeros)
             table?.runningText = PluginApiBundle.message("query.result.table.results-elapsed", elapsed)
-            summary!!.text = elapsed
         }
     }
 
@@ -148,16 +147,14 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     override fun onBeginResults() {
         clear()
+        summary!!.text = "\u00A0"
+
         table?.isRunning = true
         timer.start(10)
     }
 
     override fun onEndResults() {
         table?.isRunning = false
-
-        val count = table?.rowCount ?: 0
-        // Use the recorded time for consistency with the running time.
-        summary!!.text = PluginApiBundle.message("console.summary.label", count, XsDuration.ns(timer.elapsedTime).toSeconds())
     }
 
     override fun onQueryResult(result: QueryResult) {
@@ -171,6 +168,13 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+        when (resultTime) {
+            QueryResultTime.Elapsed -> {
+                val count = table?.rowCount ?: 0
+                val elapsed = time.toSeconds(Units.Precision.nano)
+                summary!!.text = PluginApiBundle.message("console.summary.label", count, elapsed)
+            }
+        }
     }
 
     // endregion
