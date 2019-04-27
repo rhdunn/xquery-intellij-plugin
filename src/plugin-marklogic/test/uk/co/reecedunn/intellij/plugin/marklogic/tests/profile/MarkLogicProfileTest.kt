@@ -107,7 +107,7 @@ class MarkLogicProfileTest {
         assertThat(results[1].count, `is`(2))
         assertThat(results[1].selfTime.months, `is`(XsInteger.ZERO))
         assertThat(results[1].selfTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))
-        assertThat(results[1].deepTime.months, `is`(XsInteger.ZERO))
-        assertThat(results[1].deepTime.seconds, `is`(XsDecimal("0.0000014".toBigDecimal())))
+        assertThat(results[1].totalTime.months, `is`(XsInteger.ZERO))
+        assertThat(results[1].totalTime.seconds, `is`(XsDecimal("0.0000014".toBigDecimal())))
     }
 }

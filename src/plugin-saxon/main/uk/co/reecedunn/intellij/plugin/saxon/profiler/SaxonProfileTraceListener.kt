@@ -37,7 +37,7 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
 
 class SaxonProfileInstruction(
     val instruction: InstructionInfo,
-    var deepTime: Long,
+    var totalTime: Long,
     var count: Int = 1
 )
 
@@ -81,13 +81,13 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : T
         if (instruction.isClauseInfo()) return
 
         val current = instructions.pop()
-        current.deepTime = System.nanoTime() - current.deepTime
+        current.totalTime = System.nanoTime() - current.totalTime
 
         val result = results[instruction]
         if (result == null) {
             results[instruction] = current
         } else {
-            result.deepTime += current.deepTime
+            result.totalTime += current.totalTime
             result.count += 1
         }
     }
@@ -106,17 +106,17 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : T
 }
 
 fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry {
-    val deepTimeDuration = XsDuration.ns(deepTime)
+    val totalTimeDuration = XsDuration.ns(totalTime)
     return FlatProfileEntry(
         id = instruction.hashCode().toString(),
         context = instruction.getObjectName()?.toString() ?: "",
         count = count,
-        selfTime = deepTimeDuration,
-        deepTime = deepTimeDuration,
+        selfTime = totalTimeDuration,
+        totalTime = totalTimeDuration,
         frame = StackFrame(
             instruction.getSystemId().nullize()?.let { DatabaseModule(it) } ?: query,
-            instruction.getLineNumber().run { if(this == -1) null else this },
-            instruction.getColumnNumber().run { if(this == -1) null else this }
+            instruction.getLineNumber().run { if (this == -1) null else this },
+            instruction.getColumnNumber().run { if (this == -1) null else this }
         )
     )
 }
