@@ -35,13 +35,19 @@ class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvi
             return field
         }
 
-    fun addContentProvider(provider: ContentProvider) {
+    fun addContentProvider(provider: ContentProvider, isActiveProvider: Boolean) {
         if (runContentDescriptor == null) {
             runContentDescriptor = showRunContent(myEnvironment.contentToReuse)
         }
 
-        myUi.contentManager.addContent(provider.getContent(myUi))
+        val content = provider.getContent(myUi)
+        myUi.contentManager.addContent(content)
+
         provider.attachToProcess(myRunContentDescriptor.processHandler)
         runnerLayoutActions.addAll(*provider.createRunnerLayoutActions())
+
+        if (isActiveProvider) {
+            myUi.contentManager.setSelectedContent(content, true)
+        }
     }
 }
