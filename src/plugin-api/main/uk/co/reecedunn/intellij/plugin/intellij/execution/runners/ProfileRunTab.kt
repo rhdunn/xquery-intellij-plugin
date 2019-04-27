@@ -26,17 +26,18 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvironment) :
     RunContentBuilder(executionResult, environment) {
 
-    private val runnerLayoutActions = DefaultActionGroup()
+    private var runnerLayoutActions: DefaultActionGroup? = null
 
     var runContentDescriptor: RunContentDescriptor? = null
         private set
         get() {
-            myUi.options.setTopToolbar(runnerLayoutActions, ActionPlaces.RUNNER_TOOLBAR)
+            runnerLayoutActions?.let { myUi.options.setTopToolbar(it, ActionPlaces.RUNNER_TOOLBAR) }
             return field
         }
 
     fun addContentProvider(provider: ContentProvider, isActiveProvider: Boolean) {
-        if (runContentDescriptor == null) {
+        if (runnerLayoutActions == null) {
+            runnerLayoutActions = DefaultActionGroup()
             runContentDescriptor = showRunContent(myEnvironment.contentToReuse)
         }
 
@@ -44,7 +45,7 @@ class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvi
         myUi.contentManager.addContent(content)
 
         provider.attachToProcess(myRunContentDescriptor.processHandler)
-        runnerLayoutActions.addAll(*provider.createRunnerLayoutActions())
+        runnerLayoutActions?.addAll(*provider.createRunnerLayoutActions())
 
         if (isActiveProvider) {
             myUi.contentManager.setSelectedContent(content, true)
