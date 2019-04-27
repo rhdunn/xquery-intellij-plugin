@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
@@ -131,7 +131,7 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     EXPRESSION_COLUMN
 )
 
-class HistogramTable : TableView<FlatProfileEntry>(), QueryTable {
+class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
     init {
         setModelAndUpdateColumns(ListTableModel<FlatProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)

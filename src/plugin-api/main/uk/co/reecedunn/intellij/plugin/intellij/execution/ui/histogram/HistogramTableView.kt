@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.SaveAction
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.FlatProfileTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat
@@ -66,7 +67,7 @@ class HistogramTableView(val project: Project) :
     private var results: JTable? = null
 
     private fun createUIComponents() {
-        results = HistogramTable()
+        results = FlatProfileTable()
     }
 
     // endregion
@@ -125,7 +126,7 @@ class HistogramTableView(val project: Project) :
         report = result
         save?.isEnabled = report?.xml != null
 
-        (results as HistogramTable).let {
+        (results as FlatProfileTable).let {
             it.removeAll()
             result.results.forEach { entry -> it.addRow(entry) }
         }
