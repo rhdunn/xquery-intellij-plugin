@@ -109,15 +109,15 @@ private object DEEP_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
 }
 
 @Suppress("ClassName")
-private object EXPRESSION_COLUMN : ColumnInfo<FlatProfileEntry, String>(
-    PluginApiBundle.message("profile.entry.table.expression.column.label")
+private object CONTEXT_COLUMN : ColumnInfo<FlatProfileEntry, String>(
+    PluginApiBundle.message("profile.entry.table.context.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): String? = item?.expression
+    override fun valueOf(item: FlatProfileEntry?): String? = item?.context
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
     override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1!!.expression.compareTo(o2!!.expression)
+        return o1!!.context.compareTo(o2!!.context)
     }
 }
 
@@ -128,7 +128,7 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     COUNT_COLUMN,
     SHALLOW_TIME_COLUMN,
     DEEP_TIME_COLUMN,
-    EXPRESSION_COLUMN
+    CONTEXT_COLUMN
 )
 
 class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {

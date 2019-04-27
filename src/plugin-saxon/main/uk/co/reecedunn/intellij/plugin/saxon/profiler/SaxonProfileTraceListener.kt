@@ -109,7 +109,7 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
     val deepTimeDuration = XsDuration.ns(deepTime)
     return FlatProfileEntry(
         id = instruction.hashCode().toString(),
-        expression = instruction.getObjectName()?.toString() ?: "",
+        context = instruction.getObjectName()?.toString() ?: "",
         count = count,
         shallowTime = deepTimeDuration,
         deepTime = deepTimeDuration,

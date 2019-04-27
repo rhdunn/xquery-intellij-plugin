@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 data class FlatProfileEntry(
     val id: String,
-    val expression: String,
+    val context: String,
     val count: Int,
     val shallowTime: XsDurationValue,
     val deepTime: XsDurationValue,
