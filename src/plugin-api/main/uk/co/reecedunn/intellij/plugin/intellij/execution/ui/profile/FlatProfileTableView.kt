@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.RunnerLayoutUi
@@ -32,7 +32,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.SaveAction
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.FlatProfileTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat
@@ -53,7 +52,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
     }
 }
 
-class HistogramTableView(val project: Project) :
+class FlatProfileTableView(val project: Project) :
     ContentProvider,
     QueryTableProvider,
     Disposable,
@@ -78,10 +77,10 @@ class HistogramTableView(val project: Project) :
     // endregion
     // region ContentProvider
 
-    override val contentId: String = "Histogram"
+    override val contentId: String = "FlatProfile"
 
     override fun getContent(ui: RunnerLayoutUi): Content {
-        val consoleTitle: String = PluginApiBundle.message("console.tab.histogram.label")
+        val consoleTitle: String = PluginApiBundle.message("console.tab.flat-profile.label")
         val content = ui.createContent(contentId, getComponent(), consoleTitle, AllIcons.Debugger.Overhead, null)
         content.isCloseable = false
         return content
