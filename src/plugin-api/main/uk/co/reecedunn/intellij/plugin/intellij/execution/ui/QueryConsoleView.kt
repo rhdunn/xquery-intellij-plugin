@@ -17,14 +17,12 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.openapi.application.ex.ApplicationManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
 import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -48,10 +46,17 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
     }
 
     private var summary: JLabel? = null
-    private var time: Long = 0
 
     private var table: QueryResultTable? = null
     private var currentSize = 0
+
+    private var timer = object : Stopwatch() {
+        override fun isRunning(): Boolean = table?.isRunning == true
+
+        override fun onInterval() {
+            summary!!.text = XsDuration.ns(elapsedTime).toSeconds()
+        }
+    }
 
     private fun createResultTable(): JComponent {
         table = QueryResultTable(
@@ -98,7 +103,6 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
     override fun clear() {
         console.clear()
 
-        time = 0
         currentSize = 0
 
         summary!!.text = "\u00A0"
@@ -139,23 +143,10 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
     // endregion
     // region QueryResultListener
 
-    fun timer(): ExecutableOnPooledThread<Unit> = pooled_thread {
-        val start = System.nanoTime()
-        while (table?.isRunning == true) {
-            ApplicationManagerEx.getApplication().invokeLater {
-                if (table?.isRunning == true) {
-                    time = System.nanoTime() - start
-                    summary!!.text = XsDuration.ns(time).toSeconds()
-                }
-            }
-            Thread.sleep(10)
-        }
-    }
-
     override fun onBeginResults() {
         clear()
         table?.isRunning = true
-        timer().execute()
+        timer.start(10)
     }
 
     override fun onEndResults() {
@@ -163,7 +154,7 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
         val count = table?.rowCount ?: 0
         // Use the recorded time for consistency with the running time.
-        summary!!.text = PluginApiBundle.message("console.summary.label", count, XsDuration.ns(time).toSeconds())
+        summary!!.text = PluginApiBundle.message("console.summary.label", count, XsDuration.ns(timer.elapsedTime).toSeconds())
     }
 
     override fun onQueryResult(result: QueryResult) {
