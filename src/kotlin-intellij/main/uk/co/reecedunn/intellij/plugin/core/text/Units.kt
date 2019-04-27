@@ -29,5 +29,9 @@ object Units {
         val milli = numberFormat(0, 3)
         val micro = numberFormat(3, 6)
         val nano = numberFormat(6, 9)
+
+        val milliWithZeros = numberFormat(3, 3)
+        val microWithZeros = numberFormat(6, 6)
+        val nanoWithZeros = numberFormat(9, 9)
     }
 }

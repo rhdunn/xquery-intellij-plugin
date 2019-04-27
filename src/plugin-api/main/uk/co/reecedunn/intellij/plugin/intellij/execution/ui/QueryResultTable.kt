@@ -78,10 +78,16 @@ class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryR
         if (exception)
             emptyText.text = PluginApiBundle.message("query.result.table.has-exception")
         else if (running)
-            emptyText.text = PluginApiBundle.message("query.result.table.results-pending")
+            emptyText.text = runningText
         else
             emptyText.text = PluginApiBundle.message("query.result.table.no-results")
     }
+
+    var runningText: String = PluginApiBundle.message("query.result.table.results-pending")
+        set(value) {
+            field = value
+            updateEmptyText(isRunning, hasException)
+        }
 
     var isRunning: Boolean = false
         set(value) {

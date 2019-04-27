@@ -25,6 +25,7 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
+import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -54,7 +55,9 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         override fun isRunning(): Boolean = table?.isRunning == true
 
         override fun onInterval() {
-            summary!!.text = XsDuration.ns(elapsedTime).toSeconds()
+            val elapsed = XsDuration.ns(elapsedTime).toSeconds(Units.Precision.milliWithZeros)
+            table?.runningText = PluginApiBundle.message("query.result.table.results-elapsed", elapsed)
+            summary!!.text = elapsed
         }
     }
 
