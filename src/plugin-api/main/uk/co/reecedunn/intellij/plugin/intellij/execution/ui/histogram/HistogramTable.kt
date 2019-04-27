@@ -20,69 +20,69 @@ import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 
 @Suppress("ClassName")
-private object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): String? = item?.frame?.module?.name
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): String? = item?.frame?.module?.name
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         return (o1?.frame?.module?.path ?: "").compareTo(o2?.frame?.module?.path ?: "")
     }
 }
 
 @Suppress("ClassName")
-private object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
+private object LINE_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.line-number.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): Int? = item?.frame?.lineNumber
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): Int? = item?.frame?.lineNumber
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         return o1?.frame?.lineNumber!!.compareTo(o2?.frame?.lineNumber!!)
     }
 }
 
 @Suppress("ClassName")
-private object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
+private object COLUMN_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.column-number.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): Int? = item?.frame?.columnNumber
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): Int? = item?.frame?.columnNumber
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         return o1?.frame?.columnNumber!!.compareTo(o2?.frame?.columnNumber!!)
     }
 }
 
 @Suppress("ClassName")
-private object COUNT_COLUMN : ColumnInfo<ProfileEntry, Int>(
+private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.count.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): Int? = item?.count
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): Int? = item?.count
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         return o1!!.count.compareTo(o2!!.count)
     }
 }
 
 @Suppress("ClassName")
-private object SHALLOW_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object SHALLOW_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.shallow-time.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): String? = item?.shallowTime?.seconds?.data?.toPlainString()
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): String? = item?.shallowTime?.seconds?.data?.toPlainString()
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         val compared = o1!!.shallowTime.months.data.compareTo(o2!!.shallowTime.months.data)
         return if (compared == 0)
             o1.shallowTime.seconds.data.compareTo(o2.shallowTime.seconds.data)
@@ -92,14 +92,14 @@ private object SHALLOW_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
 }
 
 @Suppress("ClassName")
-private object DEEP_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object DEEP_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.deep-time.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): String? = item?.deepTime?.seconds?.data?.toPlainString()
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): String? = item?.deepTime?.seconds?.data?.toPlainString()
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         val compared = o1!!.deepTime.months.data.compareTo(o2!!.deepTime.months.data)
         return if (compared == 0)
             o1.deepTime.seconds.data.compareTo(o2.deepTime.seconds.data)
@@ -109,14 +109,14 @@ private object DEEP_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
 }
 
 @Suppress("ClassName")
-private object EXPRESSION_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object EXPRESSION_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.expression.column.label")
-), Comparator<ProfileEntry> {
-    override fun valueOf(item: ProfileEntry?): String? = item?.expression
+), Comparator<FlatProfileEntry> {
+    override fun valueOf(item: FlatProfileEntry?): String? = item?.expression
 
-    override fun getComparator(): Comparator<ProfileEntry>? = this
+    override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
-    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         return o1!!.expression.compareTo(o2!!.expression)
     }
 }
@@ -131,9 +131,9 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     EXPRESSION_COLUMN
 )
 
-class HistogramTable : TableView<ProfileEntry>(), QueryTable {
+class HistogramTable : TableView<FlatProfileEntry>(), QueryTable {
     init {
-        setModelAndUpdateColumns(ListTableModel<ProfileEntry>(*COLUMNS))
+        setModelAndUpdateColumns(ListTableModel<FlatProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)
 
         updateEmptyText(false, false)
@@ -167,5 +167,5 @@ class HistogramTable : TableView<ProfileEntry>(), QueryTable {
 
     override val itemCount: Int = 0
 
-    fun addRow(entry: ProfileEntry) = listTableModel.addRow(entry)
+    fun addRow(entry: FlatProfileEntry) = listTableModel.addRow(entry)
 }

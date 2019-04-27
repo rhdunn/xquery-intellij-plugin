@@ -19,15 +19,11 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
-import java.math.BigDecimal
-import java.math.BigInteger
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -109,9 +105,9 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : T
     }
 }
 
-fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): ProfileEntry {
+fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry {
     val deepTimeDuration = XsDuration.ns(deepTime)
-    return ProfileEntry(
+    return FlatProfileEntry(
         id = instruction.hashCode().toString(),
         expression = instruction.getObjectName()?.toString() ?: "",
         count = count,

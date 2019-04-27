@@ -21,15 +21,15 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 
-private fun XmlElement.toProfileEntry(queryFile: VirtualFile): ProfileEntry {
+private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry {
     val path = children("prof:uri").first().text()
-    return ProfileEntry(
+    return FlatProfileEntry(
         id = children("prof:expr-id").first().text()!!,
         expression = children("prof:expr-source").first().text()!!,
         frame = StackFrame(

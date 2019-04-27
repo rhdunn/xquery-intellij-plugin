@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
-data class ProfileEntry(
+data class FlatProfileEntry(
     val id: String,
     val expression: String,
     val count: Int,
@@ -33,7 +33,7 @@ data class ProfileReport(
     val elapsed: XsDurationValue,
     val created: String,
     val version: String,
-    val results: Sequence<ProfileEntry>
+    val results: Sequence<FlatProfileEntry>
 )
 
 data class ProfileQueryResults(
