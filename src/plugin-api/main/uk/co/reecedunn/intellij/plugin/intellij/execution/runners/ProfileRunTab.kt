@@ -19,13 +19,21 @@ import com.intellij.execution.ExecutionResult
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.RunContentDescriptor
+import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.DefaultActionGroup
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 
 class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvironment) :
     RunContentBuilder(executionResult, environment) {
 
+    private val runnerLayoutActions = DefaultActionGroup()
+
     var runContentDescriptor: RunContentDescriptor? = null
         private set
+        get() {
+            myUi.options.setTopToolbar(runnerLayoutActions, ActionPlaces.RUNNER_TOOLBAR)
+            return field
+        }
 
     fun addContentProvider(provider: ContentProvider) {
         if (runContentDescriptor == null) {
@@ -34,5 +42,6 @@ class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvi
 
         myUi.contentManager.addContent(provider.getContent(myUi))
         provider.attachToProcess(myRunContentDescriptor.processHandler)
+        runnerLayoutActions.addAll(*provider.createRunnerLayoutActions())
     }
 }
