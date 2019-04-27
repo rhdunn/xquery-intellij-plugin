@@ -22,8 +22,10 @@ import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 
-class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvironment) :
+class ProfileRunTab(val executionResult: ExecutionResult, environment: ExecutionEnvironment) :
     RunContentBuilder(executionResult, environment) {
 
     private var runnerLayoutActions: DefaultActionGroup? = null
@@ -46,6 +48,9 @@ class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvi
 
         provider.attachToProcess(myRunContentDescriptor.processHandler)
         runnerLayoutActions?.addAll(*provider.createRunnerLayoutActions())
+
+        val console = executionResult.executionConsole as? QueryConsoleView
+        (provider as? QueryTableProvider)?.let { console?.registerQueryTable(it.table) }
 
         if (isActiveProvider) {
             myUi.contentManager.setSelectedContent(content, true)

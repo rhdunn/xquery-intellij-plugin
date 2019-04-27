@@ -29,12 +29,10 @@ import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
@@ -53,7 +51,11 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
     }
 }
 
-class HistogramTableView(val project: Project) : ContentProvider, Disposable, QueryResultListener, ProfileReportListener {
+class HistogramTableView(val project: Project) :
+    ContentProvider,
+    QueryTableProvider,
+    Disposable,
+    ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null
@@ -65,6 +67,11 @@ class HistogramTableView(val project: Project) : ContentProvider, Disposable, Qu
     private fun createUIComponents() {
         results = HistogramTable()
     }
+
+    // endregion
+    // region QueryTableProvider
+
+    override val table: QueryTable get() = results as QueryTable
 
     // endregion
     // region ContentProvider
@@ -101,40 +108,13 @@ class HistogramTableView(val project: Project) : ContentProvider, Disposable, Qu
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        (processHandler as? ProfileableQueryProcessHandler)?.let {
-            it.addQueryResultListener(this, this)
-            it.addProfileReportListener(this, this)
-        }
+        (processHandler as? ProfileableQueryProcessHandler)?.addProfileReportListener(this, this)
     }
 
     // endregion
     // region Disposable
 
     override fun dispose() {
-    }
-
-    // endregion
-    // region QueryResultListener
-
-    override fun onBeginResults() {
-        (results as HistogramTable).let {
-            it.isRunning = true
-            it.hasException = false
-        }
-    }
-
-    override fun onEndResults() {
-        (results as HistogramTable).isRunning = false
-    }
-
-    override fun onQueryResult(result: QueryResult) {
-    }
-
-    override fun onException(e: Throwable) {
-        (results as HistogramTable).hasException = true
-    }
-
-    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
     }
 
     // endregion
