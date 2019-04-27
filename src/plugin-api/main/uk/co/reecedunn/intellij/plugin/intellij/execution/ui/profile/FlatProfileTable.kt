@@ -75,17 +75,17 @@ private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
 }
 
 @Suppress("ClassName")
-private object SHALLOW_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
-    PluginApiBundle.message("profile.entry.table.shallow-time.column.label")
+private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
+    PluginApiBundle.message("profile.entry.table.self-time.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): String? = item?.shallowTime?.seconds?.data?.toPlainString()
+    override fun valueOf(item: FlatProfileEntry?): String? = item?.selfTime?.seconds?.data?.toPlainString()
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
     override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        val compared = o1!!.shallowTime.months.data.compareTo(o2!!.shallowTime.months.data)
+        val compared = o1!!.selfTime.months.data.compareTo(o2!!.selfTime.months.data)
         return if (compared == 0)
-            o1.shallowTime.seconds.data.compareTo(o2.shallowTime.seconds.data)
+            o1.selfTime.seconds.data.compareTo(o2.selfTime.seconds.data)
         else
             compared
     }
@@ -126,7 +126,7 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     LINE_NUMBER_COLUMN,
     COLUMN_NUMBER_COLUMN,
     COUNT_COLUMN,
-    SHALLOW_TIME_COLUMN,
+    SELF_TIME_COLUMN,
     DEEP_TIME_COLUMN,
     CONTEXT_COLUMN
 )

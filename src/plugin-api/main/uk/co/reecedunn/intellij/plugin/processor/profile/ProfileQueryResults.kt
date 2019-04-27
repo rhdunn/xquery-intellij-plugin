@@ -23,7 +23,7 @@ data class FlatProfileEntry(
     val id: String,
     val context: String,
     val count: Int,
-    val shallowTime: XsDurationValue,
+    val selfTime: XsDurationValue,
     val deepTime: XsDurationValue,
     val frame: StackFrame
 )

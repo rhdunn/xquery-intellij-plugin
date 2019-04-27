@@ -38,7 +38,7 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry 
             children("prof:column").first().text()?.toInt()
         ),
         count = children("prof:count").first().text()!!.toInt(),
-        shallowTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
+        selfTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
         deepTime = children("prof:deep-time").first().text()?.toXsDuration()!!
     )
 }

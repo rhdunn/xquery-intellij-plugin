@@ -111,7 +111,7 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
         id = instruction.hashCode().toString(),
         context = instruction.getObjectName()?.toString() ?: "",
         count = count,
-        shallowTime = deepTimeDuration,
+        selfTime = deepTimeDuration,
         deepTime = deepTimeDuration,
         frame = StackFrame(
             instruction.getSystemId().nullize()?.let { DatabaseModule(it) } ?: query,
