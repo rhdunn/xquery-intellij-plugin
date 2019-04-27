@@ -15,7 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.profile
 
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+
+data class ProfileEntry(
+    val id: String,
+    val expression: String,
+    val count: Int,
+    val shallowTime: XsDurationValue,
+    val deepTime: XsDurationValue,
+    val frame: StackFrame
+)
+
+data class ProfileReport(
+    val xml: String?,
+    val elapsed: XsDurationValue,
+    val created: String,
+    val version: String,
+    val results: Sequence<ProfileEntry>
+)
 
 data class ProfileQueryResults(
     val results: List<QueryResult>,
