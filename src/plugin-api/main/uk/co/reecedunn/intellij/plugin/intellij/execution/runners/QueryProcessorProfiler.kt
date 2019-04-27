@@ -23,7 +23,7 @@ import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram.ProfileReportTableView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.histogram.HistogramTableView
 
 class QueryProcessorProfiler : DefaultProgramRunner() {
     override fun getRunnerId(): String = "XIJPQueryProcessorProfiler"
@@ -40,7 +40,7 @@ class QueryProcessorProfiler : DefaultProgramRunner() {
         return state.execute(environment.executor, this)?.let {
             val tab = ProfileRunTab(it, environment)
             val descriptor = tab.showRunContent(environment.contentToReuse)
-            tab.addContentProvider(ProfileReportTableView(environment.project))
+            tab.addContentProvider(HistogramTableView(environment.project))
             descriptor
         }
     }

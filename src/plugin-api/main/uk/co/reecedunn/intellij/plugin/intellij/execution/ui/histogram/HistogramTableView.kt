@@ -53,7 +53,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
     }
 }
 
-class ProfileReportTableView(val project: Project) : ContentProvider, Disposable, QueryResultListener, ProfileReportListener {
+class HistogramTableView(val project: Project) : ContentProvider, Disposable, QueryResultListener, ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null
