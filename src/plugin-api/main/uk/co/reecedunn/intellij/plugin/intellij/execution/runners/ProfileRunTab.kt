@@ -18,12 +18,20 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.runners
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.RunContentBuilder
+import com.intellij.execution.ui.RunContentDescriptor
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 
 class ProfileRunTab(executionResult: ExecutionResult, environment: ExecutionEnvironment) :
     RunContentBuilder(executionResult, environment) {
 
+    var runContentDescriptor: RunContentDescriptor? = null
+        private set
+
     fun addContentProvider(provider: ContentProvider) {
+        if (runContentDescriptor == null) {
+            runContentDescriptor = showRunContent(myEnvironment.contentToReuse)
+        }
+
         myUi.contentManager.addContent(provider.getContent(myUi))
         provider.attachToProcess(myRunContentDescriptor.processHandler)
     }

@@ -39,9 +39,8 @@ class QueryProcessorProfiler : DefaultProgramRunner() {
         FileDocumentManager.getInstance().saveAllDocuments()
         return state.execute(environment.executor, this)?.let {
             val tab = ProfileRunTab(it, environment)
-            val descriptor = tab.showRunContent(environment.contentToReuse)
             tab.addContentProvider(HistogramTableView(environment.project))
-            descriptor
+            tab.runContentDescriptor
         }
     }
 }
