@@ -18,11 +18,13 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
+import uk.co.reecedunn.intellij.plugin.core.awt.scope
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.Component
+import java.awt.Graphics
 import javax.swing.JTable
 import javax.swing.table.DefaultTableCellRenderer
 import javax.swing.table.TableCellRenderer
@@ -40,7 +42,18 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
 
         val seconds = value.seconds.data
         super.getTableCellRendererComponent(table, seconds.toPlainString(), isSelected, hasFocus, row, column)
+        isOpaque = false // Don't render the component's background.
         return this
+    }
+
+    private fun paintBackground(g: Graphics) {
+        g.color = background
+        g.fillRect(0, 0, width, height)
+    }
+
+    override fun paintComponent(g: Graphics?) {
+        g?.scope { paintBackground(it) }
+        super.paintComponent(g)
     }
 }
 
