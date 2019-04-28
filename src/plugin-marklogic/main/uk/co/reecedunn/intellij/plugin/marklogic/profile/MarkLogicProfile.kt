@@ -35,8 +35,8 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry 
         context = children("prof:expr-source").first().text()!!,
         frame = StackFrame(
             path?.nullize()?.let { DatabaseModule(it) } ?: queryFile,
-            children("prof:line").first().text()?.toInt(),
-            children("prof:column").first().text()?.toInt()
+            children("prof:line").first().text()?.toIntOrNull() ?: 1,
+            children("prof:column").first().text()?.toIntOrNull() ?: 1
         ),
         count = children("prof:count").first().text()!!.toInt(),
         selfTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
@@ -55,7 +55,7 @@ fun String.toMarkLogicProfileReport(queryFile: VirtualFile): FlatProfileReport {
         created = metadata.children("prof:created").first().text()!!,
         version = metadata.children("prof:server-version").first().text()!!,
         results = sequenceOf(
-            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(queryFile, null, null))),
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(queryFile, 1, 1))),
             histogram.children("prof:expression").map { expression -> expression.toProfileEntry(queryFile) }
         ).flatten()
     )

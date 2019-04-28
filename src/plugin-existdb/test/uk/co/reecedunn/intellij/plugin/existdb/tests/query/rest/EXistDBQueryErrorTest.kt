@@ -62,8 +62,8 @@ class EXistDBQueryErrorTest {
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
         assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(nullValue()))
-        assertThat(e.frames[0].columnNumber, `is`(nullValue()))
+        assertThat(e.frames[0].lineNumber, `is`(1))
+        assertThat(e.frames[0].columnNumber, `is`(1))
     }
 
     @Test

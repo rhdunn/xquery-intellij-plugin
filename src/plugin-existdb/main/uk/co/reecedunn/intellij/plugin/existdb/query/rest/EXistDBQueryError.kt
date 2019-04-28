@@ -36,8 +36,8 @@ fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
     val locationParts = RE_EXISTDB_LOCATION.matchEntire(parts[4].substringAfter(" [at "))?.groupValues
 
     val path = xml.root.children("path").first().text()
-    val line = locationParts?.get(1)?.toIntOrNull()
-    val col = locationParts?.get(2)?.toIntOrNull()
+    val line = locationParts?.get(1)?.toIntOrNull() ?: 1
+    val col = locationParts?.get(2)?.toIntOrNull() ?: 1
 
     return QueryError(
         standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),

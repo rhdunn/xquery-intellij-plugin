@@ -48,8 +48,8 @@ fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
             ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(this)?.groupValues
 
     val path = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
-    val line = parts?.get(3)?.toIntOrNull()
-    val col = parts?.get(4)?.toIntOrNull()
+    val line = parts?.get(3)?.toIntOrNull() ?: 1
+    val col = parts?.get(4)?.toIntOrNull() ?: 1
     return QueryError(
         standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),
         vendorCode = null,

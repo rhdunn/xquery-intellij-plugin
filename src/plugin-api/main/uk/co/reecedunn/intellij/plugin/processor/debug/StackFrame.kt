@@ -19,6 +19,6 @@ import com.intellij.openapi.vfs.VirtualFile
 
 data class StackFrame(
     val module: VirtualFile?,
-    val lineNumber: Int?,
-    val columnNumber: Int?
+    val lineNumber: Int,
+    val columnNumber: Int
 )

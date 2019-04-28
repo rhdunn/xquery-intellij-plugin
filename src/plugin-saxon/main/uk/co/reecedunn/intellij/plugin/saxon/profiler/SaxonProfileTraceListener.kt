@@ -115,8 +115,8 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
         totalTime = totalTimeDuration,
         frame = StackFrame(
             instruction.getSystemId().nullize()?.let { DatabaseModule(it) } ?: query,
-            instruction.getLineNumber().run { if (this == -1) null else this },
-            instruction.getColumnNumber().run { if (this == -1) null else this }
+            instruction.getLineNumber().run { if (this == -1) 1 else this },
+            instruction.getColumnNumber().run { if (this == -1) 1 else this }
         )
     )
 }
@@ -129,7 +129,7 @@ fun SaxonProfileTraceListener.toProfileReport(): FlatProfileReport {
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
         results = sequenceOf(
-            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(query, null, null))),
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(query, 1, 1))),
             results.values.asSequence().map { result -> result.toProfileEntry(query) }
         ).flatten()
     )

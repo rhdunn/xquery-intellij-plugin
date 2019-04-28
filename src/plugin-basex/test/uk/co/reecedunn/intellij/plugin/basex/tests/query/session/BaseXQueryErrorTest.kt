@@ -61,7 +61,7 @@ class BaseXQueryErrorTest {
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Unknown type: array-node()."))
         assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(nullValue()))
-        assertThat(e.frames[0].columnNumber, `is`(nullValue()))
+        assertThat(e.frames[0].lineNumber, `is`(1))
+        assertThat(e.frames[0].columnNumber, `is`(1))
     }
 }

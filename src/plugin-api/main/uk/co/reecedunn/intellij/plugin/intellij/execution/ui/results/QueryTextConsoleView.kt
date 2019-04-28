@@ -101,7 +101,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
             }
             e.frames.forEach {
                 print(
-                    "    at ${it.module ?: ""}:${it.lineNumber ?: 0}:${it.columnNumber ?: 0}\n",
+                    "    at ${it.module ?: ""}:${it.lineNumber}:${it.columnNumber}\n",
                     ConsoleViewContentType.ERROR_OUTPUT
                 )
             }
