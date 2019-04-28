@@ -242,12 +242,7 @@ declare function local:eval-options() {
     }</options>
 };
 
-declare function local:error(
-    $err:module as xs:string?,
-    $err:line-number as xs:integer?,
-    $err:column-number as xs:integer,
-    $err:additional as element(error:error)
-) {
+declare function local:error($err:additional as element(error:error)) {
     <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
         <err:code>{
             let $code := $err:additional/error:code/text()
@@ -258,7 +253,6 @@ declare function local:error(
         <err:value count="{count($err:additional/error:data/error:datum)}">{
             $err:additional/error:data/error:datum/text() ! <err:item>{.}</err:item>
         }</err:value>
-        <err:module line="{$err:line-number}" column="{$err:column-number + 1}">{$err:module}</err:module>
         <dbg:stack>{
             for $frame in $err:additional/error:stack/error:frame[position() != last()]
             let $module := $frame/error:uri/text()
@@ -426,5 +420,5 @@ try {
         return $retval
 } catch * {
     let $_ := xdmp:add-response-header("X-Derived-1", "err:error")
-    return local:error($err:module, $err:line-number, $err:column-number, $err:additional)
+    return local:error($err:additional)
 }
