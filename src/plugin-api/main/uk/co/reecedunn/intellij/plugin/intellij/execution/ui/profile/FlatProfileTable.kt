@@ -21,6 +21,28 @@ import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import java.awt.Component
+import javax.swing.JTable
+import javax.swing.table.DefaultTableCellRenderer
+import javax.swing.table.TableCellRenderer
+
+private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
+    override fun getTableCellRendererComponent(
+        table: JTable?,
+        value: Any?,
+        isSelected: Boolean,
+        hasFocus: Boolean,
+        row: Int,
+        column: Int
+    ): Component {
+        if (value !is XsDurationValue) return this
+
+        val seconds = value.seconds.data
+        super.getTableCellRendererComponent(table, seconds.toPlainString(), isSelected, hasFocus, row, column)
+        return this
+    }
+}
 
 @Suppress("ClassName")
 private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String>(
@@ -75,10 +97,10 @@ private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
 }
 
 @Suppress("ClassName")
-private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
+private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     PluginApiBundle.message("profile.entry.table.self-time.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): String? = item?.selfTime?.seconds?.data?.toPlainString()
+    override fun valueOf(item: FlatProfileEntry?): XsDurationValue? = item?.selfTime
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -89,13 +111,15 @@ private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
         else
             compared
     }
+
+    override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
 }
 
 @Suppress("ClassName")
-private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
+private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     PluginApiBundle.message("profile.entry.table.total-time.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): String? = item?.totalTime?.seconds?.data?.toPlainString()
+    override fun valueOf(item: FlatProfileEntry?): XsDurationValue? = item?.totalTime
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -106,6 +130,8 @@ private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, String>(
         else
             compared
     }
+
+    override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
 }
 
 @Suppress("ClassName")
