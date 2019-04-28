@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
+import com.intellij.ide.util.PropertiesComponent
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
@@ -26,7 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.Color
 import java.awt.Component
 import java.awt.Graphics
+import javax.swing.DefaultRowSorter
 import javax.swing.JTable
+import javax.swing.RowSorter
+import javax.swing.SortOrder
 import javax.swing.table.DefaultTableCellRenderer
 import javax.swing.table.TableCellRenderer
 
@@ -187,12 +191,36 @@ private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
 )
 
 class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
+    companion object {
+        private const val PROPERTY_SORT_COLUMN = "XQueryIntelliJPlugin.FlatProfileTable.SortKeys.Column"
+        private const val PROPERTY_SORT_ORDER = "XQueryIntelliJPlugin.FlatProfileTable.SortKeys.SortOrder"
+    }
+
     init {
         setModelAndUpdateColumns(ListTableModel<FlatProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)
 
         updateEmptyText(false, false)
+
+        val sorter = rowSorter as DefaultRowSorter<*, *>
+        sorter.sortKeys = listOf(defaultSortKey)
+        sorter.sort()
+
+        sorter.addRowSorterListener { e -> defaultSortKey = rowSorter.sortKeys[0] }
     }
+
+    private var defaultSortKey: RowSorter.SortKey
+        get() {
+            val properties = PropertiesComponent.getInstance()
+            val column = properties.getInt(PROPERTY_SORT_COLUMN, 5)
+            val order = properties.getValue(PROPERTY_SORT_ORDER, SortOrder.DESCENDING.name)
+            return RowSorter.SortKey(column, SortOrder.valueOf(order))
+        }
+        set(value) {
+            val properties = PropertiesComponent.getInstance()
+            properties.setValue(PROPERTY_SORT_COLUMN, value.column, 5)
+            properties.setValue(PROPERTY_SORT_ORDER, value.sortOrder.name, SortOrder.DESCENDING.name)
+        }
 
     private fun updateEmptyText(running: Boolean, exception: Boolean) {
         when {
