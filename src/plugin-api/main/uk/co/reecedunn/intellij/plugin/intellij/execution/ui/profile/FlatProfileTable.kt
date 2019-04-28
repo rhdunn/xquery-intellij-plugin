@@ -32,10 +32,11 @@ import javax.swing.table.TableCellRenderer
 
 @Suppress("ClassName")
 private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
-    val PERCENTAGE_BAR_PADDING = 2
+    const val PERCENTAGE_BAR_PADDING = 2
     val PERCENTAGE_BAR_COLOR = Color(225, 225, 255)
 
     var percentage: Double = 0.0
+    var percentageBarColor: Color = PERCENTAGE_BAR_COLOR
 
     override fun getTableCellRendererComponent(
         table: JTable?,
@@ -51,6 +52,7 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
         super.getTableCellRendererComponent(table, seconds.toPlainString(), isSelected, hasFocus, row, column)
         isOpaque = false // Don't render the component's background.
         percentage = (seconds.toDouble() / (table.elapsed?.seconds?.data?.toDouble() ?: 1.0))
+        percentageBarColor = if (isSelected) background else PERCENTAGE_BAR_COLOR
         return this
     }
 
@@ -60,7 +62,7 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
 
         val width = (width.toDouble() * percentage).toInt() - (2 * PERCENTAGE_BAR_PADDING)
         if (width > 0) {
-            g.color = PERCENTAGE_BAR_COLOR
+            g.color = percentageBarColor
             g.fillRect(PERCENTAGE_BAR_PADDING, PERCENTAGE_BAR_PADDING, width, height - (2 * PERCENTAGE_BAR_PADDING))
         }
     }
