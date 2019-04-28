@@ -243,14 +243,16 @@ declare function local:eval-options() {
 };
 
 declare function local:error(
-    $err:code as xs:QName,
     $err:module as xs:string?,
     $err:line-number as xs:integer?,
     $err:column-number as xs:integer,
     $err:additional as element(error:error)
 ) {
     <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
-        <err:code>{$err:code}</err:code>
+        <err:code>{
+            let $code := $err:additional/error:code/text()
+            return if (exists($code) and not(starts-with($code, "XDMP-"))) then $code else "err:XPST0003"
+        }</err:code>
         <err:vendor-code>{$err:additional/error:code/text()}</err:vendor-code>
         <err:description>{$err:additional/error:message/text()}</err:description>
         <err:value count="{count($err:additional/error:data/error:datum)}">{
@@ -424,5 +426,5 @@ try {
         return $retval
 } catch * {
     let $_ := xdmp:add-response-header("X-Derived-1", "err:error")
-    return local:error($err:code, $err:module, $err:line-number, $err:column-number, $err:additional)
+    return local:error($err:module, $err:line-number, $err:column-number, $err:additional)
 }
