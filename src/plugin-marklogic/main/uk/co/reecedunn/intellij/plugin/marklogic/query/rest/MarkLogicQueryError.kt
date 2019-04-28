@@ -37,8 +37,8 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
         frames = doc.root.children("dbg:stack").first().children("dbg:frame").map {
             val module = it.children("dbg:module").first()
             val path = module.text().nullize()?.let { DatabaseModule(it) } ?: queryFile
-            val line = module.attribute("line")?.toInt()
-            val col = module.attribute("column")?.toInt()
+            val line = module.attribute("line")?.nullize()?.toInt()
+            val col = module.attribute("column")?.nullize()?.toInt()
             StackFrame(path, line, col)
         }.toList()
     )
