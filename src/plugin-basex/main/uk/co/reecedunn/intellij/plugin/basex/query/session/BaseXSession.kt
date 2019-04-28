@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
@@ -38,8 +39,9 @@ object BaseXSession : QueryProcessorApi {
 
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
+        val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
         return when (language) {
-            XQuery -> run
+            XQuery -> run || profile
             else -> false
         }
     }

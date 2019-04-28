@@ -25,9 +25,13 @@ import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassLoader) : RunnableQueryProvider {
+internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassLoader) :
+    ProfileableQueryProvider,
+    RunnableQueryProvider {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.results.first().value as String }
@@ -40,6 +44,13 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
 
     override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
         listOf<String>()
+    }
+
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
+        return when (language) {
+            XQuery -> BaseXProfileableQuery(session, query.decode()!!, query, classLoader)
+            else -> throw UnsupportedQueryType(language)
+        }
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
