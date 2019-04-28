@@ -1382,7 +1382,16 @@ open class XPathParser : PsiParser {
     }
 
     fun parseLiteral(builder: PsiBuilder): Boolean {
-        return parseNumericLiteral(builder) || parseStringLiteral(builder)
+        if (parseNumericLiteral(builder)) {
+            if (
+                builder.tokenType is IKeywordOrNCNameType ||
+                builder.tokenType === XPathTokenType.BRACED_URI_LITERAL_START
+            ) {
+                builder.error(XPathBundle.message("parser.error.consecutive-non-delimiting-terminals"))
+            }
+            return true
+        }
+        return parseStringLiteral(builder)
     }
 
     private fun parseNumericLiteral(builder: PsiBuilder): Boolean {

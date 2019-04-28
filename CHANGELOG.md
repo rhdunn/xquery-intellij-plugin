@@ -17,6 +17,12 @@ Saxon:
 1.  Disable Saxon EE optimizations to prevent the processor throwing a
     `NoClassDefFoundError` looking for `com/saxonica/ee/bytecode/GeneratedCode`.
 
+XPath and XQuery:
+
+1.  Report a parser error when a `NumericLiteral` is followed by an `NCName` or
+    `URIQualifiedName` without whitespace or comment tokens, due to them being
+    non-delimiting terminal symbols.
+
 ## 1.4.1 - 2019-03-27
 
 IntelliJ Integration:

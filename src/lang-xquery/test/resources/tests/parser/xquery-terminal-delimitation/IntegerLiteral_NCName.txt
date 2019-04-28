@@ -1,0 +1,11 @@
+XQueryModuleImpl[FILE(0:9)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:9)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:9)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:9)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:9)]
+               XPathMultiplicativeExprImpl[XPATH_MULTIPLICATIVE_EXPR(0:9)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:4)]('1234')
+                  PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Whitespace or a comment is required here.')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIV(4:7)]('div')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')

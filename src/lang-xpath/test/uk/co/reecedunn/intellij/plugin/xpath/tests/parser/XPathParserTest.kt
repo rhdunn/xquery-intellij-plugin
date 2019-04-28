@@ -4065,4 +4065,56 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath Terminal Delimitation")
+    internal inner class TerminalDelimitation {
+        @Test
+        @DisplayName("T=DecimalLiteral U=NCName")
+        fun decimalLiteral_NCName() {
+            val expected = loadResource("tests/parser/xpath-terminal-delimitation/DecimalLiteral_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-terminal-delimitation/DecimalLiteral_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=DecimalLiteral U=URIQualifiedName")
+        fun decimalLiteral_URIQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-terminal-delimitation/DecimalLiteral_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-terminal-delimitation/DecimalLiteral_URIQualifiedName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=DoubleLiteral U=NCName")
+        fun doubleLiteral_NCName() {
+            val expected = loadResource("tests/parser/xpath-terminal-delimitation/DoubleLiteral_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-terminal-delimitation/DoubleLiteral_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=DoubleLiteral U=URIQualifiedName")
+        fun doubleLiteral_URIQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-terminal-delimitation/DoubleLiteral_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-terminal-delimitation/DoubleLiteral_URIQualifiedName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=IntegerLiteral U=NCName")
+        fun integerLiteral_NCName() {
+            val expected = loadResource("tests/parser/xpath-terminal-delimitation/IntegerLiteral_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-terminal-delimitation/IntegerLiteral_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=IntegerLiteral U=URIQualifiedName")
+        fun integerLiteral_URIQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-terminal-delimitation/IntegerLiteral_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-terminal-delimitation/IntegerLiteral_URIQualifiedName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

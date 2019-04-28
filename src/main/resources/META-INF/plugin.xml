@@ -24,7 +24,18 @@
     <p>Saxon:</p>
     <ol>
       <li>Fix using Saxon 9.2 to 9.8 JAR files.</li>
-      <li>Disable Saxon EE optimizations to prevent the processor throwing a <code>NoClassDefFoundError</code> looking for <code>com/saxonica/ee/bytecode/GeneratedCode</code>.</li>
+      <li>
+        Disable Saxon EE optimizations to prevent the processor throwing a <code>NoClassDefFoundError</code>
+        looking for <code>com/saxonica/ee/bytecode/GeneratedCode</code>.
+      </li>
+    </ol>
+    <p>XPath and XQuery:</p>
+    <ol>
+      <li>
+        Report a parser error when a <code>NumericLiteral</code> is followed by an <code>NCName</code> or
+        <code>URIQualifiedName</code> without whitespace or comment tokens, due to them being non-delimiting
+        terminal symbols.
+      </li>
     </ol>
   ]]></change-notes>
 
