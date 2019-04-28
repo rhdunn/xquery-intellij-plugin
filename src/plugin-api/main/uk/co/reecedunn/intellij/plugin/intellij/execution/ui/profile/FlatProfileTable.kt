@@ -23,13 +23,20 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import java.awt.Color
 import java.awt.Component
 import java.awt.Graphics
 import javax.swing.JTable
 import javax.swing.table.DefaultTableCellRenderer
 import javax.swing.table.TableCellRenderer
 
+@Suppress("ClassName")
 private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
+    val PERCENTAGE_BAR_PADDING = 2
+    val PERCENTAGE_BAR_COLOR = Color(225, 225, 255)
+
+    var percentage: Double = 0.0
+
     override fun getTableCellRendererComponent(
         table: JTable?,
         value: Any?,
@@ -38,17 +45,24 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
         row: Int,
         column: Int
     ): Component {
-        if (value !is XsDurationValue) return this
+        if (value !is XsDurationValue || table !is FlatProfileTable) return this
 
         val seconds = value.seconds.data
         super.getTableCellRendererComponent(table, seconds.toPlainString(), isSelected, hasFocus, row, column)
         isOpaque = false // Don't render the component's background.
+        percentage = (seconds.toDouble() / (table.elapsed?.seconds?.data?.toDouble() ?: 1.0))
         return this
     }
 
     private fun paintBackground(g: Graphics) {
         g.color = background
         g.fillRect(0, 0, width, height)
+
+        val width = (width.toDouble() * percentage).toInt() - (2 * PERCENTAGE_BAR_PADDING)
+        if (width > 0) {
+            g.color = PERCENTAGE_BAR_COLOR
+            g.fillRect(PERCENTAGE_BAR_PADDING, PERCENTAGE_BAR_PADDING, width, height - (2 * PERCENTAGE_BAR_PADDING))
+        }
     }
 
     override fun paintComponent(g: Graphics?) {
@@ -205,6 +219,8 @@ class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
         }
 
     override val itemCount: Int = 0
+
+    var elapsed: XsDurationValue? = null
 
     fun addRow(entry: FlatProfileEntry) = listTableModel.addRow(entry)
 }

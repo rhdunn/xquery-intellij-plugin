@@ -126,6 +126,7 @@ class FlatProfileTableView(val project: Project) :
         save?.isEnabled = report?.xml != null
 
         (results as FlatProfileTable).let {
+            it.elapsed = result.elapsed
             it.removeAll()
             result.results.forEach { entry -> it.addRow(entry) }
         }
