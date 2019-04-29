@@ -35,7 +35,7 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
 fun Map<String, Any>.toFlatProfileEntry(key: String, queryFile: VirtualFile, context: String): FlatProfileEntry? {
     return (this[key] as? XsDurationValue)?.let {
         FlatProfileEntry(
-            id = "",
+            id = key,
             context = context,
             count = 1,
             selfTime = if (key == "Total Time") XsDuration.ZERO else it,
