@@ -115,7 +115,7 @@ class MarkLogicProfileTest {
         assertThat(results[2].context, `is`("1 to 10"))
         assertThat(results[2].frame.module, `is`(DatabaseModule("test.xqy")))
         assertThat(results[2].frame.lineNumber, `is`(1))
-        assertThat(results[2].frame.columnNumber, `is`(12))
+        assertThat(results[2].frame.columnNumber, `is`(13))
         assertThat(results[2].count, `is`(2))
         assertThat(results[2].selfTime.months, `is`(XsInteger.ZERO))
         assertThat(results[2].selfTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))

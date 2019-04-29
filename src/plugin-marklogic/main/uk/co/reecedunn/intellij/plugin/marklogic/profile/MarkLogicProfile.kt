@@ -36,7 +36,7 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry 
         frame = StackFrame(
             path?.nullize()?.let { DatabaseModule(it) } ?: queryFile,
             children("prof:line").first().text()?.toIntOrNull() ?: 1,
-            children("prof:column").first().text()?.toIntOrNull() ?: 1
+            children("prof:column").first().text()?.toIntOrNull()?.let { it + 1 } ?: 1
         ),
         count = children("prof:count").first().text()!!.toInt(),
         selfTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
