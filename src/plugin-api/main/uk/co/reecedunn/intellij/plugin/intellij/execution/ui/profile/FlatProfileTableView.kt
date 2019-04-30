@@ -26,6 +26,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.content.Content
 import com.intellij.util.Consumer
+import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
@@ -33,6 +34,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.SaveAction
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.debug.createNavigatable
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -67,6 +70,12 @@ class FlatProfileTableView(val project: Project) :
 
     private fun createUIComponents() {
         results = FlatProfileTable()
+
+        results!!.selectionModel.addListSelectionListener {
+            val row = results!!.convertRowIndexToModel(results!!.selectedRow)
+            val item = (results!!.model as ListTableModel<*>).getItem(row) as FlatProfileEntry
+            item.frame.createNavigatable(project)?.navigate(true)
+        }
     }
 
     // endregion

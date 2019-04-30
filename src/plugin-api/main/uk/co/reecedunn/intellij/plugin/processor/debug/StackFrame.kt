@@ -15,10 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.pom.Navigatable
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.XSourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 data class StackFrame(
     val module: VirtualFile?,
     val lineNumber: Int,
     val columnNumber: Int
 )
+
+fun StackFrame.getSourcePosition(): XSourcePosition? {
+    return when (module) {
+        is DatabaseModule -> null
+        else -> XDebuggerUtil.getInstance().createPosition(module, lineNumber - 1, columnNumber - 1)
+    }
+}
+
+fun StackFrame.createNavigatable(project: Project): Navigatable? {
+    return getSourcePosition()?.createNavigatable(project)
+}
