@@ -20,7 +20,10 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.pom.Navigatable
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
+import org.jetbrains.jps.model.java.JavaSourceRootType
+import org.jetbrains.jps.model.module.JpsModuleSourceRoot
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.processor.database.resolve
 
 data class StackFrame(
     val module: VirtualFile?,
@@ -28,13 +31,14 @@ data class StackFrame(
     val columnNumber: Int
 )
 
-fun StackFrame.getSourcePosition(): XSourcePosition? {
-    return when (module) {
-        is DatabaseModule -> null
-        else -> XDebuggerUtil.getInstance().createPosition(module, lineNumber - 1, columnNumber - 1)
+fun StackFrame.getSourcePosition(project: Project): XSourcePosition? {
+    val resolved = when (module) {
+        is DatabaseModule -> module.resolve(project).firstOrNull()
+        else -> module
     }
+    return XDebuggerUtil.getInstance().createPosition(resolved, lineNumber - 1, columnNumber - 1)
 }
 
 fun StackFrame.createNavigatable(project: Project): Navigatable? {
-    return getSourcePosition()?.createNavigatable(project)
+    return getSourcePosition(project)?.createNavigatable(project)
 }

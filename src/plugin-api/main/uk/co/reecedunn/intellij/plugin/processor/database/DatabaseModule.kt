@@ -15,8 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.database
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
+import org.jetbrains.jps.model.java.JavaSourceRootType
+import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -65,4 +68,11 @@ class DatabaseModule(private val path: String) : VirtualFile() {
     override fun hashCode(): Int {
         return path.hashCode()
     }
+}
+
+fun DatabaseModule.resolve(project: Project): Sequence<VirtualFile> {
+    return project.sourceFolders()
+        .filter { folder -> folder.file != null && folder.rootType === JavaSourceRootType.SOURCE }
+        .map { folder -> folder.file?.findFileByRelativePath(path) }
+        .filterNotNull()
 }
