@@ -4,6 +4,7 @@
 
 Run Configurations:
 
+1.  Link to the files when displaying query errors in the console.
 1.  Support running XPath queries as XSLT patterns (XPath subset) on the Saxon
     query processor.
 1.  Support profiling Saxon XSLT and XQuery scripts.

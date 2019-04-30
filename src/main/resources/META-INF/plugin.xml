@@ -16,6 +16,7 @@
     <h3>Release 1.5-dev:</h3>
     <p>Run Configurations:</p>
     <ol>
+      <li>Link to the files when displaying query errors in the console.</li>
       <li>Support running XPath queries as XSLT patterns (XPath subset) on the Saxon query processor.</li>
       <li>Support profiling Saxon XSLT and XQuery scripts.</li>
       <li>Display the elapsed time and number of items returned by the query in the results console.</li>

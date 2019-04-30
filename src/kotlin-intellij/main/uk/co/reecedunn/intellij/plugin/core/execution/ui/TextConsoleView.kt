@@ -15,11 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.execution.filters.FileHyperlinkInfo
+import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.impl.ConsoleViewUtil
+import com.intellij.execution.impl.EditorHyperlinkSupport
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.ScrollType
 import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
 import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
@@ -27,12 +31,21 @@ import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.editor.impl.DocumentImpl
 import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.text.StringUtil
+import com.intellij.util.ui.UIUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
 
 abstract class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
+    companion object {
+        private val MANUAL_HYPERLINK = Key.create<Boolean>("MANUAL_HYPERLINK")
+    }
+
     var editor: EditorEx? = null
+        private set
+
+    var hyperlinks: EditorHyperlinkSupport? = null
         private set
 
     var emulateCarriageReturn: Boolean = false
@@ -45,6 +58,8 @@ abstract class TextConsoleView(val project: Project) : ConsoleViewImpl(), Consol
         editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
         editor?.contextMenuGroupId = null // disabling default context menu
         (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
+
+        hyperlinks = EditorHyperlinkSupport(editor!!, project)
         return editor!!.component
     }
 
@@ -75,6 +90,14 @@ abstract class TextConsoleView(val project: Project) : ConsoleViewImpl(), Consol
         doc.insertString(doc.textLength, newText)
     }
 
+    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
+        val start = contentSize
+        print(hyperlinkText, ConsoleViewContentType.NORMAL_OUTPUT)
+        if (info != null) {
+            hyperlinks!!.createHyperlink(start, contentSize, null, info).putUserData(MANUAL_HYPERLINK, true)
+        }
+    }
+
     override fun getContentSize(): Int = editor?.document?.textLength ?: 0
 
     override fun createConsoleActions(): Array<AnAction> {
@@ -103,12 +126,33 @@ abstract class TextConsoleView(val project: Project) : ConsoleViewImpl(), Consol
         }
     }
 
+    override fun dispose() {
+        hyperlinks = null
+        if (editor != null) {
+            UIUtil.invokeAndWaitIfNeeded(Runnable {
+                if (!editor!!.isDisposed()) {
+                    EditorFactory.getInstance().releaseEditor(editor!!)
+                }
+            })
+            editor = null
+        }
+    }
+
     // endregion
     // region DataProvider
 
     override fun getData(dataId: String): Any? {
         return when (dataId) {
             CommonDataKeys.EDITOR.name -> editor
+            CommonDataKeys.NAVIGATABLE.name -> {
+                val pos = editor!!.caretModel.logicalPosition
+                val info = hyperlinks!!.getHyperlinkInfoByLineAndCol(pos.line, pos.column)
+                val openFileDescriptor = (info as? FileHyperlinkInfo)?.descriptor
+                return if (openFileDescriptor?.file?.isValid == true)
+                    openFileDescriptor
+                else
+                    null
+            }
             else -> super.getData(dataId)
         }
     }

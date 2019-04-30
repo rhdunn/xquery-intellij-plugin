@@ -65,6 +65,7 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, DataProvider {
     }
 
     override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
+        print(hyperlinkText, ConsoleViewContentType.NORMAL_OUTPUT)
     }
 
     override fun canPause(): Boolean = false
