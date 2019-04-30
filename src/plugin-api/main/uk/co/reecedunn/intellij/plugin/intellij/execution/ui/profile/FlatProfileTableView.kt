@@ -72,9 +72,12 @@ class FlatProfileTableView(val project: Project) :
         results = FlatProfileTable()
 
         results!!.selectionModel.addListSelectionListener {
-            val row = results!!.convertRowIndexToModel(results!!.selectedRow)
-            val item = (results!!.model as ListTableModel<*>).getItem(row) as FlatProfileEntry
-            item.frame.createNavigatable(project)?.navigate(true)
+            val row = results!!.selectedRow
+            if (row >= 0) {
+                val index = results!!.convertRowIndexToModel(row)
+                val item = (results!!.model as ListTableModel<*>).getItem(index) as FlatProfileEntry
+                item.frame.createNavigatable(project)?.navigate(true)
+            }
         }
     }
 
