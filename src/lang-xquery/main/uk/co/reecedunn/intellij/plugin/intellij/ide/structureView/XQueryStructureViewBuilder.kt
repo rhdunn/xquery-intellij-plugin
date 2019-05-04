@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.ide.structureView
 
-import com.intellij.ide.structureView.StructureViewBuilder
-import com.intellij.lang.PsiStructureViewFactory
-import com.intellij.psi.PsiFile
+import com.intellij.ide.structureView.StructureViewModel
+import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
+import com.intellij.openapi.editor.Editor
 
-class XQueryStructureViewFactory : PsiStructureViewFactory {
-    override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? {
-        return XQueryStructureViewBuilder()
+class XQueryStructureViewBuilder : TreeBasedStructureViewBuilder() {
+    override fun createStructureViewModel(editor: Editor?): StructureViewModel {
+        TODO()
     }
 }
