@@ -79,6 +79,8 @@
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryCommenter"/>
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
+    <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewFactory"/>
+
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
