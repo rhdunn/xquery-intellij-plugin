@@ -21,6 +21,6 @@ import com.intellij.psi.PsiFile
 
 class XQueryStructureViewFactory : PsiStructureViewFactory {
     override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? {
-        return XQueryStructureViewBuilder()
+        return XQueryStructureViewBuilder(psiFile)
     }
 }

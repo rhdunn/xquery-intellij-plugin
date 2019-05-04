@@ -16,11 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.intellij.ide.structureView
 
 import com.intellij.ide.structureView.StructureViewModel
+import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
 import com.intellij.openapi.editor.Editor
+import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.structureView.XQueryModuleStructureView
 
-class XQueryStructureViewBuilder : TreeBasedStructureViewBuilder() {
+class XQueryStructureViewBuilder(val psiFile: PsiFile) : TreeBasedStructureViewBuilder() {
     override fun createStructureViewModel(editor: Editor?): StructureViewModel {
-        TODO()
+        return StructureViewModelBase(psiFile, XQueryModuleStructureView(psiFile as XQueryModule))
     }
 }
