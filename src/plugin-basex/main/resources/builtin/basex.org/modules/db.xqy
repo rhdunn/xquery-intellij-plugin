@@ -21,6 +21,7 @@ declare %a:since("basex", "7.0") function db:list($db as xs:string, $path as xs:
 declare %a:since("basex", "7.1") function db:list-details() as element(database)* external;
 declare %a:since("basex", "7.1") function db:list-details($db as xs:string) as element(resource)* external;
 declare %a:since("basex", "7.1") function db:list-details($db as xs:string, $path as xs:string) as element(resource)* external;
+declare %a:since("basex", "9.2") function db:dir($db as xs:string, $path as xs:string) as element()* external;
 declare %a:since("basex", "7.0") function db:backups() as element(backup)* external;
 declare %a:since("basex", "7.0") function db:backups($db as xs:string) as element(backup)* external;
 declare %a:since("basex", "7.0") function db:open($db as xs:string) as document-node()* external;

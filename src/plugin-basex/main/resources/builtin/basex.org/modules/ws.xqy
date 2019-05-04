@@ -18,6 +18,9 @@ declare %a:since("basex", "9.1") function ws:close($id as xs:string) as empty-se
 declare %a:since("basex", "9.1") function ws:send($message as item(), $ids as xs:string*) as empty-sequence() external;
 declare %a:since("basex", "9.1") function ws:broadcast($message as xs:anyAtomicType) as empty-sequence() external;
 declare %a:since("basex", "9.1") function ws:emit($message as xs:anyAtomicType) as empty-sequence() external;
+declare %a:since("basex", "9.2") function ws:eval($query as xs:anyAtomicItem) as xs:string external;
+declare %a:since("basex", "9.2") function ws:eval($query as xs:anyAtomicItem, $bindings as map(*)?) as xs:string external;
+declare %a:since("basex", "9.2") function ws:eval($query as xs:anyAtomicItem, $bindings as map(*)?, $options as map(*)?) as xs:string external;
 declare %a:since("basex", "9.1") function ws:get($id as xs:string, $name as xs:string) as item()* external;
 declare %a:since("basex", "9.1") function ws:get($id as xs:string, $name as xs:string, $default as item()*) as item()* external;
 declare %a:since("basex", "9.1") function ws:set($id as xs:string, $name as xs:string, $value as item()*) as empty-sequence() external;

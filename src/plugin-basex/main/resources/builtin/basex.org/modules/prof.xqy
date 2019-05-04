@@ -25,6 +25,9 @@ declare %a:since("basex", "7.5") function prof:dump($expr as item()) as empty-se
 declare %a:since("basex", "7.5") function prof:dump($expr as item(), $label as xs:string) as empty-sequence() external;
 declare %a:since("basex", "8.1") function prof:variables() as empty-sequence() external;
 declare %a:since("basex", "8.5") function prof:type($expr as item()*) as item()* external;
+declare %a:since("basex", "9.2") function prof:gc() as empty-sequence() external;
+declare %a:since("basex", "9.2") function prof:gc($count) as empty-sequence() external;
+declare %a:since("basex", "9.2") function prof:runtime($name as xs:string) as xs:integer external;
 declare %a:since("basex", "7.7") function prof:void($value as item()*) as empty-sequence() external;
 declare %a:since("basex", "7.3") function prof:sleep($ms as xs:integer) as empty-sequence() external;
 declare %a:since("basex", "7.6") function prof:human($number as xs:integer) as xs:string external;
