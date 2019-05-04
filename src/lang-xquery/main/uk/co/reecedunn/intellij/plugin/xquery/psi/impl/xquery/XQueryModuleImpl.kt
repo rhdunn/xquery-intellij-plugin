@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
@@ -30,6 +29,18 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xquery.model.StaticContextDefinitions
 
 class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
+    // region Object
+
+    override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
+
+    // endregion
+    // region PsiFile
+
+    override fun getFileType(): FileType = XQueryFileType
+
+    // endregion
+    // region XQueryModule
+
     private val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
 
     private var product: Product? = null
@@ -37,49 +48,51 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
     private var xquery: Specification? = null
 
     private var staticContextCache: XQueryProlog? = null
-    override val predefinedStaticContext get(): XQueryProlog? {
-        val version: Specification = XQueryVersion.getVersionOrDefault(project)
-        if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
-            product = settings.product
-            productVersion = settings.productVersion
-            xquery = version
+    override val predefinedStaticContext
+        get(): XQueryProlog? {
+            val version: Specification = XQueryVersion.getVersionOrDefault(project)
+            if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
+                product = settings.product
+                productVersion = settings.productVersion
+                xquery = version
 
-            var context = product?.implementation?.staticContext(product, productVersion, xquery)
-            if (context == null) context = defaultStaticContext(xquery)
+                var context = product?.implementation?.staticContext(product, productVersion, xquery)
+                if (context == null) context = defaultStaticContext(xquery)
 
-            val file = context?.let { StaticContextDefinitions.resolve(it)?.toPsiFile<XQueryModule>(project) }
-            val module = file?.children()?.filterIsInstance<XQueryMainModule>()?.firstOrNull()
-            staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
+                val file = context?.let { StaticContextDefinitions.resolve(it)?.toPsiFile<XQueryModule>(project) }
+                val module = file?.children()?.filterIsInstance<XQueryMainModule>()?.firstOrNull()
+                staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
+            }
+            return staticContextCache
         }
-        return staticContextCache
-    }
-
-    override fun getFileType(): FileType = XQueryFileType
 
     @Suppress("PropertyName")
-    override val XQueryVersions get(): Sequence<XQueryVersionRef> {
-        var isFirst = true
-        return children().map { child -> when (child) {
-            is XQueryVersionDecl -> {
-                isFirst = false
-                val version: XPathStringLiteral? = child.version
-                val xquery: Specification? = XQuerySpec.versionsForXQuery((version?.value as? XsStringValue)?.data).firstOrNull()
-                XQueryVersionRef(version, xquery)
-            }
-            is XQueryLibraryModule, is XQueryMainModule -> {
-                if (isFirst) {
-                    isFirst = false
-                    XQueryVersionRef(null, null) // No XQueryVersionDecl for the primary module.
-                } else
-                    null
-            }
-            else -> null
-        }}.filterNotNull()
-    }
+    override val XQueryVersions
+        get(): Sequence<XQueryVersionRef> {
+            var isFirst = true
+            return children().map { child ->
+                when (child) {
+                    is XQueryVersionDecl -> {
+                        isFirst = false
+                        val version = child.version
+                        val xquery = XQuerySpec.versionsForXQuery((version?.value as? XsStringValue)?.data)
+                        XQueryVersionRef(version, xquery.firstOrNull())
+                    }
+                    is XQueryLibraryModule, is XQueryMainModule -> {
+                        if (isFirst) {
+                            isFirst = false
+                            XQueryVersionRef(null, null) // No XQueryVersionDecl for the primary module.
+                        } else
+                            null
+                    }
+                    else -> null
+                }
+            }.filterNotNull()
+        }
 
     @Suppress("PropertyName")
-    override val XQueryVersion get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
+    override val XQueryVersion
+        get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
-    override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
+    // endregion
 }
-
