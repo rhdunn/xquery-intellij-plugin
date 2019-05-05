@@ -16,7 +16,7 @@
     <h3>Release 1.5-dev:</h3>
     <p>IntelliJ Integration:</p>
     <ol>
-      <li>File structure support, listing the declared functions and variables, and the query body in a file.</li>
+      <li>File structure support, listing the declared functions, variables, and types, and the query body in a file.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

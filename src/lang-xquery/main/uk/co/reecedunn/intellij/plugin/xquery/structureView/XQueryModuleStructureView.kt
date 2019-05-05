@@ -19,6 +19,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeElement {
@@ -51,6 +52,7 @@ class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeEle
                                 }
                             }
                         }
+                        is PluginTypeDecl -> sequenceOf(StructureViewLeafNode(decl))
                         else -> emptySequence()
                     }
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import com.intellij.psi.PsiElement
+import com.intellij.psi.NavigatablePsiElement
 
 /**
  * A Saxon 9.8 `TypeDecl` node in the XQuery AST.
- *
- * <pre>
- *    Prolog   ::= ((DefaultNamespaceDecl | Setter | NamespaceDecl | Import) Separator)*
- *                 ((ContextItemDecl | AnnotatedDecl | OptionDecl | TypeDecl) Separator)*
- *    TypeDecl ::= "declare" "type" QName "=" ItemType
- * </pre>
- *
- * Reference: http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/type-aliases
  */
-interface PluginTypeDecl : PsiElement
+interface PluginTypeDecl : NavigatablePsiElement
