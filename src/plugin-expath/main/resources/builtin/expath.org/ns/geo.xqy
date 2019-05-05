@@ -15,7 +15,7 @@ declare namespace gml = "http://www.opengis.net/gml";
 declare option o:requires "expath-geo/1.0-20100930";
 
 declare option o:implements-module "basex/7.6 as expath-geo/1.0-20100930";
-declare option o:requires-import "basex/7.6; location-uri=(none)";
+declare option o:requires-import "basex/7.6; until=basex/9.2; location-uri=(none)";
 
 declare %a:restrict-since("return", "basex", "7.6", "xs:integer")
         %a:restrict-since("$geometry", "basex", "7.6", "element()")

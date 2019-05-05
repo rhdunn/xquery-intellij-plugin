@@ -12,7 +12,7 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare namespace wadl = "http://wadl.dev.java.net/2009/02";
 
-declare option o:requires-import "basex/7.7; location-uri=(none)";
+declare option o:requires-import "basex/7.7; until=basex/9.2; location-uri=(none)";
 
 declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:DELETE() external;
 declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:GET() external;

@@ -11,7 +11,7 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare namespace http = "http://expath.org/ns/http-client";
 
-declare option o:requires-import "basex/7.5; location-uri=(none)";
+declare option o:requires-import "basex/7.5; until=basex/9.2; location-uri=(none)";
 
 declare %a:since("exquery-request", "1.0-20130804") %a:since("basex", "7.5") function request:address() as xs:string external;
 declare %a:since("basex", "7.7") function request:attribute($name as xs:string) as xs:string external;

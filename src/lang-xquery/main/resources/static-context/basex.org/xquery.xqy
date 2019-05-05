@@ -32,6 +32,7 @@ declare namespace file = "http://expath.org/ns/file";
 declare namespace ft = "http://basex.org/modules/ft";
 declare namespace hof = "http://basex.org/modules/hof";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+declare namespace pkg = "http://expath.org/ns/pkg";
 declare namespace xslt = "http://basex.org/modules/xslt";
 declare namespace zip = "http://expath.org/ns/zip";
 
@@ -41,6 +42,7 @@ declare namespace json = "http://basex.org/modules/json";
 declare namespace sql = "http://basex.org/modules/sql";
 
 (: BaseX 7.1 :)
+declare namespace basex = "http://basex.org";
 declare namespace http = "http://expath.org/ns/http-client";
 declare namespace index = "http://basex.org/modules/index";
 declare namespace repo = "http://basex.org/modules/repo";
@@ -49,6 +51,7 @@ declare namespace repo = "http://basex.org/modules/repo";
 declare namespace archive = "http://basex.org/modules/archive";
 declare namespace client = "http://basex.org/modules/client";
 declare namespace convert = "http://basex.org/modules/convert";
+declare namespace experr = "http://expath.org/ns/error";
 declare namespace hash = "http://basex.org/modules/hash";
 declare namespace out = "http://basex.org/modules/out";
 declare namespace proc = "http://basex.org/modules/proc";
@@ -59,13 +62,16 @@ declare namespace xquery = "http://basex.org/modules/xquery";
 (: BaseX 7.5 :)
 declare namespace admin = "http://basex.org/modules/admin";
 declare namespace random = "http://basex.org/modules/random";
+declare namespace rest = "http://exquery.org/ns/restxq";
 
 (: BaseX 7.6 :)
 declare namespace fetch = "http://basex.org/modules/fetch";
 declare namespace html = "http://basex.org/modules/html";
 
 (: BaseX 7.7 :)
+declare namespace ann = "http://www.w3.org/2012/xquery";
 declare namespace inspect = "http://basex.org/modules/inspect";
+declare namespace query = "http://basex.org/modules/query";
 declare namespace stream = "http://basex.org/modules/stream";
 declare namespace unit = "http://basex.org/modules/unit";
 
@@ -76,6 +82,7 @@ declare namespace csv = "http://basex.org/modules/csv";
 declare namespace bin = "http://expath.org/ns/binary";
 
 (: BaseX 8.0 :)
+declare namespace input = "http://basex.org/modules/input";
 declare namespace user = "http://basex.org/modules/user";
 
 (: BaseX 8.1 :)
@@ -89,8 +96,11 @@ declare namespace jobs = "http://basex.org/modules/jobs";
 declare namespace util = "http://basex.org/modules/util";
 
 (: BaseX 9.0 :)
+declare namespace geo = "http://expath.org/ns/geo";
 declare namespace lazy = "http://basex.org/modules/lazy";
 declare namespace perm = "http://basex.org/modules/perm";
+declare namespace request = "http://exquery.org/ns/request";
+declare namespace session = "http://basex.org/modules/session";
 declare namespace update = "http://basex.org/modules/update";
 
 (: BaseX 9.1 :)
