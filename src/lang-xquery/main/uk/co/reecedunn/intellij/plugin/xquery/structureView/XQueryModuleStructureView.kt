@@ -18,7 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeElement {
     // region Navigatable
@@ -35,7 +39,15 @@ class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeEle
     override fun getPresentation(): ItemPresentation = module.presentation!!
 
     override fun getChildren(): Array<TreeElement> {
-        return TreeElement.EMPTY_ARRAY
+        val resolver = module.children().filterIsInstance<XQueryPrologResolver>().firstOrNull()
+        return resolver?.prolog?.firstOrNull()?.children()?.filterIsInstance<XQueryAnnotatedDecl>()?.map { annotation ->
+            annotation.children().map { decl ->
+                when (decl) {
+                    is XQueryFunctionDecl -> XQueryFunctionDeclStructureView(decl)
+                    else -> null
+                }
+            }.filterNotNull().firstOrNull() as TreeElement?
+        }?.filterNotNull()?.toList()?.toTypedArray() ?: TreeElement.EMPTY_ARRAY
     }
 
     // endregion

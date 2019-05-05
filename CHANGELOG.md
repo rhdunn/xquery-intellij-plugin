@@ -2,6 +2,10 @@
 
 ## 1.5 - (In Development)
 
+IntelliJ Integration:
+
+1.  File structure support, listing the declared functions in a file.
+
 Run Configurations:
 
 1.  Link to the files when displaying query errors in the console.
