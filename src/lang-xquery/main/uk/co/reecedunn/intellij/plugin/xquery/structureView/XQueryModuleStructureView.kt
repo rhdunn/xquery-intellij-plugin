@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeElement {
@@ -44,6 +45,7 @@ class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeEle
             annotation.children().map { decl ->
                 when (decl) {
                     is XQueryFunctionDecl -> XQueryFunctionDeclStructureView(decl)
+                    is XQueryVarDecl -> XQueryVarDeclStructureView(decl)
                     else -> null
                 }
             }.filterNotNull().firstOrNull() as TreeElement?

@@ -4,7 +4,8 @@
 
 IntelliJ Integration:
 
-1.  File structure support, listing the declared functions in a file.
+1.  File structure support, listing the declared functions and variables in a
+    file.
 
 Run Configurations:
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.icons.AllIcons
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
@@ -28,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import javax.swing.Icon
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -36,7 +39,8 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryVarDecl,
     VersionConformance,
-    XPathVariableDeclaration {
+    XPathVariableDeclaration,
+    ItemPresentation {
     // region VersionConformance
 
     override val requiresConformance
@@ -64,6 +68,20 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         get(): XPathVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
 
     override val variableName get(): XsQNameValue? = varName?.variableName
+
+    // endregion
+    // region NavigationItem
+
+    override fun getPresentation(): ItemPresentation? = this
+
+    // endregion
+    // region ItemPresentation
+
+    override fun getIcon(unused: Boolean): Icon? = AllIcons.Nodes.Variable
+
+    override fun getLocationString(): String? = null
+
+    override fun getPresentableText(): String? = varName?.variableName?.element?.text?.let { "\$$it" }
 
     // endregion
 }
