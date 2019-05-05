@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.icons.AllIcons
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
@@ -25,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -48,7 +48,7 @@ class PluginTypeDeclImpl(node: ASTNode) :
 
     private val typeName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
-    override fun getIcon(unused: Boolean): Icon? = AllIcons.Nodes.Alias
+    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.TypeDecl
 
     override fun getLocationString(): String? = null
 

@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.icons.AllIcons
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 
@@ -30,7 +30,7 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQue
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = AllIcons.Nodes.EntryPoints
+    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.QueryBody
 
     override fun getLocationString(): String? = null
 

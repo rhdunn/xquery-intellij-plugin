@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
@@ -23,4 +24,11 @@ object XQueryIcons {
 
     val FileType: Icon = getIcon("/icons/xquery/fileType.svg")
     val RunConfiguration: Icon = getIcon("/icons/xquery/runConfiguration.svg")
+
+    object Nodes {
+        val FunctionDecl = AllIcons.Nodes.Function
+        var QueryBody = AllIcons.Nodes.EntryPoints
+        val TypeDecl = AllIcons.Nodes.Alias
+        val VarDecl = AllIcons.Nodes.Variable
+    }
 }
