@@ -23,6 +23,11 @@ Saxon:
 1.  Disable Saxon EE optimizations to prevent the processor throwing a
     `NoClassDefFoundError` looking for `com/saxonica/ee/bytecode/GeneratedCode`.
 
+BaseX:
+
+1.  Add definitions for the BaseX 9.2 built-in functions.
+1.  Add support for the `perm` annotations introduced in BaseX 9.0.
+
 XPath and XQuery:
 
 1.  Report a parser error when a `NumericLiteral` is followed by an `NCName` or

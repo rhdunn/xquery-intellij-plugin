@@ -5,6 +5,7 @@ xquery version "1.0";
  : @see https://www.w3.org/TR/xquery/#id-basics
  : @see https://www.w3.org/TR/xquery/#id-default-namespace
  : @see http://docs.basex.org/wiki/Module_Library
+ : @see http://docs.basex.org/wiki/Permissions
  :)
 
 declare default element namespace "";
@@ -89,6 +90,7 @@ declare namespace util = "http://basex.org/modules/util";
 
 (: BaseX 9.0 :)
 declare namespace lazy = "http://basex.org/modules/lazy";
+declare namespace perm = "http://basex.org/modules/perm";
 declare namespace update = "http://basex.org/modules/update";
 
 (: BaseX 9.1 :)

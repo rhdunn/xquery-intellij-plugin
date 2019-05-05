@@ -34,6 +34,11 @@
         looking for <code>com/saxonica/ee/bytecode/GeneratedCode</code>.
       </li>
     </ol>
+    <p>BaseX:</p>
+    <ol>
+      <li>Add definitions for the BaseX 9.2 built-in functions.</li>
+      <li>Add support for the <code>perm</code> annotations introduced in BaseX 9.0.</li>
+    </ol>
     <p>XPath and XQuery:</p>
     <ol>
       <li>
