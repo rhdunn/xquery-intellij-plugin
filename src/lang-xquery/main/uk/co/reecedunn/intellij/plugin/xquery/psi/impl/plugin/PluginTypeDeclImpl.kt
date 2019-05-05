@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import javax.swing.Icon
 
@@ -51,7 +52,7 @@ class PluginTypeDeclImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = typeName?.element?.text
+    override fun getPresentableText(): String? = typeName?.let { op_qname_presentation(it) }
 
     // endregion
 }

@@ -39,7 +39,7 @@
    Documents the internal data model extensions supported by the XQuery
    IntelliJ Plugin.
 
-1. [XQuery IntelliJ Plugin 1.4 Functions and Operators](XQuery%20IntelliJ%20Plugin%20Functions%20and%20Operators.md)
+1. [XQuery IntelliJ Plugin 1.5 Functions and Operators](XQuery%20IntelliJ%20Plugin%20Functions%20and%20Operators.md)
 
    Documents the internal functions and operators used by the XQuery IntelliJ
    Plugin, and the supported options and annotations.

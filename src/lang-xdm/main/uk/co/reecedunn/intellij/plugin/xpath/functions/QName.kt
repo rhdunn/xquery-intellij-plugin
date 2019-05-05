@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
 }
 
 // endregion
-
 // region XQuery IntelliJ Plugin Functions and Operators (3.1) op:QName-parse
 
 @Suppress("FunctionName")
@@ -65,6 +64,20 @@ fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue
             XsQName(ns, null, localName, true, null as PsiElement?)
         }
     }
+}
+
+// endregion
+// region XQuery IntelliJ Plugin Functions and Operators (3.2) op:QName-presentation
+
+@Suppress("FunctionName")
+fun op_qname_presentation(qname: XsQNameValue): String {
+    return if (qname.prefix == null) {
+        if (qname.namespace == null)
+            qname.localName!!.data
+        else
+            "Q{${qname.namespace!!.data}}${qname.localName!!.data}"
+    } else
+        "${qname.prefix!!.data}:${qname.localName!!.data}"
 }
 
 // endregion

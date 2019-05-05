@@ -23,6 +23,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -81,7 +82,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = varName?.variableName?.element?.text?.let { "\$$it" }
+    override fun getPresentableText(): String? = varName?.variableName?.let { "\$${op_qname_presentation(it)}" }
 
     // endregion
 }

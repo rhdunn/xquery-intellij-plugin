@@ -1,4 +1,4 @@
-# XQuery IntelliJ Plugin 1.4 Functions and Operators
+# XQuery IntelliJ Plugin 1.5 Functions and Operators
 
 This document includes material copied from or derived from the XPath and
 XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,
@@ -159,6 +159,21 @@ that is required for the given built-in module definitions.
 >     parsing `Q{}local-name` where `local-name` is the content of this string.
 >
 > 1.  Otherwise, an invalid QName format error is raised.
+
+### 3.2 op:QName-presentation
+###### Summary
+> Returns the presentation form of the QName.
+###### Signature
+> <pre>op:QName-presentation($qname as <em>xs:QName</em>) as <em>xs:string</em></pre>
+###### Rules
+> The QName is formatted as follows:
+>
+> 1.  `prefix:local-name` if the QName has a defined prefix.
+>
+> 1.  `Q{namespace}local-name` if the QName has a namespace without a defined
+>     prefix.
+>
+> 1.  `local-name` if the QName does not have a specified namespace.
 
 ## A References
 

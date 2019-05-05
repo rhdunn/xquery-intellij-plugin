@@ -23,6 +23,7 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
@@ -50,7 +51,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = functionName?.element?.text?.let { "$it#${arity.from}" }
+    override fun getPresentableText(): String? = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" }
 
     // endregion
 }
