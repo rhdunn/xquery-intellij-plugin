@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
+import com.intellij.icons.AllIcons
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
+import javax.swing.Icon
 
-class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQueryBody
+class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQueryBody, ItemPresentation {
+    // region NavigationItem
+
+    override fun getPresentation(): ItemPresentation? = this
+
+    // endregion
+    // region ItemPresentation
+
+    override fun getIcon(unused: Boolean): Icon? = AllIcons.Nodes.EntryPoints
+
+    override fun getLocationString(): String? = null
+
+    override fun getPresentableText(): String? = XQueryBundle.message("structure-view.query-body")
+
+    // endregion
+}

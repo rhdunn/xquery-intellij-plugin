@@ -18,28 +18,28 @@ package uk.co.reecedunn.intellij.plugin.xquery.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
+import com.intellij.psi.NavigatablePsiElement
 
-class XQueryVarDeclStructureView(val decl: XQueryVarDecl) : StructureViewTreeElement {
+class StructureViewLeafNode(val leaf: NavigatablePsiElement) : StructureViewTreeElement {
     // region Navigatable
 
-    override fun navigate(requestFocus: Boolean) = decl.navigate(requestFocus)
+    override fun navigate(requestFocus: Boolean) = leaf.navigate(requestFocus)
 
-    override fun canNavigate(): Boolean = decl.canNavigate()
+    override fun canNavigate(): Boolean = leaf.canNavigate()
 
-    override fun canNavigateToSource(): Boolean = decl.canNavigateToSource()
+    override fun canNavigateToSource(): Boolean = leaf.canNavigateToSource()
 
     // endregion
     // region TreeElement
 
-    override fun getPresentation(): ItemPresentation = decl.presentation!!
+    override fun getPresentation(): ItemPresentation = leaf.presentation!!
 
     override fun getChildren(): Array<TreeElement> = TreeElement.EMPTY_ARRAY
 
     // endregion
     // region StructureViewTreeElement
 
-    override fun getValue(): Any = decl
+    override fun getValue(): Any = leaf
 
     // endregion
 }

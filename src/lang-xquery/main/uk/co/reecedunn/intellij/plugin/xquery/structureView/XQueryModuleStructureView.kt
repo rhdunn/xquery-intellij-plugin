@@ -19,11 +19,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeElement {
     // region Navigatable
@@ -40,16 +36,28 @@ class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeEle
     override fun getPresentation(): ItemPresentation = module.presentation!!
 
     override fun getChildren(): Array<TreeElement> {
-        val resolver = module.children().filterIsInstance<XQueryPrologResolver>().firstOrNull()
-        return resolver?.prolog?.firstOrNull()?.children()?.filterIsInstance<XQueryAnnotatedDecl>()?.map { annotation ->
-            annotation.children().map { decl ->
-                when (decl) {
-                    is XQueryFunctionDecl -> XQueryFunctionDeclStructureView(decl)
-                    is XQueryVarDecl -> XQueryVarDeclStructureView(decl)
-                    else -> null
+        val mainOrLibraryModule =
+            module.children().filter { it is XQueryMainModule || it is XQueryLibraryModule }.firstOrNull()
+        return mainOrLibraryModule?.children()?.flatMap { child ->
+            when (child) {
+                is XQueryProlog -> child.children().flatMap { decl ->
+                    when (decl) {
+                        is XQueryAnnotatedDecl -> {
+                            decl.children().map { annotatedDecl ->
+                                when (annotatedDecl) {
+                                    is XQueryFunctionDecl -> StructureViewLeafNode(annotatedDecl)
+                                    is XQueryVarDecl -> StructureViewLeafNode(annotatedDecl)
+                                    else -> null
+                                }
+                            }
+                        }
+                        else -> emptySequence()
+                    }
                 }
-            }.filterNotNull().firstOrNull() as TreeElement?
-        }?.filterNotNull()?.toList()?.toTypedArray() ?: TreeElement.EMPTY_ARRAY
+                is XQueryQueryBody -> sequenceOf(StructureViewLeafNode(child))
+                else -> emptySequence()
+            }
+        }?.filterNotNull()?.toList<TreeElement>()?.toTypedArray() ?: TreeElement.EMPTY_ARRAY
     }
 
     // endregion
