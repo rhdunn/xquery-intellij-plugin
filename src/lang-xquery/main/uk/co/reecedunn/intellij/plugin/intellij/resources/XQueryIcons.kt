@@ -28,7 +28,7 @@ object XQueryIcons {
     object Nodes {
         val FunctionDecl = AllIcons.Nodes.Function
         var QueryBody = AllIcons.Nodes.EntryPoints
-        val TypeDecl = AllIcons.Nodes.Alias
+        val TypeDecl = getIcon("/icons/xquery/nodes/typeDecl.svg")
         val VarDecl = AllIcons.Nodes.Variable
     }
 }
