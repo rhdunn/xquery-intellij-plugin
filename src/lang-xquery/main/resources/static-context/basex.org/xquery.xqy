@@ -106,4 +106,7 @@ declare namespace update = "http://basex.org/modules/update";
 (: BaseX 9.1 :)
 declare namespace ws = "http://basex.org/modules/ws";
 
+(: BaseX 9.2.1 :)
+declare namespace sessions = "http://basex.org/modules/sessions";
+
 ()
