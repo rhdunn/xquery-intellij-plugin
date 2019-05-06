@@ -25,8 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
     return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
         val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-        val functionName = function?.children()?.filterIsInstance<XsQNameValue>()?.firstOrNull()
-        if (functionName?.expand()?.firstOrNull()?.let { op_qname_equal(it, name) } == true) {
+        if (function?.functionName?.expand()?.firstOrNull()?.let { op_qname_equal(it, name) } == true) {
             function
         } else {
             null
