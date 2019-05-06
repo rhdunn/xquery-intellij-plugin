@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.NavigatablePsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 /**
  * A Saxon 9.8 `TypeDecl` node in the XQuery AST.
  */
-interface PluginTypeDecl : NavigatablePsiElement
+interface PluginTypeDecl : NavigatablePsiElement {
+    val typeName: XsQNameValue?
+}

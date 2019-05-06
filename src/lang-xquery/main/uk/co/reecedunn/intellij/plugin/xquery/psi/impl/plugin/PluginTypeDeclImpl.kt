@@ -32,6 +32,11 @@ import javax.swing.Icon
 
 class PluginTypeDeclImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginTypeDecl, VersionConformance, ItemPresentation {
+    // region PluginTypeDecl
+
+    override val typeName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
@@ -45,8 +50,6 @@ class PluginTypeDeclImpl(node: ASTNode) :
 
     // endregion
     // region ItemPresentation
-
-    private val typeName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
     override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.TypeDecl
 
