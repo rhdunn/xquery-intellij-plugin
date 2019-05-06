@@ -3473,6 +3473,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix!!.data, `is`("fn"))
                 assertThat(qname.localName!!.data, `is`("true"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val presentation = decl.presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.presentableText, `is`("fn:true#0"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
@@ -3485,6 +3491,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val presentation = decl.presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.presentableText, `is`("test#2"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
@@ -3493,6 +3505,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryFunctionDecl>("declare function :true() external;")[0]
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.functionName, `is`(nullValue()))
+
+                val presentation = decl.presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.presentableText, `is`(nullValue()))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
