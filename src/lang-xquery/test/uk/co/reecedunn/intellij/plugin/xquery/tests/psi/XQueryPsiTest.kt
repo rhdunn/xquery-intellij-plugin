@@ -2757,6 +2757,18 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(name.text, `is`("test:func"))
             }
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (38) QueryBody")
+        fun queryBody() {
+            val decl = parse<XQueryQueryBody>("1 div 2")[0]
+
+            val presentation = decl.presentation!!
+            assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
+            assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
+            assertThat(presentation.presentableText, `is`("query body"))
+            assertThat(presentation.locationString, `is`(nullValue()))
+        }
     }
 
     @Nested
