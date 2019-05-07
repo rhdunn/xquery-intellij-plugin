@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.NavigatablePsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 
 /**
  * An XQuery 1.0 `QueryBody` node in the XQuery AST.
  */
-interface XQueryQueryBody : XPathExpr, NavigatablePsiElement
+interface XQueryQueryBody : XPathExpr, XQueryStructureViewElement

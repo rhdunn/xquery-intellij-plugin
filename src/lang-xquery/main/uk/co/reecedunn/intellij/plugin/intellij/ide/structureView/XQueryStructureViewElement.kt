@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
+package uk.co.reecedunn.intellij.plugin.intellij.ide.structureView
 
-import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import com.intellij.psi.NavigatablePsiElement
 
-/**
- * A Saxon 9.8 `TypeDecl` node in the XQuery AST.
- */
-interface PluginTypeDecl : XQueryStructureViewElement {
-    val typeName: XsQNameValue?
-}
+interface XQueryStructureViewElement : NavigatablePsiElement

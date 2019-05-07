@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.NavigatablePsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 
 /**
  * An XQuery 1.0 `VarDecl` node in the XQuery AST.
  */
-interface XQueryVarDecl : NavigatablePsiElement
+interface XQueryVarDecl : XQueryStructureViewElement

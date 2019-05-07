@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 /**
  * An XQuery 1.0 `FunctionDecl` node in the XQuery AST.
  */
-interface XQueryFunctionDecl : NavigatablePsiElement {
+interface XQueryFunctionDecl : XQueryStructureViewElement {
     val functionName: XsQNameValue?
 
     val arity: Range<Int>

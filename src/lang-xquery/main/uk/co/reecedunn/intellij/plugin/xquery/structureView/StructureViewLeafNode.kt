@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ItemPresentation
-import com.intellij.psi.NavigatablePsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 
-class StructureViewLeafNode(val leaf: NavigatablePsiElement) : StructureViewTreeElement {
+class StructureViewLeafNode(val leaf: XQueryStructureViewElement) : StructureViewTreeElement {
     // region Navigatable
 
     override fun navigate(requestFocus: Boolean) = leaf.navigate(requestFocus)
