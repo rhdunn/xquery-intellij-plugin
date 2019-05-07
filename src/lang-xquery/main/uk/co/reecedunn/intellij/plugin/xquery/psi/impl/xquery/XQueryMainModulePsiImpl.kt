@@ -20,12 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
-class XQueryMainModulePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XQueryMainModule,
-    XQueryPrologResolver {
-
+class XQueryMainModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryMainModule {
     override val prolog get(): Sequence<XQueryProlog> = children().filterIsInstance<XQueryProlog>()
 }
