@@ -94,5 +94,8 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
     override val XQueryVersion
         get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
+    override val mainOrLibraryModule
+        get(): XQueryPrologResolver? = children().filterIsInstance<XQueryPrologResolver>().firstOrNull()
+
     // endregion
 }

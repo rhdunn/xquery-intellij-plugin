@@ -37,9 +37,7 @@ class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeEle
     override fun getPresentation(): ItemPresentation = module.presentation!!
 
     override fun getChildren(): Array<TreeElement> {
-        val mainOrLibraryModule =
-            module.children().filter { it is XQueryMainModule || it is XQueryLibraryModule }.firstOrNull()
-        return mainOrLibraryModule?.children()?.flatMap { child ->
+        return module.mainOrLibraryModule?.children()?.flatMap { child ->
             when (child) {
                 is XQueryProlog -> child.children().flatMap { decl ->
                     when (decl) {

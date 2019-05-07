@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: Specification?) {
     fun getVersionOrDefault(project: Project): Specification {
@@ -49,4 +50,6 @@ interface XQueryModule : PsiFile {
     val XQueryVersions: Sequence<XQueryVersionRef>
 
     val predefinedStaticContext: XQueryProlog?
+
+    val mainOrLibraryModule: XQueryPrologResolver?
 }
