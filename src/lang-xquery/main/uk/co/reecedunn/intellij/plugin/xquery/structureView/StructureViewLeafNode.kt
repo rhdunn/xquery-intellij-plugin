@@ -16,30 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.structureView
 
 import com.intellij.ide.structureView.StructureViewTreeElement
-import com.intellij.ide.util.treeView.smartTree.TreeElement
-import com.intellij.navigation.ItemPresentation
+import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
+import javax.swing.Icon
 
-class StructureViewLeafNode(val leaf: XQueryStructureViewElement) : StructureViewTreeElement {
-    // region Navigatable
+class StructureViewLeafNode(leaf: XQueryStructureViewElement) : PsiTreeElementBase<XQueryStructureViewElement>(leaf) {
+    override fun getChildrenBase(): MutableCollection<StructureViewTreeElement> = mutableListOf()
 
-    override fun navigate(requestFocus: Boolean) = leaf.navigate(requestFocus)
+    override fun getPresentableText(): String? = element?.presentation?.presentableText
 
-    override fun canNavigate(): Boolean = leaf.canNavigate()
-
-    override fun canNavigateToSource(): Boolean = leaf.canNavigateToSource()
-
-    // endregion
-    // region TreeElement
-
-    override fun getPresentation(): ItemPresentation = leaf.presentation!!
-
-    override fun getChildren(): Array<TreeElement> = TreeElement.EMPTY_ARRAY
-
-    // endregion
-    // region StructureViewTreeElement
-
-    override fun getValue(): Any = leaf
-
-    // endregion
+    override fun getIcon(open: Boolean): Icon? = element?.presentation?.getIcon(open)
 }

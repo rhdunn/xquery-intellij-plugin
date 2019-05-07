@@ -16,28 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xquery.structureView
 
 import com.intellij.ide.structureView.StructureViewTreeElement
-import com.intellij.ide.util.treeView.smartTree.TreeElement
-import com.intellij.navigation.ItemPresentation
+import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import javax.swing.Icon
 
-class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeElement {
-    // region Navigatable
-
-    override fun navigate(requestFocus: Boolean) = module.navigate(requestFocus)
-
-    override fun canNavigate(): Boolean = module.canNavigate()
-
-    override fun canNavigateToSource(): Boolean = module.canNavigateToSource()
-
-    // endregion
-    // region TreeElement
-
-    override fun getPresentation(): ItemPresentation = module.presentation!!
-
-    override fun getChildren(): Array<TreeElement> {
-        return module.mainOrLibraryModule?.children()?.flatMap { child ->
+class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQueryModule>(module) {
+    override fun getChildrenBase(): MutableCollection<StructureViewTreeElement> {
+        return element?.mainOrLibraryModule?.children()?.flatMap { child ->
             when (child) {
                 is XQueryProlog -> child.children().flatMap { decl ->
                     when (decl) {
@@ -57,13 +44,10 @@ class XQueryModuleStructureView(val module: XQueryModule) : StructureViewTreeEle
                 is XQueryQueryBody -> sequenceOf(StructureViewLeafNode(child))
                 else -> emptySequence()
             }
-        }?.filterNotNull()?.toList<TreeElement>()?.toTypedArray() ?: TreeElement.EMPTY_ARRAY
+        }?.filterNotNull()?.toMutableList<StructureViewTreeElement>() ?: mutableListOf()
     }
 
-    // endregion
-    // region StructureViewTreeElement
+    override fun getPresentableText(): String? = element?.presentation?.presentableText
 
-    override fun getValue(): Any = module
-
-    // endregion
+    override fun getIcon(open: Boolean): Icon? = element?.presentation?.getIcon(open)
 }
