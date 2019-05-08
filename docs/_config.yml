@@ -1,0 +1,10 @@
+title: XQuery IntelliJ Plugin
+email: msclrhd@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+baseurl: "/xquery-intellij-plugin"
+
+language: en
+stylesheet: /css/default.css
+
+markdown: kramdown
+plugins:
