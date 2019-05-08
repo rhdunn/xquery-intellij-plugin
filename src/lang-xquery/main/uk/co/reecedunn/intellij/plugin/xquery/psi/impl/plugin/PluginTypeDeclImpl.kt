@@ -19,6 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -32,6 +35,14 @@ import javax.swing.Icon
 
 class PluginTypeDeclImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginTypeDecl, VersionConformance, ItemPresentation {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedPresentableText.invalidate()
+    }
+
+    // endregion
     // region PluginTypeDecl
 
     override val typeName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
@@ -55,7 +66,12 @@ class PluginTypeDeclImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = typeName?.let { op_qname_presentation(it) }
+    private val cachedPresentableText = CacheableProperty {
+        val key = typeName?.let { op_qname_presentation(it) }
+        key `is` Cacheable
+    }
+
+    override fun getPresentableText(): String? = cachedPresentableText.get()
 
     // endregion
     // region SortableTreeElement

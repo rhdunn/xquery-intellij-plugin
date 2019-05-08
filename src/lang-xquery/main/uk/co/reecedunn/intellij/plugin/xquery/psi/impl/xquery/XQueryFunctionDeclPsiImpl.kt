@@ -20,6 +20,9 @@ import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -32,6 +35,14 @@ import javax.swing.Icon
 private val ARITY_ZERO = Range(0, 0)
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, ItemPresentation {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedAlphaSortKey.invalidate()
+    }
+
+    // endregion
     // region XQueryFunctionDecl
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
@@ -57,7 +68,12 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // endregion
     // region SortableTreeElement
 
-    override fun getAlphaSortKey(): String = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
+    private val cachedAlphaSortKey = CacheableProperty {
+        val key = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
+        key `is` Cacheable
+    }
+
+    override fun getAlphaSortKey(): String = cachedAlphaSortKey.get()!!
 
     // endregion
 }

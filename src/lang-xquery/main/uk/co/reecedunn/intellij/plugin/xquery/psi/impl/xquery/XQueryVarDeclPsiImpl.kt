@@ -19,6 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
@@ -42,6 +45,14 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     VersionConformance,
     XPathVariableDeclaration,
     ItemPresentation {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedAlphaSortKey.invalidate()
+    }
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance
@@ -87,7 +98,12 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region SortableTreeElement
 
-    override fun getAlphaSortKey(): String = varName?.variableName?.let { op_qname_presentation(it) } ?: ""
+    private val cachedAlphaSortKey = CacheableProperty {
+        val key = varName?.variableName?.let { op_qname_presentation(it) } ?: ""
+        key `is` Cacheable
+    }
+
+    override fun getAlphaSortKey(): String = cachedAlphaSortKey.get()!!
 
     // endregion
 }
