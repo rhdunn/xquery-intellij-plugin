@@ -58,4 +58,9 @@ class PluginTypeDeclImpl(node: ASTNode) :
     override fun getPresentableText(): String? = typeName?.let { op_qname_presentation(it) }
 
     // endregion
+    // region SortableTreeElement
+
+    override fun getAlphaSortKey(): String = presentableText ?: ""
+
+    // endregion
 }

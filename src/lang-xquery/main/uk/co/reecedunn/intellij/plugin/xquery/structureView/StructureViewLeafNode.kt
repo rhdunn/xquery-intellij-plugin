@@ -17,13 +17,34 @@ package uk.co.reecedunn.intellij.plugin.xquery.structureView
 
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
+import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 import javax.swing.Icon
 
-class StructureViewLeafNode(leaf: XQueryStructureViewElement) : PsiTreeElementBase<XQueryStructureViewElement>(leaf) {
+class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
+    PsiTreeElementBase<XQueryStructureViewElement>(leaf),
+    SortableTreeElement {
+    // region PsiTreeElementBase
+
     override fun getChildrenBase(): MutableCollection<StructureViewTreeElement> = mutableListOf()
+
+    // endregion
+    // region TreeElement
+
+    override fun getPresentation(): ItemPresentation = element?.presentation!!
+
+    // endregion
+    // region ItemPresentation
 
     override fun getPresentableText(): String? = element?.presentation?.presentableText
 
     override fun getIcon(open: Boolean): Icon? = element?.presentation?.getIcon(open)
+
+    // endregion
+    // region SortableTreeElement
+
+    override fun getAlphaSortKey(): String = element!!.alphaSortKey
+
+    // endregion
 }

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.ide.structureView
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
+import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -27,5 +28,6 @@ class XQueryStructureViewBuilder(val psiFile: PsiFile) : TreeBasedStructureViewB
     override fun createStructureViewModel(editor: Editor?): StructureViewModel {
         return StructureViewModelBase(psiFile, XQueryModuleStructureView(psiFile as XQueryModule))
             .withSuitableClasses(XQueryStructureViewElement::class.java)
+            .withSorters(Sorter.ALPHA_SORTER)
     }
 }

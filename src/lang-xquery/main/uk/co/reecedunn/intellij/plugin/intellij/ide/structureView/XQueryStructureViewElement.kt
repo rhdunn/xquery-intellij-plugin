@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.ide.structureView
 
+import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.psi.NavigatablePsiElement
 
-interface XQueryStructureViewElement : NavigatablePsiElement
+interface XQueryStructureViewElement : NavigatablePsiElement, SortableTreeElement

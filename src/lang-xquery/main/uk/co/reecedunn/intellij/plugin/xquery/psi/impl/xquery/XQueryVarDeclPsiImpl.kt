@@ -85,4 +85,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     override fun getPresentableText(): String? = varName?.variableName?.let { "\$${op_qname_presentation(it)}" }
 
     // endregion
+    // region SortableTreeElement
+
+    override fun getAlphaSortKey(): String = varName?.variableName?.let { op_qname_presentation(it) } ?: ""
+
+    // endregion
 }

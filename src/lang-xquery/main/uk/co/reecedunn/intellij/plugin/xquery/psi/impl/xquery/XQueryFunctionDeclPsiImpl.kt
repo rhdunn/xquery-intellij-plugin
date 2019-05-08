@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
@@ -52,6 +53,11 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override fun getLocationString(): String? = null
 
     override fun getPresentableText(): String? = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" }
+
+    // endregion
+    // region SortableTreeElement
+
+    override fun getAlphaSortKey(): String = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
 
     // endregion
 }
