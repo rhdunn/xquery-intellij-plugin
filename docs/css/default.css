@@ -3,37 +3,29 @@ html {
   min-width: 1200px;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-}
-
 body {
   padding: 8px;
 }
 
-h1 {
-  border-bottom: 4px solid #eeeeee;
+p, h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
 }
+h1 { font-size: 48px; margin: 30px 0 30px 0; text-align: center; }
+h2 { font-size: 36px; margin: 30px 0 20px 0; }
 
-.screenshot {
-  float: right;
-  border-left: 8px solid white;
-  margin: 0;
-}
-.screenshot > img {
-  box-shadow: 0 4px 8px #cccccc;
-}
+p  { font-size: 20px; }
+section p  { font-size: inherit; margin-right: 10px; }
+
+section.columns { display: flex; flex-wrap: wrap; }
+section.columns-2 > section { width: 50%; }
+section.columns-3 > section { width: 33.3333%; }
+
+section img { margin-bottom: 20px; }
 
 .error {
   margin: 10px auto;
   max-width: 600px;
   text-align: center;
-}
-.error > h1 {
-  margin: 30px 0;
-  font-size: 4em;
-  line-height: 1;
-  letter-spacing: -1px;
 }
 
 .centered {
