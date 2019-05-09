@@ -6,6 +6,8 @@ IntelliJ Integration:
 
 1.  File structure support, listing the declared functions, variables, and types,
     and the query body in a file.
+1.  Display the functions, variables, and types when "Show Members" is enabled
+    in the project pane.
 
 Run Configurations:
 

@@ -17,6 +17,7 @@
     <p>IntelliJ Integration:</p>
     <ol>
       <li>File structure support, listing the declared functions, variables, and types, and the query body in a file.</li>
+      <li>Display the functions, variables, and types when "Show Members" is enabled in the project pane.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

@@ -18,12 +18,37 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.projectView
 import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
     PsiFileNode(module.project, module, viewSettings) {
 
     override fun getChildrenImpl(): MutableCollection<AbstractTreeNode<Any>> {
-        return mutableListOf()
+        return if (settings.isShowMembers)
+            getPrologDeclarations()?.toMutableList() ?: mutableListOf()
+        else
+            mutableListOf()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun getPrologDeclarations(): Sequence<AbstractTreeNode<Any>>? {
+        val prolog: XQueryProlog? = (value as XQueryModule).mainOrLibraryModule?.prolog?.firstOrNull()
+        return prolog?.children()?.flatMap { decl ->
+            when (decl) {
+                is XQueryAnnotatedDecl -> {
+                    decl.children().map { annotatedDecl ->
+                        when (annotatedDecl) {
+                            is XQueryFunctionDecl -> XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
+                            is XQueryVarDecl -> XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
+                            else -> null
+                        }
+                    }
+                }
+                is PluginTypeDecl -> sequenceOf(XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>)
+                else -> emptySequence()
+            }
+        }?.filterNotNull()
     }
 }
