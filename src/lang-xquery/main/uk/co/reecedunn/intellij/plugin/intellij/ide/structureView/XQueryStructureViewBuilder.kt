@@ -22,7 +22,7 @@ import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.structureView.XQueryModuleStructureView
+import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryModuleStructureView
 
 class XQueryStructureViewBuilder(val psiFile: PsiFile) : TreeBasedStructureViewBuilder() {
     override fun createStructureViewModel(editor: Editor?): StructureViewModel {
