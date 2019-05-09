@@ -20,6 +20,7 @@ import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import com.intellij.openapi.project.DumbAware
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ide.projectView.XQueryModuleTreeNode
 
 class XQueryTreeStructureProvider : TreeStructureProvider, DumbAware {
     @Suppress("UNCHECKED_CAST")
@@ -31,7 +32,7 @@ class XQueryTreeStructureProvider : TreeStructureProvider, DumbAware {
         return children.map { child ->
             val value = child.value
             when (value) {
-                is XQueryModule -> child
+                is XQueryModule -> XQueryModuleTreeNode(value, settings) as AbstractTreeNode<Any>
                 else -> child
             }
         }.toMutableList()
