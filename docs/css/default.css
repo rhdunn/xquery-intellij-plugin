@@ -1,7 +1,6 @@
 html {
   font-family: "Gotham SSm B", Helvetica, Arial, sans-serif;
   margin: 0 auto;
-  min-width: 800px;
   max-width: 1200px;
   font-size: 18px;
 }
@@ -9,6 +8,9 @@ html {
 body {
   padding: 8px;
 }
+
+p { margin-bottom: 15px; }
+p:last-child { margin-bottom: 0; }
 
 p, h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
@@ -20,16 +22,18 @@ h3 { font-size: 18px; margin-bottom: 15px; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-section p  { font-size: inherit; margin-right: 10px; }
+section p { font-size: inherit; margin-right: 10px; }
 
-section.columns { display: flex; flex-wrap: wrap; }
-section.columns-2 > section { width: 50%; }
-section.columns-3 > section { width: 33.3333%; }
+@media screen and (min-width: 940px) {
+  section.columns { display: inline-flex; flex-wrap: wrap; }
+  section.columns-2 > section { width: 50%; }
+  section.columns-3 > section { width: 33.3333%; }
 
-section.columns-2 > section.side-by-side { width: 100%; display: flex; }
-section.columns-2 > section.side-by-side > * { width: 50%; }
+  section.columns-2 section.side-by-side, section.side-by-side { width: 100%; display: flex; }
+  section.side-by-side > * { width: 50%; }
+}
 
-section.columns section { margin-top: 15px; }
+section.columns section { margin-top: 30px; display: block; }
 section img { margin-bottom: 20px; }
 
 .error {
