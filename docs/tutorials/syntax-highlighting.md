@@ -1,11 +1,12 @@
 ---
-layout: webpage
+layout: page
+title: Syntax Highlighting
+image:
+  url: /images/tutorials/syntax-highlighting.png
+  width: 600px
+  height: 200px
+  alt: Syntax highlighting
 ---
-
-# Syntax Highlighting
-
-{: align="center"}
-<img src="{{site.baseurl}}/images/tutorials/syntax-highlighting.png" width="600px" height="200px" alt="Syntax highlighting"/>
 
 To configure the syntax highlighting, you can:
 

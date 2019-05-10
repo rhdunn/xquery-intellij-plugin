@@ -2,11 +2,16 @@ html {
   font-family: "Gotham SSm B", Helvetica, Arial, sans-serif;
   margin: 0 auto;
   max-width: 1200px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 body {
   padding: 8px;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 800px;
 }
 
 p { margin-bottom: 15px; }
