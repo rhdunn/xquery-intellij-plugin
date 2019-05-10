@@ -1,16 +1,26 @@
 html {
   font-family: "Gotham SSm B", Helvetica, Arial, sans-serif;
-  margin: 0 auto;
-  max-width: 1200px;
   font-size: 16px;
 }
 
 body {
-  padding: 8px;
+  margin: 0;
+}
+
+p.github-banner {
+  margin-top: -14px;
+  float: right;
 }
 
 main {
   margin: 0 auto;
+  padding: 16px;
+  max-width: 1200px;
+}
+main.navlist {
+  max-width: 1000px;
+}
+main.page {
   max-width: 800px;
 }
 
