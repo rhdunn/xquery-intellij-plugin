@@ -26,6 +26,9 @@ section.columns { display: flex; flex-wrap: wrap; }
 section.columns-2 > section { width: 50%; }
 section.columns-3 > section { width: 33.3333%; }
 
+section.columns-2 > section.side-by-side { width: 100%; display: flex; }
+section.columns-2 > section.side-by-side > * { width: 50%; }
+
 section.columns section { margin-top: 15px; }
 section img { margin-bottom: 20px; }
 
