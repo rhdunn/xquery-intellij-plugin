@@ -51,9 +51,7 @@ section p { font-size: inherit; margin-right: 10px; }
 section.columns section { margin-top: 30px; display: block; }
 section img { margin-bottom: 20px; }
 
-.error {
-  margin: 10px auto;
-  max-width: 600px;
+main.error {
   text-align: center;
 }
 
