@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Syntax Highlighting
+title: Syntax highlighting
 image:
   url: /images/tutorials/syntax-highlighting.png
   width: 600px
