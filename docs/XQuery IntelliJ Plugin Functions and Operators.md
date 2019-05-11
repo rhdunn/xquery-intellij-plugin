@@ -14,6 +14,8 @@ used by the XQuery IntelliJ Plugin to implement the XQuery integration with
 JetBrain's IntelliJ IDEs.
 
 ## Table of Contents
+
+{: .toc }
 - [1 Introduction](#1-introduction)
   - [1.1 Namespaces and prefixes](#11-namespaces-and-prefixes)
   - [1.2 Common definitions](#12-common-definitions)

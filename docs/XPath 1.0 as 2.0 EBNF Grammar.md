@@ -14,6 +14,8 @@ as a subset of an XPath 2.0 parser with minor modifications to account
 for precedence changes.
 
 ## Table of Contents
+
+{: .toc }
 - [A XPath Grammar](#a-xpath-grammar)
   - [A.1 EBNF](#a1-ebnf)
     - [A.1.1 Extra-grammatical Constraints](#a11-extra-grammatical-constraints)

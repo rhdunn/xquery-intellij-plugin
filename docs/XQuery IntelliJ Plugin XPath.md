@@ -13,6 +13,8 @@ functionality that extends XPath and associated W3C extensions. The
 plugin-specific extensions are provided to support IntelliJ integration.
 
 ## Table of Contents
+
+{: .toc }
 - [1 Introduction](#1-introduction)
 - [2 Basics](#2-basics)
   - [2.1 Types](#21-types)

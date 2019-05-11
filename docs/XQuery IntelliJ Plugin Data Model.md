@@ -15,6 +15,8 @@ plugin data model extensions are to fill in gaps within the type
 system and to provide static type analysis.
 
 ## Table of Contents
+
+{: .toc }
 - [1 Introduction](#1-introduction)
 - [2 Concepts](#2-concepts)
   - [2.1 Type System](#21-type-system)
