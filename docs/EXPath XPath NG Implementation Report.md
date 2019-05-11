@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 # EXPath XPath NG Implementation Report
 
 This document describes the implementation of the xpath-ng syntax extension

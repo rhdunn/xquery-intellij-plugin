@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 # XPath 1.0 as 2.0 EBNF Grammar
 
 This document includes material copied from or derived from the XPath

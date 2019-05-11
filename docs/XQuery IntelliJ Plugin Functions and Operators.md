@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 # XQuery IntelliJ Plugin 1.5 Functions and Operators
 
 This document includes material copied from or derived from the XPath and

@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 # XQuery IntelliJ Plugin 1.4 XPath
 
 This document includes material copied from or derived from the XPath

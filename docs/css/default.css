@@ -26,6 +26,7 @@ main.page {
 
 p { margin-bottom: 15px; }
 p:last-child { margin-bottom: 0; }
+li p:last-child { margin-bottom: 15px; }
 
 p, h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
