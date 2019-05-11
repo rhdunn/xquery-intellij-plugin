@@ -70,6 +70,10 @@ table th, table td {
   vertical-align: top;
 }
 
+table.ebnf-symbols > thead {
+  display: none;
+}
+
 pre.highlight {
   margin: 0 30px 15px 30px;
 }

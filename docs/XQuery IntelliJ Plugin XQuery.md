@@ -130,6 +130,7 @@ not normative.
 
 #### 2.1.1 SequenceType Syntax
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
 | \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
@@ -162,6 +163,7 @@ version.
 
 ##### 2.1.2.1 Union Type
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
@@ -187,6 +189,7 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 
 ##### 2.1.2.2 Tuple Type
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
@@ -203,6 +206,7 @@ This is supported by Saxon 9.9.
 
 ##### 2.1.2.3 Binary Test
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[29\]  | `BinaryTest`            | ::= | `"binary" "(" ")"`                  |         |
@@ -218,6 +222,7 @@ object.
 
 ##### 2.1.2.4 Schema Kind Tests
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
@@ -239,6 +244,7 @@ support for `SchemaFacetTest`.
 
 ##### 2.1.2.5.1 Boolean Node Test
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[47\]  | `BooleanNodeTest`       | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` | |
@@ -251,6 +257,7 @@ boolean nodes in objects by the key name.
 
 ##### 2.1.2.5.2 Number Node Test
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[51\]  | `NumberNodeTest`        | ::= | `AnyNumberNodeTest \| NamedNumberNodeTest` |  |
@@ -263,6 +270,7 @@ by the key name.
 
 ##### 2.1.2.5.3 Null Node Test
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[55\]  | `NullNodeTest`          | ::= | `AnyNullNodeTest \| NamedNullNodeTest` |      |
@@ -274,6 +282,7 @@ The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key na
 
 ##### 2.1.2.5.4 Array Node Test
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[59\]  | `ArrayNodeTest`         | ::= | `AnyArrayNodeTest \| NamedArrayNodeTest` |     |
@@ -285,6 +294,7 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
 
 ##### 2.1.2.5.5 Map Node Test
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[63\]  | `MapNodeTest`           | ::= | `AnyMapNodeTest \| NamedMapNodeTest` |        |
@@ -296,6 +306,7 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 
 ##### 2.1.2.6 Sequence Types
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[86\] | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)*` |               |
@@ -305,6 +316,7 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 
 ###### 2.1.2.6.1 Union
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[86\] | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)*` |               |
@@ -323,6 +335,7 @@ one of multiple disjoint types.
 
 ###### 2.1.2.6.2 List
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[87\] | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
@@ -344,12 +357,14 @@ rational or complex numbers.
 
 ## 3 Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
 | \[91\] | `ExprSingle`            | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 
 ### 3.1 Node Constructors
 
+{: .ebnf-symbols }
 | Ref   | Symbol             |     | Expression                          | Options              |
 |-------|--------------------|-----|-------------------------------------|----------------------|
 | \[1\] | `DirAttributeList` | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/ |
@@ -361,6 +376,7 @@ This follows the grammar production pattern used in other constructs like
 
 ### 3.2 Quantified Expressions
 
+{: .ebnf-symbols }
 | Ref   | Symbol                  |     | Expression                          | Options              |
 |-------|-------------------------|-----|-------------------------------------|----------------------|
 | \[3\] | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
@@ -373,6 +389,7 @@ This follows the grammar production pattern used in other constructs like
 
 #### 3.3.1 Typeswitch
 
+{: .ebnf-symbols }
 | Ref   | Symbol                  |     | Expression                          | Options               |
 |-------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[5\] | `TypeswitchExpr`        | ::= | `"typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause` | |
@@ -384,6 +401,7 @@ support variable bindings.
 
 #### 3.3.2 Cast
 
+{: .ebnf-symbols }
 | Ref   | Symbol                  |     | Expression                          | Options               |
 |-------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[7\] | `CastExpr`              | ::= | `TransformWithExpr ( "cast" "as" SingleType )?` |           |
@@ -408,6 +426,7 @@ it is supported by BaseX.
 
 ### 3.4 Block Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[9\]  | `BlockVarDecl`          | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
@@ -418,6 +437,7 @@ This follows the grammar production pattern used in other constructs like
 
 ### 3.5 Update Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[12\] | `UpdateExpr`            | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
@@ -477,6 +497,7 @@ are equivalent to the `TransformWithExpr`:
 
 #### 3.6.1 Match Options
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[13\] | `FTMatchOption`         | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
@@ -485,6 +506,7 @@ The `FTFuzzyOption` is a new option that is supported by BaseX.
 
 ##### 3.6.1.1 Fuzzy Option
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[14\] | `FTFuzzyOption`         | ::= | `fuzzy`                             |                       |
@@ -496,6 +518,7 @@ This is a BaseX Full Text extension.
 
 ### 3.7 Primary Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
 | \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
@@ -503,6 +526,7 @@ This is a BaseX Full Text extension.
 
 ### 3.7.1 Non-Deterministic Function Calls
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[16\] | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |         |
@@ -517,6 +541,7 @@ be determined statically.
 
 #### 3.7.2 Simple Inline Function Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[81\] | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |         |
@@ -530,6 +555,7 @@ The expression `fn{E}` is equivalent to:
 
 #### 3.7.3 Literals
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[82\] | `PredefinedEntityRef`          | ::= | `EntityRef`                               |         |
@@ -546,6 +572,7 @@ error is raised.
 
 #### 3.8.1 Maps
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[66\] | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
@@ -559,6 +586,7 @@ From 9.7, the XQuery 3.1 syntax (`:`) is used.
 
 #### 3.8.2 Arrays
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[62\] | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |         |
@@ -568,6 +596,7 @@ not support the square array style constructors.
 
 #### 3.8.3 Booleans
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[50\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
@@ -588,6 +617,7 @@ instance of `xs:boolean`.
 
 #### 3.8.4 Numbers
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[54\] | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |         |
@@ -607,6 +637,7 @@ instance of `xs:double`.
 
 #### 3.8.5 Nulls
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[58\] | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |         |
@@ -619,6 +650,7 @@ Null nodes are not removed from sequences, such as when used in arrays and maps.
 
 #### 3.9.1 Axes
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[25\] | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
@@ -647,6 +679,7 @@ The *principal node kind* is determined as per the XPath specification. Thus:
 
 #### 3.9.2 Node Tests
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[76\] | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
@@ -661,6 +694,7 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 
 ### 3.10 Validate Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[27\] | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
@@ -670,6 +704,7 @@ typed validation expressions.
 
 ### 3.11 Try/Catch Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[31\] | `CatchClause`                  | ::= | `"catch" (CatchErrorList \| ("(" "$" VarName ")")) EnclosedExpr` | |
@@ -683,6 +718,7 @@ The variable name in the MarkLogic style catch clause has the type
 
 ### 3.12 Binary Constructors
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[30\] | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`                   |         |
@@ -718,6 +754,7 @@ A binary node is not an instance of `xs:boolean`.
 
 ### 3.13 Logical Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[79\] | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
@@ -737,6 +774,7 @@ equivalent to:
 
 ### 3.14 Conditional Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[92\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
@@ -773,12 +811,14 @@ the equivalent `IfExpr` is:
 
 ## 4 Modules and Prologs
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[18\] | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 
 ### 4.1 Type Declaration
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[19\] | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType`     |         |
@@ -796,6 +836,7 @@ If the type name has no namespace prefix, it is implicitly qualified by the
 
 ### 4.2 Annotations
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[26\] | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
@@ -811,6 +852,7 @@ The other compatibility annotations are defined in Scripting Extension 1.0.
 
 ### 4.3 Stylesheet Import
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[32\] | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` | |
@@ -820,6 +862,7 @@ MarkLogic supports importing the functions and variables from an XLST stylesheet
 
 ### 4.4 Transactions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[34\] | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
@@ -843,6 +886,7 @@ syntax.
 
 ### 4.5 Function Declaration
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[95\] | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |         |
@@ -882,6 +926,7 @@ These changes include support for:
 1.  Saxon Vendor Extensions;
 1.  XQuery IntelliJ Plugin Vendor Extensions.
 
+{: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[1\]    | `DirAttributeList`             | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/  |

@@ -31,6 +31,7 @@ for precedence changes.
 
 ### A.1 EBNF
 
+{: .ebnf-symbols }
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `XPath`                           | ::= | `Expr`                              |                      |
@@ -102,6 +103,7 @@ __grammar-note: comparison__
 
 ### A.2 Terminal Symbols
 
+{: .ebnf-symbols }
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[41\]  | `StringLiteral`                   | ::= | `('"' \[^"\]* '"') \| ("'" \[^'\]* "'")` | /* ws: explicit */ |
@@ -114,6 +116,7 @@ __grammar-note: comparison__
 The following symbols are used only in the definition of terminal symbols; they
 are not terminal symbols in the grammar of A.1 EBNF.
 
+{: .ebnf-symbols }
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[47\]  | `Digits`                          | ::= | `[0-9]+`                            |                      |

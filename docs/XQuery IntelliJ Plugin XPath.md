@@ -71,6 +71,7 @@ not normative.
 
 #### 2.1.1 SequenceType Syntax
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
 | \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicType` |     |
@@ -78,12 +79,14 @@ not normative.
 
 ## 3 Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
 | \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 
 ### 3.1 Quantified Expressions
 
+{: .ebnf-symbols }
 | Ref   | Symbol                  |     | Expression                          | Options              |
 |-------|-------------------------|-----|-------------------------------------|----------------------|
 | \[1\] | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
@@ -96,6 +99,7 @@ This follows the grammar production pattern used in other constructs like
 
 #### 3.2.1 Node Tests
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[3\]  | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
@@ -110,6 +114,7 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 
 ### 3.3 For Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[7\]  | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`            |         |
@@ -120,6 +125,7 @@ The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
 
 ### 3.4 Conditional Expressions
 
+{: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[10\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
@@ -165,6 +171,7 @@ The EBNF symbols below only include new and modified symbols.
 These changes include support for:
 1.  XQuery IntelliJ Plugin Vendor Extensions.
 
+{: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options              |
 |---------|-------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
