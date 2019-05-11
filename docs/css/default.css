@@ -34,7 +34,7 @@ h1 { font-size: 48px; margin: 30px 0 30px 0; text-align: center; }
 h2 { font-size: 36px; margin: 30px 0 20px 0; }
 h3 { font-size: 18px; margin-bottom: 15px; }
 
-a { text-decoration: none; }
+a { text-decoration: none; color: #0366d6; }
 a:hover { text-decoration: underline; }
 
 section p { font-size: inherit; margin-right: 10px; }

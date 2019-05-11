@@ -19,9 +19,9 @@ To configure the syntax highlighting, you can:
 Once you are finished, press the *Apply* button to make the changes and keep
 the dialog open, or *OK* to make the changes and close the dialog.
 
-__NOTE:__ Inspections such as the *XPST0081: Unbound namespace prefix* inspection
-don't update on the open files after making changes to these settings. To update
-them you need to close the file then reopen it.
+__NOTE:__ Inspections such as the [*XPST0081: Unbound namespace prefix*](inspections.html)
+inspection don't update on the open files after making changes to these settings.
+To update them you need to close the file then reopen it.
 
 ### Built-in namespaces and functions
 
@@ -39,9 +39,9 @@ intended to also verify namespace and function usage, but those checks are not
 yet implemented.
 
 __NOTE:__ To have errors about unknown functions, you need to enable the
-*XPST0017: Undefined function* inspection in this settings dialog. This inspection
-is not enabled by default as there are some cases where locating functions does
-not work.
+[*XPST0017: Undefined function*](inspections.md) inspection in this settings
+dialog. This inspection is not enabled by default as there are some cases where
+locating functions does not work.
 
 ### XQuery syntax
 The *Implementation* option defines which XQuery dialects are available.
