@@ -7,6 +7,8 @@ title: Specifications
 1. [Specifications](#specifications)
 1. [Grammar](#grammar)
 
+-----
+
 ## XPath and XQuery Vendor Extensions
 
 1. [XQuery IntelliJ Plugin 1.4 XPath](XQuery%20IntelliJ%20Plugin%20XPath.html)

@@ -8,6 +8,10 @@ image:
   alt: Inspections
 ---
 
+1.  [Inspections](#inspections)
+
+-----
+
 To configure the XQuery inspections (warnings and errors), you can:
 
 1.  Select the *File* menu.

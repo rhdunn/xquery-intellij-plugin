@@ -74,6 +74,11 @@ table.ebnf-symbols > thead {
   display: none;
 }
 
+hr {
+  border: 0;
+  border-bottom: 4px solid #eeeeee;
+}
+
 pre.highlight {
   margin: 0 30px 15px 30px;
 }

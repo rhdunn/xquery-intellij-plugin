@@ -8,6 +8,11 @@ image:
   alt: XQuery settings
 ---
 
+1.  [Built-in namespaces and functions](#built-in-namespaces-and-functions)
+1.  [XQuery syntax](#xquery-syntax)
+
+-----
+
 To configure the syntax highlighting, you can:
 
 1.  Select the *File* menu.
