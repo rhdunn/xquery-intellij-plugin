@@ -64,12 +64,12 @@ below for more information.
 
 The possible dialects, depending on which *Implementation* and *Implementation
 version* have been specified, are:
-1.  *BaseX* -- The [BaseX](../XQuery%20IntelliJ%20Plugin%20XQuery.html#c1-basex-vendor-extensions)
+1.  *BaseX* -- The [BaseX](../specifications/XQuery%20IntelliJ%20Plugin%20XQuery.html#c1-basex-vendor-extensions)
     syntax extensions, Full Text extensions, and Update Facility extensions.
-1.  *eXist-db* -- The [eXist-db](../XQuery%20IntelliJ%20Plugin%20XQuery.html#c5-exist-db-extensions)
+1.  *eXist-db* -- The [eXist-db](../specifications/XQuery%20IntelliJ%20Plugin%20XQuery.html#c5-exist-db-extensions)
     syntax extensions. __NOTE:__ There is currently only a partial support
     for these syntax extensions.
-1.  *Saxon* -- The [Saxon](../XQuery%20IntelliJ%20Plugin%20XQuery.html#c3-saxon-vendor-extensions)
+1.  *Saxon* -- The [Saxon](../specifications/XQuery%20IntelliJ%20Plugin%20XQuery.html#c3-saxon-vendor-extensions)
     syntax extensions, and Update Facility extensions.
 1.  *XQuery* -- The core XQuery syntax without any extensions.
 1.  *XQuery and XPath Full Text*.
@@ -77,7 +77,7 @@ version* have been specified, are:
 1.  *XQuery Scripting Extension* -- Update Facility extensions, and Scripting
     extensions.
 
-__NOTE:__ The [MarkLogic](../XQuery%20IntelliJ%20Plugin%20XQuery.html#c2-marklogic-vendor-extensions)
+__NOTE:__ The [MarkLogic](../specifications/XQuery%20IntelliJ%20Plugin%20XQuery.html#c2-marklogic-vendor-extensions)
 syntax extensions depend on the specified XQuery version. As such, there is no
 *MarkLogic* option in the *Dialect for* settings. The XQuery versions available
 for MarkLogic are:
