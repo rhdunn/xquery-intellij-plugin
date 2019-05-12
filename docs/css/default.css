@@ -8,8 +8,9 @@ body {
 }
 
 p.github-banner {
-  margin-top: -14px;
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 main {
@@ -90,7 +91,6 @@ blockquote {
 }
 
 .centered {
-  clear: both;
   text-align: center;
   padding-top: 16px;
 }
