@@ -12,7 +12,7 @@ To configure the syntax highlighting, you can:
 
 1.  Select the *File* menu.
 1.  Select the *Settings* menu.
-1.  In the left navigation pane of the settings menu, select and expand the
+1.  In the left navigation pane of the settings dialog, select and expand the
     *Editor* item.
 1.  Select and expand the *Color Scheme* item.
 1.  To edit the base XPath color scheme, select the *XPath and XSLT* item.

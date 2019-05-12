@@ -53,6 +53,10 @@ section p { font-size: inherit; margin-right: 10px; }
   section.side-by-side > * { width: 50%; }
 }
 
+@media screen and (max-width: 940px) {
+  p:last-child { margin-bottom: 15px; }
+}
+
 section.columns section { margin-top: 30px; display: block; }
 section img { margin-bottom: 20px; }
 
@@ -110,4 +114,13 @@ a.button {
   text-align: center;
   padding: 0 35px;
   margin: 0 15px;
+}
+
+.highlight .keyword {
+  font-weight: bold;
+  color: navy;
+}
+.highlight .string {
+  font-weight: bold;
+  color: green;
 }
