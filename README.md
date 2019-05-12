@@ -28,6 +28,9 @@ This plugin provides support for the following implementations of XQuery:
 1.  [Saxon](docs/XQuery%20IntelliJ%20Plugin%20XQuery.md#c3-saxon-vendor-extensions)
     9.2 &ndash; 9.9.
 
+See https://rhdunn.github.io/xquery-intellij-plugin/ for the plugin documentation
+and tutorials.
+
 #### IntelliJ Integration
 
 <img src="images/resolve-uriliteral.png" alt="Resolve URI Literals" width="60%" align="right"/>
