@@ -3403,7 +3403,7 @@ private class XQueryPsiTest : ParserTestCase() {
         internal inner class VarDecl {
             @Test
             @DisplayName("NCName")
-            fun testVarDecl_NCName() {
+            fun ncname() {
                 val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0]
 
                 val qname = (expr as XPathVariableDeclaration).variableName!!
@@ -3420,7 +3420,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("QName")
-            fun testVarDecl_QName() {
+            fun qname() {
                 val expr = parse<XQueryVarDecl>("declare variable \$a:x := \$a:y;")[0]
 
                 val qname = (expr as XPathVariableDeclaration).variableName!!
@@ -3437,7 +3437,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("URIQualifiedName")
-            fun testVarDecl_URIQualifiedName() {
+            fun uriQualifiedName() {
                 val expr = parse<XQueryVarDecl>(
                     "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;"
                 )[0]
@@ -3456,8 +3456,21 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("missing VarName")
-            fun testVarDecl_MissingVarName() {
+            fun missingVarName() {
                 val expr = parse<XQueryVarDecl>("declare variable \$ := \$y;")[0]
+                assertThat((expr as XPathVariableDeclaration).variableName, `is`(nullValue()))
+
+                val presentation = expr.presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.presentableText, `is`(nullValue()))
+                assertThat(presentation.locationString, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("invalid VarName")
+            fun invalidVarName() {
+                val expr = parse<XQueryVarDecl>("declare variable \$: := \$y;")[0]
                 assertThat((expr as XPathVariableDeclaration).variableName, `is`(nullValue()))
 
                 val presentation = expr.presentation!!
