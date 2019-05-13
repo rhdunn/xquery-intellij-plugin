@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
 import com.intellij.ide.util.PropertiesComponent
+import com.intellij.ui.JBColor
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
@@ -37,7 +38,7 @@ import javax.swing.table.TableCellRenderer
 @Suppress("ClassName")
 private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
     const val PERCENTAGE_BAR_PADDING = 2
-    val PERCENTAGE_BAR_COLOR = Color(225, 225, 255)
+    val PERCENTAGE_BAR_COLOR = JBColor(Color(225, 225, 255), Color(51, 51, 255))
 
     var percentage: Double = 0.0
     var percentageBarColor: Color = PERCENTAGE_BAR_COLOR
