@@ -22,6 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -268,6 +269,18 @@ private class XPathPsiTest : ParserTestCase() {
             val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
             assertThat(literal.data, `is`("test"))
             assertThat(literal.element, sameInstance(literal as PsiElement))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (2.5.4) SequenceType Syntax")
+    internal inner class SequenceTypeSyntax {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (81) ItemType")
+        fun itemType() {
+            val type = parse<PluginAnyItemType>("() instance of item ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("item()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
         }
     }
 
