@@ -559,6 +559,14 @@ private class XQueryPsiTest : ParserTestCase() {
             }
         }
 
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (189) AnyKindTest")
+        fun anyKindTest() {
+            val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("node()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (206) TypeName")
         internal inner class TypeName {

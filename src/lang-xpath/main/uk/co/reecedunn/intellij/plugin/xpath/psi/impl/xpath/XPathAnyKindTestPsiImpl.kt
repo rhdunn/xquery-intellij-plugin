@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNode
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
@@ -30,7 +32,15 @@ private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 class XPathAnyKindTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathAnyKindTest,
+    XdmItemType,
     VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "node()"
+
+    override val typeClass: Class<*> = XdmNode::class.java
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance

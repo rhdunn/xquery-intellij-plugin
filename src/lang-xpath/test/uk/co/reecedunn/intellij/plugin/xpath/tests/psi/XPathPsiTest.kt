@@ -282,6 +282,14 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(type.typeName, `is`("item()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
         }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (84) AnyKindTest")
+        fun anyKindTest() {
+            val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("node()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+        }
     }
 
     @Nested
