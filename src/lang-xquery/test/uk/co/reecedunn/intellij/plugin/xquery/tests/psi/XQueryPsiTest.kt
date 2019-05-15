@@ -567,6 +567,14 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
         }
 
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (192) CommentTest")
+        fun commentTest() {
+            val type = parse<XPathCommentTest>("() instance of comment ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("comment()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmComment::class.java)))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (206) TypeName")
         internal inner class TypeName {
