@@ -298,6 +298,14 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(type.typeName, `is`("comment()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmComment::class.java)))
         }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (88) NamespaceNodeTest")
+        fun namespaceNodeTest() {
+            val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("namespace-node()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNamespace::class.java)))
+        }
     }
 
     @Nested

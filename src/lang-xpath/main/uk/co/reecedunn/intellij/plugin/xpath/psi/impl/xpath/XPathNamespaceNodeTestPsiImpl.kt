@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNamespace
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNode
 
 class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathNamespaceNodeTest,
+    XdmItemType,
     VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "namespace-node()"
+
+    override val typeClass: Class<*> = XdmNamespace::class.java
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_0_20140408)

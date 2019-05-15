@@ -575,6 +575,14 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(type.typeClass, `is`(sameInstance(XdmComment::class.java)))
         }
 
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (193) NamespaceNodeTest")
+        fun namespaceNodeTest() {
+            val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("namespace-node()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNamespace::class.java)))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (206) TypeName")
         internal inner class TypeName {
