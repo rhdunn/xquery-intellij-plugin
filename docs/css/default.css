@@ -52,6 +52,8 @@ section p { font-size: inherit; margin-right: 10px; }
 
   section.side-by-side > * { float: left; width: 50%; }
   section.side-by-side { clear: both; }
+
+  main.navlist > section.side-by-side > aside { float: left; width: calc(50% - 30px); padding-left: 30px; }
 }
 
 @media screen and (max-width: 949px) {
