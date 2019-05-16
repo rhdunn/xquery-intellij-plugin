@@ -1,8 +1,7 @@
 ---
 layout: page
+title: EXPath XPath NG Implementation Report
 ---
-
-# EXPath XPath NG Implementation Report
 
 This document describes the implementation of the xpath-ng syntax extension
 proposals from the EXPath group in the XQuery IntelliJ Plugin.

@@ -1,8 +1,7 @@
 ---
 layout: page
+title: XPath 1.0 as 2.0 EBNF Grammar
 ---
-
-# XPath 1.0 as 2.0 EBNF Grammar
 
 This document includes material copied from or derived from the XPath
 specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio, Beihang).

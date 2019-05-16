@@ -1,8 +1,7 @@
 ---
 layout: page
+title: XQuery IntelliJ Plugin 1.5 Functions and Operators
 ---
-
-# XQuery IntelliJ Plugin 1.5 Functions and Operators
 
 This document includes material copied from or derived from the XPath and
 XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,

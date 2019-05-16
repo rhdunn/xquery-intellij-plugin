@@ -1,8 +1,7 @@
 ---
 layout: page
+title: XQuery IntelliJ Plugin 1.4 XQuery
 ---
-
-# XQuery IntelliJ Plugin 1.4 XQuery
 
 This document includes material copied from or derived from the XQuery
 specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio, Beihang).
