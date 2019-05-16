@@ -315,6 +315,14 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(type.typeName, `is`("namespace-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNamespace::class.java)))
         }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
+        fun anyArrayTest() {
+            val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("array(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+        }
     }
 
     @Nested

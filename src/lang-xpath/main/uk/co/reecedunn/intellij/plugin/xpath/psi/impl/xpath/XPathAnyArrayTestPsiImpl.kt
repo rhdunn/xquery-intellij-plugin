@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,23 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyArrayTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmArray
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
-class XPathAnyArrayTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyArrayTest, VersionConformance {
+class XPathAnyArrayTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathAnyArrayTest, XdmItemType, VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "array(*)"
+
+    override val typeClass: Class<*> = XdmArray::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }

@@ -622,6 +622,14 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
             }
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
+        fun anyArrayTest() {
+            val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("array(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+        }
     }
 
     @Nested

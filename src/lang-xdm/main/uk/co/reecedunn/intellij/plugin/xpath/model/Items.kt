@@ -43,3 +43,13 @@ interface XdmNamespace : XdmNode
 interface XdmText : XdmNode
 
 // endregion
+// region XQuery and XPath 3.1 Data Model (2.7.4) : function(*)
+
+interface XdmFunction : XdmItem
+
+// endregion
+// region XQuery and XPath 3.1 Data Model (2.7.4) : array(*)
+
+interface XdmArray : XdmFunction
+
+// endregion
