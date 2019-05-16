@@ -45,15 +45,16 @@ a:hover { text-decoration: underline; }
 section p { font-size: inherit; margin-right: 10px; }
 
 @media screen and (min-width: 940px) {
-  section.columns { display: inline-flex; flex-wrap: wrap; }
+  section.columns > section { float: left; }
   section.columns-2 > section { width: 50%; }
   section.columns-3 > section { width: 33.3333%; }
+  section.columns-2 section.side-by-side { width: 100%; }
 
-  section.columns-2 section.side-by-side, section.side-by-side { width: 100%; display: flex; }
-  section.side-by-side > * { width: 50%; }
+  section.side-by-side > * { float: left; width: 50%; }
+  section.side-by-side { clear: both; }
 }
 
-@media screen and (max-width: 940px) {
+@media screen and (max-width: 949px) {
   p:last-child { margin-bottom: 15px; }
 }
 
