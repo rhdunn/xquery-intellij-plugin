@@ -317,6 +317,14 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
+        fun anyMapTest() {
+            val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("map(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+        }
+
+        @Test
         @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
         fun anyArrayTest() {
             val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType

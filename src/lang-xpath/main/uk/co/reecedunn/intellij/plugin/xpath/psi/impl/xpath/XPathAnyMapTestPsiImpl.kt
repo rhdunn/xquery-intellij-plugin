@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,23 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyMapTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmMap
 
-class XPathAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyMapTest, VersionConformance {
+class XPathAnyMapTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathAnyMapTest, XdmItemType, VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "map(*)"
+
+    override val typeClass: Class<*> = XdmMap::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }

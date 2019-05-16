@@ -624,6 +624,14 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
+        fun anyMapTest() {
+            val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("map(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+        }
+
+        @Test
         @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
         fun anyArrayTest() {
             val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
