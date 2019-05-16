@@ -82,12 +82,15 @@ not normative.
 │    ├─── comment()
 │    ├─── namespace-node()
 │    ├─── processing-instruction()
-│    └─── text()
+│    ├─── text()
+|    └─── array-node()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
 └─── xs:anyAtomicType ──────────────────────────────────── See Part 3
 </code></pre>
+
+The `array-node()` type is a MarkLogic JSON type.
 
 #### 2.1.2 Part 2: Simple and Complex Types
 
