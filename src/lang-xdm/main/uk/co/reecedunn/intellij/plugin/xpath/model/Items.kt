@@ -38,3 +38,8 @@ interface XdmComment : XdmNode
 interface XdmNamespace : XdmNode
 
 // endregion
+// region XQuery and XPath 3.1 Data Model (2.7.4) : text()
+
+interface XdmText : XdmNode
+
+// endregion

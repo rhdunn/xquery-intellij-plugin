@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -289,6 +290,14 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (86) TextTest")
+        fun textTest() {
+            val type = parse<PluginAnyTextTest>("() instance of text ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("text()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmText::class.java)))
         }
 
         @Test

@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -565,6 +566,14 @@ private class XQueryPsiTest : ParserTestCase() {
             val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (191) TextTest")
+        fun textTest() {
+            val type = parse<PluginAnyTextTest>("() instance of text ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("text()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmText::class.java)))
         }
 
         @Test
