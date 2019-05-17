@@ -35,8 +35,7 @@ interface XsAnySimpleType : XsAnyType
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xs:anyAtomicType
 
-interface XsAnyAtomicType : XsAnySimpleType,
-    XdmItem
+interface XsAnyAtomicType : XsAnySimpleType, XdmItem
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyListType

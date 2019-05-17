@@ -285,6 +285,14 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("XPath 3.1 EBNF (82) AtomicOrUnionType")
+        fun atomicOrUnionType() {
+            val type = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0] as XdmItemType
+            assertThat(type.typeName, `is`("xs:string"))
+            assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
+        }
+
+        @Test
         @DisplayName("XPath 3.1 EBNF (84) AnyKindTest")
         fun anyKindTest() {
             val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType

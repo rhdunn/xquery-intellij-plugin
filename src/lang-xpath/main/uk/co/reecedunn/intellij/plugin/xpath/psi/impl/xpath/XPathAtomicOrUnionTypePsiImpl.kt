@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,16 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnySimpleType
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathAtomicOrUnionType,
-    XPathAtomicType
+    ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType, XdmItemType {
+    // region XdmItemType
+
+    override val typeName: String = text
+
+    override val typeClass: Class<*> = XsAnySimpleType::class.java
+
+    // endregion
+}
