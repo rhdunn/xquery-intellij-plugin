@@ -93,6 +93,7 @@ not normative.
 ├─── complex-type()
 ├─── element-decl()
 ├─── schema-component()
+├─── schema-facet()
 ├─── schema-particle()
 ├─── schema-root()
 ├─── schema-type()
@@ -107,8 +108,8 @@ The `array-node()`, `boolean-node()`, `null-node()`, `number-node()`, and
 `object-node()` types are MarkLogic JSON types.
 
 The `attribute-decl()`, `complex-type()`, `element-decl()`, `schema-component()`,
-`schema-particle()`, `schema-root()`, `schema-type()`, and `simple-type()` types
-are MarkLogic schema types.
+`schema-facet()`, `schema-particle()`, `schema-root()`, `schema-type()`, and
+`simple-type()` types are MarkLogic schema types.
 
 The `binary()` type is a MarkLogic item type.
 

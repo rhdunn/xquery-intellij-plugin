@@ -93,6 +93,11 @@ interface XdmElementDecl : XdmItem
 interface XdmSchemaComponent : XdmItem
 
 // endregion
+// region XQuery IntelliJ Plugin Data Model (2.1) : schema-facet() [MarkLogic]
+
+interface XdmSchemaFacet : XdmItem
+
+// endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : schema-particle() [MarkLogic]
 
 interface XdmSchemaParticle : XdmItem
