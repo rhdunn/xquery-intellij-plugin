@@ -104,6 +104,14 @@ private class PluginPsiTest : ParserTestCase() {
             assertThat(type.typeName, `is`("attribute-decl()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (38) ComplexTypeTest")
+        fun complexTypeTest() {
+            val type = parse<PluginComplexTypeTest>("() instance of complex-type ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("complex-type()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmComplexType::class.java)))
+        }
     }
 
     @Nested

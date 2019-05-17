@@ -90,6 +90,8 @@ not normative.
 │    └─── object-node()
 ├─── attribute-decl()
 ├─── binary()
+├─── complex-type()
+│    └─── xdm:anyComplexType
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
