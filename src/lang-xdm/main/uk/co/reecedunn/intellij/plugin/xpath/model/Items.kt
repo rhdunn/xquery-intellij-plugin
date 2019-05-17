@@ -63,6 +63,11 @@ interface XdmNullNode : XdmNode
 interface XdmNumberNode : XdmNode
 
 // endregion
+// region XQuery IntelliJ Plugin Data Model (2.1) : object-node() [MarkLogic]
+
+interface XdmObjectNode : XdmNode
+
+// endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : function(*)
 
 interface XdmFunction : XdmItem

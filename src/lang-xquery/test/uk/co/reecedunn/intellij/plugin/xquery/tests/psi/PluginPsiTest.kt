@@ -131,6 +131,18 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.5.5) Map Node Test")
+    internal inner class MapNodeTest {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
+        fun anyMapTest() {
+            val type = parse<PluginAnyMapNodeTest>("() instance of object-node ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("object-node()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmObjectNode::class.java)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.1) Node Constructors")
     internal inner class NodeConstructors {
         @Nested

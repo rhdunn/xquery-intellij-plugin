@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,23 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyMapNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmObjectNode
 
 class PluginAnyMapNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    PluginAnyMapNodeTest,
-    VersionConformance {
+    ASTWrapperPsiElement(node), PluginAnyMapNodeTest, XdmItemType, VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "object-node()"
+
+    override val typeClass: Class<*> = XdmObjectNode::class.java
+
+    // endregion
+    // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }
