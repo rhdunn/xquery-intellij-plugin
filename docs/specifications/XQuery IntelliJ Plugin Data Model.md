@@ -85,15 +85,16 @@ not normative.
 │    ├─── text()
 │    ├─── array-node()
 │    ├─── boolean-node()
-│    └─── null-node()
+│    ├─── null-node()
+│    └─── number-node()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
 └─── xs:anyAtomicType ──────────────────────────────────── See Part 3
 </code></pre>
 
-The `array-node()`, `boolean-node()`, and `null-node()` types are MarkLogic
-JSON types.
+The `array-node()`, `boolean-node()`, and `null-node()`, `number-node()` types
+are MarkLogic JSON types.
 
 #### 2.1.2 Part 2: Simple and Complex Types
 
