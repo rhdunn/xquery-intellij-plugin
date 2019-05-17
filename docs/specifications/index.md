@@ -39,7 +39,7 @@ title: Specifications
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions for XQuery supported by the XQuery IntelliJ Plugin.
 
-1. [XQuery IntelliJ Plugin 1.4 Data Model](XQuery%20IntelliJ%20Plugin%20Data%20Model.html)
+1. [XQuery IntelliJ Plugin 1.5 Data Model](XQuery%20IntelliJ%20Plugin%20Data%20Model.html)
 
    Documents the internal data model extensions supported by the XQuery
    IntelliJ Plugin.

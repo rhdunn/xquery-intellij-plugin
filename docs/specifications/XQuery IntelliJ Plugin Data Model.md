@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.4 Data Model
+title: XQuery IntelliJ Plugin 1.5 Data Model
 ---
 
 This document includes material copied from or derived from the XPath and
@@ -92,6 +92,7 @@ not normative.
 ├─── binary()
 ├─── complex-type()
 │    └─── xdm:anyComplexType
+├─── element-decl()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
@@ -101,7 +102,8 @@ not normative.
 The `array-node()`, `boolean-node()`, `null-node()`, `number-node()`, and
 `object-node()` types are MarkLogic JSON types.
 
-The `attribute-decl()` type is a MarkLogic schema type.
+The `attribute-decl()`, `complex-type()`, and `element-decl()` types are
+MarkLogic schema types.
 
 The `binary()` type is a MarkLogic item type.
 
