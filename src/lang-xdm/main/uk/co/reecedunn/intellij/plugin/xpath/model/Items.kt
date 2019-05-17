@@ -103,6 +103,11 @@ interface XdmSchemaParticle : XdmItem
 interface XdmSchemaRoot : XdmItem
 
 // endregion
+// region XQuery IntelliJ Plugin Data Model (2.1) : schema-type() [MarkLogic]
+
+interface XdmSchemaType : XdmItem
+
+// endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : simple-type() [MarkLogic]
 
 interface XdmSimpleType : XdmItem

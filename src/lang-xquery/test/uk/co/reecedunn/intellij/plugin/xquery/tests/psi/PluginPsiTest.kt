@@ -146,6 +146,14 @@ private class PluginPsiTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (43) SchemaTypeTest")
+        fun schemaTypeTest() {
+            val type = parse<PluginSchemaTypeTest>("() instance of schema-type ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("schema-type()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmSchemaType::class.java)))
+        }
+
+        @Test
         @DisplayName("XQuery IntelliJ Plugin EBNF (44) SimpleTypeTest")
         fun simpleTypeTest() {
             val type = parse<PluginSimpleTypeTest>("() instance of simple-type ( (::) )")[0] as XdmItemType
