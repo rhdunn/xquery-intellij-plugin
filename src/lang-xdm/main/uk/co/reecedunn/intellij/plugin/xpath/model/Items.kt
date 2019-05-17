@@ -88,6 +88,11 @@ interface XdmComplexType : XdmItem
 interface XdmElementDecl : XdmItem
 
 // endregion
+// region XQuery IntelliJ Plugin Data Model (2.1) : schema-component() [MarkLogic]
+
+interface XdmSchemaComponent : XdmItem
+
+// endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : simple-type() [MarkLogic]
 
 interface XdmSimpleType : XdmItem
