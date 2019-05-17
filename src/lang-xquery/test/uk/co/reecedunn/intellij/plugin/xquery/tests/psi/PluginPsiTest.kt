@@ -83,6 +83,18 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.5.1) Boolean Node Test")
+    internal inner class BooleanNodeTest {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
+        fun anyArrayTest() {
+            val type = parse<PluginAnyBooleanNodeTest>("() instance of boolean-node ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("boolean-node()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmBooleanNode::class.java)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.5.4) Array Node Test")
     internal inner class ArrayNodeTest {
         @Test

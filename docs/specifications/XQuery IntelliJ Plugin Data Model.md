@@ -83,14 +83,15 @@ not normative.
 │    ├─── namespace-node()
 │    ├─── processing-instruction()
 │    ├─── text()
-|    └─── array-node()
+│    ├─── array-node()
+│    └─── boolean-node()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
 └─── xs:anyAtomicType ──────────────────────────────────── See Part 3
 </code></pre>
 
-The `array-node()` type is a MarkLogic JSON type.
+The `array-node()` and `boolean-node()` types are MarkLogic JSON types.
 
 #### 2.1.2 Part 2: Simple and Complex Types
 
