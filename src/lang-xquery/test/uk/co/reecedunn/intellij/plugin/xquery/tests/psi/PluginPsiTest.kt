@@ -83,6 +83,18 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.3) Binary Test")
+    internal inner class BinaryTest {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
+        fun binaryTest() {
+            val type = parse<PluginBinaryTest>("() instance of binary ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("binary()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmBinary::class.java)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.4) Schema Kind Tests")
     internal inner class SchemaKindTests {
         @Test

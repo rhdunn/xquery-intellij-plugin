@@ -89,6 +89,7 @@ not normative.
 │    ├─── number-node()
 │    └─── object-node()
 ├─── attribute-decl()
+├─── binary()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
@@ -99,6 +100,8 @@ The `array-node()`, `boolean-node()`, `null-node()`, `number-node()`, and
 `object-node()` types are MarkLogic JSON types.
 
 The `attribute-decl()` type is a MarkLogic schema type.
+
+The `binary()` type is a MarkLogic item type.
 
 #### 2.1.2 Part 2: Simple and Complex Types
 

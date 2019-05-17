@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,24 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmBinary
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryTest
 
-class PluginBinaryTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginBinaryTest, VersionConformance {
+class PluginBinaryTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginBinaryTest, XdmItemType, VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "binary()"
+
+    override val typeClass: Class<*> = XdmBinary::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }
