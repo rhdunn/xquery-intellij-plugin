@@ -83,6 +83,18 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.4) Schema Kind Tests")
+    internal inner class SchemaKindTests {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
+        fun attributeDeclTest() {
+            val type = parse<PluginAttributeDeclTest>("() instance of attribute-decl ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("attribute-decl()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.5.1) Boolean Node Test")
     internal inner class BooleanNodeTest {
         @Test

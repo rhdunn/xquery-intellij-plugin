@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,23 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAttributeDeclTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmAttributeDecl
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
-class PluginAttributeDeclTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginAttributeDeclTest, VersionConformance {
+class PluginAttributeDeclTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginAttributeDeclTest, XdmItemType, VersionConformance {
+    // region XdmItemType
+
+    override val typeName: String = "attribute-decl()"
+
+    override val typeClass: Class<*> = XdmAttributeDecl::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }

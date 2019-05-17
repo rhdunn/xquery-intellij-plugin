@@ -88,6 +88,7 @@ not normative.
 │    ├─── null-node()
 │    ├─── number-node()
 │    └─── object-node()
+├─── attribute-decl()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
@@ -96,6 +97,8 @@ not normative.
 
 The `array-node()`, `boolean-node()`, `null-node()`, `number-node()`, and
 `object-node()` types are MarkLogic JSON types.
+
+The `attribute-decl()` type is a MarkLogic schema type.
 
 #### 2.1.2 Part 2: Simple and Complex Types
 
