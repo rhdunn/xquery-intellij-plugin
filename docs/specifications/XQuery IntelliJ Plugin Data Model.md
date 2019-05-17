@@ -108,7 +108,7 @@ The `array-node()` and `boolean-node()` types are MarkLogic JSON types.
      │    └─── <em>user-defined list types</em>
      └─── xdm:anyUnionType
           ├─── xs:numeric
-          ├─── xs:error<sup>1</sup>
+          ├─── xs:error¹
           └─── <em>user-defined union types</em>
 </code></pre>
 
@@ -141,13 +141,13 @@ __xdm:anyUnionType__
 
 #### 2.1.3 Part 3: Atomic Types
 
-<pre><code>xs:anyAtomicType<sup>1</sup>
+<pre><code>xs:anyAtomicType¹
 ├─── xs:anyURI
 ├─── xs:base64Binary
 ├─── xs:boolean
 ├─── xs:date
 ├─── xs:dateTime
-│    └─── xs:dateTimeStamp<sup>2</sup>
+│    └─── xs:dateTimeStamp²
 ├─── xs:decimal
 │    └─── xs:integer
 │         ├─── xs:long
@@ -164,8 +164,8 @@ __xdm:anyUnionType__
 │              └─── xs:negativeInteger
 ├─── xs:double
 ├─── xs:duration
-│    ├─── xs:dayTimeDuration<sup>1</sup>
-│    └─── xs:yearMonthDuration<sup>1</sup>
+│    ├─── xs:dayTimeDuration¹
+│    └─── xs:yearMonthDuration¹
 ├─── xs:float
 ├─── xs:gDay
 ├─── xs:gMonth
