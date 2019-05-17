@@ -25,7 +25,7 @@ interface XsAnyType
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyComplexType
 
-interface XdmAnyComplexType : XsAnyType, XdmComplexType
+interface XdmAnyComplexType : XsAnyType
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xs:anySimpleType

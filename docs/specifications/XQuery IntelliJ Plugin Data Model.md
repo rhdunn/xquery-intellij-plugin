@@ -91,9 +91,9 @@ not normative.
 ├─── attribute-decl()
 ├─── binary()
 ├─── complex-type()
-│    └─── xdm:anyComplexType
 ├─── element-decl()
-├──── function(*)
+├─── simple-type()
+├─── function(*)
 │    ├─── map(*)
 │    └─── array(*)
 └─── xs:anyAtomicType ──────────────────────────────────── See Part 3
@@ -102,8 +102,8 @@ not normative.
 The `array-node()`, `boolean-node()`, `null-node()`, `number-node()`, and
 `object-node()` types are MarkLogic JSON types.
 
-The `attribute-decl()`, `complex-type()`, and `element-decl()` types are
-MarkLogic schema types.
+The `attribute-decl()`, `complex-type()`, `element-decl()`, and `simple-type()`
+types are MarkLogic schema types.
 
 The `binary()` type is a MarkLogic item type.
 

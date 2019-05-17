@@ -120,6 +120,14 @@ private class PluginPsiTest : ParserTestCase() {
             assertThat(type.typeName, `is`("element-decl()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmElementDecl::class.java)))
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (44) SimpleTypeTest")
+        fun simpleTypeTest() {
+            val type = parse<PluginSimpleTypeTest>("() instance of simple-type ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("simple-type()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmSimpleType::class.java)))
+        }
     }
 
     @Nested
