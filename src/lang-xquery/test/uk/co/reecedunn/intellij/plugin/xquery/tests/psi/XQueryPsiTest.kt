@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -598,6 +599,47 @@ private class XQueryPsiTest : ParserTestCase() {
             val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("namespace-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNamespace::class.java)))
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (194) PITest")
+        internal inner class PITest {
+            @Test
+            @DisplayName("any")
+            fun any() {
+                val test = parse<XPathPITest>("() instance of processing-instruction ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("processing-instruction()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstruction::class.java)))
+            }
+
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val test = parse<XPathPITest>("() instance of processing-instruction ( test )")[0]
+                assertThat(test.nodeName, `is`(instanceOf(XsNCNameValue::class.java)))
+                assertThat((test.nodeName as XsNCNameValue).data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("processing-instruction(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstruction::class.java)))
+            }
+
+            @Test
+            @DisplayName("StringLiteral")
+            fun stringLiteral() {
+                val test = parse<XPathPITest>("() instance of processing-instruction ( \" test \" )")[0]
+
+                val nodeName = test.nodeName as XsNCNameValue
+                assertThat(nodeName.data, `is`("test"))
+                assertThat(nodeName.element, `is`(sameInstance(test.children().filterIsInstance<XPathStringLiteral>().firstOrNull())))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("processing-instruction(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstruction::class.java)))
+            }
         }
 
         @Nested

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,51 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
-class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITest
+class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITest, XdmItemType {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedNodeName.invalidate()
+    }
+
+    // endregion
+    // region XPathPITest
+
+    private val cachedNodeName = CacheableProperty {
+        children().map {
+            when (it) {
+                is XsQNameValue -> it.localName
+                // TODO: Provide a way of validating that the StringLiteral is an NCName.
+                is XPathStringLiteral -> XsNCName((it.value as XsStringValue).data.trim(), it)
+                else -> null
+            }
+        }.filterNotNull().firstOrNull() `is` Cacheable
+    }
+    override val nodeName get(): XsAnyAtomicType? = cachedNodeName.get()
+
+    // endregion
+    // region XdmItemType
+
+    override val typeName
+        get(): String {
+            val name = nodeName
+            return when (name) {
+                is XsNCNameValue -> "processing-instruction(${name.data})"
+                is XsStringValue -> "processing-instruction(${name.data})"
+                else -> "processing-instruction()"
+            }
+        }
+
+    override val typeClass: Class<*> = XdmProcessingInstruction::class.java
+
+    // endregion
+}
