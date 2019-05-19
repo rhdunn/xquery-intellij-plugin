@@ -33,6 +33,11 @@ interface XdmNode : XdmItem
 interface XdmAttribute : XdmNode
 
 // endregion
+// region XQuery and XPath 3.1 Data Model (2.7.4) : element()
+
+interface XdmElement : XdmNode
+
+// endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : comment()
 
 interface XdmComment : XdmNode
