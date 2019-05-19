@@ -370,6 +370,17 @@ private class XPathPsiTest : ParserTestCase() {
             }
         }
 
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (101) TypeName")
+        internal inner class TypeName {
+            @Test
+            @DisplayName("TypeName")
+            fun typeName() {
+                val test = parse<XPathTypeName>("() instance of element(*, xs:string)")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+            }
+        }
+
         @Test
         @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
         fun anyMapTest() {

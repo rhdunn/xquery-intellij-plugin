@@ -674,6 +674,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
             }
+
+            @Test
+            @DisplayName("TypeName")
+            fun typeName() {
+                val test = parse<XPathTypeName>("() instance of element(*, xs:string)")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+            }
         }
 
         @Test
