@@ -40,7 +40,7 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
         children().map {
             when (it) {
                 is XsQNameValue -> it.localName
-                // TODO: Provide a way of validating that the StringLiteral is an NCName.
+                // TODO: Provide a way of validating that the StringLiteral is an NCName [XPTY0004].
                 is XPathStringLiteral -> XsNCName((it.value as XsStringValue).data.trim(), it)
                 else -> null
             }

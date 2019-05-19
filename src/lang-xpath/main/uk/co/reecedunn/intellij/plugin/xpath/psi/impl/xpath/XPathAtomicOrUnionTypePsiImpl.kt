@@ -21,9 +21,16 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnySimpleType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType, XdmItemType {
+    // region XPathAtomicOrUnionType
+
+    // TODO: Provide a way of validating that the type is a generalized atomic type [XPST0051].
+    override val type get(): XsQNameValue = firstChild as XsQNameValue
+
+    // endregion
     // region XdmItemType
 
     override val typeName: String = text

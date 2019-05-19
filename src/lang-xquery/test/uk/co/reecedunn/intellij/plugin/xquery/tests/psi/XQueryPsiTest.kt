@@ -563,7 +563,10 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("item type")
             fun itemType() {
-                val type = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0] as XdmItemType
+                val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+
+                val type = test as XdmItemType
                 assertThat(type.typeName, `is`("xs:string"))
                 assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
             }
