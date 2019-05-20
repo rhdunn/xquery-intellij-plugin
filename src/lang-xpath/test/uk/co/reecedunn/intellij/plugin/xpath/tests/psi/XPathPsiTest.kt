@@ -467,6 +467,36 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (2.5.5.4) Schema Element Test")
+    internal inner class SchemaElementTest {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (96) SchemaElementTest")
+        internal inner class SchemaElementTest {
+            @Test
+            @DisplayName("missing element declaration")
+            fun missingElementDeclaration() {
+                val test = parse<XPathSchemaElementTest>("() instance of schema-element ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-element(<unknown>)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+            }
+
+            @Test
+            @DisplayName("element declaration")
+            fun elementDeclaration() {
+                val test = parse<XPathSchemaElementTest>("() instance of schema-element ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-element(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (2.5.5.5) Attribute Test")
     internal inner class AttributeTest {
         @Nested

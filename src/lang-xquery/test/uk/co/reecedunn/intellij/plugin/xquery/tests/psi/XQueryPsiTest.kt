@@ -804,6 +804,32 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (2.5.5.4) Schema Element Test")
     internal inner class SchemaElementTest {
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (201) SchemaElementTest")
+        internal inner class SchemaElementTest {
+            @Test
+            @DisplayName("missing element declaration")
+            fun missingElementDeclaration() {
+                val test = parse<XPathSchemaElementTest>("() instance of schema-element ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-element(<unknown>)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+            }
+
+            @Test
+            @DisplayName("element declaration")
+            fun elementDeclaration() {
+                val test = parse<XPathSchemaElementTest>("() instance of schema-element ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-element(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (202) ElementDeclaration")
         internal inner class ElementDeclaration {
             @Test
