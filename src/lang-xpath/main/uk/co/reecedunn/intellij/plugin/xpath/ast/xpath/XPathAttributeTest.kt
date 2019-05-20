@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 /**
@@ -23,5 +24,5 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 interface XPathAttributeTest : XPathKindTest {
     val nodeName: XsQNameValue?
 
-    val nodeType: XsQNameValue?
+    val nodeType: XdmSequenceType?
 }

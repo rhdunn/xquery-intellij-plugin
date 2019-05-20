@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAttributeTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
@@ -39,7 +38,7 @@ class XPathAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val nodeType get(): XsQNameValue? = children().filterIsInstance<XPathTypeName>().firstOrNull()?.type
+    override val nodeType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -50,11 +49,11 @@ class XPathAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
         when {
             name == null -> {
                 type?.let {
-                    "attribute(*,${op_qname_presentation(type)})" `is` Cacheable
+                    "attribute(*,${type.typeName})" `is` Cacheable
                 } ?: "attribute()" `is` Cacheable
             }
             type == null -> "attribute(${op_qname_presentation(name)})" `is` Cacheable
-            else -> "attribute(${op_qname_presentation(name)},${op_qname_presentation(type)})" `is` Cacheable
+            else -> "attribute(${op_qname_presentation(name)},${type.typeName})" `is` Cacheable
         }
     }
     override val typeName get(): String = cachedTypeName.get()!!
