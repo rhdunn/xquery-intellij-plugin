@@ -22,7 +22,20 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmComment
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
 class XPathCommentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathCommentTest, XdmItemType {
+    // region XdmSequenceType
+
     override val typeName: String = "comment()"
 
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
     override val typeClass: Class<*> = XdmComment::class.java
+
+    // endregion
 }

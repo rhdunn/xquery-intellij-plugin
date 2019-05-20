@@ -27,9 +27,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
 class PluginElementDeclTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginElementDeclTest, XdmItemType, VersionConformance {
-    // region XdmItemType
+    // region XdmSequenceType
 
     override val typeName: String = "element-decl()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmElementDecl::class.java
 

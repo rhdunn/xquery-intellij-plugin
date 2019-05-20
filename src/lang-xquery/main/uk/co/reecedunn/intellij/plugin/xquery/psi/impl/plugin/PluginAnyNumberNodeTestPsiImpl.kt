@@ -27,9 +27,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNumberNode
 
 class PluginAnyNumberNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginAnyNumberNodeTest, XdmItemType, VersionConformance {
-    // region XdmItemType
+    // region XdmSequenceType
 
     override val typeName: String = "number-node()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmNumberNode::class.java
 

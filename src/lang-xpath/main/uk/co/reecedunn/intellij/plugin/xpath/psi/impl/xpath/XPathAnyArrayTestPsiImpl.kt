@@ -27,9 +27,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
 class XPathAnyArrayTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAnyArrayTest, XdmItemType, VersionConformance {
-    // region XdmItemType
+    // region XdmSequenceType
 
     override val typeName: String = "array(*)"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmArray::class.java
 

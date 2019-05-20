@@ -91,6 +91,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginBinaryTest>("() instance of binary ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("binary()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmBinary::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -103,6 +107,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginAttributeDeclTest>("() instance of attribute-decl ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("attribute-decl()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -111,6 +119,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginComplexTypeTest>("() instance of complex-type ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("complex-type()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmComplexType::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -119,6 +131,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginElementDeclTest>("() instance of element-decl ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("element-decl()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmElementDecl::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -127,6 +143,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginSchemaComponentTest>("() instance of schema-component ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("schema-component()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmSchemaComponent::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -135,6 +155,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginSchemaParticleTest>("() instance of schema-particle ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("schema-particle()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmSchemaParticle::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -143,6 +167,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginSchemaRootTest>("() instance of schema-root ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("schema-root()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmSchemaRoot::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -151,6 +179,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginSchemaTypeTest>("() instance of schema-type ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("schema-type()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmSchemaType::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -159,6 +191,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginSimpleTypeTest>("() instance of simple-type ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("simple-type()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmSimpleType::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -167,6 +203,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginSchemaFacetTest>("() instance of schema-facet ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("schema-facet()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmSchemaFacet::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -179,6 +219,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginAnyBooleanNodeTest>("() instance of boolean-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("boolean-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmBooleanNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -191,6 +235,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginAnyNumberNodeTest>("() instance of number-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("number-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNumberNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -203,6 +251,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginAnyNullNodeTest>("() instance of null-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("null-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNullNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -215,6 +267,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginAnyArrayNodeTest>("() instance of array-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("array-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmArrayNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -227,6 +283,10 @@ private class PluginPsiTest : ParserTestCase() {
             val type = parse<PluginAnyMapNodeTest>("() instance of object-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("object-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmObjectNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 

@@ -283,6 +283,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<PluginAnyItemType>("() instance of item ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("item()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -294,6 +298,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = test as XdmItemType
             assertThat(type.typeName, `is`("xs:string"))
             assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -302,6 +310,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -310,6 +322,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<PluginAnyTextTest>("() instance of text ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("text()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmText::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -318,6 +334,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<XPathCommentTest>("() instance of comment ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("comment()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmComment::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -326,6 +346,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("namespace-node()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmNamespace::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Nested
@@ -340,6 +364,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("processing-instruction()"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstruction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -352,6 +380,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("processing-instruction(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstruction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -367,6 +399,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("processing-instruction(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstruction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
 
@@ -387,6 +423,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
             assertThat(type.typeName, `is`("map(*)"))
             assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
 
         @Test
@@ -395,6 +435,10 @@ private class XPathPsiTest : ParserTestCase() {
             val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
             assertThat(type.typeName, `is`("array(*)"))
             assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 
@@ -414,6 +458,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element()"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -426,6 +474,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element()"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -438,6 +490,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -450,6 +506,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(*,elem-type)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -462,6 +522,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(test,elem-type)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }
@@ -481,6 +545,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("schema-element(<unknown>)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -492,6 +560,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("schema-element(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }
@@ -512,6 +584,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute()"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -524,6 +600,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute()"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -536,6 +616,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -548,6 +632,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(*,attr-type)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -560,6 +648,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(test,attr-type)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }
@@ -579,6 +671,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("schema-attribute(<unknown>)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Test
@@ -590,6 +686,10 @@ private class XPathPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("schema-attribute(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }

@@ -27,9 +27,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSchemaComponent
 
 class PluginSchemaComponentTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSchemaComponentTest, XdmItemType, VersionConformance {
-    // region XdmItemType
+    // region XdmSequenceType
 
     override val typeName: String = "schema-component()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmSchemaComponent::class.java
 

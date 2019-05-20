@@ -15,8 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-interface XdmItemType {
+interface XdmSequenceType {
     val typeName: String
 
+    val itemType: XdmItemType
+
+    val lowerBound: Int?
+
+    val upperBound: Int?
+}
+
+interface XdmItemType : XdmSequenceType {
     val typeClass: Class<*>
 }

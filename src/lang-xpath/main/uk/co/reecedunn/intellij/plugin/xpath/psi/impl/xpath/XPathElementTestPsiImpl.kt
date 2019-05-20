@@ -44,7 +44,7 @@ class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
     override val nodeType get(): XsQNameValue? = children().filterIsInstance<XPathTypeName>().firstOrNull()?.type
 
     // endregion
-    // region XdmItemType
+    // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
         val name = nodeName
@@ -60,6 +60,15 @@ class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
         }
     }
     override val typeName get(): String = cachedTypeName.get()!!
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmElement::class.java
 

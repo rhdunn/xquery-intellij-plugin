@@ -22,7 +22,20 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmText
 
 class PluginAnyTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyTextTest, XdmItemType {
+    // region XdmSequenceType
+
     override val typeName: String = "text()"
 
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
     override val typeClass: Class<*> = XdmText::class.java
+
+    // endregion
 }

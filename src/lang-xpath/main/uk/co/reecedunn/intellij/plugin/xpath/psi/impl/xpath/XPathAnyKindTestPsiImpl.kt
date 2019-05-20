@@ -34,9 +34,18 @@ class XPathAnyKindTestPsiImpl(node: ASTNode) :
     XPathAnyKindTest,
     XdmItemType,
     VersionConformance {
-    // region XdmItemType
+    // region XdmSequenceType
 
     override val typeName: String = "node()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmNode::class.java
 

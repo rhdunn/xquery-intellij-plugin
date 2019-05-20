@@ -27,13 +27,19 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNode
 
 class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathNamespaceNodeTest,
-    XdmItemType,
-    VersionConformance {
-    // region XdmItemType
+    ASTWrapperPsiElement(node), XPathNamespaceNodeTest, XdmItemType, VersionConformance {
+    // region XdmSequenceType
 
     override val typeName: String = "namespace-node()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XdmNamespace::class.java
 

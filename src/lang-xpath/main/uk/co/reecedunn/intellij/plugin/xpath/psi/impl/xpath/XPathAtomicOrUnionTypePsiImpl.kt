@@ -31,9 +31,18 @@ class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     override val type get(): XsQNameValue = firstChild as XsQNameValue
 
     // endregion
-    // region XdmItemType
+    // region XdmSequenceType
 
     override val typeName: String = text
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
 
     override val typeClass: Class<*> = XsAnySimpleType::class.java
 
