@@ -18,8 +18,33 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
-open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypeName {
+open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypeName, XdmItemType {
+    // region XPathTypeName
+
+    // TODO: Provide a way of validating that the type is in the in-scope schema types [XPST0008].
     override val type get(): XsQNameValue = firstChild as XsQNameValue
+
+    // endregion
+    // region XdmSequenceType
+
+    override val typeName: String = text
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    // NOTE: type may be a list type (e.g. xs:IDREFS), so the upper bound cannot be restricted
+    // without expanding the QName.
+    override val upperBound: Int? = Int.MAX_VALUE
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XsAnyType::class.java
+
+    // endregion
 }
