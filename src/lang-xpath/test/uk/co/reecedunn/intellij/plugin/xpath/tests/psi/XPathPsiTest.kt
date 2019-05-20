@@ -509,7 +509,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun typeOnly() {
                 val test = parse<XPathElementTest>("() instance of element ( * , elem-type )")[0]
                 assertThat(test.nodeName, `is`(nullValue()))
-                assertThat(test.nodeType?.localName!!.data, `is`("elem-type"))
+                assertThat(test.nodeType?.typeName, `is`("elem-type"))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(*,elem-type)"))
@@ -525,7 +525,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun nameAndType() {
                 val test = parse<XPathElementTest>("() instance of element ( test , elem-type )")[0]
                 assertThat(test.nodeName?.localName!!.data, `is`("test"))
-                assertThat(test.nodeType?.localName!!.data, `is`("elem-type"))
+                assertThat(test.nodeType?.typeName, `is`("elem-type"))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(test,elem-type)"))

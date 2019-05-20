@@ -22,10 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmElement
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathElementTest, XdmItemType {
@@ -41,7 +41,7 @@ class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val nodeType get(): XsQNameValue? = children().filterIsInstance<XPathTypeName>().firstOrNull()?.type
+    override val nodeType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -52,11 +52,11 @@ class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
         when {
             name == null -> {
                 type?.let {
-                    "element(*,${op_qname_presentation(type)})" `is` Cacheable
+                    "element(*,${type.typeName})" `is` Cacheable
                 } ?: "element()" `is` Cacheable
             }
             type == null -> "element(${op_qname_presentation(name)})" `is` Cacheable
-            else -> "element(${op_qname_presentation(name)},${op_qname_presentation(type)})" `is` Cacheable
+            else -> "element(${op_qname_presentation(name)},${type.typeName})" `is` Cacheable
         }
     }
     override val typeName get(): String = cachedTypeName.get()!!
