@@ -371,69 +371,36 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 EBNF (90) AttributeTest")
-        internal inner class AttributeTest {
+        @DisplayName("XPath 3.1 EBNF (101) TypeName")
+        internal inner class TypeName {
             @Test
-            @DisplayName("any; empty")
-            fun anyEmpty() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( (::) )")[0]
-                assertThat(test.nodeName, `is`(nullValue()))
-                assertThat(test.nodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute()"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
-            }
-
-            @Test
-            @DisplayName("any; wildcard")
-            fun anyWildcard() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( * )")[0]
-                assertThat(test.nodeName, `is`(nullValue()))
-                assertThat(test.nodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute()"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
-            }
-
-            @Test
-            @DisplayName("name only")
-            fun nameOnly() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( test )")[0]
-                assertThat(test.nodeName?.localName!!.data, `is`("test"))
-                assertThat(test.nodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute(test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
-            }
-
-            @Test
-            @DisplayName("type only")
-            fun typeOnly() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( * , attr-type )")[0]
-                assertThat(test.nodeName, `is`(nullValue()))
-                assertThat(test.nodeType?.localName!!.data, `is`("attr-type"))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute(*,attr-type)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
-            }
-
-            @Test
-            @DisplayName("name and type")
-            fun nameAndType() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( test , attr-type )")[0]
-                assertThat(test.nodeName?.localName!!.data, `is`("test"))
-                assertThat(test.nodeType?.localName!!.data, `is`("attr-type"))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute(test,attr-type)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            @DisplayName("TypeName")
+            fun typeName() {
+                val test = parse<XPathTypeName>("() instance of element(*, xs:string)")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
             }
         }
 
+        @Test
+        @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
+        fun anyMapTest() {
+            val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("map(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
+        fun anyArrayTest() {
+            val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("array(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (2.5.5.3) Element Test")
+    internal inner class ElementTest {
         @Nested
         @DisplayName("XPath 3.1 EBNF (94) ElementTest")
         internal inner class ElementTest {
@@ -497,32 +464,103 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
             }
         }
+    }
 
+    @Nested
+    @DisplayName("XPath 3.1 (2.5.5.5) Attribute Test")
+    internal inner class AttributeTest {
         @Nested
-        @DisplayName("XPath 3.1 EBNF (101) TypeName")
-        internal inner class TypeName {
+        @DisplayName("XPath 3.1 EBNF (90) AttributeTest")
+        internal inner class AttributeTest {
             @Test
-            @DisplayName("TypeName")
-            fun typeName() {
-                val test = parse<XPathTypeName>("() instance of element(*, xs:string)")[0]
-                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( * )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            }
+
+            @Test
+            @DisplayName("name only")
+            fun nameOnly() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            }
+
+            @Test
+            @DisplayName("type only")
+            fun typeOnly() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( * , attr-type )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+                assertThat(test.nodeType?.localName!!.data, `is`("attr-type"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute(*,attr-type)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            }
+
+            @Test
+            @DisplayName("name and type")
+            fun nameAndType() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( test , attr-type )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+                assertThat(test.nodeType?.localName!!.data, `is`("attr-type"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute(test,attr-type)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
             }
         }
+    }
 
-        @Test
-        @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
-        fun anyMapTest() {
-            val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("map(*)"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
-        }
+    @Nested
+    @DisplayName("XPath 3.1 (2.5.5.6) Schema Attribute Test")
+    internal inner class SchemaAttributeTest {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (92) SchemaAttributeTest")
+        internal inner class SchemaAttributeTest {
+            @Test
+            @DisplayName("missing attribute declaration")
+            fun missingAttributeDeclaration() {
+                val test = parse<XPathSchemaAttributeTest>("() instance of schema-attribute ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
 
-        @Test
-        @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
-        fun anyArrayTest() {
-            val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("array(*)"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-attribute(<unknown>)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            }
+
+            @Test
+            @DisplayName("attribute declaration")
+            fun attributeDeclaration() {
+                val test = parse<XPathSchemaAttributeTest>("() instance of schema-attribute ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-attribute(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+            }
         }
     }
 
