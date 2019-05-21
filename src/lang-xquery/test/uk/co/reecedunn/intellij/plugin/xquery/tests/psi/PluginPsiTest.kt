@@ -26,9 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
@@ -44,6 +42,44 @@ private class PluginPsiTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(PluginPsiTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.1) SequenceType Syntax")
+    internal inner class SequenceTypeSyntax {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (72) DocumentTest")
+        internal inner class DocumentTest {
+            @Test
+            @DisplayName("array node")
+            fun arrayNode() {
+                val test = parse<XPathDocumentTest>("() instance of document-node ( array-node ( (::) ) )")[0]
+                assertThat(test.rootNodeType, `is`(instanceOf(PluginAnyArrayNodeTest::class.java)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("document-node(array-node())"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("object node")
+            fun objectNode() {
+                val test = parse<XPathDocumentTest>("() instance of document-node ( object-node ( (::) ) )")[0]
+                assertThat(test.rootNodeType, `is`(instanceOf(PluginAnyMapNodeTest::class.java)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("document-node(object-node())"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
     }
 
     @Nested

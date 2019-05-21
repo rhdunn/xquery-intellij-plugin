@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,31 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDocumentTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmDocument
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
-class XPathDocumentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathDocumentTest
+class XPathDocumentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathDocumentTest, XdmItemType {
+    // region XPathDocumentTest
+
+    override val rootNodeType get(): XdmItemType? = children().filterIsInstance<XdmItemType>().firstOrNull()
+
+    // endregion
+    // region XdmSequenceType
+
+    override val typeName get(): String = rootNodeType?.let { "document-node(${it.typeName})" } ?: "document-node()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmDocument::class.java
+
+    // endregion
+}

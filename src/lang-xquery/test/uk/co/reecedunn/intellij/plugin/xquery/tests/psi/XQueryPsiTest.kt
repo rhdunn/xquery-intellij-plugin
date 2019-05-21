@@ -592,6 +592,55 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(type.upperBound, `is`(1))
         }
 
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (190) DocumentTest")
+        internal inner class DocumentTest {
+            @Test
+            @DisplayName("any")
+            fun any() {
+                val test = parse<XPathDocumentTest>("() instance of document-node ( (::) )")[0]
+                assertThat(test.rootNodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("document-node()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("element test")
+            fun elementTest() {
+                val test = parse<XPathDocumentTest>("() instance of document-node ( element ( (::) ) )")[0]
+                assertThat(test.rootNodeType, `is`(instanceOf(XPathElementTest::class.java)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("document-node(element())"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("schema element test")
+            fun schemaElementTest() {
+                val test = parse<XPathDocumentTest>("() instance of document-node ( schema-element ( test ) )")[0]
+                assertThat(test.rootNodeType, `is`(instanceOf(XPathSchemaElementTest::class.java)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("document-node(schema-element(test))"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
         @Test
         @DisplayName("XQuery 3.1 EBNF (191) TextTest")
         fun textTest() {
