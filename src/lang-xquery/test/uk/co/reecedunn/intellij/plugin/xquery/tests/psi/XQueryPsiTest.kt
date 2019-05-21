@@ -811,10 +811,36 @@ private class XQueryPsiTest : ParserTestCase() {
             fun typeOnly() {
                 val test = parse<XPathElementTest>("() instance of element ( * , elem-type )")[0]
                 assertThat(test.nodeName, `is`(nullValue()))
-                assertThat(test.nodeType?.typeName, `is`("elem-type"))
+
+                val nodeType = test.nodeType!!
+                assertThat(nodeType.typeName, `is`("elem-type"))
+                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.lowerBound, `is`(1))
+                assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(*,elem-type)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("nillable type only")
+            fun nillableTypeOnly() {
+                val test = parse<XPathElementTest>("() instance of element ( * , elem-type ? )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val nodeType = test.nodeType!!
+                assertThat(nodeType.typeName, `is`("elem-type?"))
+                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.lowerBound, `is`(0))
+                assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("element(*,elem-type?)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
@@ -827,10 +853,36 @@ private class XQueryPsiTest : ParserTestCase() {
             fun nameAndType() {
                 val test = parse<XPathElementTest>("() instance of element ( test , elem-type )")[0]
                 assertThat(test.nodeName?.localName!!.data, `is`("test"))
-                assertThat(test.nodeType?.typeName, `is`("elem-type"))
+
+                val nodeType = test.nodeType!!
+                assertThat(nodeType.typeName, `is`("elem-type"))
+                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.lowerBound, `is`(1))
+                assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(test,elem-type)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name and nillable type")
+            fun nameAndNillableType() {
+                val test = parse<XPathElementTest>("() instance of element ( test , elem-type ? )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val nodeType = test.nodeType!!
+                assertThat(nodeType.typeName, `is`("elem-type?"))
+                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.lowerBound, `is`(0))
+                assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("element(test,elem-type?)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElement::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
@@ -1001,7 +1053,12 @@ private class XQueryPsiTest : ParserTestCase() {
             fun typeOnly() {
                 val test = parse<XPathAttributeTest>("() instance of attribute ( * , attr-type )")[0]
                 assertThat(test.nodeName, `is`(nullValue()))
-                assertThat(test.nodeType?.typeName, `is`("attr-type"))
+
+                val nodeType = test.nodeType!!
+                assertThat(nodeType.typeName, `is`("attr-type"))
+                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.lowerBound, `is`(1))
+                assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(*,attr-type)"))
@@ -1017,7 +1074,12 @@ private class XQueryPsiTest : ParserTestCase() {
             fun nameAndType() {
                 val test = parse<XPathAttributeTest>("() instance of attribute ( test , attr-type )")[0]
                 assertThat(test.nodeName?.localName!!.data, `is`("test"))
-                assertThat(test.nodeType?.typeName, `is`("attr-type"))
+
+                val nodeType = test.nodeType!!
+                assertThat(nodeType.typeName, `is`("attr-type"))
+                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.lowerBound, `is`(1))
+                assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(test,attr-type)"))
