@@ -606,6 +606,12 @@ object XPathElementType {
         XPath
     )
 
+    val NILLABLE_TYPE_NAME: IElementType = ICompositeElementType(
+        "XPATH_NILLABLE_TYPE_NAME",
+        PluginNillableTypeNamePsiImpl::class.java,
+        XPath
+    )
+
     val RETURN_CLAUSE: IElementType = ICompositeElementType(
         "XPATH_RETURN_CLAUSE",
         PluginReturnClausePsiImpl::class.java,

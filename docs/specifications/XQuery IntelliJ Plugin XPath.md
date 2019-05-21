@@ -75,6 +75,8 @@ not normative.
 |--------|-------------------------|-----|-------------------------------------|---------|
 | \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicType` |     |
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+| \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
+| \[13\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
 
 ## 3 Expressions
 
@@ -184,6 +186,8 @@ These changes include support for:
 | \[9\]   | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 | \[10\]  | `TernaryIfExpr`         | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
 | \[11\]  | `ElvisExpr`             | ::= | `OrExpr "?!" OrExpr`                |                      |
+| \[12\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |                      |
+| \[13\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
 
 ### A.2 Reserved Function Names
 

@@ -2282,6 +2282,22 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    fun parseNillableOrNonNillableTypeName(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        var haveErrors = false
+        if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
+            builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            haveErrors = true
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (builder.matchTokenType(XPathTokenType.OPTIONAL) && !haveErrors)
+            marker.done(XPathElementType.NILLABLE_TYPE_NAME)
+        else
+            marker.drop()
+        return haveErrors
+    }
+
     open fun parseElementTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
         if (marker != null) {
@@ -2298,13 +2314,7 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
-                        builder.error(XPathBundle.message("parser.error.expected-eqname"))
-                        haveErrors = true
-                    }
-
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    builder.matchTokenType(XPathTokenType.OPTIONAL)
+                    haveErrors = parseNillableOrNonNillableTypeName(builder)
                 } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
                     builder.error(XPathBundle.message("parser.error.expected", ","))
                     haveErrors = true

@@ -143,6 +143,8 @@ not normative.
 | \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 | \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
 | \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+| \[96\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
+| \[97\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -1011,13 +1013,15 @@ These changes include support for:
 | \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
 | \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" SequenceTypeUnion ")"`               |                 |
 | \[86\]   | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)* ")"` |           |
-| \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
-| \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
+| \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`        |                 |
+| \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                          |                 |
 | \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 | \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
-| \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                       |
+| \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |                 |
 | \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 | \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |
+| \[96\]   | `NillableTypeName`             | ::= | `TypeName "?"`                            |                 |
+| \[97\]   | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
 
 ### A.2 Reserved Function Names
 
