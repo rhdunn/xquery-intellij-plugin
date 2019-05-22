@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.4 XQuery
+title: XQuery IntelliJ Plugin 1.5 XQuery
 ---
 
 This document includes material copied from or derived from the XQuery
@@ -1196,19 +1196,20 @@ Older versions of Saxon support the following working draft syntax:
 The following constructs have had their grammar modified to make it easier to
 implement features such as variable lookup. These changes do not modify the
 behaviour of those constructs:
-1.  [Node Constructors](#31-node-constructors)
-1.  [Quantified Expressions](#32-quantified-expressions)
-1.  [Typeswitch](#331-typeswitch)
-1.  [Block Expressions](#34-block-expressions)
-1.  [Node Tests](#392-node-tests)
-1.  [Any Item Type](#21211-item-type)
+1.  [Node Constructors](#31-node-constructors) \[1.1\]
+1.  [Quantified Expressions](#32-quantified-expressions) \[1.1\]
+1.  [Typeswitch](#331-typeswitch) \[1.1\]
+1.  [Block Expressions](#34-block-expressions) \[1.1\]
+1.  [Node Tests](#392-node-tests) \[1.3\]
+1.  [Any Item Type](#21211-item-type) \[1.3\]
+1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
+1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
-1.  [Item Type Union](#212101-item-type-union)
-1.  [Tuple Sequence Types](#212102-tuple-sequence-types)
-1.  [Annotated Sequence Types](#21211-annotated-function-tests-and-sequence-types)
+1.  [Item Type Union](#21261-union) \[1.3\]
+1.  [Tuple Sequence Types](#21262-list) \[1.3\]
 
 ### C.5 eXist-db Extensions
 Older versions of eXist-db support the following working draft syntax:

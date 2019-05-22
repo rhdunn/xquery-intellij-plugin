@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.4 XPath
+title: XQuery IntelliJ Plugin 1.5 XPath
 ---
 
 This document includes material copied from or derived from the XPath
@@ -257,7 +257,8 @@ __XPath NG__
 The following constructs have had their grammar modified to make it easier to
 implement features such as variable lookup. These changes do not modify the
 behaviour of those constructs:
-1.  [Quantified Expressions](#31-quantified-expressions)
-1.  [Node Tests](#321-node-tests)
-1.  [For Expressions](#33-for-expressions)
-1.  [Any Item Type](#21211-item-type)
+1.  [Quantified Expressions](#31-quantified-expressions) \[1.1\]
+1.  [Node Tests](#321-node-tests) \[1.3\]
+1.  [Any Item Type](#21211-item-type) \[1.3\]
+1.  [For Expressions](#33-for-expressions) \[1.4\]
+1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
