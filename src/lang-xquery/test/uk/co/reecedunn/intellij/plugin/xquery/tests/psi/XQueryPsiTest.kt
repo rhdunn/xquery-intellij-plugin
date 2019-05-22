@@ -533,6 +533,36 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(type.lowerBound, `is`(0))
                 assertThat(type.upperBound, `is`(0))
             }
+
+            @Test
+            @DisplayName("optional item")
+            fun optionalItem() {
+                val type = parse<XPathSequenceType>("() instance of xs:string ?")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("xs:string?"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("optional sequence")
+            fun optionalSequence() {
+                val type = parse<XPathSequenceType>("() instance of xs:string *")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("xs:string*"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
+
+            @Test
+            @DisplayName("sequence")
+            fun sequence() {
+                val type = parse<XPathSequenceType>("() instance of xs:string +")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("xs:string+"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
         }
 
         @Test
