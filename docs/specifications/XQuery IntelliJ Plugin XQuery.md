@@ -312,8 +312,9 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[86\] | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)*` |               |
 | \[87\] | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
-| \[78\] | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
+| \[78\] | `SequenceType`                 | ::= | `EmptySequenceType \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
 | \[85\] | `ParenthesizedSequenceType`    | ::= | `"(" SequenceTypeUnion ")"`         |                       |
+| \[98\] | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"` |                   |
 
 ###### 2.1.2.6.1 Union
 
@@ -1022,6 +1023,7 @@ These changes include support for:
 | \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |
 | \[96\]   | `NillableTypeName`             | ::= | `TypeName "?"`                            |                 |
 | \[97\]   | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
+| \[98\]   | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"`   |                 |
 
 ### A.2 Reserved Function Names
 

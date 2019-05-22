@@ -606,6 +606,12 @@ object XPathElementType {
         XPath
     )
 
+    val EMPTY_SEQUENCE_TYPE: IElementType = ICompositeElementType(
+        "XPATH_EMPTY_SEQUENCE_TYPE",
+        PluginEmptySequenceTypePsiImpl::class.java,
+        XPath
+    )
+
     val NILLABLE_TYPE_NAME: IElementType = ICompositeElementType(
         "XPATH_NILLABLE_TYPE_NAME",
         PluginNillableTypeNamePsiImpl::class.java,

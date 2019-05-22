@@ -1779,7 +1779,7 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XPathElementType.SEQUENCE_TYPE)
+            marker.done(XPathElementType.EMPTY_SEQUENCE_TYPE)
             return true
         } else if (parseItemType(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)

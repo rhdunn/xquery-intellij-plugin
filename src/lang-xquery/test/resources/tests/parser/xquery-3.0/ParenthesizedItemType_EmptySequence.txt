@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:34)]
                   XPathParenthesizedItemTypeImpl[XPATH_PARENTHESIZED_ITEM_TYPE(14:34)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                     XPathSequenceTypeImpl[XPATH_SEQUENCE_TYPE(16:32)]
+                     PluginEmptySequenceTypeImpl[XPATH_EMPTY_SEQUENCE_TYPE(16:32)]
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE(16:30)]('empty-sequence')
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(31:32)](')')

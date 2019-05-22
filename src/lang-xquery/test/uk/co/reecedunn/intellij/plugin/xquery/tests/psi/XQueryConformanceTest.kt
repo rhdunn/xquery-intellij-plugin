@@ -2105,50 +2105,5 @@ private class XQueryConformanceTest : ParserTestCase() {
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
         }
-
-        @Test
-        @DisplayName("occurrence indicator; one or more")
-        fun occurrenceIndicator_oneOrMore() {
-            val file = parseResource("tests/parser/xquery-1.0/SequenceType_OneOrMore.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XPathElementType.ATOMIC_OR_UNION_TYPE)
-            )
-        }
-
-        @Test
-        @DisplayName("occurrence indicator; optional")
-        fun occurrenceIndicator_optional() {
-            val file = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrOne.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XPathElementType.ATOMIC_OR_UNION_TYPE)
-            )
-        }
-
-        @Test
-        @DisplayName("occurrence indicator; zero or more")
-        fun occurrenceIndicator_zeroOrMore() {
-            val file = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrMore.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XPathElementType.ATOMIC_OR_UNION_TYPE)
-            )
-        }
     }
 }
