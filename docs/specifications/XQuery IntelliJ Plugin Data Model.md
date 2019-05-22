@@ -251,9 +251,9 @@ The *lower bound*, *upper bound*, and *item type* values are mapped as follows:
 |----------------------|-------------|-------------|-------------------|----------------------------------|
 | `xs:error`           | `null`      | `null`      | `xs:error`        | An XSD error item.               |
 | `xs:error+`          | `null`      | `null`      | `xs:error`        | An XSD error sequence.           |
-| `xs:error?`          | `0`         | `0`         | `item()`          | An optional XSD error item.      |
-| `xs:error*`          | `0`         | `0`         | `item()`          | An optional XSD error sequence.  |
-| `()`                 | `0`         | `0`         | `item()`          | An empty sequence.               |
+| `xs:error?`          | `0`         | `0`         | `null`            | An optional XSD error item.      |
+| `xs:error*`          | `0`         | `0`         | `null`            | An optional XSD error sequence.  |
+| `()`                 | `0`         | `0`         | `null`            | An empty sequence.               |
 | `T?`                 | `0`         | `1`         | `T`               | An optional item.                |
 | `T*`                 | `0`         | `infinity`  | `T`               | An optional sequence.            |
 | *list type*          | `0`         | `infinity`  | *atomic type*     | An XMLSchema list type.          |

@@ -521,6 +521,20 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (2.5.4) SequenceType Syntax")
     internal inner class SequenceTypeSyntax {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
+        internal inner class SequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun emptySequence() {
+                val type = parse<XPathSequenceType>("() instance of empty-sequence ( (::) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("empty-sequence()"))
+                assertThat(type.itemType, `is`(nullValue()))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(0))
+            }
+        }
+
         @Test
         @DisplayName("XQuery 3.1 EBNF (186) ItemType")
         fun itemType() {
@@ -863,7 +877,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val nodeType = test.nodeType!!
                 assertThat(nodeType.typeName, `is`("elem-type"))
-                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.itemType?.typeClass, `is`(sameInstance(XsAnyType::class.java)))
                 assertThat(nodeType.lowerBound, `is`(1))
                 assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
@@ -884,7 +898,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val nodeType = test.nodeType!!
                 assertThat(nodeType.typeName, `is`("elem-type?"))
-                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.itemType?.typeClass, `is`(sameInstance(XsAnyType::class.java)))
                 assertThat(nodeType.lowerBound, `is`(0))
                 assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
@@ -905,7 +919,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val nodeType = test.nodeType!!
                 assertThat(nodeType.typeName, `is`("elem-type"))
-                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.itemType?.typeClass, `is`(sameInstance(XsAnyType::class.java)))
                 assertThat(nodeType.lowerBound, `is`(1))
                 assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
@@ -926,7 +940,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val nodeType = test.nodeType!!
                 assertThat(nodeType.typeName, `is`("elem-type?"))
-                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.itemType?.typeClass, `is`(sameInstance(XsAnyType::class.java)))
                 assertThat(nodeType.lowerBound, `is`(0))
                 assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
@@ -1105,7 +1119,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val nodeType = test.nodeType!!
                 assertThat(nodeType.typeName, `is`("attr-type"))
-                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.itemType?.typeClass, `is`(sameInstance(XsAnyType::class.java)))
                 assertThat(nodeType.lowerBound, `is`(1))
                 assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 
@@ -1126,7 +1140,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val nodeType = test.nodeType!!
                 assertThat(nodeType.typeName, `is`("attr-type"))
-                assertThat(nodeType.itemType.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(nodeType.itemType?.typeClass, `is`(sameInstance(XsAnyType::class.java)))
                 assertThat(nodeType.lowerBound, `is`(1))
                 assertThat(nodeType.upperBound, `is`(Int.MAX_VALUE))
 

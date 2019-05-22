@@ -327,6 +327,20 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.6) Sequence Types")
+    internal inner class SequenceTypes {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (98) EmptySequenceType")
+        fun emptySequence() {
+            val type = parse<XPathSequenceType>("() instance of empty ( (::) )")[0] as XdmSequenceType
+            assertThat(type.typeName, `is`("empty-sequence()"))
+            assertThat(type.itemType, `is`(nullValue()))
+            assertThat(type.lowerBound, `is`(0))
+            assertThat(type.upperBound, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.1) Node Constructors")
     internal inner class NodeConstructors {
         @Nested

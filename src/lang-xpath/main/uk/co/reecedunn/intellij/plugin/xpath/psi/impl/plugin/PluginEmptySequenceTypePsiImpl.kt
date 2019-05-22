@@ -23,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
     XQuerySpec.REC_1_0_20070123,
@@ -35,7 +37,18 @@ private val XQUERY10_WD_EMPTY: List<Version> = listOf(
 )
 
 class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathSequenceType, VersionConformance {
+    ASTWrapperPsiElement(node), XPathSequenceType, XdmSequenceType, VersionConformance {
+    // region XdmSequenceType
+
+    override val typeName: String = "empty-sequence()"
+
+    override val itemType get(): XdmItemType? = null
+
+    override val lowerBound: Int? = 0
+
+    override val upperBound: Int? = 0
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance: List<Version>
