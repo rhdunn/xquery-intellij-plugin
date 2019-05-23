@@ -32,15 +32,17 @@ class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val typeName: String
         get() {
-            return when (occurrenceIndicator) {
-                XPathTokenType.OPTIONAL -> "${itemType.typeName}?"
-                XPathTokenType.STAR -> "${itemType.typeName}*"
-                XPathTokenType.PLUS -> "${itemType.typeName}+"
-                else -> itemType.typeName
+            return (firstChild as XdmSequenceType).typeName.let {
+                when (occurrenceIndicator) {
+                    XPathTokenType.OPTIONAL -> "$it?"
+                    XPathTokenType.STAR -> "$it*"
+                    XPathTokenType.PLUS -> "$it+"
+                    else -> it
+                }
             }
         }
 
-    override val itemType get(): XdmItemType = firstChild as XdmItemType
+    override val itemType get(): XdmItemType? = (firstChild as XdmSequenceType).itemType
 
     override val lowerBound: Int?
         get() {

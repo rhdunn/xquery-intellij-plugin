@@ -563,6 +563,30 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(type.lowerBound, `is`(1))
                 assertThat(type.upperBound, `is`(Int.MAX_VALUE))
             }
+
+            @Test
+            @DisplayName("parenthesized item type")
+            fun parenthesizedItemType() {
+                val type = parse<XPathSequenceType>("() instance of ( xs:string ) ?")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(xs:string)?"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("parenthesized sequence type")
+            fun parenthesizedSequenceType() {
+                val type = parse<XPathSequenceType>("() instance of ( xs:string + ) ?")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(xs:string+)?"))
+
+                // NOTE: For the purposes of the plugin w.r.t. keeping consistent
+                // analysis/logic given that mixing SequenceTypes like this is an
+                // error, the outer-most SequenceType overrides the inner one.
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test
