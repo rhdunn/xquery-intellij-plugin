@@ -541,6 +541,60 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(type.lowerBound, `is`(1))
             assertThat(type.upperBound, `is`(1))
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (111) ParenthesizedItemType")
+        internal inner class ParenthesizedItemType {
+            @Test
+            @DisplayName("item type")
+            fun itemType() {
+                val type = parse<XPathParenthesizedItemType>("() instance of ( text ( (::) ) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(text())"))
+                assertThat(type.itemType?.typeName, `is`("text()"))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("error recovery: empty sequence")
+            fun emptySequence() {
+                val type = parse<XPathParenthesizedItemType>("() instance of ( empty-sequence ( (::) ) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(empty-sequence())"))
+                assertThat(type.itemType, `is`(nullValue()))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(0))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional item")
+            fun optionalItem() {
+                val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string ? ) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(xs:string?)"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional sequence")
+            fun optionalSequence() {
+                val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string * ) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(xs:string*)"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional item")
+            fun sequence() {
+                val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string + ) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(xs:string+)"))
+                assertThat(type.itemType?.typeName, `is`("xs:string"))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
+        }
     }
 
     @Nested

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,12 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val XQUERY3 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -35,13 +38,32 @@ private val SEQUENCE_TYPE = TokenSet.create(
 class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParenthesizedItemType,
+    XdmSequenceType,
     VersionConformance,
     VersionConformanceName {
+    // region XdmSequenceType
+
+    // NOTE: The wrapped type may be a SequenceType, so locate and forward that type.
+    private val sequenceType get(): XdmSequenceType = children().filterIsInstance<XdmSequenceType>().first()
+
+    override val typeName get(): String = "(${sequenceType.typeName})"
+
+    override val itemType get(): XdmItemType? = sequenceType.itemType
+
+    override val lowerBound get(): Int? = sequenceType.lowerBound
+
+    override val upperBound get(): Int? = sequenceType.upperBound
+
+    // endregion
+    // region VersionConformance
 
     override val requiresConformance: List<Version>
         get() = if (findChildByType<PsiElement>(SEQUENCE_TYPE) != null) SEMANTICS else XQUERY3
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
+    // region VersionConformanceName
 
     override val conformanceName: String?
         get() {
@@ -50,4 +72,6 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
             else
                 null
         }
+
+    // endregion
 }
