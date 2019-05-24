@@ -554,18 +554,6 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(type.upperBound, `is`(1))
         }
 
-        @Test
-        @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
-        fun anyArrayTest() {
-            val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("array(*)"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
         @Nested
         @DisplayName("XPath 3.1 EBNF (111) ParenthesizedItemType")
         internal inner class ParenthesizedItemType {
@@ -890,6 +878,53 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(type.lowerBound, `is`(1))
                 assertThat(type.upperBound, `is`(1))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (2.5.5.9) Array Test")
+    internal inner class ArrayTest {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
+        internal inner class AnyArrayTest {
+            @Test
+            @DisplayName("any array test")
+            fun anyArrayTest() {
+                val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("array(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("missing star or sequence type")
+            fun missingStarOrSequenceType() {
+                val type = parse<XPathAnyArrayTest>("() instance of array ( )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("array(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (110) TypedArrayTest")
+        fun typedArrayTest() {
+            val test = parse<XPathTypedArrayTest>("() instance of array ( node ( ) )")[0]
+            assertThat(test.memberType.typeName, `is`("node()"))
+
+            val type = test as XdmItemType
+            assertThat(type.typeName, `is`("array(node())"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 

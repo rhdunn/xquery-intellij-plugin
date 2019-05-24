@@ -856,18 +856,6 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(type.upperBound, `is`(1))
         }
 
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
-        fun anyArrayTest() {
-            val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("array(*)"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
         @Nested
         @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
         internal inner class ParenthesizedItemType {
@@ -1350,6 +1338,53 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (2.5.5.9) Array Test")
+    internal inner class ArrayTest {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
+        internal inner class AnyArrayTest {
+            @Test
+            @DisplayName("any array test")
+            fun anyArrayTest() {
+                val type = parse<XPathAnyArrayTest>("() instance of array ( * )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("array(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("missing star or sequence type")
+            fun missingStarOrSequenceType() {
+                val type = parse<XPathAnyArrayTest>("() instance of array ( )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("array(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (215) TypedArrayTest")
+        fun typedArrayTest() {
+            val test = parse<XPathTypedArrayTest>("() instance of array ( node ( ) )")[0]
+            assertThat(test.memberType.typeName, `is`("node()"))
+
+            val type = test as XdmItemType
+            assertThat(type.typeName, `is`("array(node())"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmArray::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
         }
     }
 

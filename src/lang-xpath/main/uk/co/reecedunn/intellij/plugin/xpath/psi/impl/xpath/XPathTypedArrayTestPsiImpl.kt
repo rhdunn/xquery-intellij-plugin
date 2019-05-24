@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,43 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedArrayTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmArray
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 
-class XPathTypedArrayTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedArrayTest, VersionConformance {
+class XPathTypedArrayTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathTypedArrayTest, XdmItemType, VersionConformance {
+    // region XPathTypedArrayTest
+
+    override val memberType get(): XdmSequenceType = children().filterIsInstance<XdmSequenceType>().first()
+
+    // endregion
+    // region XdmSequenceType
+
+    override val typeName: String = "array(${memberType.typeName})"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmArray::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }
