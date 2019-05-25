@@ -24,25 +24,7 @@ import java.lang.reflect.Type
 
 // IntelliJ >= 183 adds a generic parameter to RunConfigurationBase.
 abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationFactory, name: String) :
-    com.intellij.execution.configurations.RunConfigurationBase<T>(project, factory, name) {
-
-    // Settings serialization bug: https://youtrack.jetbrains.com/issue/IDEA-207705
-    override fun writeExternal(element: Element) {
-        super.writeExternal(element)
-
-        // IntelliJ >= 183 does not serialize the settings for the configuration state object.
-        val beanBinding = serializer.getClassBinding(optionsClass) as BeanBinding
-        beanBinding.serializeInto(options, element, null)
-    }
-}
-
-private val serializer = object : XmlSerializerImpl.XmlSerializerBase() {
-    override fun getClassBinding(aClass: Class<*>, originalType: Type, accessor: MutableAccessor?): Binding {
-        val beanBinding = BeanBinding(aClass, accessor)
-        beanBinding.init(aClass, this)
-        return beanBinding
-    }
-}
+    com.intellij.execution.configurations.RunConfigurationBase<T>(project, factory, name)
 
 fun serializeConfigurationInto(configuration: RunConfiguration, element: Element) {
     com.intellij.execution.impl.serializeConfigurationInto(configuration, element)
