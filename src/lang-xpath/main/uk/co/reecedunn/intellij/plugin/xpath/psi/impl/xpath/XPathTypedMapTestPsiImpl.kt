@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,69 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmMap
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 
-class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest, VersionConformance {
+class XPathTypedMapTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathTypedMapTest, XdmItemType, VersionConformance {
+    // region XPathTypedMapTest
+
+    override val keyType: XdmItemType?
+        get() {
+            val type = children().filterIsInstance<XdmItemType>().filterNotNull().firstOrNull()
+            val commaBefore = (type as? PsiElement)?.siblings()?.reversed()?.find {
+                it.node.elementType == XPathTokenType.COMMA
+            }
+            return if (commaBefore != null) null else type
+        }
+
+    override val valueType: XdmSequenceType?
+        get() {
+            val type = children().reversed().filterIsInstance<XdmItemType>().filterNotNull().firstOrNull()
+            val commaAfter = (type as? PsiElement)?.siblings()?.find {
+                it.node.elementType == XPathTokenType.COMMA
+            }
+            return if (commaAfter != null) null else type
+        }
+
+    // endregion
+    // region XdmSequenceType
+
+    override val typeName: String
+        get() {
+            val key = keyType
+            val value = valueType
+            return when {
+                key == null && value == null -> "map(*)"
+                key == null -> "map(xs:anyAtomicType, ${value!!.typeName})"
+                value == null -> "map(${key.typeName}, item()*)"
+                else -> "map(${key.typeName}, ${value.typeName})"
+            }
+        }
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmMap::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }

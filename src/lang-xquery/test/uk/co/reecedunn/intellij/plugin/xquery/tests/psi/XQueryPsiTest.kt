@@ -844,18 +844,6 @@ private class XQueryPsiTest : ParserTestCase() {
             }
         }
 
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
-        fun anyMapTest() {
-            val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("map(*)"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
         @Nested
         @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
         internal inner class ParenthesizedItemType {
@@ -1337,6 +1325,90 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (2.5.5.8) Map Test")
+    internal inner class MapTest {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
+        fun anyMapTest() {
+            val type = parse<XPathAnyMapTest>("() instance of map ( * )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("map(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (212) TypedMapTest")
+        internal inner class TypedMapTest {
+            @Test
+            @DisplayName("key and value type")
+            fun keyAndValueType() {
+                val test = parse<XPathTypedMapTest>("() instance of map ( xs:string , xs:int )")[0]
+                assertThat(test.keyType?.typeName, `is`("xs:string"))
+                assertThat(test.valueType?.typeName, `is`("xs:int"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(xs:string, xs:int)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("missing key type")
+            fun missingKeyType() {
+                val test = parse<XPathTypedMapTest>("() instance of map ( , xs:int )")[0]
+                assertThat(test.keyType, `is`(nullValue()))
+                assertThat(test.valueType?.typeName, `is`("xs:int"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(xs:anyAtomicType, xs:int)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("missing value type")
+            fun missingValueType() {
+                val test = parse<XPathTypedMapTest>("() instance of map ( xs:string , )")[0]
+                assertThat(test.keyType?.typeName, `is`("xs:string"))
+                assertThat(test.valueType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(xs:string, item()*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("missing key and value type")
+            fun missingKeyAndValueType() {
+                val test = parse<XPathTypedMapTest>("() instance of map ( , )")[0]
+                assertThat(test.keyType, `is`(nullValue()))
+                assertThat(test.valueType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }

@@ -115,8 +115,11 @@ fun PsiElement.children(): PsiElementReversibleSequence {
         })
 }
 
-fun PsiElement.siblings(): Sequence<PsiElement> {
-    return PsiElementIterator(nextSibling, PsiElement::getNextSibling).asSequence()
+fun PsiElement.siblings(): PsiElementReversibleSequence {
+    return PsiElementReversibleSequence(this,
+        { e -> PsiElementIterator(e.nextSibling, PsiElement::getNextSibling) },
+        { e -> PsiElementIterator(e.prevSibling, PsiElement::getPrevSibling) }
+    )
 }
 
 fun PsiElement.walkTree(): PsiElementReversibleSequence {
