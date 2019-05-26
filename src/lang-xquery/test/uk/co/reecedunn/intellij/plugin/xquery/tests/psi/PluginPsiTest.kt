@@ -171,6 +171,26 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(type.upperBound, `is`(1))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (21) TypedMapTest")
+        internal inner class TypedMapTest {
+            @Test
+            @DisplayName("union key type")
+            fun unionKeyType() {
+                val test = parse<XPathTypedMapTest>("() instance of map ( union ( xs:string , xs:float ) , xs:int )")[0]
+                assertThat(test.keyType?.typeName, `is`("union(xs:string, xs:float)"))
+                assertThat(test.valueType?.typeName, `is`("xs:int"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(union(xs:string, xs:float), xs:int)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
     }
 
     @Nested
