@@ -33,7 +33,7 @@ class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    override val typeName: String = text
+    override val typeName get(): String = text
 
     override val itemType get(): XdmItemType = this
 

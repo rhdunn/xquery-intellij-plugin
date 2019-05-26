@@ -36,7 +36,7 @@ class XPathTypedArrayTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    override val typeName: String = "array(${memberType.typeName})"
+    override val typeName get(): String = "array(${memberType.typeName})"
 
     override val itemType get(): XdmItemType = this
 
