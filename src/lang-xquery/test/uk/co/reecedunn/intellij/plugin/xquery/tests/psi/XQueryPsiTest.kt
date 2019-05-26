@@ -38,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
@@ -636,7 +637,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("item type")
             fun itemType() {
                 val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
-                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+                assertThat(op_qname_presentation(test.type), `is`("xs:string"))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("xs:string"))

@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
@@ -114,6 +115,60 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val test = parse<PluginUnionType>("() instance of union ( (::) )")[0]
+
+                val memberTypes = test.memberTypes.toList()
+                assertThat(memberTypes.size, `is`(0))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("union()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("one")
+            fun one() {
+                val test = parse<PluginUnionType>("() instance of union ( xs:string )")[0]
+
+                val memberTypes = test.memberTypes.toList()
+                assertThat(memberTypes.size, `is`(1))
+                assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("union(xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("many")
+            fun many() {
+                val test = parse<PluginUnionType>("() instance of union ( xs:string , xs:anyURI )")[0]
+
+                val memberTypes = test.memberTypes.toList()
+                assertThat(memberTypes.size, `is`(2))
+                assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+                assertThat(op_qname_presentation(memberTypes[1]), `is`("xs:anyURI"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("union(xs:string, xs:anyURI)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }
