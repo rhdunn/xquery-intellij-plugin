@@ -10,11 +10,10 @@ XQueryModuleImpl[FILE(0:46)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(8:10)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                  XPathSingleTypeImpl[XPATH_SINGLE_TYPE(11:46)]
-                     XPathSimpleTypeNameImpl[XPATH_SIMPLE_TYPE_NAME(11:46)]
-                        XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(11:46)]
-                           XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(11:42)]
-                              LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(11:13)]('Q{')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(13:41)]('http://www.example.com/test#')
-                              LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(41:42)]('}')
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(42:46)]('name')
+                  XPathSimpleTypeNameImpl[XPATH_SIMPLE_TYPE_NAME(11:46)]
+                     XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(11:46)]
+                        XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(11:42)]
+                           LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(11:13)]('Q{')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(13:41)]('http://www.example.com/test#')
+                           LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(41:42)]('}')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(42:46)]('name')

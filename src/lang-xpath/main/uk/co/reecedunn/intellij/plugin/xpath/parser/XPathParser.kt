@@ -1806,9 +1806,11 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            builder.matchTokenType(XPathTokenType.OPTIONAL)
-
-            marker.done(XPathElementType.SINGLE_TYPE)
+            if (builder.matchTokenType(XPathTokenType.OPTIONAL)) {
+                marker.done(XPathElementType.SINGLE_TYPE)
+            } else {
+                marker.drop()
+            }
             return true
         }
         marker.drop()

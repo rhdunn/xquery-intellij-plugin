@@ -6,9 +6,8 @@ XPathImpl[FILE(0:21)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
          PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected keyword: as.')
-         XPathSingleTypeImpl[XPATH_SINGLE_TYPE(12:21)]
-            XPathSimpleTypeNameImpl[XPATH_SIMPLE_TYPE_NAME(12:21)]
-               XPathQNameImpl[XPATH_QNAME(12:21)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:14)]('xs')
-                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(14:15)](':')
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:21)]('double')
+         XPathSimpleTypeNameImpl[XPATH_SIMPLE_TYPE_NAME(12:21)]
+            XPathQNameImpl[XPATH_QNAME(12:21)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:14)]('xs')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(14:15)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:21)]('double')
