@@ -1,6 +1,9 @@
 .*.swp
 
 *.iml
+*.iml___jb_tmp___
+*.ipr
+*.iws
 .idea/
 
 gradle/
