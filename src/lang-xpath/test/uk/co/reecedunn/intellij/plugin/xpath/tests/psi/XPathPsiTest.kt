@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -1561,6 +1562,25 @@ private class XPathPsiTest : ParserTestCase() {
                 val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.18.3) Cast")
+    internal inner class Cast {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (100) SimpleTypeName")
+        fun simpleTypeName() {
+            val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
+            assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+
+            val type = test as XdmItemType
+            assertThat(type.typeName, `is`("xs:string"))
+            assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(Int.MAX_VALUE))
         }
     }
 

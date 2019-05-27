@@ -3215,6 +3215,21 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("item type")
+            fun itemType() {
+                val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
+                assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("xs:string"))
+                assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
         }
     }
 
