@@ -397,6 +397,21 @@ private class PluginPsiTest : ParserTestCase() {
             assertThat(type.lowerBound, `is`(1))
             assertThat(type.upperBound, `is`(1))
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
+        fun namedNullTest() {
+            val test = parse<PluginNamedNullNodeTest>("() instance of null-node ( \"test\" )")[0]
+            assertThat(test.keyName.data, `is`("test"))
+
+            val type = test as XdmItemType
+            assertThat(type.typeName, `is`("null-node(\"test\")"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNullNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
+        }
     }
 
     @Nested
