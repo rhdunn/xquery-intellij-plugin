@@ -81,6 +81,21 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(type.upperBound, `is`(1))
             }
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (68) NamedKindTest")
+        fun namedKindTest() {
+            val test = parse<PluginNamedKindTest>("() instance of node ( \"test\" )")[0]
+            assertThat(test.keyName.data, `is`("test"))
+
+            val type = test as XdmItemType
+            assertThat(type.typeName, `is`("node(\"test\")"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
+        }
     }
 
     @Nested
