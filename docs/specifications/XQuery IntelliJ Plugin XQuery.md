@@ -194,7 +194,7 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\] | `TupleField`            | ::= | `NCName "?" (":" SequenceType)?`    |                       |
+| \[24\] | `TupleField`            | ::= | `NCName "?"? (":" SequenceType)?`   |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8.
 
@@ -952,9 +952,9 @@ These changes include support for:
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                      |
+| \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\]   | `TupleField`                   | ::= | `NCName "?" (":" SequenceType)?`    |                       |
+| \[24\]   | `TupleField`                   | ::= | `NCName "?"? (":" SequenceType)?`    |                      |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |

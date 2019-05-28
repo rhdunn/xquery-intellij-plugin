@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 private val SAXON98: List<Version> = listOf()
 private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
@@ -33,11 +37,22 @@ private val OPTIONAL_TOKENS = TokenSet.create(
     XPathTokenType.ELVIS // ?: for compact whitespace
 )
 
-class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTupleField, VersionConformance {
+class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, VersionConformance {
+    // region PluginTupleField
 
-    override val requiresConformance
-        get(): List<Version> = if (conformanceElement === firstChild) SAXON98 else SAXON99
+    override val fieldName: XsNCNameValue get() = (firstChild as XsQNameValue).localName!!
+
+    override val fieldType: XdmSequenceType?
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val isOptional: Boolean get() = conformanceElement !== firstChild
+
+    // endregion
+    // region VersionConformance
+
+    override val requiresConformance get(): List<Version> = if (isOptional) SAXON99 else SAXON98
 
     override val conformanceElement get(): PsiElement = findChildByType(OPTIONAL_TOKENS) ?: firstChild
+
+    // endregion
 }

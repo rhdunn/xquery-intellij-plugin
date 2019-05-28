@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,9 @@ import com.intellij.psi.PsiElement
 
 /**
  * A Saxon 9.8 `TupleType` node in the XQuery AST.
- *
- * <pre>
- *    TupleType  ::= "tuple" "(" TupleField ("," TupleField)* ")"
- *    TupleField ::= NCName ":" SequenceType
- * </pre>
- *
- * Reference: http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types
  */
-interface PluginTupleType : PsiElement
+interface PluginTupleType : PsiElement {
+    val fields: Sequence<PluginTupleField>
+
+    val isExtensible: Boolean
+}

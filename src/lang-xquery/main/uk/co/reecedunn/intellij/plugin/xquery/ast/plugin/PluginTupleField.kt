@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 
 /**
  * A Saxon 9.8 `TupleField` node in the XQuery AST.
- *
- * <pre>
- *    TupleType  ::= "tuple" "(" TupleField ("," TupleField)* ")"
- *    TupleField ::= NCName ":" SequenceType
- * </pre>
- *
- * Reference: http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types
  */
-interface PluginTupleField : PsiElement
+interface PluginTupleField : PsiElement {
+    val fieldName: XsNCNameValue
+
+    val fieldType: XdmSequenceType?
+
+    val isOptional: Boolean
+}

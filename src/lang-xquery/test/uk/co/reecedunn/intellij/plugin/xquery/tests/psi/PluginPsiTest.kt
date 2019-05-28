@@ -224,6 +224,178 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.2) Tuple Type")
+    internal inner class TupleType {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+        internal inner class TupleType {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val test = parse<PluginTupleType>("() instance of tuple ( (::) )")[0]
+                assertThat(test.fields.count(), `is`(0))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("one field")
+            fun one() {
+                val test = parse<PluginTupleType>("() instance of tuple ( test )")[0]
+                assertThat(test.fields.count(), `is`(1))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("multiple fields")
+            fun multiple() {
+                val test = parse<PluginTupleType>("() instance of tuple ( x : xs:float , y : xs:float )")[0]
+                assertThat(test.fields.count(), `is`(2))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(x: xs:float, y: xs:float)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("empty; extensible")
+            fun emptyExtensible() {
+                val test = parse<PluginTupleType>("() instance of tuple ( * )")[0]
+                assertThat(test.fields.count(), `is`(0))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("multiple fields; extensible")
+            fun multipleExtensible() {
+                val test = parse<PluginTupleType>("() instance of tuple ( x : xs:float , y : xs:float , * )")[0]
+                assertThat(test.fields.count(), `is`(2))
+                assertThat(test.isExtensible, `is`(true))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(x: xs:float, y: xs:float, *)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
+        internal inner class TupleField {
+            @Test
+            @DisplayName("required; unspecified type")
+            fun nameOnlyRequired() {
+                val field = parse<PluginTupleField>("() instance of tuple ( test )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as PluginTupleType
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("optional; unspecified type")
+            fun nameOnlyOptional() {
+                val field = parse<PluginTupleField>("() instance of tuple ( test ? )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(true))
+
+                val test = field.parent as PluginTupleType
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test?)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("required; specified type")
+            fun nameAndTypeRequired() {
+                val field = parse<PluginTupleField>("() instance of tuple ( test : xs:string )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as PluginTupleType
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test: xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("optional; specified type")
+            fun nameAndTypeOptional() {
+                val field = parse<PluginTupleField>("() instance of tuple ( test ? : xs:string )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.isOptional, `is`(true))
+
+                val test = field.parent as PluginTupleType
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test?: xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.3) Binary Test")
     internal inner class BinaryTest {
         @Test
