@@ -3231,6 +3231,18 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(type.upperBound, `is`(Int.MAX_VALUE))
             }
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (182) SingleType")
+        fun singleType() {
+            val type = parse<XPathSingleType>("() cast as xs:string ?")[0] as XdmItemType
+            assertThat(type.typeName, `is`("xs:string?"))
+            assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance((type as PsiElement).firstChild)))
+            assertThat(type.lowerBound, `is`(0))
+            assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+        }
     }
 
     @Nested

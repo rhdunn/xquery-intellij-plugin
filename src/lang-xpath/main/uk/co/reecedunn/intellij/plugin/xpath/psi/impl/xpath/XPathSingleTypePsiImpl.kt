@@ -18,5 +18,23 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSingleType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
-class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSingleType
+class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSingleType, XdmItemType {
+    // region XdmSequenceType
+
+    override val typeName get(): String = "${itemType.typeName}?"
+
+    override val itemType get(): XdmItemType = firstChild as XdmItemType
+
+    override val lowerBound: Int? = 0
+
+    override val upperBound: Int? = itemType.upperBound
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = itemType.typeClass
+
+    // endregion
+}
