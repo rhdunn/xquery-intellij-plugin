@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,45 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedBooleanNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmBooleanNode
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 
-class PluginNamedBooleanNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginNamedBooleanNodeTest,
-    VersionConformance {
+class PluginNamedBooleanNodeTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginNamedBooleanNodeTest, XdmItemType, VersionConformance {
+    // region PluginNamedBooleanNodeTest
+
+    override val keyName: XsStringValue
+        get() = children().filterIsInstance<XPathStringLiteral>().first().value as XsStringValue
+
+    // endregion
+    // region XdmSequenceType
+
+    override val typeName get(): String = "boolean-node(\"${keyName.data}\")"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmBooleanNode::class.java
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
 }
