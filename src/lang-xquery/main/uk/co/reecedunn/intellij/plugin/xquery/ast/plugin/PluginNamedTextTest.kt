@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTextTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 
 /**
  * A MarkLogic 8.0 `NamedTextTest` node in the XQuery AST.
  */
-interface PluginNamedTextTest : XPathTextTest
+interface PluginNamedTextTest : XPathTextTest {
+    val keyName: XsStringValue
+}
