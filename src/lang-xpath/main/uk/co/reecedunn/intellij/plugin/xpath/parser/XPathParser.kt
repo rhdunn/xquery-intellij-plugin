@@ -1859,16 +1859,10 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseAnyOrTypedFunctionTest(builder)) {
-            marker.done(FUNCTION_TEST)
-            return true
-        }
-        marker.drop()
-        return false
+        return parseAnyOrTypedFunctionTest(builder, FUNCTION_TEST)
     }
 
-    fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
+    fun parseAnyOrTypedFunctionTest(builder: PsiBuilder, nodeType: IElementType?): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
         if (marker != null) {
             var type: KindTest = KindTest.ANY_TEST
@@ -1925,7 +1919,12 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", "as"))
             }
 
-            marker.drop()
+            if (type === KindTest.ANY_TEST)
+                marker.done(XPathElementType.ANY_FUNCTION_TEST)
+            else if (nodeType != null)
+                marker.done(nodeType)
+            else
+                marker.drop()
             return true
         }
         return false

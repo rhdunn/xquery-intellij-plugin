@@ -1336,7 +1336,7 @@ private class XQueryPsiTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (208) AnyFunctionTest")
         fun anyFunctionTest() {
-            val test = parse<XPathFunctionTest>("() instance of function ( * )")[0]
+            val test = parse<XPathAnyFunctionTest>("() instance of function ( * )")[0]
 
             val type = test as XdmItemType
             assertThat(type.typeName, `is`("function(*)"))

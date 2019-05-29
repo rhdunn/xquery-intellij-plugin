@@ -5179,18 +5179,19 @@ class XQueryParser : XPathParser() {
             haveAnnotations = true
         }
 
-        if (parseAnyOrTypedFunctionTest(builder)) {
+        if (!haveAnnotations) {
+            val match = parseAnyOrTypedFunctionTest(builder, XQueryElementType.FUNCTION_TEST)
+            marker.drop()
+            return match
+        } else if (parseAnyOrTypedFunctionTest(builder, null)) {
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
-        } else if (haveAnnotations) {
+        } else {
             builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
 
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         }
-
-        marker.drop()
-        return false
     }
 
     override fun parseMapTest(builder: PsiBuilder): Boolean {

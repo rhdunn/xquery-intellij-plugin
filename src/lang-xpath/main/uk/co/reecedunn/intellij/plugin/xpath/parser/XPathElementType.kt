@@ -345,6 +345,12 @@ object XPathElementType {
     // endregion
     // region XPath 3.0
 
+    val ANY_FUNCTION_TEST: IElementType = ICompositeElementType(
+        "XPATH_ANY_FUNCTION_TEST",
+        XPathAnyFunctionTestPsiImpl::class.java,
+        XPath
+    )
+
     val PARAM_LIST: IElementType = ICompositeElementType(
         "XPATH_PARAM_LIST",
         XPathParamListPsiImpl::class.java,
