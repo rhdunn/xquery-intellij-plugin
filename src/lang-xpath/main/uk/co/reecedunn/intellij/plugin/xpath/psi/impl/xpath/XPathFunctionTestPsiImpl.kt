@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,5 +18,24 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmFunction
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 
-class XPathFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionTest
+class XPathFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionTest, XdmItemType {
+    // region XdmSequenceType
+
+    override val typeName: String = "function(*)"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmFunction::class.java
+
+    // endregion
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,31 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmFunction
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 val NO_ANNOTATIONS = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 val ANNOTATIONS = listOf<Version>()
 
 class XQueryFunctionTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathFunctionTest,
-    VersionConformance {
+    ASTWrapperPsiElement(node), XPathFunctionTest, XdmItemType, VersionConformance {
+    // region XdmSequenceType
+
+    override val typeName: String = "function(*)"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmFunction::class.java
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance

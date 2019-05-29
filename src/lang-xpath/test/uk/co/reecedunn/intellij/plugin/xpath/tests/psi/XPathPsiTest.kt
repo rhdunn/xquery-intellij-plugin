@@ -871,6 +871,24 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (2.5.5.7) Function Test")
+    internal inner class FunctionTest {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (103) AnyFunctionTest")
+        fun anyFunctionTest() {
+            val test = parse<XPathFunctionTest>("() instance of function ( * )")[0]
+
+            val type = test as XdmItemType
+            assertThat(type.typeName, `is`("function(*)"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (2.5.5.8) Map Test")
     internal inner class MapTest {
         @Test
