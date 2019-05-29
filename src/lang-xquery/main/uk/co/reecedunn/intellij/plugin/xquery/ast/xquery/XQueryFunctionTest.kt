@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+
+import com.intellij.psi.PsiElement
 
 /**
- * An XPath 3.0 and XQuery 3.0 `TypedFunctionTest` node in the XQuery AST.
+ * An XQuery 3.0 `FunctionTest` node in the XQuery AST.
  */
-interface XPathTypedFunctionTest : XPathFunctionTest
+interface XQueryFunctionTest : PsiElement

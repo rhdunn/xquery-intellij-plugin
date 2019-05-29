@@ -17,45 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmFunction
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionTest
 
-val NO_ANNOTATIONS = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
-val ANNOTATIONS = listOf<Version>()
-
-class XQueryFunctionTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathFunctionTest, XdmItemType, VersionConformance {
-    // region XdmSequenceType
-
-    override val typeName: String = "function(*)"
-
-    override val itemType get(): XdmItemType = this
-
-    override val lowerBound: Int? = 1
-
-    override val upperBound: Int? = 1
-
-    // endregion
-    // region XdmItemType
-
-    override val typeClass: Class<*> = XdmFunction::class.java
-
-    // endregion
-    // region VersionConformance
-
-    override val requiresConformance
-        get(): List<Version> {
-            return if (conformanceElement.node.elementType === XQueryElementType.ANNOTATION)
-                ANNOTATIONS
-            else
-                NO_ANNOTATIONS
-        }
-
-    override val conformanceElement get(): PsiElement = firstChild
-
-    // endregion
-}
+class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionTest

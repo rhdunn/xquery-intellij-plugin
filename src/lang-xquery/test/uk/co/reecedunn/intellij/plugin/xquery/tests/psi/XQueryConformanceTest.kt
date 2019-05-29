@@ -120,19 +120,6 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
     }
 
-    @Test
-    fun testAnyFunctionTest_WithAnnotations() {
-        val file = parseResource("tests/parser/xquery-3.0/FunctionTest.xq")
-
-        val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
-        val versioned = anyFunctionTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryElementType.ANNOTATION))
-    }
-
     // endregion
     // region AnyKindTest
 
@@ -1883,19 +1870,6 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
-    }
-
-    @Test
-    fun testTypedFunctionTest_WithAnnotations() {
-        val file = parseResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.xq")
-
-        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
-        val versioned = typedFunctionTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryElementType.ANNOTATION))
     }
 
     // endregion

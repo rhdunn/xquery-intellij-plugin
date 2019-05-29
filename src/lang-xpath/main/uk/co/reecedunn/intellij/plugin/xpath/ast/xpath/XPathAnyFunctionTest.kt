@@ -18,6 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 import com.intellij.psi.PsiElement
 
 /**
- * An XPath 3.1 and XQuery 3.1 `AnyArrayTest` node in the XQuery AST.
+ * An XPath 3.0 and XQuery 3.0 `AnyFunctionTest` node in the XQuery AST.
  */
-interface XPathAnyFunctionTest : PsiElement
+interface XPathAnyFunctionTest : XPathFunctionTest
