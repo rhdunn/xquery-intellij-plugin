@@ -1874,7 +1874,7 @@ private class XQueryConformanceTest : ParserTestCase() {
     fun testTypedFunctionTest_NoAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
 
-        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
+        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathTypedFunctionTest>().first()
         val versioned = typedFunctionTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

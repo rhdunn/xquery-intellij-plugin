@@ -459,9 +459,9 @@ object XPathElementType {
         XPath
     )
 
-    val FUNCTION_TEST: IElementType = ICompositeElementType(
-        "XPATH_FUNCTION_TEST",
-        XPathFunctionTestPsiImpl::class.java,
+    val TYPED_FUNCTION_TEST: IElementType = ICompositeElementType(
+        "XPATH_TYPED_FUNCTION_TEST",
+        XPathTypedFunctionTestPsiImpl::class.java,
         XPath
     )
 

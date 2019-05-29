@@ -39,7 +39,6 @@ open class XPathParser : PsiParser {
     open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
-    open val FUNCTION_TEST: IElementType = XPathElementType.FUNCTION_TEST
 
     // endregion
     // region PsiParser
@@ -1859,10 +1858,10 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
-        return parseAnyOrTypedFunctionTest(builder, FUNCTION_TEST)
+        return parseAnyOrTypedFunctionTest(builder)
     }
 
-    fun parseAnyOrTypedFunctionTest(builder: PsiBuilder, nodeType: IElementType?): Boolean {
+    fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
         if (marker != null) {
             var type: KindTest = KindTest.ANY_TEST
@@ -1921,10 +1920,8 @@ open class XPathParser : PsiParser {
 
             if (type === KindTest.ANY_TEST)
                 marker.done(XPathElementType.ANY_FUNCTION_TEST)
-            else if (nodeType != null)
-                marker.done(nodeType)
             else
-                marker.drop()
+                marker.done(XPathElementType.TYPED_FUNCTION_TEST)
             return true
         }
         return false

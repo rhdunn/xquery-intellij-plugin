@@ -62,7 +62,6 @@ class XQueryParser : XPathParser() {
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
-    override val FUNCTION_TEST: IElementType = XQueryElementType.FUNCTION_TEST
 
     // endregion
     // region Grammar
@@ -5180,10 +5179,10 @@ class XQueryParser : XPathParser() {
         }
 
         if (!haveAnnotations) {
-            val match = parseAnyOrTypedFunctionTest(builder, XQueryElementType.FUNCTION_TEST)
+            val match = parseAnyOrTypedFunctionTest(builder)
             marker.drop()
             return match
-        } else if (parseAnyOrTypedFunctionTest(builder, null)) {
+        } else if (parseAnyOrTypedFunctionTest(builder)) {
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else {
