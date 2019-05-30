@@ -22,7 +22,6 @@ import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
 import java.io.StringReader
 import java.io.StringWriter
-import javax.xml.XMLConstants
 import javax.xml.namespace.QName
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.TransformerFactory
@@ -57,7 +56,7 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun children(qname: QName): Sequence<XmlElement> {
         return when {
-            qname.namespaceURI === XMLConstants.NULL_NS_URI -> element.getElementsByTagName(qname.localPart)
+            qname.namespaceURI.isEmpty() -> element.getElementsByTagName(qname.localPart)
             else -> element.getElementsByTagNameNS(qname.namespaceURI, qname.localPart)
         }.elements { XmlElement(it, namespaces) }
     }
@@ -68,7 +67,7 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun attribute(qname: QName): String? {
         return when {
-            qname.namespaceURI === XMLConstants.NULL_NS_URI -> element.getAttribute(qname.localPart)
+            qname.namespaceURI.isEmpty() -> element.getAttribute(qname.localPart)
             else -> element.getAttributeNS(qname.namespaceURI, qname.localPart)
         }
     }
