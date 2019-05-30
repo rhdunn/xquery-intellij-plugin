@@ -1764,7 +1764,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: TypeDeclaration :: SequenceType
 
-    fun parseSequenceTypeList(builder: PsiBuilder): Boolean {
+    fun parseSequenceTypeList(builder: PsiBuilder, alwaysIncludeNode: Boolean = false): Boolean {
         val marker = builder.mark()
         if (parseSequenceType(builder)) {
             var haveErrors = false
@@ -1781,7 +1781,7 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (haveSequenceTypeList)
+            if (haveSequenceTypeList || alwaysIncludeNode)
                 marker.done(XPathElementType.SEQUENCE_TYPE_LIST)
             else
                 marker.drop()
@@ -1891,7 +1891,6 @@ open class XPathParser : PsiParser {
     fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
         if (marker != null) {
-            var type: KindTest = KindTest.ANY_TEST
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1901,23 +1900,10 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            when {
-                builder.matchTokenType(XPathTokenType.STAR) -> {
-                }
-                parseSequenceType(builder) -> {
-                    type = KindTest.TYPED_TEST
-
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                        parseWhiteSpaceAndCommentTokens(builder)
-                        if (!parseSequenceType(builder) && !haveErrors) {
-                            builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                            haveErrors = true
-                        }
-                        parseWhiteSpaceAndCommentTokens(builder)
-                    }
-                }
-                else -> type = KindTest.TYPED_TEST
+            val type = when {
+                builder.matchTokenType(XPathTokenType.STAR) -> KindTest.ANY_TEST
+                parseSequenceTypeList(builder, alwaysIncludeNode = true) -> KindTest.TYPED_TEST
+                else -> KindTest.TYPED_TEST
             }
 
             parseWhiteSpaceAndCommentTokens(builder)

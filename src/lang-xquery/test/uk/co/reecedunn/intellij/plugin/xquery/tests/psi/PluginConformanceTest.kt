@@ -1162,17 +1162,33 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.UNION))
     }
 
-    @Test
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
-    fun testSequenceTypeList() {
-        val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as VersionConformance
+    inner class SequenceTypeList {
+        @Test
+        @DisplayName("sequence type list")
+        fun sequenceTypeList() {
+            val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as VersionConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.COMMA))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.COMMA))
+        }
+
+        @Test
+        @DisplayName("in typed function test")
+        fun inTypedFunctionTest() {
+            val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as VersionConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathElementType.ANY_ITEM_TYPE))
+        }
     }
 
     @Test

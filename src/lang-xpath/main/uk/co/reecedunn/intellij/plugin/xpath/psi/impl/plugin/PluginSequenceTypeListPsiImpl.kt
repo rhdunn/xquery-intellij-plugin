@@ -23,14 +23,21 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSequenceTypeList, VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
+    override val requiresConformance
+        get(): List<Version> {
+            return if (parent.node.elementType === XPathElementType.TYPED_FUNCTION_TEST)
+                listOf()
+            else
+                listOf(XQueryIntelliJPlugin.VERSION_1_3)
+        }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.COMMA)!!
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.COMMA) ?: firstChild
 
     // endregion
 }
