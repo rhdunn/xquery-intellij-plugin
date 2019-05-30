@@ -630,5 +630,11 @@ object XPathElementType {
         XPath
     )
 
+    val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType(
+        "XPATH_SEQUENCE_TYPE_LIST",
+        PluginSequenceTypeListPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
 }

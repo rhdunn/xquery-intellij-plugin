@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
 
 /**
- * An `TupleSequence` node in the XQuery AST.
+ * A `SequenceTypeList` node in the XPath and XQuery AST.
  */
 interface PluginSequenceTypeList : PsiElement

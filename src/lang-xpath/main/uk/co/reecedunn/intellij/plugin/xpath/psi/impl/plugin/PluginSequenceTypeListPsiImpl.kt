@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -21,14 +21,16 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSequenceTypeList,
-    VersionConformance {
+    ASTWrapperPsiElement(node), PluginSequenceTypeList, VersionConformance {
+    // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.COMMA)!!
+
+    // endregion
 }

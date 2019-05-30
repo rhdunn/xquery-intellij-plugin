@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginSequenceTypeListPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -1217,12 +1218,6 @@ object XQueryElementType {
     val SCHEMA_TYPE_TEST: IElementType = ICompositeElementType(
         "XQUERY_SCHEMA_TYPE_TEST",
         PluginSchemaTypeTestPsiImpl::class.java,
-        XQuery
-    )
-
-    val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType(
-        "XQUERY_SEQUENCE_TYPE_LIST",
-        PluginSequenceTypeListPsiImpl::class.java,
         XQuery
     )
 

@@ -77,6 +77,12 @@ not normative.
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[13\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
+| \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
+| \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
+
+Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
+pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
+to differentiate the parameter types from the return type.
 
 ## 3 Expressions
 
@@ -188,6 +194,8 @@ These changes include support for:
 | \[11\]  | `ElvisExpr`             | ::= | `OrExpr "?!" OrExpr`                |                      |
 | \[12\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |                      |
 | \[13\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
+| \[14\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |                      |
+| \[15\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 
 ### A.2 Reserved Function Names
 

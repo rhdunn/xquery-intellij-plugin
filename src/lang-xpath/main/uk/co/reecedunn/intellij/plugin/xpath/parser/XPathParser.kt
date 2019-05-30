@@ -1764,6 +1764,33 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: TypeDeclaration :: SequenceType
 
+    fun parseSequenceTypeList(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseSequenceType(builder)) {
+            var haveErrors = false
+            var haveSequenceTypeList = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                haveSequenceTypeList = true
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseSequenceType(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    haveErrors = true
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+
+            if (haveSequenceTypeList)
+                marker.done(XPathElementType.SEQUENCE_TYPE_LIST)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
     open fun parseSequenceType(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.SEQUENCE_TYPE_TOKENS)) {

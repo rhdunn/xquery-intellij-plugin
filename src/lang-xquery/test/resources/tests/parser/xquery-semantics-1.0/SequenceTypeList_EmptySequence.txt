@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:74)]
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               PluginSequenceTypeListImpl[XQUERY_SEQUENCE_TYPE_LIST(26:66)]
+               PluginSequenceTypeListImpl[XPATH_SEQUENCE_TYPE_LIST(26:66)]
                   PluginEmptySequenceTypeImpl[XPATH_EMPTY_SEQUENCE_TYPE(26:44)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE(26:40)]('empty-sequence')
                      PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')

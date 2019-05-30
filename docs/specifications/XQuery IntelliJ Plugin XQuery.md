@@ -142,9 +142,11 @@ not normative.
 | \[70\] | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
 | \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 | \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
+| \[87\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[96\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[97\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
+| \[99\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -159,6 +161,10 @@ with an object (map) at the top level.
 XQuery 1.0 Working Draft 02 May 2003 uses `empty()` for `empty-sequence()`.
 This is supported by eXist-db prior to 4.0 and the MarkLogic `0.9-ml` XQuery
 version.
+
+Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
+pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
+to differentiate the parameter types from the return type.
 
 #### 2.1.2 SequenceType Matching
 
@@ -1024,6 +1030,7 @@ These changes include support for:
 | \[96\]   | `NillableTypeName`             | ::= | `TypeName "?"`                            |                 |
 | \[97\]   | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[98\]   | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"`   |                 |
+| \[99\]   | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` |  |
 
 ### A.2 Reserved Function Names
 
