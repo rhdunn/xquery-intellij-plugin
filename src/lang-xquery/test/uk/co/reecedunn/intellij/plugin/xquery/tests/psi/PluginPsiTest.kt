@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -681,6 +682,26 @@ private class PluginPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.6) Sequence Types")
     internal inner class SequenceTypes {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
+        fun sequenceTypeList() {
+            val test = parse<PluginSequenceTypeList>("() instance of ( node ( (::) ) , xs:string , array ( * ) )")[0]
+
+            val types = test.types.toList()
+            assertThat(types.size, `is`(3))
+            assertThat(types[0].typeName, `is`("node()"))
+            assertThat(types[1].typeName, `is`("xs:string"))
+            assertThat(types[2].typeName, `is`("array(*)"))
+
+            val type = test as XdmSequenceType
+            assertThat(type.typeName, `is`("node(), xs:string, array(*)"))
+
+            // TODO: Use the "Sequence Type Addition" logic to calculate these values.
+            assertThat(type.itemType, `is`(nullValue()))
+            assertThat(type.lowerBound, `is`(0))
+            assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+        }
+
         @Test
         @DisplayName("XQuery IntelliJ Plugin EBNF (98) EmptySequenceType")
         fun emptySequence() {

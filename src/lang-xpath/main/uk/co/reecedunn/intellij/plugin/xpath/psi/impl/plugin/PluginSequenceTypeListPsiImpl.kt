@@ -18,15 +18,51 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSequenceTypeList, VersionConformance {
+    ASTWrapperPsiElement(node), PluginSequenceTypeList, XdmSequenceType, VersionConformance {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
+    // region PluginSequenceTypeList
+
+    override val types: Sequence<XdmSequenceType> get() = children().filterIsInstance<XdmSequenceType>()
+
+    // endregion
+    // region XdmSequenceType
+
+    private val cachedTypeName = CacheableProperty {
+        types.joinToString { it.typeName } `is` Cacheable
+    }
+    override val typeName get(): String = cachedTypeName.get()!!
+
+    // TODO: Use the "Sequence Type Addition" logic to calculate the item type.
+    override val itemType get(): XdmItemType? = null
+
+    // TODO: Use the "Sequence Type Addition" logic to calculate the lower bound.
+    override val lowerBound: Int? = 0
+
+    // TODO: Use the "Sequence Type Addition" logic to calculate the upper bound.
+    override val upperBound: Int? = Int.MAX_VALUE
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance
