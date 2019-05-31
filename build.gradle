@@ -108,6 +108,7 @@ configure(allprojects - project(':src')) {
         publishPlugin.enabled = false
         runIde.enabled = false
         verifyPlugin.enabled = false
+        buildSearchableOptions.enabled = false
     }
 
     test {
@@ -154,6 +155,7 @@ tasks {
     publishPlugin.enabled = true
     runIde.enabled = true
     verifyPlugin.enabled = true
+    buildSearchableOptions.enabled = true
 }
 
 intellij {
