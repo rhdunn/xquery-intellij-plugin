@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,54 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 
 private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XQuerySequenceTypeUnion,
-    VersionConformance {
+    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, XdmSequenceType, VersionConformance {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
+    // region PluginSequenceTypeUnion
+
+    override val types: Sequence<XdmSequenceType> get() = children().filterIsInstance<XdmSequenceType>()
+
+    // endregion
+    // region XdmSequenceType
+
+    private val cachedTypeName = CacheableProperty {
+        types.joinToString(" | ") { it.typeName } `is` Cacheable
+    }
+    override val typeName get(): String = cachedTypeName.get()!!
+
+    // TODO: Use the "Sequence Type Union" logic to calculate the item type.
+    override val itemType get(): XdmItemType? = null
+
+    // TODO: Use the "Sequence Type Union" logic to calculate the lower bound.
+    override val lowerBound: Int? = 0
+
+    // TODO: Use the "Sequence Type Union" logic to calculate the upper bound.
+    override val upperBound: Int? = Int.MAX_VALUE
+
+    // endregion
+    // region VersionConformance
 
     override val requiresConformance
         get(): List<Version> {
@@ -41,4 +76,6 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
         }
 
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.UNION)!!
+
+    // endregion
 }
