@@ -172,6 +172,10 @@ patchPluginXml {
     sinceBuild = idea_since_build
 }
 
+jacoco {
+    toolVersion = '0.8.4'
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true
