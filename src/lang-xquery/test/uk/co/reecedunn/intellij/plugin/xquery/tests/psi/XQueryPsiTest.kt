@@ -1346,6 +1346,86 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(type.lowerBound, `is`(1))
             assertThat(type.upperBound, `is`(1))
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (209) TypedFunctionTest")
+        internal inner class TypedFunctionTest {
+            @Test
+            @DisplayName("no parameters")
+            fun noParameters() {
+                val test = parse<XPathTypedFunctionTest>("() instance of function ( ) as empty-sequence ( (::) )")[0]
+                assertThat(test.returnType?.typeName, `is`("empty-sequence()"))
+
+                val paramTypes = test.paramTypes.toList()
+                assertThat(paramTypes.size, `is`(0))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("function() as empty-sequence()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("one parameter")
+            fun oneParameter() {
+                val test = parse<XPathTypedFunctionTest>("() instance of function ( xs:float ) as xs:integer")[0]
+                assertThat(test.returnType?.typeName, `is`("xs:integer"))
+
+                val paramTypes = test.paramTypes.toList()
+                assertThat(paramTypes.size, `is`(1))
+                assertThat(paramTypes[0].typeName, `is`("xs:float"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("function(xs:float) as xs:integer"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("multiple parameters")
+            fun multipleParameters() {
+                val test = parse<XPathTypedFunctionTest>("() instance of function ( xs:long , array ( * ) ) as xs:double +")[0]
+                assertThat(test.returnType?.typeName, `is`("xs:double+"))
+
+                val paramTypes = test.paramTypes.toList()
+                assertThat(paramTypes.size, `is`(2))
+                assertThat(paramTypes[0].typeName, `is`("xs:long"))
+                assertThat(paramTypes[1].typeName, `is`("array(*)"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("function(xs:long, array(*)) as xs:double+"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("missing return type")
+            fun missingReturnType() {
+                val test = parse<XPathTypedFunctionTest>("() instance of function ( map ( * ) )")[0]
+                assertThat(test.returnType, `is`(nullValue()))
+
+                val paramTypes = test.paramTypes.toList()
+                assertThat(paramTypes.size, `is`(1))
+                assertThat(paramTypes[0].typeName, `is`("map(*)"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("function(map(*)) as item()*"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
     }
 
     @Nested
