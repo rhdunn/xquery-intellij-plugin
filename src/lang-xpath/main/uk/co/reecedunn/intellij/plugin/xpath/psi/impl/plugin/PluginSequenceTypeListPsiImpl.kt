@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
@@ -53,13 +54,10 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     }
     override val typeName get(): String = cachedTypeName.get()!!
 
-    // TODO: Use the "Sequence Type Addition" logic to calculate the item type.
-    override val itemType get(): XdmItemType? = null
+    override val itemType get(): XdmItemType? = XdmSingleItemType
 
-    // TODO: Use the "Sequence Type Addition" logic to calculate the lower bound.
     override val lowerBound: Int? = 0
 
-    // TODO: Use the "Sequence Type Addition" logic to calculate the upper bound.
     override val upperBound: Int? = Int.MAX_VALUE
 
     // endregion

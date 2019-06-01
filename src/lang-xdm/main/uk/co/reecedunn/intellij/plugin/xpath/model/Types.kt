@@ -28,3 +28,11 @@ interface XdmSequenceType {
 interface XdmItemType : XdmSequenceType {
     val typeClass: Class<*>
 }
+
+object XdmSingleItemType : XdmItemType {
+    override val typeName: String = "item()"
+    override val itemType: XdmItemType? = this
+    override val lowerBound: Int? = 1
+    override val upperBound: Int? = 1
+    override val typeClass: Class<*> = XdmItem::class.java
+}

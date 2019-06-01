@@ -697,8 +697,7 @@ private class PluginPsiTest : ParserTestCase() {
             val type = test as XdmSequenceType
             assertThat(type.typeName, `is`("node(), xs:string, array(*)"))
 
-            // TODO: Use the "Sequence Type Addition" logic to calculate these values.
-            assertThat(type.itemType, `is`(nullValue()))
+            assertThat(type.itemType?.typeName, `is`("item()"))
             assertThat(type.lowerBound, `is`(0))
             assertThat(type.upperBound, `is`(Int.MAX_VALUE))
         }
@@ -717,8 +716,7 @@ private class PluginPsiTest : ParserTestCase() {
             val type = test as XdmSequenceType
             assertThat(type.typeName, `is`("node() | xs:string | array(*)"))
 
-            // TODO: Use the "Sequence Type Union" logic to calculate these values.
-            assertThat(type.itemType, `is`(nullValue()))
+            assertThat(type.itemType?.typeName, `is`("item()"))
             assertThat(type.lowerBound, `is`(0))
             assertThat(type.upperBound, `is`(Int.MAX_VALUE))
         }
