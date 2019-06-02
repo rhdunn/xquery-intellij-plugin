@@ -4264,6 +4264,20 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("name only")
+            fun nameOnly() {
+                val annotation = parse<XQueryAnnotation>("declare function %private f() {};")[0] as XdmAnnotation
+                assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
+            }
+
+            @Test
+            @DisplayName("missing name")
+            fun missingName() {
+                val annotation = parse<XQueryAnnotation>("declare function % () {};")[0] as XdmAnnotation
+                assertThat(annotation.name, `is`(nullValue()))
+            }
         }
     }
 

@@ -18,11 +18,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-// region XQuery and XPath 3.1 Data Model (2.7.4) : item()
-
-interface XdmItem
-
-// endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : node()
 
 interface XdmNode : XdmItem
@@ -151,5 +146,12 @@ interface XdmMap : XdmFunction
 // region XQuery and XPath 3.1 Data Model (2.7.4) : array(*)
 
 interface XdmArray : XdmFunction
+
+// endregion
+// region XQuery IntelliJ Plugin Data Model (2.1) : annotation(*)
+
+interface XdmAnnotation : XdmItem {
+    val name: XsQNameValue?
+}
 
 // endregion

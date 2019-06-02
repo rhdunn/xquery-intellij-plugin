@@ -101,6 +101,7 @@ not normative.
 ├─── function(*)
 │    ├─── map(*)
 │    └─── array(*)
+├─── annotation(*)
 └─── xs:anyAtomicType ──────────────────────────────────── See Part 3
 </code></pre>
 
