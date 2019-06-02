@@ -20,7 +20,10 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNumericLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -30,6 +33,17 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
     // region XdmAnnotation
 
     override val name: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    override val values: Sequence<XsAnyAtomicType>
+        get() {
+            return children().map {
+                when (it) {
+                    is XPathNumericLiteral -> it as XsAnyAtomicType
+                    is XPathStringLiteral -> it.value
+                    else -> null
+                }
+            }.filterNotNull()
+        }
 
     // endregion
     // region VersionConformance

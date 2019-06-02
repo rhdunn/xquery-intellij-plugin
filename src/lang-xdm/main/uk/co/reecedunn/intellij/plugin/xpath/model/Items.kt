@@ -152,6 +152,8 @@ interface XdmArray : XdmFunction
 
 interface XdmAnnotation : XdmItem {
     val name: XsQNameValue?
+
+    val values: Sequence<XsAnyAtomicType>
 }
 
 // endregion

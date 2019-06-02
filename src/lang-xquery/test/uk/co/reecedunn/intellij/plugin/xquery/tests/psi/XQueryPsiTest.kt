@@ -4270,6 +4270,9 @@ private class XQueryPsiTest : ParserTestCase() {
             fun nameOnly() {
                 val annotation = parse<XQueryAnnotation>("declare function %private f() {};")[0] as XdmAnnotation
                 assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
+
+                val values = annotation.values.toList()
+                assertThat(values.size, `is`(0))
             }
 
             @Test
@@ -4277,6 +4280,23 @@ private class XQueryPsiTest : ParserTestCase() {
             fun missingName() {
                 val annotation = parse<XQueryAnnotation>("declare function % () {};")[0] as XdmAnnotation
                 assertThat(annotation.name, `is`(nullValue()))
+
+                val values = annotation.values.toList()
+                assertThat(values.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("values")
+            fun values() {
+                val annotation = parse<XQueryAnnotation>("declare function %test(1, 2.3, 4e3, 'lorem ipsum') f() {};")[0] as XdmAnnotation
+                assertThat(op_qname_presentation(annotation.name!!), `is`("test"))
+
+                val values = annotation.values.toList()
+                assertThat(values.size, `is`(4))
+                assertThat((values[0] as XsIntegerValue).data, `is`(BigInteger.ONE))
+                assertThat((values[1] as XsDecimalValue).data, `is`(BigDecimal.valueOf(2.3)))
+                assertThat((values[2] as XsDoubleValue).data, `is`(4e3))
+                assertThat((values[3] as XsStringValue).data, `is`("lorem ipsum"))
             }
         }
     }
