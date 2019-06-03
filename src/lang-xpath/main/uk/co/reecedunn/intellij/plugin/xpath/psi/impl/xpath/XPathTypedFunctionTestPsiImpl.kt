@@ -27,8 +27,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -48,7 +46,7 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     // region XPathTypedFunctionTest
 
     override val paramTypes: Sequence<XdmSequenceType>
-        get() = children().filterIsInstance<PluginSequenceTypeList>().firstOrNull()?.types ?: emptySequence()
+        get() = children().filterIsInstance<XdmSequenceTypeList>().firstOrNull()?.types ?: emptySequence()
 
     override val returnType: XdmSequenceType?
         get() {

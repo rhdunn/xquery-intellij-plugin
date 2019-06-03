@@ -686,15 +686,14 @@ private class PluginPsiTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
         fun sequenceTypeList() {
-            val test = parse<PluginSequenceTypeList>("() instance of ( node ( (::) ) , xs:string , array ( * ) )")[0]
+            val type = parse<XdmSequenceTypeList>("() instance of ( node ( (::) ) , xs:string , array ( * ) )")[0]
 
-            val types = test.types.toList()
+            val types = type.types.toList()
             assertThat(types.size, `is`(3))
             assertThat(types[0].typeName, `is`("node()"))
             assertThat(types[1].typeName, `is`("xs:string"))
             assertThat(types[2].typeName, `is`("array(*)"))
 
-            val type = test as XdmSequenceType
             assertThat(type.typeName, `is`("node(), xs:string, array(*)"))
 
             assertThat(type.itemType?.typeName, `is`("item()"))

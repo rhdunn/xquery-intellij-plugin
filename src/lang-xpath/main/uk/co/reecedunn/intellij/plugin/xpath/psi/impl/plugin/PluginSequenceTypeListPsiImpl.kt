@@ -29,11 +29,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSequenceTypeList, XdmSequenceType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginSequenceTypeList, XdmSequenceTypeList, VersionConformance {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -42,7 +43,7 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     }
 
     // endregion
-    // region PluginSequenceTypeList
+    // region XdmSequenceTypeList
 
     override val types: Sequence<XdmSequenceType> get() = children().filterIsInstance<XdmSequenceType>()
 

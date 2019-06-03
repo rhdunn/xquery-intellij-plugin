@@ -29,6 +29,10 @@ interface XdmItemType : XdmSequenceType {
     val typeClass: Class<*>
 }
 
+interface XdmSequenceTypeList : XdmSequenceType {
+    val types: Sequence<XdmSequenceType>
+}
+
 interface XdmSequenceTypeUnion : XdmSequenceType {
     val types: Sequence<XdmSequenceType>
 }

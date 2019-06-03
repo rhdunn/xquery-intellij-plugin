@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 
 /**
  * A `SequenceTypeList` node in the XPath and XQuery AST.
  */
-interface PluginSequenceTypeList : PsiElement {
-    val types: Sequence<XdmSequenceType>
-}
+interface PluginSequenceTypeList : PsiElement
