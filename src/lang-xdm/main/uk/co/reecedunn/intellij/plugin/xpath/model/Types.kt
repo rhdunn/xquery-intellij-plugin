@@ -36,3 +36,10 @@ object XdmSingleItemType : XdmItemType {
     override val upperBound: Int? = 1
     override val typeClass: Class<*> = XdmItem::class.java
 }
+
+object XdmEmptySequence : XdmSequenceType {
+    override val typeName: String = "empty-sequence()"
+    override val itemType: XdmItemType? = null
+    override val lowerBound: Int? = 0
+    override val upperBound: Int? = 0
+}

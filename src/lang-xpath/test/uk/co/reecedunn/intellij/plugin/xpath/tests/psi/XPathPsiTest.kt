@@ -557,6 +557,16 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("error recovery: missing type")
+            fun missingType() {
+                val type = parse<XPathParenthesizedItemType>("() instance of ( (::) )")[0] as XdmSequenceType
+                assertThat(type.typeName, `is`("(empty-sequence())"))
+                assertThat(type.itemType, `is`(nullValue()))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(0))
+            }
+
+            @Test
             @DisplayName("error recovery: empty sequence")
             fun emptySequence() {
                 val type = parse<XPathParenthesizedItemType>("() instance of ( empty-sequence ( (::) ) )")[0] as XdmSequenceType

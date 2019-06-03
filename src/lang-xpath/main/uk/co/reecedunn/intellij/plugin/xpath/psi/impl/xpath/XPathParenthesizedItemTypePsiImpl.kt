@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmEmptySequence
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -44,7 +45,8 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     // region XdmSequenceType
 
     // NOTE: The wrapped type may be a SequenceType, so locate and forward that type.
-    private val sequenceType get(): XdmSequenceType = children().filterIsInstance<XdmSequenceType>().first()
+    private val sequenceType: XdmSequenceType
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull() ?: XdmEmptySequence
 
     override val typeName get(): String = "(${sequenceType.typeName})"
 
