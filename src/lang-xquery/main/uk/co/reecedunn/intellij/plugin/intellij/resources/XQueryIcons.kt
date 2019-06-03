@@ -26,6 +26,7 @@ object XQueryIcons {
     val RunConfiguration: Icon = getIcon("/icons/xquery/runConfiguration.svg")
 
     object Nodes {
+        val Annotation = AllIcons.Nodes.Annotationtype
         val FunctionDecl = AllIcons.Nodes.Function
         var QueryBody = AllIcons.Nodes.EntryPoints
         val TypeDecl = getIcon("/icons/xquery/nodes/typeDecl.svg")
