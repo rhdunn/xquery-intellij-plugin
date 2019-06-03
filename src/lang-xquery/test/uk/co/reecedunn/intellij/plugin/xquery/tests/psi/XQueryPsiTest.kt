@@ -1334,6 +1334,69 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (2.5.5.7) Function Test")
     internal inner class FunctionTest {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (207) FunctionTest")
+        internal inner class FunctionTest {
+            @Test
+            @DisplayName("one annotation ; any function test")
+            fun oneAnnotation() {
+                val test = parse<XQueryFunctionTest>("() instance of % test function ( * )")[0]
+                assertThat((test.functionTest as XdmItemType).typeName, `is`("function(*)"))
+
+                val annotations = test.annotations.toList()
+                assertThat(annotations.size, `is`(1))
+                assertThat(op_qname_presentation(annotations[0].name!!), `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("%test function(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("multiple annotations ; typed function test")
+            fun multipleAnnotations() {
+                val test = parse<XQueryFunctionTest>("() instance of % one % two function ( xs:long ) as xs:long")[0]
+                assertThat((test.functionTest as XdmItemType).typeName, `is`("function(xs:long) as xs:long"))
+
+                val annotations = test.annotations.toList()
+                assertThat(annotations.size, `is`(2))
+                assertThat(op_qname_presentation(annotations[0].name!!), `is`("one"))
+                assertThat(op_qname_presentation(annotations[1].name!!), `is`("two"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("%one %two function(xs:long) as xs:long"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("annotation with missing name")
+            fun annotationWithoutName() {
+                val test = parse<XQueryFunctionTest>("() instance of % % two function ( xs:long ) as xs:long")[0]
+                assertThat((test.functionTest as XdmItemType).typeName, `is`("function(xs:long) as xs:long"))
+
+                val annotations = test.annotations.toList()
+                assertThat(annotations.size, `is`(2))
+                assertThat(annotations[0].name, `is`(nullValue()))
+                assertThat(op_qname_presentation(annotations[1].name!!), `is`("two"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("%two function(xs:long) as xs:long"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmFunction::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
         @Test
         @DisplayName("XQuery 3.1 EBNF (208) AnyFunctionTest")
         fun anyFunctionTest() {
