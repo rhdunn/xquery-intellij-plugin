@@ -705,15 +705,14 @@ private class PluginPsiTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (76) SequenceTypeUnion")
         fun sequenceTypeUnion() {
-            val test = parse<XQuerySequenceTypeUnion>("() instance of ( node ( (::) ) | xs:string | array ( * ) )")[0]
+            val type = parse<XdmSequenceTypeUnion>("() instance of ( node ( (::) ) | xs:string | array ( * ) )")[0]
 
-            val types = test.types.toList()
+            val types = type.types.toList()
             assertThat(types.size, `is`(3))
             assertThat(types[0].typeName, `is`("node()"))
             assertThat(types[1].typeName, `is`("xs:string"))
             assertThat(types[2].typeName, `is`("array(*)"))
 
-            val type = test as XdmSequenceType
             assertThat(type.typeName, `is`("node() | xs:string | array(*)"))
 
             assertThat(type.itemType?.typeName, `is`("item()"))

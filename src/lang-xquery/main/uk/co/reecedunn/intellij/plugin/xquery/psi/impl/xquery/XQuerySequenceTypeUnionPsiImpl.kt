@@ -29,13 +29,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSingleItemType
 
 private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, XdmSequenceType, VersionConformance {
+    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, XdmSequenceTypeUnion, VersionConformance {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

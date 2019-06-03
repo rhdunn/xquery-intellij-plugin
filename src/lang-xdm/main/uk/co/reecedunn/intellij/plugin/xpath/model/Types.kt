@@ -29,6 +29,10 @@ interface XdmItemType : XdmSequenceType {
     val typeClass: Class<*>
 }
 
+interface XdmSequenceTypeUnion : XdmSequenceType {
+    val types: Sequence<XdmSequenceType>
+}
+
 object XdmSingleItemType : XdmItemType {
     override val typeName: String = "item()"
     override val itemType: XdmItemType? = this
