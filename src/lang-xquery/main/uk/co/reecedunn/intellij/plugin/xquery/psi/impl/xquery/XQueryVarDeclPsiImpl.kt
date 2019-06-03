@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
@@ -40,11 +41,7 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XQueryVarDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XQueryVarDecl,
-    VersionConformance,
-    XPathVariableDeclaration,
-    ItemPresentation {
+    ASTWrapperPsiElement(node), XQueryVarDecl, VersionConformance, XPathVariableDeclaration, ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -81,6 +78,8 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override val variableName get(): XsQNameValue? = varName?.variableName
 
+    override val variableType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
     // endregion
     // region NavigationItem
 
@@ -93,7 +92,15 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = varName?.variableName?.let { "\$${op_qname_presentation(it)}" }
+    override fun getPresentableText(): String? {
+        return varName?.variableName?.let { name ->
+            val type = variableType
+            if (type == null)
+                "\$${op_qname_presentation(name)}"
+            else
+                "\$${op_qname_presentation(name)} as ${type.typeName}"
+        }
+    }
 
     // endregion
     // region SortableTreeElement

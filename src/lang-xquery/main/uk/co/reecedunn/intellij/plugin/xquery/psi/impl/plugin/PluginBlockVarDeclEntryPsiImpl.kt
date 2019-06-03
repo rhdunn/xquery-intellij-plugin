@@ -21,16 +21,18 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
 class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    PluginBlockVarDeclEntry,
-    XPathVariableDeclaration {
+    ASTWrapperPsiElement(node), PluginBlockVarDeclEntry, XPathVariableDeclaration {
 
     private val varName
         get(): XPathVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
 
     override val variableName get(): XsQNameValue? = varName?.variableName
+
+    // TODO: Implement BlockVarDeclEntry variable type with tests.
+    override val variableType: XdmSequenceType? = null
 }
