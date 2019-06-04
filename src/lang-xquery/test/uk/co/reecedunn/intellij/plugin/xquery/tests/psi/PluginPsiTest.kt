@@ -683,22 +683,48 @@ private class PluginPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.6) Sequence Types")
     internal inner class SequenceTypes {
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
-        fun sequenceTypeList() {
-            val type = parse<XdmSequenceTypeList>("() instance of ( node ( (::) ) , xs:string , array ( * ) )")[0]
+        internal inner class SequenceTypeList {
+            @Test
+            @DisplayName("parenthesized")
+            fun parenthesized() {
+                val test = parse<PluginSequenceTypeList>("() instance of ( node ( (::) ) , xs:string , array ( * ) )")[0]
+                assertThat(test.isParenthesized, `is`(true))
 
-            val types = type.types.toList()
-            assertThat(types.size, `is`(3))
-            assertThat(types[0].typeName, `is`("node()"))
-            assertThat(types[1].typeName, `is`("xs:string"))
-            assertThat(types[2].typeName, `is`("array(*)"))
+                val type = test as XdmSequenceTypeList
+                assertThat(type.typeName, `is`("(node(), xs:string, array(*))"))
 
-            assertThat(type.typeName, `is`("node(), xs:string, array(*)"))
+                val types = type.types.toList()
+                assertThat(types.size, `is`(3))
+                assertThat(types[0].typeName, `is`("node()"))
+                assertThat(types[1].typeName, `is`("xs:string"))
+                assertThat(types[2].typeName, `is`("array(*)"))
 
-            assertThat(type.itemType?.typeName, `is`("item()"))
-            assertThat(type.lowerBound, `is`(0))
-            assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                assertThat(type.itemType?.typeName, `is`("item()"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
+
+            @Test
+            @DisplayName("not parenthesized")
+            fun notParenthesized() {
+                val test = parse<PluginSequenceTypeList>("() instance of ( xs:int | node ( (::) ) , xs:string , array ( * ) )")[0]
+                assertThat(test.isParenthesized, `is`(false))
+
+                val type = test as XdmSequenceTypeList
+                assertThat(type.typeName, `is`("node(), xs:string, array(*)"))
+
+                val types = type.types.toList()
+                assertThat(types.size, `is`(3))
+                assertThat(types[0].typeName, `is`("node()"))
+                assertThat(types[1].typeName, `is`("xs:string"))
+                assertThat(types[2].typeName, `is`("array(*)"))
+
+                assertThat(type.itemType?.typeName, `is`("item()"))
+                assertThat(type.lowerBound, `is`(0))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
         }
 
         @Test

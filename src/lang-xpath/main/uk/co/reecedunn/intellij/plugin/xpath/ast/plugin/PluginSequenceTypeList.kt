@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,4 +20,6 @@ import com.intellij.psi.PsiElement
 /**
  * A `SequenceTypeList` node in the XPath and XQuery AST.
  */
-interface PluginSequenceTypeList : PsiElement
+interface PluginSequenceTypeList : PsiElement {
+    val isParenthesized: Boolean
+}

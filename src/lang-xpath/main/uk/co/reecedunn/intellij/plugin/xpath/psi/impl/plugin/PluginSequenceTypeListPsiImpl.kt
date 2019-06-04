@@ -43,6 +43,21 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     }
 
     // endregion
+    // region PluginSequenceTypeList
+
+    override val isParenthesized: Boolean
+        get() {
+            var element = prevSibling
+            while (
+                element.node.elementType === XPathTokenType.WHITE_SPACE ||
+                element.node.elementType === XPathElementType.COMMENT
+            ) {
+                element = element.prevSibling
+            }
+            return element.node.elementType === XPathTokenType.PARENTHESIS_OPEN
+        }
+
+    // endregion
     // region XdmSequenceTypeList
 
     override val types: Sequence<XdmSequenceType> get() = children().filterIsInstance<XdmSequenceType>()
@@ -51,7 +66,11 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        types.joinToString { it.typeName } `is` Cacheable
+        val name = types.joinToString { it.typeName }
+        if (isParenthesized)
+            "($name)" `is` Cacheable
+        else
+            name `is` Cacheable
     }
     override val typeName get(): String = cachedTypeName.get()!!
 
