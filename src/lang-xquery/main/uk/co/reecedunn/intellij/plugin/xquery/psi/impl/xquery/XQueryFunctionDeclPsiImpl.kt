@@ -39,6 +39,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override fun subtreeChanged() {
         super.subtreeChanged()
+        cachedPresentableText.invalidate()
         cachedAlphaSortKey.invalidate()
     }
 
@@ -63,7 +64,12 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" }
+    private val cachedPresentableText = CacheableProperty {
+        val key = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" }
+        key `is` Cacheable
+    }
+
+    override fun getPresentableText(): String? = cachedPresentableText.get()
 
     // endregion
     // region SortableTreeElement
