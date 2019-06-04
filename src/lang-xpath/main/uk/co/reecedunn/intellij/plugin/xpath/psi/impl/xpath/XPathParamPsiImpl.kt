@@ -21,13 +21,18 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class XPathParamPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParam,
-    XPathVariableBinding {
+    XPathVariableBinding,
+    XPathVariableType {
 
     override val variableName
         get(): XsQNameValue? = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
+
+    override val variableType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 }

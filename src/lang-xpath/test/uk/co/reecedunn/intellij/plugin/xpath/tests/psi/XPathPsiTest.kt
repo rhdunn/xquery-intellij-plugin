@@ -1409,6 +1409,7 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("NCName")
             fun ncname() {
                 val expr = parse<XPathParam>("function (\$x) {}")[0] as XPathVariableBinding
+                assertThat((expr as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1420,6 +1421,7 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("QName")
             fun qname() {
                 val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XPathVariableBinding
+                assertThat((expr as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1431,6 +1433,7 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
                 val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XPathVariableBinding
+                assertThat((expr as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1443,6 +1446,19 @@ private class XPathPsiTest : ParserTestCase() {
             fun missingVarName() {
                 val expr = parse<XPathParam>("function (\$) {}")[0] as XPathVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
+                assertThat((expr as XPathVariableType).variableType?.typeName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("with type")
+            fun withType() {
+                val expr = parse<XPathParam>("function (\$x as element()) {}")[0] as XPathVariableBinding
+                assertThat((expr as XPathVariableType).variableType?.typeName, `is`("element()"))
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
             }
         }
     }
