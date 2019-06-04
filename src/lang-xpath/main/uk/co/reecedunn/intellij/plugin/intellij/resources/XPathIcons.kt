@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
@@ -23,4 +24,8 @@ object XPathIcons {
 
     val FileType: Icon = getIcon("/icons/xpath/fileType.svg")
     val RunConfiguration: Icon = getIcon("/icons/xpath/runConfiguration.svg")
+
+    object Nodes {
+        val Param = AllIcons.Nodes.Parameter
+    }
 }

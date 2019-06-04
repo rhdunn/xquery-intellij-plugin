@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
@@ -4621,6 +4622,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val presentation = (expr as NavigatablePsiElement).presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.presentableText, `is`("\$x"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
@@ -4633,6 +4640,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val presentation = (expr as NavigatablePsiElement).presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.presentableText, `is`("\$a:x"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
@@ -4645,6 +4658,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val presentation = (expr as NavigatablePsiElement).presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
@@ -4653,18 +4672,30 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XPathParam>("function (\$) {}")[0] as XPathVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
                 assertThat((expr as XPathVariableType).variableType?.typeName, `is`(nullValue()))
+
+                val presentation = (expr as NavigatablePsiElement).presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.presentableText, `is`(nullValue()))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("with type")
             fun withType() {
-                val expr = parse<XPathParam>("function (\$x as element()) {}")[0] as XPathVariableBinding
+                val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XPathVariableBinding
                 assertThat((expr as XPathVariableType).variableType?.typeName, `is`("element()"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val presentation = (expr as NavigatablePsiElement).presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                assertThat(presentation.presentableText, `is`("\$x as element()"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
 
             @Test
