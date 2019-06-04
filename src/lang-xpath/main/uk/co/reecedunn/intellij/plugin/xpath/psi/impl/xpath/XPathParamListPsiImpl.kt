@@ -54,19 +54,21 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedArguments.invalidate()
+        cachedParams.invalidate()
         cachedArity.invalidate()
     }
 
     // endregion
     // region XPathParamList
 
-    private val cachedArguments = CacheableProperty {
+    private val cachedParams = CacheableProperty {
         children().filterIsInstance<XPathParam>().map { param -> param as XPathVariableBinding }.toList() `is` Cacheable
     }
 
+    override val params: List<XPathVariableBinding> get() = cachedParams.get()!!
+
     private val cachedArity = CacheableProperty {
-        cachedArguments.get()!!.size.let {
+        params.size.let {
             if (conformanceElement.node.elementType == XPathElementType.PARAM)
                 Range(it, it) // non-variadic parameter list
             else

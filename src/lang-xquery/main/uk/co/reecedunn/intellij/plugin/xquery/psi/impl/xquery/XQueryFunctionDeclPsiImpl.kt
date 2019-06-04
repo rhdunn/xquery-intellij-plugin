@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
@@ -28,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
@@ -50,6 +52,8 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
+    override val params: List<XPathVariableBinding> get() = paramList?.params ?: emptyList()
+
     override val arity get(): Range<Int> = paramList?.arity ?: ARITY_ZERO
 
     // endregion
@@ -65,7 +69,12 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override fun getLocationString(): String? = null
 
     private val cachedPresentableText = CacheableProperty {
-        val key = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" }
+        val key = functionName?.let {
+            val params = params.map { param ->
+                (param as NavigatablePsiElement).presentation?.presentableText
+            }.filterNotNull().joinToString()
+            "${op_qname_presentation(it)}($params)"
+        }
         key `is` Cacheable
     }
 

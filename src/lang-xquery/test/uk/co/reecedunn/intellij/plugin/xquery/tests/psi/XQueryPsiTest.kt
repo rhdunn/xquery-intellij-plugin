@@ -4536,6 +4536,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryFunctionDecl>("declare function fn:true() external;")[0]
                 assertThat(decl.arity, `is`(Range(0, 0)))
 
+                assertThat(decl.params.size, `is`(0))
+
                 val qname = decl.functionName!!
                 assertThat(qname.prefix!!.data, `is`("fn"))
                 assertThat(qname.localName!!.data, `is`("true"))
@@ -4544,7 +4546,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = decl.presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.presentableText, `is`("fn:true#0"))
+                assertThat(presentation.presentableText, `is`("fn:true()"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
 
@@ -4554,6 +4556,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryFunctionDecl>("declare function test(\$one, \$two) external;")[0]
                 assertThat(decl.arity, `is`(Range(2, 2)))
 
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+
                 val qname = decl.functionName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
@@ -4562,7 +4568,29 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = decl.presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.presentableText, `is`("test#2"))
+                assertThat(presentation.presentableText, `is`("test(\$one, \$two)"))
+                assertThat(presentation.locationString, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("non-empty ParamList with types")
+            fun nonEmptyParamListWithTypes() {
+                val decl = parse<XQueryFunctionDecl>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
+                assertThat(decl.arity, `is`(Range(2, 2)))
+
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+
+                val qname = decl.functionName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val presentation = decl.presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.presentableText, `is`("test(\$one as array(*), \$two as node())"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
 
@@ -4572,6 +4600,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryFunctionDecl>("declare function :true() external;")[0]
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.functionName, `is`(nullValue()))
+
+                assertThat(decl.params.size, `is`(0))
 
                 val presentation = decl.presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
