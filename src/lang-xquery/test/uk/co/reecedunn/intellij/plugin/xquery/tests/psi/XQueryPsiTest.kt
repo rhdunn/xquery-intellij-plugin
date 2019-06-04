@@ -3353,6 +3353,28 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (76) SequenceTypeUnion")
+        fun sequenceTypeUnion() {
+            val test = parse<XQuerySequenceTypeUnion>(
+                "typeswitch (\$x) case \$y as node ( (::) ) | xs:string | array ( * ) return \$y"
+            )[0]
+            assertThat(test.isParenthesized, `is`(false))
+
+            val type = test as XdmSequenceTypeUnion
+            assertThat(type.typeName, `is`("node() | xs:string | array(*)"))
+
+            val types = type.types.toList()
+            assertThat(types.size, `is`(3))
+            assertThat(types[0].typeName, `is`("node()"))
+            assertThat(types[1].typeName, `is`("xs:string"))
+            assertThat(types[2].typeName, `is`("array(*)"))
+
+            assertThat(type.itemType?.typeName, `is`("item()"))
+            assertThat(type.lowerBound, `is`(0))
+            assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+        }
     }
 
     @Nested
