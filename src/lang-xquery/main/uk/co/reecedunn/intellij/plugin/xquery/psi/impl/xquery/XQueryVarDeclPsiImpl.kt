@@ -48,6 +48,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override fun subtreeChanged() {
         super.subtreeChanged()
+        cachedPresentableText.invalidate()
         cachedAlphaSortKey.invalidate()
     }
 
@@ -94,15 +95,17 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? {
-        return varName?.variableName?.let { name ->
+    private val cachedPresentableText = CacheableProperty {
+        varName?.variableName?.let { name ->
             val type = variableType
             if (type == null)
                 "\$${op_qname_presentation(name)}"
             else
                 "\$${op_qname_presentation(name)} as ${type.typeName}"
-        }
+        } `is` Cacheable
     }
+
+    override fun getPresentableText(): String? = cachedPresentableText.get()
 
     // endregion
     // region SortableTreeElement
