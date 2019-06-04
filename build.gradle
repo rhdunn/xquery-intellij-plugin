@@ -99,9 +99,11 @@ configure(allprojects - project(':src')) {
     }
 
     tasks {
-        // The IntelliJ gradle plugin adds the tasks for all subprojects. This
-        // does not make sense, and causes issues like performing the runIde
-        // task once for each subproject.
+        // Using the IntelliJ gradle plugin to provide the IntelliJ platform SDK in
+        // each subproject results in various deployment related tasks being added
+        // to those subprojects. As this plugin only uses those tasks on the main
+        // project, those tasks are disabled globally and only enabled for the
+        // main project.
         buildPlugin.enabled = false
         prepareSandbox.enabled = false
         prepareTestingSandbox.enabled = false
@@ -146,9 +148,11 @@ dependencies {
 }
 
 tasks {
-    // The IntelliJ gradle plugin adds the tasks for all subprojects. This
-    // does not make sense, and causes issues like performing the runIde
-    // task once for each subproject.
+    // Using the IntelliJ gradle plugin to provide the IntelliJ platform SDK in
+    // each subproject results in various deployment related tasks being added
+    // to those subprojects. As this plugin only uses those tasks on the main
+    // project, those tasks are disabled globally and only enabled for the
+    // main project.
     buildPlugin.enabled = true
     prepareSandbox.enabled = true
     prepareTestingSandbox.enabled = true
