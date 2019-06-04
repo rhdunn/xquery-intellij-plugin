@@ -4423,7 +4423,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName")
             fun ncname() {
                 val decl = parse<XPathVariableDeclaration>("declare variable \$x := \$y;")[0]
-                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = decl.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -4441,7 +4441,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("QName")
             fun qname() {
                 val decl = parse<XPathVariableDeclaration>("declare variable \$a:x := \$a:y;")[0]
-                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = decl.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -4461,7 +4461,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XPathVariableDeclaration>(
                     "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;"
                 )[0]
-                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = decl.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -4480,7 +4480,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun missingVarName() {
                 val decl = parse<XPathVariableDeclaration>("declare variable \$ := \$y;")[0]
                 assertThat(decl.variableName, `is`(nullValue()))
-                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
@@ -4494,7 +4494,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun invalidVarName() {
                 val decl = parse<XPathVariableDeclaration>("declare variable \$: := \$y;")[0]
                 assertThat(decl.variableName, `is`(nullValue()))
-                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
@@ -4507,7 +4507,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("with type")
             fun withType() {
                 val decl = parse<XPathVariableDeclaration>("declare variable \$a:x  as  node ( (::) )? := \$a:y;")[0]
-                assertThat(decl.variableType?.typeName, `is`("node()?"))
+                assertThat((decl as XPathVariableType).variableType?.typeName, `is`("node()?"))
 
                 val qname = decl.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
