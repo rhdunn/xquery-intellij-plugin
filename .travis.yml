@@ -15,5 +15,5 @@ script:
   - touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 4.7 ; rm null.gradle
   - ./gradlew --version
   # Use the gradle wrapper to build and test the project.
-  - ./gradlew assemble
+  - ./gradlew :assemble
   - ./gradlew test
