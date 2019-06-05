@@ -1388,103 +1388,6 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Saxon 9.4 :: MapConstructorEntry + MapConstructor
-
-    @Test
-    fun testSaxon_MapConstructorEntry() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSaxon_MapConstructorEntry_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSaxon_MapConstructorEntry_MissingSeparator() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSaxon_MapConstructorEntry_MissingValueExpr() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSaxon_MapConstructorEntry_Multiple() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSaxon_MapConstructorEntry_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSaxon_MapConstructorEntry_Multiple_MissingEntry() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region Saxon 9.8 :: TypeDecl
-
-    @Test
-    fun testTypeDecl() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_MissingQName() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_MissingEquals() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_MissingItemType() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_AssignEquals() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
@@ -1526,6 +1429,118 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedAndAlsoLast() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
+    internal inner class MapConstructorEntry {
+        @Test
+        @DisplayName("saxon ':=' entry")
+        fun mapConstructorEntry() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("saxon ':=' entry; compact whitespace")
+        fun mapConstructorEntry_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ':='")
+        fun mapConstructorEntry_MissingSeparator() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ValueExpr")
+        fun mapConstructorEntry_MissingValueExpr() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("saxon ':=' entry; multiple")
+        fun mapConstructorEntry_Multiple() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("saxon ':=' entry; multiple; compact whitespace")
+        fun mapConstructorEntry_Multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing entry")
+        fun mapConstructorEntry_Multiple_MissingEntry() {
+            val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.txt")
+            val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
+    internal inner class TypeDecl {
+        @Test
+        @DisplayName("type declaration")
+        fun typeDecl() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("type declaration; compact whitespace")
+        fun typeDecl_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing QName")
+        fun missingQName() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing equals")
+        fun missingEquals() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ItemType")
+        fun missingItemType() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: ':=' instead of '='")
+        fun assignEquals() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
