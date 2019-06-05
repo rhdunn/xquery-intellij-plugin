@@ -37,109 +37,6 @@ private class PluginParserTest : ParserTestCase() {
         return ResourceVirtualFile(PluginParserTest::class.java.classLoader, resource).decode()
     }
 
-    // region BaseX 6.1 :: FTFuzzyOption
-
-    @Test
-    fun testFTFuzzyOption() {
-        val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption.txt")
-        val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTFuzzyOption_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region BaseX 7.8 :: UpdateExpr
-
-    @Test
-    fun testUpdateExpr() {
-        val expected = loadResource("tests/parser/basex-7.8/UpdateExpr.txt")
-        val actual = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUpdateExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUpdateExpr_Multiple() {
-        val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region BaseX 8.4 :: NonDeterministicFunctionCall
-
-    @Test
-    fun testNonDeterministicFunctionCall() {
-        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.txt")
-        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNonDeterministicFunctionCall_CompactWhitespace() {
-        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNonDeterministicFunctionCall_MissingVariableIndicator() {
-        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.txt")
-        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNonDeterministicFunctionCall_MissingArgumentList() {
-        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.txt")
-        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region BaseX 8.5 :: UpdateExpr
-
-    @Test
-    fun testUpdateExpr_Block() {
-        val expected = loadResource("tests/parser/basex-8.5/UpdateExpr.txt")
-        val actual = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUpdateExpr_Block_MissingExpr() {
-        val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUpdateExpr_Block_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUpdateExpr_Block_Multiple() {
-        val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 6.0 :: BinaryConstructor
 
     @Test
@@ -1429,6 +1326,122 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedAndAlsoLast() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
+    internal inner class UpdateExpr {
+        @Test
+        @DisplayName("update expression")
+        fun updateExpr() {
+            val expected = loadResource("tests/parser/basex-7.8/UpdateExpr.txt")
+            val actual = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("block")
+        fun block() {
+            val expected = loadResource("tests/parser/basex-8.5/UpdateExpr.txt")
+            val actual = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("block; error recovery: missing Expr")
+        fun block_MissingExpr() {
+            val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("block; error recovery: missing closing brace")
+        fun block_MissingClosingBrace() {
+            val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("block; multiple")
+        fun block_Multiple() {
+            val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
+    internal inner class FTFuzzyOption {
+        @Test
+        @DisplayName("fuzzy")
+        fun fuzzyOption() {
+            val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption.txt")
+            val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'using' keyword")
+        fun fuzzyOption_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (16) NonDeterministicFunctionCall")
+    internal inner class NonDeterministicFunctionCall {
+        @Test
+        @DisplayName("non-deterministic function call")
+        fun nonDeterministicFunctionCall() {
+            val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.txt")
+            val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("non-deterministic function call; compact whitespace")
+        fun nonDeterministicFunctionCall_CompactWhitespace() {
+            val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing variable indicator")
+        fun missingVariableIndicator() {
+            val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.txt")
+            val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing argument list")
+        fun missingArgumentList() {
+            val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.txt")
+            val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
