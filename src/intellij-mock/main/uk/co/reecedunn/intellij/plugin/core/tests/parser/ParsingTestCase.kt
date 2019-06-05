@@ -191,6 +191,18 @@ abstract class ParsingTestCase<File : PsiFile>(
         })
     }
 
+    @Suppress("UNCHECKED_CAST")
+    fun registerApplicationService(className: String) {
+        try {
+            val aClass = Class.forName(className) as Class<Any>
+            val `object` = aClass.newInstance()
+            registerApplicationService(aClass, `object`)
+        } catch (e: Exception) {
+            // Don't register the extension point, as the associated class is not found.
+        }
+
+    }
+
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
         val file = LightVirtualFile(name, language!!, text)
         file.charset = CharsetToolkit.UTF8_CHARSET

@@ -34,6 +34,7 @@ private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModu
         super.setUp()
 
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        registerApplicationService("com.intellij.ide.ui.NotRoamableUiSettings")
         registerApplicationService(UISettings::class.java, UISettings())
     }
 
