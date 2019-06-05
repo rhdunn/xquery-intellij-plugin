@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
@@ -56,6 +57,8 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override val arity get(): Range<Int> = paramList?.arity ?: ARITY_ZERO
 
+    override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
     // endregion
     // region NavigationItem
 
@@ -69,13 +72,17 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override fun getLocationString(): String? = null
 
     private val cachedPresentableText = CacheableProperty {
-        val key = functionName?.let {
+        functionName?.let { name ->
             val params = params.map { param ->
                 (param as NavigatablePsiElement).presentation?.presentableText
             }.filterNotNull().joinToString()
-            "${op_qname_presentation(it)}($params)"
-        }
-        key `is` Cacheable
+
+            val returnType = returnType
+            if (returnType == null)
+                "${op_qname_presentation(name)}($params)"
+            else
+                "${op_qname_presentation(name)}($params) as ${returnType.typeName}"
+        } `is` Cacheable
     }
 
     override fun getPresentableText(): String? = cachedPresentableText.get()
