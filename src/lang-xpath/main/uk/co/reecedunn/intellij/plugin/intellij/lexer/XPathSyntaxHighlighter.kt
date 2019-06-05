@@ -31,7 +31,11 @@ class XPathSyntaxHighlighter : SyntaxHighlighterBase() {
             if (type is IKeywordOrNCNameType)
                 XPathSyntaxHighlighterKeys.KEYWORD_KEYS
             else
-                SyntaxHighlighterBase.EMPTY
+                DEFAULT
         return XPathSyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
+    }
+
+    companion object {
+        val DEFAULT: Array<out TextAttributesKey> = emptyArray()
     }
 }

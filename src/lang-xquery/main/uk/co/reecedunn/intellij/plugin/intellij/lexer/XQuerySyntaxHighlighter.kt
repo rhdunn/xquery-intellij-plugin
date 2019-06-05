@@ -46,7 +46,11 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             if (type is IKeywordOrNCNameType)
                 XQuerySyntaxHighlighterKeys.KEYWORD_KEYS
             else
-                SyntaxHighlighterBase.EMPTY
+                DEFAULT
         return XQuerySyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
+    }
+
+    companion object {
+        val DEFAULT: Array<out TextAttributesKey> = emptyArray()
     }
 }
