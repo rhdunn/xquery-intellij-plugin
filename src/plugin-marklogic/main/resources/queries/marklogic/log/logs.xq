@@ -22,4 +22,6 @@ declare option o:implementation "marklogic/6.0";
 declare variable $separator := if (xdmp:platform() = "winnt") then "\" else "/";
 declare variable $logs-path := xdmp:data-directory() || $separator || "Logs";
 
-xdmp:filesystem-directory($logs-path)/dir:entry/dir:filename/text()
+for $log in xdmp:filesystem-directory($logs-path)/dir:entry
+where $log/dir:content-length/data() gt 0
+return $log/dir:filename/text()
