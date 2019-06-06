@@ -95,6 +95,7 @@ declare %a:since("marklogic", "5.0") function xdmp:crypt($password as xs:string,
 declare %a:since("marklogic", "6.0") function xdmp:crypt2($password as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:current-last() as xs:integer external;
 declare %a:since("marklogic", "5.0") function xdmp:current-position() as xs:integer external;
+declare %a:since("marklogic", "5.0") function xdmp:data-directory() as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:database() as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:database($name as xs:string) as xs:unsignedLong external;
 declare %a:since("marklogic", "8.0") function xdmp:database-assignment-policy($database-id as xs:unsignedLong) as element(db:assignment-policy) external;

@@ -32,4 +32,8 @@ object MarkLogicQueries {
     val Version = resourceFile("queries/marklogic/version.xq")
     val Servers = resourceFile("queries/marklogic/servers.xq")
     val Databases = resourceFile("queries/marklogic/databases.xq")
+
+    object Log {
+        val Logs = resourceFile("queries/marklogic/log/logs.xq")
+    }
 }

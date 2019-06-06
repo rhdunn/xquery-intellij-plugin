@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -35,7 +36,8 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProv
 internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) :
     ProfileableQueryProvider,
     RunnableQueryProvider,
-    ValidatableQueryProvider {
+    ValidatableQueryProvider,
+    LogViewProvider {
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
@@ -102,6 +104,12 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
                 MarkLogicRunQuery(builder, buildParameters(query, language, "validate"), query, connection)
             }
             else -> throw UnsupportedQueryType(language)
+        }
+    }
+
+    override fun logs(): ExecutableOnPooledThread<List<String>> {
+        return createRunnableQuery(MarkLogicQueries.Log.Logs, XQuery).use { query ->
+            query.run().then { results -> results.results.map { it.value as String } }
         }
     }
 
