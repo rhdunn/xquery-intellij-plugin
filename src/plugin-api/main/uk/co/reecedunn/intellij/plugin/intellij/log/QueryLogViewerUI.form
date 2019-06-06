@@ -9,7 +9,7 @@
     <border type="none"/>
     <children>
       <grid id="4c771" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="4" left="4" bottom="4" right="4"/>
+        <margin top="4" left="4" bottom="0" right="4"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -43,7 +43,7 @@
               <text resource-bundle="messages/PluginApiBundle" key="logviewer.filter.log-file"/>
             </properties>
           </component>
-          <component id="81eda" class="javax.swing.JComboBox" binding="logFile">
+          <component id="81eda" class="javax.swing.JComboBox" binding="logFile" custom-create="true">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -51,11 +51,11 @@
           </component>
         </children>
       </grid>
-      <vspacer id="9d4e2">
+      <component id="e3635" class="javax.swing.JComponent" binding="logView" custom-create="true">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-      </vspacer>
+      </component>
     </children>
   </grid>
 </form>

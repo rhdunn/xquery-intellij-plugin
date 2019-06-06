@@ -15,6 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.log
 
+import com.intellij.execution.impl.ConsoleViewUtil
+import com.intellij.execution.impl.EditorHyperlinkSupport
+import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.editor.impl.DocumentImpl
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
@@ -27,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComboBox
+import javax.swing.JComponent
 import javax.swing.JPanel
 
 class QueryLogViewer : ToolWindowFactory, DumbAware {
@@ -34,7 +39,7 @@ class QueryLogViewer : ToolWindowFactory, DumbAware {
 
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         if (logView == null) {
-            logView = QueryLogViewerUI()
+            logView = QueryLogViewerUI(project)
         }
 
         val content = ContentFactory.SERVICE.getInstance().createContent(logView?.panel, null, false)
@@ -46,7 +51,7 @@ class QueryLogViewer : ToolWindowFactory, DumbAware {
     }
 }
 
-class QueryLogViewerUI {
+class QueryLogViewerUI(val project: Project) {
     // region Filter :: Server
 
     private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
@@ -70,6 +75,13 @@ class QueryLogViewerUI {
 
     private var logFile: JComboBox<String>? = null
 
+    private fun createLogFileUI() {
+        logFile = ComboBox()
+        logFile!!.addActionListener {
+            populateLogFile()
+        }
+    }
+
     private fun populateLogFiles() {
         val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
         if (session is LogViewProvider) {
@@ -82,10 +94,39 @@ class QueryLogViewerUI {
     }
 
     // endregion
+    // region Log View
+
+    private var logViewEditor: EditorEx? = null
+
+    private var logView: JComponent? = null
+
+    private fun createConsoleEditor() {
+        logViewEditor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
+        logViewEditor?.contextMenuGroupId = null // disabling default context menu
+        logView = logViewEditor!!.component
+    }
+
+    private fun populateLogFile() {
+        val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
+        if (session is LogViewProvider) {
+            val logFile = logFile?.selectedItem as? String
+            if (logFile != null) {
+                session.log(logFile).execute { log ->
+                    logViewEditor!!.document.setText(log ?: "")
+                }.onException { logViewEditor!!.document.setText("") }
+            }
+        } else {
+            logViewEditor!!.document.setText("")
+        }
+    }
+
+    // endregion
 
     var panel: JPanel? = null
 
     private fun createUIComponents() {
         createQueryProcessorUI()
+        createLogFileUI()
+        createConsoleEditor()
     }
 }
