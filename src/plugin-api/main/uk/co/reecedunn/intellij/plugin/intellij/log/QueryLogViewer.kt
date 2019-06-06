@@ -17,9 +17,16 @@ package uk.co.reecedunn.intellij.plugin.intellij.log
 
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.ComboBox
+import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import javax.swing.DefaultComboBoxModel
+import javax.swing.JComboBox
 import javax.swing.JPanel
 
 class QueryLogViewer : ToolWindowFactory, DumbAware {
@@ -40,5 +47,28 @@ class QueryLogViewer : ToolWindowFactory, DumbAware {
 }
 
 class QueryLogViewerUI {
+    // region Option :: Query Processor
+
+    private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
+
+    private fun createQueryProcessorUI() {
+        val model = DefaultComboBoxModel<QueryProcessorSettings>()
+        QueryProcessors.getInstance().processors.forEach { processor ->
+            processor.connection?.let { model.addElement(processor) }
+        }
+
+        queryProcessor = ComboBox(model)
+
+        queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
+        queryProcessor!!.addActionListener {
+        }
+    }
+
+    // endregion
+
     var panel: JPanel? = null
+
+    private fun createUIComponents() {
+        createQueryProcessorUI()
+    }
 }
