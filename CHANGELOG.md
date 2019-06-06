@@ -8,6 +8,7 @@ IntelliJ Integration:
     and the query body in a file.
 1.  Display the functions, variables, and types when "Show Members" is enabled
     in the project pane.
+1.  Display the function signature when holding Ctrl over a function call.
 
 Run Configurations:
 
