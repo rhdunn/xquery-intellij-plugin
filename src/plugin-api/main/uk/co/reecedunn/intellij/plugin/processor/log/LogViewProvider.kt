@@ -20,4 +20,6 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 
 interface LogViewProvider : QueryProcessor {
     fun logs(): ExecutableOnPooledThread<List<String>>
+
+    fun log(name: String): ExecutableOnPooledThread<String?>
 }

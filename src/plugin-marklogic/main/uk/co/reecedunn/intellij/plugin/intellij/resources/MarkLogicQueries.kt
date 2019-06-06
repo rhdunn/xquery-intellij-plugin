@@ -35,5 +35,6 @@ object MarkLogicQueries {
 
     object Log {
         val Logs = resourceFile("queries/marklogic/log/logs.xq")
+        val Log = resourceFile("queries/marklogic/log/log.xq")
     }
 }
