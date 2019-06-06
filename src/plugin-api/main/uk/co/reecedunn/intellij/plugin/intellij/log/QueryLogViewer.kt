@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.intellij.log
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
-import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComboBox
@@ -47,7 +47,7 @@ class QueryLogViewer : ToolWindowFactory, DumbAware {
 }
 
 class QueryLogViewerUI {
-    // region Option :: Query Processor
+    // region Filter :: Server
 
     private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
 
@@ -61,6 +61,23 @@ class QueryLogViewerUI {
 
         queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
         queryProcessor!!.addActionListener {
+            populateLogFiles()
+        }
+    }
+
+    // endregion
+    // region Filter :: Log File
+
+    private var logFile: JComboBox<String>? = null
+
+    private fun populateLogFiles() {
+        val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
+        if (session is LogViewProvider) {
+            session.logs().execute { logs ->
+                logs.forEach { logFile?.addItem(it) }
+            }.onException { logFile?.removeAllItems() }
+        } else {
+            logFile?.removeAllItems()
         }
     }
 
