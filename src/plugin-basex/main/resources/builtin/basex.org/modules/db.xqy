@@ -35,7 +35,7 @@ declare %a:since("basex", "7.0") function db:retrieve($db as xs:string, $path as
 declare %a:since("basex", "7.0") function db:text($db as xs:string, $strings as xs:string*) as text()* external;
 declare %a:since("basex", "7.2.1") function db:text-range($db as xs:string, $min as xs:string, $max as xs:string) as text()* external;
 declare %a:since("basex", "7.0") function db:attribute($db as xs:string, $strings as xs:string*) as attribute()* external;
-declare %a:since("basex", "7.0") function db:attribute($db as xs:string, $strings as xs:strings*, $name as xs:string) as attribute()* external;
+declare %a:since("basex", "7.0") function db:attribute($db as xs:string, $strings as xs:string*, $name as xs:string) as attribute()* external;
 declare %a:since("basex", "7.2.1") function db:attribute-range($db as xs:string, $min as xs:string, $max as xs:string) as attribute()* external;
 declare %a:since("basex", "7.0") function db:attribute-range($db as xs:string, $min as xs:string, $max as xs:string, $name as xs:string) as attribute()* external;
 declare %a:since("basex", "8.4") function db:token($db as xs:string, $tokens as xs:string*) as attribute()* external;
