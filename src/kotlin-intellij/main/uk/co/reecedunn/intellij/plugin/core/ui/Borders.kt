@@ -21,5 +21,6 @@ import javax.swing.border.MatteBorder
 object Borders {
     val TableHeaderBottom = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
 
+    val ConsoleToolbarTop = MatteBorder(1, 0, 0, 0, Color(202, 202, 202))
     val ConsoleToolbarRight = MatteBorder(0, 0, 0, 1, Color(202, 202, 202))
 }

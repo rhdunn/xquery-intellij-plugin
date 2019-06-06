@@ -16,15 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.intellij.log
 
 import com.intellij.execution.impl.ConsoleViewUtil
-import com.intellij.execution.impl.EditorHyperlinkSupport
 import com.intellij.openapi.editor.ex.EditorEx
-import com.intellij.openapi.editor.impl.DocumentImpl
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -103,6 +102,7 @@ class QueryLogViewerUI(val project: Project) {
     private fun createConsoleEditor() {
         logViewEditor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
         logViewEditor?.contextMenuGroupId = null // disabling default context menu
+        logViewEditor?.setBorder(Borders.ConsoleToolbarTop)
         logView = logViewEditor!!.component
     }
 
