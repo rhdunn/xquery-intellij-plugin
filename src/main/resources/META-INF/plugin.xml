@@ -194,6 +194,10 @@
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XQueryConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XSLTConfigurationType"/>
+
+    <!-- Log Viewer -->
+
+    <toolWindow id="Query Log" anchor="bottom" secondary="true" factoryClass="uk.co.reecedunn.intellij.plugin.intellij.log.QueryLogViewer"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
