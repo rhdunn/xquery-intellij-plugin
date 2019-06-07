@@ -25,6 +25,7 @@ import com.intellij.ui.content.ContentFactory
 import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -102,6 +103,8 @@ class QueryLogViewerUI(val project: Project) {
     private fun createConsoleEditor() {
         logConsole = TextConsoleView(project)
         logView = logConsole?.component
+
+        logConsole?.setConsoleBorder(Borders.ConsoleToolbarTop)
     }
 
     private fun populateLogFile() {

@@ -36,6 +36,7 @@ import com.intellij.openapi.util.text.StringUtil
 import com.intellij.util.ui.UIUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
+import javax.swing.border.Border
 
 open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     companion object {
@@ -74,6 +75,10 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
             caret.moveToOffset(moveOffset)
             scrolling.scrollVertically(editor!!.visualPositionToXY(caret.visualPosition).y)
         }
+    }
+
+    override fun setConsoleBorder(border: Border) {
+        editor?.setBorder(border)
     }
 
     // endregion

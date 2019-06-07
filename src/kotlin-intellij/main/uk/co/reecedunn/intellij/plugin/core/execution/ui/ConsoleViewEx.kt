@@ -16,7 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
 import com.intellij.execution.ui.ConsoleView
+import javax.swing.border.Border
 
 interface ConsoleViewEx : ConsoleView {
     fun scrollToTop(offset: Int)
+
+    fun setConsoleBorder(border: Border)
 }
