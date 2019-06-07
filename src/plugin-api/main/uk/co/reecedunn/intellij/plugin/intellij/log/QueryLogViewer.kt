@@ -16,18 +16,26 @@
 package uk.co.reecedunn.intellij.plugin.intellij.log
 
 import com.intellij.execution.impl.ConsoleViewUtil
+import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.actionSystem.ex.ActionManagerEx
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
+import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
 import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
+import com.intellij.ui.components.panels.Wrapper
 import com.intellij.ui.content.ContentFactory
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import java.awt.BorderLayout
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -99,11 +107,37 @@ class QueryLogViewerUI(val project: Project) {
 
     private var logView: JComponent? = null
 
+    private fun createConsoleActions(): Array<AnAction> {
+        return arrayOf(
+            object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
+                override fun getEditor(e: AnActionEvent): Editor? = logViewEditor
+            },
+            ScrollToTheEndToolbarAction(logViewEditor!!)
+        )
+    }
+
     private fun createConsoleEditor() {
         logViewEditor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
         logViewEditor?.contextMenuGroupId = null // disabling default context menu
         logViewEditor?.setBorder(Borders.ConsoleToolbarTop)
-        logView = logViewEditor!!.component
+
+        val panel = JPanel(BorderLayout())
+        panel.add(logViewEditor!!.component, BorderLayout.CENTER)
+
+        val actions = DefaultActionGroup()
+        actions.addAll(*createConsoleActions())
+
+        val toolbar = ActionManagerEx.getInstanceEx().createActionToolbar(ActionPlaces.RUNNER_TOOLBAR, actions, false)
+        toolbar.setTargetComponent(panel)
+
+        // Setting a border on the toolbar removes the standard padding/spacing,
+        // so set the border on a panel that wraps the toolbar element.
+        val wrapper = Wrapper()
+        wrapper.add(toolbar.component)
+        wrapper.border = Borders.ConsoleToolbarRight
+        panel.add(wrapper, BorderLayout.LINE_START)
+
+        logView = panel
     }
 
     private fun populateLogFile() {
@@ -121,6 +155,7 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     // endregion
+    // region Form
 
     var panel: JPanel? = null
 
@@ -129,4 +164,6 @@ class QueryLogViewerUI(val project: Project) {
         createLogFileUI()
         createConsoleEditor()
     }
+
+    // endregion
 }
