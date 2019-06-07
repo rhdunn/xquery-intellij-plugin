@@ -21,6 +21,7 @@ import com.intellij.execution.impl.ConsoleViewUtil
 import com.intellij.execution.impl.EditorHyperlinkSupport
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
@@ -33,7 +34,9 @@ import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.text.StringUtil
+import com.intellij.ui.components.panels.Wrapper
 import com.intellij.util.ui.UIUtil
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.border.Border
@@ -79,6 +82,21 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun setConsoleBorder(border: Border) {
         editor?.setBorder(border)
+    }
+
+    override fun createActionToolbar(place: String) {
+        val actions = DefaultActionGroup()
+        actions.addAll(*createConsoleActions())
+
+        val toolbar = ActionManagerEx.getInstanceEx().createActionToolbar(place, actions, false)
+        toolbar.setTargetComponent(this)
+
+        // Setting a border on the toolbar removes the standard padding/spacing,
+        // so set the border on a panel that wraps the toolbar element.
+        val wrapper = Wrapper()
+        wrapper.add(toolbar.component)
+        wrapper.border = Borders.ConsoleToolbarRight
+        add(wrapper, BorderLayout.LINE_START)
     }
 
     // endregion

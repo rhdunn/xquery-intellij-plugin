@@ -22,4 +22,6 @@ interface ConsoleViewEx : ConsoleView {
     fun scrollToTop(offset: Int)
 
     fun setConsoleBorder(border: Border)
+
+    fun createActionToolbar(place: String)
 }

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.log
 
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
@@ -105,6 +106,7 @@ class QueryLogViewerUI(val project: Project) {
         logView = logConsole?.component
 
         logConsole?.setConsoleBorder(Borders.ConsoleToolbarTop)
+        logConsole?.createActionToolbar(ActionPlaces.UNKNOWN)
     }
 
     private fun populateLogFile() {

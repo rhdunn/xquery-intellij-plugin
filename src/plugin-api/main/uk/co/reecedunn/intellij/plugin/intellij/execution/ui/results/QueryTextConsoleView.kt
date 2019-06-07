@@ -18,12 +18,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.DefaultActionGroup
-import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.project.Project
-import com.intellij.ui.components.panels.Wrapper
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
-import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
@@ -33,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.createNavigatable
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
-import java.awt.BorderLayout
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
@@ -47,19 +42,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         // Add the text console's action toolbar to the text console itself,
         // not the result view console. This ensures that the text view editor
         // does not grab the table's keyboard navigation events.
-
-        val actions = DefaultActionGroup()
-        actions.addAll(*createConsoleActions())
-
-        val toolbar = ActionManagerEx.getInstanceEx().createActionToolbar(ActionPlaces.RUNNER_TOOLBAR, actions, false)
-        toolbar.setTargetComponent(this)
-
-        // Setting a border on the toolbar removes the standard padding/spacing,
-        // so set the border on a panel that wraps the toolbar element.
-        val wrapper = Wrapper()
-        wrapper.add(toolbar.component)
-        wrapper.border = Borders.ConsoleToolbarRight
-        add(wrapper, BorderLayout.LINE_START)
+        createActionToolbar(ActionPlaces.RUNNER_TOOLBAR)
 
         return component
     }
