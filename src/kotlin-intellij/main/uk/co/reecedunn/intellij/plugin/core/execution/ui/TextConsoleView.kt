@@ -69,6 +69,8 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     // region ConsoleViewEx
 
+    override val offset get(): Int = editor!!.caretModel.offset
+
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
             val moveOffset = Math.min(offset, contentSize)

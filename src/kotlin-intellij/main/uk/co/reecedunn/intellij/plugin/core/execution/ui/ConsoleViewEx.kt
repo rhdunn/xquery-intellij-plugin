@@ -19,6 +19,8 @@ import com.intellij.execution.ui.ConsoleView
 import javax.swing.border.Border
 
 interface ConsoleViewEx : ConsoleView {
+    val offset: Int
+
     fun scrollToTop(offset: Int)
 
     fun setConsoleBorder(border: Border)

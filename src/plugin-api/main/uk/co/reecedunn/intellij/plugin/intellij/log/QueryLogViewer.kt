@@ -115,8 +115,14 @@ class QueryLogViewerUI(val project: Project) {
             val logFile = logFile?.selectedItem as? String
             if (logFile != null) {
                 session.log(logFile).execute { log ->
+                    val offset = logConsole!!.offset
+                    val isAtEnd = offset == logConsole!!.contentSize
+
                     logConsole?.clear()
                     logConsole?.print(log ?: "", ConsoleViewContentType.NORMAL_OUTPUT)
+                    if (isAtEnd) {
+                        logConsole?.scrollTo(logConsole!!.contentSize)
+                    }
                 }.onException { logConsole?.clear() }
             }
         } else {
@@ -139,7 +145,7 @@ class QueryLogViewerUI(val project: Project) {
         queryProcessor?.selectedItem = queryProcessor?.selectedItem
 
         refresh = object : Stopwatch() {
-            override fun isRunning(): Boolean = panel != null
+            override fun isRunning(): Boolean = true
 
             override fun onInterval() = populateLogFile()
         }
