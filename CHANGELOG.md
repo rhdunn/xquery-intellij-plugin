@@ -20,6 +20,10 @@ Run Configurations:
     results console.
 1.  Include the console output when profiling queries.
 
+Query Processor Integration:
+
+1.  Add a query log viewer for MarkLogic log files.
+
 Saxon:
 
 1.  Fix using Saxon 9.2 to 9.8 JAR files.
