@@ -37,7 +37,7 @@ import com.intellij.util.ui.UIUtil
 import java.awt.BorderLayout
 import javax.swing.JComponent
 
-abstract class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
+open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     companion object {
         private val MANUAL_HYPERLINK = Key.create<Boolean>("MANUAL_HYPERLINK")
     }

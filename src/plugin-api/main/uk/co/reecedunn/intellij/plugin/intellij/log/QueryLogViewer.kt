@@ -15,27 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.log
 
-import com.intellij.openapi.actionSystem.*
-import com.intellij.openapi.actionSystem.ex.ActionManagerEx
-import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
-import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
-import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
+import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
-import com.intellij.ui.components.panels.Wrapper
 import com.intellij.ui.content.ContentFactory
 import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
-import uk.co.reecedunn.intellij.plugin.core.ui.Borders
-import uk.co.reecedunn.intellij.plugin.core.ui.EditorPanel
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import java.awt.BorderLayout
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -103,40 +96,26 @@ class QueryLogViewerUI(val project: Project) {
     // endregion
     // region Log View
 
+    private var logConsole: ConsoleViewEx? = null
     private var logView: JComponent? = null
 
-    private fun createConsoleActions(): Array<AnAction> {
-        val editor = (logView as EditorPanel).editor
-        return arrayOf(
-            object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
-                override fun getEditor(e: AnActionEvent): Editor? = editor
-            },
-            ScrollToTheEndToolbarAction(editor!!),
-            ActionManager.getInstance().getAction("Print")
-        )
-    }
-
     private fun createConsoleEditor() {
-        val panel = EditorPanel()
-        logView = panel
-
-        panel.setupConsoleEditor(project, foldingOutlineShown = true, lineMarkerAreaShown = false)
-        panel.setEditorBorder(Borders.ConsoleToolbarTop)
-        panel.createActionToolbar(ActionPlaces.UNKNOWN, *createConsoleActions())
+        logConsole = TextConsoleView(project)
+        logView = logConsole?.component
     }
 
     private fun populateLogFile() {
-        val document = (logView as EditorPanel).editor!!.document
         val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
         if (session is LogViewProvider) {
             val logFile = logFile?.selectedItem as? String
             if (logFile != null) {
                 session.log(logFile).execute { log ->
-                    document.setText(log ?: "")
-                }.onException { document.setText("") }
+                    logConsole?.clear()
+                    logConsole?.print(log ?: "", ConsoleViewContentType.NORMAL_OUTPUT)
+                }.onException { logConsole?.clear() }
             }
         } else {
-            document.setText("")
+            logConsole?.clear()
         }
     }
 
