@@ -110,7 +110,8 @@ class QueryLogViewerUI(val project: Project) {
             object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
                 override fun getEditor(e: AnActionEvent): Editor? = editor
             },
-            ScrollToTheEndToolbarAction(editor!!)
+            ScrollToTheEndToolbarAction(editor!!),
+            ActionManager.getInstance().getAction("Print")
         )
     }
 

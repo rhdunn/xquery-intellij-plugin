@@ -16,9 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.ui
 
 import com.intellij.execution.impl.ConsoleViewUtil
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.project.Project
@@ -27,7 +25,7 @@ import java.awt.BorderLayout
 import javax.swing.JPanel
 import javax.swing.border.Border
 
-class EditorPanel : JPanel(BorderLayout()) {
+class EditorPanel : JPanel(BorderLayout()), DataProvider {
     var editor: EditorEx? = null
 
     fun setupConsoleEditor(project: Project, foldingOutlineShown: Boolean, lineMarkerAreaShown: Boolean) {
@@ -54,4 +52,15 @@ class EditorPanel : JPanel(BorderLayout()) {
         wrapper.border = Borders.ConsoleToolbarRight
         add(wrapper, BorderLayout.LINE_START)
     }
+
+    // region DataProvider
+
+    override fun getData(dataId: String): Any? {
+        return when (dataId) {
+            CommonDataKeys.EDITOR.name -> editor
+            else -> null
+        }
+    }
+
+    // endregion
 }
