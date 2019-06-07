@@ -152,6 +152,8 @@ class QueryLogViewerUI(val project: Project) {
         createLogFileUI()
         createConsoleEditor()
 
+        queryProcessor?.selectedItem = queryProcessor?.selectedItem
+
         refresh = object : Stopwatch() {
             override fun isRunning(): Boolean = panel != null
 
