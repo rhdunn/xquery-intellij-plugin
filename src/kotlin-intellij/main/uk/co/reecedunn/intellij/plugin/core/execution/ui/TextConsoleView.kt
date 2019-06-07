@@ -101,6 +101,11 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         add(wrapper, BorderLayout.LINE_START)
     }
 
+    override fun setConsoleText(text: String) {
+        val newText = StringUtil.convertLineSeparators(text, emulateCarriageReturn)
+        editor!!.document.setText(newText)
+    }
+
     // endregion
     // region ConsoleView
 

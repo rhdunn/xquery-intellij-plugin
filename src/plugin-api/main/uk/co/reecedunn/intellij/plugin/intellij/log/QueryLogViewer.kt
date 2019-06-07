@@ -118,8 +118,7 @@ class QueryLogViewerUI(val project: Project) {
                     val offset = logConsole!!.offset
                     val isAtEnd = offset == logConsole!!.contentSize
 
-                    logConsole?.clear()
-                    logConsole?.print(log ?: "", ConsoleViewContentType.NORMAL_OUTPUT)
+                    logConsole?.setConsoleText(log ?: "")
                     if (isAtEnd) {
                         logConsole?.scrollTo(logConsole!!.contentSize)
                     }

@@ -26,4 +26,6 @@ interface ConsoleViewEx : ConsoleView {
     fun setConsoleBorder(border: Border)
 
     fun createActionToolbar(place: String)
+
+    fun setConsoleText(text: String)
 }
