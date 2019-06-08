@@ -27,4 +27,6 @@ declare variable $log-path := xdmp:data-directory() || $separator || "Logs" || $
 if (starts-with($name, ".") or not(xdmp:filesystem-file-exists($log-path))) then
     ()
 else
-    xdmp:filesystem-file($log-path)
+    for $line in tokenize(xdmp:filesystem-file($log-path), "&#x0A;")
+    where string-length($line) gt 0
+    return $line
