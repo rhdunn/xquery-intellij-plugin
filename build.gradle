@@ -44,6 +44,12 @@ buildscript {
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_version(ext.idea_since_build.toInteger())
 
+    // The JBR version to use with buildSearchableOptions.
+    ext.jbr_build = System.getenv("JBR_BUILD")
+
+    // The JBR version to use with runIde.
+    ext.jbr_runide = System.getenv("JBR_RUNIDE")
+
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
@@ -87,6 +93,14 @@ configure(allprojects - project(':src')) {
 
     intellij {
         version = idea_version
+    }
+
+    if (jbr_build != null) {
+        buildSearchableOptions.jbrVersion = jbr_build
+    }
+
+    if (jbr_runide != null) {
+        buildSearchableOptions.jbrVersion = jbr_runide
     }
 
     dependencies {
