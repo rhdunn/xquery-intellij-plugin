@@ -88,6 +88,7 @@ class QueryLogViewerUI(val project: Project) {
         val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
         if (session is LogViewProvider) {
             session.logs().execute { logs ->
+                logFile?.removeAllItems()
                 logs.forEach { logFile?.addItem(it) }
             }.onException { logFile?.removeAllItems() }
         } else {
