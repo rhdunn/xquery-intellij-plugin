@@ -20,15 +20,14 @@ import com.intellij.ide.passwordSafe.PasswordSafe
 import com.intellij.ide.passwordSafe.impl.PasswordSafeImpl
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.Extensions
-import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFile
-import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.junit.Assume
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest
@@ -85,13 +84,6 @@ private class ProcessorTest : PlatformLiteFixture() {
         val file = LightVirtualFile("test.xqy", query)
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
-    }
-
-    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        PlatformLiteFixture.getApplication().registerService(aClass, `object`)
-        Disposer.register(myProject, com.intellij.openapi.Disposable {
-            PlatformLiteFixture.getApplication().picoContainer.unregisterComponent(aClass.name)
-        })
     }
 
     @Test @DisplayName("version") fun version() {

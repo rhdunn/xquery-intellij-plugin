@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  * Copyright 2000-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +46,6 @@ import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
-import com.intellij.testFramework.PlatformLiteFixture
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
@@ -54,12 +53,11 @@ import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
-import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import java.io.IOException
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
@@ -181,14 +179,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
-
-    }
-
-    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        PlatformLiteFixture.getApplication().registerService(aClass, `object`)
-        Disposer.register(myProject, com.intellij.openapi.Disposable {
-            PlatformLiteFixture.getApplication().picoContainer.unregisterComponent(aClass.name)
-        })
     }
 
     @Suppress("UNCHECKED_CAST")
