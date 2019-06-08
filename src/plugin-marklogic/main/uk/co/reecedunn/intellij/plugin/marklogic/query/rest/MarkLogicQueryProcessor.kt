@@ -113,10 +113,10 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    override fun log(name: String): ExecutableOnPooledThread<String?> {
+    override fun log(name: String): ExecutableOnPooledThread<List<String>> {
         return createRunnableQuery(MarkLogicQueries.Log.Log, XQuery).use { query ->
             query.bindVariable("name", name, "xs:string")
-            query.run().then { results -> results.results.map { it.value as String }.firstOrNull() }
+            query.run().then { results -> results.results.map { it.value as String } }
         }
     }
 
