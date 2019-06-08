@@ -80,6 +80,7 @@ class QueryLogViewerUI(val project: Project) {
     private fun createLogFileUI() {
         logFile = ComboBox()
         logFile!!.addActionListener {
+            lines = -1
             populateLogFile()
         }
     }
@@ -101,6 +102,7 @@ class QueryLogViewerUI(val project: Project) {
 
     private var logConsole: ConsoleViewEx? = null
     private var logView: JComponent? = null
+    private var lines: Int = -1
 
     private fun createConsoleEditor() {
         logConsole = TextConsoleView(project)
@@ -119,10 +121,15 @@ class QueryLogViewerUI(val project: Project) {
                     val offset = logConsole!!.offset
                     val isAtEnd = offset == logConsole!!.contentSize
 
-                    logConsole?.clear()
-                    log.forEach { line ->
-                        logConsole?.print(line, ConsoleViewContentType.NORMAL_OUTPUT)
-                        logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                    if (lines == -1) {
+                        logConsole?.clear()
+                    }
+                    log.withIndex().forEach { line ->
+                        if (line.index > lines) {
+                            logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
+                            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                            lines = line.index
+                        }
                     }
 
                     if (isAtEnd) {
