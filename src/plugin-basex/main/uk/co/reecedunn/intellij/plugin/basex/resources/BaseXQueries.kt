@@ -30,5 +30,6 @@ object BaseXQueries {
 
     object Log {
         val Logs = resourceFile("queries/basex/log/logs.xq")
+        val Log = resourceFile("queries/basex/log/log.xq")
     }
 }
