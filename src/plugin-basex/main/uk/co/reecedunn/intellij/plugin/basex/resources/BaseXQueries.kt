@@ -27,4 +27,8 @@ object BaseXQueries {
     }
 
     val Version = resourceFile("queries/basex/version.xq")
+
+    object Log {
+        val Logs = resourceFile("queries/basex/log/logs.xq")
+    }
 }

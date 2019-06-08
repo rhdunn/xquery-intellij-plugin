@@ -25,13 +25,15 @@ import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
 internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassLoader) :
     ProfileableQueryProvider,
-    RunnableQueryProvider {
+    RunnableQueryProvider,
+    LogViewProvider {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.results.first().value as String }
@@ -58,6 +60,16 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
             XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classLoader)
             else -> throw UnsupportedQueryType(language)
         }
+    }
+
+    override fun logs(): ExecutableOnPooledThread<List<String>> {
+        return createRunnableQuery(BaseXQueries.Log.Logs, XQuery).use { query ->
+            query.run().then { results -> results.results.map { it.value as String } }
+        }
+    }
+
+    override fun log(name: String): ExecutableOnPooledThread<String?> {
+        TODO()
     }
 
     override fun close() {
