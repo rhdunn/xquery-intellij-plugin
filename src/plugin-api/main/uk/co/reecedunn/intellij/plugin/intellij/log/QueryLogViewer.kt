@@ -60,15 +60,15 @@ class QueryLogViewerUI(val project: Project) {
 
     private fun createQueryProcessorUI() {
         val model = DefaultComboBoxModel<QueryProcessorSettings>()
-        QueryProcessors.getInstance().processors.forEach { processor ->
-            processor.connection?.let { model.addElement(processor) }
-        }
-
         queryProcessor = ComboBox(model)
 
         queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
         queryProcessor!!.addActionListener {
             populateLogFiles()
+        }
+
+        QueryProcessors.getInstance().processors.forEach { processor ->
+            processor.connection?.let { model.addElement(processor) }
         }
     }
 
@@ -161,8 +161,6 @@ class QueryLogViewerUI(val project: Project) {
         createQueryProcessorUI()
         createLogFileUI()
         createConsoleEditor()
-
-        queryProcessor?.selectedItem = queryProcessor?.selectedItem
 
         refresh = object : Stopwatch() {
             override fun isRunning(): Boolean = true
