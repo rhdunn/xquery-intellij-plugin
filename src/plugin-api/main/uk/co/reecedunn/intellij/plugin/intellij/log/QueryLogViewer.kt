@@ -86,7 +86,11 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFiles() {
-        val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
+        val session = try {
+            (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
+        } catch (e: Exception) {
+            null
+        }
         if (session is LogViewProvider) {
             session.logs().execute { logs ->
                 logFile?.removeAllItems()
@@ -113,7 +117,11 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFile() {
-        val session = (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
+        val session = try {
+            (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
+        } catch (e: Exception) {
+            null
+        }
         if (session is LogViewProvider) {
             val logFile = logFile?.selectedItem as? String
             if (logFile != null) {

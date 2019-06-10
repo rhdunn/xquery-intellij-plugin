@@ -22,7 +22,7 @@ Run Configurations:
 
 Query Processor Integration:
 
-1.  Add a query log viewer for MarkLogic log files.
+1.  Add a query log viewer for BaseX and MarkLogic log files.
 
 Saxon:
 
