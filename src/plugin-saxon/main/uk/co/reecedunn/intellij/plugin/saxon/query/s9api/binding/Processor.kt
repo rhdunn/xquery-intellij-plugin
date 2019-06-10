@@ -17,6 +17,9 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.proxy
 import javax.xml.transform.Source
@@ -26,8 +29,12 @@ class Processor {
     private val `class`: Class<*>
 
     constructor(classLoader: ClassLoader, licensedEdition: Boolean) {
-        `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
-        `object` = `class`.getConstructor(Boolean::class.java).newInstance(licensedEdition)
+        try {
+            `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
+            `object` = `class`.getConstructor(Boolean::class.java).newInstance(licensedEdition)
+        } catch (e: ClassNotFoundException) {
+            throw UnsupportedJarFileException(SaxonS9API.displayName)
+        }
 
         // Using the Saxon EE optimizer can generate a NoClassDefFoundError
         // resolving com/saxonica/ee/bytecode/GeneratedCode. This appears to
