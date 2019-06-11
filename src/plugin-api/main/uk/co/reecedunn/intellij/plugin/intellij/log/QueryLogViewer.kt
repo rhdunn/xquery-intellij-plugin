@@ -23,7 +23,6 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
-import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -155,19 +154,10 @@ class QueryLogViewerUI(val project: Project) {
 
     var panel: JPanel? = null
 
-    var refresh: Stopwatch? = null
-
     private fun createUIComponents() {
         createQueryProcessorUI()
         createLogFileUI()
         createConsoleEditor()
-
-        refresh = object : Stopwatch() {
-            override fun isRunning(): Boolean = true
-
-            override fun onInterval() = populateLogFile()
-        }
-        refresh?.start(5000)
     }
 
     // endregion
