@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
@@ -74,14 +72,14 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
                 qname.localName
             else
                 null
-        }.firstOrNull() `is` Cacheable
+        }.firstOrNull()
     }
 
     override val namespaceUri get(): XsAnyUriValue? = cachedNamespaceUri.get()
     private val cachedNamespaceUri = CacheableProperty {
         children().filterIsInstance<XQueryDirAttributeValue>().map { attr ->
             attr.value as? XsAnyUriValue
-        }.firstOrNull() `is` Cacheable
+        }.firstOrNull()
     }
 
     // endregion

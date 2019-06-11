@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
@@ -44,7 +42,7 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
                 is XPathStringLiteral -> XsNCName((it.value as XsStringValue).data.trim(), it)
                 else -> null
             }
-        }.filterNotNull().firstOrNull() `is` Cacheable
+        }.filterNotNull().firstOrNull()
     }
     override val nodeName get(): XsAnyAtomicType? = cachedNodeName.get()
 

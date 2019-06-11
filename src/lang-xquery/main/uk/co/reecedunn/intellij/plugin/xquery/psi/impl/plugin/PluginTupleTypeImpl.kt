@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
@@ -61,9 +59,9 @@ class PluginTupleTypeImpl(node: ASTNode) :
         }.filterNotNull().joinToString()
 
         if (isExtensible)
-            "tuple($fields, *)" `is` Cacheable
+            "tuple($fields, *)"
         else
-            "tuple($fields)" `is` Cacheable
+            "tuple($fields)"
     }
     override val typeName get(): String = cachedTypeName.get()!!
 

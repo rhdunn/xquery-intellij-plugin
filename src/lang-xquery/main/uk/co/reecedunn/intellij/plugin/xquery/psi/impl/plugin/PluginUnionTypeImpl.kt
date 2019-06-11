@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
@@ -49,7 +47,7 @@ class PluginUnionTypeImpl(node: ASTNode) :
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        "union(${memberTypes.joinToString { op_qname_presentation(it) }})" `is` Cacheable
+        "union(${memberTypes.joinToString { op_qname_presentation(it) }})"
     }
     override val typeName get(): String = cachedTypeName.get()!!
 

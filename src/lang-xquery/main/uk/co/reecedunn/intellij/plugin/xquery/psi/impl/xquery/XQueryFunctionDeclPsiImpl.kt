@@ -16,14 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -82,7 +79,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
                 "${op_qname_presentation(name)}($params)"
             else
                 "${op_qname_presentation(name)}($params) as ${returnType.typeName}"
-        } `is` Cacheable
+        }
     }
 
     override fun getPresentableText(): String? = cachedPresentableText.get()
@@ -91,8 +88,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // region SortableTreeElement
 
     private val cachedAlphaSortKey = CacheableProperty {
-        val key = functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
-        key `is` Cacheable
+        functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
     }
 
     override fun getAlphaSortKey(): String = cachedAlphaSortKey.get()!!

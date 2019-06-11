@@ -18,17 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsString
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionTest
 
 class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionTest, XdmItemType {
@@ -51,7 +46,7 @@ class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     private val cachedTypeName = CacheableProperty {
         val annotations = annotations.map { (it as ItemPresentation).presentableText }.filterNotNull().joinToString(" ")
-        "$annotations ${(functionTest as XdmItemType).typeName}" `is` Cacheable
+        "$annotations ${(functionTest as XdmItemType).typeName}"
     }
     override val typeName get(): String = cachedTypeName.get()!!
 

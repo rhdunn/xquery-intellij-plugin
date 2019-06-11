@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
@@ -55,7 +53,7 @@ class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
                 else ->
                     child.text
             }
-        }.filterNotNull().joinToString(separator = "") `is` Cacheable
+        }.filterNotNull().joinToString(separator = "")
     }
 
     override val element get(): PsiElement? = this

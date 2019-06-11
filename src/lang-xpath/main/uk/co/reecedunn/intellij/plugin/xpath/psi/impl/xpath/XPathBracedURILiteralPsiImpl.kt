@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -44,6 +42,6 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
                 else ->
                     child.text
             }
-        }.filterNotNull().joinToString(separator = "") `is` Cacheable
+        }.filterNotNull().joinToString(separator = "")
     }
 }

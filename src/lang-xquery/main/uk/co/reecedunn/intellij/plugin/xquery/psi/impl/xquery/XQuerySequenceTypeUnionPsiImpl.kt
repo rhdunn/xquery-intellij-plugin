@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -71,9 +69,9 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     private val cachedTypeName = CacheableProperty {
         val name = types.joinToString(" | ") { it.typeName }
         if (isParenthesized)
-            "($name)" `is` Cacheable
+            "($name)"
         else
-            name `is` Cacheable
+            name
     }
     override val typeName get(): String = cachedTypeName.get()!!
 

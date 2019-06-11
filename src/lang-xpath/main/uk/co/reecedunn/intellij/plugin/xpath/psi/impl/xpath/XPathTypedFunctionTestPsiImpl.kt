@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
@@ -62,7 +60,7 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
 
     private val cachedTypeName = CacheableProperty {
         val returnType = returnType?.typeName ?: "item()*"
-        "function(${paramTypes.joinToString { it.typeName }}) as $returnType" `is` Cacheable
+        "function(${paramTypes.joinToString { it.typeName }}) as $returnType"
     }
     override val typeName get(): String = cachedTypeName.get()!!
 

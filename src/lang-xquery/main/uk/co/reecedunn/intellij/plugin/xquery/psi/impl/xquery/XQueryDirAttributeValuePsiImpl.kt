@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
@@ -52,7 +50,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
 
     private val cachedContent = CacheableProperty {
         if (contains(XQueryElementType.ENCLOSED_EXPR))
-            null `is` Cacheable // Cannot evaluate enclosed content expressions statically.
+            null // Cannot evaluate enclosed content expressions statically.
         else
             children().map { child ->
                 when (child.node.elementType) {
@@ -67,6 +65,6 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
                     else ->
                         child.text
                 }
-            }.filterNotNull().joinToString(separator = "") `is` Cacheable
+            }.filterNotNull().joinToString(separator = "")
     }
 }

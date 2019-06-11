@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSchemaElementTest
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
@@ -45,9 +43,7 @@ class XPathSchemaElementTestPsiImpl(node: ASTNode) :
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        nodeName?.let {
-            "schema-element(${op_qname_presentation(it)})" `is` Cacheable
-        } ?: "schema-element(<unknown>)" `is` Cacheable
+        nodeName?.let { "schema-element(${op_qname_presentation(it)})" } ?: "schema-element(<unknown>)"
     }
     override val typeName get(): String = cachedTypeName.get()!!
 

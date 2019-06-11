@@ -19,9 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
@@ -88,7 +86,7 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
                 "%${op_qname_presentation(it)}"
             else
                 "%${op_qname_presentation(it)}($values)"
-        } `is` Cacheable
+        }
     }
     override fun getPresentableText(): String? = cachedPresentableText.get()
 
