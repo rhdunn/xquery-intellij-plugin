@@ -390,6 +390,34 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (15) AxisStep")
+    internal inner class AxisStep {
+        @Test
+        @DisplayName("error recovery: invalid axis")
+        fun invalidAxis() {
+            val expected = loadResource("tests/parser/xpath-1.0/AxisStep_InvalidAxis.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AxisStep_InvalidAxis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: invalid axis and missing NodeTest")
+        fun invalidAxis_missingNodeTest() {
+            val expected = loadResource("tests/parser/xpath-1.0/AxisStep_InvalidAxis_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AxisStep_InvalidAxis_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: invalid axis with PredicateList")
+        fun invalidAxis_predicateList() {
+            val expected = loadResource("tests/parser/xpath-1.0/AxisStep_InvalidAxis_PredicateList.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AxisStep_InvalidAxis_PredicateList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (16) ForwardStep ; XPath 1.0 EBNF (17) ForwardAxis")
     internal inner class ForwardAxis {
         @Nested

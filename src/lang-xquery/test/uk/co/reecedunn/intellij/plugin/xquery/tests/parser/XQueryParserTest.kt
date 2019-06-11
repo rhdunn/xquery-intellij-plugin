@@ -3056,6 +3056,34 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 1.0 EBNF (71) AxisStep")
+    internal inner class AxisStep {
+        @Test
+        @DisplayName("error recovery: invalid axis")
+        fun invalidAxis() {
+            val expected = loadResource("tests/parser/xquery-1.0/AxisStep_InvalidAxis.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/AxisStep_InvalidAxis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: invalid axis and missing NodeTest")
+        fun invalidAxis_missingNodeTest() {
+            val expected = loadResource("tests/parser/xquery-1.0/AxisStep_InvalidAxis_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/AxisStep_InvalidAxis_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: invalid axis with PredicateList")
+        fun invalidAxis_predicateList() {
+            val expected = loadResource("tests/parser/xquery-1.0/AxisStep_InvalidAxis_PredicateList.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/AxisStep_InvalidAxis_PredicateList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 1.0 EBNF (72) ForwardStep ; XQuery 1.0 EBNF (73) ForwardAxis")
     internal inner class ForwardAxis {
         @Nested

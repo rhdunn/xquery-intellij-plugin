@@ -1293,8 +1293,18 @@ open class XPathParser : PsiParser {
             ) {
                 marker.rollbackTo()
                 return false
+            } else if (builder.errorOnTokenType(XPathTokenType.AXIS_SEPARATOR, XPathBundle.message("parser.error.invalid-axis"))) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseNodeTest(builder, null)
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (parsePredicateList(builder))
+                    marker.done(XPathElementType.AXIS_STEP)
+                else
+                    marker.done(XPathElementType.NAME_TEST)
+            } else {
+                marker.done(XPathElementType.NAME_TEST)
             }
-            marker.done(XPathElementType.NAME_TEST)
             return true
         }
         marker.drop()

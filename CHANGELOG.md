@@ -40,6 +40,7 @@ XPath and XQuery:
 1.  Report a parser error when a `NumericLiteral` is followed by an `NCName` or
     `URIQualifiedName` without whitespace or comment tokens, due to them being
     non-delimiting terminal symbols.
+1.  Report an error if an unknown axis name is followed by the `::` axis indicator.
 
 ## 1.4.1 - 2019-03-27
 

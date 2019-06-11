@@ -18,6 +18,7 @@
     <ol>
       <li>File structure support, listing the declared functions, variables, and types, and the query body in a file.</li>
       <li>Display the functions, variables, and types when "Show Members" is enabled in the project pane.</li>
+      <li>Display the function signature when holding Ctrl over a function call.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>
@@ -26,6 +27,10 @@
       <li>Support profiling Saxon XSLT and XQuery scripts.</li>
       <li>Display the elapsed time and number of items returned by the query in the results console.</li>
       <li>Include the console output when profiling queries.</li>
+    </ol>
+    <p>Query Processor Integration:</p>
+    <ol>
+      <li>Add a query log viewer for BaseX and MarkLogic log files.</li>
     </ol>
     <p>Saxon:</p>
     <ol>
@@ -47,6 +52,7 @@
         <code>URIQualifiedName</code> without whitespace or comment tokens, due to them being non-delimiting
         terminal symbols.
       </li>
+      <li>Report an error if an unknown axis name is followed by the <code>::</code> axis indicator.</li>
     </ol>
   ]]></change-notes>
 
