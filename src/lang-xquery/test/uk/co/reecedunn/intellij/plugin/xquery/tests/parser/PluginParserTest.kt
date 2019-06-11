@@ -37,198 +37,6 @@ private class PluginParserTest : ParserTestCase() {
         return ResourceVirtualFile(PluginParserTest::class.java.classLoader, resource).decode()
     }
 
-    // region MarkLogic 7.0 :: AttributeDeclTest
-
-    @Test
-    fun testAttributeDeclTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAttributeDeclTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAttributeDeclTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: ComplexTypeTest
-
-    @Test
-    fun testComplexTypeTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testComplexTypeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testComplexTypeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: ElementDeclTest
-
-    @Test
-    fun testElementDeclTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testElementDeclTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testElementDeclTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaComponentTest
-
-    @Test
-    fun testSchemaComponentTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaComponentTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaComponentTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaParticleTest
-
-    @Test
-    fun testSchemaParticleTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaParticleTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaParticleTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaRootTest
-
-    @Test
-    fun testSchemaRootTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaRootTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaRootTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaTypeTest
-
-    @Test
-    fun testSchemaTypeTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaTypeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaTypeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SimpleTypeTest
-
-    @Test
-    fun testSimpleTypeTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSimpleTypeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSimpleTypeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 8.0 :: AnyArrayNodeTest
 
     @Test
@@ -964,30 +772,6 @@ private class PluginParserTest : ParserTestCase() {
     fun testNumberConstructor_MissingClosingBrace() {
         val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.txt")
         val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: SchemaFacetTest
-
-    @Test
-    fun testSchemaFacetTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaFacetTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaFacetTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
@@ -1837,6 +1621,265 @@ private class PluginParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (36) SchemaKindTest")
+    internal inner class SchemaKindTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
+        internal inner class AttributeDeclTest {
+            @Test
+            @DisplayName("attribute declaration test")
+            fun attributeDeclTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute declaration test; compact whitespace")
+            fun attributeDeclTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (38) ComplexTypeTest")
+        internal inner class ComplexTypeTest {
+            @Test
+            @DisplayName("complex type test")
+            fun complexTypeTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("complex type test; compact whitespace")
+            fun complexTypeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (39) ElementDeclTest")
+        internal inner class ElementDeclTest {
+            @Test
+            @DisplayName("element declaration test")
+            fun elementDeclTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("element declaration test; compact whitespace")
+            fun elementDeclTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (40) SchemaComponentTest")
+        internal inner class SchemaComponentTest {
+            @Test
+            @DisplayName("schema component test")
+            fun schemaComponentTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema component test; compact whitespace")
+            fun schemaComponentTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected =
+                    loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.txt")
+                val actual =
+                    parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (41) SchemaParticleTest")
+        internal inner class SchemaParticleTest {
+            @Test
+            @DisplayName("schema particle test")
+            fun schemaParticleTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema particle test; compact whitespace")
+            fun schemaParticleTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected =
+                    loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (42) SchemaRootTest")
+        internal inner class SchemaRootTest {
+            @Test
+            @DisplayName("schema root test")
+            fun schemaRootTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema root test; compact whitespace")
+            fun schemaRootTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (43) SchemaTypeTest")
+        internal inner class SchemaTypeTest {
+            @Test
+            @DisplayName("schema type test")
+            fun schemaTypeTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema type test; compact whitespace")
+            fun schemaTypeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (44) SimpleTypeTest")
+        internal inner class SimpleTypeTest {
+            @Test
+            @DisplayName("simple type test")
+            fun simpleTypeTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("simple type test; compact whitespace")
+            fun simpleTypeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (45) SchemaFacetTest")
+        internal inner class SchemaFacetTest {
+            @Test
+            @DisplayName("schema facet test")
+            fun schemaFacetTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema facet test; compact whitespace")
+            fun schemaFacetTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
