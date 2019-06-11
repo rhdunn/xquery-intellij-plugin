@@ -37,763 +37,6 @@ private class PluginParserTest : ParserTestCase() {
         return ResourceVirtualFile(PluginParserTest::class.java.classLoader, resource).decode()
     }
 
-    // region MarkLogic 8.0 :: AnyArrayNodeTest
-
-    @Test
-    fun testAnyArrayNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyArrayNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyArrayNodeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyArrayNodeTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyArrayNodeTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyArrayNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyArrayNodeTest_FunctionCallLike() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: AnyBooleanNodeTest
-
-    @Test
-    fun testAnyBooleanNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyBooleanNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyBooleanNodeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyBooleanNodeTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyBooleanNodeTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyBooleanNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyBooleanNodeTest_FunctionCallLike() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: AnyKindTest
-
-    @Test
-    fun testAnyKindTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyKindTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: AnyMapNodeTest
-
-    @Test
-    fun testAnyMapNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyMapNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyMapNodeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyMapNodeTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyMapNodeTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyMapNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyMapNodeTest_FunctionCallLike() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest_FunctionCallLike.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest_FunctionCallLike.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: AnyNullNodeTest
-
-    @Test
-    fun testAnyNullNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNullNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNullNodeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNullNodeTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNullNodeTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNodeTest_NullNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNodeTest_NullNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNodeTest_NullNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNodeTest_NullNodeTest_FunctionCallLike() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNodeTest_NullNodeTest_FunctionCallLike.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNodeTest_NullNodeTest_FunctionCallLike.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: AnyNumberNodeTest
-
-    @Test
-    fun testAnyNumberNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNumberNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNumberNodeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNumberNodeTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyNumberNodeTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyNumberNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_AnyNumberNodeTest_FunctionCallLike() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest_FunctionCallLike.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest_FunctionCallLike.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: ArrayConstructor
-
-    @Test
-    fun testArrayConstructor() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrayConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrayConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrayConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrayConstructor_Multiple() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrayConstructor_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrayConstructor_Multiple_MissingExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: BooleanConstructor
-
-    @Test
-    fun testBooleanConstructor() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBooleanConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBooleanConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBooleanConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: DocumentTest
-
-    @Test
-    fun testDocumentTest_AnyArrayTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDocumentTest_AnyArrayTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDocumentTest_NamedArrayTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDocumentTest_AnyMapTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDocumentTest_AnyMapTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_MapTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDocumentTest_NamedMapTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: MapConstructor
-
-    @Test
-    fun testMapConstructor() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: MapConstructorEntry + MapConstructor
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_MissingSeparator() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_MissingValueExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_Multiple() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_Multiple_MissingEntry() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_NCName() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_NCName_WhitespaceAfterColon() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_NCName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_QName_KeyExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_QName_ValueExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_QName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMarkLogic_MapConstructorEntry_VarRef_NCName() {
-        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedArrayNodeTest
-
-    @Test
-    fun testNamedArrayNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedArrayNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedArrayNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_NamedArrayNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedArrayNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedArrayNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedBooleanNodeTest
-
-    @Test
-    fun testNamedBooleanNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedBooleanNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_NamedBooleanNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedKindTest
-
-    @Test
-    fun testNamedKindTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedKindTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedMapNodeTest
-
-    @Test
-    fun testNamedMapNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedMapNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedMapNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedMapNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_NamedMapNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedMapNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedMapNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedNullNodeTest
-
-    @Test
-    fun testNamedNullNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedNullNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedNullNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedNullNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_NamedNullNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedNullNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedNullNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedNumberNodeTest
-
-    @Test
-    fun testNamedNumberNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedNumberNodeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedNumberNodeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNodeTest_NamedNumberNodeTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedNumberNodeTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedNumberNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NamedTextTest
-
-    @Test
-    fun testNamedTextTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedTextTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedTextTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NamedTextTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NamedTextTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NullConstructor
-
-    @Test
-    fun testNullConstructor() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNullConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNullConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NumberConstructor
-
-    @Test
-    fun testNumberConstructor() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNumberConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNumberConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNumberConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: TextTest
-
-    @Test
-    fun testTextTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTextTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
     internal inner class AndExpr {
@@ -1421,34 +664,6 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (28) KindTest ; XQuery IntelliJ Plugin EBNF (29) BinaryTest")
-    internal inner class BinaryTest {
-        @Test
-        @DisplayName("binary test")
-        fun binaryTest() {
-            val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest.txt")
-            val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("binary test; compact whitespace")
-        fun binaryTest_CompactWhitespace() {
-            val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("error recovery: missing closing parenthesis")
-        fun missingClosingParenthesis() {
-            val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.txt")
-            val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (30) BinaryConstructor")
     internal inner class BinaryConstructor {
         @Test
@@ -1625,8 +840,181 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (36) SchemaKindTest")
-    internal inner class SchemaKindTest {
+    @DisplayName("XQuery 3.1 EBNF (118) NodeTest ; XQuery IntelliJ Plugin EBNF (28) KindTest")
+    internal inner class NodeTest_KindTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
+        internal inner class AnyBooleanNodeTest {
+            @Test
+            @DisplayName("any boolean-node test")
+            fun anyBooleanNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("FunctionCall like")
+            fun functionCallLike() {
+                val expected =
+                    loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
+        fun namedBooleanNodeTest() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
+        internal inner class AnyNumberNodeTest {
+            @Test
+            @DisplayName("any number-node test")
+            fun anyNumberNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("FunctionCall like")
+            fun functionCallLike() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest_FunctionCallLike.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest_FunctionCallLike.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
+        fun namedNumberNodeTest() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedNumberNodeTest.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedNumberNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
+        internal inner class AnyNullNodeTest {
+            @Test
+            @DisplayName("any null-node test")
+            fun anyNullNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("FunctionCall like")
+            fun functionCallLike() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest_FunctionCallLike.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest_FunctionCallLike.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
+        fun namedNullNodeTest() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedNullNodeTest.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedNullNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
+        internal inner class AnyArrayNodeTest {
+            @Test
+            @DisplayName("any array-node test")
+            fun anyArrayNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("FunctionCall like")
+            fun functionCallLike() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (61) NamedArrayNodeTest")
+        fun namedArrayNodeTest() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedArrayNodeTest.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedArrayNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
+        internal inner class AnyMapNodeTest {
+            @Test
+            @DisplayName("any object-node test")
+            fun anyMapNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("FunctionCall like")
+            fun functionCallLike() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest_FunctionCallLike.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest_FunctionCallLike.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
+        fun namedMapNodeTest() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedMapNodeTest.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedMapNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (186) ItemType ; XQuery IntelliJ Plugin EBNF (28) KindTest")
+    internal inner class ItemType_KindTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
+        internal inner class BinaryTest {
+            @Test
+            @DisplayName("binary test")
+            fun binaryTest() {
+                val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest.txt")
+                val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("binary test; compact whitespace")
+            fun binaryTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
         internal inner class AttributeDeclTest {
@@ -1880,6 +1268,763 @@ private class PluginParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
+        internal inner class AnyBooleanNodeTest {
+            @Test
+            @DisplayName("any boolean-node test")
+            fun anyBooleanNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any boolean-node test; compact whitespace")
+            fun anyBooleanNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected =
+                    loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
+        internal inner class NamedBooleanNodeTest {
+            @Test
+            @DisplayName("named boolean-node test")
+            fun namedBooleanNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named boolean-node test; compact whitespace")
+            fun namedBooleanNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
+        internal inner class AnyNumberNodeTest {
+            @Test
+            @DisplayName("any number-node test")
+            fun anyNumberNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any number-node test; compact whitespace")
+            fun anyNumberNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected =
+                    loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
+        internal inner class NamedNumberNodeTest {
+            @Test
+            @DisplayName("named number-node test")
+            fun namedNumberNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named number-node test; compact whitespace")
+            fun namedNumberNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedNumberNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
+        internal inner class AnyNullNodeTest {
+            @Test
+            @DisplayName("any null-node test")
+            fun anyNullNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any null-node test; compact whitespace")
+            fun anyNullNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
+        internal inner class NamedNullNodeTest {
+            @Test
+            @DisplayName("named null-node test")
+            fun namedNullNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedNullNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named null-node test; compact whitespace")
+            fun namedNullNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedNullNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
+        internal inner class AnyArrayNodeTest {
+            @Test
+            @DisplayName("any array-node test")
+            fun anyArrayNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any array-node test; compact whitespace")
+            fun anyArrayNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (61) NamedArrayNodeTest")
+        internal inner class NamedArrayNodeTest {
+            @Test
+            @DisplayName("named array-node test")
+            fun namedArrayNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named array-node test; compact whitespace")
+            fun namedArrayNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedArrayNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
+        internal inner class AnyMapNodeTest {
+            @Test
+            @DisplayName("any object-node test")
+            fun anyMapNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any object-node test; compact whitespace")
+            fun anyMapNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
+        internal inner class NamedMapNodeTest {
+            @Test
+            @DisplayName("named object-node test")
+            fun namedMapNodeTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedMapNodeTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named object-node test; compact whitespace")
+            fun namedMapNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedMapNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (67) AnyKindTest")
+        internal inner class AnyKindTest {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (68) NamedKindTest")
+        internal inner class NamedKindTest {
+            @Test
+            @DisplayName("named kind test")
+            fun namedKindTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named kind test; compact whitespace")
+            fun namedKindTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (70) AnyTextTest")
+        internal inner class AnyTextTest {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("wildcard; compact whitespace")
+            fun wildcard_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (71) NamedTextTest")
+        internal inner class NamedTextTest {
+            @Test
+            @DisplayName("named text test")
+            fun namedTextTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedTextTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("named text test")
+            fun namedTextTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-8.0/NamedTextTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/NamedTextTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (72) DocumentTest")
+        internal inner class DocumentTest {
+            @Test
+            @DisplayName("array-node test")
+            fun anyArrayTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: wildcard in array-node test")
+            fun anyArrayTest_Wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: named array-node test")
+            fun namedArrayTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("object-node test")
+            fun anyMapTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: wildcard in object-node test")
+            fun anyMapTest_Wildcard() {
+                val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest_Wildcard.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_MapTest_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: named object-node test")
+            fun namedMapTest() {
+                val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.txt")
+                val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (50) BooleanConstructor")
+    internal inner class BooleanConstructor {
+        @Test
+        @DisplayName("boolean constructor")
+        fun booleanConstructor() {
+            val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("boolean constructor; compact whitespace")
+        fun booleanConstructor_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (54) NumberConstructor")
+    internal inner class NumberConstructor {
+        @Test
+        @DisplayName("number constructor")
+        fun numberConstructor() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("number constructor; compact whitespace")
+        fun numberConstructor_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (58) NullConstructor")
+    internal inner class NullConstructor {
+        @Test
+        @DisplayName("null constructor")
+        fun nullConstructor() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("null constructor; compact whitespace")
+        fun nullConstructor_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (62) CurlyArrayConstructor")
+    internal inner class CurlyArrayConstructor {
+        @Test
+        @DisplayName("array constructor")
+        fun arrayConstructor() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("array constructor; compact whitespace")
+        fun arrayConstructor_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple values")
+        fun multiple() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple values; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr; multiple values")
+        fun multiple_MissingExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor ; XQuery 3.1 EBNF (171) MapConstructorEntry")
+    internal inner class MapConstructor {
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty; compact whitespace")
+        fun empty_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("StringLiteral map key expression")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("StringLiteral map key expression; compact whitespace")
+        fun stringLiteral_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing key-value separator (colon)")
+        fun missingSeparator() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing map value expression")
+        fun missingValueExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing map constructor entry after comma")
+        fun missingEntry() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName map key expression")
+        fun ncname() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName map key expression; whitespace after colon")
+        fun ncname_WhitespaceAfterColon() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName map key expression; compact whitespace")
+        fun ncname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName map key expression")
+        fun qname_KeyExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName map value expression")
+        fun qname_ValueExpr() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName map key expression; compact whitespace")
+        fun qname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("VarRef map key expression")
+        fun varRef_NCName() {
+            val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.txt")
+            val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
 
