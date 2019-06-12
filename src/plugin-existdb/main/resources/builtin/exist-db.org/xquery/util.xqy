@@ -16,10 +16,11 @@ declare %a:since("exist", "4.4") function util:base64-encode($string as xs:strin
 declare %a:since("exist", "4.4") function util:base64-encode($string as xs:string?, $trim as xs:boolean) as xs:string? external;
 declare %a:since("exist", "4.4") function util:binary-doc($binary-resource as xs:string?) as xs:base64Binary? external;
 declare %a:since("exist", "4.4") function util:binary-doc-available($binary-resource as xs:string?) as xs:boolean external;
+declare %a:since("exist", "4.6") function util:binary-doc-content-digest($binary-resource as xs:string?, $algorithm as xs:string) as xs:hexBinary? external;
 declare %a:since("exist", "4.4") function util:binary-to-string($binary-resource as xs:base64Binary?) as xs:string? external;
 declare %a:since("exist", "4.4") function util:binary-to-string($binary-resource as xs:base64Binary?, $encoding as xs:string) as xs:string? external;
 declare %a:since("exist", "4.4") function util:call($function-reference as function(*), $parameters as item()*) as item()* external;
-declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") (:%a:see-also("xquery 3.0", "try/catch expression"):) function util:catch($java-classnames as xs:string+, $try-code-blocks as item()*, $catch-code-blocks as item()*) as item()* external;
+declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") function util:catch($java-classnames as xs:string+, $try-code-blocks as item()*, $catch-code-blocks as item()*) as item()* external;
 declare %a:since("exist", "4.4") function util:collations() as xs:string* external;
 declare %a:since("exist", "4.4") function util:collection-name($node-or-path-string as item()?) as xs:string? external;
 declare %a:since("exist", "4.4") function util:compile($expression as xs:string) as xs:string external;
@@ -38,7 +39,10 @@ declare %a:since("exist", "4.4") function util:enable-profiling($verbosity as xs
 declare %a:since("exist", "4.4") function util:eval($expression as item()) as node()* external;
 declare %a:since("exist", "4.4") function util:eval($expression as item(), $cache-flag as xs:boolean) as node()* external;
 declare %a:since("exist", "4.4") function util:eval($expression as item(), $cache-flag as xs:boolean, $external-variable as xs:anyType*) as node()* external;
-declare %a:since("exist", "4.4") function util:eval-async($expression as item()) as node()* external;
+declare %a:since("exist", "4.4") function util:eval($expression as item()) as node()* external;
+declare %a:since("exist", "4.6") function util:eval-and-serialize($expression as item(), $default-serialization-params as item()?) as node()* external;
+declare %a:since("exist", "4.6") function util:eval-and-serialize($expression as item(), $default-serialization-params as item()?, $starting-loc as xs:double) as node()* external;
+declare %a:since("exist", "4.6") function util:eval-and-serialize($expression as item(), $default-serialization-params as item()?, $starting-loc as xs:double, $length as xs:double) as node()* external;
 declare %a:since("exist", "4.4") function util:eval-inline($inline-context as item()*, $expression as item()) as item()* external;
 declare %a:since("exist", "4.4") function util:eval-inline($inline-context as item()*, $expression as item(), $cache-flag as xs:boolean) as item()* external;
 declare %a:since("exist", "4.4") function util:eval-with-context($expression as item(), $context as node()?, $cache-flag as xs:boolean) as node()* external;
