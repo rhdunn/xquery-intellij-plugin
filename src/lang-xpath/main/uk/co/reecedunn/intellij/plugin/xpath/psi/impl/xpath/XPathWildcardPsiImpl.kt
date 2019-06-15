@@ -31,7 +31,7 @@ class XPathWildcardPsiImpl(node: ASTNode) :
 
     private val names get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
 
-    override val namespace: XsAnyUriValue? = firstChild as? XsAnyUriValue
+    override val namespace get(): XsAnyUriValue? = firstChild as? XsAnyUriValue
 
     override val prefix get(): XsNCNameValue? = if (isLexicalQName) names.first() else null
 
@@ -43,7 +43,7 @@ class XPathWildcardPsiImpl(node: ASTNode) :
                 names.first()
         }
 
-    override val isLexicalQName: Boolean = namespace == null
+    override val isLexicalQName get(): Boolean = namespace == null
 
     override val element get(): PsiElement? = this
 }
