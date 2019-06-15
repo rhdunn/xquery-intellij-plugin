@@ -9,6 +9,8 @@ IntelliJ Integration:
 1.  Display the functions, variables, and types when "Show Members" is enabled
     in the project pane.
 1.  Display the function signature when holding Ctrl over a function call.
+1.  Use the QName annotator on Wildcard elements to correctly highlight the
+    namespace prefix and local name parts.
 
 Run Configurations:
 

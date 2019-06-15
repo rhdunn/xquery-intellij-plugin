@@ -19,7 +19,6 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
@@ -27,24 +26,26 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmWildcardValue
 
 class QNameAnnotator : Annotator {
-    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        if (element !is XPathEQName) return
+    override fun annotate(qname: PsiElement, holder: AnnotationHolder) {
+        if (qname !is XsQNameValue) return
 
-        val qname = element as XsQNameValue
         val xmlns: Boolean
         if (qname.prefix != null) {
             if (qname.prefix!!.data == "xmlns") {
                 xmlns = true
-            } else {
+            } else if (qname.prefix !is XdmWildcardValue) {
                 xmlns = false
                 val prefix = qname.prefix?.element!!
                 holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                if (element.getParent() is PluginDirAttribute || element.getParent() is XQueryDirElemConstructor) {
+                if (qname.parent is PluginDirAttribute || qname.parent is XQueryDirElemConstructor) {
                     holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.XML_TAG
                 }
                 holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.NS_PREFIX
+            } else {
+                xmlns = false
             }
         } else {
             xmlns = false
@@ -54,11 +55,11 @@ class QNameAnnotator : Annotator {
             val localName = qname.localName?.element!!
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                if (element.getParent() is PluginDirAttribute) {
+                if (qname.parent is PluginDirAttribute) {
                     holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.XML_TAG
                 }
                 holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.NS_PREFIX
-            } else if (element.parent is XQueryAnnotation) {
+            } else if (qname.parent is XQueryAnnotation) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.ANNOTATION
             } else if (localName.node.elementType is IKeywordOrNCNameType) {
