@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,12 +50,9 @@ private const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
 
 private val KEYWORDS = mapOf(
     "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
-    "all" to XPathTokenType.K_ALL, // Full Text 1.0
     "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
-    "any" to XPathTokenType.K_ANY, // Full Text 1.0
     "ascending" to XQueryTokenType.K_ASCENDING,
     "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
-    "at" to XPathTokenType.K_AT, // Full Text 1.0; XQuery 1.0
     "attribute-decl" to XQueryTokenType.K_ATTRIBUTE_DECL, // MarkLogic 7.0
     "base-uri" to XQueryTokenType.K_BASE_URI,
     "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
@@ -63,13 +60,10 @@ private val KEYWORDS = mapOf(
     "block" to XQueryTokenType.K_BLOCK, // Scripting Extension 1.0
     "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
     "by" to XQueryTokenType.K_BY,
-    "case" to XPathTokenType.K_CASE, // Full Text 1.0; XQuery 1.0
     "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
     "collation" to XQueryTokenType.K_COLLATION,
     "complex-type" to XQueryTokenType.K_COMPLEX_TYPE, // MarkLogic 7.0
     "construction" to XQueryTokenType.K_CONSTRUCTION,
-    "contains" to XPathTokenType.K_CONTAINS, // Full Text 1.0
-    "content" to XPathTokenType.K_CONTENT, // Full Text 1.0
     "context" to XQueryTokenType.K_CONTEXT, // XQuery 3.0
     "copy" to XQueryTokenType.K_COPY, // Update Facility 1.0
     "copy-namespaces" to XQueryTokenType.K_COPY_NAMESPACES,
@@ -77,29 +71,18 @@ private val KEYWORDS = mapOf(
     "decimal-format" to XQueryTokenType.K_DECIMAL_FORMAT, // XQuery 3.0
     "decimal-separator" to XQueryTokenType.K_DECIMAL_SEPARATOR, // XQuery 3.0
     "declare" to XQueryTokenType.K_DECLARE,
-    "default" to XPathTokenType.K_DEFAULT, // Full Text 1.0; XQuery 1.0
     "delete" to XQueryTokenType.K_DELETE, // Update Facility 1.0
     "descending" to XQueryTokenType.K_DESCENDING,
-    "diacritics" to XPathTokenType.K_DIACRITICS, // Full Text 1.0
-    "different" to XPathTokenType.K_DIFFERENT, // Full Text 1.0
     "digit" to XQueryTokenType.K_DIGIT, // XQuery 3.0
-    "distance" to XPathTokenType.K_DISTANCE, // Full Text 1.0
     "document" to XQueryTokenType.K_DOCUMENT,
     "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
     "encoding" to XQueryTokenType.K_ENCODING,
-    "end" to XPathTokenType.K_END, // Full Text 1.0; XQuery 3.0
-    "entire" to XPathTokenType.K_ENTIRE, // Full Text 1.0
-    "exactly" to XPathTokenType.K_EXACTLY, // Full Text 1.0
     "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
     "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
     "external" to XQueryTokenType.K_EXTERNAL,
     "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
     "fn" to XQueryTokenType.K_FN, // Saxon 9.8
-    "from" to XPathTokenType.K_FROM, // Full Text 1.0
     "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
-    "ftand" to XPathTokenType.K_FTAND, // Full Text 1.0
-    "ftnot" to XPathTokenType.K_FTNOT, // Full Text 1.0
-    "ftor" to XPathTokenType.K_FTOR, // Full Text 1.0
     "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
     "greatest" to XQueryTokenType.K_GREATEST,
     "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
@@ -107,75 +90,50 @@ private val KEYWORDS = mapOf(
     "import" to XQueryTokenType.K_IMPORT,
     "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
     "inherit" to XQueryTokenType.K_INHERIT,
-    "insensitive" to XPathTokenType.K_INSENSITIVE, // Full Text 1.0
     "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
     "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
     "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
-    "language" to XPathTokenType.K_LANGUAGE, // Full Text 1.0
     "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
     "lax" to XQueryTokenType.K_LAX,
-    "least" to XPathTokenType.K_LEAST, // Full Text 1.0; XQuery 1.0
-    "levels" to XPathTokenType.K_LEVELS, // Full Text 1.0
-    "lowercase" to XPathTokenType.K_LOWERCASE, // Full Text 1.0
     "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
     "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
     "module" to XQueryTokenType.K_MODULE,
-    "most" to XPathTokenType.K_MOST, // Full Text 1.0
     "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
     "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
-    "no" to XPathTokenType.K_NO, // Full Text 1.0
     "no-inherit" to XQueryTokenType.K_NO_INHERIT,
     "no-preserve" to XQueryTokenType.K_NO_PRESERVE,
     "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
     "non-deterministic" to XQueryTokenType.K_NON_DETERMINISTIC, // BaseX 8.4
-    "not" to XPathTokenType.K_NOT, // Full Text 1.0
-    "occurs" to XPathTokenType.K_OCCURS, // Full Text 1.0
     "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
-    "option" to XPathTokenType.K_OPTION, // Full Text 1.0; XQuery 1.0
     "order" to XQueryTokenType.K_ORDER,
-    "ordered" to XPathTokenType.K_ORDERED, // Full Text 1.0; XQuery 1.0
     "ordering" to XQueryTokenType.K_ORDERING,
-    "paragraph" to XPathTokenType.K_PARAGRAPH, // Full Text 1.0
-    "paragraphs" to XPathTokenType.K_PARAGRAPHS, // Full Text 1.0
     "pattern-separator" to XQueryTokenType.K_PATTERN_SEPARATOR, // XQuery 3.0
     "per-mille" to XQueryTokenType.K_PER_MILLE, // XQuery 3.0
     "percent" to XQueryTokenType.K_PERCENT, // XQuery 3.0
-    "phrase" to XPathTokenType.K_PHRASE, // Full Text 1.0
     "preserve" to XQueryTokenType.K_PRESERVE,
     "previous" to XQueryTokenType.K_PREVIOUS, // XQuery 3.0
     "private" to XQueryTokenType.K_PRIVATE, // MarkLogic 6.0
     "public" to XQueryTokenType.K_PUBLIC, // XQuery 3.0 Annotations
-    "relationship" to XPathTokenType.K_RELATIONSHIP, // Full Text 1.0
     "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0
     "replace" to XQueryTokenType.K_REPLACE, // Update Facility 1.0
     "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
     "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
-    "same" to XPathTokenType.K_SAME, // Full Text 1.0
     "schema" to XQueryTokenType.K_SCHEMA,
     "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
     "schema-facet" to XQueryTokenType.K_SCHEMA_FACET, // MarkLogic 8.0
     "schema-particle" to XQueryTokenType.K_SCHEMA_PARTICLE, // MarkLogic 7.0
     "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0
     "schema-type" to XQueryTokenType.K_SCHEMA_TYPE, // MarkLogic 7.0
-    "score" to XPathTokenType.K_SCORE, // Full Text 1.0
-    "sensitive" to XPathTokenType.K_SENSITIVE, // Full Text 1.0
-    "sentence" to XPathTokenType.K_SENTENCE, // Full Text 1.0
-    "sentences" to XPathTokenType.K_SENTENCES, // Full Text 1.0
     "sequential" to XQueryTokenType.K_SEQUENTIAL, // Scripting Extension 1.0
     "simple" to XQueryTokenType.K_SIMPLE, // Scripting Extension 1.0
     "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0
     "skip" to XQueryTokenType.K_SKIP, // Update Facility 1.0
     "sliding" to XQueryTokenType.K_SLIDING, // XQuery 3.0
     "stable" to XQueryTokenType.K_STABLE,
-    "start" to XPathTokenType.K_START, // Full Text 1.0; XQuery 3.0
-    "stemming" to XPathTokenType.K_STEMMING, // Full Text 1.0
-    "stop" to XPathTokenType.K_STOP, // Full Text 1.0
     "strict" to XQueryTokenType.K_STRICT,
     "strip" to XQueryTokenType.K_STRIP,
     "stylesheet" to XQueryTokenType.K_STYLESHEET, // MarkLogic 6.0
     "switch" to XQueryTokenType.K_SWITCH, // XQuery 3.0
-    "thesaurus" to XPathTokenType.K_THESAURUS, // Full Text 1.0
-    "times" to XPathTokenType.K_TIMES, // Full Text 1.0
     "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
     "try" to XQueryTokenType.K_TRY, // XQuery 3.0
     "tumbling" to XQueryTokenType.K_TUMBLING, // XQuery 3.0
@@ -186,22 +144,14 @@ private val KEYWORDS = mapOf(
     "unordered" to XQueryTokenType.K_UNORDERED,
     "update" to XQueryTokenType.K_UPDATE, // BaseX 7.8
     "updating" to XQueryTokenType.K_UPDATING, // Update Facility 1.0
-    "uppercase" to XPathTokenType.K_UPPERCASE, // Full Text 1.0
-    "using" to XPathTokenType.K_USING, // Full Text 1.0
     "validate" to XQueryTokenType.K_VALIDATE,
     "value" to XQueryTokenType.K_VALUE, // Update Facility 1.0
     "variable" to XQueryTokenType.K_VARIABLE,
     "version" to XQueryTokenType.K_VERSION,
-    "weight" to XPathTokenType.K_WEIGHT, // Full Text 1.0
     "when" to XQueryTokenType.K_WHEN, // XQuery 3.0
     "where" to XQueryTokenType.K_WHERE,
     "while" to XQueryTokenType.K_WHILE, // Scripting Extension 1.0
-    "wildcards" to XPathTokenType.K_WILDCARDS, // Full Text 1.0
-    "window" to XPathTokenType.K_WINDOW, // XQuery 3.0; Full Text 1.0
     "with" to XQueryTokenType.K_WITH, // Update Facility 1.0
-    "without" to XPathTokenType.K_WITHOUT, // Full Text 1.0
-    "word" to XPathTokenType.K_WORD, // Full Text 1.0
-    "words" to XPathTokenType.K_WORDS, // Full Text 1.0
     "xquery" to XQueryTokenType.K_XQUERY,
     "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
 )

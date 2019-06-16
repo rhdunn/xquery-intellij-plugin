@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,74 +32,124 @@ const val STATE_BRACED_URI_LITERAL = 26
 // endregion
 
 private val KEYWORDS = mapOf(
+    "all" to XPathTokenType.K_ALL, // Full Text 1.0
     "ancestor" to XPathTokenType.K_ANCESTOR, // XPath 1.0
     "ancestor-or-self" to XPathTokenType.K_ANCESTOR_OR_SELF, // XPath 1.0
     "and" to XPathTokenType.K_AND, // XPath 1.0
     "andAlso" to XPathTokenType.K_ANDALSO, // Saxon 9.9
+    "any" to XPathTokenType.K_ANY, // Full Text 1.0
     "array" to XPathTokenType.K_ARRAY, // XPath 3.1
     "array-node" to XPathTokenType.K_ARRAY_NODE, // MarkLogic 8.0
     "as" to XPathTokenType.K_AS, // XPath 2.0
+    "at" to XPathTokenType.K_AT, // Full Text 1.0; XQuery 1.0
     "attribute" to XPathTokenType.K_ATTRIBUTE, // XPath 1.0
     "boolean-node" to XPathTokenType.K_BOOLEAN_NODE, // MarkLogic 8.0
+    "case" to XPathTokenType.K_CASE, // Full Text 1.0; XQuery 1.0
     "cast" to XPathTokenType.K_CAST, // XPath 2.0
     "castable" to XPathTokenType.K_CASTABLE, // XPath 2.0
     "child" to XPathTokenType.K_CHILD, // XPath 1.0
     "comment" to XPathTokenType.K_COMMENT, // XPath 1.0
+    "contains" to XPathTokenType.K_CONTAINS, // Full Text 1.0
+    "content" to XPathTokenType.K_CONTENT, // Full Text 1.0
+    "default" to XPathTokenType.K_DEFAULT, // Full Text 1.0; XQuery 1.0
     "descendant" to XPathTokenType.K_DESCENDANT, // XPath 1.0
     "descendant-or-self" to XPathTokenType.K_DESCENDANT_OR_SELF, // XPath 1.0
+    "diacritics" to XPathTokenType.K_DIACRITICS, // Full Text 1.0
+    "different" to XPathTokenType.K_DIFFERENT, // Full Text 1.0
+    "distance" to XPathTokenType.K_DISTANCE, // Full Text 1.0
     "div" to XPathTokenType.K_DIV, // XPath 1.0
     "document-node" to XPathTokenType.K_DOCUMENT_NODE, // XPath 2.0
     "element" to XPathTokenType.K_ELEMENT, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
     "empty" to XPathTokenType.K_EMPTY, // XPath 2.0 WD 02 May 2003
     "empty-sequence" to XPathTokenType.K_EMPTY_SEQUENCE, // XPath 2.0
+    "end" to XPathTokenType.K_END, // Full Text 1.0; XQuery 3.0
+    "entire" to XPathTokenType.K_ENTIRE, // Full Text 1.0
     "eq" to XPathTokenType.K_EQ, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
+    "exactly" to XPathTokenType.K_EXACTLY, // Full Text 1.0
     "except" to XPathTokenType.K_EXCEPT, // XPath 2.0
     "following" to XPathTokenType.K_FOLLOWING, // XPath 1.0
     "following-sibling" to XPathTokenType.K_FOLLOWING_SIBLING, // XPath 1.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
+    "from" to XPathTokenType.K_FROM, // Full Text 1.0
+    "ftand" to XPathTokenType.K_FTAND, // Full Text 1.0
+    "ftnot" to XPathTokenType.K_FTNOT, // Full Text 1.0
+    "ftor" to XPathTokenType.K_FTOR, // Full Text 1.0
     "function" to XPathTokenType.K_FUNCTION, // XPath 3.0 ; XQuery 1.0
     "ge" to XPathTokenType.K_GE, // XPath 2.0
     "gt" to XPathTokenType.K_GT, // XPath 2.0
     "idiv" to XPathTokenType.K_IDIV, // XPath 2.0
     "if" to XPathTokenType.K_IF, // XPath 2.0
     "in" to XPathTokenType.K_IN, // XPath 2.0
+    "insensitive" to XPathTokenType.K_INSENSITIVE, // Full Text 1.0
     "instance" to XPathTokenType.K_INSTANCE, // XPath 2.0
     "intersect" to XPathTokenType.K_INTERSECT, // XPath 2.0
     "is" to XPathTokenType.K_IS, // XPath 2.0
     "item" to XPathTokenType.K_ITEM, // XPath 2.0
+    "language" to XPathTokenType.K_LANGUAGE, // Full Text 1.0
     "le" to XPathTokenType.K_LE, // XPath 2.0
+    "least" to XPathTokenType.K_LEAST, // Full Text 1.0; XQuery 1.0
+    "levels" to XPathTokenType.K_LEVELS, // Full Text 1.0
     "let" to XPathTokenType.K_LET, // XPath 3.0 ; XQuery 1.0
+    "lowercase" to XPathTokenType.K_LOWERCASE, // Full Text 1.0
     "lt" to XPathTokenType.K_LT, // XPath 2.0
     "map" to XPathTokenType.K_MAP, // XPath 3.1
     "mod" to XPathTokenType.K_MOD, // XPath 1.0
+    "most" to XPathTokenType.K_MOST, // Full Text 1.0
     "namespace" to XPathTokenType.K_NAMESPACE, // XPath 1.0
     "namespace-node" to XPathTokenType.K_NAMESPACE_NODE, // XPath 3.0
     "ne" to XPathTokenType.K_NE, // XPath 2.0
+    "no" to XPathTokenType.K_NO, // Full Text 1.0
     "node" to XPathTokenType.K_NODE, // XPath 1.0
+    "not" to XPathTokenType.K_NOT, // Full Text 1.0
     "null-node" to XPathTokenType.K_NULL_NODE, // MarkLogic 8.0
     "number-node" to XPathTokenType.K_NUMBER_NODE, // MarkLogic 8.0
     "object-node" to XPathTokenType.K_OBJECT_NODE, // MarkLogic 8.0
+    "occurs" to XPathTokenType.K_OCCURS, // Full Text 1.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
+    "option" to XPathTokenType.K_OPTION, // Full Text 1.0; XQuery 1.0
     "or" to XPathTokenType.K_OR, // XPath 1.0
+    "ordered" to XPathTokenType.K_ORDERED, // Full Text 1.0; XQuery 1.0
     "orElse" to XPathTokenType.K_ORELSE, // Saxon 9.9
+    "paragraph" to XPathTokenType.K_PARAGRAPH, // Full Text 1.0
+    "paragraphs" to XPathTokenType.K_PARAGRAPHS, // Full Text 1.0
     "parent" to XPathTokenType.K_PARENT, // XPath 1.0
+    "phrase" to XPathTokenType.K_PHRASE, // Full Text 1.0
     "preceding" to XPathTokenType.K_PRECEDING, // XPath 1.0
     "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 1.0
     "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 1.0
     "property" to XPathTokenType.K_PROPERTY, // MarkLogic 6.0
+    "relationship" to XPathTokenType.K_RELATIONSHIP, // Full Text 1.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
+    "same" to XPathTokenType.K_SAME, // Full Text 1.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "schema-attribute" to XPathTokenType.K_SCHEMA_ATTRIBUTE, // XPath 2.0
     "schema-element" to XPathTokenType.K_SCHEMA_ELEMENT, // XPath 2.0
+    "score" to XPathTokenType.K_SCORE, // Full Text 1.0
     "self" to XPathTokenType.K_SELF, // XPath 1.0
+    "sensitive" to XPathTokenType.K_SENSITIVE, // Full Text 1.0
+    "sentence" to XPathTokenType.K_SENTENCE, // Full Text 1.0
+    "sentences" to XPathTokenType.K_SENTENCES, // Full Text 1.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0
+    "start" to XPathTokenType.K_START, // Full Text 1.0; XQuery 3.0
+    "stemming" to XPathTokenType.K_STEMMING, // Full Text 1.0
+    "stop" to XPathTokenType.K_STOP, // Full Text 1.0
     "text" to XPathTokenType.K_TEXT, // XPath 1.0
     "then" to XPathTokenType.K_THEN, // XPath 2.0
+    "thesaurus" to XPathTokenType.K_THESAURUS, // Full Text 1.0
+    "times" to XPathTokenType.K_TIMES, // Full Text 1.0
     "to" to XPathTokenType.K_TO, // XPath 2.0
     "treat" to XPathTokenType.K_TREAT, // XPath 2.0
-    "union" to XPathTokenType.K_UNION // XPath 2.0
+    "union" to XPathTokenType.K_UNION, // XPath 2.0
+    "uppercase" to XPathTokenType.K_UPPERCASE, // Full Text 1.0
+    "using" to XPathTokenType.K_USING, // Full Text 1.0
+    "weight" to XPathTokenType.K_WEIGHT, // Full Text 1.0
+    "wildcards" to XPathTokenType.K_WILDCARDS, // Full Text 1.0
+    "window" to XPathTokenType.K_WINDOW, // XQuery 3.0; Full Text 1.0
+    "without" to XPathTokenType.K_WITHOUT, // Full Text 1.0
+    "word" to XPathTokenType.K_WORD, // Full Text 1.0
+    "words" to XPathTokenType.K_WORDS // Full Text 1.0
 )
 
 open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tokenRange) {

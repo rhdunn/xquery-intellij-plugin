@@ -10,7 +10,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(7:10)]
          XPathNameTestImpl[XPATH_NAME_TEST(7:10)]
             XPathNCNameImpl[XPATH_NCNAME(7:10)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:10)]('all')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ALL(7:10)]('all')
    LeafPsiElement[XPATH_COMMA_TOKEN(10:11)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(11:12)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(12:20)]
@@ -52,7 +52,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(64:67)]
          XPathNameTestImpl[XPATH_NAME_TEST(64:67)]
             XPathNCNameImpl[XPATH_NCNAME(64:67)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(64:67)]('any')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ANY(64:67)]('any')
    LeafPsiElement[XPATH_COMMA_TOKEN(67:68)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(68:69)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(69:74)]
@@ -94,7 +94,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(115:117)]
          XPathNameTestImpl[XPATH_NAME_TEST(115:117)]
             XPathNCNameImpl[XPATH_NCNAME(115:117)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(115:117)]('at')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(115:117)]('at')
    LeafPsiElement[XPATH_COMMA_TOKEN(117:118)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(118:119)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(119:128)]
@@ -164,7 +164,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(213:217)]
          XPathNameTestImpl[XPATH_NAME_TEST(213:217)]
             XPathNCNameImpl[XPATH_NCNAME(213:217)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(213:217)]('case')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CASE(213:217)]('case')
    LeafPsiElement[XPATH_COMMA_TOKEN(217:218)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(218:219)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(219:223)]
@@ -227,14 +227,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(297:305)]
          XPathNameTestImpl[XPATH_NAME_TEST(297:305)]
             XPathNCNameImpl[XPATH_NCNAME(297:305)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(297:305)]('contains')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(297:305)]('contains')
    LeafPsiElement[XPATH_COMMA_TOKEN(305:306)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(306:307)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(307:314)]
       XPathNodeTestImpl[XPATH_NODE_TEST(307:314)]
          XPathNameTestImpl[XPATH_NAME_TEST(307:314)]
             XPathNCNameImpl[XPATH_NCNAME(307:314)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(307:314)]('content')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTENT(307:314)]('content')
    LeafPsiElement[XPATH_COMMA_TOKEN(314:315)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(315:316)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(316:323)]
@@ -290,7 +290,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(399:406)]
          XPathNameTestImpl[XPATH_NAME_TEST(399:406)]
             XPathNCNameImpl[XPATH_NCNAME(399:406)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(399:406)]('default')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(399:406)]('default')
    LeafPsiElement[XPATH_COMMA_TOKEN(406:407)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(407:408)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(408:414)]
@@ -325,14 +325,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(460:470)]
          XPathNameTestImpl[XPATH_NAME_TEST(460:470)]
             XPathNCNameImpl[XPATH_NCNAME(460:470)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(460:470)]('diacritics')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIACRITICS(460:470)]('diacritics')
    LeafPsiElement[XPATH_COMMA_TOKEN(470:471)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(471:472)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(472:481)]
       XPathNodeTestImpl[XPATH_NODE_TEST(472:481)]
          XPathNameTestImpl[XPATH_NAME_TEST(472:481)]
             XPathNCNameImpl[XPATH_NCNAME(472:481)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(472:481)]('different')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIFFERENT(472:481)]('different')
    LeafPsiElement[XPATH_COMMA_TOKEN(481:482)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(482:483)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(483:488)]
@@ -346,7 +346,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(490:498)]
          XPathNameTestImpl[XPATH_NAME_TEST(490:498)]
             XPathNCNameImpl[XPATH_NCNAME(490:498)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(490:498)]('distance')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DISTANCE(490:498)]('distance')
    LeafPsiElement[XPATH_COMMA_TOKEN(498:499)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(499:500)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(500:503)]
@@ -416,14 +416,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(592:595)]
          XPathNameTestImpl[XPATH_NAME_TEST(592:595)]
             XPathNCNameImpl[XPATH_NCNAME(592:595)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(592:595)]('end')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_END(592:595)]('end')
    LeafPsiElement[XPATH_COMMA_TOKEN(595:596)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(596:597)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(597:603)]
       XPathNodeTestImpl[XPATH_NODE_TEST(597:603)]
          XPathNameTestImpl[XPATH_NAME_TEST(597:603)]
             XPathNCNameImpl[XPATH_NCNAME(597:603)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(597:603)]('entire')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ENTIRE(597:603)]('entire')
    LeafPsiElement[XPATH_COMMA_TOKEN(603:604)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(604:605)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(605:607)]
@@ -444,7 +444,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(616:623)]
          XPathNameTestImpl[XPATH_NAME_TEST(616:623)]
             XPathNCNameImpl[XPATH_NCNAME(616:623)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(616:623)]('exactly')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXACTLY(616:623)]('exactly')
    LeafPsiElement[XPATH_COMMA_TOKEN(623:624)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(624:625)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(625:631)]
@@ -514,7 +514,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(715:719)]
          XPathNameTestImpl[XPATH_NAME_TEST(715:719)]
             XPathNCNameImpl[XPATH_NCNAME(715:719)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(715:719)]('from')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FROM(715:719)]('from')
    LeafPsiElement[XPATH_COMMA_TOKEN(719:720)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(720:721)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(721:730)]
@@ -528,21 +528,21 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(732:737)]
          XPathNameTestImpl[XPATH_NAME_TEST(732:737)]
             XPathNCNameImpl[XPATH_NCNAME(732:737)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(732:737)]('ftand')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(732:737)]('ftand')
    LeafPsiElement[XPATH_COMMA_TOKEN(737:738)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(738:739)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(739:744)]
       XPathNodeTestImpl[XPATH_NODE_TEST(739:744)]
          XPathNameTestImpl[XPATH_NAME_TEST(739:744)]
             XPathNCNameImpl[XPATH_NCNAME(739:744)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(739:744)]('ftnot')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTNOT(739:744)]('ftnot')
    LeafPsiElement[XPATH_COMMA_TOKEN(744:745)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(745:746)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(746:750)]
       XPathNodeTestImpl[XPATH_NODE_TEST(746:750)]
          XPathNameTestImpl[XPATH_NAME_TEST(746:750)]
             XPathNCNameImpl[XPATH_NCNAME(746:750)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(746:750)]('ftor')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(746:750)]('ftor')
    LeafPsiElement[XPATH_COMMA_TOKEN(750:751)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(751:752)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(752:760)]
@@ -640,7 +640,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(855:866)]
          XPathNameTestImpl[XPATH_NAME_TEST(855:866)]
             XPathNCNameImpl[XPATH_NCNAME(855:866)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(855:866)]('insensitive')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSENSITIVE(855:866)]('insensitive')
    LeafPsiElement[XPATH_COMMA_TOKEN(866:867)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(867:868)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(868:874)]
@@ -696,7 +696,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(921:929)]
          XPathNameTestImpl[XPATH_NAME_TEST(921:929)]
             XPathNCNameImpl[XPATH_NCNAME(921:929)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(921:929)]('language')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(921:929)]('language')
    LeafPsiElement[XPATH_COMMA_TOKEN(929:930)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(930:931)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(931:935)]
@@ -724,7 +724,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(946:951)]
          XPathNameTestImpl[XPATH_NAME_TEST(946:951)]
             XPathNCNameImpl[XPATH_NCNAME(946:951)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(946:951)]('least')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEAST(946:951)]('least')
    LeafPsiElement[XPATH_COMMA_TOKEN(951:952)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(952:953)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(953:956)]
@@ -738,14 +738,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(958:964)]
          XPathNameTestImpl[XPATH_NAME_TEST(958:964)]
             XPathNCNameImpl[XPATH_NCNAME(958:964)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(958:964)]('levels')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEVELS(958:964)]('levels')
    LeafPsiElement[XPATH_COMMA_TOKEN(964:965)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(965:966)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(966:975)]
       XPathNodeTestImpl[XPATH_NODE_TEST(966:975)]
          XPathNameTestImpl[XPATH_NAME_TEST(966:975)]
             XPathNCNameImpl[XPATH_NCNAME(966:975)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(966:975)]('lowercase')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LOWERCASE(966:975)]('lowercase')
    LeafPsiElement[XPATH_COMMA_TOKEN(975:976)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(976:977)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(977:979)]
@@ -794,7 +794,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1019:1023)]
          XPathNameTestImpl[XPATH_NAME_TEST(1019:1023)]
             XPathNCNameImpl[XPATH_NCNAME(1019:1023)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1019:1023)]('most')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MOST(1019:1023)]('most')
    LeafPsiElement[XPATH_COMMA_TOKEN(1023:1024)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1024:1025)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1025:1034)]
@@ -836,7 +836,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1067:1069)]
          XPathNameTestImpl[XPATH_NAME_TEST(1067:1069)]
             XPathNCNameImpl[XPATH_NCNAME(1067:1069)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1067:1069)]('no')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO(1067:1069)]('no')
    LeafPsiElement[XPATH_COMMA_TOKEN(1069:1070)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1070:1071)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1071:1081)]
@@ -878,7 +878,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1128:1131)]
          XPathNameTestImpl[XPATH_NAME_TEST(1128:1131)]
             XPathNCNameImpl[XPATH_NCNAME(1128:1131)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1128:1131)]('not')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(1128:1131)]('not')
    LeafPsiElement[XPATH_COMMA_TOKEN(1131:1132)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1132:1133)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1133:1142)]
@@ -906,7 +906,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1170:1176)]
          XPathNameTestImpl[XPATH_NAME_TEST(1170:1176)]
             XPathNCNameImpl[XPATH_NCNAME(1170:1176)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1170:1176)]('occurs')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(1170:1176)]('occurs')
    LeafPsiElement[XPATH_COMMA_TOKEN(1176:1177)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1177:1178)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1178:1180)]
@@ -927,7 +927,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1188:1194)]
          XPathNameTestImpl[XPATH_NAME_TEST(1188:1194)]
             XPathNCNameImpl[XPATH_NCNAME(1188:1194)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1188:1194)]('option')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(1188:1194)]('option')
    LeafPsiElement[XPATH_COMMA_TOKEN(1194:1195)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1195:1196)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1196:1198)]
@@ -948,7 +948,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1207:1214)]
          XPathNameTestImpl[XPATH_NAME_TEST(1207:1214)]
             XPathNCNameImpl[XPATH_NCNAME(1207:1214)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1207:1214)]('ordered')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ORDERED(1207:1214)]('ordered')
    LeafPsiElement[XPATH_COMMA_TOKEN(1214:1215)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1215:1216)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1216:1224)]
@@ -969,14 +969,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1234:1243)]
          XPathNameTestImpl[XPATH_NAME_TEST(1234:1243)]
             XPathNCNameImpl[XPATH_NCNAME(1234:1243)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1234:1243)]('paragraph')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARAGRAPH(1234:1243)]('paragraph')
    LeafPsiElement[XPATH_COMMA_TOKEN(1243:1244)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1244:1245)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1245:1255)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1245:1255)]
          XPathNameTestImpl[XPATH_NAME_TEST(1245:1255)]
             XPathNCNameImpl[XPATH_NCNAME(1245:1255)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1245:1255)]('paragraphs')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARAGRAPHS(1245:1255)]('paragraphs')
    LeafPsiElement[XPATH_COMMA_TOKEN(1255:1256)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1256:1257)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1257:1263)]
@@ -1011,7 +1011,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1304:1310)]
          XPathNameTestImpl[XPATH_NAME_TEST(1304:1310)]
             XPathNCNameImpl[XPATH_NCNAME(1304:1310)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1304:1310)]('phrase')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PHRASE(1304:1310)]('phrase')
    LeafPsiElement[XPATH_COMMA_TOKEN(1310:1311)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1311:1312)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1312:1321)]
@@ -1074,7 +1074,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1413:1425)]
          XPathNameTestImpl[XPATH_NAME_TEST(1413:1425)]
             XPathNCNameImpl[XPATH_NCNAME(1413:1425)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1413:1425)]('relationship')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP(1413:1425)]('relationship')
    LeafPsiElement[XPATH_COMMA_TOKEN(1425:1426)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1426:1427)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1427:1433)]
@@ -1116,7 +1116,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1477:1481)]
          XPathNameTestImpl[XPATH_NAME_TEST(1477:1481)]
             XPathNCNameImpl[XPATH_NCNAME(1477:1481)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1477:1481)]('same')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SAME(1477:1481)]('same')
    LeafPsiElement[XPATH_COMMA_TOKEN(1481:1482)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1482:1483)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1483:1492)]
@@ -1186,7 +1186,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1611:1616)]
          XPathNameTestImpl[XPATH_NAME_TEST(1611:1616)]
             XPathNCNameImpl[XPATH_NCNAME(1611:1616)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1611:1616)]('score')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCORE(1611:1616)]('score')
    LeafPsiElement[XPATH_COMMA_TOKEN(1616:1617)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1617:1618)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1618:1622)]
@@ -1200,21 +1200,21 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1624:1633)]
          XPathNameTestImpl[XPATH_NAME_TEST(1624:1633)]
             XPathNCNameImpl[XPATH_NCNAME(1624:1633)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1624:1633)]('sensitive')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SENSITIVE(1624:1633)]('sensitive')
    LeafPsiElement[XPATH_COMMA_TOKEN(1633:1634)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1634:1635)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1635:1643)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1635:1643)]
          XPathNameTestImpl[XPATH_NAME_TEST(1635:1643)]
             XPathNCNameImpl[XPATH_NCNAME(1635:1643)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1635:1643)]('sentence')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SENTENCE(1635:1643)]('sentence')
    LeafPsiElement[XPATH_COMMA_TOKEN(1643:1644)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1644:1645)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1645:1654)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1645:1654)]
          XPathNameTestImpl[XPATH_NAME_TEST(1645:1654)]
             XPathNCNameImpl[XPATH_NCNAME(1645:1654)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1645:1654)]('sentences')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SENTENCES(1645:1654)]('sentences')
    LeafPsiElement[XPATH_COMMA_TOKEN(1654:1655)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1655:1656)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1656:1666)]
@@ -1270,21 +1270,21 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1718:1723)]
          XPathNameTestImpl[XPATH_NAME_TEST(1718:1723)]
             XPathNCNameImpl[XPATH_NCNAME(1718:1723)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1718:1723)]('start')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(1718:1723)]('start')
    LeafPsiElement[XPATH_COMMA_TOKEN(1723:1724)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1724:1725)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1725:1733)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1725:1733)]
          XPathNameTestImpl[XPATH_NAME_TEST(1725:1733)]
             XPathNCNameImpl[XPATH_NCNAME(1725:1733)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1725:1733)]('stemming')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(1725:1733)]('stemming')
    LeafPsiElement[XPATH_COMMA_TOKEN(1733:1734)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1734:1735)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1735:1739)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1735:1739)]
          XPathNameTestImpl[XPATH_NAME_TEST(1735:1739)]
             XPathNCNameImpl[XPATH_NCNAME(1735:1739)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1735:1739)]('stop')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(1735:1739)]('stop')
    LeafPsiElement[XPATH_COMMA_TOKEN(1739:1740)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1740:1741)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1741:1747)]
@@ -1319,21 +1319,21 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1773:1778)]
          XPathNameTestImpl[XPATH_NAME_TEST(1773:1778)]
             XPathNCNameImpl[XPATH_NCNAME(1773:1778)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1773:1778)]('start')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(1773:1778)]('start')
    LeafPsiElement[XPATH_COMMA_TOKEN(1778:1779)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1779:1780)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1780:1788)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1780:1788)]
          XPathNameTestImpl[XPATH_NAME_TEST(1780:1788)]
             XPathNCNameImpl[XPATH_NCNAME(1780:1788)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1780:1788)]('stemming')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(1780:1788)]('stemming')
    LeafPsiElement[XPATH_COMMA_TOKEN(1788:1789)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1789:1790)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1790:1794)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1790:1794)]
          XPathNameTestImpl[XPATH_NAME_TEST(1790:1794)]
             XPathNCNameImpl[XPATH_NCNAME(1790:1794)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1790:1794)]('stop')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(1790:1794)]('stop')
    LeafPsiElement[XPATH_COMMA_TOKEN(1794:1795)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1795:1796)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1796:1802)]
@@ -1382,14 +1382,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1843:1852)]
          XPathNameTestImpl[XPATH_NAME_TEST(1843:1852)]
             XPathNCNameImpl[XPATH_NCNAME(1843:1852)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1843:1852)]('thesaurus')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(1843:1852)]('thesaurus')
    LeafPsiElement[XPATH_COMMA_TOKEN(1852:1853)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1853:1854)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1854:1859)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1854:1859)]
          XPathNameTestImpl[XPATH_NAME_TEST(1854:1859)]
             XPathNCNameImpl[XPATH_NCNAME(1854:1859)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1854:1859)]('times')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TIMES(1854:1859)]('times')
    LeafPsiElement[XPATH_COMMA_TOKEN(1859:1860)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1860:1861)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1861:1863)]
@@ -1487,14 +1487,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1973:1982)]
          XPathNameTestImpl[XPATH_NAME_TEST(1973:1982)]
             XPathNCNameImpl[XPATH_NCNAME(1973:1982)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1973:1982)]('uppercase')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UPPERCASE(1973:1982)]('uppercase')
    LeafPsiElement[XPATH_COMMA_TOKEN(1982:1983)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1983:1984)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1984:1989)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1984:1989)]
          XPathNameTestImpl[XPATH_NAME_TEST(1984:1989)]
             XPathNCNameImpl[XPATH_NCNAME(1984:1989)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1984:1989)]('using')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(1984:1989)]('using')
    LeafPsiElement[XPATH_COMMA_TOKEN(1989:1990)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1990:1991)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1991:1999)]
@@ -1529,7 +1529,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2027:2033)]
          XPathNameTestImpl[XPATH_NAME_TEST(2027:2033)]
             XPathNCNameImpl[XPATH_NCNAME(2027:2033)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2027:2033)]('weight')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WEIGHT(2027:2033)]('weight')
    LeafPsiElement[XPATH_COMMA_TOKEN(2033:2034)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(2034:2035)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(2035:2039)]
@@ -1557,14 +1557,14 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2055:2064)]
          XPathNameTestImpl[XPATH_NAME_TEST(2055:2064)]
             XPathNCNameImpl[XPATH_NCNAME(2055:2064)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2055:2064)]('wildcards')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WILDCARDS(2055:2064)]('wildcards')
    LeafPsiElement[XPATH_COMMA_TOKEN(2064:2065)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(2065:2066)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(2066:2072)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2066:2072)]
          XPathNameTestImpl[XPATH_NAME_TEST(2066:2072)]
             XPathNCNameImpl[XPATH_NCNAME(2066:2072)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2066:2072)]('window')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WINDOW(2066:2072)]('window')
    LeafPsiElement[XPATH_COMMA_TOKEN(2072:2073)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(2073:2074)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(2074:2078)]
@@ -1578,21 +1578,21 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2080:2087)]
          XPathNameTestImpl[XPATH_NAME_TEST(2080:2087)]
             XPathNCNameImpl[XPATH_NCNAME(2080:2087)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2080:2087)]('without')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITHOUT(2080:2087)]('without')
    LeafPsiElement[XPATH_COMMA_TOKEN(2087:2088)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(2088:2089)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(2089:2093)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2089:2093)]
          XPathNameTestImpl[XPATH_NAME_TEST(2089:2093)]
             XPathNCNameImpl[XPATH_NCNAME(2089:2093)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2089:2093)]('word')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORD(2089:2093)]('word')
    LeafPsiElement[XPATH_COMMA_TOKEN(2093:2094)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(2094:2095)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(2095:2100)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2095:2100)]
          XPathNameTestImpl[XPATH_NAME_TEST(2095:2100)]
             XPathNCNameImpl[XPATH_NCNAME(2095:2100)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2095:2100)]('words')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(2095:2100)]('words')
    LeafPsiElement[XPATH_COMMA_TOKEN(2100:2101)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(2101:2102)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(2102:2108)]
