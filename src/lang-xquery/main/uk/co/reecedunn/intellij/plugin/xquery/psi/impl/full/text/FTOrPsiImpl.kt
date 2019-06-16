@@ -17,6 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTOr
 
 class FTOrPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOr

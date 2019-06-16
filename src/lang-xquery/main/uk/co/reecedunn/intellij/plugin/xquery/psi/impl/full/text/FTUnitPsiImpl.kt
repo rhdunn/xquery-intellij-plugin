@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTUnit
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTUnit
 
-class FTUnitPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTUnit
+class FTUnitPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    FTUnit

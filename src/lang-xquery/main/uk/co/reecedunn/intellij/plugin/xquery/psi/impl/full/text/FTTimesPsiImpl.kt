@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTTimes
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTTimes
 
-class FTTimesPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTTimes
+class FTTimesPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    FTTimes

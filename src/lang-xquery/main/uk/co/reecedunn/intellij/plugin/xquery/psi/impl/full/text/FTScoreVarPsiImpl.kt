@@ -18,12 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar, VersionConformance {
+class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    FTScoreVar, VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(FullTextSpec.REC_1_0_20110317)
 
     override val conformanceElement get(): PsiElement = firstChild

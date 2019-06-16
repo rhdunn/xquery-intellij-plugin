@@ -28,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTMatchOptions
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTPrimaryWithOptions
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType

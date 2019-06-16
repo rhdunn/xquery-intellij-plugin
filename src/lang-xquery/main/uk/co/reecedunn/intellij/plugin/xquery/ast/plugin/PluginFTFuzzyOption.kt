@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOption
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTMatchOption
 
 /**
  * A BaseX 6.1 `FTFuzzyOption` node in the XQuery AST.

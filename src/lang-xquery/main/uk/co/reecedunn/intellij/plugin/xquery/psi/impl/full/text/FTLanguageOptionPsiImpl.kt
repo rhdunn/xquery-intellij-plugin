@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTLanguageOption
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTLanguageOption
 
-class FTLanguageOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTLanguageOption
+class FTLanguageOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    FTLanguageOption

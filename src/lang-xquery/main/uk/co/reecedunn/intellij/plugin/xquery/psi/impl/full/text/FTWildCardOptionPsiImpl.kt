@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTWildCardOption
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWildCardOption
 
-class FTWildCardOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTWildCardOption
+class FTWildCardOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    FTWildCardOption
