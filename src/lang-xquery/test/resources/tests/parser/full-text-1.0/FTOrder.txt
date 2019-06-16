@@ -14,18 +14,17 @@ XQueryModuleImpl[FILE(0:35)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   FTSelectionImpl[XPATH_FT_SELECTION(20:35)]
-                     FTOrImpl[XPATH_FT_OR(20:28)]
-                        FTAndImpl[XPATH_FT_AND(20:28)]
-                           FTMildNotImpl[XPATH_FT_MILD_NOT(20:28)]
-                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:28)]
-                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:28)]
-                                    FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
-                                       FTWordsImpl[XPATH_FT_WORDS(20:28)]
-                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                                             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                     FTAndImpl[XPATH_FT_AND(20:28)]
+                        FTMildNotImpl[XPATH_FT_MILD_NOT(20:28)]
+                           FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:28)]
+                              FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:28)]
+                                 FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
+                                    FTWordsImpl[XPATH_FT_WORDS(20:28)]
+                                       FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                                          XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                      FTOrderImpl[XPATH_FT_ORDER(28:35)]
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ORDERED(28:35)]('ordered')

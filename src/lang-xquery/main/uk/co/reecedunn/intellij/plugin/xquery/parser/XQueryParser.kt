@@ -4027,15 +4027,20 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
+            var haveFTOr = false
             while (builder.matchTokenType(XPathTokenType.K_FTOR)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseFTAnd(builder) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", "FTAnd"))
                     haveErrors = true
                 }
+                haveFTOr = true
             }
 
-            marker.done(XPathElementType.FT_OR)
+            if (haveFTOr)
+                marker.done(XPathElementType.FT_OR)
+            else
+                marker.drop()
             return true
         }
         marker.drop()
