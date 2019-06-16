@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -55,8 +56,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_CONTAINS))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_CONTAINS))
     }
 
     @Test
@@ -73,8 +73,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SCORE))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_SCORE))
     }
 
     @Test
@@ -89,7 +88,6 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FT_OPTION))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FT_OPTION))
     }
 }

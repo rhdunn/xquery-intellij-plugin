@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:24)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                      XQueryPositionalVarImpl[XQUERY_POSITIONAL_VAR(6:11)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(6:8)]('at')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(6:8)]('at')
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
                         XPathVarNameImpl[XPATH_VAR_NAME(9:11)]
                            XQueryNCNameImpl[XQUERY_NCNAME(9:11)]

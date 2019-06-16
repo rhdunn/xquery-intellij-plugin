@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:37)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      XQueryAllowingEmptyImpl[XQUERY_ALLOWING_EMPTY(8:22)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ALLOWING(8:16)]('allowing')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ALLOWING(8:16)]('allowing')
                         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EMPTY(17:22)]('empty')
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')

@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:42)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:42)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                      FTScopeImpl[XQUERY_FT_SCOPE(28:42)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SAME(28:32)]('same')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SAME(28:32)]('same')
                         PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                         FTBigUnitImpl[XQUERY_FT_BIG_UNIT(33:42)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARAGRAPH(33:42)]('paragraph')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARAGRAPH(33:42)]('paragraph')

@@ -78,7 +78,7 @@ class PluginLexerTest : LexerTestCase() {
     fun defaultCaseClause() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
@@ -88,7 +88,7 @@ class PluginLexerTest : LexerTestCase() {
     fun castExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
@@ -293,7 +293,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT)
         matchSingleToken(lexer, "stylesheet", XQueryTokenType.K_STYLESHEET)
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
+        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
     }
 
     @Test

@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:30)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
@@ -28,5 +28,5 @@ XQueryModuleImpl[FILE(0:30)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                      FTContentImpl[XQUERY_FT_CONTENT(28:30)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(28:30)]('at')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(28:30)]('at')
                         PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: end, start.')

@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:124)]
          XQueryEmptyOrderDeclImpl[XQUERY_EMPTY_ORDER_DECL(0:37)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(16:21)]('order')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
@@ -45,7 +45,7 @@ XQueryModuleImpl[FILE(0:124)]
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(100:123)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(100:107)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(107:108)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(108:114)]('option')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(108:114)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(114:115)](' ')
             XQueryNCNameImpl[XQUERY_NCNAME(115:117)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(115:116)]('z')

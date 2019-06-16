@@ -7,19 +7,19 @@ XQueryModuleImpl[FILE(0:119)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:118)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:117)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                   LeafPsiElement[XPATH_COMMA_TOKEN(44:45)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(46:80)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(46:48)]('at')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(46:48)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(49:79)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(49:50)]('"')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:119)]
                   LeafPsiElement[XPATH_COMMA_TOKEN(80:81)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(81:82)](' ')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(82:116)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(82:84)]('at')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(82:84)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(85:115)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(85:86)]('"')

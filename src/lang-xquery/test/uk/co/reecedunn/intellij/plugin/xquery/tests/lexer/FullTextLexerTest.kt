@@ -49,7 +49,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTScoreVar() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "score", XQueryTokenType.K_SCORE)
+        matchSingleToken(lexer, "score", XPathTokenType.K_SCORE)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
@@ -58,7 +58,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTContainsExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "contains", XQueryTokenType.K_CONTAINS)
+        matchSingleToken(lexer, "contains", XPathTokenType.K_CONTAINS)
         matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
     }
 
@@ -67,7 +67,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTWeight() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "weight", XQueryTokenType.K_WEIGHT)
+        matchSingleToken(lexer, "weight", XPathTokenType.K_WEIGHT)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
@@ -77,7 +77,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTOr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "ftor", XQueryTokenType.K_FTOR)
+        matchSingleToken(lexer, "ftor", XPathTokenType.K_FTOR)
     }
 
     @Test
@@ -85,7 +85,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTAnd() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "ftand", XQueryTokenType.K_FTAND)
+        matchSingleToken(lexer, "ftand", XPathTokenType.K_FTAND)
     }
 
     @Test
@@ -93,7 +93,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTMildNot() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "not", XQueryTokenType.K_NOT)
+        matchSingleToken(lexer, "not", XPathTokenType.K_NOT)
         matchSingleToken(lexer, "in", XPathTokenType.K_IN)
     }
 
@@ -102,7 +102,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTUnaryNot() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "ftnot", XQueryTokenType.K_FTNOT)
+        matchSingleToken(lexer, "ftnot", XPathTokenType.K_FTNOT)
     }
 
     @Test
@@ -137,12 +137,12 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTAnyallOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "any", XQueryTokenType.K_ANY)
-        matchSingleToken(lexer, "all", XQueryTokenType.K_ALL)
+        matchSingleToken(lexer, "any", XPathTokenType.K_ANY)
+        matchSingleToken(lexer, "all", XPathTokenType.K_ALL)
 
-        matchSingleToken(lexer, "word", XQueryTokenType.K_WORD)
-        matchSingleToken(lexer, "words", XQueryTokenType.K_WORDS)
-        matchSingleToken(lexer, "phrase", XQueryTokenType.K_PHRASE)
+        matchSingleToken(lexer, "word", XPathTokenType.K_WORD)
+        matchSingleToken(lexer, "words", XPathTokenType.K_WORDS)
+        matchSingleToken(lexer, "phrase", XPathTokenType.K_PHRASE)
     }
 
     @Test
@@ -150,8 +150,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTTimes() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "occurs", XQueryTokenType.K_OCCURS)
-        matchSingleToken(lexer, "times", XQueryTokenType.K_TIMES)
+        matchSingleToken(lexer, "occurs", XPathTokenType.K_OCCURS)
+        matchSingleToken(lexer, "times", XPathTokenType.K_TIMES)
     }
 
     @Test
@@ -159,11 +159,11 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTRange() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "exactly", XQueryTokenType.K_EXACTLY)
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
-        matchSingleToken(lexer, "least", XQueryTokenType.K_LEAST)
-        matchSingleToken(lexer, "most", XQueryTokenType.K_MOST)
-        matchSingleToken(lexer, "from", XQueryTokenType.K_FROM)
+        matchSingleToken(lexer, "exactly", XPathTokenType.K_EXACTLY)
+        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
+        matchSingleToken(lexer, "least", XPathTokenType.K_LEAST)
+        matchSingleToken(lexer, "most", XPathTokenType.K_MOST)
+        matchSingleToken(lexer, "from", XPathTokenType.K_FROM)
         matchSingleToken(lexer, "to", XPathTokenType.K_TO)
     }
 
@@ -172,7 +172,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTOrder() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "ordered", XQueryTokenType.K_ORDERED)
+        matchSingleToken(lexer, "ordered", XPathTokenType.K_ORDERED)
     }
 
     @Test
@@ -180,7 +180,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTWindow() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "window", XQueryTokenType.K_WINDOW)
+        matchSingleToken(lexer, "window", XPathTokenType.K_WINDOW)
     }
 
     @Test
@@ -188,7 +188,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTDistance() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "distance", XQueryTokenType.K_DISTANCE)
+        matchSingleToken(lexer, "distance", XPathTokenType.K_DISTANCE)
     }
 
     @Test
@@ -196,9 +196,9 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTUnit() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "words", XQueryTokenType.K_WORDS)
-        matchSingleToken(lexer, "sentences", XQueryTokenType.K_SENTENCES)
-        matchSingleToken(lexer, "paragraphs", XQueryTokenType.K_PARAGRAPHS)
+        matchSingleToken(lexer, "words", XPathTokenType.K_WORDS)
+        matchSingleToken(lexer, "sentences", XPathTokenType.K_SENTENCES)
+        matchSingleToken(lexer, "paragraphs", XPathTokenType.K_PARAGRAPHS)
     }
 
     @Test
@@ -206,8 +206,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTScope() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "same", XQueryTokenType.K_SAME)
-        matchSingleToken(lexer, "different", XQueryTokenType.K_DIFFERENT)
+        matchSingleToken(lexer, "same", XPathTokenType.K_SAME)
+        matchSingleToken(lexer, "different", XPathTokenType.K_DIFFERENT)
     }
 
     @Test
@@ -215,8 +215,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTBigUnit() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "sentence", XQueryTokenType.K_SENTENCE)
-        matchSingleToken(lexer, "paragraph", XQueryTokenType.K_PARAGRAPH)
+        matchSingleToken(lexer, "sentence", XPathTokenType.K_SENTENCE)
+        matchSingleToken(lexer, "paragraph", XPathTokenType.K_PARAGRAPH)
     }
 
     @Test
@@ -224,12 +224,12 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTContent() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
-        matchSingleToken(lexer, "start", XQueryTokenType.K_START)
-        matchSingleToken(lexer, "end", XQueryTokenType.K_END)
+        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
+        matchSingleToken(lexer, "start", XPathTokenType.K_START)
+        matchSingleToken(lexer, "end", XPathTokenType.K_END)
 
-        matchSingleToken(lexer, "entire", XQueryTokenType.K_ENTIRE)
-        matchSingleToken(lexer, "content", XQueryTokenType.K_CONTENT)
+        matchSingleToken(lexer, "entire", XPathTokenType.K_ENTIRE)
+        matchSingleToken(lexer, "content", XPathTokenType.K_CONTENT)
     }
 
     @Test
@@ -237,7 +237,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTMatchOptions() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "using", XQueryTokenType.K_USING)
+        matchSingleToken(lexer, "using", XPathTokenType.K_USING)
     }
 
     @Test
@@ -245,12 +245,12 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTCaseOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "case", XQueryTokenType.K_CASE)
-        matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE)
-        matchSingleToken(lexer, "insensitive", XQueryTokenType.K_INSENSITIVE)
+        matchSingleToken(lexer, "case", XPathTokenType.K_CASE)
+        matchSingleToken(lexer, "sensitive", XPathTokenType.K_SENSITIVE)
+        matchSingleToken(lexer, "insensitive", XPathTokenType.K_INSENSITIVE)
 
-        matchSingleToken(lexer, "lowercase", XQueryTokenType.K_LOWERCASE)
-        matchSingleToken(lexer, "uppercase", XQueryTokenType.K_UPPERCASE)
+        matchSingleToken(lexer, "lowercase", XPathTokenType.K_LOWERCASE)
+        matchSingleToken(lexer, "uppercase", XPathTokenType.K_UPPERCASE)
     }
 
     @Test
@@ -258,9 +258,9 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTDiacriticsOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "diacritics", XQueryTokenType.K_DIACRITICS)
-        matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE)
-        matchSingleToken(lexer, "insensitive", XQueryTokenType.K_INSENSITIVE)
+        matchSingleToken(lexer, "diacritics", XPathTokenType.K_DIACRITICS)
+        matchSingleToken(lexer, "sensitive", XPathTokenType.K_SENSITIVE)
+        matchSingleToken(lexer, "insensitive", XPathTokenType.K_INSENSITIVE)
     }
 
     @Test
@@ -268,8 +268,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTStemOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "no", XQueryTokenType.K_NO)
-        matchSingleToken(lexer, "stemming", XQueryTokenType.K_STEMMING)
+        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
+        matchSingleToken(lexer, "stemming", XPathTokenType.K_STEMMING)
     }
 
     @Test
@@ -277,13 +277,13 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTThesaurusOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "thesaurus", XQueryTokenType.K_THESAURUS)
+        matchSingleToken(lexer, "thesaurus", XPathTokenType.K_THESAURUS)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
 
-        matchSingleToken(lexer, "no", XQueryTokenType.K_NO)
-        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
+        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
     }
 
     @Test
@@ -291,9 +291,9 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTThesaurusID() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
-        matchSingleToken(lexer, "relationship", XQueryTokenType.K_RELATIONSHIP)
-        matchSingleToken(lexer, "levels", XQueryTokenType.K_LEVELS)
+        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
+        matchSingleToken(lexer, "relationship", XPathTokenType.K_RELATIONSHIP)
+        matchSingleToken(lexer, "levels", XPathTokenType.K_LEVELS)
     }
 
     @Test
@@ -301,13 +301,13 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTLiteralRange() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "exactly", XQueryTokenType.K_EXACTLY)
+        matchSingleToken(lexer, "exactly", XPathTokenType.K_EXACTLY)
 
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
-        matchSingleToken(lexer, "least", XQueryTokenType.K_LEAST)
-        matchSingleToken(lexer, "most", XQueryTokenType.K_MOST)
+        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
+        matchSingleToken(lexer, "least", XPathTokenType.K_LEAST)
+        matchSingleToken(lexer, "most", XPathTokenType.K_MOST)
 
-        matchSingleToken(lexer, "from", XQueryTokenType.K_FROM)
+        matchSingleToken(lexer, "from", XPathTokenType.K_FROM)
         matchSingleToken(lexer, "to", XPathTokenType.K_TO)
     }
 
@@ -316,10 +316,10 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTStopWordOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "stop", XQueryTokenType.K_STOP)
-        matchSingleToken(lexer, "words", XQueryTokenType.K_WORDS)
-        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "no", XQueryTokenType.K_NO)
+        matchSingleToken(lexer, "stop", XPathTokenType.K_STOP)
+        matchSingleToken(lexer, "words", XPathTokenType.K_WORDS)
+        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
     }
 
     @Test
@@ -327,7 +327,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTStopWords() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
+        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
 
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
@@ -348,7 +348,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTLanguageOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "language", XQueryTokenType.K_LANGUAGE)
+        matchSingleToken(lexer, "language", XPathTokenType.K_LANGUAGE)
     }
 
     @Test
@@ -356,8 +356,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTWildCardOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "no", XQueryTokenType.K_NO)
-        matchSingleToken(lexer, "wildcards", XQueryTokenType.K_WILDCARDS)
+        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
+        matchSingleToken(lexer, "wildcards", XPathTokenType.K_WILDCARDS)
     }
 
     @Test
@@ -365,7 +365,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTExtensionOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "option", XQueryTokenType.K_OPTION)
+        matchSingleToken(lexer, "option", XPathTokenType.K_OPTION)
     }
 
     @Test
@@ -373,7 +373,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTIgnoreOption() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "without", XQueryTokenType.K_WITHOUT)
-        matchSingleToken(lexer, "content", XQueryTokenType.K_CONTENT)
+        matchSingleToken(lexer, "without", XPathTokenType.K_WITHOUT)
+        matchSingleToken(lexer, "content", XPathTokenType.K_CONTENT)
     }
 }

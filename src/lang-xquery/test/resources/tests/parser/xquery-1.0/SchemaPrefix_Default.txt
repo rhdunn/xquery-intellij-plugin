@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:71)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(7:13)]('schema')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XQuerySchemaPrefixImpl[XQUERY_SCHEMA_PREFIX(14:40)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(14:21)]('default')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(14:21)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(22:29)]('element')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')

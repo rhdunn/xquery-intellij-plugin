@@ -7,10 +7,10 @@ XQueryModuleImpl[FILE(0:40)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:39)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTLanguageOptionImpl[XQUERY_FT_LANGUAGE_OPTION(24:39)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LANGUAGE(24:32)]('language')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(24:32)]('language')
                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(32:39)]
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(32:33)]('"')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(33:38)]('en-IE')

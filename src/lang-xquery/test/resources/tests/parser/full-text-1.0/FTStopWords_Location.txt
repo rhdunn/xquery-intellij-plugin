@@ -7,15 +7,15 @@ XQueryModuleImpl[FILE(0:76)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:75)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:75)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   FTStopWordsImpl[XQUERY_FT_STOP_WORDS(35:74)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(35:37)]('at')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(35:37)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(38:74)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(38:39)]('"')

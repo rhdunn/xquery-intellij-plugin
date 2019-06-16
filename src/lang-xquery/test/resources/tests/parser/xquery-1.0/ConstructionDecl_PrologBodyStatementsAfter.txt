@@ -41,7 +41,7 @@ XQueryModuleImpl[FILE(0:114)]
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(90:113)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(90:97)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(98:104)]('option')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(98:104)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(104:105)](' ')
             XQueryNCNameImpl[XQUERY_NCNAME(105:107)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(105:106)]('z')

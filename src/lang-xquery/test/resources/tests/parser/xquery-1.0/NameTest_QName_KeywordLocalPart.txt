@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(13:22)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:18)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(18:19)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ALL(19:22)]('all')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ALL(19:22)]('all')
             LeafPsiElement[XPATH_COMMA_TOKEN(22:23)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(24:38)]
@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(24:38)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:29)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(29:30)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ALLOWING(30:38)]('allowing')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ALLOWING(30:38)]('allowing')
             LeafPsiElement[XPATH_COMMA_TOKEN(38:39)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(39:40)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(40:54)]
@@ -71,7 +71,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(106:115)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(106:111)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(111:112)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ANY(112:115)]('any')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ANY(112:115)]('any')
             LeafPsiElement[XPATH_COMMA_TOKEN(115:116)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(116:117)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(117:128)]
@@ -125,7 +125,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(193:201)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(193:198)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(198:199)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(199:201)]('at')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(199:201)]('at')
             LeafPsiElement[XPATH_COMMA_TOKEN(201:202)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(202:203)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(203:218)]
@@ -143,7 +143,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(220:240)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(220:225)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(225:226)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE(226:240)]('attribute-decl')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE(226:240)]('attribute-decl')
             LeafPsiElement[XPATH_COMMA_TOKEN(240:241)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(241:242)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(242:256)]
@@ -215,7 +215,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(351:361)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(351:356)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(356:357)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(357:361)]('case')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CASE(357:361)]('case')
             LeafPsiElement[XPATH_COMMA_TOKEN(361:362)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(362:363)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(363:373)]
@@ -296,7 +296,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(489:503)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(489:494)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(494:495)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(495:503)]('contains')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(495:503)]('contains')
             LeafPsiElement[XPATH_COMMA_TOKEN(503:504)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(504:505)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(505:518)]
@@ -305,7 +305,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(505:518)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(505:510)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(510:511)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTENT(511:518)]('content')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTENT(511:518)]('content')
             LeafPsiElement[XPATH_COMMA_TOKEN(518:519)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(519:520)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(520:533)]
@@ -377,7 +377,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(645:658)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(645:650)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(650:651)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(651:658)]('default')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(651:658)]('default')
             LeafPsiElement[XPATH_COMMA_TOKEN(658:659)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(659:660)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(660:672)]
@@ -422,7 +422,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(736:752)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(736:741)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(741:742)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIACRITICS(742:752)]('diacritics')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIACRITICS(742:752)]('diacritics')
             LeafPsiElement[XPATH_COMMA_TOKEN(752:753)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(753:754)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(754:769)]
@@ -431,7 +431,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(754:769)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(754:759)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(759:760)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIFFERENT(760:769)]('different')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIFFERENT(760:769)]('different')
             LeafPsiElement[XPATH_COMMA_TOKEN(769:770)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(770:771)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(771:782)]
@@ -449,7 +449,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(784:798)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(784:789)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(789:790)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DISTANCE(790:798)]('distance')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DISTANCE(790:798)]('distance')
             LeafPsiElement[XPATH_COMMA_TOKEN(798:799)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(799:800)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(800:809)]
@@ -539,7 +539,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(946:955)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(946:951)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(951:952)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_END(952:955)]('end')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_END(952:955)]('end')
             LeafPsiElement[XPATH_COMMA_TOKEN(955:956)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(956:957)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(957:969)]
@@ -548,7 +548,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(957:969)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(957:962)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(962:963)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ENTIRE(963:969)]('entire')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ENTIRE(963:969)]('entire')
             LeafPsiElement[XPATH_COMMA_TOKEN(969:970)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(970:971)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(971:979)]
@@ -575,7 +575,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(994:1007)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(994:999)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(999:1000)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(1000:1007)]('exactly')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXACTLY(1000:1007)]('exactly')
             LeafPsiElement[XPATH_COMMA_TOKEN(1007:1008)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1008:1009)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1009:1021)]
@@ -665,7 +665,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1153:1163)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1153:1158)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1158:1159)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FROM(1159:1163)]('from')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FROM(1159:1163)]('from')
             LeafPsiElement[XPATH_COMMA_TOKEN(1163:1164)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1164:1165)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1165:1180)]
@@ -683,7 +683,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1182:1193)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1182:1187)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1187:1188)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FTAND(1188:1193)]('ftand')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(1188:1193)]('ftand')
             LeafPsiElement[XPATH_COMMA_TOKEN(1193:1194)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1194:1195)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1195:1206)]
@@ -692,7 +692,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1195:1206)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1195:1200)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1200:1201)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FTNOT(1201:1206)]('ftnot')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTNOT(1201:1206)]('ftnot')
             LeafPsiElement[XPATH_COMMA_TOKEN(1206:1207)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1207:1208)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1208:1218)]
@@ -701,7 +701,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1208:1218)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1208:1213)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1213:1214)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FTOR(1214:1218)]('ftor')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(1214:1218)]('ftor')
             LeafPsiElement[XPATH_COMMA_TOKEN(1218:1219)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1219:1220)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1220:1234)]
@@ -827,7 +827,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1401:1418)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1401:1406)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1406:1407)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSENSITIVE(1407:1418)]('insensitive')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSENSITIVE(1407:1418)]('insensitive')
             LeafPsiElement[XPATH_COMMA_TOKEN(1418:1419)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1419:1420)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1420:1432)]
@@ -899,7 +899,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1515:1529)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1515:1520)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1520:1521)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LANGUAGE(1521:1529)]('language')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(1521:1529)]('language')
             LeafPsiElement[XPATH_COMMA_TOKEN(1529:1530)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1530:1531)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1531:1541)]
@@ -935,7 +935,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1564:1575)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1564:1569)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1569:1570)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEAST(1570:1575)]('least')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEAST(1570:1575)]('least')
             LeafPsiElement[XPATH_COMMA_TOKEN(1575:1576)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1576:1577)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1577:1586)]
@@ -953,7 +953,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1588:1600)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1588:1593)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1593:1594)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEVELS(1594:1600)]('levels')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEVELS(1594:1600)]('levels')
             LeafPsiElement[XPATH_COMMA_TOKEN(1600:1601)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1601:1602)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1602:1617)]
@@ -962,7 +962,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1602:1617)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1602:1607)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1607:1608)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LOWERCASE(1608:1617)]('lowercase')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LOWERCASE(1608:1617)]('lowercase')
             LeafPsiElement[XPATH_COMMA_TOKEN(1617:1618)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1618:1619)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1619:1627)]
@@ -1025,7 +1025,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1697:1707)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1697:1702)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1702:1703)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MOST(1703:1707)]('most')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MOST(1703:1707)]('most')
             LeafPsiElement[XPATH_COMMA_TOKEN(1707:1708)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1708:1709)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1709:1724)]
@@ -1079,7 +1079,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1781:1789)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1781:1786)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1786:1787)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NO(1787:1789)]('no')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO(1787:1789)]('no')
             LeafPsiElement[XPATH_COMMA_TOKEN(1789:1790)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1790:1791)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1791:1807)]
@@ -1088,7 +1088,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1791:1807)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1791:1796)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1796:1797)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT(1797:1807)]('no-inherit')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO_INHERIT(1797:1807)]('no-inherit')
             LeafPsiElement[XPATH_COMMA_TOKEN(1807:1808)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1808:1809)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1809:1826)]
@@ -1097,7 +1097,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1809:1826)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1809:1814)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1814:1815)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE(1815:1826)]('no-preserve')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO_PRESERVE(1815:1826)]('no-preserve')
             LeafPsiElement[XPATH_COMMA_TOKEN(1826:1827)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1827:1828)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1828:1838)]
@@ -1115,7 +1115,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1840:1851)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1840:1845)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1845:1846)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODES(1846:1851)]('nodes')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODES(1846:1851)]('nodes')
             LeafPsiElement[XPATH_COMMA_TOKEN(1851:1852)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1852:1853)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1853:1876)]
@@ -1124,7 +1124,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1853:1876)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1853:1858)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1858:1859)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(1859:1876)]('non-deterministic')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(1859:1876)]('non-deterministic')
             LeafPsiElement[XPATH_COMMA_TOKEN(1876:1877)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1877:1878)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1878:1887)]
@@ -1133,7 +1133,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1878:1887)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1878:1883)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1883:1884)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NOT(1884:1887)]('not')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(1884:1887)]('not')
             LeafPsiElement[XPATH_COMMA_TOKEN(1887:1888)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1888:1889)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1889:1904)]
@@ -1169,7 +1169,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1944:1956)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1944:1949)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1949:1950)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OCCURS(1950:1956)]('occurs')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(1950:1956)]('occurs')
             LeafPsiElement[XPATH_COMMA_TOKEN(1956:1957)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1957:1958)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1958:1966)]
@@ -1196,7 +1196,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(1980:1992)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(1980:1985)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1985:1986)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(1986:1992)]('option')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(1986:1992)]('option')
             LeafPsiElement[XPATH_COMMA_TOKEN(1992:1993)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1993:1994)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1994:2002)]
@@ -1223,7 +1223,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2017:2030)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2017:2022)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2022:2023)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERED(2023:2030)]('ordered')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ORDERED(2023:2030)]('ordered')
             LeafPsiElement[XPATH_COMMA_TOKEN(2030:2031)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2031:2032)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2032:2046)]
@@ -1250,7 +1250,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2062:2077)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2062:2067)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2067:2068)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARAGRAPH(2068:2077)]('paragraph')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARAGRAPH(2068:2077)]('paragraph')
             LeafPsiElement[XPATH_COMMA_TOKEN(2077:2078)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2078:2079)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2079:2095)]
@@ -1259,7 +1259,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2079:2095)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2079:2084)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2084:2085)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARAGRAPHS(2085:2095)]('paragraphs')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARAGRAPHS(2085:2095)]('paragraphs')
             LeafPsiElement[XPATH_COMMA_TOKEN(2095:2096)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2096:2097)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2097:2109)]
@@ -1304,7 +1304,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2168:2180)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2168:2173)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2173:2174)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PHRASE(2174:2180)]('phrase')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PHRASE(2174:2180)]('phrase')
             LeafPsiElement[XPATH_COMMA_TOKEN(2180:2181)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2181:2182)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2182:2197)]
@@ -1385,7 +1385,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2331:2349)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2331:2336)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2336:2337)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP(2337:2349)]('relationship')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP(2337:2349)]('relationship')
             LeafPsiElement[XPATH_COMMA_TOKEN(2349:2350)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2350:2351)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2351:2363)]
@@ -1439,7 +1439,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2431:2441)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2431:2436)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2436:2437)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SAME(2437:2441)]('same')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SAME(2437:2441)]('same')
             LeafPsiElement[XPATH_COMMA_TOKEN(2441:2442)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2442:2443)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2443:2458)]
@@ -1529,7 +1529,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2625:2636)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2625:2630)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2630:2631)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCORE(2631:2636)]('score')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCORE(2631:2636)]('score')
             LeafPsiElement[XPATH_COMMA_TOKEN(2636:2637)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2637:2638)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2638:2648)]
@@ -1547,7 +1547,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2650:2665)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2650:2655)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2655:2656)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SENSITIVE(2656:2665)]('sensitive')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SENSITIVE(2656:2665)]('sensitive')
             LeafPsiElement[XPATH_COMMA_TOKEN(2665:2666)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2666:2667)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2667:2681)]
@@ -1556,7 +1556,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2667:2681)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2667:2672)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2672:2673)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SENTENCE(2673:2681)]('sentence')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SENTENCE(2673:2681)]('sentence')
             LeafPsiElement[XPATH_COMMA_TOKEN(2681:2682)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2682:2683)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2683:2698)]
@@ -1565,7 +1565,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2683:2698)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2683:2688)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2688:2689)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SENTENCES(2689:2698)]('sentences')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SENTENCES(2689:2698)]('sentences')
             LeafPsiElement[XPATH_COMMA_TOKEN(2698:2699)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2699:2700)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2700:2716)]
@@ -1637,7 +1637,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2804:2815)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2804:2809)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2809:2810)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_START(2810:2815)]('start')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(2810:2815)]('start')
             LeafPsiElement[XPATH_COMMA_TOKEN(2815:2816)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2816:2817)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2817:2831)]
@@ -1646,7 +1646,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2817:2831)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2817:2822)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2822:2823)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STEMMING(2823:2831)]('stemming')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(2823:2831)]('stemming')
             LeafPsiElement[XPATH_COMMA_TOKEN(2831:2832)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2832:2833)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2833:2843)]
@@ -1655,7 +1655,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2833:2843)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2833:2838)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2838:2839)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STOP(2839:2843)]('stop')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(2839:2843)]('stop')
             LeafPsiElement[XPATH_COMMA_TOKEN(2843:2844)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2844:2845)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2845:2857)]
@@ -1700,7 +1700,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2901:2912)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2901:2906)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2906:2907)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_START(2907:2912)]('start')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(2907:2912)]('start')
             LeafPsiElement[XPATH_COMMA_TOKEN(2912:2913)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2913:2914)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2914:2928)]
@@ -1709,7 +1709,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2914:2928)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2914:2919)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2919:2920)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STEMMING(2920:2928)]('stemming')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(2920:2928)]('stemming')
             LeafPsiElement[XPATH_COMMA_TOKEN(2928:2929)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2929:2930)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2930:2940)]
@@ -1718,7 +1718,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(2930:2940)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2930:2935)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2935:2936)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STOP(2936:2940)]('stop')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(2936:2940)]('stop')
             LeafPsiElement[XPATH_COMMA_TOKEN(2940:2941)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2941:2942)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(2942:2954)]
@@ -1781,7 +1781,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3025:3040)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3025:3030)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3030:3031)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(3031:3040)]('thesaurus')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(3031:3040)]('thesaurus')
             LeafPsiElement[XPATH_COMMA_TOKEN(3040:3041)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3041:3042)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3042:3053)]
@@ -1790,7 +1790,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3042:3053)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3042:3047)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3047:3048)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TIMES(3048:3053)]('times')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TIMES(3048:3053)]('times')
             LeafPsiElement[XPATH_COMMA_TOKEN(3053:3054)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3054:3055)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3055:3063)]
@@ -1916,7 +1916,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3245:3260)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3245:3250)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3250:3251)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPPERCASE(3251:3260)]('uppercase')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UPPERCASE(3251:3260)]('uppercase')
             LeafPsiElement[XPATH_COMMA_TOKEN(3260:3261)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3261:3262)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3262:3273)]
@@ -1925,7 +1925,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3262:3273)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3262:3267)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3267:3268)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(3268:3273)]('using')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(3268:3273)]('using')
             LeafPsiElement[XPATH_COMMA_TOKEN(3273:3274)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3274:3275)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3275:3289)]
@@ -1970,7 +1970,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3335:3347)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3335:3340)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3340:3341)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WEIGHT(3341:3347)]('weight')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WEIGHT(3341:3347)]('weight')
             LeafPsiElement[XPATH_COMMA_TOKEN(3347:3348)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3348:3349)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3349:3359)]
@@ -2006,7 +2006,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3387:3402)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3387:3392)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3392:3393)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WILDCARDS(3393:3402)]('wildcards')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WILDCARDS(3393:3402)]('wildcards')
             LeafPsiElement[XPATH_COMMA_TOKEN(3402:3403)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3403:3404)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3404:3416)]
@@ -2015,7 +2015,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3404:3416)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3404:3409)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3409:3410)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WINDOW(3410:3416)]('window')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WINDOW(3410:3416)]('window')
             LeafPsiElement[XPATH_COMMA_TOKEN(3416:3417)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3417:3418)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3418:3428)]
@@ -2033,7 +2033,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3430:3443)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3430:3435)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3435:3436)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITHOUT(3436:3443)]('without')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITHOUT(3436:3443)]('without')
             LeafPsiElement[XPATH_COMMA_TOKEN(3443:3444)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3444:3445)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3445:3455)]
@@ -2042,7 +2042,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3445:3455)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3445:3450)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3450:3451)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORD(3451:3455)]('word')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORD(3451:3455)]('word')
             LeafPsiElement[XPATH_COMMA_TOKEN(3455:3456)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3456:3457)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3457:3468)]
@@ -2051,7 +2051,7 @@ XQueryModuleImpl[FILE(0:3500)]
                      XQueryQNameImpl[XQUERY_QNAME(3457:3468)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3457:3462)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3462:3463)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(3463:3468)]('words')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(3463:3468)]('words')
             LeafPsiElement[XPATH_COMMA_TOKEN(3468:3469)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3469:3470)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3470:3482)]

@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:25)]
             UpdateFacilityInsertExprImpl[XQUERY_INSERT_EXPR(0:25)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSERT(0:6)]('insert')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODES(7:12)]('nodes')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODES(7:12)]('nodes')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                UpdateFacilitySourceExprImpl[XQUERY_SOURCE_EXPR(13:17)]
                   XPathOrExprImpl[XPATH_OR_EXPR(13:17)]

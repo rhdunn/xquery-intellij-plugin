@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:72)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(13:14)]('"')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(14:41)]('http://www.example.com/test')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(41:42)]('"')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(42:44)]('at')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:55)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(44:45)]('"')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(45:54)]('/test.xsd')

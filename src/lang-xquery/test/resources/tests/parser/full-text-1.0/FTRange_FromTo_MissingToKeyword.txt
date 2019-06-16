@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:53)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
@@ -37,14 +37,14 @@ XQueryModuleImpl[FILE(0:53)]
                                              LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                                        FTTimesImpl[XQUERY_FT_TIMES(32:53)]
-                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
+                                          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                                           FTRangeImpl[XQUERY_FT_RANGE(39:48)]
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FROM(39:43)]('from')
+                                             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FROM(39:43)]('from')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(44:45)]('2')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                                              PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected keyword: to.')
                                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(46:47)]('4')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TIMES(48:53)]('times')
+                                          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TIMES(48:53)]('times')

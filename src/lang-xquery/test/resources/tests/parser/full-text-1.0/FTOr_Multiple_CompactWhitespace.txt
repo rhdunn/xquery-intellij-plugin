@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:48)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   FTSelectionImpl[XQUERY_FT_SELECTION(19:48)]
@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:48)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FTOR(26:30)]('ftor')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(26:30)]('ftor')
                         FTAndImpl[XQUERY_FT_AND(30:37)]
                            FTMildNotImpl[XQUERY_FT_MILD_NOT(30:37)]
                               FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(30:37)]
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:48)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(30:31)]('"')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(31:36)]('ipsum')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(36:37)]('"')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FTOR(37:41)]('ftor')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(37:41)]('ftor')
                         FTAndImpl[XQUERY_FT_AND(41:48)]
                            FTMildNotImpl[XQUERY_FT_MILD_NOT(41:48)]
                               FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(41:48)]

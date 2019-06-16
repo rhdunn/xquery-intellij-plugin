@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:59)]
                   XQueryTumblingWindowClauseImpl[XQUERY_TUMBLING_WINDOW_CLAUSE(4:59)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUMBLING(4:12)]('tumbling')
                      PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WINDOW(13:19)]('window')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WINDOW(13:19)]('window')
                      PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(20:21)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:59)]
                                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('y')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                      XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(31:51)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_START(31:36)]('start')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(31:36)]('start')
                         PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                         XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(37:37)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(37:41)]('when')
@@ -44,7 +44,7 @@ XQueryModuleImpl[FILE(0:59)]
                                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(49:50)](')')
                            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                      XQueryWindowEndConditionImpl[XQUERY_WINDOW_END_CONDITION(51:59)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_END(51:54)]('end')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_END(51:54)]('end')
                         PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                         XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(55:55)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(55:59)]('when')

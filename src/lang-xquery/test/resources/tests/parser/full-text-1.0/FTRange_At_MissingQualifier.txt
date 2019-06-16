@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:49)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
@@ -37,12 +37,12 @@ XQueryModuleImpl[FILE(0:49)]
                                              LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                                        FTTimesImpl[XQUERY_FT_TIMES(32:49)]
-                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
+                                          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                                           FTRangeImpl[XQUERY_FT_RANGE(39:44)]
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(39:41)]('at')
+                                             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(39:41)]('at')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                                              PsiErrorElementImpl[ERROR_ELEMENT(42:42)]('XPST0003: Expected keyword: least, most.')
                                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(42:43)]('2')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TIMES(44:49)]('times')
+                                          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TIMES(44:49)]('times')

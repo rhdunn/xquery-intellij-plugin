@@ -7,13 +7,13 @@ XQueryModuleImpl[FILE(0:84)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:83)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:83)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(34:82)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(34:36)]('at')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(34:36)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(37:67)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(37:38)]('"')
@@ -21,12 +21,12 @@ XQueryModuleImpl[FILE(0:84)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(66:67)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
                      FTLiteralRangeImpl[XQUERY_FT_LITERAL_RANGE(68:76)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(68:70)]('at')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(68:70)]('at')
                         PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MOST(71:75)]('most')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MOST(71:75)]('most')
                         PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(76:76)]('XPST0003: Expected 'IntegerLiteral'.')
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEVELS(76:82)]('levels')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEVELS(76:82)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(83:84)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(84:84)]('XPST0003: Missing query body.')

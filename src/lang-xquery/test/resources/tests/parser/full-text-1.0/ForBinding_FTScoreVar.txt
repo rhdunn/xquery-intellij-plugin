@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:35)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      FTScoreVarImpl[XQUERY_FT_SCORE_VAR(8:18)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCORE(8:13)]('score')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCORE(8:13)]('score')
                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(14:15)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')

@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:28)]
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:27)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing qualified name or braced URI qualified name.')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:26)]

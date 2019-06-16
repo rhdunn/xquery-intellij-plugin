@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:46)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
@@ -28,10 +28,10 @@ XQueryModuleImpl[FILE(0:46)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                      FTDistanceImpl[XQUERY_FT_DISTANCE(28:46)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
                         PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                         FTRangeImpl[XQUERY_FT_RANGE(37:46)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
                            PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(45:46)]('4')
                         PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected keyword: paragraphs, sentences, words.')

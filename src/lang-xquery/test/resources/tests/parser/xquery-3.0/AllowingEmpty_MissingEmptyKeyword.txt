@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:34)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      XQueryAllowingEmptyImpl[XQUERY_ALLOWING_EMPTY(8:17)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ALLOWING(8:16)]('allowing')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ALLOWING(8:16)]('allowing')
                         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected keyword: empty.')
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(17:19)]('in')

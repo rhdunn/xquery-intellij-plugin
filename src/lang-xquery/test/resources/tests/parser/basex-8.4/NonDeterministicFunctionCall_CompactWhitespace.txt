@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:45)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XPathOrExprImpl[XPATH_OR_EXPR(24:45)]
                      PluginNonDeterministicFunctionCallImpl[NON_DETERMINISTIC_FUNCTION_CALL(24:45)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(24:41)]('non-deterministic')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(24:41)]('non-deterministic')
                         XPathVarRefImpl[XPATH_VAR_REF(41:43)]
                            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(41:42)]('$')
                            XPathVarNameImpl[XPATH_VAR_NAME(42:43)]

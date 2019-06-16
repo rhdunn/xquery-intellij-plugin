@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:58)]
          XQueryDefaultCollationDeclImpl[XQUERY_DEFAULT_COLLATION_DECL(0:58)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(16:25)]('collation')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')

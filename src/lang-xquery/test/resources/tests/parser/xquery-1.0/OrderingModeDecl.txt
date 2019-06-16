@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:26)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERING(8:16)]('ordering')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERED(17:24)]('ordered')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ORDERED(17:24)]('ordered')
             PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(25:26)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing query body.')

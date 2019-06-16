@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:30)]
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:29)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XQueryNCNameImpl[XQUERY_NCNAME(15:17)]
                PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected qualified name or identifier, not a wildcard.')

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,6 +63,7 @@ object XPathTokenType {
     // endregion
     // region Keywords
 
+    val K_ALL = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ALL", XPath) // Full Text 1.0
     val K_ANCESTOR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ANCESTOR", XPath) // XPath 1.0
     val K_ANCESTOR_OR_SELF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF", XPath) // XPath 1.0
     val K_AND = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_AND", XPath) // XPath 1.0
@@ -70,67 +71,116 @@ object XPathTokenType {
     val K_ARRAY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ARRAY", XPath) // XPath 3.1
     val K_ARRAY_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_AS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
+    val K_AT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_AT", XPath) // Full Text 1.0; XQuery 1.0
     val K_ATTRIBUTE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
+    val K_ANY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ANY", XPath) // Full Text 1.0
     val K_BOOLEAN_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
+    val K_CASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CASE", XPath) // Full Text 1.0; XQuery 1.0
     val K_CAST = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CAST", XPath) // XPath 2.0
     val K_CASTABLE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CASTABLE", XPath) // XPath 2.0
     val K_CHILD = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CHILD", XPath) // XPath 1.0
     val K_COMMENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_COMMENT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
+    val K_CONTAINS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CONTAINS", XPath) // Full Text 1.0
+    val K_CONTENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CONTENT", XPath) // Full Text 1.0
+    val K_DEFAULT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DEFAULT", XPath) // Full Text 1.0; XQuery 1.0
     val K_DESCENDANT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DESCENDANT", XPath) // XPath 1.0
     val K_DESCENDANT_OR_SELF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF", XPath) // XPath 1.0
+    val K_DIACRITICS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DIACRITICS", XPath) // Full Text 1.0
+    val K_DIFFERENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DIFFERENT", XPath) // Full Text 1.0
+    val K_DISTANCE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DISTANCE", XPath) // Full Text 1.0
     val K_DIV = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DIV", XPath) // XPath 1.0
     val K_DOCUMENT_NODE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DOCUMENT_NODE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_ELEMENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ELEMENT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0
     val K_EMPTY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY", XPath) // XPath 2.0 WD 02 May 2003
     val K_EMPTY_SEQUENCE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
+    val K_END = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_END", XPath) // Full Text 1.0; XQuery 3.0
+    val K_ENTIRE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ENTIRE", XPath) // Full Text 1.0
     val K_EQ = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EQ", XPath) // XPath 2.0
     val K_EVERY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
+    val K_EXACTLY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EXACTLY", XPath) // Full Text 1.0
     val K_EXCEPT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EXCEPT", XPath) // XPath 2.0
     val K_FOLLOWING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FOLLOWING", XPath) // XPath 1.0
     val K_FOLLOWING_SIBLING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING", XPath) // XPath 1.0
     val K_FOR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FOR", XPath) // XPath 2.0
+    val K_FROM = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FROM", XPath) // Full Text 1.0
+    val K_FTAND = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FTAND", XPath) // Full Text 1.0
+    val K_FTNOT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FTNOT", XPath) // Full Text 1.0
+    val K_FTOR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FTOR", XPath) // Full Text 1.0
     val K_FUNCTION = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FUNCTION", XPath, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XPath 3.0 ; XQuery 1.0
     val K_GE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_GE", XPath) // XPath 2.0
     val K_GT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_GT", XPath) // XPath 2.0
     val K_IDIV = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_IDIV", XPath) // XPath 2.0
     val K_IF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_IF", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_IN = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_IN", XPath) // XPath 2.0
+    val K_INSENSITIVE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_INSENSITIVE", XPath) // Full Text 1.0
     val K_INSTANCE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_INSTANCE", XPath) // XPath 2.0
     val K_INTERSECT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_INTERSECT", XPath) // XPath 2.0
     val K_IS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_IS", XPath) // XPath 2.0
     val K_ITEM = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ITEM", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
+    val K_LANGUAGE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LANGUAGE", XPath) // Full Text 1.0
     val K_LE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LE", XPath) // XPath 2.0
+    val K_LEAST = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LEAST", XPath) // Full Text 1.0; XQuery 1.0
     val K_LET = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LET", XPath) // XPath 3.0 ; XQuery 1.0
+    val K_LEVELS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LEVELS", XPath) // Full Text 1.0
+    val K_LOWERCASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LOWERCASE", XPath) // Full Text 1.0
     val K_LT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LT", XPath) // XPath 2.0
     val K_MAP = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MAP", XPath) // XPath 3.1
     val K_MOD = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MOD", XPath) // XPath 1.0
+    val K_MOST = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MOST", XPath) // Full Text 1.0
     val K_NAMESPACE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NAMESPACE", XPath) // XPath 1.0
     val K_NAMESPACE_NODE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NAMESPACE_NODE", XPath, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XPath 3.0
     val K_NE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NE", XPath) // XPath 2.0
+    val K_NO = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NO", XPath) // Full Text 1.0
     val K_NODE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NODE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
+    val K_NOT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NOT", XPath) // Full Text 1.0
     val K_NULL_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NULL_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_NUMBER_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_OBJECT_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
+    val K_OCCURS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OCCURS", XPath) // Full Text 1.0
     val K_OF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OF", XPath) // XPath 2.0
+    val K_OPTION = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OPTION", XPath) // Full Text 1.0; XQuery 1.0
     val K_OR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OR", XPath) // XPath 1.0
+    val K_ORDERED = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ORDERED", XPath) // Full Text 1.0; XQuery 1.0
     val K_ORELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE", XPath) // Saxon 9.9
+    val K_PARAGRAPH = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PARAGRAPH", XPath) // Full Text 1.0
+    val K_PARAGRAPHS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PARAGRAPHS", XPath) // Full Text 1.0
     val K_PARENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PARENT", XPath) // XPath 1.0
+    val K_PHRASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PHRASE", XPath) // Full Text 1.0
     val K_PRECEDING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PRECEDING", XPath) // XPath 1.0
     val K_PRECEDING_SIBLING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PRECEDING_SIBLING", XPath) // XPath 1.0
     val K_PROCESSING_INSTRUCTION = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_PROPERTY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY", XPath) // MarkLogic 6.0
+    val K_RELATIONSHIP = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP", XPath) // Full Text 1.0
     val K_RETURN = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_RETURN", XPath) // XPath 2.0
+    val K_SAME = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SAME", XPath) // Full Text 1.0
     val K_SATISFIES = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SATISFIES", XPath) // XPath 2.0
     val K_SCHEMA_ATTRIBUTE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_SCHEMA_ELEMENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
+    val K_SCORE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SCORE", XPath) // Full Text 1.0
     val K_SELF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SELF", XPath) // XPath 1.0
+    val K_SENSITIVE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SENSITIVE", XPath) // Full Text 1.0
+    val K_SENTENCE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SENTENCE", XPath) // Full Text 1.0
+    val K_SENTENCES = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SENTENCES", XPath) // Full Text 1.0
     val K_SOME = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SOME", XPath) // XPath 2.0
+    val K_START = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_START", XPath) // Full Text 1.0; XQuery 3.0
+    val K_STEMMING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_STEMMING", XPath) // Full Text 1.0
+    val K_STOP = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_STOP", XPath) // Full Text 1.0
     val K_TEXT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TEXT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_THEN = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_THEN", XPath) // XPath 2.0
+    val K_THESAURUS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_THESAURUS", XPath) // Full Text 1.0
+    val K_TIMES = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TIMES", XPath) // Full Text 1.0
     val K_TREAT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TREAT", XPath) // XPath 2.0
     val K_TO = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0
     val K_UNION = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UNION", XPath) // XPath 2.0
+    val K_UPPERCASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UPPERCASE", XPath) // Full Text 1.0
+    val K_USING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_USING", XPath) // Full Text 1.0
+    val K_WEIGHT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WEIGHT", XPath) // Full Text 1.0
+    val K_WILDCARDS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WILDCARDS", XPath) // Full Text 1.0
+    val K_WINDOW = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WINDOW", XPath) // Full Text 1.0; XQuery 3.0
+    val K_WITHOUT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WITHOUT", XPath) // Full Text 1.0
+    val K_WORD = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WORD", XPath) // Full Text 1.0
+    val K_WORDS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WORDS", XPath) // Full Text 1.0
 
     // endregion
     // region Terminal Symbols
@@ -193,6 +243,16 @@ object XPathTokenType {
         K_PROPERTY,
         K_SELF
     )
+
+    val FTCASE_SENSITIVITY_QUALIFIER_TOKENS = TokenSet.create(K_SENSITIVE, K_INSENSITIVE)
+
+    val FTCONTENT_AT_QUALIFIER_TOKENS = TokenSet.create(K_START, K_END)
+
+    val FTDIACRITICS_SENSITIVITY_QUALIFIER_TOKENS = FTCASE_SENSITIVITY_QUALIFIER_TOKENS
+
+    val FTRANGE_AT_QUALIFIER_TOKENS = TokenSet.create(K_LEAST, K_MOST)
+
+    val FTSCOPE_QUALIFIER_TOKENS = TokenSet.create(K_SAME, K_DIFFERENT)
 
     val FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS = TokenSet.create(K_UNION, K_EXCEPT)
 

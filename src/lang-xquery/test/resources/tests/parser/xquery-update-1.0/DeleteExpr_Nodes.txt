@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:16)]
             UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(0:16)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(0:6)]('delete')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODES(7:12)]('nodes')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODES(7:12)]('nodes')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(13:16)]
                   XPathOrExprImpl[XPATH_OR_EXPR(13:16)]

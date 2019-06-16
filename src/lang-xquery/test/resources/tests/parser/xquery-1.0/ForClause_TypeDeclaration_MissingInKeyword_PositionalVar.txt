@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:44)]
                         PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(21:22)]('*')
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                      XQueryPositionalVarImpl[XQUERY_POSITIONAL_VAR(23:30)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(23:25)]('at')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(23:25)]('at')
                         PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(26:27)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
