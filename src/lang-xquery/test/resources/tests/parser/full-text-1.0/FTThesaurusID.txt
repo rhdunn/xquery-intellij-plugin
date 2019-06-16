@@ -6,13 +6,13 @@ XQueryModuleImpl[FILE(0:69)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:68)]
+            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:68)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:68)]
+               FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(24:68)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(34:68)]
+                  FTThesaurusIDImpl[XPATH_FT_THESAURUS_ID(34:68)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(34:36)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(37:67)]

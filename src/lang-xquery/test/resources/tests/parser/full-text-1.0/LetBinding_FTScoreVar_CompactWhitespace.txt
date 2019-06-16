@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:24)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LET(0:3)]('let')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(4:16)]
-                     FTScoreVarImpl[XQUERY_FT_SCORE_VAR(4:11)]
+                     FTScoreVarImpl[XPATH_FT_SCORE_VAR(4:11)]
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCORE(4:9)]('score')
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(9:10)]('$')
                         XPathVarNameImpl[XPATH_VAR_NAME(10:11)]

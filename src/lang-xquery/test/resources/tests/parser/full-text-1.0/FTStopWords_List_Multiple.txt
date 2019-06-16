@@ -6,15 +6,15 @@ XQueryModuleImpl[FILE(0:68)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:67)]
+            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:67)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:67)]
+               FTStopWordOptionImpl[XPATH_FT_STOP_WORD_OPTION(24:67)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                  FTStopWordsImpl[XQUERY_FT_STOP_WORDS(35:66)]
+                  FTStopWordsImpl[XPATH_FT_STOP_WORDS(35:66)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(37:44)]

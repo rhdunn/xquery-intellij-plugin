@@ -6,10 +6,10 @@ XQueryModuleImpl[FILE(0:48)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:47)]
+            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:47)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTDiacriticsOptionImpl[XQUERY_FT_DIACRITICS_OPTION(24:46)]
+               FTDiacriticsOptionImpl[XPATH_FT_DIACRITICS_OPTION(24:46)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIACRITICS(24:34)]('diacritics')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSENSITIVE(35:46)]('insensitive')

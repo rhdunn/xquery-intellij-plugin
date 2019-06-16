@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:38)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:38)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:38)]
             XPathOrExprImpl[XPATH_OR_EXPR(0:38)]
-               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:38)]
+               FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:38)]
                   XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
                      XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
@@ -13,15 +13,15 @@ XQueryModuleImpl[FILE(0:38)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  FTSelectionImpl[XQUERY_FT_SELECTION(20:38)]
-                     FTOrImpl[XQUERY_FT_OR(20:38)]
-                        FTAndImpl[XQUERY_FT_AND(20:38)]
-                           FTMildNotImpl[XQUERY_FT_MILD_NOT(20:38)]
-                              FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:38)]
-                                 FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:38)]
-                                    FTPrimaryImpl[XQUERY_FT_PRIMARY(20:38)]
-                                       FTWordsImpl[XQUERY_FT_WORDS(20:38)]
-                                          FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:31)]
+                  FTSelectionImpl[XPATH_FT_SELECTION(20:38)]
+                     FTOrImpl[XPATH_FT_OR(20:38)]
+                        FTAndImpl[XPATH_FT_AND(20:38)]
+                           FTMildNotImpl[XPATH_FT_MILD_NOT(20:38)]
+                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:38)]
+                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:38)]
+                                    FTPrimaryImpl[XPATH_FT_PRIMARY(20:38)]
+                                       FTWordsImpl[XPATH_FT_WORDS(20:38)]
+                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:31)]
                                              LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                                              XQueryExprImpl[XQUERY_EXPR(22:30)]
@@ -36,5 +36,5 @@ XQueryModuleImpl[FILE(0:38)]
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                                              LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                                          FTAnyallOptionImpl[XQUERY_FT_ANYALL_OPTION(32:38)]
+                                          FTAnyallOptionImpl[XPATH_FT_ANYALL_OPTION(32:38)]
                                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PHRASE(32:38)]('phrase')

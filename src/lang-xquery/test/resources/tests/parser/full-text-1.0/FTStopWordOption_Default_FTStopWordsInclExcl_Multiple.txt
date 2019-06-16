@@ -6,20 +6,20 @@ XQueryModuleImpl[FILE(0:81)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:80)]
+            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:80)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:80)]
+               FTStopWordOptionImpl[XPATH_FT_STOP_WORD_OPTION(24:80)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-                  FTStopWordsInclExclImpl[XQUERY_FT_STOP_WORDS_INCL_EXCL(43:60)]
+                  FTStopWordsInclExclImpl[XPATH_FT_STOP_WORDS_INCL_EXCL(43:60)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(43:48)]('union')
                      PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                     FTStopWordsImpl[XQUERY_FT_STOP_WORDS(49:60)]
+                     FTStopWordsImpl[XPATH_FT_STOP_WORDS(49:60)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                         XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
@@ -29,10 +29,10 @@ XQueryModuleImpl[FILE(0:81)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
                         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(59:60)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
-                  FTStopWordsInclExclImpl[XQUERY_FT_STOP_WORDS_INCL_EXCL(61:79)]
+                  FTStopWordsInclExclImpl[XPATH_FT_STOP_WORDS_INCL_EXCL(61:79)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(61:67)]('except')
                      PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
-                     FTStopWordsImpl[XQUERY_FT_STOP_WORDS(68:79)]
+                     FTStopWordsImpl[XPATH_FT_STOP_WORDS(68:79)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(68:69)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
                         XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(70:77)]

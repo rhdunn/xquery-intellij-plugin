@@ -1607,7 +1607,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
-            marker.done(XQueryElementType.FT_SCORE_VAR)
+            marker.done(XPathElementType.FT_SCORE_VAR)
             return true
         }
         return false
@@ -3035,7 +3035,7 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseFTIgnoreOption(builder)
-                marker.done(XQueryElementType.FT_CONTAINS_EXPR)
+                marker.done(XPathElementType.FT_CONTAINS_EXPR)
             } else {
                 marker.drop()
             }
@@ -3057,11 +3057,11 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseUnionExpr(builder, XQueryElementType.FT_IGNORE_OPTION) && !haveError) {
+            if (!parseUnionExpr(builder, XPathElementType.FT_IGNORE_OPTION) && !haveError) {
                 builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
             }
 
-            marker.done(XQueryElementType.FT_IGNORE_OPTION)
+            marker.done(XPathElementType.FT_IGNORE_OPTION)
             return true
         }
         return false
@@ -4014,7 +4014,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
             } while (parseFTPosFilter(builder))
 
-            marker.done(XQueryElementType.FT_SELECTION)
+            marker.done(XPathElementType.FT_SELECTION)
             return true
         }
         marker.drop()
@@ -4035,7 +4035,7 @@ class XQueryParser : XPathParser() {
                 }
             }
 
-            marker.done(XQueryElementType.FT_OR)
+            marker.done(XPathElementType.FT_OR)
             return true
         }
         marker.drop()
@@ -4056,7 +4056,7 @@ class XQueryParser : XPathParser() {
                 }
             }
 
-            marker.done(XQueryElementType.FT_AND)
+            marker.done(XPathElementType.FT_AND)
             return true
         }
         marker.drop()
@@ -4085,7 +4085,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            marker.done(XQueryElementType.FT_MILD_NOT)
+            marker.done(XPathElementType.FT_MILD_NOT)
             return true
         }
         marker.drop()
@@ -4101,7 +4101,7 @@ class XQueryParser : XPathParser() {
         if (parseFTPrimaryWithOptions(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
 
-            marker.done(XQueryElementType.FT_UNARY_NOT)
+            marker.done(XPathElementType.FT_UNARY_NOT)
             return true
         }
         marker.drop()
@@ -4117,7 +4117,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             parseFTWeight(builder)
 
-            marker.done(XQueryElementType.FT_PRIMARY_WITH_OPTIONS)
+            marker.done(XPathElementType.FT_PRIMARY_WITH_OPTIONS)
             return true
         }
         marker.drop()
@@ -4130,7 +4130,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             parseFTTimes(builder)
 
-            marker.done(XQueryElementType.FT_PRIMARY)
+            marker.done(XPathElementType.FT_PRIMARY)
             return true
         } else if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
             var haveErrors = false
@@ -4146,10 +4146,10 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XQueryElementType.FT_PRIMARY)
+            marker.done(XPathElementType.FT_PRIMARY)
             return true
         } else if (parseFTExtensionSelection(builder)) {
-            marker.done(XQueryElementType.FT_PRIMARY)
+            marker.done(XPathElementType.FT_PRIMARY)
             return true
         }
         marker.drop()
@@ -4162,7 +4162,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             parseFTAnyallOption(builder)
 
-            marker.done(XQueryElementType.FT_WORDS)
+            marker.done(XPathElementType.FT_WORDS)
             return true
         }
         marker.drop()
@@ -4172,7 +4172,7 @@ class XQueryParser : XPathParser() {
     private fun parseFTWordsValue(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseStringLiteral(builder)) {
-            marker.done(XQueryElementType.FT_WORDS_VALUE)
+            marker.done(XPathElementType.FT_WORDS_VALUE)
             return true
         } else if (builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
             var haveErrors = false
@@ -4188,7 +4188,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "}"))
             }
 
-            marker.done(XQueryElementType.FT_WORDS_VALUE)
+            marker.done(XPathElementType.FT_WORDS_VALUE)
             return true
         }
         marker.drop()
@@ -4224,7 +4224,7 @@ class XQueryParser : XPathParser() {
             builder.error(XPathBundle.message("parser.error.expected", "}"))
         }
 
-        marker.done(XQueryElementType.FT_EXTENSION_SELECTION)
+        marker.done(XPathElementType.FT_EXTENSION_SELECTION)
         return true
     }
 
@@ -4234,16 +4234,16 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             builder.matchTokenType(XPathTokenType.K_WORD)
 
-            marker.done(XQueryElementType.FT_ANYALL_OPTION)
+            marker.done(XPathElementType.FT_ANYALL_OPTION)
             return true
         } else if (builder.matchTokenType(XPathTokenType.K_ALL)) {
             parseWhiteSpaceAndCommentTokens(builder)
             builder.matchTokenType(XPathTokenType.K_WORDS)
 
-            marker.done(XQueryElementType.FT_ANYALL_OPTION)
+            marker.done(XPathElementType.FT_ANYALL_OPTION)
             return true
         } else if (builder.matchTokenType(XPathTokenType.K_PHRASE)) {
-            marker.done(XQueryElementType.FT_ANYALL_OPTION)
+            marker.done(XPathElementType.FT_ANYALL_OPTION)
             return true
         }
         marker.drop()
@@ -4256,7 +4256,7 @@ class XQueryParser : XPathParser() {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTRange(builder, XQueryElementType.FT_RANGE)) {
+            if (!parseFTRange(builder, XPathElementType.FT_RANGE)) {
                 builder.error(XPathBundle.message("parser.error.expected", "FTRange"))
                 haveError = true
             }
@@ -4266,7 +4266,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "times"))
             }
 
-            marker.done(XQueryElementType.FT_TIMES)
+            marker.done(XPathElementType.FT_TIMES)
             return true
         }
         return false
@@ -4278,7 +4278,7 @@ class XQueryParser : XPathParser() {
             builder.advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (type === XQueryElementType.FT_LITERAL_RANGE) {
+            if (type === XPathElementType.FT_LITERAL_RANGE) {
                 if (!builder.matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
                     builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                 }
@@ -4303,7 +4303,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (type === XQueryElementType.FT_LITERAL_RANGE) {
+            if (type === XPathElementType.FT_LITERAL_RANGE) {
                 if (!builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                 }
@@ -4322,7 +4322,7 @@ class XQueryParser : XPathParser() {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (type === XQueryElementType.FT_LITERAL_RANGE) {
+            if (type === XPathElementType.FT_LITERAL_RANGE) {
                 if (!builder.matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
                     builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                     haveError = true
@@ -4341,7 +4341,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (type === XQueryElementType.FT_LITERAL_RANGE) {
+            if (type === XPathElementType.FT_LITERAL_RANGE) {
                 if (!builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                 }
@@ -4379,7 +4379,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "}"))
             }
 
-            marker.done(XQueryElementType.FT_WEIGHT)
+            marker.done(XPathElementType.FT_WEIGHT)
             return true
         }
         return false
@@ -4402,7 +4402,7 @@ class XQueryParser : XPathParser() {
     private fun parseFTOrder(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ORDERED)
         if (marker != null) {
-            marker.done(XQueryElementType.FT_ORDER)
+            marker.done(XPathElementType.FT_ORDER)
             return true
         }
         return false
@@ -4414,7 +4414,7 @@ class XQueryParser : XPathParser() {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseAdditiveExpr(builder, XQueryElementType.FT_WINDOW)) {
+            if (!parseAdditiveExpr(builder, XPathElementType.FT_WINDOW)) {
                 builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                 haveError = true
             }
@@ -4424,7 +4424,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
             }
 
-            marker.done(XQueryElementType.FT_WINDOW)
+            marker.done(XPathElementType.FT_WINDOW)
             return true
         }
         return false
@@ -4436,7 +4436,7 @@ class XQueryParser : XPathParser() {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTRange(builder, XQueryElementType.FT_RANGE)) {
+            if (!parseFTRange(builder, XPathElementType.FT_RANGE)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "at, exactly, from"))
                 haveError = true
             }
@@ -4446,7 +4446,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
             }
 
-            marker.done(XQueryElementType.FT_DISTANCE)
+            marker.done(XPathElementType.FT_DISTANCE)
             return true
         }
         return false
@@ -4460,7 +4460,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraph, sentence"))
             }
 
-            marker.done(XQueryElementType.FT_SCOPE)
+            marker.done(XPathElementType.FT_SCOPE)
             return true
         }
         return false
@@ -4476,7 +4476,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "end, start"))
             }
 
-            marker.done(XQueryElementType.FT_CONTENT)
+            marker.done(XPathElementType.FT_CONTENT)
             return true
         } else if (builder.tokenType === XPathTokenType.K_ENTIRE) {
             val marker = builder.mark()
@@ -4487,7 +4487,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "content"))
             }
 
-            marker.done(XQueryElementType.FT_CONTENT)
+            marker.done(XPathElementType.FT_CONTENT)
             return true
         }
         return false
@@ -4501,7 +4501,7 @@ class XQueryParser : XPathParser() {
         ) {
             val marker = builder.mark()
             builder.advanceLexer()
-            marker.done(XQueryElementType.FT_UNIT)
+            marker.done(XPathElementType.FT_UNIT)
             return true
         }
         return false
@@ -4511,7 +4511,7 @@ class XQueryParser : XPathParser() {
         if (builder.tokenType === XPathTokenType.K_SENTENCE || builder.tokenType === XPathTokenType.K_PARAGRAPH) {
             val marker = builder.mark()
             builder.advanceLexer()
-            marker.done(XQueryElementType.FT_BIG_UNIT)
+            marker.done(XPathElementType.FT_BIG_UNIT)
             return true
         }
         return false
@@ -4543,7 +4543,7 @@ class XQueryParser : XPathParser() {
         } while (haveFTMatchOption)
 
         if (haveFTMatchOptions) {
-            marker.done(XQueryElementType.FT_MATCH_OPTIONS)
+            marker.done(XPathElementType.FT_MATCH_OPTIONS)
         } else {
             marker.drop()
         }
@@ -4567,18 +4567,18 @@ class XQueryParser : XPathParser() {
         } else if (builder.matchTokenType(XPathTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
-                marker.done(XQueryElementType.FT_STEM_OPTION)
+                marker.done(XPathElementType.FT_STEM_OPTION)
             } else if (builder.matchTokenType(XPathTokenType.K_STOP)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
                 }
 
-                marker.done(XQueryElementType.FT_STOP_WORD_OPTION)
+                marker.done(XPathElementType.FT_STOP_WORD_OPTION)
             } else if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
-                marker.done(XQueryElementType.FT_THESAURUS_OPTION)
+                marker.done(XPathElementType.FT_THESAURUS_OPTION)
             } else if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
-                marker.done(XQueryElementType.FT_WILDCARD_OPTION)
+                marker.done(XPathElementType.FT_WILDCARD_OPTION)
             } else {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
                 marker.drop()
@@ -4595,7 +4595,7 @@ class XQueryParser : XPathParser() {
 
     private fun parseFTCaseOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_LOWERCASE) || builder.matchTokenType(XPathTokenType.K_UPPERCASE)) {
-            marker.done(XQueryElementType.FT_CASE_OPTION)
+            marker.done(XPathElementType.FT_CASE_OPTION)
             return true
         } else if (builder.matchTokenType(XPathTokenType.K_CASE)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -4603,7 +4603,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
             }
 
-            marker.done(XQueryElementType.FT_CASE_OPTION)
+            marker.done(XPathElementType.FT_CASE_OPTION)
             return true
         }
         return false
@@ -4616,7 +4616,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
             }
 
-            marker.done(XQueryElementType.FT_DIACRITICS_OPTION)
+            marker.done(XPathElementType.FT_DIACRITICS_OPTION)
             return true
         }
         return false
@@ -4624,7 +4624,7 @@ class XQueryParser : XPathParser() {
 
     private fun parseFTStemOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
-            marker.done(XQueryElementType.FT_STEM_OPTION)
+            marker.done(XPathElementType.FT_STEM_OPTION)
             return true
         }
         return false
@@ -4682,7 +4682,7 @@ class XQueryParser : XPathParser() {
                 builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)
             }
 
-            marker.done(XQueryElementType.FT_THESAURUS_OPTION)
+            marker.done(XPathElementType.FT_THESAURUS_OPTION)
             return true
         }
         return false
@@ -4708,14 +4708,14 @@ class XQueryParser : XPathParser() {
                 }
             }
 
-            if (parseFTRange(builder, XQueryElementType.FT_LITERAL_RANGE)) {
+            if (parseFTRange(builder, XPathElementType.FT_LITERAL_RANGE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_LEVELS) && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "levels"))
                 }
             }
 
-            marker.done(XQueryElementType.FT_THESAURUS_ID)
+            marker.done(XPathElementType.FT_THESAURUS_ID)
             return true
         }
         return false
@@ -4737,7 +4737,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
             } while (parseFTStopWordsInclExcl(builder))
 
-            marker.done(XQueryElementType.FT_STOP_WORD_OPTION)
+            marker.done(XPathElementType.FT_STOP_WORD_OPTION)
             return true
         }
         return false
@@ -4753,7 +4753,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
             }
 
-            marker.done(XQueryElementType.FT_STOP_WORDS)
+            marker.done(XPathElementType.FT_STOP_WORDS)
             return true
         } else if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
             val marker = builder.mark()
@@ -4783,7 +4783,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryBundle.message("parser.error.expected-either", ",", ")"))
             }
 
-            marker.done(XQueryElementType.FT_STOP_WORDS)
+            marker.done(XPathElementType.FT_STOP_WORDS)
             return true
         }
         return false
@@ -4797,7 +4797,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at"))
             }
 
-            marker.done(XQueryElementType.FT_STOP_WORDS_INCL_EXCL)
+            marker.done(XPathElementType.FT_STOP_WORDS_INCL_EXCL)
             return true
         }
         return false
@@ -4810,7 +4810,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
             }
 
-            marker.done(XQueryElementType.FT_LANGUAGE_OPTION)
+            marker.done(XPathElementType.FT_LANGUAGE_OPTION)
             return true
         }
         return false
@@ -4818,7 +4818,7 @@ class XQueryParser : XPathParser() {
 
     private fun parseFTWildCardOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
-            marker.done(XQueryElementType.FT_WILDCARD_OPTION)
+            marker.done(XPathElementType.FT_WILDCARD_OPTION)
             return true
         }
         return false
@@ -4839,7 +4839,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
             }
 
-            marker.done(XQueryElementType.FT_EXTENSION_OPTION)
+            marker.done(XPathElementType.FT_EXTENSION_OPTION)
             return true
         }
         return false

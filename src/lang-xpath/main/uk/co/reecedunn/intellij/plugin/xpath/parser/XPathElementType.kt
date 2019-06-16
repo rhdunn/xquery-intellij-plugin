@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 
@@ -577,7 +578,232 @@ object XPathElementType {
     )
 
     // endregion
-    // region EXPath XPath/XQuery NG
+    // region Full Text 1.0
+
+    val FT_MATCH_OPTIONS: IElementType = ICompositeElementType(
+        "XPATH_FT_MATCH_OPTIONS",
+        FTMatchOptionsPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_CASE_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_CASE_OPTION",
+        FTCaseOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_DIACRITICS_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_DIACRITICS_OPTION",
+        FTDiacriticsOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_EXTENSION_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_EXTENSION_OPTION",
+        FTExtensionOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_LANGUAGE_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_LANGUAGE_OPTION",
+        FTLanguageOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_STEM_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_STEM_OPTION",
+        FTStemOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_STOP_WORD_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_STOP_WORD_OPTION",
+        FTStopWordOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_THESAURUS_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_THESAURUS_OPTION",
+        FTThesaurusOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_WILDCARD_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_WILDCARD_OPTION",
+        FTWildCardOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_THESAURUS_ID: IElementType = ICompositeElementType(
+        "XPATH_FT_THESAURUS_ID",
+        FTThesaurusIDPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_LITERAL_RANGE: IElementType = ICompositeElementType(
+        "XPATH_FT_LITERAL_RANGE",
+        FTLiteralRangePsiImpl::class.java,
+        XPath
+    )
+
+    val FT_STOP_WORDS: IElementType = ICompositeElementType(
+        "XPATH_FT_STOP_WORDS",
+        FTStopWordsPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_STOP_WORDS_INCL_EXCL: IElementType = ICompositeElementType(
+        "XPATH_FT_STOP_WORDS_INCL_EXCL",
+        FTStopWordsInclExclPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_SCORE_VAR: IElementType = ICompositeElementType(
+        "XPATH_FT_SCORE_VAR",
+        FTScoreVarPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_CONTAINS_EXPR: IElementType = ICompositeElementType(
+        "XPATH_FT_CONTAINS_EXPR",
+        FTContainsExprPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_SELECTION: IElementType = ICompositeElementType(
+        "XPATH_FT_SELECTION",
+        FTSelectionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_OR: IElementType = ICompositeElementType(
+        "XPATH_FT_OR",
+        FTOrPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_AND: IElementType = ICompositeElementType(
+        "XPATH_FT_AND",
+        FTAndPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_MILD_NOT: IElementType = ICompositeElementType(
+        "XPATH_FT_MILD_NOT",
+        FTMildNotPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_UNARY_NOT: IElementType = ICompositeElementType(
+        "XPATH_FT_UNARY_NOT",
+        FTUnaryNotPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_PRIMARY_WITH_OPTIONS: IElementType = ICompositeElementType(
+        "XPATH_FT_PRIMARY_WITH_OPTIONS",
+        FTPrimaryWithOptionsPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_PRIMARY: IElementType = ICompositeElementType(
+        "XPATH_FT_PRIMARY",
+        FTPrimaryPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_WORDS: IElementType = ICompositeElementType(
+        "XPATH_FT_WORDS",
+        FTWordsPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_WORDS_VALUE: IElementType = ICompositeElementType(
+        "XPATH_FT_WORDS_VALUE",
+        FTWordsValuePsiImpl::class.java,
+        XPath
+    )
+
+    val FT_EXTENSION_SELECTION: IElementType = ICompositeElementType(
+        "XPATH_FT_EXTENSION_SELECTION",
+        FTExtensionSelectionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_ANYALL_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_ANYALL_OPTION",
+        FTAnyallOptionPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_TIMES: IElementType = ICompositeElementType(
+        "XPATH_FT_TIMES",
+        FTTimesPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_RANGE: IElementType = ICompositeElementType(
+        "XPATH_FT_RANGE",
+        FTRangePsiImpl::class.java,
+        XPath
+    )
+
+    val FT_WEIGHT: IElementType = ICompositeElementType(
+        "XPATH_FT_WEIGHT",
+        FTWeightPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_ORDER: IElementType = ICompositeElementType(
+        "XPATH_FT_ORDER",
+        FTOrderPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_WINDOW: IElementType = ICompositeElementType(
+        "XPATH_FT_WINDOW",
+        FTWindowPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_DISTANCE: IElementType = ICompositeElementType(
+        "XPATH_FT_DISTANCE",
+        FTDistancePsiImpl::class.java,
+        XPath
+    )
+
+    val FT_SCOPE: IElementType = ICompositeElementType(
+        "XPATH_FT_SCOPE",
+        FTScopePsiImpl::class.java,
+        XPath
+    )
+
+    val FT_CONTENT: IElementType = ICompositeElementType(
+        "XPATH_FT_CONTENT",
+        FTContentPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_UNIT: IElementType = ICompositeElementType(
+        "XPATH_FT_UNIT",
+        FTUnitPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_BIG_UNIT: IElementType = ICompositeElementType(
+        "XPATH_FT_BIG_UNIT",
+        FTBigUnitPsiImpl::class.java,
+        XPath
+    )
+
+    val FT_IGNORE_OPTION: IElementType = ICompositeElementType(
+        "XPATH_FT_IGNORE_OPTION",
+        FTIgnoreOptionPsiImpl::class.java,
+        XPath
+    )
+
+    // endregion
+    // region EXPath XPath/XPath NG
 
     val TERNARY_IF_EXPR: IElementType = ICompositeElementType(
         "XPATH_TERNARY_IF_EXPR",

@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:52)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:52)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:52)]
             XPathOrExprImpl[XPATH_OR_EXPR(0:52)]
-               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:52)]
+               FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:52)]
                   XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
                      XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
@@ -13,27 +13,27 @@ XQueryModuleImpl[FILE(0:52)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  FTSelectionImpl[XQUERY_FT_SELECTION(20:52)]
-                     FTOrImpl[XQUERY_FT_OR(20:28)]
-                        FTAndImpl[XQUERY_FT_AND(20:28)]
-                           FTMildNotImpl[XQUERY_FT_MILD_NOT(20:28)]
-                              FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:28)]
-                                 FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:28)]
-                                    FTPrimaryImpl[XQUERY_FT_PRIMARY(20:28)]
-                                       FTWordsImpl[XQUERY_FT_WORDS(20:28)]
-                                          FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:27)]
+                  FTSelectionImpl[XPATH_FT_SELECTION(20:52)]
+                     FTOrImpl[XPATH_FT_OR(20:28)]
+                        FTAndImpl[XPATH_FT_AND(20:28)]
+                           FTMildNotImpl[XPATH_FT_MILD_NOT(20:28)]
+                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:28)]
+                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:28)]
+                                    FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
+                                       FTWordsImpl[XPATH_FT_WORDS(20:28)]
+                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     FTDistanceImpl[XQUERY_FT_DISTANCE(28:52)]
+                     FTDistanceImpl[XPATH_FT_DISTANCE(28:52)]
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
                         PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                        FTRangeImpl[XQUERY_FT_RANGE(37:47)]
+                        FTRangeImpl[XPATH_FT_RANGE(37:47)]
                            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
                            PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(45:46)]('4')
                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                        FTUnitImpl[XQUERY_FT_UNIT(47:52)]
+                        FTUnitImpl[XPATH_FT_UNIT(47:52)]
                            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(47:52)]('words')

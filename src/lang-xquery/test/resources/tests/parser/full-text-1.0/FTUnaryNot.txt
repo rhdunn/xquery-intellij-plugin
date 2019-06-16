@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:33)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:33)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:33)]
             XPathOrExprImpl[XPATH_OR_EXPR(0:33)]
-               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:33)]
+               FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:33)]
                   XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
                      XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
@@ -13,17 +13,17 @@ XQueryModuleImpl[FILE(0:33)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  FTSelectionImpl[XQUERY_FT_SELECTION(20:33)]
-                     FTOrImpl[XQUERY_FT_OR(20:33)]
-                        FTAndImpl[XQUERY_FT_AND(20:33)]
-                           FTMildNotImpl[XQUERY_FT_MILD_NOT(20:33)]
-                              FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:33)]
+                  FTSelectionImpl[XPATH_FT_SELECTION(20:33)]
+                     FTOrImpl[XPATH_FT_OR(20:33)]
+                        FTAndImpl[XPATH_FT_AND(20:33)]
+                           FTMildNotImpl[XPATH_FT_MILD_NOT(20:33)]
+                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:33)]
                                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTNOT(20:25)]('ftnot')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                                 FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(26:33)]
-                                    FTPrimaryImpl[XQUERY_FT_PRIMARY(26:33)]
-                                       FTWordsImpl[XQUERY_FT_WORDS(26:33)]
-                                          FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(26:33)]
+                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(26:33)]
+                                    FTPrimaryImpl[XPATH_FT_PRIMARY(26:33)]
+                                       FTWordsImpl[XPATH_FT_WORDS(26:33)]
+                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(26:33)]
                                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(26:33)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(26:27)]('"')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(27:32)]('lorem')
