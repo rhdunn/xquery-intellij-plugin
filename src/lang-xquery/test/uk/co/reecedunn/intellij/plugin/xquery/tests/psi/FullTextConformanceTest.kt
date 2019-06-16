@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery and XPath Full Text 3.0 - Implementation Conformance Checks")
+@DisplayName("XQuery 3.1 with Full Text 3.0 - Implementation Conformance Checks")
 private class FullTextConformanceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(FullTextConformanceTest::class.java.classLoader, resource)
@@ -44,7 +44,7 @@ private class FullTextConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (51) FTContainsExpr")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (51) FTContainsExpr")
     fun testFTContainsExpr() {
         val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 
@@ -60,7 +60,7 @@ private class FullTextConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (37) FTScoreVar")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (37) FTScoreVar")
     fun testFTScoreVar() {
         val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
 
@@ -78,7 +78,7 @@ private class FullTextConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (24) FTOptionDecl")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (24) FTOptionDecl")
     fun testFTOptionDecl() {
         val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
 

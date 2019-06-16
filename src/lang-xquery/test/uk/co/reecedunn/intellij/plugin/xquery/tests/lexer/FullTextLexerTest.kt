@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRU
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-@DisplayName("XQuery and XPath Full Text 3.0 - Lexer")
+@DisplayName("XQuery 3.1 with Full Text 3.0 - Lexer")
 class FullTextLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
@@ -36,7 +36,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (24) FTOptionDecl")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (24) FTOptionDecl")
     fun testFTOptionDecl() {
         val lexer = createLexer()
 
@@ -45,7 +45,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (37) FTScoreVar")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (37) FTScoreVar")
     fun testFTScoreVar() {
         val lexer = createLexer()
 
@@ -54,7 +54,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (51) FTContainsExpr")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (51) FTContainsExpr")
     fun testFTContainsExpr() {
         val lexer = createLexer()
 
@@ -63,7 +63,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (145) FTWeight")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (145) FTWeight")
     fun testFTWeight() {
         val lexer = createLexer()
 
@@ -73,7 +73,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (146) FTOr")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (146) FTOr")
     fun testFTOr() {
         val lexer = createLexer()
 
@@ -81,7 +81,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (147) FTAnd")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (147) FTAnd")
     fun testFTAnd() {
         val lexer = createLexer()
 
@@ -89,7 +89,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (148) FTMildNot")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (148) FTMildNot")
     fun testFTMildNot() {
         val lexer = createLexer()
 
@@ -98,7 +98,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (149) FTUnaryNot")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (149) FTUnaryNot")
     fun testFTUnaryNot() {
         val lexer = createLexer()
 
@@ -106,7 +106,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (151) FTPrimary")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (151) FTPrimary")
     fun testFTPrimary() {
         val lexer = createLexer()
 
@@ -115,7 +115,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (153) FTWordsValue")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (153) FTWordsValue")
     fun testFTWordsValue() {
         val lexer = createLexer()
 
@@ -124,7 +124,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (154) FTExtensionSelection")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (154) FTExtensionSelection")
     fun testFTExtensionSelection() {
         val lexer = createLexer()
 
@@ -133,7 +133,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (155) FTAnyallOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (155) FTAnyallOption")
     fun testFTAnyallOption() {
         val lexer = createLexer()
 
@@ -146,7 +146,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (156) FTTimes")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (156) FTTimes")
     fun testFTTimes() {
         val lexer = createLexer()
 
@@ -155,7 +155,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (157) FTRange")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (157) FTRange")
     fun testFTRange() {
         val lexer = createLexer()
 
@@ -168,7 +168,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (159) FTOrder")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (159) FTOrder")
     fun testFTOrder() {
         val lexer = createLexer()
 
@@ -176,7 +176,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (160) FTWindow")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (160) FTWindow")
     fun testFTWindow() {
         val lexer = createLexer()
 
@@ -184,7 +184,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (161) FTDistance")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (161) FTDistance")
     fun testFTDistance() {
         val lexer = createLexer()
 
@@ -192,7 +192,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (162) FTUnit")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (162) FTUnit")
     fun testFTUnit() {
         val lexer = createLexer()
 
@@ -202,7 +202,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (163) FTScope")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (163) FTScope")
     fun testFTScope() {
         val lexer = createLexer()
 
@@ -211,7 +211,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (164) FTBigUnit")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (164) FTBigUnit")
     fun testFTBigUnit() {
         val lexer = createLexer()
 
@@ -220,7 +220,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (165) FTContent")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (165) FTContent")
     fun testFTContent() {
         val lexer = createLexer()
 
@@ -233,7 +233,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (166) FTMatchOptions")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (166) FTMatchOptions")
     fun testFTMatchOptions() {
         val lexer = createLexer()
 
@@ -241,7 +241,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (168) FTCaseOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (168) FTCaseOption")
     fun testFTCaseOption() {
         val lexer = createLexer()
 
@@ -254,7 +254,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (169) FTDiacriticsOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (169) FTDiacriticsOption")
     fun testFTDiacriticsOption() {
         val lexer = createLexer()
 
@@ -264,7 +264,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (170) FTStemOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (170) FTStemOption")
     fun testFTStemOption() {
         val lexer = createLexer()
 
@@ -273,7 +273,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (171) FTThesaurusOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (171) FTThesaurusOption")
     fun testFTThesaurusOption() {
         val lexer = createLexer()
 
@@ -287,7 +287,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (172) FTThesaurusID")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (172) FTThesaurusID")
     fun testFTThesaurusID() {
         val lexer = createLexer()
 
@@ -297,7 +297,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (173) FTLiteralRange")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (173) FTLiteralRange")
     fun testFTLiteralRange() {
         val lexer = createLexer()
 
@@ -312,7 +312,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (174) FTStopWordOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (174) FTStopWordOption")
     fun testFTStopWordOption() {
         val lexer = createLexer()
 
@@ -323,7 +323,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (175) FTStopWords")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (175) FTStopWords")
     fun testFTStopWords() {
         val lexer = createLexer()
 
@@ -335,7 +335,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (176) FTStopWordsInclExcl")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (176) FTStopWordsInclExcl")
     fun testFTStopWordsInclExcl() {
         val lexer = createLexer()
 
@@ -344,7 +344,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (177) FTLanguageOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (177) FTLanguageOption")
     fun testFTLanguageOption() {
         val lexer = createLexer()
 
@@ -352,7 +352,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (178) FTWildcardOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (178) FTWildcardOption")
     fun testFTWildCardOption() {
         val lexer = createLexer()
 
@@ -361,7 +361,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (179) FTExtensionOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (179) FTExtensionOption")
     fun testFTExtensionOption() {
         val lexer = createLexer()
 
@@ -369,7 +369,7 @@ class FullTextLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (180) FTIgnoreOption")
+    @DisplayName("XQuery 1.0 with Full Text EBNF (180) FTIgnoreOption")
     fun testFTIgnoreOption() {
         val lexer = createLexer()
 
