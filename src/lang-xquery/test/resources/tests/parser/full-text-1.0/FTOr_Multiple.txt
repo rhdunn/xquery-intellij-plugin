@@ -15,42 +15,39 @@ XQueryModuleImpl[FILE(0:53)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   FTSelectionImpl[XPATH_FT_SELECTION(20:53)]
                      FTOrImpl[XPATH_FT_OR(20:53)]
-                        FTAndImpl[XPATH_FT_AND(20:28)]
-                           FTMildNotImpl[XPATH_FT_MILD_NOT(20:28)]
-                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:28)]
-                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:28)]
-                                    FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
-                                       FTWordsImpl[XPATH_FT_WORDS(20:28)]
-                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                                             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        FTMildNotImpl[XPATH_FT_MILD_NOT(20:28)]
+                           FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:28)]
+                              FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:28)]
+                                 FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
+                                    FTWordsImpl[XPATH_FT_WORDS(20:28)]
+                                       FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                                          XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(28:32)]('ftor')
                         PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                        FTAndImpl[XPATH_FT_AND(33:41)]
-                           FTMildNotImpl[XPATH_FT_MILD_NOT(33:41)]
-                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(33:41)]
-                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(33:41)]
-                                    FTPrimaryImpl[XPATH_FT_PRIMARY(33:41)]
-                                       FTWordsImpl[XPATH_FT_WORDS(33:41)]
-                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
-                                             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('ipsum')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
+                        FTMildNotImpl[XPATH_FT_MILD_NOT(33:41)]
+                           FTUnaryNotImpl[XPATH_FT_UNARY_NOT(33:41)]
+                              FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(33:41)]
+                                 FTPrimaryImpl[XPATH_FT_PRIMARY(33:41)]
+                                    FTWordsImpl[XPATH_FT_WORDS(33:41)]
+                                       FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
+                                          XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('ipsum')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(41:45)]('ftor')
                         PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                        FTAndImpl[XPATH_FT_AND(46:53)]
-                           FTMildNotImpl[XPATH_FT_MILD_NOT(46:53)]
-                              FTUnaryNotImpl[XPATH_FT_UNARY_NOT(46:53)]
-                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(46:53)]
-                                    FTPrimaryImpl[XPATH_FT_PRIMARY(46:53)]
-                                       FTWordsImpl[XPATH_FT_WORDS(46:53)]
-                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(46:53)]
-                                             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(46:53)]
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(46:47)]('"')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(47:52)]('dolor')
-                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(52:53)]('"')
+                        FTMildNotImpl[XPATH_FT_MILD_NOT(46:53)]
+                           FTUnaryNotImpl[XPATH_FT_UNARY_NOT(46:53)]
+                              FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(46:53)]
+                                 FTPrimaryImpl[XPATH_FT_PRIMARY(46:53)]
+                                    FTWordsImpl[XPATH_FT_WORDS(46:53)]
+                                       FTWordsValueImpl[XPATH_FT_WORDS_VALUE(46:53)]
+                                          XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(46:53)]
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(46:47)]('"')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(47:52)]('dolor')
+                                             LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(52:53)]('"')
