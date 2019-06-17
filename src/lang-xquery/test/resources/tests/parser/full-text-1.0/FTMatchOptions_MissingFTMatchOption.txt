@@ -6,9 +6,8 @@ XQueryModuleImpl[FILE(0:25)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:24)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'FTMatchOption', or keyword: fuzzy.')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'FTMatchOption', or keyword: fuzzy.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(24:25)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Missing query body.')

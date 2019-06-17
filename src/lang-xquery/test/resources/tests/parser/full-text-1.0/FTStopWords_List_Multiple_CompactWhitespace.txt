@@ -6,29 +6,28 @@ XQueryModuleImpl[FILE(0:60)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:59)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTStopWordOptionImpl[XPATH_FT_STOP_WORD_OPTION(24:59)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
-                  FTStopWordsImpl[XPATH_FT_STOP_WORDS(34:59)]
-                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:41)]('lorem')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(41:42)]('"')
-                     LeafPsiElement[XPATH_COMMA_TOKEN(42:43)](',')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(43:44)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(44:49)]('ipsum')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')
-                     LeafPsiElement[XPATH_COMMA_TOKEN(50:51)](',')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(51:52)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(52:57)]('dolor')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(57:58)]('"')
-                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(58:59)](')')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            FTStopWordOptionImpl[XPATH_FT_STOP_WORD_OPTION(24:59)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
+               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
+               FTStopWordsImpl[XPATH_FT_STOP_WORDS(34:59)]
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:41)]('lorem')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(41:42)]('"')
+                  LeafPsiElement[XPATH_COMMA_TOKEN(42:43)](',')
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(43:44)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(44:49)]('ipsum')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')
+                  LeafPsiElement[XPATH_COMMA_TOKEN(50:51)](',')
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(51:52)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(52:57)]('dolor')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(57:58)]('"')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(58:59)](')')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(59:60)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(60:60)]('XPST0003: Missing query body.')

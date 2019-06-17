@@ -580,12 +580,6 @@ object XPathElementType {
     // endregion
     // region Full Text 1.0
 
-    val FT_MATCH_OPTIONS: IElementType = ICompositeElementType(
-        "XPATH_FT_MATCH_OPTIONS",
-        FTMatchOptionsPsiImpl::class.java,
-        XPath
-    )
-
     val FT_CASE_OPTION: IElementType = ICompositeElementType(
         "XPATH_FT_CASE_OPTION",
         FTCaseOptionPsiImpl::class.java,

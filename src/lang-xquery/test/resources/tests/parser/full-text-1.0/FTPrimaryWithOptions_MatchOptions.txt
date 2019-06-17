@@ -21,10 +21,9 @@ XQueryModuleImpl[FILE(0:45)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
                         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                        FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(28:45)]
-                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                           FTStemOptionImpl[XPATH_FT_STEM_OPTION(34:45)]
-                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO(34:36)]('no')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(37:45)]('stemming')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                        FTStemOptionImpl[XPATH_FT_STEM_OPTION(34:45)]
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO(34:36)]('no')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(37:45)]('stemming')

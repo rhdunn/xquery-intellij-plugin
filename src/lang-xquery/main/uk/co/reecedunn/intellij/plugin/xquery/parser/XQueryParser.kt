@@ -4546,8 +4546,6 @@ class XQueryParser : XPathParser() {
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
     private fun parseFTMatchOptions(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-
         var haveFTMatchOptions = false
         var haveFTMatchOption: Boolean
         do {
@@ -4567,11 +4565,6 @@ class XQueryParser : XPathParser() {
             haveFTMatchOptions = haveFTMatchOptions or haveFTMatchOption
         } while (haveFTMatchOption)
 
-        if (haveFTMatchOptions) {
-            marker.done(XPathElementType.FT_MATCH_OPTIONS)
-        } else {
-            marker.drop()
-        }
         return haveFTMatchOptions
     }
 

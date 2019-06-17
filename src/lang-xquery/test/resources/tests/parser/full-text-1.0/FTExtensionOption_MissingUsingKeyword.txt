@@ -6,18 +6,17 @@ XQueryModuleImpl[FILE(0:38)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:37)]
-               PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
-               FTExtensionOptionImpl[XPATH_FT_EXTENSION_OPTION(18:36)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(18:24)]('option')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(25:30)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:29)]('test')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(30:36)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(30:31)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(31:35)]('Test')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(35:36)]('"')
-               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
+            FTExtensionOptionImpl[XPATH_FT_EXTENSION_OPTION(18:36)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(18:24)]('option')
+               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+               XQueryNCNameImpl[XQUERY_NCNAME(25:30)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:29)]('test')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(30:36)]
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(30:31)]('"')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(31:35)]('Test')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(35:36)]('"')
+            PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(37:38)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing query body.')

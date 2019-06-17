@@ -6,28 +6,27 @@ XQueryModuleImpl[FILE(0:87)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:86)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(24:86)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  FTThesaurusIDImpl[XPATH_FT_THESAURUS_ID(34:85)]
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(34:36)]('at')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                     XQueryUriLiteralImpl[XQUERY_URI_LITERAL(37:67)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(37:38)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(38:66)]('http://www.example.com/de-CH')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(66:67)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
-                     FTLiteralRangeImpl[XPATH_FT_LITERAL_RANGE(68:78)]
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(68:70)]('at')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEAST(71:76)]('least')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
-                        XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(77:78)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(78:79)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEVELS(79:85)]('levels')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(85:86)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(24:86)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+               FTThesaurusIDImpl[XPATH_FT_THESAURUS_ID(34:85)]
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(34:36)]('at')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                  XQueryUriLiteralImpl[XQUERY_URI_LITERAL(37:67)]
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(37:38)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(38:66)]('http://www.example.com/de-CH')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(66:67)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
+                  FTLiteralRangeImpl[XPATH_FT_LITERAL_RANGE(68:78)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(68:70)]('at')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEAST(71:76)]('least')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(77:78)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(78:79)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LEVELS(79:85)]('levels')
+               PsiWhiteSpaceImpl[WHITE_SPACE(85:86)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(86:87)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(87:87)]('XPST0003: Missing query body.')

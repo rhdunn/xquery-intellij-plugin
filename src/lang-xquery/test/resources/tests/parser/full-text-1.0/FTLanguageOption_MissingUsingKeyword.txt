@@ -6,15 +6,14 @@ XQueryModuleImpl[FILE(0:36)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(18:35)]
-               PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
-               FTLanguageOptionImpl[XPATH_FT_LANGUAGE_OPTION(18:34)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(18:26)]('language')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(27:34)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(27:28)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(28:33)]('en-IE')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(33:34)]('"')
-               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
+            FTLanguageOptionImpl[XPATH_FT_LANGUAGE_OPTION(18:34)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(18:26)]('language')
+               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(27:34)]
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(27:28)]('"')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(28:33)]('en-IE')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(33:34)]('"')
+            PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(35:36)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Missing query body.')
