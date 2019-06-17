@@ -27,10 +27,9 @@ XQueryModuleImpl[FILE(0:45)]
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(36:37)]('{')
                         PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                         FTSelectionImpl[XPATH_FT_SELECTION(38:45)]
-                           FTWordsImpl[XPATH_FT_WORDS(38:45)]
-                              FTWordsValueImpl[XPATH_FT_WORDS_VALUE(38:45)]
-                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(38:45)]
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(38:39)]('"')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(39:44)]('lorem')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(44:45)]('"')
+                           FTWordsValueImpl[XPATH_FT_WORDS_VALUE(38:45)]
+                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(38:45)]
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(38:39)]('"')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(39:44)]('lorem')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(44:45)]('"')
                         PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected '}'.')

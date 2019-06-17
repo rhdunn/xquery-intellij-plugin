@@ -4184,9 +4184,10 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         if (parseFTWordsValue(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parseFTAnyallOption(builder)
-
-            marker.done(XPathElementType.FT_WORDS)
+            if (parseFTAnyallOption(builder))
+                marker.done(XPathElementType.FT_WORDS)
+            else
+                marker.drop()
             return true
         }
         marker.drop()

@@ -23,10 +23,9 @@ XQueryModuleImpl[FILE(0:41)]
                            LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(30:32)]('#)')
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
                         FTSelectionImpl[XPATH_FT_SELECTION(33:40)]
-                           FTWordsImpl[XPATH_FT_WORDS(33:40)]
-                              FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
-                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
+                           FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
+                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
                         LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(40:41)]('}')
