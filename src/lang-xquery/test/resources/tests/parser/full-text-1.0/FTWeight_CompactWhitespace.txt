@@ -14,13 +14,12 @@ XQueryModuleImpl[FILE(0:35)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   FTSelectionImpl[XPATH_FT_SELECTION(19:35)]
                      FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:35)]
-                        FTPrimaryImpl[XPATH_FT_PRIMARY(19:26)]
-                           FTWordsImpl[XPATH_FT_WORDS(19:26)]
-                              FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
-                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
+                        FTWordsImpl[XPATH_FT_WORDS(19:26)]
+                           FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
+                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
                         FTWeightImpl[XPATH_FT_WEIGHT(26:35)]
                            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WEIGHT(26:32)]('weight')
                            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')

@@ -4151,9 +4151,10 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         if (parseFTWords(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parseFTTimes(builder)
-
-            marker.done(XPathElementType.FT_PRIMARY)
+            if (parseFTTimes(builder))
+                marker.done(XPathElementType.FT_PRIMARY)
+            else
+                marker.drop()
             return true
         } else if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
             var haveErrors = false
@@ -4172,7 +4173,7 @@ class XQueryParser : XPathParser() {
             marker.done(XPathElementType.FT_PRIMARY)
             return true
         } else if (parseFTExtensionSelection(builder)) {
-            marker.done(XPathElementType.FT_PRIMARY)
+            marker.drop()
             return true
         }
         marker.drop()

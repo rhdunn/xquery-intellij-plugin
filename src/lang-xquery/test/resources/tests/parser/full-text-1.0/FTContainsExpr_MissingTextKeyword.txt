@@ -13,10 +13,9 @@ XQueryModuleImpl[FILE(0:22)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected keyword: text.')
                   FTSelectionImpl[XPATH_FT_SELECTION(15:22)]
-                     FTPrimaryImpl[XPATH_FT_PRIMARY(15:22)]
-                        FTWordsImpl[XPATH_FT_WORDS(15:22)]
-                           FTWordsValueImpl[XPATH_FT_WORDS_VALUE(15:22)]
-                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:22)]
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(15:16)]('"')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(16:21)]('lorem')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(21:22)]('"')
+                     FTWordsImpl[XPATH_FT_WORDS(15:22)]
+                        FTWordsValueImpl[XPATH_FT_WORDS_VALUE(15:22)]
+                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:22)]
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(15:16)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(16:21)]('lorem')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(21:22)]('"')
