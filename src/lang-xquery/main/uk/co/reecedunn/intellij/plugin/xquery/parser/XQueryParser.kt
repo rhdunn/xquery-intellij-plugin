@@ -4130,12 +4130,17 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         if (parseFTPrimary(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parseFTMatchOptions(builder)
+            var haveOptions = parseFTMatchOptions(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseFTWeight(builder)
+            if (parseFTWeight(builder)) {
+                haveOptions = true
+            }
 
-            marker.done(XPathElementType.FT_PRIMARY_WITH_OPTIONS)
+            if (haveOptions)
+                marker.done(XPathElementType.FT_PRIMARY_WITH_OPTIONS)
+            else
+                marker.drop()
             return true
         }
         marker.drop()

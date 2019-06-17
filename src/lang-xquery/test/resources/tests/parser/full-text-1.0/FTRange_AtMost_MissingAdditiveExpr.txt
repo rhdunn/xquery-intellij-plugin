@@ -14,29 +14,28 @@ XQueryModuleImpl[FILE(0:46)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   FTSelectionImpl[XPATH_FT_SELECTION(20:46)]
-                     FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:46)]
-                        FTPrimaryImpl[XPATH_FT_PRIMARY(20:46)]
-                           FTWordsImpl[XPATH_FT_WORDS(20:32)]
-                              FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:31)]
-                                 LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                                 XQueryExprImpl[XQUERY_EXPR(22:30)]
-                                    ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(22:30)]
-                                       XPathOrExprImpl[XPATH_OR_EXPR(22:30)]
-                                          XPathVarRefImpl[XPATH_VAR_REF(22:30)]
-                                             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                                             XPathVarNameImpl[XPATH_VAR_NAME(24:30)]
-                                                XQueryNCNameImpl[XQUERY_NCNAME(24:30)]
-                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                                 LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                           FTTimesImpl[XPATH_FT_TIMES(32:46)]
-                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                              FTRangeImpl[XPATH_FT_RANGE(39:46)]
-                                 XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(39:41)]('at')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                                 XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MOST(42:46)]('most')
-                                 PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected 'AdditiveExpr'.')
+                     FTPrimaryImpl[XPATH_FT_PRIMARY(20:46)]
+                        FTWordsImpl[XPATH_FT_WORDS(20:32)]
+                           FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:31)]
+                              LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                              XQueryExprImpl[XQUERY_EXPR(22:30)]
+                                 ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(22:30)]
+                                    XPathOrExprImpl[XPATH_OR_EXPR(22:30)]
+                                       XPathVarRefImpl[XPATH_VAR_REF(22:30)]
+                                          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                                          XPathVarNameImpl[XPATH_VAR_NAME(24:30)]
+                                             XQueryNCNameImpl[XQUERY_NCNAME(24:30)]
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                              LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                        FTTimesImpl[XPATH_FT_TIMES(32:46)]
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                           FTRangeImpl[XPATH_FT_RANGE(39:46)]
+                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(39:41)]('at')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MOST(42:46)]('most')
+                              PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected 'AdditiveExpr'.')

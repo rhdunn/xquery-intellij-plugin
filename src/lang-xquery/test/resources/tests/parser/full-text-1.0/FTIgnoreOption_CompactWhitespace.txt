@@ -13,14 +13,13 @@ XQueryModuleImpl[FILE(0:48)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   FTSelectionImpl[XPATH_FT_SELECTION(19:26)]
-                     FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:26)]
-                        FTPrimaryImpl[XPATH_FT_PRIMARY(19:26)]
-                           FTWordsImpl[XPATH_FT_WORDS(19:26)]
-                              FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
-                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
+                     FTPrimaryImpl[XPATH_FT_PRIMARY(19:26)]
+                        FTWordsImpl[XPATH_FT_WORDS(19:26)]
+                           FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
+                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
                   FTIgnoreOptionImpl[XPATH_FT_IGNORE_OPTION(26:48)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITHOUT(26:33)]('without')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
