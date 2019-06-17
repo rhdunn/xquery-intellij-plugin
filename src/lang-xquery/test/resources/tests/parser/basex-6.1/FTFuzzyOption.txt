@@ -14,19 +14,18 @@ XQueryModuleImpl[FILE(0:39)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   FTSelectionImpl[XPATH_FT_SELECTION(20:39)]
-                     FTMildNotImpl[XPATH_FT_MILD_NOT(20:39)]
-                        FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:39)]
-                           FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:39)]
-                              FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
-                                 FTWordsImpl[XPATH_FT_WORDS(20:28)]
-                                    FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                              FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(28:39)]
-                                 XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                                 PluginFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(34:39)]
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUZZY(34:39)]('fuzzy')
+                     FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:39)]
+                        FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:39)]
+                           FTPrimaryImpl[XPATH_FT_PRIMARY(20:28)]
+                              FTWordsImpl[XPATH_FT_WORDS(20:28)]
+                                 FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                           FTMatchOptionsImpl[XPATH_FT_MATCH_OPTIONS(28:39)]
+                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                              PluginFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(34:39)]
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUZZY(34:39)]('fuzzy')

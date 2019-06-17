@@ -4079,6 +4079,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
+            var haveFTUnaryNot = false
             while (builder.matchTokenType(XPathTokenType.K_NOT)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
@@ -4093,9 +4094,13 @@ class XQueryParser : XPathParser() {
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
+                haveFTUnaryNot = true
             }
 
-            marker.done(XPathElementType.FT_MILD_NOT)
+            if (haveFTUnaryNot)
+                marker.done(XPathElementType.FT_MILD_NOT)
+            else
+                marker.drop()
             return true
         }
         marker.drop()
