@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslExpression
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslPattern
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
@@ -31,7 +32,7 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        if (!context.isXslStylesheet()) return
+        if (isIntellijXPathPluginEnabled() || !context.isXslStylesheet()) return
         val attribute = context.parent
         when {
             attribute.isXslExpression() || attribute.isXslPattern() -> {
