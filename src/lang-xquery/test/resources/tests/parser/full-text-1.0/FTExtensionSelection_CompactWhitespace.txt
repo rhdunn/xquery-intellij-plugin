@@ -13,26 +13,24 @@ XQueryModuleImpl[FILE(0:41)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   FTSelectionImpl[XPATH_FT_SELECTION(19:41)]
-                     FTUnaryNotImpl[XPATH_FT_UNARY_NOT(19:41)]
-                        FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:41)]
-                           FTPrimaryImpl[XPATH_FT_PRIMARY(19:41)]
-                              FTExtensionSelectionImpl[XPATH_FT_EXTENSION_SELECTION(19:41)]
-                                 XQueryPragmaImpl[XQUERY_PRAGMA(19:32)]
-                                    LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(19:21)]('(#')
-                                    XQueryNCNameImpl[XQUERY_NCNAME(21:26)]
-                                       XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:25)]('test')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                                    LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(26:30)]('case')
-                                    LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(30:32)]('#)')
-                                 LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
-                                 FTSelectionImpl[XPATH_FT_SELECTION(33:40)]
-                                    FTUnaryNotImpl[XPATH_FT_UNARY_NOT(33:40)]
-                                       FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(33:40)]
-                                          FTPrimaryImpl[XPATH_FT_PRIMARY(33:40)]
-                                             FTWordsImpl[XPATH_FT_WORDS(33:40)]
-                                                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
-                                                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
-                                                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
-                                                      LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
-                                                      LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
-                                 LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(40:41)]('}')
+                     FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:41)]
+                        FTPrimaryImpl[XPATH_FT_PRIMARY(19:41)]
+                           FTExtensionSelectionImpl[XPATH_FT_EXTENSION_SELECTION(19:41)]
+                              XQueryPragmaImpl[XQUERY_PRAGMA(19:32)]
+                                 LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(19:21)]('(#')
+                                 XQueryNCNameImpl[XQUERY_NCNAME(21:26)]
+                                    XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:25)]('test')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                                 LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(26:30)]('case')
+                                 LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(30:32)]('#)')
+                              LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
+                              FTSelectionImpl[XPATH_FT_SELECTION(33:40)]
+                                 FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(33:40)]
+                                    FTPrimaryImpl[XPATH_FT_PRIMARY(33:40)]
+                                       FTWordsImpl[XPATH_FT_WORDS(33:40)]
+                                          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
+                                             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
+                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
+                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
+                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
+                              LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(40:41)]('}')

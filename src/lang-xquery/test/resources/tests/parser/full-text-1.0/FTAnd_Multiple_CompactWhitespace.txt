@@ -14,32 +14,29 @@ XQueryModuleImpl[FILE(0:50)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   FTSelectionImpl[XPATH_FT_SELECTION(19:50)]
                      FTAndImpl[XPATH_FT_AND(19:50)]
-                        FTUnaryNotImpl[XPATH_FT_UNARY_NOT(19:26)]
-                           FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:26)]
-                              FTPrimaryImpl[XPATH_FT_PRIMARY(19:26)]
-                                 FTWordsImpl[XPATH_FT_WORDS(19:26)]
-                                    FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
-                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
+                        FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:26)]
+                           FTPrimaryImpl[XPATH_FT_PRIMARY(19:26)]
+                              FTWordsImpl[XPATH_FT_WORDS(19:26)]
+                                 FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
+                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(26:31)]('ftand')
-                        FTUnaryNotImpl[XPATH_FT_UNARY_NOT(31:38)]
-                           FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(31:38)]
-                              FTPrimaryImpl[XPATH_FT_PRIMARY(31:38)]
-                                 FTWordsImpl[XPATH_FT_WORDS(31:38)]
-                                    FTWordsValueImpl[XPATH_FT_WORDS_VALUE(31:38)]
-                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(31:38)]
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(31:32)]('"')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(32:37)]('ipsum')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(37:38)]('"')
+                        FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(31:38)]
+                           FTPrimaryImpl[XPATH_FT_PRIMARY(31:38)]
+                              FTWordsImpl[XPATH_FT_WORDS(31:38)]
+                                 FTWordsValueImpl[XPATH_FT_WORDS_VALUE(31:38)]
+                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(31:38)]
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(31:32)]('"')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(32:37)]('ipsum')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(37:38)]('"')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(38:43)]('ftand')
-                        FTUnaryNotImpl[XPATH_FT_UNARY_NOT(43:50)]
-                           FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(43:50)]
-                              FTPrimaryImpl[XPATH_FT_PRIMARY(43:50)]
-                                 FTWordsImpl[XPATH_FT_WORDS(43:50)]
-                                    FTWordsValueImpl[XPATH_FT_WORDS_VALUE(43:50)]
-                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(43:44)]('"')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(44:49)]('dolor')
-                                          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')
+                        FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(43:50)]
+                           FTPrimaryImpl[XPATH_FT_PRIMARY(43:50)]
+                              FTWordsImpl[XPATH_FT_WORDS(43:50)]
+                                 FTWordsValueImpl[XPATH_FT_WORDS_VALUE(43:50)]
+                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(43:44)]('"')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(44:49)]('dolor')
+                                       LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')

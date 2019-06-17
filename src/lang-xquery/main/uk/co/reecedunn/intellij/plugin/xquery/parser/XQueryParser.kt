@@ -4110,13 +4110,16 @@ class XQueryParser : XPathParser() {
     private fun parseFTUnaryNot(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
-        builder.matchTokenType(XPathTokenType.K_FTNOT)
+        val haveFTNot = builder.matchTokenType(XPathTokenType.K_FTNOT)
 
         parseWhiteSpaceAndCommentTokens(builder)
         if (parseFTPrimaryWithOptions(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
 
-            marker.done(XPathElementType.FT_UNARY_NOT)
+            if (haveFTNot)
+                marker.done(XPathElementType.FT_UNARY_NOT)
+            else
+                marker.drop()
             return true
         }
         marker.drop()
