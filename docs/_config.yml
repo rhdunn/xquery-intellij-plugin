@@ -7,5 +7,10 @@ github_user: rhdunn
 language: en
 stylesheet: /css/default.css
 
+exclude:
+  - images/features/error-recovery.xqy
+  - images/features/vendor-extensions.xqy
+  - images/features/xquery.xqy
+
 markdown: kramdown
 plugins:
