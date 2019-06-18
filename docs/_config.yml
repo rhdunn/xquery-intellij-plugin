@@ -11,6 +11,8 @@ exclude:
   - images/features/error-recovery.xqy
   - images/features/vendor-extensions.xqy
   - images/features/xquery.xqy
+  - Gemfile.lock
+  - Gemfile
 
 markdown: kramdown
 plugins:
