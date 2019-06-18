@@ -33,11 +33,13 @@ private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<
     }
 }
 
+private fun XPathEQName.fileProlog(): XQueryProlog? {
+    val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
+    return (module as XQueryPrologResolver).prolog.firstOrNull()
+}
+
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
-    var thisProlog: XQueryProlog? =
-        (ancestors().filter { element ->
-            element is XQueryMainModule || element is XQueryLibraryModule
-        }.first() as XQueryPrologResolver).prolog.firstOrNull()
+    var thisProlog = fileProlog()
     val functions = (this as XsQNameValue).expand().flatMap { name ->
         val prologs = (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
         prologs.flatMap { prolog ->
