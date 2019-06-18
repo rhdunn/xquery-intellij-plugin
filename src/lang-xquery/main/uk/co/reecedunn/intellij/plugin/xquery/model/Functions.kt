@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,17 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
     return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
         val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-        if (function?.functionName?.expand()?.firstOrNull()?.let { op_qname_equal(it, name) } == true) {
-            function
+        val functionName = function?.functionName
+        // NOTE: Opening the context menu on a call to MarkLogic's `xdmp:version()`
+        // is slow (~10 seconds) when just checking the expanded QName, so check
+        // local-name first ...
+        if (functionName?.let { it.localName?.data == name.localName?.data } == true) {
+            // ... then check the expanded QName namespace.
+            if (functionName.expand().firstOrNull()?.let { op_qname_equal(it, name) } == true) {
+                function
+            } else {
+                null
+            }
         } else {
             null
         }
