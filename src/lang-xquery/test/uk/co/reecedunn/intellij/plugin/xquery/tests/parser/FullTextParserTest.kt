@@ -273,44 +273,50 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTAnd
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (147) FTAnd")
+    internal inner class FTAnd {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnd.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnd.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTAnd() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnd.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnd.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnd_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnd_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnd_Multiple.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnd_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnd_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnd_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTMildNot")
+        fun missingFTMildNot() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnd_MissingFTMildNot.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnd_MissingFTMildNot.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTAnd_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnd_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnd_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnd_Multiple() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnd_Multiple.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnd_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnd_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnd_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnd_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnd_MissingFTMildNot() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnd_MissingFTMildNot.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnd_MissingFTMildNot.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTMildNot
 
     @Test

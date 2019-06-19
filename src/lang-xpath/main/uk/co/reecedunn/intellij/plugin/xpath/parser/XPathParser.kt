@@ -1882,7 +1882,33 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFTAnd(builder: PsiBuilder): Boolean {
+    private fun parseFTAnd(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseFTMildNot(builder)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveFTMildNot = false
+            while (builder.matchTokenType(XPathTokenType.K_FTAND)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseFTMildNot(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "FTMildNot"))
+                    haveErrors = true
+                }
+                haveFTMildNot = true
+            }
+
+            if (haveFTMildNot)
+                marker.done(XPathElementType.FT_AND)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseFTMildNot(builder: PsiBuilder): Boolean {
         val ret = parseFTWordsValue(builder)
         parseWhiteSpaceAndCommentTokens(builder)
         return ret
