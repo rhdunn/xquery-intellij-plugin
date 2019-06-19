@@ -133,37 +133,42 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTContainsExpr
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (51) FTContainsExpr")
+    internal inner class FTContainsExpr {
+        @Test
+        @DisplayName("contains text expression")
+        fun ftContainsExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTContainsExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("with FTIgnoreOption")
+        fun withFTIgnoreOption() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'text' keyword")
+        fun missingTextKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr_MissingTextKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr_MissingTextKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTSelection")
+        fun missingFTSelection() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr_MissingFTSelection.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr_MissingFTSelection.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTContainsExpr_FTIgnoreOption() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTContainsExpr_MissingTextKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr_MissingTextKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr_MissingTextKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTContainsExpr_MissingFTSelection() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr_MissingFTSelection.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr_MissingFTSelection.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTSelection
 
     @Test

@@ -2992,38 +2992,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTContainsExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseStringConcatExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-
-            if (builder.matchTokenType(XPathTokenType.K_CONTAINS)) {
-                var haveError = false
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_TEXT)) {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "text"))
-                    haveError = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseFTSelection(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "FTSelection"))
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseFTIgnoreOption(builder)
-                marker.done(XPathElementType.FT_CONTAINS_EXPR)
-            } else {
-                marker.drop()
-            }
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
+    override fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WITHOUT)
         if (marker != null) {
             var haveError = false
@@ -3985,7 +3954,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: OrExpr :: FTSelection
 
-    private fun parseFTSelection(builder: PsiBuilder): Boolean {
+    override fun parseFTSelection(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTOr(builder)) {
             do {

@@ -80,4 +80,16 @@ private class FullTextParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (12) FTContainsExpr")
+    internal inner class FTContainsExpr {
+        @Test
+        @DisplayName("error recovery: missing FTSelection")
+        fun missingFTSelection() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingFTSelection.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingFTSelection.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

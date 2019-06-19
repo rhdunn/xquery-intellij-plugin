@@ -708,7 +708,7 @@ open class XPathParser : PsiParser {
 
     open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseStringConcatExpr(builder, type)) {
+        if (parseFTContainsExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -726,7 +726,7 @@ open class XPathParser : PsiParser {
             )
         ) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringConcatExpr(builder, type)) {
+            if (!parseFTContainsExpr(builder, type)) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
             }
 
@@ -737,7 +737,42 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseFTContainsExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseStringConcatExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+
+            if (builder.matchTokenType(XPathTokenType.K_CONTAINS)) {
+                var haveError = false
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_TEXT)) {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "text"))
+                    haveError = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseFTSelection(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "FTSelection"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseFTIgnoreOption(builder)
+                marker.done(XPathElementType.FT_CONTAINS_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
+        return false
+    }
+
+    private fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseRangeExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1783,6 +1818,13 @@ open class XPathParser : PsiParser {
             marker.done(XPathElementType.CURLY_ARRAY_CONSTRUCTOR)
             return true
         }
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: FTSelection
+
+    open fun parseFTSelection(builder: PsiBuilder): Boolean {
         return false
     }
 
