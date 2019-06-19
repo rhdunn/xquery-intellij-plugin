@@ -1942,7 +1942,26 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFTUnaryNot(builder: PsiBuilder): Boolean {
+    private fun parseFTUnaryNot(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+
+        val haveFTNot = builder.matchTokenType(XPathTokenType.K_FTNOT)
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (parseFTPrimaryWithOptions(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+
+            if (haveFTNot)
+                marker.done(XPathElementType.FT_UNARY_NOT)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseFTPrimaryWithOptions(builder: PsiBuilder): Boolean {
         val ret = parseFTWordsValue(builder)
         parseWhiteSpaceAndCommentTokens(builder)
         return ret

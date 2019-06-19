@@ -369,16 +369,14 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTUnaryNot
-
     @Test
-    fun testFTUnaryNot() {
+    @DisplayName("XQuery Full Text 1.0 EBNF (149) FTUnaryNot")
+    fun ftUnaryNot() {
         val expected = loadResource("tests/parser/full-text-1.0/FTUnaryNot.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTUnaryNot.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // endregion
     // region Full Text 1.0 :: FTPrimaryWithOptions
 
     @Test

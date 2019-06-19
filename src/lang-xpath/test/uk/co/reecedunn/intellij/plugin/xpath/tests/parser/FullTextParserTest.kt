@@ -285,6 +285,14 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
+    @Test
+    @DisplayName("XPath Full Text 1.0 EBNF (81) FTUnaryNot")
+    fun ftUnaryNot() {
+        val expected = loadResource("tests/parser/xpath-full-text-1.0/FTUnaryNot.txt")
+        val actual = parseResource("tests/parser/xpath-full-text-1.0/FTUnaryNot.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (85) FTWordsValue")
     internal inner class FTWordsValue {
