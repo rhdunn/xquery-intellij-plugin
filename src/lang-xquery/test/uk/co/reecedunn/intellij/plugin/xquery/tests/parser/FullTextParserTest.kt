@@ -623,86 +623,97 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTRange
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (157) FTRange")
+    internal inner class FTRange {
+        @Test
+        @DisplayName("exactly")
+        fun exactly() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTRange_Exactly() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("exactly; missing AdditiveExpr")
+        fun exactly_MissingAdditiveExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: 'at' keyword without least/most qualifier")
+        fun at_MissingQualifier() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_At_MissingQualifier.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_At_MissingQualifier.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("at least")
+        fun atLeast() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: at least; missing AdditiveExpr")
+        fun atLeast_MissingAdditiveExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("at most")
+        fun atMost() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtMost.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtMost.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: at most; missing AdditiveExpr")
+        fun atMost_MissingAdditiveExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtMost_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtMost_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("from/to")
+        fun fromTo() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: from/to; missing from AdditiveExpr")
+        fun fromTo_MissingFromExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingFromExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingFromExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: from/to; missing 'to' keyword")
+        fun fromTo_MissingToKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: from/to; missing to AdditiveExpr")
+        fun fromTo_MissingToExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testFTRange_Exactly_MissingAdditiveExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_At_MissingQualifier() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_At_MissingQualifier.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_At_MissingQualifier.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_AtLeast() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_AtLeast_MissingAdditiveExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast_MissingAdditiveExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast_MissingAdditiveExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_AtMost() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtMost.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtMost.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_AtMost_MissingAdditiveExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtMost_MissingAdditiveExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtMost_MissingAdditiveExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_FromTo() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_FromTo_MissingFromExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingFromExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingFromExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_FromTo_MissingToKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTRange_FromTo_MissingToExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Test
     @DisplayName("XQuery Full Text 1.0 EBNF (159) FTOrder")
