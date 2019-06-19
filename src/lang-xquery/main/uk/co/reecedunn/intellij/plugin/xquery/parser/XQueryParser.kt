@@ -4141,32 +4141,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTWordsValue(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseStringLiteral(builder)) {
-            marker.done(XPathElementType.FT_WORDS_VALUE)
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, XQueryElementType.EXPR)) {
-                builder.error(XPathBundle.message("parser.error.expected-expression"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.BLOCK_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "}"))
-            }
-
-            marker.done(XPathElementType.FT_WORDS_VALUE)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     private fun parseFTExtensionSelection(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         var haveError = false

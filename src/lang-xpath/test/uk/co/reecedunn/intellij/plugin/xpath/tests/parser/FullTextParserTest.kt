@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery 3.1 with Full Text 3.0 - Lexer")
+@DisplayName("XPath 3.1 with Full Text 3.0 - Lexer")
 private class FullTextParserTest : ParserTestCase() {
     fun parseResource(resource: String): XPath {
         val file = ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource)
@@ -85,10 +85,78 @@ private class FullTextParserTest : ParserTestCase() {
     @DisplayName("XPath Full Text 1.0 EBNF (12) FTContainsExpr")
     internal inner class FTContainsExpr {
         @Test
+        @DisplayName("contains text expression")
+        fun ftContainsExpr() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'text' keyword")
+        fun missingTextKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingTextKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingTextKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
         @DisplayName("error recovery: missing FTSelection")
         fun missingFTSelection() {
             val expected = loadResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingFTSelection.txt")
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingFTSelection.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (85) FTWordsValue")
+    internal inner class FTWordsValue {
+        @Test
+        @DisplayName("word")
+        fun ftWordsValue() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("word; compact whitespace")
+        fun ftWordsValue_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("expression")
+        fun expr() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("expression; compact whitespace")
+        fun expr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr from expression")
+        fun expr_MissingExpr() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace from expression")
+        fun expr_MissingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

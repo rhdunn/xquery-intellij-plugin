@@ -431,51 +431,59 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTWordsValue
 
-    @Test
-    fun testFTWordsValue() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (153) FTWordsValue")
+    internal inner class FTWordsValue {
+        @Test
+        @DisplayName("word")
+        fun ftWordsValue() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("word; compact whitespace")
+        fun ftWordsValue_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("expression")
+        fun expr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("expression; compact whitespace")
+        fun expr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr from expression")
+        fun expr_MissingExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace from expression")
+        fun expr_MissingClosingBrace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTWordsValue_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWordsValue_Expr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWordsValue_Expr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWordsValue_Expr_MissingExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWordsValue_Expr_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTExtensionSelection
 
     @Test
