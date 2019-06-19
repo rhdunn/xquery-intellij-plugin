@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathPragmaPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -279,12 +280,6 @@ object XQueryElementType {
     val POSITIONAL_VAR: IElementType = ICompositeElementType(
         "XQUERY_POSITIONAL_VAR",
         XQueryPositionalVarPsiImpl::class.java,
-        XQuery
-    )
-
-    val PRAGMA: IElementType = ICompositeElementType(
-        "XQUERY_PRAGMA",
-        XQueryPragmaPsiImpl::class.java,
         XQuery
     )
 

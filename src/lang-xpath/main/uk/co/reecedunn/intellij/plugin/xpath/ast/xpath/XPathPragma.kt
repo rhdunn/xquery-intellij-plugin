@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPragma
+import com.intellij.psi.PsiElement
 
-class XQueryPragmaPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryPragma
+/**
+ * An XQuery 1.0 `Pragma` node in the XQuery AST.
+ */
+interface XPathPragma : PsiElement

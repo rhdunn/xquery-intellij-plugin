@@ -3136,32 +3136,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parsePragma(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PRAGMA_BEGIN)
-        if (marker != null) {
-            var haveErrors = false
-
-            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
-                haveErrors = true
-            }
-
-            // NOTE: The XQuery grammar requires pragma contents if the EQName
-            // is followed by a space token, but implementations make it optional.
-            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
-            builder.matchTokenType(XPathTokenType.PRAGMA_CONTENTS)
-
-            if (!builder.matchTokenType(XPathTokenType.PRAGMA_END) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "#)"))
-            }
-
-            marker.done(XQueryElementType.PRAGMA)
-            return true
-        }
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
