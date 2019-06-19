@@ -16,13 +16,13 @@ XQueryModuleImpl[FILE(0:45)]
                   FTSelectionImpl[XPATH_FT_SELECTION(20:45)]
                      FTExtensionSelectionImpl[XPATH_FT_EXTENSION_SELECTION(20:45)]
                         XQueryPragmaImpl[XQUERY_PRAGMA(20:35)]
-                           LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(20:22)]('(#')
+                           LeafPsiElement[XPATH_PRAGMA_BEGIN_TOKEN(20:22)]('(#')
                            PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                            XQueryNCNameImpl[XQUERY_NCNAME(23:28)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:27)]('test')
                               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                           LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(28:33)]('case ')
-                           LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(33:35)]('#)')
+                           LeafPsiElement[XPATH_PRAGMA_CONTENTS_TOKEN(28:33)]('case ')
+                           LeafPsiElement[XPATH_PRAGMA_END_TOKEN(33:35)]('#)')
                         PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(36:37)]('{')
                         PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')

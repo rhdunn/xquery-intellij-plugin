@@ -33,7 +33,7 @@ private val BRACE_PAIRS = arrayOf(
     BracePair(XQueryTokenType.XML_COMMENT_START_TAG, XQueryTokenType.XML_COMMENT_END_TAG, false), // <!-- ... -->
     BracePair(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN, XQueryTokenType.PROCESSING_INSTRUCTION_END, false), // <? ... ?>
     BracePair(XQueryTokenType.CDATA_SECTION_START_TAG, XQueryTokenType.CDATA_SECTION_END_TAG, false), // <![CDATA[ ... ]]>
-    BracePair(XQueryTokenType.PRAGMA_BEGIN, XQueryTokenType.PRAGMA_END, false), // (# ... #)
+    BracePair(XPathTokenType.PRAGMA_BEGIN, XPathTokenType.PRAGMA_END, false), // (# ... #)
     BracePair(XQueryTokenType.STRING_INTERPOLATION_OPEN, XQueryTokenType.STRING_INTERPOLATION_CLOSE, true) // `{ ... }`
 )
 

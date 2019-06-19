@@ -22,9 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
 private const val STATE_XML_COMMENT = 5
 private const val STATE_CDATA_SECTION = 7
-private const val STATE_PRAGMA_PRE_QNAME = 8
-private const val STATE_PRAGMA_QNAME = 9
-private const val STATE_PRAGMA_CONTENTS = 10
 private const val STATE_DIR_ELEM_CONSTRUCTOR = 11
 private const val STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12
 private const val STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13
@@ -44,7 +41,6 @@ private const val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
 private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
 const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
 const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
-private const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
 
 // endregion
 
@@ -282,7 +278,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     pushState(STATE_XQUERY_COMMENT)
                 } else if (c == '#'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.PRAGMA_BEGIN
+                    mType = XPathTokenType.PRAGMA_BEGIN
                     pushState(STATE_PRAGMA_PRE_QNAME)
                 } else {
                     mType = XPathTokenType.PARENTHESIS_OPEN
@@ -312,7 +308,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                 mTokenRange.match()
                 mType = if (mTokenRange.codePoint == ')'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.PRAGMA_END
+                    XPathTokenType.PRAGMA_END
                 } else {
                     XPathTokenType.FUNCTION_REF_OPERATOR
                 }
@@ -703,130 +699,6 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                         mType = XQueryTokenType.CDATA_SECTION
                         return
                     }
-                }
-            } else {
-                mTokenRange.match()
-            }
-            c = mTokenRange.codePoint
-        }
-    }
-
-    private fun statePragmaPreQName() {
-        val c = mTokenRange.codePoint
-        var cc = CharacterClass.getCharClass(c)
-        when (cc) {
-            CharacterClass.WHITESPACE -> {
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
-                    mTokenRange.match()
-                mType = XPathTokenType.WHITE_SPACE
-            }
-            CharacterClass.COLON -> {
-                mTokenRange.match()
-                mType = XPathTokenType.QNAME_SEPARATOR
-                popState()
-                pushState(STATE_PRAGMA_QNAME)
-            }
-            CharacterClass.NAME_START_CHAR -> {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                if (c == 'Q'.toInt() && cc == CharacterClass.CURLY_BRACE_OPEN) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.BRACED_URI_LITERAL_START
-                    popState()
-                    pushState(STATE_PRAGMA_QNAME)
-                    pushState(STATE_BRACED_URI_LITERAL_PRAGMA)
-                } else {
-                    while (cc == CharacterClass.NAME_START_CHAR ||
-                            cc == CharacterClass.DIGIT ||
-                            cc == CharacterClass.DOT ||
-                            cc == CharacterClass.HYPHEN_MINUS ||
-                            cc == CharacterClass.NAME_CHAR) {
-                        mTokenRange.match()
-                        cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                    }
-                    mType = XPathTokenType.NCNAME
-                    popState()
-                    pushState(STATE_PRAGMA_QNAME)
-                }
-            }
-            else -> {
-                popState()
-                pushState(STATE_PRAGMA_CONTENTS)
-                statePragmaContents()
-            }
-        }
-    }
-
-    private fun statePragmaQName() {
-        val c = mTokenRange.codePoint
-        var cc = CharacterClass.getCharClass(c)
-        when (cc) {
-            CharacterClass.WHITESPACE -> {
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
-                    mTokenRange.match()
-                mType = XPathTokenType.WHITE_SPACE
-                popState()
-                pushState(STATE_PRAGMA_CONTENTS)
-            }
-            CharacterClass.COLON -> {
-                mTokenRange.match()
-                mType = XPathTokenType.QNAME_SEPARATOR
-            }
-            CharacterClass.NAME_START_CHAR -> {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (cc == CharacterClass.NAME_START_CHAR ||
-                        cc == CharacterClass.DIGIT ||
-                        cc == CharacterClass.DOT ||
-                        cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR) {
-                    mTokenRange.match()
-                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                }
-                mType = XPathTokenType.NCNAME
-            }
-            else -> {
-                popState()
-                pushState(STATE_PRAGMA_CONTENTS)
-                statePragmaContents()
-            }
-        }
-    }
-
-    private fun statePragmaContents() {
-        var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-            return
-        } else if (c == '#'.toInt()) {
-            mTokenRange.save()
-            mTokenRange.match()
-            if (mTokenRange.codePoint == ')'.toInt()) {
-                mTokenRange.match()
-                mType = XQueryTokenType.PRAGMA_END
-                popState()
-                return
-            } else {
-                mTokenRange.restore()
-            }
-        }
-
-        while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
-                mTokenRange.match()
-                mType = XQueryTokenType.PRAGMA_CONTENTS
-                popState()
-                pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                return
-            } else if (c == '#'.toInt()) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == ')'.toInt()) {
-                    mTokenRange.restore()
-                    mType = XQueryTokenType.PRAGMA_CONTENTS
-                    return
                 }
             } else {
                 mTokenRange.match()
@@ -1307,16 +1179,12 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
             STATE_XML_COMMENT, STATE_XML_COMMENT_ELEM_CONTENT -> stateXmlComment()
             STATE_CDATA_SECTION, STATE_CDATA_SECTION_ELEM_CONTENT -> stateCDataSection()
-            STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
-            STATE_PRAGMA_QNAME -> statePragmaQName()
-            STATE_PRAGMA_CONTENTS -> statePragmaContents()
             STATE_DIR_ELEM_CONSTRUCTOR, STATE_DIR_ELEM_CONSTRUCTOR_CLOSING, STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(state)
             STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> stateDirAttributeValue('"')
             STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> stateDirAttributeValue('\'')
             STATE_DIR_ELEM_CONTENT -> stateDirElemContent()
             STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(state)
             STATE_PROCESSING_INSTRUCTION_CONTENTS, STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> stateProcessingInstructionContents()
-            STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
             STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
             STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
             else -> super.advance()

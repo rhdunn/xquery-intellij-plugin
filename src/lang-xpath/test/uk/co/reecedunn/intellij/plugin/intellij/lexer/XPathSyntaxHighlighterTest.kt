@@ -502,6 +502,10 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.NODE_BEFORE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.NODE_AFTER).size, `is`(0))
 
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_BEGIN).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_CONTENTS).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_END).size, `is`(0))
+
         assertThat(highlighter.getTokenHighlights(XPathTokenType.CONCATENATION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.MAP_OPERATOR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.FUNCTION_REF_OPERATOR).size, `is`(0))

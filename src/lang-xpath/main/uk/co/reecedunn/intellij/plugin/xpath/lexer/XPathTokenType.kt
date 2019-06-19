@@ -201,6 +201,10 @@ object XPathTokenType {
     val COMMENT_START_TAG = IElementType("XPATH_COMMENT_START_TAG_TOKEN", XPath) // XPath 2.0
     val COMMENT_END_TAG = IElementType("XPATH_COMMENT_END_TAG_TOKEN", XPath) // XPath 2.0
 
+    val PRAGMA_CONTENTS = IElementType("XPATH_PRAGMA_CONTENTS_TOKEN", XPath) // Full Text 1.0; XQuery 1.0
+    val PRAGMA_BEGIN = IElementType("XPATH_PRAGMA_BEGIN_TOKEN", XPath) // Full Text 1.0; XQuery 1.0
+    val PRAGMA_END = IElementType("XPATH_PRAGMA_END_TOKEN", XPath) // Full Text 1.0; XQuery 1.0
+
     val NCNAME: IElementType = INCNameType("XPATH_NCNAME_TOKEN", XPath) // Namespaces in XML 1.0
     val QNAME_SEPARATOR = IElementType("XPATH_QNAME_SEPARATOR_TOKEN", XPath) // Namespaces in XML 1.0
 

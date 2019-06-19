@@ -3137,7 +3137,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parsePragma(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.PRAGMA_BEGIN)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PRAGMA_BEGIN)
         if (marker != null) {
             var haveErrors = false
 
@@ -3150,9 +3150,9 @@ class XQueryParser : XPathParser() {
             // NOTE: The XQuery grammar requires pragma contents if the EQName
             // is followed by a space token, but implementations make it optional.
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
-            builder.matchTokenType(XQueryTokenType.PRAGMA_CONTENTS)
+            builder.matchTokenType(XPathTokenType.PRAGMA_CONTENTS)
 
-            if (!builder.matchTokenType(XQueryTokenType.PRAGMA_END) && !haveErrors) {
+            if (!builder.matchTokenType(XPathTokenType.PRAGMA_END) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "#)"))
             }
 

@@ -960,9 +960,9 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CDATA_SECTION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CDATA_SECTION_END_TAG).size, `is`(0))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_BEGIN).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_CONTENTS).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_END).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_BEGIN).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_CONTENTS).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_END).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_END).size, `is`(0))
