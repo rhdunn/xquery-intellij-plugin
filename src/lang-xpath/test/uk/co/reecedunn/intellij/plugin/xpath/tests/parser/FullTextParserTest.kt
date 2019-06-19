@@ -146,6 +146,50 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (78) FTOr")
+    internal inner class FTOr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOr.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOr_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOr_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOr_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTAnd")
+        fun missingFTAnd() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOr_MissingFTAnd.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOr_MissingFTAnd.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (85) FTWordsValue")
     internal inner class FTWordsValue {
         @Test

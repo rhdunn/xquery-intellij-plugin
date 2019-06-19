@@ -3932,47 +3932,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: OrExpr :: FTSelection
 
-    override fun parseFTSelection(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseFTOr(builder)) {
-            do {
-                parseWhiteSpaceAndCommentTokens(builder)
-            } while (parseFTPosFilter(builder))
-
-            marker.done(XPathElementType.FT_SELECTION)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseFTOr(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseFTAnd(builder)) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveFTOr = false
-            while (builder.matchTokenType(XPathTokenType.K_FTOR)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseFTAnd(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "FTAnd"))
-                    haveErrors = true
-                }
-                haveFTOr = true
-            }
-
-            if (haveFTOr)
-                marker.done(XPathElementType.FT_OR)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseFTAnd(builder: PsiBuilder): Boolean {
+    override fun parseFTAnd(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTMildNot(builder)) {
             var haveErrors = false

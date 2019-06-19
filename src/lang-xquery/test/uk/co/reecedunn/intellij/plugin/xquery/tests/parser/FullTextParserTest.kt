@@ -228,44 +228,51 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTOr
 
-    @Test
-    fun testFTOr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (146) FTOr")
+    internal inner class FTOr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOr_Multiple.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOr_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOr_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTAnd")
+        fun missingFTAnd() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOr_MissingFTAnd.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOr_MissingFTAnd.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTOr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTOr_Multiple() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOr_Multiple.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTOr_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOr_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOr_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTOr_MissingFTAnd() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOr_MissingFTAnd.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOr_MissingFTAnd.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTAnd
 
     @Test
