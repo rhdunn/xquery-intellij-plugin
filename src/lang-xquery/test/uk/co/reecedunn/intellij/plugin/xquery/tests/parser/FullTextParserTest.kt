@@ -404,34 +404,6 @@ private class FullTextParserTest : ParserTestCase() {
     // region Full Text 1.0 :: FTPrimary
 
     @Test
-    fun testFTPrimary_Parenthesis() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTPrimary_Parenthesis_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTPrimary_Parenthesis_MissingFTSelection() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingFTSelection.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingFTSelection.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTPrimary_Parenthesis_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testFTPrimary_ExtensionSelection() {
         val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection.xq")
@@ -475,6 +447,42 @@ private class FullTextParserTest : ParserTestCase() {
             fun missingTimesKeyword() {
                 val expected = loadResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.txt")
                 val actual = parseResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery Full Text 1.0 EBNF (144) FTSelection")
+        internal inner class FTSelection {
+            @Test
+            @DisplayName("parenthesis")
+            fun parenthesis() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("parenthesis; compact whitespace")
+            fun parenthesis_CompactWhitespace() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing FTSelection")
+            fun missingFTSelection() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingFTSelection.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingFTSelection.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }

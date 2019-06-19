@@ -1974,6 +1974,22 @@ open class XPathParser : PsiParser {
             else
                 marker.drop()
             return true
+        } else if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseFTSelection(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "FTSelection"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.FT_PRIMARY)
+            return true
         }
         marker.drop()
         return false
