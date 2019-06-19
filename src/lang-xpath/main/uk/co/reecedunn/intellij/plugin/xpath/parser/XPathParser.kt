@@ -1908,7 +1908,41 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFTMildNot(builder: PsiBuilder): Boolean {
+    private fun parseFTMildNot(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseFTUnaryNot(builder)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveFTUnaryNot = false
+            while (builder.matchTokenType(XPathTokenType.K_NOT)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseFTUnaryNot(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "FTUnaryNot"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                haveFTUnaryNot = true
+            }
+
+            if (haveFTUnaryNot)
+                marker.done(XPathElementType.FT_MILD_NOT)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseFTUnaryNot(builder: PsiBuilder): Boolean {
         val ret = parseFTWordsValue(builder)
         parseWhiteSpaceAndCommentTokens(builder)
         return ret
