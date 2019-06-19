@@ -1991,7 +1991,7 @@ open class XPathParser : PsiParser {
         return parseFTPrimary(builder)
     }
 
-    open fun parseFTPrimary(builder: PsiBuilder): Boolean {
+    fun parseFTPrimary(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTWords(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2016,9 +2016,45 @@ open class XPathParser : PsiParser {
 
             marker.done(XPathElementType.FT_PRIMARY)
             return true
+        } else if (parseFTExtensionSelection(builder)) {
+            marker.drop()
+            return true
         }
         marker.drop()
         return false
+    }
+
+    private fun parseFTExtensionSelection(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        var haveError = false
+
+        var havePragma = false
+        while (parsePragma(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            havePragma = true
+        }
+
+        if (!havePragma) {
+            marker.drop()
+            return false
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
+            builder.error(XPathBundle.message("parser.error.expected", "{"))
+            haveError = true
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        parseFTSelection(builder)
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (!builder.matchTokenType(XPathTokenType.BLOCK_CLOSE) && !haveError) {
+            builder.error(XPathBundle.message("parser.error.expected", "}"))
+        }
+
+        marker.done(XPathElementType.FT_EXTENSION_SELECTION)
+        return true
     }
 
     fun parseFTWords(builder: PsiBuilder): Boolean {

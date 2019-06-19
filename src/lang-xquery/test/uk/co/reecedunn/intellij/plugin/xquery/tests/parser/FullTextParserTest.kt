@@ -401,16 +401,6 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTPrimary
-
-    @Test
-    fun testFTPrimary_ExtensionSelection() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (151) FTPrimary")
@@ -483,6 +473,58 @@ private class FullTextParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery Full Text 1.0 EBNF (154) FTExtensionSelection")
+        internal inner class FTExtensionSelection {
+            @Test
+            @DisplayName("single pragma")
+            fun singlePragma() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("single pragma; compact whitespace")
+            fun singlePragma_CompactWhitespace() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple pragmas")
+            fun multiplePragmas() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MultiplePragmas.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MultiplePragmas.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing opening brace")
+            fun missingOpenBrace() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingOpenBrace.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingOpenBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing FTSelection")
+            fun missingFTSelection() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingFTSelection.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingFTSelection.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing brace")
+            fun missingCloseBrace() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
@@ -584,51 +626,6 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTExtensionSelection
-
-    @Test
-    fun testFTExtensionSelection() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTExtensionSelection_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTExtensionSelection_MultiplePragmas() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MultiplePragmas.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MultiplePragmas.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTExtensionSelection_MissingOpenBrace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingOpenBrace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingOpenBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTExtensionSelection_MissingFTSelection() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingFTSelection.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingFTSelection.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTExtensionSelection_MissingCloseBrace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTRange
 
     @Test
