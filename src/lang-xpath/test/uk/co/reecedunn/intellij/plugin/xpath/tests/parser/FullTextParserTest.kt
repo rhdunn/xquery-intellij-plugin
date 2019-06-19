@@ -93,6 +93,14 @@ private class FullTextParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("with FTIgnoreOption")
+        fun withFTIgnoreOption() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
         @DisplayName("error recovery: missing 'text' keyword")
         fun missingTextKeyword() {
             val expected = loadResource("tests/parser/xpath-full-text-1.0/FTContainsExpr_MissingTextKeyword.txt")
@@ -157,6 +165,42 @@ private class FullTextParserTest : ParserTestCase() {
         fun expr_MissingClosingBrace() {
             val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
+    internal inner class FTIgnoreOption {
+        @Test
+        @DisplayName("ignore option")
+        fun ftIgnoreOption() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("ignore option; compact whitespace")
+        fun ftIgnoreOption_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'content' keyword")
+        fun missingContentKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption_MissingContentKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption_MissingContentKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTIgnoreOption_MissingUnionExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

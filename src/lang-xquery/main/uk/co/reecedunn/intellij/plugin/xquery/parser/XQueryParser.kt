@@ -2992,28 +2992,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WITHOUT)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_CONTENT)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "content"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseUnionExpr(builder, XPathElementType.FT_IGNORE_OPTION) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
-            }
-
-            marker.done(XPathElementType.FT_IGNORE_OPTION)
-            return true
-        }
-        return false
-    }
-
     override fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseCastableExpr(builder, type)) {

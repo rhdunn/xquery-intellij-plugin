@@ -1,0 +1,28 @@
+XPathImpl[FILE(0:51)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:51)]
+      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:51)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+               XPathNCNameImpl[XPATH_NCNAME(0:6)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+         FTSelectionImpl[XPATH_FT_SELECTION(20:27)]
+            FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+         FTIgnoreOptionImpl[XPATH_FT_IGNORE_OPTION(28:51)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITHOUT(28:35)]('without')
+            PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTENT(36:43)]('content')
+            PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(44:51)]
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(44:45)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(45:50)]('ipsum')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(50:51)]('"')

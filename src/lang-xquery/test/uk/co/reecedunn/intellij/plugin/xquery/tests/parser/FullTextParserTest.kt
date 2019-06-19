@@ -1603,35 +1603,40 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTIgnoreOption
 
-    @Test
-    fun testFTIgnoreOption() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (180) FTIgnoreOption")
+    internal inner class FTIgnoreOption {
+        @Test
+        @DisplayName("ignore option")
+        fun ftIgnoreOption() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("ignore option; compact whitespace")
+        fun ftIgnoreOption_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'content' keyword")
+        fun missingContentKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingContentKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingContentKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingUnionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testFTIgnoreOption_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTIgnoreOption_MissingContentKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingContentKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingContentKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTIgnoreOption_MissingUnionExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingUnionExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingUnionExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 }
