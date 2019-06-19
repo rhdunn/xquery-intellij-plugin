@@ -4313,7 +4313,7 @@ class XQueryParser : XPathParser() {
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseFTPosFilter(builder: PsiBuilder): Boolean {
+    override fun parseFTPosFilter(builder: PsiBuilder): Boolean {
         return (
             parseFTOrder(builder) ||
             parseFTWindow(builder) ||
@@ -4321,15 +4321,6 @@ class XQueryParser : XPathParser() {
             parseFTScope(builder) ||
             parseFTContent(builder)
         )
-    }
-
-    private fun parseFTOrder(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ORDERED)
-        if (marker != null) {
-            marker.done(XPathElementType.FT_ORDER)
-            return true
-        }
-        return false
     }
 
     private fun parseFTWindow(builder: PsiBuilder): Boolean {

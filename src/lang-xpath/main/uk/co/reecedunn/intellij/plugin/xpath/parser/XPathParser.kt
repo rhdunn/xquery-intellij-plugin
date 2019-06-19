@@ -768,7 +768,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
+    private fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WITHOUT)
         if (marker != null) {
             var haveError = false
@@ -879,7 +879,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseIntersectExceptExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1845,6 +1845,10 @@ open class XPathParser : PsiParser {
     open fun parseFTSelection(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTWordsValue(builder)) {
+            do {
+                parseWhiteSpaceAndCommentTokens(builder)
+            } while (parseFTPosFilter(builder))
+
             marker.done(XPathElementType.FT_SELECTION)
             return true
         }
@@ -1875,6 +1879,25 @@ open class XPathParser : PsiParser {
             return true
         }
         marker.drop()
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: FTPosFilter
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    open fun parseFTPosFilter(builder: PsiBuilder): Boolean {
+        return (
+            parseFTOrder(builder)
+        )
+    }
+
+    fun parseFTOrder(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ORDERED)
+        if (marker != null) {
+            marker.done(XPathElementType.FT_ORDER)
+            return true
+        }
         return false
     }
 

@@ -169,30 +169,34 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTSelection
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (144) FTSelection")
+    internal inner class FTSelection {
+        @Test
+        @DisplayName("selection")
+        fun ftSelection() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTSelection() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("with single position filter")
+        fun ftPosFilter_Single() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOrder.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOrder.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("with multiple position filters")
+        fun ftPosFilter_Multiple() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTSelection_FTPosFilter_Multiple.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTSelection_FTPosFilter_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTSelection_FTPosFilter_Single() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOrder.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOrder.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTSelection_FTPosFilter_Multiple() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTSelection_FTPosFilter_Multiple.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTSelection_FTPosFilter_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTWeight
 
     @Test
@@ -671,16 +675,15 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTOrder
 
     @Test
-    fun testFTOrder() {
+    @DisplayName("XQuery Full Text 1.0 EBNF (159) FTOrder")
+    fun ftOrder() {
         val expected = loadResource("tests/parser/full-text-1.0/FTOrder.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTOrder.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // endregion
     // region Full Text 1.0 :: FTWindow
 
     @Test

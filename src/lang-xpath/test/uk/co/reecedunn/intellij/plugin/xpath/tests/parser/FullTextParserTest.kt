@@ -118,6 +118,34 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (76) FTSelection")
+    internal inner class FTSelection {
+        @Test
+        @DisplayName("selection")
+        fun ftSelection() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("with single position filter")
+        fun ftPosFilter_Single() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOrder.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOrder.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("with multiple position filters")
+        fun ftPosFilter_Multiple() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTSelection_FTPosFilter_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTSelection_FTPosFilter_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (85) FTWordsValue")
     internal inner class FTWordsValue {
         @Test
@@ -167,6 +195,14 @@ private class FullTextParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+    }
+
+    @Test
+    @DisplayName("XPath Full Text 1.0 EBNF (91) FTOrder")
+    fun ftOrder() {
+        val expected = loadResource("tests/parser/xpath-full-text-1.0/FTOrder.txt")
+        val actual = parseResource("tests/parser/xpath-full-text-1.0/FTOrder.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Nested
