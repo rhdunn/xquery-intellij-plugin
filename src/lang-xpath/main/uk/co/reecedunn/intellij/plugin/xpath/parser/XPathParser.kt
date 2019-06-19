@@ -1962,12 +1962,24 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseFTPrimaryWithOptions(builder: PsiBuilder): Boolean {
-        val ret = parseFTWordsValue(builder)
-        parseWhiteSpaceAndCommentTokens(builder)
-        return ret
+        return parseFTWords(builder)
     }
 
-    fun parseFTWordsValue(builder: PsiBuilder): Boolean {
+    fun parseFTWords(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseFTWordsValue(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseFTAnyallOption(builder))
+                marker.done(XPathElementType.FT_WORDS)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseFTWordsValue(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseStringLiteral(builder)) {
             marker.done(XPathElementType.FT_WORDS_VALUE)
@@ -1987,6 +1999,28 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_WORDS_VALUE)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseFTAnyallOption(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.K_ANY)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            builder.matchTokenType(XPathTokenType.K_WORD)
+
+            marker.done(XPathElementType.FT_ANYALL_OPTION)
+            return true
+        } else if (builder.matchTokenType(XPathTokenType.K_ALL)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            builder.matchTokenType(XPathTokenType.K_WORDS)
+
+            marker.done(XPathElementType.FT_ANYALL_OPTION)
+            return true
+        } else if (builder.matchTokenType(XPathTokenType.K_PHRASE)) {
+            marker.done(XPathElementType.FT_ANYALL_OPTION)
             return true
         }
         marker.drop()

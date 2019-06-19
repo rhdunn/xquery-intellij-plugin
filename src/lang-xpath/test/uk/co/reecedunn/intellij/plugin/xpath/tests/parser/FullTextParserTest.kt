@@ -294,6 +294,50 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (84) FTWords ; XPath Full Text 1.0 EBNF (87) FTAnyallOption")
+    internal inner class FTWords_FTAnyallOption {
+        @Test
+        @DisplayName("any")
+        fun any() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_Any.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_Any.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("any word")
+        fun anyWord() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_AnyWord.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_AnyWord.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all")
+        fun all() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_All.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_All.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all words")
+        fun allWords() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_AllWords.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_AllWords.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("phrase")
+        fun phrase() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_Phrase.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTAnyallOption_Phrase.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (85) FTWordsValue")
     internal inner class FTWordsValue {
         @Test

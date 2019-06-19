@@ -455,6 +455,50 @@ private class FullTextParserTest : ParserTestCase() {
     // endregion
 
     @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (152) FTWords ; XQuery Full Text 1.0 EBNF (155) FTAnyallOption")
+    internal inner class FTWords_FTAnyallOption {
+        @Test
+        @DisplayName("any")
+        fun any() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_Any.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_Any.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("any word")
+        fun anyWord() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_AnyWord.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_AnyWord.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all")
+        fun all() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_All.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_All.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all words")
+        fun allWords() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_AllWords.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_AllWords.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("phrase")
+        fun phrase() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_Phrase.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_Phrase.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (153) FTWordsValue")
     internal inner class FTWordsValue {
         @Test
@@ -547,44 +591,6 @@ private class FullTextParserTest : ParserTestCase() {
     fun testFTExtensionSelection_MissingCloseBrace() {
         val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region Full Text 1.0 :: FTAnyallOption
-
-    @Test
-    fun testFTAnyallOption_Any() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_Any.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_Any.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnyallOption_AnyWord() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_AnyWord.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_AnyWord.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnyallOption_All() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_All.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_All.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnyallOption_AllWords() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_AllWords.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_AllWords.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTAnyallOption_Phrase() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_Phrase.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_Phrase.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

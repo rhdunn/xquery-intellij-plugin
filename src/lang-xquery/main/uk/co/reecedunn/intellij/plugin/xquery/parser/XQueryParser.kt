@@ -3986,20 +3986,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTWords(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseFTWordsValue(builder)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseFTAnyallOption(builder))
-                marker.done(XPathElementType.FT_WORDS)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     private fun parseFTExtensionSelection(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         var haveError = false
@@ -4031,28 +4017,6 @@ class XQueryParser : XPathParser() {
 
         marker.done(XPathElementType.FT_EXTENSION_SELECTION)
         return true
-    }
-
-    private fun parseFTAnyallOption(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.K_ANY)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            builder.matchTokenType(XPathTokenType.K_WORD)
-
-            marker.done(XPathElementType.FT_ANYALL_OPTION)
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.K_ALL)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            builder.matchTokenType(XPathTokenType.K_WORDS)
-
-            marker.done(XPathElementType.FT_ANYALL_OPTION)
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.K_PHRASE)) {
-            marker.done(XPathElementType.FT_ANYALL_OPTION)
-            return true
-        }
-        marker.drop()
-        return false
     }
 
     private fun parseFTTimes(builder: PsiBuilder): Boolean {
