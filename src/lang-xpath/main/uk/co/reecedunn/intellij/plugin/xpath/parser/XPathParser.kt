@@ -1962,7 +1962,21 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseFTPrimaryWithOptions(builder: PsiBuilder): Boolean {
-        return parseFTWords(builder)
+        return parseFTPrimary(builder)
+    }
+
+    open fun parseFTPrimary(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseFTWords(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseFTTimes(builder))
+                marker.done(XPathElementType.FT_PRIMARY)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     fun parseFTWords(builder: PsiBuilder): Boolean {
@@ -2024,6 +2038,52 @@ open class XPathParser : PsiParser {
             return true
         }
         marker.drop()
+        return false
+    }
+
+    fun parseFTTimes(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OCCURS)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseFTRange(builder, XPathElementType.FT_RANGE)) {
+                builder.error(XPathBundle.message("parser.error.expected", "FTRange"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_TIMES) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "times"))
+            }
+
+            marker.done(XPathElementType.FT_TIMES)
+            return true
+        }
+        return false
+    }
+
+    open fun parseFTRange(builder: PsiBuilder, type: IElementType): Boolean {
+        if (builder.tokenType === XPathTokenType.K_AT) {
+            val marker = builder.mark()
+            builder.advanceLexer()
+
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.FTRANGE_AT_QUALIFIER_TOKENS)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "least, most"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseAdditiveExpr(builder, type) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
+            }
+
+            marker.done(type)
+            return true
+        }
         return false
     }
 

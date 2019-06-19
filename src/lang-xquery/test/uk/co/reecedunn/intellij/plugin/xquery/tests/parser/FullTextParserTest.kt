@@ -404,20 +404,6 @@ private class FullTextParserTest : ParserTestCase() {
     // region Full Text 1.0 :: FTPrimary
 
     @Test
-    fun testFTPrimary_Words() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTPrimary_WordsTimes() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testFTPrimary_Parenthesis() {
         val expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.xq")
@@ -453,6 +439,46 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (151) FTPrimary")
+    internal inner class FTPrimary {
+        @Nested
+        @DisplayName("XQuery Full Text 1.0 EBNF (152) FTWords ; XQuery Full Text 1.0 EBNF (156) FTTimes")
+        internal inner class FTWords_FTTimes {
+            @Test
+            @DisplayName("words")
+            fun words() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurs")
+            fun times() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing FTRange")
+            fun missingFTRange() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTTimes_MissingFTRange.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTTimes_MissingFTRange.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'times' keyword")
+            fun missingTimesKeyword() {
+                val expected = loadResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.txt")
+                val actual = parseResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
 
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (152) FTWords ; XQuery Full Text 1.0 EBNF (155) FTAnyallOption")
@@ -591,30 +617,6 @@ private class FullTextParserTest : ParserTestCase() {
     fun testFTExtensionSelection_MissingCloseBrace() {
         val expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region Full Text 1.0 :: FTTimes
-
-    @Test
-    fun testFTTimes() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTTimes_MissingFTRange() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTTimes_MissingFTRange.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTTimes_MissingFTRange.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTTimes_MissingTimesKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

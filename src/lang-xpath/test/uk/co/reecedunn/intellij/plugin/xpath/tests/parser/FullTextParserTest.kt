@@ -294,6 +294,46 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (83) FTPrimary")
+    internal inner class FTPrimary {
+        @Nested
+        @DisplayName("XPath Full Text 1.0 EBNF (84) FTWords ; XPath Full Text 1.0 EBNF (88) FTTimes")
+        internal inner class FTWords_FTTimes {
+            @Test
+            @DisplayName("words")
+            fun words() {
+                val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWordsValue.txt")
+                val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWordsValue.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurs")
+            fun times() {
+                val expected = loadResource("tests/parser/xpath-full-text-1.0/FTRange_AtLeast.txt")
+                val actual = parseResource("tests/parser/xpath-full-text-1.0/FTRange_AtLeast.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing FTRange")
+            fun missingFTRange() {
+                val expected = loadResource("tests/parser/xpath-full-text-1.0/FTTimes_MissingFTRange.txt")
+                val actual = parseResource("tests/parser/xpath-full-text-1.0/FTTimes_MissingFTRange.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'times' keyword")
+            fun missingTimesKeyword() {
+                val expected = loadResource("tests/parser/xpath-full-text-1.0/FTTimes_MissingTimesKeyword.txt")
+                val actual = parseResource("tests/parser/xpath-full-text-1.0/FTTimes_MissingTimesKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (84) FTWords ; XPath Full Text 1.0 EBNF (87) FTAnyallOption")
     internal inner class FTWords_FTAnyallOption {
         @Test

@@ -3953,7 +3953,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTPrimary(builder: PsiBuilder): Boolean {
+    override fun parseFTPrimary(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTWords(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -4019,29 +4019,7 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    private fun parseFTTimes(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OCCURS)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTRange(builder, XPathElementType.FT_RANGE)) {
-                builder.error(XPathBundle.message("parser.error.expected", "FTRange"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_TIMES) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "times"))
-            }
-
-            marker.done(XPathElementType.FT_TIMES)
-            return true
-        }
-        return false
-    }
-
-    private fun parseFTRange(builder: PsiBuilder, type: IElementType): Boolean {
+    override fun parseFTRange(builder: PsiBuilder, type: IElementType): Boolean {
         if (builder.tokenType === XPathTokenType.K_EXACTLY) {
             val marker = builder.mark()
             builder.advanceLexer()
