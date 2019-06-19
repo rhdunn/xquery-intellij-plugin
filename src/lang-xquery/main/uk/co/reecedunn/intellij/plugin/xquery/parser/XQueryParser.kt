@@ -3904,30 +3904,6 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: FTSelection
-
-    override fun parseFTPrimaryWithOptions(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseFTPrimary(builder)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveOptions = parseFTMatchOptions(builder)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseFTWeight(builder)) {
-                haveOptions = true
-            }
-
-            if (haveOptions)
-                marker.done(XPathElementType.FT_PRIMARY_WITH_OPTIONS)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    // endregion
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
@@ -4053,7 +4029,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
-    private fun parseFTMatchOptions(builder: PsiBuilder): Boolean {
+    override fun parseFTMatchOptions(builder: PsiBuilder): Boolean {
         var haveFTMatchOptions = false
         var haveFTMatchOption: Boolean
         do {

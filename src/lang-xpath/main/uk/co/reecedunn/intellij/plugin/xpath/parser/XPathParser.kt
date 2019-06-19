@@ -1868,7 +1868,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: FTSelection
 
-    fun parseFTSelection(builder: PsiBuilder): Boolean {
+    private fun parseFTSelection(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTOr(builder)) {
             do {
@@ -1987,11 +1987,11 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFTPrimaryWithOptions(builder: PsiBuilder): Boolean {
+    private fun parseFTPrimaryWithOptions(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTPrimary(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            var haveOptions = false
+            var haveOptions = parseFTMatchOptions(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseFTWeight(builder)) {
@@ -2008,7 +2008,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFTPrimary(builder: PsiBuilder): Boolean {
+    private fun parseFTPrimary(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTWords(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2074,7 +2074,7 @@ open class XPathParser : PsiParser {
         return true
     }
 
-    fun parseFTWords(builder: PsiBuilder): Boolean {
+    private fun parseFTWords(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFTWordsValue(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2136,7 +2136,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFTTimes(builder: PsiBuilder): Boolean {
+    private fun parseFTTimes(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OCCURS)
         if (marker != null) {
             var haveError = false
@@ -2243,7 +2243,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFTWeight(builder: PsiBuilder): Boolean {
+    private fun parseFTWeight(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WEIGHT)
         if (marker != null) {
             var haveError = false
@@ -2287,6 +2287,13 @@ open class XPathParser : PsiParser {
             marker.done(XPathElementType.FT_ORDER)
             return true
         }
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: FTMatchOptions
+
+    open fun parseFTMatchOptions(builder: PsiBuilder): Boolean {
         return false
     }
 
