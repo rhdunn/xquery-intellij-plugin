@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -67,78 +68,71 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Full Text 1.0 :: ForBinding + FTScoreVar
 
-    @Test
-    fun testForBinding_FTScoreVar() {
-        val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (35) ForClause ; XQuery Full Text 1.0 EBNF (37) FTScoreVar")
+    internal inner class ForClause_FTScoreVar {
+        @Test
+        @DisplayName("score")
+        fun ftScoreVar() {
+            val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("score; compact whitespace")
+        fun ftScoreVar_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing variable indicator")
+        fun missingVarIndicator() {
+            val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingVarIndicator.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingVarIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing VarName")
+        fun missingVarName() {
+            val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingVarName.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'in' keyword from ForClause")
+        fun forClause_MissingInKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingInKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingInKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testForBinding_FTScoreVar_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (38) LetClause ; XQuery Full Text 1.0 EBNF (37) FTScoreVar")
+    internal inner class LetClause_FTScoreVar {
+        @Test
+        @DisplayName("score")
+        fun ftScoreVar() {
+            val expected = loadResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("score; compact whitespace")
+        fun ftScoreVar_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testForBinding_FTScoreVar_MissingInKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingInKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingInKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region Full Text 1.0 :: FTScoreVar
-
-    @Test
-    fun testFTScoreVar() {
-        val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTScoreVar_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTScoreVar_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTScoreVar_MissingVarName() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarName.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region Full Text 1.0 :: LetBinding + FTScoreVar
-
-    @Test
-    fun testLetBinding_FTScoreVar() {
-        val expected = loadResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetBinding_FTScoreVar_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTContainsExpr
 
     @Test

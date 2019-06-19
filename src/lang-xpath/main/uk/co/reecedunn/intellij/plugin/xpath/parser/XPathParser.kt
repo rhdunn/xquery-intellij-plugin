@@ -351,8 +351,15 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
+            val haveScoreVar = parseFTScoreVar(builder)
+
+            parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
+                if (haveScoreVar) {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
+                } else {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "in, score"))
+                }
                 haveErrors = true
             }
 
@@ -365,6 +372,28 @@ open class XPathParser : PsiParser {
             return true
         }
         marker.drop()
+        return false
+    }
+
+    fun parseFTScoreVar(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SCORE)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
+                builder.error(XPathBundle.message("parser.error.expected", "$"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            }
+
+            marker.done(XPathElementType.FT_SCORE_VAR)
+            return true
+        }
         return false
     }
 

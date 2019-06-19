@@ -1591,28 +1591,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTScoreVar(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SCORE)
-        if (marker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
-                builder.error(XPathBundle.message("parser.error.expected", "$"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
-            }
-
-            marker.done(XPathElementType.FT_SCORE_VAR)
-            return true
-        }
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: FLWORExpr :: LetClause
 
@@ -1625,7 +1603,7 @@ class XQueryParser : XPathParser() {
         val haveVariableIndicator = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
         val matched = haveVariableIndicator || parseFTScoreVar(builder)
         if (!matched) {
-            builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "$", "score"))
+            builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "$", "score"))
             haveErrors = true
         }
 
@@ -4604,7 +4582,7 @@ class XQueryParser : XPathParser() {
             }
         } else {
             // NOTE: `fuzzy` is the BaseX FTMatchOption extension.
-            builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "FTMatchOption", "fuzzy"))
+            builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "FTMatchOption", "fuzzy"))
             marker.drop()
             return false
         }
@@ -4660,7 +4638,7 @@ class XQueryParser : XPathParser() {
                 if (hasParenthesis) {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "at, default"))
                 } else {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
                 }
                 haveError = true
             }
@@ -4695,7 +4673,7 @@ class XQueryParser : XPathParser() {
                     builder.error(XQueryBundle.message("parser.error.expected-either", ",", ")"))
                 }
             } else if (!haveError) {
-                builder.errorOnTokenType(XPathTokenType.PARENTHESIS_CLOSE, XQueryBundle.message("parser.error.expected-keyword-or-token", ";", "using"))
+                builder.errorOnTokenType(XPathTokenType.PARENTHESIS_CLOSE, XPathBundle.message("parser.error.expected-keyword-or-token", ";", "using"))
             } else {
                 builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)
             }
@@ -4748,7 +4726,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_DEFAULT) && !parseFTStopWords(builder)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
             }
 
             do {
@@ -4812,7 +4790,7 @@ class XQueryParser : XPathParser() {
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTStopWords(builder)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at"))
             }
 
             marker.done(XPathElementType.FT_STOP_WORDS_INCL_EXCL)

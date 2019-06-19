@@ -10,7 +10,7 @@ XPathImpl[FILE(0:22)]
                XPathNCNameImpl[XPATH_NCNAME(6:8)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: in.')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: in, score.')
             XPathOrExprImpl[XPATH_OR_EXPR(8:12)]
                XPathVarRefImpl[XPATH_VAR_REF(8:12)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
