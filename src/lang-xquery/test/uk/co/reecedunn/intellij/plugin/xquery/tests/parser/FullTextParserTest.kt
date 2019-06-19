@@ -197,38 +197,6 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTWeight
-
-    @Test
-    fun testFTWeight() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWeight.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWeight.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWeight_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWeight_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWeight_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWeight_MissingExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWeight_MissingExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWeight_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWeight_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWeight_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWeight_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (146) FTOr")
     internal inner class FTOr {
@@ -387,13 +355,6 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Test
-    fun testFTPrimaryWithOptions_FTWeight() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWeight.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWeight.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testFTPrimaryWithOptions_MatchOptionsAndWeight() {
         val expected = loadResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptionsAndWeight.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptionsAndWeight.xq")
@@ -401,6 +362,42 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (150) FTPrimaryWithOptions ; XQuery Full Text 1.0 EBNF (145) FTWeight")
+    internal inner class FTPrimaryWithOptions_FTWeight {
+        @Test
+        @DisplayName("weight")
+        fun weight() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWeight.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWeight.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("weight; compact whitespace")
+        fun weight_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWeight_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWeight_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWeight_MissingExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWeight_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWeight_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWeight_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (151) FTPrimary")

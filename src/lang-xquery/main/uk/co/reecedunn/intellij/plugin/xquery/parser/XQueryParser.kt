@@ -4012,34 +4012,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTWeight(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WEIGHT)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
-                builder.error(XPathBundle.message("parser.error.expected", "{"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, XQueryElementType.EXPR) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected-expression"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.BLOCK_CLOSE) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", "}"))
-            }
-
-            marker.done(XPathElementType.FT_WEIGHT)
-            return true
-        }
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
