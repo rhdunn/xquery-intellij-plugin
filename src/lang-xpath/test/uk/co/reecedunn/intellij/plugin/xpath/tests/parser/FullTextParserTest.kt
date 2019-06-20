@@ -654,13 +654,29 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath Full Text 1.0 EBNF (92) FTWindow")
+    @DisplayName("XPath Full Text 1.0 EBNF (92) FTWindow ; XPath Full Text 1.0 EBNF (94) FTUnit")
     internal inner class FTWindow {
         @Test
-        @DisplayName("window")
-        fun window() {
-            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow.txt")
-            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow.xq")
+        @DisplayName("words")
+        fun words() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow_FTUnit_Words.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow_FTUnit_Words.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("sentences")
+        fun sentences() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow_FTUnit_Sentences.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow_FTUnit_Sentences.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("paragraphs")
+        fun paragraphs() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow_FTUnit_Paragraphs.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow_FTUnit_Paragraphs.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -682,7 +698,7 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath Full Text 1.0 EBNF (93) FTDistance")
+    @DisplayName("XPath Full Text 1.0 EBNF (93) FTDistance ; XPath Full Text 1.0 EBNF (94) FTUnit")
     internal inner class FTDistance {
         @Test
         @DisplayName("distance")
@@ -705,34 +721,6 @@ private class FullTextParserTest : ParserTestCase() {
         fun missingFTUnit() {
             val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDistance_MissingFTUnit.txt")
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDistance_MissingFTUnit.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath Full Text 1.0 EBNF (94) FTUnit")
-    internal inner class FTUnit {
-        @Test
-        @DisplayName("words")
-        fun words() {
-            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow.txt")
-            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("sentences")
-        fun sentences() {
-            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTUnit_Sentences.txt")
-            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTUnit_Sentences.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("paragraphs")
-        fun paragraphs() {
-            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTUnit_Paragraphs.txt")
-            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTUnit_Paragraphs.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

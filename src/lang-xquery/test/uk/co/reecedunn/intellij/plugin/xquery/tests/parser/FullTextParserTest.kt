@@ -724,13 +724,29 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (160) FTWindow")
+    @DisplayName("XQuery Full Text 1.0 EBNF (160) FTWindow ; XQuery Full Text 1.0 EBNF (162) FTUnit")
     internal inner class FTWindow {
         @Test
-        @DisplayName("window")
-        fun window() {
-            val expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt")
-            val actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq")
+        @DisplayName("words")
+        fun words() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow_FTUnit_Words.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow_FTUnit_Words.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("sentences")
+        fun sentences() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow_FTUnit_Sentences.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow_FTUnit_Sentences.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("paragraphs")
+        fun paragraphs() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow_FTUnit_Paragraphs.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow_FTUnit_Paragraphs.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -752,7 +768,7 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (161) FTDistance")
+    @DisplayName("XQuery Full Text 1.0 EBNF (161) FTDistance ; XQuery Full Text 1.0 EBNF (162) FTUnit")
     internal inner class FTDistance {
         @Test
         @DisplayName("distance")
@@ -775,34 +791,6 @@ private class FullTextParserTest : ParserTestCase() {
         fun missingFTUnit() {
             val expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.txt")
             val actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (162) FTUnit")
-    internal inner class FTUnit {
-        @Test
-        @DisplayName("words")
-        fun words() {
-            val expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt")
-            val actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("sentences")
-        fun sentences() {
-            val expected = loadResource("tests/parser/full-text-1.0/FTUnit_Sentences.txt")
-            val actual = parseResource("tests/parser/full-text-1.0/FTUnit_Sentences.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("paragraphs")
-        fun paragraphs() {
-            val expected = loadResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.txt")
-            val actual = parseResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
