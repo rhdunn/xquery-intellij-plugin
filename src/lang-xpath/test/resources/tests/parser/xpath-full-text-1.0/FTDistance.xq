@@ -1,0 +1,1 @@
+title contains text "lorem" distance exactly 4 words

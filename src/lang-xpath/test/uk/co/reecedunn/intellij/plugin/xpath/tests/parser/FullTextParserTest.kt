@@ -682,6 +682,34 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (93) FTDistance")
+    internal inner class FTDistance {
+        @Test
+        @DisplayName("distance")
+        fun distance() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDistance.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDistance.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTRange")
+        fun missingFTRange() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDistance_MissingFTRange.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDistance_MissingFTRange.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTUnit")
+        fun missingFTUnit() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDistance_MissingFTUnit.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDistance_MissingFTUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

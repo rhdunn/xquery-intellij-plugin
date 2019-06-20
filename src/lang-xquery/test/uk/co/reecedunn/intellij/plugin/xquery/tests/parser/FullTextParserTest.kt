@@ -751,30 +751,34 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTDistance
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (161) FTDistance")
+    internal inner class FTDistance {
+        @Test
+        @DisplayName("distance")
+        fun distance() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTDistance.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTDistance.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTDistance() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTDistance.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTDistance.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing FTRange")
+        fun missingFTRange() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTRange.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTRange.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTUnit")
+        fun missingFTUnit() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTDistance_MissingFTRange() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTRange.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTRange.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTDistance_MissingFTUnit() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTUnit
 
     @Test

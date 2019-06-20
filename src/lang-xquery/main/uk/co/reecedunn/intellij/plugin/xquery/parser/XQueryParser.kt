@@ -3910,32 +3910,9 @@ class XQueryParser : XPathParser() {
     override fun parseFTPosFilter(builder: PsiBuilder): Boolean {
         return (
             super.parseFTPosFilter(builder) ||
-            parseFTDistance(builder) ||
             parseFTScope(builder) ||
             parseFTContent(builder)
         )
-    }
-
-    private fun parseFTDistance(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_DISTANCE)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTRange(builder, XPathElementType.FT_RANGE)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "at, exactly, from"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTUnit(builder) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
-            }
-
-            marker.done(XPathElementType.FT_DISTANCE)
-            return true
-        }
-        return false
     }
 
     private fun parseFTScope(builder: PsiBuilder): Boolean {
