@@ -3904,44 +3904,6 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: FTPosFilter
-
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun parseFTPosFilter(builder: PsiBuilder): Boolean {
-        return (
-            super.parseFTPosFilter(builder) ||
-            parseFTContent(builder)
-        )
-    }
-
-    private fun parseFTContent(builder: PsiBuilder): Boolean {
-        if (builder.tokenType === XPathTokenType.K_AT) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.FTCONTENT_AT_QUALIFIER_TOKENS)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "end, start"))
-            }
-
-            marker.done(XPathElementType.FT_CONTENT)
-            return true
-        } else if (builder.tokenType === XPathTokenType.K_ENTIRE) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_CONTENT)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "content"))
-            }
-
-            marker.done(XPathElementType.FT_CONTENT)
-            return true
-        }
-        return false
-    }
-
-    // endregion
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
     override fun parseFTMatchOptions(builder: PsiBuilder): Boolean {

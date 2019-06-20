@@ -635,7 +635,7 @@ private class FullTextParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("exactly; missing AdditiveExpr")
+        @DisplayName("error recovery: exactly; missing AdditiveExpr")
         fun exactly_MissingAdditiveExpr() {
             val expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.txt")
             val actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.xq")
@@ -839,44 +839,50 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTContent
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (165) FTContent")
+    internal inner class FTContent {
+        @Test
+        @DisplayName("at start")
+        fun atStart() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContent_AtStart.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContent_AtStart.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTContent_AtStart() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContent_AtStart.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContent_AtStart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("at end")
+        fun atEnd() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContent_AtEnd.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContent_AtEnd.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: at; missing 'start'/'end' keyword")
+        fun at_MissingStartEndKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContent_At_MissingStartEndKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContent_At_MissingStartEndKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("entire content")
+        fun entireContent() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContent_EntireContent.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContent_EntireContent.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: entire; missing 'content' keyword")
+        fun entireContent_MissingContentKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTContent_EntireContent_MissingContentKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTContent_EntireContent_MissingContentKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTContent_AtEnd() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContent_AtEnd.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContent_AtEnd.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTContent_At_MissingStartEndKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContent_At_MissingStartEndKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContent_At_MissingStartEndKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTContent_EntireContent() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContent_EntireContent.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContent_EntireContent.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTContent_EntireContent_MissingContentKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTContent_EntireContent_MissingContentKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTContent_EntireContent_MissingContentKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     @Test

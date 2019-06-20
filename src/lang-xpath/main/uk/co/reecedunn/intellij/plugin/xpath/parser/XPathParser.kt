@@ -2275,12 +2275,13 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    open fun parseFTPosFilter(builder: PsiBuilder): Boolean {
+    private fun parseFTPosFilter(builder: PsiBuilder): Boolean {
         return (
             parseFTOrder(builder) ||
             parseFTWindow(builder) ||
             parseFTDistance(builder) ||
-            parseFTScope(builder)
+            parseFTScope(builder) ||
+            parseFTContent(builder)
         )
     }
 
@@ -2370,6 +2371,33 @@ open class XPathParser : PsiParser {
             val marker = builder.mark()
             builder.advanceLexer()
             marker.done(XPathElementType.FT_BIG_UNIT)
+            return true
+        }
+        return false
+    }
+
+    private fun parseFTContent(builder: PsiBuilder): Boolean {
+        if (builder.tokenType === XPathTokenType.K_AT) {
+            val marker = builder.mark()
+            builder.advanceLexer()
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.FTCONTENT_AT_QUALIFIER_TOKENS)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "end, start"))
+            }
+
+            marker.done(XPathElementType.FT_CONTENT)
+            return true
+        } else if (builder.tokenType === XPathTokenType.K_ENTIRE) {
+            val marker = builder.mark()
+            builder.advanceLexer()
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_CONTENT)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "content"))
+            }
+
+            marker.done(XPathElementType.FT_CONTENT)
             return true
         }
         return false
