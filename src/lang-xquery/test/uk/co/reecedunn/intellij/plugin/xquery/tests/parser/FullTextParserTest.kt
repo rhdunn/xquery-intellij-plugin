@@ -808,13 +808,21 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (163) FTScope")
+    @DisplayName("XQuery Full Text 1.0 EBNF (163) FTScope ; XQuery Full Text 1.0 EBNF (164) FTBigUnit")
     internal inner class FTScope {
         @Test
-        @DisplayName("same")
-        fun same() {
-            val expected = loadResource("tests/parser/full-text-1.0/FTScope_Same.txt")
-            val actual = parseResource("tests/parser/full-text-1.0/FTScope_Same.xq")
+        @DisplayName("same sentence")
+        fun sameSentence() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_SameSentence.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_SameSentence.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("same paragraph")
+        fun sameParagraph() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_SameParagraph.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_SameParagraph.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -827,10 +835,10 @@ private class FullTextParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("different")
-        fun different() {
-            val expected = loadResource("tests/parser/full-text-1.0/FTScope_Different.txt")
-            val actual = parseResource("tests/parser/full-text-1.0/FTScope_Different.xq")
+        @DisplayName("different sentence")
+        fun differentSentence() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_DifferentSentence.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_DifferentSentence.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -843,23 +851,6 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTBigUnit
-
-    @Test
-    fun testFTBigUnit_Sentence() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScope_Same.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScope_Same.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTBigUnit_Paragraph() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTBigUnit_Paragraph.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTBigUnit_Paragraph.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTContent
 
     @Test
