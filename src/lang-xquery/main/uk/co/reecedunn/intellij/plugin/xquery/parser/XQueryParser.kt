@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
@@ -3906,30 +3907,9 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
-    override fun parseFTMatchOptions(builder: PsiBuilder): Boolean {
-        var haveFTMatchOptions = false
-        var haveFTMatchOption: Boolean
-        do {
-            if (builder.matchTokenType(XPathTokenType.K_USING)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseFTMatchOption(builder)
-                haveFTMatchOption = true
-            } else if (XQueryTokenType.FTMATCH_OPTION_START_TOKENS.contains(builder.tokenType)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "using"))
-                parseFTMatchOption(builder)
-                haveFTMatchOption = true
-            } else {
-                haveFTMatchOption = false
-            }
+    override val FTMATCH_OPTION_START_TOKENS: TokenSet = XQueryTokenType.FTMATCH_OPTION_START_TOKENS
 
-            parseWhiteSpaceAndCommentTokens(builder)
-            haveFTMatchOptions = haveFTMatchOptions or haveFTMatchOption
-        } while (haveFTMatchOption)
-
-        return haveFTMatchOptions
-    }
-
-    private fun parseFTMatchOption(builder: PsiBuilder): Boolean {
+    override fun parseFTMatchOption(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (
             parseFTCaseOption(builder, marker) ||
@@ -3970,22 +3950,6 @@ class XQueryParser : XPathParser() {
             return false
         }
         return true
-    }
-
-    private fun parseFTCaseOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_LOWERCASE) || builder.matchTokenType(XPathTokenType.K_UPPERCASE)) {
-            marker.done(XPathElementType.FT_CASE_OPTION)
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.K_CASE)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.FTCASE_SENSITIVITY_QUALIFIER_TOKENS)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
-            }
-
-            marker.done(XPathElementType.FT_CASE_OPTION)
-            return true
-        }
-        return false
     }
 
     private fun parseFTDiacriticsOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {

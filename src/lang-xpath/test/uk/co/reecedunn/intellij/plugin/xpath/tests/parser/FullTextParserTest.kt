@@ -814,6 +814,74 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (100) FTCaseOption")
+    internal inner class FTCaseOption {
+        @Test
+        @DisplayName("lower case")
+        fun lowerCase() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_LowerCase.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_LowerCase.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: lower case; missing 'using' keyword")
+        fun lowerCase_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_LowerCase_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_LowerCase_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("upper case")
+        fun upperCase() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_UpperCase.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_UpperCase.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: upper case; missing 'using' keyword")
+        fun upperCase_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_UpperCase_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_UpperCase_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("case sensitive")
+        fun caseSensitive() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_Sensitive.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_Sensitive.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("case insensitive")
+        fun caseInsensitive() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_Insensitive.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_Insensitive.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: case; missing 'sensitivity' keyword")
+        fun case_MissingSensitivityKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_MissingSensitivityKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_MissingSensitivityKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: case; missing 'using' keyword")
+        fun case_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

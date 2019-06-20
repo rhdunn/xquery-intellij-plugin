@@ -254,6 +254,20 @@ object XPathTokenType {
 
     val FTDIACRITICS_SENSITIVITY_QUALIFIER_TOKENS = FTCASE_SENSITIVITY_QUALIFIER_TOKENS
 
+    val FTMATCH_OPTION_START_TOKENS = TokenSet.create(
+        K_CASE,
+        K_DIACRITICS,
+        K_LANGUAGE,
+        K_LOWERCASE,
+        K_NO,
+        K_OPTION,
+        K_STEMMING,
+        K_STOP,
+        K_THESAURUS,
+        K_UPPERCASE,
+        K_WILDCARDS
+    )
+
     val FTRANGE_AT_QUALIFIER_TOKENS = TokenSet.create(K_LEAST, K_MOST)
 
     val FTSCOPE_QUALIFIER_TOKENS = TokenSet.create(K_SAME, K_DIFFERENT)
