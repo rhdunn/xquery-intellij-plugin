@@ -966,6 +966,42 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (103) FTThesaurusOption")
+    internal inner class FTThesaurusOption {
+        @Test
+        @DisplayName("default")
+        fun default() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_Default.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_Default.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: thesaurus; missing 'using' keyword")
+        fun default_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no thesaurus")
+        fun noThesaurus() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_NoThesaurus.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_NoThesaurus.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no thesaurus; missing 'using' keyword")
+        fun noThesaurus_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

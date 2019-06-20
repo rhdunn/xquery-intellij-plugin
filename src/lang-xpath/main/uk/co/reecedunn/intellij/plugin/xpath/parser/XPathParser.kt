@@ -834,7 +834,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseMultiplicativeExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2437,17 +2437,20 @@ open class XPathParser : PsiParser {
         if (
             parseFTCaseOption(builder, marker) ||
             parseFTDiacriticsOption(builder, marker) ||
-            parseFTStemOption(builder, marker)
+            parseFTStemOption(builder, marker) ||
+            parseFTThesaurusOption(builder, marker)
         ) {
             //
         } else if (builder.matchTokenType(XPathTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
-                marker.done(XPathElementType.FT_STEM_OPTION)
-            } else {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
-                marker.drop()
-                return false
+            when {
+                builder.matchTokenType(XPathTokenType.K_STEMMING) -> marker.done(XPathElementType.FT_STEM_OPTION)
+                builder.matchTokenType(XPathTokenType.K_THESAURUS) -> marker.done(XPathElementType.FT_THESAURUS_OPTION)
+                else -> {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
+                    marker.drop()
+                    return false
+                }
             }
         } else {
             builder.error(XPathBundle.message("parser.error.expected", "FTMatchOption"))
@@ -2489,6 +2492,19 @@ open class XPathParser : PsiParser {
     fun parseFTStemOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
             marker.done(XPathElementType.FT_STEM_OPTION)
+            return true
+        }
+        return false
+    }
+
+    open fun parseFTThesaurusOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
+            }
+
+            marker.done(XPathElementType.FT_THESAURUS_OPTION)
             return true
         }
         return false

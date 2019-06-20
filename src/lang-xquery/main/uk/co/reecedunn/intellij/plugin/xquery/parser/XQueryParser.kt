@@ -3952,7 +3952,7 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    private fun parseFTThesaurusOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+    override fun parseFTThesaurusOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
             var haveError = false
 

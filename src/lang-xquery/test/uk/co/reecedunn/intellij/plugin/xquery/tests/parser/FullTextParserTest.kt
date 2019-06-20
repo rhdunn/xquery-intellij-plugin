@@ -1021,33 +1021,48 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTThesaurusOption
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (171) FTThesaurusOption")
+    internal inner class FTThesaurusOption {
+        @Test
+        @DisplayName("default")
+        fun default() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Default.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Default.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTThesaurusOption_Default() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Default.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Default.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: thesaurus; missing 'using' keyword")
+        fun default_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no thesaurus")
+        fun noThesaurus() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no thesaurus; missing 'using' keyword")
+        fun noThesaurus_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
+
+    // region Full Text 1.0 :: FTThesaurusOption
 
     @Test
     fun testFTThesaurusOption_ThesaurusID() {
         val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTThesaurusOption_NoThesaurus() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTThesaurusOption_NoThesaurus_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
@@ -1153,13 +1168,6 @@ private class FullTextParserTest : ParserTestCase() {
     fun testFTThesaurusOption_UnexpectedClosingParenthesis() {
         val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_UnexpectedClosingParenthesis.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_UnexpectedClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTThesaurusOption_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingUsingKeyword.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
