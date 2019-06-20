@@ -37,37 +37,41 @@ private class FullTextParserTest : ParserTestCase() {
         return ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource).decode()
     }
 
-    // region Full Text 1.0 :: FTOptionDecl + FTMatchOptions
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (24) FTOptionDecl ; XQuery Full Text 1.0 EBNF (167) FTMatchOptions")
+    internal inner class FTOptionDecl {
+        @Test
+        @DisplayName("option declaration")
+        fun ftOptionDecl() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOptionDecl.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOptionDecl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTOptionDecl() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing FTMatchOptions")
+        fun missingFTMatchOptions() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTMatchOption")
+        fun missingFTMatchOption() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOptionDecl_FTMatchOptions_MissingFTMatchOption.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOptionDecl_FTMatchOptions_MissingFTMatchOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: 'no' keyword without option qualifier")
+        fun noKeywordOnly() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTOptionDecl_FTMatchOptions_NoKeywordOnly.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTOptionDecl_FTMatchOptions_NoKeywordOnly.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testFTOptionDecl_MissingFTMatchOptions() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTOptionDecl_MissingFTOption() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTMatchOptions_MissingFTMatchOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTMatchOptions_MissingFTMatchOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTOptionDecl_NoKeywordOnly() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTMatchOptions_NoKeywordOnly.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTMatchOptions_NoKeywordOnly.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (35) ForClause ; XQuery Full Text 1.0 EBNF (37) FTScoreVar")
