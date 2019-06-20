@@ -723,30 +723,34 @@ private class FullTextParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // region Full Text 1.0 :: FTWindow
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (160) FTWindow")
+    internal inner class FTWindow {
+        @Test
+        @DisplayName("window")
+        fun window() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTWindow() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing AdditiveExpr")
+        fun missingAdditiveExpr() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTUnit")
+        fun missingFTUnit() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTWindow_MissingAdditiveExpr() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingAdditiveExpr.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingAdditiveExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWindow_MissingFTUnit() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTDistance
 
     @Test

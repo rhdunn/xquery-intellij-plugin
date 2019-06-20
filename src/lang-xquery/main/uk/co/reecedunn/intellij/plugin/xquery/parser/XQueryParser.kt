@@ -3909,34 +3909,11 @@ class XQueryParser : XPathParser() {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseFTPosFilter(builder: PsiBuilder): Boolean {
         return (
-            parseFTOrder(builder) ||
-            parseFTWindow(builder) ||
+            super.parseFTPosFilter(builder) ||
             parseFTDistance(builder) ||
             parseFTScope(builder) ||
             parseFTContent(builder)
         )
-    }
-
-    private fun parseFTWindow(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WINDOW)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseAdditiveExpr(builder, XPathElementType.FT_WINDOW)) {
-                builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTUnit(builder) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
-            }
-
-            marker.done(XPathElementType.FT_WINDOW)
-            return true
-        }
-        return false
     }
 
     private fun parseFTDistance(builder: PsiBuilder): Boolean {
@@ -3997,20 +3974,6 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XPathElementType.FT_CONTENT)
-            return true
-        }
-        return false
-    }
-
-    private fun parseFTUnit(builder: PsiBuilder): Boolean {
-        if (
-            builder.tokenType === XPathTokenType.K_WORDS ||
-            builder.tokenType === XPathTokenType.K_SENTENCES ||
-            builder.tokenType === XPathTokenType.K_PARAGRAPHS
-        ) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-            marker.done(XPathElementType.FT_UNIT)
             return true
         }
         return false

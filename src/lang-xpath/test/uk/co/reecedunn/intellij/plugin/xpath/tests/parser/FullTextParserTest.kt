@@ -654,6 +654,34 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (92) FTWindow")
+    internal inner class FTWindow {
+        @Test
+        @DisplayName("window")
+        fun window() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing AdditiveExpr")
+        fun missingAdditiveExpr() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTUnit")
+        fun missingFTUnit() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow_MissingFTUnit.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow_MissingFTUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test
