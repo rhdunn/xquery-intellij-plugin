@@ -1,16 +1,28 @@
-XQueryModuleImpl[FILE(0:31)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:31)]
-         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:30)]
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
-            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
-            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
-            FTStemOptionImpl[XPATH_FT_STEM_OPTION(18:29)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO(18:20)]('no')
-               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(21:29)]('stemming')
-            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(30:31)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing query body.')
+XQueryModuleImpl[FILE(0:39)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:39)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:39)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:39)]
+               FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:39)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                  FTSelectionImpl[XPATH_FT_SELECTION(20:39)]
+                     FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:39)]
+                        FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected keyword: using.')
+                        FTStemOptionImpl[XPATH_FT_STEM_OPTION(28:39)]
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NO(28:30)]('no')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STEMMING(31:39)]('stemming')

@@ -918,6 +918,42 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (102) FTStemOption")
+    internal inner class FTStemOption {
+        @Test
+        @DisplayName("stemming")
+        fun stemming() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStemOption.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStemOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: stemming; missing 'using' keyword")
+        fun stemming_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStemOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStemOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no stemming")
+        fun noStemming() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStemOption_NoStemming.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStemOption_NoStemming.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no stemming; missing 'using' keyword")
+        fun noStemming_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

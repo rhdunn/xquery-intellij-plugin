@@ -352,13 +352,6 @@ private class FullTextParserTest : ParserTestCase() {
     // region Full Text 1.0 :: FTPrimaryWithOptions
 
     @Test
-    fun testFTPrimaryWithOptions_MatchOptions() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptions.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptions.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testFTPrimaryWithOptions_MatchOptionsAndWeight() {
         val expected = loadResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptionsAndWeight.txt")
         val actual = parseResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptionsAndWeight.xq")
@@ -991,37 +984,42 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTStemOption
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (170) FTStemOption")
+    internal inner class FTStemOption {
+        @Test
+        @DisplayName("stemming")
+        fun stemming() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStemOption.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStemOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTStemOption() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStemOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStemOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: stemming; missing 'using' keyword")
+        fun stemming_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStemOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStemOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no stemming")
+        fun noStemming() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no stemming; missing 'using' keyword")
+        fun noStemming_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTStemOption_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStemOption_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStemOption_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStemOption_NoStemming() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStemOption_NoStemming_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTThesaurusOption
 
     @Test

@@ -1,1 +1,1 @@
-declare ft-option using no stemming ;
+title contains text "lorem" using no stemming

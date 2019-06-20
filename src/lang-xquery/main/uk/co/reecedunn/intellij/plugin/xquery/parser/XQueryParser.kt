@@ -3952,14 +3952,6 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    private fun parseFTStemOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
-            marker.done(XPathElementType.FT_STEM_OPTION)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTThesaurusOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
             var haveError = false

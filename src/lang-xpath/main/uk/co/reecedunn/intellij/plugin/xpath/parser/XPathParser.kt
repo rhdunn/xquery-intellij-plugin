@@ -2436,9 +2436,19 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (
             parseFTCaseOption(builder, marker) ||
-            parseFTDiacriticsOption(builder, marker)
+            parseFTDiacriticsOption(builder, marker) ||
+            parseFTStemOption(builder, marker)
         ) {
             //
+        } else if (builder.matchTokenType(XPathTokenType.K_NO)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
+                marker.done(XPathElementType.FT_STEM_OPTION)
+            } else {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
+                marker.drop()
+                return false
+            }
         } else {
             builder.error(XPathBundle.message("parser.error.expected", "FTMatchOption"))
             marker.drop()
@@ -2471,6 +2481,14 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_DIACRITICS_OPTION)
+            return true
+        }
+        return false
+    }
+
+    fun parseFTStemOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
+            marker.done(XPathElementType.FT_STEM_OPTION)
             return true
         }
         return false
