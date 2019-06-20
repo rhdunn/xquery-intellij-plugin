@@ -710,6 +710,34 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (94) FTUnit")
+    internal inner class FTUnit {
+        @Test
+        @DisplayName("words")
+        fun words() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWindow.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWindow.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("sentences")
+        fun sentences() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTUnit_Sentences.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTUnit_Sentences.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("paragraphs")
+        fun paragraphs() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTUnit_Paragraphs.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTUnit_Paragraphs.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

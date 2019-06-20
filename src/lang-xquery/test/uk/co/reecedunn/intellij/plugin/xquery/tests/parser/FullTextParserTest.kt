@@ -779,30 +779,34 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTUnit
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (162) FTUnit")
+    internal inner class FTUnit {
+        @Test
+        @DisplayName("words")
+        fun words() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTUnit_Words() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("sentences")
+        fun sentences() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTUnit_Sentences.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTUnit_Sentences.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("paragraphs")
+        fun paragraphs() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTUnit_Sentences() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTUnit_Sentences.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTUnit_Sentences.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTUnit_Paragraphs() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTScope
 
     @Test
