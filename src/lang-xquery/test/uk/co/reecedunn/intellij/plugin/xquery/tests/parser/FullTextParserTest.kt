@@ -807,37 +807,42 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTScope
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (163) FTScope")
+    internal inner class FTScope {
+        @Test
+        @DisplayName("same")
+        fun same() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_Same.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_Same.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTScope_Same() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScope_Same.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScope_Same.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: same; missing FTBigUnit")
+        fun same_MissingFTBigUnit() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_Same_MissingFTBigUnit.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_Same_MissingFTBigUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("different")
+        fun different() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_Different.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_Different.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: different; missing FTBigUnit")
+        fun different_MissingFTBigUnit() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTScope_Different_MissingFTBigUnit.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTScope_Different_MissingFTBigUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTScope_Same_MissingFTBigUnit() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScope_Same_MissingFTBigUnit.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScope_Same_MissingFTBigUnit.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTScope_Different() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScope_Different.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScope_Different.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTScope_Different_MissingFTBigUnit() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTScope_Different_MissingFTBigUnit.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTScope_Different_MissingFTBigUnit.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTBigUnit
 
     @Test

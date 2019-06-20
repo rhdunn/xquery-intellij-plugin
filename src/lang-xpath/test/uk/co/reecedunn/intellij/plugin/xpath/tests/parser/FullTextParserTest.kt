@@ -738,6 +738,42 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (95) FTScope")
+    internal inner class FTScope {
+        @Test
+        @DisplayName("same")
+        fun same() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTScope_Same.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTScope_Same.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: same; missing FTBigUnit")
+        fun same_MissingFTBigUnit() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTScope_Same_MissingFTBigUnit.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTScope_Same_MissingFTBigUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("different")
+        fun different() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTScope_Different.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTScope_Different.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: different; missing FTBigUnit")
+        fun different_MissingFTBigUnit() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTScope_Different_MissingFTBigUnit.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTScope_Different_MissingFTBigUnit.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

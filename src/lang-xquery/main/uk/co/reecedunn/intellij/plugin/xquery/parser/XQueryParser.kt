@@ -3910,23 +3910,8 @@ class XQueryParser : XPathParser() {
     override fun parseFTPosFilter(builder: PsiBuilder): Boolean {
         return (
             super.parseFTPosFilter(builder) ||
-            parseFTScope(builder) ||
             parseFTContent(builder)
         )
-    }
-
-    private fun parseFTScope(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.FTSCOPE_QUALIFIER_TOKENS)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTBigUnit(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraph, sentence"))
-            }
-
-            marker.done(XPathElementType.FT_SCOPE)
-            return true
-        }
-        return false
     }
 
     private fun parseFTContent(builder: PsiBuilder): Boolean {
@@ -3951,16 +3936,6 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XPathElementType.FT_CONTENT)
-            return true
-        }
-        return false
-    }
-
-    private fun parseFTBigUnit(builder: PsiBuilder): Boolean {
-        if (builder.tokenType === XPathTokenType.K_SENTENCE || builder.tokenType === XPathTokenType.K_PARAGRAPH) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-            marker.done(XPathElementType.FT_BIG_UNIT)
             return true
         }
         return false
