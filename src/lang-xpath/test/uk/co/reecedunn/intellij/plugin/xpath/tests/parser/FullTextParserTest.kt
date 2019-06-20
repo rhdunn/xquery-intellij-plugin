@@ -999,6 +999,90 @@ private class FullTextParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("thesaurus id")
+        fun thesaurusID() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing FTThesaurusID")
+        fun missingThesaurusID() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_MissingThesaurusID.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusOption_MissingThesaurusID.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (104) FTThesaurusID")
+    internal inner class FTThesaurusID {
+        @Test
+        @DisplayName("thesaurus id")
+        fun thesaurusID() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("thesaurus id; compact whitespace")
+        fun thesaurusID_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing URILiteral")
+        fun missingUriLiteral() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_MissingUriLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_MissingUriLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("relationship")
+        fun relationship() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_Relationship.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_Relationship.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("relationship; compact whitespace")
+        fun relationship_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_Relationship_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_Relationship_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: relationship; missing StringLiteral")
+        fun relationship_MissingStringLiteral() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_Relationship_MissingStringLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_Relationship_MissingStringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("literal range")
+        fun literalRange() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTLiteralRange_Exactly.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTLiteralRange_Exactly.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: literal range; missing 'levels' keyword")
+        fun literalRange_MissingLevelsKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_LiteralRange_MissingLevelsKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTThesaurusID_LiteralRange_MissingLevelsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested

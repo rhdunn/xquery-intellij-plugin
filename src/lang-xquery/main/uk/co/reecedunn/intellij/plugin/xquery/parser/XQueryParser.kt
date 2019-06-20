@@ -3908,6 +3908,7 @@ class XQueryParser : XPathParser() {
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
     override val FTMATCH_OPTION_START_TOKENS: TokenSet = XQueryTokenType.FTMATCH_OPTION_START_TOKENS
+    override val URI_LITERAL: IElementType = XQueryElementType.URI_LITERAL
 
     override fun parseFTMatchOption(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
@@ -4005,39 +4006,6 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XPathElementType.FT_THESAURUS_OPTION)
-            return true
-        }
-        return false
-    }
-
-    private fun parseFTThesaurusID(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_AT)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
-                builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_RELATIONSHIP)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringLiteral(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
-                    haveError = true
-                }
-            }
-
-            if (parseFTRange(builder, XPathElementType.FT_LITERAL_RANGE)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_LEVELS) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "levels"))
-                }
-            }
-
-            marker.done(XPathElementType.FT_THESAURUS_ID)
             return true
         }
         return false

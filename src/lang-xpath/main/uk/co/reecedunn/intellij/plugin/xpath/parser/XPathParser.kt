@@ -2408,6 +2408,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
     open val FTMATCH_OPTION_START_TOKENS: TokenSet = XPathTokenType.FTMATCH_OPTION_START_TOKENS
+    open val URI_LITERAL: IElementType = XPathElementType.URI_LITERAL
 
     fun parseFTMatchOptions(builder: PsiBuilder): Boolean {
         var haveFTMatchOptions = false
@@ -2500,11 +2501,44 @@ open class XPathParser : PsiParser {
     open fun parseFTThesaurusOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT)) {
+            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT) && !parseFTThesaurusID(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
             }
 
             marker.done(XPathElementType.FT_THESAURUS_OPTION)
+            return true
+        }
+        return false
+    }
+
+    fun parseFTThesaurusID(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_AT)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder, URI_LITERAL)) {
+                builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_RELATIONSHIP)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStringLiteral(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
+                    haveError = true
+                }
+            }
+
+            if (parseFTRange(builder, XPathElementType.FT_LITERAL_RANGE)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_LEVELS) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "levels"))
+                }
+            }
+
+            marker.done(XPathElementType.FT_THESAURUS_ID)
             return true
         }
         return false
