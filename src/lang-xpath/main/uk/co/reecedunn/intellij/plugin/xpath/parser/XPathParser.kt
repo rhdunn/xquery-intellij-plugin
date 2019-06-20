@@ -2435,7 +2435,8 @@ open class XPathParser : PsiParser {
     open fun parseFTMatchOption(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (
-            parseFTCaseOption(builder, marker)
+            parseFTCaseOption(builder, marker) ||
+            parseFTDiacriticsOption(builder, marker)
         ) {
             //
         } else {
@@ -2457,6 +2458,19 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_CASE_OPTION)
+            return true
+        }
+        return false
+    }
+
+    fun parseFTDiacriticsOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_DIACRITICS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.FTDIACRITICS_SENSITIVITY_QUALIFIER_TOKENS)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
+            }
+
+            marker.done(XPathElementType.FT_DIACRITICS_OPTION)
             return true
         }
         return false

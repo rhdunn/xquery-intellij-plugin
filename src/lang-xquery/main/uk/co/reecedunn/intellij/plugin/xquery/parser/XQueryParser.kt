@@ -3952,19 +3952,6 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    private fun parseFTDiacriticsOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_DIACRITICS)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.FTDIACRITICS_SENSITIVITY_QUALIFIER_TOKENS)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
-            }
-
-            marker.done(XPathElementType.FT_DIACRITICS_OPTION)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTStemOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
             marker.done(XPathElementType.FT_STEM_OPTION)

@@ -770,7 +770,7 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (97) FTContent")
+    @DisplayName("XPath Full Text 1.0 EBNF (97) FTContent")
     internal inner class FTContent {
         @Test
         @DisplayName("at start")
@@ -814,7 +814,7 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (100) FTCaseOption")
+    @DisplayName("XPath Full Text 1.0 EBNF (100) FTCaseOption")
     internal inner class FTCaseOption {
         @Test
         @DisplayName("lower case")
@@ -877,6 +877,42 @@ private class FullTextParserTest : ParserTestCase() {
         fun case_MissingUsingKeyword() {
             val expected = loadResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_MissingUsingKeyword.txt")
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTCaseOption_Case_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (101) FTDiacriticsOption")
+    internal inner class FTDiacriticsOption {
+        @Test
+        @DisplayName("sensitive")
+        fun sensitive() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_Sensitive.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_Sensitive.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("insensitive")
+        fun insensitive() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_Insensitive.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_Insensitive.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'sensitivity' keyword")
+        fun missingSensitivityKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_MissingSensitivityKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_MissingSensitivityKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'using' keyword")
+        fun missingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTDiacriticsOption_MissingUsingKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

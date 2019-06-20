@@ -1,0 +1,25 @@
+XPathImpl[FILE(0:44)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:44)]
+      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:44)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+               XPathNCNameImpl[XPATH_NCNAME(0:6)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+         FTSelectionImpl[XPATH_FT_SELECTION(20:44)]
+            FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:44)]
+               FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+               FTDiacriticsOptionImpl[XPATH_FT_DIACRITICS_OPTION(34:44)]
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIACRITICS(34:44)]('diacritics')
+                  PsiErrorElementImpl[ERROR_ELEMENT(44:44)]('XPST0003: Expected keyword: sensitive, insensitive.')
