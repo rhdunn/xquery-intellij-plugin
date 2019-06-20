@@ -1243,114 +1243,130 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTLiteralRange (FTThesaurusOption)
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (173) FTLiteralRange")
+    internal inner class FTLiteralRange {
+        @Test
+        @DisplayName("exactly")
+        fun exactly() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTLiteralRange_Exactly() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("exactly; compact whitespace")
+        fun exactly_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: exactly; missing IntegerLiteral")
+        fun exactly_MissingIntegerLiteral() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingIntegerLiteral.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingIntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: at; missing qualifier")
+        fun at_MissingQualifier() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_At_MissingQualifier.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_At_MissingQualifier.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("at least")
+        fun atLeast() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("at least; compact whitespace")
+        fun atLeast_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: at least; missing IntegerLiteral")
+        fun atLeast_MissingIntegerLiteral() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_MissingIntegerLiteral.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_MissingIntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("at most")
+        fun atMost() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("at most; compact whitespace")
+        fun atMost_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing IntegerLiteral")
+        fun atMost_MissingIntegerLiteral() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingIntegerLiteral.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingIntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("from/to")
+        fun fromTo() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("from/to; compact whitespace")
+        fun fromTo_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: from/to; missing 'from' IntegerLiteral")
+        fun fromTo_MissingFromLiteral() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingFromLiteral.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingFromLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: from/to; missing 'to' keyword")
+        fun fromTo_MissingToKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: from/to; missing 'to' IntegerLiteral")
+        fun fromTo_MissingToLiteral() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToLiteral.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTLiteralRange_Exactly_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_Exactly_MissingIntegerLiteral() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingIntegerLiteral.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingIntegerLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_At_MissingQualifier() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_At_MissingQualifier.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_At_MissingQualifier.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_AtLeast() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_AtLeast_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_AtLeast_MissingIntegerLiteral() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_MissingIntegerLiteral.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_MissingIntegerLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_AtMost() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_AtMost_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_AtMost_MissingIntegerLiteral() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingIntegerLiteral.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingIntegerLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_FromTo() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_FromTo_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_FromTo_MissingFromLiteral() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingFromLiteral.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingFromLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_FromTo_MissingToKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLiteralRange_FromTo_MissingToLiteral() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToLiteral.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTStopWordOption
 
     @Test
