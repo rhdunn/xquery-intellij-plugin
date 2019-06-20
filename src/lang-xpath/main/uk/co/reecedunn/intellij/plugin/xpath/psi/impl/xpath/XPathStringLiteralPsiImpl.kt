@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsString
 
-class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
+open class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedContent.invalidate()
@@ -33,7 +33,7 @@ class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
 
     override val value: XsAnyAtomicType get() = XsString(cachedContent.get()!!, this)
 
-    private val cachedContent = CacheableProperty {
+    protected val cachedContent = CacheableProperty {
         children().map { child ->
             when (child.node.elementType) {
                 XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->

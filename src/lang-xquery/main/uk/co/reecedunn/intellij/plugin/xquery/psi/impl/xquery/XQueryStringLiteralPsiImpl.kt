@@ -28,10 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-open class XQueryStringLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathStringLiteral {
-
+open class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedContent.invalidate()

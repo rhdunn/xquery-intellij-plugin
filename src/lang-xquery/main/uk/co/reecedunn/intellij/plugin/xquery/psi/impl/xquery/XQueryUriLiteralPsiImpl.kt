@@ -20,10 +20,10 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
-class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), XQueryUriLiteral {
+class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
     override fun getReference(): PsiReference {
         val range = textRange
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))

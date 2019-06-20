@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 
 class XQuerySchemaImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -46,7 +46,7 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
         }
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
 }

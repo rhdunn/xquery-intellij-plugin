@@ -73,7 +73,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("uri literal content")
             fun uriLiteral() {
-                val psi = parse<XQueryUriLiteral>("module namespace test = \"Lorem ipsum.\uFFFF\"")[0]
+                val psi = parse<XPathUriLiteral>("module namespace test = \"Lorem ipsum.\uFFFF\"")[0]
                 assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
                 val literal = psi.value as XsAnyUriValue
@@ -84,7 +84,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("unclosed uri literal content")
             fun unclosedUriLiteral() {
-                val psi = parse<XQueryUriLiteral>("module namespace test = \"Lorem ipsum.")[0]
+                val psi = parse<XPathUriLiteral>("module namespace test = \"Lorem ipsum.")[0]
                 assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
                 val literal = psi.value as XsAnyUriValue
@@ -95,7 +95,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
-                val psi = parse<XQueryUriLiteral>("module namespace test = '''\"\"'")[0]
+                val psi = parse<XPathUriLiteral>("module namespace test = '''\"\"'")[0]
                 assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
                 val literal = psi.value as XsAnyUriValue
@@ -106,7 +106,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
-                val psi = parse<XQueryUriLiteral>("module namespace test = \"''\"\"\"")[0]
+                val psi = parse<XPathUriLiteral>("module namespace test = \"''\"\"\"")[0]
                 assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
                 val literal = psi.value as XsAnyUriValue
@@ -118,7 +118,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val psi = parse<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
+                val psi = parse<XPathUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
                 assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
                 val literal = psi.value as XsAnyUriValue
@@ -129,7 +129,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val psi = parse<XQueryUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")[0]
+                val psi = parse<XPathUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")[0]
                 assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
                 val literal = psi.value as XsAnyUriValue

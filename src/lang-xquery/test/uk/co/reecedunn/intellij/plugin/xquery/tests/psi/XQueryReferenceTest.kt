@@ -54,7 +54,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XQueryUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
                 val httpUriRef = uriLiterals.first().reference
@@ -75,7 +75,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XQueryUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
                 val ref = uriLiterals.last().reference
@@ -98,7 +98,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XQueryUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
                 val ref = uriLiterals.last().reference
@@ -119,7 +119,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XQueryUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
                 val ref = uriLiterals.last().reference

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -43,7 +44,7 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
 }

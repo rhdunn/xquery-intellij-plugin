@@ -586,6 +586,12 @@ object XPathElementType {
         XPath
     )
 
+    val URI_LITERAL: IElementType = ICompositeElementType(
+        "XPATH_URI_LITERAL",
+        XPathUriLiteralPsiImpl::class.java,
+        XPath
+    )
+
     val FT_CASE_OPTION: IElementType = ICompositeElementType(
         "XPATH_FT_CASE_OPTION",
         FTCaseOptionPsiImpl::class.java,

@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryModuleDeclPsiImpl(node: ASTNode) :
@@ -40,7 +40,7 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     }
 
     override val namespaceUri get(): XsAnyUriValue? =
-        children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
     // region XQueryPrologResolver
