@@ -21,6 +21,7 @@ import com.intellij.icons.AllIcons
 import com.intellij.openapi.wm.ToolWindowId
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginIcons
 import javax.swing.Icon
 
 class DefaultProfileExecutor : Executor() {
@@ -35,9 +36,9 @@ class DefaultProfileExecutor : Executor() {
 
     override fun getToolWindowIcon(): Icon = AllIcons.Actions.Profile
 
-    override fun getIcon(): Icon = AllIcons.Actions.Profile
+    override fun getIcon(): Icon = PluginIcons.Actions.Profile
 
-    override fun getDisabledIcon(): Icon = AllIcons.Actions.Profile
+    override fun getDisabledIcon(): Icon = PluginIcons.Actions.Profile
 
     override fun getActionName(): String = PluginApiBundle.message("executor.profile.toolwindow.name")
 

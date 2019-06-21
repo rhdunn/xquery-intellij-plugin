@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <g id="speedometer" stroke="#228B22" stroke-width="1.75" fill="none" transform="translate(0,3)">
+        <path d="M1,8 a0.9,1 0 0 1 14,0"/>
+        <path d="M5.2,3.5 L9,8.25 Z"/>
+    </g>
+</svg>
