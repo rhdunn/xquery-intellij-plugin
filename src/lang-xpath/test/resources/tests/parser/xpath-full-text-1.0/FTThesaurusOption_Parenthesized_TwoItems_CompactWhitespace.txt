@@ -1,0 +1,32 @@
+XPathImpl[FILE(0:83)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:83)]
+      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:83)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+               XPathNCNameImpl[XPATH_NCNAME(0:6)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+         FTSelectionImpl[XPATH_FT_SELECTION(19:83)]
+            FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:83)]
+               FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(26:31)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+               FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(32:83)]
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(32:41)]('thesaurus')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(41:42)]('(')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(42:49)]('default')
+                  LeafPsiElement[XPATH_COMMA_TOKEN(49:50)](',')
+                  FTThesaurusIDImpl[XPATH_FT_THESAURUS_ID(50:82)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(50:52)]('at')
+                     XPathUriLiteralImpl[XPATH_URI_LITERAL(52:82)]
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(52:53)]('"')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(53:81)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(81:82)]('"')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(82:83)](')')

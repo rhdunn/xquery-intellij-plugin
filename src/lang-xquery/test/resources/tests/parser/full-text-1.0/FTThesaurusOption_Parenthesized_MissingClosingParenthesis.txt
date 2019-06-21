@@ -1,20 +1,32 @@
-XQueryModuleImpl[FILE(0:45)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:45)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:45)]
-         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:44)]
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
-            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
-            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
-            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-            FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(24:44)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
-               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
-               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
-               PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(44:44)]('XPST0003: Expected ',' or ')'.')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(44:45)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Missing query body.')
+XQueryModuleImpl[FILE(0:53)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:53)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:53)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:53)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:53)]
+               FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:53)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                  FTSelectionImpl[XPATH_FT_SELECTION(20:53)]
+                     FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:53)]
+                        FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                        FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(34:53)]
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_THESAURUS(34:43)]('thesaurus')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+                           LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(46:53)]('default')
+                           PsiErrorElementImpl[ERROR_ELEMENT(53:53)]('XPST0003: Expected ',' or ')'.')

@@ -3953,64 +3953,6 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    override fun parseFTThesaurusOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            val hasParenthesis = builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT) && !parseFTThesaurusID(builder)) {
-                if (hasParenthesis) {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "at, default"))
-                } else {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
-                }
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveComma: Boolean
-            if (hasParenthesis) {
-                haveComma = builder.matchTokenType(XPathTokenType.COMMA)
-            } else {
-                haveComma = builder.errorOnTokenType(XPathTokenType.COMMA, XQueryBundle.message("parser.error.full-text.multientry-thesaurus-requires-parenthesis"))
-                haveError = haveError or haveComma
-            }
-
-            while (haveComma) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseFTThesaurusID(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "at"))
-
-                    builder.matchTokenType(XPathTokenType.K_DEFAULT)
-                    parseWhiteSpaceAndCommentTokens(builder)
-
-                    haveError = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                haveComma = builder.matchTokenType(XPathTokenType.COMMA)
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (hasParenthesis) {
-                if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                    builder.error(XQueryBundle.message("parser.error.expected-either", ",", ")"))
-                }
-            } else if (!haveError) {
-                builder.errorOnTokenType(XPathTokenType.PARENTHESIS_CLOSE, XPathBundle.message("parser.error.expected-keyword-or-token", ";", "using"))
-            } else {
-                builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)
-            }
-
-            marker.done(XPathElementType.FT_THESAURUS_OPTION)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTStopWordOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_STOP)) {
             parseWhiteSpaceAndCommentTokens(builder)
