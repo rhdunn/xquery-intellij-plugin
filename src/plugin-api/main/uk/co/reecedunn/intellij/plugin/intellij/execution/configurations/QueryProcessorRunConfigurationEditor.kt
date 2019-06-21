@@ -137,7 +137,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateServerUI() {
-        val session = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
+        val session = try {
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
+        } catch (e: Exception) {
+            null
+        }
         session?.servers?.execute { servers ->
             val server = server!!
             val current = server.selectedItem
