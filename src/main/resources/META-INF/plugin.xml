@@ -58,6 +58,7 @@
         terminal symbols.
       </li>
       <li>Report an error if an unknown axis name is followed by the <code>::</code> axis indicator.</li>
+      <li>Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.</li>
     </ol>
   ]]></change-notes>
 

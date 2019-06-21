@@ -1626,7 +1626,7 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Full Text 1.0 EBNF (110) FTWildCardOption")
+    @DisplayName("XPath Full Text 1.0 EBNF (110) FTWildCardOption")
     internal inner class FTWildCardOption {
         @Test
         @DisplayName("wildcards")
@@ -1657,6 +1657,50 @@ private class FullTextParserTest : ParserTestCase() {
         fun noWildCards_MissingUsingKeyword() {
             val expected = loadResource("tests/parser/xpath-full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.txt")
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (111) FTExtensionOption")
+    internal inner class FTExtensionOption {
+        @Test
+        @DisplayName("extension")
+        fun extension() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTExtensionOption.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTExtensionOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extension; compact whitespace")
+        fun extension_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing option name")
+        fun missingOptionName() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_MissingOptionName.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_MissingOptionName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing option value")
+        fun missingOptionValue() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_MissingOptionValue.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_MissingOptionValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'using' keyword")
+        fun missingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTExtensionOption_MissingUsingKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

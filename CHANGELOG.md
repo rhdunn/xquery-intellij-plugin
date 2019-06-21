@@ -45,6 +45,7 @@ XPath and XQuery:
     `URIQualifiedName` without whitespace or comment tokens, due to them being
     non-delimiting terminal symbols.
 1.  Report an error if an unknown axis name is followed by the `::` axis indicator.
+1.  Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.
 
 ## 1.4.1 - 2019-03-27
 
@@ -94,6 +95,8 @@ XPath and XQuery:
     prefix is `some`, or `every`.
 1.  Fix parsing  ``` ``[`{...}`...`]`` ``` -- `StringConstructorInterpolation`
     at the start of a `StringConstructor`.
+1.  Split out the core XPath 2.0, 3.0, and 3.1 syntax into an XPath lexer and
+    parser.
 
 Static Context:
 

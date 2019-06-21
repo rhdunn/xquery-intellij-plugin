@@ -3952,27 +3952,6 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    private fun parseFTExtensionOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_OPTION)) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
-            }
-
-            marker.done(XPathElementType.FT_EXTENSION_OPTION)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTFuzzyOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XQueryTokenType.K_FUZZY)) {
             marker.done(XQueryElementType.FT_FUZZY_OPTION)

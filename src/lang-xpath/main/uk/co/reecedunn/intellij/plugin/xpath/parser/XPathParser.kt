@@ -2438,6 +2438,7 @@ open class XPathParser : PsiParser {
         if (
             parseFTCaseOption(builder, marker) ||
             parseFTDiacriticsOption(builder, marker) ||
+            parseFTExtensionOption(builder, marker) ||
             parseFTLanguageOption(builder, marker) ||
             parseFTStemOption(builder, marker) ||
             parseFTStopWordOption(builder, marker) ||
@@ -2698,6 +2699,27 @@ open class XPathParser : PsiParser {
     fun parseFTWildCardOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
             marker.done(XPathElementType.FT_WILDCARD_OPTION)
+            return true
+        }
+        return false
+    }
+
+    fun parseFTExtensionOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_OPTION)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, QNAME, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
+            }
+
+            marker.done(XPathElementType.FT_EXTENSION_OPTION)
             return true
         }
         return false
