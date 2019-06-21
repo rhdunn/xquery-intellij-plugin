@@ -2439,6 +2439,7 @@ open class XPathParser : PsiParser {
             parseFTCaseOption(builder, marker) ||
             parseFTDiacriticsOption(builder, marker) ||
             parseFTStemOption(builder, marker) ||
+            parseFTStopWordOption(builder, marker) ||
             parseFTThesaurusOption(builder, marker)
         ) {
             //
@@ -2447,6 +2448,13 @@ open class XPathParser : PsiParser {
             when {
                 builder.matchTokenType(XPathTokenType.K_STEMMING) -> marker.done(XPathElementType.FT_STEM_OPTION)
                 builder.matchTokenType(XPathTokenType.K_THESAURUS) -> marker.done(XPathElementType.FT_THESAURUS_OPTION)
+                builder.matchTokenType(XPathTokenType.K_STOP) -> {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
+                        builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
+                    }
+                    marker.done(XPathElementType.FT_STOP_WORD_OPTION)
+                }
                 else -> {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
                     marker.drop()
@@ -2584,6 +2592,26 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_THESAURUS_ID)
+            return true
+        }
+        return false
+    }
+
+    open fun parseFTStopWordOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_STOP)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+
+            marker.done(XPathElementType.FT_STOP_WORD_OPTION)
             return true
         }
         return false

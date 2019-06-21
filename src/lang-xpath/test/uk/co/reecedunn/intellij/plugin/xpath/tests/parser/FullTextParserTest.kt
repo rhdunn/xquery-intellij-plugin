@@ -1322,6 +1322,66 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (106) FTStopWordOption")
+    internal inner class FTStopWordOption {
+        @Test
+        @DisplayName("default")
+        fun default() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_Default.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_Default.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: stop words; missing 'words' keyword")
+        fun missingWordsKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_Default_MissingWordsKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_Default_MissingWordsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing stop words")
+        fun missingStopWords() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_MissingStopWords.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_MissingStopWords.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'using' keyword")
+        fun missingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no stop words")
+        fun noStopWords() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no stop words; missing 'words' keyword")
+        fun noStopWords_MissingWordsKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords_MissingWordsKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords_MissingWordsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no stop words; missing 'using' keyword")
+        fun noStopWords_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test
