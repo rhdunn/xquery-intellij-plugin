@@ -13,14 +13,14 @@ XPathImpl[FILE(0:51)]
             FTMildNotImpl[XPATH_FT_MILD_NOT(19:51)]
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(26:29)]('not')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(30:32)]('in')
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(32:51)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(32:51)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(32:33)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(33:50)]('lorem ipsum dolor')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(50:51)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(32:33)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(33:50)]('lorem ipsum dolor')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(50:51)]('"')

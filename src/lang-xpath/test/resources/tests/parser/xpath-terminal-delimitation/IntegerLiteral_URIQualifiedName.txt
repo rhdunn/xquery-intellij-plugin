@@ -8,6 +8,6 @@ XPathImpl[FILE(0:33)]
             XPathURIQualifiedNameImpl[XPATH_URI_QUALIFIED_NAME(4:33)]
                XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(4:29)]
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(4:6)]('Q{')
-                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(6:28)]('http://www.example.com')
+                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(6:28)]('http://www.example.com')
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(28:29)]('}')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:33)]('test')

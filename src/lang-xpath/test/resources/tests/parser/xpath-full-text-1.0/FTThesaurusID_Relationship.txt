@@ -14,9 +14,9 @@ XPathImpl[FILE(0:97)]
             FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:97)]
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
@@ -27,13 +27,13 @@ XPathImpl[FILE(0:97)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(44:46)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                      XPathUriLiteralImpl[XPATH_URI_LITERAL(47:77)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(47:48)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(48:76)]('http://www.example.com/de-CH')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(76:77)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(47:48)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(48:76)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(76:77)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP(78:90)]('relationship')
                      PsiWhiteSpaceImpl[WHITE_SPACE(90:91)](' ')
                      XPathStringLiteralImpl[XPATH_STRING_LITERAL(91:97)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(91:92)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(92:96)]('test')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(96:97)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(91:92)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(92:96)]('test')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(96:97)]('"')

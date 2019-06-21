@@ -14,9 +14,9 @@ XPathImpl[FILE(0:89)]
             FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:89)]
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
@@ -32,8 +32,8 @@ XPathImpl[FILE(0:89)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(54:56)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
                      XPathUriLiteralImpl[XPATH_URI_LITERAL(57:87)]
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(57:58)]('"')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(58:86)]('http://www.example.com/de-CH')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(86:87)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(57:58)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(58:86)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(86:87)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(87:88)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(88:89)](')')

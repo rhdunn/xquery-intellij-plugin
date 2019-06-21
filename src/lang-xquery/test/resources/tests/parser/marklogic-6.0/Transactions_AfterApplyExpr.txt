@@ -21,9 +21,9 @@ XQueryModuleImpl[FILE(0:53)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(13:19)]('module')
             PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(20:50)]
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/other')
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/other')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(49:50)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(50:51)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(51:52)]('\n')
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(52:53)]

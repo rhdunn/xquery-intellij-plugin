@@ -14,9 +14,9 @@ XPathImpl[FILE(0:45)]
             FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:45)]
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')

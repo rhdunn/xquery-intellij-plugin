@@ -13,9 +13,9 @@ XQueryModuleImpl[FILE(0:43)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(25:32)]
                            XPathOrExprImpl[XPATH_OR_EXPR(25:32)]
                               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(25:31)]
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(25:26)]('"')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(26:30)]('test')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(30:31)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(25:26)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(26:30)]('test')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(30:31)]('"')
                               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected '}'.')
                      XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(32:43)]
@@ -25,8 +25,8 @@ XQueryModuleImpl[FILE(0:43)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(34:42)]
                               XPathOrExprImpl[XPATH_OR_EXPR(34:42)]
                                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(34:41)]
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(34:35)]('"')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(35:40)]('value')
-                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(40:41)]('"')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(34:35)]('"')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(35:40)]('value')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(40:41)]('"')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                         LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(42:43)]('}')

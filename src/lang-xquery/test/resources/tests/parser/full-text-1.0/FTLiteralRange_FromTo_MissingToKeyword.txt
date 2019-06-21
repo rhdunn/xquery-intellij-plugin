@@ -17,9 +17,9 @@ XQueryModuleImpl[FILE(0:93)]
                      FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:93)]
                         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                         PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
@@ -30,9 +30,9 @@ XQueryModuleImpl[FILE(0:93)]
                               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(44:46)]('at')
                               PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(47:77)]
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(47:48)]('"')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(48:76)]('http://www.example.com/de-CH')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(76:77)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(47:48)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(48:76)]('http://www.example.com/de-CH')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(76:77)]('"')
                               PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                               FTLiteralRangeImpl[XPATH_FT_LITERAL_RANGE(78:86)]
                                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FROM(78:82)]('from')

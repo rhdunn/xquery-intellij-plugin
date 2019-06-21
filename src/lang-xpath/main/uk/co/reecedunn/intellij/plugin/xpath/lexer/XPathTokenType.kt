@@ -189,9 +189,9 @@ object XPathTokenType {
     val DECIMAL_LITERAL = IElementType("XPATH_DECIMAL_LITERAL_TOKEN", XPath) // XPath 1.0 Number ; XPath 2.0
     val DOUBLE_LITERAL = IElementType("XPATH_DOUBLE_LITERAL_TOKEN", XPath) // XPath 2.0
 
-    val STRING_LITERAL_START = IElementType("XPATH_DOUBLE_LITERAL_START_TOKEN", XPath) // XPath 1.0 Literal ; XPath 2.0 StringLiteral
-    val STRING_LITERAL_CONTENTS = IElementType("XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN", XPath) // XPath 1.0 Literal ; XPath 2.0 StringLiteral
-    val STRING_LITERAL_END = IElementType("XPATH_DOUBLE_LITERAL_END_TOKEN", XPath) // XPath 1.0 Literal ; XPath 2.0 StringLiteral
+    val STRING_LITERAL_START = IElementType("XPATH_STRING_LITERAL_START_TOKEN", XPath) // XPath 1.0 Literal ; XPath 2.0 StringLiteral
+    val STRING_LITERAL_CONTENTS = IElementType("XPATH_STRING_LITERAL_CONTENTS_TOKEN", XPath) // XPath 1.0 Literal ; XPath 2.0 StringLiteral
+    val STRING_LITERAL_END = IElementType("XPATH_STRING_LITERAL_END_TOKEN", XPath) // XPath 1.0 Literal ; XPath 2.0 StringLiteral
     val ESCAPED_CHARACTER = IElementType("XPATH_ESCAPED_CHARACTER_TOKEN", XPath) // XPath 2.0 EscapeQuot ; XPath 2.0 EscapeApos ; XQuery 1.0 CommonContent
 
     val BRACED_URI_LITERAL_START = IElementType("XPATH_BRACED_URI_LITERAL_START_TOKEN", XPath) // XPath 3.0

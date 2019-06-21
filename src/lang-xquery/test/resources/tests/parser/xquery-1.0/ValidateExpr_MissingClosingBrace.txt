@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:17)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:17)]
                         XPathOrExprImpl[XPATH_OR_EXPR(11:17)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(11:17)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(11:12)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(12:16)]('true')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(16:17)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(11:12)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(12:16)]('true')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')
                   PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '}'.')

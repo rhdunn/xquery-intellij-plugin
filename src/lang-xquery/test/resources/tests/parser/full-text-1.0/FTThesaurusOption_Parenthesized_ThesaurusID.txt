@@ -17,9 +17,9 @@ XQueryModuleImpl[FILE(0:81)]
                      FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:81)]
                         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                         PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
@@ -32,8 +32,8 @@ XQueryModuleImpl[FILE(0:81)]
                               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(46:48)]('at')
                               PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(49:79)]
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(49:50)]('"')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(50:78)]('http://www.example.com/de-CH')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(78:79)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(49:50)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(50:78)]('http://www.example.com/de-CH')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(78:79)]('"')
                               PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
                            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(80:81)](')')

@@ -13,15 +13,15 @@ XPathImpl[FILE(0:43)]
          FTSelectionImpl[XPATH_FT_SELECTION(20:28)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
-                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                  LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
          FTIgnoreOptionImpl[XPATH_FT_IGNORE_OPTION(28:43)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITHOUT(28:35)]('without')
             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected keyword: content.')
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(36:43)]
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(36:37)]('"')
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(37:42)]('ipsum')
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(42:43)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(36:37)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:42)]('ipsum')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(42:43)]('"')

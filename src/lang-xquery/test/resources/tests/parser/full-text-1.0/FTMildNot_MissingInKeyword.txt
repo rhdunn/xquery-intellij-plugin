@@ -17,15 +17,15 @@ XQueryModuleImpl[FILE(0:51)]
                      FTMildNotImpl[XPATH_FT_MILD_NOT(20:51)]
                         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(28:31)]('not')
                         PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected keyword: in.')
                         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(32:51)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(32:51)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(32:33)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(33:50)]('lorem ipsum dolor')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(50:51)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(32:33)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(33:50)]('lorem ipsum dolor')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(50:51)]('"')

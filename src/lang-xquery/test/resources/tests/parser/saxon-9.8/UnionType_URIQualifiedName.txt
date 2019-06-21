@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:127)]
                   XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(32:74)]
                      XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(32:67)]
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(32:34)]('Q{')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:66)]('http://www.w3.org/2001/XMLSchema')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(34:66)]('http://www.w3.org/2001/XMLSchema')
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(66:67)]('}')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(67:74)]('integer')
                   PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
@@ -32,7 +32,7 @@ XQueryModuleImpl[FILE(0:127)]
                   XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(77:118)]
                      XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(77:112)]
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(77:79)]('Q{')
-                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(79:111)]('http://www.w3.org/2001/XMLSchema')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(79:111)]('http://www.w3.org/2001/XMLSchema')
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(111:112)]('}')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(112:118)]('double')
                   PsiWhiteSpaceImpl[WHITE_SPACE(118:119)](' ')

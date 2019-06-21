@@ -16,9 +16,9 @@ XQueryModuleImpl[FILE(0:92)]
                      FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:92)]
                         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(26:31)]('using')
                         PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                         FTThesaurusOptionImpl[XPATH_FT_THESAURUS_OPTION(32:92)]
@@ -27,11 +27,11 @@ XQueryModuleImpl[FILE(0:92)]
                            FTThesaurusIDImpl[XPATH_FT_THESAURUS_ID(42:92)]
                               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
                               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:74)]
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(44:45)]('"')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(73:74)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(44:45)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(73:74)]('"')
                               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP(74:86)]('relationship')
                               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(86:92)]
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(86:87)]('"')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(87:91)]('test')
-                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(91:92)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(86:87)]('"')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(87:91)]('test')
+                                 LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(91:92)]('"')

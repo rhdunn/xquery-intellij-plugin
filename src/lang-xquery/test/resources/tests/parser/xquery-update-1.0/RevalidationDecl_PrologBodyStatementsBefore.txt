@@ -38,9 +38,9 @@ XQueryModuleImpl[FILE(0:114)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(76:77)]('z')
                PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(78:84)]
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(78:79)]('"')
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(79:83)]('test')
-               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(83:84)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(78:79)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(79:83)]('test')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(83:84)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(84:85)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(85:86)]('\n')
          UpdateFacilityRevalidationDeclImpl[XQUERY_REVALIDATION_DECL(86:113)]

@@ -13,9 +13,9 @@ XQueryModuleImpl[FILE(0:48)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:20)]
                         XPathOrExprImpl[XPATH_OR_EXPR(13:20)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(13:14)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(14:18)]('true')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(18:19)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(18:19)]('"')
                            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(20:21)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
@@ -32,8 +32,8 @@ XQueryModuleImpl[FILE(0:48)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(40:47)]
                         XPathOrExprImpl[XPATH_OR_EXPR(40:47)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(40:46)]
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(40:41)]('"')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(41:45)]('true')
-                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(45:46)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(40:41)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(41:45)]('true')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(45:46)]('"')
                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(47:48)]('}')
