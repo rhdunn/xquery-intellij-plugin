@@ -1379,6 +1379,106 @@ private class FullTextParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWordOption_NoStopWords_MissingUsingKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("stop words")
+        fun stopWords() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Single.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Single.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (107) FTStopWords")
+    internal inner class FTStopWords {
+        @Test
+        @DisplayName("location")
+        fun location() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_Location.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_Location.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("location; compact whitespace")
+        fun location_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_Location_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_Location_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: location; missing URILiteral")
+        fun location_MissingUriLiteral() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_Location_MissingUriLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_Location_MissingUriLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: list; missing stop word")
+        fun list_MissingStopWord() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_MissingStopWord.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_MissingStopWord.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("list; single")
+        fun list_Single() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Single.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Single.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("list; single; compact whitespace")
+        fun list_Single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Single_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Single_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("list; two words")
+        fun list_TwoWords() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_TwoWords.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_TwoWords.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("list; two words; compact whitespace")
+        fun list_TwoWords_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_TwoWords_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_TwoWords_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: list; two words; missing stop word")
+        fun list_TwoWords_MissingStopWord() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_TwoWords_MissingStopWord.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_TwoWords_MissingStopWord.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("list; multiple")
+        fun list_Multiple() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("list; multiple; compact whitespace")
+        fun list_Multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTStopWords_List_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested

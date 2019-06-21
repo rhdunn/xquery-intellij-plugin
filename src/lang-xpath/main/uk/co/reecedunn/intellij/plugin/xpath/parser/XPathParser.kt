@@ -2605,13 +2605,59 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT)) {
+            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT) && !parseFTStopWords(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
 
             marker.done(XPathElementType.FT_STOP_WORD_OPTION)
+            return true
+        }
+        return false
+    }
+
+    fun parseFTStopWords(builder: PsiBuilder): Boolean {
+        if (builder.tokenType === XPathTokenType.K_AT) {
+            val marker = builder.mark()
+            builder.advanceLexer()
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder, URI_LITERAL)) {
+                builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
+            }
+
+            marker.done(XPathElementType.FT_STOP_WORDS)
+            return true
+        } else if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
+            val marker = builder.mark()
+            builder.advanceLexer()
+
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStringLiteral(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
+                    haveError = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected-either", ",", ")"))
+            }
+
+            marker.done(XPathElementType.FT_STOP_WORDS)
             return true
         }
         return false

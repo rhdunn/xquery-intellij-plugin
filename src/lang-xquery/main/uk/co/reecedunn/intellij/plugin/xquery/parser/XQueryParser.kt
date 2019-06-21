@@ -3975,52 +3975,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFTStopWords(builder: PsiBuilder): Boolean {
-        if (builder.tokenType === XPathTokenType.K_AT) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
-                builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
-            }
-
-            marker.done(XPathElementType.FT_STOP_WORDS)
-            return true
-        } else if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringLiteral(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
-                    haveError = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                builder.error(XQueryBundle.message("parser.error.expected-either", ",", ")"))
-            }
-
-            marker.done(XPathElementType.FT_STOP_WORDS)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTStopWordsInclExcl(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS)
         if (marker != null) {
