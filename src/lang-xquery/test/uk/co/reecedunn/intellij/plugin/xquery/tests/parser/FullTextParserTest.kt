@@ -1645,37 +1645,42 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTLanguageOption
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (177) FTLanguageOption")
+    internal inner class FTLanguageOption {
+        @Test
+        @DisplayName("language")
+        fun language() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTLanguageOption() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("language; compact whitespace")
+        fun language_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing StringLiteral")
+        fun missingStringLiteral() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_MissingStringLiteral.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_MissingStringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'using' keyword")
+        fun missingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTLanguageOption_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLanguageOption_MissingStringLiteral() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_MissingStringLiteral.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_MissingStringLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTLanguageOption_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTWildCardOption
 
     @Test

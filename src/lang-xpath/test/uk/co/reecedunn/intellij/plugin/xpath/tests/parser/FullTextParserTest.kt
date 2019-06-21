@@ -1590,6 +1590,42 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath Full Text 1.0 EBNF (109) FTLanguageOption")
+    internal inner class FTLanguageOption {
+        @Test
+        @DisplayName("language")
+        fun language() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTLanguageOption.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTLanguageOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("language; compact whitespace")
+        fun language_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTLanguageOption_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTLanguageOption_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing StringLiteral")
+        fun missingStringLiteral() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTLanguageOption_MissingStringLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTLanguageOption_MissingStringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'using' keyword")
+        fun missingUsingKeyword() {
+            val expected = loadResource("tests/parser/xpath-full-text-1.0/FTLanguageOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-full-text-1.0/FTLanguageOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Full Text 1.0 EBNF (112) FTIgnoreOption")
     internal inner class FTIgnoreOption {
         @Test

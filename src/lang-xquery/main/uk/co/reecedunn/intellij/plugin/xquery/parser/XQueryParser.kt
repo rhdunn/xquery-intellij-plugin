@@ -3953,19 +3953,6 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    private fun parseFTLanguageOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_LANGUAGE)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
-            }
-
-            marker.done(XPathElementType.FT_LANGUAGE_OPTION)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTWildCardOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
             marker.done(XPathElementType.FT_WILDCARD_OPTION)

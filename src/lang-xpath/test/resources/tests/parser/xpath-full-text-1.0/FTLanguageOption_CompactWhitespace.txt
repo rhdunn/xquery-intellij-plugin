@@ -1,0 +1,26 @@
+XPathImpl[FILE(0:47)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:47)]
+      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:47)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+               XPathNCNameImpl[XPATH_NCNAME(0:6)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+         FTSelectionImpl[XPATH_FT_SELECTION(19:47)]
+            FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:47)]
+               FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(26:31)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+               FTLanguageOptionImpl[XPATH_FT_LANGUAGE_OPTION(32:47)]
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(32:40)]('language')
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(40:47)]
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(40:41)]('"')
+                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(41:46)]('en-IE')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(46:47)]('"')
