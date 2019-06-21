@@ -3926,23 +3926,22 @@ class XQueryParser : XPathParser() {
             //
         } else if (builder.matchTokenType(XPathTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_STEMMING)) {
-                marker.done(XPathElementType.FT_STEM_OPTION)
-            } else if (builder.matchTokenType(XPathTokenType.K_STOP)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
+            when {
+                builder.matchTokenType(XPathTokenType.K_STEMMING) -> marker.done(XPathElementType.FT_STEM_OPTION)
+                builder.matchTokenType(XPathTokenType.K_STOP) -> {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
+                        builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
+                    }
+                    marker.done(XPathElementType.FT_STOP_WORD_OPTION)
                 }
-
-                marker.done(XPathElementType.FT_STOP_WORD_OPTION)
-            } else if (builder.matchTokenType(XPathTokenType.K_THESAURUS)) {
-                marker.done(XPathElementType.FT_THESAURUS_OPTION)
-            } else if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
-                marker.done(XPathElementType.FT_WILDCARD_OPTION)
-            } else {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
-                marker.drop()
-                return false
+                builder.matchTokenType(XPathTokenType.K_THESAURUS) -> marker.done(XPathElementType.FT_THESAURUS_OPTION)
+                builder.matchTokenType(XPathTokenType.K_WILDCARDS) -> marker.done(XPathElementType.FT_WILDCARD_OPTION)
+                else -> {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
+                    marker.drop()
+                    return false
+                }
             }
         } else {
             // NOTE: `fuzzy` is the BaseX FTMatchOption extension.
@@ -3951,14 +3950,6 @@ class XQueryParser : XPathParser() {
             return false
         }
         return true
-    }
-
-    private fun parseFTWildCardOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
-            marker.done(XPathElementType.FT_WILDCARD_OPTION)
-            return true
-        }
-        return false
     }
 
     private fun parseFTExtensionOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {

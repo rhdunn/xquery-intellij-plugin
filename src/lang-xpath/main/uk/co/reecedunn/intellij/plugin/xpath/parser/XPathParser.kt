@@ -2441,14 +2441,14 @@ open class XPathParser : PsiParser {
             parseFTLanguageOption(builder, marker) ||
             parseFTStemOption(builder, marker) ||
             parseFTStopWordOption(builder, marker) ||
-            parseFTThesaurusOption(builder, marker)
+            parseFTThesaurusOption(builder, marker) ||
+            parseFTWildCardOption(builder, marker)
         ) {
             //
         } else if (builder.matchTokenType(XPathTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.K_STEMMING) -> marker.done(XPathElementType.FT_STEM_OPTION)
-                builder.matchTokenType(XPathTokenType.K_THESAURUS) -> marker.done(XPathElementType.FT_THESAURUS_OPTION)
                 builder.matchTokenType(XPathTokenType.K_STOP) -> {
                     parseWhiteSpaceAndCommentTokens(builder)
                     if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
@@ -2456,6 +2456,8 @@ open class XPathParser : PsiParser {
                     }
                     marker.done(XPathElementType.FT_STOP_WORD_OPTION)
                 }
+                builder.matchTokenType(XPathTokenType.K_THESAURUS) -> marker.done(XPathElementType.FT_THESAURUS_OPTION)
+                builder.matchTokenType(XPathTokenType.K_WILDCARDS) -> marker.done(XPathElementType.FT_WILDCARD_OPTION)
                 else -> {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
                     marker.drop()
@@ -2688,6 +2690,14 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_LANGUAGE_OPTION)
+            return true
+        }
+        return false
+    }
+
+    fun parseFTWildCardOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_WILDCARDS)) {
+            marker.done(XPathElementType.FT_WILDCARD_OPTION)
             return true
         }
         return false

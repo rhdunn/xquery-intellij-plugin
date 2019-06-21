@@ -1681,37 +1681,42 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTWildCardOption
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (178) FTWildCardOption")
+    internal inner class FTWildCardOption {
+        @Test
+        @DisplayName("wildcards")
+        fun wildcards() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTWildCardOption() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: wildcards; mising 'using' keyword")
+        fun wildcards_missingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no wildcards")
+        fun noWildCards() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: no wildcards; mising 'using' keyword")
+        fun noWildCards_MissingUsingKeyword() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTWildCardOption_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWildCardOption_NoWildCards() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTWildCardOption_NoWildCards_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTExtensionOption
 
     @Test
