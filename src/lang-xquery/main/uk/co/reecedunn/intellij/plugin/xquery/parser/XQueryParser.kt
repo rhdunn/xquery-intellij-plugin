@@ -3953,42 +3953,6 @@ class XQueryParser : XPathParser() {
         return true
     }
 
-    override fun parseFTStopWordOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_STOP)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_DEFAULT) && !parseFTStopWords(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
-            }
-
-            do {
-                parseWhiteSpaceAndCommentTokens(builder)
-            } while (parseFTStopWordsInclExcl(builder))
-
-            marker.done(XPathElementType.FT_STOP_WORD_OPTION)
-            return true
-        }
-        return false
-    }
-
-    private fun parseFTStopWordsInclExcl(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTStopWords(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at"))
-            }
-
-            marker.done(XPathElementType.FT_STOP_WORDS_INCL_EXCL)
-            return true
-        }
-        return false
-    }
-
     private fun parseFTLanguageOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_LANGUAGE)) {
             parseWhiteSpaceAndCommentTokens(builder)

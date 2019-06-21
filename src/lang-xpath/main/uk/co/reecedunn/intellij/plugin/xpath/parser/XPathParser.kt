@@ -2597,7 +2597,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFTStopWordOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+    fun parseFTStopWordOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_STOP)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_WORDS)) {
@@ -2609,7 +2609,9 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
             }
 
-            parseWhiteSpaceAndCommentTokens(builder)
+            do {
+                parseWhiteSpaceAndCommentTokens(builder)
+            } while (parseFTStopWordsInclExcl(builder))
 
             marker.done(XPathElementType.FT_STOP_WORD_OPTION)
             return true
@@ -2617,7 +2619,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFTStopWords(builder: PsiBuilder): Boolean {
+    private fun parseFTStopWords(builder: PsiBuilder): Boolean {
         if (builder.tokenType === XPathTokenType.K_AT) {
             val marker = builder.mark()
             builder.advanceLexer()
@@ -2658,6 +2660,20 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_STOP_WORDS)
+            return true
+        }
+        return false
+    }
+
+    private fun parseFTStopWordsInclExcl(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseFTStopWords(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword-or-token", "(", "at"))
+            }
+
+            marker.done(XPathElementType.FT_STOP_WORDS_INCL_EXCL)
             return true
         }
         return false

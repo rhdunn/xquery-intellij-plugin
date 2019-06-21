@@ -1,45 +1,57 @@
-XQueryModuleImpl[FILE(0:81)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:81)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:81)]
-         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:80)]
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
-            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
-            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(18:23)]('using')
-            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-            FTStopWordOptionImpl[XPATH_FT_STOP_WORD_OPTION(24:80)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
-               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
-               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
-               PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-               FTStopWordsInclExclImpl[XPATH_FT_STOP_WORDS_INCL_EXCL(43:60)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(43:48)]('union')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                  FTStopWordsImpl[XPATH_FT_STOP_WORDS(49:60)]
-                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
-                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(51:52)]('"')
-                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(52:57)]('lorem')
-                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(57:58)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(59:60)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
-               FTStopWordsInclExclImpl[XPATH_FT_STOP_WORDS_INCL_EXCL(61:79)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(61:67)]('except')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
-                  FTStopWordsImpl[XPATH_FT_STOP_WORDS(68:79)]
-                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(68:69)]('(')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(70:77)]
-                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(70:71)]('"')
-                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(71:76)]('ipsum')
-                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(76:77)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
-                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(78:79)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(80:81)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(81:81)]('XPST0003: Missing query body.')
+XQueryModuleImpl[FILE(0:89)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:89)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:89)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:89)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:89)]
+               FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:89)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                  FTSelectionImpl[XPATH_FT_SELECTION(20:89)]
+                     FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:89)]
+                        FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                              LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                              LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                              LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                        FTStopWordOptionImpl[XPATH_FT_STOP_WORD_OPTION(34:89)]
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_STOP(34:38)]('stop')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(39:44)]('words')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(45:52)]('default')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
+                           FTStopWordsInclExclImpl[XPATH_FT_STOP_WORDS_INCL_EXCL(53:70)]
+                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(53:58)]('union')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+                              FTStopWordsImpl[XPATH_FT_STOP_WORDS(59:70)]
+                                 LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(59:60)]('(')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
+                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(61:68)]
+                                    LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(61:62)]('"')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(62:67)]('lorem')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(67:68)]('"')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(68:69)](' ')
+                                 LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(69:70)](')')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
+                           FTStopWordsInclExclImpl[XPATH_FT_STOP_WORDS_INCL_EXCL(71:89)]
+                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(71:77)]('except')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
+                              FTStopWordsImpl[XPATH_FT_STOP_WORDS(78:89)]
+                                 LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(78:79)]('(')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
+                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(80:87)]
+                                    LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(80:81)]('"')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(81:86)]('ipsum')
+                                    LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(86:87)]('"')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(87:88)](' ')
+                                 LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(88:89)](')')

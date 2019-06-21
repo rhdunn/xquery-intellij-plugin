@@ -1443,67 +1443,71 @@ private class FullTextParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Single.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("default; include/exclude")
+        fun default_FTStopWordsInclExcl() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("default; include/exclude; compact whitespace")
+        fun default_FTStopWordsInclExcl_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("default; include/exclude; multiple")
+        fun default_FTStopWordsInclExcl_Multiple() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("default; include/exclude; multiple; compact whitespace")
+        fun default_FTStopWordsInclExcl_Multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("stop words; include/exclude")
+        fun stopWords_FTStopWordsInclExcl() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("stop words; include/exclude; compact whitespace")
+        fun stopWords_FTStopWordsInclExcl_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("stop words; include/exclude; multiple")
+        fun stopWords_FTStopWordsInclExcl_Multiple() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("stop words; include/exclude; multiple; compact whitespace")
+        fun stopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    // region Full Text 1.0 :: FTStopWordOption
-
-    @Test
-    fun testFTStopWordOption_Default_FTStopWordsInclExcl() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_Default_FTStopWordsInclExcl_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_Default_FTStopWordsInclExcl_Multiple() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_FTStopWords_FTStopWordsInclExcl() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (175) FTStopWords")
@@ -1597,44 +1601,50 @@ private class FullTextParserTest : ParserTestCase() {
         }
     }
 
-    // region Full Text 1.0 :: FTStopWordsInclExcl (FTStopWordOption)
+    @Nested
+    @DisplayName("XQuery Full Text 1.0 EBNF (176) FTStopWordsInclExcl")
+    internal inner class FTStopWordsInclExcl {
+        @Test
+        @DisplayName("include")
+        fun include() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFTStopWordsInclExcl_Include() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("include; compact whitespace")
+        fun include_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("exclude")
+        fun exclude() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("exclude; compact whitespace")
+        fun exclude_CompactWhitespace() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing stop words")
+        fun missingStopWords() {
+            val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_MissingStopWords.txt")
+            val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_MissingStopWords.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testFTStopWordsInclExcl_Include_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordsInclExcl_Exclude() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordsInclExcl_Exclude_CompactWhitespace() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTStopWordsInclExcl_MissingStopWords() {
-        val expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_MissingStopWords.txt")
-        val actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_MissingStopWords.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Full Text 1.0 :: FTLanguageOption
 
     @Test
