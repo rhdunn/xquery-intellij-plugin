@@ -201,7 +201,7 @@ __Terminal Symbols__
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
 1. Replaced the `FunctionName` symbol with a reserved function names section.
 
-### D Differences Between XPath 1.0 and XPath 2.0
+## D Differences Between XPath 1.0 and XPath 2.0
 The following is the list of features added to XPath 2.0 that are not present
 in XPath 1.0:
 

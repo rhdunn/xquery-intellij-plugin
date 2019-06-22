@@ -54,3 +54,7 @@ title: Specifications
 1. [XPath 1.0 as 2.0 EBNF Grammar](XPath%201.0%20as%202.0%20EBNF%20Grammar.html)
 
    Describes the XPath 1.0 language using the XPath 2.0 EBNF grammar.
+
+1. [XPath WD 2003 Syntax](XPath%20WD%202003%20Syntax.html)
+
+   Describes the XPath 2.0 WD 2003 syntax in terms of the REC 2007 syntax.
