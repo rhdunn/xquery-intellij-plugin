@@ -1,0 +1,8 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- XML Query Language Support -->
+    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType$Factory"/>
+    <!-- MarkLogic Server-Side JavaScript Language Support -->
+    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType$Factory"/>
+  </extensions>
+</idea-plugin>

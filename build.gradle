@@ -161,6 +161,14 @@ dependencies {
     integrationTestRuntime configurations.testRuntime
 }
 
+version = project.property('idea_since_build').toInteger()
+if (version >= 192) {
+    sourceSets.main.resources.srcDirs += 'src/main/resources-192'
+}
+else {
+    sourceSets.main.resources.srcDirs += 'src/main/resources-191'
+}
+
 tasks {
     // Using the IntelliJ gradle plugin to provide the IntelliJ platform SDK in
     // each subproject results in various deployment related tasks being added

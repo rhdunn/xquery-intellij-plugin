@@ -1,4 +1,5 @@
-<idea-plugin>
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "https://plugins.jetbrains.com/plugin.dtd">
+<idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
   <id>uk.co.reecedunn.intellij.plugin.xquery</id>
   <!--suppress PluginXmlValidity -->
   <name>xquery-intellij-plugin</name>
@@ -73,6 +74,8 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
   </extensionPoints>
 
+  <xi:include href="plugin-filetypes.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
   <extensions defaultExtensionNs="com.intellij">
     <!-- XML Path Language Support -->
 
@@ -86,8 +89,6 @@
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
     <!-- XML Query Language Support -->
-
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType$Factory"/>
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
@@ -109,10 +110,6 @@
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.intellij.lang.injection.XPathInXsltLanguageInjection"/>
-
-    <!-- MarkLogic Server-Side JavaScript Language Support -->
-
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType$Factory"/>
 
     <!-- References and Resolve -->
 
