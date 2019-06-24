@@ -88,6 +88,8 @@
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
+    <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.completion.XPathCompletionContributor"/>
+
     <!-- XML Query Language Support -->
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
@@ -104,6 +106,8 @@
 
     <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewFactory"/>
     <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.projectView.XQueryTreeStructureProvider"/>
+
+    <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
 
     <!-- XSLT Language Support -->
 
