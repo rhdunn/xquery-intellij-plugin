@@ -26,9 +26,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
 import uk.co.reecedunn.intellij.plugin.xslt.psi.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
@@ -789,6 +791,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-3.0-package.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_3_1_20170321))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
@@ -905,6 +908,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-1.0-stylesheet.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
@@ -914,6 +918,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-2.0-stylesheet.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
@@ -923,6 +928,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-3.0-stylesheet.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_3_1_20170321))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
@@ -977,6 +983,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-1.0-transform.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
@@ -986,6 +993,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-2.0-transform.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
@@ -995,6 +1003,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-3.0-transform.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_3_1_20170321))
             assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
         }
 
