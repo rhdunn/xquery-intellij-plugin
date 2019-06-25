@@ -15,24 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.completion
 
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.util.ProcessingContext
 
-class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
-    private var completions: CompletionProviderEx? = null
-
-    fun addCompletions(completions: CompletionProviderEx): CompletionProviderBuilder {
-        this.completions = completions
-        return this
-    }
-
-    override fun addCompletions(
-        parameters: CompletionParameters,
-        context: ProcessingContext,
-        result: CompletionResultSet
-    ) {
-        completions?.apply(context, result)
-    }
+interface CompletionProviderEx {
+    fun apply(context: ProcessingContext, result: CompletionResultSet)
 }
