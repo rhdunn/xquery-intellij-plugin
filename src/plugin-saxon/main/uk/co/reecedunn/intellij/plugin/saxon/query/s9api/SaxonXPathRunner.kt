@@ -40,8 +40,8 @@ internal class SaxonXPathRunner(
 
     private val executable by lazy {
         when (xpathSubset) {
-            XPathSubset.XPath -> compiler.compile(query)
             XPathSubset.XsltPattern -> compiler.compilePattern(query)
+            else -> compiler.compile(query)
         }
     }
 

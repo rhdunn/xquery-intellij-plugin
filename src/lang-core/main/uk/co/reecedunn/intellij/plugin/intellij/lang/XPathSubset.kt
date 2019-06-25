@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 enum class XPathSubset(val displayName: String) {
+    Unknown("Unknown"),
     // Reference: https://www.w3.org/TR/xpath-31/
     XPath("XPath"),
     // Reference: https://www.w3.org/TR/xslt20/#pattern-syntax
