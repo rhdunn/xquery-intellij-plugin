@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
-import uk.co.reecedunn.intellij.plugin.xslt.psi.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.psi.qname
 import javax.xml.namespace.QName

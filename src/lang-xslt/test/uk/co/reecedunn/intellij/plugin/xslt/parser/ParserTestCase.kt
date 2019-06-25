@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.psi
+package uk.co.reecedunn.intellij.plugin.xslt.parser
 
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.xml.XMLLanguage
