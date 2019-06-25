@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.completion
+package uk.co.reecedunn.intellij.plugin.xpath.completion.filters
 
-import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathNodeTestFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
+import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.util.ProcessingContext
+import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 
-class XPathCompletionContributor : CompletionContributorEx() {
-    init {
-        builder().withFilter(XPathNodeTestFilter).addCompletions(XPathKindTestProvider)
+object XPathNodeTestFilter : CompletionFilter {
+    override fun accepts(parameters: CompletionParameters, context: ProcessingContext): Boolean {
+        return parameters.position.ancestors().find { it is XPathNodeTest } != null
     }
 }
