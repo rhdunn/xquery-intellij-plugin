@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.psi
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import javax.xml.namespace.QName
 
 private val NAMESPACES = mapOf(
@@ -38,15 +36,4 @@ private val XSL_ROOT_ELEMENTS = listOf(
 fun PsiElement.isXslStylesheet(): Boolean {
     val file = containingFile as? XmlFile ?: return false
     return file.rootTag?.let { XSL_ROOT_ELEMENTS.contains(it.qname()) } ?: false
-}
-
-fun PsiElement.getXslVersion(): Version? {
-    val file = containingFile as? XmlFile ?: return null
-    val version = file.rootTag?.getAttribute("version", "")?.value
-    return when (version) {
-        "1.0" -> XsltSpec.REC_1_0_19991116
-        "2.0" -> XsltSpec.REC_2_0_20070123
-        "3.0" -> XsltSpec.REC_3_0_20170608
-        else -> null
-    }
 }
