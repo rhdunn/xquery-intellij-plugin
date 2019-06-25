@@ -16,8 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion
 
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
 
 class XPathCompletionContributor : CompletionContributorEx() {
     init {
+        builder().addCompletions(XPathKindTestProvider)
     }
 }
