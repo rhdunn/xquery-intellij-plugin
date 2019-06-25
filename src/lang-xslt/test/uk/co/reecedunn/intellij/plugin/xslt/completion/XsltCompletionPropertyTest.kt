@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.psi
+package uk.co.reecedunn.intellij.plugin.xslt.completion
 
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlFile
@@ -30,12 +30,15 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
+import uk.co.reecedunn.intellij.plugin.xslt.psi.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
+import uk.co.reecedunn.intellij.plugin.xslt.psi.qname
 import javax.xml.namespace.QName
 
-@DisplayName("XSLT 3.0 - Platform Structure Interface")
-private class XsltTest : ParserTestCase() {
+@DisplayName("XSLT 3.0 - Code Completion - Properties")
+private class XsltCompletionPropertyTest : ParserTestCase() {
     fun parseResource(resource: String): XmlFile {
-        val file = ResourceVirtualFile(XsltTest::class.java.classLoader, resource)
+        val file = ResourceVirtualFile(XsltCompletionPropertyTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 
