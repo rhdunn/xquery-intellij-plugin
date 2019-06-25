@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.completion
+package uk.co.reecedunn.intellij.plugin.core.completion
 
-import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
+import com.intellij.codeInsight.completion.CompletionContributor
 
-class XQueryCompletionContributor : CompletionContributorEx() {
-    init {
-    }
-}
+open class CompletionContributorEx : CompletionContributor()

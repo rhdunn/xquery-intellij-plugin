@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion
 
-import com.intellij.codeInsight.completion.CompletionContributor
+import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 
-class XPathCompletionContributor : CompletionContributor() {
+class XPathCompletionContributor : CompletionContributorEx() {
     init {
     }
 }
