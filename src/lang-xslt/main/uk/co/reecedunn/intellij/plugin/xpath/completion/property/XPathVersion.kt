@@ -18,28 +18,35 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import com.intellij.psi.xml.XmlFile
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.intellij.lang.NullSpecification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
-object XsltVersion : CompletionProperty {
-    val XSLT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xslt.XsltVersion")
+object XPathVersion : CompletionProperty {
+    @Suppress("MemberVisibilityCanBePrivate")
+    val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xslt.XPathVersion")
 
     override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
-        if (context[XSLT_VERSION] == null) {
-            context.put(XSLT_VERSION, get(parameters.position) ?: NullSpecification)
+        if (context[XPATH_VERSION] == null) {
+            XsltVersion.computeProperty(parameters, context)
+
+            val xslt = context[XsltVersion.XSLT_VERSION]
+            context.put(XPATH_VERSION, get(xslt) ?: NullSpecification)
         }
     }
 
     fun get(element: PsiElement): Version? {
-        val file = element.containingFile as? XmlFile ?: return null
-        return when (file.rootTag?.getAttribute("version", "")?.value) {
-            "1.0" -> XsltSpec.REC_1_0_19991116
-            "2.0" -> XsltSpec.REC_2_0_20070123
-            "3.0" -> XsltSpec.REC_3_0_20170608
+        return get(XsltVersion.get(element))
+    }
+
+    private fun get(xsltVersion: Version?): Version? {
+        return when (xsltVersion) {
+            XsltSpec.REC_1_0_19991116 -> XPathSpec.REC_1_0_19991116
+            XsltSpec.REC_2_0_20070123 -> XPathSpec.REC_2_0_20070123
+            XsltSpec.REC_3_0_20170608 -> XPathSpec.REC_3_1_20170321 // TODO: Can be XPath 3.0 + maps on some processors.
             else -> null
         }
     }

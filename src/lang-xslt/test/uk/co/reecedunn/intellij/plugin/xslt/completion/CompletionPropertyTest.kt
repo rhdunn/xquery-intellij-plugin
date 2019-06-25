@@ -26,7 +26,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
 import uk.co.reecedunn.intellij.plugin.xslt.psi.*
 import javax.xml.namespace.QName
@@ -54,6 +56,7 @@ private class CompletionPropertyTest : ParserTestCase() {
         fun expression() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:apply-templates"), qname("select"))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_1_0_19991116))
         }
 
         @Test
@@ -61,6 +64,7 @@ private class CompletionPropertyTest : ParserTestCase() {
         fun pattern() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("match"))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_1_0_19991116))
         }
     }
 
@@ -72,6 +76,7 @@ private class CompletionPropertyTest : ParserTestCase() {
         fun expression() {
             val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:attribute"), qname("select"))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_2_0_20070123))
         }
 
         @Test
@@ -82,6 +87,7 @@ private class CompletionPropertyTest : ParserTestCase() {
                 qname("xsl:for-each-group"), qname("group-ending-with")
             )
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_2_0_20070123))
         }
     }
 
@@ -93,6 +99,7 @@ private class CompletionPropertyTest : ParserTestCase() {
         fun expression() {
             val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:assert"), qname("select"))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
         }
 
         @Test
@@ -100,6 +107,7 @@ private class CompletionPropertyTest : ParserTestCase() {
         fun pattern() {
             val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-rule"), qname("match"))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
         }
     }
 }
