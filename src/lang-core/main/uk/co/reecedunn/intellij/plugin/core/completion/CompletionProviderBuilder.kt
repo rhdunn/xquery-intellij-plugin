@@ -23,6 +23,7 @@ import com.intellij.util.ProcessingContext
 class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
     private var completions: CompletionProviderEx? = null
     private var filter: CompletionFilter? = null
+    private var property: CompletionProperty? = null
 
     fun addCompletions(completions: CompletionProviderEx): CompletionProviderBuilder {
         this.completions = completions
@@ -34,11 +35,17 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
         return this
     }
 
+    fun withProperty(property: CompletionProperty): CompletionProviderBuilder {
+        this.property = property
+        return this
+    }
+
     override fun addCompletions(
         parameters: CompletionParameters,
         context: ProcessingContext,
         result: CompletionResultSet
     ) {
+        property?.computeProperty(parameters, context)
         if (filter != null) {
             if (filter?.accepts(parameters, context) == true) {
                 completions?.apply(context, result)
