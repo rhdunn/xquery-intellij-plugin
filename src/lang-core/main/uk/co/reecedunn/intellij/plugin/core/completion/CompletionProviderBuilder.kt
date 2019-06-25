@@ -15,19 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.completion
 
-import com.intellij.codeInsight.completion.CompletionContributor
-import com.intellij.codeInsight.completion.CompletionType
-import com.intellij.patterns.ElementPattern
-import com.intellij.patterns.PlatformPatterns
-import com.intellij.psi.PsiElement
+import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.codeInsight.completion.CompletionProvider
+import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.util.ProcessingContext
 
-open class CompletionContributorEx : CompletionContributor() {
-    fun builder(
-        type: CompletionType = CompletionType.BASIC,
-        place: ElementPattern<out PsiElement> = PlatformPatterns.psiElement()
-    ): CompletionProviderBuilder {
-        val provider = CompletionProviderBuilder()
-        extend(type, place, provider)
-        return provider
+class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
+    override fun addCompletions(
+        parameters: CompletionParameters,
+        context: ProcessingContext,
+        result: CompletionResultSet
+    ) {
     }
 }
