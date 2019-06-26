@@ -22,40 +22,41 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
-fun createKindTestLookup(kindTest: String): LookupElementBuilder {
+fun createKindTestLookup(kindTest: String, tailText: String = "()"): LookupElementBuilder {
     return LookupElementBuilder.create(kindTest)
         .withBoldness(true)
+        .withTailText(tailText)
 }
 
 object XPathKindTestProvider : CompletionProviderEx {
     private val XPATH_10_KIND_TESTS = listOf(
         createKindTestLookup("comment"),
         createKindTestLookup("node"),
-        createKindTestLookup("processing-instruction"),
+        createKindTestLookup("processing-instruction", "(name?)"),
         createKindTestLookup("text")
     )
 
     private val XPATH_20_WD_2003_KIND_TESTS = listOf(
-        createKindTestLookup("attribute"),
+        createKindTestLookup("attribute", "(schema-context-or-name?, type?)"),
         createKindTestLookup("comment"),
-        createKindTestLookup("document-node"),
-        createKindTestLookup("element"),
+        createKindTestLookup("document-node", "(root-element?)"),
+        createKindTestLookup("element", "(schema-context-or-name?, nillable-type?)"),
         createKindTestLookup("namespace-node"),
         createKindTestLookup("node"),
-        createKindTestLookup("processing-instruction"),
+        createKindTestLookup("processing-instruction", "(name?)"),
         createKindTestLookup("text")
     )
 
     private val XPATH_20_REC_KIND_TESTS = listOf(
-        createKindTestLookup("attribute"),
+        createKindTestLookup("attribute", "(name-or-wildcard?, type?)"),
         createKindTestLookup("comment"),
-        createKindTestLookup("document-node"),
-        createKindTestLookup("element"),
+        createKindTestLookup("document-node", "(root-element?)"),
+        createKindTestLookup("element", "(name-or-wildcard?, type?)"),
         createKindTestLookup("namespace-node"),
         createKindTestLookup("node"),
-        createKindTestLookup("processing-instruction"),
-        createKindTestLookup("schema-attribute"),
-        createKindTestLookup("schema-element"),
+        createKindTestLookup("processing-instruction", "(name?)"),
+        createKindTestLookup("schema-attribute", "(name)"),
+        createKindTestLookup("schema-element", "(name)"),
         createKindTestLookup("text")
     )
 
