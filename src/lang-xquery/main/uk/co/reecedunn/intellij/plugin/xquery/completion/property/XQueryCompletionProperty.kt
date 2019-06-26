@@ -20,4 +20,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 
 object XQueryCompletionProperty {
     val XQUERY_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xquery.XQueryVersion")
+
+    val XQUERY_PRODUCT_VERSION: Key<Version> =
+        Key.create("uk.co.reecedunn.intellij.plugin.xquery.XQueryProductVersion")
 }
