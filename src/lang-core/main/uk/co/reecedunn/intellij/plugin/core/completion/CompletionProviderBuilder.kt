@@ -36,7 +36,16 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
     }
 
     fun withProperty(property: CompletionProperty): CompletionProviderBuilder {
-        this.property = property
+        when (val p = this.property) {
+            is CompletionPropertyList -> p.add(property)
+            is CompletionProperty -> {
+                val propertyList = CompletionPropertyList()
+                propertyList.add(p)
+                propertyList.add(property)
+                this.property = propertyList
+            }
+            else -> this.property = property
+        }
         return this
     }
 
