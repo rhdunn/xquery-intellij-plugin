@@ -25,8 +25,10 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
     private var filter: CompletionFilter? = null
     private var property: CompletionProperty? = null
 
+    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     fun addCompletions(completions: CompletionProviderEx): CompletionProviderBuilder {
-        when (val c = this.completions) {
+        val c = this.completions
+        when (c) {
             is CompletionProviderList -> c.add(completions)
             is CompletionProviderEx -> {
                 val providerList = CompletionProviderList()
@@ -44,8 +46,10 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
         return this
     }
 
+    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     fun withProperty(property: CompletionProperty): CompletionProviderBuilder {
-        when (val p = this.property) {
+        val p = this.property
+        when (p) {
             is CompletionPropertyList -> p.add(property)
             is CompletionProperty -> {
                 val propertyList = CompletionPropertyList()
