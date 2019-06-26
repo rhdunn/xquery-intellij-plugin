@@ -12,6 +12,10 @@ IntelliJ Integration:
 1.  Use the QName annotator on Wildcard elements to correctly highlight the
     namespace prefix and local name parts.
 
+Code Completion:
+
+1.  Keyword completion support for `KindTest` based `NodeTest`s.
+
 Run Configurations:
 
 1.  Link to the files when displaying query errors in the console.

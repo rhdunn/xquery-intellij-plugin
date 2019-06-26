@@ -1,0 +1,60 @@
+/*
+ * Copyright (C) 2019 Reece H. Dunn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.xquery.completion.providers
+
+import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.util.ProcessingContext
+import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createKindTestLookup
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
+
+object XQueryKindTestProvider : CompletionProviderEx {
+    private val MARKLOGIC_60_KIND_TESTS = listOf(
+        createKindTestLookup("binary")
+    )
+
+    private val MARKLOGIC_70_KIND_TESTS = listOf(
+        createKindTestLookup("attribute-decl"),
+        createKindTestLookup("complex-type"),
+        createKindTestLookup("element-decl"),
+        createKindTestLookup("schema-component"),
+        createKindTestLookup("schema-particle"),
+        createKindTestLookup("schema-root"),
+        createKindTestLookup("schema-type"),
+        createKindTestLookup("simple-type")
+    )
+
+    private val MARKLOGIC_80_KIND_TESTS = listOf(
+        createKindTestLookup("array-node", "(key-name?)"),
+        createKindTestLookup("boolean-node", "(key-name?)"),
+        createKindTestLookup("node", "(key-name-or-wildcard?)"), // XPath/XQuery extension
+        createKindTestLookup("null-node", "(key-name?)"),
+        createKindTestLookup("number-node", "(key-name?)"),
+        createKindTestLookup("object-node", "(key-name?)"),
+        createKindTestLookup("schema-facet"),
+        createKindTestLookup("text", "(key-name?)") // XPath/XQuery extension
+    )
+
+    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+        val version = context[XQueryCompletionProperty.XQUERY_PRODUCT_VERSION]
+        if (version.kind === MarkLogic) {
+            if (version.value >= 6.0) result.addAllElements(MARKLOGIC_60_KIND_TESTS)
+            if (version.value >= 7.0) result.addAllElements(MARKLOGIC_70_KIND_TESTS)
+            if (version.value >= 8.0) result.addAllElements(MARKLOGIC_80_KIND_TESTS)
+        }
+    }
+}

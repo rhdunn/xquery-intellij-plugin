@@ -22,6 +22,10 @@
       <li>Display the function signature when holding Ctrl over a function call.</li>
       <li>Use the QName annotator on Wildcard elements to correctly highlight the namespace prefix and local name parts.</li>
     </ol>
+    <p>Code Completion:</p>
+    <ol>
+      <li>Keyword completion support for <code>KindTest</code> based <code>NodeTest</code>s.</li>
+    </ol>
     <p>Run Configurations:</p>
     <ol>
       <li>Link to the files when displaying query errors in the console.</li>
