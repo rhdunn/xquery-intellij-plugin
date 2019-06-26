@@ -20,12 +20,14 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 fun createKindTestLookup(kindTest: String, tailText: String = "()"): LookupElementBuilder {
     return LookupElementBuilder.create(kindTest)
         .withBoldness(true)
         .withTailText(tailText)
+        .withInsertHandler(XPathEmptyFunctionInsertHandler)
 }
 
 object XPathKindTestProvider : CompletionProviderEx {
