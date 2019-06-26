@@ -26,11 +26,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
 object XsltVersion : CompletionProperty {
-    val XSLT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xslt.XsltVersion")
-
     override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
-        if (context[XSLT_VERSION] == null) {
-            context.put(XSLT_VERSION, get(parameters.position) ?: NullSpecification)
+        if (context[XsltCompletionProperty.XSLT_VERSION] == null) {
+            context.put(XsltCompletionProperty.XSLT_VERSION, get(parameters.position) ?: NullSpecification)
         }
     }
 

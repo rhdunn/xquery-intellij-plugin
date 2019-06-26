@@ -29,8 +29,8 @@ object XPathSyntaxSubset : CompletionProperty {
     val XPATH_SYNTAX_SUBSET: Key<XPathSubset> = Key.create("uk.co.reecedunn.intellij.plugin.xslt.XPathSyntaxSubset")
 
     override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
-        if (context[XPATH_SYNTAX_SUBSET] == null) {
-            context.put(XPATH_SYNTAX_SUBSET, get(parameters.position))
+        if (context[XPathCompletionProperty.XPATH_SUBSET] == null) {
+            context.put(XPathCompletionProperty.XPATH_SUBSET, get(parameters.position))
         }
     }
 

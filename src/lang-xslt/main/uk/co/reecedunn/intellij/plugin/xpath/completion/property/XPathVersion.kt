@@ -26,15 +26,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
 object XPathVersion : CompletionProperty {
-    @Suppress("MemberVisibilityCanBePrivate")
-    val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xslt.XPathVersion")
-
     override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
-        if (context[XPATH_VERSION] == null) {
+        if (context[XPathCompletionProperty.XPATH_VERSION] == null) {
             XsltVersion.computeProperty(parameters, context)
 
-            val xslt = context[XsltVersion.XSLT_VERSION]
-            context.put(XPATH_VERSION, get(xslt) ?: NullSpecification)
+            val xslt = context[XsltCompletionProperty.XSLT_VERSION]
+            context.put(XPathCompletionProperty.XPATH_VERSION, get(xslt) ?: NullSpecification)
         }
     }
 
