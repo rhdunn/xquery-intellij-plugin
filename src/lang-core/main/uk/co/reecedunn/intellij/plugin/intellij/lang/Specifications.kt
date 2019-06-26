@@ -39,6 +39,11 @@ object XPathSpec : Versioned {
         "1.0-19991116", 1.0, 19991116, "1.0", "https://www.w3.org/TR/1999/REC-xpath-19991116/", this
     )
 
+    val WD_2_0_20030502 = DraftSpecification(
+        "2.0-20030502", 2.0, 20030502, "2.0", "https://www.w3.org/TR/2003/WD-xpath20-20030502/", this,
+        "Working Draft 02 May 2003"
+    )
+
     val REC_2_0_20070123 = Specification(
         "1.0-20070123", 2.0, 20070123, "2.0", "https://www.w3.org/TR/2007/REC-xpath20-20070123/", this
     )
@@ -51,6 +56,10 @@ object XPathSpec : Versioned {
         "3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xpath-30-20140408/", this
     )
 
+    val CR_3_1_20151217 = Specification(
+        "3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xpath-31-20151217/", this
+    )
+
     val REC_3_1_20170321 = Specification(
         "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-31-20170321/", this
     )
@@ -61,6 +70,7 @@ object XPathSpec : Versioned {
 
     override val versions: List<Version> = listOf(
         REC_1_0_19991116,
+        WD_2_0_20030502,
         REC_2_0_20070123,
         REC_2_0_20101214,
         REC_3_0_20140408,
