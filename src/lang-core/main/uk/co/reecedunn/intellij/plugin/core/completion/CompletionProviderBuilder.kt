@@ -26,7 +26,16 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
     private var property: CompletionProperty? = null
 
     fun addCompletions(completions: CompletionProviderEx): CompletionProviderBuilder {
-        this.completions = completions
+        when (val c = this.completions) {
+            is CompletionProviderList -> c.add(completions)
+            is CompletionProviderEx -> {
+                val providerList = CompletionProviderList()
+                providerList.add(c)
+                providerList.add(completions)
+                this.completions = providerList
+            }
+            else -> this.completions = completions
+        }
         return this
     }
 
