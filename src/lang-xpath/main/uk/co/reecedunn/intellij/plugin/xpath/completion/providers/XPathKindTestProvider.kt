@@ -19,6 +19,8 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 fun createKindTestLookup(kindTest: String): LookupElementBuilder {
     return LookupElementBuilder.create(kindTest)
@@ -26,16 +28,43 @@ fun createKindTestLookup(kindTest: String): LookupElementBuilder {
 }
 
 object XPathKindTestProvider : CompletionProviderEx {
+    private val XPATH_10_KIND_TESTS = listOf(
+        createKindTestLookup("comment"),
+        createKindTestLookup("node"),
+        createKindTestLookup("processing-instruction"),
+        createKindTestLookup("text")
+    )
+
+    private val XPATH_20_WD_2003_KIND_TESTS = listOf(
+        createKindTestLookup("attribute"),
+        createKindTestLookup("comment"),
+        createKindTestLookup("document-node"),
+        createKindTestLookup("element"),
+        createKindTestLookup("namespace-node"),
+        createKindTestLookup("node"),
+        createKindTestLookup("processing-instruction"),
+        createKindTestLookup("text")
+    )
+
+    private val XPATH_20_REC_KIND_TESTS = listOf(
+        createKindTestLookup("attribute"),
+        createKindTestLookup("comment"),
+        createKindTestLookup("document-node"),
+        createKindTestLookup("element"),
+        createKindTestLookup("namespace-node"),
+        createKindTestLookup("node"),
+        createKindTestLookup("processing-instruction"),
+        createKindTestLookup("schema-attribute"),
+        createKindTestLookup("schema-element"),
+        createKindTestLookup("text")
+    )
+
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {
-        result.addElement(createKindTestLookup("attribute"))
-        result.addElement(createKindTestLookup("comment"))
-        result.addElement(createKindTestLookup("document-node"))
-        result.addElement(createKindTestLookup("element"))
-        result.addElement(createKindTestLookup("namespace-node"))
-        result.addElement(createKindTestLookup("node"))
-        result.addElement(createKindTestLookup("processing-instruction"))
-        result.addElement(createKindTestLookup("schema-attribute"))
-        result.addElement(createKindTestLookup("schema-element"))
-        result.addElement(createKindTestLookup("text"))
+        val version = context[XPathCompletionProperty.XPATH_VERSION]
+        when {
+            version === XPathSpec.REC_1_0_19991116 -> result.addAllElements(XPATH_10_KIND_TESTS)
+            version === XPathSpec.WD_2_0_20030502 -> result.addAllElements(XPATH_20_WD_2003_KIND_TESTS)
+            else -> result.addAllElements(XPATH_20_REC_KIND_TESTS)
+        }
     }
 }

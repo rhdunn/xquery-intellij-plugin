@@ -18,9 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.completion
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathNodeTestFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XPathVersion
 
 class XQueryCompletionContributor : CompletionContributorEx() {
     init {
-        builder().withFilter(XPathNodeTestFilter).addCompletions(XPathKindTestProvider)
+        builder().withFilter(XPathNodeTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
     }
 }
