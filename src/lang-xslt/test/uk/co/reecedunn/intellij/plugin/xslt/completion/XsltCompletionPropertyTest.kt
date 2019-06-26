@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.completion
 
-import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import org.hamcrest.CoreMatchers.`is`
@@ -44,12 +44,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         return file.toPsiFile(myProject)!!
     }
 
-    fun attribute(resource: String, element: QName, attribute: QName): XmlAttribute {
+    fun attribute(resource: String, element: QName, attribute: QName): XmlAttributeValue {
         return parseResource(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
             e.namespace == element.namespaceURI && e.localName == element.localPart
         }.map { e ->
             e.getAttribute(attribute.localPart, attribute.namespaceURI)
-        }.filterNotNull().first()
+        }.filterNotNull().first().valueElement!!
     }
 
     @Nested
@@ -786,21 +786,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
     @DisplayName("xsl:package")
     internal inner class Package {
         @Test
-        @DisplayName("3.0")
-        fun package30() {
-            val xsl = parseResource("tests/xslt/xslt-3.0-package.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_3_0_20170608))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_3_1_20170321))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("@version = number")
-        fun version() {
+        @DisplayName("@version = number [3.0]")
+        fun version30() {
             val ss = attribute("tests/xslt/xslt-3.0-package.xsl", qname("xsl:package"), qname("version"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
         }
     }
@@ -903,41 +894,32 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
     @DisplayName("xsl:stylesheet")
     internal inner class Stylesheet {
         @Test
-        @DisplayName("1.0")
-        fun stylesheet10() {
-            val xsl = parseResource("tests/xslt/xslt-1.0-stylesheet.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_1_0_19991116))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_1_0_19991116))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("2.0")
-        fun stylesheet20() {
-            val xsl = parseResource("tests/xslt/xslt-2.0-stylesheet.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_2_0_20070123))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_2_0_20070123))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("3.0")
-        fun stylesheet30() {
-            val xsl = parseResource("tests/xslt/xslt-3.0-stylesheet.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_3_0_20170608))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_3_1_20170321))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("@version = number")
-        fun version() {
+        @DisplayName("@version = number [1.0]")
+        fun version10() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:stylesheet"), qname("version"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_1_0_19991116))
+            assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
+        }
+
+        @Test
+        @DisplayName("@version = number [2.0]")
+        fun version20() {
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:stylesheet"), qname("version"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_2_0_20070123))
+            assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
+        }
+
+        @Test
+        @DisplayName("@version = number [3.0]")
+        fun version30() {
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:stylesheet"), qname("version"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
         }
     }
@@ -978,41 +960,32 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
     @DisplayName("xsl:transform")
     internal inner class Transform {
         @Test
-        @DisplayName("1.0")
-        fun transform10() {
-            val xsl = parseResource("tests/xslt/xslt-1.0-transform.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_1_0_19991116))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_1_0_19991116))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("2.0")
-        fun transform20() {
-            val xsl = parseResource("tests/xslt/xslt-2.0-transform.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_2_0_20070123))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_2_0_20070123))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("3.0")
-        fun transform30() {
-            val xsl = parseResource("tests/xslt/xslt-3.0-transform.xsl")
-            assertThat(xsl.isXslStylesheet(), `is`(true))
-            assertThat(XsltVersion.get(xsl), `is`(XsltSpec.REC_3_0_20170608))
-            assertThat(XPathVersion.get(xsl), `is`(XPathSpec.REC_3_1_20170321))
-            assertThat(XPathSyntaxSubset.get(xsl), `is`(XPathSubset.Unknown))
-        }
-
-        @Test
-        @DisplayName("@version = number")
-        fun version() {
+        @DisplayName("@version = number [1.0]")
+        fun version10() {
             val ss = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:transform"), qname("version"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_1_0_19991116))
+            assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
+        }
+
+        @Test
+        @DisplayName("@version = number [2.0]")
+        fun version20() {
+            val ss = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:transform"), qname("version"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_2_0_20070123))
+            assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
+        }
+
+        @Test
+        @DisplayName("@version = number [3.0]")
+        fun version30() {
+            val ss = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:transform"), qname("version"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
         }
     }

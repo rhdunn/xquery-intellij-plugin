@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
+import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 
@@ -35,7 +36,7 @@ object XPathSyntaxSubset : CompletionProperty {
     }
 
     fun get(element: PsiElement): XPathSubset {
-        val attribute = element as? XmlAttribute ?: return XPathSubset.Unknown
+        val attribute = element.toXmlAttributeValue()?.parent as? XmlAttribute ?: return XPathSubset.Unknown
         val parent = attribute.parent
         if (parent.namespace != XSLT.NAMESPACE) return XPathSubset.Unknown
         return when (attribute.localName) {

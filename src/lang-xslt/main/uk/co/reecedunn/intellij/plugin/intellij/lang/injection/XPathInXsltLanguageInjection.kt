@@ -33,7 +33,7 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
         if (isIntellijXPathPluginEnabled() || !context.isXslStylesheet()) return
-        when (XPathSyntaxSubset.get(context.parent)) {
+        when (XPathSyntaxSubset.get(context)) {
             XPathSubset.XPath, XPathSubset.XsltPattern -> {
                 val host = context as PsiLanguageInjectionHost
                 val range = context.textRange
