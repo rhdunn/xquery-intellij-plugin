@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.completion
 
-import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 
 interface CompletionFilter {
-    fun accepts(parameters: CompletionParameters, context: ProcessingContext): Boolean
+    fun accepts(element: PsiElement, context: ProcessingContext): Boolean
 }

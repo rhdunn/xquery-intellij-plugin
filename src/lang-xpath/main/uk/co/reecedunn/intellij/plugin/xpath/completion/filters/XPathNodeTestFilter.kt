@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.filters
 
-import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 
 object XPathNodeTestFilter : CompletionFilter {
-    override fun accepts(parameters: CompletionParameters, context: ProcessingContext): Boolean {
-        return parameters.position.ancestors().find { it is XPathNodeTest } != null
+    override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
+        return element.ancestors().find { it is XPathNodeTest } != null
     }
 }

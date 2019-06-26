@@ -69,7 +69,7 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
     ) {
         property?.computeProperty(parameters, context)
         if (filter != null) {
-            if (filter?.accepts(parameters, context) == true) {
+            if (filter?.accepts(parameters.position, context) == true) {
                 completions?.apply(context, result)
             }
         } else {
