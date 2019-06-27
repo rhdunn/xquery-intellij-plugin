@@ -21,7 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathNodeTestFilter
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -35,7 +35,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
         fun instanceofExpr() {
             val context = ProcessingContext()
             val element = completion("2 instance of empty-sequence()", "instance")
-            assertThat(XPathNodeTestFilter.accepts(element, context), `is`(false))
+            assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
         }
 
         @Nested
@@ -46,7 +46,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             fun compactWhitespace() {
                 val context = ProcessingContext()
                 val element = completion("child::completion-point")
-                assertThat(XPathNodeTestFilter.accepts(element, context), `is`(true))
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
 
             @Test
@@ -54,7 +54,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             fun whitespaceAndComments() {
                 val context = ProcessingContext()
                 val element = completion("child (: lorem :) :: (: ipsum:) completion-point (: dolor :)")
-                assertThat(XPathNodeTestFilter.accepts(element, context), `is`(true))
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
         }
 
@@ -66,7 +66,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             fun attributeSelector() {
                 val context = ProcessingContext()
                 val element = completion("@completion-point")
-                assertThat(XPathNodeTestFilter.accepts(element, context), `is`(true))
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
 
             @Test
@@ -74,7 +74,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             fun elementSelector() {
                 val context = ProcessingContext()
                 val element = completion("completion-point")
-                assertThat(XPathNodeTestFilter.accepts(element, context), `is`(true))
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
         }
 
@@ -86,7 +86,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             fun compactWhitespace() {
                 val context = ProcessingContext()
                 val element = completion("parent::completion-point")
-                assertThat(XPathNodeTestFilter.accepts(element, context), `is`(true))
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
 
             @Test
@@ -94,7 +94,7 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             fun whitespaceAndComments() {
                 val context = ProcessingContext()
                 val element = completion("parent (: lorem :) :: (: ipsum:) completion-point (: dolor :)")
-                assertThat(XPathNodeTestFilter.accepts(element, context), `is`(true))
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
         }
     }

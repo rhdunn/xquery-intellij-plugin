@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 
-object XPathNodeTestFilter : CompletionFilter {
+object XPathKindTestFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find { it is XPathNodeTest } != null
     }
