@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 
-import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
 import com.intellij.util.ProcessingContext
@@ -26,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
 object XsltVersion : CompletionProperty {
-    override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
+    override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XsltCompletionProperty.XSLT_VERSION] == null) {
-            context.put(XsltCompletionProperty.XSLT_VERSION, get(parameters.position) ?: NullSpecification)
+            context.put(XsltCompletionProperty.XSLT_VERSION, get(element) ?: NullSpecification)
         }
     }
 

@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
@@ -26,9 +24,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
 object XPathVersion : CompletionProperty {
-    override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
+    override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.XPATH_VERSION] == null) {
-            XsltVersion.computeProperty(parameters, context)
+            XsltVersion.computeProperty(element, context)
 
             val xslt = context[XsltCompletionProperty.XSLT_VERSION]
             context.put(XPathCompletionProperty.XPATH_VERSION, get(xslt) ?: NullSpecification)

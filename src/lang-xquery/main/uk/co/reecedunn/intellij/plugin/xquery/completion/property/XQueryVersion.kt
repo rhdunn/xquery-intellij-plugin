@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.completion.property
 
-import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
@@ -24,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 object XQueryVersion : CompletionProperty {
-    override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
+    override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XQueryCompletionProperty.XQUERY_VERSION] == null) {
-            context.put(XQueryCompletionProperty.XQUERY_VERSION, get(parameters.position) ?: NullSpecification)
+            context.put(XQueryCompletionProperty.XQUERY_VERSION, get(element) ?: NullSpecification)
         }
     }
 

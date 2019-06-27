@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.completion
 
-import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 
 internal class CompletionPropertyList : CompletionProperty {
@@ -25,7 +25,7 @@ internal class CompletionPropertyList : CompletionProperty {
         properties.add(property)
     }
 
-    override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
-        properties.forEach { property -> property.computeProperty(parameters, context) }
+    override fun computeProperty(element: PsiElement, context: ProcessingContext) {
+        properties.forEach { property -> property.computeProperty(element, context) }
     }
 }

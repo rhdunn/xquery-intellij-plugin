@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.completion
 
-import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 
 interface CompletionProperty {
-    fun computeProperty(parameters: CompletionParameters, context: ProcessingContext)
+    fun computeProperty(element: PsiElement, context: ProcessingContext)
 }

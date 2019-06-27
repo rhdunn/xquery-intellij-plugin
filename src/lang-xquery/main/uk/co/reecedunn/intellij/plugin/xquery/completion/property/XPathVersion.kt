@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.completion.property
 
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
@@ -24,9 +22,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 object XPathVersion : CompletionProperty {
-    override fun computeProperty(parameters: CompletionParameters, context: ProcessingContext) {
+    override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.XPATH_VERSION] == null) {
-            XQueryVersion.computeProperty(parameters, context)
+            XQueryVersion.computeProperty(element, context)
 
             val xquery = context[XQueryCompletionProperty.XQUERY_VERSION]
             context.put(XPathCompletionProperty.XPATH_VERSION, get(xquery) ?: NullSpecification)
