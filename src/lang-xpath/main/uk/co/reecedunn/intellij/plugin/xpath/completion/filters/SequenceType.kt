@@ -24,6 +24,14 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
+object XPathItemTypeFilter : CompletionFilter {
+    override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
+        return element.ancestors().find {
+            it is XPathAtomicOrUnionType // ItemType without '()'
+        } != null
+    }
+}
+
 object XPathKindTestFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
