@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.psi.PsiElement
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -33,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
@@ -65,4 +67,8 @@ abstract class ParserTestCase :
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
+
+    fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
+        return parse<XmlNCNameImpl>(text).find { it.text == completionPoint }!!
+    }
 }
