@@ -23,11 +23,40 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Code Completion - Completion Filters")
 private class XPathCompletionFilterTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (79) ItemType")
+    internal inner class SequenceType {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (40) ForwardStep ; XPath 3.1 EBNF (41) ForwardAxis")
+        fun forwardAxisStep() {
+            val context = ProcessingContext()
+            val element = completion("child::completion-point")
+            assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (81) ItemType")
+        fun itemType() {
+            val context = ProcessingContext()
+            val element = completion("function (\$x as completion-point) {}")
+            assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(true))
+        }
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (81) ItemType")
     internal inner class ItemType {

@@ -18,18 +18,24 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathItemTypeProvider
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathSequenceTypeProvider
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
     private fun registerXPathCompletionProviders() {
-        // KindTest
-        builder().withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
+        // XPath 3.1 EBNF (79) SequenceType
+        builder().withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)
+            .addCompletions(XPathSequenceTypeProvider)
 
-        // ItemType
+        // XPath 3.1 EBNF (81) ItemType
         builder().withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
+
+        // XPath 3.1 EBNF (83) KindTest
+        builder().withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
     }
 
     init {
