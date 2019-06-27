@@ -76,6 +76,22 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
                 val element = completion("completion-point")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
+
+            @Test
+            @DisplayName("element selector; FunctionCall-like with NCName function name")
+            fun elementSelector_functionCallLike_ncname() {
+                val context = ProcessingContext()
+                val element = completion("completion-point()")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("element selector; FunctionCall-like with QName function name")
+            fun elementSelector_functionCallLike_qname() {
+                val context = ProcessingContext()
+                val element = completion("local:completion-point()")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
+            }
         }
 
         @Nested

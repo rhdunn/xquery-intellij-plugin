@@ -19,10 +19,21 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
 object XPathKindTestFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
-        return element.ancestors().find { it is XPathNodeTest } != null
+        return element.ancestors().find {
+            when (it) {
+                is XPathNodeTest -> true // KindTest in NodeTests
+                is XPathFunctionCall -> {
+                    val fn = it as XPathFunctionReference
+                    fn.functionName?.let { name -> name.isLexicalQName && name.prefix == null } == true
+                }
+                else -> false
+            }
+        } != null
     }
 }

@@ -21,7 +21,10 @@ import com.intellij.codeInsight.lookup.LookupElement
 
 object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
-        context.document.insertString(context.tailOffset, "()")
+        if (context.document.charsSequence[context.tailOffset] != '(') {
+            context.document.insertString(context.tailOffset, "()")
+        }
+
         // Place the cursor between the parenthesis.
         context.editor.caretModel.let { it.moveToOffset(it.offset + 1) }
     }
