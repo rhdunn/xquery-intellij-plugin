@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - Code Completion - Completion Filters")
 private class XPathCompletionFilterTest : ParserTestCase() {
     @Nested
-    @DisplayName("XPath 3.1 EBNF (46) NodeTest")
-    internal inner class NodeTest {
+    @DisplayName("XPath 3.1 EBNF (83) KindTest")
+    internal inner class KindTest {
         @Test
         @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
         fun instanceofExpr() {
@@ -112,6 +112,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
                 val element = completion("parent (: lorem :) :: (: ipsum:) completion-point (: dolor :)")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (81) ItemType")
+        fun itemType() {
+            val context = ProcessingContext()
+            val element = completion("function (\$x as completion-point) {}")
+            assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
         }
     }
 }

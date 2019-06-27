@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery 3.1 - Code Completion - Completion Filters")
 private class XQueryCompletionFilterTest : ParserTestCase() {
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (118) NodeTest")
-    internal inner class NodeTest {
+    @DisplayName("XQuery 3.1 EBNF (188) KindTest")
+    internal inner class KindTest {
         @Test
         @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
         fun instanceofExpr() {
@@ -112,6 +112,14 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
                 val element = completion("parent (: lorem :) :: (: ipsum:) completion-point (: dolor :)")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (186) ItemType")
+        fun itemType() {
+            val context = ProcessingContext()
+            val element = completion("function (\$x as completion-point) {}")
+            assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
         }
     }
 }
