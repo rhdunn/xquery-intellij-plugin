@@ -19,34 +19,34 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createKindTestLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
 object XQueryKindTestProvider : CompletionProviderEx {
     private val MARKLOGIC_60_KIND_TESTS = listOf(
-        createKindTestLookup("binary")
+        createSequenceTypeLookup("binary")
     )
 
     private val MARKLOGIC_70_KIND_TESTS = listOf(
-        createKindTestLookup("attribute-decl"),
-        createKindTestLookup("complex-type"),
-        createKindTestLookup("element-decl"),
-        createKindTestLookup("schema-component"),
-        createKindTestLookup("schema-particle"),
-        createKindTestLookup("schema-root"),
-        createKindTestLookup("schema-type"),
-        createKindTestLookup("simple-type")
+        createSequenceTypeLookup("attribute-decl"),
+        createSequenceTypeLookup("complex-type"),
+        createSequenceTypeLookup("element-decl"),
+        createSequenceTypeLookup("schema-component"),
+        createSequenceTypeLookup("schema-particle"),
+        createSequenceTypeLookup("schema-root"),
+        createSequenceTypeLookup("schema-type"),
+        createSequenceTypeLookup("simple-type")
     )
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
-        createKindTestLookup("array-node", "(key-name?)"),
-        createKindTestLookup("boolean-node", "(key-name?)"),
-        createKindTestLookup("node", "(key-name-or-wildcard?)"), // XPath/XQuery extension
-        createKindTestLookup("null-node", "(key-name?)"),
-        createKindTestLookup("number-node", "(key-name?)"),
-        createKindTestLookup("object-node", "(key-name?)"),
-        createKindTestLookup("schema-facet"),
-        createKindTestLookup("text", "(key-name?)") // XPath/XQuery extension
+        createSequenceTypeLookup("array-node", "(key-name?)"),
+        createSequenceTypeLookup("boolean-node", "(key-name?)"),
+        createSequenceTypeLookup("node", "(key-name-or-wildcard?)"), // XPath/XQuery extension
+        createSequenceTypeLookup("null-node", "(key-name?)"),
+        createSequenceTypeLookup("number-node", "(key-name?)"),
+        createSequenceTypeLookup("object-node", "(key-name?)"),
+        createSequenceTypeLookup("schema-facet"),
+        createSequenceTypeLookup("text", "(key-name?)") // XPath/XQuery extension
     )
 
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {

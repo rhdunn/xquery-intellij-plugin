@@ -14,7 +14,8 @@ IntelliJ Integration:
 
 Code Completion:
 
-1.  Keyword completion support for `KindTest` based `NodeTest`s.
+1.  Keyword completion support for `KindTest` based `NodeTest`s and `ItemType`s.
+1.  Keyword completion support for `ItemType`s.
 
 Run Configurations:
 

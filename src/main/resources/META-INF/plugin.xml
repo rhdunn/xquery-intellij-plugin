@@ -24,7 +24,8 @@
     </ol>
     <p>Code Completion:</p>
     <ol>
-      <li>Keyword completion support for <code>KindTest</code> based <code>NodeTest</code>s.</li>
+      <li>Keyword completion support for <code>KindTest</code> based <code>NodeTest</code>s and <code>ItemType</code>s.</li>
+      <li>Keyword completion support for <code>ItemType</code>s.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>
