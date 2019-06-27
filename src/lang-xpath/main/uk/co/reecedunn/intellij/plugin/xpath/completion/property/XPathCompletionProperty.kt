@@ -23,4 +23,6 @@ object XPathCompletionProperty {
     val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathVersion")
 
     val XPATH_SUBSET: Key<XPathSubset> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathSubset")
+
+    val XSLT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XsltVersion")
 }

@@ -83,6 +83,12 @@ object XPathItemTypeProvider : CompletionProviderEx {
         createSequenceTypeLookup("item")
     )
 
+    private val XPATH_30_IN_XSLT_ITEM_TYPES = listOf(
+        createSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        createSequenceTypeLookup("item"),
+        createSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)") // XSLT 3.0 includes support for maps.
+    )
+
     private val XPATH_31_ITEM_TYPES = listOf(
         createSequenceTypeLookup("array", "(type-or-wildcard)"),
         createSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
@@ -96,7 +102,13 @@ object XPathItemTypeProvider : CompletionProviderEx {
         when (version) {
             XPathSpec.WD_2_0_20030502 -> result.addAllElements(XPATH_20_ITEM_TYPES)
             XPathSpec.REC_2_0_20070123 -> result.addAllElements(XPATH_20_ITEM_TYPES)
-            XPathSpec.REC_3_0_20140408 -> result.addAllElements(XPATH_30_ITEM_TYPES)
+            XPathSpec.REC_3_0_20140408 -> {
+                if (context[XPathCompletionProperty.XSLT_VERSION] == null) {
+                    result.addAllElements(XPATH_30_ITEM_TYPES)
+                } else {
+                    result.addAllElements(XPATH_30_IN_XSLT_ITEM_TYPES)
+                }
+            }
             XPathSpec.CR_3_1_20151217 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             XPathSpec.REC_3_1_20170321 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             else -> {}

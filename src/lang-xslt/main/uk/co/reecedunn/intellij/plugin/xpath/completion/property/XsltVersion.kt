@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
 object XsltVersion : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
-        if (context[XsltCompletionProperty.XSLT_VERSION] == null) {
-            context.put(XsltCompletionProperty.XSLT_VERSION, get(element) ?: NullSpecification)
+        if (context[XPathCompletionProperty.XSLT_VERSION] == null) {
+            context.put(XPathCompletionProperty.XSLT_VERSION, get(element) ?: NullSpecification)
         }
     }
 

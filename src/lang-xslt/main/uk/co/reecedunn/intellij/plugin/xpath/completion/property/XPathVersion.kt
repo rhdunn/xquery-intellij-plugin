@@ -28,7 +28,7 @@ object XPathVersion : CompletionProperty {
         if (context[XPathCompletionProperty.XPATH_VERSION] == null) {
             XsltVersion.computeProperty(element, context)
 
-            val xslt = context[XsltCompletionProperty.XSLT_VERSION]
+            val xslt = context[XPathCompletionProperty.XSLT_VERSION]
             context.put(XPathCompletionProperty.XPATH_VERSION, get(xslt) ?: NullSpecification)
         }
     }
