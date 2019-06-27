@@ -21,12 +21,41 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Code Completion - Completion Filters")
 private class XQueryCompletionFilterTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (186) ItemType")
+    internal inner class ItemType {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathItemTypeFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (112) ForwardStep ; XQuery 3.1 EBNF (113) ForwardAxis")
+        fun forwardAxisStep() {
+            val context = ProcessingContext()
+            val element = completion("child::completion-point")
+            assertThat(XPathItemTypeFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (186) ItemType")
+        fun itemType() {
+            val context = ProcessingContext()
+            val element = completion("function (\$x as completion-point) {}")
+            assertThat(XPathItemTypeFilter.accepts(element, context), `is`(true))
+        }
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (188) KindTest")
     internal inner class KindTest {
