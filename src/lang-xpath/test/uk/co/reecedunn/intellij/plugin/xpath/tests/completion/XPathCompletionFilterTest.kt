@@ -100,6 +100,34 @@ private class XPathCompletionFilterTest : ParserTestCase() {
                 assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+        internal inner class FunctionCall {
+            @Test
+            @DisplayName("NCName function name")
+            fun ncname() {
+                val context = ProcessingContext()
+                val element = completion("completion-point()")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName function name, from prefix")
+            fun qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("completion-point:test()")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName function name, from local-name")
+            fun qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("local:completion-point()")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+        }
     }
 
     @Nested
@@ -207,18 +235,22 @@ private class XPathCompletionFilterTest : ParserTestCase() {
                 val element = completion("completion-point")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
+        }
 
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+        internal inner class FunctionCall {
             @Test
-            @DisplayName("element selector; FunctionCall-like with NCName function name")
-            fun elementSelector_functionCallLike_ncname() {
+            @DisplayName("NCName function name")
+            fun ncname() {
                 val context = ProcessingContext()
                 val element = completion("completion-point()")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
             }
 
             @Test
-            @DisplayName("element selector; FunctionCall-like with QName function name")
-            fun elementSelector_functionCallLike_qname() {
+            @DisplayName("QName function name")
+            fun qname() {
                 val context = ProcessingContext()
                 val element = completion("local:completion-point()")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
