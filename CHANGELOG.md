@@ -14,9 +14,10 @@ IntelliJ Integration:
 
 Code Completion:
 
-1.  Keyword completion support for `ForwardAxis` and `ReverseAxis`.
-1.  Keyword completion support for `KindTest` based `NodeTest`s and `ItemType`s.
-1.  Keyword completion support for `SequenceType`s.
+1.  Keyword completion support for `ForwardAxis` and `ReverseAxis` for XPath and XQuery.
+1.  Keyword completion support for `KindTest` based `NodeTest`s and `ItemType`s for XPath and XQuery.
+1.  Keyword completion support for `SequenceType`s for XPath and XQuery.
+1.  XML Schema type completion support for `AtomicOrUnionType` and `SimpleTypeName` for XQuery.
 
 Run Configurations:
 

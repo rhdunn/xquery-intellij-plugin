@@ -31,6 +31,10 @@ fun createSequenceTypeLookup(kindTest: String, tailText: String = "()"): LookupE
         .withInsertHandler(XPathEmptyFunctionInsertHandler)
 }
 
+fun createTypeNameLookup(localName: String, prefix: String? = null): LookupElementBuilder {
+    return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
+}
+
 object XPathSequenceTypeProvider : CompletionProviderEx {
     private val XPATH_20_WD_2003_SEQUENCE_TYPE = createSequenceTypeLookup("empty")
 
@@ -87,6 +91,77 @@ object XPathItemTypeProvider : CompletionProviderEx {
             XPathSpec.REC_3_1_20170321 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             else -> {}
         }
+    }
+}
+
+object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
+    private const val XS_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema"
+
+    private fun createXsd10Types(prefix: String): List<LookupElementBuilder> {
+        return listOf(
+            createTypeNameLookup("anyAtomicType", prefix), // XSD 1.1 type supported in XPath/XQuery
+            createTypeNameLookup("anySimpleType", prefix),
+            createTypeNameLookup("anyURI", prefix),
+            createTypeNameLookup("base64Binary", prefix),
+            createTypeNameLookup("boolean", prefix),
+            createTypeNameLookup("byte", prefix),
+            createTypeNameLookup("date", prefix),
+            createTypeNameLookup("dateTime", prefix),
+            createTypeNameLookup("dayTimeDuration", prefix), // XSD 1.1 type supported in XPath/XQuery
+            createTypeNameLookup("decimal", prefix),
+            createTypeNameLookup("double", prefix),
+            createTypeNameLookup("duration", prefix),
+            createTypeNameLookup("ENTITY", prefix),
+            createTypeNameLookup("float", prefix),
+            createTypeNameLookup("gDay", prefix),
+            createTypeNameLookup("gMonth", prefix),
+            createTypeNameLookup("gMonthDay", prefix),
+            createTypeNameLookup("gYear", prefix),
+            createTypeNameLookup("gYearMonth", prefix),
+            createTypeNameLookup("hexBinary", prefix),
+            createTypeNameLookup("ID", prefix),
+            createTypeNameLookup("IDREF", prefix),
+            createTypeNameLookup("int", prefix),
+            createTypeNameLookup("integer", prefix),
+            createTypeNameLookup("language", prefix),
+            createTypeNameLookup("long", prefix),
+            createTypeNameLookup("Name", prefix),
+            createTypeNameLookup("NCName", prefix),
+            createTypeNameLookup("negativeInteger", prefix),
+            createTypeNameLookup("NMTOKEN", prefix),
+            createTypeNameLookup("nonNegativeInteger", prefix),
+            createTypeNameLookup("nonPositiveInteger", prefix),
+            createTypeNameLookup("normalizedString", prefix),
+            createTypeNameLookup("NOTATION", prefix),
+            createTypeNameLookup("numeric", prefix),
+            createTypeNameLookup("positiveInteger", prefix),
+            createTypeNameLookup("QName", prefix),
+            createTypeNameLookup("short", prefix),
+            createTypeNameLookup("string", prefix),
+            createTypeNameLookup("time", prefix),
+            createTypeNameLookup("token", prefix),
+            createTypeNameLookup("unsignedByte", prefix),
+            createTypeNameLookup("unsignedInt", prefix),
+            createTypeNameLookup("unsignedLong", prefix),
+            createTypeNameLookup("unsignedShort", prefix),
+            createTypeNameLookup("untypedAtomic", prefix),
+            createTypeNameLookup("yearMonthDuration", prefix) // XSD 1.1 type supported in XPath/XQuery
+        )
+    }
+
+    private fun createXsd11Types(prefix: String): List<LookupElementBuilder> {
+        return listOf(
+            createTypeNameLookup("dateTimeStamp", prefix),
+            createTypeNameLookup("error", prefix)
+        )
+    }
+
+    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
+        val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI }?.namespacePrefix?.data ?: return
+
+        result.addAllElements(createXsd10Types(prefix))
+        result.addAllElements(createXsd11Types(prefix))
     }
 }
 

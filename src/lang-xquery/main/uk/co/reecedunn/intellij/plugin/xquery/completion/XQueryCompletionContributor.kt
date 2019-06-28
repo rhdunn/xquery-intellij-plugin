@@ -18,17 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.completion
 import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathForwardOrReverseAxisFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathForwardOrReverseAxisProvider
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathItemTypeProvider
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathSequenceTypeProvider
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryProductVersion
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryForwardOrReverseAxisProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTestProvider
@@ -48,6 +43,10 @@ class XQueryCompletionContributor : CompletionContributorEx() {
 
         // XQuery 3.1 EBNF (186) ItemType
         builder(XQuery).withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
+
+        // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
+        builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter).withProperty(XQueryStaticallyKnownNamespaces)
+            .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (188) KindTest
         builder(XQuery).withFilter(XPathKindTestFilter)
