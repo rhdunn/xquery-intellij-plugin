@@ -1,8 +1,7 @@
 XPathImpl[FILE(0:13)]
    XPathOrExprImpl[XPATH_OR_EXPR(0:13)]
-      XPathNodeTestImpl[XPATH_NODE_TEST(0:13)]
-         XPathAxisStepImpl[XPATH_AXIS_STEP(0:13)]
-            XPathNCNameImpl[XPATH_NCNAME(0:11)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:11)]('lorem-ipsum')
-            PsiErrorElementImpl[ERROR_ELEMENT(11:13)]('XPST0003: Axis specifier used for an unknown axis name.')
-               LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(11:13)]('::')
+      XPathAxisStepImpl[XPATH_AXIS_STEP(0:13)]
+         XPathNCNameImpl[XPATH_NCNAME(0:11)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:11)]('lorem-ipsum')
+         PsiErrorElementImpl[ERROR_ELEMENT(11:13)]('XPST0003: Axis specifier used for an unknown axis name.')
+            LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(11:13)]('::')

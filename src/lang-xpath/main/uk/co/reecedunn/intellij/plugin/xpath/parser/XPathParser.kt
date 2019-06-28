@@ -1377,15 +1377,22 @@ open class XPathParser : PsiParser {
 
     private fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseKindTest(builder) || parseNameTest(builder, type)) {
+        if (parseKindTest(builder)) {
             marker.done(XPathElementType.NODE_TEST)
             return true
         }
+
+        val nameTest = parseNameTest(builder, type)
+        if (nameTest === XPathElementType.NAME_TEST) {
+            marker.done(XPathElementType.NODE_TEST)
+            return true
+        }
+
         marker.drop()
-        return false
+        return nameTest === XPathElementType.AXIS_STEP // Invalid/unknown axis name.
     }
 
-    fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseNameTest(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
         if (
             parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)
@@ -1401,7 +1408,7 @@ open class XPathParser : PsiParser {
                 nextTokenType === XPathTokenType.FUNCTION_REF_OPERATOR
             ) {
                 marker.rollbackTo()
-                return false
+                return null
             } else if (builder.errorOnTokenType(XPathTokenType.AXIS_SEPARATOR, XPathBundle.message("parser.error.invalid-axis"))) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseNodeTest(builder, null)
@@ -1409,13 +1416,14 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 parsePredicateList(builder)
                 marker.done(XPathElementType.AXIS_STEP)
+                return XPathElementType.AXIS_STEP
             } else {
                 marker.done(XPathElementType.NAME_TEST)
+                return XPathElementType.NAME_TEST
             }
-            return true
         }
         marker.drop()
-        return false
+        return null
     }
 
     fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
