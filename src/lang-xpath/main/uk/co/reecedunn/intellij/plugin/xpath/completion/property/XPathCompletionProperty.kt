@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 
 object XPathCompletionProperty {
     val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathVersion")
@@ -25,4 +26,7 @@ object XPathCompletionProperty {
     val XPATH_SUBSET: Key<XPathSubset> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathSubset")
 
     val XSLT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XsltVersion")
+
+    val STATICALLY_KNOWN_NAMESPACES: Key<List<XPathNamespaceDeclaration>> =
+        Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownNamespaces")
 }
