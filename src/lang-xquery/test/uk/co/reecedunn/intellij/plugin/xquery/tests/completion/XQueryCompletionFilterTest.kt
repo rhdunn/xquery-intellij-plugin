@@ -21,10 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathForwardOrReverseAxisFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -203,6 +200,34 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             val context = ProcessingContext()
             val element = completion("function (\$x as completion-point) {}")
             assertThat(XPathItemTypeFilter.accepts(element, context), `is`(true))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (187) AtomicOrUnionType")
+    internal inner class AtomicOrUnionType {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathAtomicOrUnionTypeFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (182) SingleType ; XQuery 3.1 EBNF (187) AtomicOrUnionType")
+        fun singleType() {
+            val context = ProcessingContext()
+            val element = completion("2 cast as completion-point")
+            assertThat(XPathAtomicOrUnionTypeFilter.accepts(element, context), `is`(true))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (186) ItemType ; XQuery 3.1 EBNF (187) AtomicOrUnionType")
+        fun itemType() {
+            val context = ProcessingContext()
+            val element = completion("function (\$x as completion-point) {}")
+            assertThat(XPathAtomicOrUnionTypeFilter.accepts(element, context), `is`(true))
         }
     }
 

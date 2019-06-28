@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleTypeName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
 object XPathSequenceTypeFilter : CompletionFilter {
@@ -36,6 +37,18 @@ object XPathItemTypeFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
             it is XPathAtomicOrUnionType // ItemType without '()'
+        } != null
+    }
+}
+
+object XPathAtomicOrUnionTypeFilter : CompletionFilter {
+    override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
+        return element.ancestors().find {
+            when (it) {
+                is XPathAtomicOrUnionType -> true // SequenceType / ItemType
+                is XPathSimpleTypeName -> true // SingleType
+                else -> false
+            }
         } != null
     }
 }
