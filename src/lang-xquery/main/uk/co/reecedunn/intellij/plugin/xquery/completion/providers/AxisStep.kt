@@ -19,6 +19,7 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createAxisStepLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
@@ -43,12 +44,20 @@ object XQueryForwardOrReverseAxisProvider : CompletionProviderEx {
         createAxisStepLookup("property")
     )
 
+    private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {
+        return when (context[XQueryCompletionProperty.XQUERY_VERSION]) {
+            XQuerySpec.MARKLOGIC_1_0 -> true
+            XQuerySpec.MARKLOGIC_0_9 -> true
+            else -> false
+        }
+    }
+
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {
         result.addAllElements(XQUERY_AXIS_STEPS)
 
         val version = context[XQueryCompletionProperty.XQUERY_PRODUCT_VERSION]
-        if (version.kind === MarkLogic) {
+        if (version.kind === MarkLogic && isMarkLogicXQueryVersion(context)) {
             result.addAllElements(MARKLOGIC_AXIS_STEPS)
         }
     }

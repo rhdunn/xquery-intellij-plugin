@@ -39,7 +39,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
 
         // XQuery 3.1 EBNF (113) ForwardAxis ; XQuery 3.1 EBNF (116) ReverseAxis
         builder(XQuery).withFilter(XPathForwardOrReverseAxisFilter)
-            .withProperty(XQueryProductVersion)
+            .withProperty(XQueryVersion).withProperty(XQueryProductVersion)
             .addCompletions(XQueryForwardOrReverseAxisProvider)
 
         // XQuery 3.1 EBNF (184) SequenceType

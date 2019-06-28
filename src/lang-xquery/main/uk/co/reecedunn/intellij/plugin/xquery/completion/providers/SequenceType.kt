@@ -19,6 +19,7 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
@@ -49,9 +50,17 @@ object XQueryKindTestProvider : CompletionProviderEx {
         createSequenceTypeLookup("text", "(key-name?)") // XPath/XQuery extension
     )
 
+    private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {
+        return when (context[XQueryCompletionProperty.XQUERY_VERSION]) {
+            XQuerySpec.MARKLOGIC_1_0 -> true
+            XQuerySpec.MARKLOGIC_0_9 -> true
+            else -> false
+        }
+    }
+
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XQueryCompletionProperty.XQUERY_PRODUCT_VERSION]
-        if (version.kind === MarkLogic) {
+        if (version.kind === MarkLogic && isMarkLogicXQueryVersion(context)) {
             if (version.value >= 6.0) result.addAllElements(MARKLOGIC_60_KIND_TESTS)
             if (version.value >= 7.0) result.addAllElements(MARKLOGIC_70_KIND_TESTS)
             if (version.value >= 8.0) result.addAllElements(MARKLOGIC_80_KIND_TESTS)
