@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -60,7 +60,7 @@ class PluginTypeDeclImpl(node: ASTNode) :
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.TypeDecl
+    override fun getIcon(unused: Boolean): Icon? = XPathIcons.Nodes.TypeDecl
 
     override fun getLocationString(): String? = null
 

@@ -21,6 +21,7 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.NullSpecification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
@@ -33,6 +34,7 @@ fun createSequenceTypeLookup(kindTest: String, tailText: String = "()"): LookupE
 
 fun createTypeNameLookup(localName: String, prefix: String? = null): LookupElementBuilder {
     return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
+        .withIcon(XPathIcons.Nodes.TypeDecl)
 }
 
 object XPathSequenceTypeProvider : CompletionProviderEx {

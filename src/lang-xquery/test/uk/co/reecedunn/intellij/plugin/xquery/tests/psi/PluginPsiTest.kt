@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -1031,8 +1032,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("test"))
 
                 val presentation = expr.presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.TypeDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.TypeDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
                 assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
