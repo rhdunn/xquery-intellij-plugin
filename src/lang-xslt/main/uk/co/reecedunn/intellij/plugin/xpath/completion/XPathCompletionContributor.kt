@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion
 
+import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathForwardOrReverseAxisFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
@@ -29,18 +31,20 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
     private fun registerXPathCompletionProviders() {
+        val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
+
         // XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis
-        builder().withFilter(XPathForwardOrReverseAxisFilter).addCompletions(XPathForwardOrReverseAxisProvider)
+        builder(XPath).withFilter(XPathForwardOrReverseAxisFilter).addCompletions(XPathForwardOrReverseAxisProvider)
 
         // XPath 3.1 EBNF (79) SequenceType
-        builder().withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)
+        builder(XPath).withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)
             .addCompletions(XPathSequenceTypeProvider)
 
         // XPath 3.1 EBNF (81) ItemType
-        builder().withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
+        builder(XPath).withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
 
         // XPath 3.1 EBNF (83) KindTest
-        builder().withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
+        builder(XPath).withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
     }
 
     init {

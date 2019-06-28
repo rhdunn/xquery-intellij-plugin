@@ -30,4 +30,8 @@ open class CompletionContributorEx : CompletionContributor() {
         extend(type, place, provider)
         return provider
     }
+
+    fun builder(place: ElementPattern<out PsiElement>): CompletionProviderBuilder {
+        return builder(CompletionType.BASIC, place)
+    }
 }
