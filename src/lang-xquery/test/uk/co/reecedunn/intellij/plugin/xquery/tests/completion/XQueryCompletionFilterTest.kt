@@ -42,6 +42,26 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (111) AxisStep (invalid/unknown axis name)")
+        internal inner class AxisStep {
+            @Test
+            @DisplayName("axis name")
+            fun axisName() {
+                val context = ProcessingContext()
+                val element = completion("lorem::ipsum", "lorem")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("node name")
+            fun nodeName() {
+                val context = ProcessingContext()
+                val element = completion("lorem::ipsum", "ipsum")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (112) ForwardStep ; XQuery 3.1 EBNF (113) ForwardAxis")
         internal inner class ForwardAxisStep {
             @Test

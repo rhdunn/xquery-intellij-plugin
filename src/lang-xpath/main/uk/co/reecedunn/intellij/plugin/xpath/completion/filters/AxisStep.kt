@@ -19,8 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathReverseAxis
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 
 object XPathForwardOrReverseAxisFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
@@ -28,6 +27,11 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
             when (it) {
                 is XPathForwardAxis -> true
                 is XPathReverseAxis -> true
+                is XPathAxisStep -> {
+                    val parent = element.parent
+                    // Not the NodeTest NCName or in the PredicateList.
+                    parent is XPathNCName && parent.parent is XPathAxisStep
+                }
                 else -> false
             }
         } != null

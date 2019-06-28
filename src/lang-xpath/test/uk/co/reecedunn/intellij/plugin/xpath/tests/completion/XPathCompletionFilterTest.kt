@@ -42,6 +42,26 @@ private class XPathCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 3.1 EBNF (39) AxisStep (invalid/unknown axis name)")
+        internal inner class AxisStep {
+            @Test
+            @DisplayName("axis name")
+            fun axisName() {
+                val context = ProcessingContext()
+                val element = completion("lorem::ipsum", "lorem")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("node name")
+            fun nodeName() {
+                val context = ProcessingContext()
+                val element = completion("lorem::ipsum", "ipsum")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (40) ForwardStep ; XPath 3.1 EBNF (41) ForwardAxis")
         internal inner class ForwardAxisStep {
             @Test
