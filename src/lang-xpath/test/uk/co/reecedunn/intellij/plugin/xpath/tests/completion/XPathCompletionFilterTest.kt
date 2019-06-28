@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathForwardOrReverseAxisFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
@@ -29,6 +30,58 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Code Completion - Completion Filters")
 private class XPathCompletionFilterTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis")
+    internal inner class ForwardOrReverseAxis {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (40) ForwardStep ; XPath 3.1 EBNF (41) ForwardAxis")
+        internal inner class ForwardAxisStep {
+            @Test
+            @DisplayName("axis name")
+            fun axisName() {
+                val context = ProcessingContext()
+                val element = completion("child::element", "child")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("node name")
+            fun nodeName() {
+                val context = ProcessingContext()
+                val element = completion("child::element", "element")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (43) ReverseStep ; XPath 3.1 EBNF (44) ReverseAxis")
+        internal inner class ReverseAxisStep {
+            @Test
+            @DisplayName("axis name")
+            fun axisName() {
+                val context = ProcessingContext()
+                val element = completion("parent::element", "parent")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("node name")
+            fun nodeName() {
+                val context = ProcessingContext()
+                val element = completion("parent::element", "element")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+        }
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (79) ItemType")
     internal inner class SequenceType {
