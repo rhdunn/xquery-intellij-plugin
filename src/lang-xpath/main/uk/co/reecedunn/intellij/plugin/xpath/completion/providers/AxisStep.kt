@@ -19,11 +19,13 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathAxisInsertHandler
 
 fun createAxisStepLookup(kindTest: String): LookupElementBuilder {
     return LookupElementBuilder.create(kindTest)
         .withBoldness(true)
         .withTailText("::")
+        .withInsertHandler(XPathAxisInsertHandler)
 }
 
 object XPathForwardOrReverseAxisProvider : CompletionProviderEx {
