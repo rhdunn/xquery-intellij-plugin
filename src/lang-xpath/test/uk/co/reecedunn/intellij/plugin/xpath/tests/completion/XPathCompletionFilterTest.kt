@@ -82,6 +82,42 @@ private class XPathCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 3.1 EBNF (40) ForwardStep ; XPath 3.1 EBNF (42) AbbrevForwardStep")
+        internal inner class AbbrevForwardStep {
+            @Test
+            @DisplayName("attribute selector")
+            fun attributeSelector() {
+                val context = ProcessingContext()
+                val element = completion("@completion-point")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("element selector as NCName")
+            fun elementSelector_ncname() {
+                val context = ProcessingContext()
+                val element = completion("completion-point")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("element selector as QName; prefix part")
+            fun elementSelector_qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "lorem")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("element selector as QName; local-name part")
+            fun elementSelector_qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "ipsum")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (43) ReverseStep ; XPath 3.1 EBNF (44) ReverseAxis")
         internal inner class ReverseAxisStep {
             @Test

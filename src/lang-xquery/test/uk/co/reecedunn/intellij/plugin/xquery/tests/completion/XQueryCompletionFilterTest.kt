@@ -82,6 +82,26 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (112) ForwardStep ; XQuery 3.1 EBNF (114) AbbrevForwardStep")
+        internal inner class AbbrevForwardStep {
+            @Test
+            @DisplayName("attribute selector")
+            fun attributeSelector() {
+                val context = ProcessingContext()
+                val element = completion("@completion-point")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("element selector")
+            fun elementSelector() {
+                val context = ProcessingContext()
+                val element = completion("completion-point")
+                assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(true))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (115) ReverseStep ; XQuery 3.1 EBNF (116) ReverseAxis")
         internal inner class ReverseAxisStep {
             @Test
