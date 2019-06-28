@@ -1407,10 +1407,8 @@ open class XPathParser : PsiParser {
                 parseNodeTest(builder, null)
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parsePredicateList(builder))
-                    marker.done(XPathElementType.AXIS_STEP)
-                else
-                    marker.done(XPathElementType.NAME_TEST)
+                parsePredicateList(builder)
+                marker.done(XPathElementType.AXIS_STEP)
             } else {
                 marker.done(XPathElementType.NAME_TEST)
             }
