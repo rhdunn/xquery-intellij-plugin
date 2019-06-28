@@ -16,18 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.xquery.completion
 
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathForwardOrReverseAxisFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathForwardOrReverseAxisProvider
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathItemTypeProvider
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathSequenceTypeProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryProductVersion
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryForwardOrReverseAxisProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTestProvider
 
 class XQueryCompletionContributor : CompletionContributorEx() {
     init {
+        // XQuery 3.1 EBNF (113) ForwardAxis ; XQuery 3.1 EBNF (116) ReverseAxis
+        builder().withFilter(XPathForwardOrReverseAxisFilter)
+            .withProperty(XQueryProductVersion)
+            .addCompletions(XQueryForwardOrReverseAxisProvider)
+
         // XQuery 3.1 EBNF (184) SequenceType
         builder().withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)
             .addCompletions(XPathSequenceTypeProvider)
