@@ -22,9 +22,9 @@ import com.intellij.codeInsight.lookup.LookupElement
 object XPathAxisInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
         val chars = context.document.charsSequence
-        if (chars[context.tailOffset] != ':') { // No ':'
+        if (chars.length == context.tailOffset || chars[context.tailOffset] != ':') { // No ':'
             context.document.insertString(context.tailOffset, "::")
-        } else if (chars[context.tailOffset + 1] != ':') { // Single ':'
+        } else if (chars.length == context.tailOffset + 1 || chars[context.tailOffset + 1] != ':') { // Single ':'
             context.document.insertString(context.tailOffset, ":")
         }
 

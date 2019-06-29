@@ -21,7 +21,8 @@ import com.intellij.codeInsight.lookup.LookupElement
 
 object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
-        if (context.document.charsSequence[context.tailOffset] != '(') {
+        val chars = context.document.charsSequence
+        if (chars.length == context.tailOffset || chars[context.tailOffset] != '(') {
             context.document.insertString(context.tailOffset, "()")
         }
 
