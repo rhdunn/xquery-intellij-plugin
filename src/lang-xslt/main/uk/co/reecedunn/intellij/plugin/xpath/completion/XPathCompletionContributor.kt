@@ -45,6 +45,11 @@ class XPathCompletionContributor : CompletionContributorEx() {
 
         // XPath 3.1 EBNF (83) KindTest
         builder(XPath).withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
+
+        // XQuery 3.1 EBNF (234) QName
+        builder(XPath).withFilter(XPathQNamePrefixFilter)
+            .withProperty(XPathStaticallyKnownNamespaces)
+            .addCompletions(XPathQNamePrefixProvider)
     }
 
     init {

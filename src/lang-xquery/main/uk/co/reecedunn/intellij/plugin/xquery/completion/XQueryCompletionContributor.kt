@@ -51,5 +51,10 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         builder(XQuery).withFilter(XPathKindTestFilter)
             .withProperty(XPathVersion).withProperty(XQueryProductVersion)
             .addCompletions(XQueryKindTestProvider).addCompletions(XPathKindTestProvider)
+
+        // XQuery 3.1 EBNF (234) QName
+        builder(XQuery).withFilter(XPathQNamePrefixFilter)
+            .withProperty(XQueryStaticallyKnownNamespaces)
+            .addCompletions(XPathQNamePrefixProvider)
     }
 }
