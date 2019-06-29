@@ -20,12 +20,14 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathQNamePrefixInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 fun createPrefixLookup(prefix: String): LookupElementBuilder {
     return LookupElementBuilder.create(prefix)
         .withBoldness(true)
         .withTailText(":")
+        .withInsertHandler(XPathQNamePrefixInsertHandler)
 }
 
 object XPathQNamePrefixProvider : CompletionProviderEx {
