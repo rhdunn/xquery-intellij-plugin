@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.isPrefixOrNCName
 
 object XPathForwardOrReverseAxisFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
@@ -36,9 +37,7 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
                 }
                 is XPathFunctionCall -> { // QName prefix part as axis missing the second ':', or NCName.
                     val fn = it as XPathFunctionReference
-                    fn.functionName?.let { name ->
-                        name.isLexicalQName && (name.prefix == null || name.prefix?.element === element)
-                    } == true
+                    fn.functionName?.isPrefixOrNCName(element) == true
                 }
                 is XPathNodeTest -> {
                     when (it.parent) {
@@ -46,11 +45,7 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
                         is XPathForwardStep -> false
                         is XPathAbbrevForwardStep -> false
                         is XPathReverseStep -> false
-                        else -> {
-                            (element.parent as XsQNameValue).let { name ->
-                                name.isLexicalQName && (name.prefix == null || name.prefix?.element === element)
-                            }
-                        }
+                        else -> (element.parent as XsQNameValue).isPrefixOrNCName(element)
                     }
                 }
                 else -> false

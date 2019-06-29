@@ -174,6 +174,10 @@ interface XsQNameValue : XsAnyAtomicType {
     val element: PsiElement?
 }
 
+fun XsQNameValue.isPrefixOrNCName(element: PsiElement): Boolean {
+    return isLexicalQName && (prefix == null || prefix?.element === element)
+}
+
 data class XsQName(
     override val namespace: XsAnyUriValue?,
     override val prefix: XsNCNameValue?,
