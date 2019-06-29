@@ -20,11 +20,12 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 object XQueryProductVersion : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
-        if (context[XQueryCompletionProperty.XQUERY_PRODUCT_VERSION] == null) {
-            context.put(XQueryCompletionProperty.XQUERY_PRODUCT_VERSION, get(element))
+        if (context[XPathCompletionProperty.XPATH_PRODUCT_VERSION] == null) {
+            context.put(XPathCompletionProperty.XPATH_PRODUCT_VERSION, get(element))
         }
     }
 

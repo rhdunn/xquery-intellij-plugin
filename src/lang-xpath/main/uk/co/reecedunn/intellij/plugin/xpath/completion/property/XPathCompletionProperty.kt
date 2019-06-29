@@ -27,6 +27,8 @@ object XPathCompletionProperty {
 
     val XSLT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XsltVersion")
 
+    val XPATH_PRODUCT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathProductVersion")
+
     val STATICALLY_KNOWN_NAMESPACES: Key<List<XPathNamespaceDeclaration>> =
         Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownNamespaces")
 }

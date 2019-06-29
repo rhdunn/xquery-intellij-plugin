@@ -20,6 +20,7 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
@@ -59,7 +60,7 @@ object XQueryKindTestProvider : CompletionProviderEx {
     }
 
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {
-        val version = context[XQueryCompletionProperty.XQUERY_PRODUCT_VERSION]
+        val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION]
         if (version.kind === MarkLogic && isMarkLogicXQueryVersion(context)) {
             if (version.value >= 6.0) result.addAllElements(MARKLOGIC_60_KIND_TESTS)
             if (version.value >= 7.0) result.addAllElements(MARKLOGIC_70_KIND_TESTS)

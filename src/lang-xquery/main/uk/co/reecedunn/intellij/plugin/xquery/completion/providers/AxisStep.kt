@@ -20,6 +20,7 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createAxisStepLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
@@ -56,7 +57,7 @@ object XQueryForwardOrReverseAxisProvider : CompletionProviderEx {
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {
         result.addAllElements(XQUERY_AXIS_STEPS)
 
-        val version = context[XQueryCompletionProperty.XQUERY_PRODUCT_VERSION]
+        val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION]
         if (version.kind === MarkLogic && isMarkLogicXQueryVersion(context)) {
             result.addAllElements(MARKLOGIC_AXIS_STEPS)
         }
