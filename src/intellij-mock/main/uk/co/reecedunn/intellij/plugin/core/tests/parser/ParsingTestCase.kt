@@ -54,6 +54,7 @@ import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
@@ -207,46 +208,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         return viewProvider
     }
 
-    private fun prettyPrintASTNode(prettyPrinted: StringBuilder, node: ASTNode, depth: Int) {
-        for (i in 0 until depth) {
-            prettyPrinted.append("   ")
-        }
-
-        val names = node.psi.javaClass.name.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        prettyPrinted.append(names[names.size - 1].replace("PsiImpl", "Impl"))
-
-        prettyPrinted.append('[')
-        prettyPrinted.append(node.elementType)
-        prettyPrinted.append('(')
-        prettyPrinted.append(node.textRange.startOffset)
-        prettyPrinted.append(':')
-        prettyPrinted.append(node.textRange.endOffset)
-        prettyPrinted.append(')')
-        prettyPrinted.append(']')
-        if (node is LeafElement || node is PsiErrorElement) {
-            prettyPrinted.append('(')
-            prettyPrinted.append('\'')
-            if (node is PsiErrorElement) {
-                val error = node as PsiErrorElement
-                prettyPrinted.append(error.errorDescription)
-            } else {
-                prettyPrinted.append(node.text.replace("\n", "\\n"))
-            }
-            prettyPrinted.append('\'')
-            prettyPrinted.append(')')
-        }
-        prettyPrinted.append('\n')
-
-        for (child in node.getChildren(null)) {
-            prettyPrintASTNode(prettyPrinted, child, depth + 1)
-        }
-    }
-
-    fun prettyPrintASTNode(file: File): String {
-        val prettyPrinted = StringBuilder()
-        prettyPrintASTNode(prettyPrinted, file.node, 0)
-        return prettyPrinted.toString()
-    }
+    fun prettyPrintASTNode(file: File): String = file.toPsiTreeString()
 
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File {
