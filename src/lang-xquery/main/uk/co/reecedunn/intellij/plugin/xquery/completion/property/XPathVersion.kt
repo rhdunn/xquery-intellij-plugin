@@ -27,15 +27,15 @@ object XPathVersion : CompletionProperty {
             XQueryVersion.computeProperty(element, context)
 
             val xquery = context[XQueryCompletionProperty.XQUERY_VERSION]
-            context.put(XPathCompletionProperty.XPATH_VERSION, get(xquery) ?: NullSpecification)
+            context.put(XPathCompletionProperty.XPATH_VERSION, get(xquery))
         }
     }
 
-    fun get(element: PsiElement): Version? {
+    fun get(element: PsiElement): Version {
         return get(XQueryVersion.get(element))
     }
 
-    private fun get(xqueryVersion: Version?): Version? {
+    private fun get(xqueryVersion: Version): Version {
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123 -> XPathSpec.REC_2_0_20070123
             XQuerySpec.REC_1_0_20101214 -> XPathSpec.REC_2_0_20101214
@@ -45,7 +45,7 @@ object XPathVersion : CompletionProperty {
             XQuerySpec.REC_3_1_20170321 -> XPathSpec.REC_3_1_20170321
             XQuerySpec.MARKLOGIC_0_9 -> XPathSpec.WD_2_0_20030502
             XQuerySpec.MARKLOGIC_1_0 -> XPathSpec.REC_2_0_20070123
-            else -> null
+            else -> XPathSpec.REC_3_1_20170321
         }
     }
 }

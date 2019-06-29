@@ -18,19 +18,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.completion.property
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
-import uk.co.reecedunn.intellij.plugin.intellij.lang.NullSpecification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 object XQueryVersion : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XQueryCompletionProperty.XQUERY_VERSION] == null) {
-            context.put(XQueryCompletionProperty.XQUERY_VERSION, get(element) ?: NullSpecification)
+            context.put(XQueryCompletionProperty.XQUERY_VERSION, get(element))
         }
     }
 
-    fun get(element: PsiElement): Version? {
-        val file = element.containingFile as? XQueryModule ?: return null
+    fun get(element: PsiElement): Version {
+        val file = element.containingFile as? XQueryModule ?: return XQuerySpec.REC_3_1_20170321
         return file.XQueryVersion.getVersionOrDefault(file.project)
     }
 }

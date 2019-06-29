@@ -91,8 +91,6 @@ private object NullVersioned : Versioned {
     override val versions: List<Version> = listOf()
 }
 
-object NullSpecification : Specification("null", 0.0, 0, "null", "", NullVersioned)
-
 enum class XQueryFeature {
     MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
     FULL_AXIS, // XQuery 1.0

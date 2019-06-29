@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
-import uk.co.reecedunn.intellij.plugin.intellij.lang.NullSpecification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
@@ -29,20 +28,20 @@ object XPathVersion : CompletionProperty {
             XsltVersion.computeProperty(element, context)
 
             val xslt = context[XPathCompletionProperty.XSLT_VERSION]
-            context.put(XPathCompletionProperty.XPATH_VERSION, get(xslt) ?: NullSpecification)
+            context.put(XPathCompletionProperty.XPATH_VERSION, get(xslt))
         }
     }
 
-    fun get(element: PsiElement): Version? {
+    fun get(element: PsiElement): Version {
         return get(XsltVersion.get(element))
     }
 
-    private fun get(xsltVersion: Version?): Version? {
+    private fun get(xsltVersion: Version): Version {
         return when (xsltVersion) {
             XsltSpec.REC_1_0_19991116 -> XPathSpec.REC_1_0_19991116
             XsltSpec.REC_2_0_20070123 -> XPathSpec.REC_2_0_20070123
             XsltSpec.REC_3_0_20170608 -> XPathSpec.REC_3_1_20170321 // TODO: Can be XPath 3.0 + maps on some processors.
-            else -> null
+            else -> XPathSpec.REC_3_1_20170321
         }
     }
 }

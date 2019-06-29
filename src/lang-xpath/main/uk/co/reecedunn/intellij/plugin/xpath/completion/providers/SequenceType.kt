@@ -19,7 +19,6 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
-import uk.co.reecedunn.intellij.plugin.intellij.lang.NullSpecification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
@@ -46,7 +45,7 @@ object XPathSequenceTypeProvider : CompletionProviderEx {
     override fun apply(context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XPathCompletionProperty.XPATH_VERSION]
         when (version) {
-            NullSpecification, XPathSpec.REC_1_0_19991116 -> {}
+            XPathSpec.REC_1_0_19991116 -> {}
             XPathSpec.WD_2_0_20030502 -> result.addElement(XPATH_20_WD_2003_SEQUENCE_TYPE)
             else -> result.addElement(XPATH_20_REC_SEQUENCE_TYPE)
         }

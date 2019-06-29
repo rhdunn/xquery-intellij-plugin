@@ -20,24 +20,23 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
-import uk.co.reecedunn.intellij.plugin.intellij.lang.NullSpecification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 
 object XsltVersion : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.XSLT_VERSION] == null) {
-            context.put(XPathCompletionProperty.XSLT_VERSION, get(element) ?: NullSpecification)
+            context.put(XPathCompletionProperty.XSLT_VERSION, get(element))
         }
     }
 
-    fun get(element: PsiElement): Version? {
-        val file = element.toXmlAttributeValue()?.containingFile as? XmlFile ?: return null
+    fun get(element: PsiElement): Version {
+        val file = element.toXmlAttributeValue()?.containingFile as? XmlFile ?: return XsltSpec.REC_3_0_20170608
         return when (file.rootTag?.getAttribute("version", "")?.value) {
             "1.0" -> XsltSpec.REC_1_0_19991116
             "2.0" -> XsltSpec.REC_2_0_20070123
             "3.0" -> XsltSpec.REC_3_0_20170608
-            else -> null
+            else -> XsltSpec.REC_3_0_20170608
         }
     }
 }
