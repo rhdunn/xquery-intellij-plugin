@@ -422,4 +422,44 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (122) QName")
+    internal inner class QName {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathQNamePrefixFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        fun ncname() {
+            val context = ProcessingContext()
+            val element = completion("completion-point")
+            assertThat(XPathQNamePrefixFilter.accepts(element, context), `is`(true))
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (122) QName")
+        internal inner class QName {
+            @Test
+            @DisplayName("prefix part")
+            fun prefix() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "lorem")
+                assertThat(XPathQNamePrefixFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("local-name part")
+            fun localName() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "ipsum")
+                assertThat(XPathQNamePrefixFilter.accepts(element, context), `is`(false))
+            }
+        }
+    }
 }
