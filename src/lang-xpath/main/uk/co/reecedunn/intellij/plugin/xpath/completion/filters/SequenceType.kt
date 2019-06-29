@@ -30,7 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.isPrefixOrNCName
 object XPathSequenceTypeFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
-            it is XPathAtomicOrUnionType // ItemType without '()'
+            when (it) {
+                is XPathAtomicOrUnionType -> { // SequenceType without '()'
+                    (element.parent as XsQNameValue).isPrefixOrNCName(element)
+                }
+                else -> false
+            }
         } != null
     }
 }

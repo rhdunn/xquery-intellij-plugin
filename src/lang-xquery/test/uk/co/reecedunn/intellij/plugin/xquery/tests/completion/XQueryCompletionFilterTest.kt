@@ -166,12 +166,32 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(false))
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (186) ItemType")
-        fun itemType() {
-            val context = ProcessingContext()
-            val element = completion("function (\$x as completion-point) {}")
-            assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(true))
+        internal inner class ItemType {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val context = ProcessingContext()
+                val element = completion("function (\$x as completion-point) {}")
+                assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName for prefix part")
+            fun qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("function (\$x as lorem:ipsum) {}", "lorem")
+                assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName for local-name part")
+            fun qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("function (\$x as lorem:ipsum) {}", "ipsum")
+                assertThat(XPathSequenceTypeFilter.accepts(element, context), `is`(false))
+            }
         }
     }
 
