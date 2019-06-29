@@ -38,7 +38,12 @@ object XPathSequenceTypeFilter : CompletionFilter {
 object XPathItemTypeFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
-            it is XPathAtomicOrUnionType // ItemType without '()'
+            when (it) {
+                is XPathAtomicOrUnionType -> { // ItemType without '()'
+                    (element.parent as XsQNameValue).isPrefixOrNCName(element)
+                }
+                else -> false
+            }
         } != null
     }
 }
