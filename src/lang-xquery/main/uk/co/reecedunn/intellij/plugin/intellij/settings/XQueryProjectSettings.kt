@@ -34,13 +34,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
 
     @get:Transient
     val productVersion: Version
-        get() = PRODUCT_VERSION.productVersion ?: when (product) {
-            BaseX.BASEX -> BaseX.VERSION_8_6
-            MarkLogic.MARKLOGIC -> MarkLogic.VERSION_9_0
-            Saxon.HE, Saxon.PE, Saxon.EE, Saxon.EE_Q, Saxon.EE_T, Saxon.EE_V -> Saxon.VERSION_9_8
-            W3C.SPECIFICATIONS -> W3C.FIRST_EDITION
-            else -> throw RuntimeException("Unknown product: $product")
-        }
+        get() = PRODUCT_VERSION.productVersion ?: defaultProductVersion(product)
 
     // endregion
     // region Persisted Settings

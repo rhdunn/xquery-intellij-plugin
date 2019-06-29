@@ -19,8 +19,10 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
+import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
@@ -162,8 +164,8 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
         val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI }?.namespacePrefix?.data ?: return
 
-        val product = context[XPathCompletionProperty.XPATH_PRODUCT] ?: return
-        val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION] ?: return
+        val product = context[XPathCompletionProperty.XPATH_PRODUCT] ?: W3C.SPECIFICATIONS
+        val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION] ?: defaultProductVersion(product)
 
         if (product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028)) result.addAllElements(createXsd10Types(prefix))
         if (product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405)) result.addAllElements(createXsd11Types(prefix))

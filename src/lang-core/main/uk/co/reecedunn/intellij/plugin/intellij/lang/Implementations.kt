@@ -452,3 +452,13 @@ fun defaultStaticContext(xquery: Specification?): String? = when (xquery) {
         MarkLogic.staticContext(MarkLogic.MARKLOGIC, MarkLogic.VERSION_9_0, xquery)
     else -> null
 }
+
+fun defaultProductVersion(product: Product): Version {
+    return when (product) {
+        BaseX.BASEX -> BaseX.VERSION_9_1
+        MarkLogic.MARKLOGIC -> MarkLogic.VERSION_9_0
+        Saxon.HE, Saxon.PE, Saxon.EE, Saxon.EE_Q, Saxon.EE_T, Saxon.EE_V -> Saxon.VERSION_9_9
+        W3C.SPECIFICATIONS -> W3C.FIRST_EDITION
+        else -> throw RuntimeException("Unknown product: $product")
+    }
+}
