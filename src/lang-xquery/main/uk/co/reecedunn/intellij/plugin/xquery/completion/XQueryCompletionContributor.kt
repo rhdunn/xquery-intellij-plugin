@@ -21,10 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XPathVersion
-import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryProductVersion
-import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryStaticallyKnownNamespaces
-import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryForwardOrReverseAxisProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTestProvider
 
@@ -45,7 +42,9 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         builder(XQuery).withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
 
         // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
-        builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter).withProperty(XQueryStaticallyKnownNamespaces)
+        builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
+            .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
+            .withProperty(XQueryStaticallyKnownNamespaces)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (188) KindTest

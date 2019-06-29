@@ -258,8 +258,7 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
     }
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 ->
-            true
+        XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 -> true
         XQuerySpec.REC_1_0_20070123 -> true
         XQuerySpec.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
         XQuerySpec.CR_3_1_20151217 -> productVersion === Saxon.VERSION_9_7
