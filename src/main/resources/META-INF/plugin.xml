@@ -27,7 +27,7 @@
       <li>Keyword completion support for <code>ForwardAxis</code> and <code>ReverseAxis</code> for XPath and XQuery.</li>
       <li>Keyword completion support for <code>KindTest</code> based <code>NodeTest</code>s and <code>ItemType</code>s for XPath and XQuery.</li>
       <li>Keyword completion support for <code>SequenceType</code>s for XPath and XQuery.</li>
-      <li>XML Schema type completion support for <code>AtomicOrUnionType</code> and <code>SimpleTypeName</code> for XQuery.</li>
+      <li>XML Schema type completion support for <code>AtomicOrUnionType</code> and <code>SimpleTypeName</code> for XPath and XQuery.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

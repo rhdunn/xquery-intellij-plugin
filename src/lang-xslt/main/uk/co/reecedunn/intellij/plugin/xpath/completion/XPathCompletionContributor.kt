@@ -18,15 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathForwardOrReverseAxisFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathItemTypeFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathKindTestFilter
-import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.XPathSequenceTypeFilter
+import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathForwardOrReverseAxisProvider
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathItemTypeProvider
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathKindTestProvider
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathSequenceTypeProvider
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
@@ -42,6 +37,11 @@ class XPathCompletionContributor : CompletionContributorEx() {
 
         // XPath 3.1 EBNF (81) ItemType
         builder(XPath).withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
+
+        // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
+        builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
+            .withProperty(XPathStaticallyKnownNamespaces)
+            .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XPath 3.1 EBNF (83) KindTest
         builder(XPath).withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
