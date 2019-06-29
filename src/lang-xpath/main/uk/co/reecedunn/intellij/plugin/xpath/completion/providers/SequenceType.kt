@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 fun createSequenceTypeLookup(kindTest: String, tailText: String = "()"): LookupElementBuilder {
     return LookupElementBuilder.create(kindTest)
@@ -102,7 +103,7 @@ object XPathItemTypeProvider : CompletionProviderEx {
 object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
     private const val XS_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema"
 
-    private fun createXsd10Types(prefix: String): List<LookupElementBuilder> {
+    private fun createXsd10Types(prefix: String?): List<LookupElementBuilder> {
         return listOf(
             createTypeNameLookup("anyAtomicType", prefix), // XSD 1.1 type supported in XPath/XQuery
             createTypeNameLookup("anySimpleType", prefix),
@@ -154,22 +155,31 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
         )
     }
 
-    private fun createXsd11Types(prefix: String): List<LookupElementBuilder> {
+    private fun createXsd11Types(prefix: String?): List<LookupElementBuilder> {
         return listOf(
             createTypeNameLookup("dateTimeStamp", prefix),
             createTypeNameLookup("error", prefix)
         )
     }
 
-    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
-        val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI }?.namespacePrefix?.data ?: return
-
+    private fun addXsdTypes(context: ProcessingContext, result: CompletionResultSet, prefix: String?) {
         val product = context[XPathCompletionProperty.XPATH_PRODUCT] ?: W3C.SPECIFICATIONS
         val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION] ?: defaultProductVersion(product)
 
         if (product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028)) result.addAllElements(createXsd10Types(prefix))
         if (product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405)) result.addAllElements(createXsd11Types(prefix))
+    }
+
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
+        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
+        val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI }?.namespacePrefix?.data ?: return
+
+        val qname = element.parent as XsQNameValue
+        if (qname.prefix?.data == prefix && qname.localName?.element === element) {
+            addXsdTypes(context, result, null) // Prefix already specified.
+        } else if (qname.prefix == null) {
+            addXsdTypes(context, result, prefix)
+        }
     }
 }
 
