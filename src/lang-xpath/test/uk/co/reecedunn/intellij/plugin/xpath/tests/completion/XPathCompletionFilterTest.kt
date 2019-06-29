@@ -290,11 +290,27 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("element selector")
-            fun elementSelector() {
+            @DisplayName("element selector as NCName")
+            fun elementSelector_ncname() {
                 val context = ProcessingContext()
                 val element = completion("completion-point")
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("element selector as QName for prefix part")
+            fun elementSelector_qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "lorem")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("element selector as QName for local-name part")
+            fun elementSelector_qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "ipsum")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
             }
         }
 
@@ -338,12 +354,32 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("XPath 3.1 EBNF (81) ItemType")
-        fun itemType() {
-            val context = ProcessingContext()
-            val element = completion("function (\$x as completion-point) {}")
-            assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
+        internal inner class ItemType {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val context = ProcessingContext()
+                val element = completion("function (\$x as completion-point) {}")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName for prefix part")
+            fun qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("function (\$x as lorem:ipsum) {}", "lorem")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName for local-name part")
+            fun qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("function (\$x as lorem:ipsum) {}", "ipsum")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
+            }
         }
     }
 }

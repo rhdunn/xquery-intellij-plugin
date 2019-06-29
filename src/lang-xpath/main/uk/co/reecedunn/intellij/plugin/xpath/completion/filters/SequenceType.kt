@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleTypeName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.isPrefixOrNCName
 
 object XPathSequenceTypeFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
@@ -57,8 +59,10 @@ object XPathKindTestFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
             when (it) {
-                is XPathNodeTest -> true // KindTest as NodeTest
-                is XPathAtomicOrUnionType -> true // KindTest as ItemType without '()'
+                is XPathAtomicOrUnionType, // KindTest as ItemType without '()'
+                is XPathNodeTest -> { // KindTest as NodeTest
+                    (element.parent as XsQNameValue).isPrefixOrNCName(element)
+                }
                 is XPathFunctionCall -> { // Unknown KindTest with '()'
                     val fn = it as XPathFunctionReference
                     fn.functionName?.let { name -> name.isLexicalQName && name.prefix == null } == true
