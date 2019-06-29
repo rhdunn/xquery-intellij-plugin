@@ -32,8 +32,17 @@ fun createPrefixLookup(prefix: String): LookupElementBuilder {
 
 object XPathQNamePrefixProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
+        var hasXmlNamespace = false
         context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES].forEach { decl ->
-            decl.namespacePrefix?.let { result.addElement(createPrefixLookup(it.data)) }
+            decl.namespacePrefix?.let {
+                result.addElement(createPrefixLookup(it.data))
+                if (it.data == "xml") {
+                    hasXmlNamespace = true
+                }
+            }
         }
+
+        // In an XSLT (XML) file, the xml namespace is not declared in an xmlns attribute.
+        if (!hasXmlNamespace) result.addElement(createPrefixLookup("xml"))
     }
 }
