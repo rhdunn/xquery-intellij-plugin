@@ -16,8 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.core.completion
 
 import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 
 interface CompletionProviderEx {
-    fun apply(context: ProcessingContext, result: CompletionResultSet)
+    fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet)
 }

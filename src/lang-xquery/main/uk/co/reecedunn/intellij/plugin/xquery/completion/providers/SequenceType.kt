@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
@@ -59,7 +60,7 @@ object XQueryKindTestProvider : CompletionProviderEx {
         }
     }
 
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION]
         if (version.kind === MarkLogic && isMarkLogicXQueryVersion(context)) {
             if (version.value >= 6.0) result.addAllElements(MARKLOGIC_60_KIND_TESTS)

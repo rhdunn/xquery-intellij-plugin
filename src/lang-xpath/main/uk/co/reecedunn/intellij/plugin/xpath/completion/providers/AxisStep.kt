@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathAxisInsertHandler
@@ -46,7 +47,7 @@ object XPathForwardOrReverseAxisProvider : CompletionProviderEx {
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         result.addAllElements(XPATH_AXIS_STEPS)
     }
 }

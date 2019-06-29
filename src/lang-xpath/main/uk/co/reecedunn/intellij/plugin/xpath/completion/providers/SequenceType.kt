@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
@@ -45,7 +46,7 @@ object XPathSequenceTypeProvider : CompletionProviderEx {
     private val XPATH_20_REC_SEQUENCE_TYPE = createSequenceTypeLookup("empty-sequence")
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XPathCompletionProperty.XPATH_VERSION]
         when (version) {
             XPathSpec.REC_1_0_19991116 -> {}
@@ -79,7 +80,7 @@ object XPathItemTypeProvider : CompletionProviderEx {
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XPathCompletionProperty.XPATH_VERSION]
         when (version) {
             XPathSpec.WD_2_0_20030502 -> result.addAllElements(XPATH_20_ITEM_TYPES)
@@ -160,7 +161,7 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
         )
     }
 
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
         val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI }?.namespacePrefix?.data ?: return
 
@@ -205,7 +206,7 @@ object XPathKindTestProvider : CompletionProviderEx {
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XPathCompletionProperty.XPATH_VERSION]
         when (version) {
             XPathSpec.REC_1_0_19991116 -> result.addAllElements(XPATH_10_KIND_TESTS)

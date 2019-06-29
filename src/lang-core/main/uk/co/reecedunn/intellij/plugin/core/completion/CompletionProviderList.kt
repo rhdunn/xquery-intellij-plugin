@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.completion
 
 import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 
 internal class CompletionProviderList : CompletionProviderEx {
@@ -25,7 +26,7 @@ internal class CompletionProviderList : CompletionProviderEx {
         providers.add(provider)
     }
 
-    override fun apply(context: ProcessingContext, result: CompletionResultSet) {
-        providers.forEach { provider -> provider.apply(context, result) }
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
+        providers.forEach { provider -> provider.apply(element, context, result) }
     }
 }

@@ -67,13 +67,14 @@ class CompletionProviderBuilder : CompletionProvider<CompletionParameters>() {
         context: ProcessingContext,
         result: CompletionResultSet
     ) {
-        property?.computeProperty(parameters.position, context)
+        val element = parameters.position
+        property?.computeProperty(element, context)
         if (filter != null) {
             if (filter?.accepts(parameters.position, context) == true) {
-                completions?.apply(context, result)
+                completions?.apply(element, context, result)
             }
         } else {
-            completions?.apply(context, result)
+            completions?.apply(element, context, result)
         }
     }
 }
