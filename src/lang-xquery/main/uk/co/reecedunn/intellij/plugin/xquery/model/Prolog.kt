@@ -15,8 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 fun <Decl> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl?> {
@@ -27,3 +32,26 @@ fun <Decl> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl
 
 inline fun <reified Decl> XQueryProlog.annotatedDeclarations(): Sequence<Decl?> =
     annotatedDeclarations(Decl::class.java)
+
+private fun XPathEQName.fileProlog(): XQueryProlog? {
+    val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
+    return (module as XQueryPrologResolver).prolog.firstOrNull()
+}
+
+fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue, XQueryProlog>> {
+    var thisProlog = fileProlog()
+    val prologs = (this as XsQNameValue).expand().flatMap { name ->
+        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog?.map { prolog ->
+            if (prolog === thisProlog)
+                thisProlog = null
+            name to prolog
+        } ?: emptySequence()
+    }.toList()
+    return if (thisProlog != null)
+        sequenceOf(
+            prologs.asSequence(),
+            (this as XsQNameValue).expand().map { name -> name to thisProlog!! }
+        ).flatten()
+    else
+        prologs.asSequence()
+}

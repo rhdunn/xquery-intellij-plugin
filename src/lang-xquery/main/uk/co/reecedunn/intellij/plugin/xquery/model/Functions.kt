@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
-import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -36,26 +35,6 @@ private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<
     }
 }
 
-private fun XPathEQName.fileProlog(): XQueryProlog? {
-    val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
-    return (module as XQueryPrologResolver).prolog.firstOrNull()
-}
-
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
-    var thisProlog = fileProlog()
-    val functions = (this as XsQNameValue).expand().flatMap { name ->
-        val prologs = (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
-        prologs.flatMap { prolog ->
-            if (prolog == thisProlog)
-                thisProlog = null
-            prolog.staticallyKnownFunctions(name)
-        }
-    }.toList()
-    return if (thisProlog != null)
-        sequenceOf(
-            functions.asSequence(),
-            (this as XsQNameValue).expand().flatMap { name -> thisProlog!!.staticallyKnownFunctions(name) }
-        ).flatten().filterNotNull()
-    else
-        functions.asSequence().filterNotNull()
+    return importedPrologsForQName().flatMap { (name, prolog) -> prolog.staticallyKnownFunctions(name) }.filterNotNull()
 }
