@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.completion
 
 import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryForwardOrReverseAxisProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTestProvider
+import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefProvider
 
 class XQueryCompletionContributor : CompletionContributorEx() {
     init {
@@ -33,6 +33,9 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         builder(XQuery).withFilter(XPathForwardOrReverseAxisFilter)
             .withProperty(XQueryVersion).withProperty(XQueryProductVersion)
             .addCompletions(XQueryForwardOrReverseAxisProvider)
+
+        // XQuery 3.1 EBNF (131) VarRef
+        builder(XQuery).withFilter(XPathVarRefFilter).addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (184) SequenceType
         builder(XQuery).withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)

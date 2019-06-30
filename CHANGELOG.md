@@ -14,11 +14,12 @@ IntelliJ Integration:
 
 Code Completion:
 
-1.  Keyword completion support for `ForwardAxis` and `ReverseAxis` for XPath and XQuery.
-1.  Keyword completion support for `KindTest` based `NodeTest`s and `ItemType`s for XPath and XQuery.
-1.  Keyword completion support for `SequenceType`s for XPath and XQuery.
-1.  `QName` prefix completion support for XPath and XQuery.
-1.  XML Schema type completion support for `AtomicOrUnionType` and `SimpleTypeName` for XPath and XQuery.
+1.  In-scope variable binding completion support in `VarRef` expressions for XQuery.
+1.  XML Schema type completion support in `AtomicOrUnionType` and `SimpleTypeName` for XPath and XQuery.
+1.  Namespace prefix completion support in `QName`s for XPath and XQuery.
+1.  Keyword completion support in `ForwardAxis` and `ReverseAxis` for XPath and XQuery.
+1.  Keyword completion support in `KindTest` based `NodeTest`s and `ItemType`s for XPath and XQuery.
+1.  Keyword completion support in `SequenceType`s for XPath and XQuery.
 
 Run Configurations:
 
