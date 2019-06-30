@@ -164,6 +164,26 @@ private class XPathCompletionFilterTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 EBNF (59) VarRef")
+    internal inner class VarRef {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathVarRefFilter.accepts(element, context), `is`(false))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (59) VarRef")
+        fun varRef() {
+            val context = ProcessingContext()
+            val element = completion("\$completion-point")
+            assertThat(XPathVarRefFilter.accepts(element, context), `is`(true))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 EBNF (79) SequenceType")
     internal inner class SequenceType {
         @Test
