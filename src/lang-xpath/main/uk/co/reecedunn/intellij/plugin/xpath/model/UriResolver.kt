@@ -41,7 +41,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
                     project,
                     JavaSourceRootType.SOURCE
                 ),
-                if (file.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)
+                if (file?.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)
                     moduleRootImportResolvers(
                         project,
                         JavaSourceRootType.TEST_SOURCE

@@ -40,11 +40,11 @@ object EmptyPathImportResolver : ImportPathResolver {
     override fun resolve(path: String): VirtualFile? = null
 }
 
-class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathResolver {
+class RelativeFileImportResolver(private val file: VirtualFile?) : ImportPathResolver {
     override fun match(path: String): Boolean = !path.isEmpty() && !path.contains("://") && !path.startsWith("/")
 
     override fun resolve(path: String): VirtualFile? {
-        var file: VirtualFile? = file
+        var file = file
         if (file is LightVirtualFileBase) {
             file = file.originalFile
         }
