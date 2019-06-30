@@ -16,28 +16,22 @@
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
-    return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
-        val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
+    return annotatedDeclarations<XQueryFunctionDecl>().filter { function ->
         val functionName = function?.functionName
         // NOTE: Opening the context menu on a call to MarkLogic's `xdmp:version()`
         // is slow (~10 seconds) when just checking the expanded QName, so check
         // local-name first ...
         if (functionName?.let { it.localName?.data == name.localName?.data } == true) {
             // ... then check the expanded QName namespace.
-            if (functionName.expand().firstOrNull()?.let { op_qname_equal(it, name) } == true) {
-                function
-            } else {
-                null
-            }
+            functionName.expand().firstOrNull()?.let { op_qname_equal(it, name) } == true
         } else {
-            null
+            false
         }
     }
 }
