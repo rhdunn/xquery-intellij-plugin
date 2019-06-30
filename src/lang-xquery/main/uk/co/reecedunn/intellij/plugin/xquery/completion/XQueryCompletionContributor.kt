@@ -35,7 +35,8 @@ class XQueryCompletionContributor : CompletionContributorEx() {
             .addCompletions(XQueryForwardOrReverseAxisProvider)
 
         // XQuery 3.1 EBNF (131) VarRef
-        builder(XQuery).withFilter(XPathVarRefFilter).addCompletions(XQueryVarRefProvider)
+        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownNamespaces)
+            .addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (184) SequenceType
         builder(XQuery).withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)

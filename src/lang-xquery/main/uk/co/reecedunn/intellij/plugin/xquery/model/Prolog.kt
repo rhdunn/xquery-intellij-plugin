@@ -33,6 +33,15 @@ fun <Decl> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl
 inline fun <reified Decl> XQueryProlog.annotatedDeclarations(): Sequence<Decl?> =
     annotatedDeclarations(Decl::class.java)
 
+fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> {
+    return sequenceOf(
+        sequenceOf(this),
+        staticallyKnownNamespaces().flatMap { ns ->
+            (ns.namespaceUri?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
+        }
+    ).flatten()
+}
+
 private fun XPathEQName.fileProlog(): XQueryProlog? {
     val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
     return (module as XQueryPrologResolver).prolog.firstOrNull()

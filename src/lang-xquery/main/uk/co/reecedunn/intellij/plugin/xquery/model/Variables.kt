@@ -162,7 +162,9 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPa
 }
 
 private fun XQueryProlog.varDecls(): Sequence<XPathVariableDeclaration?> {
-    return annotatedDeclarations<XPathVariableDeclaration>().filter { variable -> variable?.variableName != null }
+    return importedPrologs().flatMap { prolog ->
+        prolog.annotatedDeclarations<XPathVariableDeclaration>()
+    }.filter { variable -> variable?.variableName != null }
 }
 
 // endregion
