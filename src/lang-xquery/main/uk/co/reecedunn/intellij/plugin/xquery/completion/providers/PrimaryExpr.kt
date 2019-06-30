@@ -74,6 +74,18 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     }
                 }
             }
+            EQNameCompletionType.URIQualifiedNameLocalName -> {
+                // With namespace context, so only include variables with a matching expanded QName namespace URI.
+                element.inScopeVariables().forEach { variable ->
+                    val localName = variable.variableName?.localName?.data ?: return@forEach
+                    if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
+                        val expanded = variable.variableName?.expand()?.firstOrNull()
+                        if (expanded?.namespace?.data == varRef.namespace?.data) {
+                            result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+                        }
+                    }
+                }
+            }
             else -> {}
         }
     }
