@@ -176,7 +176,11 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
         val prefixName = prefix.namespacePrefix?.data
 
         val qname = element.parent as XsQNameValue
-        if (qname.prefix != null && qname.prefix?.data == prefixName && qname.localName?.element === element) { // QName
+        if (qname.localName?.element !== element) return
+
+        if (qname.prefix != null && qname.prefix?.data == prefixName) { // QName
+            addXsdTypes(context, result, null) // Prefix already specified.
+        } else if (qname.namespace?.data == XS_NAMESPACE_URI) { // URIQualifiedName
             addXsdTypes(context, result, null) // Prefix already specified.
         } else if (qname.prefix == null) { // NCName
             addXsdTypes(context, result, prefixName)
