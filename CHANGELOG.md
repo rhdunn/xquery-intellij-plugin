@@ -14,7 +14,7 @@ IntelliJ Integration:
 
 Code Completion:
 
-1.  In-scope variable binding completion support in `VarRef` expressions for XQuery.
+1.  In-scope variable completion support in `VarRef` expressions for XQuery.
 1.  XML Schema type completion support in `AtomicOrUnionType` and `SimpleTypeName` for XPath and XQuery.
 1.  Namespace prefix completion support in `QName`s for XPath and XQuery.
 1.  Keyword completion support in `ForwardAxis` and `ReverseAxis` for XPath and XQuery.

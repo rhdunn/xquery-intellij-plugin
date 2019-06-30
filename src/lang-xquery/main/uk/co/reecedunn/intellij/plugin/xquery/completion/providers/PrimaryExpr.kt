@@ -47,6 +47,12 @@ object XQueryVarRefProvider : CompletionProviderEx {
                 val prefix = variable.variableName?.prefix?.data
                 if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
                     result.addElement(createVariableLookup(localName, prefix, variable.variableName?.element))
+                } else { // Variable declaration may have a different prefix to the current module.
+                    val expanded = variable.variableName?.expand()?.firstOrNull()
+                    val declPrefix = expanded?.let { name ->
+                        namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
+                    }
+                    result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
                 }
             }
         } else if (varRef.prefix != null && varRef.localName?.element === element) {
