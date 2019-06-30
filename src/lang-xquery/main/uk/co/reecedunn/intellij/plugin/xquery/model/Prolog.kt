@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 fun <Decl> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl?> {
-    return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
+    return children().reversed().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
         annotation.children().filterIsInstance(klass).firstOrNull()
     }
 }

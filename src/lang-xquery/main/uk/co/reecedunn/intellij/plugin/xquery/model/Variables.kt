@@ -161,10 +161,8 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPa
     }
 }
 
-private fun PsiElement.varDecls(): Sequence<XPathVariableDeclaration> {
-    return children().reversed().filterIsInstance<XQueryAnnotatedDecl>().map { decl ->
-        decl.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
-    }.filterNotNull().filter { variable -> variable.variableName != null }
+private fun XQueryProlog.varDecls(): Sequence<XPathVariableDeclaration?> {
+    return annotatedDeclarations<XPathVariableDeclaration>().filter { variable -> variable?.variableName != null }
 }
 
 // endregion
@@ -175,7 +173,7 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDefinition> {
     return walkTree().reversed()
         .flatMap { node ->
             when (node) {
-                is XQueryProlog -> node.varDecls()
+                is XQueryProlog -> node.varDecls().filterNotNull()
                 is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
                 is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     node.flworBindingVariables(node, context)
