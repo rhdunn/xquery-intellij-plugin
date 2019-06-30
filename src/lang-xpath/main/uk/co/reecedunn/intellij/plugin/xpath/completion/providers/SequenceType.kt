@@ -176,14 +176,19 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
         val prefixName = prefix.namespacePrefix?.data
 
         val qname = element.parent as XsQNameValue
-        if (qname.localName?.element !== element) return
-
-        if (qname.prefix != null && qname.prefix?.data == prefixName) { // QName
-            addXsdTypes(context, result, null) // Prefix already specified.
-        } else if (qname.namespace?.data == XS_NAMESPACE_URI) { // URIQualifiedName
-            addXsdTypes(context, result, null) // Prefix already specified.
-        } else if (qname.prefix == null) { // NCName
-            addXsdTypes(context, result, prefixName)
+        when (qname.completionType(element)) {
+            EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> addXsdTypes(context, result, prefixName)
+            EQNameCompletionType.QNameLocalName -> {
+                if (qname.prefix?.data == prefixName) {
+                    addXsdTypes(context, result, null) // Prefix already specified.
+                }
+            }
+            EQNameCompletionType.URIQualifiedNameLocalName -> {
+                if (qname.namespace?.data == XS_NAMESPACE_URI) {
+                    addXsdTypes(context, result, null) // Prefix already specified.
+                }
+            }
+            else -> {}
         }
     }
 }

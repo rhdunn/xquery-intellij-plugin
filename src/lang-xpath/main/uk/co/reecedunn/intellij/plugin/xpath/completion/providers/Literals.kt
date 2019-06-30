@@ -22,12 +22,38 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathQNamePrefixInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 fun createPrefixLookup(prefix: String): LookupElementBuilder {
     return LookupElementBuilder.create(prefix)
         .withBoldness(true)
         .withTailText(":")
         .withInsertHandler(XPathQNamePrefixInsertHandler)
+}
+
+enum class EQNameCompletionType {
+    NCName,
+    QNamePrefix,
+    QNameLocalName,
+    URIQualifiedNameBracedURI,
+    URIQualifiedNameLocalName
+}
+
+fun XsQNameValue.completionType(element: PsiElement): EQNameCompletionType? {
+    return if (isLexicalQName) {
+        when {
+            prefix == null -> EQNameCompletionType.NCName
+            prefix?.element === element -> EQNameCompletionType.QNamePrefix
+            localName?.element === element -> EQNameCompletionType.QNameLocalName
+            else -> null
+        }
+    } else {
+        when {
+            namespace?.element === element -> EQNameCompletionType.URIQualifiedNameBracedURI
+            localName?.element === element -> EQNameCompletionType.URIQualifiedNameLocalName
+            else -> null
+        }
+    }
 }
 
 object XPathQNamePrefixProvider : CompletionProviderEx {

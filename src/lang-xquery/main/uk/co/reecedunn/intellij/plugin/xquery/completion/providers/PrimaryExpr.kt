@@ -22,7 +22,9 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathAtomicOrUnionTypeProvider
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -40,35 +42,39 @@ object XQueryVarRefProvider : CompletionProviderEx {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
 
         val varRef = element.parent as XsQNameValue
-        if (varRef.prefix == null || varRef.prefix?.element === element) {
-            // Without prefix context, so include all variables.
-            element.inScopeVariables().forEach { variable ->
-                val localName = variable.variableName?.localName?.data ?: return@forEach
-                val prefix = variable.variableName?.prefix?.data
-                if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
-                    result.addElement(createVariableLookup(localName, prefix, variable.variableName?.element))
-                } else { // Variable declaration may have a different prefix to the current module.
-                    val expanded = variable.variableName?.expand()?.firstOrNull()
-                    val declPrefix = expanded?.let { name ->
-                        namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
-                    }
-                    result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
-                }
-            }
-        } else if (varRef.prefix != null && varRef.localName?.element === element) {
-            // With prefix context, so only include variables with a matching expanded QName namespace URI.
-            element.inScopeVariables().forEach { variable ->
-                val localName = variable.variableName?.localName?.data ?: return@forEach
-                if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
-                    val expanded = variable.variableName?.expand()?.firstOrNull()
-                    val prefix = expanded?.let { name ->
-                        namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
-                    }
-                    if (prefix == varRef.prefix?.data) { // Prefix matches, and is already specified.
-                        result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+        when (varRef.completionType(element)) {
+            EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
+                // Without prefix context, so include all variables.
+                element.inScopeVariables().forEach { variable ->
+                    val localName = variable.variableName?.localName?.data ?: return@forEach
+                    val prefix = variable.variableName?.prefix?.data
+                    if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
+                        result.addElement(createVariableLookup(localName, prefix, variable.variableName?.element))
+                    } else { // Variable declaration may have a different prefix to the current module.
+                        val expanded = variable.variableName?.expand()?.firstOrNull()
+                        val declPrefix = expanded?.let { name ->
+                            namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
+                        }
+                        result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
                     }
                 }
             }
+            EQNameCompletionType.QNameLocalName -> {
+                // With prefix context, so only include variables with a matching expanded QName namespace URI.
+                element.inScopeVariables().forEach { variable ->
+                    val localName = variable.variableName?.localName?.data ?: return@forEach
+                    if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
+                        val expanded = variable.variableName?.expand()?.firstOrNull()
+                        val prefix = expanded?.let { name ->
+                            namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
+                        }
+                        if (prefix == varRef.prefix?.data) { // Prefix matches, and is already specified.
+                            result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+                        }
+                    }
+                }
+            }
+            else -> {}
         }
     }
 }
