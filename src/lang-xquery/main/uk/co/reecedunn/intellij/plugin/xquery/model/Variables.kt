@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBind
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
@@ -245,9 +246,23 @@ fun XPathEQName.variableDefinition(): XPathVariableDefinition? {
     val name = this as XsQNameValue
     return inScopeVariables().find { variable ->
         val qname = variable.variableName!!
-        val matchPrefix = name.prefix?.data == qname.prefix?.data
-        val matchLocalName = name.localName?.data == qname.localName?.data
-        matchPrefix && matchLocalName
+        if (variable is XPathVariableBinding) { // Locally defined, so can compare the prefix name.
+            val matchPrefix = name.prefix?.data == qname.prefix?.data
+            val matchLocalName = name.localName?.data == qname.localName?.data
+            matchPrefix && matchLocalName
+        } else {
+            // NOTE: If there are a large number of variables, opening the context menu
+            // can be is slow (~10 seconds) when just checking the expanded QName, so
+            // check local-name first ...
+            if (qname.localName?.data == name.localName?.data) {
+                // ... then check the expanded QName namespace.
+                val expanded = name.expand().firstOrNull()
+                expanded != null && qname.expand().firstOrNull()?.let { op_qname_equal(it, expanded) } == true
+                //true
+            } else {
+                false
+            }
+        }
     }
 }
 

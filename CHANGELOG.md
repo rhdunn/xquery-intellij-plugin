@@ -11,6 +11,7 @@ IntelliJ Integration:
 1.  Display the function signature when holding Ctrl over a function call.
 1.  Use the QName annotator on Wildcard elements to correctly highlight the
     namespace prefix and local name parts.
+1.  Fix resolving variables declared in imported modules.
 
 Code Completion:
 
