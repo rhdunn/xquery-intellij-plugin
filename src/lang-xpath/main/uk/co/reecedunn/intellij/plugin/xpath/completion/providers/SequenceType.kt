@@ -172,13 +172,14 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
 
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
-        val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI }?.namespacePrefix?.data ?: return
+        val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI } ?: return
+        val prefixName = prefix.namespacePrefix?.data
 
         val qname = element.parent as XsQNameValue
-        if (qname.prefix?.data == prefix && qname.localName?.element === element) {
+        if (qname.prefix != null && qname.prefix?.data == prefixName && qname.localName?.element === element) { // QName
             addXsdTypes(context, result, null) // Prefix already specified.
-        } else if (qname.prefix == null) {
-            addXsdTypes(context, result, prefix)
+        } else if (qname.prefix == null) { // NCName
+            addXsdTypes(context, result, prefixName)
         }
     }
 }
