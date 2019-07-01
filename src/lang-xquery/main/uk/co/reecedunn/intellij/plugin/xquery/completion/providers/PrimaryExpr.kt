@@ -23,9 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathAtomicOrUnionTypeProvider
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
@@ -39,7 +37,7 @@ fun createVariableLookup(localName: String, prefix: String?, element: PsiElement
 
 object XQueryVarRefProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
+        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES]
 
         val varRef = element.parent as XsQNameValue
         when (varRef.completionType(element)) {

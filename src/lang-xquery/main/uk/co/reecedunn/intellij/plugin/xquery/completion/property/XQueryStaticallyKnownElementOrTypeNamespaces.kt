@@ -23,15 +23,15 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.model.defaultElementOrTypeNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownNamespaces
 
-object XQueryStaticallyKnownNamespaces : CompletionProperty {
+object XQueryStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
-        if (context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES] == null) {
+        if (context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES] == null) {
             val namespaces = element.defaultElementOrTypeNamespace().firstOrNull()?.let {
                 val list = mutableListOf<XPathNamespaceDeclaration>(it)
                 list.addAll(element.staticallyKnownNamespaces())
                 list
             }
-            context.put(XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES, namespaces)
+            context.put(XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES, namespaces)
         }
     }
 }

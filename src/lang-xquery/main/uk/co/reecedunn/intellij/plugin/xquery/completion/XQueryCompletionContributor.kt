@@ -35,7 +35,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
             .addCompletions(XQueryForwardOrReverseAxisProvider)
 
         // XQuery 3.1 EBNF (131) VarRef
-        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownNamespaces)
+        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (184) SequenceType
@@ -48,7 +48,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
-            .withProperty(XQueryStaticallyKnownNamespaces)
+            .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (188) KindTest
@@ -58,7 +58,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
 
         // XQuery 3.1 EBNF (234) QName
         builder(XQuery).withFilter(XPathQNamePrefixFilter)
-            .withProperty(XQueryStaticallyKnownNamespaces)
+            .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathQNamePrefixProvider)
     }
 }

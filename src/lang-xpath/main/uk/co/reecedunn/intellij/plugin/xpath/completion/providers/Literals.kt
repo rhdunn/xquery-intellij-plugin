@@ -59,7 +59,7 @@ fun XsQNameValue.completionType(element: PsiElement): EQNameCompletionType? {
 object XPathQNamePrefixProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         var hasXmlNamespace = false
-        context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES].forEach { decl ->
+        context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES].forEach { decl ->
             decl.namespacePrefix?.let {
                 result.addElement(createPrefixLookup(it.data))
                 if (it.data == "xml") {

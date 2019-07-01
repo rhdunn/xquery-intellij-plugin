@@ -171,7 +171,7 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
     }
 
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
+        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES]
         val prefix = namespaces.find { it.namespaceUri?.data == XS_NAMESPACE_URI } ?: return
         val prefixName = prefix.namespacePrefix?.data
 

@@ -19,7 +19,7 @@ import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
@@ -40,7 +40,7 @@ class XPathCompletionContributor : CompletionContributorEx() {
 
         // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
         builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
-            .withProperty(XPathStaticallyKnownNamespaces)
+            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XPath 3.1 EBNF (83) KindTest
@@ -48,7 +48,7 @@ class XPathCompletionContributor : CompletionContributorEx() {
 
         // XQuery 3.1 EBNF (234) QName
         builder(XPath).withFilter(XPathQNamePrefixFilter)
-            .withProperty(XPathStaticallyKnownNamespaces)
+            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathQNamePrefixProvider)
     }
 

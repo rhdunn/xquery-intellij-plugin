@@ -20,11 +20,11 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownXPathNamespaces
 
-object XPathStaticallyKnownNamespaces : CompletionProperty {
+object XPathStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
-        if (context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES] == null) {
+        if (context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES] == null) {
             val namespaces = element.staticallyKnownXPathNamespaces().toList()
-            context.put(XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES, namespaces)
+            context.put(XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES, namespaces)
         }
     }
 }
