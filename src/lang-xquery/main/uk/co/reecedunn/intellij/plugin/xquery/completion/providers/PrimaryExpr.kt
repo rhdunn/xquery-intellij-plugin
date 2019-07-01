@@ -49,15 +49,16 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
                         result.addElement(createVariableLookup(localName, prefix, variable.variableName?.element))
                     } else { // Variable declaration may have a different prefix to the current module.
-                        val expanded = variable.variableName?.expand()?.firstOrNull()
-                        val declPrefix = expanded?.let { name ->
-                            namespaces.find { ns ->
+                        variable.variableName?.expand()?.firstOrNull()?.let { name ->
+                            namespaces.forEach { ns ->
                                 // Unprefixed variables use an empty namespace URI, not the default
                                 // element/type namespace.
-                                ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data
-                            }?.namespacePrefix?.data
+                                if (ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data) {
+                                    val declPrefix = ns.namespacePrefix?.data
+                                    result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
+                                }
+                            }
                         }
-                        result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
                     }
                 }
             }
@@ -66,16 +67,16 @@ object XQueryVarRefProvider : CompletionProviderEx {
                 element.inScopeVariables().forEach { variable ->
                     val localName = variable.variableName?.localName?.data ?: return@forEach
                     if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
-                        val expanded = variable.variableName?.expand()?.firstOrNull()
-                        val prefix = expanded?.let { name ->
-                            namespaces.find { ns ->
+                        variable.variableName?.expand()?.firstOrNull()?.let { name ->
+                            namespaces.forEach { ns ->
                                 // Unprefixed variables use an empty namespace URI, not the default
                                 // element/type namespace.
-                                ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data
-                            }?.namespacePrefix?.data
-                        }
-                        if (prefix == varRef.prefix?.data) { // Prefix matches, and is already specified.
-                            result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+                                if (ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data) {
+                                    if (ns.namespacePrefix?.data == varRef.prefix?.data) { // Prefix matches, and is already specified.
+                                        result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+                                    }
+                                }
+                            }
                         }
                     }
                 }
