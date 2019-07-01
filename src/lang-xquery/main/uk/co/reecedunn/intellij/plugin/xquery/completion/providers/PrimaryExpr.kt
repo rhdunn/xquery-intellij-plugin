@@ -20,6 +20,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.core.progress.forEachCancellable
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
@@ -59,8 +60,8 @@ object XQueryVarRefProvider : CompletionProviderEx {
         when (varRef.completionType(element)) {
             EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
                 // Without prefix context, so include all variables.
-                element.inScopeVariables().forEach { variable ->
-                    val localName = variable.variableName?.localName?.data ?: return@forEach
+                element.inScopeVariables().forEachCancellable { variable ->
+                    val localName = variable.variableName?.localName?.data ?: return@forEachCancellable
                     val prefix = variable.variableName?.prefix?.data
                     if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
                         result.addElement(createVariableLookup(localName, prefix, variable.variableName?.element))
@@ -80,8 +81,8 @@ object XQueryVarRefProvider : CompletionProviderEx {
             }
             EQNameCompletionType.QNameLocalName -> {
                 // With prefix context, so only include variables with a matching expanded QName namespace URI.
-                element.inScopeVariables().forEach { variable ->
-                    val localName = variable.variableName?.localName?.data ?: return@forEach
+                element.inScopeVariables().forEachCancellable { variable ->
+                    val localName = variable.variableName?.localName?.data ?: return@forEachCancellable
                     if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
                         variable.variableName?.expand()?.firstOrNull()?.let { name ->
                             namespaces.forEach { ns ->
@@ -99,8 +100,8 @@ object XQueryVarRefProvider : CompletionProviderEx {
             }
             EQNameCompletionType.URIQualifiedNameLocalName -> {
                 // With namespace context, so only include variables with a matching expanded QName namespace URI.
-                element.inScopeVariables().forEach { variable ->
-                    val localName = variable.variableName?.localName?.data ?: return@forEach
+                element.inScopeVariables().forEachCancellable { variable ->
+                    val localName = variable.variableName?.localName?.data ?: return@forEachCancellable
                     if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
                         val expanded = variable.variableName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == varRef.namespace?.data) {
@@ -122,8 +123,8 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
         when (ref.completionType(element)) {
             EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
                 // Without prefix context, so include all functions.
-                element.fileProlog()?.staticallyKnownFunctions()?.forEach { function ->
-                    val localName = function?.functionName?.localName?.data ?: return@forEach
+                element.fileProlog()?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                    val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     function.functionName?.expand()?.firstOrNull()?.let { name ->
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
@@ -136,8 +137,8 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             }
             EQNameCompletionType.QNameLocalName -> {
                 // With prefix context, so only include functions with a matching expanded QName namespace URI.
-                element.fileProlog()?.staticallyKnownFunctions()?.forEach { function ->
-                    val localName = function?.functionName?.localName?.data ?: return@forEach
+                element.fileProlog()?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                    val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         function.functionName?.expand()?.firstOrNull()?.let { name ->
                             namespaces.forEach { ns ->
@@ -153,8 +154,8 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             }
             EQNameCompletionType.URIQualifiedNameLocalName -> {
                 // With namespace context, so only include functions with a matching expanded QName namespace URI.
-                element.fileProlog()?.staticallyKnownFunctions()?.forEach { function ->
-                    val localName = function?.functionName?.localName?.data ?: return@forEach
+                element.fileProlog()?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                    val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {
