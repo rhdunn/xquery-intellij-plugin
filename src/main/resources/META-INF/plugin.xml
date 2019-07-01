@@ -26,6 +26,7 @@
     <p>Code Completion:</p>
     <ol>
       <li>In-scope variable completion support in <code>VarRef</code> expressions for XQuery.</li>
+      <li>Statically-known function name completion support in <code>FunctionCall</code> expressions for XQuery.</li>
       <li>XML Schema type completion support in <code>AtomicOrUnionType</code> and <code>SimpleTypeName</code> for XPath and XQuery.</li>
       <li>Namespace prefix completion support in <code>QName</code>s for XPath and XQuery.</li>
       <li>Keyword completion support in <code>ForwardAxis</code> and <code>ReverseAxis</code> for XPath and XQuery.</li>

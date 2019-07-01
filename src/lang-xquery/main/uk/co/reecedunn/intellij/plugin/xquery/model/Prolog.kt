@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -42,7 +43,7 @@ fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> {
     ).flatten()
 }
 
-private fun XPathEQName.fileProlog(): XQueryProlog? {
+fun PsiElement.fileProlog(): XQueryProlog? {
     val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
     return (module as XQueryPrologResolver).prolog.firstOrNull()
 }

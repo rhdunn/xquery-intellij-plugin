@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryForwardOrReverseAxisProvider
+import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryFunctionCallProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTestProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefProvider
 
@@ -37,6 +38,10 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         // XQuery 3.1 EBNF (131) VarRef
         builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XQueryVarRefProvider)
+
+        // XQuery 3.1 EBNF (137) FunctionCall
+        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XQueryStaticallyKnownFunctionNamespaces)
+            .addCompletions(XQueryFunctionCallProvider)
 
         // XQuery 3.1 EBNF (184) SequenceType
         builder(XQuery).withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)
