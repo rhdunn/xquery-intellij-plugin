@@ -24,13 +24,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownXPathNamespace
 
 object XPathStaticallyKnownFunctionNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
-        if (context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES] == null) {
+        if (context[XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES] == null) {
             val namespaces = element.defaultFunctionXPathNamespace().firstOrNull()?.let {
                 val list = mutableListOf<XPathNamespaceDeclaration>(it)
                 list.addAll(element.staticallyKnownXPathNamespaces())
                 list
             }
-            context.put(XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES, namespaces)
+            context.put(XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES, namespaces)
         }
     }
 }

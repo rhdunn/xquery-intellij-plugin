@@ -34,4 +34,7 @@ object XPathCompletionProperty {
 
     val STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES: Key<List<XPathNamespaceDeclaration>> =
         Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownElementOrTypeNamespaces")
+
+    val STATICALLY_KNOWN_FUNCTION_NAMESPACES: Key<List<XPathNamespaceDeclaration>> =
+        Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownFunctionNamespaces")
 }
