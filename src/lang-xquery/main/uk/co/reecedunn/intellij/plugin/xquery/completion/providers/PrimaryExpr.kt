@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
@@ -36,10 +38,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
-fun createVariableLookup(localName: String, prefix: String?, element: PsiElement?): LookupElementBuilder {
+fun createVariableLookup(localName: String, prefix: String?, variable: XPathVariableDefinition): LookupElementBuilder {
     return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
         .withIcon(XQueryIcons.Nodes.VarDecl)
-        .withPsiElement(element)
+        .withPsiElement(variable.variableName?.element)
+        .withTypeText((variable as? XPathVariableType)?.variableType?.typeName)
 }
 
 fun createFunctionLookup(localName: String, prefix: String?, function: XQueryFunctionDecl): LookupElementBuilder {
@@ -64,7 +67,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     val localName = variable.variableName?.localName?.data ?: return@forEachCancellable
                     val prefix = variable.variableName?.prefix?.data
                     if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
-                        result.addElement(createVariableLookup(localName, prefix, variable.variableName?.element))
+                        result.addElement(createVariableLookup(localName, prefix, variable))
                     } else { // Variable declaration may have a different prefix to the current module.
                         variable.variableName?.expand()?.firstOrNull()?.let { name ->
                             namespaces.forEach { ns ->
@@ -72,7 +75,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                                 // element/type namespace.
                                 if (ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data) {
                                     val declPrefix = ns.namespacePrefix?.data
-                                    result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
+                                    result.addElement(createVariableLookup(localName, declPrefix, variable))
                                 }
                             }
                         }
@@ -90,7 +93,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                                 // element/type namespace.
                                 if (ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == varRef.prefix?.data) { // Prefix matches, and is already specified.
-                                        result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+                                        result.addElement(createVariableLookup(localName, null, variable))
                                     }
                                 }
                             }
@@ -105,7 +108,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
                         val expanded = variable.variableName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == varRef.namespace?.data) {
-                            result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
+                            result.addElement(createVariableLookup(localName, null, variable))
                         }
                     }
                 }
