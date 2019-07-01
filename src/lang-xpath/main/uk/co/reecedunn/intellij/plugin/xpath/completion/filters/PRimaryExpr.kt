@@ -19,10 +19,31 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.isLocalNameOrNCName
+import uk.co.reecedunn.intellij.plugin.xpath.model.isPrefixOrNCName
 
 object XPathVarRefFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find { it is XPathVarRef } != null
+    }
+}
+
+object XPathFunctionCallFilter : CompletionFilter {
+    override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
+        return element.ancestors().find {
+            when (it) {
+                is XPathNodeTest -> { // FunctionCall missing parenthesis
+                    (element.parent as XsQNameValue).isLocalNameOrNCName(element)
+                }
+                is XPathFunctionCall -> {
+                    (element.parent as XsQNameValue).isLocalNameOrNCName(element)
+                }
+                else -> false
+            }
+        } != null
     }
 }

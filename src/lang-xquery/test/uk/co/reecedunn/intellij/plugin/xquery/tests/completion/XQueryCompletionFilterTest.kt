@@ -168,6 +168,74 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
+    internal inner class FunctionCall {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
+        fun instanceofExpr() {
+            val context = ProcessingContext()
+            val element = completion("2 instance of empty-sequence()", "instance")
+            assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
+        internal inner class FunctionCall {
+            @Test
+            @DisplayName("NCName function name")
+            fun ncname() {
+                val context = ProcessingContext()
+                val element = completion("completion-point()")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName function name for prefix part")
+            fun qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum()", "lorem")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("QName function name for local-name part")
+            fun qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum()", "ipsum")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (118) NodeTest")
+        internal inner class NodeTest {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val context = ProcessingContext()
+                val element = completion("completion-point")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName for prefix part")
+            fun qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "lorem")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("QName for local-name part")
+            fun qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("lorem:ipsum", "ipsum")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
     internal inner class SequenceType {
         @Test

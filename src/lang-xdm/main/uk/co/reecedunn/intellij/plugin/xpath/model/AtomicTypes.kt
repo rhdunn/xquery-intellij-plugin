@@ -178,6 +178,10 @@ fun XsQNameValue.isPrefixOrNCName(element: PsiElement): Boolean {
     return isLexicalQName && (prefix == null || prefix?.element === element)
 }
 
+fun XsQNameValue.isLocalNameOrNCName(element: PsiElement): Boolean {
+    return isLexicalQName && (prefix == null || localName?.element === element)
+}
+
 data class XsQName(
     override val namespace: XsAnyUriValue?,
     override val prefix: XsNCNameValue?,
