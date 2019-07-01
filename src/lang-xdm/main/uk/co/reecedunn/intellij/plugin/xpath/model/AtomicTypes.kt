@@ -179,7 +179,7 @@ fun XsQNameValue.isPrefixOrNCName(element: PsiElement): Boolean {
 }
 
 fun XsQNameValue.isLocalNameOrNCName(element: PsiElement): Boolean {
-    return isLexicalQName && (prefix == null || localName?.element === element)
+    return (isLexicalQName && prefix == null) || localName?.element === element
 }
 
 data class XsQName(

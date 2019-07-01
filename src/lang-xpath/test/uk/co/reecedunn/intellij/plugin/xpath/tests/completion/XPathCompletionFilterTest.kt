@@ -220,6 +220,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
                 val element = completion("lorem:ipsum()", "ipsum")
                 assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
             }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val context = ProcessingContext()
+                val element = completion("Q{lorem}ipsum()", "ipsum")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
         }
 
         @Nested
@@ -246,6 +254,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             fun qname_localName() {
                 val context = ProcessingContext()
                 val element = completion("lorem:ipsum", "ipsum")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val context = ProcessingContext()
+                val element = completion("Q{lorem}ipsum", "ipsum")
                 assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
             }
         }
