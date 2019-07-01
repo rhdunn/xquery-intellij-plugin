@@ -40,10 +40,9 @@ interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
     val namespaceType: XPathNamespaceType
 }
 
-private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
+private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceDeclaration? {
     if (!isNamespaceDeclaration) return null
     val prefix = namespacePrefix
-    val localName = localName
     val value = value ?: return null
     return if (prefix.isEmpty()) {
         object : XPathDefaultNamespaceDeclaration {
@@ -52,11 +51,29 @@ private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
             override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultElementOrType
         }
     } else {
+        null
+    }
+}
+
+private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
+    if (!isNamespaceDeclaration) return null
+    val prefix = namespacePrefix
+    val localName = localName
+    val value = value ?: return null
+    return if (prefix.isEmpty()) {
+        null
+    } else {
         object : XPathNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = XsNCName(localName, originalElement)
             override val namespaceUri: XsAnyUriValue? = XsAnyUri(value, originalElement)
         }
     }
+}
+
+fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+    return toXmlAttributeValue()?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
+        tag.attributes.asSequence().map { attribute -> attribute.toDefaultNamespaceDeclaration() }
+    }?.filterNotNull() ?: sequenceOf()
 }
 
 fun PsiElement.staticallyKnownXPathNamespaces(): Sequence<XPathNamespaceDeclaration> {
