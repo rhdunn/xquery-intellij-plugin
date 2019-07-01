@@ -51,7 +51,11 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     } else { // Variable declaration may have a different prefix to the current module.
                         val expanded = variable.variableName?.expand()?.firstOrNull()
                         val declPrefix = expanded?.let { name ->
-                            namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
+                            namespaces.find { ns ->
+                                // Unprefixed variables use an empty namespace URI, not the default
+                                // element/type namespace.
+                                ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data
+                            }?.namespacePrefix?.data
                         }
                         result.addElement(createVariableLookup(localName, declPrefix, variable.variableName?.element))
                     }
@@ -64,7 +68,11 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
                         val expanded = variable.variableName?.expand()?.firstOrNull()
                         val prefix = expanded?.let { name ->
-                            namespaces.find { ns -> ns.namespaceUri?.data == name.namespace?.data }?.namespacePrefix?.data
+                            namespaces.find { ns ->
+                                // Unprefixed variables use an empty namespace URI, not the default
+                                // element/type namespace.
+                                ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data
+                            }?.namespacePrefix?.data
                         }
                         if (prefix == varRef.prefix?.data) { // Prefix matches, and is already specified.
                             result.addElement(createVariableLookup(localName, null, variable.variableName?.element))
