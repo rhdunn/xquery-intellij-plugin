@@ -70,6 +70,18 @@ private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
     }
 }
 
+private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration {
+    private const val FN_NAMESPACE_URI = "http://www.w3.org/2005/xpath-functions"
+
+    override val namespacePrefix: XsNCNameValue? = null
+    override val namespaceUri: XsAnyUriValue? = XsAnyUri(FN_NAMESPACE_URI, null as PsiElement?)
+    override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
+}
+
+fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+    return sequenceOf(DefaultFunctionXPathNamespace)
+}
+
 fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
     return toXmlAttributeValue()?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toDefaultNamespaceDeclaration() }
