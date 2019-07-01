@@ -231,6 +231,26 @@ private class XPathCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 3.1 EBNF (64) Argument")
+        internal inner class Argument {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (46) NodeTest")
+            fun nodeTest() {
+                val context = ProcessingContext()
+                val element = completion("test(completion-point)")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (59) VarRef")
+            fun varRef() {
+                val context = ProcessingContext()
+                val element = completion("test(\$completion-point)")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (46) NodeTest")
         internal inner class NodeTest {
             @Test

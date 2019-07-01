@@ -215,6 +215,26 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (138) Argument")
+        internal inner class Argument {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (118) NodeTest")
+            fun nodeTest() {
+                val context = ProcessingContext()
+                val element = completion("test(completion-point)")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+            fun varRef() {
+                val context = ProcessingContext()
+                val element = completion("test(\$completion-point)")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (118) NodeTest")
         internal inner class NodeTest {
             @Test
