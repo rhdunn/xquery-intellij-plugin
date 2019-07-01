@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
@@ -28,17 +30,17 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import javax.swing.Icon
 
 private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
 private val XQUERY1: List<Version> = listOf()
 private val EXPATH = listOf(XQueryIntelliJPlugin.VERSION_1_4)
 
 class XPathParamListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathParamList,
-    VersionConformance {
+    ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, VersionConformance {
     // region VersionConformance
 
     override val requiresConformance: List<Version>
@@ -52,9 +54,31 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     override fun subtreeChanged() {
         super.subtreeChanged()
+        cachedPresentableText.invalidate()
         cachedParams.invalidate()
         cachedArity.invalidate()
     }
+
+    // endregion
+    // region NavigationItem
+
+    override fun getPresentation(): ItemPresentation? = this
+
+    // endregion
+    // region ItemPresentation
+
+    override fun getIcon(unused: Boolean): Icon? = null
+
+    override fun getLocationString(): String? = null
+
+    private val cachedPresentableText = CacheableProperty {
+        val params = params.map { param ->
+            (param as NavigatablePsiElement).presentation?.presentableText
+        }.filterNotNull().joinToString()
+        "($params)"
+    }
+
+    override fun getPresentableText(): String? = cachedPresentableText.get()
 
     // endregion
     // region XPathParamList

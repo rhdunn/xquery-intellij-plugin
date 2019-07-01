@@ -20,7 +20,9 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
@@ -39,9 +41,11 @@ fun createVariableLookup(localName: String, prefix: String?, element: PsiElement
 }
 
 fun createFunctionLookup(localName: String, prefix: String?, element: PsiElement?): LookupElementBuilder {
+    val params = element?.parent?.children()?.filterIsInstance<XPathParamList>()?.firstOrNull()
     return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
         .withIcon(XQueryIcons.Nodes.FunctionDecl)
         .withPsiElement(element)
+        .withTailText(params?.presentation?.presentableText ?: "()")
         .withInsertHandler(XPathEmptyFunctionInsertHandler)
 }
 

@@ -70,15 +70,11 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     private val cachedPresentableText = CacheableProperty {
         functionName?.let { name ->
-            val params = params.map { param ->
-                (param as NavigatablePsiElement).presentation?.presentableText
-            }.filterNotNull().joinToString()
-
             val returnType = returnType
             if (returnType == null)
-                "${op_qname_presentation(name)}($params)"
+                "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}"
             else
-                "${op_qname_presentation(name)}($params) as ${returnType.typeName}"
+                "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"} as ${returnType.typeName}"
         }
     }
 

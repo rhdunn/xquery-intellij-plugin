@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.PsiElement
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 
 /**
  * An XPath 3.0 and XQuery 1.0 `ParamList` node in the XQuery AST.
  */
-interface XPathParamList : PsiElement {
+interface XPathParamList : NavigatablePsiElement {
     val params: List<XPathVariableBinding>
 
     val arity: Range<Int>
