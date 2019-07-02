@@ -28,5 +28,6 @@ object XPathIcons {
     object Nodes {
         val Param = AllIcons.Nodes.Parameter
         val TypeDecl = getIcon("/icons/xpath/nodes/typeDecl.svg")
+        val VarDecl = AllIcons.Nodes.Variable
     }
 }

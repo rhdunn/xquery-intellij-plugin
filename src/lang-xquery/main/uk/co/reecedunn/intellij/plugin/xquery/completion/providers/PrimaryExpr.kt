@@ -16,31 +16,21 @@
 package uk.co.reecedunn.intellij.plugin.xquery.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.core.progress.forEachCancellable
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDefinition
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.completion.lookup.XQueryFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
-
-fun createVariableLookup(localName: String, prefix: String?, variable: XPathVariableDefinition): LookupElementBuilder {
-    return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
-        .withIcon(XQueryIcons.Nodes.VarDecl)
-        .withPsiElement(variable.variableName?.element)
-        .withTypeText((variable as? XPathVariableType)?.variableType?.typeName)
-}
 
 object XQueryVarRefProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
@@ -54,7 +44,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     val localName = variable.variableName?.localName?.data ?: return@forEachCancellable
                     val prefix = variable.variableName?.prefix?.data
                     if (variable is XPathVariableBinding) { // Locally declared, does not require prefix rebinding.
-                        result.addElement(createVariableLookup(localName, prefix, variable))
+                        result.addElement(XPathVarNameLookup(localName, prefix, variable))
                     } else { // Variable declaration may have a different prefix to the current module.
                         variable.variableName?.expand()?.firstOrNull()?.let { name ->
                             namespaces.forEach { ns ->
@@ -62,7 +52,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                                 // element/type namespace.
                                 if (ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data) {
                                     val declPrefix = ns.namespacePrefix?.data
-                                    result.addElement(createVariableLookup(localName, declPrefix, variable))
+                                    result.addElement(XPathVarNameLookup(localName, declPrefix, variable))
                                 }
                             }
                         }
@@ -80,7 +70,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                                 // element/type namespace.
                                 if (ns.namespacePrefix != null && ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == varRef.prefix?.data) { // Prefix matches, and is already specified.
-                                        result.addElement(createVariableLookup(localName, null, variable))
+                                        result.addElement(XPathVarNameLookup(localName, null, variable))
                                     }
                                 }
                             }
@@ -95,7 +85,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     if (variable.variableName?.prefix != null || variable.variableName?.namespace != null) {
                         val expanded = variable.variableName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == varRef.namespace?.data) {
-                            result.addElement(createVariableLookup(localName, null, variable))
+                            result.addElement(XPathVarNameLookup(localName, null, variable))
                         }
                     }
                 }
