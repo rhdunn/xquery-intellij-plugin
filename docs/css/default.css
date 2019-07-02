@@ -48,6 +48,9 @@ nav.banner div.left, nav.banner ol, nav.banner div.right {
   padding: 20px 0;
   width: 25%;
 }
+nav.banner div.left a {
+  color: black;
+}
 nav.banner ol {
   list-style: none;
   width: 50%;
@@ -61,9 +64,6 @@ nav.banner ol li a {
   font-weight: normal;
   color: black;
   text-decoration: none;
-}
-nav.banner ol li a:hover {
-  color: #18a3fa;
 }
 nav.banner div.right {
   padding: 15px 0;
@@ -81,7 +81,7 @@ h2 { font-size: 36px; margin: 30px 0 20px 0; }
 h3, h4, h5, h6 { font-size: 18px; margin-bottom: 15px; }
 
 a { text-decoration: none; color: #0366d6; }
-a:hover { color: #18a3fa; }
+a:hover { color: #18a3fa !important; }
 
 section p { font-size: inherit; margin-right: 10px; }
 
