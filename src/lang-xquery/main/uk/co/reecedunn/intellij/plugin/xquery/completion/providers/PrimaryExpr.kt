@@ -21,10 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.core.progress.forEachCancellable
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
@@ -32,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.completion.lookup.XQueryFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
@@ -43,16 +40,6 @@ fun createVariableLookup(localName: String, prefix: String?, variable: XPathVari
         .withIcon(XQueryIcons.Nodes.VarDecl)
         .withPsiElement(variable.variableName?.element)
         .withTypeText((variable as? XPathVariableType)?.variableType?.typeName)
-}
-
-fun createFunctionLookup(localName: String, prefix: String?, function: XQueryFunctionDecl): LookupElementBuilder {
-    val params = function.children().filterIsInstance<XPathParamList>().firstOrNull()
-    return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
-        .withIcon(XQueryIcons.Nodes.FunctionDecl)
-        .withPsiElement(function.functionName?.element)
-        .withTailText(params?.presentation?.presentableText ?: "()")
-        .withTypeText(function.returnType?.typeName)
-        .withInsertHandler(XPathEmptyFunctionInsertHandler)
 }
 
 object XQueryVarRefProvider : CompletionProviderEx {
@@ -132,7 +119,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
                                 val declPrefix = ns.namespacePrefix?.data
-                                result.addElement(createFunctionLookup(localName, declPrefix, function))
+                                result.addElement(XQueryFunctionCallLookup(localName, declPrefix, function))
                             }
                         }
                     }
@@ -147,7 +134,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                             namespaces.forEach { ns ->
                                 if (ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == ref.prefix?.data) { // Prefix matches, and is already specified.
-                                        result.addElement(createFunctionLookup(localName, null, function))
+                                        result.addElement(XQueryFunctionCallLookup(localName, null, function))
                                     }
                                 }
                             }
@@ -162,7 +149,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {
-                            result.addElement(createFunctionLookup(localName, null, function))
+                            result.addElement(XQueryFunctionCallLookup(localName, null, function))
                         }
                     }
                 }
