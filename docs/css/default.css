@@ -67,6 +67,7 @@ nav.banner ol li a {
   text-decoration: none;
 }
 nav.banner div.right {
+  text-align: right;
   padding: 15px 0;
 }
 
