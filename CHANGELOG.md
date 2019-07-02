@@ -2,6 +2,11 @@
 
 ## 1.5 - (In Development)
 
+References and Resolving:
+
+1.  Fix resolving variables declared in imported modules.
+1.  Support the MarkLogic behaviour for resolving `NCName`-based `FunctionDecl`s.
+
 IntelliJ Integration:
 
 1.  File structure support, listing the declared functions, variables, and types,
@@ -11,7 +16,6 @@ IntelliJ Integration:
 1.  Display the function signature when holding Ctrl over a function call.
 1.  Use the QName annotator on Wildcard elements to correctly highlight the
     namespace prefix and local name parts.
-1.  Fix resolving variables declared in imported modules.
 
 Code Completion:
 

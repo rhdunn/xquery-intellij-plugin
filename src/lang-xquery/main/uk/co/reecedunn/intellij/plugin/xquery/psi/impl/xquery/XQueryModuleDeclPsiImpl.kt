@@ -19,20 +19,17 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryModuleDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryModuleDecl,
     XQueryPrologResolver,
-    XPathNamespaceDeclaration {
+    XPathDefaultNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
     override val namespacePrefix get(): XsNCNameValue? {
@@ -41,6 +38,9 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
 
     override val namespaceUri get(): XsAnyUriValue? =
         children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+
+    // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
+    override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
 
     // endregion
     // region XQueryPrologResolver

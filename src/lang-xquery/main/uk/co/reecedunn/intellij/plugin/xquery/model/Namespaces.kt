@@ -99,6 +99,9 @@ private fun PsiElement.defaultNamespace(
                 else
                     emptySequence()
             }
+            is XQueryModuleDecl -> {
+                sequenceOf(node as XPathDefaultNamespaceDeclaration)
+            }
             is XQueryMainModule ->
                 if (resolveProlog && !visitedProlog)
                     (node as XQueryPrologResolver).prolog.flatMap { prolog -> prolog.defaultNamespace(type, false) }
