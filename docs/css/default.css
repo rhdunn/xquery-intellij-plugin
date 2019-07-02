@@ -59,6 +59,7 @@ nav.banner ol {
 nav.banner ol li {
   display: inline-block;
   padding: 0 20px;
+  font-size: 16px;
 }
 nav.banner ol li a {
   font-weight: normal;
