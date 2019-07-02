@@ -28,6 +28,42 @@ main.error {
   text-align: center;
 }
 
+nav.banner {
+  height: 70px;
+  border-bottom: 1px solid #cccbcb;
+}
+nav.banner > div.container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+nav.banner div.left, nav.banner ol, nav.banner div.right {
+  float: left;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 0;
+  width: 25%;
+}
+nav.banner ol {
+  list-style: none;
+  width: 50%;
+  margin: 0;
+}
+nav.banner ol li {
+  display: inline-block;
+  padding: 0 20px;
+}
+nav.banner ol li a {
+  font-weight: normal;
+  color: black;
+  text-decoration: none;
+}
+nav.banner ol li a:hover {
+  color: #18a3fa;
+}
+nav.banner div.right {
+  padding: 15px 0;
+}
+
 p { margin-bottom: 15px; }
 p:last-child { margin-bottom: 0; }
 li p:last-child { margin-bottom: 15px; }
@@ -40,7 +76,7 @@ h2 { font-size: 36px; margin: 30px 0 20px 0; }
 h3, h4, h5, h6 { font-size: 18px; margin-bottom: 15px; }
 
 a { text-decoration: none; color: #0366d6; }
-a:hover { text-decoration: underline; }
+a:hover { color: #18a3fa; }
 
 section p { font-size: inherit; margin-right: 10px; }
 
@@ -117,6 +153,16 @@ a.button {
   text-align: center;
   padding: 0 35px;
   margin: 0 15px;
+}
+a.button.button-hollow {
+  background-color: inherit;
+  color: inherit;
+  text-transform: inherit;
+  font-weight: normal;
+  font-size: 18px;
+  border: 1px solid #18a3fa;
+  height: 40px;
+  line-height: 40px;
 }
 
 .highlight .keyword {
