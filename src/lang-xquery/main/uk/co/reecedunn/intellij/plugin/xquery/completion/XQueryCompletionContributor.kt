@@ -27,21 +27,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTes
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefProvider
 
 class XQueryCompletionContributor : CompletionContributorEx() {
-    init {
+    private fun registerXQueryKeywordCompletionProviders() {
         val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
 
         // XQuery 3.1 EBNF (113) ForwardAxis ; XQuery 3.1 EBNF (116) ReverseAxis
         builder(XQuery).withFilter(XPathForwardOrReverseAxisFilter)
             .withProperty(XQueryVersion).withProperty(XQueryProductVersion)
             .addCompletions(XQueryForwardOrReverseAxisProvider)
-
-        // XQuery 3.1 EBNF (131) VarRef
-        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
-            .addCompletions(XQueryVarRefProvider)
-
-        // XQuery 3.1 EBNF (137) FunctionCall
-        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XQueryStaticallyKnownFunctionNamespaces)
-            .addCompletions(XQueryFunctionCallProvider)
 
         // XQuery 3.1 EBNF (184) SequenceType
         builder(XQuery).withFilter(XPathSequenceTypeFilter).withProperty(XPathVersion)
@@ -60,10 +52,27 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         builder(XQuery).withFilter(XPathKindTestFilter)
             .withProperty(XPathVersion).withProperty(XQueryProductVersion)
             .addCompletions(XQueryKindTestProvider).addCompletions(XPathKindTestProvider)
+    }
+
+    private fun registerXQueryStaticContextCompletionProviders() {
+        val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
 
         // XQuery 3.1 EBNF (234) QName
         builder(XQuery).withFilter(XPathQNamePrefixFilter)
             .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathQNamePrefixProvider)
+
+        // XQuery 3.1 EBNF (131) VarRef
+        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
+            .addCompletions(XQueryVarRefProvider)
+
+        // XQuery 3.1 EBNF (137) FunctionCall
+        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XQueryStaticallyKnownFunctionNamespaces)
+            .addCompletions(XQueryFunctionCallProvider)
+    }
+
+    init {
+        registerXQueryKeywordCompletionProviders()
+        registerXQueryStaticContextCompletionProviders()
     }
 }
