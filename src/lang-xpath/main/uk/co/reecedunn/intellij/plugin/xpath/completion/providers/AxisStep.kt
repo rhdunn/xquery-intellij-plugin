@@ -16,34 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
-import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathAxisInsertHandler
-
-fun createAxisStepLookup(kindTest: String): LookupElementBuilder {
-    return LookupElementBuilder.create(kindTest)
-        .withBoldness(true)
-        .withTailText("::")
-        .withInsertHandler(XPathAxisInsertHandler)
-}
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 
 object XPathForwardOrReverseAxisProvider : CompletionProviderEx {
     private val XPATH_AXIS_STEPS = listOf(
-        createAxisStepLookup("ancestor"),
-        createAxisStepLookup("ancestor-or-self"),
-        createAxisStepLookup("attribute"),
-        createAxisStepLookup("child"),
-        createAxisStepLookup("descendant"),
-        createAxisStepLookup("descendant-or-self"),
-        createAxisStepLookup("following"),
-        createAxisStepLookup("following-sibling"),
-        createAxisStepLookup("namespace"), // XPath only
-        createAxisStepLookup("parent"),
-        createAxisStepLookup("preceding"),
-        createAxisStepLookup("preceding-sibling"),
-        createAxisStepLookup("self")
+        XPathKeywordLookup("ancestor", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("ancestor-or-self", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("attribute", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("child", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("descendant-or-self", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("following", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("following-sibling", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("namespace", XPathInsertText.AXIS_MARKER), // XPath only
+        XPathKeywordLookup("parent", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("preceding", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("preceding-sibling", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("self", XPathInsertText.AXIS_MARKER)
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).

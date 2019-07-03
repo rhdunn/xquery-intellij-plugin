@@ -21,29 +21,30 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createAxisStepLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
 object XQueryForwardOrReverseAxisProvider : CompletionProviderEx {
     private val XQUERY_AXIS_STEPS = listOf(
-        createAxisStepLookup("ancestor"),
-        createAxisStepLookup("ancestor-or-self"),
-        createAxisStepLookup("attribute"),
-        createAxisStepLookup("child"),
-        createAxisStepLookup("descendant"),
-        createAxisStepLookup("descendant-or-self"),
-        createAxisStepLookup("following"),
-        createAxisStepLookup("following-sibling"),
-        createAxisStepLookup("parent"),
-        createAxisStepLookup("preceding"),
-        createAxisStepLookup("preceding-sibling"),
-        createAxisStepLookup("self")
+        XPathKeywordLookup("ancestor", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("ancestor-or-self", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("attribute", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("child", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("descendant-or-self", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("following", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("following-sibling", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("parent", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("preceding", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("preceding-sibling", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("self", XPathInsertText.AXIS_MARKER)
     )
 
     private val MARKLOGIC_AXIS_STEPS = listOf(
-        createAxisStepLookup("namespace"),
-        createAxisStepLookup("property")
+        XPathKeywordLookup("namespace", XPathInsertText.AXIS_MARKER),
+        XPathKeywordLookup("property", XPathInsertText.AXIS_MARKER)
     )
 
     private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {
