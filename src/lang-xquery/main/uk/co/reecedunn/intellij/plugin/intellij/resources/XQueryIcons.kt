@@ -29,6 +29,5 @@ object XQueryIcons {
         val Annotation = AllIcons.Nodes.Annotationtype
         val FunctionDecl = AllIcons.Nodes.Function
         var QueryBody = AllIcons.Nodes.EntryPoints
-        val VarDecl = AllIcons.Nodes.Variable
     }
 }

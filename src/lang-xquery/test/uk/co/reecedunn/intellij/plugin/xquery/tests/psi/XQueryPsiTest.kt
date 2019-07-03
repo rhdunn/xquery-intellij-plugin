@@ -4432,8 +4432,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("x"))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.presentableText, `is`("\$x"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4450,8 +4450,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("x"))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.presentableText, `is`("\$a:x"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4470,8 +4470,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("x"))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4484,8 +4484,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4498,8 +4498,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat((decl as XPathVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4516,8 +4516,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("x"))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.presentableText, `is`("\$a:x as node()?"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
