@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsert
 class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPathLookupElement(kindTest) {
     override fun getObject(): Any = this
     override fun getPsiElement(): PsiElement? = null
-    override fun isValid(): Boolean = true
 
     private val presentation = LookupElementPresentation()
     init {

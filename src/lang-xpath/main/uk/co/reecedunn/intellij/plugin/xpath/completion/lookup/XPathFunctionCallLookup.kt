@@ -27,7 +27,6 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
 
     override fun getObject(): Any = function
     override fun getPsiElement(): PsiElement? = function.functionName?.element
-    override fun isValid(): Boolean = psiElement?.isValid ?: true
 
     override fun handleInsert(context: InsertionContext) {
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)

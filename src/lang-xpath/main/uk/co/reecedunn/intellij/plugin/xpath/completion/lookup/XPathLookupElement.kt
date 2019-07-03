@@ -21,4 +21,6 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
     private val lookupStrings: MutableSet<String> = mutableSetOf(lookupString)
     override fun getLookupString(): String = lookupStrings.first()
     override fun getAllLookupStrings(): MutableSet<String> = lookupStrings
+
+    override fun isValid(): Boolean = psiElement?.isValid ?: true
 }

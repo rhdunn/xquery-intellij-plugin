@@ -26,7 +26,6 @@ class XPathVarNameLookup(localName: String, prefix: String?, private val variabl
 
     override fun getObject(): Any = variable
     override fun getPsiElement(): PsiElement? = variable.variableName?.element
-    override fun isValid(): Boolean = psiElement?.isValid ?: true
 
     private val presentation = LookupElementPresentation()
     init {
