@@ -56,7 +56,7 @@ class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : Looku
     override fun hashCode(): Int {
         var result = 0
         result = 31 * result + lookupString.hashCode()
-        result = 31 * result + presentation.tailText.hashCode()
+        result = 31 * result + presentation.tailText!!.hashCode()
         return result
     }
 }
