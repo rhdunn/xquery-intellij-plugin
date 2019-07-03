@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
 object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
@@ -27,8 +29,15 @@ object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
             context.document.insertString(context.tailOffset, "()")
         }
 
-        val arity = (item.`object` as? XPathFunctionDeclaration)?.arity
-        if (arity?.from == arity?.to && arity?.from == 0) { // No parameters
+        val emptyParamList = when (item) {
+            is XPathFunctionCallLookup -> {
+                val arity = (item.`object` as? XPathFunctionDeclaration)?.arity
+                arity?.from == arity?.to && arity?.from == 0
+            }
+            is XPathSequenceTypeLookup -> item.emptyParamList
+            else -> false
+        }
+        if (emptyParamList) {
             // Place the cursor after the parenthesis.
             context.editor.caretModel.let { it.moveToOffset(it.offset + 2) }
         } else {
