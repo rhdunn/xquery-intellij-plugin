@@ -29,20 +29,16 @@ object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
             context.document.insertString(context.tailOffset, "()")
         }
 
-        val emptyParamList = when (item) {
+        val caretOffset = when (item) {
             is XPathFunctionCallLookup -> {
                 val arity = (item.`object` as? XPathFunctionDeclaration)?.arity
-                arity?.from == arity?.to && arity?.from == 0
+                if (arity?.from == arity?.to && arity?.from == 0) 2 else 1
             }
-            is XPathSequenceTypeLookup -> item.emptyParamList
-            else -> false
+            is XPathSequenceTypeLookup -> item.caretOffset
+            else -> 0
         }
-        if (emptyParamList) {
-            // Place the cursor after the parenthesis.
-            context.editor.caretModel.let { it.moveToOffset(it.offset + 2) }
-        } else {
-            // Place the cursor between the parenthesis.
-            context.editor.caretModel.let { it.moveToOffset(it.offset + 1) }
+        if (caretOffset != 0) {
+            context.editor.caretModel.let { it.moveToOffset(it.offset + caretOffset) }
         }
     }
 }

@@ -45,7 +45,7 @@ class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : Looku
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)
     }
 
-    val emptyParamList: Boolean = tailText == "()"
+    val caretOffset: Int = if (tailText == "()") 2 else 1
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -56,6 +56,7 @@ class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : Looku
     override fun hashCode(): Int {
         var result = 0
         result = 31 * result + lookupString.hashCode()
+        result = 31 * result + presentation.tailText.hashCode()
         return result
     }
 }

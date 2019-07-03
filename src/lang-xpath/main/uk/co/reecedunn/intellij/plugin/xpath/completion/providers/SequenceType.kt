@@ -190,29 +190,43 @@ object XPathKindTestProvider : CompletionProviderEx {
     private val XPATH_10_KIND_TESTS = listOf(
         XPathSequenceTypeLookup("comment"),
         XPathSequenceTypeLookup("node"),
-        XPathSequenceTypeLookup("processing-instruction", "(name?)"),
+        XPathSequenceTypeLookup("processing-instruction"),
+        XPathSequenceTypeLookup("processing-instruction", "(\"name\")"),
         XPathSequenceTypeLookup("text")
     )
 
     private val XPATH_20_WD_2003_KIND_TESTS = listOf(
         XPathSequenceTypeLookup("attribute", "(schema-context-or-name?, type?)"),
         XPathSequenceTypeLookup("comment"),
-        XPathSequenceTypeLookup("document-node", "(root-element?)"),
+        XPathSequenceTypeLookup("document-node"),
+        XPathSequenceTypeLookup("document-node", "(root-element)"),
         XPathSequenceTypeLookup("element", "(schema-context-or-name?, nillable-type?)"),
         XPathSequenceTypeLookup("namespace-node"),
         XPathSequenceTypeLookup("node"),
-        XPathSequenceTypeLookup("processing-instruction", "(name?)"),
+        XPathSequenceTypeLookup("processing-instruction"),
+        XPathSequenceTypeLookup("processing-instruction", "(\"name\")"),
         XPathSequenceTypeLookup("text")
     )
 
     private val XPATH_20_REC_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("attribute", "(name-or-wildcard?, type?)"),
+        XPathSequenceTypeLookup("attribute"),
+        XPathSequenceTypeLookup("attribute", "(*)"),
+        XPathSequenceTypeLookup("attribute", "(name)"),
+        XPathSequenceTypeLookup("attribute", "(*, type)"),
+        XPathSequenceTypeLookup("attribute", "(name, type)"),
         XPathSequenceTypeLookup("comment"),
-        XPathSequenceTypeLookup("document-node", "(root-element?)"),
-        XPathSequenceTypeLookup("element", "(name-or-wildcard?, type?)"),
+        XPathSequenceTypeLookup("document-node"),
+        XPathSequenceTypeLookup("document-node", "(root-element)"),
+        XPathSequenceTypeLookup("element"),
+        XPathSequenceTypeLookup("element", "(*)"),
+        XPathSequenceTypeLookup("element", "(name)"),
+        XPathSequenceTypeLookup("element", "(*, type)"),
+        XPathSequenceTypeLookup("element", "(name, type)"),
         XPathSequenceTypeLookup("namespace-node"),
         XPathSequenceTypeLookup("node"),
-        XPathSequenceTypeLookup("processing-instruction", "(name?)"),
+        XPathSequenceTypeLookup("processing-instruction"),
+        XPathSequenceTypeLookup("processing-instruction", "(name)"),
+        XPathSequenceTypeLookup("processing-instruction", "(\"name\")"),
         XPathSequenceTypeLookup("schema-attribute", "(name)"),
         XPathSequenceTypeLookup("schema-element", "(name)"),
         XPathSequenceTypeLookup("text")
