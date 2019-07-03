@@ -42,14 +42,20 @@ object XQueryKindTestProvider : CompletionProviderEx {
     )
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("array-node", "(key-name?)"),
-        XPathSequenceTypeLookup("boolean-node", "(key-name?)"),
-        XPathSequenceTypeLookup("node", "(key-name-or-wildcard?)"), // XPath/XQuery extension
-        XPathSequenceTypeLookup("null-node", "(key-name?)"),
-        XPathSequenceTypeLookup("number-node", "(key-name?)"),
-        XPathSequenceTypeLookup("object-node", "(key-name?)"),
+        XPathSequenceTypeLookup("array-node"),
+        XPathSequenceTypeLookup("array-node", "(key-name)"),
+        XPathSequenceTypeLookup("boolean-node"),
+        XPathSequenceTypeLookup("boolean-node", "(key-name)"),
+        XPathSequenceTypeLookup("node", "(*)"), // XPath/XQuery extension
+        XPathSequenceTypeLookup("node", "(key-name)"), // XPath/XQuery extension
+        XPathSequenceTypeLookup("null-node"),
+        XPathSequenceTypeLookup("null-node", "(key-name)"),
+        XPathSequenceTypeLookup("number-node"),
+        XPathSequenceTypeLookup("number-node", "(key-name)"),
+        XPathSequenceTypeLookup("object-node"),
+        XPathSequenceTypeLookup("object-node", "(key-name)"),
         XPathSequenceTypeLookup("schema-facet"),
-        XPathSequenceTypeLookup("text", "(key-name?)") // XPath/XQuery extension
+        XPathSequenceTypeLookup("text", "(key-name)") // XPath/XQuery extension
     )
 
     private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {
