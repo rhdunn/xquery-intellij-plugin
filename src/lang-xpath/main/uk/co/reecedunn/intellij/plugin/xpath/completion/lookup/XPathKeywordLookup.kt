@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 class XPathKeywordLookup(
-    kindTest: String,
-    tailText: String = "()",
-    override val insertText: XPathInsertText? = XPathInsertText.EMPTY_PARAMS
-) : XPathLookupElement(kindTest) {
+    lookupString: String,
+    tailText: String,
+    override val insertText: XPathInsertText
+) : XPathLookupElement(lookupString) {
     init {
         presentation.isItemTextBold = true
         presentation.tailText = tailText
     }
+
+    constructor(lookupString: String, insertText: XPathInsertText = XPathInsertText.EMPTY_PARAMS) :
+            this(lookupString, insertText.tailText, insertText)
 }

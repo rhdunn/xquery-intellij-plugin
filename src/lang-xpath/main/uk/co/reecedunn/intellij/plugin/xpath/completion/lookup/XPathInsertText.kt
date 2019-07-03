@@ -28,6 +28,8 @@ data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = nu
         val PARAMS = XPathInsertText("(", ")")
     }
 
+    val tailText: String = listOf(beforeCaret, afterCaret ?: "").joinToString("")
+
     fun completeText(document: Document, offset: Int) {
         document.completeString(offset, beforeCaret)
         if (afterCaret != null) {
