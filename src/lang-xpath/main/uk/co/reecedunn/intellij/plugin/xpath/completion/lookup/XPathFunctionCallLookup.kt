@@ -55,7 +55,7 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is XPathFunctionCallLookup) return false
-        return lookupString == other.lookupString && function === other.function
+        return function === other.function && lookupString == other.lookupString
     }
 
     override fun hashCode(): Int {
