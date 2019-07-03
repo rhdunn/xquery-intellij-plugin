@@ -4543,7 +4543,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("true"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val presentation = decl.presentation!!
+                val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("fn:true()"))
@@ -4566,7 +4566,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val presentation = decl.presentation!!
+                val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("test(\$one, \$two)"))
@@ -4589,7 +4589,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val presentation = decl.presentation!!
+                val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("test(\$one as array(*), \$two as node())"))
@@ -4609,7 +4609,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("true"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val presentation = decl.presentation!!
+                val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("fn:true() as xs:boolean"))
@@ -4626,7 +4626,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(decl.params.size, `is`(0))
 
-                val presentation = decl.presentation!!
+                val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`(nullValue()))

@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.navigation.ItemPresentation
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
 
 interface XPathFunctionReference {
@@ -25,7 +24,7 @@ interface XPathFunctionReference {
     val arity: Int
 }
 
-interface XPathFunctionDeclaration : NavigatablePsiElement {
+interface XPathFunctionDeclaration {
     val functionName: XsQNameValue?
 
     val arity: Range<Int>
