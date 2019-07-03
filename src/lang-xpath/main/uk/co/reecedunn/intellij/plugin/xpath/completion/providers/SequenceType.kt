@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -56,21 +57,21 @@ object XPathItemTypeProvider : CompletionProviderEx {
     )
 
     private val XPATH_30_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("item")
     )
 
     private val XPATH_30_IN_XSLT_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("item"),
-        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)") // XSLT 3.0 includes support for maps.
+        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS) // XSLT 3.0 includes support for maps.
     )
 
     private val XPATH_31_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("array", "(type-or-wildcard)"),
-        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        XPathSequenceTypeLookup("array", "(type-or-wildcard)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("item"),
-        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)")
+        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS)
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
@@ -191,44 +192,44 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathSequenceTypeLookup("comment"),
         XPathSequenceTypeLookup("node"),
         XPathSequenceTypeLookup("processing-instruction"),
-        XPathSequenceTypeLookup("processing-instruction", "(\"name\")"),
+        XPathSequenceTypeLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("text")
     )
 
     private val XPATH_20_WD_2003_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("attribute", "(schema-context-or-name?, type?)"),
+        XPathSequenceTypeLookup("attribute", "(schema-context-or-name?, type?)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("comment"),
         XPathSequenceTypeLookup("document-node"),
-        XPathSequenceTypeLookup("document-node", "(root-element)"),
-        XPathSequenceTypeLookup("element", "(schema-context-or-name?, nillable-type?)"),
+        XPathSequenceTypeLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("element", "(schema-context-or-name?, nillable-type?)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("namespace-node"),
         XPathSequenceTypeLookup("node"),
         XPathSequenceTypeLookup("processing-instruction"),
-        XPathSequenceTypeLookup("processing-instruction", "(\"name\")"),
+        XPathSequenceTypeLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("text")
     )
 
     private val XPATH_20_REC_KIND_TESTS = listOf(
         XPathSequenceTypeLookup("attribute"),
-        XPathSequenceTypeLookup("attribute", "(*)"),
-        XPathSequenceTypeLookup("attribute", "(name)"),
-        XPathSequenceTypeLookup("attribute", "(*, type)"),
-        XPathSequenceTypeLookup("attribute", "(name, type)"),
+        XPathSequenceTypeLookup("attribute", "(*)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("attribute", "(name)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("attribute", "(*, type)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("attribute", "(name, type)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("comment"),
         XPathSequenceTypeLookup("document-node"),
-        XPathSequenceTypeLookup("document-node", "(root-element)"),
+        XPathSequenceTypeLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("element"),
-        XPathSequenceTypeLookup("element", "(*)"),
-        XPathSequenceTypeLookup("element", "(name)"),
-        XPathSequenceTypeLookup("element", "(*, type)"),
-        XPathSequenceTypeLookup("element", "(name, type)"),
+        XPathSequenceTypeLookup("element", "(*)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("element", "(name)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("element", "(*, type)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("element", "(name, type)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("namespace-node"),
         XPathSequenceTypeLookup("node"),
         XPathSequenceTypeLookup("processing-instruction"),
-        XPathSequenceTypeLookup("processing-instruction", "(name)"),
-        XPathSequenceTypeLookup("processing-instruction", "(\"name\")"),
-        XPathSequenceTypeLookup("schema-attribute", "(name)"),
-        XPathSequenceTypeLookup("schema-element", "(name)"),
+        XPathSequenceTypeLookup("processing-instruction", "(name)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("schema-attribute", "(name)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("schema-element", "(name)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("text")
     )
 

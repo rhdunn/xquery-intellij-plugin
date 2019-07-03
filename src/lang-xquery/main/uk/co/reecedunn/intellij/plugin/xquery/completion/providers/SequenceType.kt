@@ -21,6 +21,7 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
@@ -43,19 +44,19 @@ object XQueryKindTestProvider : CompletionProviderEx {
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
         XPathSequenceTypeLookup("array-node"),
-        XPathSequenceTypeLookup("array-node", "(key-name)"),
+        XPathSequenceTypeLookup("array-node", "(key-name)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("boolean-node"),
-        XPathSequenceTypeLookup("boolean-node", "(key-name)"),
-        XPathSequenceTypeLookup("node", "(*)"), // XPath/XQuery extension
-        XPathSequenceTypeLookup("node", "(key-name)"), // XPath/XQuery extension
+        XPathSequenceTypeLookup("boolean-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathSequenceTypeLookup("node", "(*)", XPathInsertText.PARAMS), // XPath/XQuery extension
+        XPathSequenceTypeLookup("node", "(key-name)", XPathInsertText.PARAMS), // XPath/XQuery extension
         XPathSequenceTypeLookup("null-node"),
-        XPathSequenceTypeLookup("null-node", "(key-name)"),
+        XPathSequenceTypeLookup("null-node", "(key-name)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("number-node"),
-        XPathSequenceTypeLookup("number-node", "(key-name)"),
+        XPathSequenceTypeLookup("number-node", "(key-name)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("object-node"),
-        XPathSequenceTypeLookup("object-node", "(key-name)"),
+        XPathSequenceTypeLookup("object-node", "(key-name)", XPathInsertText.PARAMS),
         XPathSequenceTypeLookup("schema-facet"),
-        XPathSequenceTypeLookup("text", "(key-name)") // XPath/XQuery extension
+        XPathSequenceTypeLookup("text", "(key-name)", XPathInsertText.PARAMS) // XPath/XQuery extension
     )
 
     private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {

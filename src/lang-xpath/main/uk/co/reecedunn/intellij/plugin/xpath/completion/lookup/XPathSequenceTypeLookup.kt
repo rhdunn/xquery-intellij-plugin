@@ -18,7 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 import com.intellij.codeInsight.completion.InsertionContext
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 
-class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPathLookupElement(kindTest) {
+class XPathSequenceTypeLookup(
+    kindTest: String,
+    tailText: String = "()",
+    override val insertText: XPathInsertText? = XPathInsertText.EMPTY_PARAMS
+) : XPathLookupElement(kindTest) {
     init {
         presentation.isItemTextBold = true
         presentation.tailText = tailText
@@ -27,6 +31,4 @@ class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPath
     override fun handleInsert(context: InsertionContext) {
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)
     }
-
-    val caretOffset: Int = if (tailText == "()") 2 else 1
 }

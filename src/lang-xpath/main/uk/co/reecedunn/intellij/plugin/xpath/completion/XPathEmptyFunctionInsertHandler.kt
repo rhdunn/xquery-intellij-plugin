@@ -18,27 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
-import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
-import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathLookupElement
 
 object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
+        val insert = (item as? XPathLookupElement)?.insertText ?: return
+
         val chars = context.document.charsSequence
         if (chars.length == context.tailOffset || chars[context.tailOffset] != '(') {
             context.document.insertString(context.tailOffset, "()")
         }
 
-        val caretOffset = when (item) {
-            is XPathFunctionCallLookup -> {
-                val arity = (item.`object` as? XPathFunctionDeclaration)?.arity
-                if (arity?.from == arity?.to && arity?.from == 0) 2 else 1
-            }
-            is XPathSequenceTypeLookup -> item.caretOffset
-            else -> 0
-        }
-        if (caretOffset != 0) {
-            context.editor.caretModel.let { it.moveToOffset(it.offset + caretOffset) }
-        }
+        insert.moveCaret(context.editor.caretModel)
     }
 }
