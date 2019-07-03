@@ -19,17 +19,19 @@ import com.intellij.openapi.editor.CaretModel
 import com.intellij.openapi.editor.Document
 import uk.co.reecedunn.intellij.plugin.core.editor.completeString
 
-data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = null) {
+data class XPathInsertText(val beforeCaret: String, val hint: String?, val afterCaret: String?) {
     companion object {
-        val AXIS_MARKER = XPathInsertText("::")
-        val QNAME_PREFIX = XPathInsertText(":")
+        val AXIS_MARKER = XPathInsertText("::", null, null)
+        val QNAME_PREFIX = XPathInsertText(":", null, null)
 
-        val EMPTY_PARAMS = XPathInsertText("()")
-        val PARAMS = XPathInsertText("(", ")")
-        val PARAMS_WILDCARD = XPathInsertText("(*)")
+        val EMPTY_PARAMS = XPathInsertText("()", null, null)
+        val PARAMS = XPathInsertText("(", null, ")")
+
+        val PARAMS_WILDCARD = XPathInsertText("(*)", null, null)
+        val PARAMS_WILDCARD_AND_TYPE = XPathInsertText("(*, ", "type", ")")
     }
 
-    val tailText: String = listOf(beforeCaret, afterCaret ?: "").joinToString("")
+    val tailText: String = listOf(beforeCaret, hint ?: "", afterCaret ?: "").joinToString("")
 
     fun completeText(document: Document, offset: Int) {
         document.completeString(offset, beforeCaret)
