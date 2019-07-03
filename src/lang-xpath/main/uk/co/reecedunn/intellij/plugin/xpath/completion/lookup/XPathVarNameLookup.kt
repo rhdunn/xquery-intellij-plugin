@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
-import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
@@ -23,11 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableType
 
 class XPathVarNameLookup(localName: String, prefix: String?, private val variable: XPathVariableDefinition) :
-    LookupElement() {
-
-    private val lookupStrings: MutableSet<String> = mutableSetOf(prefix?.let { "$it:$localName" } ?: localName)
-    override fun getLookupString(): String = lookupStrings.first()
-    override fun getAllLookupStrings(): MutableSet<String> = lookupStrings
+    XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
 
     override fun getObject(): Any = variable
     override fun getPsiElement(): PsiElement? = variable.variableName?.element

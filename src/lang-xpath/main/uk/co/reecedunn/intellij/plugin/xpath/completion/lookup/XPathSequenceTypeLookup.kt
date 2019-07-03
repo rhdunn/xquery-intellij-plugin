@@ -16,16 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.completion.InsertionContext
-import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 
-class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : LookupElement() {
-    private val lookupStrings: MutableSet<String> = mutableSetOf(kindTest)
-    override fun getLookupString(): String = lookupStrings.first()
-    override fun getAllLookupStrings(): MutableSet<String> = lookupStrings
-
+class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPathLookupElement(kindTest) {
     override fun getObject(): Any = this
     override fun getPsiElement(): PsiElement? = null
     override fun isValid(): Boolean = true

@@ -16,21 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.completion.InsertionContext
-import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
 class XPathFunctionCallLookup(localName: String, prefix: String?, private val function: XPathFunctionDeclaration) :
-    LookupElement() {
-
-    private val lookupStrings: MutableSet<String> = mutableSetOf(prefix?.let { "$it:$localName" } ?: localName)
-    override fun getLookupString(): String = lookupStrings.first()
-    override fun getAllLookupStrings(): MutableSet<String> = lookupStrings
+    XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
 
     override fun getObject(): Any = function
     override fun getPsiElement(): PsiElement? = function.functionName?.element
