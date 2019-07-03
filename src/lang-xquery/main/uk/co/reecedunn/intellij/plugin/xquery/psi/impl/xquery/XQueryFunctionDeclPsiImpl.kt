@@ -18,11 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
@@ -68,7 +67,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.FunctionDecl
+    override fun getIcon(unused: Boolean): Icon? = XPathIcons.Nodes.FunctionDecl
 
     override fun getLocationString(): String? = null
 

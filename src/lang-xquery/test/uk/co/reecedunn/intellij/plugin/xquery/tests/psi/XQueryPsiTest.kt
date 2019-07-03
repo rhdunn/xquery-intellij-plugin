@@ -4544,8 +4544,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("fn:true()"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4567,8 +4567,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("test(\$one, \$two)"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4590,8 +4590,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("test(\$one as array(*), \$two as node())"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4610,8 +4610,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`("fn:true() as xs:boolean"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -4627,8 +4627,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.params.size, `is`(0))
 
                 val presentation = (decl as NavigatablePsiElement).presentation!!
-                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }

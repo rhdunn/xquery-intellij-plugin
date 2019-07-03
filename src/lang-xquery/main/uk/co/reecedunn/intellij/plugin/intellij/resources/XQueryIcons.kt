@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ object XQueryIcons {
 
     object Nodes {
         val Annotation = AllIcons.Nodes.Annotationtype
-        val FunctionDecl = AllIcons.Nodes.Function
         var QueryBody = AllIcons.Nodes.EntryPoints
     }
 }
