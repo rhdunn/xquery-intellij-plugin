@@ -4533,7 +4533,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty ParamList")
             fun emptyParamList() {
-                val decl = parse<XQueryFunctionDecl>("declare function fn:true() external;")[0]
+                val decl = parse<XPathFunctionDeclaration>("declare function fn:true() external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
@@ -4553,7 +4553,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ParamList")
             fun nonEmptyParamList() {
-                val decl = parse<XQueryFunctionDecl>("declare function test(\$one, \$two) external;")[0]
+                val decl = parse<XPathFunctionDeclaration>("declare function test(\$one, \$two) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
 
@@ -4576,7 +4576,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ParamList with types")
             fun nonEmptyParamListWithTypes() {
-                val decl = parse<XQueryFunctionDecl>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
+                val decl = parse<XPathFunctionDeclaration>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
 
@@ -4599,7 +4599,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("return type")
             fun returnType() {
-                val decl = parse<XQueryFunctionDecl>("declare function fn:true()  as  xs:boolean  external;")[0]
+                val decl = parse<XPathFunctionDeclaration>("declare function fn:true()  as  xs:boolean  external;")[0]
                 assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
@@ -4619,7 +4619,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val decl = parse<XQueryFunctionDecl>("declare function :true() external;")[0]
+                val decl = parse<XPathFunctionDeclaration>("declare function :true() external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.functionName, `is`(nullValue()))

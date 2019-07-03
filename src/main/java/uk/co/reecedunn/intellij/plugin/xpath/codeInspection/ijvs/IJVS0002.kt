@@ -26,7 +26,6 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
@@ -35,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
 class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader) {
     private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IKeywordOrNCNameType.KeywordType>? {
@@ -59,7 +59,7 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader
         file.walkTree().forEach { element ->
             val localname = when (element) {
                 is XPathFunctionReference -> getLocalName(element.functionName)
-                is XQueryFunctionDecl -> getLocalName(element.functionName)
+                is XPathFunctionDeclaration -> getLocalName(element.functionName)
                 else -> null
             }
             when (localname?.second) {

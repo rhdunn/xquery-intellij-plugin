@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
-class XQueryFunctionCallLookup(localName: String, prefix: String?, private val function: XQueryFunctionDecl) :
+class XQueryFunctionCallLookup(localName: String, prefix: String?, private val function: XPathFunctionDeclaration) :
     LookupElement() {
 
     private val lookupStrings: MutableSet<String> = mutableSetOf(prefix?.let { "$it:$localName" } ?: localName)

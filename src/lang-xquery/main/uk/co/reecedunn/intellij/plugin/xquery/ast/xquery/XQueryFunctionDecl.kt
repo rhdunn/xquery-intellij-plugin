@@ -24,12 +24,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 /**
  * An XQuery 1.0 `FunctionDecl` node in the XQuery AST.
  */
-interface XQueryFunctionDecl : XQueryStructureViewElement {
-    val functionName: XsQNameValue?
-
-    val params: List<XPathVariableBinding>
-
-    val arity: Range<Int>
-
-    val returnType: XdmSequenceType?
-}
+interface XQueryFunctionDecl : XQueryStructureViewElement

@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -34,7 +35,8 @@ import javax.swing.Icon
 
 private val ARITY_ZERO = Range(0, 0)
 
-class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, ItemPresentation {
+class XQueryFunctionDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryFunctionDecl, XPathFunctionDeclaration, ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -44,7 +46,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     }
 
     // endregion
-    // region XQueryFunctionDecl
+    // region XPathFunctionDeclaration
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 

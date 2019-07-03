@@ -17,11 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
-private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
-    return annotatedDeclarations<XQueryFunctionDecl>().filter { function ->
+private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XPathFunctionDeclaration?> {
+    return annotatedDeclarations<XPathFunctionDeclaration>().filter { function ->
         val functionName = function?.functionName
         // NOTE: Opening the context menu on a call to MarkLogic's `xdmp:version()`
         // is slow (~10 seconds) when just checking the expanded QName, so check
@@ -35,12 +36,12 @@ private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<
     }
 }
 
-fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
+fun XPathEQName.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {
     return importedPrologsForQName().flatMap { (name, prolog) -> prolog.staticallyKnownFunctions(name) }.filterNotNull()
 }
 
-fun XQueryProlog.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl?> {
+fun XQueryProlog.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?> {
     return importedPrologs().flatMap { prolog ->
-        prolog.annotatedDeclarations<XQueryFunctionDecl>()
+        prolog.annotatedDeclarations<XPathFunctionDeclaration>()
     }.filter { decl -> decl?.functionName != null }
 }
