@@ -21,35 +21,35 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
-import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.createSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
 object XQueryKindTestProvider : CompletionProviderEx {
     private val MARKLOGIC_60_KIND_TESTS = listOf(
-        createSequenceTypeLookup("binary")
+        XPathSequenceTypeLookup("binary")
     )
 
     private val MARKLOGIC_70_KIND_TESTS = listOf(
-        createSequenceTypeLookup("attribute-decl"),
-        createSequenceTypeLookup("complex-type"),
-        createSequenceTypeLookup("element-decl"),
-        createSequenceTypeLookup("schema-component"),
-        createSequenceTypeLookup("schema-particle"),
-        createSequenceTypeLookup("schema-root"),
-        createSequenceTypeLookup("schema-type"),
-        createSequenceTypeLookup("simple-type")
+        XPathSequenceTypeLookup("attribute-decl"),
+        XPathSequenceTypeLookup("complex-type"),
+        XPathSequenceTypeLookup("element-decl"),
+        XPathSequenceTypeLookup("schema-component"),
+        XPathSequenceTypeLookup("schema-particle"),
+        XPathSequenceTypeLookup("schema-root"),
+        XPathSequenceTypeLookup("schema-type"),
+        XPathSequenceTypeLookup("simple-type")
     )
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
-        createSequenceTypeLookup("array-node", "(key-name?)"),
-        createSequenceTypeLookup("boolean-node", "(key-name?)"),
-        createSequenceTypeLookup("node", "(key-name-or-wildcard?)"), // XPath/XQuery extension
-        createSequenceTypeLookup("null-node", "(key-name?)"),
-        createSequenceTypeLookup("number-node", "(key-name?)"),
-        createSequenceTypeLookup("object-node", "(key-name?)"),
-        createSequenceTypeLookup("schema-facet"),
-        createSequenceTypeLookup("text", "(key-name?)") // XPath/XQuery extension
+        XPathSequenceTypeLookup("array-node", "(key-name?)"),
+        XPathSequenceTypeLookup("boolean-node", "(key-name?)"),
+        XPathSequenceTypeLookup("node", "(key-name-or-wildcard?)"), // XPath/XQuery extension
+        XPathSequenceTypeLookup("null-node", "(key-name?)"),
+        XPathSequenceTypeLookup("number-node", "(key-name?)"),
+        XPathSequenceTypeLookup("object-node", "(key-name?)"),
+        XPathSequenceTypeLookup("schema-facet"),
+        XPathSequenceTypeLookup("text", "(key-name?)") // XPath/XQuery extension
     )
 
     private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {

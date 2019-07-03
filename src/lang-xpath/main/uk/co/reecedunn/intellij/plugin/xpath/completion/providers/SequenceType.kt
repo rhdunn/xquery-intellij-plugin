@@ -25,16 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-
-fun createSequenceTypeLookup(kindTest: String, tailText: String = "()"): LookupElementBuilder {
-    return LookupElementBuilder.create(kindTest)
-        .withBoldness(true)
-        .withTailText(tailText)
-        .withInsertHandler(XPathEmptyFunctionInsertHandler)
-}
 
 fun createTypeNameLookup(localName: String, prefix: String? = null): LookupElementBuilder {
     return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
@@ -42,9 +35,9 @@ fun createTypeNameLookup(localName: String, prefix: String? = null): LookupEleme
 }
 
 object XPathSequenceTypeProvider : CompletionProviderEx {
-    private val XPATH_20_WD_2003_SEQUENCE_TYPE = createSequenceTypeLookup("empty")
+    private val XPATH_20_WD_2003_SEQUENCE_TYPE = XPathSequenceTypeLookup("empty")
 
-    private val XPATH_20_REC_SEQUENCE_TYPE = createSequenceTypeLookup("empty-sequence")
+    private val XPATH_20_REC_SEQUENCE_TYPE = XPathSequenceTypeLookup("empty-sequence")
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
@@ -59,25 +52,25 @@ object XPathSequenceTypeProvider : CompletionProviderEx {
 
 object XPathItemTypeProvider : CompletionProviderEx {
     private val XPATH_20_ITEM_TYPES = listOf(
-        createSequenceTypeLookup("item")
+        XPathSequenceTypeLookup("item")
     )
 
     private val XPATH_30_ITEM_TYPES = listOf(
-        createSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
-        createSequenceTypeLookup("item")
+        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        XPathSequenceTypeLookup("item")
     )
 
     private val XPATH_30_IN_XSLT_ITEM_TYPES = listOf(
-        createSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
-        createSequenceTypeLookup("item"),
-        createSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)") // XSLT 3.0 includes support for maps.
+        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        XPathSequenceTypeLookup("item"),
+        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)") // XSLT 3.0 includes support for maps.
     )
 
     private val XPATH_31_ITEM_TYPES = listOf(
-        createSequenceTypeLookup("array", "(type-or-wildcard)"),
-        createSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
-        createSequenceTypeLookup("item"),
-        createSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)")
+        XPathSequenceTypeLookup("array", "(type-or-wildcard)"),
+        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)"),
+        XPathSequenceTypeLookup("item"),
+        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)")
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
@@ -195,34 +188,34 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
 
 object XPathKindTestProvider : CompletionProviderEx {
     private val XPATH_10_KIND_TESTS = listOf(
-        createSequenceTypeLookup("comment"),
-        createSequenceTypeLookup("node"),
-        createSequenceTypeLookup("processing-instruction", "(name?)"),
-        createSequenceTypeLookup("text")
+        XPathSequenceTypeLookup("comment"),
+        XPathSequenceTypeLookup("node"),
+        XPathSequenceTypeLookup("processing-instruction", "(name?)"),
+        XPathSequenceTypeLookup("text")
     )
 
     private val XPATH_20_WD_2003_KIND_TESTS = listOf(
-        createSequenceTypeLookup("attribute", "(schema-context-or-name?, type?)"),
-        createSequenceTypeLookup("comment"),
-        createSequenceTypeLookup("document-node", "(root-element?)"),
-        createSequenceTypeLookup("element", "(schema-context-or-name?, nillable-type?)"),
-        createSequenceTypeLookup("namespace-node"),
-        createSequenceTypeLookup("node"),
-        createSequenceTypeLookup("processing-instruction", "(name?)"),
-        createSequenceTypeLookup("text")
+        XPathSequenceTypeLookup("attribute", "(schema-context-or-name?, type?)"),
+        XPathSequenceTypeLookup("comment"),
+        XPathSequenceTypeLookup("document-node", "(root-element?)"),
+        XPathSequenceTypeLookup("element", "(schema-context-or-name?, nillable-type?)"),
+        XPathSequenceTypeLookup("namespace-node"),
+        XPathSequenceTypeLookup("node"),
+        XPathSequenceTypeLookup("processing-instruction", "(name?)"),
+        XPathSequenceTypeLookup("text")
     )
 
     private val XPATH_20_REC_KIND_TESTS = listOf(
-        createSequenceTypeLookup("attribute", "(name-or-wildcard?, type?)"),
-        createSequenceTypeLookup("comment"),
-        createSequenceTypeLookup("document-node", "(root-element?)"),
-        createSequenceTypeLookup("element", "(name-or-wildcard?, type?)"),
-        createSequenceTypeLookup("namespace-node"),
-        createSequenceTypeLookup("node"),
-        createSequenceTypeLookup("processing-instruction", "(name?)"),
-        createSequenceTypeLookup("schema-attribute", "(name)"),
-        createSequenceTypeLookup("schema-element", "(name)"),
-        createSequenceTypeLookup("text")
+        XPathSequenceTypeLookup("attribute", "(name-or-wildcard?, type?)"),
+        XPathSequenceTypeLookup("comment"),
+        XPathSequenceTypeLookup("document-node", "(root-element?)"),
+        XPathSequenceTypeLookup("element", "(name-or-wildcard?, type?)"),
+        XPathSequenceTypeLookup("namespace-node"),
+        XPathSequenceTypeLookup("node"),
+        XPathSequenceTypeLookup("processing-instruction", "(name?)"),
+        XPathSequenceTypeLookup("schema-attribute", "(name)"),
+        XPathSequenceTypeLookup("schema-element", "(name)"),
+        XPathSequenceTypeLookup("text")
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
