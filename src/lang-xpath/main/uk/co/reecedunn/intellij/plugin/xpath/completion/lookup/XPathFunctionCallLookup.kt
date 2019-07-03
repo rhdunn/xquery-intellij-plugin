@@ -42,10 +42,9 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
 
     private val presentation = LookupElementPresentation()
     init {
-        val params = function.children().filterIsInstance<XPathParamList>().firstOrNull()
         presentation.itemText = lookupString
         presentation.icon = XPathIcons.Nodes.FunctionDecl
-        presentation.tailText = params?.presentation?.presentableText ?: "()"
+        presentation.tailText = function.paramListPresentation?.presentableText ?: "()"
         presentation.typeText = function.returnType?.typeName
     }
 

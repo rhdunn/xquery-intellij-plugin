@@ -52,11 +52,13 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
-    override val params: List<XPathVariableBinding> get() = paramList?.params ?: emptyList()
-
     override val arity get(): Range<Int> = paramList?.arity ?: ARITY_ZERO
 
     override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val params: List<XPathVariableBinding> get() = paramList?.params ?: emptyList()
+
+    override val paramListPresentation: ItemPresentation? get() = paramList?.presentation
 
     // endregion
     // region NavigationItem

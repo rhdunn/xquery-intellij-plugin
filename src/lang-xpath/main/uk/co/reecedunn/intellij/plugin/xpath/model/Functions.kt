@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
 
@@ -27,9 +28,11 @@ interface XPathFunctionReference {
 interface XPathFunctionDeclaration : NavigatablePsiElement {
     val functionName: XsQNameValue?
 
-    val params: List<XPathVariableBinding>
-
     val arity: Range<Int>
 
     val returnType: XdmSequenceType?
+
+    val params: List<XPathVariableBinding>
+
+    val paramListPresentation: ItemPresentation?
 }
