@@ -197,11 +197,11 @@ object XPathKindTestProvider : CompletionProviderEx {
     )
 
     private val XPATH_20_WD_2003_KIND_TESTS = listOf(
-        XPathKeywordLookup("attribute", "(schema-context-or-name?, type?)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("attribute", XPathInsertText.PARAMS_SCHEMA_CONTEXT),
         XPathKeywordLookup("comment", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("document-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("document-node", XPathInsertText.PARAMS_ROOT_ELEMENT),
-        XPathKeywordLookup("element", "(schema-context-or-name?, nillable-type?)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", XPathInsertText.PARAMS_SCHEMA_CONTEXT),
         XPathKeywordLookup("namespace-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("processing-instruction", XPathInsertText.EMPTY_PARAMS),

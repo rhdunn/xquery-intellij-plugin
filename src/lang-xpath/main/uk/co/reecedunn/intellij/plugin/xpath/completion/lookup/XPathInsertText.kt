@@ -33,6 +33,7 @@ data class XPathInsertText(val beforeCaret: String, val hint: String?, val after
         val PARAMS_NAME_AND_TYPE = XPathInsertText("(", "name, type", ")")
         val PARAMS_NAME_STRING = XPathInsertText("(\"", "name", "\")")
         val PARAMS_ROOT_ELEMENT = XPathInsertText("(", "root-element", ")")
+        val PARAMS_SCHEMA_CONTEXT = XPathInsertText("(", "schema-context-or-name?, type?", ")") // XPath 2.0 WD 2003
         val PARAMS_WILDCARD = XPathInsertText("(*)", null, null)
         val PARAMS_WILDCARD_AND_TYPE = XPathInsertText("(*, ", "type", ")")
     }
