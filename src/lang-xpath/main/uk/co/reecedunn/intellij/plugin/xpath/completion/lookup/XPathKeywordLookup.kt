@@ -25,6 +25,6 @@ class XPathKeywordLookup(
         presentation.tailText = tailText
     }
 
-    constructor(lookupString: String, insertText: XPathInsertText = XPathInsertText.EMPTY_PARAMS) :
+    constructor(lookupString: String, insertText: XPathInsertText) :
             this(lookupString, insertText.tailText, insertText)
 }

@@ -28,34 +28,34 @@ import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompleti
 
 object XQueryKindTestProvider : CompletionProviderEx {
     private val MARKLOGIC_60_KIND_TESTS = listOf(
-        XPathKeywordLookup("binary")
+        XPathKeywordLookup("binary", XPathInsertText.EMPTY_PARAMS)
     )
 
     private val MARKLOGIC_70_KIND_TESTS = listOf(
-        XPathKeywordLookup("attribute-decl"),
-        XPathKeywordLookup("complex-type"),
-        XPathKeywordLookup("element-decl"),
-        XPathKeywordLookup("schema-component"),
-        XPathKeywordLookup("schema-particle"),
-        XPathKeywordLookup("schema-root"),
-        XPathKeywordLookup("schema-type"),
-        XPathKeywordLookup("simple-type")
+        XPathKeywordLookup("attribute-decl", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("complex-type", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("element-decl", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-component", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-particle", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-root", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-type", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("simple-type", XPathInsertText.EMPTY_PARAMS)
     )
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
-        XPathKeywordLookup("array-node"),
+        XPathKeywordLookup("array-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("array-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathKeywordLookup("boolean-node"),
+        XPathKeywordLookup("boolean-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("boolean-node", "(key-name)", XPathInsertText.PARAMS),
         XPathKeywordLookup("node", "(*)", XPathInsertText.PARAMS), // XPath/XQuery extension
         XPathKeywordLookup("node", "(key-name)", XPathInsertText.PARAMS), // XPath/XQuery extension
-        XPathKeywordLookup("null-node"),
+        XPathKeywordLookup("null-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("null-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathKeywordLookup("number-node"),
+        XPathKeywordLookup("number-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("number-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathKeywordLookup("object-node"),
+        XPathKeywordLookup("object-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("object-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathKeywordLookup("schema-facet"),
+        XPathKeywordLookup("schema-facet", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("text", "(key-name)", XPathInsertText.PARAMS) // XPath/XQuery extension
     )
 
