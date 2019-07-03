@@ -33,17 +33,4 @@ class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPath
     }
 
     val caretOffset: Int = if (tailText == "()") 2 else 1
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is XPathSequenceTypeLookup) return false
-        return lookupString == other.lookupString
-    }
-
-    override fun hashCode(): Int {
-        var result = 0
-        result = 31 * result + lookupString.hashCode()
-        result = 31 * result + presentation.tailText!!.hashCode()
-        return result
-    }
 }

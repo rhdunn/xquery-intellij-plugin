@@ -33,4 +33,17 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
     override fun renderElement(presentation: LookupElementPresentation?) {
         presentation?.copyFrom(this.presentation)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is XPathLookupElement) return false
+        return `object` === other.`object` && lookupString == other.lookupString
+    }
+
+    override fun hashCode(): Int {
+        var result = 0
+        result = 31 * result + lookupString.hashCode()
+        result = 31 * result + if (`object` === this) 0 else `object`.hashCode()
+        return result
+    }
 }

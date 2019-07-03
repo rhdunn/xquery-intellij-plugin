@@ -35,17 +35,4 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
     override fun handleInsert(context: InsertionContext) {
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)
     }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is XPathFunctionCallLookup) return false
-        return function === other.function && lookupString == other.lookupString
-    }
-
-    override fun hashCode(): Int {
-        var result = 0
-        result = 31 * result + lookupString.hashCode()
-        result = 31 * result + `object`.hashCode()
-        return result
-    }
 }

@@ -29,17 +29,4 @@ class XPathVarNameLookup(localName: String, prefix: String?, private val variabl
 
     override fun getObject(): Any = variable
     override fun getPsiElement(): PsiElement? = variable.variableName?.element
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is XPathVarNameLookup) return false
-        return lookupString == other.lookupString && variable === other.variable
-    }
-
-    override fun hashCode(): Int {
-        var result = 0
-        result = 31 * result + lookupString.hashCode()
-        result = 31 * result + `object`.hashCode()
-        return result
-    }
 }
