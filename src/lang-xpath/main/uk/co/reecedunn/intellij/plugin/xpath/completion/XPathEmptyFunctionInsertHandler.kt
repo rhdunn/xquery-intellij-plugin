@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
 object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
@@ -26,7 +27,13 @@ object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
             context.document.insertString(context.tailOffset, "()")
         }
 
-        // Place the cursor between the parenthesis.
-        context.editor.caretModel.let { it.moveToOffset(it.offset + 1) }
+        val arity = (item.`object` as? XPathFunctionDeclaration)?.arity
+        if (arity?.from == arity?.to && arity?.from == 0) { // No parameters
+            // Place the cursor after the parenthesis.
+            context.editor.caretModel.let { it.moveToOffset(it.offset + 2) }
+        } else {
+            // Place the cursor between the parenthesis.
+            context.editor.caretModel.let { it.moveToOffset(it.offset + 1) }
+        }
     }
 }
