@@ -44,7 +44,7 @@ object XPathVersion : CompletionProperty {
             XQuerySpec.CR_3_1_20151217 -> XPathSpec.CR_3_1_20151217
             XQuerySpec.REC_3_1_20170321 -> XPathSpec.REC_3_1_20170321
             XQuerySpec.MARKLOGIC_0_9 -> XPathSpec.WD_2_0_20030502
-            XQuerySpec.MARKLOGIC_1_0 -> XPathSpec.REC_2_0_20070123
+            XQuerySpec.MARKLOGIC_1_0 -> XPathSpec.REC_3_0_20140408
             else -> XPathSpec.REC_3_1_20170321
         }
     }
