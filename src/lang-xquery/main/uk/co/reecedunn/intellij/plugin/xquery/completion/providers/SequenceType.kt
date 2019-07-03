@@ -44,19 +44,19 @@ object XQueryKindTestProvider : CompletionProviderEx {
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
         XPathKeywordLookup("array-node", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("array-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("array-node", XPathInsertText.PARAMS_KEYNAME),
         XPathKeywordLookup("boolean-node", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("boolean-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("boolean-node", XPathInsertText.PARAMS_KEYNAME),
         XPathKeywordLookup("node", XPathInsertText.PARAMS_WILDCARD), // XPath/XQuery extension
-        XPathKeywordLookup("node", "(key-name)", XPathInsertText.PARAMS), // XPath/XQuery extension
+        XPathKeywordLookup("node", XPathInsertText.PARAMS_KEYNAME), // XPath/XQuery extension
         XPathKeywordLookup("null-node", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("null-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("null-node", XPathInsertText.PARAMS_KEYNAME),
         XPathKeywordLookup("number-node", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("number-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("number-node", XPathInsertText.PARAMS_KEYNAME),
         XPathKeywordLookup("object-node", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("object-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("object-node", XPathInsertText.PARAMS_KEYNAME),
         XPathKeywordLookup("schema-facet", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("text", "(key-name)", XPathInsertText.PARAMS) // XPath/XQuery extension
+        XPathKeywordLookup("text", XPathInsertText.PARAMS_KEYNAME) // XPath/XQuery extension
     )
 
     private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {
