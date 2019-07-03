@@ -42,12 +42,6 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         // XQuery 3.1 EBNF (186) ItemType
         builder(XQuery).withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
 
-        // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
-        builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
-            .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
-            .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
-            .addCompletions(XPathAtomicOrUnionTypeProvider)
-
         // XQuery 3.1 EBNF (188) KindTest
         builder(XQuery).withFilter(XPathKindTestFilter)
             .withProperty(XPathVersion).withProperty(XQueryProductVersion)
@@ -56,6 +50,12 @@ class XQueryCompletionContributor : CompletionContributorEx() {
 
     private fun registerXQueryStaticContextCompletionProviders() {
         val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
+
+        // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
+        builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
+            .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
+            .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
+            .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (234) QName
         builder(XQuery).withFilter(XPathQNamePrefixFilter)

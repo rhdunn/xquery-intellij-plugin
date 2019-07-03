@@ -38,17 +38,17 @@ class XPathCompletionContributor : CompletionContributorEx() {
         // XPath 3.1 EBNF (81) ItemType
         builder(XPath).withFilter(XPathItemTypeFilter).withProperty(XPathVersion).addCompletions(XPathItemTypeProvider)
 
-        // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
-        builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
-            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
-            .addCompletions(XPathAtomicOrUnionTypeProvider)
-
         // XPath 3.1 EBNF (83) KindTest
         builder(XPath).withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
     }
 
     private fun registerXPathStaticContextCompletionProviders() {
         val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
+
+        // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
+        builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
+            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
+            .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (234) QName
         builder(XPath).withFilter(XPathQNamePrefixFilter)
