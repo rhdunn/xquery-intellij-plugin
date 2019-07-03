@@ -64,7 +64,8 @@ object XPathItemTypeProvider : CompletionProviderEx {
     private val XPATH_30_IN_XSLT_ITEM_TYPES = listOf(
         XPathKeywordLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
         XPathKeywordLookup("item", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS) // XSLT 3.0 includes support for maps.
+        XPathKeywordLookup("map", XPathInsertText.PARAMS_WILDCARD), // XSLT 3.0 includes support for maps.
+        XPathKeywordLookup("map", XPathInsertText.PARAMS_KEY_VALUE_TYPE) // XSLT 3.0 includes support for maps.
     )
 
     private val XPATH_31_ITEM_TYPES = listOf(
@@ -72,7 +73,8 @@ object XPathItemTypeProvider : CompletionProviderEx {
         XPathKeywordLookup("array", XPathInsertText.PARAMS_TYPE),
         XPathKeywordLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
         XPathKeywordLookup("item", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS)
+        XPathKeywordLookup("map", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("map", XPathInsertText.PARAMS_KEY_VALUE_TYPE)
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
