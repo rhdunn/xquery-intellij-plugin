@@ -47,7 +47,7 @@ object XQueryKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("array-node", "(key-name)", XPathInsertText.PARAMS),
         XPathKeywordLookup("boolean-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("boolean-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathKeywordLookup("node", "(*)", XPathInsertText.PARAMS), // XPath/XQuery extension
+        XPathKeywordLookup("node", XPathInsertText.PARAMS_WILDCARD), // XPath/XQuery extension
         XPathKeywordLookup("node", "(key-name)", XPathInsertText.PARAMS), // XPath/XQuery extension
         XPathKeywordLookup("null-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("null-node", "(key-name)", XPathInsertText.PARAMS),

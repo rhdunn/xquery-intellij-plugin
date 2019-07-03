@@ -211,7 +211,7 @@ object XPathKindTestProvider : CompletionProviderEx {
 
     private val XPATH_20_REC_KIND_TESTS = listOf(
         XPathKeywordLookup("attribute", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("attribute", "(*)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("attribute", XPathInsertText.PARAMS_WILDCARD),
         XPathKeywordLookup("attribute", "(name)", XPathInsertText.PARAMS),
         XPathKeywordLookup("attribute", "(*, type)", XPathInsertText.PARAMS),
         XPathKeywordLookup("attribute", "(name, type)", XPathInsertText.PARAMS),
@@ -219,7 +219,7 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("document-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
         XPathKeywordLookup("element", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("element", "(*)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", XPathInsertText.PARAMS_WILDCARD),
         XPathKeywordLookup("element", "(name)", XPathInsertText.PARAMS),
         XPathKeywordLookup("element", "(*, type)", XPathInsertText.PARAMS),
         XPathKeywordLookup("element", "(name, type)", XPathInsertText.PARAMS),

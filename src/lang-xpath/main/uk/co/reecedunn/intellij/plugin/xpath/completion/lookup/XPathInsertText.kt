@@ -26,6 +26,7 @@ data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = nu
 
         val EMPTY_PARAMS = XPathInsertText("()")
         val PARAMS = XPathInsertText("(", ")")
+        val PARAMS_WILDCARD = XPathInsertText("(*)")
     }
 
     val tailText: String = listOf(beforeCaret, afterCaret ?: "").joinToString("")
