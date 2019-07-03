@@ -192,7 +192,7 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("comment", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("processing-instruction", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathKeywordLookup("processing-instruction", XPathInsertText.PARAMS_NAME_STRING),
         XPathKeywordLookup("text", XPathInsertText.EMPTY_PARAMS)
     )
 
@@ -205,7 +205,7 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("namespace-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("processing-instruction", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathKeywordLookup("processing-instruction", XPathInsertText.PARAMS_NAME_STRING),
         XPathKeywordLookup("text", XPathInsertText.EMPTY_PARAMS)
     )
 
@@ -227,7 +227,7 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("processing-instruction", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("processing-instruction", XPathInsertText.PARAMS_NAME),
-        XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathKeywordLookup("processing-instruction", XPathInsertText.PARAMS_NAME_STRING),
         XPathKeywordLookup("schema-attribute", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("schema-element", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("text", XPathInsertText.EMPTY_PARAMS)

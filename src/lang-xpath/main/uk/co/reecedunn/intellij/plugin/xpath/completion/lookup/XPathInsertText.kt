@@ -27,9 +27,11 @@ data class XPathInsertText(val beforeCaret: String, val hint: String?, val after
         val EMPTY_PARAMS = XPathInsertText("()", null, null)
         val PARAMS = XPathInsertText("(", null, ")")
 
+        // SequenceType, ItemType, and KindTest parameters
         val PARAMS_KEYNAME = XPathInsertText("(", "key-name", ")")
         val PARAMS_NAME = XPathInsertText("(", "name", ")")
         val PARAMS_NAME_AND_TYPE = XPathInsertText("(", "name, type", ")")
+        val PARAMS_NAME_STRING = XPathInsertText("(\"", "name", "\")")
         val PARAMS_WILDCARD = XPathInsertText("(*)", null, null)
         val PARAMS_WILDCARD_AND_TYPE = XPathInsertText("(*, ", "type", ")")
     }
