@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.completion.InsertionContext
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 
 class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPathLookupElement(kindTest) {
@@ -24,9 +23,6 @@ class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPath
         presentation.isItemTextBold = true
         presentation.tailText = tailText
     }
-
-    override fun getObject(): Any = this
-    override fun getPsiElement(): PsiElement? = null
 
     override fun handleInsert(context: InsertionContext) {
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)

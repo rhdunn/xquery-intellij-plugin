@@ -17,12 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
+import com.intellij.psi.PsiElement
 
 open class XPathLookupElement(lookupString: String) : LookupElement() {
     private val lookupStrings: MutableSet<String> = mutableSetOf(lookupString)
     override fun getLookupString(): String = lookupStrings.first()
     override fun getAllLookupStrings(): MutableSet<String> = lookupStrings
 
+    override fun getPsiElement(): PsiElement? = null
     override fun isValid(): Boolean = psiElement?.isValid ?: true
 
     protected val presentation = LookupElementPresentation()
