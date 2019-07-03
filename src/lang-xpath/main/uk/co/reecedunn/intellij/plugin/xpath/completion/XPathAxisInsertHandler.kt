@@ -18,9 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 
 object XPathAxisInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
+        val insert = XPathInsertText.AXIS_MARKER
+
         val chars = context.document.charsSequence
         if (chars.length == context.tailOffset || chars[context.tailOffset] != ':') { // No ':'
             context.document.insertString(context.tailOffset, "::")
@@ -28,7 +31,6 @@ object XPathAxisInsertHandler : InsertHandler<LookupElement> {
             context.document.insertString(context.tailOffset, ":")
         }
 
-        // Place the cursor after the axis marker.
-        context.editor.caretModel.let { it.moveToOffset(it.offset + 2) }
+        insert.moveCaret(context.editor.caretModel)
     }
 }

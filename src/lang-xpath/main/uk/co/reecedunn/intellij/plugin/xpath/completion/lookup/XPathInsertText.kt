@@ -20,6 +20,7 @@ import com.intellij.openapi.editor.CaretModel
 data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = null) {
     companion object {
         val QNAME_PREFIX = XPathInsertText(":")
+        val AXIS_MARKER = XPathInsertText("::")
     }
 
     fun moveCaret(caretModel: CaretModel) {
