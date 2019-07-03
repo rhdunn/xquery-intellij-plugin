@@ -26,6 +26,7 @@ object XPathIcons {
     val RunConfiguration: Icon = getIcon("/icons/xpath/runConfiguration.svg")
 
     object Nodes {
+        val FunctionDecl = AllIcons.Nodes.Function
         val Param = AllIcons.Nodes.Parameter
         val TypeDecl = getIcon("/icons/xpath/nodes/typeDecl.svg")
         val VarDecl = AllIcons.Nodes.Variable

@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.completion.lookup
+package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
-class XQueryFunctionCallLookup(localName: String, prefix: String?, private val function: XPathFunctionDeclaration) :
+class XPathFunctionCallLookup(localName: String, prefix: String?, private val function: XPathFunctionDeclaration) :
     LookupElement() {
 
     private val lookupStrings: MutableSet<String> = mutableSetOf(prefix?.let { "$it:$localName" } ?: localName)
@@ -44,7 +44,7 @@ class XQueryFunctionCallLookup(localName: String, prefix: String?, private val f
     init {
         val params = function.children().filterIsInstance<XPathParamList>().firstOrNull()
         presentation.itemText = lookupString
-        presentation.icon = XQueryIcons.Nodes.FunctionDecl
+        presentation.icon = XPathIcons.Nodes.FunctionDecl
         presentation.tailText = params?.presentation?.presentableText ?: "()"
         presentation.typeText = function.returnType?.typeName
     }
@@ -55,7 +55,7 @@ class XQueryFunctionCallLookup(localName: String, prefix: String?, private val f
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is XQueryFunctionCallLookup) return false
+        if (other !is XPathFunctionCallLookup) return false
         return lookupString == other.lookupString && function === other.function
     }
 

@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompleti
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.completion.lookup.XQueryFunctionCallLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
@@ -109,7 +109,13 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
                                 val declPrefix = ns.namespacePrefix?.data
-                                result.addElement(XQueryFunctionCallLookup(localName, declPrefix, function))
+                                result.addElement(
+                                    XPathFunctionCallLookup(
+                                        localName,
+                                        declPrefix,
+                                        function
+                                    )
+                                )
                             }
                         }
                     }
@@ -124,7 +130,13 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                             namespaces.forEach { ns ->
                                 if (ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == ref.prefix?.data) { // Prefix matches, and is already specified.
-                                        result.addElement(XQueryFunctionCallLookup(localName, null, function))
+                                        result.addElement(
+                                            XPathFunctionCallLookup(
+                                                localName,
+                                                null,
+                                                function
+                                            )
+                                        )
                                     }
                                 }
                             }
@@ -139,7 +151,13 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {
-                            result.addElement(XQueryFunctionCallLookup(localName, null, function))
+                            result.addElement(
+                                XPathFunctionCallLookup(
+                                    localName,
+                                    null,
+                                    function
+                                )
+                            )
                         }
                     }
                 }
