@@ -109,13 +109,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
                                 val declPrefix = ns.namespacePrefix?.data
-                                result.addElement(
-                                    XPathFunctionCallLookup(
-                                        localName,
-                                        declPrefix,
-                                        function
-                                    )
-                                )
+                                result.addElement(XPathFunctionCallLookup(localName, declPrefix, function))
                             }
                         }
                     }
@@ -130,13 +124,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                             namespaces.forEach { ns ->
                                 if (ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == ref.prefix?.data) { // Prefix matches, and is already specified.
-                                        result.addElement(
-                                            XPathFunctionCallLookup(
-                                                localName,
-                                                null,
-                                                function
-                                            )
-                                        )
+                                        result.addElement(XPathFunctionCallLookup(localName, null, function))
                                     }
                                 }
                             }
@@ -151,13 +139,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {
-                            result.addElement(
-                                XPathFunctionCallLookup(
-                                    localName,
-                                    null,
-                                    function
-                                )
-                            )
+                            result.addElement(XPathFunctionCallLookup(localName, null, function))
                         }
                     }
                 }
