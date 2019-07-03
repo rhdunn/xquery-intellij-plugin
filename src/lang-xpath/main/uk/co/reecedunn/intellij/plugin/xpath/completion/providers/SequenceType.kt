@@ -212,7 +212,7 @@ object XPathKindTestProvider : CompletionProviderEx {
     private val XPATH_20_REC_KIND_TESTS = listOf(
         XPathKeywordLookup("attribute", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("attribute", XPathInsertText.PARAMS_WILDCARD),
-        XPathKeywordLookup("attribute", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("attribute", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("attribute", XPathInsertText.PARAMS_WILDCARD_AND_TYPE),
         XPathKeywordLookup("attribute", "(name, type)", XPathInsertText.PARAMS),
         XPathKeywordLookup("comment", XPathInsertText.EMPTY_PARAMS),
@@ -220,16 +220,16 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
         XPathKeywordLookup("element", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("element", XPathInsertText.PARAMS_WILDCARD),
-        XPathKeywordLookup("element", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("element", XPathInsertText.PARAMS_WILDCARD_AND_TYPE),
         XPathKeywordLookup("element", "(name, type)", XPathInsertText.PARAMS),
         XPathKeywordLookup("namespace-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("processing-instruction", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("processing-instruction", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("processing-instruction", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
-        XPathKeywordLookup("schema-attribute", "(name)", XPathInsertText.PARAMS),
-        XPathKeywordLookup("schema-element", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("schema-attribute", XPathInsertText.PARAMS_NAME),
+        XPathKeywordLookup("schema-element", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("text", XPathInsertText.EMPTY_PARAMS)
     )
 
