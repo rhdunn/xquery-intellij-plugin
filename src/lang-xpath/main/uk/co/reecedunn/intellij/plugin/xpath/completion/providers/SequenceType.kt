@@ -68,7 +68,8 @@ object XPathItemTypeProvider : CompletionProviderEx {
     )
 
     private val XPATH_31_ITEM_TYPES = listOf(
-        XPathKeywordLookup("array", "(type-or-wildcard)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("array", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("array", XPathInsertText.PARAMS_TYPE),
         XPathKeywordLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
         XPathKeywordLookup("item", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS)
