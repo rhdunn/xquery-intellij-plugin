@@ -18,17 +18,16 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
+import uk.co.reecedunn.intellij.plugin.core.editor.completeString
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathLookupElement
 
 object XPathEmptyFunctionInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
         val insert = (item as? XPathLookupElement)?.insertText ?: return
-
-        val chars = context.document.charsSequence
-        if (chars.length == context.tailOffset || chars[context.tailOffset] != '(') {
-            context.document.insertString(context.tailOffset, "()")
+        context.document.completeString(context.tailOffset, insert.beforeCaret)
+        if (insert.afterCaret != null) {
+            context.document.completeString(context.tailOffset + insert.beforeCaret.length, insert.afterCaret)
         }
-
         insert.moveCaret(context.editor.caretModel)
     }
 }

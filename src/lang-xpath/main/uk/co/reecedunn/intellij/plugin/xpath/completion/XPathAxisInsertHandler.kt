@@ -18,19 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
+import uk.co.reecedunn.intellij.plugin.core.editor.completeString
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 
 object XPathAxisInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
         val insert = XPathInsertText.AXIS_MARKER
-
-        val chars = context.document.charsSequence
-        if (chars.length == context.tailOffset || chars[context.tailOffset] != ':') { // No ':'
-            context.document.insertString(context.tailOffset, "::")
-        } else if (chars.length == context.tailOffset + 1 || chars[context.tailOffset + 1] != ':') { // Single ':'
-            context.document.insertString(context.tailOffset, ":")
-        }
-
+        context.document.completeString(context.tailOffset, insert.beforeCaret)
         insert.moveCaret(context.editor.caretModel)
     }
 }
