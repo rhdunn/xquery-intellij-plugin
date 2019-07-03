@@ -15,9 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
-import com.intellij.codeInsight.completion.InsertionContext
-import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
-
 class XPathSequenceTypeLookup(
     kindTest: String,
     tailText: String = "()",
@@ -26,9 +23,5 @@ class XPathSequenceTypeLookup(
     init {
         presentation.isItemTextBold = true
         presentation.tailText = tailText
-    }
-
-    override fun handleInsert(context: InsertionContext) {
-        XPathEmptyFunctionInsertHandler.handleInsert(context, this)
     }
 }

@@ -15,9 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
+import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.editor.completeString
 
 open class XPathLookupElement(lookupString: String) : LookupElement() {
     private val lookupStrings: MutableSet<String> = mutableSetOf(lookupString)
@@ -37,6 +39,12 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
     }
 
     open val insertText: XPathInsertText? = null
+
+    override fun handleInsert(context: InsertionContext) {
+        val insert = insertText ?: return
+        insert.completeText(context.document, context.tailOffset)
+        insert.moveCaret(context.editor.caretModel)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

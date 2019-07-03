@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.openapi.editor.CaretModel
+import com.intellij.openapi.editor.Document
+import uk.co.reecedunn.intellij.plugin.core.editor.completeString
 
 data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = null) {
     companion object {
@@ -24,6 +26,13 @@ data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = nu
 
         val EMPTY_PARAMS = XPathInsertText("()")
         val PARAMS = XPathInsertText("(", ")")
+    }
+
+    fun completeText(document: Document, offset: Int) {
+        document.completeString(offset, beforeCaret)
+        if (afterCaret != null) {
+            document.completeString(offset + beforeCaret.length, afterCaret)
+        }
     }
 
     fun moveCaret(caretModel: CaretModel) {
