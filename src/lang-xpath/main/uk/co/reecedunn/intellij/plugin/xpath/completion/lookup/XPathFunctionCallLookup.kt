@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.completion.InsertionContext
-import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
@@ -24,24 +23,17 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 
 class XPathFunctionCallLookup(localName: String, prefix: String?, private val function: XPathFunctionDeclaration) :
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
+    init {
+        presentation.icon = XPathIcons.Nodes.FunctionDecl
+        presentation.tailText = function.paramListPresentation?.presentableText ?: "()"
+        presentation.typeText = function.returnType?.typeName
+    }
 
     override fun getObject(): Any = function
     override fun getPsiElement(): PsiElement? = function.functionName?.element
 
     override fun handleInsert(context: InsertionContext) {
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)
-    }
-
-    private val presentation = LookupElementPresentation()
-    init {
-        presentation.itemText = lookupString
-        presentation.icon = XPathIcons.Nodes.FunctionDecl
-        presentation.tailText = function.paramListPresentation?.presentableText ?: "()"
-        presentation.typeText = function.returnType?.typeName
-    }
-
-    override fun renderElement(presentation: LookupElementPresentation?) {
-        presentation?.copyFrom(this.presentation)
     }
 
     override fun equals(other: Any?): Boolean {

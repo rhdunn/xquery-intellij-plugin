@@ -16,24 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.codeInsight.completion.InsertionContext
-import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathEmptyFunctionInsertHandler
 
 class XPathSequenceTypeLookup(kindTest: String, tailText: String = "()") : XPathLookupElement(kindTest) {
-    override fun getObject(): Any = this
-    override fun getPsiElement(): PsiElement? = null
-
-    private val presentation = LookupElementPresentation()
     init {
-        presentation.itemText = lookupString
         presentation.isItemTextBold = true
         presentation.tailText = tailText
     }
 
-    override fun renderElement(presentation: LookupElementPresentation?) {
-        presentation?.copyFrom(this.presentation)
-    }
+    override fun getObject(): Any = this
+    override fun getPsiElement(): PsiElement? = null
 
     override fun handleInsert(context: InsertionContext) {
         XPathEmptyFunctionInsertHandler.handleInsert(context, this)
