@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
-class XPathSequenceTypeLookup(
+class XPathKeywordLookup(
     kindTest: String,
     tailText: String = "()",
     override val insertText: XPathInsertText? = XPathInsertText.EMPTY_PARAMS

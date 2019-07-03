@@ -22,41 +22,41 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
-import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryCompletionProperty
 
 object XQueryKindTestProvider : CompletionProviderEx {
     private val MARKLOGIC_60_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("binary")
+        XPathKeywordLookup("binary")
     )
 
     private val MARKLOGIC_70_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("attribute-decl"),
-        XPathSequenceTypeLookup("complex-type"),
-        XPathSequenceTypeLookup("element-decl"),
-        XPathSequenceTypeLookup("schema-component"),
-        XPathSequenceTypeLookup("schema-particle"),
-        XPathSequenceTypeLookup("schema-root"),
-        XPathSequenceTypeLookup("schema-type"),
-        XPathSequenceTypeLookup("simple-type")
+        XPathKeywordLookup("attribute-decl"),
+        XPathKeywordLookup("complex-type"),
+        XPathKeywordLookup("element-decl"),
+        XPathKeywordLookup("schema-component"),
+        XPathKeywordLookup("schema-particle"),
+        XPathKeywordLookup("schema-root"),
+        XPathKeywordLookup("schema-type"),
+        XPathKeywordLookup("simple-type")
     )
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("array-node"),
-        XPathSequenceTypeLookup("array-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("boolean-node"),
-        XPathSequenceTypeLookup("boolean-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("node", "(*)", XPathInsertText.PARAMS), // XPath/XQuery extension
-        XPathSequenceTypeLookup("node", "(key-name)", XPathInsertText.PARAMS), // XPath/XQuery extension
-        XPathSequenceTypeLookup("null-node"),
-        XPathSequenceTypeLookup("null-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("number-node"),
-        XPathSequenceTypeLookup("number-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("object-node"),
-        XPathSequenceTypeLookup("object-node", "(key-name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("schema-facet"),
-        XPathSequenceTypeLookup("text", "(key-name)", XPathInsertText.PARAMS) // XPath/XQuery extension
+        XPathKeywordLookup("array-node"),
+        XPathKeywordLookup("array-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("boolean-node"),
+        XPathKeywordLookup("boolean-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("node", "(*)", XPathInsertText.PARAMS), // XPath/XQuery extension
+        XPathKeywordLookup("node", "(key-name)", XPathInsertText.PARAMS), // XPath/XQuery extension
+        XPathKeywordLookup("null-node"),
+        XPathKeywordLookup("null-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("number-node"),
+        XPathKeywordLookup("number-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("object-node"),
+        XPathKeywordLookup("object-node", "(key-name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("schema-facet"),
+        XPathKeywordLookup("text", "(key-name)", XPathInsertText.PARAMS) // XPath/XQuery extension
     )
 
     private fun isMarkLogicXQueryVersion(context: ProcessingContext): Boolean {

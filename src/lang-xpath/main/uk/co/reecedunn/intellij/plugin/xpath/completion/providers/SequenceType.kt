@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
-import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathSequenceTypeLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
@@ -36,9 +36,9 @@ fun createTypeNameLookup(localName: String, prefix: String? = null): LookupEleme
 }
 
 object XPathSequenceTypeProvider : CompletionProviderEx {
-    private val XPATH_20_WD_2003_SEQUENCE_TYPE = XPathSequenceTypeLookup("empty")
+    private val XPATH_20_WD_2003_SEQUENCE_TYPE = XPathKeywordLookup("empty")
 
-    private val XPATH_20_REC_SEQUENCE_TYPE = XPathSequenceTypeLookup("empty-sequence")
+    private val XPATH_20_REC_SEQUENCE_TYPE = XPathKeywordLookup("empty-sequence")
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
@@ -53,25 +53,25 @@ object XPathSequenceTypeProvider : CompletionProviderEx {
 
 object XPathItemTypeProvider : CompletionProviderEx {
     private val XPATH_20_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("item")
+        XPathKeywordLookup("item")
     )
 
     private val XPATH_30_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("item")
+        XPathKeywordLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("item")
     )
 
     private val XPATH_30_IN_XSLT_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("item"),
-        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS) // XSLT 3.0 includes support for maps.
+        XPathKeywordLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("item"),
+        XPathKeywordLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS) // XSLT 3.0 includes support for maps.
     )
 
     private val XPATH_31_ITEM_TYPES = listOf(
-        XPathSequenceTypeLookup("array", "(type-or-wildcard)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("item"),
-        XPathSequenceTypeLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS)
+        XPathKeywordLookup("array", "(type-or-wildcard)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("function", "(sequence-types-or-wildcard)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("item"),
+        XPathKeywordLookup("map", "(key-type-or-wildcard, value-type?)", XPathInsertText.PARAMS)
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
@@ -189,48 +189,48 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
 
 object XPathKindTestProvider : CompletionProviderEx {
     private val XPATH_10_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("comment"),
-        XPathSequenceTypeLookup("node"),
-        XPathSequenceTypeLookup("processing-instruction"),
-        XPathSequenceTypeLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("text")
+        XPathKeywordLookup("comment"),
+        XPathKeywordLookup("node"),
+        XPathKeywordLookup("processing-instruction"),
+        XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathKeywordLookup("text")
     )
 
     private val XPATH_20_WD_2003_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("attribute", "(schema-context-or-name?, type?)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("comment"),
-        XPathSequenceTypeLookup("document-node"),
-        XPathSequenceTypeLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("element", "(schema-context-or-name?, nillable-type?)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("namespace-node"),
-        XPathSequenceTypeLookup("node"),
-        XPathSequenceTypeLookup("processing-instruction"),
-        XPathSequenceTypeLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("text")
+        XPathKeywordLookup("attribute", "(schema-context-or-name?, type?)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("comment"),
+        XPathKeywordLookup("document-node"),
+        XPathKeywordLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", "(schema-context-or-name?, nillable-type?)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("namespace-node"),
+        XPathKeywordLookup("node"),
+        XPathKeywordLookup("processing-instruction"),
+        XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathKeywordLookup("text")
     )
 
     private val XPATH_20_REC_KIND_TESTS = listOf(
-        XPathSequenceTypeLookup("attribute"),
-        XPathSequenceTypeLookup("attribute", "(*)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("attribute", "(name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("attribute", "(*, type)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("attribute", "(name, type)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("comment"),
-        XPathSequenceTypeLookup("document-node"),
-        XPathSequenceTypeLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("element"),
-        XPathSequenceTypeLookup("element", "(*)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("element", "(name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("element", "(*, type)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("element", "(name, type)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("namespace-node"),
-        XPathSequenceTypeLookup("node"),
-        XPathSequenceTypeLookup("processing-instruction"),
-        XPathSequenceTypeLookup("processing-instruction", "(name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("schema-attribute", "(name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("schema-element", "(name)", XPathInsertText.PARAMS),
-        XPathSequenceTypeLookup("text")
+        XPathKeywordLookup("attribute"),
+        XPathKeywordLookup("attribute", "(*)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("attribute", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("attribute", "(*, type)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("attribute", "(name, type)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("comment"),
+        XPathKeywordLookup("document-node"),
+        XPathKeywordLookup("document-node", "(root-element)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element"),
+        XPathKeywordLookup("element", "(*)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", "(*, type)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("element", "(name, type)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("namespace-node"),
+        XPathKeywordLookup("node"),
+        XPathKeywordLookup("processing-instruction"),
+        XPathKeywordLookup("processing-instruction", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("processing-instruction", "(\"name\")", XPathInsertText.PARAMS),
+        XPathKeywordLookup("schema-attribute", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("schema-element", "(name)", XPathInsertText.PARAMS),
+        XPathKeywordLookup("text")
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
