@@ -15,5 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
+import com.intellij.openapi.editor.CaretModel
+
 data class XPathInsertText(val beforeCaret: String, val afterCaret: String? = null) {
+    companion object {
+        val QNAME_PREFIX = XPathInsertText(":")
+    }
+
+    fun moveCaret(caretModel: CaretModel) {
+        caretModel.moveToOffset(caretModel.offset + beforeCaret.length)
+    }
 }

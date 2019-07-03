@@ -18,15 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 
 object XPathQNamePrefixInsertHandler : InsertHandler<LookupElement> {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
+        val insert = XPathInsertText.QNAME_PREFIX
+
         val chars = context.document.charsSequence
         if (chars.length == context.tailOffset || chars[context.tailOffset] != ':') {
-            context.document.insertString(context.tailOffset, ":")
+            context.document.insertString(context.tailOffset, insert.beforeCaret)
         }
 
-        // Place the cursor after the QName separator.
-        context.editor.caretModel.let { it.moveToOffset(it.offset + 1) }
+        insert.moveCaret(context.editor.caretModel)
     }
 }
