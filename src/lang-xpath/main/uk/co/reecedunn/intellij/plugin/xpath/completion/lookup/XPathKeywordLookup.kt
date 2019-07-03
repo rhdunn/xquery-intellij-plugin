@@ -17,14 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 class XPathKeywordLookup(
     lookupString: String,
-    tailText: String,
     override val insertText: XPathInsertText
 ) : XPathLookupElement(lookupString) {
     init {
         presentation.isItemTextBold = true
-        presentation.tailText = tailText
+        presentation.tailText = insertText.tailText
     }
-
-    constructor(lookupString: String, insertText: XPathInsertText) :
-            this(lookupString, insertText.tailText, insertText)
 }
