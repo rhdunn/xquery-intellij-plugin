@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
@@ -24,16 +24,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-
-fun createTypeNameLookup(localName: String, prefix: String? = null): LookupElementBuilder {
-    return LookupElementBuilder.create(prefix?.let { "$it:$localName" } ?: localName)
-        .withIcon(XPathIcons.Nodes.TypeDecl)
-}
 
 object XPathSequenceTypeProvider : CompletionProviderEx {
     private val XPATH_20_WD_2003_SEQUENCE_TYPE = XPathKeywordLookup("empty", XPathInsertText.EMPTY_PARAMS)
@@ -103,62 +98,62 @@ object XPathItemTypeProvider : CompletionProviderEx {
 object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
     private const val XS_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema"
 
-    private fun createXsd10Types(prefix: String?): List<LookupElementBuilder> {
+    private fun createXsd10Types(prefix: String?): List<LookupElement> {
         return listOf(
-            createTypeNameLookup("anyAtomicType", prefix), // XSD 1.1 type supported in XPath/XQuery
-            createTypeNameLookup("anySimpleType", prefix),
-            createTypeNameLookup("anyURI", prefix),
-            createTypeNameLookup("base64Binary", prefix),
-            createTypeNameLookup("boolean", prefix),
-            createTypeNameLookup("byte", prefix),
-            createTypeNameLookup("date", prefix),
-            createTypeNameLookup("dateTime", prefix),
-            createTypeNameLookup("dayTimeDuration", prefix), // XSD 1.1 type supported in XPath/XQuery
-            createTypeNameLookup("decimal", prefix),
-            createTypeNameLookup("double", prefix),
-            createTypeNameLookup("duration", prefix),
-            createTypeNameLookup("ENTITY", prefix),
-            createTypeNameLookup("float", prefix),
-            createTypeNameLookup("gDay", prefix),
-            createTypeNameLookup("gMonth", prefix),
-            createTypeNameLookup("gMonthDay", prefix),
-            createTypeNameLookup("gYear", prefix),
-            createTypeNameLookup("gYearMonth", prefix),
-            createTypeNameLookup("hexBinary", prefix),
-            createTypeNameLookup("ID", prefix),
-            createTypeNameLookup("IDREF", prefix),
-            createTypeNameLookup("int", prefix),
-            createTypeNameLookup("integer", prefix),
-            createTypeNameLookup("language", prefix),
-            createTypeNameLookup("long", prefix),
-            createTypeNameLookup("Name", prefix),
-            createTypeNameLookup("NCName", prefix),
-            createTypeNameLookup("negativeInteger", prefix),
-            createTypeNameLookup("NMTOKEN", prefix),
-            createTypeNameLookup("nonNegativeInteger", prefix),
-            createTypeNameLookup("nonPositiveInteger", prefix),
-            createTypeNameLookup("normalizedString", prefix),
-            createTypeNameLookup("NOTATION", prefix),
-            createTypeNameLookup("numeric", prefix),
-            createTypeNameLookup("positiveInteger", prefix),
-            createTypeNameLookup("QName", prefix),
-            createTypeNameLookup("short", prefix),
-            createTypeNameLookup("string", prefix),
-            createTypeNameLookup("time", prefix),
-            createTypeNameLookup("token", prefix),
-            createTypeNameLookup("unsignedByte", prefix),
-            createTypeNameLookup("unsignedInt", prefix),
-            createTypeNameLookup("unsignedLong", prefix),
-            createTypeNameLookup("unsignedShort", prefix),
-            createTypeNameLookup("untypedAtomic", prefix),
-            createTypeNameLookup("yearMonthDuration", prefix) // XSD 1.1 type supported in XPath/XQuery
+            XPathAtomicOrUnionTypeLookup("anyAtomicType", prefix), // XSD 1.1 type supported in XPath/XQuery
+            XPathAtomicOrUnionTypeLookup("anySimpleType", prefix),
+            XPathAtomicOrUnionTypeLookup("anyURI", prefix),
+            XPathAtomicOrUnionTypeLookup("base64Binary", prefix),
+            XPathAtomicOrUnionTypeLookup("boolean", prefix),
+            XPathAtomicOrUnionTypeLookup("byte", prefix),
+            XPathAtomicOrUnionTypeLookup("date", prefix),
+            XPathAtomicOrUnionTypeLookup("dateTime", prefix),
+            XPathAtomicOrUnionTypeLookup("dayTimeDuration", prefix), // XSD 1.1 type supported in XPath/XQuery
+            XPathAtomicOrUnionTypeLookup("decimal", prefix),
+            XPathAtomicOrUnionTypeLookup("double", prefix),
+            XPathAtomicOrUnionTypeLookup("duration", prefix),
+            XPathAtomicOrUnionTypeLookup("ENTITY", prefix),
+            XPathAtomicOrUnionTypeLookup("float", prefix),
+            XPathAtomicOrUnionTypeLookup("gDay", prefix),
+            XPathAtomicOrUnionTypeLookup("gMonth", prefix),
+            XPathAtomicOrUnionTypeLookup("gMonthDay", prefix),
+            XPathAtomicOrUnionTypeLookup("gYear", prefix),
+            XPathAtomicOrUnionTypeLookup("gYearMonth", prefix),
+            XPathAtomicOrUnionTypeLookup("hexBinary", prefix),
+            XPathAtomicOrUnionTypeLookup("ID", prefix),
+            XPathAtomicOrUnionTypeLookup("IDREF", prefix),
+            XPathAtomicOrUnionTypeLookup("int", prefix),
+            XPathAtomicOrUnionTypeLookup("integer", prefix),
+            XPathAtomicOrUnionTypeLookup("language", prefix),
+            XPathAtomicOrUnionTypeLookup("long", prefix),
+            XPathAtomicOrUnionTypeLookup("Name", prefix),
+            XPathAtomicOrUnionTypeLookup("NCName", prefix),
+            XPathAtomicOrUnionTypeLookup("negativeInteger", prefix),
+            XPathAtomicOrUnionTypeLookup("NMTOKEN", prefix),
+            XPathAtomicOrUnionTypeLookup("nonNegativeInteger", prefix),
+            XPathAtomicOrUnionTypeLookup("nonPositiveInteger", prefix),
+            XPathAtomicOrUnionTypeLookup("normalizedString", prefix),
+            XPathAtomicOrUnionTypeLookup("NOTATION", prefix),
+            XPathAtomicOrUnionTypeLookup("numeric", prefix),
+            XPathAtomicOrUnionTypeLookup("positiveInteger", prefix),
+            XPathAtomicOrUnionTypeLookup("QName", prefix),
+            XPathAtomicOrUnionTypeLookup("short", prefix),
+            XPathAtomicOrUnionTypeLookup("string", prefix),
+            XPathAtomicOrUnionTypeLookup("time", prefix),
+            XPathAtomicOrUnionTypeLookup("token", prefix),
+            XPathAtomicOrUnionTypeLookup("unsignedByte", prefix),
+            XPathAtomicOrUnionTypeLookup("unsignedInt", prefix),
+            XPathAtomicOrUnionTypeLookup("unsignedLong", prefix),
+            XPathAtomicOrUnionTypeLookup("unsignedShort", prefix),
+            XPathAtomicOrUnionTypeLookup("untypedAtomic", prefix),
+            XPathAtomicOrUnionTypeLookup("yearMonthDuration", prefix) // XSD 1.1 type supported in XPath/XQuery
         )
     }
 
-    private fun createXsd11Types(prefix: String?): List<LookupElementBuilder> {
+    private fun createXsd11Types(prefix: String?): List<LookupElement> {
         return listOf(
-            createTypeNameLookup("dateTimeStamp", prefix),
-            createTypeNameLookup("error", prefix)
+            XPathAtomicOrUnionTypeLookup("dateTimeStamp", prefix),
+            XPathAtomicOrUnionTypeLookup("error", prefix)
         )
     }
 
