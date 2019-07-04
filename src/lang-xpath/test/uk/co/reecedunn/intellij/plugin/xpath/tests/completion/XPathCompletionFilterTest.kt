@@ -231,6 +231,42 @@ private class XPathCompletionFilterTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 3.1 EBNF (29) ArrowExpr")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("NCName function name")
+            fun ncname() {
+                val context = ProcessingContext()
+                val element = completion("2 => completion-point()")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName function name for prefix part")
+            fun qname_prefix() {
+                val context = ProcessingContext()
+                val element = completion("2 => lorem:ipsum()", "lorem")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("QName function name for local-name part")
+            fun qname_localName() {
+                val context = ProcessingContext()
+                val element = completion("2 => lorem:ipsum()", "ipsum")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val context = ProcessingContext()
+                val element = completion("2 => Q{lorem}ipsum()", "ipsum")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (64) Argument")
         internal inner class Argument {
             @Test

@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -42,6 +43,13 @@ object XPathFunctionCallFilter : CompletionFilter {
                 is XPathFunctionCall -> {
                     if ((element.parent as XsQNameValue).isLocalNameOrNCName(element)) {
                         element.parent.parent is XPathFunctionCall
+                    } else {
+                        false
+                    }
+                }
+                is XPathArrowFunctionSpecifier -> {
+                    if ((element.parent as XsQNameValue).isLocalNameOrNCName(element)) {
+                        element.parent.parent is XPathArrowFunctionSpecifier
                     } else {
                         false
                     }
