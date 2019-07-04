@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
         file.walkTree().filterIsInstance<XPathFunctionReference>()
                        .forEach { ref ->
             val qname = ref.functionName
-            val declarations = (qname as XPathEQName).staticallyKnownFunctions().toList()
+            val declarations = (qname as? XPathEQName)?.staticallyKnownFunctions()?.toList() ?: return@forEach
             if (ref.functionName == null) {
                 // Missing local name -- do nothing.
             } else if (declarations.isEmpty()) {
