@@ -43,7 +43,7 @@ data class XPathInsertText(
         val PARAMS_TYPE = XPathInsertText("(", "type", ")")
         val PARAMS_WILDCARD = XPathInsertText("(*)", null, null)
         val PARAMS_WILDCARD_AND_TYPE = XPathInsertText("(*, ", "type", ")")
-        val TYPED_FUNCTION = XPathInsertText("(", "sequence-types", ") as ", "sequence-type")
+        val TYPED_FUNCTION = XPathInsertText("(", "sequence-types", ")", " as sequence-type")
     }
 
     val tailText: String = listOf(beforeCaret, hint ?: "", afterCaret ?: "", postHint ?: "").joinToString("")
