@@ -3455,10 +3455,16 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>("fn:concat()")[0]
 
                     val decls = qname.staticallyKnownFunctions().toList()
-                    assertThat(decls.size, `is`(1))
+                    assertThat(decls.size, `is`(3))
 
                     assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
+
+                    assertThat(decls[1].arity, `is`(Range(1, 1)))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:concat"))
+
+                    assertThat(decls[2].arity, `is`(Range(0, 0)))
+                    assertThat(decls[2].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }
         }
@@ -3751,10 +3757,16 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>("fn:concat#3")[0]
 
                     val decls = qname.staticallyKnownFunctions().toList()
-                    assertThat(decls.size, `is`(1))
+                    assertThat(decls.size, `is`(3))
 
                     assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
+
+                    assertThat(decls[1].arity, `is`(Range(1, 1)))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:concat"))
+
+                    assertThat(decls[2].arity, `is`(Range(0, 0)))
+                    assertThat(decls[2].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }
         }
@@ -4047,10 +4059,16 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>("() => fn:concat()")[0]
 
                     val decls = qname.staticallyKnownFunctions().toList()
-                    assertThat(decls.size, `is`(1))
+                    assertThat(decls.size, `is`(3))
 
                     assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
+
+                    assertThat(decls[1].arity, `is`(Range(1, 1)))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:concat"))
+
+                    assertThat(decls[2].arity, `is`(Range(0, 0)))
+                    assertThat(decls[2].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }
         }
