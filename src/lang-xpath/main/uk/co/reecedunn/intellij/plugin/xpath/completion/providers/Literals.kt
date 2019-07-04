@@ -16,20 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xpath.completion.providers
 
 import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
-import uk.co.reecedunn.intellij.plugin.xpath.completion.XPathQNamePrefixInsertHandler
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-
-fun createPrefixLookup(prefix: String): LookupElementBuilder {
-    return LookupElementBuilder.create(prefix)
-        .withBoldness(true)
-        .withTailText(":")
-        .withInsertHandler(XPathQNamePrefixInsertHandler)
-}
 
 enum class EQNameCompletionType {
     NCName,
@@ -61,7 +54,7 @@ object XPathQNamePrefixProvider : CompletionProviderEx {
         var hasXmlNamespace = false
         context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES].forEach { decl ->
             decl.namespacePrefix?.let {
-                result.addElement(createPrefixLookup(it.data))
+                result.addElement(XPathKeywordLookup(it.data, XPathInsertText.QNAME_PREFIX))
                 if (it.data == "xml") {
                     hasXmlNamespace = true
                 }
@@ -69,6 +62,6 @@ object XPathQNamePrefixProvider : CompletionProviderEx {
         }
 
         // In an XSLT (XML) file, the xml namespace is not declared in an xmlns attribute.
-        if (!hasXmlNamespace) result.addElement(createPrefixLookup("xml"))
+        if (!hasXmlNamespace) result.addElement(XPathKeywordLookup("xml", XPathInsertText.QNAME_PREFIX))
     }
 }
