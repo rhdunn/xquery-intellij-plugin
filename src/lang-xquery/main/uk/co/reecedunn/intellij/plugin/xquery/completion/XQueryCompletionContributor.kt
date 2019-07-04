@@ -29,6 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefP
 class XQueryCompletionContributor : CompletionContributorEx() {
     val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
 
+    // The keyword completion lists are created at compile time, with some
+    // runtime logic to select the correct lists. As such, these should be
+    // added first.
     private fun registerXQueryKeywordCompletionProviders() {
         // XQuery 3.1 EBNF (113) ForwardAxis ; XQuery 3.1 EBNF (116) ReverseAxis
         builder(XQuery).withFilter(XPathForwardOrReverseAxisFilter)
@@ -48,6 +51,10 @@ class XQueryCompletionContributor : CompletionContributorEx() {
             .addCompletions(XQueryKindTestProvider).addCompletions(XPathKindTestProvider)
     }
 
+    // The static context completions are determined by traversing the project
+    // files which can be slow (especially for a large number of statically-known
+    // functions). As such, these should be added last. They are ordered by the
+    // relative time complexity, from fastest to slowest, for the best experience.
     private fun registerXQueryStaticContextCompletionProviders() {
         // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)

@@ -27,6 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
 class XPathCompletionContributor : CompletionContributorEx() {
     val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
 
+    // The keyword completion lists are created at compile time, with some
+    // runtime logic to select the correct lists. As such, these should be
+    // added first.
     private fun registerXPathKeywordCompletionProviders() {
         // XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis
         builder(XPath).withFilter(XPathForwardOrReverseAxisFilter).addCompletions(XPathForwardOrReverseAxisProvider)
@@ -42,6 +45,10 @@ class XPathCompletionContributor : CompletionContributorEx() {
         builder(XPath).withFilter(XPathKindTestFilter).withProperty(XPathVersion).addCompletions(XPathKindTestProvider)
     }
 
+    // The static context completions are determined by traversing the project
+    // files which can be slow (especially for a large number of statically-known
+    // functions). As such, these should be added last. They are ordered by the
+    // relative time complexity, from fastest to slowest, for the best experience.
     private fun registerXPathStaticContextCompletionProviders() {
         // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
         builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
