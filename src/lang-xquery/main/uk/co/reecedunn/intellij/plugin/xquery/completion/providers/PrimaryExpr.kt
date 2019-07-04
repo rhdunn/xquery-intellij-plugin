@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.core.progress.forEachCancellable
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
@@ -98,6 +99,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
 object XQueryFunctionCallProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES]
+        val isArrowExpr = element.parent.parent is XPathArrowFunctionSpecifier
 
         val ref = element.parent as XsQNameValue
         when (ref.completionType(element)) {
@@ -109,7 +111,9 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
                                 val declPrefix = ns.namespacePrefix?.data
-                                result.addElement(XPathFunctionCallLookup(localName, declPrefix, function))
+                                if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                    result.addElement(XPathFunctionCallLookup(localName, declPrefix, function))
+                                }
                             }
                         }
                     }
@@ -124,7 +128,9 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                             namespaces.forEach { ns ->
                                 if (ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == ref.prefix?.data) { // Prefix matches, and is already specified.
-                                        result.addElement(XPathFunctionCallLookup(localName, null, function))
+                                        if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                            result.addElement(XPathFunctionCallLookup(localName, null, function))
+                                        }
                                     }
                                 }
                             }
@@ -139,7 +145,9 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {
-                            result.addElement(XPathFunctionCallLookup(localName, null, function))
+                            if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                result.addElement(XPathFunctionCallLookup(localName, null, function))
+                            }
                         }
                     }
                 }
