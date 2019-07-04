@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
-    private fun registerXPathKeywordCompletionProviders() {
-        val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
+    val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
 
+    private fun registerXPathKeywordCompletionProviders() {
         // XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis
         builder(XPath).withFilter(XPathForwardOrReverseAxisFilter).addCompletions(XPathForwardOrReverseAxisProvider)
 
@@ -43,8 +43,6 @@ class XPathCompletionContributor : CompletionContributorEx() {
     }
 
     private fun registerXPathStaticContextCompletionProviders() {
-        val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
-
         // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
         builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)

@@ -27,9 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTes
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefProvider
 
 class XQueryCompletionContributor : CompletionContributorEx() {
-    private fun registerXQueryKeywordCompletionProviders() {
-        val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
+    val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
 
+    private fun registerXQueryKeywordCompletionProviders() {
         // XQuery 3.1 EBNF (113) ForwardAxis ; XQuery 3.1 EBNF (116) ReverseAxis
         builder(XQuery).withFilter(XPathForwardOrReverseAxisFilter)
             .withProperty(XQueryVersion).withProperty(XQueryProductVersion)
@@ -49,8 +49,6 @@ class XQueryCompletionContributor : CompletionContributorEx() {
     }
 
     private fun registerXQueryStaticContextCompletionProviders() {
-        val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
-
         // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
