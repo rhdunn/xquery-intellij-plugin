@@ -63,6 +63,10 @@ XPath and XQuery:
 1.  Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.
 1.  Fix MarkLogic 6.0 `binary()` used as a `NodeTest`.
 
+Inspections:
+
+1.  XPST0017: Enable this inspection by default.
+
 ## 1.4.1 - 2019-03-27
 
 IntelliJ Integration:

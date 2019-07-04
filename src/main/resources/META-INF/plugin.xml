@@ -171,7 +171,7 @@
     <localInspection language="XQuery" shortName="XPST0017" bundle="messages.XQueryPluginBundle"
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xpst.XPST0017" hasStaticDescription="true"
-                     enabledByDefault="false" level="ERROR"
+                     enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0017"/>
     <localInspection language="XQuery" shortName="XQST0031" bundle="messages.XQueryPluginBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
