@@ -29,7 +29,7 @@ private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<
         // local-name first ...
         if (functionName?.let { it.localName?.data == name.localName?.data } == true) {
             // ... then check the expanded QName namespace.
-            functionName.expand().firstOrNull()?.let { op_qname_equal(it, name) } == true
+            functionName.expand().find { op_qname_equal(it, name) } != null
         } else {
             false
         }
