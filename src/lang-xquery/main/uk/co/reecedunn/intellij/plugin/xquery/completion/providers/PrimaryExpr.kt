@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
@@ -102,10 +103,11 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
         val isArrowExpr = element.parent.parent is XPathArrowFunctionSpecifier
 
         val ref = element.parent as XsQNameValue
+        val prolog = element.fileProlog() ?: (element.containingFile as XQueryModule).predefinedStaticContext
         when (ref.completionType(element)) {
             EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
                 // Without prefix context, so include all functions.
-                element.fileProlog()?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                prolog?.staticallyKnownFunctions()?.forEachCancellable { function ->
                     val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     function.functionName?.expand()?.firstOrNull()?.let { name ->
                         namespaces.forEach { ns ->
@@ -121,7 +123,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             }
             EQNameCompletionType.QNameLocalName -> {
                 // With prefix context, so only include functions with a matching expanded QName namespace URI.
-                element.fileProlog()?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                prolog?.staticallyKnownFunctions()?.forEachCancellable { function ->
                     val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         function.functionName?.expand()?.firstOrNull()?.let { name ->
@@ -140,7 +142,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             }
             EQNameCompletionType.URIQualifiedNameLocalName -> {
                 // With namespace context, so only include functions with a matching expanded QName namespace URI.
-                element.fileProlog()?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                prolog?.staticallyKnownFunctions()?.forEachCancellable { function ->
                     val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
