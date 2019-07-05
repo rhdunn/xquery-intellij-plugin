@@ -3221,16 +3221,23 @@ class XQueryParser : XPathParser() {
         if (builder.tokenType is IKeywordOrNCNameType) {
             val type = builder.tokenType as IKeywordOrNCNameType?
             when (type!!.keywordType) {
-                IKeywordOrNCNameType.KeywordType.KEYWORD, IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
+                IKeywordOrNCNameType.KeywordType.KEYWORD,
+                IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
                 }
-                IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> return false
-                IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
+                IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME,
+                IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> return false
+                IKeywordOrNCNameType.KeywordType.MARKLOGIC60_RESERVED_FUNCTION_NAME,
+                IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME,
+                IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
                     // Don't keep the MarkLogic Schema/JSON parseTree here as KindTest is not anchored to the correct parent
                     // at this point.
                     val testMarker = builder.mark()
                     var status = parseSchemaKindTest(builder)
                     if (status == ParseStatus.NOT_MATCHED) {
                         status = parseJsonKindTest(builder)
+                    }
+                    if (status == ParseStatus.NOT_MATCHED) {
+                        status = parseBinaryTest(builder)
                     }
                     testMarker.rollbackTo()
 
@@ -4336,7 +4343,7 @@ class XQueryParser : XPathParser() {
     override fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
             super.parseKindTest(builder) ||
-            parseBinaryTest(builder) ||
+            parseBinaryTest(builder) != ParseStatus.NOT_MATCHED ||
             parseSchemaKindTest(builder) != ParseStatus.NOT_MATCHED ||
             parseJsonKindTest(builder) != ParseStatus.NOT_MATCHED
         )
@@ -4509,13 +4516,13 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseBinaryTest(builder: PsiBuilder): Boolean {
+    private fun parseBinaryTest(builder: PsiBuilder): ParseStatus {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_BINARY)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
                 marker.rollbackTo()
-                return false
+                return ParseStatus.NOT_MATCHED
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -4524,9 +4531,9 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XQueryElementType.BINARY_TEST)
-            return true
+            return ParseStatus.MATCHED
         }
-        return false
+        return ParseStatus.NOT_MATCHED
     }
 
     // endregion

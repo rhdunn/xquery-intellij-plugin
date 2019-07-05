@@ -842,6 +842,14 @@ private class PluginParserTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (118) NodeTest ; XQuery IntelliJ Plugin EBNF (28) KindTest")
     internal inner class NodeTest_KindTest {
+        @Test
+        @DisplayName("binary test")
+        fun binaryTest() {
+            val expected = loadResource("tests/parser/marklogic-6.0/NodeTest_BinaryTest.txt")
+            val actual = parseResource("tests/parser/marklogic-6.0/NodeTest_BinaryTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
         internal inner class AnyBooleanNodeTest {

@@ -75,6 +75,7 @@
       </li>
       <li>Report an error if an unknown axis name is followed by the <code>::</code> axis indicator.</li>
       <li>Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.</li>
+      <li>Fix MarkLogic 6.0 <code>binary()</code> used as a <code>NodeTest</code>.</li>
     </ol>
   ]]></change-notes>
 

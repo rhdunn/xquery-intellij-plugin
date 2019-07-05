@@ -61,6 +61,7 @@ XPath and XQuery:
     non-delimiting terminal symbols.
 1.  Report an error if an unknown axis name is followed by the `::` axis indicator.
 1.  Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.
+1.  Fix MarkLogic 6.0 `binary()` used as a `NodeTest`.
 
 ## 1.4.1 - 2019-03-27
 

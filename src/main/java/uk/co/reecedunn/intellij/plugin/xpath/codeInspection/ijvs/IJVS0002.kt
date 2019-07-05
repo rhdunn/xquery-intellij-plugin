@@ -63,6 +63,12 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader
                 else -> null
             }
             when (localname?.second) {
+                IKeywordOrNCNameType.KeywordType.MARKLOGIC60_RESERVED_FUNCTION_NAME -> {
+                    if (product.conformsTo(productVersion, MarkLogic.VERSION_6_0)) {
+                        val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", MarkLogic.VERSION_6_0)
+                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                    }
+                }
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME -> {
                     if (product.conformsTo(productVersion, MarkLogic.VERSION_7_0)) {
                         val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", MarkLogic.VERSION_7_0)

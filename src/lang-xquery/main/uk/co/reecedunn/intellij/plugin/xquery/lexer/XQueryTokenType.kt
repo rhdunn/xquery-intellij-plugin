@@ -85,7 +85,7 @@ object XQueryTokenType {
     val K_ATTRIBUTE_DECL = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_BASE_URI = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI", XQuery) // XQuery 1.0
     val K_BEFORE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE", XQuery) // Update Facility 1.0
-    val K_BINARY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY", XQuery) // MarkLogic 6.0
+    val K_BINARY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC60_RESERVED_FUNCTION_NAME) // MarkLogic 6.0
     val K_BLOCK = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BLOCK", XQuery) // Scripting Extension 1.0
     val K_BOUNDARY_SPACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE", XQuery) // XQuery 1.0
     val K_BY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY", XQuery) // XQuery 1.0
