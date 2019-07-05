@@ -31,6 +31,8 @@ import javax.swing.JComponent
 import javax.swing.border.Border
 
 class MockEditor(private val document: Document) : Editor {
+    private val caretModel = MockCaretModel(this)
+
     override fun offsetToVisualPosition(offset: Int): VisualPosition = TODO()
 
     override fun offsetToVisualPosition(offset: Int, leanForward: Boolean, beforeSoftWrap: Boolean): VisualPosition {
@@ -91,7 +93,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun xyToVisualPosition(p: Point2D): VisualPosition = TODO()
 
-    override fun getCaretModel(): CaretModel = TODO()
+    override fun getCaretModel(): CaretModel = caretModel
 
     override fun isColumnMode(): Boolean = TODO()
 

@@ -20,7 +20,9 @@ import com.intellij.openapi.editor.*
 import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.editor.markup.TextAttributes
 
-class MockCaretModel : CaretModel {
+class MockCaretModel(private val editor: Editor) : CaretModel {
+    private var offset: Int = 0
+
     override fun getVisualLineStart(): Int = TODO()
 
     override fun removeSecondaryCarets() = TODO()
@@ -31,7 +33,7 @@ class MockCaretModel : CaretModel {
 
     override fun getTextAttributes(): TextAttributes = TODO()
 
-    override fun getOffset(): Int = TODO()
+    override fun getOffset(): Int = offset
 
     override fun removeCaretListener(listener: CaretListener) = TODO()
 
