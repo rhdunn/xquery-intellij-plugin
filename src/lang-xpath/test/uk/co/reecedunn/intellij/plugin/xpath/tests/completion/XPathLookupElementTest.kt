@@ -103,5 +103,14 @@ private class XPathLookupElementTest : ParserTestCase() {
             assertThat(presentation.isTypeGrayed, `is`(false))
             assertThat(presentation.isTypeIconRightAligned, `is`(false))
         }
+
+        @Test
+        @DisplayName("handle insert")
+        fun handleInsert() {
+            val lookup: LookupElement = XPathAtomicOrUnionTypeLookup("integer", "xsd")
+            val context = insertionContext("xsd:integer", 'i', lookup, 11)
+            lookup.handleInsert(context)
+            assertThat(context.document.text, `is`("xsd:integer"))
+        }
     }
 }
