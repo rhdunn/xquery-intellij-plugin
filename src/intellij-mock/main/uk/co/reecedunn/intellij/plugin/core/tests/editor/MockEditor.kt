@@ -30,7 +30,7 @@ import java.awt.geom.Point2D
 import javax.swing.JComponent
 import javax.swing.border.Border
 
-class MockEditor : Editor {
+class MockEditor(private val document: Document) : Editor {
     override fun offsetToVisualPosition(offset: Int): VisualPosition = TODO()
 
     override fun offsetToVisualPosition(offset: Int, leanForward: Boolean, beforeSoftWrap: Boolean): VisualPosition {
@@ -57,7 +57,7 @@ class MockEditor : Editor {
 
     override fun logicalPositionToXY(pos: LogicalPosition): Point = TODO()
 
-    override fun getDocument(): Document = TODO()
+    override fun getDocument(): Document = document
 
     override fun getScrollingModel(): ScrollingModel = TODO()
 

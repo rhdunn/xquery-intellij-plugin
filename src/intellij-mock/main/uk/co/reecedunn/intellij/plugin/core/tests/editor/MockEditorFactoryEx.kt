@@ -21,6 +21,6 @@ import com.intellij.openapi.editor.Editor
 
 class MockEditorFactoryEx : MockEditorFactory() {
     override fun createEditor(document: Document): Editor {
-        return MockEditor()
+        return MockEditor(document)
     }
 }
