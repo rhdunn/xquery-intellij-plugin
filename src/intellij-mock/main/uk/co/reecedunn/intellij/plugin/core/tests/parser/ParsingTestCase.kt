@@ -61,6 +61,7 @@ import org.picocontainer.defaults.AbstractComponentAdapter
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -111,7 +112,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         PlatformLiteFixture.registerComponentInstance(
             appContainer, MessageBus::class.java, PlatformLiteFixture.getApplication().messageBus
         )
-        val editorFactory = MockEditorFactory()
+        val editorFactory = MockEditorFactoryEx()
         PlatformLiteFixture.registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
         PlatformLiteFixture.registerComponentInstance(
             appContainer, FileDocumentManager::class.java,
