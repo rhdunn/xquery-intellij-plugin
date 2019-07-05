@@ -20,6 +20,7 @@ import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -44,9 +45,5 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-    }
-
-    fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
-        return parse<XmlNCNameImpl>(text).find { it.text == completionPoint }!!
     }
 }

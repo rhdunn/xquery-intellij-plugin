@@ -268,6 +268,14 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
                 val element = completion("test(\$completion-point)")
                 assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
             }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
+            fun stringLiteral() {
+                val context = ProcessingContext()
+                val element = completion("test(\"completion-point\")")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
         }
 
         @Nested

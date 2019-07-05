@@ -44,6 +44,7 @@ import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
 import com.intellij.psi.impl.source.tree.LeafElement
+import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.util.CachedValuesManagerImpl
@@ -221,5 +222,9 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     fun getDocument(file: PsiFile): Document {
         return PsiDocumentManager.getInstance(myProject).getDocument(file)!!
+    }
+
+    fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
+        return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
     }
 }

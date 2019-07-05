@@ -67,8 +67,4 @@ abstract class ParserTestCase :
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
-
-    fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
-        return parse<XmlNCNameImpl>(text).find { it.text == completionPoint }!!
-    }
 }

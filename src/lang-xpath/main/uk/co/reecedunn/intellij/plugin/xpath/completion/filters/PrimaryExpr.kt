@@ -41,7 +41,7 @@ object XPathFunctionCallFilter : CompletionFilter {
                     (element.parent as XsQNameValue).isLocalNameOrNCName(element)
                 }
                 is XPathFunctionCall -> {
-                    if ((element.parent as XsQNameValue).isLocalNameOrNCName(element)) {
+                    if ((element.parent as? XsQNameValue)?.isLocalNameOrNCName(element) == true) {
                         element.parent.parent is XPathFunctionCall
                     } else {
                         false

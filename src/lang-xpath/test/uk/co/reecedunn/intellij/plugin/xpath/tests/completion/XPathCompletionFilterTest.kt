@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
@@ -282,6 +283,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             fun varRef() {
                 val context = ProcessingContext()
                 val element = completion("test(\$completion-point)")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+            fun stringLiteral() {
+                val context = ProcessingContext()
+                val element = completion("test(\"completion-point\")")
                 assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
             }
         }
