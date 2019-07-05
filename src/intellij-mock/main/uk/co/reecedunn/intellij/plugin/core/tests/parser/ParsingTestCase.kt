@@ -16,11 +16,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
+import com.intellij.codeInsight.completion.InsertionContext
+import com.intellij.codeInsight.completion.OffsetMap
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.mock.*
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
@@ -224,7 +228,23 @@ abstract class ParsingTestCase<File : PsiFile>(
         return PsiDocumentManager.getInstance(myProject).getDocument(file)!!
     }
 
+    fun getEditor(file: PsiFile): Editor {
+        return EditorFactory.getInstance().createEditor(getDocument(file))
+    }
+
     fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
         return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
+    }
+
+    fun insertionContext(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
+        val file = parseText(text)
+        val editor = getEditor(file)
+        val context = InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
+        context.tailOffset = tailOffset
+        return context
+    }
+
+    fun insertionContext(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
+        return insertionContext(text, char, listOf(lookup).toTypedArray(), tailOffset)
     }
 }
