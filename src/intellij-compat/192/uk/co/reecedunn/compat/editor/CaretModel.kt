@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.compat.editor
 
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.editor.CaretActionListener
+
 abstract class CaretModel : com.intellij.openapi.editor.CaretModel {
     override fun addCaretActionListener(listener: CaretActionListener, disposable: Disposable) = TODO()
 }
