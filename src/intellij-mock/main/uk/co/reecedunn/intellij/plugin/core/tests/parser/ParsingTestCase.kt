@@ -23,6 +23,8 @@ import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.mock.*
+import com.intellij.openapi.command.CommandProcessor
+import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
@@ -114,6 +116,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         )
         val editorFactory = MockEditorFactoryEx()
         PlatformLiteFixture.registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
+        registerApplicationService(CommandProcessor::class.java, CoreCommandProcessor())
         PlatformLiteFixture.registerComponentInstance(
             appContainer, FileDocumentManager::class.java,
             MockFileDocumentManagerImpl(
@@ -237,15 +240,19 @@ abstract class ParsingTestCase<File : PsiFile>(
         return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
     }
 
-    fun insertionContext(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
+    fun handleInsert(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
         val file = parseText(text)
         val editor = getEditor(file)
-
         editor.caretModel.moveToOffset(tailOffset)
-        return InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
+
+        val context = InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
+        CommandProcessor.getInstance().executeCommand(null, {
+            lookups.forEach { it.handleInsert(context) }
+        }, null, null)
+        return context
     }
 
-    fun insertionContext(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
-        return insertionContext(text, char, listOf(lookup).toTypedArray(), tailOffset)
+    fun handleInsert(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
+        return handleInsert(text, char, listOf(lookup).toTypedArray(), tailOffset)
     }
 }

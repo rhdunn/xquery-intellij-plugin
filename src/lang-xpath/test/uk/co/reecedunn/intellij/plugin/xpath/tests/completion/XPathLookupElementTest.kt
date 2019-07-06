@@ -108,8 +108,7 @@ private class XPathLookupElementTest : ParserTestCase() {
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathAtomicOrUnionTypeLookup("integer", "xsd")
-            val context = insertionContext("xsd:integer", 'i', lookup, 11)
-            lookup.handleInsert(context)
+            val context = handleInsert("xsd:integer", 'i', lookup, 11)
 
             assertThat(context.document.text, `is`("xsd:integer"))
             assertThat(context.editor.caretModel.offset, `is`(11))
