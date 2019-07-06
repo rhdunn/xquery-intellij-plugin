@@ -29,17 +29,119 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
 private class XPathLookupElementTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+    internal inner class VarRef {
+        fun parse(text: String): Pair<XQueryModule, XPathVariableDeclaration> {
+            val module = parseText(text)
+            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XPathVariableReference
+            val ref = call.variableName?.element?.references?.get(1)?.resolve()?.parent?.parent!!
+            return module to ref as XPathVariableDeclaration
+        }
+
+        @Test
+        @DisplayName("lookup element")
+        fun lookupElement() {
+            val ref = parse("declare variable \$local:test := 2; \$local:test")
+            val lookup: LookupElement = XPathVarNameLookup("test", "local", ref.second)
+
+            assertThat(lookup.toString(), `is`("local:test"))
+            assertThat(lookup.lookupString, `is`("local:test"))
+            assertThat(lookup.allLookupStrings, `is`(setOf("local:test")))
+            assertThat(lookup.`object`, `is`(sameInstance(ref.second)))
+            assertThat(lookup.psiElement, `is`(sameInstance(ref.second.variableName?.element)))
+            assertThat(lookup.isValid, `is`(true))
+            assertThat(lookup.requiresCommittedDocuments(), `is`(true))
+            assertThat(lookup.autoCompletionPolicy, `is`(AutoCompletionPolicy.SETTINGS_DEPENDENT))
+            assertThat(lookup.isCaseSensitive, `is`(true))
+            assertThat(lookup.isWorthShowingInAutoPopup, `is`(false))
+
+            val presentation = LookupElementPresentation()
+            lookup.renderElement(presentation)
+
+            assertThat(presentation.isReal, `is`(false))
+            assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+            assertThat(presentation.typeIcon, `is`(nullValue()))
+            assertThat(presentation.itemText, `is`("local:test"))
+            assertThat(presentation.tailText, `is`(nullValue()))
+            assertThat(presentation.typeText, `is`(nullValue()))
+            assertThat(presentation.isStrikeout, `is`(false))
+            assertThat(presentation.isItemTextBold, `is`(false))
+            assertThat(presentation.isItemTextItalic, `is`(false))
+            assertThat(presentation.isItemTextUnderlined, `is`(false))
+            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
+            assertThat(presentation.isTypeGrayed, `is`(false))
+            assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            val tailFragments = presentation.tailFragments
+            assertThat(tailFragments.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("lookup element with type")
+        fun lookupElement_withType() {
+            val ref = parse("declare variable \$local:test as (::) xs:string := 2; \$local:test")
+            val lookup: LookupElement = XPathVarNameLookup("test", "local", ref.second)
+
+            assertThat(lookup.toString(), `is`("local:test"))
+            assertThat(lookup.lookupString, `is`("local:test"))
+            assertThat(lookup.allLookupStrings, `is`(setOf("local:test")))
+            assertThat(lookup.`object`, `is`(sameInstance(ref.second)))
+            assertThat(lookup.psiElement, `is`(sameInstance(ref.second.variableName?.element)))
+            assertThat(lookup.isValid, `is`(true))
+            assertThat(lookup.requiresCommittedDocuments(), `is`(true))
+            assertThat(lookup.autoCompletionPolicy, `is`(AutoCompletionPolicy.SETTINGS_DEPENDENT))
+            assertThat(lookup.isCaseSensitive, `is`(true))
+            assertThat(lookup.isWorthShowingInAutoPopup, `is`(false))
+
+            val presentation = LookupElementPresentation()
+            lookup.renderElement(presentation)
+
+            assertThat(presentation.isReal, `is`(false))
+            assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+            assertThat(presentation.typeIcon, `is`(nullValue()))
+            assertThat(presentation.itemText, `is`("local:test"))
+            assertThat(presentation.tailText, `is`(nullValue()))
+            assertThat(presentation.typeText, `is`("xs:string"))
+            assertThat(presentation.isStrikeout, `is`(false))
+            assertThat(presentation.isItemTextBold, `is`(false))
+            assertThat(presentation.isItemTextItalic, `is`(false))
+            assertThat(presentation.isItemTextUnderlined, `is`(false))
+            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
+            assertThat(presentation.isTypeGrayed, `is`(false))
+            assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            val tailFragments = presentation.tailFragments
+            assertThat(tailFragments.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("handle insert")
+        fun handleInsert() {
+            val ref = parse("declare variable \$local:test := 2; \$local:test")
+            val lookup: LookupElement = XPathVarNameLookup("test", "local", ref.second)
+            val context = handleInsert("\$local:test", 't', lookup, 11)
+
+            assertThat(context.document.text, `is`("\$local:test"))
+            assertThat(context.editor.caretModel.offset, `is`(11))
+        }
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (empty parameters)")
     internal inner class FunctionCall_EmptyParams {
