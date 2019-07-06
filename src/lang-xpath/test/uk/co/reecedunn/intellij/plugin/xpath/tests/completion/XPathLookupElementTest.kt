@@ -192,4 +192,70 @@ private class XPathLookupElementTest : ParserTestCase() {
             assertThat(context.editor.caretModel.offset, `is`(11))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (122) QName")
+    internal inner class QName {
+        @Test
+        @DisplayName("lookup element")
+        fun lookupElement() {
+            val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
+
+            assertThat(lookup.toString(), `is`("math"))
+            assertThat(lookup.lookupString, `is`("math"))
+            assertThat(lookup.allLookupStrings, `is`(setOf("math")))
+            assertThat(lookup.`object`, `is`(sameInstance(lookup)))
+            assertThat(lookup.psiElement, `is`(nullValue()))
+            assertThat(lookup.isValid, `is`(true))
+            assertThat(lookup.requiresCommittedDocuments(), `is`(true))
+            assertThat(lookup.autoCompletionPolicy, `is`(AutoCompletionPolicy.SETTINGS_DEPENDENT))
+            assertThat(lookup.isCaseSensitive, `is`(true))
+            assertThat(lookup.isWorthShowingInAutoPopup, `is`(true))
+
+            val presentation = LookupElementPresentation()
+            lookup.renderElement(presentation)
+
+            assertThat(presentation.isReal, `is`(false))
+            assertThat(presentation.icon, `is`(nullValue()))
+            assertThat(presentation.typeIcon, `is`(nullValue()))
+            assertThat(presentation.itemText, `is`("math"))
+            assertThat(presentation.tailText, `is`(":"))
+            assertThat(presentation.typeText, `is`(nullValue()))
+            assertThat(presentation.isStrikeout, `is`(false))
+            assertThat(presentation.isItemTextBold, `is`(true))
+            assertThat(presentation.isItemTextItalic, `is`(false))
+            assertThat(presentation.isItemTextUnderlined, `is`(false))
+            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
+            assertThat(presentation.isTypeGrayed, `is`(false))
+            assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            val tailFragments = presentation.tailFragments
+            assertThat(tailFragments.size, `is`(1))
+
+            assertThat(tailFragments[0].text, `is`(":"))
+            assertThat(tailFragments[0].isGrayed, `is`(false))
+            assertThat(tailFragments[0].isItalic, `is`(false))
+            assertThat(tailFragments[0].foregroundColor, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("handle insert")
+        fun handleInsert() {
+            val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
+            val context = handleInsert("math", 'm', lookup, 4)
+
+            assertThat(context.document.text, `is`("math:"))
+            assertThat(context.editor.caretModel.offset, `is`(5))
+        }
+
+        @Test
+        @DisplayName("handle insert with ':' after the inserted text")
+        fun handleInsert_colonAfter() {
+            val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
+            val context = handleInsert("math:", 'd', lookup, 4)
+
+            assertThat(context.document.text, `is`("math:"))
+            assertThat(context.editor.caretModel.offset, `is`(5))
+        }
+    }
 }
