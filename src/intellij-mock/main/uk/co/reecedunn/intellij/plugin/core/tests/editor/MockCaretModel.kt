@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.editor
 
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.*
 import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.editor.markup.TextAttributes
+import uk.co.reecedunn.compat.editor.CaretModel
 
-class MockCaretModel(private val editor: Editor) : CaretModel {
+class MockCaretModel(private val editor: Editor) : CaretModel() {
     private var offset: Int = 0
 
     override fun getVisualLineStart(): Int = TODO()
@@ -80,8 +80,6 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
     override fun runForEachCaret(action: CaretAction, reverseOrder: Boolean) = TODO()
 
     override fun getAllCarets(): MutableList<Caret> = TODO()
-
-    override fun addCaretActionListener(listener: CaretActionListener, disposable: Disposable) = TODO()
 
     override fun runBatchCaretOperation(runnable: Runnable) = TODO()
 
