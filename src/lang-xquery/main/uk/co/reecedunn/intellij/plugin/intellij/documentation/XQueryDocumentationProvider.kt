@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.intellij.documentation
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 
 object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
@@ -27,6 +29,12 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
             is XQueryFunctionDecl -> {
                 val sig = parent.presentation?.presentableText
                 "declare function $sig"
+            }
+            is XPathVarName -> {
+                (parent.parent as? XQueryVarDecl)?.let {
+                    val sig = it.presentation?.presentableText
+                    "declare variable $sig"
+                }
             }
             else -> null
         }

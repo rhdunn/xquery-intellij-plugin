@@ -22,13 +22,45 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Documentation Provider - XQuery")
 private class XQueryDocumentationProviderTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+    internal inner class VarRef {
+        fun parse(text: String): Pair<PsiElement?, PsiElement?> {
+            val module = parseText(text)
+            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XPathVariableReference
+            val element = call.variableName?.element!!
+            val ref = element.references[1].resolve()
+            return element to ref
+        }
+
+        @Test
+        @DisplayName("no type")
+        fun noType() {
+            val ref = parse("declare variable \$ local:test := 2; \$local:test")
+
+            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            assertThat(quickDoc, `is`("declare variable \$local:test"))
+        }
+
+        @Test
+        @DisplayName("type")
+        fun type() {
+            val ref = parse("declare variable \$ local:test  as  xs:float := 2; \$local:test")
+
+            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            assertThat(quickDoc, `is`("declare variable \$local:test as xs:float"))
+        }
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
     internal inner class FunctionCall {
