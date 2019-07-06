@@ -30,8 +30,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
     @Test
     @DisplayName("NCName")
     fun testNCName() {
-        val provider = XQueryFindUsagesProvider()
-
+        val provider = XQueryFindUsagesProvider
         val name = parse<XPathNCName>("\$x")[0]
 
         assertThat(provider.canFindUsagesFor(name), `is`(true))

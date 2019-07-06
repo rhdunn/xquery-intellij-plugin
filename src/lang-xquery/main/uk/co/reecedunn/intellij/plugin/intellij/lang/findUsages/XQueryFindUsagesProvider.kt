@@ -23,7 +23,7 @@ import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-class XQueryFindUsagesProvider : FindUsagesProvider {
+object XQueryFindUsagesProvider : FindUsagesProvider {
     override fun getWordsScanner(): WordsScanner? {
         return XQueryWordsScanner()
     }
