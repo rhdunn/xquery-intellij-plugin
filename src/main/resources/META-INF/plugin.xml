@@ -128,6 +128,8 @@
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
 
+    <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider"/>
+
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
