@@ -110,7 +110,9 @@ private class XPathLookupElementTest : ParserTestCase() {
             val lookup: LookupElement = XPathAtomicOrUnionTypeLookup("integer", "xsd")
             val context = insertionContext("xsd:integer", 'i', lookup, 11)
             lookup.handleInsert(context)
+
             assertThat(context.document.text, `is`("xsd:integer"))
+            assertThat(context.editor.caretModel.offset, `is`(11))
         }
     }
 }

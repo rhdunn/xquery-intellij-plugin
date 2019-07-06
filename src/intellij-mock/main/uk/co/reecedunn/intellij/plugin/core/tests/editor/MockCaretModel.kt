@@ -85,9 +85,13 @@ class MockCaretModel(private val editor: Editor) : CaretModel() {
 
     override fun moveToLogicalPosition(pos: LogicalPosition) = TODO()
 
-    override fun moveToOffset(offset: Int) = TODO()
+    override fun moveToOffset(offset: Int) = moveToOffset(offset, false)
 
-    override fun moveToOffset(offset: Int, locateBeforeSoftWrap: Boolean) = TODO()
+    override fun moveToOffset(offset: Int, locateBeforeSoftWrap: Boolean) {
+        if (offset > editor.document.textLength)
+            throw RuntimeException("Moving past the end of the document: $offset > ${editor.document.textLength}")
+        this.offset = offset
+    }
 
     override fun getCurrentCaret(): Caret = TODO()
 

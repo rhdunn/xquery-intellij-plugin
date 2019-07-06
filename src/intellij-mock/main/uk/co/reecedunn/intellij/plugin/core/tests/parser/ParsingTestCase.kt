@@ -240,9 +240,9 @@ abstract class ParsingTestCase<File : PsiFile>(
     fun insertionContext(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
         val file = parseText(text)
         val editor = getEditor(file)
-        val context = InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
-        context.tailOffset = tailOffset
-        return context
+
+        editor.caretModel.moveToOffset(tailOffset)
+        return InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
     }
 
     fun insertionContext(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
