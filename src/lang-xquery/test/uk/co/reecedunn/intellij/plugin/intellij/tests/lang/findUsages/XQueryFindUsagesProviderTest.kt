@@ -24,13 +24,17 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
 private class XQueryFindUsagesProviderTest : ParserTestCase() {
+    val provider = XQueryFindUsagesProvider
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
@@ -49,7 +53,6 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
         @Test
         @DisplayName("NCName")
         fun ncname() {
-            val provider = XQueryFindUsagesProvider
             val ref = parse("declare variable \$ x := 2; \$x")
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
@@ -63,7 +66,6 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
         @Test
         @DisplayName("QName")
         fun qname() {
-            val provider = XQueryFindUsagesProvider
             val ref = parse("declare variable \$ local:x := 2; \$local:x")
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
@@ -77,7 +79,6 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
         @Test
         @DisplayName("with type")
         fun withType() {
-            val provider = XQueryFindUsagesProvider
             val ref = parse("declare variable \$ x as xs:long := 2; \$x")
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
@@ -86,6 +87,87 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
             assertThat(provider.getDescriptiveName(ref.second), `is`("x"))
             assertThat(provider.getNodeText(ref.second, true), `is`("x"))
             assertThat(provider.getNodeText(ref.second, false), `is`("x"))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
+    internal inner class FunctionCall {
+        fun parse(text: String): Pair<PsiElement, PsiElement> {
+            val module = parseText(text)
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XPathFunctionReference
+            val element = call.functionName?.element!!
+            val references = element.references
+            return when (references.size) {
+                1 -> element to references[0].resolve()!! // NCName
+                2 -> element to references[1].resolve()!! // QName
+                else -> throw ArrayIndexOutOfBoundsException()
+            }
+        }
+
+        @Test
+        @DisplayName("empty parameters ; no return type ; ncname")
+        fun emptyParams_noReturnType_ncname() {
+            val ref = parse("declare function test((::)) {}; test()")
+
+            assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
+            assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
+            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, true), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, false), `is`("test"))
+        }
+
+        @Test
+        @DisplayName("empty parameters ; no return type ; qname")
+        fun emptyParams_noReturnType_qname() {
+            val ref = parse("declare function local:test((::)) {}; local:test()")
+
+            assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
+            assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
+            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, true), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, false), `is`("test"))
+        }
+
+        @Test
+        @DisplayName("empty parameters ; return type")
+        fun emptyParams_returnType() {
+            val ref = parse("declare function local:test((::)) as (::) node((::)) {}; local:test()")
+
+            assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
+            assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
+            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, true), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, false), `is`("test"))
+        }
+
+        @Test
+        @DisplayName("non-empty parameters ; no return type")
+        fun params_noReturnType() {
+            val ref = parse("declare function local:test( \$x as (::) xs:int , \$n  as  xs:float *) {}; local:test(1,2)")
+
+            assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
+            assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
+            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, true), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, false), `is`("test"))
+        }
+
+        @Test
+        @DisplayName("non-empty parameters ; return type")
+        fun params_returnType() {
+            val ref = parse("declare function local:test( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + {}; local:test(1,2)")
+
+            assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
+            assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
+            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, true), `is`("test"))
+            assertThat(provider.getNodeText(ref.second, false), `is`("test"))
         }
     }
 }
