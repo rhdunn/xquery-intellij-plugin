@@ -148,8 +148,8 @@ private class XPathLookupElementTest : ParserTestCase() {
         fun parse(text: String): Pair<XQueryModule, XPathFunctionDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XPathFunctionReference
-            val ref = call.functionName?.element?.references?.get(1)?.resolve()!! as XPathFunctionDeclaration
-            return module to ref
+            val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
+            return module to ref as XPathFunctionDeclaration
         }
 
         @Test
@@ -278,8 +278,8 @@ private class XPathLookupElementTest : ParserTestCase() {
         fun parse(text: String): Pair<XQueryModule, XPathFunctionDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XPathFunctionReference
-            val ref = call.functionName?.element?.references?.get(1)?.resolve()!! as XPathFunctionDeclaration
-            return module to ref
+            val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
+            return module to ref as XPathFunctionDeclaration
         }
 
         @Test

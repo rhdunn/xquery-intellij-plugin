@@ -2,9 +2,10 @@
 
 ## 1.5 - (In Development)
 
-References and Resolving:
+References, Resolving and Find Usages:
 
-1.  Fix resolving variables declared in imported modules.
+1.  Fix resolving and finding usages of variables declared in imported modules.
+1.  Fix find usages of locally declared and imported functions.
 1.  Support the MarkLogic behaviour for resolving `NCName`-based `FunctionDecl`s.
 
 IntelliJ Integration:
@@ -65,7 +66,7 @@ XPath and XQuery:
 
 Inspections:
 
-1.  XPST0017: Enable this inspection by default.
+1.  XPST0017: Enable the undefined function inspection by default.
 
 ## 1.4.1 - 2019-03-27
 

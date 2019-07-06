@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val arity = (element.parent as? XPathFunctionReference)?.arity ?: -1
-        return element.staticallyKnownFunctions().firstOrNull { f -> f.arity.isWithin(arity) } as? PsiElement
+        return element.staticallyKnownFunctions().firstOrNull {
+            f -> f.arity.isWithin(arity)
+        }?.functionName as? PsiElement
     }
 
     override fun getVariants(): Array<Any> {
