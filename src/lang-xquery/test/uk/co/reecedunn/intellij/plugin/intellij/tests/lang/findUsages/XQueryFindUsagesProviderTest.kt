@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.lang.findUsages
 import com.intellij.lang.HelpID
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -27,17 +28,21 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
 private class XQueryFindUsagesProviderTest : ParserTestCase() {
-    @Test
-    @DisplayName("NCName")
-    fun testNCName() {
-        val provider = XQueryFindUsagesProvider
-        val name = parse<XPathNCName>("\$x")[0]
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+    internal inner class VarRef {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val provider = XQueryFindUsagesProvider
+            val name = parse<XPathNCName>("\$x")[0]
 
-        assertThat(provider.canFindUsagesFor(name), `is`(true))
-        assertThat(provider.getHelpId(name), `is`(HelpID.FIND_OTHER_USAGES))
-        assertThat(provider.getType(name), `is`("Identifier"))
-        assertThat(provider.getDescriptiveName(name), `is`("x"))
-        assertThat(provider.getNodeText(name, true), `is`("x"))
-        assertThat(provider.getNodeText(name, false), `is`("x"))
+            assertThat(provider.canFindUsagesFor(name), `is`(true))
+            assertThat(provider.getHelpId(name), `is`(HelpID.FIND_OTHER_USAGES))
+            assertThat(provider.getType(name), `is`("Identifier"))
+            assertThat(provider.getDescriptiveName(name), `is`("x"))
+            assertThat(provider.getNodeText(name, true), `is`("x"))
+            assertThat(provider.getNodeText(name, false), `is`("x"))
+        }
     }
 }
