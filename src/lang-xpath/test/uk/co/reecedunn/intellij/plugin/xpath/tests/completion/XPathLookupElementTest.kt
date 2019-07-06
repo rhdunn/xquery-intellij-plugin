@@ -26,11 +26,89 @@ import uk.co.reecedunn.compat.codeInsight.lookup.LookupElementPresentation
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
+import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
 private class XPathLookupElementTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis")
+    internal inner class ForwardOrReverseAxis {
+        @Test
+        @DisplayName("lookup element")
+        fun lookupElement() {
+            val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
+
+            assertThat(lookup.toString(), `is`("descendant"))
+            assertThat(lookup.lookupString, `is`("descendant"))
+            assertThat(lookup.allLookupStrings, `is`(setOf("descendant")))
+            assertThat(lookup.`object`, `is`(sameInstance(lookup)))
+            assertThat(lookup.psiElement, `is`(nullValue()))
+            assertThat(lookup.isValid, `is`(true))
+            assertThat(lookup.requiresCommittedDocuments(), `is`(true))
+            assertThat(lookup.autoCompletionPolicy, `is`(AutoCompletionPolicy.SETTINGS_DEPENDENT))
+            assertThat(lookup.isCaseSensitive, `is`(true))
+            assertThat(lookup.isWorthShowingInAutoPopup, `is`(true))
+
+            val presentation = LookupElementPresentation()
+            lookup.renderElement(presentation)
+
+            assertThat(presentation.isReal, `is`(false))
+            assertThat(presentation.icon, `is`(nullValue()))
+            assertThat(presentation.typeIcon, `is`(nullValue()))
+            assertThat(presentation.itemText, `is`("descendant"))
+            assertThat(presentation.tailText, `is`("::"))
+            assertThat(presentation.typeText, `is`(nullValue()))
+            assertThat(presentation.isStrikeout, `is`(false))
+            assertThat(presentation.isItemTextBold, `is`(true))
+            assertThat(presentation.isItemTextItalic, `is`(false))
+            assertThat(presentation.isItemTextUnderlined, `is`(false))
+            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
+            assertThat(presentation.isTypeGrayed, `is`(false))
+            assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            val tailFragments = presentation.tailFragments
+            assertThat(tailFragments.size, `is`(1))
+
+            assertThat(tailFragments[0].text, `is`("::"))
+            assertThat(tailFragments[0].isGrayed, `is`(false))
+            assertThat(tailFragments[0].isItalic, `is`(false))
+            assertThat(tailFragments[0].foregroundColor, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("handle insert")
+        fun handleInsert() {
+            val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
+            val context = handleInsert("descendant", 'd', lookup, 10)
+
+            assertThat(context.document.text, `is`("descendant::"))
+            assertThat(context.editor.caretModel.offset, `is`(12))
+        }
+
+        @Test
+        @DisplayName("handle insert with ':' after the inserted text")
+        fun handleInsert_colonAfter() {
+            val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
+            val context = handleInsert("descendant:", 'd', lookup, 10)
+
+            assertThat(context.document.text, `is`("descendant::"))
+            assertThat(context.editor.caretModel.offset, `is`(12))
+        }
+
+        @Test
+        @DisplayName("handle insert with '::' after the inserted text")
+        fun handleInsert_axisSpecifierAfter() {
+            val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
+            val context = handleInsert("descendant::", 'd', lookup, 10)
+
+            assertThat(context.document.text, `is`("descendant::"))
+            assertThat(context.editor.caretModel.offset, `is`(12))
+        }
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (82) AtomicOrUnionType")
     internal inner class AtomicOrUnionType {
