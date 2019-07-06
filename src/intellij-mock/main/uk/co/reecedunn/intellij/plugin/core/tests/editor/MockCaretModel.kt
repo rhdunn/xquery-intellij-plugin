@@ -53,9 +53,9 @@ class MockCaretModel(private val editor: Editor) : CaretModel() {
         TODO()
     }
 
-    override fun setCaretsAndSelections(caretStates: MutableList<CaretState>) = TODO()
+    override fun setCaretsAndSelections(caretStates: MutableList<out CaretState>) = TODO()
 
-    override fun setCaretsAndSelections(caretStates: MutableList<CaretState>, updateSystemSelection: Boolean) {
+    override fun setCaretsAndSelections(caretStates: MutableList<out CaretState>, updateSystemSelection: Boolean) {
         TODO()
     }
 
