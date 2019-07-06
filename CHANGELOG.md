@@ -7,7 +7,8 @@ References, Resolving and Find Usages:
 1.  Fix resolving and finding usages of variables declared in imported modules.
 1.  Fix find usages of locally declared and imported functions.
 1.  Support the MarkLogic behaviour for resolving `NCName`-based `FunctionDecl`s.
-1.  Provide better type names in the find usage pane.
+1.  Provide better type names in the find usages pane.
+1.  Display the `EQName` type signature in the find usages pane.
 
 IntelliJ Integration:
 

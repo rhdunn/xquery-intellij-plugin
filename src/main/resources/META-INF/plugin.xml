@@ -20,7 +20,8 @@
       <li>Fix resolving and finding usages of variables declared in imported modules.</li>
       <li>Fix find usages of locally declared and imported functions.</li>
       <li>Support the MarkLogic behaviour for resolving <code>NCName</code>-based <code>FunctionDecl</code>s.</li>
-      <li>Provide better type names in the find usage pane.</li>
+      <li>Provide better type names in the find usages pane.</li>
+      <li>Display the <code>EQName</code> type signature in the find usages pane.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
