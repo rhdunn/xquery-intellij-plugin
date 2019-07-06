@@ -57,7 +57,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Variable"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("x"))
             assertThat(provider.getNodeText(ref.second, true), `is`("x"))
             assertThat(provider.getNodeText(ref.second, false), `is`("x"))
@@ -70,7 +70,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Variable"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("x"))
             assertThat(provider.getNodeText(ref.second, true), `is`("x"))
             assertThat(provider.getNodeText(ref.second, false), `is`("x"))
@@ -83,7 +83,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Variable"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("x"))
             assertThat(provider.getNodeText(ref.second, true), `is`("x"))
             assertThat(provider.getNodeText(ref.second, false), `is`("x"))
@@ -112,7 +112,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Function"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
             assertThat(provider.getNodeText(ref.second, true), `is`("test"))
             assertThat(provider.getNodeText(ref.second, false), `is`("test"))
@@ -125,7 +125,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Function"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
             assertThat(provider.getNodeText(ref.second, true), `is`("test"))
             assertThat(provider.getNodeText(ref.second, false), `is`("test"))
@@ -138,7 +138,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Function"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
             assertThat(provider.getNodeText(ref.second, true), `is`("test"))
             assertThat(provider.getNodeText(ref.second, false), `is`("test"))
@@ -151,7 +151,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Function"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
             assertThat(provider.getNodeText(ref.second, true), `is`("test"))
             assertThat(provider.getNodeText(ref.second, false), `is`("test"))
@@ -164,7 +164,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
-            assertThat(provider.getType(ref.second), `is`("Identifier"))
+            assertThat(provider.getType(ref.second), `is`("Function"))
             assertThat(provider.getDescriptiveName(ref.second), `is`("test"))
             assertThat(provider.getNodeText(ref.second, true), `is`("test"))
             assertThat(provider.getNodeText(ref.second, false), `is`("test"))
