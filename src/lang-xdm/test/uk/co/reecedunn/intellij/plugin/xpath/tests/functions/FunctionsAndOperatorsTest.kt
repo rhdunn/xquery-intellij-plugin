@@ -158,7 +158,8 @@ private class FunctionsAndOperatorsTest : ParserTestCase() {
                     string
                     xs:string
                     fn:string
-                    """)
+                    """
+                )
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
                 assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(false))
@@ -202,7 +203,8 @@ private class FunctionsAndOperatorsTest : ParserTestCase() {
                     string
                     xs:string
                     fn:string
-                    """)
+                    """
+                )
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
                 assertThat(op_qname_equal(expanded[1], expanded[0]), `is`(false))

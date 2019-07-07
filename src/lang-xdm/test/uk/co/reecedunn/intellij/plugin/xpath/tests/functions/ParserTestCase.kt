@@ -59,6 +59,4 @@ abstract class ParserTestCase :
     override fun tearDown() {
         super.tearDown()
     }
-
-    protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
 }

@@ -25,6 +25,7 @@ interface XsAnyType
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyComplexType
 
+@Suppress("unused")
 interface XdmAnyComplexType : XsAnyType
 
 // endregion
@@ -40,6 +41,7 @@ interface XsAnyAtomicType : XsAnySimpleType, XdmItem
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyListType
 
+@Suppress("unused")
 interface XdmAnyListType : XsAnySimpleType
 
 // endregion
