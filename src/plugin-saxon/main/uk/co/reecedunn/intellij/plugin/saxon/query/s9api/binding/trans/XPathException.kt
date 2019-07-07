@@ -35,8 +35,9 @@ class XPathException(private val `object`: TransformerException?, private val `c
 
     fun getErrorCodeQName(): QName? {
         if (`class`.isInstance(`object`)) {
-            val qname = `class`.getMethod("getErrorCodeQName").invoke(`object`)
-            return StructuredQName(qname, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName"))
+            return `class`.getMethod("getErrorCodeQName").invoke(`object`)?.let {
+                StructuredQName(it, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName"))
+            }
         }
         return null
     }
