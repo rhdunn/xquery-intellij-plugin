@@ -117,8 +117,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
     }
 
     private fun stateDefault() {
-        val c = mTokenRange.codePoint
-        when (c) {
+        when (mTokenRange.codePoint) {
             CodePointRange.END_OF_BUFFER -> mType = null
             '~'.toInt() -> {
                 mTokenRange.match()

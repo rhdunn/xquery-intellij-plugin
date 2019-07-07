@@ -21,7 +21,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 
 object XQDocTokenType {
-    val XQDoc = Language.ANY
+    private val XQDoc = Language.ANY!!
 
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
     val TRIM = IElementType("XQDOC_TRIM", XQDoc)
