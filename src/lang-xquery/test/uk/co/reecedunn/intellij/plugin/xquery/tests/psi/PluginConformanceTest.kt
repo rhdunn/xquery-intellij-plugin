@@ -904,7 +904,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
     fun testUnionType() {
-        val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")
+        val file = parseResource("tests/parser/xpath-ng/proposal-6/UnionType.xq")
 
         val unionTypePsi = file.walkTree().filterIsInstance<PluginUnionType>().first()
         val conformance = unionTypePsi as VersionConformance

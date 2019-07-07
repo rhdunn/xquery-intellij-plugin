@@ -1,1 +1,0 @@
-declare variable $x as map(union(xs:int, xs:string), xs:string) external;

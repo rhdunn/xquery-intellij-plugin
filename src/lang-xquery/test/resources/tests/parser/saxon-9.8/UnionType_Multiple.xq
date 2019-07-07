@@ -1,1 +1,0 @@
-declare variable $ x as union ( xs:integer , xs:double , xs:float ) := 1 ;

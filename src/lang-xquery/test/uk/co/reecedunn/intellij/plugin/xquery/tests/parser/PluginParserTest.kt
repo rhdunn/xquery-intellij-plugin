@@ -315,72 +315,72 @@ private class PluginParserTest : ParserTestCase() {
         @Test
         @DisplayName("NCName")
         fun ncname() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("NCName; compact whitespace")
         fun ncname_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("QName")
         fun qname() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("QName; compact whitespace")
         fun qname_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("URIQualifiedName")
         fun uriQualifiedName() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("URIQualifiedName; compact whitespace")
         fun uriQualifiedName_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("missing closing parenthesis")
         fun testUnionType_MissingClosingParenthesis() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingClosingParenthesis.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("missing first type")
         fun testUnionType_MissingFirstType() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingFirstType.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingFirstType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("missing next type")
         fun testUnionType_MissingNextType() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingNextType.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingNextType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -388,16 +388,16 @@ private class PluginParserTest : ParserTestCase() {
         @DisplayName("multiple types")
         fun testUnionType_Multiple() {
             // This is testing handling of whitespace before parsing the next comma.
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_Multiple.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("union in TypedMapTest")
         fun testUnionType_InTypedMapTest() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

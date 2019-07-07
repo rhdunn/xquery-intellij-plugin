@@ -1,1 +1,0 @@
-declare variable $ x as union ( integer , double ) := 1 ;
