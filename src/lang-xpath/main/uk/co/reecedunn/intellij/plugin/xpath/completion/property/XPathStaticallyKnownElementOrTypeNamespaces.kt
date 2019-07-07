@@ -29,7 +29,7 @@ object XPathStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
                 val list = mutableListOf<XPathNamespaceDeclaration>(it)
                 list.addAll(element.staticallyKnownXPathNamespaces())
                 list
-            }
+            } ?: mutableListOf()
             context.put(XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES, namespaces)
         }
     }

@@ -30,7 +30,7 @@ object XQueryStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
                 val list = mutableListOf<XPathNamespaceDeclaration>(it)
                 list.addAll(element.staticallyKnownNamespaces())
                 list
-            }
+            } ?: mutableListOf()
             context.put(XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES, namespaces)
         }
     }
