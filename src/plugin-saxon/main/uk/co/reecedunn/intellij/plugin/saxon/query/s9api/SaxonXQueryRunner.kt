@@ -37,7 +37,7 @@ internal class SaxonXQueryRunner(
     val query: String,
     val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
-    private val errorListener: ErrorListener = SaxonErrorListener(queryFile, processor.classLoader)
+    private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
 
     private val compiler by lazy {
         val ret = processor.newXQueryCompiler()
@@ -84,7 +84,7 @@ internal class SaxonXQueryRunner(
         }
     }
 
-    override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader) {
+    override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
         context?.let { evaluator.setContextItem(it) }
 
         val destination = RawDestination(processor.classLoader)

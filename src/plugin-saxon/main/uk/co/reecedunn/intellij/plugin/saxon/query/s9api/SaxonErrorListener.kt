@@ -16,11 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
 import javax.xml.transform.ErrorListener
 import javax.xml.transform.TransformerException
 
 internal class SaxonErrorListener(var queryFile: VirtualFile, var classLoader: ClassLoader) : ErrorListener {
+    var fatalError: QueryError? = null
+
     override fun warning(exception: TransformerException?) {
     }
 
@@ -28,6 +31,6 @@ internal class SaxonErrorListener(var queryFile: VirtualFile, var classLoader: C
     }
 
     override fun fatalError(exception: TransformerException?) {
-        throw exception!!.toXPathException(classLoader)!!.toSaxonQueryError(queryFile)
+        fatalError = exception!!.toXPathException(classLoader)!!.toSaxonQueryError(queryFile)
     }
 }

@@ -41,7 +41,7 @@ internal class SaxonXsltRunner(
     val query: String,
     val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
-    private val errorListener: ErrorListener = SaxonErrorListener(queryFile, processor.classLoader)
+    private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
 
     private val compiler by lazy {
         val ret = processor.newXsltCompiler()
@@ -79,23 +79,21 @@ internal class SaxonXsltRunner(
         }
     }
 
-    override fun asSequence(): Sequence<QueryResult> {
-        return check(queryFile, processor.classLoader) {
-            if (context == null) {
-                // The Saxon processor throws a NPE if source is null.
-                val message = PluginApiBundle.message("error.missing-xslt-source")
-                return@check sequenceOf(QueryResult.fromItemType(0, message, "fn:error"))
-            }
-            transformer.setSource(context!!)
-
-            val destination = RawDestination(processor.classLoader)
-            transformer.setDestination(destination)
-
-            transformer.transform()
-            val result = destination.getXdmValue()
-
-            SaxonQueryResultIterator(result.iterator()).asSequence()
+    override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
+        if (context == null) {
+            // The Saxon processor throws a NPE if source is null.
+            val message = PluginApiBundle.message("error.missing-xslt-source")
+            return@check sequenceOf(QueryResult.fromItemType(0, message, "fn:error"))
         }
+        transformer.setSource(context!!)
+
+        val destination = RawDestination(processor.classLoader)
+        transformer.setDestination(destination)
+
+        transformer.transform()
+        val result = destination.getXdmValue()
+
+        SaxonQueryResultIterator(result.iterator()).asSequence()
     }
 
     override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
