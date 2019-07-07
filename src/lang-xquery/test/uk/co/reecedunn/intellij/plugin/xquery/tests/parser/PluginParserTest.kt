@@ -310,8 +310,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
-    internal inner class UnionType {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XQuery 3.1 EBNF (121) ItemType")
+    internal inner class UnionType_ItemType {
         @Test
         @DisplayName("NCName")
         fun ncname() {
@@ -392,14 +392,34 @@ private class PluginParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_Multiple.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+    }
 
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XQuery 3.1 EBNF (182) SingleType")
+    internal inner class UnionType_SingleType {
         @Test
-        @DisplayName("union in TypedMapTest")
-        fun testUnionType_InTypedMapTest() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.xq")
+        @DisplayName("single type")
+        fun singleType() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("optional")
+        fun optional() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType_Optional.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType_Optional.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XQuery 3.1 EBNF (212) TypedMapTest")
+    fun unionType_typedMapTest() {
+        val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.txt")
+        val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Nested

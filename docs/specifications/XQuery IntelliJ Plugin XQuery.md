@@ -130,24 +130,25 @@ not normative.
 #### 2.1.1 SequenceType Syntax
 
 {: .ebnf-symbols }
-| Ref    | Symbol                  |     | Expression                          | Options |
-|--------|-------------------------|-----|-------------------------------------|---------|
-| \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
-| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
-| \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
-| \[67\] | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
-| \[68\] | `NamedKindTest`         | ::= | `"node" "(" StringLiteral ")"`      |         |
-| \[69\] | `TextTest`              | ::= | `AnyTextTest \| NamedTextTest`      |         |
-| \[70\] | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
-| \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
-| \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
-| \[87\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
-| \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
-| \[96\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
-| \[97\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
-| \[99\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[22\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
+| \[46\]  | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
+| \[67\]  | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
+| \[68\]  | `NamedKindTest`         | ::= | `"node" "(" StringLiteral ")"`      |         |
+| \[69\]  | `TextTest`              | ::= | `AnyTextTest \| NamedTextTest`      |         |
+| \[70\]  | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
+| \[71\]  | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
+| \[72\]  | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
+| \[87\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
+| \[88\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+| \[96\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
+| \[97\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
+| \[99\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
+| \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -172,9 +173,11 @@ to differentiate the parameter types from the return type.
 ##### 2.1.2.1 Union Type
 
 {: .ebnf-symbols }
-| Ref    | Symbol                  |     | Expression                          | Options               |
-|--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| Ref     | Symbol                  |     | Expression                          | Options               |
+|---------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[22\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                       |
 
 The `UnionType` is a new sequence type supported by Saxon 9.8. It is
 proposal 6 of the EXPath syntax extensions for XPath and XQuery.
@@ -1032,6 +1035,7 @@ These changes include support for:
 | \[97\]   | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[98\]   | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"`   |                 |
 | \[99\]   | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` |  |
+| \[100\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?`       |                 |
 
 ### A.2 Reserved Function Names
 

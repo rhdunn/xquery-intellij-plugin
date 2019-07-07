@@ -51,6 +51,7 @@ Saxon:
 1.  Disable Saxon EE optimizations to prevent the processor throwing a
     `NoClassDefFoundError` looking for `com/saxonica/ee/bytecode/GeneratedCode`.
 1.  Support `union(...)` types in XPath expressions.
+1.  Support `union(...)` types in `SingleType`s for XPath and XQuery.
 
 BaseX:
 

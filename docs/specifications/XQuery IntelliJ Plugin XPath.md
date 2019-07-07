@@ -83,6 +83,8 @@ not normative.
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
+| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
 
 Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
 pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
@@ -96,6 +98,8 @@ to differentiate the parameter types from the return type.
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                       |
 
 The `UnionType` is a new sequence type supported by Saxon 9.8. It is
 proposal 6 of the EXPath syntax extensions for XPath and XQuery.
@@ -230,6 +234,8 @@ These changes include support for:
 | \[14\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |                      |
 | \[15\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[17\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\]  | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
 
 ### A.2 Reserved Function Names
 

@@ -1,0 +1,1 @@
+1 cast as union ( xs:integer , xs:double )

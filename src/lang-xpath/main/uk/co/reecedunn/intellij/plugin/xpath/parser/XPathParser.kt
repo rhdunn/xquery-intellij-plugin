@@ -2814,7 +2814,7 @@ open class XPathParser : PsiParser {
 
     fun parseSingleType(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
+        if (parseUnionType(builder) || parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.OPTIONAL)) {
                 marker.done(XPathElementType.SINGLE_TYPE)

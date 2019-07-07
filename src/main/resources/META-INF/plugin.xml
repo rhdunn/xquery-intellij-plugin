@@ -61,6 +61,7 @@
         looking for <code>com/saxonica/ee/bytecode/GeneratedCode</code>.
       </li>
       <li>Support <code>union(...)</code> types in XPath expressions.</li>
+      <li>Support <code>union(...)</code> types in <code>SingleType</code>s for XPath and XQuery.</li>
     </ol>
     <p>BaseX:</p>
     <ol>
