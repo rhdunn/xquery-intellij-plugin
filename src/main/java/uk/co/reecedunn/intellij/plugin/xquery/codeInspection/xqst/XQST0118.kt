@@ -40,9 +40,21 @@ class XQST0118 : Inspection("xqst/XQST0118.md", XQST0118::class.java.classLoader
             if (openTag?.localName == null || closeTag?.localName == null) return@forEach
 
             if (openTag.prefix?.data != closeTag.prefix?.data || openTag.localName?.data != closeTag.localName?.data) {
-                val description = XQueryPluginBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", op_qname_presentation(closeTag), op_qname_presentation(openTag))
+                val description = XQueryPluginBundle.message(
+                    "inspection.XQST0118.mismatched-dir-elem-tag-name.message",
+                    op_qname_presentation(closeTag),
+                    op_qname_presentation(openTag)
+                )
                 val context = closeTag.element!!
-                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        context,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR,
+                        isOnTheFly
+                    )
+                )
             }
         }
         return descriptors.toTypedArray()

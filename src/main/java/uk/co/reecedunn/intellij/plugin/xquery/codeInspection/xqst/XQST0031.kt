@@ -36,7 +36,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
         val descriptors = SmartList<ProblemDescriptor>()
         var mainVersion: Specification? = null
         var isFirstVersion = true
-        file.XQueryVersions.forEach(fun (version) {
+        file.XQueryVersions.forEach(fun(version) {
             if (isFirstVersion) {
                 mainVersion = version.getVersionOrDefault(file.project)
             }
@@ -47,21 +47,47 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
             if (version.version == null) {
                 // Unrecognised XQuery version string.
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
-                descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        version.declaration!!,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR,
+                        isOnTheFly
+                    )
+                )
                 return
             }
 
-            val xqueryVersion = XQuerySpec.versionForXQuery(settings.product, settings.productVersion, version.version!!.versionId)
+            val xqueryVersion =
+                XQuerySpec.versionForXQuery(settings.product, settings.productVersion, version.version!!.versionId)
             if (xqueryVersion == null) {
                 // The XQuery version is not supported by the implementation.
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
-                descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        version.declaration!!,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR,
+                        isOnTheFly
+                    )
+                )
                 return
             }
 
             if (!isFirstVersion && mainVersion != xqueryVersion) {
-                val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
-                descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                val description =
+                    XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        version.declaration!!,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR,
+                        isOnTheFly
+                    )
+                )
             }
 
             isFirstVersion = false

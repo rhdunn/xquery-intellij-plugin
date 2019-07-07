@@ -40,22 +40,48 @@ class IJVS0003 : Inspection("ijvs/IJVS0003.md", IJVS0003::class.java.classLoader
         file.walkTree().filterIsInstance<XQueryPredefinedEntityRef>().forEach { element ->
             val ref = element.entityRef
             when (ref.type) {
-                EntityReferenceType.XmlEntityReference -> {}
+                EntityReferenceType.XmlEntityReference -> {
+                }
                 EntityReferenceType.Html4EntityReference -> {
                     if (version !== XQuerySpec.MARKLOGIC_0_9 && version !== XQuerySpec.MARKLOGIC_1_0) {
                         val description = XQueryPluginBundle.message("annotator.string-literal.html4-entity", ref.name)
-                        descriptors.add(manager.createProblemDescriptor(element, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                element,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 EntityReferenceType.Html5EntityReference -> {
                     if (version !== XQuerySpec.MARKLOGIC_0_9 && version !== XQuerySpec.MARKLOGIC_1_0) {
                         val description = XQueryPluginBundle.message("annotator.string-literal.html5-entity", ref.name)
-                        descriptors.add(manager.createProblemDescriptor(element, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                element,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 else -> {
-                    val description = XQueryPluginBundle.message("annotator.string-literal.unknown-xml-entity", ref.name)
-                    descriptors.add(manager.createProblemDescriptor(element, description, null as LocalQuickFix?, ProblemHighlightType.ERROR, isOnTheFly))
+                    val description =
+                        XQueryPluginBundle.message("annotator.string-literal.unknown-xml-entity", ref.name)
+                    descriptors.add(
+                        manager.createProblemDescriptor(
+                            element,
+                            description,
+                            null as LocalQuickFix?,
+                            ProblemHighlightType.ERROR,
+                            isOnTheFly
+                        )
+                    )
                 }
             }
         }

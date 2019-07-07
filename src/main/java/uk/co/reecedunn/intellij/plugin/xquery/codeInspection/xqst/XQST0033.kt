@@ -38,7 +38,8 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
         file.children().forEach { module ->
             val prefices = HashMap<String, XsAnyUriValue?>()
 
-            val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
+            val moduleDecl =
+                module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
             if (moduleDecl != null) {
                 val prefix = moduleDecl.namespacePrefix?.data
                 val uri = moduleDecl.namespaceUri
@@ -48,7 +49,7 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
             }
 
             val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
-            prolog?.children()?.forEach(fun (child) {
+            prolog?.children()?.forEach(fun(child) {
                 val ns = child as? XPathNamespaceDeclaration
                 val prefix = ns?.namespacePrefix?.data
 
@@ -57,8 +58,17 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
 
                 val duplicate = prefices[prefix]
                 if (duplicate != null) {
-                    val description = XQueryPluginBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
-                    descriptors.add(manager.createProblemDescriptor(ns.namespacePrefix?.element!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                    val description =
+                        XQueryPluginBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
+                    descriptors.add(
+                        manager.createProblemDescriptor(
+                            ns.namespacePrefix?.element!!,
+                            description,
+                            null as LocalQuickFix?,
+                            ProblemHighlightType.GENERIC_ERROR,
+                            isOnTheFly
+                        )
+                    )
                 }
 
                 prefices[prefix] = ns.namespaceUri

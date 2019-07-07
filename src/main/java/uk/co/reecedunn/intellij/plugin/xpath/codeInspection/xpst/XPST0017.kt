@@ -35,26 +35,42 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathFunctionReference>()
-                       .forEach { ref ->
-            val qname = ref.functionName
-            val declarations = (qname as? XPathEQName)?.staticallyKnownFunctions()?.toList() ?: return@forEach
-            if (ref.functionName == null) {
-                // Missing local name -- do nothing.
-            } else if (declarations.isEmpty()) {
-                // 1. The expanded QName does not match the name of a function signature in the static context.
-                val description = XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
-                val decl = ref.functionName?.element!!
-                descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
-            } else {
-                // 2. The number of arguments does not match the arity of a function signature in the static context.
-                val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
-                if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
-                    val description = XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
+            .forEach { ref ->
+                val qname = ref.functionName
+                val declarations = (qname as? XPathEQName)?.staticallyKnownFunctions()?.toList() ?: return@forEach
+                if (declarations.isEmpty()) {
+                    // 1. The expanded QName does not match the name of a function signature in the static context.
+                    val description =
+                        XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
                     val decl = ref.functionName?.element!!
-                    descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                    descriptors.add(
+                        manager.createProblemDescriptor(
+                            decl,
+                            description,
+                            null as LocalQuickFix?,
+                            ProblemHighlightType.GENERIC_ERROR,
+                            isOnTheFly
+                        )
+                    )
+                } else {
+                    // 2. The number of arguments does not match the arity of a function signature in the static context.
+                    val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
+                    if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
+                        val description =
+                            XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
+                        val decl = ref.functionName?.element!!
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                decl,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR,
+                                isOnTheFly
+                            )
+                        )
+                    }
                 }
             }
-        }
         return descriptors.toTypedArray()
     }
 }

@@ -42,7 +42,7 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", IJVS0005::class.java.classLoader
         val requiresSemicolon = product.conformsTo(productVersion, ScriptingSpec.NOTE_1_0_20140918)
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun (element) {
+        file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun(element) {
             if (element.parent.node.elementType === XQueryElementType.MODULE)
                 return
 
@@ -52,8 +52,19 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", IJVS0005::class.java.classLoader
             val haveSemicolon = element.firstChild !== null
             if (haveSemicolon != requiresSemicolon && requiresSemicolon) {
                 val context = if (element.firstChild === null) file.findElementAt(element.textOffset - 1)!! else element
-                val description = XQueryPluginBundle.message("inspection.XPST0003.final-statement-semicolon.required", ScriptingSpec.NOTE_1_0_20140918)
-                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                val description = XQueryPluginBundle.message(
+                    "inspection.XPST0003.final-statement-semicolon.required",
+                    ScriptingSpec.NOTE_1_0_20140918
+                )
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        context,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                        isOnTheFly
+                    )
+                )
             }
         })
         return descriptors.toTypedArray()

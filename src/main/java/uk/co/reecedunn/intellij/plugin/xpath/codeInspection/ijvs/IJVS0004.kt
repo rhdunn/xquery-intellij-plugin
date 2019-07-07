@@ -53,7 +53,15 @@ class IJVS0004 : Inspection("ijvs/IJVS0004.md", IJVS0004::class.java.classLoader
             if (!conformsTo(element, productVersion)) {
                 val context = element.separator
                 val description = XQueryPluginBundle.message("inspection.XPST0003.map-constructor-entry.message")
-                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        context,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                        isOnTheFly
+                    )
+                )
             }
         }
         return descriptors.toTypedArray()

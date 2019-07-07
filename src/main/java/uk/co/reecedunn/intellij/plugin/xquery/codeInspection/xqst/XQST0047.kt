@@ -38,7 +38,7 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
             val uris = HashMap<String, XPathNamespaceDeclaration>()
 
             val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
-            prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
+            prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun(child) {
                 val ns = child as? XPathNamespaceDeclaration
                 val uri = ns?.namespaceUri?.data
 
@@ -47,8 +47,17 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
 
                 val duplicate: XPathNamespaceDeclaration? = uris[uri]
                 if (duplicate != null) {
-                    val description = XQueryPluginBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
-                    descriptors.add(manager.createProblemDescriptor(ns.namespaceUri?.element!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                    val description =
+                        XQueryPluginBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
+                    descriptors.add(
+                        manager.createProblemDescriptor(
+                            ns.namespaceUri?.element!!,
+                            description,
+                            null as LocalQuickFix?,
+                            ProblemHighlightType.GENERIC_ERROR,
+                            isOnTheFly
+                        )
+                    )
                 }
 
                 uris[uri] = ns

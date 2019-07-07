@@ -39,7 +39,15 @@ class XPST0081 : Inspection("xpst/XPST0081.md", XPST0081::class.java.classLoader
             if (qname.prefix != null && qname.prefix!!.data != "xmlns" && !eqname.expand().any()) {
                 val description = XQueryPluginBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 val context = qname.prefix?.element!!
-                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        context,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR,
+                        isOnTheFly
+                    )
+                )
             }
         }
         return descriptors.toTypedArray()

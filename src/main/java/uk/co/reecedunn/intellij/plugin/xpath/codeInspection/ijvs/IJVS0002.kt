@@ -65,39 +65,106 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader
             when (localname?.second) {
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC60_RESERVED_FUNCTION_NAME -> {
                     if (product.conformsTo(productVersion, MarkLogic.VERSION_6_0)) {
-                        val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", MarkLogic.VERSION_6_0)
-                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        val description = XQueryPluginBundle.message(
+                            "inspection.XPST0003.reserved-function-name.message",
+                            MarkLogic.VERSION_6_0
+                        )
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                localname.first,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME -> {
                     if (product.conformsTo(productVersion, MarkLogic.VERSION_7_0)) {
-                        val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", MarkLogic.VERSION_7_0)
-                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        val description = XQueryPluginBundle.message(
+                            "inspection.XPST0003.reserved-function-name.message",
+                            MarkLogic.VERSION_7_0
+                        )
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                localname.first,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
                     if (product.conformsTo(productVersion, MarkLogic.VERSION_8_0)) {
-                        val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", MarkLogic.VERSION_8_0)
-                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        val description = XQueryPluginBundle.message(
+                            "inspection.XPST0003.reserved-function-name.message",
+                            MarkLogic.VERSION_8_0
+                        )
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                localname.first,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
                     if (product.conformsTo(productVersion, ScriptingSpec.NOTE_1_0_20140918)) {
-                        val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", ScriptingSpec.NOTE_1_0_20140918)
-                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        val description = XQueryPluginBundle.message(
+                            "inspection.XPST0003.reserved-function-name.message",
+                            ScriptingSpec.NOTE_1_0_20140918
+                        )
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                localname.first,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> {
                     if (product.conformsTo(productVersion, XQuerySpec.REC_3_0_20140408)) {
-                        val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", XQuerySpec.REC_3_0_20140408)
-                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        val description = XQueryPluginBundle.message(
+                            "inspection.XPST0003.reserved-function-name.message",
+                            XQuerySpec.REC_3_0_20140408
+                        )
+                        descriptors.add(
+                            manager.createProblemDescriptor(
+                                localname.first,
+                                description,
+                                null as LocalQuickFix?,
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                isOnTheFly
+                            )
+                        )
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME -> {
-                    val description = XQueryPluginBundle.message("inspection.XPST0003.reserved-function-name.message", XQuerySpec.REC_1_0_20070123)
-                    descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                    val description = XQueryPluginBundle.message(
+                        "inspection.XPST0003.reserved-function-name.message",
+                        XQuerySpec.REC_1_0_20070123
+                    )
+                    descriptors.add(
+                        manager.createProblemDescriptor(
+                            localname.first,
+                            description,
+                            null as LocalQuickFix?,
+                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                            isOnTheFly
+                        )
+                    )
                 }
-                IKeywordOrNCNameType.KeywordType.KEYWORD -> {}
+                IKeywordOrNCNameType.KeywordType.KEYWORD -> {
+                }
             }
         }
         return descriptors.toTypedArray()

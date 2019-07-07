@@ -34,17 +34,17 @@ private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
         XQuerySpec.MARKLOGIC_0_9 ->
             b === XQuerySpec.MARKLOGIC_0_9 ||
-            b === XQuerySpec.WD_1_0_20030502
+                    b === XQuerySpec.WD_1_0_20030502
         XQuerySpec.MARKLOGIC_1_0 ->
             b.kind === MarkLogic ||
-            b === XQuerySpec.MARKLOGIC_1_0 ||
-            b === XQuerySpec.REC_1_0_20070123 ||
-            b === XQuerySpec.REC_3_0_20140408 ||
-            b === XQuerySpec.REC_3_1_20170321
+                    b === XQuerySpec.MARKLOGIC_1_0 ||
+                    b === XQuerySpec.REC_1_0_20070123 ||
+                    b === XQuerySpec.REC_3_0_20140408 ||
+                    b === XQuerySpec.REC_3_1_20170321
         XQuerySpec.REC_1_0_20070123 ->
             b !== XQuerySpec.WD_1_0_20030502 &&
-            b !== XQuerySpec.MARKLOGIC_0_9 &&
-            a.value >= b.value
+                    b !== XQuerySpec.MARKLOGIC_0_9 &&
+                    a.value >= b.value
         else ->
             a.value >= b.value
     }
@@ -69,18 +69,47 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
                 val name = (versioned as? VersionConformanceName)?.conformanceName
                 val description =
                     if (name != null)
-                        XQueryPluginBundle.message("inspection.XPST0003.unsupported-construct-with-name.message", productVersion, required.joinToString(", or "), name)
+                        XQueryPluginBundle.message(
+                            "inspection.XPST0003.unsupported-construct-with-name.message",
+                            productVersion,
+                            required.joinToString(", or "),
+                            name
+                        )
                     else
-                        XQueryPluginBundle.message("inspection.XPST0003.unsupported-construct.message", productVersion, required.joinToString(", or "))
-                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                        XQueryPluginBundle.message(
+                            "inspection.XPST0003.unsupported-construct.message",
+                            productVersion,
+                            required.joinToString(", or ")
+                        )
+                descriptors.add(
+                    manager.createProblemDescriptor(
+                        context,
+                        description,
+                        null as LocalQuickFix?,
+                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                        isOnTheFly
+                    )
+                )
             } else {
                 val requiredXQuery = required.filter { req -> req is Specification || req.kind === MarkLogic }
                 if (requiredXQuery.isEmpty()) return@forEach
 
                 if (requiredXQuery.find { version -> supports(xquery, version) } == null) {
                     val context = versioned.conformanceElement
-                    val description = XQueryPluginBundle.message("inspection.XPST0003.unsupported-construct-version.message", xquery.versionId, required.joinToString(", or "))
-                    descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                    val description = XQueryPluginBundle.message(
+                        "inspection.XPST0003.unsupported-construct-version.message",
+                        xquery.versionId,
+                        required.joinToString(", or ")
+                    )
+                    descriptors.add(
+                        manager.createProblemDescriptor(
+                            context,
+                            description,
+                            null as LocalQuickFix?,
+                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                            isOnTheFly
+                        )
+                    )
                 }
             }
         }
