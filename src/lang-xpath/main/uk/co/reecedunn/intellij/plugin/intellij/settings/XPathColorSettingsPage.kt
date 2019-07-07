@@ -32,7 +32,8 @@ class XPathColorSettingsPage : ColorSettingsPage {
 
     override fun getDemoText(): String = XPathQueries.ColorSettingsDemo
 
-    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? = XPathSyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
+    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? =
+        XPathSyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = XPathSyntaxHighlighterColors.DESCRIPTORS
 

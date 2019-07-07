@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.isLocalNameOrNCName
-import uk.co.reecedunn.intellij.plugin.xpath.model.isPrefixOrNCName
 
 object XPathVarRefFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {

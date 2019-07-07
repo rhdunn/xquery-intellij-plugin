@@ -18,11 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptySequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 
@@ -37,7 +36,7 @@ private val XQUERY10_WD_EMPTY: List<Version> = listOf(
 )
 
 class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathSequenceType, XdmSequenceType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginEmptySequenceType, XdmSequenceType, VersionConformance {
     // region XdmSequenceType
 
     override val typeName: String = "empty-sequence()"

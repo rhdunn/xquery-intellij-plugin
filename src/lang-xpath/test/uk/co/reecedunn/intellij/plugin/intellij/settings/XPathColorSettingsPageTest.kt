@@ -84,7 +84,10 @@ class XPathColorSettingsPageTest {
     fun testAdditionalHighlightingTagToDescriptorMap() {
         val settings = XPathColorSettingsPage()
         assertThat(settings.additionalHighlightingTagToDescriptorMap?.size, `is`(1))
-        assertThat(settings.additionalHighlightingTagToDescriptorMap?.get("nsprefix"), `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+        assertThat(
+            settings.additionalHighlightingTagToDescriptorMap?.get("nsprefix"),
+            `is`(XPathSyntaxHighlighterColors.NS_PREFIX)
+        )
     }
 
     @Test

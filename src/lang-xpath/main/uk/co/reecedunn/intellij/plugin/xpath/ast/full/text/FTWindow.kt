@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.full.text
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTPosFilter
-
 /**
  * An XQuery Full Text 1.0 `FTWindow` node in the XQuery AST.
  */

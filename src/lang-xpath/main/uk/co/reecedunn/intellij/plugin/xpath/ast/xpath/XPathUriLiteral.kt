@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-
 /**
  * An XQuery 1.0 <code>URILiteral</code> node in the XQuery AST.
  */
-interface XPathUriLiteral: XPathStringLiteral
+interface XPathUriLiteral : XPathStringLiteral

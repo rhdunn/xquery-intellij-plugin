@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase

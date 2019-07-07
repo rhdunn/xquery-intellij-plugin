@@ -19,6 +19,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
+@Suppress("MemberVisibilityCanBePrivate")
 internal object XPathSyntaxHighlighterKeys {
     val BAD_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XPathSyntaxHighlighterColors.BAD_CHARACTER

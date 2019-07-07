@@ -249,11 +249,11 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
                 when (cc) {
                     CharacterClass.DOT -> {
                         mTokenRange.match()
-                        if (mTokenRange.codePoint == '.'.toInt()) {
+                        mType = if (mTokenRange.codePoint == '.'.toInt()) {
                             mTokenRange.match()
-                            mType = XPathTokenType.ELLIPSIS
+                            XPathTokenType.ELLIPSIS
                         } else {
-                            mType = XPathTokenType.PARENT_SELECTOR
+                            XPathTokenType.PARENT_SELECTOR
                         }
                         return
                     }
@@ -304,12 +304,12 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = when {
-                    c == '='.toInt() -> {
+                mType = when (c) {
+                    '='.toInt() -> {
                         mTokenRange.match()
                         XPathTokenType.NOT_EQUAL
                     }
-                    c == '!'.toInt() -> {
+                    '!'.toInt() -> {
                         mTokenRange.match()
                         XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
                     }
@@ -397,16 +397,18 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             CharacterClass.PARENTHESIS_OPEN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.COMMENT_START_TAG
-                    pushState(STATE_XQUERY_COMMENT)
-                } else if (c == '#'.toInt()) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.PRAGMA_BEGIN
-                    pushState(STATE_PRAGMA_PRE_QNAME)
-                } else {
-                    mType = XPathTokenType.PARENTHESIS_OPEN
+                when (c) {
+                    ':'.toInt() -> {
+                        mTokenRange.match()
+                        mType = XPathTokenType.COMMENT_START_TAG
+                        pushState(STATE_XQUERY_COMMENT)
+                    }
+                    '#'.toInt() -> {
+                        mTokenRange.match()
+                        mType = XPathTokenType.PRAGMA_BEGIN
+                        pushState(STATE_PRAGMA_PRE_QNAME)
+                    }
+                    else -> mType = XPathTokenType.PARENTHESIS_OPEN
                 }
             }
             CharacterClass.PLUS -> {
@@ -416,14 +418,16 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == '?'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.TERNARY_IF
-                } else if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
-                } else {
-                    XPathTokenType.OPTIONAL
+                mType = when (c) {
+                    '?'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.TERNARY_IF
+                    }
+                    ':'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
+                    }
+                    else -> XPathTokenType.OPTIONAL
                 }
             }
             CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
@@ -573,11 +577,13 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
                     pushState(STATE_PRAGMA_QNAME)
                     pushState(STATE_BRACED_URI_LITERAL_PRAGMA)
                 } else {
-                    while (cc == CharacterClass.NAME_START_CHAR ||
+                    while (
+                        cc == CharacterClass.NAME_START_CHAR ||
                         cc == CharacterClass.DIGIT ||
                         cc == CharacterClass.DOT ||
                         cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR) {
+                        cc == CharacterClass.NAME_CHAR
+                    ) {
                         mTokenRange.match()
                         cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                     }
@@ -613,11 +619,13 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (cc == CharacterClass.NAME_START_CHAR ||
+                while (
+                    cc == CharacterClass.NAME_START_CHAR ||
                     cc == CharacterClass.DIGIT ||
                     cc == CharacterClass.DOT ||
                     cc == CharacterClass.HYPHEN_MINUS ||
-                    cc == CharacterClass.NAME_CHAR) {
+                    cc == CharacterClass.NAME_CHAR
+                ) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }

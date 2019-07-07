@@ -30,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import javax.swing.Icon
@@ -72,9 +71,9 @@ class XPathParamListPsiImpl(node: ASTNode) :
     override fun getLocationString(): String? = null
 
     private val cachedPresentableText = CacheableProperty {
-        val params = params.map { param ->
+        val params = params.mapNotNull { param ->
             (param as NavigatablePsiElement).presentation?.presentableText
-        }.filterNotNull().joinToString()
+        }.joinToString()
         "($params)"
     }
 

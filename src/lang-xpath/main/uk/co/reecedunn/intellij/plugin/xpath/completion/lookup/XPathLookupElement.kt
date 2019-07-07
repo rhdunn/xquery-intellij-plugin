@@ -19,7 +19,6 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.editor.completeString
 
 open class XPathLookupElement(lookupString: String) : LookupElement() {
     private val lookupStrings: MutableSet<String> = mutableSetOf(lookupString)
@@ -30,6 +29,7 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
     override fun isValid(): Boolean = psiElement?.isValid ?: true
 
     protected val presentation = LookupElementPresentation()
+
     init {
         presentation.itemText = lookupString
     }

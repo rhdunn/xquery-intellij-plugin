@@ -33,15 +33,15 @@ class QNameAnnotator : Annotator {
 
         val xmlns: Boolean
         if (qname.prefix != null) {
-            if (qname.prefix!!.data == "xmlns") {
-                xmlns = true
-            } else if (qname.prefix !is XdmWildcardValue) {
-                xmlns = false
-                val prefix = qname.prefix?.element!!
-                holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(prefix, null).textAttributes = XPathSyntaxHighlighterColors.NS_PREFIX
-            } else {
-                xmlns = false
+            when {
+                qname.prefix!!.data == "xmlns" -> xmlns = true
+                qname.prefix !is XdmWildcardValue -> {
+                    xmlns = false
+                    val prefix = qname.prefix?.element!!
+                    holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
+                    holder.createInfoAnnotation(prefix, null).textAttributes = XPathSyntaxHighlighterColors.NS_PREFIX
+                }
+                else -> xmlns = false
             }
         } else {
             xmlns = false
@@ -59,7 +59,7 @@ class QNameAnnotator : Annotator {
                 if (localName.node.elementType is IKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                     holder.createInfoAnnotation(localName, null).textAttributes =
-                            XPathSyntaxHighlighterColors.IDENTIFIER
+                        XPathSyntaxHighlighterColors.IDENTIFIER
                 }
             }
         }

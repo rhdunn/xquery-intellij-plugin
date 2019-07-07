@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.lexer
 
 import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
@@ -443,7 +442,7 @@ class FullTextLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XPath 3.0 with Full Text EBNF (36) Pragma ; XPath 3.0 with Full Text EBNF (142) BracedURILiteral")
-    fun BracedURILiteral_Pragma() {
+    fun bracedURILiteral_Pragma() {
         val lexer = createLexer()
 
         lexer.start("Q", 0, 1, 8)

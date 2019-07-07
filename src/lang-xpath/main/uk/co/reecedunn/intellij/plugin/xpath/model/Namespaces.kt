@@ -78,6 +78,7 @@ private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration 
     override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
 }
 
+@Suppress("unused")
 fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
     return sequenceOf(DefaultFunctionXPathNamespace)
 }

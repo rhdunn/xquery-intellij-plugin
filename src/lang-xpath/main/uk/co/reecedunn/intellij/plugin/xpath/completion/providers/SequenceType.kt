@@ -39,7 +39,8 @@ object XPathSequenceTypeProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val version = context[XPathCompletionProperty.XPATH_VERSION]
         when (version) {
-            XPathSpec.REC_1_0_19991116 -> {}
+            XPathSpec.REC_1_0_19991116 -> {
+            }
             XPathSpec.WD_2_0_20030502 -> result.addElement(XPATH_20_WD_2003_SEQUENCE_TYPE)
             else -> result.addElement(XPATH_20_REC_SEQUENCE_TYPE)
         }
@@ -90,7 +91,8 @@ object XPathItemTypeProvider : CompletionProviderEx {
             }
             XPathSpec.CR_3_1_20151217 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             XPathSpec.REC_3_1_20170321 -> result.addAllElements(XPATH_31_ITEM_TYPES)
-            else -> {}
+            else -> {
+            }
         }
     }
 }
@@ -183,7 +185,8 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
                     addXsdTypes(context, result, null) // Prefix already specified.
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }

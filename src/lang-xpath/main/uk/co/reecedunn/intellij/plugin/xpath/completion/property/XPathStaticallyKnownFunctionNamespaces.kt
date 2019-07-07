@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.defaultFunctionXPathNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownXPathNamespaces
 
+@Suppress("unused")
 object XPathStaticallyKnownFunctionNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES] == null) {

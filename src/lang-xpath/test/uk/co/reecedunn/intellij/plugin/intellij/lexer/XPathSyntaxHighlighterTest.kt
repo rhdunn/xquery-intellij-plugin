@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
+@Suppress("Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath SyntaxHighlighter")
 class XPathSyntaxHighlighterTest {
     @Test

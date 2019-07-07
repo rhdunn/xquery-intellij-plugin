@@ -85,8 +85,13 @@ private class XPathParserDefinitionTest : ParserTestCase() {
         val parserDefinition = XPathParserDefinition()
 
         // foreign ASTNode
-        val e = Assertions.assertThrows(AssertionError::class.java) { parserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL)) }
-        assertThat(e.message, `is`("Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create XPath PsiElement for that."))
+        val e = Assertions.assertThrows(AssertionError::class.java) {
+            parserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL))
+        }
+        assertThat(
+            e.message,
+            `is`("Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create XPath PsiElement for that.")
+        )
     }
 
     @Test

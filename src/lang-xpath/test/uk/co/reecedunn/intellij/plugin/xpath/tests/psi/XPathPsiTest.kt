@@ -98,7 +98,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("PsiNameIdentifierOwner")
             fun psiNameIdentifierOwner() {
-                val name = parse<XPathURIQualifiedName>("(: :) Q{http://www.example.com}test")[0] as PsiNameIdentifierOwner
+                val name = parse<XPathURIQualifiedName>(
+                    "(: :) Q{http://www.example.com}test"
+                )[0] as PsiNameIdentifierOwner
 
                 assertThat(name.name, `is`("test"))
                 assertThat(name.textOffset, `is`(31))
@@ -514,7 +516,10 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val nodeName = test.nodeName as XsNCNameValue
                 assertThat(nodeName.data, `is`("test"))
-                assertThat(nodeName.element, `is`(sameInstance(test.children().filterIsInstance<XPathStringLiteral>().firstOrNull())))
+                assertThat(
+                    nodeName.element,
+                    `is`(sameInstance(test.children().filterIsInstance<XPathStringLiteral>().firstOrNull()))
+                )
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("processing-instruction(test)"))
@@ -571,7 +576,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("error recovery: empty sequence")
             fun emptySequence() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( empty-sequence ( (::) ) )")[0] as XdmSequenceType
+                val type = parse<XPathParenthesizedItemType>(
+                    "() instance of ( empty-sequence ( (::) ) )"
+                )[0] as XdmSequenceType
                 assertThat(type.typeName, `is`("(empty-sequence())"))
                 assertThat(type.itemType, `is`(nullValue()))
                 assertThat(type.lowerBound, `is`(0))
@@ -942,7 +949,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple parameters")
             fun multipleParameters() {
-                val test = parse<XPathTypedFunctionTest>("() instance of function ( xs:long , array ( * ) ) as xs:double +")[0]
+                val test = parse<XPathTypedFunctionTest>(
+                    "() instance of function ( xs:long , array ( * ) ) as xs:double +"
+                )[0]
                 assertThat(test.returnType?.typeName, `is`("xs:double+"))
 
                 val paramTypes = test.paramTypes.toList()
@@ -1504,10 +1513,12 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("principal node kind")
             fun principalNodeKind() {
-                val steps = parse<XPathNodeTest>("""
+                val steps = parse<XPathNodeTest>(
+                    """
                     child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
                     following-sibling::six, following::seven, namespace::eight
-                """)
+                    """
+                )
                 assertThat(steps.size, `is`(8))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // child
                 assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // descendant
@@ -1680,7 +1691,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
+                val expr = parse<PluginQuantifiedExprBinding>(
+                    "some \$x in \$y satisfies \$z"
+                )[0] as XPathVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1691,7 +1704,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
+                val expr = parse<PluginQuantifiedExprBinding>(
+                    "some \$a:x in \$a:y satisfies \$a:z"
+                )[0] as XPathVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))

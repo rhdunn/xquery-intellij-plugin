@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -30,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefinition()) {

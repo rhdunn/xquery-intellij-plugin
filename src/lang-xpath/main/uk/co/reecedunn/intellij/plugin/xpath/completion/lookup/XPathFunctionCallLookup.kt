@@ -30,11 +30,12 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
     override fun getObject(): Any = function
     override fun getPsiElement(): PsiElement? = function.functionName?.element
 
-    override val insertText: XPathInsertText? get() {
-        val arity = function.arity
-        return if (arity.from == arity.to && arity.from == 0)
-            XPathInsertText.EMPTY_PARAMS
-        else
-            XPathInsertText.PARAMS
-    }
+    override val insertText: XPathInsertText?
+        get() {
+            val arity = function.arity
+            return if (arity.from == arity.to && arity.from == 0)
+                XPathInsertText.EMPTY_PARAMS
+            else
+                XPathInsertText.PARAMS
+        }
 }

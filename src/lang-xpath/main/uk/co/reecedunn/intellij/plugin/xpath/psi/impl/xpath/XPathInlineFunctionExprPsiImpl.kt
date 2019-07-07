@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XPathInlineFunctionExprPsiImpl(node: ASTNode):
+class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathInlineFunctionExpr,
     VersionConformance {

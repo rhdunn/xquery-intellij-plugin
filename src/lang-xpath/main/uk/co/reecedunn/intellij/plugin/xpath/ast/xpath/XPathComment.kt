@@ -24,7 +24,7 @@ import com.intellij.psi.PsiElement
  * Nested comments are not exposed as inner comments within the AST. They are
  * folded into the contents of the outermost comment. This is because the
  * comment nesting is handled within the
- * [uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer].
+ * [uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer].
  */
 interface XPathComment : PsiElement {
     val isXQDoc: Boolean
