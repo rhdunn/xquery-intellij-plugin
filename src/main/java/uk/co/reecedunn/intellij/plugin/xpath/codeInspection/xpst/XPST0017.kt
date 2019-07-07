@@ -45,7 +45,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                             ref.functionName?.localName?.element!!,
                             XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname"),
                             null as LocalQuickFix?,
-                            ProblemHighlightType.GENERIC_ERROR,
+                            ProblemHighlightType.LIKE_UNKNOWN_SYMBOL,
                             isOnTheFly
                         )
                     )

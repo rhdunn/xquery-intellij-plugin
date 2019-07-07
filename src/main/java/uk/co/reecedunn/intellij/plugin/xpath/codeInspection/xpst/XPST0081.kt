@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,14 +37,12 @@ class XPST0081 : Inspection("xpst/XPST0081.md", XPST0081::class.java.classLoader
         file.walkTree().filterIsInstance<XPathEQName>().forEach { eqname ->
             val qname = eqname as XsQNameValue
             if (qname.prefix != null && qname.prefix!!.data != "xmlns" && !eqname.expand().any()) {
-                val description = XQueryPluginBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
-                val context = qname.prefix?.element!!
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        context,
-                        description,
+                        qname.prefix?.element!!,
+                        XQueryPluginBundle.message("inspection.XPST0081.unbound-qname-prefix.message"),
                         null as LocalQuickFix?,
-                        ProblemHighlightType.GENERIC_ERROR,
+                        ProblemHighlightType.LIKE_UNKNOWN_SYMBOL,
                         isOnTheFly
                     )
                 )

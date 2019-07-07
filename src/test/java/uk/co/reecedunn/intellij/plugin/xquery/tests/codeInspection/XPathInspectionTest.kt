@@ -119,7 +119,7 @@ private class XPathInspectionTest : InspectionTestCase() {
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
-                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL))
                 assertThat(problems[0].descriptionTemplate, `is`("XPST0081: Cannot resolve namespace prefix."))
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("xdmp"))
@@ -139,7 +139,7 @@ private class XPathInspectionTest : InspectionTestCase() {
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
-                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL))
                 assertThat(problems[0].descriptionTemplate, `is`("XPST0081: Cannot resolve namespace prefix."))
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("x"))
