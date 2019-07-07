@@ -58,7 +58,7 @@ internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile): QueryErro
         value = listOf(),
         frames = listOf(
             StackFrame(
-                locator?.systemId?.let { DatabaseModule(it) } ?: queryFile,
+                locator?.systemId?.nullize()?.let { DatabaseModule(it) } ?: queryFile,
                 locator?.lineNumber ?: 1,
                 locator?.columnNumber ?: 1
             )
