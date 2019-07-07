@@ -823,6 +823,12 @@ object XPathElementType {
         XPath
     )
 
+    val UNION_TYPE: IElementType = ICompositeElementType(
+        "XPATH_UNION_TYPE",
+        PluginUnionTypeImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XQuery IntelliJ Plugin
 

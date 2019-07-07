@@ -53,7 +53,7 @@ private val NAMESPACE_TYPE = mapOf(
     XPathElementType.SIMPLE_TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.TYPE_DECL to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
-    XQueryElementType.UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
+    XPathElementType.UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.VAR_NAME to XPathNamespaceType.None
 )
 

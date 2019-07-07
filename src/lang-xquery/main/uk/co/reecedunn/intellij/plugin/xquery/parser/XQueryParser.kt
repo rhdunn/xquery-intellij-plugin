@@ -4250,7 +4250,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XQueryElementType.UNION_TYPE)
+            marker.done(XPathElementType.UNION_TYPE)
             return true
         }
         return false

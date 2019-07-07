@@ -19,7 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathPragmaPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginUnionTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -1032,12 +1032,6 @@ object XQueryElementType {
     val TYPE_DECL: IElementType = ICompositeElementType(
         "XQUERY_TYPE_DECL",
         PluginTypeDeclImpl::class.java,
-        XQuery
-    )
-
-    val UNION_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_UNION_TYPE",
-        PluginUnionTypeImpl::class.java,
         XQuery
     )
 

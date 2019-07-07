@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:57)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginUnionTypeImpl[XQUERY_UNION_TYPE(24:50)]
+               PluginUnionTypeImpl[XPATH_UNION_TYPE(24:50)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(24:29)]('union')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
