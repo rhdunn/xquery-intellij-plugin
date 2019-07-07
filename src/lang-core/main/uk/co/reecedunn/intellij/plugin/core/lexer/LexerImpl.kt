@@ -44,7 +44,9 @@ abstract class LexerImpl(private val baseState: Int, protected val mTokenRange: 
 
     protected fun nextState(): Int {
         mTokenRange.flush()
-        mState = try { mStates.peek() } catch (e: EmptyStackException) {
+        mState = try {
+            mStates.peek()
+        } catch (e: EmptyStackException) {
             STATE_DEFAULT
         }
         return mState

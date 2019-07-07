@@ -51,6 +51,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
     }
 }
 
+@Suppress("MemberVisibilityCanBePrivate")
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     val VERSION_6_1: Version = ProductVersion("6.1", this, "Update Facility, Full Text, fuzzy")
     val VERSION_7_7: Version = ProductVersion("7.7", this, "XQuery 3.0 REC")
@@ -416,14 +417,17 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 // endregion
 // region XQuery IntelliJ Plugin (Internal XQuery Extensions)
 
-object XQueryIntelliJPlugin : Implementation("xijp", "XQuery IntelliJ Plugin", "https://github.com/rhdunn/xquery-intellij-plugin") {
+object XQueryIntelliJPlugin :
+    Implementation("xijp", "XQuery IntelliJ Plugin", "https://github.com/rhdunn/xquery-intellij-plugin") {
+
     val VERSION_1_3: Version = ProductVersion("1.3", this)
     val VERSION_1_4: Version = ProductVersion("1.4", this)
 
     override val versions: List<Version> get() = listOf()
     override val products: List<Product> get() = listOf()
 
-    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = null
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? =
+        null
 }
 
 // endregion

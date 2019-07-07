@@ -307,11 +307,8 @@ class ModelTest {
                 assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.MODULE), `is`(true))
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(true)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
@@ -330,11 +327,8 @@ class ModelTest {
                 assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.MODULE), `is`(true))
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(false)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(false))
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
@@ -353,11 +347,8 @@ class ModelTest {
                 assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.MODULE), `is`(true))
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(true)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
@@ -380,11 +371,8 @@ class ModelTest {
                 // XQuery 3.1 (Higher-Order Functions)
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(false))
                 // XQuery 3.1 (Schema Aware)
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(false)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(false))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(false))
                 // XQuery 3.1 (Static Typing)
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(false))
@@ -407,11 +395,8 @@ class ModelTest {
                 // XQuery 3.1 (Higher-Order Functions)
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 // XQuery 3.1 (Schema Aware)
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(false)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(false))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(false))
                 // XQuery 3.1 (Static Typing)
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(false))
@@ -434,11 +419,8 @@ class ModelTest {
                 // XQuery 3.1 (Higher-Order Functions)
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 // XQuery 3.1 (Schema Aware)
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(true)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
                 // XQuery 3.1 (Static Typing)
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(false))
@@ -461,11 +443,8 @@ class ModelTest {
                 // XQuery 3.1 (Higher-Order Functions)
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 // XQuery 3.1 (Schema Aware)
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(false)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(false))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(false))
                 // XQuery 3.1 (Static Typing)
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(false))
@@ -488,11 +467,8 @@ class ModelTest {
                 // XQuery 3.1 (Higher-Order Functions)
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 // XQuery 3.1 (Schema Aware)
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(true)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
                 // XQuery 3.1 (Static Typing)
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(false))
@@ -515,11 +491,8 @@ class ModelTest {
                 // XQuery 3.1 (Higher-Order Functions)
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 // XQuery 3.1 (Schema Aware)
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(false)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(false))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(false))
                 // XQuery 3.1 (Static Typing)
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(false))
@@ -538,11 +511,8 @@ class ModelTest {
                 assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.MODULE), `is`(true))
-                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true)) // Schema Aware
-                assertThat(
-                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
-                    `is`(true)
-                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
@@ -667,7 +637,10 @@ class ModelTest {
                     assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20070123), `is`(false))
                     assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20101214), `is`(false))
                     assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(true))
-                    assertThat(product.conformsTo(version, XQuerySpec.CR_3_1_20151217), `is`(version.value >= 3.0 && version.value < 4.0))
+                    assertThat(
+                        product.conformsTo(version, XQuerySpec.CR_3_1_20151217),
+                        `is`(version.value >= 3.0 && version.value < 4.0)
+                    )
                     assertThat(product.conformsTo(version, XQuerySpec.REC_3_1_20170321), `is`(version.value >= 4.0))
                     assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_0_9), `is`(false))
                     assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_1_0), `is`(false))
@@ -683,10 +656,7 @@ class ModelTest {
 
                     assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20070123), `is`(false))
                     assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20101214), `is`(false))
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408),
-                        `is`(true)
-                    )
+                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408), `is`(true))
                     assertThat(
                         product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321),
                         `is`(version.value >= 4.0)
@@ -1006,7 +976,10 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery Update Facility
 
-                    assertThat(product.conformsTo(version, UpdateFacilitySpec.REC_1_0_20110317), `is`(version.value == 1.0))
+                    assertThat(
+                        product.conformsTo(version, UpdateFacilitySpec.REC_1_0_20110317),
+                        `is`(version.value == 1.0)
+                    )
                     assertThat(
                         product.conformsTo(version, UpdateFacilitySpec.NOTE_3_0_20170124),
                         `is`(version.value == 1.0)
@@ -1223,48 +1196,60 @@ class ModelTest {
             for (product in Saxon.products) {
                 for (version in Saxon.versions) {
                     flavours = product.flavoursForXQueryVersion(version, "1.0")
-                    if (product.id == "HE") {
-                        assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuerySpec))
-                    } else if (product.id == "PE") {
-                        assertThat(flavours.size, `is`(2))
-                        assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuerySpec))
-                    } else {
-                        assertThat(flavours.size, `is`(3))
-                        assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuerySpec))
-                        assertThat(flavours[2], `is`(UpdateFacilitySpec))
+                    when {
+                        product.id == "HE" -> {
+                            assertThat(flavours.size, `is`(1))
+                            assertThat(flavours[0], `is`(XQuerySpec))
+                        }
+                        product.id == "PE" -> {
+                            assertThat(flavours.size, `is`(2))
+                            assertThat(flavours[0], `is`(Saxon))
+                            assertThat(flavours[1], `is`(XQuerySpec))
+                        }
+                        else -> {
+                            assertThat(flavours.size, `is`(3))
+                            assertThat(flavours[0], `is`(Saxon))
+                            assertThat(flavours[1], `is`(XQuerySpec))
+                            assertThat(flavours[2], `is`(UpdateFacilitySpec))
+                        }
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.0")
-                    if (product.id == "HE") {
-                        assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuerySpec))
-                    } else if (product.id == "PE") {
-                        assertThat(flavours.size, `is`(2))
-                        assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuerySpec))
-                    } else {
-                        assertThat(flavours.size, `is`(3))
-                        assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuerySpec))
-                        assertThat(flavours[2], `is`(UpdateFacilitySpec))
+                    when {
+                        product.id == "HE" -> {
+                            assertThat(flavours.size, `is`(1))
+                            assertThat(flavours[0], `is`(XQuerySpec))
+                        }
+                        product.id == "PE" -> {
+                            assertThat(flavours.size, `is`(2))
+                            assertThat(flavours[0], `is`(Saxon))
+                            assertThat(flavours[1], `is`(XQuerySpec))
+                        }
+                        else -> {
+                            assertThat(flavours.size, `is`(3))
+                            assertThat(flavours[0], `is`(Saxon))
+                            assertThat(flavours[1], `is`(XQuerySpec))
+                            assertThat(flavours[2], `is`(UpdateFacilitySpec))
+                        }
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.1")
-                    if (product.id == "HE") {
-                        assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuerySpec))
-                    } else if (product.id == "PE") {
-                        assertThat(flavours.size, `is`(2))
-                        assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuerySpec))
-                    } else {
-                        assertThat(flavours.size, `is`(3))
-                        assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuerySpec))
-                        assertThat(flavours[2], `is`(UpdateFacilitySpec))
+                    when {
+                        product.id == "HE" -> {
+                            assertThat(flavours.size, `is`(1))
+                            assertThat(flavours[0], `is`(XQuerySpec))
+                        }
+                        product.id == "PE" -> {
+                            assertThat(flavours.size, `is`(2))
+                            assertThat(flavours[0], `is`(Saxon))
+                            assertThat(flavours[1], `is`(XQuerySpec))
+                        }
+                        else -> {
+                            assertThat(flavours.size, `is`(3))
+                            assertThat(flavours[0], `is`(Saxon))
+                            assertThat(flavours[1], `is`(XQuerySpec))
+                            assertThat(flavours[2], `is`(UpdateFacilitySpec))
+                        }
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
@@ -1331,27 +1316,30 @@ class ModelTest {
                     if (version.value < 7.7)
                         assertThat(XQuerySpec.versionForXQuery(product, version, "3.0"), `is`(nullValue()))
                     else
-                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.0"), `is`(XQuerySpec.REC_3_0_20140408))
-                    if (version.value < 8.2)
-                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(nullValue()))
-                    else if (version.value <= 8.5)
-                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(XQuerySpec.CR_3_1_20151217))
-                    else
-                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(XQuerySpec.REC_3_1_20170321))
+                        assertThat(
+                            XQuerySpec.versionForXQuery(product, version, "3.0"), `is`(XQuerySpec.REC_3_0_20140408)
+                        )
+                    when {
+                        version.value < 8.2 -> {
+                            assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(nullValue()))
+                        }
+                        version.value <= 8.5 -> {
+                            assertThat(
+                                XQuerySpec.versionForXQuery(product, version, "3.1"),
+                                `is`(XQuerySpec.CR_3_1_20151217)
+                            )
+                        }
+                        else -> {
+                            assertThat(
+                                XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(XQuerySpec.REC_3_1_20170321)
+                            )
+                        }
+                    }
 
-                    assertThat(
-                        XQuerySpec.versionForXQuery(product, version, "0.9-ml"),
-                        `is`(nullValue())
-                    )
-                    assertThat(
-                        XQuerySpec.versionForXQuery(product, version, "1.0-ml"),
-                        `is`(nullValue())
-                    )
+                    assertThat(XQuerySpec.versionForXQuery(product, version, "0.9-ml"), `is`(nullValue()))
+                    assertThat(XQuerySpec.versionForXQuery(product, version, "1.0-ml"), `is`(nullValue()))
 
-                    assertThat(
-                        XQuerySpec.versionForXQuery(product, version, "3"),
-                        `is`(nullValue())
-                    )
+                    assertThat(XQuerySpec.versionForXQuery(product, version, "3"), `is`(nullValue()))
                 }
             }
         }

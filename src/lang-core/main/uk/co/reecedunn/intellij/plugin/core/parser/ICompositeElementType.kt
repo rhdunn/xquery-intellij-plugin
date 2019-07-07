@@ -25,8 +25,8 @@ import org.jetbrains.annotations.NonNls
 import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
 
-class ICompositeElementType(@NonNls debugName: String, psiClass: Class<*>, language: Language):
-        IElementType(debugName, language) {
+class ICompositeElementType(@NonNls debugName: String, psiClass: Class<*>, language: Language) :
+    IElementType(debugName, language) {
 
     private var mPsiConstructor: Constructor<*>? = null
 
@@ -47,9 +47,9 @@ class ICompositeElementType(@NonNls debugName: String, psiClass: Class<*>, langu
             if (cause is ProcessCanceledException) {
                 throw cause
             }
-            throw AssertionError("Cannot create XQuery PsiElement for " + this, cause)
+            throw AssertionError("Cannot create XQuery PsiElement for $this", cause)
         } catch (e: Exception) {
-            throw AssertionError("Cannot create XQuery PsiElement for " + this, e)
+            throw AssertionError("Cannot create XQuery PsiElement for $this", e)
         }
     }
 }

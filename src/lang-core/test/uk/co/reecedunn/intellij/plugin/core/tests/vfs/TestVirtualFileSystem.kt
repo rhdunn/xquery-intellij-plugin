@@ -53,7 +53,12 @@ object TestVirtualFileSystem : VirtualFileSystem() {
     override fun createChildDirectory(requestor: Any, vDir: VirtualFile, dirName: String): VirtualFile = TODO()
 
     @Throws(IOException::class)
-    override fun copyFile(requestor: Any, virtualFile: VirtualFile, newParent: VirtualFile, copyName: String): VirtualFile = TODO()
+    override fun copyFile(
+        requestor: Any,
+        virtualFile: VirtualFile,
+        newParent: VirtualFile,
+        copyName: String
+    ): VirtualFile = TODO()
 
     override fun isReadOnly(): Boolean = true
 }

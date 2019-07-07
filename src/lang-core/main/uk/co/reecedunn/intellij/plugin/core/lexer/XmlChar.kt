@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
+import kotlin.math.floor
+
 /**
  * Represents an XML [Char](https://www.w3.org/TR/REC-xml/#NT-Char).
  */
@@ -25,7 +27,7 @@ data class XmlChar(val codepoint: Int) {
         // 2. Basic Multilingual Plane Codepoint
         if (codepoint <= 0xFFFF) return codepoint.toChar().toString()
         // 3. Other Codepoint => Surrogate Pair
-        val hi = 0xD800 + Math.floor((codepoint - 0x10000).toDouble() / 0x400)
+        val hi = 0xD800 + floor((codepoint - 0x10000).toDouble() / 0x400)
         val lo = 0xDC00 + (codepoint - 0x10000) % 0x400
         return charArrayOf(hi.toChar(), lo.toChar()).toString()
     }
@@ -56,9 +58,10 @@ data class XmlChar(val codepoint: Int) {
      *   -  U+0085 NEL (NEXT LINE)
      */
     @Suppress("unused")
-    val isUnsupportedControlCharacter get(): Boolean {
-        return (codepoint in 0x00..0x1F || codepoint in 0x7F..0x9F) && codepoint !in VALID_CONTROL_CHARACTERS
-    }
+    val isUnsupportedControlCharacter
+        get(): Boolean {
+            return (codepoint in 0x00..0x1F || codepoint in 0x7F..0x9F) && codepoint !in VALID_CONTROL_CHARACTERS
+        }
 
     /**
      * Is the codepoint a UTF-16 surrogate?
@@ -86,9 +89,10 @@ data class XmlChar(val codepoint: Int) {
      * invalid.
      */
     @Suppress("unused")
-    val isPermanentlyUnassigned get(): Boolean {
-        return (codepoint and 0x00FFFF) in 0xFFFE..0xFFFF || codepoint in 0xFDD0..0xFDEF
-    }
+    val isPermanentlyUnassigned
+        get(): Boolean {
+            return (codepoint and 0x00FFFF) in 0xFFFE..0xFFFF || codepoint in 0xFDD0..0xFDEF
+        }
 
     companion object {
         const val REPLACEMENT_CODEPOINT = "\uFFFD"

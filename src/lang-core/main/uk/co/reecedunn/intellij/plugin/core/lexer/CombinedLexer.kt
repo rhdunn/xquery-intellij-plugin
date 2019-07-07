@@ -28,10 +28,12 @@ class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
     private var mActiveLexer: Lexer? = null
     private var mState: Int = 0
 
-    internal inner class State(val lexer: Lexer,
-                               val state: Int,
-                               val parentState: Int,
-                               val childState: Int)
+    internal inner class State(
+        val lexer: Lexer,
+        val state: Int,
+        val parentState: Int,
+        val childState: Int
+    )
 
     fun addState(lexer: Lexer, stateId: Int, parentStateId: Int, transition: IElementType) {
         addState(lexer, stateId, parentStateId, 0, transition)
@@ -52,13 +54,23 @@ class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
         if (state != null) {
             mActiveLexer = state.lexer
             mLanguage.start(buffer, startOffset, endOffset, state.parentState)
-            mActiveLexer!!.start(mLanguage.bufferSequence, mLanguage.tokenStart, mLanguage.tokenEnd, initialState and mStateMask.inv())
+            mActiveLexer!!.start(
+                mLanguage.bufferSequence,
+                mLanguage.tokenStart,
+                mLanguage.tokenEnd,
+                initialState and mStateMask.inv()
+            )
         } else {
             mLanguage.start(buffer, startOffset, endOffset, initialState and mStateMask.inv())
             state = mTransitions[mLanguage.tokenType]
             if (state != null) {
                 mActiveLexer = state.lexer
-                mActiveLexer!!.start(mLanguage.bufferSequence, mLanguage.tokenStart, mLanguage.tokenEnd, state.childState)
+                mActiveLexer!!.start(
+                    mLanguage.bufferSequence,
+                    mLanguage.tokenStart,
+                    mLanguage.tokenEnd,
+                    state.childState
+                )
                 mState = state.state
             } else {
                 mActiveLexer = mLanguage
@@ -74,7 +86,12 @@ class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
                 val state = mTransitions[mLanguage.tokenType]
                 if (state != null) {
                     mActiveLexer = state.lexer
-                    mActiveLexer!!.start(mLanguage.bufferSequence, mLanguage.tokenStart, mLanguage.tokenEnd, state.childState)
+                    mActiveLexer!!.start(
+                        mLanguage.bufferSequence,
+                        mLanguage.tokenStart,
+                        mLanguage.tokenEnd,
+                        state.childState
+                    )
                     mState = state.state
                 } else {
                     mActiveLexer = mLanguage
@@ -86,7 +103,12 @@ class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
             val state = mTransitions[mLanguage.tokenType]
             if (state != null) {
                 mActiveLexer = state.lexer
-                mActiveLexer!!.start(mLanguage.bufferSequence, mLanguage.tokenStart, mLanguage.tokenEnd, state.childState)
+                mActiveLexer!!.start(
+                    mLanguage.bufferSequence,
+                    mLanguage.tokenStart,
+                    mLanguage.tokenEnd,
+                    state.childState
+                )
                 mState = state.state
             }
         }

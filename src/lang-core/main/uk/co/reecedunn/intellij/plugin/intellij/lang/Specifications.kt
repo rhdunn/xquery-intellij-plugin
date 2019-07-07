@@ -216,6 +216,7 @@ object FunctionsAndOperatorsSpec : Versioned {
     )
 }
 
+@Suppress("MemberVisibilityCanBePrivate")
 object FormalSemanticsSpec : Versioned {
     val REC_1_0_20070123 = Specification(
         "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/", this

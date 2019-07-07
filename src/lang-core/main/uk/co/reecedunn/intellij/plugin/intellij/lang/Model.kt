@@ -77,18 +77,12 @@ class DraftSpecification(
     versionId: String,
     href: String,
     kind: Versioned,
-    val status: String,
+    private val status: String,
     features: String? = null
 ) :
     Specification(id, value, date, versionId, href, kind, features) {
 
     override fun toString(): String = "${super.toString()} ($status)"
-}
-
-private object NullVersioned : Versioned {
-    override val id: String = "null"
-    override val name: String = "null"
-    override val versions: List<Version> = listOf()
 }
 
 enum class XQueryFeature {
@@ -208,8 +202,8 @@ class VersionedProductId {
                     val versionId = parts[1].substring(1)
                     product = vendor!!.products[0]
                     version =
-                            vendor!!.versions.find { v -> v.id == versionId } ?:
-                            vendor!!.versions.find { v -> v.id == "$versionId.0" } // MarkLogic compatibility IDs (e.g. `v9`).
+                        vendor!!.versions.find { v -> v.id == versionId }
+                            ?: vendor!!.versions.find { v -> v.id == "$versionId.0" } // MarkLogic compatibility IDs (e.g. `v9`).
                 } else {
                     product = vendor!!.products.find { p -> p.id == parts[1] }
                 }
