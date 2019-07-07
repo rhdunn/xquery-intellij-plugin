@@ -15,9 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
+import javax.xml.transform.ErrorListener
 import javax.xml.transform.Source
 
 class XsltCompiler(private val `object`: Any, private val `class`: Class<*>) {
+    fun setErrorListener(listener: ErrorListener) {
+        `class`.getMethod("setErrorListener", ErrorListener::class.java).invoke(`object`, listener)
+    }
+
     fun compile(query: Source): XsltExecutable {
         val executable = `class`.getMethod("compile", Source::class.java).invoke(`object`, query)
         return XsltExecutable(executable, `class`.classLoader.loadClass("net.sf.saxon.s9api.XsltExecutable"))

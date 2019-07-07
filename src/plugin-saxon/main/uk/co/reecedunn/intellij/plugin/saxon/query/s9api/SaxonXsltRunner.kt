@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.RawDestination
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import javax.xml.transform.ErrorListener
 import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
 
@@ -40,7 +41,13 @@ internal class SaxonXsltRunner(
     val query: String,
     val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
-    private val compiler by lazy { processor.newXsltCompiler() }
+    private val errorListener: ErrorListener = SaxonErrorListener(queryFile, processor.classLoader)
+
+    private val compiler by lazy {
+        val ret = processor.newXsltCompiler()
+        ret.setErrorListener(errorListener)
+        ret
+    }
 
     private val executable by lazy { compiler.compile(query.toStreamSource()) }
 
