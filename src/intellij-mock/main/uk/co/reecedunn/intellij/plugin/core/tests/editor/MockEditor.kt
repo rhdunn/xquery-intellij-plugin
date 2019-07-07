@@ -113,6 +113,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun isOneLineMode(): Boolean = TODO()
 
+    @Suppress("UnstableApiUsage")
     override fun getInlayModel(): InlayModel = TODO()
 
     override fun setHeaderComponent(header: JComponent?) = TODO()

@@ -61,6 +61,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @Suppress("UnstableApiUsage")
     override fun getUnloadedModuleDescriptions(): MutableCollection<UnloadedModuleDescription> {
         TODO("not implemented")
     }
@@ -73,6 +74,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @Suppress("UnstableApiUsage")
     override fun getAllModuleDescriptions(): MutableCollection<ModuleDescription> {
         TODO("not implemented")
     }
@@ -89,6 +91,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @Suppress("UnstableApiUsage")
     override fun getUnloadedModuleDescription(moduleName: String): UnloadedModuleDescription? {
         TODO("not implemented")
     }

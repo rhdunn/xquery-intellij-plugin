@@ -22,8 +22,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.SmartPsiElementPointer
 
-class MockSmartPsiElementPointer<E : PsiElement>(private val mElement: E, private val mContainingFile: PsiFile):
-        SmartPsiElementPointer<E> {
+class MockSmartPsiElementPointer<E : PsiElement>(private val mElement: E, private val mContainingFile: PsiFile) :
+    SmartPsiElementPointer<E> {
 
     override fun getElement(): E? = mElement
 

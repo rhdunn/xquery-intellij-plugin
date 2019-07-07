@@ -30,6 +30,7 @@ class MockModuleRootsManager(private val module: Module) : uk.co.reecedunn.compa
         TODO("not implemented")
     }
 
+    @Suppress("UnstableApiUsage")
     override fun getExternalSource(): ProjectModelExternalSource? {
         TODO("not implemented")
     }

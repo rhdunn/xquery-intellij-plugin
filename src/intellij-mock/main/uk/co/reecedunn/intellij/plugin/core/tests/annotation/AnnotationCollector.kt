@@ -79,7 +79,12 @@ class AnnotationCollector : AnnotationHolder {
         return createAnnotation(severity, range, message, null)
     }
 
-    override fun createAnnotation(severity: HighlightSeverity, range: TextRange, message: String?, htmlTooltip: String?): Annotation {
+    override fun createAnnotation(
+        severity: HighlightSeverity,
+        range: TextRange,
+        message: String?,
+        htmlTooltip: String?
+    ): Annotation {
         val annotation = Annotation(range.startOffset, range.endOffset, severity, message, htmlTooltip)
         annotations.add(annotation)
         return annotation

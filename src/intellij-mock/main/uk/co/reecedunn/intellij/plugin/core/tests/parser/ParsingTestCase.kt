@@ -49,7 +49,6 @@ import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
-import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
@@ -111,19 +110,19 @@ abstract class ParsingTestCase<File : PsiFile>(
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
         val appContainer = PlatformLiteFixture.getApplication().picoContainer
-        PlatformLiteFixture.registerComponentInstance(
+        registerComponentInstance(
             appContainer, MessageBus::class.java, PlatformLiteFixture.getApplication().messageBus
         )
         val editorFactory = MockEditorFactoryEx()
-        PlatformLiteFixture.registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
+        registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
         registerApplicationService(CommandProcessor::class.java, CoreCommandProcessor())
-        PlatformLiteFixture.registerComponentInstance(
+        registerComponentInstance(
             appContainer, FileDocumentManager::class.java,
             MockFileDocumentManagerImpl(
                 { editorFactory.createDocument(it) }, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY
             )
         )
-        PlatformLiteFixture.registerComponentInstance(
+        registerComponentInstance(
             appContainer, PsiDocumentManager::class.java, MockPsiDocumentManagerEx()
         )
 
@@ -149,7 +148,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         }
 
         if (language != null) {
-            PlatformLiteFixture.registerComponentInstance(
+            registerComponentInstance(
                 PlatformLiteFixture.getApplication().picoContainer,
                 FileTypeManager::class.java,
                 MockFileTypeManager(MockLanguageFileType(language!!, mFileExt))
@@ -232,6 +231,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         return PsiDocumentManager.getInstance(myProject).getDocument(file)!!
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun getEditor(file: PsiFile): Editor {
         return EditorFactory.getInstance().createEditor(getDocument(file))
     }
@@ -240,6 +240,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun handleInsert(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
         val file = parseText(text)
         val editor = getEditor(file)

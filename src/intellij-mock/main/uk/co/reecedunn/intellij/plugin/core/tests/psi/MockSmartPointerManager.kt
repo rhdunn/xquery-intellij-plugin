@@ -23,11 +23,17 @@ class MockSmartPointerManager : SmartPointerManager() {
 
     override fun <E : PsiElement> createSmartPsiElementPointer(element: E): SmartPsiElementPointer<E> = TODO()
 
-    override fun <E : PsiElement> createSmartPsiElementPointer(element: E, containingFile: PsiFile): SmartPsiElementPointer<E> {
+    override fun <E : PsiElement> createSmartPsiElementPointer(
+        element: E,
+        containingFile: PsiFile
+    ): SmartPsiElementPointer<E> {
         return MockSmartPsiElementPointer(element, containingFile)
     }
 
-    override fun pointToTheSameElement(pointer1: SmartPsiElementPointer<*>, pointer2: SmartPsiElementPointer<*>): Boolean {
+    override fun pointToTheSameElement(
+        pointer1: SmartPsiElementPointer<*>,
+        pointer2: SmartPsiElementPointer<*>
+    ): Boolean {
         return false
     }
 
