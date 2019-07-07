@@ -40,13 +40,10 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                 val declarations = (qname as? XPathEQName)?.staticallyKnownFunctions()?.toList() ?: return@forEach
                 if (declarations.isEmpty()) {
                     // 1. The expanded QName does not match the name of a function signature in the static context.
-                    val description =
-                        XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
-                    val decl = ref.functionName?.element!!
                     descriptors.add(
                         manager.createProblemDescriptor(
-                            decl,
-                            description,
+                            ref.functionName?.localName?.element!!,
+                            XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname"),
                             null as LocalQuickFix?,
                             ProblemHighlightType.GENERIC_ERROR,
                             isOnTheFly
@@ -56,13 +53,10 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                     // 2. The number of arguments does not match the arity of a function signature in the static context.
                     val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
                     if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
-                        val description =
-                            XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
-                        val decl = ref.functionName?.element!!
                         descriptors.add(
                             manager.createProblemDescriptor(
-                                decl,
-                                description,
+                                ref.functionName?.localName?.element!!,
+                                XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-arity"),
                                 null as LocalQuickFix?,
                                 ProblemHighlightType.GENERIC_ERROR,
                                 isOnTheFly
