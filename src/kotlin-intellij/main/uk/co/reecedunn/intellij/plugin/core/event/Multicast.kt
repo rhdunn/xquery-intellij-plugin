@@ -25,6 +25,7 @@ import java.lang.reflect.Proxy
 import java.util.*
 
 class Multicaster<T : EventListener>(listenerClass: Class<T>) {
+    @Suppress("PrivatePropertyName")
     private val LOG = Logger.getInstance("#uk.co.reecedunn.intellij.plugin.core.event.Multicast")
     private val listeners = ContainerUtil.createLockFreeCopyOnWriteList<T>()
 

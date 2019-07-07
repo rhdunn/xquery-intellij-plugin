@@ -37,7 +37,7 @@ class MimeResponse(headers: Array<Header>, body: String, private val defaultEnco
         if (contentType != null) {
             body.split(("\r\n--" + contentType.split("boundary=".toRegex())[1]).toRegex())
                 .asSequence()
-                .filter { !it.isEmpty() && it != "--\r\n" }
+                .filter { it.isNotEmpty() && it != "--\r\n" }
                 .map { it.split("\r\n\r\n".toRegex(), 2) }
                 .mapTo(messages) { Message(parseHeaders(it[0]), it[1].decode(defaultEncoding)) }
         } else {

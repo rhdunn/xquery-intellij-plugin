@@ -15,5 +15,5 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.http
 
-class HttpStatusException(val statusCode: Int, val statusText: String) :
+class HttpStatusException(statusCode: Int, statusText: String) :
     RuntimeException("$statusCode $statusText")

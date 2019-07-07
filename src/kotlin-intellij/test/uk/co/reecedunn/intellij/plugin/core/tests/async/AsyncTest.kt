@@ -69,7 +69,7 @@ private fun waitForCallback(maxTimeout: Long, sleep: Long, check: () -> Boolean)
         timeout += sleep
     }
     if (!check()) {
-        System.out.println("Callback not succeeded after ${maxTimeout} ms.")
+        println("Callback not succeeded after $maxTimeout ms.")
     }
 }
 

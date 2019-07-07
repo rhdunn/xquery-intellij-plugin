@@ -38,10 +38,12 @@ operator fun <T> ExecutableOnPooledThread<T>.getValue(ref: Any?, property: KProp
     return this
 }
 
+@Suppress("FunctionName")
 fun <T> pooled_thread(f: () -> T): ExecutableOnPooledThread<T> {
     return ExecuteOnPooledThread(f)
 }
 
+@Suppress("FunctionName")
 fun <T> local_thread(f: () -> T): ExecutableOnPooledThread<T> {
     return ExecuteOnLocalThread(f)
 }

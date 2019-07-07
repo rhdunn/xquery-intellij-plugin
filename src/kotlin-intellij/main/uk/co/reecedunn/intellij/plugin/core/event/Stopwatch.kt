@@ -20,11 +20,9 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 
 abstract class Stopwatch {
-    var startTime: Long = 0
-        private set
+    private var startTime: Long = 0
 
-    var endTime: Long = 0
-        private set
+    private var endTime: Long = 0
 
     val elapsedTime: Long get() = endTime - startTime
 

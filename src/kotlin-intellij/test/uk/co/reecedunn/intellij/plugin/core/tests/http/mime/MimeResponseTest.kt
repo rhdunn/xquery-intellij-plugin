@@ -74,14 +74,16 @@ class MimeResponseTest {
             BasicHeader("Content-Length", "98"),
             BasicHeader("Content-Type", "multipart/mixed; boundary=212ab95a34643c9d")
         )
-        val body =
-            "\r\n" +
-            "--212ab95a34643c9d\r\n" +
-            "Content-Type: text/plain\r\n" +
-            "X-Primitive: integer\r\n" +
-            "\r\n" +
-            "15\r\n" +
-            "--212ab95a34643c9d--\r\n"
+        val body = listOf(
+            "",
+            "--212ab95a34643c9d",
+            "Content-Type: text/plain",
+            "X-Primitive: integer",
+            "",
+            "15",
+            "--212ab95a34643c9d--",
+            ""
+        ).joinToString("\r\n")
         val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
@@ -104,14 +106,16 @@ class MimeResponseTest {
             BasicHeader("Content-Length", "98"),
             BasicHeader("Content-Type", "multipart/mixed; boundary=212ab95a34643c9d")
         )
-        val body =
-            "\r\n" +
-            "--212ab95a34643c9d\r\n" +
-            "Content-Type: text/plain\r\n" +
-            "X-Primitive: integer\r\n" +
-            "\r\n" +
-            "15\r\n" +
-            "--212ab95a34643c9d--\r\n"
+        val body = listOf(
+            "",
+            "--212ab95a34643c9d",
+            "Content-Type: text/plain",
+            "X-Primitive: integer",
+            "",
+            "15",
+            "--212ab95a34643c9d--",
+            ""
+        ).joinToString("\r\n")
         val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
@@ -131,20 +135,22 @@ class MimeResponseTest {
             BasicHeader("Content-Length", "205"),
             BasicHeader("Content-Type", "multipart/mixed; boundary=47c813e0bbfa09d4")
         )
-        val body =
-            "\r\n" +
-            "--47c813e0bbfa09d4\r\n" +
-            "Content-Type: text/plain\r\n" +
-            "X-Primitive: integer\r\n" +
-            "\r\n" +
-            "1\r\n" +
-            "--47c813e0bbfa09d4\r\n" +
-            "Content-Type: application/json\r\n" +
-            "X-Primitive: number-node()\r\n" +
-            "X-Path: number-node()\r\n" +
-            "\r\n" +
-            "5\r\n" +
-            "--47c813e0bbfa09d4--\r\n"
+        val body = listOf(
+            "",
+            "--47c813e0bbfa09d4",
+            "Content-Type: text/plain",
+            "X-Primitive: integer",
+            "",
+            "1",
+            "--47c813e0bbfa09d4",
+            "Content-Type: application/json",
+            "X-Primitive: number-node()",
+            "X-Path: number-node()",
+            "",
+            "5",
+            "--47c813e0bbfa09d4--",
+            ""
+        ).joinToString("\r\n")
         val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(2))
@@ -165,30 +171,38 @@ class MimeResponseTest {
     @Test
     @DisplayName("multipart with blank line in part body")
     fun multipartWithBlankLineInPartBody() {
-        val body =
-            "\r\n" +
-            "--31c406fa29f12029\r\n" +
-            "Content-Type: text/plain\r\n" +
-            "X-Primitive: string\r\n" +
-            "\r\n" +
-            "@prefix p0: <http://example.co.uk/test> .\r\n" +
-            "@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\r\n" +
-            "\r\n" +
-            "p0:case a skos:Concept .\r\n" +
-            "\r\n" +
-            "--31c406fa29f12029--\r\n"
-        val headers = arrayOf<Header>(BasicHeader("Content-Length", Integer.toString(body.length)), BasicHeader("Content-Type", "multipart/mixed; boundary=31c406fa29f12029"), BasicHeader("X-Content-Type", "text/turtle"))
+        val body = listOf(
+            "",
+            "--31c406fa29f12029",
+            "Content-Type: text/plain",
+            "X-Primitive: string",
+            "",
+            "@prefix p0: <http://example.co.uk/test> .",
+            "@prefix skos: <http://www.w3.org/2004/02/skos/core#> .",
+            "",
+            "p0:case a skos:Concept .",
+            "",
+            "--31c406fa29f12029--",
+            ""
+        ).joinToString("\r\n")
+        val headers = arrayOf<Header>(
+            BasicHeader("Content-Length", body.length.toString()),
+            BasicHeader("Content-Type", "multipart/mixed; boundary=31c406fa29f12029"),
+            BasicHeader("X-Content-Type", "text/turtle")
+        )
         val response = MimeResponse(headers, body, Charsets.ISO_8859_1)
 
         assertThat(response.parts.size, `is`(1))
         assertThat(response.getHeader("Content-Length"), `is`("222"))
         assertThat(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=31c406fa29f12029"))
 
-        val part1 =
-            "@prefix p0: <http://example.co.uk/test> .\r\n" +
-            "@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\r\n" +
-            "\r\n" +
-            "p0:case a skos:Concept .\r\n"
+        val part1 = listOf(
+            "@prefix p0: <http://example.co.uk/test> .",
+            "@prefix skos: <http://www.w3.org/2004/02/skos/core#> .",
+            "",
+            "p0:case a skos:Concept .",
+            ""
+        ).joinToString("\r\n")
         assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
         assertThat(response.parts[0].getHeader("X-Primitive"), `is`("string"))
         assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))

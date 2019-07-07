@@ -25,6 +25,7 @@ object Units {
         return nf
     }
 
+    @Suppress("unused")
     object Precision {
         val milli = numberFormat(0, 3)
         val micro = numberFormat(3, 6)

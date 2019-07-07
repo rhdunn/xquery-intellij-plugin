@@ -40,6 +40,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.border.Border
+import kotlin.math.min
 
 open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     companion object {
@@ -49,10 +50,9 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
     var editor: EditorEx? = null
         private set
 
-    var hyperlinks: EditorHyperlinkSupport? = null
-        private set
+    private var hyperlinks: EditorHyperlinkSupport? = null
 
-    var emulateCarriageReturn: Boolean = false
+    private var emulateCarriageReturn: Boolean = false
         set(value) {
             field = value
             (editor?.document as? DocumentImpl)?.setAcceptSlashR(value)
@@ -73,7 +73,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
-            val moveOffset = Math.min(offset, contentSize)
+            val moveOffset = min(offset, contentSize)
             val scrolling = editor!!.scrollingModel
             val caret = editor!!.caretModel
 
@@ -150,7 +150,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun scrollTo(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
-            val moveOffset = Math.min(offset, contentSize)
+            val moveOffset = min(offset, contentSize)
             editor!!.caretModel.moveToOffset(moveOffset)
             editor!!.scrollingModel.scrollToCaret(ScrollType.MAKE_VISIBLE)
         }
@@ -160,7 +160,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         hyperlinks = null
         if (editor != null) {
             UIUtil.invokeAndWaitIfNeeded(Runnable {
-                if (!editor!!.isDisposed()) {
+                if (!editor!!.isDisposed) {
                     EditorFactory.getInstance().releaseEditor(editor!!)
                 }
             })

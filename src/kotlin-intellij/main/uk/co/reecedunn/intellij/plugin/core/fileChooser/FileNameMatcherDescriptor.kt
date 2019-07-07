@@ -20,7 +20,7 @@ import com.intellij.openapi.fileChooser.FileElement
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.vfs.VirtualFile
 
-class FileNameMatcherDescriptor(val associations: List<FileNameMatcher>) :
+class FileNameMatcherDescriptor(private val associations: List<FileNameMatcher>) :
     FileChooserDescriptor(true, false, false, true, false, false) {
 
     override fun isFileVisible(file: VirtualFile?, showHiddenFiles: Boolean): Boolean {
