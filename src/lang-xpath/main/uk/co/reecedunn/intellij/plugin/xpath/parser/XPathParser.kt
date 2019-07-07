@@ -3060,7 +3060,7 @@ open class XPathParser : PsiParser {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEQNameOrWildcard(builder, QNAME, false)) {
-                builder.error(XPathBundle.message("parser.error.expected", "QName"))
+                builder.error(XPathBundle.message("parser.error.expected", "EQName"))
                 haveError = true
             }
 
@@ -3068,7 +3068,7 @@ open class XPathParser : PsiParser {
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseEQNameOrWildcard(builder, QNAME, false) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "QName"))
+                    builder.error(XPathBundle.message("parser.error.expected", "EQName"))
                     haveError = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
