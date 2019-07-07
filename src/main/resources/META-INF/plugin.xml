@@ -60,6 +60,7 @@
         Disable Saxon EE optimizations to prevent the processor throwing a <code>NoClassDefFoundError</code>
         looking for <code>com/saxonica/ee/bytecode/GeneratedCode</code>.
       </li>
+      <li>Support <code>union(...)</code> types in XPath expressions.</li>
     </ol>
     <p>BaseX:</p>
     <ol>

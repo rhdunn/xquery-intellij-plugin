@@ -4218,44 +4218,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseUnionType(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_UNION)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
-                builder.error(XPathBundle.message("parser.error.expected", "QName"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "QName"))
-                    haveError = true
-                }
-                parseWhiteSpaceAndCommentTokens(builder)
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.UNION_TYPE)
-            return true
-        }
-        return false
-    }
-
     override fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
@@ -4278,62 +4240,6 @@ class XQueryParser : XPathParser() {
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         }
-    }
-
-    override fun parseMapTest(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            val type: IElementType
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.STAR)) {
-                type = XPathElementType.ANY_MAP_TEST
-            } else if (parseUnionType(builder) || parseAtomicOrUnionType(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.COMMA)) {
-                    builder.error(XPathBundle.message("parser.error.expected", ","))
-                    haveError = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                    haveError = true
-                }
-
-                type = XPathElementType.TYPED_MAP_TEST
-            } else if (builder.tokenType === XPathTokenType.COMMA) {
-                builder.error(XQueryBundle.message("parser.error.expected-either", "UnionType", "AtomicOrUnionType"))
-                haveError = true
-
-                builder.matchTokenType(XPathTokenType.COMMA)
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseSequenceType(builder)
-
-                type = XPathElementType.TYPED_MAP_TEST
-            } else {
-                builder.error(XPathBundle.message("parser.error.expected-eqname-or-token", "*"))
-                type = XPathElementType.ANY_MAP_TEST
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(type)
-            return true
-        }
-        return false
     }
 
     // endregion

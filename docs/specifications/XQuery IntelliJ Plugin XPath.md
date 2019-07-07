@@ -18,6 +18,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
 - [2 Basics](#2-basics)
   - [2.1 Types](#21-types)
     - [2.1.1 SequenceType Syntax](#211-sequencetype-syntax)
+    - [2.1.2 SequenceType Matching](#212-sequencetype-matching)
+      - [2.1.2.1 Union Type](#2121-union-type)
 - [3 Expressions](#3-expressions)
   - [3.1 Quantified Expressions](#31-quantified-expressions)
   - [3.2 Path Expressions](#32-path-expressions)
@@ -33,6 +35,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [B.3 EXPath References](#b3-expath-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 IntelliJ Plugin Extensions](#c1-intellij-plugin-extensions)
+  - [C.2 Saxon Vendor Extensions](#c2-saxon-vendor-extensions)
 
 ## 1 Introduction
 This document defines the syntax and semantics for vendor and plugin specific
@@ -73,16 +76,45 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicType` |     |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[13\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
+| \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
 
 Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
 pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
 to differentiate the parameter types from the return type.
+
+#### 2.1.2 SequenceType Matching
+
+##### 2.1.2.1 Union Type
+
+{: .ebnf-symbols }
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+
+The `UnionType` is a new sequence type supported by Saxon 9.8. It is
+proposal 6 of the EXPath syntax extensions for XPath and XQuery.
+
+A `UnionType` defines a union type whose members are the `EQName` types listed
+in the type definition. These types are restricted to being atomic types (that
+is, they cannot be list, union, or other complex types).
+
+If a member type has a namespace prefix, the namespace prefix is resolved to a
+namespace URI using the
+[statically known namespaces](https://www.w3.org/TR/xquery-31/#dt-static-namespaces)<sup><em>XQ31</em></sup>.
+If the member type has no namespace prefix, it is implicitly qualified by the
+[default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
+
+> __Example:__
+>
+> `xs:numeric` can be specified in its expanded form as:
+>
+>     1 instance of union(xs:float, xs:double, xs:decimal)
 
 ## 3 Expressions
 
@@ -185,7 +217,8 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding` | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`     | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicType` |                  |
+| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicOrUnionType` |                  |
+| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemType`           | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`               | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`          | ::= | `"return" ExprSingle`               |                      |
@@ -196,6 +229,7 @@ These changes include support for:
 | \[13\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |                      |
 | \[15\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
+| \[16\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 
 ### A.2 Reserved Function Names
 
@@ -258,6 +292,9 @@ __XPath NG__
 *  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
    [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
    Michael Kay, Saxonica.
+*  EXPath. *Anonymous Union Types*. Proposal 6, version 1. See
+   [https://github.com/expath/xpath-ng/blob/9ff8fbf3bbc1f2f24b81671881154f35cb01bf28/union-types.md]().
+   Michael Kay, Saxonica.
 
 ## C Vendor Extensions
 
@@ -270,3 +307,7 @@ behaviour of those constructs:
 1.  [Any Item Type](#21211-item-type) \[1.3\]
 1.  [For Expressions](#33-for-expressions) \[1.4\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
+
+### C.2 Saxon Vendor Extensions
+Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
+1.  [Union Type](#2121-union-type) \[Saxon 9.8\]

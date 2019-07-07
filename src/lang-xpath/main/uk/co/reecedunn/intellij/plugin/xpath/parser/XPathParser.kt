@@ -2843,6 +2843,7 @@ open class XPathParser : PsiParser {
             parseAnnotatedFunction(builder) ||
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
+            parseUnionType(builder) ||
             parseAtomicOrUnionType(builder) ||
             parseParenthesizedItemType(builder)
         )
@@ -2953,7 +2954,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseMapTest(builder: PsiBuilder): Boolean {
+    fun parseMapTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
         if (marker != null) {
             var haveError = false
@@ -2968,7 +2969,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_MAP_TEST
-                parseAtomicOrUnionType(builder) -> {
+                parseUnionType(builder) || parseAtomicOrUnionType(builder) -> {
                     parseWhiteSpaceAndCommentTokens(builder)
                     if (!builder.matchTokenType(XPathTokenType.COMMA)) {
                         builder.error(XPathBundle.message("parser.error.expected", ","))
@@ -2984,7 +2985,7 @@ open class XPathParser : PsiParser {
                     type = XPathElementType.TYPED_MAP_TEST
                 }
                 builder.tokenType === XPathTokenType.COMMA -> {
-                    builder.error(XPathBundle.message("parser.error.expected", "AtomicOrUnionType"))
+                    builder.error(XPathBundle.message("parser.error.expected-either", "UnionType", "AtomicOrUnionType"))
                     haveError = true
 
                     builder.matchTokenType(XPathTokenType.COMMA)
@@ -3041,6 +3042,44 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(type)
+            return true
+        }
+        return false
+    }
+
+    fun parseUnionType(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_UNION)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, QNAME, false)) {
+                builder.error(XPathBundle.message("parser.error.expected", "QName"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseEQNameOrWildcard(builder, QNAME, false) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "QName"))
+                    haveError = true
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.UNION_TYPE)
             return true
         }
         return false
