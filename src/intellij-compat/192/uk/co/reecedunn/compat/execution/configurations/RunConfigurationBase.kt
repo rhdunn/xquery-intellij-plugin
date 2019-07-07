@@ -17,9 +17,7 @@ package uk.co.reecedunn.compat.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
-import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.openapi.project.Project
-import com.intellij.serialization.MutableAccessor
 import com.intellij.util.xmlb.*
 import org.jdom.Element
 import java.lang.reflect.Type

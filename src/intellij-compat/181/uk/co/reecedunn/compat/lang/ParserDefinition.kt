@@ -18,13 +18,13 @@ package uk.co.reecedunn.compat.lang
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
 
-abstract class ParserDefinition : com.intellij.lang.ParserDefinition {
-    @Suppress("DEPRECATION")
+abstract class ParserDefinition : ParserDefinition {
+    @Suppress("DEPRECATION", "unused")
     fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
         return spaceExistanceTypeBetweenTokens(left, right)
     }
 
-    @Deprecated("Deprecated in IntelliJ 2018.2.")
+    @Deprecated("Deprecated in IntelliJ 2018.2.", replaceWith = ReplaceWith("spaceExistenceTypeBetweenTokens"))
     override fun spaceExistanceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
         return ParserDefinition.SpaceRequirements.MAY
     }

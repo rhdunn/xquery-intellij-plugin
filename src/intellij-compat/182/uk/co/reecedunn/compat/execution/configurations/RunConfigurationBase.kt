@@ -18,7 +18,6 @@ package uk.co.reecedunn.compat.execution.configurations
 import com.intellij.configurationStore.serializeStateInto
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
-import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -36,6 +35,7 @@ abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationF
     override fun getState(): T? = options as T?
 
     // IntelliJ <= 182 does not implement PersistentStateComponent.loadState.
+    @Suppress("ScheduledForRemoval")
     override fun loadState(state: T) {
         when (state) {
             is Element -> super.loadState(state)

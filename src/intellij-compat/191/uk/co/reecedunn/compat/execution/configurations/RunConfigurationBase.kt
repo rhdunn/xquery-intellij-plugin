@@ -37,6 +37,7 @@ abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationF
 }
 
 private val serializer = object : XmlSerializerImpl.XmlSerializerBase() {
+    @Suppress("ScheduledForRemoval")
     override fun getClassBinding(aClass: Class<*>, originalType: Type, accessor: MutableAccessor?): Binding {
         val beanBinding = BeanBinding(aClass, accessor)
         beanBinding.init(aClass, this)

@@ -15,5 +15,4 @@
  */
 package uk.co.reecedunn.compat.codeInsight.lookup
 
-class LookupElementPresentation : com.intellij.codeInsight.lookup.LookupElementPresentation() {
-}
+class LookupElementPresentation : com.intellij.codeInsight.lookup.LookupElementPresentation()

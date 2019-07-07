@@ -15,5 +15,4 @@
  */
 package uk.co.reecedunn.compat.editor
 
-abstract class CaretModel : com.intellij.openapi.editor.CaretModel {
-}
+abstract class CaretModel : com.intellij.openapi.editor.CaretModel
