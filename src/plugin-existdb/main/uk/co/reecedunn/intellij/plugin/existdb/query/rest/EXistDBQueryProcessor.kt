@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
-internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) :
+internal class EXistDBQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     RunnableQueryProvider {
 
     override val version: ExecutableOnPooledThread<String> by cached {

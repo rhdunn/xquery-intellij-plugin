@@ -31,9 +31,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 internal class EXistDBQuery(
-    val builder: RequestBuilder,
-    val queryFile: VirtualFile,
-    val connection: HttpConnection
+    private val builder: RequestBuilder,
+    private val queryFile: VirtualFile,
+    private val connection: HttpConnection
 ) : RunnableQuery {
     companion object {
         private val EXIST_NAMESPACES = mapOf(

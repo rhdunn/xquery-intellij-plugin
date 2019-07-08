@@ -28,7 +28,10 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
-internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
+@Suppress("unused")
+internal class EXistDBHttpRequest(private val builder: RequestBuilder, private val connection: HttpConnection) :
+    RunnableQuery {
+
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean = false
@@ -63,7 +66,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        val contentType = response.allHeaders.filter { h -> h.name == "ContentType" }.firstOrNull()?.value
+        val contentType = response.allHeaders.firstOrNull { h -> h.name == "ContentType" }?.value
         QueryResults(
             listOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain")),
             XsDuration.ns(end - start)
