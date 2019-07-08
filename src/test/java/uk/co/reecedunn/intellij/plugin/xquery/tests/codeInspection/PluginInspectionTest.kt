@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
@@ -37,18 +35,21 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // region XML Entities
 
-private val XML_ENTITIES = listOf("\"",
+private val XML_ENTITIES = listOf(
+    "\"",
     "&lt;",
     "&gt;",
     "&amp;",
     "&quot;",
     "&apos;",
-    "\"").joinToString()
+    "\""
+).joinToString()
 
 // endregion
 // region HTML4 Entities
 
-private val HTML4_ENTITIES = listOf("\"",
+private val HTML4_ENTITIES = listOf(
+    "\"",
     "&Aacute;",
     "&aacute;",
     "&Acirc;",
@@ -297,12 +298,14 @@ private val HTML4_ENTITIES = listOf("\"",
     "&zeta;",
     "&zwj;",
     "&zwnj;",
-    "\"").joinToString()
+    "\""
+).joinToString()
 
 // endregion
 // region HTML5 Entities
 
-private val HTML5_ENTITIES = listOf("\"",
+private val HTML5_ENTITIES = listOf(
+    "\"",
     "&Abreve;",
     "&abreve;",
     "&ac;",
@@ -2175,7 +2178,8 @@ private val HTML5_ENTITIES = listOf("\"",
     "&zopf;",
     "&Zscr;",
     "&zscr;",
-    "\"").joinToString()
+    "\""
+).joinToString()
 
 // endregion
 
@@ -2990,7 +2994,14 @@ private class PluginInspectionTest : InspectionTestCase() {
                 assertThat(problems!!.size, `is`(0))
             }
 
-            private fun checkUnsupportedEntities(version: Specification, entities: String, inspectionCount: Int, startsWith: String, endsWith: String, type: ProblemHighlightType = ProblemHighlightType.GENERIC_ERROR_OR_WARNING) {
+            private fun checkUnsupportedEntities(
+                version: Specification,
+                entities: String,
+                inspectionCount: Int,
+                startsWith: String,
+                endsWith: String,
+                type: ProblemHighlightType = ProblemHighlightType.GENERIC_ERROR_OR_WARNING
+            ) {
                 settings.XQueryVersion = version.versionId
                 if (version == XQuerySpec.MARKLOGIC_0_9 || version == XQuerySpec.MARKLOGIC_1_0) {
                     settings.implementationVersion = "marklogic/v6"
@@ -3000,9 +3011,7 @@ private class PluginInspectionTest : InspectionTestCase() {
 
                 val file = parseText(entities)
 
-                val problems = inspect(file,
-                    IJVS0003()
-                )
+                val problems = inspect(file, IJVS0003())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(inspectionCount))
 
@@ -3019,41 +3028,31 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testXMLEntities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9,
-                        XML_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9, XML_ENTITIES)
                 }
 
                 @Test
                 @DisplayName("xquery version 1.0")
                 fun testXMLEntities_XQuery_1_0() {
-                    checkSupportedEntities(XQuerySpec.REC_1_0_20070123,
-                        XML_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.REC_1_0_20070123, XML_ENTITIES)
                 }
 
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testXMLEntities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0,
-                        XML_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0, XML_ENTITIES)
                 }
 
                 @Test
                 @DisplayName("xquery version 3.0")
                 fun testXMLEntities_XQuery_3_0() {
-                    checkSupportedEntities(XQuerySpec.REC_3_0_20140408,
-                        XML_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.REC_3_0_20140408, XML_ENTITIES)
                 }
 
                 @Test
                 @DisplayName("xquery version 3.1")
                 fun testXMLEntities_XQuery_3_1() {
-                    checkSupportedEntities(XQuerySpec.REC_3_1_20170321,
-                        XML_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.REC_3_1_20170321, XML_ENTITIES)
                 }
             }
 
@@ -3063,9 +3062,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testHTML4Entities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9,
-                        HTML4_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9, HTML4_ENTITIES)
                 }
 
                 @Test
@@ -3081,9 +3078,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testHTML4Entities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0,
-                        HTML4_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0, HTML4_ENTITIES)
                 }
 
                 @Test
@@ -3113,9 +3108,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testHTML5Entities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9,
-                        HTML5_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9, HTML5_ENTITIES)
                 }
 
                 @Test
@@ -3131,9 +3124,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testHTML5Entities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0,
-                        HTML5_ENTITIES
-                    )
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0, HTML5_ENTITIES)
                 }
 
                 @Test
