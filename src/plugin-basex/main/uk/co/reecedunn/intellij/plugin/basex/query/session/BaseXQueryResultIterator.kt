@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 internal class BaseXQueryResultIterator(
     val query: Query,
-    val queryFile: VirtualFile,
+    private val queryFile: VirtualFile,
     val classLoader: ClassLoader
 ) : Iterator<QueryResult> {
     private var position: Long = -1

@@ -24,16 +24,14 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 internal class BaseXRunnableQuery(
     val session: Session,
-    val queryString: String,
-    val queryFile: VirtualFile,
+    private val queryString: String,
+    private val queryFile: VirtualFile,
     val classLoader: ClassLoader
 ) : RunnableQuery {
     override var rdfOutputFormat: Language? = null

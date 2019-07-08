@@ -23,10 +23,10 @@ class Context(classLoader: ClassLoader, file: Boolean) {
 
     init {
         val constructor = contextClass.getConstructorOrNull(Boolean::class.java)
-        if (constructor == null) { // BaseX <= 7.0
-            basexObject = contextClass.getConstructor().newInstance()
+        basexObject = if (constructor == null) { // BaseX <= 7.0
+            contextClass.getConstructor().newInstance()
         } else { // BaseX > 7.0
-            basexObject = constructor.newInstance(file)
+            constructor.newInstance(file)
         }
     }
 }

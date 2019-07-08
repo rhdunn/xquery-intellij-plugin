@@ -27,13 +27,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 internal class BaseXProfileableQuery(
     val session: Session,
-    val queryString: String,
-    val queryFile: VirtualFile,
+    private val queryString: String,
+    private val queryFile: VirtualFile,
     val classLoader: ClassLoader
 ) : ProfileableQuery {
     override var rdfOutputFormat: Language? = null

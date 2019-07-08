@@ -28,7 +28,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 7.0 info")
     inner class BaseX70 {
-        val response = listOf(
+        private val response = listOf(
             "Results: 4 Items",
             "Updated: 0 Items",
             "Total Time: 413.16 ms",
@@ -50,7 +50,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 info")
     inner class BaseX80 {
-        val response = "\r\nQuery executed in 448.43 ms."
+        private val response = "\r\nQuery executed in 448.43 ms."
 
         @Test
         @DisplayName("toBaseXInfo")
@@ -65,7 +65,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 queryinfo")
     inner class BaseX80QueryInfo {
-        val response = listOf(
+        private val response = listOf(
             "",
             "Query:",
             "for \$n in 1 to 10 let \$v := fn:sum(1 to \$n) return 2 * \$v",
@@ -120,7 +120,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 xmlplan")
     inner class BaseX80XmlPlan {
-        val response = listOf(
+        private val response = listOf(
             "",
             "Query Plan:",
             "<QueryPlan compiled=\"true\" updating=\"false\">",
@@ -175,7 +175,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 queryinfo and xmlplan")
     inner class BaseX80QueryInfoAndXmlPlan {
-        val response = listOf(
+        private val response = listOf(
             "",
             "Query Plan:",
             "<QueryPlan compiled=\"true\" updating=\"false\">",
