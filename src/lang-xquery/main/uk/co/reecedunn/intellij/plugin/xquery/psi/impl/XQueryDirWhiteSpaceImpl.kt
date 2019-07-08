@@ -22,7 +22,9 @@ import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryDirWhiteSpaceImpl(text: CharSequence) : LeafPsiElement(XQueryTokenType.XML_WHITE_SPACE, text), PsiWhiteSpace {
+class XQueryDirWhiteSpaceImpl(text: CharSequence) :
+    LeafPsiElement(XQueryTokenType.XML_WHITE_SPACE, text), PsiWhiteSpace {
+
     override fun accept(visitor: PsiElementVisitor) {
         visitor.visitWhiteSpace(this)
     }

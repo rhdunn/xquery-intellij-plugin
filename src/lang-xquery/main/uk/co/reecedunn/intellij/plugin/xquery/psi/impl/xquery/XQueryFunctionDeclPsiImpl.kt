@@ -77,7 +77,8 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
             if (returnType == null)
                 "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}"
             else
-                "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"} as ${returnType.typeName}"
+                "${op_qname_presentation(name)}${paramList?.presentation?.presentableText
+                    ?: "()"} as ${returnType.typeName}"
         }
     }
 

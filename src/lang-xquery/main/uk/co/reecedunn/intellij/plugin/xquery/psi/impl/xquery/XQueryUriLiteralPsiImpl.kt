@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
-class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
+class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
     override fun getReference(): PsiReference {
         val range = textRange
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))

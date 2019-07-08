@@ -22,7 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.EntityRef
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityReferenceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 
-class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryPredefinedEntityRef {
+class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) :
+    LeafPsiElement(type, text), XQueryPredefinedEntityRef {
     override val entityRef
         get(): EntityRef {
             val entity = node.chars

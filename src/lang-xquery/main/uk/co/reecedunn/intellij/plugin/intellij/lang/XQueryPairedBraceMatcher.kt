@@ -23,18 +23,30 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 private val BRACE_PAIRS = arrayOf(
-    BracePair(XPathTokenType.BLOCK_OPEN, XPathTokenType.BLOCK_CLOSE, true), // { ... }
-    BracePair(XPathTokenType.SQUARE_OPEN, XPathTokenType.SQUARE_CLOSE, false), // [ ... ]
-    BracePair(XPathTokenType.PARENTHESIS_OPEN, XPathTokenType.PARENTHESIS_CLOSE, false), // ( ... )
-    BracePair(XPathTokenType.COMMENT_START_TAG, XPathTokenType.COMMENT_END_TAG, false), // (: ... :)
-    BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG, false), // < ... />
-    BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.END_XML_TAG, false), // < ... >
-    BracePair(XQueryTokenType.CLOSE_XML_TAG, XQueryTokenType.END_XML_TAG, false), // </ ... >
-    BracePair(XQueryTokenType.XML_COMMENT_START_TAG, XQueryTokenType.XML_COMMENT_END_TAG, false), // <!-- ... -->
-    BracePair(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN, XQueryTokenType.PROCESSING_INSTRUCTION_END, false), // <? ... ?>
-    BracePair(XQueryTokenType.CDATA_SECTION_START_TAG, XQueryTokenType.CDATA_SECTION_END_TAG, false), // <![CDATA[ ... ]]>
-    BracePair(XPathTokenType.PRAGMA_BEGIN, XPathTokenType.PRAGMA_END, false), // (# ... #)
-    BracePair(XQueryTokenType.STRING_INTERPOLATION_OPEN, XQueryTokenType.STRING_INTERPOLATION_CLOSE, true) // `{ ... }`
+    // { ... }
+    BracePair(XPathTokenType.BLOCK_OPEN, XPathTokenType.BLOCK_CLOSE, true),
+    // [ ... ]
+    BracePair(XPathTokenType.SQUARE_OPEN, XPathTokenType.SQUARE_CLOSE, false),
+    // ( ... )
+    BracePair(XPathTokenType.PARENTHESIS_OPEN, XPathTokenType.PARENTHESIS_CLOSE, false),
+    // (: ... :)
+    BracePair(XPathTokenType.COMMENT_START_TAG, XPathTokenType.COMMENT_END_TAG, false),
+    // < ... />
+    BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG, false),
+    // < ... >
+    BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.END_XML_TAG, false),
+    // </ ... >
+    BracePair(XQueryTokenType.CLOSE_XML_TAG, XQueryTokenType.END_XML_TAG, false),
+    // <!-- ... -->
+    BracePair(XQueryTokenType.XML_COMMENT_START_TAG, XQueryTokenType.XML_COMMENT_END_TAG, false),
+    // <? ... ?>
+    BracePair(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN, XQueryTokenType.PROCESSING_INSTRUCTION_END, false),
+    // <![CDATA[ ... ]]>
+    BracePair(XQueryTokenType.CDATA_SECTION_START_TAG, XQueryTokenType.CDATA_SECTION_END_TAG, false),
+    // (# ... #)
+    BracePair(XPathTokenType.PRAGMA_BEGIN, XPathTokenType.PRAGMA_END, false),
+    // `{ ... }`
+    BracePair(XQueryTokenType.STRING_INTERPOLATION_OPEN, XQueryTokenType.STRING_INTERPOLATION_CLOSE, true)
 )
 
 class XQueryPairedBraceMatcher : PairedBraceMatcher {

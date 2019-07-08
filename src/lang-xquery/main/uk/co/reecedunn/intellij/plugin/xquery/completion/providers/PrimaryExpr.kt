@@ -92,7 +92,8 @@ object XQueryVarRefProvider : CompletionProviderEx {
                     }
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }
@@ -154,7 +155,8 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                     }
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }

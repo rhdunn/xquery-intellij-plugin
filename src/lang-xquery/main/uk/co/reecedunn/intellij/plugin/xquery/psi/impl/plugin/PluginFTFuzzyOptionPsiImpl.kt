@@ -23,11 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class PluginFTFuzzyOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginFTFuzzyOption, VersionConformance {
-    override val requiresConformance get(): List<Version> =
-        listOf(BaseX.VERSION_6_1)
+class PluginFTFuzzyOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginFTFuzzyOption, VersionConformance {
+    override val requiresConformance get(): List<Version> = listOf(BaseX.VERSION_6_1)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

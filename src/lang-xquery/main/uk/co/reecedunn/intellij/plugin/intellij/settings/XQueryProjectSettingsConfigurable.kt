@@ -88,7 +88,9 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
 
         @Suppress("LocalVariableName")
         val VERSION_RENDERER = object : ColoredListCellRenderer<Version>() {
-            override fun customizeCellRenderer(list: JList<out Version>, value: Version?, index: Int, selected: Boolean, hasFocus: Boolean) {
+            override fun customizeCellRenderer(
+                list: JList<out Version>, value: Version?, index: Int, selected: Boolean, hasFocus: Boolean
+            ) {
                 if (value != null) {
                     append(value.toFeatureString())
                 }
@@ -97,7 +99,9 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
 
         @Suppress("LocalVariableName")
         val VERSIONED_RENDERER = object : ColoredListCellRenderer<Versioned>() {
-            override fun customizeCellRenderer(list: JList<out Versioned>, value: Versioned?, index: Int, selected: Boolean, hasFocus: Boolean) {
+            override fun customizeCellRenderer(
+                list: JList<out Versioned>, value: Versioned?, index: Int, selected: Boolean, hasFocus: Boolean
+            ) {
                 if (value != null) {
                     append(value.name)
                 }
@@ -128,8 +132,7 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
             populateComboBox(mImplementationVersions!!, product.implementation.versions, null)
         }
 
-        populateComboBox(mImplementations!!,
-            PRODUCTS, W3C.SPECIFICATIONS)
+        populateComboBox(mImplementations!!, PRODUCTS, W3C.SPECIFICATIONS)
     }
 
     @Suppress("UNCHECKED_CAST")

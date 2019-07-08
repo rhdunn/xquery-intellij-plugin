@@ -32,19 +32,19 @@ private val SCRIPTING_10 = listOf(ScriptingSpec.NOTE_1_0_20140918)
 private val UPDATE_10 = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 private val UPDATE_30 = listOf(UpdateFacilitySpec.NOTE_3_0_20170124)
 
-class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginCompatibilityAnnotation,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        return when (conformanceElement.node.elementType) {
-            XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
-            XQueryTokenType.K_UPDATING -> {
-                val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-                if (varDecl == null) UPDATE_10 else UPDATE_30
+class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginCompatibilityAnnotation, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            return when (conformanceElement.node.elementType) {
+                XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
+                XQueryTokenType.K_UPDATING -> {
+                    val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
+                    if (varDecl == null) UPDATE_10 else UPDATE_30
+                }
+                else -> SCRIPTING_10
             }
-            else -> SCRIPTING_10
         }
-    }
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

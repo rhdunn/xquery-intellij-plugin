@@ -88,6 +88,7 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
                 "%${op_qname_presentation(it)}($values)"
         }
     }
+
     override fun getPresentableText(): String? = cachedPresentableText.get()
 
     // endregion

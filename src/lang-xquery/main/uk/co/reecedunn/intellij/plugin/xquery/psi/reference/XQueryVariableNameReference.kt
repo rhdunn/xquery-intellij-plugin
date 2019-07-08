@@ -21,7 +21,9 @@ import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.model.variableDefinition
 
-class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
+class XQueryVariableNameReference(element: XPathEQName, range: TextRange) :
+    PsiReferenceBase<XPathEQName>(element, range) {
+
     override fun resolve(): PsiElement? = element.variableDefinition()?.variableName as? PsiElement
 
     override fun getVariants(): Array<Any> {

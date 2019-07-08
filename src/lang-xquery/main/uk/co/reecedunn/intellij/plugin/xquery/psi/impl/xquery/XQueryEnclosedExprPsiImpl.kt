@@ -37,6 +37,7 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
     FoldablePsiElement {
     // region VersionConformance
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun previousVersionSupportsOptionalExpr(parent: PsiElement): Boolean {
         return (
             parent is XQueryCompPIConstructor ||
@@ -46,6 +47,7 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
         )
     }
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun marklogicSupportsOptionalExpr(parent: PsiElement): Boolean {
         return (
             parent is XQueryCompTextConstructor ||

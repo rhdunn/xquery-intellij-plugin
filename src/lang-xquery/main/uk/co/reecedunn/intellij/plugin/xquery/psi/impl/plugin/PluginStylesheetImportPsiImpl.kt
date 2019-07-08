@@ -23,10 +23,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class PluginStylesheetImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginStylesheetImport, VersionConformance {
+class PluginStylesheetImportPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginStylesheetImport, VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

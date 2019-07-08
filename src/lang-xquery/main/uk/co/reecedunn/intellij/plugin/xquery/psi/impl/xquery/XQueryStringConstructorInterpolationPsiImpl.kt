@@ -19,4 +19,5 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringConstructorInterpolation
 
-class XQueryStringConstructorInterpolationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryStringConstructorInterpolation
+class XQueryStringConstructorInterpolationPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryStringConstructorInterpolation

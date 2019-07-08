@@ -22,11 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
-class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
+class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) :
+    PsiReferenceBase<XPathEQName>(element, range) {
+
     override fun resolve(): PsiElement? {
         val arity = (element.parent as? XPathFunctionReference)?.arity ?: -1
-        return element.staticallyKnownFunctions().firstOrNull {
-            f -> f.arity.isWithin(arity)
+        return element.staticallyKnownFunctions().firstOrNull { f ->
+            f.arity.isWithin(arity)
         }?.functionName as? PsiElement
     }
 

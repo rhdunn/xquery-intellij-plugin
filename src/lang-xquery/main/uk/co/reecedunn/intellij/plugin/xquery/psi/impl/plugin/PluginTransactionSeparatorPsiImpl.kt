@@ -25,7 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSepara
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
-private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9, ScriptingSpec.NOTE_1_0_20140918)
+private val MARKLOGIC60_SCRIPTING = listOf(
+    MarkLogic.VERSION_4_0,
+    XQuerySpec.MARKLOGIC_0_9,
+    ScriptingSpec.NOTE_1_0_20140918
+)
 private val XQUERY = listOf<Version>()
 
 class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),

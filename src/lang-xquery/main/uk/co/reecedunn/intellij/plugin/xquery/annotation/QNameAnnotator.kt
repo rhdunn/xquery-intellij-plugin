@@ -68,7 +68,8 @@ class QNameAnnotator : Annotator {
             } else if (localName is XPathNCName) {
                 if (localName.node.elementType is IKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                    holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.IDENTIFIER
+                    holder.createInfoAnnotation(localName, null).textAttributes =
+                        XQuerySyntaxHighlighterColors.IDENTIFIER
                 }
             }
         }

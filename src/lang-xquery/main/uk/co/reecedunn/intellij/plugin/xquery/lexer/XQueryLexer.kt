@@ -262,11 +262,13 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
                 } else {
-                    while (cc == CharacterClass.NAME_START_CHAR ||
-                            cc == CharacterClass.DIGIT ||
-                            cc == CharacterClass.DOT ||
-                            cc == CharacterClass.HYPHEN_MINUS ||
-                            cc == CharacterClass.NAME_CHAR) {
+                    while (
+                        cc == CharacterClass.NAME_START_CHAR ||
+                        cc == CharacterClass.DIGIT ||
+                        cc == CharacterClass.DOT ||
+                        cc == CharacterClass.HYPHEN_MINUS ||
+                        cc == CharacterClass.NAME_CHAR
+                    ) {
                         mTokenRange.match()
                         cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                     }
@@ -744,20 +746,28 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             }
             CharacterClass.COLON -> {
                 mTokenRange.match()
-                mType = if (state == STATE_DIR_ATTRIBUTE_LIST) XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR else XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+                mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
+                    XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
+                else
+                    XQueryTokenType.XML_TAG_QNAME_SEPARATOR
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (cc == CharacterClass.NAME_START_CHAR ||
-                        cc == CharacterClass.DIGIT ||
-                        cc == CharacterClass.DOT ||
-                        cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR) {
+                while (
+                    cc == CharacterClass.NAME_START_CHAR ||
+                    cc == CharacterClass.DIGIT ||
+                    cc == CharacterClass.DOT ||
+                    cc == CharacterClass.HYPHEN_MINUS ||
+                    cc == CharacterClass.NAME_CHAR
+                ) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                mType = if (state == STATE_DIR_ATTRIBUTE_LIST) XQueryTokenType.XML_ATTRIBUTE_NCNAME else XQueryTokenType.XML_TAG_NCNAME
+                mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
+                    XQueryTokenType.XML_ATTRIBUTE_NCNAME
+                else
+                    XQueryTokenType.XML_TAG_NCNAME
             }
             CharacterClass.GREATER_THAN -> {
                 mTokenRange.match()
@@ -968,11 +978,13 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (cc == CharacterClass.NAME_START_CHAR ||
-                        cc == CharacterClass.DIGIT ||
-                        cc == CharacterClass.DOT ||
-                        cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR) {
+                while (
+                    cc == CharacterClass.NAME_START_CHAR ||
+                    cc == CharacterClass.DIGIT ||
+                    cc == CharacterClass.DOT ||
+                    cc == CharacterClass.HYPHEN_MINUS ||
+                    cc == CharacterClass.NAME_CHAR
+                ) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
@@ -1109,11 +1121,13 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
         if (cc != CharacterClass.NAME_START_CHAR)
             return false
 
-        while (cc == CharacterClass.NAME_START_CHAR ||
-                cc == CharacterClass.DIGIT ||
-                cc == CharacterClass.DOT ||
-                cc == CharacterClass.HYPHEN_MINUS ||
-                cc == CharacterClass.NAME_CHAR) {
+        while (
+            cc == CharacterClass.NAME_START_CHAR ||
+            cc == CharacterClass.DIGIT ||
+            cc == CharacterClass.DOT ||
+            cc == CharacterClass.HYPHEN_MINUS ||
+            cc == CharacterClass.NAME_CHAR
+        ) {
             mTokenRange.match()
             cc = CharacterClass.getCharClass(mTokenRange.codePoint)
         }
@@ -1197,17 +1211,39 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
 
     override fun advance() {
         when (nextState()) {
-            STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
-            STATE_XML_COMMENT, STATE_XML_COMMENT_ELEM_CONTENT -> stateXmlComment()
-            STATE_CDATA_SECTION, STATE_CDATA_SECTION_ELEM_CONTENT -> stateCDataSection()
-            STATE_DIR_ELEM_CONSTRUCTOR, STATE_DIR_ELEM_CONSTRUCTOR_CLOSING, STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(state)
-            STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> stateDirAttributeValue('"')
-            STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> stateDirAttributeValue('\'')
-            STATE_DIR_ELEM_CONTENT -> stateDirElemContent()
-            STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(state)
-            STATE_PROCESSING_INSTRUCTION_CONTENTS, STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> stateProcessingInstructionContents()
-            STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
-            STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
+            STATE_DEFAULT,
+            STATE_DEFAULT_ATTRIBUTE_QUOT,
+            STATE_DEFAULT_ATTRIBUTE_APOSTROPHE,
+            STATE_DEFAULT_ELEM_CONTENT,
+            STATE_DEFAULT_STRING_INTERPOLATION,
+            STATE_MAYBE_DIR_ELEM_CONSTRUCTOR ->
+                stateDefault(state)
+            STATE_XML_COMMENT,
+            STATE_XML_COMMENT_ELEM_CONTENT ->
+                stateXmlComment()
+            STATE_CDATA_SECTION,
+            STATE_CDATA_SECTION_ELEM_CONTENT ->
+                stateCDataSection()
+            STATE_DIR_ELEM_CONSTRUCTOR,
+            STATE_DIR_ELEM_CONSTRUCTOR_CLOSING,
+            STATE_DIR_ATTRIBUTE_LIST ->
+                stateDirElemConstructor(state)
+            STATE_DIR_ATTRIBUTE_VALUE_QUOTE ->
+                stateDirAttributeValue('"')
+            STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE ->
+                stateDirAttributeValue('\'')
+            STATE_DIR_ELEM_CONTENT ->
+                stateDirElemContent()
+            STATE_PROCESSING_INSTRUCTION,
+            STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT ->
+                stateProcessingInstruction(state)
+            STATE_PROCESSING_INSTRUCTION_CONTENTS,
+            STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT ->
+                stateProcessingInstructionContents()
+            STATE_STRING_CONSTRUCTOR_CONTENTS ->
+                stateStringConstructorContents()
+            STATE_START_DIR_ELEM_CONSTRUCTOR ->
+                stateStartDirElemConstructor()
             else -> super.advance()
         }
     }

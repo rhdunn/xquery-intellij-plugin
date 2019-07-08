@@ -32,12 +32,11 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     XPathDefaultNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
-    override val namespacePrefix get(): XsNCNameValue? {
-        return children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
-    }
+    override val namespacePrefix
+        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
-    override val namespaceUri get(): XsAnyUriValue? =
-        children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+    override val namespaceUri
+        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
     override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
