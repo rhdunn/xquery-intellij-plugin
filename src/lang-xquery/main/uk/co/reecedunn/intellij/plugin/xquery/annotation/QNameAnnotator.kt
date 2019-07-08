@@ -34,18 +34,18 @@ class QNameAnnotator : Annotator {
 
         val xmlns: Boolean
         if (qname.prefix != null) {
-            if (qname.prefix!!.data == "xmlns") {
-                xmlns = true
-            } else if (qname.prefix !is XdmWildcardValue) {
-                xmlns = false
-                val prefix = qname.prefix?.element!!
-                holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                if (qname.parent is PluginDirAttribute || qname.parent is XQueryDirElemConstructor) {
-                    holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.XML_TAG
+            when {
+                qname.prefix!!.data == "xmlns" -> xmlns = true
+                qname.prefix !is XdmWildcardValue -> {
+                    xmlns = false
+                    val prefix = qname.prefix?.element!!
+                    holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
+                    if (qname.parent is PluginDirAttribute || qname.parent is XQueryDirElemConstructor) {
+                        holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.XML_TAG
+                    }
+                    holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.NS_PREFIX
                 }
-                holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.NS_PREFIX
-            } else {
-                xmlns = false
+                else -> xmlns = false
             }
         } else {
             xmlns = false

@@ -24,7 +24,7 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryModuleStructureView
 
-class XQueryStructureViewBuilder(val psiFile: PsiFile) : TreeBasedStructureViewBuilder() {
+class XQueryStructureViewBuilder(private val psiFile: PsiFile) : TreeBasedStructureViewBuilder() {
     override fun createStructureViewModel(editor: Editor?): StructureViewModel {
         return StructureViewModelBase(psiFile, XQueryModuleStructureView(psiFile as XQueryModule))
             .withSuitableClasses(XQueryStructureViewElement::class.java)

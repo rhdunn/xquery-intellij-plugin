@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTes
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefProvider
 
 class XQueryCompletionContributor : CompletionContributorEx() {
+    @Suppress("PropertyName")
     val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
 
     // The keyword completion lists are created at compile time, with some

@@ -23,16 +23,12 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.compat.codeInsight.lookup.LookupElementPresentation
-import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
-import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
-import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
@@ -42,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("ClassName")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
 private class XPathLookupElementTest : ParserTestCase() {
     @Nested

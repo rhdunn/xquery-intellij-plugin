@@ -56,12 +56,11 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     override val namespaceType
         get(): XPathNamespaceType {
             return children().filterIsInstance<XsQNameValue>().map { qname ->
-                if (qname.prefix?.data == "xmlns")
-                    XPathNamespaceType.Prefixed
-                else if (qname.localName?.data == "xmlns")
-                    XPathNamespaceType.DefaultElementOrType
-                else
-                    null
+                when {
+                    qname.prefix?.data == "xmlns" -> XPathNamespaceType.Prefixed
+                    qname.localName?.data == "xmlns" -> XPathNamespaceType.DefaultElementOrType
+                    else -> null
+                }
             }.firstOrNull() ?: XPathNamespaceType.Undefined
         }
 

@@ -32,15 +32,15 @@ class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
     PluginTransactionSeparator, VersionConformance {
     override val requiresConformance
         get(): List<Version> {
-            return if (parent.node.elementType === XQueryElementType.MODULE) {
-                // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
-                MARKLOGIC60
-            } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
-                // The last TransactionSeparator in a QueryBody.
-                // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
-                XQUERY
-            } else {
-                MARKLOGIC60_SCRIPTING
+            return when {
+                parent.node.elementType === XQueryElementType.MODULE ->
+                    // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
+                    MARKLOGIC60
+                siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null ->
+                    // The last TransactionSeparator in a QueryBody.
+                    // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
+                    XQUERY
+                else -> MARKLOGIC60_SCRIPTING
             }
         }
 

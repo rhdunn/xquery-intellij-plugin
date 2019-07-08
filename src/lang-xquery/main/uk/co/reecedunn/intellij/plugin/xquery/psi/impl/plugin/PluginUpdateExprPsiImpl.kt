@@ -28,17 +28,19 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 private val BASEX78: List<Version> = listOf(BaseX.VERSION_7_8)
 private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
 
-class PluginUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginUpdateExpr, VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        if (findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN) != null) {
-            return BASEX85
+class PluginUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUpdateExpr, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            if (findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN) != null) {
+                return BASEX85
+            }
+            return BASEX78
         }
-        return BASEX78
-    }
 
-    override val conformanceElement get(): PsiElement {
-        val element = findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN)
-        return element ?: findChildByType(XQueryTokenType.K_UPDATE) ?: firstChild
-    }
+    override val conformanceElement
+        get(): PsiElement {
+            var element = findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN)
+            element = element ?: findChildByType(XQueryTokenType.K_UPDATE)
+            return element ?: firstChild
+        }
 }

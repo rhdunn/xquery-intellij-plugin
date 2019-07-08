@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
+@Suppress("MemberVisibilityCanBePrivate")
 internal object XQuerySyntaxHighlighterKeys {
     val BAD_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XQuerySyntaxHighlighterColors.BAD_CHARACTER

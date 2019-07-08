@@ -66,7 +66,7 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
                 found = true
             }
         }
-        if (!found && !items.isEmpty()) {
+        if (!found && items.isNotEmpty()) {
             control.selectedItem = defaultItem ?: items[0]
         }
     }
@@ -111,7 +111,7 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
         mDialectForXQuery3_0!!.renderer = VERSIONED_RENDERER
         mDialectForXQuery3_1!!.renderer = VERSIONED_RENDERER
 
-        mImplementationVersions!!.addActionListener { _ ->
+        mImplementationVersions!!.addActionListener {
             val product = mImplementations!!.selectedItem as? Product
             val productVersion = mImplementationVersions!!.selectedItem as? Version
             if (product == null || productVersion == null) return@addActionListener
@@ -122,7 +122,7 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
             populateComboBox(mDialectForXQuery3_1!!, product.flavoursForXQueryVersion(productVersion, "3.1"), null)
         }
 
-        mImplementations!!.addActionListener { _ ->
+        mImplementations!!.addActionListener {
             val product = mImplementations!!.selectedItem as? Product ?: return@addActionListener
 
             populateComboBox(mImplementationVersions!!, product.implementation.versions, null)

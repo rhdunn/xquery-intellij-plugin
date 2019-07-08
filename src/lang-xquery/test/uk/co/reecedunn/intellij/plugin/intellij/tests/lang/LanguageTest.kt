@@ -31,7 +31,7 @@ class LanguageTest {
         @Test
         @DisplayName("id")
         fun testID() {
-            assertThat(XQuery.getID(), `is`("XQuery"))
+            assertThat(XQuery.id, `is`("XQuery"))
         }
 
         @Test

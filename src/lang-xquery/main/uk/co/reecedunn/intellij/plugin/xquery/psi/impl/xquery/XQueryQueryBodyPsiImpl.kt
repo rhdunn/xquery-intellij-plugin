@@ -19,7 +19,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 

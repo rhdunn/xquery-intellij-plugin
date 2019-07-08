@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import javax.swing.Icon
 
 class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQueryModule>(module) {
-    override fun getChildrenBase(): MutableCollection<StructureViewTreeElement> {
+    override fun getChildrenBase(): MutableCollection<out StructureViewTreeElement> {
         return element?.mainOrLibraryModule?.children()?.flatMap { child ->
             when (child) {
                 is XQueryProlog -> child.children().flatMap { decl ->

@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -712,7 +711,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val transactionSeparatorPsi =
                 applyExpr.children().filterIsInstance<PluginTransactionSeparator>().firstOrNull()
 
-            assertThat(transactionSeparatorPsi, `is`(CoreMatchers.nullValue()))
+            assertThat(transactionSeparatorPsi, `is`(nullValue()))
         }
 
         @Test

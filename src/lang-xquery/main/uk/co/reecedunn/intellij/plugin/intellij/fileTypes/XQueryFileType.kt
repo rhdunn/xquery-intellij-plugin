@@ -37,7 +37,7 @@ import javax.swing.Icon
 object XQueryFileType : LanguageFileType(XQuery) {
     object Factory : FileTypeFactory() {
         override fun createFileTypes(consumer: FileTypeConsumer) {
-            consumer.consume(XQueryFileType, XQueryFileType.EXTENSIONS)
+            consumer.consume(XQueryFileType, EXTENSIONS)
         }
     }
 

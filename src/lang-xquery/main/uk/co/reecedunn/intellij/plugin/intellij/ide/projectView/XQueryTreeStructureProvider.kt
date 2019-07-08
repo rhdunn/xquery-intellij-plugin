@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ide.projectView.XQueryModuleTreeNode
 
 class XQueryTreeStructureProvider : TreeStructureProvider, DumbAware {
-    @Suppress("UNCHECKED_CAST")
+    @Suppress("UNCHECKED_CAST", "MoveVariableDeclarationIntoWhen")
     override fun modify(
         parent: AbstractTreeNode<*>,
         children: MutableCollection<AbstractTreeNode<Any>>,

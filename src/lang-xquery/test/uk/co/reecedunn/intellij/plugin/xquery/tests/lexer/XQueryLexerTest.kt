@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRU
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
+@Suppress("ClassName")
 @DisplayName("XQuery 3.1 - Lexer")
 class XQueryLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer {

@@ -173,21 +173,25 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                 mTokenRange.save()
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                if (cc == CharacterClass.DOT) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '.'.toInt()) {
+                when {
+                    cc == CharacterClass.DOT -> {
                         mTokenRange.match()
-                        mType = XPathTokenType.ELLIPSIS
-                    } else {
-                        mType = XPathTokenType.PARENT_SELECTOR
+                        mType = if (mTokenRange.codePoint == '.'.toInt()) {
+                            mTokenRange.match()
+                            XPathTokenType.ELLIPSIS
+                        } else {
+                            XPathTokenType.PARENT_SELECTOR
+                        }
+                        return
                     }
-                    return
-                } else if (cc != CharacterClass.DIGIT) {
-                    mType = XPathTokenType.DOT
-                    return
-                } else {
-                    mTokenRange.restore()
-                    mType = XPathTokenType.DECIMAL_LITERAL
+                    cc != CharacterClass.DIGIT -> {
+                        mType = XPathTokenType.DOT
+                        return
+                    }
+                    else -> {
+                        mTokenRange.restore()
+                        mType = XPathTokenType.DECIMAL_LITERAL
+                    }
                 }
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
@@ -272,16 +276,18 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.PARENTHESIS_OPEN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.COMMENT_START_TAG
-                    pushState(STATE_XQUERY_COMMENT)
-                } else if (c == '#'.toInt()) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.PRAGMA_BEGIN
-                    pushState(STATE_PRAGMA_PRE_QNAME)
-                } else {
-                    mType = XPathTokenType.PARENTHESIS_OPEN
+                when (c) {
+                    ':'.toInt() -> {
+                        mTokenRange.match()
+                        mType = XPathTokenType.COMMENT_START_TAG
+                        pushState(STATE_XQUERY_COMMENT)
+                    }
+                    '#'.toInt() -> {
+                        mTokenRange.match()
+                        mType = XPathTokenType.PRAGMA_BEGIN
+                        pushState(STATE_PRAGMA_PRE_QNAME)
+                    }
+                    else -> mType = XPathTokenType.PARENTHESIS_OPEN
                 }
             }
             CharacterClass.PARENTHESIS_CLOSE -> {
@@ -291,17 +297,20 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.COLON -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == ')'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.COMMENT_END_TAG
-                } else if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.AXIS_SEPARATOR
-                } else if (c == '='.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.ASSIGN_EQUAL
-                } else {
-                    XPathTokenType.QNAME_SEPARATOR
+                mType = when (c) {
+                    ')'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.COMMENT_END_TAG
+                    }
+                    ':'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.AXIS_SEPARATOR
+                    }
+                    '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.ASSIGN_EQUAL
+                    }
+                    else -> XPathTokenType.QNAME_SEPARATOR
                 }
             }
             CharacterClass.HASH -> {
@@ -315,14 +324,17 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '='.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.NOT_EQUAL
-                } else if (mTokenRange.codePoint == '!'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
-                } else {
-                    XPathTokenType.MAP_OPERATOR // XQuery 3.0
+                mType = when {
+                    mTokenRange.codePoint == '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.NOT_EQUAL
+                    }
+                    mTokenRange.codePoint == '!'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
+                    }
+                    else -> XPathTokenType.MAP_OPERATOR
+                    // XQuery 3.0
                 }
             }
             CharacterClass.DOLLAR -> {
@@ -447,14 +459,16 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.GREATER_THAN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == '>'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.NODE_AFTER
-                } else if (c == '='.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.GREATER_THAN_OR_EQUAL
-                } else {
-                    XPathTokenType.GREATER_THAN
+                mType = when (c) {
+                    '>'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.NODE_AFTER
+                    }
+                    '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.GREATER_THAN_OR_EQUAL
+                    }
+                    else -> XPathTokenType.GREATER_THAN
                 }
             }
             CharacterClass.EQUAL -> {
@@ -494,14 +508,16 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.FORWARD_SLASH -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == '/'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.ALL_DESCENDANTS_PATH
-                } else if (c == '>'.toInt()) {
-                    mTokenRange.match()
-                    XQueryTokenType.SELF_CLOSING_XML_TAG
-                } else {
-                    XPathTokenType.DIRECT_DESCENDANTS_PATH
+                mType = when (c) {
+                    '/'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.ALL_DESCENDANTS_PATH
+                    }
+                    '>'.toInt() -> {
+                        mTokenRange.match()
+                        XQueryTokenType.SELF_CLOSING_XML_TAG
+                    }
+                    else -> XPathTokenType.DIRECT_DESCENDANTS_PATH
                 }
             }
             CharacterClass.AT_SIGN -> {
@@ -515,42 +531,47 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.SQUARE_BRACE_CLOSE -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == ']'.toInt()) {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    mType = if (mTokenRange.codePoint == '>'.toInt()) {
+                when (c) {
+                    ']'.toInt() -> {
+                        mTokenRange.save()
                         mTokenRange.match()
-                        XQueryTokenType.CDATA_SECTION_END_TAG
-                    } else {
-                        mTokenRange.restore()
-                        XPathTokenType.SQUARE_CLOSE
+                        mType = if (mTokenRange.codePoint == '>'.toInt()) {
+                            mTokenRange.match()
+                            XQueryTokenType.CDATA_SECTION_END_TAG
+                        } else {
+                            mTokenRange.restore()
+                            XPathTokenType.SQUARE_CLOSE
+                        }
                     }
-                } else if (c == '`'.toInt()) {
-                    mTokenRange.match()
-                    mType = if (mTokenRange.codePoint == '`'.toInt()) {
+                    '`'.toInt() -> {
                         mTokenRange.match()
-                        XQueryTokenType.STRING_CONSTRUCTOR_END
-                    } else {
-                        XQueryTokenType.INVALID
+                        mType = if (mTokenRange.codePoint == '`'.toInt()) {
+                            mTokenRange.match()
+                            XQueryTokenType.STRING_CONSTRUCTOR_END
+                        } else {
+                            XQueryTokenType.INVALID
+                        }
                     }
-                } else {
-                    mType = XPathTokenType.SQUARE_CLOSE
+                    else -> mType = XPathTokenType.SQUARE_CLOSE
                 }
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == '>'.toInt()) {
-                    mTokenRange.match()
-                    XQueryTokenType.PROCESSING_INSTRUCTION_END
-                } else if (c == '?'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.TERNARY_IF
-                } else if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
-                } else {
-                    XPathTokenType.OPTIONAL
+                mType = when (c) {
+                    '>'.toInt() -> {
+                        mTokenRange.match()
+                        XQueryTokenType.PROCESSING_INSTRUCTION_END
+                    }
+                    '?'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.TERNARY_IF
+                    }
+                    ':'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
+                    }
+                    else -> XPathTokenType.OPTIONAL
                 }
             }
             CharacterClass.PERCENT -> {
