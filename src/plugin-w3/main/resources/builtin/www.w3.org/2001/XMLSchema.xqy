@@ -11,14 +11,14 @@ module namespace xs = "http://www.w3.org/2001/XMLSchema";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+(: 18.1 Constructor functions for XML Schema built-in atomic types :)
+
 declare %a:since("xmlschema", "1.0-20010502") function xs:ENTITY($arg as xs:anyAtomicType?) as xs:ENTITY? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:ID($arg as xs:anyAtomicType?) as xs:ID? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:IDREF($arg as xs:anyAtomicType?) as xs:IDREF? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:NCName($arg as xs:anyAtomicType?) as xs:NCName? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:NMTOKEN($arg as xs:anyAtomicType?) as xs:NMTOKEN? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:Name($arg as xs:anyAtomicType?) as xs:Name? external;
-declare %a:restrict-until("$arg", "xmlschema", "1.1-20120405", "xs:anyAtomicType")
-        %a:since("xmlschema", "1.0-20010502") function xs:QName($arg as xs:anyAtomicType?) as xs:QName? external;
 
 declare %a:since("xmlschema", "1.0-20010502") function xs:anyURI($arg as xs:anyAtomicType?) as xs:anyURI? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:base64Binary($arg as xs:anyAtomicType?) as xs:base64Binary? external;
@@ -57,3 +57,18 @@ declare %a:since("xmlschema", "1.0-20010502") function xs:unsignedShort($arg as 
 declare %a:since("xmlschema", "1.0-20010502") function xs:untypedAtomic($arg as xs:anyAtomicType?) as xs:untypedAtomic? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:yearMonthDuration($arg as xs:anyAtomicType?) as xs:yearMonthDuration? external;
 declare %a:since("xmlschema", "1.1-20120405") function xs:dateTimeStamp($arg as xs:anyAtomicType?) as xs:dateTimeStamp? external;
+
+(: 18.2 Constructor functions for xs:QName and xs:NOTATION :)
+
+declare %a:restrict-until("$arg", "xmlschema", "1.1-20120405", "xs:anyAtomicType")
+        %a:since("xmlschema", "1.0-20010502") function xs:QName($arg as xs:anyAtomicType?) as xs:QName? external;
+
+(: 18.3 Constructor functions for XML Schema built-in list types :)
+
+declare %a:since("xmlschema", "1.0-20010502") function xs:NMTOKENS($arg as xs:anyAtomicType?) as xs:NMTOKEN* external;
+declare %a:since("xmlschema", "1.0-20010502") function xs:ENTITIES($arg as xs:anyAtomicType?) as xs:ENTITY* external;
+declare %a:since("xmlschema", "1.0-20010502") function xs:IDREFS($arg as xs:anyAtomicType?) as xs:IDREF* external;
+
+(: 18.4 Constructor functions for XML Schema built-in union types :)
+
+declare %a:since("xmlschema", "1.0-20010502") function xs:numeric($arg as xs:anyAtomicType?) as xs:numeric? external;
