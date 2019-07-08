@@ -24,7 +24,7 @@ data class ConnectionSettings(
     var databasePort: Int,
     var username: String?
 ) {
-    constructor(): this("", 0, null)
+    constructor() : this("", 0, null)
 
     private val serviceName: String get() = "uk.co.reecedunn.intellij.plugin.processor: $hostname:$databasePort"
 

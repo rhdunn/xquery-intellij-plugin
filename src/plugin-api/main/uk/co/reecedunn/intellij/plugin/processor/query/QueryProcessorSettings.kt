@@ -40,7 +40,7 @@ class QueryProcessorSettings : Closeable {
 
     var name: String? = null
 
-    var apiId: String = QueryProcessorApis.first().id
+    private var apiId: String = QueryProcessorApis.first().id
         set(value) {
             field = value
             instance = null
@@ -84,10 +84,10 @@ class QueryProcessorSettings : Closeable {
             }
 
             if (processor == null) {
-                if(connection == null)
-                    processor = instance!!.create()
+                processor = if (connection == null)
+                    instance!!.create()
                 else
-                    processor = instance!!.connect(connection!!)
+                    instance!!.connect(connection!!)
             }
 
             return processor!!

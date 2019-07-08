@@ -26,6 +26,7 @@ import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.evaluation.EvaluationMode
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
 
+@Suppress("unused")
 class QueryEditorsProvider(private val language: Language) : XDebuggerEditorsProvider() {
     override fun getFileType(): FileType = language.associatedFileType!!
 

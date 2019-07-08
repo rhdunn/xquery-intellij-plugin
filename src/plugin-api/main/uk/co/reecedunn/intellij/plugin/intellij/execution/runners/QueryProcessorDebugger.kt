@@ -27,7 +27,6 @@ import com.intellij.xdebugger.XDebugProcessStarter
 import com.intellij.xdebugger.XDebuggerManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 
 class QueryProcessorDebugger : DefaultProgramRunner() {
     override fun getRunnerId(): String = "XIJPQueryProcessorDebugger"
@@ -46,7 +45,7 @@ class QueryProcessorDebugger : DefaultProgramRunner() {
         return session.runContentDescriptor
     }
 
-    fun createProcessStarter(configuration: QueryProcessorRunConfiguration): XDebugProcessStarter {
+    private fun createProcessStarter(configuration: QueryProcessorRunConfiguration): XDebugProcessStarter {
         val session = configuration.processor!!.session
         val source = configuration.scriptFile
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))

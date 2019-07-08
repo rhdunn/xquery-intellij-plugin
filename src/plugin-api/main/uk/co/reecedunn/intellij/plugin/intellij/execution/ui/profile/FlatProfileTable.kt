@@ -201,7 +201,7 @@ class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
         setModelAndUpdateColumns(ListTableModel<FlatProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)
 
-        updateEmptyText(false, false)
+        updateEmptyText(running = false, exception = false)
 
         val sorter = rowSorter as DefaultRowSorter<*, *>
         sorter.sortKeys = listOf(defaultSortKey)

@@ -28,7 +28,11 @@ data class QueryProcessorsData(
     var processors: List<QueryProcessorSettings> = ArrayList()
 )
 
-@State(name = "XIJPQueryProcessors", storages = arrayOf(Storage("xijp_processors_config.xml")))
+@Suppress("ReplaceArrayOfWithLiteral")
+@State(
+    name = "XIJPQueryProcessors",
+    storages = arrayOf(Storage("xijp_processors_config.xml"))
+)
 class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
     private val data = QueryProcessorsData()
 
@@ -44,7 +48,7 @@ class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
 
     fun setProcessor(index: Int, processor: QueryProcessorSettings) {
         val id = processors[index].id
-        (processors as ArrayList<QueryProcessorSettings>).set(index, processor)
+        (processors as ArrayList<QueryProcessorSettings>)[index] = processor
         processor.id = id
     }
 

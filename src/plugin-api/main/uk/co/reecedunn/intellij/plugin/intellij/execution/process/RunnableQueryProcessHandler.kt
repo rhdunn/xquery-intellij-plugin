@@ -38,7 +38,7 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                 notifyException(e)
                 notifyProcessDetached()
             }
-        } catch(e: Throwable) {
+        } catch (e: Throwable) {
             notifyEndResults()
             notifyException(e)
             notifyProcessDetached()

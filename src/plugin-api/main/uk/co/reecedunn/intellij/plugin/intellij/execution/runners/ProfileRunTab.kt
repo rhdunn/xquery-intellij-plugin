@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 
-class ProfileRunTab(val executionResult: ExecutionResult, environment: ExecutionEnvironment) :
+class ProfileRunTab(private val executionResult: ExecutionResult, environment: ExecutionEnvironment) :
     RunContentBuilder(executionResult, environment) {
 
     private var runnerLayoutActions: DefaultActionGroup? = null

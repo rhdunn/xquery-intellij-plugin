@@ -147,7 +147,7 @@ class FlatProfileTableView(val project: Project) :
     // endregion
     // region Actions
 
-    fun onSaveProfileReport(file: VirtualFile) {
+    private fun onSaveProfileReport(file: VirtualFile) {
         when {
             report?.xml == null -> return
             file.isDirectory -> {

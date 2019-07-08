@@ -20,7 +20,6 @@ import com.intellij.util.Range
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 class QueryResultIndexColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, Long>(
@@ -59,31 +58,12 @@ class QueryResultMimeTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<
     }
 }
 
-class QueryResultValueColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
-    PluginApiBundle.message("query.result.table.value.column.label")
-), Comparator<Pair<QueryResult, Range<Int>>> {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): String? {
-        val value = item?.first?.value
-        return when (value) {
-            is QueryError -> value.message
-            is Throwable -> value.localizedMessage
-            else -> value?.toString()
-        }
-    }
-
-    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
-
-    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
-        return o1!!.first.position.compareTo(o2!!.first.position)
-    }
-}
-
 class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {
     init {
         setModelAndUpdateColumns(ListTableModel<Pair<QueryResult, Range<Int>>>(*columns))
         setEnableAntialiasing(true)
 
-        updateEmptyText(false, false)
+        updateEmptyText(running = false, exception = false)
     }
 
     private fun updateEmptyText(running: Boolean, exception: Boolean) {

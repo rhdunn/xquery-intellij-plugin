@@ -23,9 +23,9 @@ import java.lang.UnsupportedOperationException
 import java.lang.reflect.InvocationTargetException
 import java.net.UnknownHostException
 
-class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")
+class MissingJarFileException(jarType: String) : RuntimeException("Missing JAR file for $jarType.")
 
-class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
+class UnsupportedJarFileException(jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
 
 class MissingHostNameException : RuntimeException("Missing hostname.")
 

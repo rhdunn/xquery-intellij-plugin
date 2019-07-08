@@ -28,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import javax.swing.JComponent
 
 class SaveAction(
-    val descriptor: FileSaverDescriptor,
+    private val descriptor: FileSaverDescriptor,
     val parent: JComponent,
     val project: Project?,
-    val consumer: Consumer<VirtualFile>
+    private val consumer: Consumer<VirtualFile>
 ) : AnAction(
     PluginApiBundle.message("console.action.save.label"),
     null,

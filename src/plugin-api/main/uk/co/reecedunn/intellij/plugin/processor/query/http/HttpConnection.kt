@@ -36,15 +36,15 @@ class HttpConnection(val settings: ConnectionSettings) : Closeable {
     private val httpClient: CloseableHttpClient
         get() {
             if (client == null) {
-                if (settings.username == null || settings.password == null) {
-                    client = HttpClients.createDefault()
+                client = if (settings.username == null || settings.password == null) {
+                    HttpClients.createDefault()
                 } else {
                     val credentials = BasicCredentialsProvider()
                     credentials.setCredentials(
                         AuthScope(settings.hostname, settings.databasePort),
                         UsernamePasswordCredentials(settings.username, settings.password)
                     )
-                    client = HttpClients.custom().setDefaultCredentialsProvider(credentials).build()
+                    HttpClients.custom().setDefaultCredentialsProvider(credentials).build()
                 }
             }
             return client!!

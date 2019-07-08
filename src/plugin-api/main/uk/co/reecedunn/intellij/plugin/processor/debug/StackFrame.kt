@@ -20,8 +20,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.pom.Navigatable
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
-import org.jetbrains.jps.model.java.JavaSourceRootType
-import org.jetbrains.jps.model.module.JpsModuleSourceRoot
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.database.resolve
 

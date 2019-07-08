@@ -18,7 +18,8 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 fun primitiveToItemType(primitive: String): String {
     return if (primitive.endsWith("-order") ||
         primitive.endsWith("-query") ||
-        primitive.endsWith("-reference"))
+        primitive.endsWith("-reference")
+    )
         "cts:$primitive"
     else when (primitive) {
         // CTS types ============================

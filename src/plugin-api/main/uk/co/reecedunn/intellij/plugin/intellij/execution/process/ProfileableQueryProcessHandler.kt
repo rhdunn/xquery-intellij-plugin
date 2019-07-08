@@ -25,19 +25,11 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
 
     private val profileReportListeners = Multicaster(ProfileReportListener::class.java)
 
-    fun addProfileReportListener(listener: ProfileReportListener) {
-        profileReportListeners.addListener(listener)
-    }
-
     fun addProfileReportListener(listener: ProfileReportListener, parentDisposable: Disposable) {
         profileReportListeners.addListener(listener, parentDisposable)
     }
 
-    fun removeProfileReportListener(listener: ProfileReportListener) {
-        profileReportListeners.removeListener(listener)
-    }
-
-    fun notifyProfileReport(report: FlatProfileReport) {
+    private fun notifyProfileReport(report: FlatProfileReport) {
         profileReportListeners.eventMulticaster.onProfileReport(report)
     }
 
@@ -64,7 +56,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                 notifyEndResults()
                 notifyProcessDetached()
             }
-        } catch(e: Throwable) {
+        } catch (e: Throwable) {
             notifyException(e)
             notifyEndResults()
             notifyProcessDetached()

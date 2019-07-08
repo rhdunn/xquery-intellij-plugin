@@ -88,7 +88,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
             e.frames.forEach {
                 print("    at ", ConsoleViewContentType.ERROR_OUTPUT)
                 if (it.module != null) {
-                    val resolved = when(it.module) {
+                    val resolved = when (it.module) {
                         is DatabaseModule -> it.module.resolve(project).firstOrNull()
                         else -> it.module
                     }
