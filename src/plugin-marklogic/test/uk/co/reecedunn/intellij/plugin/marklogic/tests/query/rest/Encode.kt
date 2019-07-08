@@ -19,18 +19,18 @@ import java.net.URLEncoder
 
 @Suppress("UNCHECKED_CAST")
 fun List<Pair<String, Any>>.toFormParamString(): String {
-    return map {
+    return joinToString("&") {
         val value = when (it.second) {
             is String -> it.second as String
             is List<*> -> (it.second as List<Pair<String, String>>).toJsonString()
             else -> it.second.toString()
         }
         "${it.first}=${URLEncoder.encode(value, "UTF-8")}"
-    }.joinToString("&")
+    }
 }
 
 fun List<Pair<String, String>>.toJsonString(): String {
-    return map {
+    return joinToString(",", "{", "}") {
         "\"${it.first}\":\"${it.second}\""
-    }.joinToString(",", "{", "}")
+    }
 }

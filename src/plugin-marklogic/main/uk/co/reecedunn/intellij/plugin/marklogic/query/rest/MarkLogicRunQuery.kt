@@ -32,14 +32,13 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 internal class MarkLogicRunQuery(
-    val builder: RequestBuilder,
-    val queryParams: JsonObject,
-    val queryFile: VirtualFile,
-    val connection: HttpConnection
+    private val builder: RequestBuilder,
+    private val queryParams: JsonObject,
+    private val queryFile: VirtualFile,
+    private val connection: HttpConnection
 ) :
     RunnableQuery,
     ValidatableQuery,

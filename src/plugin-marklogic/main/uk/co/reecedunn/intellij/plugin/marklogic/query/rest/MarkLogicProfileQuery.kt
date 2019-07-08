@@ -30,18 +30,15 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
-import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 
 internal class MarkLogicProfileQuery(
-    val builder: RequestBuilder,
-    val queryParams: JsonObject,
-    val queryFile: VirtualFile,
-    val connection: HttpConnection
+    private val builder: RequestBuilder,
+    private val queryParams: JsonObject,
+    private val queryFile: VirtualFile,
+    private val connection: HttpConnection
 ) :
     ProfileableQuery,
     BuildableQuery {

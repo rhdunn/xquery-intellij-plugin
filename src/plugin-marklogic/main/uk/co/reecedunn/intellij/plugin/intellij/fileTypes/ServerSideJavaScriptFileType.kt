@@ -26,7 +26,7 @@ import javax.swing.Icon
 object ServerSideJavaScriptFileType : LanguageFileType(ServerSideJavaScript) {
     object Factory : FileTypeFactory() {
         override fun createFileTypes(consumer: FileTypeConsumer) {
-            consumer.consume(ServerSideJavaScriptFileType, ServerSideJavaScriptFileType.EXTENSIONS)
+            consumer.consume(ServerSideJavaScriptFileType, EXTENSIONS)
         }
     }
 

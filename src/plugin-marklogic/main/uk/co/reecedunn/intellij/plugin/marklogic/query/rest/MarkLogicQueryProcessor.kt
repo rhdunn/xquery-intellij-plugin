@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 
-internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) :
+internal class MarkLogicQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     ProfileableQueryProvider,
     RunnableQueryProvider,
     ValidatableQueryProvider,

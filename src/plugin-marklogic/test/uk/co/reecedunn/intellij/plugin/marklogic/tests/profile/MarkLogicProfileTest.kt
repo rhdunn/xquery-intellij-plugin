@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.profile
 
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileRepor
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
-import java.math.BigInteger
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Profiler - MarkLogicProfile")
