@@ -406,11 +406,11 @@ declare %a:since("marklogic", "9.0") function cts:entity-dictionary($entities as
 declare %a:since("marklogic", "9.0") function cts:entity-dictionary-get($uri as xs:string) as cts:entity-dictionary external;
 declare %a:since("marklogic", "9.0") function cts:entity-dictionary-parse($contents as xs:string*) as cts:entity-dictionary external;
 declare %a:since("marklogic", "9.0") function cts:entity-dictionary-parse($contents as xs:string*, $options as xs:string*) as cts:entity-dictionary external;
-declare %a:since("marklogic", "9.0") function cts:entity-highlight($node as node(), $expr as item()*) as node() external;
-declare %a:since("marklogic", "9.0") function cts:entity-highlight($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as node() external;
-declare %a:since("marklogic", "9.0") function cts:entity-walk($node as node(), $expr as item()*) as item()* external;
-declare %a:since("marklogic", "9.0") function cts:entity-walk($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as item()* external;
-declare %a:since("marklogic", "5.0") %a:until("marklogic", "7.0") function cts:entity-highlight($node as node(), $expr as item()*) as node() external;
+declare %a:since("marklogic", "5.0") %a:until("marklogic", "7.0")
+        %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-highlight($node as node(), $expr as item()*) as node() external;
+declare %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-highlight($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as node() external;
+declare %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-walk($node as node(), $expr as item()*) as item()* external;
+declare %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-walk($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as item()* external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:estimate($query as cts:query?) as xs:integer external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:estimate($query as cts:query?, $options as (cts:order*|xs:string*)) as xs:integer external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:estimate($query as cts:query?, $options as (cts:order*|xs:string*), $quality-weight as xs:double?) as xs:integer external;

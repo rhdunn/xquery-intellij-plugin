@@ -77,6 +77,7 @@ declare %a:since("marklogic", "5.0") function xdmp:cluster-name() as xs:string e
 declare %a:since("marklogic", "5.0") function xdmp:cluster-name($id as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:cluster-version-at-least($version as xs:unsignedInt) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function xdmp:collation-canonical-uri($collation-uri as xs:string) as xs:string external;
+declare %a:since("marklogic", "10.0") function xdmp:collation-locales() as xs:string* external;
 declare %a:since("marklogic", "5.0") function xdmp:collection-delete($uri as xs:string) as empty-sequence() external;
 declare %a:since("marklogic", "9.0") function xdmp:collection-id($uri as xs:string) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:collection-locks() as document-node()* external;
@@ -194,6 +195,7 @@ declare %a:since("marklogic", "5.0") function xdmp:directory-create($uri as xs:s
 declare %a:since("marklogic", "5.0") function xdmp:directory-create($uri as xs:string, $permissions as element(sec:permission)*, $collections as xs:string*) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:directory-create($uri as xs:string, $permissions as element(sec:permission)*, $collections as xs:string*, $quality as xs:int?) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:directory-create($uri as xs:string, $permissions as element(sec:permission)*, $collections as xs:string*, $quality as xs:int?, $forest-ids as xs:unsignedLong*) as empty-sequence() external;
+declare %a:since("marklogic", "10.0") function xdmp:directory-create($uri as xs:string, $permissions as element(sec:permission)*, $collections as xs:string*, $quality as xs:int?, $forest-ids as xs:unsignedLong*, $options as (element()?|map:map?)) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:directory-delete($uri as xs:string) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:directory-locks($uri as xs:string*) as document-node()* external;
 declare %a:since("marklogic", "5.0") function xdmp:directory-locks($uri as xs:string*, $depth as xs:string?) as document-node()* external;
@@ -207,6 +209,7 @@ declare %a:since("marklogic", "5.0") function xdmp:document-add-properties($uri 
 declare %a:since("marklogic", "5.0") function xdmp:document-assign($uri as xs:string, $forest-count as xs:positiveInteger) as xs:positiveInteger external;
 declare %a:since("marklogic", "7.0") function xdmp:document-assign($uri as xs:string, $forest-count as xs:positiveInteger, $assignment-policy as xs:string) as xs:positiveInteger external;
 declare %a:since("marklogic", "5.0") function xdmp:document-delete($uri as xs:string) as empty-sequence() external;
+declare %a:since("marklogic", "10.0") function xdmp:document-delete($uri as xs:string, $options as (element()?|map:map?)) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:document-filter($doc as node()) as node() external;
 declare %a:restrict-until("$options", "marklogic", "8.0", "node()?")
         %a:restrict-since("$options", "marklogic", "8.0", "(element()?|map:map?)")
@@ -533,8 +536,11 @@ declare %a:restrict-until("$vars", "marklogic", "9.0", "item()*")
         %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars as (item()*|map:map?)) as item()* external;
 declare %a:restrict-until("$vars", "marklogic", "9.0", "item()*")
         %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars as (item()*|map:map?), $options as node()?) as item()* external;
-declare %a:since("marklogic", "9.0") function xdmp:json-validate($node as node(), $schema as xs:string, $mode as xs:string) as node() external;
-declare %a:since("marklogic", "9.0") function xdmp:json-validate-node($node as node(), $schema as node(), $mode as xs:string) as node() external;
+declare %a:since("marklogic", "10.0") function xdmp:json-pointer($node as node(), $path as xs:string) as node()? external;
+declare %a:restrict-until("$options", "marklogic", "10.0", "xs:string")
+        %a:since("marklogic", "9.0") function xdmp:json-validate($node as node(), $schema as xs:string, $options as xs:string*) as node() external;
+declare %a:restrict-until("$options", "marklogic", "10.0", "xs:string")
+        %a:since("marklogic", "9.0") function xdmp:json-validate-node($node as node(), $schema as node(), $options as xs:string*) as node() external;
 declare %a:since("marklogic", "5.0") function xdmp:key-from-QName($name as xs:QName) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-export($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-import($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
@@ -606,7 +612,9 @@ declare %a:since("marklogic", "5.0") function xdmp:node-insert-child($parent as 
 declare %a:restrict-since("$node", "marklogic", "8.0", "node()")
         %a:since("marklogic", "5.0") function xdmp:node-kind($node as node()?) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:node-metadata($node as node()) as map:map? external;
-declare %a:since("marklogic", "9.0") function xdmp:node-metadata-value($uri as xs:string, $keyName as xs:string) as xs:string? external;
+declare %a:restrict-until("$node-or-uri", "marklogic", "10.0", "xs:string")
+        %a:restrict-since("$node-or-uri", "marklogic", "10.0", "node()")
+        %a:since("marklogic", "9.0") function xdmp:node-metadata-value($uri as (xs:string|node()), $keyName as xs:string) as xs:string? external;
 declare %a:since("marklogic", "8.0") function xdmp:node-permissions($node as node()) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:node-permissions($node as node(), $output-kind as xs:string) as item()* external;
 declare %a:since("marklogic", "9.0") function xdmp:node-query-rolesets($uri as xs:string, $root as node()) as element(sec:query-rolesets)* external;

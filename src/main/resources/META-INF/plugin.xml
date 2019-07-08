@@ -68,6 +68,10 @@
       <li>Add definitions for the BaseX 9.2 built-in functions.</li>
       <li>Add support for the <code>perm</code> annotations introduced in BaseX 9.0.</li>
     </ol>
+    <p>MarkLogic:</p>
+    <ol>
+      <li>Add definitions for the MarkLogic 10.0-1 built-in functions.</li>
+    </ol>
     <p>XPath and XQuery:</p>
     <ol>
       <li>

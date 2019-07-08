@@ -54,4 +54,7 @@ declare namespace temporal = "http://marklogic.com/xdmp/temporal";
 (: MarkLogic 9.0 :)
 declare namespace tde = "http://marklogic.com/xdmp/tde";
 
+(: MarkLogic 10.0 :)
+declare namespace cntk = "http://marklogic.com/cntk";
+
 ()

@@ -58,6 +58,10 @@ BaseX:
 1.  Add definitions for the BaseX 9.2 built-in functions.
 1.  Add support for the `perm` annotations introduced in BaseX 9.0.
 
+MarkLogic:
+
+1.  Add definitions for the MarkLogic 10.0-1 built-in functions.
+
 XPath and XQuery:
 
 1.  Enable XPath syntax validation of expressions and patterns in XSLT when the
