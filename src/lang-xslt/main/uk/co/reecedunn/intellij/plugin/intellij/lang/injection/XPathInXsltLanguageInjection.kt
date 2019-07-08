@@ -42,7 +42,8 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
                 registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
                 registrar.doneInjecting()
             }
-            XPathSubset.Unknown -> {}
+            XPathSubset.Unknown -> {
+            }
         }
     }
 }

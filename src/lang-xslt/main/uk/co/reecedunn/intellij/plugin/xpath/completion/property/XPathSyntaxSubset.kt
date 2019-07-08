@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 
-import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.util.ProcessingContext
@@ -25,9 +24,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 
 object XPathSyntaxSubset : CompletionProperty {
-    @Suppress("MemberVisibilityCanBePrivate")
-    val XPATH_SYNTAX_SUBSET: Key<XPathSubset> = Key.create("uk.co.reecedunn.intellij.plugin.xslt.XPathSyntaxSubset")
-
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.XPATH_SUBSET] == null) {
             context.put(XPathCompletionProperty.XPATH_SUBSET, get(element))
