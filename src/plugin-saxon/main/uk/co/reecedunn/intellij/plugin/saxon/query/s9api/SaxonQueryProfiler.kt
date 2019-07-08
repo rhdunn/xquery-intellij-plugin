@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.profiler.toProfileReport
 
 internal class SaxonQueryProfiler(
     val runner: RunnableQuery,
-    val listener: SaxonProfileTraceListener
+    private val listener: SaxonProfileTraceListener
 ) : ProfileableQuery {
     override var rdfOutputFormat: Language?
         get() = runner.rdfOutputFormat

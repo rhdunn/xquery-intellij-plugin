@@ -44,9 +44,9 @@ class SaxonProfileInstruction(
 class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : TraceListener {
     var elapsed: Long = 0
     var created: Date? = null
-    var started: Boolean = false
+    private var started: Boolean = false
 
-    val instructions: Stack<SaxonProfileInstruction> = Stack()
+    private val instructions: Stack<SaxonProfileInstruction> = Stack()
     val results: HashMap<InstructionInfo, SaxonProfileInstruction> = HashMap()
 
     override fun setOutputDestination(logger: Any) {

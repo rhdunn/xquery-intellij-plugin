@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 object XdmNumeric {
-    fun tryInstance(value: String, itemtype: String, classLoader: ClassLoader): XdmAtomicValue? {
+    private fun tryInstance(value: String, itemtype: String, classLoader: ClassLoader): XdmAtomicValue? {
         return try {
             XdmAtomicValue(value, itemtype, classLoader)
         } catch (e: Throwable) {

@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
 internal class SaxonXPathRunner(
     val processor: Processor,
     val query: String,
-    val queryFile: VirtualFile
+    private val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val compiler by lazy { processor.newXPathCompiler() }
 

@@ -24,10 +24,10 @@ class SequenceOutputter(pipe: Any, classLoader: ClassLoader) : Receiver {
     init {
         val pipelineConfigurationClass = classLoader.loadClass("net.sf.saxon.event.PipelineConfiguration")
         val constructor = `class`.getConstructorOrNull(pipelineConfigurationClass)
-        if (constructor != null) { // Saxon >= 9.4
-            saxonObject = constructor.newInstance(pipe)
+        saxonObject = if (constructor != null) { // Saxon >= 9.4
+            constructor.newInstance(pipe)
         } else { // Saxon <= 9.3
-            saxonObject = `class`.getConstructor().newInstance()
+            `class`.getConstructor().newInstance()
         }
     }
 

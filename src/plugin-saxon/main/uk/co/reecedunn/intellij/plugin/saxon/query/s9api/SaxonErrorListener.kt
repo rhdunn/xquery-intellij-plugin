@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathEx
 import javax.xml.transform.ErrorListener
 import javax.xml.transform.TransformerException
 
-internal class SaxonErrorListener(var queryFile: VirtualFile, var classLoader: ClassLoader) : ErrorListener {
+internal class SaxonErrorListener(private var queryFile: VirtualFile, var classLoader: ClassLoader) : ErrorListener {
     var fatalError: QueryError? = null
 
     override fun warning(exception: TransformerException?) {

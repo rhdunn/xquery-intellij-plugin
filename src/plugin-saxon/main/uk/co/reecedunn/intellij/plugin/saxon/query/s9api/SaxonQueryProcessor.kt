@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classLoader: ClassLoader, val source: Source?) :
+internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val source: Source?) :
     ProfileableQueryProvider,
     RunnableQueryProvider,
     ValidatableQueryProvider {

@@ -30,12 +30,11 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
-import javax.xml.transform.ErrorListener
 
 internal class SaxonXQueryRunner(
     val processor: Processor,
     val query: String,
-    val queryFile: VirtualFile
+    private val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
     private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
 

@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
-import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
@@ -54,9 +53,9 @@ class Processor {
 
     val classLoader: ClassLoader get() = `class`.classLoader
 
-    val saxonEdition: String? get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
+    private val saxonEdition: String? get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
 
-    val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
+    private val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
 
     val version: String get() = saxonEdition?.let { "$saxonProductVersion ($it)" } ?: saxonProductVersion
 
@@ -74,7 +73,7 @@ class Processor {
         configurationClass.getMethod("setTraceListener", listenerClass).invoke(configuration, proxy)
     }
 
-    fun setConfigurationProperty(name: String, value: Any) {
+    private fun setConfigurationProperty(name: String, value: Any) {
         val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
         val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
 

@@ -24,7 +24,7 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
         return XdmSequenceIterator(`class`.getMethod("iterator").invoke(saxonObject), xdmSequenceIteratorClass)
     }
 
-    fun getUnderlyingValue(): Any {
+    private fun getUnderlyingValue(): Any {
         return `class`.getMethod("getUnderlyingValue").invoke(saxonObject)
     }
 
