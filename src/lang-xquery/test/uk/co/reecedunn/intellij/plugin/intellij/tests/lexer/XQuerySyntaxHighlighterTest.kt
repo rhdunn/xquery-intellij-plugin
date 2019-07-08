@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterFac
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
+@Suppress("Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery SyntaxHighlighter")
 class XQuerySyntaxHighlighterTest {
     @Test

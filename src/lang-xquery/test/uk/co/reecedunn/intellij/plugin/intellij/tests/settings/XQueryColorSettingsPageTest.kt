@@ -96,7 +96,10 @@ class XQueryColorSettingsPageTest {
     fun testAdditionalHighlightingTagToDescriptorMap() {
         val settings = XQueryColorSettingsPage()
         assertThat(settings.additionalHighlightingTagToDescriptorMap?.size, `is`(1))
-        assertThat(settings.additionalHighlightingTagToDescriptorMap?.get("nsprefix"), `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(
+            settings.additionalHighlightingTagToDescriptorMap?.get("nsprefix"),
+            `is`(XQuerySyntaxHighlighterColors.NS_PREFIX)
+        )
     }
 
     @Test

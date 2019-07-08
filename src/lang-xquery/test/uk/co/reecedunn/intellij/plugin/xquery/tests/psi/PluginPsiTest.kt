@@ -690,7 +690,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("parenthesized")
             fun parenthesized() {
-                val test = parse<PluginSequenceTypeList>("() instance of ( node ( (::) ) , xs:string , array ( * ) )")[0]
+                val test = parse<PluginSequenceTypeList>(
+                    "() instance of ( node ( (::) ) , xs:string , array ( * ) )"
+                )[0]
                 assertThat(test.isParenthesized, `is`(true))
 
                 val type = test as XdmSequenceTypeList
@@ -710,7 +712,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("not parenthesized")
             fun notParenthesized() {
-                val test = parse<PluginSequenceTypeList>("() instance of ( xs:int | node ( (::) ) , xs:string , array ( * ) )")[0]
+                val test = parse<PluginSequenceTypeList>(
+                    "() instance of ( xs:int | node ( (::) ) , xs:string , array ( * ) )"
+                )[0]
                 assertThat(test.isParenthesized, `is`(false))
 
                 val type = test as XdmSequenceTypeList
@@ -768,7 +772,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("namespace prefix")
             fun namespacePrefix() {
-                val expr = parse<PluginDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XPathDefaultNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>(
+                    "<a xmlns:b='http://www.example.com'/>"
+                )[0] as XPathDefaultNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
@@ -788,7 +794,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default element/type namespace")
             fun defaultElementTypeNamespace() {
-                val expr = parse<PluginDirAttribute>("<a xmlns='http://www.example.com'/>")[0] as XPathDefaultNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>(
+                    "<a xmlns='http://www.example.com'/>"
+                )[0] as XPathDefaultNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
@@ -798,7 +806,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-namespace declaration attribute")
             fun attribute() {
-                val expr = parse<PluginDirAttribute>("<a b='http://www.example.com'/>")[0] as XPathDefaultNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>(
+                    "<a b='http://www.example.com'/>"
+                )[0] as XPathDefaultNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
@@ -835,7 +845,10 @@ private class PluginPsiTest : ParserTestCase() {
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
-                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    assertThat(
+                        prologs[0].resourcePath(),
+                        endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy")
+                    )
                 }
 
                 @Test
@@ -859,7 +872,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testDefaultCaseClause_NCName() {
-                val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
+                val expr = parse<PluginDefaultCaseClause>(
+                    "typeswitch (\$x) default \$y return \$z"
+                )[0] as XPathVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -900,7 +915,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testDefaultCaseClause_NoVarName() {
-                val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default return \$z")[0] as XPathVariableBinding
+                val expr = parse<PluginDefaultCaseClause>(
+                    "typeswitch (\$x) default return \$z"
+                )[0] as XPathVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -936,7 +953,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testBlockVarDeclEntry_NCName() {
-                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
+                val expr = parse<PluginBlockVarDeclEntry>(
+                    "block { declare \$x := \$y; 2 }"
+                )[0] as XPathVariableDeclaration
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -947,7 +966,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun testBlockVarDeclEntry_QName() {
-                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
+                val expr = parse<PluginBlockVarDeclEntry>(
+                    "block { declare \$a:x := \$a:y; 2 }"
+                )[0] as XPathVariableDeclaration
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -971,7 +992,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testBlockVarDeclEntry_MissingVarName() {
-                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
+                val expr = parse<PluginBlockVarDeclEntry>(
+                    "block { declare \$ := \$y; 2 }"
+                )[0] as XPathVariableDeclaration
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }

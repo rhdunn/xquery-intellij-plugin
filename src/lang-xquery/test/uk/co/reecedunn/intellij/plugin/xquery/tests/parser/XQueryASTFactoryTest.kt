@@ -31,13 +31,19 @@ class XQueryASTFactoryTest {
     @DisplayName("createComposite")
     fun createComposite() {
         val factory = XQueryASTFactory()
-        assertThat(factory.createComposite(XQueryTokenType.CHARACTER_REFERENCE)!!.javaClass.name, `is`(CompositeElement::class.java.name))
+        assertThat(
+            factory.createComposite(XQueryTokenType.CHARACTER_REFERENCE)!!.javaClass.name,
+            `is`(CompositeElement::class.java.name)
+        )
     }
 
     @Test
     @DisplayName("createLeaf")
     fun createLeaf() {
         val factory = XQueryASTFactory()
-        assertThat(factory.createLeaf(XPathTokenType.COMMA, ",")!!.javaClass.name, `is`(LeafPsiElement::class.java.name))
+        assertThat(
+            factory.createLeaf(XPathTokenType.COMMA, ",")!!.javaClass.name,
+            `is`(LeafPsiElement::class.java.name)
+        )
     }
 }

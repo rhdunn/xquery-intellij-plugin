@@ -93,7 +93,9 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         @Test
         @DisplayName("non-empty parameters ; no return type")
         fun params_noReturnType() {
-            val ref = parse("declare function local:test( \$x as (::) xs:int , \$n  as  xs:float *) {}; local:test(1,2)")
+            val ref = parse(
+                "declare function local:test( \$x as (::) xs:int , \$n  as  xs:float *) {}; local:test(1,2)"
+            )
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*)"))
@@ -102,7 +104,9 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         @Test
         @DisplayName("non-empty parameters ; return type")
         fun params_returnType() {
-            val ref = parse("declare function local:test( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + {}; local:test(1,2)")
+            val ref = parse(
+                "declare function local:test( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + {}; local:test(1,2)"
+            )
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*) as item()+"))

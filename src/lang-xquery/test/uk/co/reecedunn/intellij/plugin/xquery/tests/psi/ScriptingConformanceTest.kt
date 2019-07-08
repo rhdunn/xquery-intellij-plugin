@@ -62,10 +62,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.CONCAT_EXPR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.CONCAT_EXPR))
         }
 
         @Test
@@ -81,10 +78,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SEPARATOR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.SEPARATOR))
         }
 
         @Test
@@ -100,10 +94,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SEPARATOR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.SEPARATOR))
         }
 
         @Test
@@ -119,10 +110,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SEPARATOR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.SEPARATOR))
         }
     }
 
@@ -138,10 +126,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(
-            conformance.conformanceElement.node.elementType,
-            `is`(XPathTokenType.ASSIGN_EQUAL)
-        )
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
     }
 
     @Test
@@ -156,8 +141,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_BLOCK))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BLOCK))
     }
 
     @Test
@@ -176,8 +160,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_DECLARE))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_DECLARE))
     }
 
     @Test
@@ -192,8 +175,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_EXIT))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_EXIT))
     }
 
     @Nested
@@ -213,10 +195,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SIMPLE)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_SIMPLE))
         }
 
         @Test
@@ -233,10 +212,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SEQUENTIAL)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_SEQUENTIAL))
         }
     }
 
@@ -254,10 +230,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.CONCAT_EXPR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.CONCAT_EXPR))
         }
 
         @Test
@@ -271,10 +244,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.TRANSACTION_SEPARATOR))
         }
 
         @Test
@@ -288,10 +258,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.TRANSACTION_SEPARATOR))
         }
 
         @Test
@@ -305,10 +272,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.TRANSACTION_SEPARATOR))
         }
     }
 
@@ -329,10 +293,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ASSIGNABLE)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_ASSIGNABLE))
         }
 
         @Test
@@ -349,10 +310,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UNASSIGNABLE)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_UNASSIGNABLE))
         }
     }
 
@@ -368,7 +326,6 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_WHILE))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
     }
 }

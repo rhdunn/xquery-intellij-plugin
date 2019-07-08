@@ -34,7 +34,11 @@ class XQueryWordsScannerTest {
         return occurrences.wordOccurrences
     }
 
-    private fun match(occurrence: Pair<WordOccurrence.Kind, CharSequence>, kind: WordOccurrence.Kind, text: CharSequence) {
+    private fun match(
+        occurrence: Pair<WordOccurrence.Kind, CharSequence>,
+        kind: WordOccurrence.Kind,
+        text: CharSequence
+    ) {
         assertThat(occurrence.getFirst(), `is`(kind))
         assertThat(occurrence.getSecond(), `is`(text))
     }

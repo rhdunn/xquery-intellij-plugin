@@ -53,15 +53,19 @@ abstract class ParserTestCase :
         myProject.registerService(ModuleManager::class.java, manager)
 
         registerExtensionPoint(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, ImportPathResolver::class.java)
-        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
-        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
-        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
-        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
+    }
+
+    private fun registerBuiltInFunctions(resolver: ImportPathResolver) {
+        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, resolver)
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)

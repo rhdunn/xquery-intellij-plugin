@@ -147,7 +147,9 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
         @Test
         @DisplayName("non-empty parameters ; no return type")
         fun params_noReturnType() {
-            val ref = parse("declare function local:test( \$x as (::) xs:int , \$n  as  xs:float *) {}; local:test(1,2)")
+            val ref = parse(
+                "declare function local:test( \$x as (::) xs:int , \$n  as  xs:float *) {}; local:test(1,2)"
+            )
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))
@@ -160,7 +162,9 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
         @Test
         @DisplayName("non-empty parameters ; return type")
         fun params_returnType() {
-            val ref = parse("declare function local:test( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + {}; local:test(1,2)")
+            val ref = parse(
+                "declare function local:test( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + {}; local:test(1,2)"
+            )
 
             assertThat(provider.canFindUsagesFor(ref.second), `is`(true))
             assertThat(provider.getHelpId(ref.second), `is`(HelpID.FIND_OTHER_USAGES))

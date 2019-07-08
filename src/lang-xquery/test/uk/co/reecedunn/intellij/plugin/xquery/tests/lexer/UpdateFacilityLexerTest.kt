@@ -30,8 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 class UpdateFacilityLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
-        lexer.addState(XQueryLexer(), 0x50000000, 0, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-        lexer.addState(XQueryLexer(), 0x60000000, 0, STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
+        lexer.addState(
+            XQueryLexer(), 0x50000000, 0, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
+        )
+        lexer.addState(
+            XQueryLexer(), 0x60000000, 0, STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
+        )
         return lexer
     }
 

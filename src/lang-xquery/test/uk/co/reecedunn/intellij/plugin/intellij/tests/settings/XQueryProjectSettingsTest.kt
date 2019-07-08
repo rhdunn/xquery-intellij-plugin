@@ -108,15 +108,15 @@ class XQueryProjectSettingsTest {
         val settings = XQueryProjectSettings()
         val outputter = XMLOutputter()
 
-        val expected =
-                "<XQueryProjectSettings>" +
-                "<option name=\"XQuery10Dialect\" value=\"xquery\" />" +
-                "<option name=\"XQuery30Dialect\" value=\"xquery\" />" +
-                "<option name=\"XQuery31Dialect\" value=\"xquery\" />" +
-                "<option name=\"XQueryVersion\" value=\"1.0\" />" +
-                "<option name=\"implementationVersion\" value=\"w3c/spec/v1ed\" />" +
-                "</XQueryProjectSettings>"
-
+        val expected = listOf(
+            "<XQueryProjectSettings>",
+            "<option name=\"XQuery10Dialect\" value=\"xquery\" />",
+            "<option name=\"XQuery30Dialect\" value=\"xquery\" />",
+            "<option name=\"XQuery31Dialect\" value=\"xquery\" />",
+            "<option name=\"XQueryVersion\" value=\"1.0\" />",
+            "<option name=\"implementationVersion\" value=\"w3c/spec/v1ed\" />",
+            "</XQueryProjectSettings>"
+        ).joinToString("")
         val element = XmlSerializer.serialize(settings)
         assertThat(outputter.outputString(element), `is`(expected))
     }

@@ -325,7 +325,9 @@ private class XPathLookupElementTest : ParserTestCase() {
         @Test
         @DisplayName("lookup element with return type")
         fun lookupElement_withReturnType() {
-            val ref = parse("declare function local:test(\$x as (::) xs:float, \$y as item((::))) as xs:string {}; local:test(1,2)")
+            val ref = parse(
+                "declare function local:test(\$x as (::) xs:float, \$y as item((::))) as xs:string {}; local:test(1,2)"
+            )
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
 
             assertThat(lookup.toString(), `is`("local:test"))
