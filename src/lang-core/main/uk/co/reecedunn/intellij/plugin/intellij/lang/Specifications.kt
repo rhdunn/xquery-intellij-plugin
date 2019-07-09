@@ -187,7 +187,13 @@ object XsltSpec : Versioned {
     )
 }
 
+@Suppress("MemberVisibilityCanBePrivate")
 object FunctionsAndOperatorsSpec : Versioned {
+    val WD_1_0_20030502 = DraftSpecification(
+        "1.0-20030502", 1.0, 20030502, "1.0", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this,
+        "Working Draft 02 May 2003"
+    )
+
     val REC_1_0_20070123 = Specification(
         "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/", this
     )
@@ -209,6 +215,7 @@ object FunctionsAndOperatorsSpec : Versioned {
     override val name: String = "XQuery and XPath Functions and Operators"
 
     override val versions: List<Version> = listOf(
+        WD_1_0_20030502,
         REC_1_0_20070123,
         REC_1_0_20101214,
         REC_3_0_20140408,
