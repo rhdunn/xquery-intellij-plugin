@@ -90,6 +90,7 @@
     <p>Inspections:</p>
     <ol>
       <li>XPST0017: Enable the undefined function inspection by default.</li>
+      <li>XQST0047: Don't generate an error on <code>ModuleImport</code>s without a namespace prefix.</li>
     </ol>
   ]]></change-notes>
 

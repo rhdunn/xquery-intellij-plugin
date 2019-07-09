@@ -76,6 +76,7 @@ XPath and XQuery:
 Inspections:
 
 1.  XPST0017: Enable the undefined function inspection by default.
+1.  XQST0047: Don't generate an error on `ModuleImport`s without a namespace prefix.
 
 ## 1.4.1 - 2019-03-27
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,9 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
                 val ns = child as? XPathNamespaceDeclaration
                 val uri = ns?.namespaceUri?.data
 
-                if (ns == null || uri == null)
+                // NOTE: A ModuleImport without a namespace prefix can import
+                // additional definitions into the namespace.
+                if (ns == null || uri == null || ns.namespacePrefix == null)
                     return
 
                 val duplicate: XPathNamespaceDeclaration? = uris[uri]
