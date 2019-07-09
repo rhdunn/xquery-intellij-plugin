@@ -66,6 +66,7 @@ XPath and XQuery:
 
 1.  Enable XPath syntax validation of expressions and patterns in XSLT when the
     XPath View + XSLT plugin is disabled.
+1.  Fix parsing decimal `CharRef`s with a single digit, e.g. `"&#9;"`.
 1.  Report a parser error when a `NumericLiteral` is followed by an `NCName` or
     `URIQualifiedName` without whitespace or comment tokens, due to them being
     non-delimiting terminal symbols.

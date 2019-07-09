@@ -153,8 +153,8 @@ class XQDocLexerTest : LexerTestCase() {
         @DisplayName("CharRef")
         internal inner class CharRef {
             @Test
-            @DisplayName("octal")
-            fun testContents_CharRef_Octal() {
+            @DisplayName("decimal")
+            fun decimal() {
                 val lexer = XQDocLexer()
 
                 lexer.start("~Lorem&#20;ipsum.")
@@ -163,6 +163,13 @@ class XQDocLexerTest : LexerTestCase() {
                 matchToken(lexer, "&#20;", 1, 6, 11, XQDocTokenType.CHARACTER_REFERENCE)
                 matchToken(lexer, "ipsum.", 1, 11, 17, XQDocTokenType.CONTENTS)
                 matchToken(lexer, "", 1, 17, 17, null)
+
+                lexer.start("~Lorem&#9;ipsum.")
+                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
+                matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
+                matchToken(lexer, "&#9;", 1, 6, 10, XQDocTokenType.CHARACTER_REFERENCE)
+                matchToken(lexer, "ipsum.", 1, 10, 16, XQDocTokenType.CONTENTS)
+                matchToken(lexer, "", 1, 16, 16, null)
 
                 lexer.start("~&#")
                 matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
@@ -188,7 +195,7 @@ class XQDocLexerTest : LexerTestCase() {
 
             @Test
             @DisplayName("hexadecimal")
-            fun testContents_CharRef_Hexadecimal() {
+            fun hexadecimal() {
                 val lexer = XQDocLexer()
 
                 lexer.start("~One&#x20;&#xae;&#xDC;Two.")
@@ -486,8 +493,8 @@ class XQDocLexerTest : LexerTestCase() {
         @DisplayName("CharRef")
         internal inner class CharRef {
             @Test
-            @DisplayName("octal")
-            fun testDirElemConstructor_CharRef_Octal() {
+            @DisplayName("decimal")
+            fun decimal() {
                 val lexer = XQDocLexer()
 
                 lexer.start("Lorem&#20;ipsum.", 0, 16, 4)
@@ -495,6 +502,12 @@ class XQDocLexerTest : LexerTestCase() {
                 matchToken(lexer, "&#20;", 4, 5, 10, XQDocTokenType.CHARACTER_REFERENCE)
                 matchToken(lexer, "ipsum.", 4, 10, 16, XQDocTokenType.XML_ELEMENT_CONTENTS)
                 matchToken(lexer, "", 4, 16, 16, null)
+
+                lexer.start("Lorem&#9;ipsum.", 0, 15, 4)
+                matchToken(lexer, "Lorem", 4, 0, 5, XQDocTokenType.XML_ELEMENT_CONTENTS)
+                matchToken(lexer, "&#9;", 4, 5, 9, XQDocTokenType.CHARACTER_REFERENCE)
+                matchToken(lexer, "ipsum.", 4, 9, 15, XQDocTokenType.XML_ELEMENT_CONTENTS)
+                matchToken(lexer, "", 4, 15, 15, null)
 
                 lexer.start("&#", 0, 2, 4)
                 matchToken(lexer, "&#", 4, 0, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
@@ -516,7 +529,7 @@ class XQDocLexerTest : LexerTestCase() {
 
             @Test
             @DisplayName("hexadecimal")
-            fun testDirElemConstructor_CharRef_Hexadecimal() {
+            fun hexadecimal() {
                 val lexer = XQDocLexer()
 
                 lexer.start("One&#x20;&#xae;&#xDC;Two.", 0, 25, 4)

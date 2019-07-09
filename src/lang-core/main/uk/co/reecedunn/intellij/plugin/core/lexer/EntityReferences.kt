@@ -84,7 +84,6 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                     }
                 }
                 c >= '0'.toInt() && c <= '9'.toInt() -> {
-                    match()
                     while (c >= '0'.toInt() && c <= '9'.toInt()) {
                         match()
                         c = codePoint

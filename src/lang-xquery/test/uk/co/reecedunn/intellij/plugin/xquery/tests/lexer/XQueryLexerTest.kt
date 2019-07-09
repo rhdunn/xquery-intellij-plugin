@@ -1461,8 +1461,8 @@ class XQueryLexerTest : LexerTestCase() {
         @DisplayName("XQuery 1.0 EBNF (153) CharRef")
         internal inner class DirAttributeValue_CharRef {
             @Test
-            @DisplayName("octal")
-            fun testDirAttributeValue_CharRef_Octal() {
+            @DisplayName("decimal")
+            fun decimal() {
                 val lexer = createLexer()
 
                 lexer.start("\"One&#20;Two\"", 0, 13, 11)
@@ -1480,6 +1480,14 @@ class XQueryLexerTest : LexerTestCase() {
                 matchToken(lexer, "Two", 14, 9, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
                 matchToken(lexer, "'", 14, 12, 13, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
                 matchToken(lexer, "", 11, 13, 13, null)
+
+                lexer.start("\"One&#9;Two\"", 0, 12, 11)
+                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                matchToken(lexer, "One", 13, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                matchToken(lexer, "&#9;", 13, 4, 8, XQueryTokenType.XML_CHARACTER_REFERENCE)
+                matchToken(lexer, "Two", 13, 8, 11, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                matchToken(lexer, "\"", 13, 11, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                matchToken(lexer, "", 11, 12, 12, null)
 
                 lexer.start("\"&#\"", 0, 4, 11)
                 matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
@@ -1513,7 +1521,7 @@ class XQueryLexerTest : LexerTestCase() {
 
             @Test
             @DisplayName("hexadecimal")
-            fun testDirAttributeValue_CharRef_Hexadecimal() {
+            fun hexadecimal() {
                 val lexer = createLexer()
 
                 lexer.start("\"One&#x20;&#xae;&#xDC;Two\"", 0, 26, 11)
@@ -1832,8 +1840,8 @@ class XQueryLexerTest : LexerTestCase() {
         @DisplayName("XQuery 1.0 EBNF (153) CharRef")
         internal inner class DirElemContent_CharRef {
             @Test
-            @DisplayName("octal")
-            fun testDirElemContent_CharRef_Octal() {
+            @DisplayName("decimal")
+            fun decimal() {
                 val lexer = createLexer()
 
                 lexer.start("<a>One&#20;Two</a>")
@@ -1847,6 +1855,18 @@ class XQueryLexerTest : LexerTestCase() {
                 matchToken(lexer, "a", 12, 16, 17, XQueryTokenType.XML_TAG_NCNAME)
                 matchToken(lexer, ">", 12, 17, 18, XQueryTokenType.END_XML_TAG)
                 matchToken(lexer, "", 0, 18, 18, null)
+
+                lexer.start("<a>One&#9;Two</a>")
+                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
+                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
+                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
+                matchToken(lexer, "One", 17, 3, 6, XQueryTokenType.XML_ELEMENT_CONTENTS)
+                matchToken(lexer, "&#9;", 17, 6, 10, XQueryTokenType.CHARACTER_REFERENCE)
+                matchToken(lexer, "Two", 17, 10, 13, XQueryTokenType.XML_ELEMENT_CONTENTS)
+                matchToken(lexer, "</", 17, 13, 15, XQueryTokenType.CLOSE_XML_TAG)
+                matchToken(lexer, "a", 12, 15, 16, XQueryTokenType.XML_TAG_NCNAME)
+                matchToken(lexer, ">", 12, 16, 17, XQueryTokenType.END_XML_TAG)
+                matchToken(lexer, "", 0, 17, 17, null)
 
                 lexer.start("<a>&#</a>")
                 matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
@@ -1896,7 +1916,7 @@ class XQueryLexerTest : LexerTestCase() {
 
             @Test
             @DisplayName("hexadecimal")
-            fun testDirElemContent_CharRef_Hexadecimal() {
+            fun hexadecimal() {
                 val lexer = createLexer()
 
                 lexer.start("<a>One&#x20;&#xae;&#xDC;Two</a>")
@@ -2722,8 +2742,8 @@ class XQueryLexerTest : LexerTestCase() {
         @DisplayName("XQuery 1.0 EBNF (153) CharRef")
         internal inner class CharRef {
             @Test
-            @DisplayName("octal")
-            fun octal() {
+            @DisplayName("decimal")
+            fun decimal() {
                 val lexer = createLexer()
 
                 lexer.start("\"One&#20;Two\"")
@@ -2741,6 +2761,14 @@ class XQueryLexerTest : LexerTestCase() {
                 matchToken(lexer, "Two", 2, 9, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
                 matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
                 matchToken(lexer, "", 0, 13, 13, null)
+
+                lexer.start("\"One&#9;Two\"")
+                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+                matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
+                matchToken(lexer, "&#9;", 1, 4, 8, XQueryTokenType.CHARACTER_REFERENCE)
+                matchToken(lexer, "Two", 1, 8, 11, XPathTokenType.STRING_LITERAL_CONTENTS)
+                matchToken(lexer, "\"", 1, 11, 12, XPathTokenType.STRING_LITERAL_END)
+                matchToken(lexer, "", 0, 12, 12, null)
 
                 lexer.start("\"&#\"")
                 matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
