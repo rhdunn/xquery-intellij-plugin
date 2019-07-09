@@ -2,6 +2,7 @@ xquery version "3.1";
 (:~
  : XPath and XQuery Functions and Operators
  :
+ : @see https://www.w3.org/TR/1999/REC-xpath-19991116/#corelib
  : @see https://www.w3.org/TR/2003/WD-xpath-functions-20030502/
  : @see https://www.w3.org/TR/2007/REC-xpath-functions-20070123/
  : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
@@ -55,7 +56,8 @@ declare %a:since("xpath-functions", "3.0-20140408") function fn:available-enviro
 declare %a:since("xpath-functions", "1.0-20030502") function fn:avg($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:base-uri() as xs:anyURI? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:base-uri($arg as node()?) as xs:anyURI? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:boolean($arg as item()*) as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:boolean($arg as item()*) as xs:boolean external;
 (:~
  : Rounds <code>$arg</code> upwards to a whole number.
  :
@@ -78,7 +80,8 @@ declare %a:since("xpath-functions", "1.0-20030502") function fn:boolean($arg as 
  : is negative zero, then negative zero is returned. If the argument is less
  : than zero and greater than -1, negative zero is returned.
  :)
-declare %a:since("xpath-functions", "1.0-20030502") function fn:ceiling($arg as xs:numeric?) as xs:numeric? external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:ceiling($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:codepoint-equal($comparand1 as xs:string?, $comparand2 as xs:string?) as xs:boolean? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:codepoints-to-string($arg as xs:integer*) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:collection() as node()* external;
@@ -91,14 +94,17 @@ declare %a:since("xpath-functions", "1.0-20030502") %a:until("xpath-functions", 
         %a:since("basex", "6.0") %a:since("marklogic", "5.0") function fn:concat() as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502") %a:until("xpath-functions", "1.0-20070123")
         %a:since("basex", "6.0") %a:since("marklogic", "5.0") function fn:concat($arg1 as xs:anyAtomicType?) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:concat($arg1 as xs:anyAtomicType?, $arg2 as xs:anyAtomicType?, $args as xs:anyAtomicType?...) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:contains($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:concat($arg1 as xs:anyAtomicType?, $arg2 as xs:anyAtomicType?, $args as xs:anyAtomicType?...) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:contains($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:contains($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:contains-token($input as xs:string*, $token as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:contains-token($input as xs:string*, $token as xs:string, $collation as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123") function fn:context-item() as item()? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:count($arg as item()*) as xs:integer external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:count($arg as item()*) as xs:integer external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:current-date() as xs:date external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:current-dateTime() as xs:dateTime external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:current-time() as xs:time external;
@@ -140,7 +146,8 @@ declare %a:since("xpath-functions", "1.0-20030502") function fn:exactly-one($arg
 declare %a:since("xpath-functions", "1.0-20030502") function fn:exists($arg as item()*) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123") function fn:expanded-QName($paramURI as xs:string, $paramLocal as xs:string) as xs:QName external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:false() as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:false() as xs:boolean external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:filter($seq as item()*, $f as function(item()) as xs:boolean) as item()* external;
 (:~
  : Rounds <code>$arg</code> downwards to a whole number.
@@ -163,7 +170,8 @@ declare %a:since("xpath-functions", "3.0-20140408") function fn:filter($seq as i
  : argument is positive zero, then positive zero is returned. If the argument
  : is negative zero, then negative zero is returned.
  :)
-declare %a:since("xpath-functions", "1.0-20030502") function fn:floor($arg as xs:numeric?) as xs:numeric? external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:floor($arg as xs:numeric?) as xs:numeric? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:fold-left($seq as item()*, $zero as item()*, $f as function(item()*, item()) as item()*) as item()* external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:fold-right($seq as item()*, $zero as item()*, $f as function(item()*, item()) as item()*) as item()* external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:for-each($seq as item()*, $f as function(item()) as item()*) as item()* external;
@@ -239,7 +247,8 @@ declare %a:since("xpath-functions", "3.0-20140408") function fn:head($arg as ite
 declare %a:since("xpath-functions", "1.0-20070123") function fn:hours-from-dateTime($arg as xs:dateTime?) as xs:integer? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:hours-from-duration($arg as xs:duration?) as xs:integer? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:hours-from-time($arg as xs:time?) as xs:integer? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:id($arg as xs:string*) as element()* external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:id($arg as xs:string*) as element()* external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:id($arg as xs:string*, $node as node()) as element()* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:idref($arg as xs:string*) as node()* external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:idref($arg as xs:string*, $node as node()) as node()* external;
@@ -258,13 +267,17 @@ declare %a:since("xpath-functions", "3.1-20170321") function fn:json-doc($href a
 declare %a:since("xpath-functions", "3.1-20170321") function fn:json-doc($href as xs:string?, $options as map(*)) as item()? external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:json-to-xml($json-text as xs:string?) as document-node()? external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:json-to-xml($json-text as xs:string?, $options as map(*)) as document-node()? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:lang($testlang as xs:string?) as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:lang($testlang as xs:string?) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:lang($testlang as xs:string?, $node as node()) as xs:boolean external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:last() as xs:integer external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:last() as xs:integer external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:load-xquery-module($module-uri as xs:string) as map(*) external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:load-xquery-module($module-uri as xs:string, $options as map(*)) as map(*) external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:local-name() as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:local-name($arg as node()?) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:local-name() as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:local-name($arg as node()?) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:local-name-from-QName($arg as xs:QName?) as xs:NCName? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:lower-case($arg as xs:string?) as xs:string external;
 declare %a:since("xpath-functions", "3.0-20111213") %a:until("xpath-functions", "3.0-20130108", "fn:for-each#2") function fn:map($f as function(item()) as item()*, $seq as item()*) as item()* external;
@@ -281,10 +294,14 @@ declare %a:since("xpath-functions", "1.0-20070123") function fn:minutes-from-tim
 declare %a:since("xpath-functions", "1.0-20070123") function fn:month-from-date($arg as xs:date?) as xs:integer? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:month-from-dateTime($arg as xs:dateTime?) as xs:integer? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:months-from-duration($arg as xs:duration?) as xs:integer? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:name() as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:name($arg as node()?) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:namespace-uri() as xs:anyURI external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:namespace-uri($arg as node()?) as xs:anyURI external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:name() as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:name($arg as node()?) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:namespace-uri() as xs:anyURI external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:namespace-uri($arg as node()?) as xs:anyURI external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:namespace-uri-for-prefix($prefix as xs:string?, $element as element()) as xs:anyURI? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:namespace-uri-from-QName($arg as xs:QName?) as xs:anyURI? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:nilled() as xs:boolean external;
@@ -293,13 +310,18 @@ declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123", "xdmp:node-kind#1") function fn:node-kind($arg as node()?) as xs:string external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:node-name() as xs:QName? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:node-name($arg as node()?) as xs:QName? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:normalize-space() as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:normalize-space($arg as xs:string?) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:normalize-space() as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:normalize-space($arg as xs:string?) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:normalize-unicode($arg as xs:string?) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:normalize-unicode($arg as xs:string?, $normalizationForm as xs:string) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:not($arg as item()*) as xs:boolean external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:number() as xs:double external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:number($arg as xs:anyAtomicType?) as xs:double external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:not($arg as item()*) as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:number() as xs:double external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:number($arg as xs:anyAtomicType?) as xs:double external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:one-or-more($arg as item()*) as item()+ external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:outermost($nodes as node()*) as node()* external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:parse-ietf-date($value as xs:string?) as xs:dateTime? external;
@@ -309,7 +331,8 @@ declare %a:since("xpath-functions", "3.0-20140408") function fn:parse-xml($arg a
 declare %a:since("xpath-functions", "3.0-20140408") function fn:parse-xml-fragment($arg as xs:string?) as document-node()? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:path() as xs:string? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:path($arg as node()?) as xs:string? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:position() as xs:integer external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:position() as xs:integer external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:prefix-from-QName($arg as xs:QName?) as xs:NCName? external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:random-number-generator() as map(xs:string, item()) external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:random-number-generator($seed as xs:anyAtomicType?) as map(xs:string, item()) external;
@@ -360,7 +383,8 @@ declare %a:since("xpath-functions", "1.0-20030502") function fn:root($arg as nod
  :        negative zero is returned according to the sign of <code>$arg</code>.</li>
  : </ol>
  :)
-declare %a:since("xpath-functions", "1.0-20030502") function fn:round($arg as xs:numeric?) as xs:numeric? external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:round($arg as xs:numeric?) as xs:numeric? external;
 (:~
  : Rounds a value to a specified number of decimal places, rounding upwards if
  : two such values are equally near.
@@ -515,31 +539,41 @@ declare %a:since("xpath-functions", "3.0-20140408") function fn:serialize($arg a
 declare %a:since("xpath-functions", "3.1-20170321") function fn:sort($input as item()*) as item()* external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:sort($input as item()*, $collation as xs:string?) as item()* external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:sort($input as item()*, $collation as xs:string?, $key as function(item()) as xs:anyAtomicType*) as item()* external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:static-base-uri() as xs:anyURI? external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:string() as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:string($arg as item()?) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:string() as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:string($arg as item()?) as xs:string external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:string-join($arg1 as xs:string*) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:string-join($arg1 as xs:string*, $arg2 as xs:string) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:string-length() as xs:integer external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:string-length($arg as xs:string?) as xs:integer external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:string-length() as xs:integer external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:string-length($arg as xs:string?) as xs:integer external;
 declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123") function fn:string-pad($arg as xs:string?, $count as xs:integer) as xs:string? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:string-to-codepoints($arg as xs:string?) as xs:integer* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:subsequence($sourceSeq as item()*, $startingLoc as xs:double) as item()* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:subsequence($sourceSeq as item()*, $startingLoc as xs:double, $length as xs:double) as item()* external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:substring($sourceString as xs:string?, $startingLoc as xs:double) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:substring($sourceString as xs:string?, $startingLoc as xs:double, $length as xs:double) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:substring-after($arg1 as xs:string?, $arg2 as xs:string?) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:substring($sourceString as xs:string?, $startingLoc as xs:double) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:substring($sourceString as xs:string?, $startingLoc as xs:double, $length as xs:double) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:substring-after($arg1 as xs:string?, $arg2 as xs:string?) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:substring-after($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:substring-before($arg1 as xs:string?, $arg2 as xs:string?) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:substring-before($arg1 as xs:string?, $arg2 as xs:string?) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:substring-before($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123") function fn:subtract-dateTimes-yielding-dayTimeDuration($arg1 as xs:dateTime, $arg2 as xs:dateTime) as xs:dayTimeDuration external;
 declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123") function fn:subtract-dateTimes-yielding-yearMonthDuration($arg1 as xs:dateTime, $arg2 as xs:dateTime) as xs:yearMonthDuration external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:sum($arg as xs:anyAtomicType*) as xs:anyAtomicType external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:sum($arg as xs:anyAtomicType*) as xs:anyAtomicType external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:sum($arg as xs:anyAtomicType*, $zero as xs:anyAtomicType?) as xs:anyAtomicType? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:tail($arg as item()*) as item()? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:timezone-from-date($arg as xs:date?) as xs:dayTimeDuration? external;
@@ -551,8 +585,10 @@ declare %a:since("xpath-functions", "1.0-20030502") function fn:tokenize($input 
 declare %a:since("xpath-functions", "3.1-20170321") function fn:trace($value as item()*) as item()* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:trace($value as item()*, $label as xs:string) as item()* external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:transform($options as map(*)) as map(*) external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:translate($arg as xs:string?, $mapString as xs:string, $transString as xs:string) as xs:string external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:true() as xs:boolean external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:translate($arg as xs:string?, $mapString as xs:string, $transString as xs:string) as xs:string external;
+declare %a:since("xpath", "1.0-19991116")
+        %a:since("xpath-functions", "1.0-20070123") function fn:true() as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:unordered($sourceSeq as item()*) as item()* external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:unparsed-text($href as xs:string?) as xs:string? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:unparsed-text($href as xs:string?, $encoding as xs:string) as xs:string? external;
