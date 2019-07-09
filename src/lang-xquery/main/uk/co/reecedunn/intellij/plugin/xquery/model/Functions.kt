@@ -37,7 +37,9 @@ private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {
-    return importedPrologsForQName().flatMap { (name, prolog) -> prolog.staticallyKnownFunctions(name) }.filterNotNull()
+    return importedPrologsForQName().flatMap { (name, prolog) ->
+        prolog.staticallyKnownFunctions(name!!)
+    }.filterNotNull()
 }
 
 fun XQueryProlog.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?> {

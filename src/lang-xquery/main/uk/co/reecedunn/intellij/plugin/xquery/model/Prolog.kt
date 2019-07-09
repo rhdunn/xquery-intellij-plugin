@@ -34,6 +34,31 @@ fun <Decl> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl
 inline fun <reified Decl> XQueryProlog.annotatedDeclarations(): Sequence<Decl?> =
     annotatedDeclarations(Decl::class.java)
 
+fun PsiElement.fileProlog(): XQueryProlog? {
+    val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
+    return (module as XQueryPrologResolver).prolog.firstOrNull()
+}
+
+private class PrologVisitor(
+    private val prologs: Iterator<Pair<XsQNameValue?, XQueryProlog>>
+) : Iterator<Pair<XsQNameValue?, XQueryProlog>> {
+    var item: Pair<XsQNameValue?, XQueryProlog>? = null
+    val visited: MutableSet<XQueryProlog> = mutableSetOf()
+
+    override fun hasNext(): Boolean {
+        while (prologs.hasNext()) {
+            item = prologs.next()
+            if (!visited.contains(item!!.second)) {
+                visited.add(item!!.second)
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun next(): Pair<XsQNameValue?, XQueryProlog> = item!!
+}
+
 fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> {
     return sequenceOf(
         sequenceOf(this),
@@ -43,25 +68,14 @@ fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> {
     ).flatten()
 }
 
-fun PsiElement.fileProlog(): XQueryProlog? {
-    val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
-    return (module as XQueryPrologResolver).prolog.firstOrNull()
-}
-
-fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue, XQueryProlog>> {
-    var thisProlog = fileProlog()
-    val prologs = (this as XsQNameValue).expand().flatMap { name ->
-        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog?.map { prolog ->
-            if (prolog === thisProlog)
-                thisProlog = null
-            name to prolog
-        } ?: emptySequence()
-    }.toList()
-    return if (thisProlog != null)
-        sequenceOf(
-            prologs.asSequence(),
-            (this as XsQNameValue).expand().map { name -> name to thisProlog!! }
-        ).flatten()
-    else
-        prologs.asSequence()
+fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryProlog>> {
+    val prologs = sequenceOf(
+        (this as XsQNameValue).expand().flatMap { name ->
+            (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog?.map { prolog ->
+                name to prolog
+            } ?: emptySequence()
+        },
+        fileProlog()?.let { (this as XsQNameValue).expand().map { name -> name to it } } ?: emptySequence()
+    ).flatten()
+    return PrologVisitor(prologs.iterator()).asSequence()
 }
