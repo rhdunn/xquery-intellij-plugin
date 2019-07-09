@@ -20,6 +20,7 @@
       <li>Fix resolving and finding usages of variables declared in imported modules.</li>
       <li>Fix find usages of locally declared and imported functions.</li>
       <li>Support the MarkLogic behaviour for resolving <code>NCName</code>-based <code>FunctionDecl</code>s.</li>
+      <li>Fix resolving to imported functions from declarations other than the one declaring the namespace.</li>
       <li>Provide better type names in the find usages pane.</li>
       <li>Display the <code>EQName</code> type signature in the find usages pane.</li>
     </ol>

@@ -16,9 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
@@ -43,13 +46,17 @@ private class PrologVisitor(
     private val prologs: Iterator<Pair<XsQNameValue?, XQueryProlog>>
 ) : Iterator<Pair<XsQNameValue?, XQueryProlog>> {
     var item: Pair<XsQNameValue?, XQueryProlog>? = null
-    val visited: MutableSet<XQueryProlog> = mutableSetOf()
+    val visited: MutableSet<Pair<String, String>> = mutableSetOf()
 
     override fun hasNext(): Boolean {
         while (prologs.hasNext()) {
             item = prologs.next()
-            if (!visited.contains(item!!.second)) {
-                visited.add(item!!.second)
+
+            val ns = item!!.first?.namespace?.data ?: ""
+            val file = item!!.second.resourcePath()
+            val visit = ns to file
+            if (!visited.contains(visit)) {
+                visited.add(visit)
                 return true
             }
         }
@@ -69,13 +76,25 @@ fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> {
 }
 
 fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryProlog>> {
-    val prologs = sequenceOf(
-        (this as XsQNameValue).expand().flatMap { name ->
+    val thisProlog = fileProlog()
+    val prologs = (this as XsQNameValue).expand().flatMap { name ->
+        sequenceOf(
+            // 1. Imported modules in the current module.
+            thisProlog?.children()?.reversed()?.flatMap { child ->
+                if (child is XPathNamespaceDeclaration && child.namespaceUri?.data == name.namespace?.data)
+                    (child as XQueryPrologResolver).prolog.map { prolog -> name to prolog }
+                else
+                    emptySequence()
+            } ?: emptySequence(),
+
+            // 2. The current module.
+            thisProlog?.let { sequenceOf(name to it) } ?: emptySequence(),
+
+            // 3. The built-in module.
             (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog?.map { prolog ->
                 name to prolog
             } ?: emptySequence()
-        },
-        fileProlog()?.let { (this as XsQNameValue).expand().map { name -> name to it } } ?: emptySequence()
-    ).flatten()
+        ).flatten()
+    }
     return PrologVisitor(prologs.iterator()).asSequence()
 }
