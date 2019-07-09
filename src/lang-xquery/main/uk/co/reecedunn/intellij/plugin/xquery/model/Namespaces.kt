@@ -166,7 +166,7 @@ fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
 
 fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
-        isLexicalQName && prefix == null -> { // NCName
+        isLexicalQName && prefix == null /* NCName */ -> {
             when (getNamespaceType()) {
                 XPathNamespaceType.DefaultElementOrType -> element!!.defaultElementOrTypeNamespace().expandNCName(this)
                 XPathNamespaceType.DefaultFunction -> element!!.defaultFunctionNamespace().expandNCName(this)
@@ -175,22 +175,13 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
                 else -> sequenceOf(this)
             }
         }
-        isLexicalQName -> { // QName
+        isLexicalQName /* QName */ -> {
             element!!.staticallyKnownNamespaces().filter { ns ->
                 ns.namespacePrefix?.data == prefix!!.data
             }.map { ns ->
                 XsQName(ns.namespaceUri, prefix, localName, false, element)
             }
         }
-        else -> { // URIQualifiedName
-            sequenceOf(
-                element!!.staticallyKnownNamespaces().filter { ns ->
-                    ns.namespaceUri?.data == namespace!!.data
-                }.map { ns ->
-                    XsQName(ns.namespaceUri, null, localName, false, element)
-                },
-                sequenceOf(this)
-            ).flatten()
-        }
+        else /* URIQualifiedName */ -> sequenceOf(this)
     }
 }

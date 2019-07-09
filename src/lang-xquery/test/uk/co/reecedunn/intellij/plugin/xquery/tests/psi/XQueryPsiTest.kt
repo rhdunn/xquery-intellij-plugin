@@ -227,21 +227,14 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(2))
+                assertThat(expanded.size, `is`(1))
 
-                // The URIQualifiedName bound to the 'xs' NamespaceDecl.
+                // The URIQualifiedName itself, not bound to a namespace.
                 assertThat(expanded[0].isLexicalQName, `is`(false))
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
-
-                // The URIQualifiedName itself, not bound to a namespace.
-                assertThat(expanded[1].isLexicalQName, `is`(false))
-                assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-                assertThat(expanded[1].prefix, `is`(nullValue()))
-                assertThat(expanded[1].localName!!.data, `is`("test"))
-                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
 
             @Test
