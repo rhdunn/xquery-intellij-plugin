@@ -525,7 +525,8 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 val element = parse<XPathFunctionCall>("fn:true()")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
 
-                assertThat(namespaces.size, `is`(29)) // Includes built-in namespaces for all MarkLogic versions.
+                assertThat(namespaces.size, `is`(30)) // Includes built-in namespaces for all MarkLogic versions.
+                assertThat(namespace(namespaces, "cntk"), `is`("http://marklogic.com/cntk"))
                 assertThat(namespace(namespaces, "cts"), `is`("http://marklogic.com/cts"))
                 assertThat(namespace(namespaces, "dav"), `is`("DAV:"))
                 assertThat(namespace(namespaces, "dbg"), `is`("http://marklogic.com/xdmp/dbg"))
