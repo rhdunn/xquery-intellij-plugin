@@ -893,7 +893,7 @@ private class PluginConformanceTest : ParserTestCase() {
     internal inner class ValidateExpr {
         @Test
         @DisplayName("validate as")
-        fun testValidateExpr_ValidateAs() {
+        fun validateAs() {
             val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
 
             val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
@@ -904,6 +904,21 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_AS))
+        }
+
+        @Test
+        @DisplayName("validate full")
+        fun validateFull() {
+            val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateFull.xq")
+
+            val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
+            val versioned = validateExprPsi as VersionConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FULL))
         }
     }
 

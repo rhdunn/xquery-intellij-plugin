@@ -71,6 +71,8 @@
     <p>MarkLogic:</p>
     <ol>
       <li>Add definitions for the MarkLogic 10.0-1 built-in functions.</li>
+      <li>Fix MarkLogic 6.0 <code>binary()</code> used as a <code>NodeTest</code>.</li>
+      <li>Support the MarkLogic 6.0 <code>validate full</code> syntax extension.</li>
     </ol>
     <p>XPath and XQuery:</p>
     <ol>
@@ -86,7 +88,6 @@
       </li>
       <li>Report an error if an unknown axis name is followed by the <code>::</code> axis indicator.</li>
       <li>Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.</li>
-      <li>Fix MarkLogic 6.0 <code>binary()</code> used as a <code>NodeTest</code>.</li>
     </ol>
     <p>Inspections:</p>
     <ol>

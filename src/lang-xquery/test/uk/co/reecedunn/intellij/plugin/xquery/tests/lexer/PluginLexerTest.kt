@@ -706,4 +706,14 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "...", XPathTokenType.ELLIPSIS)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (100) ValidateMode")
+    fun validateMode() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "lax", XQueryTokenType.K_LAX)
+        matchSingleToken(lexer, "strict", XQueryTokenType.K_STRICT)
+        matchSingleToken(lexer, "full", XQueryTokenType.K_FULL)
+    }
 }

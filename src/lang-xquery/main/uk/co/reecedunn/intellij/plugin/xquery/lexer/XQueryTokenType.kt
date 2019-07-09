@@ -113,6 +113,7 @@ object XQueryTokenType {
     val K_FIRST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FIRST", XQuery) // Update Facility 1.0
     val K_FN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FN", XQuery) // Saxon 9.8
     val K_FT_OPTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FT_OPTION", XQuery) // Full Text 1.0
+    val K_FULL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FULL", XQuery) // MarkLogic 6.0
     val K_FUZZY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUZZY", XQuery) // BaseX 6.1
     val K_GREATEST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST", XQuery) // XQuery 1.0
     val K_GROUP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUP", XQuery) // XQuery 3.0
@@ -269,7 +270,7 @@ object XQueryTokenType {
 
     val VALIDATE_EXPR_TOKENS = TokenSet.create(XPathTokenType.K_AS, K_TYPE)
 
-    val VALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_STRICT)
+    val VALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_STRICT, K_FULL)
 
     val STRING_LITERAL_TOKENS = TokenSet.create(
         XPathTokenType.STRING_LITERAL_CONTENTS,

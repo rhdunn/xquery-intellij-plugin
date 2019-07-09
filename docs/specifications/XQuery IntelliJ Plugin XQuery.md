@@ -707,12 +707,15 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 ### 3.10 Validate Expressions
 
 {: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[27\] | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[27\]  | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
+| \[101\] | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |         |
 
 MarkLogic uses the `at` keyword instead of the XQuery 3.0 `type` keyword for
 typed validation expressions.
+
+MarkLogic supports the `full` validation mode.
 
 ### 3.11 Try/Catch Expressions
 
@@ -1036,6 +1039,7 @@ These changes include support for:
 | \[98\]   | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"`   |                 |
 | \[99\]   | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` |  |
 | \[100\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?`       |                 |
+| \[101\]  | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1177,10 +1181,10 @@ in this document:
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)
 1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
+1.  [Validate Expressions](#310-validate-expressions) -- typed expressions and full validation
 
 MarkLogic also supports the following syntax for XQuery 3.0 constructs:
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
-1.  [Validate Expressions](#310-validate-expressions)
 
 MarkLogic 8.0 supports the following JSON syntax extensions:
 1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays)

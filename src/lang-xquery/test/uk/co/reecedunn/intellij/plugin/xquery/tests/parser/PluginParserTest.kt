@@ -682,6 +682,14 @@ private class PluginParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_EQName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("validate full")
+        fun full() {
+            val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateFull.txt")
+            val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateFull.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested

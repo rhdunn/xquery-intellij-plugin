@@ -79,6 +79,7 @@ private val KEYWORDS = mapOf(
     "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
     "fn" to XQueryTokenType.K_FN, // Saxon 9.8
     "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
+    "full" to XQueryTokenType.K_FULL, // MarkLogic 6.0
     "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
     "greatest" to XQueryTokenType.K_GREATEST,
     "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
