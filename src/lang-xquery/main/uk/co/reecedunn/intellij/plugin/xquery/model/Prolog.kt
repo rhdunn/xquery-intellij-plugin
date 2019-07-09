@@ -82,7 +82,7 @@ fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryPr
             // 1. Imported modules in the current module.
             thisProlog?.children()?.reversed()?.flatMap { child ->
                 if (child is XPathNamespaceDeclaration && child.namespaceUri?.data == name.namespace?.data)
-                    (child as XQueryPrologResolver).prolog.map { prolog -> name to prolog }
+                    (child as? XQueryPrologResolver)?.prolog?.map { prolog -> name to prolog } ?: emptySequence()
                 else
                     emptySequence()
             } ?: emptySequence(),
