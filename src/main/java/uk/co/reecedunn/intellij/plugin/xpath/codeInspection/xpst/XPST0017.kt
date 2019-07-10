@@ -36,13 +36,15 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathFunctionReference>()
             .forEach { ref ->
-                val qname = ref.functionName
+                val qname = ref.functionName ?: return@forEach
+                if (qname.localName == null) return@forEach
+
                 val declarations = (qname as? XPathEQName)?.staticallyKnownFunctions()?.toList() ?: return@forEach
                 if (declarations.isEmpty()) {
                     // 1. The expanded QName does not match the name of a function signature in the static context.
                     descriptors.add(
                         manager.createProblemDescriptor(
-                            ref.functionName?.localName?.element!!,
+                            qname.localName?.element!!,
                             XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname"),
                             null as LocalQuickFix?,
                             ProblemHighlightType.LIKE_UNKNOWN_SYMBOL,
@@ -55,7 +57,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                     if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
                         descriptors.add(
                             manager.createProblemDescriptor(
-                                ref.functionName?.localName?.element!!,
+                                qname.localName?.element!!,
                                 XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-arity"),
                                 null as LocalQuickFix?,
                                 ProblemHighlightType.GENERIC_ERROR,
