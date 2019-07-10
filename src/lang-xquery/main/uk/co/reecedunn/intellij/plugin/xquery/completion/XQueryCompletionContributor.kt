@@ -61,6 +61,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
             .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
+            .addCompletions(XPathUnionTypeProvider)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (234) QName

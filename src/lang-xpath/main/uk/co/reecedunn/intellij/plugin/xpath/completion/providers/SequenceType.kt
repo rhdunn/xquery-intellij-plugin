@@ -20,10 +20,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
-import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
-import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
@@ -93,6 +90,17 @@ object XPathItemTypeProvider : CompletionProviderEx {
             XPathSpec.REC_3_1_20170321 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             else -> {
             }
+        }
+    }
+}
+
+object XPathUnionTypeProvider : CompletionProviderEx {
+    private val UNION_TYPE = XPathKeywordLookup("union", XPathInsertText.PARAMS_TYPES)
+
+    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
+        val version = context[XPathCompletionProperty.XPATH_PRODUCT_VERSION]
+        if (version.kind === Saxon && version.value >= 9.8) {
+            result.addElement(UNION_TYPE)
         }
     }
 }

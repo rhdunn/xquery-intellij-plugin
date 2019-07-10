@@ -41,6 +41,7 @@ data class XPathInsertText(
         val PARAMS_ROOT_ELEMENT = XPathInsertText("(", "root-element", ")")
         val PARAMS_SCHEMA_CONTEXT = XPathInsertText("(", "schema-context-or-name?, type?", ")") // XPath 2.0 WD 2003
         val PARAMS_TYPE = XPathInsertText("(", "type", ")")
+        val PARAMS_TYPES = XPathInsertText("(", "type, type...", ")")
         val PARAMS_WILDCARD = XPathInsertText("(*)", null, null)
         val PARAMS_WILDCARD_AND_TYPE = XPathInsertText("(*, ", "type", ")")
         val TYPED_FUNCTION = XPathInsertText("(", "sequence-types", ")", " as sequence-type")

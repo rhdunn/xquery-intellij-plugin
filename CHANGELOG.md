@@ -26,7 +26,7 @@ Code Completion:
 
 1.  In-scope variable completion support in `VarRef` expressions for XQuery.
 1.  Statically-known function completion support in `FunctionCall` and `ArrowExpr` expressions for XQuery.
-1.  XML Schema type completion support in `AtomicOrUnionType` and `SimpleTypeName` for XPath and XQuery.
+1.  XML Schema and `union()` type completion support in `AtomicOrUnionType` and `SimpleTypeName` for XPath and XQuery.
 1.  Namespace prefix completion support in `QName`s for XPath and XQuery.
 1.  Keyword completion support in `ForwardAxis` and `ReverseAxis` for XPath and XQuery.
 1.  Keyword completion support in `KindTest` based `NodeTest`s and `ItemType`s for XPath and XQuery.
