@@ -16,6 +16,8 @@ xquery version "3.1";
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
  : @see https://www.w3.org/TR/201/REC-xpath-functions-31-20170321/
  :
+ : @see https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#id-func-put
+ :
  : This software includes material copied from or derived from the XPath and
  : XQuery Functions and Operators 1.0 to 3.1 specifications. Copyright ©
  : 2007-2017 W3C® (MIT, ERCIM, Keio, Beihang).
@@ -375,6 +377,7 @@ declare %a:since("xpath-functions", "3.0-20140408") function fn:path($arg as nod
 declare %a:since("xpath", "1.0-19991116")
         %a:since("xpath-functions", "1.0-20070123") function fn:position() as xs:integer external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:prefix-from-QName($arg as xs:QName?) as xs:NCName? external;
+declare %a:since("xpath-update", "1.0-20110317") %updating function fn:put($node as node(), $uri as xs:string) as empty-sequence() external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:random-number-generator() as map(xs:string, item()) external;
 declare %a:since("xpath-functions", "3.1-20170321") function fn:random-number-generator($seed as xs:anyAtomicType?) as map(xs:string, item()) external;
 declare %a:since("xslt", "2.0-20070123") function fn:regex-group($group-number as xs:integer) as xs:string external;
