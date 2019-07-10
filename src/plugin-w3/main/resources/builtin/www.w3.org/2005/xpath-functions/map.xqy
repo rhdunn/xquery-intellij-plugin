@@ -22,7 +22,8 @@ declare option o:requires "xpath-functions/3.1";
  : an entry with the same key as the supplied value of <code>$key</code>;
  : otherwise it returns false.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:contains($map as map(*), $key as xs:anyAtomicType) as xs:boolean external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:contains($map as map(*), $key as xs:anyAtomicType) as xs:boolean external;
 (:~
  : Returns a map that contains a single entry (a key-value pair).
  :
@@ -54,7 +55,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:contains($map a
  :
  : <pre><code>map:merge(for $b in //book return map:entry($b/isbn, $b))</code></pre>
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:entry($key as xs:anyAtomicType, $value as item()*) as map(*) external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:entry($key as xs:anyAtomicType, $value as item()*) as map(*) external;
 (:~
  : Searches the supplied input sequence and any contained maps and arrays for a
  : map entry with the supplied key, and returns the corresponding values.
@@ -91,7 +93,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:entry($key as x
  : If <code>$input</code> is an empty sequence, map, or array, or if the requested
  : <code>$key</code> is not found, the result will be a zero-length array.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:find($input as item()*, $key as xs:anyAtomicType) as array(*) external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:find($input as item()*, $key as xs:anyAtomicType) as array(*) external;
 (:~
  : Applies a supplied function to every entry in a map, returning the
  : concatenation of the results.
@@ -109,7 +112,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:find($input as 
  : called supplying the key of the map entry as the first argument, and the
  : associated value as the second argument.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:for-each($map as map(*), $action as function(xs:anyAtomicType, item()*) as item()*) as item()* external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:for-each($map as map(*), $action as function(xs:anyAtomicType, item()*) as item()*) as item()* external;
 (:~
  : Returns the value associated with a supplied key in a given map.
  :
@@ -132,7 +136,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:for-each($map a
  : <code>map:get(map:get(map:get($map, 'employee'), 'name'), 'first')</code> can
  : be written as <code>$map('employee')('name')('first')</code>.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:get($map as map(*), $key as xs:anyAtomicType) as item()* external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:get($map as map(*), $key as xs:anyAtomicType) as item()* external;
 (:~
  : Returns a sequence containing all the keys present in a map.
  :
@@ -149,7 +154,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:get($map as map
  : The number of items in the result will be the same as the number of entries
  : in the map, and the result sequence will contain no duplicate values.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:keys($map as map(*)) as xs:anyAtomicType* external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:keys($map as map(*)) as xs:anyAtomicType* external;
 (:~
  : Returns a map that combines the entries from a number of existing maps.
  :
@@ -170,7 +176,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:keys($map as ma
  : This is equivalent to the function call
  : <code>map:merge($maps, map { duplicates: "use-first" })</code>.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:merge($maps as map(*)*) as map(*) external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:merge($maps as map(*)*) as map(*) external;
 (:~
  : Returns a map that combines the entries from a number of existing maps.
  :
@@ -253,7 +260,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:merge($maps as 
  :    </li>
  : </ol>
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:merge($maps as map(*)*, $options as map(*)) as map(*) external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:merge($maps as map(*)*, $options as map(*)) as map(*) external;
 (:~
  : Returns a map containing all the contents of the supplied map, but with an
  : additional entry, which replaces any existing entry for the same key.
@@ -285,7 +293,8 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:merge($maps as 
  : There is no requirement that the type of <code>$key</code> and <code>$value</code>
  : be consistent with the types of any existing keys and values in the supplied map.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:put($map as map(*), $key as xs:anyAtomicType, $value as item()*) as map(*) external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:put($map as map(*), $key as xs:anyAtomicType, $value as item()*) as map(*) external;
 (:~
  : Returns a map containing all the entries from a supplied map, except those
  : having a specified key.
@@ -296,11 +305,13 @@ declare %a:since("xpath-functions", "3.1-20170321") function map:put($map as map
  : No failure occurs if an item in <code>$keys</code> does not correspond to any
  : entry in <code>$map</code>; that key value is simply ignored.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:remove($map as map(*), $keys as xs:anyAtomicType*) as map(*) external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:remove($map as map(*), $keys as xs:anyAtomicType*) as map(*) external;
 (:~
  : Returns the number of entries in the supplied map.
  :
  : This function takes any map as its <code>$map</code> argument and returns
  : the number of entries that are present in the map.
  :)
-declare %a:since("xpath-functions", "3.1-20170321") function map:size($map as map(*)) as xs:integer external;
+declare %a:since("xslt", "3.0-20170608")
+        %a:since("xpath-functions", "3.1-20170321") function map:size($map as map(*)) as xs:integer external;
