@@ -3526,7 +3526,7 @@ open class XPathParser : PsiParser {
             } else {
                 marker.done(type)
             }
-            return type
+            return eqnameType
         }
         marker.drop()
         return null

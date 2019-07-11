@@ -74,6 +74,9 @@ XPath and XSLT:
 XPath and XQuery:
 
 1.  Fix parsing decimal `CharRef`s with a single digit, e.g. `"&#9;"`.
+1.  Fix parsing a NameTest that is a named computed constructor keyword like
+    `element` followed by a keyword that is part of a containing expression
+    (e.g. `return`) and does not have an `EnclosedExpr`.
 1.  Report an error when the `EnclosedExpr` is missing from named computed
     constructors.
 1.  Report a parser error when a `NumericLiteral` is followed by an `NCName` or

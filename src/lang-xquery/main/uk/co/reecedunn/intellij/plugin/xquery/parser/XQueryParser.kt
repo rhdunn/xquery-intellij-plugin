@@ -3877,10 +3877,8 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            if (
-                parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null &&
-                !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
-            ) {
+            val name = parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+            if (name == null && !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
                     parseStringLiteral(builder)
@@ -3897,7 +3895,13 @@ class XQueryParser : XPathParser() {
                     builder, XQueryElementType.ENCLOSED_CONTENT_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
                 )
             ) {
-                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                if (name is IKeywordOrNCNameType) {
+                    // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
+                    marker.rollbackTo()
+                    return false
+                } else {
+                    builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                }
             }
 
             marker.done(XQueryElementType.COMP_ELEM_CONSTRUCTOR)
@@ -3915,10 +3919,8 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            if (
-                parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null &&
-                !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
-            ) {
+            val name = parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+            if (name == null && !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
                     parseStringLiteral(builder)
@@ -3935,7 +3937,13 @@ class XQueryParser : XPathParser() {
                     builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
                 )
             ) {
-                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                if (name is IKeywordOrNCNameType) {
+                    // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
+                    marker.rollbackTo()
+                    return false
+                } else {
+                    builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                }
             }
 
             marker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR)
@@ -3953,8 +3961,9 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
+            val name = parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false)
             if (
-                parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false) == null &&
+                name == null &&
                 !parseEnclosedExprOrBlock(
                     builder, XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
                 )
@@ -3975,7 +3984,13 @@ class XQueryParser : XPathParser() {
                     builder, XQueryElementType.ENCLOSED_URI_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
                 )
             ) {
-                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                if (name is IKeywordOrNCNameType) {
+                    // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
+                    marker.rollbackTo()
+                    return false
+                } else {
+                    builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                }
             }
 
             marker.done(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR)
@@ -4031,10 +4046,8 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            if (
-                parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) == null &&
-                !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
-            ) {
+            val name = parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false)
+            if (name == null && !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
                     parseStringLiteral(builder)
@@ -4051,7 +4064,13 @@ class XQueryParser : XPathParser() {
                     builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
                 )
             ) {
-                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                if (name is IKeywordOrNCNameType) {
+                    // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
+                    marker.rollbackTo()
+                    return false
+                } else {
+                    builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+                }
             }
 
             marker.done(XQueryElementType.COMP_PI_CONSTRUCTOR)

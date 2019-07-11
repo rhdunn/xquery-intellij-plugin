@@ -86,6 +86,11 @@
     <p>XPath and XQuery:</p>
     <ol>
       <li>Fix parsing decimal <code>CharRef</code>s with a single digit, e.g. <code>"&#9;"</code>.</li>
+      <li>
+        Fix parsing a NameTest that is a named computed constructor keyword like <code>element</code>
+        followed by a keyword that is part of a containing expression (e.g. <code>return</code>) and
+        does not have an <code>EnclosedExpr</code>.
+      </li>
       <li>Report an error when the <code>EnclosedExpr</code> is missing from named computed constructors.</li>
       <li>
         Report a parser error when a <code>NumericLiteral</code> is followed by an <code>NCName</code> or

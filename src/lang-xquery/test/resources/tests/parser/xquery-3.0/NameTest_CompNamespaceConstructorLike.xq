@@ -1,0 +1,1 @@
+for $ x in namespace return 1

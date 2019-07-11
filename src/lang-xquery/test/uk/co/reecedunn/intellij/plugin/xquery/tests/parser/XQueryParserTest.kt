@@ -5152,6 +5152,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/CompElemConstructor_StringLiteral.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("CompElemConstructor like NameTest followed by a keyword in an expression")
+        fun nameTest_CompElemConstructorLike() {
+            val expected = loadResource("tests/parser/xquery-1.0/NameTest_CompElemConstructorLike.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/NameTest_CompElemConstructorLike.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
@@ -5245,6 +5253,14 @@ private class XQueryParserTest : ParserTestCase() {
         fun testCompAttrConstructor_StringLiteral() {
             val expected = loadResource("tests/parser/xquery-1.0/CompAttrConstructor_StringLiteral.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompAttrConstructor_StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("CompAttrConstructor like NameTest followed by a keyword in an expression")
+        fun nameTest_CompAttrConstructorLike() {
+            val expected = loadResource("tests/parser/xquery-1.0/NameTest_CompAttrConstructorLike.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/NameTest_CompAttrConstructorLike.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -5388,6 +5404,14 @@ private class XQueryParserTest : ParserTestCase() {
         fun testCompPIConstructor_StringLiteral() {
             val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_StringLiteral.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("CompPIConstructor like NameTest followed by a keyword in an expression")
+        fun nameTest_CompPIConstructorLike() {
+            val expected = loadResource("tests/parser/xquery-1.0/NameTest_CompPIConstructorLike.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/NameTest_CompPIConstructorLike.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -7348,6 +7372,14 @@ private class XQueryParserTest : ParserTestCase() {
         fun testCompNamespaceConstructor_StringLiteral() {
             val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_StringLiteral.txt")
             val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("CompNamespaceConstructor like NameTest followed by a keyword in an expression")
+        fun nameTest_CompNamespaceConstructorLike() {
+            val expected = loadResource("tests/parser/xquery-3.0/NameTest_CompNamespaceConstructorLike.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/NameTest_CompNamespaceConstructorLike.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

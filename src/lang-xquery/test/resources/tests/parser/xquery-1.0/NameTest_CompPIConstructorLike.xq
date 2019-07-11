@@ -1,0 +1,1 @@
+for $ x in processing-instruction return 1

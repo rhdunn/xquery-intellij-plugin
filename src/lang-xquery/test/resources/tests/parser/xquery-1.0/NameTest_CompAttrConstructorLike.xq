@@ -1,0 +1,1 @@
+for $ x in attribute return 1
