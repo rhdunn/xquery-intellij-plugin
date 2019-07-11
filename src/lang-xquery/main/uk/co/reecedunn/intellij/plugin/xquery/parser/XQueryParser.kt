@@ -3892,9 +3892,13 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(
-                builder, XQueryElementType.ENCLOSED_CONTENT_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-            )
+            if (
+                !parseEnclosedExprOrBlock(
+                    builder, XQueryElementType.ENCLOSED_CONTENT_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
+                )
+            ) {
+                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+            }
 
             marker.done(XQueryElementType.COMP_ELEM_CONSTRUCTOR)
             return true
@@ -3926,7 +3930,13 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+            if (
+                !parseEnclosedExprOrBlock(
+                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
+                )
+            ) {
+                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+            }
 
             marker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR)
             return true
@@ -3960,9 +3970,13 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(
-                builder, XQueryElementType.ENCLOSED_URI_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-            )
+            if (
+                !parseEnclosedExprOrBlock(
+                    builder, XQueryElementType.ENCLOSED_URI_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
+                )
+            ) {
+                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+            }
 
             marker.done(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR)
             return true
@@ -4032,7 +4046,13 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+            if (
+                !parseEnclosedExprOrBlock(
+                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
+                )
+            ) {
+                builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
+            }
 
             marker.done(XQueryElementType.COMP_PI_CONSTRUCTOR)
             return true

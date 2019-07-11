@@ -5130,7 +5130,7 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("content expression; missing expression")
+        @DisplayName("error recovery: content expression; missing expression")
         fun testCompElemConstructor_MissingValueExpr() {
             val expected = loadResource("tests/parser/xquery-1.0/CompElemConstructor_MissingValueExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompElemConstructor_MissingValueExpr.xq")
@@ -5225,7 +5225,7 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("content expression; missing expression")
+        @DisplayName("error recovery: content expression; missing expression")
         fun testCompAttrConstructor_MissingValueExpr() {
             val expected = loadResource("tests/parser/xquery-1.0/CompAttrConstructor_MissingValueExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompAttrConstructor_MissingValueExpr.xq")
@@ -5368,7 +5368,7 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("content expression; missing expression")
+        @DisplayName("error recovery: content expression; missing expression")
         fun testCompPIConstructor_MissingValueExpr() {
             val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_MissingValueExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_MissingValueExpr.xq")

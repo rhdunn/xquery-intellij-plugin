@@ -65,16 +65,21 @@ MarkLogic:
 1.  Fix MarkLogic 6.0 `binary()` used as a `NodeTest`.
 1.  Support the MarkLogic 6.0 `validate full` syntax extension.
 
-XPath and XQuery:
+XPath and XSLT:
 
 1.  Enable XPath syntax validation of expressions and patterns in XSLT when the
     XPath View + XSLT plugin is disabled.
+1.  Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.
+
+XPath and XQuery:
+
 1.  Fix parsing decimal `CharRef`s with a single digit, e.g. `"&#9;"`.
+1.  Report an error when the `EnclosedExpr` is missing from named computed
+    constructors.
 1.  Report a parser error when a `NumericLiteral` is followed by an `NCName` or
     `URIQualifiedName` without whitespace or comment tokens, due to them being
     non-delimiting terminal symbols.
 1.  Report an error if an unknown axis name is followed by the `::` axis indicator.
-1.  Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.
 
 Inspections:
 

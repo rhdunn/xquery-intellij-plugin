@@ -75,20 +75,24 @@
       <li>Fix MarkLogic 6.0 <code>binary()</code> used as a <code>NodeTest</code>.</li>
       <li>Support the MarkLogic 6.0 <code>validate full</code> syntax extension.</li>
     </ol>
-    <p>XPath and XQuery:</p>
+    <p>XPath and XSLT:</p>
     <ol>
       <li>
         Enable XPath syntax validation of expressions and patterns in XSLT when the XPath View + XSLT plugin
         is disabled.
       </li>
+      <li>Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.</li>
+    </ol>
+    <p>XPath and XQuery:</p>
+    <ol>
       <li>Fix parsing decimal <code>CharRef</code>s with a single digit, e.g. <code>"&#9;"</code>.</li>
+      <li>Report an error when the <code>EnclosedExpr</code> is missing from named computed constructors.</li>
       <li>
         Report a parser error when a <code>NumericLiteral</code> is followed by an <code>NCName</code> or
         <code>URIQualifiedName</code> without whitespace or comment tokens, due to them being non-delimiting
         terminal symbols.
       </li>
       <li>Report an error if an unknown axis name is followed by the <code>::</code> axis indicator.</li>
-      <li>Full Text 1.0 and 3.0 extensions support in the XPath lexer and parser.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
