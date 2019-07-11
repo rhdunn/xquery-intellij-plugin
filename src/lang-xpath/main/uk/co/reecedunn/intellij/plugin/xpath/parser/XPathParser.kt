@@ -3515,7 +3515,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (
             parseQNameOrWildcard(builder, type, endQNameOnSpace) != null ||
-            parseURIQualifiedNameOrWildcard(builder, type)
+            parseURIQualifiedNameOrWildcard(builder, type) != null
         ) {
             if (type === QNAME || type === NCNAME || type === XPathElementType.WILDCARD) {
                 marker.drop()
@@ -3528,19 +3528,20 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): Boolean {
+    private fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): IElementType? {
         val marker = builder.mark()
         if (parseBracedURILiteral(builder)) {
             val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
-            if (type === XPathElementType.WILDCARD && localName === XPathTokenType.STAR) {
+            return if (type === XPathElementType.WILDCARD && localName === XPathTokenType.STAR) {
                 marker.done(XPathElementType.WILDCARD)
+                XPathElementType.WILDCARD
             } else {
                 marker.done(URI_QUALIFIED_NAME)
+                URI_QUALIFIED_NAME
             }
-            return true
         }
         marker.drop()
-        return false
+        return null
     }
 
     open fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
