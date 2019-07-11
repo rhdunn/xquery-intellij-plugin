@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.parser
 import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
@@ -3258,7 +3259,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameOrWildcard(builder, NCNAME) || parseStringLiteral(builder)) {
+            if (parseQNameOrWildcard(builder, NCNAME) != null || parseStringLiteral(builder)) {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3513,7 +3514,7 @@ open class XPathParser : PsiParser {
     fun parseEQNameOrWildcard(builder: PsiBuilder, type: IElementType, endQNameOnSpace: Boolean): Boolean {
         val marker = builder.mark()
         if (
-            parseQNameOrWildcard(builder, type, endQNameOnSpace) ||
+            parseQNameOrWildcard(builder, type, endQNameOnSpace) != null ||
             parseURIQualifiedNameOrWildcard(builder, type)
         ) {
             if (type === QNAME || type === NCNAME || type === XPathElementType.WILDCARD) {
@@ -3573,17 +3574,18 @@ open class XPathParser : PsiParser {
         builder: PsiBuilder,
         type: IElementType,
         endQNameOnSpace: Boolean = false
-    ): Boolean {
+    ): IElementType? {
         val marker = builder.mark()
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
         if (prefix != null) {
             if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
-                if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
+                return if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                     marker.done(XPathElementType.WILDCARD)
+                    XPathElementType.WILDCARD
                 } else {
                     marker.done(NCNAME)
+                    prefix
                 }
-                return true
             }
 
             val nameMarker = builder.mark()
@@ -3592,32 +3594,36 @@ open class XPathParser : PsiParser {
                     parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
                 ) {
                     nameMarker.rollbackTo()
-                    if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
+                    return if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                         marker.done(XPathElementType.WILDCARD)
+                        XPathElementType.WILDCARD
                     } else {
                         marker.done(NCNAME)
+                        prefix
                     }
-                    return true
                 }
                 nameMarker.drop()
 
                 val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix == XPathTokenType.STAR)
-                if (
+                return if (
                     type === XPathElementType.WILDCARD &&
                     (prefix === XPathTokenType.STAR || localName === XPathTokenType.STAR)
                 ) {
                     marker.done(XPathElementType.WILDCARD)
+                    XPathElementType.WILDCARD
                 } else {
                     marker.done(QNAME)
+                    QNAME
                 }
             } else if (type === XPathElementType.WILDCARD && prefix == XPathTokenType.STAR) {
                 nameMarker.drop()
                 marker.done(XPathElementType.WILDCARD)
+                return XPathElementType.WILDCARD
             } else {
                 nameMarker.drop()
                 marker.done(NCNAME)
+                return prefix
             }
-            return true
         }
 
         if (parseQNameSeparator(builder, null)) { // Missing prefix
@@ -3631,11 +3637,11 @@ open class XPathParser : PsiParser {
             } else {
                 marker.error(XPathBundle.message("parser.error.qname.missing-prefix"))
             }
-            return true
+            return TokenType.ERROR_ELEMENT
         }
 
         marker.drop()
-        return false
+        return null
     }
 
     enum class QNamePart {
