@@ -23,9 +23,9 @@ and tutorials.
 ### Query Processor and Database Integration
 
 This plugin provides support for the following implementations of XQuery:
-1.  BaseX 7.0 &ndash; 9.1;
-1.  eXist-db 4.4;
-1.  MarkLogic 8.0 &ndash; 9.0;
+1.  BaseX 7.0 &ndash; 9.2;
+1.  eXist-db 4.4 &ndash; 4.7;
+1.  MarkLogic 8.0 &ndash; 10.0;
 1.  Saxon 9.2 &ndash; 9.9.
 
 For those XQuery implementations, this plugin supports:
