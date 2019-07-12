@@ -74,7 +74,10 @@
       <li>Add definitions for the MarkLogic 10.0-1 built-in functions.</li>
       <li>Fix MarkLogic 6.0 <code>binary()</code> used as a <code>NodeTest</code>.</li>
       <li>Support the MarkLogic 6.0 <code>validate full</code> syntax extension.</li>
-      <li>Improve support for the MarkLogic 7.0 `attribute-decl` syntax extension.</li>
+      <li>
+        Improve support for the MarkLogic 7.0 <code>attribute-decl</code> and
+        <code>element-decl</code> syntax extensions.
+      </li>
     </ol>
     <p>XPath and XSLT:</p>
     <ol>

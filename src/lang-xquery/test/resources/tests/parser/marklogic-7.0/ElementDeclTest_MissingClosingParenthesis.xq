@@ -1,1 +1,1 @@
-declare variable $ one as element-decl ( external ;
+declare variable $ one as element-decl ( ;
