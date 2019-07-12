@@ -78,6 +78,7 @@
         Improve support for the MarkLogic 7.0 <code>attribute-decl</code>,
         <code>element-decl</code>, and <code>schema-particle</code> syntax extensions.
       </li>
+      <li>Improve support for the MarkLogic 8.0 <code>schema-facet</code> syntax extensions.</li>
     </ol>
     <p>XPath and XSLT:</p>
     <ol>

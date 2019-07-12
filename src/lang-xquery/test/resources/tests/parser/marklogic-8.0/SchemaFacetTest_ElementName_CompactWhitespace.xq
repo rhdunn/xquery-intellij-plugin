@@ -1,0 +1,1 @@
+declare variable$one as schema-facet(lorem-ipsum)external;

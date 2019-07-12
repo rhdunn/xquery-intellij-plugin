@@ -66,6 +66,7 @@ MarkLogic:
 1.  Support the MarkLogic 6.0 `validate full` syntax extension.
 1.  Improve support for the MarkLogic 7.0 `attribute-decl`,
     `element-decl`, and `schema-particle` syntax extensions.
+1.  Improve support for the MarkLogic 8.0 `schema-facet` syntax extensions.
 
 XPath and XSLT:
 

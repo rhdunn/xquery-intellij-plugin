@@ -1,1 +1,1 @@
-declare variable $ one as schema-facet ( external ;
+declare variable $ one as schema-facet ( ;

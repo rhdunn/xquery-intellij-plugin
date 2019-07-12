@@ -245,7 +245,7 @@ object.
 | \[42\]  | `SchemaRootTest`        | ::= | `"schema-root" "(" ")"`             |         |
 | \[43\]  | `SchemaTypeTest`        | ::= | `"schema-type" "(" ")"`             |         |
 | \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" ")"`             |         |
-| \[45\]  | `SchemaFacetTest`       | ::= | `"schema-facet" "(" ")"`            |         |
+| \[45\]  | `SchemaFacetTest`       | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` | |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
