@@ -4778,6 +4778,9 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
+            parseElementNameOrWildcard(builder)
+
+            parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
                 status = ParseStatus.MATCHED_WITH_ERRORS

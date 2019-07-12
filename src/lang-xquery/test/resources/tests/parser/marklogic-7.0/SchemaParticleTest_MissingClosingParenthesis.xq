@@ -1,1 +1,1 @@
-declare variable $ one as schema-particle ( external ;
+declare variable $ one as schema-particle ( ;

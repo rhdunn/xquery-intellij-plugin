@@ -1260,10 +1260,45 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("error recovery: missing closing parenthesis")
             fun missingClosingParenthesis() {
-                val expected =
-                    loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.txt")
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("XQuery 1.0 EBNF (134) ElementNameOrWildcard")
+            internal inner class ElementNameOrWildcard {
+                @Test
+                @DisplayName("element name")
+                fun elementName() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("element name; compact whitespace")
+                fun elementName_compactWhitespace() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard; compact whitespace")
+                fun wildcard_compactWhitespace() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
             }
         }
 

@@ -239,9 +239,9 @@ object.
 | \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
 | \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` | |
 | \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" ")"`            |         |
-| \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"`            |         |
+| \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"` | |
 | \[40\]  | `SchemaComponentTest`   | ::= | `"schema-component" "(" ")"`        |         |
-| \[41\]  | `SchemaParticleTest`    | ::= | `"schema-particle" "(" ")"`         |         |
+| \[41\]  | `SchemaParticleTest`    | ::= | `"schema-particle" "(" ElementNameOrWildcard? ")"` | |
 | \[42\]  | `SchemaRootTest`        | ::= | `"schema-root" "(" ")"`             |         |
 | \[43\]  | `SchemaTypeTest`        | ::= | `"schema-type" "(" ")"`             |         |
 | \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" ")"`             |         |
