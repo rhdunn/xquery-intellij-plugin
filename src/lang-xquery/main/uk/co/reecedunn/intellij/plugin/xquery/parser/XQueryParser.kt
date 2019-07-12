@@ -207,6 +207,16 @@ class XQueryParser : XPathParser() {
             if (!parseExpr(builder, XQueryElementType.QUERY_BODY)) {
                 builder.error(XQueryBundle.message("parser.error.expected-query-body"))
             }
+            if (builder.tokenType != null && builder.tokenType != XQueryTokenType.SEPARATOR) {
+                builder.error(XPathBundle.message("parser.error.expected-eof"))
+                // Keep any unknown expressions in the MainModule to keep the Prolog context.
+                while (
+                    builder.tokenType != XQueryTokenType.SEPARATOR &&
+                    parseExpr(builder, XQueryElementType.QUERY_BODY)
+                ) {
+                    //
+                }
+            }
             return true
         }
         return parseExpr(builder, XQueryElementType.QUERY_BODY)

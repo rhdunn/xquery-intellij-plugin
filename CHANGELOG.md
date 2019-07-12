@@ -83,6 +83,8 @@ XPath and XQuery:
     `URIQualifiedName` without whitespace or comment tokens, due to them being
     non-delimiting terminal symbols.
 1.  Report an error if an unknown axis name is followed by the `::` axis indicator.
+1.  When recovering parser errors in a main module with a prolog, preserve the
+    prolog context in the subsequent partial expressions.
 
 Inspections:
 

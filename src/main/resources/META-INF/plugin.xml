@@ -98,6 +98,10 @@
         terminal symbols.
       </li>
       <li>Report an error if an unknown axis name is followed by the <code>::</code> axis indicator.</li>
+      <li>
+        When recovering parser errors in a main module with a prolog, preserve the prolog context in the
+        subsequent partial expressions.
+      </li>
     </ol>
     <p>Inspections:</p>
     <ol>
