@@ -1,1 +1,1 @@
-declare variable $ one as complex-type ( external ;
+declare variable $ one as complex-type ( ;

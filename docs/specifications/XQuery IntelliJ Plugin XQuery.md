@@ -238,7 +238,7 @@ object.
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
 | \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` | |
-| \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" ")"`            |         |
+| \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" TypeNameOrWildcard? ")"` | |
 | \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"` | |
 | \[40\]  | `SchemaComponentTest`   | ::= | `"schema-component" "(" ")"`        |         |
 | \[41\]  | `SchemaParticleTest`    | ::= | `"schema-particle" "(" ElementNameOrWildcard? ")"` | |
@@ -246,10 +246,14 @@ object.
 | \[43\]  | `SchemaTypeTest`        | ::= | `"schema-type" "(" ")"`             |         |
 | \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" ")"`             |         |
 | \[45\]  | `SchemaFacetTest`       | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` | |
+| \[102\] | `TypeNameOrWildcard`    | ::= | `TypeName | "*"`                    |         |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
 support for `SchemaFacetTest`.
+
+If the `TypeName` in `ComplexTypeTest` is not a complex type, or is not present
+in the static context, an `XDMP-UNDCOMTYP` error is raised.
 
 ##### 2.1.2.5 JSON Node Test
 
@@ -980,15 +984,15 @@ These changes include support for:
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
 | \[35\]   | `TransactionSeparator`         | ::= | `";"`                                     |                 |
 | \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
-| \[37\]   | `AttributeDeclTest`            | ::= | `"attribute-decl" "(" ")"`                |                 |
-| \[38\]   | `ComplexTypeTest`              | ::= | `"complex-type" "(" ")"`                  |                 |
-| \[39\]   | `ElementDeclTest`              | ::= | `"element-decl" "(" ")"`                  |                 |
+| \[37\]   | `AttributeDeclTest`            | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` |          |
+| \[38\]   | `ComplexTypeTest`              | ::= | `"complex-type" "(" TypeNameOrWildcard? ")"` |              |
+| \[39\]   | `ElementDeclTest`              | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"` |           |
 | \[40\]   | `SchemaComponentTest`          | ::= | `"schema-component" "(" ")"`              |                 |
-| \[41\]   | `SchemaParticleTest`           | ::= | `"schema-particle" "(" ")"`               |                 |
+| \[41\]   | `SchemaParticleTest`           | ::= | `"schema-particle" "(" ElementNameOrWildcard? ")"` |        |
 | \[42\]   | `SchemaRootTest`               | ::= | `"schema-root" "(" ")"`                   |                 |
 | \[43\]   | `SchemaTypeTest`               | ::= | `"schema-type" "(" ")"`                   |                 |
 | \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
-| \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ")"`                  |                 |
+| \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` |           |
 | \[46\]   | `JsonKindTest`                 | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
 | \[47\]   | `BooleanNodeTest`              | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` |              |
 | \[48\]   | `AnyBooleanNodeTest`           | ::= | `"boolean-node" "(" ")"`                  |                 |
@@ -1040,6 +1044,7 @@ These changes include support for:
 | \[99\]   | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` |  |
 | \[100\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?`       |                 |
 | \[101\]  | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |                 |
+| \[102\]  | `TypeNameOrWildcard`           | ::= | `TypeName | "*"`                          |                 |
 
 ### A.2 Reserved Function Names
 

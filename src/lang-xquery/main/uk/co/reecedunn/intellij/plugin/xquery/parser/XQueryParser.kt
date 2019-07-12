@@ -4683,6 +4683,9 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
+            parseTypeNameOrWildcard(builder)
+
+            parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
                 status = ParseStatus.MATCHED_WITH_ERRORS
@@ -4862,6 +4865,14 @@ class XQueryParser : XPathParser() {
             return status
         }
         return ParseStatus.NOT_MATCHED
+    }
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    fun parseTypeNameOrWildcard(builder: PsiBuilder): Boolean {
+        return (
+            builder.matchTokenType(XPathTokenType.STAR) ||
+            this.parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false) != null
+        )
     }
 
     // endregion
