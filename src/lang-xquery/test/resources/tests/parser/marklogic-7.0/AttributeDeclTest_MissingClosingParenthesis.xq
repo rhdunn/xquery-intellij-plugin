@@ -1,1 +1,1 @@
-declare variable $ one as attribute-decl ( external ;
+declare variable $ one as attribute-decl ( ;

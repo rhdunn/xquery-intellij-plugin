@@ -237,7 +237,7 @@ object.
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
-| \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" ")"`          |         |
+| \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` | |
 | \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" ")"`            |         |
 | \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ")"`            |         |
 | \[40\]  | `SchemaComponentTest`   | ::= | `"schema-component" "(" ")"`        |         |

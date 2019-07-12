@@ -1078,6 +1078,42 @@ private class PluginParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Nested
+            @DisplayName("XQuery 1.0 EBNF (129) AttribNameOrWildcard")
+            internal inner class AttribNameOrWildcard {
+                @Test
+                @DisplayName("attribute name")
+                fun attributeName() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("attribute name; compact whitespace")
+                fun attributeName_compactWhitespace() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard; compact whitespace")
+                fun wildcard_compactWhitespace() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
 
         @Nested
