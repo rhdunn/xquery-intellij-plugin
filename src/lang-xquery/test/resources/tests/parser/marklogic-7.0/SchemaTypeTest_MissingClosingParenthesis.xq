@@ -1,1 +1,1 @@
-declare variable $ one as schema-type ( external ;
+declare variable $ one as schema-type ( ;
