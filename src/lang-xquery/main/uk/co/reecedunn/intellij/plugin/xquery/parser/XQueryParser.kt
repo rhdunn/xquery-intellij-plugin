@@ -363,7 +363,10 @@ class XQueryParser : XPathParser() {
                     marker.done(XQueryElementType.CONTEXT_ITEM_DECL)
                     return PrologDeclState.BODY_STATEMENT
                 }
-                parseTypeDecl(builder) -> marker.done(XQueryElementType.TYPE_DECL)
+                parseTypeDecl(builder) -> {
+                    marker.done(XQueryElementType.TYPE_DECL)
+                    return PrologDeclState.BODY_STATEMENT
+                }
                 parseFTOptionDecl(builder) -> marker.done(XQueryElementType.FT_OPTION_DECL)
                 else -> {
                     builder.error(

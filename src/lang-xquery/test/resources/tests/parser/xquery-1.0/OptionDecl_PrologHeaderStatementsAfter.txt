@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryBaseURIDeclImpl[XQUERY_BASE_URI_DECL(34:76)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(34:41)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(42:50)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(42:50)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BASE_URI(42:50)]('base-uri')
             PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(51:75)]
@@ -32,7 +32,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryBoundarySpaceDeclImpl[XQUERY_BOUNDARY_SPACE_DECL(78:107)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(78:85)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(85:86)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(86:100)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(86:100)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE(86:100)]('boundary-space')
             PsiWhiteSpaceImpl[WHITE_SPACE(100:101)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRIP(101:106)]('strip')
@@ -42,7 +42,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryConstructionDeclImpl[XQUERY_CONSTRUCTION_DECL(109:136)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(109:116)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(116:117)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(117:129)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(117:129)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION(117:129)]('construction')
             PsiWhiteSpaceImpl[WHITE_SPACE(129:130)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRIP(130:135)]('strip')
@@ -52,7 +52,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryCopyNamespacesDeclImpl[XQUERY_COPY_NAMESPACES_DECL(138:181)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(138:145)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(145:146)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(146:161)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(146:161)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES(146:161)]('copy-namespaces')
             PsiWhiteSpaceImpl[WHITE_SPACE(161:162)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(162:170)]('preserve')
@@ -66,7 +66,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryDefaultCollationDeclImpl[XQUERY_DEFAULT_COLLATION_DECL(183:242)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(183:190)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(190:191)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(191:198)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(191:198)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(191:198)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(198:199)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(199:208)]('collation')
@@ -81,7 +81,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryDefaultNamespaceDeclImpl[XQUERY_DEFAULT_NAMESPACE_DECL(244:308)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(244:251)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(251:252)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(252:259)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(252:259)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(252:259)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(259:260)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(260:267)]('element')
@@ -98,7 +98,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryEmptyOrderDeclImpl[XQUERY_EMPTY_ORDER_DECL(310:347)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(310:317)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(317:318)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(318:325)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(318:325)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(318:325)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(325:326)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(326:331)]('order')
@@ -112,7 +112,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryNamespaceDeclImpl[XQUERY_NAMESPACE_DECL(349:404)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(349:356)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(356:357)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(357:366)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(357:366)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(357:366)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(366:367)](' ')
             XQueryNCNameImpl[XQUERY_NCNAME(367:372)]
@@ -130,7 +130,7 @@ XQueryModuleImpl[FILE(0:524)]
          XQueryOrderingModeDeclImpl[XQUERY_ORDERING_MODE_DECL(406:431)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(406:413)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(413:414)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(414:422)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(414:422)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERING(414:422)]('ordering')
             PsiWhiteSpaceImpl[WHITE_SPACE(422:423)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ORDERED(423:430)]('ordered')
@@ -138,7 +138,7 @@ XQueryModuleImpl[FILE(0:524)]
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(431:432)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(432:433)]('\n')
          XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(433:477)]
-            PsiErrorElementImpl[ERROR_ELEMENT(433:439)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(433:439)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(433:439)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(439:440)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(440:446)]('module')
@@ -151,7 +151,7 @@ XQueryModuleImpl[FILE(0:524)]
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(477:478)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(478:479)]('\n')
          XQuerySchemaImportImpl[XQUERY_SCHEMA_IMPORT(479:523)]
-            PsiErrorElementImpl[ERROR_ELEMENT(479:485)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(479:485)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(479:485)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(485:486)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(486:492)]('schema')

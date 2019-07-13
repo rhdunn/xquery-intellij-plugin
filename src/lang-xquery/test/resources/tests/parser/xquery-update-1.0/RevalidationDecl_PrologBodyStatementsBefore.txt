@@ -46,7 +46,7 @@ XQueryModuleImpl[FILE(0:114)]
          UpdateFacilityRevalidationDeclImpl[XQUERY_REVALIDATION_DECL(86:113)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(86:93)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(93:94)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(94:106)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
+            PsiErrorElementImpl[ERROR_ELEMENT(94:106)]('XPST0003: Prolog header statements must be placed before 'variable', 'function', 'option', and 'type' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_REVALIDATION(94:106)]('revalidation')
             PsiWhiteSpaceImpl[WHITE_SPACE(106:107)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRICT(107:113)]('strict')
