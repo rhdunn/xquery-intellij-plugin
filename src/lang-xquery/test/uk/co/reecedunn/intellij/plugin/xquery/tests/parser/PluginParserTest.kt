@@ -1500,24 +1500,24 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("schema facet test")
             fun schemaFacetTest() {
-                val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest.txt")
-                val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("schema facet test; compact whitespace")
             fun schemaFacetTest_CompactWhitespace() {
-                val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.xq")
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: missing closing parenthesis")
             fun missingClosingParenthesis() {
-                val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.txt")
-                val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.xq")
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
@@ -1527,32 +1527,32 @@ private class PluginParserTest : ParserTestCase() {
                 @Test
                 @DisplayName("element name")
                 fun elementName() {
-                    val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_ElementName.txt")
-                    val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_ElementName.xq")
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName.xq")
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
 
                 @Test
                 @DisplayName("element name; compact whitespace")
                 fun elementName_compactWhitespace() {
-                    val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_ElementName_CompactWhitespace.txt")
-                    val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_ElementName_CompactWhitespace.xq")
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName_CompactWhitespace.xq")
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
 
                 @Test
                 @DisplayName("wildcard")
                 fun wildcard() {
-                    val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_Wildcard.txt")
-                    val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_Wildcard.xq")
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard.xq")
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
 
                 @Test
                 @DisplayName("wildcard; compact whitespace")
                 fun wildcard_compactWhitespace() {
-                    val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_Wildcard_CompactWhitespace.txt")
-                    val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_Wildcard_CompactWhitespace.xq")
+                    val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard_CompactWhitespace.xq")
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
             }

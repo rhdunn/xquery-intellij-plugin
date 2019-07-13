@@ -251,8 +251,7 @@ object.
 | \[104\] | `ModelGroupTest`        | ::= | `"model-group" "(" ElementNameOrWildcard? ")"` | |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
-types as part of its schema components built-in functions. MarkLogic 8.0 adds
-support for `SchemaFacetTest`.
+types as part of its schema components built-in functions.
 
 If the `TypeName` in `ComplexTypeTest` is not a complex type, or is not present
 in the static context, an `XDMP-UNDCOMTYP` error is raised.
@@ -1088,7 +1087,7 @@ These changes include support for:
 | `schema-attribute`       | XQuery 1.0                      |
 | `schema-component`       | MarkLogic 7.0                   |
 | `schema-element`         | XQuery 1.0                      |
-| `schema-facet`           | MarkLogic 8.0                   |
+| `schema-facet`           | MarkLogic 7.0                   |
 | `schema-particle`        | MarkLogic 7.0                   |
 | `schema-root`            | MarkLogic 7.0                   |
 | `schema-type`            | MarkLogic 7.0                   |

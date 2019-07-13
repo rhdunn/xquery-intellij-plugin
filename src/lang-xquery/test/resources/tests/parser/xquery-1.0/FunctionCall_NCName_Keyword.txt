@@ -1418,7 +1418,7 @@ XQueryModuleImpl[FILE(0:4483)]
             XPathCommentImpl[XPATH_COMMENT(3278:3344)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3278:3280)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3280:3281)](' ')
-               LeafPsiElement[XQDOC_CONTENTS(3281:3342)]('schema-facet(), (: Reserved Function Name - MarkLogic 8.0 :) ')
+               LeafPsiElement[XQDOC_CONTENTS(3281:3342)]('schema-facet(), (: Reserved Function Name - MarkLogic 7.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3342:3344)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3344:3345)]('\n')
             XPathCommentImpl[XPATH_COMMENT(3345:3414)]

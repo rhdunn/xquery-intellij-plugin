@@ -163,7 +163,7 @@ schema(),
 (: schema-attribute(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) :)
 (: schema-component(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 (: schema-element(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) :)
-(: schema-facet(), (: Reserved Function Name - MarkLogic 8.0 :) :)
+(: schema-facet(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 (: schema-particle(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 (: schema-root(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 (: schema-type(), (: Reserved Function Name - MarkLogic 7.0 :) :)

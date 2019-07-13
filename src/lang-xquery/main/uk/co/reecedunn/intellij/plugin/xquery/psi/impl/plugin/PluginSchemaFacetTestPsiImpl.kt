@@ -45,7 +45,7 @@ class PluginSchemaFacetTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
+    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
 
     override val conformanceElement get(): PsiElement = firstChild
 

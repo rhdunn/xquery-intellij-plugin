@@ -36,6 +36,7 @@ object XQueryKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("complex-type", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("element-decl", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("schema-component", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-facet", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("schema-particle", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("schema-root", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("schema-type", XPathInsertText.EMPTY_PARAMS),
@@ -55,7 +56,6 @@ object XQueryKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("number-node", XPathInsertText.PARAMS_KEYNAME),
         XPathKeywordLookup("object-node", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("object-node", XPathInsertText.PARAMS_KEYNAME),
-        XPathKeywordLookup("schema-facet", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("text", XPathInsertText.PARAMS_KEYNAME) // XPath/XQuery extension
     )
 

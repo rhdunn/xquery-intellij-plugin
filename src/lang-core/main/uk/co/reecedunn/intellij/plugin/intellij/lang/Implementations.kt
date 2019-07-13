@@ -210,8 +210,8 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
     val VERSION_4_0: Version = ProductVersion("4.0", this) // Introduction of the 1.0-ml syntax.
     val VERSION_5_0: Version = ProductVersion("5.0", this)
     val VERSION_6_0: Version = ProductVersion("6.0", this, "property::, namespace::, binary, transactions, etc.")
-    val VERSION_7_0: Version = ProductVersion("7.0", this, "schema kind tests")
-    val VERSION_8_0: Version = ProductVersion("8.0", this, "json kind tests and constructors, schema-facet()")
+    val VERSION_7_0: Version = ProductVersion("7.0", this, "schema kind tests: schema-type, etc.")
+    val VERSION_8_0: Version = ProductVersion("8.0", this, "json kind tests and constructors: object-node, etc.")
     val VERSION_9_0: Version = ProductVersion("9.0", this, "arrow operator '=>'")
     val VERSION_10_0: Version = ProductVersion("10.0", this)
 
