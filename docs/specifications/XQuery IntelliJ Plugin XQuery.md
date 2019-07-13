@@ -244,7 +244,7 @@ object.
 | \[41\]  | `SchemaParticleTest`    | ::= | `"schema-particle" "(" ElementNameOrWildcard? ")"` | |
 | \[42\]  | `SchemaRootTest`        | ::= | `"schema-root" "(" ")"`             |         |
 | \[43\]  | `SchemaTypeTest`        | ::= | `"schema-type" "(" TypeNameOrWildcard? ")"` | |
-| \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" ")"`             |         |
+| \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" TypeNameOrWildcard? ")"` | |
 | \[45\]  | `SchemaFacetTest`       | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` | |
 | \[102\] | `TypeNameOrWildcard`    | ::= | `TypeName | "*"`                    |         |
 
@@ -257,6 +257,10 @@ in the static context, an `XDMP-UNDCOMTYP` error is raised.
 
 If the `TypeName` in `SchemaTypeTest` is not present in the static context, an
 `XDMP-UNDTYP` error is raised.
+
+If the `TypeName` in `SimpleTypeTest` is not a simple type (atomic, union, or
+list type), or is not present in the static context, an `XDMP-UNDSIMTYP` error
+is raised.
 
 ##### 2.1.2.5 JSON Node Test
 
@@ -994,7 +998,7 @@ These changes include support for:
 | \[41\]   | `SchemaParticleTest`           | ::= | `"schema-particle" "(" ElementNameOrWildcard? ")"` |        |
 | \[42\]   | `SchemaRootTest`               | ::= | `"schema-root" "(" ")"`                   |                 |
 | \[43\]   | `SchemaTypeTest`               | ::= | `"schema-type" "(" TypeNameOrWildcard? ")"` |               |
-| \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
+| \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" TypeNameOrWildcard? ")"` |               |
 | \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` |           |
 | \[46\]   | `JsonKindTest`                 | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
 | \[47\]   | `BooleanNodeTest`              | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` |              |

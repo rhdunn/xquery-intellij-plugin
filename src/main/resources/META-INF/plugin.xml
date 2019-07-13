@@ -76,8 +76,8 @@
       <li>Support the MarkLogic 6.0 <code>validate full</code> syntax extension.</li>
       <li>
         Improve support for the MarkLogic 7.0 <code>attribute-decl</code>, <code>complex-type</code>,
-        <code>element-decl</code>, <code>schema-particle</code>, and <code>schema-type</code>
-        syntax extensions.
+        <code>element-decl</code>, <code>schema-particle</code>, <code>schema-type</code>, and
+        <code>simple-type</code> syntax extensions.
       </li>
       <li>Improve support for the MarkLogic 8.0 <code>schema-facet</code> syntax extensions.</li>
     </ol>

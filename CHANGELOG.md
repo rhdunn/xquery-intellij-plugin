@@ -65,8 +65,8 @@ MarkLogic:
 1.  Fix MarkLogic 6.0 `binary()` used as a `NodeTest`.
 1.  Support the MarkLogic 6.0 `validate full` syntax extension.
 1.  Improve support for the MarkLogic 7.0 `attribute-decl`,
-    `complex-type`, `element-decl`, `schema-particle`, and
-    `schema-type` syntax extensions.
+    `complex-type`, `element-decl`, `schema-particle`, `schema-type`,
+    and `simple-type` syntax extensions.
 1.  Improve support for the MarkLogic 8.0 `schema-facet` syntax extensions.
 
 XPath and XSLT:

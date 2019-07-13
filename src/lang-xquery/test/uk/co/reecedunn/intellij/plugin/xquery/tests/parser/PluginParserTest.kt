@@ -1456,6 +1456,42 @@ private class PluginParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin EBNF (102) TypeNameOrWildcard")
+            internal inner class TypeNameOrWildcard {
+                @Test
+                @DisplayName("type name")
+                fun typeName() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("type name; compact whitespace")
+                fun typeName_compactWhitespace() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard; compact whitespace")
+                fun wildcard_compactWhitespace() {
+                    val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
 
         @Nested

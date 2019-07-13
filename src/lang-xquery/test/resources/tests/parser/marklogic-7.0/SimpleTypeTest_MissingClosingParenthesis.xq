@@ -1,1 +1,1 @@
-declare variable $ one as simple-type ( external ;
+declare variable $ one as simple-type ( ;
