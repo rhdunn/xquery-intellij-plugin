@@ -121,6 +121,7 @@ private val KEYWORDS = mapOf(
     "schema-particle" to XQueryTokenType.K_SCHEMA_PARTICLE, // MarkLogic 7.0
     "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0
     "schema-type" to XQueryTokenType.K_SCHEMA_TYPE, // MarkLogic 7.0
+    "schema-wildcard" to XQueryTokenType.K_SCHEMA_WILDCARD, // MarkLogic 7.0
     "sequential" to XQueryTokenType.K_SEQUENTIAL, // Scripting Extension 1.0
     "simple" to XQueryTokenType.K_SIMPLE, // Scripting Extension 1.0
     "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0

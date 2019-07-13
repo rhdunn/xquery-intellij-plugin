@@ -716,4 +716,14 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "strict", XQueryTokenType.K_STRICT)
         matchSingleToken(lexer, "full", XQueryTokenType.K_FULL)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (103) SchemaWildcardTest")
+    fun schemaWildcardTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-wildcard", XQueryTokenType.K_SCHEMA_WILDCARD)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }

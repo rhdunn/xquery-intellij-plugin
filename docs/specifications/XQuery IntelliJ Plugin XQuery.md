@@ -236,7 +236,7 @@ object.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
+| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest \| SchemaWildcardTest` | |
 | \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` | |
 | \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" TypeNameOrWildcard? ")"` | |
 | \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"` | |
@@ -247,6 +247,7 @@ object.
 | \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" TypeNameOrWildcard? ")"` | |
 | \[45\]  | `SchemaFacetTest`       | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` | |
 | \[102\] | `TypeNameOrWildcard`    | ::= | `TypeName | "*"`                    |         |
+| \[103\] | `SchemaWildcardTest`    | ::= | `"schema-wildcard" "(" ")"`         |         |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
@@ -1052,6 +1053,7 @@ These changes include support for:
 | \[100\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?`       |                 |
 | \[101\]  | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |                 |
 | \[102\]  | `TypeNameOrWildcard`           | ::= | `TypeName | "*"`                          |                 |
+| \[103\]  | `SchemaWildcardTest`           | ::= | `"schema-wildcard" "(" ")"`               |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1084,6 +1086,7 @@ These changes include support for:
 | `schema-particle`        | MarkLogic 7.0                   |
 | `schema-root`            | MarkLogic 7.0                   |
 | `schema-type`            | MarkLogic 7.0                   |
+| `schema-wildcard`        | MarkLogic 7.0                   |
 | `simple-type`            | MarkLogic 7.0                   |
 | `switch`                 | XQuery 3.0                      |
 | `text`                   | XQuery 1.0                      |
