@@ -176,7 +176,7 @@ object XPathTokenType {
     val K_TO = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0
     val K_UNION = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UNION", XPath) // XPath 2.0
     val K_UPPERCASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UPPERCASE", XPath) // Full Text 1.0
-    val K_USING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_USING", XPath) // Full Text 1.0
+    val K_USING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_USING", XPath) // Full Text 1.0 ; MarkLogic 6.0
     val K_WEIGHT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WEIGHT", XPath) // Full Text 1.0
     val K_WILDCARDS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WILDCARDS", XPath) // Full Text 1.0
     val K_WINDOW = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WINDOW", XPath) // Full Text 1.0; XQuery 3.0

@@ -67,6 +67,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [4.3 Stylesheet Import](#43-stylesheet-import)
   - [4.4 Transactions](#44-transactions)
   - [4.5 Function Declaration](#45-function-declaration)
+  - [4.6 Using Declaration](#46-using-declaration)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XQuery 3.1 with Vendor Extensions](#a1-ebnf-for-xquery-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a2-reserved-function-names)
@@ -844,7 +845,7 @@ the equivalent `IfExpr` is:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[18\] | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
+| \[18\] | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 
 ### 4.1 Type Declaration
 
@@ -929,6 +930,16 @@ When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter is given a type, the elements in that array has that type.
 
+### 4.6 Using Declaration
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[105\] | `UsingDecl`                    | ::= | `"using" "namespace" URILiteral`          |         |
+
+MarkLogic supports importing the functions and variables from an XQuery module
+without setting the default element/type or function namespace.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XQuery 3.1 with Vendor Extensions
@@ -976,7 +987,7 @@ These changes include support for:
 | \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
-| \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
+| \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
@@ -1058,6 +1069,7 @@ These changes include support for:
 | \[102\]  | `TypeNameOrWildcard`           | ::= | `TypeName | "*"`                          |                 |
 | \[103\]  | `SchemaWildcardTest`           | ::= | `"schema-wildcard" "(" ")"`               |                 |
 | \[104\]  | `ModelGroupTest`               | ::= | `"model-group" "(" ElementNameOrWildcard? ")"` |            |
+| \[105\]  | `UsingDecl`                    | ::= | `"using" "namespace" URILiteral`          |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1197,14 +1209,16 @@ in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
+1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)
-1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
-1.  [Validate Expressions](#310-validate-expressions) -- typed expressions and full validation
+1.  [Using Declaration](#46-using-declaration)
+1.  [Validate Expressions](#310-validate-expressions) -- full validation mode
 
 MarkLogic also supports the following syntax for XQuery 3.0 constructs:
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
+1.  [Validate Expressions](#310-validate-expressions) -- alternate syntax for typed validations
 
 MarkLogic 8.0 supports the following JSON syntax extensions:
 1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays)

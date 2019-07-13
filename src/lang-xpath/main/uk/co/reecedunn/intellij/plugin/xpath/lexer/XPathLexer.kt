@@ -147,7 +147,7 @@ private val KEYWORDS = mapOf(
     "treat" to XPathTokenType.K_TREAT, // XPath 2.0
     "union" to XPathTokenType.K_UNION, // XPath 2.0
     "uppercase" to XPathTokenType.K_UPPERCASE, // Full Text 1.0
-    "using" to XPathTokenType.K_USING, // Full Text 1.0
+    "using" to XPathTokenType.K_USING, // Full Text 1.0 ; MarkLogic 6.0
     "weight" to XPathTokenType.K_WEIGHT, // Full Text 1.0
     "wildcards" to XPathTokenType.K_WILDCARDS, // Full Text 1.0
     "window" to XPathTokenType.K_WINDOW, // XQuery 3.0; Full Text 1.0

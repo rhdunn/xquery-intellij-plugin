@@ -736,4 +736,13 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (105) UsingDecl")
+    fun usingDecl() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "using", XPathTokenType.K_USING)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
+    }
 }
