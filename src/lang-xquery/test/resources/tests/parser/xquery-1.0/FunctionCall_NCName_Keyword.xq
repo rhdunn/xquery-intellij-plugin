@@ -76,6 +76,7 @@ ft-option(),
 ftand(),
 ftnot(),
 ftor(),
+full(),
 (: function(), (: Reserved Function Name - XPath 3.0 and XQuery 3.0 :) :)
 fuzzy(),
 ge(),
@@ -109,6 +110,7 @@ lt(),
 map(),
 minus-sign(),
 mod(),
+(: model-group(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 modify(),
 module(),
 most(),
@@ -167,6 +169,7 @@ schema(),
 (: schema-particle(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 (: schema-root(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 (: schema-type(), (: Reserved Function Name - MarkLogic 7.0 :) :)
+(: schema-wildcard(), (: Reserved Function Name - MarkLogic 7.0 :) :)
 score(),
 self(),
 sensitive(),
