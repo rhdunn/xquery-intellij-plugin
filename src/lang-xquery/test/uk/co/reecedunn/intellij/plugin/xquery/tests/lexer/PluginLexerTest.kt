@@ -726,4 +726,14 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (104) ModelGroupTest")
+    fun modelGroupTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "model-group", XQueryTokenType.K_MODEL_GROUP)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }

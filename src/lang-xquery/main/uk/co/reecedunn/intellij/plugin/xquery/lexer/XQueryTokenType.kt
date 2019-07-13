@@ -127,6 +127,7 @@ object XQueryTokenType {
     val K_LAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST", XQuery) // Update Facility 1.0
     val K_LAX = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX", XQuery) // XQuery 1.0
     val K_MINUS_SIGN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN", XQuery) // XQuery 3.0
+    val K_MODEL_GROUP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE_GROUP", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_MODIFY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY", XQuery) // Update Facility 1.0
     val K_MODULE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE", XQuery) // XQuery 1.0
     val K_NAN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN", XQuery) // XQuery 3.0

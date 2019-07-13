@@ -95,6 +95,7 @@ private val KEYWORDS = mapOf(
     "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
     "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
     "module" to XQueryTokenType.K_MODULE,
+    "model-group" to XQueryTokenType.K_MODEL_GROUP, // MarkLogic 7.0
     "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
     "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
     "no-inherit" to XQueryTokenType.K_NO_INHERIT,

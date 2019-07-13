@@ -236,7 +236,7 @@ object.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest \| SchemaWildcardTest` | |
+| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest \| SchemaWildcardTest \| ModelGroupTest` | |
 | \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` | |
 | \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" TypeNameOrWildcard? ")"` | |
 | \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"` | |
@@ -248,6 +248,7 @@ object.
 | \[45\]  | `SchemaFacetTest`       | ::= | `"schema-facet" "(" ElementNameOrWildcard? ")"` | |
 | \[102\] | `TypeNameOrWildcard`    | ::= | `TypeName | "*"`                    |         |
 | \[103\] | `SchemaWildcardTest`    | ::= | `"schema-wildcard" "(" ")"`         |         |
+| \[104\] | `ModelGroupTest`        | ::= | `"model-group" "(" ElementNameOrWildcard? ")"` | |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
@@ -262,6 +263,9 @@ If the `TypeName` in `SchemaTypeTest` is not present in the static context, an
 If the `TypeName` in `SimpleTypeTest` is not a simple type (atomic, union, or
 list type), or is not present in the static context, an `XDMP-UNDSIMTYP` error
 is raised.
+
+If the `ElementName` in `ModelGroupTest` is not a valid group type (e.g.
+`xs:sequence`), an `XDMP-BADPARTICLETEST` error is raised.
 
 ##### 2.1.2.5 JSON Node Test
 
@@ -991,7 +995,7 @@ These changes include support for:
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
 | \[35\]   | `TransactionSeparator`         | ::= | `";"`                                     |                 |
-| \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest` | |
+| \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest \| SchemaFacetTest \| SchemaWildcardTest \| ModelGroupTest` | |
 | \[37\]   | `AttributeDeclTest`            | ::= | `"attribute-decl" "(" AttribNameOrWildcard? ")"` |          |
 | \[38\]   | `ComplexTypeTest`              | ::= | `"complex-type" "(" TypeNameOrWildcard? ")"` |              |
 | \[39\]   | `ElementDeclTest`              | ::= | `"element-decl" "(" ElementNameOrWildcard? ")"` |           |
@@ -1054,6 +1058,7 @@ These changes include support for:
 | \[101\]  | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |                 |
 | \[102\]  | `TypeNameOrWildcard`           | ::= | `TypeName | "*"`                          |                 |
 | \[103\]  | `SchemaWildcardTest`           | ::= | `"schema-wildcard" "(" ")"`               |                 |
+| \[104\]  | `ModelGroupTest`               | ::= | `"model-group" "(" ElementNameOrWildcard? ")"` |            |
 
 ### A.2 Reserved Function Names
 
@@ -1073,6 +1078,7 @@ These changes include support for:
 | `function`               | XQuery 3.0                      |
 | `if`                     | XQuery 1.0                      |
 | `item`                   | XQuery 1.0                      |
+| `model-group`            | MarkLogic 7.0                   |
 | `namespace-node`         | XQuery 3.0                      |
 | `node`                   | XQuery 1.0                      |
 | `null-node`              | MarkLogic 8.0                   |
