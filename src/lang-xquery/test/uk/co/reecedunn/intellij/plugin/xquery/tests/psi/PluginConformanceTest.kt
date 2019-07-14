@@ -1167,4 +1167,19 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_WILDCARD))
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (104) ModelGroupTest")
+    fun testModelGroupTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/ModelGroupTest.xq")
+
+        val modelGroupTestPsi = file.walkTree().filterIsInstance<PluginModelGroupTest>().first()
+        val conformance = modelGroupTestPsi as VersionConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_MODEL_GROUP))
+    }
 }

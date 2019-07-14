@@ -902,6 +902,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val MODEL_GROUP_TEST: IElementType = ICompositeElementType(
+        "XQUERY_MODEL_GROUP_TEST",
+        PluginModelGroupTestPsiImpl::class.java,
+        XQuery
+    )
+
     val NAMED_ARRAY_NODE_TEST: IElementType = ICompositeElementType(
         "XQUERY_NAMED_ARRAY_NODE_TEST",
         PluginNamedArrayNodeTestPsiImpl::class.java,
