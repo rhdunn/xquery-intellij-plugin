@@ -18,18 +18,38 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaTypeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSchemaType
 
 class PluginSchemaTypeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSchemaTypeTest, XdmItemType, VersionConformance {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
+    // region PluginSchemaTypeTest
+
+    override val schemaType get(): XPathTypeName? = children().filterIsInstance<XPathTypeName>().firstOrNull()
+
+    // endregion
     // region XdmSequenceType
 
-    override val typeName: String = "schema-type()"
+    private val cachedTypeName = CacheableProperty {
+        schemaType?.type?.let { "schema-type(${op_qname_presentation(it)})" } ?: "schema-type()"
+    }
+    override val typeName get(): String = cachedTypeName.get()!!
 
     override val itemType get(): XdmItemType = this
 

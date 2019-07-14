@@ -637,16 +637,53 @@ private class PluginPsiTest : ParserTestCase() {
             assertThat(type.upperBound, `is`(1))
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (43) SchemaTypeTest")
-        fun schemaTypeTest() {
-            val type = parse<PluginSchemaTypeTest>("() instance of schema-type ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("schema-type()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmSchemaType::class.java)))
+        internal inner class SchemaTypeTest {
+            @Test
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<PluginSchemaTypeTest>("() instance of schema-type ( (::) )")[0]
+                assertThat(test.schemaType, `is`(nullValue()))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-type()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<PluginSchemaTypeTest>("() instance of schema-type ( * )")[0]
+                assertThat(test.schemaType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-type()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val test = parse<PluginSchemaTypeTest>("() instance of schema-type ( test )")[0]
+                assertThat(test.schemaType?.type?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-type(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test
