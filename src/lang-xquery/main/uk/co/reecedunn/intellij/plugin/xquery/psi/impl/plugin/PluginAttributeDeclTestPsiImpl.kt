@@ -18,18 +18,38 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAttributeDeclTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmAttributeDecl
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class PluginAttributeDeclTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginAttributeDeclTest, XdmItemType, VersionConformance {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
+    // region XPathAttributeTest
+
+    override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
     // region XdmSequenceType
 
-    override val typeName: String = "attribute-decl()"
+    private val cachedTypeName = CacheableProperty {
+        nodeName?.let { "attribute-decl(${op_qname_presentation(it)})" } ?: "attribute-decl()"
+    }
+    override val typeName get(): String = cachedTypeName.get()!!
 
     override val itemType get(): XdmItemType = this
 

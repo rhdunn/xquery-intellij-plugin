@@ -417,16 +417,53 @@ private class PluginPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.4) Schema Kind Tests")
     internal inner class SchemaKindTests {
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
-        fun attributeDeclTest() {
-            val type = parse<PluginAttributeDeclTest>("() instance of attribute-decl ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("attribute-decl()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
+        internal inner class AttributeTest {
+            @Test
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<PluginAttributeDeclTest>("() instance of attribute-decl ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute-decl()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<PluginAttributeDeclTest>("() instance of attribute-decl ( * )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute-decl()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val test = parse<PluginAttributeDeclTest>("() instance of attribute-decl ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute-decl(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeDecl::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test
