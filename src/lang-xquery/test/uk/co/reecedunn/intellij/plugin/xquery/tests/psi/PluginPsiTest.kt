@@ -466,16 +466,53 @@ private class PluginPsiTest : ParserTestCase() {
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (38) ComplexTypeTest")
-        fun complexTypeTest() {
-            val type = parse<PluginComplexTypeTest>("() instance of complex-type ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("complex-type()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmComplexType::class.java)))
+        internal inner class ComplexTypeTest {
+            @Test
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<PluginComplexTypeTest>("() instance of complex-type ( (::) )")[0]
+                assertThat(test.schemaType, `is`(nullValue()))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("complex-type()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmComplexType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<PluginComplexTypeTest>("() instance of complex-type ( * )")[0]
+                assertThat(test.schemaType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("complex-type()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmComplexType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val test = parse<PluginComplexTypeTest>("() instance of complex-type ( test )")[0]
+                assertThat(test.schemaType?.type?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("complex-type(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmComplexType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test

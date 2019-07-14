@@ -39,7 +39,7 @@ class PluginAttributeDeclTestPsiImpl(node: ASTNode) :
     }
 
     // endregion
-    // region XPathAttributeTest
+    // region PluginAttributeDeclTest
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
