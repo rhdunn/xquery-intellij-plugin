@@ -686,16 +686,53 @@ private class PluginPsiTest : ParserTestCase() {
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (44) SimpleTypeTest")
-        fun simpleTypeTest() {
-            val type = parse<PluginSimpleTypeTest>("() instance of simple-type ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("simple-type()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmSimpleType::class.java)))
+        internal inner class SimpleTypeTest {
+            @Test
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<PluginSimpleTypeTest>("() instance of simple-type ( (::) )")[0]
+                assertThat(test.schemaType, `is`(nullValue()))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("simple-type()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSimpleType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<PluginSimpleTypeTest>("() instance of simple-type ( * )")[0]
+                assertThat(test.schemaType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("simple-type()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSimpleType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val test = parse<PluginSimpleTypeTest>("() instance of simple-type ( test )")[0]
+                assertThat(test.schemaType?.type?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("simple-type(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSimpleType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test
