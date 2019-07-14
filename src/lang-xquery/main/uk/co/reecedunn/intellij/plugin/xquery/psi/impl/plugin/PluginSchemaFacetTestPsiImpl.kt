@@ -18,18 +18,38 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaFacetTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSchemaFacet
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class PluginSchemaFacetTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSchemaFacetTest, XdmItemType, VersionConformance {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
+    // region PluginSchemaFacetTest
+
+    override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
     // region XdmSequenceType
 
-    override val typeName: String = "schema-facet()"
+    private val cachedTypeName = CacheableProperty {
+        nodeName?.let { "schema-facet(${op_qname_presentation(it)})" } ?: "schema-facet()"
+    }
+    override val typeName get(): String = cachedTypeName.get()!!
 
     override val itemType get(): XdmItemType = this
 

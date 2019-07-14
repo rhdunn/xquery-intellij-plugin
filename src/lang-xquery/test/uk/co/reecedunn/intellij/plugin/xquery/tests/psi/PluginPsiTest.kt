@@ -735,16 +735,53 @@ private class PluginPsiTest : ParserTestCase() {
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (45) SchemaFacetTest")
-        fun schemaFacetTest() {
-            val type = parse<PluginSchemaFacetTest>("() instance of schema-facet ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("schema-facet()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmSchemaFacet::class.java)))
+        internal inner class SchemaFacetTest {
+            @Test
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<PluginSchemaFacetTest>("() instance of schema-facet ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-facet()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaFacet::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<PluginSchemaFacetTest>("() instance of schema-facet ( * )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-facet()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaFacet::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val test = parse<PluginSchemaFacetTest>("() instance of schema-facet ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-facet(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaFacet::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
     }
 
