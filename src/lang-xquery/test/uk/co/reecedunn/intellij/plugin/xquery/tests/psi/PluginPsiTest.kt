@@ -576,16 +576,53 @@ private class PluginPsiTest : ParserTestCase() {
             assertThat(type.upperBound, `is`(1))
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (41) SchemaParticleTest")
-        fun schemaParticleTest() {
-            val type = parse<PluginSchemaParticleTest>("() instance of schema-particle ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("schema-particle()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmSchemaParticle::class.java)))
+        internal inner class SchemaParticleTest {
+            @Test
+            @DisplayName("any; empty")
+            fun anyEmpty() {
+                val test = parse<PluginSchemaParticleTest>("() instance of schema-particle ( (::) )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-particle()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaParticle::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("any; wildcard")
+            fun anyWildcard() {
+                val test = parse<PluginSchemaParticleTest>("() instance of schema-particle ( * )")[0]
+                assertThat(test.nodeName, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-particle()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaParticle::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val test = parse<PluginSchemaParticleTest>("() instance of schema-particle ( test )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("schema-particle(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmSchemaParticle::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test
