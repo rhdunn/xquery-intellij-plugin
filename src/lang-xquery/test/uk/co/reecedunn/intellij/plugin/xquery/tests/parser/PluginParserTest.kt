@@ -1559,6 +1559,34 @@ private class PluginParserTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (103) SchemaWildcardTest")
+        internal inner class SchemaWildcardTest {
+            @Test
+            @DisplayName("schema wildcard test")
+            fun schemaWildcardTest() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaWildcardTest.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema wildcard test; compact whitespace")
+            fun schemaWildcardTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaWildcardTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/marklogic-7.0/SchemaWildcardTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
         internal inner class AnyBooleanNodeTest {
             @Test

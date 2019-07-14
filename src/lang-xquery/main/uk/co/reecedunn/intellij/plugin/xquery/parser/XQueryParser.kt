@@ -4644,6 +4644,7 @@ class XQueryParser : XPathParser() {
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaParticleTest(builder)
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaRootTest(builder)
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaTypeTest(builder)
+        if (status == ParseStatus.NOT_MATCHED) status = parseSchemaWildcardTest(builder)
         if (status == ParseStatus.NOT_MATCHED) status = parseSimpleTypeTest(builder)
         return status
     }
@@ -4845,6 +4846,29 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XQueryElementType.SCHEMA_TYPE_TEST)
+            return status
+        }
+        return ParseStatus.NOT_MATCHED
+    }
+
+    private fun parseSchemaWildcardTest(builder: PsiBuilder): ParseStatus {
+        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_WILDCARD)
+        if (marker != null) {
+            var status = ParseStatus.MATCHED
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return ParseStatus.NOT_MATCHED
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+                status = ParseStatus.MATCHED_WITH_ERRORS
+            }
+
+            marker.done(XQueryElementType.SCHEMA_WILDCARD_TEST)
             return status
         }
         return ParseStatus.NOT_MATCHED

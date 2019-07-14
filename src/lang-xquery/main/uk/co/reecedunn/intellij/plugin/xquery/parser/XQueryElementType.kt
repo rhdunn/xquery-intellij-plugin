@@ -992,6 +992,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val SCHEMA_WILDCARD_TEST: IElementType = ICompositeElementType(
+        "XQUERY_SCHEMA_WILDCARD_TEST",
+        PluginSchemaWildcardTestPsiImpl::class.java,
+        XQuery
+    )
+
     val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XQUERY_SIMPLE_INLINE_FUNCTION_EXPR",
         PluginSimpleInlineFunctionExprImpl::class.java,

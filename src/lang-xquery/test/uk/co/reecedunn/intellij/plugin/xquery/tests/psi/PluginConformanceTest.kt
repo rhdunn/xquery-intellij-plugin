@@ -1152,4 +1152,19 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.ELLIPSIS))
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (103) SchemaWildcardTest")
+    fun testSchemaWildcardTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest.xq")
+
+        val schemaWildcardTestPsi = file.walkTree().filterIsInstance<PluginSchemaWildcardTest>().first()
+        val conformance = schemaWildcardTestPsi as VersionConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_WILDCARD))
+    }
 }

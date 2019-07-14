@@ -1,0 +1,1 @@
+declare variable$one as schema-wildcard()external;
