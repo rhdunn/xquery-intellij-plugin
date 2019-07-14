@@ -128,6 +128,11 @@ interface XdmSchemaRoot : XdmItem
 interface XdmSchemaType : XdmItem
 
 // endregion
+// region XQuery IntelliJ Plugin Data Model (2.1) : schema-wildcard() [MarkLogic]
+
+interface XdmSchemaWildcard : XdmItem
+
+// endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : simple-type() [MarkLogic]
 
 interface XdmSimpleType : XdmItem

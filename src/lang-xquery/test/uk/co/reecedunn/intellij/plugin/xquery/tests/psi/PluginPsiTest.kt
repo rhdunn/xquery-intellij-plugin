@@ -783,6 +783,18 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(type.upperBound, `is`(1))
             }
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (103) SchemaWildcardTest")
+        fun schemaWildcardTest() {
+            val type = parse<PluginSchemaWildcardTest>("() instance of schema-wildcard ( (::) )")[0] as XdmItemType
+            assertThat(type.typeName, `is`("schema-wildcard()"))
+            assertThat(type.typeClass, `is`(sameInstance(XdmSchemaWildcard::class.java)))
+
+            assertThat(type.itemType, `is`(sameInstance(type)))
+            assertThat(type.lowerBound, `is`(1))
+            assertThat(type.upperBound, `is`(1))
+        }
     }
 
     @Nested

@@ -21,10 +21,28 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSchemaWildcard
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaWildcardTest
 
 class PluginSchemaWildcardTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSchemaWildcardTest, VersionConformance {
+    ASTWrapperPsiElement(node), PluginSchemaWildcardTest, XdmItemType, VersionConformance {
+    // region XdmSequenceType
+
+    override val typeName: String = "schema-wildcard()"
+
+    override val itemType get(): XdmItemType = this
+
+    override val lowerBound: Int? = 1
+
+    override val upperBound: Int? = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XdmSchemaWildcard::class.java
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
