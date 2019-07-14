@@ -33,14 +33,32 @@ object XQueryKindTestProvider : CompletionProviderEx {
 
     private val MARKLOGIC_70_KIND_TESTS = listOf(
         XPathKeywordLookup("attribute-decl", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("attribute-decl", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("attribute-decl", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("complex-type", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("complex-type", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("complex-type", XPathInsertText.PARAMS_TYPE),
         XPathKeywordLookup("element-decl", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("element-decl", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("element-decl", XPathInsertText.PARAMS_NAME),
+        XPathKeywordLookup("model-group", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("model-group", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("model-group", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("schema-component", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("schema-facet", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-facet", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("schema-facet", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("schema-particle", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("schema-particle", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("schema-particle", XPathInsertText.PARAMS_NAME),
         XPathKeywordLookup("schema-root", XPathInsertText.EMPTY_PARAMS),
         XPathKeywordLookup("schema-type", XPathInsertText.EMPTY_PARAMS),
-        XPathKeywordLookup("simple-type", XPathInsertText.EMPTY_PARAMS)
+        XPathKeywordLookup("schema-type", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("schema-type", XPathInsertText.PARAMS_TYPE),
+        XPathKeywordLookup("schema-wildcard", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("simple-type", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("simple-type", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("simple-type", XPathInsertText.PARAMS_TYPE)
     )
 
     private val MARKLOGIC_80_KIND_TESTS = listOf(
