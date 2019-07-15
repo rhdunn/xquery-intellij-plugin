@@ -50,11 +50,15 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
             }.filterNotNull().firstOrNull()
         }
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XPathNamespaceType): Boolean {
         return children().map { child ->
             when (child.node.elementType) {
                 XPathTokenType.K_ELEMENT -> namespaceType === XPathNamespaceType.DefaultElementOrType
-                XPathTokenType.K_FUNCTION -> namespaceType === XPathNamespaceType.DefaultFunction
+                XPathTokenType.K_FUNCTION -> {
+                    namespaceType === XPathNamespaceType.DefaultFunctionDecl ||
+                    namespaceType === XPathNamespaceType.DefaultFunctionRef
+                }
                 else -> null
             }
         }.filterNotNull().first()

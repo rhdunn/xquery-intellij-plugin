@@ -39,8 +39,12 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XPathNamespaceType): Boolean {
-        return namespaceType === XPathNamespaceType.DefaultFunction;
+        return (
+            namespaceType === XPathNamespaceType.DefaultFunctionDecl ||
+            namespaceType === XPathNamespaceType.DefaultFunctionRef
+        )
     }
 
     // endregion

@@ -30,7 +30,7 @@ private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", null as
 
 private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
-    XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunction,
+    XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunctionRef,
     XPathElementType.ATOMIC_OR_UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
     XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,
@@ -40,9 +40,9 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
     XQueryElementType.DIR_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.ELEMENT_TEST to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.FUNCTION_CALL to XPathNamespaceType.DefaultFunction,
-    XQueryElementType.FUNCTION_DECL to XPathNamespaceType.DefaultFunction,
-    XPathElementType.NAMED_FUNCTION_REF to XPathNamespaceType.DefaultFunction,
+    XPathElementType.FUNCTION_CALL to XPathNamespaceType.DefaultFunctionRef,
+    XQueryElementType.FUNCTION_DECL to XPathNamespaceType.DefaultFunctionDecl,
+    XPathElementType.NAMED_FUNCTION_REF to XPathNamespaceType.DefaultFunctionRef,
     XQueryElementType.NEXT_ITEM to XPathNamespaceType.None,
     XQueryElementType.OPTION_DECL to XPathNamespaceType.XQuery,
     XPathElementType.PARAM to XPathNamespaceType.None,
@@ -156,16 +156,15 @@ fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
         NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
 }
 
+@Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
 fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null /* NCName */ -> {
-            when (getNamespaceType()) {
-                XPathNamespaceType.DefaultElementOrType -> {
-                    element!!.defaultNamespace(XPathNamespaceType.DefaultElementOrType).expandNCName(this)
-                }
-                XPathNamespaceType.DefaultFunction -> {
-                    element!!.defaultNamespace(XPathNamespaceType.DefaultFunction).expandNCName(this)
-                }
+            val type = getNamespaceType()
+            when (type) {
+                XPathNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
+                XPathNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
+                XPathNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)
                 XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
                 else -> sequenceOf(this)

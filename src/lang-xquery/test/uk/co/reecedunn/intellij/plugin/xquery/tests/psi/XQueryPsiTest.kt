@@ -1928,7 +1928,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     test()
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunction))
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionRef))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -2000,7 +2000,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     test#1
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunction))
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionRef))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3501,7 +3501,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () => test()
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunction))
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionRef))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3911,7 +3911,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -3926,7 +3927,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -3941,7 +3943,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri, `is`(nullValue()))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -3956,7 +3959,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -4251,7 +4255,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/1999/xhtml"))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -4269,7 +4274,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(true))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -4285,7 +4291,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri!!.data, `is`(""))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -4301,7 +4308,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri, `is`(nullValue()))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -4685,7 +4693,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     declare function test() {};
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunction))
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionDecl))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))

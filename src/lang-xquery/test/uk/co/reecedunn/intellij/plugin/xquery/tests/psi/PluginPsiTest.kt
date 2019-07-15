@@ -33,7 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -1101,7 +1100,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -1117,7 +1117,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri, `is`(nullValue()))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -1135,7 +1136,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -1153,7 +1155,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri, `is`(nullValue()))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunction), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(true))
@@ -1453,7 +1456,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(true))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -1469,7 +1473,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri!!.data, `is`(""))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(true))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
@@ -1485,7 +1490,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri, `is`(nullValue()))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunction), `is`(true))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))

@@ -23,7 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 
 enum class XPathNamespaceType {
     DefaultElementOrType,
-    DefaultFunction,
+    DefaultFunctionDecl,
+    DefaultFunctionRef,
     None,
     Prefixed,
     Undefined,
@@ -48,8 +49,10 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceD
         object : XPathDefaultNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = null
             override val namespaceUri: XsAnyUriValue? = XsAnyUri(value, originalElement)
-            override fun accepts(namespaceType: XPathNamespaceType): Boolean =
-                namespaceType === XPathNamespaceType.DefaultElementOrType
+
+            override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+                return namespaceType === XPathNamespaceType.DefaultElementOrType
+            }
         }
     } else {
         null
@@ -76,8 +79,14 @@ private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration 
 
     override val namespacePrefix: XsNCNameValue? = null
     override val namespaceUri: XsAnyUriValue? = XsAnyUri(FN_NAMESPACE_URI, null as PsiElement?)
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean =
-        namespaceType === XPathNamespaceType.DefaultFunction
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+        return (
+            namespaceType === XPathNamespaceType.DefaultFunctionDecl ||
+            namespaceType === XPathNamespaceType.DefaultFunctionRef
+        )
+    }
 }
 
 @Suppress("unused")

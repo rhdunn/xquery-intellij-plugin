@@ -35,7 +35,7 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     override fun accepts(namespaceType: XPathNamespaceType): Boolean {
-        return namespaceType === XPathNamespaceType.DefaultFunction
+        return namespaceType === XPathNamespaceType.DefaultFunctionRef // Usage only, not declaration.
     }
 
     // endregion
