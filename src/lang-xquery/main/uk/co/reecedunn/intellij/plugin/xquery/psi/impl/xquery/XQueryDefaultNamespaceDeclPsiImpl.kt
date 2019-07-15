@@ -50,16 +50,15 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
             }.filterNotNull().firstOrNull()
         }
 
-    override val namespaceType
-        get(): XPathNamespaceType {
-            return children().map { child ->
-                when (child.node.elementType) {
-                    XPathTokenType.K_ELEMENT -> XPathNamespaceType.DefaultElementOrType
-                    XPathTokenType.K_FUNCTION -> XPathNamespaceType.DefaultFunction
-                    else -> null
-                }
-            }.filterNotNull().first()
-        }
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+        return children().map { child ->
+            when (child.node.elementType) {
+                XPathTokenType.K_ELEMENT -> namespaceType === XPathNamespaceType.DefaultElementOrType
+                XPathTokenType.K_FUNCTION -> namespaceType === XPathNamespaceType.DefaultFunction
+                else -> null
+            }
+        }.filterNotNull().first()
+    }
 
     // endregion
 }

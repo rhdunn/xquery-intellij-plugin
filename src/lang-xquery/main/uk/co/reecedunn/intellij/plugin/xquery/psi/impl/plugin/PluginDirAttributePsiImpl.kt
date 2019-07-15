@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,16 +53,15 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // endregion
     // region XQueryNamespaceDeclaration
 
-    override val namespaceType
-        get(): XPathNamespaceType {
-            return children().filterIsInstance<XsQNameValue>().map { qname ->
-                when {
-                    qname.prefix?.data == "xmlns" -> XPathNamespaceType.Prefixed
-                    qname.localName?.data == "xmlns" -> XPathNamespaceType.DefaultElementOrType
-                    else -> null
-                }
-            }.firstOrNull() ?: XPathNamespaceType.Undefined
-        }
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+        return children().filterIsInstance<XsQNameValue>().map { qname ->
+            when {
+                qname.prefix?.data == "xmlns" -> namespaceType === XPathNamespaceType.Prefixed
+                qname.localName?.data == "xmlns" -> namespaceType === XPathNamespaceType.DefaultElementOrType
+                else -> null
+            }
+        }.firstOrNull() ?: (namespaceType === XPathNamespaceType.Undefined)
+    }
 
     override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()
     private val cachedNamespacePrefix = CacheableProperty {

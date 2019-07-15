@@ -34,7 +34,9 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
     override val namespaceUri
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
-    override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+        return namespaceType === XPathNamespaceType.DefaultFunction
+    }
 
     // endregion
     // region VersionConformance

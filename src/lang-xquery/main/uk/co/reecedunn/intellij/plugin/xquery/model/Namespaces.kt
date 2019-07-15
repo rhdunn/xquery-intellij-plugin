@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,7 @@ private fun PsiElement.defaultNamespace(
                     ?.children()?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
             else -> emptySequence()
         }
-    }.filter { ns -> ns.namespaceType === type && ns.namespaceUri?.data != null }
+    }.filter { ns -> ns.accepts(type) && ns.namespaceUri?.data != null }
 }
 
 fun PsiElement.defaultElementOrTypeNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {

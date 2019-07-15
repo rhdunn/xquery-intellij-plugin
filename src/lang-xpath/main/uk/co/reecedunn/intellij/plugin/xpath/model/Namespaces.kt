@@ -37,7 +37,7 @@ interface XPathNamespaceDeclaration {
 }
 
 interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
-    val namespaceType: XPathNamespaceType
+    fun accepts(namespaceType: XPathNamespaceType): Boolean
 }
 
 private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceDeclaration? {
@@ -48,7 +48,8 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceD
         object : XPathDefaultNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = null
             override val namespaceUri: XsAnyUriValue? = XsAnyUri(value, originalElement)
-            override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultElementOrType
+            override fun accepts(namespaceType: XPathNamespaceType): Boolean =
+                namespaceType === XPathNamespaceType.DefaultElementOrType
         }
     } else {
         null
@@ -75,7 +76,8 @@ private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration 
 
     override val namespacePrefix: XsNCNameValue? = null
     override val namespaceUri: XsAnyUriValue? = XsAnyUri(FN_NAMESPACE_URI, null as PsiElement?)
-    override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean =
+        namespaceType === XPathNamespaceType.DefaultFunction
 }
 
 @Suppress("unused")

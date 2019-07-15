@@ -32,13 +32,12 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
 
     private val schemaPrefix get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 
-    override val namespaceType
-        get(): XPathNamespaceType {
-            return when (schemaPrefix?.firstChild?.node?.elementType) {
-                XPathTokenType.K_NAMESPACE -> XPathNamespaceType.Prefixed
-                else -> XPathNamespaceType.DefaultElementOrType
-            }
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+        return when (schemaPrefix?.firstChild?.node?.elementType) {
+            XPathTokenType.K_NAMESPACE -> namespaceType === XPathNamespaceType.Prefixed
+            else -> namespaceType === XPathNamespaceType.DefaultElementOrType
         }
+    }
 
     override val namespacePrefix
         get(): XsNCNameValue? {

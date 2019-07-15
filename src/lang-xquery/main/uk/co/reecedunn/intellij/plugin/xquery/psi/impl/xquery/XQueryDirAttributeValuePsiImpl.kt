@@ -40,7 +40,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     override val value
         get(): XsAnyAtomicType? {
             return cachedContent.get()?.let {
-                if ((parent as XPathDefaultNamespaceDeclaration).namespaceType == XPathNamespaceType.Undefined) {
+                if ((parent as XPathDefaultNamespaceDeclaration).accepts(XPathNamespaceType.Undefined)) {
                     XsString(it, this)
                 } else {
                     XsAnyUri(it, this)

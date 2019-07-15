@@ -39,7 +39,9 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
-    override val namespaceType: XPathNamespaceType = XPathNamespaceType.DefaultFunction
+    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+        return namespaceType === XPathNamespaceType.DefaultFunction;
+    }
 
     // endregion
     // region XQueryPrologResolver
