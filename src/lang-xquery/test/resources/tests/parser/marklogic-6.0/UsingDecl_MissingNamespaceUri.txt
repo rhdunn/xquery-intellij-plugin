@@ -1,0 +1,11 @@
+XQueryModuleImpl[FILE(0:17)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:17)]
+         PluginUsingDeclImpl[XQUERY_USING_DECL(0:16)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(0:5)]('using')
+            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(6:15)]('namespace')
+            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing URI string.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(16:17)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Missing query body.')

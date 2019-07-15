@@ -298,6 +298,9 @@ class XQueryParser : XPathParser() {
             if (nextState == PrologDeclState.NOT_MATCHED) {
                 nextState = parseImport(builder, parseState)
             }
+            if (nextState == PrologDeclState.NOT_MATCHED) {
+                nextState = parseUsingDecl(builder, parseState)
+            }
 
             when (nextState) {
                 PrologDeclState.NOT_MATCHED -> if (parseInvalidConstructs && builder.tokenType != null) {
@@ -520,6 +523,38 @@ class XQueryParser : XPathParser() {
             return true
         }
         return false
+    }
+
+    private fun parseUsingDecl(builder: PsiBuilder, state: PrologDeclState): PrologDeclState {
+        val marker = builder.mark()
+        val errorMarker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.K_USING)) {
+            var haveErrors = false
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                errorMarker.drop()
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_NAMESPACE)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "namespace"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
+                builder.error(XQueryBundle.message("parser.error.expected-uri-string"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            marker.done(XQueryElementType.USING_DECL)
+            return PrologDeclState.HEADER_STATEMENT
+        }
+
+        errorMarker.drop()
+        marker.drop()
+        return PrologDeclState.NOT_MATCHED
     }
 
     // endregion

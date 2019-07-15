@@ -1052,5 +1052,11 @@ object XQueryElementType {
         XQuery
     )
 
+    val USING_DECL: IElementType = ICompositeElementType(
+        "XQUERY_USING_DECL",
+        PluginUsingDeclPsiImpl::class.java,
+        XQuery
+    )
+
     // endregion
 }

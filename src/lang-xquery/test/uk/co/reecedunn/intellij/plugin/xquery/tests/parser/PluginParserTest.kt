@@ -2837,4 +2837,40 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (105) UsingDecl")
+    internal inner class UsingDecl {
+        @Test
+        @DisplayName("using")
+        fun using() {
+            val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl.txt")
+            val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("using; compact whitespace")
+        fun using_compactWhitespace() {
+            val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'namespace' keyword")
+        fun missingNamespaceKeyword() {
+            val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceKeyword.txt")
+            val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing namespace uri")
+        fun missingNamespaceUri() {
+            val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceUri.txt")
+            val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceUri.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

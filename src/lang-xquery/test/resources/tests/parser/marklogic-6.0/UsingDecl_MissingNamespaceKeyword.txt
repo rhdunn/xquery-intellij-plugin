@@ -1,0 +1,14 @@
+XQueryModuleImpl[FILE(0:37)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:37)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:37)]
+         PluginUsingDeclImpl[XQUERY_USING_DECL(0:36)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(0:5)]('using')
+            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected keyword: namespace.')
+            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(6:35)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(6:7)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(7:34)]('http://www.example.com/test')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(34:35)]('"')
+            PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(36:37)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Missing query body.')
