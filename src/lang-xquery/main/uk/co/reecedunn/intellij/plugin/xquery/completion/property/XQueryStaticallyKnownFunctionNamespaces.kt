@@ -20,13 +20,14 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.model.defaultFunctionNamespace
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.model.defaultNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownNamespaces
 
 object XQueryStaticallyKnownFunctionNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES] == null) {
-            val namespaces = element.defaultFunctionNamespace().firstOrNull()?.let {
+            val namespaces = element.defaultNamespace(XPathNamespaceType.DefaultFunction).firstOrNull()?.let {
                 val list = mutableListOf<XPathNamespaceDeclaration>(it)
                 list.addAll(element.staticallyKnownNamespaces())
                 list

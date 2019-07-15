@@ -572,7 +572,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noProlog() {
                 val ctx = parse<XQueryMainModule>("<br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -592,7 +592,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -616,7 +616,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -642,7 +642,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "import schema default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -672,7 +672,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -692,7 +692,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -728,7 +728,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -758,7 +758,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -778,7 +778,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -810,7 +810,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()"
                 )[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -830,7 +830,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -850,7 +850,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace ''; <br/>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -874,7 +874,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun prefixed() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -894,7 +894,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun default() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -924,7 +924,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns=''>{test()}</a>")[0]
 
-                val element = ctx.defaultElementOrTypeNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -962,7 +962,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noProlog() {
                 val ctx = parse<XQueryMainModule>("<br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -982,7 +982,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1006,7 +1006,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1032,7 +1032,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "import schema default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1052,7 +1052,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1072,7 +1072,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1098,7 +1098,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1118,7 +1118,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1138,7 +1138,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1160,7 +1160,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()"
                 )[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -1190,7 +1190,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1210,7 +1210,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace ''; <br/>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
@@ -1244,7 +1244,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun prefixed() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1264,7 +1264,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun default() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
@@ -1284,7 +1284,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns=''>{test()}</a>")[0]
 
-                val element = ctx.defaultFunctionNamespace().toList()
+                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunction).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context

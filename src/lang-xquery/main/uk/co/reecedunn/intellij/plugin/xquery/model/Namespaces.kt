@@ -81,9 +81,9 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
 // endregion
 // region XPath 3.1 (2.1.1) Default element/type namespace ; XPath 3.1 (2.1.1) Default function namespace
 
-private fun PsiElement.defaultNamespace(
+fun PsiElement.defaultNamespace(
     type: XPathNamespaceType,
-    resolveProlog: Boolean
+    resolveProlog: Boolean = true
 ): Sequence<XPathDefaultNamespaceDeclaration> {
     var visitedProlog = false
     return walkTree().reversed().flatMap { node ->
@@ -113,14 +113,6 @@ private fun PsiElement.defaultNamespace(
             else -> emptySequence()
         }
     }.filter { ns -> ns.accepts(type) && ns.namespaceUri?.data != null }
-}
-
-fun PsiElement.defaultElementOrTypeNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
-    return defaultNamespace(XPathNamespaceType.DefaultElementOrType, true)
-}
-
-fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
-    return defaultNamespace(XPathNamespaceType.DefaultFunction, true)
 }
 
 // endregion
@@ -168,8 +160,12 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null /* NCName */ -> {
             when (getNamespaceType()) {
-                XPathNamespaceType.DefaultElementOrType -> element!!.defaultElementOrTypeNamespace().expandNCName(this)
-                XPathNamespaceType.DefaultFunction -> element!!.defaultFunctionNamespace().expandNCName(this)
+                XPathNamespaceType.DefaultElementOrType -> {
+                    element!!.defaultNamespace(XPathNamespaceType.DefaultElementOrType).expandNCName(this)
+                }
+                XPathNamespaceType.DefaultFunction -> {
+                    element!!.defaultNamespace(XPathNamespaceType.DefaultFunction).expandNCName(this)
+                }
                 XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
                 else -> sequenceOf(this)
