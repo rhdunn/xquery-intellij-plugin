@@ -18,11 +18,25 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 
 class PluginUsingDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginUsingDecl, VersionConformance {
+    ASTWrapperPsiElement(node), PluginUsingDecl, XPathDefaultNamespaceDeclaration, VersionConformance {
+    // region XPathNamespaceDeclaration
+
+    override val namespacePrefix
+        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
+
+    override val namespaceUri
+        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+
+    override val namespaceType: XPathNamespaceType = XPathNamespaceType.Using
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)

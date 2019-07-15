@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -1407,6 +1408,46 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (4.6) Using Declaration")
+    internal inner class UsingDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (105) UsingDecl")
+        internal inner class UsingDecl {
+            @Test
+            @DisplayName("using declaration")
+            fun using() {
+                val decl = parse<XPathDefaultNamespaceDeclaration>(
+                    "using namespace 'http://www.w3.org/2005/xpath-functions/math';"
+                )[0]
+
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.Using))
+            }
+
+            @Test
+            @DisplayName("empty namespace")
+            fun emptyNamespace() {
+                val decl = parse<XPathDefaultNamespaceDeclaration>("using namespace '';")[0]
+
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri!!.data, `is`(""))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.Using))
+            }
+
+            @Test
+            @DisplayName("missing namespace")
+            fun missingNamespace() {
+                val decl = parse<XPathDefaultNamespaceDeclaration>("using namespace;")[0]
+
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri, `is`(nullValue()))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.Using))
             }
         }
     }
