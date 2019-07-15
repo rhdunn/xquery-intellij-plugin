@@ -27,7 +27,6 @@ enum class XPathNamespaceType {
     None,
     Prefixed,
     Undefined,
-    Using,
     XQuery,
 }
 

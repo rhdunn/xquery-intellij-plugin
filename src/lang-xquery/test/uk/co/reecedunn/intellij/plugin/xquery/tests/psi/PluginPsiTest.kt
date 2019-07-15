@@ -1427,7 +1427,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
-                assertThat(decl.namespaceType, `is`(XPathNamespaceType.Using))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultFunction))
             }
 
             @Test
@@ -1437,7 +1437,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
-                assertThat(decl.namespaceType, `is`(XPathNamespaceType.Using))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultFunction))
             }
 
             @Test
@@ -1447,7 +1447,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri, `is`(nullValue()))
-                assertThat(decl.namespaceType, `is`(XPathNamespaceType.Using))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultFunction))
             }
         }
     }
