@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.io
 
-import org.apache.commons.io.IOUtils
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.nio.charset.Charset
 
 fun InputStream.decode(charset: Charset = Charsets.UTF_8): String {
-    return String(IOUtils.toByteArray(this), charset)
+    val buffer = ByteArrayOutputStream(maxOf(DEFAULT_BUFFER_SIZE, available()))
+    copyTo(buffer)
+    return String(buffer.toByteArray(), charset)
 }
