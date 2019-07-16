@@ -26,7 +26,7 @@ class XPathTypedHandler : TypedHandlerDelegate() {
     override fun checkAutoPopup(charTyped: Char, project: Project, editor: Editor, file: PsiFile): Result {
         if (file !is XPath) return Result.CONTINUE
 
-        if (charTyped == '$') {
+        if (charTyped == '$' || charTyped == ':') {
             AutoPopupController.getInstance(project).autoPopupMemberLookup(editor, null)
             return Result.CONTINUE
         }
