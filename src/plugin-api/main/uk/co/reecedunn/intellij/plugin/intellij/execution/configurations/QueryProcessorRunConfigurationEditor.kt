@@ -178,7 +178,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateDatabaseUI() {
-        val session = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
+        val session = try {
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
+        } catch (e: Throwable) {
+            null
+        }
         session?.databases?.execute { databases ->
             val database = database!!
             val current = database.selectedItem
