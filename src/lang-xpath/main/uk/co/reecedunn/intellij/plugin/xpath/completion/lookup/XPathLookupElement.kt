@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
+import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
@@ -44,6 +45,12 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
         val insert = insertText ?: return
         insert.completeText(context.document, context.tailOffset)
         insert.moveCaret(context.editor.caretModel)
+
+        if (insert === XPathInsertText.QNAME_PREFIX) {
+            // Keep the auto-complete popup visible, so namespaced variables
+            // and functions can be auto-completed.
+            AutoPopupController.getInstance(context.project).autoPopupMemberLookup(context.editor, null)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
