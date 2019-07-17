@@ -81,6 +81,10 @@ fun PsiElement.ancestors(): Sequence<PsiElement> {
     return PsiElementIterator(parent, PsiElement::getParent).asSequence()
 }
 
+fun PsiElement.ancestorsAndSelf(): Sequence<PsiElement> {
+    return PsiElementIterator(this, PsiElement::getParent).asSequence()
+}
+
 fun PsiElement.descendants(): Sequence<PsiElement> {
     return PsiElementIterator(firstChild, PsiElement::getFirstChild).asSequence()
 }
