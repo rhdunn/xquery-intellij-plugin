@@ -28,7 +28,7 @@ private fun PsiFile.resourcePath(): String {
 fun PsiElement.resourcePath(): String {
     var file = containingFile.virtualFile ?: return containingFile.resourcePath()
     if (file is LightVirtualFileBase) {
-        file = file.originalFile
+        file = file.originalFile ?: return containingFile.resourcePath()
     }
     return file.path.replace('\\', '/')
 }
