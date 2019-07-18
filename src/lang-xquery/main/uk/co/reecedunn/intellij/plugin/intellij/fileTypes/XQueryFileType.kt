@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
 import com.intellij.lexer.Lexer
-import com.intellij.openapi.fileTypes.FileTypeConsumer
-import com.intellij.openapi.fileTypes.FileTypeFactory
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
@@ -35,19 +33,7 @@ import java.nio.charset.UnsupportedCharsetException
 import javax.swing.Icon
 
 object XQueryFileType : LanguageFileType(XQuery) {
-    object Factory : FileTypeFactory() {
-        override fun createFileTypes(consumer: FileTypeConsumer) {
-            consumer.consume(XQueryFileType, EXTENSIONS)
-        }
-    }
-
     private val UTF_8 = Charset.forName("UTF-8")
-
-    // xqu  -- BaseX
-    // xql  -- eXist-db; BaseX
-    // xqm  -- eXist-db; BaseX
-    // xqws -- eXist-db
-    const val EXTENSIONS = "xq;xqy;xquery;xqu;xql;xqm;xqws"
 
     override fun getName(): String = "XQuery"
 

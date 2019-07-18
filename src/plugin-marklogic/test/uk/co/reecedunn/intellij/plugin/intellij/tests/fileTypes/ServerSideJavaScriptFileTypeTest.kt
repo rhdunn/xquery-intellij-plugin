@@ -19,7 +19,6 @@ import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.fileTypes.FileTypeToArrayConsumer
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -36,19 +35,6 @@ private class ServerSideJavaScriptFileTypeTest : ParsingTestCase<PsiFile>(".xqy"
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-    }
-
-    @Test
-    @DisplayName("factory")
-    fun testFactory() {
-        val consumer = FileTypeToArrayConsumer()
-        ServerSideJavaScriptFileType.Factory.createFileTypes(consumer)
-
-        assertThat(consumer.fileTypes.size, `is`(1))
-        assertThat(consumer.fileMatchers.size, `is`(0))
-
-        assertThat(consumer.fileTypes[0].first.javaClass.name, `is`(ServerSideJavaScriptFileType::class.java.name))
-        assertThat(consumer.fileTypes[0].second, `is`("sjs"))
     }
 
     @Test

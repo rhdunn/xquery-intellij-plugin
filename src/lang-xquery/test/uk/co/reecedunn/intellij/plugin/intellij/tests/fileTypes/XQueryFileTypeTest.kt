@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018-2019 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.fileTypes.FileTypeToArrayConsumer
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -36,19 +35,6 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-    }
-
-    @Test
-    @DisplayName("factory")
-    fun testFactory() {
-        val consumer = FileTypeToArrayConsumer()
-        XQueryFileType.Factory.createFileTypes(consumer)
-
-        assertThat(consumer.fileTypes.size, `is`(1))
-        assertThat(consumer.fileMatchers.size, `is`(0))
-
-        assertThat(consumer.fileTypes[0].first.javaClass.name, `is`(XQueryFileType::class.java.name))
-        assertThat(consumer.fileTypes[0].second, `is`("xq;xqy;xquery;xqu;xql;xqm;xqws"))
     }
 
     @Test

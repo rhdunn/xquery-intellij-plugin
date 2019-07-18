@@ -1,14 +1,11 @@
 <idea-plugin>
   <extensionPoints>
-    <extensionPoint name="fileType" beanClass="uk.co.reecedunn.compat.fileTypes.FileTypeBean">
+    <extensionPoint qualifiedName="com.intellij.fileType" beanClass="uk.co.reecedunn.compat.fileTypes.FileTypeBean">
       <with attribute="implementationClass" implements="com.intellij.openapi.fileTypes.FileType"/>
     </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- XML Query Language Support -->
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType$Factory"/>
-    <!-- MarkLogic Server-Side JavaScript Language Support -->
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType$Factory"/>
+    <fileTypeFactory implementation="uk.co.reecedunn.compat.fileTypes.FileTypeFactory"/>
   </extensions>
 </idea-plugin>
