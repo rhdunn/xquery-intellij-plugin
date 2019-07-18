@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.6 - (In Development)
+
 ## 1.5 - 2019-07-18
 
 References, Resolving and Find Usages:
