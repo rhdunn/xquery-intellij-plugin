@@ -1,4 +1,10 @@
 <idea-plugin>
+  <extensionPoints>
+    <extensionPoint name="fileType" beanClass="uk.co.reecedunn.compat.fileTypes.FileTypeBean">
+      <with attribute="implementationClass" implements="com.intellij.openapi.fileTypes.FileType"/>
+    </extensionPoint>
+  </extensionPoints>
+
   <extensions defaultExtensionNs="com.intellij">
     <!-- XML Query Language Support -->
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType$Factory"/>

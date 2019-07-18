@@ -1,13 +1,2 @@
 <idea-plugin>
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- XML Query Language Support -->
-
-    <fileType name="XQuery" language="XQuery" extensions="xq;xqy;xquery;xqu;xql;xqm;xqws"
-              implementationClass="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType"/>
-
-    <!-- MarkLogic Server-Side JavaScript Language Support -->
-
-    <fileType name="Server-side JavaScript" language="MLJavaScript" extensions="sjs"
-              implementationClass="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType"/>
-  </extensions>
 </idea-plugin>
