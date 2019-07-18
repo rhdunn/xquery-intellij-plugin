@@ -2795,7 +2795,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList (variadic)")
     internal inner class ParamList {
         @Test
         @DisplayName("untyped")

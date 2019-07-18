@@ -1,0 +1,38 @@
+XPathImpl[FILE(0:36)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:36)]
+      XPathInlineFunctionExprImpl[XPATH_INLINE_FUNCTION_EXPR(0:36)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
+         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+         XPathParamListImpl[XPATH_PARAM_LIST(11:30)]
+            XPathParamImpl[XPATH_PARAM(11:15)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(13:15)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('x')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            LeafPsiElement[XPATH_COMMA_TOKEN(15:16)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            XPathParamImpl[XPATH_PARAM(17:21)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(19:21)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('y')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            LeafPsiElement[XPATH_COMMA_TOKEN(21:22)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+            XPathParamImpl[XPATH_PARAM(23:27)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(25:27)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:26)]('z')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+            LeafPsiElement[XQUERY_ELLIPSIS_TOKEN(27:30)]('...')
+         PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(31:32)](')')
+         PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+         XPathFunctionBodyImpl[XPATH_FUNCTION_BODY(33:36)]
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(33:34)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(35:36)]('}')
