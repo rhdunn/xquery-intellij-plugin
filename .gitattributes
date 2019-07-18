@@ -3,6 +3,8 @@ src/lang-xquery/main/resources/settings/xquery-color-demo.xq text eof=lf
 
 src/lang-xquery/test/resources/tests/folding/*.xq text eol=lf
 
+src/lang-xpath/test/resources/tests/parser/saxon-9.9-xpath/*.txt text eol=lf
+src/lang-xpath/test/resources/tests/parser/saxon-9.9-xpath/*.xq text eol=lf
 src/lang-xpath/test/resources/tests/parser/xpath-1.0/*.txt text eol=lf
 src/lang-xpath/test/resources/tests/parser/xpath-1.0/*.xq text eol=lf
 src/lang-xpath/test/resources/tests/parser/xpath-2.0/*.txt text eol=lf
