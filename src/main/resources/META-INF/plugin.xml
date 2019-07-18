@@ -14,7 +14,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.5-dev:</h3>
+    <h3>Release 1.5:</h3>
     <p>References, Resolving and Find Usages:</p>
     <ol>
       <li>Fix resolving and finding usages of variables declared in imported modules.</li>
