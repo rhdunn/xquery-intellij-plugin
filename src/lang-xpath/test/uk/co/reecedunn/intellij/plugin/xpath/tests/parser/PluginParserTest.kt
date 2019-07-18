@@ -39,6 +39,50 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("single")
+        fun singleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_SingleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_SingleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing ComparisonExpr")
+        fun missingUpdateExpr() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_MissingComparisonExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_MissingComparisonExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multipleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_MultipleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_MultipleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is first")
+        fun mixedAndAlsoFirst() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoFirst.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoFirst.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is last")
+        fun mixedAndAlsoLast() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XPath 3.1 EBNF (52) ItemType")
     internal inner class UnionType_ItemType {
         @Test

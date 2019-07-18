@@ -173,13 +173,19 @@ The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[19\] | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
+| \[20\] | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` | |
 
-The `orElse` expression is a new logical expression supported by Saxon 9.9.
+The `orElse` and `andAlso` expressions are new logical expression supported by Saxon 9.9.
 
 The `orElse` expression evaluates the left hand side (`lhs`) first, and only
 evaluates the right hand side (`rhs`) if the left hand side is false. This is
 equivalent to:
 >     if (lhs) then fn:true() else xs:boolean(rhs)
+
+The `andAlso` expression evaluates the left hand side (`lhs`) first, and only
+evaluates the right hand side (`rhs`) if the left hand side is true. This is
+equivalent to:
+>     if (lhs) then xs:boolean(rhs) else fn:false()
 
 ### 3.5 Conditional Expressions
 
@@ -252,6 +258,7 @@ These changes include support for:
 | \[17\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\]  | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
 | \[19\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
+| \[20\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
 
 ### A.2 Reserved Function Names
 
