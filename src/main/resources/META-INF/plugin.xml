@@ -28,7 +28,7 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
   </extensionPoints>
 
-  <xi:include href="plugin-filetypes.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="META-INF/plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- XML Path Language Support -->
