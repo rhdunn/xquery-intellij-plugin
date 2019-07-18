@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
+import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -1435,6 +1437,37 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (4.5) Function Declaration")
+    internal inner class FunctionDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl ; XQuery IntelliJ Plugin EBNF (95) ParamList")
+        internal inner class FunctionDecl {
+            @Test
+            @DisplayName("variadic")
+            fun variadic() {
+                val decl = parse<XPathFunctionDeclaration>("declare function test(\$one, \$two ...) external;")[0]
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+
+                val qname = decl.functionName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val presentation = (decl as NavigatablePsiElement).presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.presentableText, `is`("test(\$one, \$two ...)"))
+                assertThat(presentation.locationString, `is`(nullValue()))
             }
         }
     }

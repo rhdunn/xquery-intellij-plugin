@@ -74,7 +74,10 @@ class XPathParamListPsiImpl(node: ASTNode) :
         val params = params.mapNotNull { param ->
             (param as NavigatablePsiElement).presentation?.presentableText
         }.joinToString()
-        "($params)"
+        if (conformanceElement.node.elementType == XPathElementType.PARAM)
+            "($params)"
+        else
+            "($params ...)"
     }
 
     override fun getPresentableText(): String? = cachedPresentableText.get()
