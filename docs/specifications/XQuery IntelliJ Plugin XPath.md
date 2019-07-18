@@ -25,7 +25,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.2 Path Expressions](#32-path-expressions)
     - [3.2.1 Node Tests](#321-node-tests)
   - [3.3 For Expressions](#33-for-expressions)
-  - [3.4 Conditional Expressions](#34-conditional-expressions)
+  - [3.4 Logical Expressions](#34-logical-expressions)
+  - [3.5 Conditional Expressions](#35-conditional-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a3-reserved-function-names)
@@ -166,7 +167,21 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
 `FLWORExpr` grammar productions.
 
-### 3.4 Conditional Expressions
+### 3.4 Logical Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[19\] | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
+
+The `orElse` expression is a new logical expression supported by Saxon 9.9.
+
+The `orElse` expression evaluates the left hand side (`lhs`) first, and only
+evaluates the right hand side (`rhs`) if the left hand side is false. This is
+equivalent to:
+>     if (lhs) then fn:true() else xs:boolean(rhs)
+
+### 3.5 Conditional Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -236,6 +251,7 @@ These changes include support for:
 | \[16\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[17\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\]  | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
+| \[19\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 
 ### A.2 Reserved Function Names
 
