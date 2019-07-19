@@ -2,6 +2,10 @@
 
 ## 1.6 - (In Development)
 
+IntelliJ Integration:
+
+1.  Display the namespace signature when holding Ctrl over a `QName` prefix.
+
 ## 1.5 - 2019-07-18
 
 References, Resolving and Find Usages:
