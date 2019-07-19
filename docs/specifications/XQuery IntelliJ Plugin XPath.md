@@ -194,6 +194,11 @@ equivalent to:
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[10\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
 | \[11\] | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
+| \[21\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
+
+The `IfExpr` without the else branch is defined in proposal 7 of the EXPath
+syntax extensions for XPath and XQuery. It is currently only supported in
+BaseX 9.1's XQuery implementation.
 
 The `TernaryIfExpr` and `ElvisExpr` expressions are new expressions defined in
 proposal 2 of the EXPath syntax extensions for XPath and XQuery.
@@ -259,6 +264,7 @@ These changes include support for:
 | \[18\]  | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
 | \[19\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
+| \[21\]  | `IfExpr`                | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 ### A.2 Reserved Function Names
 
@@ -318,12 +324,18 @@ __Working Drafts__
 
 ### B.3 EXPath References
 __XPath NG__
+*  EXPath. *Variadic Function Arguments*. Proposal 1, version 2. See
+   [https://github.com/expath/xpath-ng/blob/0dded843cf1e7e21d357c9360bf5faf5b9e1e129/variadic-function-arguments.md]().
+   Reece H. Dunn, 67 Bricks.
 *  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
    [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
    Michael Kay, Saxonica.
 *  EXPath. *Anonymous Union Types*. Proposal 6, version 1. See
    [https://github.com/expath/xpath-ng/blob/9ff8fbf3bbc1f2f24b81671881154f35cb01bf28/union-types.md]().
    Michael Kay, Saxonica.
+*  EXPath. *If Without Else*. Proposal 7, version 1. See
+   [https://github.com/expath/xpath-ng/blob/ef330f640be3617ecc5ec53868de84f7d34e0ac6/if-without-else-ChristianGruen.md]().
+   Christian Grün, BaseX GmbH.
 
 ## C Vendor Extensions
 
