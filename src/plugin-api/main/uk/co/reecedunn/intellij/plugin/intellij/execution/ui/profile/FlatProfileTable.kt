@@ -207,7 +207,7 @@ class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
         sorter.sortKeys = listOf(defaultSortKey)
         sorter.sort()
 
-        sorter.addRowSorterListener { e -> defaultSortKey = rowSorter.sortKeys[0] }
+        sorter.addRowSorterListener { defaultSortKey = rowSorter.sortKeys[0] }
     }
 
     private var defaultSortKey: RowSorter.SortKey

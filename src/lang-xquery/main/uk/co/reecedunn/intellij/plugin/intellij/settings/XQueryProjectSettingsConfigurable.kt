@@ -151,17 +151,17 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
         return (value as Versioned).id != setting
     }
 
-    override fun isModified(settings: XQueryProjectSettings): Boolean {
-        if (isModified(mImplementations!!, settings.product)) return true
-        if (isModified(mImplementationVersions!!, settings.productVersion)) return true
-        if (isModifiedXQuery(mVersion!!, settings.XQueryVersion)) return true
-        if (isModified(mDialectForXQuery1_0!!, settings.XQuery10Dialect)) return true
-        if (isModified(mDialectForXQuery3_0!!, settings.XQuery30Dialect)) return true
-        if (isModified(mDialectForXQuery3_1!!, settings.XQuery31Dialect)) return true
+    override fun isModified(configuration: XQueryProjectSettings): Boolean {
+        if (isModified(mImplementations!!, configuration.product)) return true
+        if (isModified(mImplementationVersions!!, configuration.productVersion)) return true
+        if (isModifiedXQuery(mVersion!!, configuration.XQueryVersion)) return true
+        if (isModified(mDialectForXQuery1_0!!, configuration.XQuery10Dialect)) return true
+        if (isModified(mDialectForXQuery3_0!!, configuration.XQuery30Dialect)) return true
+        if (isModified(mDialectForXQuery3_1!!, configuration.XQuery31Dialect)) return true
         return false
     }
 
-    override fun apply(settings: XQueryProjectSettings) {
+    override fun apply(configuration: XQueryProjectSettings) {
         val product = mImplementations!!.selectedItem as? Product
         val productVersion = mImplementationVersions!!.selectedItem as? Version
         val version = VersionedProductId(product, productVersion)
@@ -170,11 +170,11 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
         val dialect30 = mDialectForXQuery3_0!!.selectedItem as? Versioned
         val dialect31 = mDialectForXQuery3_1!!.selectedItem as? Versioned
 
-        settings.implementationVersion = version.id
-        settings.XQueryVersion = xqueryVersion?.versionId
-        settings.XQuery10Dialect = dialect10?.id
-        settings.XQuery30Dialect = dialect30?.id
-        settings.XQuery31Dialect = dialect31?.id
+        configuration.implementationVersion = version.id
+        configuration.XQueryVersion = xqueryVersion?.versionId
+        configuration.XQuery10Dialect = dialect10?.id
+        configuration.XQuery30Dialect = dialect30?.id
+        configuration.XQuery31Dialect = dialect31?.id
     }
 
     private fun getXQueryVersion(version: CharSequence?): Version? {
@@ -182,12 +182,12 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
         return if (versions.isEmpty()) null else versions[0]
     }
 
-    override fun reset(settings: XQueryProjectSettings) {
-        mImplementations!!.selectedItem = settings.product
-        mImplementationVersions!!.selectedItem = settings.productVersion
-        mVersion!!.selectedItem = getXQueryVersion(settings.XQueryVersion)
-        mDialectForXQuery1_0!!.selectedItem = dialectById(settings.XQuery10Dialect)
-        mDialectForXQuery3_0!!.selectedItem = dialectById(settings.XQuery30Dialect)
-        mDialectForXQuery3_1!!.selectedItem = dialectById(settings.XQuery31Dialect)
+    override fun reset(configuration: XQueryProjectSettings) {
+        mImplementations!!.selectedItem = configuration.product
+        mImplementationVersions!!.selectedItem = configuration.productVersion
+        mVersion!!.selectedItem = getXQueryVersion(configuration.XQueryVersion)
+        mDialectForXQuery1_0!!.selectedItem = dialectById(configuration.XQuery10Dialect)
+        mDialectForXQuery3_0!!.selectedItem = dialectById(configuration.XQuery30Dialect)
+        mDialectForXQuery3_1!!.selectedItem = dialectById(configuration.XQuery31Dialect)
     }
 }

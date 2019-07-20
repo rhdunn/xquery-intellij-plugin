@@ -46,7 +46,7 @@ class Multicaster<T : EventListener>(listenerClass: Class<T>) {
 
     @Suppress("UNCHECKED_CAST")
     private fun createEventMulticaster(listenerClass: Class<T>): T {
-        return Proxy.newProxyInstance(listenerClass.classLoader, arrayOf(listenerClass)) { `object`, method, params ->
+        return Proxy.newProxyInstance(listenerClass.classLoader, arrayOf(listenerClass)) { _, method, params ->
             listeners.forEach {
                 try {
                     method.invoke(it, *(params ?: arrayOf()))
