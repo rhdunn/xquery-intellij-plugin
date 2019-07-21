@@ -185,6 +185,16 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    fun simpleInlineFunctionExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "fn", XPathTokenType.K_FN)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
     fun ternaryIfExpr() {
         val lexer = createLexer()

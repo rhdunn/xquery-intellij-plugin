@@ -626,7 +626,7 @@ XPathImpl[FILE(0:3554)]
             XPathQNameImpl[XPATH_QNAME(1090:1098)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(1090:1095)]('lorem')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1095:1096)](':')
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1096:1098)]('fn')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(1096:1098)]('fn')
    LeafPsiElement[XPATH_COMMA_TOKEN(1098:1099)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(1099:1100)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(1100:1115)]

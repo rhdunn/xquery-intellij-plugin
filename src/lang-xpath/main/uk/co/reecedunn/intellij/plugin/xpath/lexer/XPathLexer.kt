@@ -73,6 +73,7 @@ private val KEYWORDS = mapOf(
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "exactly" to XPathTokenType.K_EXACTLY, // Full Text 1.0
     "except" to XPathTokenType.K_EXCEPT, // XPath 2.0
+    "fn" to XPathTokenType.K_FN, // Saxon 9.8
     "following" to XPathTokenType.K_FOLLOWING, // XPath 1.0
     "following-sibling" to XPathTokenType.K_FOLLOWING_SIBLING, // XPath 1.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0

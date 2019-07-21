@@ -77,7 +77,7 @@ private val KEYWORDS = mapOf(
     "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
     "external" to XQueryTokenType.K_EXTERNAL,
     "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
-    "fn" to XQueryTokenType.K_FN, // Saxon 9.8
+    "fn" to XPathTokenType.K_FN, // Saxon 9.8
     "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
     "full" to XQueryTokenType.K_FULL, // MarkLogic 6.0
     "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1

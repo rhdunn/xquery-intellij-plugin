@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:10)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:10)]
             XPathOrExprImpl[XPATH_OR_EXPR(0:10)]
                PluginSimpleInlineFunctionExprImpl[XQUERY_SIMPLE_INLINE_FUNCTION_EXPR(0:10)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')

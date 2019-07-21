@@ -3475,7 +3475,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseSimpleInlineFunctionExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_FN)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {

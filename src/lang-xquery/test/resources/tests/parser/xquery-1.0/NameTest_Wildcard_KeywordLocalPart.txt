@@ -629,7 +629,7 @@ XQueryModuleImpl[FILE(0:2622)]
                      XPathWildcardImpl[XPATH_WILDCARD(814:818)]
                         PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(814:815)]('*')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(815:816)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(816:818)]('fn')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(816:818)]('fn')
             LeafPsiElement[XPATH_COMMA_TOKEN(818:819)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(819:820)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(820:831)]

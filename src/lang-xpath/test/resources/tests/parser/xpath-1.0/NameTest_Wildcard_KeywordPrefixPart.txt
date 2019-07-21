@@ -624,7 +624,7 @@ XPathImpl[FILE(0:2622)]
       XPathNodeTestImpl[XPATH_NODE_TEST(814:818)]
          XPathNameTestImpl[XPATH_NAME_TEST(814:818)]
             XPathWildcardImpl[XPATH_WILDCARD(814:818)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(814:816)]('fn')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(814:816)]('fn')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(816:817)](':')
                PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(817:818)]('*')
    LeafPsiElement[XPATH_COMMA_TOKEN(818:819)](',')

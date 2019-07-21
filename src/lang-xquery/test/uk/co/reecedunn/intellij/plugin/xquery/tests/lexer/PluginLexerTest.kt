@@ -641,7 +641,7 @@ class PluginLexerTest : LexerTestCase() {
     fun simpleInlineFunctionExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "fn", XQueryTokenType.K_FN)
+        matchSingleToken(lexer, "fn", XPathTokenType.K_FN)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

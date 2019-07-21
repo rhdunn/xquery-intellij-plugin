@@ -624,7 +624,7 @@ XPathImpl[FILE(0:3554)]
       XPathNodeTestImpl[XPATH_NODE_TEST(1090:1098)]
          XPathNameTestImpl[XPATH_NAME_TEST(1090:1098)]
             XPathQNameImpl[XPATH_QNAME(1090:1098)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1090:1092)]('fn')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(1090:1092)]('fn')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1092:1093)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(1093:1098)]('ipsum')
    LeafPsiElement[XPATH_COMMA_TOKEN(1098:1099)](',')

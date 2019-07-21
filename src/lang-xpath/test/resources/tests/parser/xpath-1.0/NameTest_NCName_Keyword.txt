@@ -486,7 +486,7 @@ XPathImpl[FILE(0:2120)]
       XPathNodeTestImpl[XPATH_NODE_TEST(676:678)]
          XPathNameTestImpl[XPATH_NAME_TEST(676:678)]
             XPathNCNameImpl[XPATH_NCNAME(676:678)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(676:678)]('fn')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(676:678)]('fn')
    LeafPsiElement[XPATH_COMMA_TOKEN(678:679)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(679:680)]('\n')
    XPathOrExprImpl[XPATH_OR_EXPR(680:689)]

@@ -111,7 +111,6 @@ object XQueryTokenType {
     val K_EXPONENT_SEPARATOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR", XQuery) // XQuery 3.1
     val K_EXTERNAL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXTERNAL", XQuery) // XQuery 1.0
     val K_FIRST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FIRST", XQuery) // Update Facility 1.0
-    val K_FN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FN", XQuery) // Saxon 9.8
     val K_FT_OPTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FT_OPTION", XQuery) // Full Text 1.0
     val K_FULL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FULL", XQuery) // MarkLogic 6.0
     val K_FUZZY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUZZY", XQuery) // BaseX 6.1

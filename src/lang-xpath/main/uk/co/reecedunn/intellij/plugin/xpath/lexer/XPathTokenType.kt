@@ -102,6 +102,7 @@ object XPathTokenType {
     val K_EVERY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
     val K_EXACTLY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EXACTLY", XPath) // Full Text 1.0
     val K_EXCEPT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EXCEPT", XPath) // XPath 2.0
+    val K_FN = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FN", XPath) // Saxon 9.8
     val K_FOLLOWING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FOLLOWING", XPath) // XPath 1.0
     val K_FOLLOWING_SIBLING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING", XPath) // XPath 1.0
     val K_FOR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_FOR", XPath) // XPath 2.0
