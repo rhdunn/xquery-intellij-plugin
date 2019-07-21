@@ -1866,7 +1866,7 @@ XPathImpl[FILE(0:3554)]
       XPathNodeTestImpl[XPATH_NODE_TEST(3176:3187)]
          XPathNameTestImpl[XPATH_NAME_TEST(3176:3187)]
             XPathQNameImpl[XPATH_QNAME(3176:3187)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(3176:3181)]('tuple')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(3176:3181)]('tuple')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3181:3182)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(3182:3187)]('ipsum')
    LeafPsiElement[XPATH_COMMA_TOKEN(3187:3188)](',')

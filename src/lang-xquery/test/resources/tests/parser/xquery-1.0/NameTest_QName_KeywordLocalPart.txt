@@ -1871,7 +1871,7 @@ XQueryModuleImpl[FILE(0:3554)]
                      XQueryQNameImpl[XQUERY_QNAME(3176:3187)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(3176:3181)]('lorem')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3181:3182)](':')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(3182:3187)]('tuple')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(3182:3187)]('tuple')
             LeafPsiElement[XPATH_COMMA_TOKEN(3187:3188)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3188:3189)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(3189:3199)]

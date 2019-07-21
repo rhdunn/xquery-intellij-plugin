@@ -1866,7 +1866,7 @@ XPathImpl[FILE(0:2622)]
       XPathNodeTestImpl[XPATH_NODE_TEST(2348:2355)]
          XPathNameTestImpl[XPATH_NAME_TEST(2348:2355)]
             XPathWildcardImpl[XPATH_WILDCARD(2348:2355)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2348:2353)]('tuple')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(2348:2353)]('tuple')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2353:2354)](':')
                PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(2354:2355)]('*')
    LeafPsiElement[XPATH_COMMA_TOKEN(2355:2356)](',')

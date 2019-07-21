@@ -136,7 +136,7 @@ private val KEYWORDS = mapOf(
     "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
     "try" to XQueryTokenType.K_TRY, // XQuery 3.0
     "tumbling" to XQueryTokenType.K_TUMBLING, // XQuery 3.0
-    "tuple" to XQueryTokenType.K_TUPLE, // Saxon 9.8
+    "tuple" to XPathTokenType.K_TUPLE, // Saxon 9.8
     "type" to XQueryTokenType.K_TYPE, // XQuery 3.0
     "typeswitch" to XQueryTokenType.K_TYPESWITCH,
     "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // Scripting Extension 1.0

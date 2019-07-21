@@ -4328,7 +4328,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseTupleType(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_TUPLE)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TUPLE)
         if (marker != null) {
             var haveError = false
 

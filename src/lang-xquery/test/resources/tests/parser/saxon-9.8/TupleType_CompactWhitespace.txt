@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:33)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                PluginTupleTypeImpl[XQUERY_TUPLE_TYPE(22:29)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
                   PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'NCName'.')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(28:29)](')')

@@ -169,7 +169,6 @@ object XQueryTokenType {
     val K_TRANSFORM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM", XQuery) // Update Facility 3.0
     val K_TRY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRY", XQuery) // XQuery 3.0
     val K_TUMBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUMBLING", XQuery) // XQuery 3.0
-    val K_TUPLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUPLE", XQuery) // Saxon 9.8
     val K_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPE", XQuery) // XQuery 3.0
     val K_TYPESWITCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XQuery 1.0
     val K_UNASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE", XQuery) // Scripting Extension 1.0

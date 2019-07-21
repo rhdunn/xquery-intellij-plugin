@@ -205,7 +205,7 @@ class PluginLexerTest : LexerTestCase() {
     fun tupleType() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "tuple", XQueryTokenType.K_TUPLE)
+        matchSingleToken(lexer, "tuple", XPathTokenType.K_TUPLE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)

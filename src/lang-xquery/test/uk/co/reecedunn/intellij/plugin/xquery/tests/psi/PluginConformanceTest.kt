@@ -764,7 +764,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_TUPLE))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_TUPLE))
         }
 
         @Test

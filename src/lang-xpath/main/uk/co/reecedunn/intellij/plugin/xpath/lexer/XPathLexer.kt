@@ -146,6 +146,7 @@ private val KEYWORDS = mapOf(
     "times" to XPathTokenType.K_TIMES, // Full Text 1.0
     "to" to XPathTokenType.K_TO, // XPath 2.0
     "treat" to XPathTokenType.K_TREAT, // XPath 2.0
+    "tuple" to XPathTokenType.K_TUPLE, // Saxon 9.8
     "union" to XPathTokenType.K_UNION, // XPath 2.0
     "uppercase" to XPathTokenType.K_UPPERCASE, // Full Text 1.0
     "using" to XPathTokenType.K_USING, // Full Text 1.0 ; MarkLogic 6.0

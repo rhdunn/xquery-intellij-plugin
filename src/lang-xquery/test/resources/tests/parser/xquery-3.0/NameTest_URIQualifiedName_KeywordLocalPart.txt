@@ -2287,7 +2287,7 @@ XQueryModuleImpl[FILE(0:9379)]
                            LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(8351:8353)]('Q{')
                            LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(8353:8381)]('http://www.example.com/test#')
                            LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(8381:8382)]('}')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(8382:8387)]('tuple')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(8382:8387)]('tuple')
             LeafPsiElement[XPATH_COMMA_TOKEN(8387:8388)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(8388:8389)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(8389:8424)]

@@ -1733,7 +1733,7 @@ XPathImpl[FILE(0:4627)]
    XPathOrExprImpl[XPATH_OR_EXPR(4223:4230)]
       XPathFunctionCallImpl[XPATH_FUNCTION_CALL(4223:4230)]
          XPathNCNameImpl[XPATH_NCNAME(4223:4228)]
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(4223:4228)]('tuple')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(4223:4228)]('tuple')
          XPathArgumentListImpl[XPATH_ARGUMENT_LIST(4228:4230)]
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(4228:4229)]('(')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(4229:4230)](')')

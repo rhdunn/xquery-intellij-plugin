@@ -48,6 +48,25 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    fun tupleType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "tuple", XPathTokenType.K_TUPLE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
+    fun tupleField() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
     fun forwardAxis() {
         val lexer = createLexer()

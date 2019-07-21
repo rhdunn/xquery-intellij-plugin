@@ -1434,7 +1434,7 @@ XQueryModuleImpl[FILE(0:2120)]
                XPathNodeTestImpl[XPATH_NODE_TEST(1898:1903)]
                   XPathNameTestImpl[XPATH_NAME_TEST(1898:1903)]
                      XQueryNCNameImpl[XQUERY_NCNAME(1898:1903)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(1898:1903)]('tuple')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(1898:1903)]('tuple')
             LeafPsiElement[XPATH_COMMA_TOKEN(1903:1904)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1904:1905)]('\n')
             XPathOrExprImpl[XPATH_OR_EXPR(1905:1909)]
