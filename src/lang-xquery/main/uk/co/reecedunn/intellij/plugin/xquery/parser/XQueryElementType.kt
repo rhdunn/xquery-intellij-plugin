@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginSimpleInlineFunctionExprImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -1001,12 +1002,6 @@ object XQueryElementType {
     val SCHEMA_WILDCARD_TEST: IElementType = ICompositeElementType(
         "XQUERY_SCHEMA_WILDCARD_TEST",
         PluginSchemaWildcardTestPsiImpl::class.java,
-        XQuery
-    )
-
-    val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_SIMPLE_INLINE_FUNCTION_EXPR",
-        PluginSimpleInlineFunctionExprImpl::class.java,
         XQuery
     )
 

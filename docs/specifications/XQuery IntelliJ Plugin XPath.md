@@ -29,6 +29,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.5 Conditional Expressions](#35-conditional-expressions)
   - [3.6 Primary Expressions](#36-primary-expressions)
     - [3.6.1 Inline Function Expressions](#361-inline-function-expressions)
+    - [3.6.2 Simple Inline Function Expressions](#362-simple-inline-function-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a3-reserved-function-names)
@@ -224,6 +225,11 @@ the equivalent `IfExpr` is:
 
 ### 3.6 Primary Expressions
 
+{: .ebnf-symbols }
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
+| \[23\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | |
+
 #### 3.6.1 Inline Function Expressions
 
 {: .ebnf-symbols }
@@ -238,6 +244,20 @@ in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
 When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter is given a type, the elements in that array has that type.
+
+#### 3.6.2 Simple Inline Function Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[24\] | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |         |
+
+This is a Saxon 9.8 extension. It is a syntax variant of the focus
+function alternative for inline functions in proposal 5 of the EXPath
+syntax extensions for XPath and XQuery.
+
+The expression `fn{E}` is equivalent to:
+>     function ($arg as item()) as item()* { $arg ! (E) }
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -260,31 +280,33 @@ These changes include support for:
 1.  XQuery IntelliJ Plugin Vendor Extensions.
 
 {: .ebnf-symbols }
-| Ref     | Symbol                  |     | Expression                          | Options              |
-|---------|-------------------------|-----|-------------------------------------|----------------------|
-| \[1\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
-| \[2\]   | `QuantifiedExprBinding` | ::= | `"$" VarName "in" ExprSingle`       |                      |
-| \[3\]   | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
-| \[4\]   | `WildcardIndicator`     | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicOrUnionType` |                  |
-| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[6\]   | `AnyItemType`           | ::= | `"item" "(" ")"`                    |                      |
-| \[7\]   | `ForExpr`               | ::= | `SimpleForClause ReturnClause`      |                      |
-| \[8\]   | `ReturnClause`          | ::= | `"return" ExprSingle`               |                      |
-| \[9\]   | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
-| \[10\]  | `TernaryIfExpr`         | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
-| \[11\]  | `ElvisExpr`             | ::= | `OrExpr "?!" OrExpr`                |                      |
-| \[12\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |                      |
-| \[13\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
-| \[14\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |                      |
-| \[15\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
-| \[16\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
-| \[17\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[18\]  | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
-| \[19\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
-| \[20\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
-| \[21\]  | `IfExpr`                | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
-| \[22\]  | `ParamList`             | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
+| Ref     | Symbol                         |     | Expression                          | Options              |
+|---------|--------------------------------|-----|-------------------------------------|----------------------|
+| \[1\]   | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
+| \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
+| \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
+| \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AtomicOrUnionType` |                  |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[6\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                      |
+| \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
+| \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
+| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[10\]  | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
+| \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
+| \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
+| \[13\]  | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
+| \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |
+| \[15\]  | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
+| \[16\]  | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[17\]  | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
+| \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
+| \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
+| \[21\]  | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
+| \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
+| \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | |
+| \[24\]  | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                 |                      |
 
 ### A.2 Reserved Function Names
 
@@ -349,6 +371,9 @@ __XPath NG__
    Reece H. Dunn, 67 Bricks.
 *  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
    [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
+   Michael Kay, Saxonica.
+*  EXPath. *Concise Inline Function Syntax*. Proposal 5, version 1. See
+   [https://github.com/expath/xpath-ng/blob/95676fd84266c13c5a4ace01af69783dd017a5c9/concise-inline-functions.md]().
    Michael Kay, Saxonica.
 *  EXPath. *Anonymous Union Types*. Proposal 6, version 1. See
    [https://github.com/expath/xpath-ng/blob/9ff8fbf3bbc1f2f24b81671881154f35cb01bf28/union-types.md]().

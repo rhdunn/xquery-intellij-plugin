@@ -1647,14 +1647,15 @@ open class XPathParser : PsiParser {
     }
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    open fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
+    private fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
         return (
             parseNamedFunctionRef(builder) ||
-            parseInlineFunctionExpr(builder)
+            parseInlineFunctionExpr(builder) ||
+            parseSimpleInlineFunctionExpr(builder)
         )
     }
 
-    fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
+    private fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (this.parseEQNameOrWildcard(builder, QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1721,6 +1722,21 @@ open class XPathParser : PsiParser {
             return true
         }
         marker.drop()
+        return false
+    }
+
+    private fun parseSimpleInlineFunctionExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FN)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            marker.done(XPathElementType.SIMPLE_INLINE_FUNCTION_EXPR)
+            return true
+        }
         return false
     }
 

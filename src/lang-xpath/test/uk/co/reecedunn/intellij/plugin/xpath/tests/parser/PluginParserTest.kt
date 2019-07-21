@@ -240,6 +240,42 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    internal inner class SimpleInlineFunctionExpr {
+        @Test
+        @DisplayName("simple inline function expression")
+        fun simpleInlineFunctionExpr() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("simple inline function expression; compact whitespace")
+        fun simpleInlineFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
     internal inner class TernaryIfExpr {
         @Test

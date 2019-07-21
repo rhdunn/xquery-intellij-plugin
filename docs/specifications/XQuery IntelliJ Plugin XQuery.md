@@ -550,7 +550,7 @@ This is a BaseX Full Text extension.
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
 | \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
-| \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
+| \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | |
 
 ### 3.7.1 Non-Deterministic Function Calls
 

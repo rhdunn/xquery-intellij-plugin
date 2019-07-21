@@ -823,6 +823,12 @@ object XPathElementType {
         XPath
     )
 
+    val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
+        "XPATH_SIMPLE_INLINE_FUNCTION_EXPR",
+        PluginSimpleInlineFunctionExprImpl::class.java,
+        XPath
+    )
+
     val UNION_TYPE: IElementType = ICompositeElementType(
         "XPATH_UNION_TYPE",
         PluginUnionTypeImpl::class.java,
