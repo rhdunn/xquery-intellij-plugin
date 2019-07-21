@@ -27,6 +27,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.3 For Expressions](#33-for-expressions)
   - [3.4 Logical Expressions](#34-logical-expressions)
   - [3.5 Conditional Expressions](#35-conditional-expressions)
+  - [3.6 Primary Expressions](#36-primary-expressions)
+    - [3.6.1 Inline Function Expressions](#361-inline-function-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a3-reserved-function-names)
@@ -220,6 +222,23 @@ the equivalent `IfExpr` is:
     let $a := A
     return if (exists($a)) then $a else B
 
+### 3.6 Primary Expressions
+
+#### 3.6.1 Inline Function Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[22\] | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |         |
+
+\[Definition: *Variadic function arguments* match zero or more arguments at the
+end of the non-variadic arguments.\] Variadic function arguments are supported
+in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
+
+When `...` is added after the last parameter in a parameter list, that parameter
+contains the arguments passed after the previous parameter as an `array`. If the
+variadic parameter is given a type, the elements in that array has that type.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1 with Vendor Extensions
@@ -265,6 +284,7 @@ These changes include support for:
 | \[19\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
 | \[21\]  | `IfExpr`                | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
+| \[22\]  | `ParamList`             | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 
 ### A.2 Reserved Function Names
 
