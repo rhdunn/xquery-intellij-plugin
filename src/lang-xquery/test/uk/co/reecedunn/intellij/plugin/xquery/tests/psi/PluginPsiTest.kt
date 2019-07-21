@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation

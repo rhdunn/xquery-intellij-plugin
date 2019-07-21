@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 
 /**
- * A Saxon 9.8 `TupleType` node in the XQuery AST.
+ * A Saxon 9.8 `TupleField` node in the XQuery AST.
  */
-interface PluginTupleType : PsiElement {
-    val fields: Sequence<PluginTupleField>
+interface PluginTupleField : PsiElement {
+    val fieldName: XsNCNameValue
 
-    val isExtensible: Boolean
+    val fieldType: XdmSequenceType?
+
+    val isOptional: Boolean
 }

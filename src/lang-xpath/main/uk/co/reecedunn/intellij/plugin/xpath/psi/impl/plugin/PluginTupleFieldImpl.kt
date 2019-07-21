@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleField
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
@@ -37,7 +37,8 @@ private val OPTIONAL_TOKENS = TokenSet.create(
     XPathTokenType.ELVIS // ?: for compact whitespace
 )
 
-class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, VersionConformance {
+class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginTupleField, VersionConformance {
     // region PluginTupleField
 
     override val fieldName: XsNCNameValue get() = (firstChild as XsQNameValue).localName!!

@@ -4312,112 +4312,6 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: TypeDeclaration :: ItemType
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun parseItemType(builder: PsiBuilder): Boolean {
-        return (
-            parseKindTest(builder) ||
-            parseAnyItemType(builder) ||
-            parseAnnotatedFunction(builder) ||
-            parseMapTest(builder) ||
-            parseArrayTest(builder) ||
-            parseTupleType(builder) ||
-            parseUnionType(builder) ||
-            parseAtomicOrUnionType(builder) ||
-            parseParenthesizedItemType(builder)
-        )
-    }
-
-    private fun parseTupleType(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TUPLE)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseTupleField(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "NCName"))
-                haveError = true
-            }
-
-            var isExtensible = false
-            var haveNext = true
-            while (haveNext) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (isExtensible) {
-                    val extMarker = builder.mark()
-                    if (!builder.matchTokenType(XPathTokenType.COMMA)) {
-                        haveNext = false
-                        extMarker.drop()
-                        continue
-                    } else {
-                        extMarker.error(XQueryBundle.message("parser.error.tuple-wildcard-with-names-after"))
-                    }
-                } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
-                    haveNext = false
-                    continue
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (builder.matchTokenType(XPathTokenType.STAR)) {
-                    isExtensible = true
-                } else if (!parseTupleField(builder) && !haveError) {
-                    builder.error(XQueryBundle.message("parser.error.expected-either", "NCName", "*"))
-                    haveError = true
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XQueryElementType.TUPLE_TYPE)
-            return true
-        }
-        return false
-    }
-
-    private fun parseTupleField(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseNCName(builder)) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            val haveSeparator =
-                if (builder.matchTokenType(XPathTokenType.ELVIS)) // ?: without whitespace
-                    true
-                else {
-                    builder.matchTokenType(XPathTokenType.OPTIONAL)
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR)
-                }
-
-            if (!haveSeparator) {
-                if (builder.tokenType === XPathTokenType.COMMA || builder.tokenType === XPathTokenType.PARENTHESIS_CLOSE) {
-                    marker.done(XQueryElementType.TUPLE_FIELD)
-                    return true
-                }
-                builder.error(XPathBundle.message("parser.error.expected", ":"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseSequenceType(builder) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-            }
-
-            marker.done(XQueryElementType.TUPLE_FIELD)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     override fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
@@ -5276,16 +5170,6 @@ class XQueryParser : XPathParser() {
 
     override val NCNAME: IElementType = XQueryElementType.NCNAME
     override val QNAME: IElementType = XQueryElementType.QNAME
-
-    private fun parseNCName(builder: PsiBuilder): Boolean {
-        if (builder.tokenType is INCNameType) {
-            val marker = builder.mark()
-            builder.advanceLexer()
-            marker.done(NCNAME)
-            return true
-        }
-        return false
-    }
 
     override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
         if (

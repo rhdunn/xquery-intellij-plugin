@@ -880,5 +880,17 @@ object XPathElementType {
         XPath
     )
 
+    val TUPLE_FIELD: IElementType = ICompositeElementType(
+        "XPATH_TUPLE_FIELD",
+        PluginTupleFieldImpl::class.java,
+        XPath
+    )
+
+    val TUPLE_TYPE: IElementType = ICompositeElementType(
+        "XPATH_TUPLE_TYPE",
+        PluginTupleTypeImpl::class.java,
+        XPath
+    )
+
     // endregion
 }

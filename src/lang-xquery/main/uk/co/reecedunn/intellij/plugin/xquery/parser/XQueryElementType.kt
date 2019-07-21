@@ -19,7 +19,8 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginSimpleInlineFunctionExprImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginTupleFieldImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginTupleTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -1020,18 +1021,6 @@ object XQueryElementType {
     val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType(
         "XQUERY_TRANSACTION_SEPARATOR",
         PluginTransactionSeparatorPsiImpl::class.java,
-        XQuery
-    )
-
-    val TUPLE_FIELD: IElementType = ICompositeElementType(
-        "XQUERY_TUPLE_FIELD",
-        PluginTupleFieldImpl::class.java,
-        XQuery
-    )
-
-    val TUPLE_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_TUPLE_TYPE",
-        PluginTupleTypeImpl::class.java,
         XQuery
     )
 

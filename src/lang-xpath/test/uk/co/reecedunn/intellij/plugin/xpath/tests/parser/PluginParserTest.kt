@@ -196,6 +196,151 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    internal inner class TupleType {
+        @Test
+        @DisplayName("tuple type")
+        fun tupleType() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tuple type; compact whitespace")
+        fun tupleType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleType_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple")
+        fun extensible() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple; compact whitespace")
+        fun extensible_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple; not last")
+        fun extensible_NotLast() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_NotLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_NotLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType ; XQuery IntelliJ Plugin EBNF (24) TupleField")
+    internal inner class TupleType_TupleField {
+        @Test
+        @DisplayName("single")
+        fun testTupleField() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun testTupleField_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun testTupleField_Multiple() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun testTupleField_Multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("occurrence indicator in SequenceType")
+        fun testTupleField_MultipleWithOccurrenceIndicator() {
+            // This is testing handling of whitespace before parsing the next comma.
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_MultipleWithOccurrenceIndicator.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_MultipleWithOccurrenceIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing colon")
+        fun testTupleField_MissingColon() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_MissingColon.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_MissingColon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing SequenceType")
+        fun testTupleField_MissingSequenceType() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no SequenceType")
+        fun testTupleField_NoSequenceType() {
+            val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_NoSequenceType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_NoSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional field name")
+        fun testTupleField_OptionFieldName() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional field name; compact whitespace")
+        fun testTupleField_OptionFieldName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional field name; no sequence type")
+        fun testTupleField_OptionFieldName_NoSequenceType() {
+            val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_NoSequenceType.txt")
+            val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_NoSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
     internal inner class OrExpr {
         @Test

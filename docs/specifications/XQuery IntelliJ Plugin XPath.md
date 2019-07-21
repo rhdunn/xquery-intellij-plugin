@@ -20,6 +20,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [2.1.1 SequenceType Syntax](#211-sequencetype-syntax)
     - [2.1.2 SequenceType Matching](#212-sequencetype-matching)
       - [2.1.2.1 Union Type](#2121-union-type)
+      - [2.1.2.2 Tuple Type](#2122-tuple-type)
 - [3 Expressions](#3-expressions)
   - [3.1 Quantified Expressions](#31-quantified-expressions)
   - [3.2 Path Expressions](#32-path-expressions)
@@ -80,7 +81,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[13\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
@@ -123,6 +124,23 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 > `xs:numeric` can be specified in its expanded form as:
 >
 >     1 instance of union(xs:float, xs:double, xs:decimal)
+
+##### 2.1.2.2 Tuple Type
+
+{: .ebnf-symbols }
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[25\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
+| \[26\] | `TupleField`            | ::= | `NCName "?"? (":" SequenceType)?`   |                       |
+
+The `TupleType` is a new sequence type supported by Saxon 9.8.
+
+In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
+
+\[Definition: An *extensible* tuple is a tuple that has some fields specified,
+but allows other fields to be included in the map object.\] An *extensible*
+tuple is specified by having the last tuple field be the `*` wildcard operator.
+This is supported by Saxon 9.9.
 
 ## 3 Expressions
 
@@ -286,8 +304,7 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AtomicOrUnionType` |                  |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
@@ -307,6 +324,8 @@ These changes include support for:
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | |
 | \[24\]  | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                 |                      |
+| \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
+| \[26\]  | `TupleField`                   | ::= | `NCName "?"? (":" SequenceType)?`   |                      |
 
 ### A.2 Reserved Function Names
 
