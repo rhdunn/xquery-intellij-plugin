@@ -194,12 +194,11 @@ abstract class ParsingTestCase<File : PsiFile>(
     fun registerApplicationService(className: String) {
         try {
             val aClass = Class.forName(className) as Class<Any>
-            val `object` = aClass.newInstance()
+            val `object` = aClass.getConstructor().newInstance()
             registerApplicationService(aClass, `object`)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
-
     }
 
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
