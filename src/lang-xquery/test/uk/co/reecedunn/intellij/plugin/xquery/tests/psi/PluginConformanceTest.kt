@@ -1048,7 +1048,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("simple inline function expression")
         fun simpleInlineFunctionExpr() {
-            val file = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.xq")
+            val file = parseResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr.xq")
             val versioned =
                 file.walkTree().filterIsInstance<PluginSimpleInlineFunctionExpr>().first() as VersionConformance
 
