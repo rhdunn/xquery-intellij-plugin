@@ -17,7 +17,7 @@
     <h3>Release 1.6-dev:</h3>
     <p>References, Resolving and Find Usages:</p>
     <ol>
-      <li>Specify variable declarations as write access, including highlighting them in the editor.</li>
+      <li>Specify variable declarations and parameters as write access, including highlighting them in the editor.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>

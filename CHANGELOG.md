@@ -4,7 +4,7 @@
 
 References, Resolving and Find Usages:
 
-1.  Specify variable declarations as write access, including highlighting them in the editor.
+1.  Specify variable declarations and parameters as write access, including highlighting them in the editor.
 
 IntelliJ Integration:
 

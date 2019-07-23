@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,6 +74,48 @@ private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
         @DisplayName("QName")
         fun qname() {
             val ref = variable("declare variable \$local:x := 2; \$local:x")
+            val decl = ref.second.resolve()!!
+
+            assertThat(detector.isReadWriteAccessible(decl), `is`(true))
+            assertThat(detector.isDeclarationWriteAccess(decl), `is`(true))
+
+            assertThat(detector.isReadWriteAccessible(decl.parent), `is`(false))
+            assertThat(detector.isDeclarationWriteAccess(decl.parent), `is`(true))
+
+            assertThat(detector.getReferenceAccess(decl, ref.second), `is`(Access.Read))
+            assertThat(detector.getExpressionAccess(decl), `is`(Access.Write))
+
+            assertThat(detector.getReferenceAccess(decl.parent, ref.second), `is`(Access.Read))
+            assertThat(detector.getExpressionAccess(decl.parent), `is`(Access.Read))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (34) Param")
+    internal inner class Param {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val ref = variable("declare function f(\$x){ \$x }; f(2)")
+            val decl = ref.second.resolve()!!
+
+            assertThat(detector.isReadWriteAccessible(decl), `is`(true))
+            assertThat(detector.isDeclarationWriteAccess(decl), `is`(true))
+
+            assertThat(detector.isReadWriteAccessible(decl.parent), `is`(false))
+            assertThat(detector.isDeclarationWriteAccess(decl.parent), `is`(true))
+
+            assertThat(detector.getReferenceAccess(decl, ref.second), `is`(Access.Read))
+            assertThat(detector.getExpressionAccess(decl), `is`(Access.Write))
+
+            assertThat(detector.getReferenceAccess(decl.parent, ref.second), `is`(Access.Read))
+            assertThat(detector.getExpressionAccess(decl.parent), `is`(Access.Read))
+        }
+
+        @Test
+        @DisplayName("QName")
+        fun qname() {
+            val ref = variable("declare function f(\$local:x){ \$local:x }; f(2)")
             val decl = ref.second.resolve()!!
 
             assertThat(detector.isReadWriteAccessible(decl), `is`(true))

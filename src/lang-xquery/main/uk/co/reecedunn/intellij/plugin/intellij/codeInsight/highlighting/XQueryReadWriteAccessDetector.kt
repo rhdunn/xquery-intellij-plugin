@@ -19,6 +19,7 @@ import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -26,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     override fun isReadWriteAccessible(element: PsiElement): Boolean {
         if (element.containingFile !is XQueryModule) return false
-        return element is XPathEQName && element.parent is XPathVarName
+        return element is XPathEQName && (element.parent is XPathVarName || element.parent is XPathParam)
     }
 
     override fun isDeclarationWriteAccess(element: PsiElement): Boolean {
@@ -39,7 +40,7 @@ object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
 
     @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun getExpressionAccess(expression: PsiElement): Access {
-        if (expression.parent !is XPathVarName) return Access.Read
+        if (expression.parent !is XPathVarName && expression.parent !is XPathParam) return Access.Read
         val context = expression.parent.parent
         return when (context) {
             is XPathVarRef -> Access.Read
