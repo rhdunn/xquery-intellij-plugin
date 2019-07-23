@@ -33,6 +33,7 @@ class CacheableProperty<out T>(private val compute: () -> T?) {
         cachedValue = Pair(null, CachingBehaviour.Undecided)
     }
 
+    @Synchronized
     fun get(): T? {
         if (cachedValue.second != CachingBehaviour.Cache) {
             cachedValue = Pair(compute(), CachingBehaviour.Cache)
