@@ -48,6 +48,8 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
     private var xquery: Specification? = null
 
     private var staticContextCache: XQueryProlog? = null
+
+    @get:Synchronized
     override val predefinedStaticContext
         get(): XQueryProlog? {
             val version: Specification = XQueryVersion.getVersionOrDefault(project)
