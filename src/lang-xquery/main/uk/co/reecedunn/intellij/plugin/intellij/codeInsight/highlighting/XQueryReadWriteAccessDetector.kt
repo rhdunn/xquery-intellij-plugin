@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
@@ -29,14 +30,20 @@ object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     }
 
     override fun isDeclarationWriteAccess(element: PsiElement): Boolean {
-        return false
+        return true
     }
 
     override fun getReferenceAccess(referencedElement: PsiElement, reference: PsiReference): Access {
-        return Access.Read
+        return getExpressionAccess(reference.element)
     }
 
+    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun getExpressionAccess(expression: PsiElement): Access {
-        return Access.Read
+        if (expression.parent !is XPathVarName) return Access.Read
+        val context = expression.parent.parent
+        return when (context) {
+            is XPathVarRef -> Access.Read
+            else -> Access.Write
+        }
     }
 }

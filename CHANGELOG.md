@@ -2,6 +2,10 @@
 
 ## 1.6 - (In Development)
 
+References, Resolving and Find Usages:
+
+1.  Specify variable declarations as write access, including highlighting them in the editor.
+
 IntelliJ Integration:
 
 1.  Display the namespace signature when holding Ctrl over a `QName` prefix.
