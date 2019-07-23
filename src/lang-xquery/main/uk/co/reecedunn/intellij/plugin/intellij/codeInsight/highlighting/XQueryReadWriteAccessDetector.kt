@@ -18,10 +18,14 @@ package uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
-class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
+object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     override fun isReadWriteAccessible(element: PsiElement): Boolean {
-        return false
+        if (element.containingFile !is XQueryModule) return false
+        return element is XPathEQName && element.parent is XPathVarName
     }
 
     override fun isDeclarationWriteAccess(element: PsiElement): Boolean {
@@ -29,10 +33,10 @@ class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     }
 
     override fun getReferenceAccess(referencedElement: PsiElement, reference: PsiReference): Access {
-        return Access.ReadWrite
+        return Access.Read
     }
 
     override fun getExpressionAccess(expression: PsiElement): Access {
-        return Access.ReadWrite
+        return Access.Read
     }
 }
