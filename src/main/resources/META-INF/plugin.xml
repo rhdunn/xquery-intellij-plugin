@@ -18,10 +18,19 @@
     <p>References, Resolving and Find Usages:</p>
     <ol>
       <li>Specify variable declarations and parameters as write access, including highlighting them in the editor.</li>
+      <li>Fix an issue where some built-in functions and namespaces don't always resolve properly.</li>
+    </ol>
+    <p>Code Completion:</p>
+    <ol>
+      <li>Don't crash when editing a <code>StringLiteral</code> inside an <code>AxisStep</code> expression.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
       <li>Display the namespace signature when holding Ctrl over a <code>QName</code> prefix.</li>
+    </ol>
+    <p>XPath and XQuery:</p>
+    <ol>
+      <li>Support Saxon's <code>fn{...}</code> and <code>tuple(...)</code> syntax in XPath expressions.</li>
     </ol>
   ]]></change-notes>
 

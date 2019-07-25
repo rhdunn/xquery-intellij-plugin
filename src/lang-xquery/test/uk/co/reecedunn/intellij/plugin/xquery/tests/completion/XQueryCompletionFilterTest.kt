@@ -145,6 +145,14 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
                 assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
             }
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (194) PITest")
+        fun piTest() {
+            val context = ProcessingContext()
+            val element = completion("processing-instruction(\"completion-point\")")
+            assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+        }
     }
 
     @Nested

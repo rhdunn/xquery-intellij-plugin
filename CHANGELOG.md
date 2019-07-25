@@ -5,10 +5,19 @@
 References, Resolving and Find Usages:
 
 1.  Specify variable declarations and parameters as write access, including highlighting them in the editor.
+1.  Fix an issue where some built-in functions and namespaces don't always resolve properly.
+
+Code Completion:
+
+1.  Don't crash when editing a `StringLiteral` inside an `AxisStep` expression.
 
 IntelliJ Integration:
 
 1.  Display the namespace signature when holding Ctrl over a `QName` prefix.
+
+XPath and XQuery:
+
+1.  Support Saxon's `fn{...}` and `tuple(...)` syntax in XPath expressions.
 
 ## 1.5 - 2019-07-18
 

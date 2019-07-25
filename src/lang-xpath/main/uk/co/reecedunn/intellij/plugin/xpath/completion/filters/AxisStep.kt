@@ -45,7 +45,7 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
                         is XPathForwardStep -> false
                         is XPathAbbrevForwardStep -> false
                         is XPathReverseStep -> false
-                        else -> (element.parent as XsQNameValue).isPrefixOrNCName(element)
+                        else -> (element.parent as? XsQNameValue)?.isPrefixOrNCName(element) == true
                     }
                 }
                 else -> false

@@ -161,6 +161,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
                 assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
             }
         }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (89) PITest")
+        fun piTest() {
+            val context = ProcessingContext()
+            val element = completion("processing-instruction(\"completion-point\")")
+            assertThat(XPathForwardOrReverseAxisFilter.accepts(element, context), `is`(false))
+        }
     }
 
     @Nested
