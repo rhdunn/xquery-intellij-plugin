@@ -186,6 +186,14 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
             assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
         }
 
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (112) ForwardStep ; XQuery 3.1 EBNF (114) AbbrevForwardStep")
+        fun abbrevForwardStep() {
+            val context = ProcessingContext()
+            val element = completion("@completion-point")
+            assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
         internal inner class FunctionCall {

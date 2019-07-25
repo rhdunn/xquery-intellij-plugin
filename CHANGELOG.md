@@ -9,7 +9,8 @@ References, Resolving and Find Usages:
 
 Code Completion:
 
-1.  Don't crash when editing a `StringLiteral` inside an `AxisStep` expression.
+1.  Don't crash when editing a `StringLiteral` inside an `AxisStep` expression, e.g. from a `PITest`.
+1.  Don't list function completions in `@...`-style `AbbrevForwardStep` expressions.
 
 IntelliJ Integration:
 

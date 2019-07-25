@@ -19,10 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.isLocalNameOrNCName
 
@@ -37,7 +34,8 @@ object XPathFunctionCallFilter : CompletionFilter {
         return element.ancestors().find {
             when (it) {
                 is XPathNodeTest -> { // FunctionCall missing parenthesis
-                    (element.parent as XsQNameValue).isLocalNameOrNCName(element)
+                    (element.parent as XsQNameValue).isLocalNameOrNCName(element) &&
+                            element.ancestors().find { node -> node is XPathAbbrevForwardStep } == null
                 }
                 is XPathFunctionCall -> {
                     if ((element.parent as? XsQNameValue)?.isLocalNameOrNCName(element) == true) {

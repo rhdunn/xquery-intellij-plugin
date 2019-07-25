@@ -202,6 +202,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
         }
 
+        @Test
+        @DisplayName("XPath 3.1 EBNF (40) ForwardStep ; XPath 3.1 EBNF (42) AbbrevForwardStep")
+        fun abbrevForwardStep() {
+            val context = ProcessingContext()
+            val element = completion("@completion-point")
+            assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+        }
+
         @Nested
         @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
         internal inner class FunctionCall {
