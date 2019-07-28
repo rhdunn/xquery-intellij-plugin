@@ -67,17 +67,24 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPath
 
         val params = p.params.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
         if (params.isNotEmpty()) {
+            val isVariadic = p.isVariadic
             var start = -1
             var end = -1
             params.withIndex().forEach { (i, param) ->
                 if (i <= context.currentParameterIndex) {
-                    start = if (i == 0) 0 else end + 2
+                    start = if (i == 0) 0 else end + PARAM_SEPARATOR.length
                     end = start + param.length
+                    if (i == params.size - 1 && isVariadic) {
+                        end += VARIADIC_MARKER.length
+                    }
                 }
             }
 
             context.setupUIComponentPresentation(
-                params.joinToString(", "),
+                if (isVariadic)
+                    "${params.joinToString(PARAM_SEPARATOR)}$VARIADIC_MARKER"
+                else
+                    params.joinToString(", "),
                 start, end, false, false, false, context.defaultParameterColor
             )
         } else {
@@ -87,4 +94,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPath
             )
         }
     }
+
+    const val PARAM_SEPARATOR = ", "
+    const val VARIADIC_MARKER = " ..."
 }

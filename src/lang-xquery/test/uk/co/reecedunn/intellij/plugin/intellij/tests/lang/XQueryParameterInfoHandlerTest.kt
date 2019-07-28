@@ -350,5 +350,26 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(ui.highlightStart, `is`(45))
             assertThat(ui.highlightEnd, `is`(70))
         }
+
+        @Test
+        @DisplayName("parameters; variadic parameter highlighted")
+        fun parameters_variadic() {
+            val context = createParameterInfoContext("concat(1, 2, 3, 4, 5)", 19)
+            val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+            val ui = MockParameterInfoUIContext<XPathFunctionCall>(function)
+            ui.currentParameterIndex = 4
+
+            XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+            assertThat(ui.currentParameterIndex, `is`(4))
+            assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+            assertThat(ui.isSingleOverload, `is`(false))
+            assertThat(ui.isSingleParameterInfo, `is`(false))
+            assertThat(ui.isUIComponentEnabled, `is`(false))
+
+            assertThat(ui.text, `is`("\$arg1 as xs:anyAtomicType?, \$arg2 as xs:anyAtomicType?, \$args as xs:anyAtomicType? ..."))
+            assertThat(ui.highlightStart, `is`(56))
+            assertThat(ui.highlightEnd, `is`(86))
+        }
     }
 }
