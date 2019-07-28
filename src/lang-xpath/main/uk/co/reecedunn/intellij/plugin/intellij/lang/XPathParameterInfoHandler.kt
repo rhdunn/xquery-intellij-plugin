@@ -20,10 +20,11 @@ import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
-object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> {
+object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPathFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
 
     override fun getParametersForLookup(item: LookupElement?, context: ParameterInfoContext?): Array<Any>? {
@@ -52,8 +53,12 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> 
     }
 
     override fun updateParameterInfo(parameterOwner: XPathFunctionCall, context: UpdateParameterInfoContext) {
+        val args = parameterOwner.argumentList
+        context.setCurrentParameter(
+            ParameterInfoUtils.getCurrentParameterIndex(args.node, context.offset, XPathTokenType.COMMA)
+        )
     }
 
-    override fun updateUI(p: Any?, context: ParameterInfoUIContext) {
+    override fun updateUI(p: XPathFunctionDeclaration?, context: ParameterInfoUIContext) {
     }
 }
