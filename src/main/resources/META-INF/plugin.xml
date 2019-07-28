@@ -63,6 +63,8 @@
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
+    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
+
     <!-- XML Query Language Support -->
 
     <fileType name="XQuery" language="XQuery" extensions="xq;xqy;xquery;xqu;xql;xqm;xqws"
@@ -87,6 +89,7 @@
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XQueryTypedHandler"/>
+    <codeInsight.parameterInfo language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider"/>
 
