@@ -34,4 +34,6 @@ interface XPathFunctionDeclaration {
     val params: List<XPathVariableBinding>
 
     val paramListPresentation: ItemPresentation?
+
+    val isVariadic: Boolean
 }

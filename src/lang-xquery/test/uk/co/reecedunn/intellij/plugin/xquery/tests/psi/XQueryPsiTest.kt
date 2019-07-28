@@ -4599,6 +4599,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
+                assertThat(decl.isVariadic, `is`(false))
 
                 val qname = decl.functionName!!
                 assertThat(qname.prefix!!.data, `is`("fn"))
@@ -4618,6 +4619,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XPathFunctionDeclaration>("declare function test(\$one, \$two) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
+                assertThat(decl.isVariadic, `is`(false))
 
                 assertThat(decl.params.size, `is`(2))
                 assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
@@ -4641,6 +4643,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XPathFunctionDeclaration>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
+                assertThat(decl.isVariadic, `is`(false))
 
                 assertThat(decl.params.size, `is`(2))
                 assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
@@ -4665,6 +4668,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
+                assertThat(decl.isVariadic, `is`(false))
 
                 val qname = decl.functionName!!
                 assertThat(qname.prefix!!.data, `is`("fn"))
@@ -4685,6 +4689,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.isVariadic, `is`(false))
 
                 assertThat(decl.params.size, `is`(0))
 

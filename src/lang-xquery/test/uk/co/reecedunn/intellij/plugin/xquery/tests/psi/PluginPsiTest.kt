@@ -1455,6 +1455,7 @@ private class PluginPsiTest : ParserTestCase() {
                 val decl = parse<XPathFunctionDeclaration>("declare function test(\$one, \$two ...) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+                assertThat(decl.isVariadic, `is`(true))
 
                 assertThat(decl.params.size, `is`(2))
                 assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))

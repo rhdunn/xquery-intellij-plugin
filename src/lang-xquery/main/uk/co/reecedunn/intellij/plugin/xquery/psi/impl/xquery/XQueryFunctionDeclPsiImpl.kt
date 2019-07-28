@@ -59,6 +59,8 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val paramListPresentation: ItemPresentation? get() = paramList?.presentation
 
+    override val isVariadic: Boolean get() = paramList?.isVariadic == true
+
     // endregion
     // region NavigationItem
 

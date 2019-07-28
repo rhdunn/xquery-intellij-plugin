@@ -26,4 +26,6 @@ interface XPathParamList : NavigatablePsiElement {
     val params: List<XPathVariableBinding>
 
     val arity: Range<Int>
+
+    val isVariadic: Boolean
 }
