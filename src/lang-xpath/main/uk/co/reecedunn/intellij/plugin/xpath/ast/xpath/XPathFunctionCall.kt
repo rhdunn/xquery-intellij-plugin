@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,4 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 /**
  * An XPath 2.0 and XQuery 1.0 `FunctionCall` node in the XQuery AST.
  */
-interface XPathFunctionCall : XPathPrimaryExpr
+interface XPathFunctionCall : XPathPrimaryExpr {
+    val argumentList: XPathArgumentList
+}

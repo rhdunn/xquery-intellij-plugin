@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
-class XPathFunctionCallPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathFunctionReference,
-    XPathFunctionCall {
+class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionReference, XPathFunctionCall {
+    override val argumentList: XPathArgumentList get() = children().filterIsInstance<XPathArgumentList>().first()
 
     override val functionName get(): XsQNameValue? = firstChild as? XsQNameValue
 
-    override val arity get(): Int = children().filterIsInstance<XPathArgumentList>().first().arity
+    override val arity get(): Int = argumentList.arity
 }

@@ -1880,6 +1880,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix!!.data, `is`("math"))
                 assertThat(qname.localName!!.data, `is`("pow"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathFunctionCall).argumentList
+                assertThat(args.arity, `is`(2))
             }
 
             @Test
@@ -1894,6 +1897,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix!!.data, `is`("fn"))
                 assertThat(qname.localName!!.data, `is`("true"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathFunctionCall).argumentList
+                assertThat(args.arity, `is`(0))
             }
 
             @Test
@@ -1908,6 +1914,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix!!.data, `is`("math"))
                 assertThat(qname.localName!!.data, `is`("sin"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathFunctionCall).argumentList
+                assertThat(args.arity, `is`(1))
             }
 
             @Test
@@ -1916,6 +1925,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 val f = parse<XPathFunctionCall>(":true()")[0] as XPathFunctionReference
                 assertThat(f.arity, `is`(0))
                 assertThat(f.functionName, `is`(nullValue()))
+
+                val args = (f as XPathFunctionCall).argumentList
+                assertThat(args.arity, `is`(0))
             }
 
             @Test
