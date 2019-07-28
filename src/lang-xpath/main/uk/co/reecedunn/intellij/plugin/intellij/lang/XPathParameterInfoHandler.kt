@@ -36,7 +36,8 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> 
     }
 
     override fun findElementForUpdatingParameterInfo(context: UpdateParameterInfoContext): XPathFunctionCall? {
-        return null
+        val e = context.file.findElementAt(context.offset)
+        return e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
     }
 
     override fun updateParameterInfo(parameterOwner: XPathFunctionCall, context: UpdateParameterInfoContext) {

@@ -38,4 +38,24 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         assertThat(context.itemsToShow, `is`(nullValue()))
         assertThat(context.parameterListStart, `is`(0))
     }
+
+    @Test
+    @DisplayName("find element for updating parameter info")
+    fun findElementForUpdatingParameterInfo() {
+        val context = updateParameterInfoContext("abs(2)", 4)
+        val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+        assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+
+        assertThat(context.parameterOwner, `is`(nullValue()))
+        assertThat(context.highlightedParameter, `is`(nullValue()))
+        assertThat(context.objectsToView.size, `is`(0))
+
+        assertThat(context.parameterListStart, `is`(0))
+        assertThat(context.isPreservedOnHintHidden, `is`(false))
+        assertThat(context.isInnermostContext, `is`(false))
+        assertThat(context.isSingleParameterInfo, `is`(false))
+
+        assertThat(context.isUIComponentEnabled(0), `is`(false))
+        assertThat(context.isUIComponentEnabled(1), `is`(false))
+    }
 }
