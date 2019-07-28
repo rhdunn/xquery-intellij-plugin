@@ -43,6 +43,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> 
     }
 
     override fun showParameterInfo(element: XPathFunctionCall, context: CreateParameterInfoContext) {
+        context.showHint(element, element.textOffset + 1, this)
     }
 
     override fun findElementForUpdatingParameterInfo(context: UpdateParameterInfoContext): XPathFunctionCall? {

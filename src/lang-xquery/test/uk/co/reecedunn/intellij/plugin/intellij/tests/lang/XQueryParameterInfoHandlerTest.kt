@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
@@ -49,6 +50,11 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
             assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
             assertThat(items[0].arity, `is`(Range(1, 1)))
+
+            val hint = context as MockCreateParameterInfoContext
+            assertThat(hint.showHintElement, `is`(nullValue()))
+            assertThat(hint.showHintOffset, `is`(0))
+            assertThat(hint.showHintHandler, `is`(nullValue()))
         }
 
         @Test
@@ -66,6 +72,11 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
             assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
             assertThat(items[0].arity, `is`(Range(1, 1)))
+
+            val hint = context as MockCreateParameterInfoContext
+            assertThat(hint.showHintElement, `is`(nullValue()))
+            assertThat(hint.showHintOffset, `is`(0))
+            assertThat(hint.showHintHandler, `is`(nullValue()))
         }
 
         @Test
@@ -80,6 +91,11 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
             val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
             assertThat(items.size, `is`(0))
+
+            val hint = context as MockCreateParameterInfoContext
+            assertThat(hint.showHintElement, `is`(nullValue()))
+            assertThat(hint.showHintOffset, `is`(0))
+            assertThat(hint.showHintHandler, `is`(nullValue()))
         }
     }
 
@@ -145,5 +161,22 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(context.isUIComponentEnabled(0), `is`(false))
             assertThat(context.isUIComponentEnabled(1), `is`(false))
         }
+    }
+
+    @Test
+    @DisplayName("show parameter info")
+    fun showParameterInfo() {
+        val context = createParameterInfoContext("abs(2)", 4)
+        val function = context.file.walkTree().filterIsInstance<XPathFunctionCall>().first()
+        XPathParameterInfoHandler.showParameterInfo(function, context)
+
+        assertThat(context.highlightedElement, `is`(nullValue()))
+        assertThat(context.parameterListStart, `is`(0))
+        assertThat(context.itemsToShow, `is`(nullValue()))
+
+        val hint = context as MockCreateParameterInfoContext
+        assertThat(hint.showHintElement, `is`(sameInstance(function)))
+        assertThat(hint.showHintOffset, `is`(1))
+        assertThat(hint.showHintHandler, `is`(sameInstance(XPathParameterInfoHandler)))
     }
 }
