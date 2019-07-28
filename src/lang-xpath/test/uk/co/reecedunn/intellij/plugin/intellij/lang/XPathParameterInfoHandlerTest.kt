@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
@@ -38,7 +38,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         fun ncname() {
             val context = createParameterInfoContext("abs(2)", 4)
             val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
-            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathArgumentList>().first())))
 
             assertThat(context.highlightedElement, `is`(nullValue()))
             assertThat(context.parameterListStart, `is`(4))
@@ -57,7 +57,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         fun qname() {
             val context = createParameterInfoContext("fn:abs(2)", 7)
             val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
-            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathArgumentList>().first())))
 
             assertThat(context.highlightedElement, `is`(nullValue()))
             assertThat(context.parameterListStart, `is`(7))
@@ -76,7 +76,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         fun uriQualifiedName() {
             val context = createParameterInfoContext("Q{http://www.w3.org/2005/xpath-functions}abs(2)", 45)
             val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
-            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathArgumentList>().first())))
 
             assertThat(context.highlightedElement, `is`(nullValue()))
             assertThat(context.parameterListStart, `is`(45))
@@ -99,7 +99,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         fun ncname() {
             val context = updateParameterInfoContext("abs(2)", 4)
             val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
-            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathArgumentList>().first())))
 
             assertThat(context.parameterOwner, `is`(nullValue()))
             assertThat(context.highlightedParameter, `is`(nullValue()))
@@ -122,7 +122,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         fun qname() {
             val context = updateParameterInfoContext("fn:abs(2)", 7)
             val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
-            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathArgumentList>().first())))
 
             assertThat(context.parameterOwner, `is`(nullValue()))
             assertThat(context.highlightedParameter, `is`(nullValue()))
@@ -145,7 +145,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         fun uriQualifiedName() {
             val context = updateParameterInfoContext("Q{http://www.w3.org/2005/xpath-functions}abs(2)", 45)
             val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
-            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
+            assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathArgumentList>().first())))
 
             assertThat(context.parameterOwner, `is`(nullValue()))
             assertThat(context.highlightedParameter, `is`(nullValue()))
@@ -168,7 +168,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
     @DisplayName("show parameter info")
     fun showParameterInfo() {
         val context = createParameterInfoContext("abs(2)", 4)
-        val function = context.file.walkTree().filterIsInstance<XPathFunctionCall>().first()
+        val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
         XPathParameterInfoHandler.showParameterInfo(function, context)
 
         assertThat(context.highlightedElement, `is`(nullValue()))
@@ -177,7 +177,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
 
         val hint = context as MockCreateParameterInfoContext
         assertThat(hint.showHintElement, `is`(sameInstance(function)))
-        assertThat(hint.showHintOffset, `is`(1))
+        assertThat(hint.showHintOffset, `is`(3))
         assertThat(hint.showHintHandler, `is`(sameInstance(XPathParameterInfoHandler)))
     }
 
@@ -188,7 +188,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         @DisplayName("first parameter")
         fun firstParameter() {
             val context = updateParameterInfoContext("concat(1, 2, 3, 4, 5)", 7)
-            val function = context.file.walkTree().filterIsInstance<XPathFunctionCall>().first()
+            val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
             XPathParameterInfoHandler.updateParameterInfo(function, context)
 
             assertThat(context.parameterOwner, `is`(nullValue()))
@@ -211,7 +211,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         @DisplayName("second parameter")
         fun secondParameter() {
             val context = updateParameterInfoContext("concat(1, 2, 3, 4, 5)", 10)
-            val function = context.file.walkTree().filterIsInstance<XPathFunctionCall>().first()
+            val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
             XPathParameterInfoHandler.updateParameterInfo(function, context)
 
             assertThat(context.parameterOwner, `is`(nullValue()))
@@ -234,7 +234,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
         @DisplayName("last parameter")
         fun lastParameter() {
             val context = updateParameterInfoContext("concat(1, 2, 3, 4, 5)", 19)
-            val function = context.file.walkTree().filterIsInstance<XPathFunctionCall>().first()
+            val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
             XPathParameterInfoHandler.updateParameterInfo(function, context)
 
             assertThat(context.parameterOwner, `is`(nullValue()))

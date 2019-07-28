@@ -19,46 +19,43 @@ import com.intellij.codeInsight.CodeInsightBundle
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPathFunctionDeclaration> {
+object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPathFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
 
     override fun getParametersForLookup(item: LookupElement?, context: ParameterInfoContext?): Array<Any>? {
         return null
     }
 
-    override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathFunctionCall? {
+    override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
-        val call = e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
-        if (call != null) {
-            val refs = (call as XPathFunctionReference).functionName?.element?.references ?: PsiReference.EMPTY_ARRAY
+        val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
+        if (args != null) {
+            val refs = (args.parent as? XPathFunctionReference)?.functionName?.element?.references ?: return args
             context.itemsToShow = refs.mapNotNull {
                 it.resolve()?.ancestors()?.filterIsInstance<XPathFunctionDeclaration>()?.firstOrNull()
             }.toTypedArray()
         }
-        return call
+        return args
     }
 
-    override fun showParameterInfo(element: XPathFunctionCall, context: CreateParameterInfoContext) {
-        context.showHint(element, element.textOffset + 1, this)
+    override fun showParameterInfo(element: XPathArgumentList, context: CreateParameterInfoContext) {
+        context.showHint(element, element.textOffset, this)
     }
 
-    override fun findElementForUpdatingParameterInfo(context: UpdateParameterInfoContext): XPathFunctionCall? {
+    override fun findElementForUpdatingParameterInfo(context: UpdateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
-        return e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
+        return e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
     }
 
-    override fun updateParameterInfo(parameterOwner: XPathFunctionCall, context: UpdateParameterInfoContext) {
-        val args = parameterOwner.argumentList
+    override fun updateParameterInfo(parameterOwner: XPathArgumentList, context: UpdateParameterInfoContext) {
         context.setCurrentParameter(
-            ParameterInfoUtils.getCurrentParameterIndex(args.node, context.offset, XPathTokenType.COMMA)
+            ParameterInfoUtils.getCurrentParameterIndex(parameterOwner.node, context.offset, XPathTokenType.COMMA)
         )
     }
 
@@ -95,6 +92,6 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPath
         }
     }
 
-    const val PARAM_SEPARATOR = ", "
-    const val VARIADIC_MARKER = " ..."
+    private const val PARAM_SEPARATOR = ", "
+    private const val VARIADIC_MARKER = " ..."
 }
