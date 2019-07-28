@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 
 object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> {
@@ -27,7 +28,8 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> 
     }
 
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathFunctionCall? {
-        return null
+        val e = context.file.findElementAt(context.offset)
+        return e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
     }
 
     override fun showParameterInfo(element: XPathFunctionCall, context: CreateParameterInfoContext) {

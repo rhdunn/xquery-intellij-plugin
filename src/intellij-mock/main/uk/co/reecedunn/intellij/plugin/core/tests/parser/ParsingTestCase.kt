@@ -22,6 +22,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
+import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.mock.*
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
@@ -52,6 +53,7 @@ import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
+import com.intellij.testFramework.utils.parameterInfo.MockCreateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
@@ -254,5 +256,12 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     fun handleInsert(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
         return handleInsert(text, char, listOf(lookup).toTypedArray(), tailOffset)
+    }
+
+    fun createParameterInfoContext(text: String, offset: Int): CreateParameterInfoContext {
+        val file = parseText(text)
+        val editor = getEditor(file)
+        editor.caretModel.moveToOffset(offset)
+        return MockCreateParameterInfoContext(getEditor(file), file)
     }
 }
