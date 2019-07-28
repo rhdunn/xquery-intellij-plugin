@@ -264,13 +264,13 @@ abstract class ParsingTestCase<File : PsiFile>(
         val file = parseText(text)
         val editor = getEditor(file)
         editor.caretModel.moveToOffset(offset)
-        return MockCreateParameterInfoContext(getEditor(file), file)
+        return MockCreateParameterInfoContext(editor, file)
     }
 
     fun updateParameterInfoContext(text: String, offset: Int): UpdateParameterInfoContext {
         val file = parseText(text)
         val editor = getEditor(file)
         editor.caretModel.moveToOffset(offset)
-        return MockUpdateParameterInfoContext(getEditor(file), file)
+        return MockUpdateParameterInfoContext(editor, file)
     }
 }

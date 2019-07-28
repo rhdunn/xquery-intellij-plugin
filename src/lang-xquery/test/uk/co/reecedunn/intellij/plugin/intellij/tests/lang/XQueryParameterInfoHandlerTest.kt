@@ -43,7 +43,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
 
             assertThat(context.highlightedElement, `is`(nullValue()))
-            assertThat(context.parameterListStart, `is`(0))
+            assertThat(context.parameterListStart, `is`(4))
 
             val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
             assertThat(items.size, `is`(1))
@@ -65,7 +65,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
 
             assertThat(context.highlightedElement, `is`(nullValue()))
-            assertThat(context.parameterListStart, `is`(0))
+            assertThat(context.parameterListStart, `is`(7))
 
             val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
             assertThat(items.size, `is`(1))
@@ -87,7 +87,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
 
             assertThat(context.highlightedElement, `is`(nullValue()))
-            assertThat(context.parameterListStart, `is`(0))
+            assertThat(context.parameterListStart, `is`(45))
 
             val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
             assertThat(items.size, `is`(0))
@@ -113,7 +113,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(context.highlightedParameter, `is`(nullValue()))
             assertThat(context.objectsToView.size, `is`(0))
 
-            assertThat(context.parameterListStart, `is`(0))
+            assertThat(context.parameterListStart, `is`(4))
             assertThat(context.isPreservedOnHintHidden, `is`(false))
             assertThat(context.isInnermostContext, `is`(false))
             assertThat(context.isSingleParameterInfo, `is`(false))
@@ -133,7 +133,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(context.highlightedParameter, `is`(nullValue()))
             assertThat(context.objectsToView.size, `is`(0))
 
-            assertThat(context.parameterListStart, `is`(0))
+            assertThat(context.parameterListStart, `is`(7))
             assertThat(context.isPreservedOnHintHidden, `is`(false))
             assertThat(context.isInnermostContext, `is`(false))
             assertThat(context.isSingleParameterInfo, `is`(false))
@@ -153,7 +153,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(context.highlightedParameter, `is`(nullValue()))
             assertThat(context.objectsToView.size, `is`(0))
 
-            assertThat(context.parameterListStart, `is`(0))
+            assertThat(context.parameterListStart, `is`(45))
             assertThat(context.isPreservedOnHintHidden, `is`(false))
             assertThat(context.isInnermostContext, `is`(false))
             assertThat(context.isSingleParameterInfo, `is`(false))
@@ -171,7 +171,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         XPathParameterInfoHandler.showParameterInfo(function, context)
 
         assertThat(context.highlightedElement, `is`(nullValue()))
-        assertThat(context.parameterListStart, `is`(0))
+        assertThat(context.parameterListStart, `is`(4))
         assertThat(context.itemsToShow, `is`(nullValue()))
 
         val hint = context as MockCreateParameterInfoContext
