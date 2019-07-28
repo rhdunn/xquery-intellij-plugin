@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
+import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
@@ -33,10 +34,10 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> 
         val e = context.file.findElementAt(context.offset)
         val call = e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
         if (call != null) {
-            val decl = (call as XPathFunctionReference).functionName?.element?.reference?.resolve()
-            decl?.let {
-                context.itemsToShow = arrayOf(it.ancestors().filterIsInstance<XPathFunctionDeclaration>().first())
-            }
+            val refs = (call as XPathFunctionReference).functionName?.element?.references ?: PsiReference.EMPTY_ARRAY
+            context.itemsToShow = refs.mapNotNull {
+                it.resolve()?.ancestors()?.filterIsInstance<XPathFunctionDeclaration>()?.firstOrNull()
+            }.toTypedArray()
         }
         return call
     }
