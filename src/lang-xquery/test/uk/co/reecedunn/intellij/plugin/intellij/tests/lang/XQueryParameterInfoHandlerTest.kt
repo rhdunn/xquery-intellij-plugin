@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
 
+import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
@@ -260,6 +261,52 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
             val update = context as MockUpdateParameterInfoContext
             assertThat(update.currentParameter, `is`(4))
+        }
+    }
+
+    @Nested
+    @DisplayName("update UI")
+    internal inner class UpdateUI {
+        @Test
+        @DisplayName("no parameters")
+        fun noParameters() {
+            val context = createParameterInfoContext("true()", 5)
+            val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+            val ui = MockParameterInfoUIContext<XPathFunctionCall>(function)
+            ui.currentParameterIndex = -1
+
+            XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+            assertThat(ui.currentParameterIndex, `is`(-1))
+            assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+            assertThat(ui.isSingleOverload, `is`(false))
+            assertThat(ui.isSingleParameterInfo, `is`(false))
+            assertThat(ui.isUIComponentEnabled, `is`(false))
+
+            assertThat(ui.text, `is`("<no parameters>"))
+            assertThat(ui.highlightStart, `is`(-1))
+            assertThat(ui.highlightEnd, `is`(-1))
+        }
+
+        @Test
+        @DisplayName("parameters")
+        fun parameters() {
+            val context = createParameterInfoContext("replace(1, 2, 3)", 8)
+            val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+            val ui = MockParameterInfoUIContext<XPathFunctionCall>(function)
+            ui.currentParameterIndex = -1
+
+            XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+            assertThat(ui.currentParameterIndex, `is`(-1))
+            assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+            assertThat(ui.isSingleOverload, `is`(false))
+            assertThat(ui.isSingleParameterInfo, `is`(false))
+            assertThat(ui.isUIComponentEnabled, `is`(false))
+
+            assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+            assertThat(ui.highlightStart, `is`(-1))
+            assertThat(ui.highlightEnd, `is`(-1))
         }
     }
 }

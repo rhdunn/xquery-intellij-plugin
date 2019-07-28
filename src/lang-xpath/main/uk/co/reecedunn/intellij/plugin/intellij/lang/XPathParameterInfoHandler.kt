@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
+import com.intellij.codeInsight.CodeInsightBundle
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -60,5 +62,19 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPath
     }
 
     override fun updateUI(p: XPathFunctionDeclaration?, context: ParameterInfoUIContext) {
+        if (p == null) return
+
+        val params = p.params.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
+        if (params.isNotEmpty()) {
+            context.setupUIComponentPresentation(
+                params.joinToString(", "),
+                -1, -1, false, false, false, context.defaultParameterColor
+            )
+        } else {
+            context.setupUIComponentPresentation(
+                CodeInsightBundle.message("parameter.info.no.parameters"),
+                -1, -1, false, false, false, context.defaultParameterColor
+            )
+        }
     }
 }
