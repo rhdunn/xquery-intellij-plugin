@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
 
+import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -22,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -35,8 +38,13 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         assertThat(item, `is`(sameInstance(context.file.walkTree().filterIsInstance<XPathFunctionCall>().first())))
 
         assertThat(context.highlightedElement, `is`(nullValue()))
-        assertThat(context.itemsToShow, `is`(nullValue()))
         assertThat(context.parameterListStart, `is`(0))
+
+        val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+        assertThat(items.size, `is`(1))
+
+        assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+        assertThat(items[0].arity, `is`(Range(1, 1)))
     }
 
     @Test

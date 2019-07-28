@@ -19,6 +19,8 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
 object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> {
     override fun couldShowInLookup(): Boolean = true
@@ -29,7 +31,14 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, Any> 
 
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathFunctionCall? {
         val e = context.file.findElementAt(context.offset)
-        return e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
+        val call = e?.ancestors()?.filterIsInstance<XPathFunctionCall>()?.firstOrNull()
+        if (call != null) {
+            val decl = (call as XPathFunctionReference).functionName?.element?.reference?.resolve()
+            decl?.let {
+                context.itemsToShow = arrayOf(it.ancestors().filterIsInstance<XPathFunctionDeclaration>().first())
+            }
+        }
+        return call
     }
 
     override fun showParameterInfo(element: XPathFunctionCall, context: CreateParameterInfoContext) {
