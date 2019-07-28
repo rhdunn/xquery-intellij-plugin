@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPathFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
@@ -66,9 +67,18 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathFunctionCall, XPath
 
         val params = p.params.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
         if (params.isNotEmpty()) {
+            var start = -1
+            var end = -1
+            params.withIndex().forEach { (i, param) ->
+                if (i <= context.currentParameterIndex) {
+                    start = if (i == 0) 0 else end + 2
+                    end = start + param.length
+                }
+            }
+
             context.setupUIComponentPresentation(
                 params.joinToString(", "),
-                -1, -1, false, false, false, context.defaultParameterColor
+                start, end, false, false, false, context.defaultParameterColor
             )
         } else {
             context.setupUIComponentPresentation(
