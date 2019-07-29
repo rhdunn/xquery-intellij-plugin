@@ -903,5 +903,93 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(ui.highlightEnd, `is`(86))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("parameters")
+            fun parameters() {
+                val context = createParameterInfoContext("1 => replace(2, 3)", 13)
+                val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+                val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
+                ui.currentParameterIndex = -1
+
+                XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+                assertThat(ui.currentParameterIndex, `is`(-1))
+                assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+                assertThat(ui.isSingleOverload, `is`(false))
+                assertThat(ui.isSingleParameterInfo, `is`(false))
+                assertThat(ui.isUIComponentEnabled, `is`(false))
+
+                assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                assertThat(ui.highlightStart, `is`(-1))
+                assertThat(ui.highlightEnd, `is`(-1))
+            }
+
+            @Test
+            @DisplayName("parameters; first parameter highlighted")
+            fun parameters_first() {
+                val context = createParameterInfoContext("1 => replace(2, 3)", 13)
+                val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+                val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
+                ui.currentParameterIndex = 0
+
+                XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+                assertThat(ui.currentParameterIndex, `is`(0))
+                assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+                assertThat(ui.isSingleOverload, `is`(false))
+                assertThat(ui.isSingleParameterInfo, `is`(false))
+                assertThat(ui.isUIComponentEnabled, `is`(false))
+
+                assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                assertThat(ui.highlightStart, `is`(0))
+                assertThat(ui.highlightEnd, `is`(20))
+            }
+
+            @Test
+            @DisplayName("parameters; last parameter highlighted")
+            fun parameters_last() {
+                val context = createParameterInfoContext("1 => replace(2, 3)", 16)
+                val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+                val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
+                ui.currentParameterIndex = 2
+
+                XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+                assertThat(ui.currentParameterIndex, `is`(2))
+                assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+                assertThat(ui.isSingleOverload, `is`(false))
+                assertThat(ui.isSingleParameterInfo, `is`(false))
+                assertThat(ui.isUIComponentEnabled, `is`(false))
+
+                assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                assertThat(ui.highlightStart, `is`(45))
+                assertThat(ui.highlightEnd, `is`(70))
+            }
+
+            @Test
+            @DisplayName("parameters; variadic parameter highlighted")
+            fun parameters_variadic() {
+                val context = createParameterInfoContext("1 => concat(2, 3, 4, 5)", 21)
+                val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
+
+                val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
+                ui.currentParameterIndex = 4
+
+                XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+                assertThat(ui.currentParameterIndex, `is`(4))
+                assertThat(ui.parameterOwner, `is`(sameInstance(function)))
+                assertThat(ui.isSingleOverload, `is`(false))
+                assertThat(ui.isSingleParameterInfo, `is`(false))
+                assertThat(ui.isUIComponentEnabled, `is`(false))
+
+                assertThat(ui.text, `is`("\$arg1 as xs:anyAtomicType?, \$arg2 as xs:anyAtomicType?, \$args as xs:anyAtomicType? ..."))
+                assertThat(ui.highlightStart, `is`(56))
+                assertThat(ui.highlightEnd, `is`(86))
+            }
+        }
     }
 }
