@@ -644,6 +644,152 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(update.currentParameter, `is`(4))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (121) PostfixExpr")
+        internal inner class PostfixExpr {
+            @Test
+            @DisplayName("first parameter")
+            fun firstParameter() {
+                val context = updateParameterInfoContext("concat#1(1, 2, 3, 4, 5)", 9)
+                val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                XPathParameterInfoHandler.updateParameterInfo(function, context)
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(9))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("second parameter")
+            fun secondParameter() {
+                val context = updateParameterInfoContext("concat#1(1, 2, 3, 4, 5)", 12)
+                val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                XPathParameterInfoHandler.updateParameterInfo(function, context)
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(12))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(1))
+            }
+
+            @Test
+            @DisplayName("last parameter")
+            fun lastParameter() {
+                val context = updateParameterInfoContext("concat#2(1, 2, 3, 4, 5)", 21)
+                val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                XPathParameterInfoHandler.updateParameterInfo(function, context)
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(21))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(4))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("first parameter")
+            fun firstParameter() {
+                val context = updateParameterInfoContext("2 => concat(1, 2, 3, 4, 5)", 12)
+                val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                XPathParameterInfoHandler.updateParameterInfo(function, context)
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(12))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("second parameter")
+            fun secondParameter() {
+                val context = updateParameterInfoContext("2 => concat(1, 2, 3, 4, 5)", 15)
+                val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                XPathParameterInfoHandler.updateParameterInfo(function, context)
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(15))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(1))
+            }
+
+            @Test
+            @DisplayName("last parameter")
+            fun lastParameter() {
+                val context = updateParameterInfoContext("2 => concat(1, 2, 3, 4, 5)", 24)
+                val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                XPathParameterInfoHandler.updateParameterInfo(function, context)
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(24))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(4))
+            }
+        }
     }
 
     @Nested
