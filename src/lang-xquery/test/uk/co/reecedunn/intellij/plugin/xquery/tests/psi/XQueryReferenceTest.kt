@@ -48,7 +48,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         internal inner class URILiteral {
             @Test
             @DisplayName("http uri")
-            fun testURILiteral_HttpUri() {
+            fun httpUri() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_SameDirectory.xq")
 
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
@@ -57,19 +57,19 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
-                val httpUriRef = uriLiterals.first().reference
-                assertThat(httpUriRef!!.canonicalText, `is`("http://example.com/test"))
-                assertThat(httpUriRef.rangeInElement.startOffset, `is`(1))
-                assertThat(httpUriRef.rangeInElement.endOffset, `is`(24))
-                assertThat(httpUriRef.variants.size, `is`(0))
+                val ref = uriLiterals.first().reference!!
+                assertThat(ref.canonicalText, `is`("http://example.com/test"))
+                assertThat(ref.rangeInElement.startOffset, `is`(1))
+                assertThat(ref.rangeInElement.endOffset, `is`(24))
+                assertThat(ref.variants.size, `is`(0))
 
-                val resolved = httpUriRef.resolve()
+                val resolved = ref.resolve()
                 assertThat(resolved, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("file uri; same directory")
-            fun testURILiteral_SameDirectory() {
+            fun sameDirectory() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_SameDirectory.xq")
 
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
@@ -78,8 +78,8 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
-                val ref = uriLiterals.last().reference
-                assertThat(ref!!.canonicalText, `is`("test.xq"))
+                val ref = uriLiterals.last().reference!!
+                assertThat(ref.canonicalText, `is`("test.xq"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(8))
                 assertThat(ref.variants.size, `is`(0))
@@ -92,7 +92,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             @Test
             @DisplayName("file uri; parent directory")
-            fun testURILiteral_ParentDirectory() {
+            fun parentDirectory() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_ParentDirectory.xq")
 
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
@@ -101,8 +101,8 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
-                val ref = uriLiterals.last().reference
-                assertThat(ref!!.canonicalText, `is`("namespaces/ModuleDecl.xq"))
+                val ref = uriLiterals.last().reference!!
+                assertThat(ref.canonicalText, `is`("namespaces/ModuleDecl.xq"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(25))
                 assertThat(ref.variants.size, `is`(0))
@@ -113,7 +113,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             @Test
             @DisplayName("empty uri")
-            fun testURILiteral_Empty() {
+            fun emptyUri() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_Empty.xq")
 
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
@@ -122,8 +122,8 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.count(), `is`(2))
 
-                val ref = uriLiterals.last().reference
-                assertThat(ref!!.canonicalText, `is`(""))
+                val ref = uriLiterals.last().reference!!
+                assertThat(ref.canonicalText, `is`(""))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(1))
                 assertThat(ref.variants.size, `is`(0))
@@ -139,7 +139,7 @@ private class XQueryReferenceTest : ParserTestCase() {
     internal inner class Namespaces {
         @Test
         @DisplayName("XQuery 3.1 EBNF (223) URIQualifiedName")
-        fun testEQName_URIQualifiedName() {
+        fun uriQualifiedName() {
             val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
 
             val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
@@ -154,7 +154,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (234) QName")
-        fun testEQName_QName() {
+        fun qname() {
             val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithQNameReturnType.xq")
 
             val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
@@ -187,7 +187,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (235) NCName")
-        fun testEQName_NCName() {
+        fun ncname() {
             val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithNCNameReturnType.xq")
 
             val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
@@ -206,7 +206,7 @@ private class XQueryReferenceTest : ParserTestCase() {
     internal inner class Variables {
         @Test
         @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
-        fun testVarDecl() {
+        fun varDecl() {
             val file = parseResource("tests/resolve-xquery/variables/VarDecl_VarRef_NCName.xq")
 
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
@@ -241,7 +241,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (34) Param")
-        fun testParam() {
+        fun param() {
             val file = parseResource("tests/resolve-xquery/variables/FunctionDecl_ReturningSpecifiedParam.xq")
 
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
@@ -278,7 +278,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (43) IntermediateClause")
-        fun testIntermediateClause() {
+        fun intermediateClause() {
             val file = parseResource("tests/resolve-xquery/variables/IntermediateClause_ReturnInnerForVariable.xq")
 
             val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
@@ -316,7 +316,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
-        fun testForBinding() {
+        fun forBinding() {
             val file = parseResource("tests/resolve-xquery/xquery-1.0/ForClause.xq")
 
             val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
@@ -328,8 +328,8 @@ private class XQueryReferenceTest : ParserTestCase() {
             val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
-            val ref = varRefNamePsi.reference
-            assertThat(ref!!.canonicalText, `is`("x"))
+            val ref = varRefNamePsi.reference!!
+            assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
             assertThat(ref.variants.size, `is`(0))
@@ -353,7 +353,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
-        fun testPositionalVar() {
+        fun positionalVar() {
             val file = parseResource("tests/resolve-xquery/variables/PositionalVar_ReturnThePosition.xq")
 
             val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
@@ -391,7 +391,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
-        fun testLetBinding() {
+        fun letBinding() {
             val file = parseResource("tests/resolve-xquery/xquery-1.0/LetClause.xq")
 
             val letClausePsi = file.descendants().filterIsInstance<XQueryLetClause>().first()
@@ -428,7 +428,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
-        fun testTumblingWindowClause() {
+        fun tumblingWindowClause() {
             val file = parseResource("tests/resolve-xquery/xquery-3.0/TumblingWindowClause.xq")
 
             val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
@@ -466,7 +466,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
-        fun testSlidingWindowClause() {
+        fun slidingWindowClause() {
             val file = parseResource("tests/resolve-xquery/xquery-3.0/SlidingWindowClause.xq")
 
             val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
