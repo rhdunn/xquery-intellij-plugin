@@ -34,7 +34,6 @@ import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
-import com.intellij.openapi.fileTypes.FileTypeFactory
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
@@ -139,7 +138,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProject.registerService(PsiManager::class.java, psiManager)
         myProject.registerService(PsiFileFactory::class.java, mFileFactory!!)
         myProject.registerService(StartupManager::class.java, StartupManagerImpl(myProject))
-        registerExtensionPoint(FileTypeFactory.FILE_TYPE_FACTORY_EP, FileTypeFactory::class.java)
+        registerExtensionPoint("com.intellij.openapi.fileTypes.FileTypeFactory", "FILE_TYPE_FACTORY_EP")
         registerExtensionPoint("com.intellij.lang.MetaLanguage", "EP_NAME")
 
         for (definition in mDefinitions) {
