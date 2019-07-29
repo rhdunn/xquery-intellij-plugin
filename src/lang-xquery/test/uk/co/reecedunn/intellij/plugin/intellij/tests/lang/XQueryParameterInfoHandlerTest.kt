@@ -41,7 +41,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
         internal inner class FunctionCall {
             @Test
-            @DisplayName("NCName")
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
             fun ncname() {
                 val context = createParameterInfoContext("abs(2)", 4)
                 val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
@@ -64,7 +64,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("QName")
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
             fun qname() {
                 val context = createParameterInfoContext("fn:abs(2)", 7)
                 val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
@@ -87,7 +87,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("URIQualifiedName")
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
             fun uriQualifiedName() {
                 val context = createParameterInfoContext("Q{http://www.w3.org/2005/xpath-functions}abs(2)", 45)
                 val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
@@ -146,6 +146,100 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(hint.showHintHandler, `is`(nullValue()))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+            fun varRef() {
+                val context = createParameterInfoContext("let \$a := abs#1 return 2 => \$a()", 31)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(31))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
+            fun ncname() {
+                val context = createParameterInfoContext("2 => abs()", 9)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(9))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
+            fun qname() {
+                val context = createParameterInfoContext("2 => fn:abs()", 12)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(12))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
+            fun uriQualifiedName() {
+                val context = createParameterInfoContext("2 => Q{http://www.w3.org/2005/xpath-functions}abs()", 50)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(50))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr")
+            fun parenthesizedExpr() {
+                val context = createParameterInfoContext("2 => (fn:abs#1)()", 16)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(16))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+        }
     }
 
     @Nested
@@ -155,7 +249,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
         internal inner class FunctionCall {
             @Test
-            @DisplayName("NCName")
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
             fun ncname() {
                 val context = updateParameterInfoContext("abs(2)", 4)
                 val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
@@ -179,7 +273,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("QName")
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
             fun qname() {
                 val context = updateParameterInfoContext("fn:abs(2)", 7)
                 val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
@@ -203,7 +297,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("URIQualifiedName")
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
             fun uriQualifiedName() {
                 val context = updateParameterInfoContext("Q{http://www.w3.org/2005/xpath-functions}abs(2)", 45)
                 val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
@@ -267,6 +361,130 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.objectsToView.size, `is`(0))
 
                 assertThat(context.parameterListStart, `is`(6))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+            fun varRef() {
+                val context = updateParameterInfoContext("let \$a := abs#1 return 2 => \$a()", 31)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(31))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
+            fun ncname() {
+                val context = updateParameterInfoContext("2 => abs()", 9)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(9))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
+            fun qname() {
+                val context = updateParameterInfoContext("2 => fn:abs()", 12)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(12))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
+            fun uriQualifiedName() {
+                val context = updateParameterInfoContext("2 => Q{http://www.w3.org/2005/xpath-functions}abs()", 50)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(50))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr")
+            fun parenthesizedExpr() {
+                val context = updateParameterInfoContext("2 => (fn:abs#1)()", 16)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(16))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
 
