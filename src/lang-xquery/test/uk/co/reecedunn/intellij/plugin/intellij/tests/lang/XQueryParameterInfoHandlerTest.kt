@@ -533,6 +533,40 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
             assertThat(hint.showHintOffset, `is`(3))
             assertThat(hint.showHintHandler, `is`(sameInstance(XPathParameterInfoHandler)))
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (121) PostfixExpr")
+        fun postfixExpr() {
+            val context = createParameterInfoContext("abs#1(2)", 6)
+            val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+            XPathParameterInfoHandler.showParameterInfo(function, context)
+
+            assertThat(context.highlightedElement, `is`(nullValue()))
+            assertThat(context.parameterListStart, `is`(6))
+            assertThat(context.itemsToShow, `is`(nullValue()))
+
+            val hint = context as MockCreateParameterInfoContext
+            assertThat(hint.showHintElement, `is`(sameInstance(function)))
+            assertThat(hint.showHintOffset, `is`(5))
+            assertThat(hint.showHintHandler, `is`(sameInstance(XPathParameterInfoHandler)))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        fun arrowExpr() {
+            val context = createParameterInfoContext("2 => abs()", 9)
+            val function = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+            XPathParameterInfoHandler.showParameterInfo(function, context)
+
+            assertThat(context.highlightedElement, `is`(nullValue()))
+            assertThat(context.parameterListStart, `is`(9))
+            assertThat(context.itemsToShow, `is`(nullValue()))
+
+            val hint = context as MockCreateParameterInfoContext
+            assertThat(hint.showHintElement, `is`(sameInstance(function)))
+            assertThat(hint.showHintOffset, `is`(8))
+            assertThat(hint.showHintHandler, `is`(sameInstance(XPathParameterInfoHandler)))
+        }
     }
 
     @Nested
