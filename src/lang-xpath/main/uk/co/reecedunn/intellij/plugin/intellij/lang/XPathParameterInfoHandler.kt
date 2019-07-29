@@ -58,9 +58,9 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     }
 
     override fun updateParameterInfo(parameterOwner: XPathArgumentList, context: UpdateParameterInfoContext) {
-        context.setCurrentParameter(
+        val index =
             ParameterInfoUtils.getCurrentParameterIndex(parameterOwner.node, context.offset, XPathTokenType.COMMA)
-        )
+        context.setCurrentParameter(if (parameterOwner.parent is XPathArrowExpr) index + 1 else index)
     }
 
     override fun updateUI(p: XPathFunctionDeclaration?, context: ParameterInfoUIContext) {

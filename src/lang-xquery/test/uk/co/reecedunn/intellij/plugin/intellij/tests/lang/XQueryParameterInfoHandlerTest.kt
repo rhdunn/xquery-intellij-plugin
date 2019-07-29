@@ -741,7 +741,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 val update = context as MockUpdateParameterInfoContext
                 assertThat(update.isSingleParameterInfo, `is`(false))
-                assertThat(update.currentParameter, `is`(0))
+                assertThat(update.currentParameter, `is`(1))
             }
 
             @Test
@@ -764,7 +764,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 val update = context as MockUpdateParameterInfoContext
                 assertThat(update.isSingleParameterInfo, `is`(false))
-                assertThat(update.currentParameter, `is`(1))
+                assertThat(update.currentParameter, `is`(2))
             }
 
             @Test
@@ -787,7 +787,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 val update = context as MockUpdateParameterInfoContext
                 assertThat(update.isSingleParameterInfo, `is`(false))
-                assertThat(update.currentParameter, `is`(4))
+                assertThat(update.currentParameter, `is`(5))
             }
         }
     }
