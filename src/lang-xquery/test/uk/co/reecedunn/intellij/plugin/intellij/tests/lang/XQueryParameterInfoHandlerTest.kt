@@ -120,7 +120,9 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(26))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -138,7 +140,9 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(6))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -891,7 +895,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 4
 
-                XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+                XPathParameterInfoHandler.updateUI(context.itemsToShow?.last() as XPathFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(4))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -979,7 +983,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 4
 
-                XPathParameterInfoHandler.updateUI(context.itemsToShow?.first() as XPathFunctionDeclaration, ui)
+                XPathParameterInfoHandler.updateUI(context.itemsToShow?.last() as XPathFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(4))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))

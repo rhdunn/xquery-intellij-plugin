@@ -22,13 +22,11 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
 object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPathFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
@@ -40,11 +38,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
-        functionCallReferences(args)?.let { references ->
-            context.itemsToShow = references.mapNotNull {
-                it.resolve()?.ancestors()?.filterIsInstance<XPathFunctionDeclaration>()?.firstOrNull()
-            }.toTypedArray()
-        }
+        context.itemsToShow = functionCandidates(args).toList().toTypedArray()
         return args
     }
 
@@ -96,15 +90,16 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
         }
     }
 
-    private fun functionCallReferences(args: XPathArgumentList?): Array<PsiReference>? {
-        return when (args?.parent) {
-            is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName?.element?.references
+    private fun functionCandidates(args: XPathArgumentList?): Sequence<XPathFunctionDeclaration> {
+        val functionName = when (args?.parent) {
+            is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName?.element
             is XPathArrowExpr -> {
                 val specifier = args.siblings().reversed().filterIsInstance<XPathArrowFunctionSpecifier>().firstOrNull()
-                specifier?.firstChild?.references
+                specifier?.firstChild
             }
             else -> null
         }
+        return (functionName as? XPathEQName)?.staticallyKnownFunctions()?.sortedBy { it.arity.from } ?: emptySequence()
     }
 
     private const val PARAM_SEPARATOR = ", "
