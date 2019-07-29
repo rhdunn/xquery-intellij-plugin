@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
 
 import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext
-import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.compat.testFramework.MockUpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
@@ -129,12 +129,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.parameterListStart, `is`(4))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
-                assertThat(context.isSingleParameterInfo, `is`(false))
 
                 assertThat(context.isUIComponentEnabled(0), `is`(false))
                 assertThat(context.isUIComponentEnabled(1), `is`(false))
 
                 val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
                 assertThat(update.currentParameter, `is`(0))
             }
 
@@ -153,12 +153,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.parameterListStart, `is`(7))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
-                assertThat(context.isSingleParameterInfo, `is`(false))
 
                 assertThat(context.isUIComponentEnabled(0), `is`(false))
                 assertThat(context.isUIComponentEnabled(1), `is`(false))
 
                 val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
                 assertThat(update.currentParameter, `is`(0))
             }
 
@@ -177,12 +177,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.parameterListStart, `is`(45))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
-                assertThat(context.isSingleParameterInfo, `is`(false))
 
                 assertThat(context.isUIComponentEnabled(0), `is`(false))
                 assertThat(context.isUIComponentEnabled(1), `is`(false))
 
                 val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
                 assertThat(update.currentParameter, `is`(0))
             }
         }
@@ -229,12 +229,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.parameterListStart, `is`(7))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
-                assertThat(context.isSingleParameterInfo, `is`(false))
 
                 assertThat(context.isUIComponentEnabled(0), `is`(false))
                 assertThat(context.isUIComponentEnabled(1), `is`(false))
 
                 val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
                 assertThat(update.currentParameter, `is`(0))
             }
 
@@ -252,12 +252,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.parameterListStart, `is`(10))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
-                assertThat(context.isSingleParameterInfo, `is`(false))
 
                 assertThat(context.isUIComponentEnabled(0), `is`(false))
                 assertThat(context.isUIComponentEnabled(1), `is`(false))
 
                 val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
                 assertThat(update.currentParameter, `is`(1))
             }
 
@@ -275,12 +275,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.parameterListStart, `is`(19))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
-                assertThat(context.isSingleParameterInfo, `is`(false))
 
                 assertThat(context.isUIComponentEnabled(0), `is`(false))
                 assertThat(context.isUIComponentEnabled(1), `is`(false))
 
                 val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
                 assertThat(update.currentParameter, `is`(4))
             }
         }
