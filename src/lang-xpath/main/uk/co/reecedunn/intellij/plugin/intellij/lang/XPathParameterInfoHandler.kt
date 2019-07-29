@@ -19,8 +19,10 @@ import com.intellij.codeInsight.CodeInsightBundle
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
@@ -35,9 +37,8 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
-        if (args != null) {
-            val refs = (args.parent as? XPathFunctionReference)?.functionName?.element?.references ?: return args
-            context.itemsToShow = refs.mapNotNull {
+        functionCallReferences(args)?.let { references ->
+            context.itemsToShow = references.mapNotNull {
                 it.resolve()?.ancestors()?.filterIsInstance<XPathFunctionDeclaration>()?.firstOrNull()
             }.toTypedArray()
         }
@@ -89,6 +90,13 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
                 CodeInsightBundle.message("parameter.info.no.parameters"),
                 -1, -1, false, false, false, context.defaultParameterColor
             )
+        }
+    }
+
+    private fun functionCallReferences(args: XPathArgumentList?): Array<PsiReference>? {
+        return when (args?.parent) {
+            is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName?.element?.references
+            else -> null
         }
     }
 
