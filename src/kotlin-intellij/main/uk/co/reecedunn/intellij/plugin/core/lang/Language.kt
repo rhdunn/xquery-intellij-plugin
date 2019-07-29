@@ -19,6 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Key
+import uk.co.reecedunn.compat.fileTypes.acceptsCharSequence
 
 interface LanguageData {
     companion object {
@@ -43,9 +44,7 @@ fun Array<out Language>.getAssociations(): List<FileNameMatcher> {
 }
 
 fun Array<out Language>.findByAssociations(path: String): Language? {
-    return find { language ->
-        language.getAssociations().find { it.accept(path) } != null
-    }
+    return find { language -> language.getAssociations().acceptsCharSequence(path) }
 }
 
 fun Language.getLanguageMimeTypes(): Array<String> {

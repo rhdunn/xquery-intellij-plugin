@@ -19,6 +19,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.fileChooser.FileElement
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.compat.fileTypes.acceptsCharSequence
 
 class FileNameMatcherDescriptor(private val associations: List<FileNameMatcher>) :
     FileChooserDescriptor(true, false, false, true, false, false) {
@@ -33,7 +34,7 @@ class FileNameMatcherDescriptor(private val associations: List<FileNameMatcher>)
         }
 
         val name = file.name
-        return associations.find { association -> association.accept(name) } != null
+        return associations.acceptsCharSequence(name)
     }
 
     override fun isFileSelectable(file: VirtualFile?): Boolean = !file!!.isDirectory && isFileVisible(file, true)
