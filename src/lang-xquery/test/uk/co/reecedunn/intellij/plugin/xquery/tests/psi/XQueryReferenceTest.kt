@@ -140,10 +140,12 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (223) URIQualifiedName")
         fun uriQualifiedName() {
-            val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
-
-            val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
-            val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
+            val eqname = parse<XPathAtomicOrUnionType>(
+                """
+                module  namespace fn = "http://www.w3.org/2005/xpath-functions";
+                declare function fn:true() as Q{http://www.w3.org/2001/XMLSchema}boolean { "true" };
+                """
+            )[0].firstChild
 
             val ref = eqname.reference
             assertThat(ref, `is`(nullValue()))
@@ -155,10 +157,13 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (234) QName")
         fun qname() {
-            val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithQNameReturnType.xq")
-
-            val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
-            val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
+            val eqname = parse<XPathAtomicOrUnionType>(
+                """
+                module  namespace fn = "http://www.w3.org/2005/xpath-functions";
+                declare namespace xs = "http://www.w3.org/2001/XMLSchema";
+                declare function fn:true() as xs:boolean { "true" };
+                """
+            )[0].firstChild
 
             val ref = eqname.reference!!
             assertThat(ref.canonicalText, `is`("xs"))
@@ -188,10 +193,12 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (235) NCName")
         fun ncname() {
-            val file = parseResource("tests/resolve-xquery/namespaces/FunctionDecl_WithNCNameReturnType.xq")
-
-            val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
-            val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
+            val eqname = parse<XPathAtomicOrUnionType>(
+                """
+                module  namespace fn = "http://www.w3.org/2005/xpath-functions";
+                declare function fn:true() as boolean { "true" };
+                """
+            )[0].firstChild
 
             val ref = eqname.reference
             assertThat(ref, `is`(nullValue()))
