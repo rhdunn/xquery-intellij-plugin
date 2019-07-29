@@ -15,7 +15,7 @@ Code Completion:
 IntelliJ Integration:
 
 1.  Display the namespace signature when holding Ctrl over a `QName` prefix.
-1.  Display the parameter information for a `FunctionCall`.
+1.  Display the parameter information for a `FunctionCall` and named arrow expression function calls.
 
 XPath and XQuery:
 

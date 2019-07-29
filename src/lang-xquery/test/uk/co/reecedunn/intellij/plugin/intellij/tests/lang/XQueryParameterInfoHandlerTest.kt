@@ -160,7 +160,9 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(31))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -178,7 +180,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(9))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(1))
+
+                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(items[0].arity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -196,7 +203,12 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(12))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(1))
+
+                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(items[0].arity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -214,7 +226,9 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(50))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -232,7 +246,9 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(16))
-                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))

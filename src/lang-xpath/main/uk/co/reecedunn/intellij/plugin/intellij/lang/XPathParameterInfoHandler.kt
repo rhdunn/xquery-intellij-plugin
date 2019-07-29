@@ -21,7 +21,10 @@ import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
@@ -96,6 +99,10 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     private fun functionCallReferences(args: XPathArgumentList?): Array<PsiReference>? {
         return when (args?.parent) {
             is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName?.element?.references
+            is XPathArrowExpr -> {
+                val specifier = args.siblings().reversed().filterIsInstance<XPathArrowFunctionSpecifier>().firstOrNull()
+                specifier?.firstChild?.references
+            }
             else -> null
         }
     }
