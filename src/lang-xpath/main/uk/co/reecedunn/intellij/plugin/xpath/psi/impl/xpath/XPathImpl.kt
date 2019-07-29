@@ -20,12 +20,29 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 
 class XPathImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XPath),
-    uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath {
+    uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath,
+    XPathStaticContext {
+    // region Object
+
+    override fun toString(): String = "XPath(" + containingFile.name + ")"
+
+    // endregion
+    // region PsiFile
 
     override fun getFileType(): FileType = XPathFileType
 
-    override fun toString(): String = "XPath(" + containingFile.name + ")"
+    // endregion
+    // region XPathStaticContext
+
+    override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration> {
+        return emptySequence() // TODO: Lookup declared XSLT functions.
+    }
+
+    // endregion
 }

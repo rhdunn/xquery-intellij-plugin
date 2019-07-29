@@ -26,9 +26,15 @@ import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xquery.model.StaticContextDefinitions
+import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologsForQName
+import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
-class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
+class XQueryModuleImpl(provider: FileViewProvider) :
+    PsiFileBase(provider, XQuery), XQueryModule, XPathStaticContext {
     // region Object
 
     override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
@@ -98,6 +104,15 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
 
     override val mainOrLibraryModule
         get(): XQueryPrologResolver? = children().filterIsInstance<XQueryPrologResolver>().firstOrNull()
+
+    // endregion
+    // region XPathStaticContext
+
+    override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration> {
+        return eqname.importedPrologsForQName().flatMap { (name, prolog) ->
+            prolog.staticallyKnownFunctions(name!!)
+        }.filterNotNull()
+    }
 
     // endregion
 }

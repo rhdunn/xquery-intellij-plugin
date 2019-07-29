@@ -24,10 +24,10 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
+import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
 class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
