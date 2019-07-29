@@ -96,6 +96,46 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(hint.showHintHandler, `is`(nullValue()))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (49) PostfixExpr")
+        internal inner class PostfixExpr {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (59) VarRef")
+            fun varRef() {
+                val context = createParameterInfoContext("let \$a := abs#1 return \$a(2)", 26)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(26))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+            fun namedFunctionRef() {
+                val context = createParameterInfoContext("abs#1(2)", 6)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(6))
+                assertThat(context.itemsToShow, `is`(nullValue()))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+        }
     }
 
     @Nested
@@ -165,6 +205,58 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.objectsToView.size, `is`(0))
 
                 assertThat(context.parameterListStart, `is`(45))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (49) PostfixExpr")
+        internal inner class PostfixExpr {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (59) VarRef")
+            fun varRef() {
+                val context = updateParameterInfoContext("let \$a := abs#1 return \$a(2)", 26)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(26))
+                assertThat(context.isPreservedOnHintHidden, `is`(false))
+                assertThat(context.isInnermostContext, `is`(false))
+
+                assertThat(context.isUIComponentEnabled(0), `is`(false))
+                assertThat(context.isUIComponentEnabled(1), `is`(false))
+
+                val update = context as MockUpdateParameterInfoContext
+                assertThat(update.isSingleParameterInfo, `is`(false))
+                assertThat(update.currentParameter, `is`(0))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+            fun namedFunctionRef() {
+                val context = updateParameterInfoContext("abs#1(2)", 6)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForUpdatingParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.parameterOwner, `is`(nullValue()))
+                assertThat(context.highlightedParameter, `is`(nullValue()))
+                assertThat(context.objectsToView.size, `is`(0))
+
+                assertThat(context.parameterListStart, `is`(6))
                 assertThat(context.isPreservedOnHintHidden, `is`(false))
                 assertThat(context.isInnermostContext, `is`(false))
 
