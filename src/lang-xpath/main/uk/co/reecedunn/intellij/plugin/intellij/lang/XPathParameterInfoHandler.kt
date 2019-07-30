@@ -38,7 +38,12 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
-        context.itemsToShow = functionCandidates(args).toList().toTypedArray()
+        context.itemsToShow = functionCandidates(args).filter {
+            if (it.arity.from == 0 && it.arity.to == 0)
+                args?.parent !is XPathArrowExpr
+            else
+                true
+        }.toList().toTypedArray()
         return args
     }
 
