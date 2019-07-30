@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginReturnClause
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -214,16 +215,14 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
         fun varDecl() {
-            val file = parseResource("tests/resolve-xquery/variables/VarDecl_VarRef_NCName.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                declare variable ${'$'}value := 2;
+                ${'$'}value
+                """
+            )
 
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-            val varDeclQNamePsi = annotatedDeclPsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val mainModulePsi = file.descendants().filterIsInstance<XQueryMainModule>().first()
-            val queryBodyPsi = mainModulePsi.children().filterIsInstance<XQueryQueryBody>().first()
-            val varRefNamePsi = queryBodyPsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[1].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("value"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(5))
@@ -231,9 +230,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varDeclQNamePsi))
+            assertThat(resolved, `is`(vars[0].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[1].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("value"))
@@ -243,24 +242,20 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varDeclQNamePsi))
+            assertThat(resolved, `is`(vars[0].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (34) Param")
         fun param() {
-            val file = parseResource("tests/resolve-xquery/variables/FunctionDecl_ReturningSpecifiedParam.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                declare function f(${'$'}x) { ${'$'}x };
+                ${'$'}x (: ${'$'}x is not in scope here :)
+                """
+            )
 
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-            val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-            val paramListPsi = functionDeclPsi.children().filterIsInstance<XPathParamList>().first()
-            val paramPsi = paramListPsi.children().filterIsInstance<XPathParam>().first()
-            val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
-
-            val functionBodyPsi = functionDeclPsi.children().filterIsInstance<XPathFunctionBody>().first()
-            val varRefNamePsi = functionBodyPsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[1].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -268,9 +263,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(paramNamePsi))
+            assertThat(resolved, `is`(vars[0].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[1].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("x"))
@@ -280,25 +275,21 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(paramNamePsi))
+            assertThat(resolved, `is`(vars[0].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (43) IntermediateClause")
         fun intermediateClause() {
-            val file = parseResource("tests/resolve-xquery/variables/IntermediateClause_ReturnInnerForVariable.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                for ${'$'}x in ${'$'}y
+                for ${'$'}z in ${'$'}x
+                return ${'$'}z
+                """
+            )
 
-            val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-            val forClausePsi = intermediateClausePsi.descendants().filterIsInstance<XQueryForClause>().first()
-            val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-            val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
-            val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
-
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
-            val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[9].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("z"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -306,9 +297,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[5].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[9].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("z"))
@@ -318,24 +309,20 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[5].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
         fun forBinding() {
-            val file = parseResource("tests/resolve-xquery/xquery-1.0/ForClause.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                for ${'$'}x in ${'$'}y
+                return ${'$'}x
+                """
+            )
 
-            val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
-            val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-            val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
-            val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
-
-            val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
-            val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[5].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -343,9 +330,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("x"))
@@ -355,25 +342,20 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
         fun positionalVar() {
-            val file = parseResource("tests/resolve-xquery/variables/PositionalVar_ReturnThePosition.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                for ${'$'}x at ${'$'}i in ${'$'}y
+                return ${'$'}i
+                """
+            )
 
-            val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
-            val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-            val positionalVarPsi = forBindingPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-            val varNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
-            val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
-
-            val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
-            val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[7].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("i"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -381,9 +363,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[3].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[7].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("i"))
@@ -393,24 +375,20 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[3].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
         fun letBinding() {
-            val file = parseResource("tests/resolve-xquery/xquery-1.0/LetClause.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                let ${'$'}x := ${'$'}y
+                return ${'$'}x
+                """
+            )
 
-            val letClausePsi = file.descendants().filterIsInstance<XQueryLetClause>().first()
-            val letBindingPsi = letClausePsi.children().filterIsInstance<XQueryLetBinding>().first()
-            val varNamePsi = letBindingPsi.children().filterIsInstance<XPathVarName>().first()
-            val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
-
-            val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
-            val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[5].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -418,9 +396,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("x"))
@@ -430,25 +408,20 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
         fun tumblingWindowClause() {
-            val file = parseResource("tests/resolve-xquery/xquery-3.0/TumblingWindowClause.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                for tumbling window ${'$'}x in ${'$'}y start when true()
+                return ${'$'}x
+                """
+            )
 
-            val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
-            val tumblingWindowClausePsi =
-                windowClausePsi.children().filterIsInstance<XQueryTumblingWindowClause>().first()
-            val varNamePsi = tumblingWindowClausePsi.children().filterIsInstance<XPathVarName>().first()
-            val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
-
-            val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
-            val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[5].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -456,9 +429,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("x"))
@@ -468,25 +441,20 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
         fun slidingWindowClause() {
-            val file = parseResource("tests/resolve-xquery/xquery-3.0/SlidingWindowClause.xq")
+            val vars = parse<XPathVariableName>(
+                """
+                for tumbling window ${'$'}x in ${'$'}y start when true()
+                return ${'$'}x
+                """
+            )
 
-            val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
-            val slidingWindowClausePsi =
-                windowClausePsi.children().filterIsInstance<XQuerySlidingWindowClause>().first()
-            val varNamePsi = slidingWindowClausePsi.children().filterIsInstance<XPathVarName>().first()
-            val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
-
-            val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
-            val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
+            val ref = vars[5].variableName?.element?.reference!!
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -494,9 +462,9 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
 
-            val refs = varRefNamePsi.references
+            val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
             assertThat(refs[0].canonicalText, `is`("x"))
@@ -506,7 +474,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(varQNamePsi))
+            assertThat(resolved, `is`(vars[1].variableName?.element))
         }
     }
 }
