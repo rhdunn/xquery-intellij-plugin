@@ -99,7 +99,8 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
             }
             else -> null
         }
-        return (functionName as? XPathEQName)?.staticallyKnownFunctions()?.sortedBy { it.arity.from } ?: emptySequence()
+        return (functionName as? XPathEQName)?.staticallyKnownFunctions()
+            ?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
     }
 
     private const val PARAM_SEPARATOR = ", "

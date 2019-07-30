@@ -105,6 +105,61 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(hint.showHintOffset, `is`(0))
                 assertThat(hint.showHintHandler, `is`(nullValue()))
             }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val context = createParameterInfoContext("string(2)", 7)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(7))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(2))
+
+                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
+                assertThat(items[0].arity, `is`(Range(0, 0)))
+
+                assertThat(op_qname_presentation(items[1].functionName!!), `is`("fn:string"))
+                assertThat(items[1].arity, `is`(Range(1, 1)))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("no duplicates")
+            fun noDuplicates() {
+                val context = createParameterInfoContext(
+                    """
+                    module namespace t = "http://www.example.co.uk";
+                    declare function f(${'$'}x) {};
+                    declare function g() { f(2) };
+                    """, 161
+                )
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(161))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(1))
+
+                assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
+                assertThat(items[0].arity, `is`(Range(1, 1)))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
         }
 
         @Nested
@@ -253,6 +308,61 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
                 val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
                 assertThat(items.size, `is`(0))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val context = createParameterInfoContext("2 => string()", 12)
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(12))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(2))
+
+                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
+                assertThat(items[0].arity, `is`(Range(0, 0)))
+
+                assertThat(op_qname_presentation(items[1].functionName!!), `is`("fn:string"))
+                assertThat(items[1].arity, `is`(Range(1, 1)))
+
+                val hint = context as MockCreateParameterInfoContext
+                assertThat(hint.showHintElement, `is`(nullValue()))
+                assertThat(hint.showHintOffset, `is`(0))
+                assertThat(hint.showHintHandler, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("no duplicates")
+            fun noDuplicates() {
+                val context = createParameterInfoContext(
+                    """
+                    module namespace t = "http://www.example.co.uk";
+                    declare function f(${'$'}x) {};
+                    declare function g() { 2 => f() };
+                    """, 166
+                )
+                val args = context.file.walkTree().filterIsInstance<XPathArgumentList>().first()
+                val item = XPathParameterInfoHandler.findElementForParameterInfo(context)
+                assertThat(item, `is`(sameInstance(args)))
+
+                assertThat(context.highlightedElement, `is`(nullValue()))
+                assertThat(context.parameterListStart, `is`(166))
+
+                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                assertThat(items.size, `is`(1))
+
+                assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
+                assertThat(items[0].arity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -804,7 +914,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         internal inner class FunctionCall {
             @Test
             @DisplayName("no parameters")
-            fun noParameters() {
+            fun empty() {
                 val context = createParameterInfoContext("true()", 5)
                 val function = XPathParameterInfoHandler.findElementForParameterInfo(context)
 
