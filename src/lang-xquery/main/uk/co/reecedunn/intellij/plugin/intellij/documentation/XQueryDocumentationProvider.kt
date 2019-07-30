@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 
 object XQueryDocumentationProvider : AbstractDocumentationProvider() {
@@ -42,7 +43,10 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 (parent.parent as? XPathNamespaceDeclaration)?.let { decl ->
                     val prefix = decl.namespacePrefix?.data
                     val uri = decl.namespaceUri?.data ?: return null
-                    prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
+                    if (parent.parent is XQueryModuleDecl)
+                        prefix?.let { "module namespace $it = \"$uri\"" } ?: "module namespace \"{$uri}\""
+                    else
+                        prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
                 }
             }
             else -> null

@@ -123,6 +123,36 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`(nullValue()))
         }
+
+        @Test
+        @DisplayName("module")
+        fun module() {
+            val ref = parse(
+                """
+                module namespace ex = "http://www.example.com";
+                declare function ex:test((::)) {};
+                ex:test()
+                """
+            )
+
+            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            assertThat(quickDoc, `is`("module namespace ex = \"http://www.example.com\""))
+        }
+
+        @Test
+        @DisplayName("module without namespace uri")
+        fun moduleWithoutUri() {
+            val ref = parse(
+                """
+                module namespace ex;
+                declare function ex:test((::)) {};
+                ex:test()
+                """
+            )
+
+            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            assertThat(quickDoc, `is`(nullValue()))
+        }
     }
 
     @Nested
