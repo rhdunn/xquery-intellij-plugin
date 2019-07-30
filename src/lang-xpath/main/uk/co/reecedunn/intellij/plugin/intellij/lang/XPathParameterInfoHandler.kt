@@ -70,12 +70,14 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
             val isVariadic = p.isVariadic
             var start = -1
             var end = -1
-            params.withIndex().forEach { (i, param) ->
-                if (i <= context.currentParameterIndex) {
-                    start = if (i == 0) 0 else end + PARAM_SEPARATOR.length
-                    end = start + param.length
-                    if (i == params.size - 1 && isVariadic) {
-                        end += VARIADIC_MARKER.length
+            if (context.currentParameterIndex < p.arity.to) {
+                params.withIndex().forEach { (i, param) ->
+                    if (i <= context.currentParameterIndex) {
+                        start = if (i == 0) 0 else end + PARAM_SEPARATOR.length
+                        end = start + param.length
+                        if (i == params.size - 1 && isVariadic) {
+                            end += VARIADIC_MARKER.length
+                        }
                     }
                 }
             }
