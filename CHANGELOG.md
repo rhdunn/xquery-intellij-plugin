@@ -16,7 +16,7 @@ IntelliJ Integration:
 
 1.  Display the namespace signature when holding Ctrl over a `QName` prefix.
 1.  Display the parameter information for a `FunctionCall` and named arrow expression function calls.
-1.  Breadcrumbs support for XQuery functions, inline functions, and direct element constructors.
+1.  Breadcrumbs support for XQuery functions, inline functions, and direct/computed element constructors.
 
 XPath and XQuery:
 

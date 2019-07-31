@@ -2636,11 +2636,28 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (3.9.3.1) Computed Element Constructors")
+    @DisplayName("XQuery 3.1 (3.9.3) Computed Constructors")
     internal inner class ComputedElementConstructors {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
         internal inner class CompElemConstructor {
+            @Test
+            @DisplayName("name")
+            fun name() {
+                val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XQueryElement
+
+                val name = element.nodeName!!
+                assertThat(name.prefix!!.data, `is`("a"))
+                assertThat(name.localName!!.data, `is`("b"))
+            }
+
+            @Test
+            @DisplayName("expression")
+            fun expr() {
+                val element = parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XQueryElement
+                assertThat(name, `is`(nullValue()))
+            }
+
             @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
@@ -2669,11 +2686,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
-    }
 
-    @Nested
-    @DisplayName("XQuery 3.1 (3.9.3.2) Computed Attribute Constructors")
-    internal inner class ComputedAttributeConstructors {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
         internal inner class CompAttrConstructor {

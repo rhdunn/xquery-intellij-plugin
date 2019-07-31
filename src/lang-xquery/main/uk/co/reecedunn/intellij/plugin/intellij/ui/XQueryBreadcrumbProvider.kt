@@ -44,7 +44,7 @@ object XQueryBreadcrumbProvider : BreadcrumbsProvider {
         val name = when (element) {
             is XQueryFunctionDecl -> (element as XPathFunctionDeclaration).functionName
             is XPathInlineFunctionExpr -> return "function"
-            is XQueryElement -> element.nodeName
+            is XQueryElement -> element.nodeName ?: return "element"
             else -> null
         }
         return name?.let { op_qname_presentation(it) } ?: ""

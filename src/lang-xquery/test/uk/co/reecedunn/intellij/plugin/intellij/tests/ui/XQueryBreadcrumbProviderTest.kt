@@ -147,6 +147,49 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+    internal inner class CompElemConstructor {
+        @Test
+        @DisplayName("ncname")
+        fun ncname() {
+            val crumbs = breadcrumbs("element lorem-ipsum { breadcrumbs }")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("lorem-ipsum"))
+            assertThat(tooltip, `is`("element lorem-ipsum {...}"))
+        }
+
+        @Test
+        @DisplayName("qname")
+        fun qname() {
+            val crumbs = breadcrumbs("element lorem:ipsum { breadcrumbs }")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("lorem:ipsum"))
+            assertThat(tooltip, `is`("element lorem:ipsum {...}"))
+        }
+
+        @Test
+        @DisplayName("expression")
+        fun expr() {
+            val crumbs = breadcrumbs("element { \"lorem:\" || \"ipsum\" } { breadcrumbs }")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("element"))
+            assertThat(tooltip, `is`("element <dynamic> {...}"))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
     internal inner class InlineFunctionExpr {
         @Test

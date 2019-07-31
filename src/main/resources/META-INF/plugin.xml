@@ -32,7 +32,7 @@
     <ol>
       <li>Display the namespace signature when holding Ctrl over a <code>QName</code> prefix.</li>
       <li>Display the parameter information for a <code>FunctionCall</code> and named arrow expression function calls.</li>
-      <li>Breadcrumbs support for XQuery functions, inline functions, and direct element constructors.</li>
+      <li>Breadcrumbs support for XQuery functions, inline functions, and direct/computed element constructors.</li>
     </ol>
     <p>XPath and XQuery:</p>
     <ol>
