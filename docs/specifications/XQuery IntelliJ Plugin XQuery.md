@@ -46,7 +46,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.7 Primary Expressions](#37-primary-expressions)
     - [3.7.1 Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
     - [3.7.2 Simple Inline Function Expressions](#372-simple-inline-function-expressions)
-    - [3.7.3 Literals](#373-literals)
+    - [3.7.3 Inline Function Expressions](#373-inline-function-expressions)
+    - [3.7.4 Literals](#374-literals)
   - [3.8 JSON Constructors](#38-json-constructors)
     - [3.8.1 Maps](#381-maps)
     - [3.8.2 Arrays](#382-arrays)
@@ -581,7 +582,22 @@ syntax extensions for XPath and XQuery.
 The expression `fn{E}` is equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
-#### 3.7.3 Literals
+#### 3.7.3 Inline Function Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[22\] | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |         |
+
+\[Definition: *Variadic function arguments* match zero or more arguments at the
+end of the non-variadic arguments.\] Variadic function arguments are supported
+in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
+
+When `...` is added after the last parameter in a parameter list, that parameter
+contains the arguments passed after the previous parameter as an `array`. If the
+variadic parameter is given a type, the elements in that array has that type.
+
+#### 3.7.4 Literals
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -1209,7 +1225,7 @@ in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
-1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
+1.  [Predefined Entity References](#374-literals) -- HTML4 and HTML5 predefined entities
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)

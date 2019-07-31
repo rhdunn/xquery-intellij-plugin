@@ -32,8 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
-private val ARITY_ZERO = Range(0, 0)
-
 class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryFunctionDecl, XPathFunctionDeclaration, ItemPresentation {
     // region ASTDelegatePsiElement
@@ -49,17 +47,17 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
-    override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
+    override val functionName get(): XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
-    override val arity get(): Range<Int> = paramList?.arity ?: ARITY_ZERO
+    override val arity get(): Range<Int> = paramList?.arity ?: XPathFunctionDeclaration.ARITY_ZERO
 
     override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params: List<XPathVariableBinding> get() = paramList?.params ?: emptyList()
+    override val params get(): List<XPathVariableBinding> = paramList?.params ?: emptyList()
 
-    override val paramListPresentation: ItemPresentation? get() = paramList?.presentation
+    override val paramListPresentation get(): ItemPresentation? = paramList?.presentation
 
-    override val isVariadic: Boolean get() = paramList?.isVariadic == true
+    override val isVariadic get(): Boolean = paramList?.isVariadic == true
 
     // endregion
     // region NavigationItem

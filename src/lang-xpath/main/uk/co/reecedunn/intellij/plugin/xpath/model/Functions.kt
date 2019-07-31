@@ -25,6 +25,10 @@ interface XPathFunctionReference {
 }
 
 interface XPathFunctionDeclaration {
+    companion object {
+        val ARITY_ZERO = Range(0, 0)
+    }
+
     val functionName: XsQNameValue?
 
     val arity: Range<Int>

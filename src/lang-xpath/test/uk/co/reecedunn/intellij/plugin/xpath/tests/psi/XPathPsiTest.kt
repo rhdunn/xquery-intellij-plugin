@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
+import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -1512,6 +1513,61 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                 assertThat(presentation.presentableText, `is`("\$x as element()"))
                 assertThat(presentation.locationString, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (68) InlineFunctionExpr")
+        internal inner class InlineFunctionExpr {
+            @Test
+            @DisplayName("empty ParamList")
+            fun emptyParamList() {
+                val decl = parse<XPathFunctionDeclaration>("function () {}")[0]
+                assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(0, 0)))
+                assertThat(decl.params.size, `is`(0))
+                assertThat(decl.isVariadic, `is`(false))
+            }
+
+            @Test
+            @DisplayName("non-empty ParamList")
+            fun nonEmptyParamList() {
+                val decl = parse<XPathFunctionDeclaration>("function (\$one, \$two) {}")[0]
+                assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(2, 2)))
+                assertThat(decl.isVariadic, `is`(false))
+
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+            }
+
+            @Test
+            @DisplayName("non-empty ParamList with types")
+            fun nonEmptyParamListWithTypes() {
+                val decl =
+                    parse<XPathFunctionDeclaration>("function (\$one  as  array ( * ), \$two  as  node((::))) {}")[0]
+                assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(2, 2)))
+                assertThat(decl.isVariadic, `is`(false))
+
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+            }
+
+            @Test
+            @DisplayName("return type")
+            fun returnType() {
+                val decl = parse<XPathFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
+                assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
+                assertThat(decl.arity, `is`(Range(0, 0)))
+                assertThat(decl.params.size, `is`(0))
+                assertThat(decl.isVariadic, `is`(false))
             }
         }
     }

@@ -45,7 +45,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI)")
+@DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XQuery")
 private class PluginPsiTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(PluginPsiTest::class.java.classLoader, resource)
@@ -1348,6 +1348,28 @@ private class PluginPsiTest : ParserTestCase() {
                     "block { declare \$ := \$y; 2 }"
                 )[0] as XPathVariableDeclaration
                 assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.7.3) Inline Function Expressions")
+    internal inner class InlineFunctionExpressions {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin EBNF (95) ParamList")
+        internal inner class InlineFunctionExpr {
+            @Test
+            @DisplayName("variadic")
+            fun variadic() {
+                val decl = parse<XPathFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
+                assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+                assertThat(decl.isVariadic, `is`(true))
+
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
             }
         }
     }
