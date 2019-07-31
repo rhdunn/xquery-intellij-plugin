@@ -117,6 +117,36 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+    internal inner class DirElemConstructor {
+        @Test
+        @DisplayName("ncname")
+        fun ncname() {
+            val crumbs = breadcrumbs("<lorem-ipsum>{ breadcrumbs }</lorem-ipsum>")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("lorem-ipsum"))
+            assertThat(tooltip, `is`("element lorem-ipsum {...}"))
+        }
+
+        @Test
+        @DisplayName("qname")
+        fun qname() {
+            val crumbs = breadcrumbs("<lorem:ipsum>{ breadcrumbs }</lorem:ipsum>")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("lorem:ipsum"))
+            assertThat(tooltip, `is`("element lorem:ipsum {...}"))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
     internal inner class InlineFunctionExpr {
         @Test

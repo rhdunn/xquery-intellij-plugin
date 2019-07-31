@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 
 object XQueryBreadcrumbProvider : BreadcrumbsProvider {
     private val languages: Array<Language> = arrayOf(XQuery)
@@ -34,6 +35,7 @@ object XQueryBreadcrumbProvider : BreadcrumbsProvider {
         return when (element) {
             is XQueryFunctionDecl -> true
             is XPathInlineFunctionExpr -> true
+            is XQueryElement -> true
             else -> false
         }
     }
@@ -42,6 +44,7 @@ object XQueryBreadcrumbProvider : BreadcrumbsProvider {
         val name = when (element) {
             is XQueryFunctionDecl -> (element as XPathFunctionDeclaration).functionName
             is XPathInlineFunctionExpr -> return "function"
+            is XQueryElement -> element.nodeName
             else -> null
         }
         return name?.let { op_qname_presentation(it) } ?: ""
