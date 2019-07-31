@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.ui.breadcrumbs.BreadcrumbsProvider
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
@@ -30,12 +31,17 @@ object XQueryBreadcrumbProvider : BreadcrumbsProvider {
     override fun getLanguages(): Array<Language> = languages
 
     override fun acceptElement(element: PsiElement): Boolean {
-        return element is XQueryFunctionDecl
+        return when (element) {
+            is XQueryFunctionDecl -> true
+            is XPathInlineFunctionExpr -> true
+            else -> false
+        }
     }
 
     override fun getElementInfo(element: PsiElement): String {
         val name = when (element) {
             is XQueryFunctionDecl -> (element as XPathFunctionDeclaration).functionName
+            is XPathInlineFunctionExpr -> return "function"
             else -> null
         }
         return name?.let { op_qname_presentation(it) } ?: ""

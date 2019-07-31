@@ -17,8 +17,10 @@ package uk.co.reecedunn.intellij.plugin.intellij.documentation
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
@@ -32,6 +34,16 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
             is XQueryFunctionDecl -> {
                 val sig = parent.presentation?.presentableText
                 "declare function $sig"
+            }
+            is XPathInlineFunctionExpr -> {
+                (parent as XPathFunctionDeclaration).let {
+                    val params = it.paramListPresentation?.presentableText ?: "()"
+                    val returnType = it.returnType
+                    if (returnType == null)
+                        "function $params"
+                    else
+                        "function $params as ${returnType.typeName}"
+                }
             }
             is XPathVarName -> {
                 (parent.parent as? XQueryVarDecl)?.let {

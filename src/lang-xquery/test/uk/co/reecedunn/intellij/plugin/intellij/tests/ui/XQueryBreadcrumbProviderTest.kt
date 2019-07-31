@@ -115,4 +115,64 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             assertThat(tooltip, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*) as item()+"))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr {
+        @Test
+        @DisplayName("empty parameters ; no return type")
+        fun emptyParams_noReturnType() {
+            val crumbs = breadcrumbs("function ((::)) { breadcrumbs };")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("function"))
+            assertThat(tooltip, `is`("function ()"))
+        }
+
+        @Test
+        @DisplayName("empty parameters ; return type")
+        fun emptyParams_returnType() {
+            val crumbs = breadcrumbs("function ((::)) as (::) node((::)) { breadcrumbs };")
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("function"))
+            assertThat(tooltip, `is`("function () as node()"))
+        }
+
+        @Test
+        @DisplayName("non-empty parameters ; no return type")
+        fun params_noReturnType() {
+            val crumbs = breadcrumbs(
+                "function ( \$x as (::) xs:int , \$n  as  xs:float *) { breadcrumbs };"
+            )
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("function"))
+            assertThat(tooltip, `is`("function (\$x as xs:int, \$n as xs:float*)"))
+        }
+
+        @Test
+        @DisplayName("non-empty parameters ; return type")
+        fun params_returnType() {
+            val crumbs = breadcrumbs(
+                "function ( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + { breadcrumbs };"
+            )
+            assertThat(crumbs.size, `is`(1))
+
+            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+
+            assertThat(info, `is`("function"))
+            assertThat(tooltip, `is`("function (\$x as xs:int, \$n as xs:float*) as item()+"))
+        }
+    }
 }
