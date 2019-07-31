@@ -94,6 +94,8 @@
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider"/>
 
+    <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ui.XQueryBreadcrumbProvider"/>
+
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
