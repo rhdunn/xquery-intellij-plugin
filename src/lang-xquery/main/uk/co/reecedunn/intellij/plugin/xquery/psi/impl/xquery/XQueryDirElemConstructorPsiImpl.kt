@@ -24,11 +24,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryDirElemConstructor,
+    XQueryElement,
     FoldablePsiElement {
     // region XQueryDirElemConstructor
 
@@ -41,6 +43,11 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
         }
 
     override val isSelfClosing get(): Boolean = lastChild.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
+
+    // endregion
+    // region XQueryElement
+
+    override val nodeName: XsQNameValue? get() = openTag
 
     // endregion
     // region FoldablePsiElement
