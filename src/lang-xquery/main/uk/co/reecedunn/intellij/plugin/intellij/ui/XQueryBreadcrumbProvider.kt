@@ -18,17 +18,30 @@ package uk.co.reecedunn.intellij.plugin.intellij.ui
 import com.intellij.lang.Language
 import com.intellij.psi.PsiElement
 import com.intellij.ui.breadcrumbs.BreadcrumbsProvider
+import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 
 object XQueryBreadcrumbProvider : BreadcrumbsProvider {
-    override fun getLanguages(): Array<Language> {
-        return arrayOf()
-    }
+    private val languages: Array<Language> = arrayOf(XQuery)
+
+    override fun getLanguages(): Array<Language> = languages
 
     override fun acceptElement(element: PsiElement): Boolean {
-        return false
+        return element is XQueryFunctionDecl
     }
 
     override fun getElementInfo(element: PsiElement): String {
-        return ""
+        val name = when (element) {
+            is XQueryFunctionDecl -> (element as XPathFunctionDeclaration).functionName
+            else -> null
+        }
+        return name?.let { op_qname_presentation(it) } ?: ""
+    }
+
+    override fun getElementTooltip(element: PsiElement): String? {
+        return XQueryDocumentationProvider.getQuickNavigateInfo(element.firstChild, null) ?: ""
     }
 }
