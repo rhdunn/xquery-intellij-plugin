@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
+import com.intellij.codeInsight.AutoPopupController
+import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
@@ -38,4 +40,10 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
             else
                 XPathInsertText.PARAMS
         }
+
+    override fun handleInsert(context: InsertionContext) {
+        super.handleInsert(context)
+        val element = context.elements.firstOrNull()?.psiElement
+        AutoPopupController.getInstance(context.project).autoPopupParameterInfo(context.editor, element)
+    }
 }
