@@ -27,6 +27,7 @@
         e.g. from a <code>PITest</code>.
       </li>
       <li>Don't list function completions in <code>@...</code>-style <code>AbbrevForwardStep</code> expressions.</li>
+      <li>Don't display code completions when typing numeric literals.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
@@ -38,6 +39,7 @@
     <ol>
       <li>Support Saxon's <code>fn{...}</code> and <code>tuple(...)</code> syntax in XPath expressions.</li>
       <li>Report "Incomplete double exponent" errors for <code>IntegerLiteral</code> in addition to <code>DecimalLiteral</code>.</li>
+      <li>Report an error when an NCName follows a number without whitespace.</li>
     </ol>
   ]]></change-notes>
 

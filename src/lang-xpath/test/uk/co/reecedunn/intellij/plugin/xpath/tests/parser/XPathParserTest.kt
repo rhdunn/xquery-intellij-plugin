@@ -1373,6 +1373,14 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("invalid NCName start character")
+            fun invalidNCNameStartChar() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_InvalidNCNameStartChar.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_InvalidNCNameStartChar.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
 
         @Nested

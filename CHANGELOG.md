@@ -11,6 +11,7 @@ Code Completion:
 
 1.  Don't crash when editing a `StringLiteral` inside an `AxisStep` expression, e.g. from a `PITest`.
 1.  Don't list function completions in `@...`-style `AbbrevForwardStep` expressions.
+1.  Don't display code completions when typing numeric literals.
 
 IntelliJ Integration:
 
@@ -22,6 +23,7 @@ XPath and XQuery:
 
 1.  Support Saxon's `fn{...}` and `tuple(...)` syntax in XPath expressions.
 1.  Report "Incomplete double exponent" errors for `IntegerLiteral` in addition to `DecimalLiteral`.
+1.  Report an error when an NCName follows a number without whitespace.
 
 ## 1.5 - 2019-07-18
 
