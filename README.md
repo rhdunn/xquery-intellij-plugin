@@ -41,7 +41,9 @@ This plugin provides integration with the following IntelliJ features:
 1.  Code folding;
 1.  Find usages;
 1.  Code completion;
+1.  Parameter information;
 1.  Structure view;
+1.  Breadcrumb navigation;
 1.  Paired brace matching;
 1.  Commenting code.
 
