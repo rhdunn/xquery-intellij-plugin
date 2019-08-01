@@ -7,10 +7,38 @@
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
 
   <description><![CDATA[
-    XQuery 1.0, 3.0, and 3.1 language support with error recovery and support
-    for: Full Text 1.0, and 3.0; Update Facility 1.0, and 3.0; Scripting
-    Extension 1.0. Supports the BaseX, MarkLogic 6.0 to 8.0, and Saxonica
-    XQuery vendor extensions.
+    <p>
+      XQuery language support, including all BaseX, MarkLogic, and Saxon
+      vendor extensions, and the W3C Full Text, Update Facility, and
+      Scripting Extensions specifications.
+    </p>
+    <p>&#xA0;</p>
+    <p>Query processor integration:</p>
+    <ol>
+      <li>Run BaseX, eXist-db, MarkLogic, and Saxon queries.</li>
+      <li>Profile BaseX, MarkLogic, and Saxon XQuery and XSLT.</li>
+      <li>Log viewer for BaseX and MarkLogic.</li>
+      <li>Built-in namespace and function support for BaseX, eXist-db, MarkLogic, and Saxon.</li>
+    </ol>
+    <p>IntelliJ integration:</p>
+    <ol>
+      <li>Robust syntax highlighting and error reporting.</li>
+      <li>Inspections for several XPath/XQuery static errors.</li>
+      <li>Navigate to file, namespace, variable, and function.</li>
+      <li>Find usages.</li>
+      <li>Function, variable, and QName prefix signature tooltips via Ctrl.</li>
+      <li>Code folding.</li>
+      <li>Code completion and parameter information tooltips.</li>
+      <li>Structure view.</li>
+      <li>Breadcrumb navigation.</li>
+      <li>Paired brace matching.</li>
+      <li>Commenting code.</li>
+    </ol>
+    <p>XPath and XSLT:</p>
+    <ol>
+      <li>XSLT 3.0 XMLSchema support.</li>
+      <li>Experimental XPath support when the XPathView plugin is disabled.</li>
+    </ol>
   ]]></description>
 
   <change-notes><![CDATA[
