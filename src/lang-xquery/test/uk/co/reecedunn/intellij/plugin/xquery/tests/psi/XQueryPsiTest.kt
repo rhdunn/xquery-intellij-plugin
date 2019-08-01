@@ -2655,7 +2655,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("expression")
             fun expr() {
                 val element = parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XQueryElement
-                assertThat(name, `is`(nullValue()))
+                assertThat(element.nodeName, `is`(nullValue()))
             }
 
             @Test
