@@ -37,6 +37,7 @@
     <p>XPath and XQuery:</p>
     <ol>
       <li>Support Saxon's <code>fn{...}</code> and <code>tuple(...)</code> syntax in XPath expressions.</li>
+      <li>Report "Incomplete double exponent" errors for <code>IntegerLiteral</code> in addition to <code>DecimalLiteral</code>.</li>
     </ol>
   ]]></change-notes>
 

@@ -21,6 +21,7 @@ IntelliJ Integration:
 XPath and XQuery:
 
 1.  Support Saxon's `fn{...}` and `tuple(...)` syntax in XPath expressions.
+1.  Report "Incomplete double exponent" errors for `IntegerLiteral` in addition to `DecimalLiteral`.
 
 ## 1.5 - 2019-07-18
 

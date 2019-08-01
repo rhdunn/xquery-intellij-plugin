@@ -1526,19 +1526,24 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseNumericLiteral(builder: PsiBuilder): Boolean {
-        if (
-            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-            builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL)
-        ) {
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.DECIMAL_LITERAL)) {
-            builder.errorOnTokenType(
-                XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
-                XPathBundle.message("parser.error.incomplete-double-exponent")
-            )
-            return true
+        return when {
+            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> {
+                builder.errorOnTokenType(
+                    XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
+                    XPathBundle.message("parser.error.incomplete-double-exponent")
+                )
+                true
+            }
+            builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL) -> true
+            builder.matchTokenType(XPathTokenType.DECIMAL_LITERAL) -> {
+                builder.errorOnTokenType(
+                    XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
+                    XPathBundle.message("parser.error.incomplete-double-exponent")
+                )
+                true
+            }
+            else -> false
         }
-        return false
     }
 
     fun parseVarRef(builder: PsiBuilder, type: IElementType?): Boolean {
