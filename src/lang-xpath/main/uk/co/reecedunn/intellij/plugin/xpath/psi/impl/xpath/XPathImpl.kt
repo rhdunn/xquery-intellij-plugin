@@ -40,6 +40,10 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
     // region XPathStaticContext
 
+    override fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?> {
+        return emptySequence() // TODO: Lookup declared XSLT functions.
+    }
+
     override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration> {
         return emptySequence() // TODO: Lookup declared XSLT functions.
     }

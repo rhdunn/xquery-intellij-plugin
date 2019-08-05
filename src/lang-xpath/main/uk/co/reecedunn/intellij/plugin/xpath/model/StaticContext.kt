@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 interface XPathStaticContext {
+    fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?>
+
     fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration>
 }
 
