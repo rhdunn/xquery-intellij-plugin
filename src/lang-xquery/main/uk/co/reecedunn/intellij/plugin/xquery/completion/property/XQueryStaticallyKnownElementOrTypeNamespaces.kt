@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.defaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
-import uk.co.reecedunn.intellij.plugin.xquery.model.defaultNamespace
 
 object XQueryStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {

@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 interface XPathStaticContext {
     fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration>
 
+    fun defaultNamespace(context: PsiElement, type: XPathNamespaceType): Sequence<XPathDefaultNamespaceDeclaration>
+
     fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?>
 
     fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration>
@@ -28,6 +30,10 @@ interface XPathStaticContext {
 
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
     return (containingFile as XPathStaticContext).staticallyKnownNamespaces(this)
+}
+
+fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPathDefaultNamespaceDeclaration> {
+    return (containingFile as XPathStaticContext).defaultNamespace(this, type)
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {

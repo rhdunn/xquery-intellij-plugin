@@ -22,9 +22,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
 class XPathImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XPath),
@@ -43,6 +41,13 @@ class XPathImpl(provider: FileViewProvider) :
     // region XPathStaticContext
 
     override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration> {
+        return emptySequence() // TODO
+    }
+
+    override fun defaultNamespace(
+        context: PsiElement,
+        type: XPathNamespaceType
+    ): Sequence<XPathDefaultNamespaceDeclaration> {
         return emptySequence() // TODO
     }
 

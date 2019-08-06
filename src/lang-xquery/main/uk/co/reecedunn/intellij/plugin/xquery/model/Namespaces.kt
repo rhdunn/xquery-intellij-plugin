@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
@@ -61,7 +60,7 @@ private val NAMESPACE_TYPE = mapOf(
 
 fun PsiElement.defaultNamespace(
     type: XPathNamespaceType,
-    resolveProlog: Boolean = true
+    resolveProlog: Boolean
 ): Sequence<XPathDefaultNamespaceDeclaration> {
     var visitedProlog = false
     return walkTree().reversed().flatMap { node ->
