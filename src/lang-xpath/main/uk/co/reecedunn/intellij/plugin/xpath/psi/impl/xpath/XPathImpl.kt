@@ -59,5 +59,9 @@ class XPathImpl(provider: FileViewProvider) :
         return emptySequence() // TODO
     }
 
+    override fun inScopeVariables(context: PsiElement): Sequence<XPathVariableDefinition> {
+        return emptySequence() // TODO
+    }
+
     // endregion
 }

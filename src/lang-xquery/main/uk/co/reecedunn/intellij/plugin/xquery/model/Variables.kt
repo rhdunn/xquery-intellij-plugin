@@ -171,7 +171,7 @@ private fun XQueryProlog.varDecls(): Sequence<XPathVariableDeclaration?> {
 // endregion
 // region XPath 3.1 (2.1.1) In-scope variables
 
-fun PsiElement.inScopeVariables(): Sequence<XPathVariableDefinition> {
+fun PsiElement.xqueryInScopeVariables(): Sequence<XPathVariableDefinition> {
     val context = InScopeVariableContext()
     return walkTree().reversed()
         .flatMap { node ->

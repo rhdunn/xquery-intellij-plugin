@@ -29,11 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
-import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
-import uk.co.reecedunn.intellij.plugin.xquery.model.inScopeVariables
-import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
 object XQueryVarRefProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {

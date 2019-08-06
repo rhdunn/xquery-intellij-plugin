@@ -145,5 +145,9 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         }.filterNotNull()
     }
 
+    override fun inScopeVariables(context: PsiElement): Sequence<XPathVariableDefinition> {
+        return context.xqueryInScopeVariables()
+    }
+
     // endregion
 }

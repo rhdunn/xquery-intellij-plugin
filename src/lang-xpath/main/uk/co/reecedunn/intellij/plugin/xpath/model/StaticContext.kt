@@ -26,6 +26,8 @@ interface XPathStaticContext {
     fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?>
 
     fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration>
+
+    fun inScopeVariables(context: PsiElement): Sequence<XPathVariableDefinition>
 }
 
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
@@ -38,4 +40,8 @@ fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPathDefault
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {
     return (containingFile as XPathStaticContext).staticallyKnownFunctions(this)
+}
+
+fun PsiElement.inScopeVariables(): Sequence<XPathVariableDefinition> {
+    return (containingFile as XPathStaticContext).inScopeVariables(this)
 }
