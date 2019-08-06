@@ -57,28 +57,6 @@ private val NAMESPACE_TYPE = mapOf(
     XPathElementType.VAR_NAME to XPathNamespaceType.None
 )
 
-// region XPath 3.1 (2.1.1) Statically known namespaces
-
-fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
-    return walkTree().reversed().flatMap { node ->
-        when (node) {
-            is XPathNamespaceDeclaration ->
-                sequenceOf(node as XPathNamespaceDeclaration)
-            is XQueryDirElemConstructor ->
-                node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                    ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { attr -> attr as XPathNamespaceDeclaration }
-                    ?: emptySequence()
-            is XQueryProlog ->
-                node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()
-            is XQueryModule ->
-                node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>()
-                    ?: emptySequence()
-            else -> emptySequence()
-        }
-    }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }
-}
-
-// endregion
 // region XPath 3.1 (2.1.1) Default element/type namespace ; XPath 3.1 (2.1.1) Default function namespace
 
 fun PsiElement.defaultNamespace(

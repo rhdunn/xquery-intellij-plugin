@@ -15,12 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 interface XPathStaticContext {
+    fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration>
+
     fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?>
 
     fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration>
+}
+
+fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
+    return (containingFile as XPathStaticContext).staticallyKnownNamespaces(this)
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {

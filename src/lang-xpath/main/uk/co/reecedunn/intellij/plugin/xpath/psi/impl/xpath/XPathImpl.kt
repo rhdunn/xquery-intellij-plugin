@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 
 class XPathImpl(provider: FileViewProvider) :
@@ -40,12 +42,16 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
     // region XPathStaticContext
 
+    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration> {
+        return emptySequence() // TODO
+    }
+
     override fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?> {
-        return emptySequence() // TODO: Lookup declared XSLT functions.
+        return emptySequence() // TODO
     }
 
     override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XPathFunctionDeclaration> {
-        return emptySequence() // TODO: Lookup declared XSLT functions.
+        return emptySequence() // TODO
     }
 
     // endregion

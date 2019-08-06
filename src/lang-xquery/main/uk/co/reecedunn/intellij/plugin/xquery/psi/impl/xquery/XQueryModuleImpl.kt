@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -27,7 +29,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.*
 
 class XQueryModuleImpl(provider: FileViewProvider) :
@@ -104,6 +108,25 @@ class XQueryModuleImpl(provider: FileViewProvider) :
 
     // endregion
     // region XPathStaticContext
+
+    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration> {
+        return context.walkTree().reversed().flatMap { node ->
+            when (node) {
+                is XPathNamespaceDeclaration ->
+                    sequenceOf(node as XPathNamespaceDeclaration)
+                is XQueryDirElemConstructor ->
+                    node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
+                        ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { it as XPathNamespaceDeclaration }
+                        ?: emptySequence()
+                is XQueryProlog ->
+                    node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()
+                is XQueryModule ->
+                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>()
+                        ?: emptySequence()
+                else -> emptySequence()
+            }
+        }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }
+    }
 
     override fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?> {
         val prolog = mainOrLibraryModule?.prolog?.firstOrNull() ?: predefinedStaticContext ?: return emptySequence()
