@@ -19,6 +19,7 @@ import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownFunctionNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
@@ -75,7 +76,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
             .addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (137) FunctionCall
-        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XQueryStaticallyKnownFunctionNamespaces)
+        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XPathStaticallyKnownFunctionNamespaces)
             .addCompletions(XQueryFunctionCallProvider)
     }
 
