@@ -71,9 +71,9 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         }.filterNotNull().toList()
     }
 
-    fun attribute(resource: String, elementName: String, attributeName: String): XmlAttributeValue {
+    fun attribute(resource: String, elementName: String, attributeName: String): List<XmlAttributeValue> {
         return element(resource, elementName).mapNotNull { e ->
-            e.getAttribute(attributeName, "")
-        }.first().valueElement!!
+            e.getAttribute(attributeName, "")?.valueElement
+        }
     }
 }
