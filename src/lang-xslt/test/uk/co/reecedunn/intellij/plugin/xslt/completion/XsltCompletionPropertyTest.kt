@@ -16,16 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xslt.completion
 
 import com.intellij.psi.xml.XmlAttributeValue
-import com.intellij.psi.xml.XmlFile
-import com.intellij.psi.xml.XmlTag
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
@@ -39,12 +34,6 @@ import javax.xml.namespace.QName
 
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
 private class XsltCompletionPropertyTest : ParserTestCase() {
-    fun attribute(resource: String, element: QName, attribute: QName): XmlAttributeValue {
-        return element(resource, element.localPart).mapNotNull { e ->
-            e.getAttribute(attribute.localPart, attribute.namespaceURI)
-        }.first().valueElement!!
-    }
-
     @Nested
     @DisplayName("generic-element-type")
     internal inner class GenericElementType {

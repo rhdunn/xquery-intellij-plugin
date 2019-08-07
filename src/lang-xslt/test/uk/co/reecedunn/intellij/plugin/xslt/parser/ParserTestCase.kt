@@ -22,6 +22,7 @@ import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.StartTagEndTokenProvider
+import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.xml.XmlExtension
@@ -35,7 +36,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import javax.xml.namespace.QName
 
+@Suppress("MemberVisibilityCanBePrivate")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
     @BeforeAll
@@ -67,5 +70,11 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         return parseXml(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
             e.namespace == XSLT.NAMESPACE && e.localName == localName
         }.filterNotNull().toList()
+    }
+
+    fun attribute(resource: String, element: QName, attribute: QName): XmlAttributeValue {
+        return element(resource, element.localPart).mapNotNull { e ->
+            e.getAttribute(attribute.localPart, attribute.namespaceURI)
+        }.first().valueElement!!
     }
 }
