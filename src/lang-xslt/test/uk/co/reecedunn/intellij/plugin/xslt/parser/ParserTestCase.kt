@@ -36,7 +36,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import javax.xml.namespace.QName
 
 @Suppress("MemberVisibilityCanBePrivate")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -72,9 +71,9 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         }.filterNotNull().toList()
     }
 
-    fun attribute(resource: String, element: QName, attribute: QName): XmlAttributeValue {
-        return element(resource, element.localPart).mapNotNull { e ->
-            e.getAttribute(attribute.localPart, attribute.namespaceURI)
+    fun attribute(resource: String, elementName: String, attributeName: String): XmlAttributeValue {
+        return element(resource, elementName).mapNotNull { e ->
+            e.getAttribute(attributeName, "")
         }.first().valueElement!!
     }
 }

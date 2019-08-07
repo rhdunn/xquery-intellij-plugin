@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.completion
 
-import com.intellij.psi.xml.XmlAttributeValue
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -29,8 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
 import uk.co.reecedunn.intellij.plugin.xslt.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
-import uk.co.reecedunn.intellij.plugin.xslt.psi.qname
-import javax.xml.namespace.QName
 
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
 private class XsltCompletionPropertyTest : ParserTestCase() {
@@ -40,12 +37,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@use-when = expression")
         fun useWhen() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:comment"), qname("use-when"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "comment", "use-when")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:comment"), qname("use-when"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "comment", "use-when")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -58,12 +55,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@initial-value = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator"), qname("initial-value"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "accumulator", "initial-value")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator"), qname("initial-value"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "accumulator", "initial-value")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -76,12 +73,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@match = pattern")
         fun match() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-rule"), qname("match"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "accumulator-rule", "match")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XsltPattern))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-rule"), qname("match"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "accumulator-rule", "match")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XsltPattern))
@@ -90,12 +87,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-rule"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "accumulator-rule", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-rule"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "accumulator-rule", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -108,12 +105,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:analyze-string"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "analyze-string", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:analyze-string"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "analyze-string", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -126,12 +123,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:apply-templates"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "apply-templates", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:apply-templates"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "apply-templates", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -144,12 +141,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@test = expression")
         fun test() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:assert"), qname("test"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "assert", "test")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:assert"), qname("test"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "assert", "test")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -158,12 +155,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:assert"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "assert", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:assert"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "assert", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -176,12 +173,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:attribute"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "attribute", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:attribute"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "attribute", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -194,12 +191,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:break"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "break", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:break"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "break", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -212,12 +209,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:catch"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "catch", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:catch"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "catch", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -230,12 +227,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:comment"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "comment", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:comment"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "comment", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -248,12 +245,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:copy"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "copy", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:copy"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "copy", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -266,12 +263,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:copy-of"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "copy-of", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:copy-of"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "copy-of", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -284,12 +281,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@xpath = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:evaluate"), qname("xpath"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "evaluate", "xpath")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:evaluate"), qname("xpath"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "evaluate", "xpath")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -298,12 +295,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@with-params = expression")
         fun withParams() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:evaluate"), qname("with-params"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "evaluate", "with-params")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:evaluate"), qname("with-params"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "evaluate", "with-params")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -312,12 +309,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@context-item = expression")
         fun contextItem() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:evaluate"), qname("context-item"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "evaluate", "context-item")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:evaluate"), qname("context-item"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "evaluate", "context-item")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -326,12 +323,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@namespace-context = expression")
         fun namespaceContext() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:evaluate"), qname("namespace-context"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "evaluate", "namespace-context")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:evaluate"), qname("namespace-context"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "evaluate", "namespace-context")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -344,12 +341,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:for-each"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "for-each", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:for-each"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "for-each", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -362,12 +359,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:for-each-group"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "for-each-group", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:for-each-group"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "for-each-group", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -376,12 +373,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@group-by = expression")
         fun groupBy() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:for-each-group"), qname("group-by"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "for-each-group", "group-by")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:for-each-group"), qname("group-by"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "for-each-group", "group-by")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -391,14 +388,14 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @DisplayName("@group-adjacent = expression")
         fun groupAdjacent() {
             val ss = attribute(
-                "tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:for-each-group"), qname("group-adjacent")
+                "tests/xslt/xslt-2.0-stylesheet.xsl", "for-each-group", "group-adjacent"
             )
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
             val tf = attribute(
-                "tests/xslt/xslt-2.0-transform.xsl", qname("xsl:for-each-group"), qname("group-adjacent")
+                "tests/xslt/xslt-2.0-transform.xsl", "for-each-group", "group-adjacent"
             )
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
@@ -410,7 +407,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         fun groupEndingWith() {
             val ss = attribute(
                 "tests/xslt/xslt-2.0-stylesheet.xsl",
-                qname("xsl:for-each-group"), qname("group-ending-with")
+                "for-each-group", "group-ending-with"
             )
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
@@ -418,7 +415,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
 
             val tf = attribute(
                 "tests/xslt/xslt-2.0-transform.xsl",
-                qname("xsl:for-each-group"), qname("group-ending-with")
+                "for-each-group", "group-ending-with"
             )
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
@@ -430,7 +427,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         fun groupStartingWith() {
             val ss = attribute(
                 "tests/xslt/xslt-2.0-stylesheet.xsl",
-                qname("xsl:for-each-group"), qname("group-starting-with")
+                "for-each-group", "group-starting-with"
             )
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
@@ -438,7 +435,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
 
             val tf = attribute(
                 "tests/xslt/xslt-2.0-transform.xsl",
-                qname("xsl:for-each-group"), qname("group-starting-with")
+                "for-each-group", "group-starting-with"
             )
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
@@ -452,12 +449,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@test = expression")
         fun test() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:if"), qname("test"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "if", "test")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:if"), qname("test"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "if", "test")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -470,12 +467,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:iterate"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "iterate", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:iterate"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "iterate", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -488,12 +485,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@match = pattern")
         fun match() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:key"), qname("match"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "key", "match")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XsltPattern))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("match"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "key", "match")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XsltPattern))
@@ -502,12 +499,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@use = expression")
         fun use() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:key"), qname("use"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "key", "use")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("use"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "key", "use")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -520,12 +517,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@key = expression")
         fun key() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:map-entry"), qname("key"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "map-entry", "key")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:map-entry"), qname("key"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "map-entry", "key")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -534,12 +531,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:map-entry"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "map-entry", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:map-entry"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "map-entry", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -552,12 +549,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:merge-key"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "merge-key", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:merge-key"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "merge-key", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -570,12 +567,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@for-each-item = expression")
         fun forEachItem() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:merge-source"), qname("for-each-item"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "merge-source", "for-each-item")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:merge-source"), qname("for-each-item"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "merge-source", "for-each-item")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -585,14 +582,14 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @DisplayName("@for-each-source = expression")
         fun forEachSource() {
             val ss = attribute(
-                "tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:merge-source"), qname("for-each-source")
+                "tests/xslt/xslt-3.0-stylesheet.xsl", "merge-source", "for-each-source"
             )
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
             val tf = attribute(
-                "tests/xslt/xslt-3.0-transform.xsl", qname("xsl:merge-source"), qname("for-each-source")
+                "tests/xslt/xslt-3.0-transform.xsl", "merge-source", "for-each-source"
             )
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
@@ -602,12 +599,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:merge-source"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "merge-source", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:merge-source"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "merge-source", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -620,12 +617,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:message"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "message", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:message"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "message", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -638,12 +635,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:namespace"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "namespace", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:namespace"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "namespace", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -656,12 +653,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@value = expression")
         fun value() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("value"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "number", "value")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("value"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "number", "value")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -670,12 +667,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@count = pattern")
         fun count() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("count"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "number", "count")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XsltPattern))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("count"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "number", "count")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XsltPattern))
@@ -684,12 +681,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@from = pattern")
         fun from() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("from"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "number", "from")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XsltPattern))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("from"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "number", "from")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XsltPattern))
@@ -698,12 +695,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:number"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "number", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:number"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "number", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -716,12 +713,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:on-completion"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "on-completion", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:on-completion"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "on-completion", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -734,12 +731,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:on-empty"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "on-empty", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:on-empty"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "on-empty", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -752,12 +749,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:on-non-empty"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "on-non-empty", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:on-non-empty"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "on-non-empty", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -770,7 +767,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [3.0]")
         fun version30() {
-            val ss = attribute("tests/xslt/xslt-3.0-package.xsl", qname("xsl:package"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-3.0-package.xsl", "package", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
@@ -784,12 +781,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:param"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "param", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:param"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "param", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -802,12 +799,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:perform-sort"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "perform-sort", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:perform-sort"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "perform-sort", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -821,14 +818,14 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @DisplayName("@select = expression")
         fun select() {
             val ss = attribute(
-                "tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:processing-instruction"), qname("select")
+                "tests/xslt/xslt-2.0-stylesheet.xsl", "processing-instruction", "select"
             )
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
             val tf = attribute(
-                "tests/xslt/xslt-2.0-transform.xsl", qname("xsl:processing-instruction"), qname("select")
+                "tests/xslt/xslt-2.0-transform.xsl", "processing-instruction", "select"
             )
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
@@ -842,12 +839,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:sequence"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "sequence", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:sequence"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", "sequence", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -860,12 +857,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:sort"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "sort", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:sort"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "sort", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -878,7 +875,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [1.0]")
         fun version10() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:stylesheet"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "stylesheet", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_1_0_19991116))
@@ -888,7 +885,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [2.0]")
         fun version20() {
-            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:stylesheet"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", "stylesheet", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_2_0_20070123))
@@ -898,7 +895,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [3.0]")
         fun version30() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:stylesheet"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "stylesheet", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
@@ -912,12 +909,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@match = pattern")
         fun match() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("match"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "template", "match")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XsltPattern))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("match"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "template", "match")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XsltPattern))
@@ -926,12 +923,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@name = qname")
         fun name() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("name"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "template", "name")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.Unknown))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("name"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "template", "name")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.Unknown))
@@ -944,7 +941,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [1.0]")
         fun version10() {
-            val ss = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:transform"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-1.0-transform.xsl", "transform", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_1_0_19991116))
@@ -954,7 +951,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [2.0]")
         fun version20() {
-            val ss = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:transform"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-2.0-transform.xsl", "transform", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_2_0_20070123))
@@ -964,7 +961,7 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@version = number [3.0]")
         fun version30() {
-            val ss = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:transform"), qname("version"))
+            val ss = attribute("tests/xslt/xslt-3.0-transform.xsl", "transform", "version")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathVersion.get(ss), `is`(XPathSpec.REC_3_1_20170321))
@@ -978,12 +975,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:try"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", "try", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:try"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", "try", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -996,12 +993,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:value-of"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "value-of", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:value-of"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "value-of", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -1014,12 +1011,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:variable"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "variable", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:variable"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "variable", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -1032,12 +1029,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@test = expression")
         fun test() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:when"), qname("test"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "when", "test")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:when"), qname("test"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "when", "test")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
@@ -1050,12 +1047,12 @@ private class XsltCompletionPropertyTest : ParserTestCase() {
         @Test
         @DisplayName("@select = expression")
         fun select() {
-            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:with-param"), qname("select"))
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", "with-param", "select")
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(ss), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(ss), `is`(XPathSubset.XPath))
 
-            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:with-param"), qname("select"))
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", "with-param", "select")
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(XsltVersion.get(tf), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(XPathSyntaxSubset.get(tf), `is`(XPathSubset.XPath))
