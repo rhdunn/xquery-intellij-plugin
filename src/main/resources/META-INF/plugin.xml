@@ -106,6 +106,7 @@
 
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription"/>
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription"/>
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription"/>
 
     <!-- XSLT Language Support -->
 
