@@ -15,4 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.ast
 
-interface XslStylesheet : XslDomElement
+import com.intellij.util.xml.DomElement
+
+interface XslDomElement : DomElement

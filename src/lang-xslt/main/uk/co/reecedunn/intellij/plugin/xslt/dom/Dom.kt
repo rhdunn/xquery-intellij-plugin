@@ -13,6 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.ast
+package uk.co.reecedunn.intellij.plugin.xslt.dom
 
-interface XslStylesheet : XslDomElement
+import com.intellij.psi.xml.XmlTag
+import com.intellij.util.xml.DomManager
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
+
+fun XmlTag.xslt(): XslDomElement? {
+    return DomManager.getDomManager(project).getDomElement(this) as? XslDomElement
+}
