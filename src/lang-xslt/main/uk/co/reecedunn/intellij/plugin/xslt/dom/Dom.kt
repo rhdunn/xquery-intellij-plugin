@@ -15,10 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.dom
 
+import com.intellij.ide.plugins.PluginManager
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.util.xml.DomManager
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
+
+private val INTELLIJ_XPATH_PLUGIN_ID = PluginId.getId("XPathView")
+
+fun isIntellijXPathPluginEnabled(): Boolean {
+    return PluginManager.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
+}
 
 fun XmlTag.xslt(): XslDomElement? {
     return DomManager.getDomManager(project).getDomElement(this) as? XslDomElement

@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
-import uk.co.reecedunn.intellij.plugin.xslt.psi.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
     @Suppress("PropertyName")
