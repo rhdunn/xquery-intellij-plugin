@@ -15,10 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.dom
 
+import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.util.xml.DomManager
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
 
 fun XmlTag.xslt(): XslDomElement? {
     return DomManager.getDomManager(project).getDomElement(this) as? XslDomElement
+}
+
+fun XmlTag.xsltFile(): XslDomElement? {
+    return (containingFile as XmlFile).rootTag?.xslt()
 }
