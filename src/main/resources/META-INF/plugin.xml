@@ -102,6 +102,10 @@
 
     <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ui.XQueryBreadcrumbProvider"/>
 
+    <!-- XSLT DOM Support -->
+
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDom"/>
+
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
