@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.dom
+package uk.co.reecedunn.intellij.plugin.xslt.ast
 
-import com.intellij.util.xml.DomFileDescription
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
+import com.intellij.util.xml.DomElement
 
-object XslStylesheetDom : DomFileDescription<XslStylesheet>(XslStylesheet::class.java, "stylesheet", XSLT.NAMESPACE)
+interface XslStylesheet : DomElement
