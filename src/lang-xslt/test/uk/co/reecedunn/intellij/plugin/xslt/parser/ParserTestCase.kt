@@ -25,6 +25,10 @@ import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
+import com.intellij.util.xml.DomFileDescription
+import com.intellij.util.xml.impl.DomApplicationComponent
+import com.intellij.util.xml.impl.DomFileMetaData
+import com.intellij.util.xml.impl.DomImplementationClassEP
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -36,10 +40,26 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
 
 @Suppress("MemberVisibilityCanBePrivate")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+    private fun registerDomApplicationComponent() {
+        registerExtensionPoint(DomImplementationClassEP.EP_NAME, DomImplementationClassEP::class.java)
+        registerExtensionPoint("com.intellij.util.xml.DomFileDescription", "EP_NAME")
+        registerExtensionPoint("com.intellij.util.xml.impl.DomFileMetaData", "EP_NAME")
+
+        registerExtension(DomFileDescription.EP_NAME, XslStylesheetDomFileDescription)
+        registerExtension(DomFileDescription.EP_NAME, XslTransformDomFileDescription)
+        registerExtension(DomFileDescription.EP_NAME, XslPackageDomFileDescription)
+
+        registerApplicationService(DomApplicationComponent::class.java, DomApplicationComponent())
+    }
+
+    @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     @BeforeAll
     override fun setUp() {
         super.setUp()
@@ -50,6 +70,8 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
+
+        registerDomApplicationComponent()
     }
 
     @AfterAll

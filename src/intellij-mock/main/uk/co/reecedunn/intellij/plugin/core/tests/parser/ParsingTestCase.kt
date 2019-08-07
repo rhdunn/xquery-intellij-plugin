@@ -180,13 +180,14 @@ abstract class ParsingTestCase<File : PsiFile>(
         })
     }
 
-    private fun registerExtensionPoint(epClassName: String, epField: String) {
+    fun registerExtensionPoint(epClassName: String, epField: String) {
         try {
             val epClass = Class.forName(epClassName)
-            val epname = epClass.getField(epField)
+            val epname = epClass.getDeclaredField(epField)
             val register = ParsingTestCase::class.java.getDeclaredMethod(
                 "registerExtensionPoint", ExtensionPointName::class.java, Class::class.java
             )
+            epname.isAccessible = true
             register.invoke(this, epname.get(null), epClass)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
