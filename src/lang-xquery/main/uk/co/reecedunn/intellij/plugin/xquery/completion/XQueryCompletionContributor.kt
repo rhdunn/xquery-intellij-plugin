@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.completion
 import com.intellij.patterns.PlatformPatterns
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
@@ -60,17 +61,17 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
-            .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
+            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathUnionTypeProvider)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (234) QName
         builder(XQuery).withFilter(XPathQNamePrefixFilter)
-            .withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
+            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XPathQNamePrefixProvider)
 
         // XQuery 3.1 EBNF (131) VarRef
-        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XQueryStaticallyKnownElementOrTypeNamespaces)
+        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
             .addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (137) FunctionCall
