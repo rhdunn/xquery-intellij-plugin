@@ -41,14 +41,19 @@ class XPathImpl(provider: FileViewProvider) :
     // region XPathStaticContext
 
     override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration> {
-        return emptySequence() // TODO
+        return context.staticallyKnownXPathNamespaces()
     }
 
     override fun defaultNamespace(
         context: PsiElement,
         type: XPathNamespaceType
     ): Sequence<XPathDefaultNamespaceDeclaration> {
-        return emptySequence() // TODO
+        return when (type) {
+            XPathNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
+            XPathNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
+            XPathNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
+            else -> emptySequence()
+        }
     }
 
     override fun staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration?> {
