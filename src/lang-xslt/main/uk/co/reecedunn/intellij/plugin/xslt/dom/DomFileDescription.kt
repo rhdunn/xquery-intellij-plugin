@@ -19,4 +19,5 @@ import com.intellij.util.xml.DomFileDescription
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
 
-object XslStylesheetDom : DomFileDescription<XslStylesheet>(XslStylesheet::class.java, "stylesheet", XSLT.NAMESPACE)
+object XslStylesheetDomFileDescription :
+    DomFileDescription<XslStylesheet>(XslStylesheet::class.java, "stylesheet", XSLT.NAMESPACE)

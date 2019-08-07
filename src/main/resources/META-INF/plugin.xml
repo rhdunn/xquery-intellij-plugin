@@ -104,7 +104,7 @@
 
     <!-- XSLT DOM Support -->
 
-    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDom"/>
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription"/>
 
     <!-- XSLT Language Support -->
 
