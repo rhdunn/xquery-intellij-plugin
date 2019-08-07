@@ -39,11 +39,6 @@ import javax.xml.namespace.QName
 
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
 private class XsltCompletionPropertyTest : ParserTestCase() {
-    fun parseResource(resource: String): XmlFile {
-        val file = ResourceVirtualFile(XsltCompletionPropertyTest::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
-    }
-
     fun attribute(resource: String, element: QName, attribute: QName): XmlAttributeValue {
         return parseResource(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
             e.namespace == element.namespaceURI && e.localName == element.localPart
