@@ -40,7 +40,7 @@ import javax.xml.namespace.QName
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
 private class XsltCompletionPropertyTest : ParserTestCase() {
     fun attribute(resource: String, element: QName, attribute: QName): XmlAttributeValue {
-        return parseResource(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
+        return parseXml(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
             e.namespace == element.namespaceURI && e.localName == element.localPart
         }.map { e ->
             e.getAttribute(attribute.localPart, attribute.namespaceURI)
