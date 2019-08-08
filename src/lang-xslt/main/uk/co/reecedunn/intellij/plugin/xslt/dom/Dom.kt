@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.dom
 
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.util.xml.DomManager
@@ -32,6 +33,6 @@ fun XmlTag.xslt(): XslDomElement? {
     return DomManager.getDomManager(project).getDomElement(this) as? XslDomElement
 }
 
-fun XmlTag.xsltFile(): XslDomElement? {
-    return (containingFile as XmlFile).rootTag?.xslt()
+fun PsiElement.xsltFile(): XslDomElement? {
+    return (containingFile as? XmlFile)?.rootTag?.xslt()
 }
