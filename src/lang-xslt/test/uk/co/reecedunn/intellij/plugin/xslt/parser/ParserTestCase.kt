@@ -20,10 +20,10 @@ import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.openapi.vfs.impl.VirtualFileManagerImpl
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageManagerImpl
 import com.intellij.psi.xml.StartTagEndTokenProvider
@@ -45,6 +45,7 @@ import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.compat.vfs.VirtualFileManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -85,7 +86,8 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
         registerSemContributor("com.intellij.util.xml.impl.DomSemContributor")
 
-        registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(mutableListOf()))
+        val bus = ApplicationManager.getApplication().getMessageBus()
+        registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(arrayOf(), bus))
         myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
     }
 
