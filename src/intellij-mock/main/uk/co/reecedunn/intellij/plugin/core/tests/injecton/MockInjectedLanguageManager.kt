@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.injecton
 
 import com.intellij.injected.editor.DocumentWindow
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Document
@@ -26,6 +25,7 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiLanguageInjectionHost
+import uk.co.reecedunn.compat.lang.injection.InjectedLanguageManager
 
 class MockInjectedLanguageManager() : InjectedLanguageManager() {
     override fun mightHaveInjectedFragmentAtOffset(hostDocument: Document, hostOffset: Int): Boolean = TODO()
