@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.parser
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
@@ -24,6 +25,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.openapi.vfs.impl.VirtualFileManagerImpl
 import com.intellij.psi.PsiManager
+import com.intellij.psi.impl.source.tree.injected.InjectedLanguageManagerImpl
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
@@ -34,14 +36,17 @@ import com.intellij.semantic.SemService
 import com.intellij.semantic.SemServiceImpl
 import com.intellij.util.xml.DomFileDescription
 import com.intellij.util.xml.DomManager
+import com.intellij.util.xml.DomService
 import com.intellij.util.xml.impl.DomApplicationComponent
 import com.intellij.util.xml.impl.DomImplementationClassEP
 import com.intellij.util.xml.impl.DomManagerImpl
+import com.intellij.util.xml.impl.DomServiceImpl
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -55,6 +60,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+
     @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     private fun registerDomApplicationComponent() {
         registerExtensionPoint(DomImplementationClassEP.EP_NAME, DomImplementationClassEP::class.java)
@@ -94,6 +100,9 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
+
+        registerApplicationService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        registerApplicationService(DomService::class.java, DomServiceImpl())
 
         registerDomApplicationComponent()
         registerDomManager()

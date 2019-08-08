@@ -32,7 +32,9 @@ class MockInjectedLanguageManager() : InjectedLanguageManager() {
 
     override fun enumerate(host: PsiElement, visitor: PsiLanguageInjectionHost.InjectedPsiVisitor) = TODO()
 
-    override fun getTopLevelFile(element: PsiElement): PsiFile = TODO()
+    override fun getTopLevelFile(element: PsiElement): PsiFile {
+        return element.containingFile
+    }
 
     override fun getUnescapedText(injectedNode: PsiElement): String = TODO()
 
