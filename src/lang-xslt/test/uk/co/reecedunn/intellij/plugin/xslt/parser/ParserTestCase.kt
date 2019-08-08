@@ -21,14 +21,18 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.impl.VirtualFileManagerImpl
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.util.xml.DomFileDescription
+import com.intellij.util.xml.DomManager
 import com.intellij.util.xml.impl.DomApplicationComponent
 import com.intellij.util.xml.impl.DomFileMetaData
 import com.intellij.util.xml.impl.DomImplementationClassEP
+import com.intellij.util.xml.impl.DomManagerImpl
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -59,6 +63,11 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerApplicationService(DomApplicationComponent::class.java, DomApplicationComponent())
     }
 
+    private fun registerDomManager() {
+        registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(mutableListOf()))
+        myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
+    }
+
     @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     @BeforeAll
     override fun setUp() {
@@ -72,6 +81,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
 
         registerDomApplicationComponent()
+        registerDomManager()
     }
 
     @AfterAll
