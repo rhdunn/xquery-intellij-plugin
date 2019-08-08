@@ -23,8 +23,10 @@ import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
-import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
+import uk.co.reecedunn.intellij.plugin.xslt.dom.xsltFile
 
 class XPathInXsltLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
@@ -32,7 +34,9 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        if (isIntellijXPathPluginEnabled() || !context.isXslStylesheet()) return
+        if (isIntellijXPathPluginEnabled() || !context.xsltFile().let { it is XslStylesheet || it is XslPackage })
+            return
+
         when (XPathSyntaxSubset.get(context)) {
             XPathSubset.XPath, XPathSubset.XsltPattern -> {
                 val host = context as PsiLanguageInjectionHost
