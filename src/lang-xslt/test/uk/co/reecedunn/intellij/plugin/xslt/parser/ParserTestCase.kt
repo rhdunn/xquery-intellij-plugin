@@ -23,10 +23,15 @@ import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.openapi.vfs.impl.VirtualFileManagerImpl
+import com.intellij.psi.PsiManager
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
+import com.intellij.semantic.SemContributor
+import com.intellij.semantic.SemContributorEP
+import com.intellij.semantic.SemService
+import com.intellij.semantic.SemServiceImpl
 import com.intellij.util.xml.DomFileDescription
 import com.intellij.util.xml.DomManager
 import com.intellij.util.xml.impl.DomApplicationComponent
@@ -47,6 +52,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.xslt
 
 @Suppress("MemberVisibilityCanBePrivate")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -64,6 +70,9 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
     }
 
     private fun registerDomManager() {
+        registerExtensionPoint(SemContributor.EP_NAME, SemContributorEP::class.java)
+        registerApplicationService(SemService::class.java, SemServiceImpl(myProject, PsiManager.getInstance(myProject)))
+
         registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(mutableListOf()))
         myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
     }
