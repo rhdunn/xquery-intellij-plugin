@@ -69,9 +69,17 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerApplicationService(DomApplicationComponent::class.java, DomApplicationComponent())
     }
 
+    private fun registerSemContributor(service: String) {
+        val ep = SemContributorEP()
+        ep.implementation = service
+        registerExtension(SemContributor.EP_NAME, ep)
+    }
+
     private fun registerDomManager() {
         registerExtensionPoint(SemContributor.EP_NAME, SemContributorEP::class.java)
         registerApplicationService(SemService::class.java, SemServiceImpl(myProject, PsiManager.getInstance(myProject)))
+
+        registerSemContributor("com.intellij.util.xml.impl.DomSemContributor")
 
         registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(mutableListOf()))
         myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
