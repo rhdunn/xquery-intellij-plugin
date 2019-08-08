@@ -35,7 +35,6 @@ import com.intellij.semantic.SemServiceImpl
 import com.intellij.util.xml.DomFileDescription
 import com.intellij.util.xml.DomManager
 import com.intellij.util.xml.impl.DomApplicationComponent
-import com.intellij.util.xml.impl.DomFileMetaData
 import com.intellij.util.xml.impl.DomImplementationClassEP
 import com.intellij.util.xml.impl.DomManagerImpl
 import com.intellij.xml.XmlExtension
@@ -52,11 +51,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
-import uk.co.reecedunn.intellij.plugin.xslt.dom.xslt
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+    @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     private fun registerDomApplicationComponent() {
         registerExtensionPoint(DomImplementationClassEP.EP_NAME, DomImplementationClassEP::class.java)
         registerExtensionPoint("com.intellij.util.xml.DomFileDescription", "EP_NAME")
@@ -85,7 +84,6 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
     }
 
-    @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     @BeforeAll
     override fun setUp() {
         super.setUp()

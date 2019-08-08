@@ -15,12 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.dom
 
-import com.intellij.util.xml.DomFileDescription
 import com.intellij.util.xml.impl.DomApplicationComponent
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.sameInstance
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
