@@ -60,7 +60,6 @@ import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
-
     @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     private fun registerDomApplicationComponent() {
         registerExtensionPoint(DomImplementationClassEP.EP_NAME, DomImplementationClassEP::class.java)
