@@ -34,7 +34,9 @@ import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
+import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.project.Project
@@ -72,6 +74,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
+@Suppress("SameParameterValue")
 abstract class ParsingTestCase<File : PsiFile>(
     private var mFileExt: String?,
     vararg definitions: ParserDefinition
@@ -151,10 +154,15 @@ abstract class ParsingTestCase<File : PsiFile>(
         }
 
         if (language != null) {
+            val fileType =
+                if (language?.id == "XML")
+                    loadFileTypeSafe("com.intellij.ide.highlighter.XmlFileType", "XML")
+                else
+                    MockLanguageFileType(language!!, mFileExt)
             registerComponentInstance(
                 PlatformLiteFixture.getApplication().picoContainer,
                 FileTypeManager::class.java,
-                MockFileTypeManager(MockLanguageFileType(language!!, mFileExt))
+                MockFileTypeManager(fileType)
             )
         }
 
@@ -162,6 +170,15 @@ abstract class ParsingTestCase<File : PsiFile>(
         val pomModel = PomModelImpl(myProject)
         myProject.registerService(PomModel::class.java, pomModel)
         TreeAspect(pomModel)
+    }
+
+    private fun loadFileTypeSafe(className: String, fileTypeName: String): FileType {
+        return try {
+            Class.forName(className).getField("INSTANCE").get(null) as FileType
+        } catch (ignored: Exception) {
+            MockLanguageFileType(PlainTextLanguage.INSTANCE, fileTypeName.toLowerCase())
+        }
+
     }
 
     // region IntelliJ ParsingTestCase Methods
