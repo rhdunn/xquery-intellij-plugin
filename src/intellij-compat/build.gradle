@@ -6,9 +6,6 @@ if (version >= 192) {
 else if (version >= 191) {
     sourceSets.main.java.srcDirs += '191'
 }
-else if (version == 183) {
-    sourceSets.main.java.srcDirs += '183'
-}
 else {
-    sourceSets.main.java.srcDirs += '182'
+    sourceSets.main.java.srcDirs += '183'
 }
