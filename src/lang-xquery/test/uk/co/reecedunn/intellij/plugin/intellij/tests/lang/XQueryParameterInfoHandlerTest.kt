@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
 
 import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext
+import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.compat.testFramework.MockUpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext

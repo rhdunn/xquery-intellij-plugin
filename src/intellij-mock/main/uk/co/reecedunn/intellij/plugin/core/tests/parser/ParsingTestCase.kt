@@ -55,6 +55,7 @@ import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
+import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
@@ -62,7 +63,6 @@ import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
-import uk.co.reecedunn.compat.testFramework.MockUpdateParameterInfoContext
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
