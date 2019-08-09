@@ -19,11 +19,15 @@ import com.intellij.openapi.module.Module
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.OrderEnumerator
 import com.intellij.openapi.roots.ProjectFileIndex
+import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
-import uk.co.reecedunn.compat.roots.ProjectRootManager
 
 class MockProjectRootsManager : ProjectRootManager() {
+    override fun setProjectSdkName(name: String) {
+        TODO("not implemented")
+    }
+
     override fun orderEntries(): OrderEnumerator {
         TODO("not implemented")
     }
