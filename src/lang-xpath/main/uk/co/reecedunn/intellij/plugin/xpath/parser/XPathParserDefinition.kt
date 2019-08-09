@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.parser
 
 import com.intellij.lang.ASTNode
+import com.intellij.lang.ParserDefinition
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
@@ -24,14 +25,13 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.compat.lang.ParserDefinition
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 
-class XPathParserDefinition : ParserDefinition() {
+class XPathParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     override fun createParser(project: Project): PsiParser = XPathParser()
