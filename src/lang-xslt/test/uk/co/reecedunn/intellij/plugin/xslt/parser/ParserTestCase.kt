@@ -35,9 +35,7 @@ import com.intellij.semantic.SemContributor
 import com.intellij.semantic.SemContributorEP
 import com.intellij.semantic.SemService
 import com.intellij.semantic.SemServiceImpl
-import com.intellij.util.xml.DomFileDescription
-import com.intellij.util.xml.DomManager
-import com.intellij.util.xml.DomService
+import com.intellij.util.xml.*
 import com.intellij.util.xml.impl.DomApplicationComponent
 import com.intellij.util.xml.impl.DomImplementationClassEP
 import com.intellij.util.xml.impl.DomManagerImpl
@@ -99,6 +97,13 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
     }
 
+    private fun registerConverterManager() {
+        registerExtensionPoint(DomImplementationClassEP.CONVERTER_EP_NAME, DomImplementationClassEP::class.java)
+
+        val converter = newInstance<ConverterManager>("com.intellij.util.xml.impl.ConverterManagerImpl")
+        registerApplicationService(ConverterManager::class.java, converter)
+    }
+
     @BeforeAll
     override fun setUp() {
         super.setUp()
@@ -115,6 +120,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
         registerDomApplicationComponent()
         registerDomManager()
+        registerConverterManager()
     }
 
     @AfterAll

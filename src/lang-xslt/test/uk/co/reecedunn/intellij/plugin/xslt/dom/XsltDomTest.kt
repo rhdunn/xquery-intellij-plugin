@@ -40,6 +40,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<package xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"3.0\"/>", "package")
             assertThat(dom, `is`(instanceOf(XslPackage::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val pkg = dom as XslPackage
+            assertThat(pkg.version.value, `is`("3.0"))
         }
     }
 
@@ -52,6 +55,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<stylesheet xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\"/>", "stylesheet")
             assertThat(dom, `is`(instanceOf(XslStylesheet::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val ss = dom as XslStylesheet
+            assertThat(ss.version.value, `is`("1.0"))
         }
 
         @Test
@@ -60,6 +66,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<stylesheet xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"2.0\"/>", "stylesheet")
             assertThat(dom, `is`(instanceOf(XslStylesheet::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val ss = dom as XslStylesheet
+            assertThat(ss.version.value, `is`("2.0"))
         }
 
         @Test
@@ -68,6 +77,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<stylesheet xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"3.0\"/>", "stylesheet")
             assertThat(dom, `is`(instanceOf(XslStylesheet::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val ss = dom as XslStylesheet
+            assertThat(ss.version.value, `is`("3.0"))
         }
     }
 
@@ -80,6 +92,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<transform xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\"/>", "transform")
             assertThat(dom, `is`(instanceOf(XslStylesheet::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val ss = dom as XslStylesheet
+            assertThat(ss.version.value, `is`("1.0"))
         }
 
         @Test
@@ -88,6 +103,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<transform xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"2.0\"/>", "transform")
             assertThat(dom, `is`(instanceOf(XslStylesheet::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val ss = dom as XslStylesheet
+            assertThat(ss.version.value, `is`("2.0"))
         }
 
         @Test
@@ -96,6 +114,9 @@ private class XsltDomTest : ParserTestCase() {
             val dom = dom("<transform xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"3.0\"/>", "transform")
             assertThat(dom, `is`(instanceOf(XslStylesheet::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
+
+            val ss = dom as XslStylesheet
+            assertThat(ss.version.value, `is`("3.0"))
         }
     }
 }

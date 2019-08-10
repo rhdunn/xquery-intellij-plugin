@@ -15,4 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.ast
 
-interface XslStylesheet : XslDomElement
+import com.intellij.util.xml.Attribute
+import com.intellij.util.xml.GenericAttributeValue
+
+interface XslStylesheet : XslDomElement {
+    @get:Attribute("version")
+    val version: GenericAttributeValue<String>
+}
