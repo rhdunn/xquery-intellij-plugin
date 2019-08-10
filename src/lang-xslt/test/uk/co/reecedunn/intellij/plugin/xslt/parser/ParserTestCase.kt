@@ -21,6 +21,7 @@ import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
@@ -77,11 +78,18 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
     private fun registerSemContributor(service: String) {
         val ep = SemContributorEP()
         ep.implementation = service
+        // IntelliJ <= 2018.3 places SemContributor on the project.
+        registerExtension(Extensions.getArea(myProject), SemContributor.EP_NAME, ep)
+        // IntelliJ >= 2019.1 places SemContributor on the application.
         registerExtension(SemContributor.EP_NAME, ep)
     }
 
     private fun registerDomManager() {
+        // IntelliJ <= 2018.3 places SemContributor on the project.
+        registerExtensionPoint(Extensions.getArea(myProject), SemContributor.EP_NAME, SemContributorEP::class.java)
+        // IntelliJ >= 2019.1 places SemContributor on the application.
         registerExtensionPoint(SemContributor.EP_NAME, SemContributorEP::class.java)
+
         registerApplicationService(SemService::class.java, SemServiceImpl(myProject, PsiManager.getInstance(myProject)))
 
         registerSemContributor("com.intellij.util.xml.impl.DomSemContributor")
