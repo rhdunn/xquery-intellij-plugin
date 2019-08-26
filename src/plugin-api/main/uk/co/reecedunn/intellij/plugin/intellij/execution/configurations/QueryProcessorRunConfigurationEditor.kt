@@ -75,16 +75,20 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     val item = QueryProcessorSettings()
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.create(item)) {
-                        queryProcessor!!.childComponent.addItem(QueryProcessorSettingsWithVersionCache(item))
+                        val settings = QueryProcessorSettingsWithVersionCache(item)
+                        queryProcessor!!.childComponent.addItem(settings)
                         QueryProcessors.getInstance().addProcessor(item)
+                        settings.calculateVersion()
                     }
                 }
 
                 override fun edit(index: Int) {
                     val item = queryProcessor!!.childComponent.getItemAt(index)
                     val dialog = QueryProcessorSettingsDialog(project)
-                    if (dialog.edit(item.settings))
+                    if (dialog.edit(item.settings)) {
                         QueryProcessors.getInstance().setProcessor(index, item.settings)
+                        item.calculateVersion()
+                    }
                 }
 
                 override fun remove(index: Int) {

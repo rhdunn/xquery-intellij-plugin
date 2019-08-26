@@ -41,13 +41,13 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
         if (value != null) {
-            render(value.settings, null)
-            try {
-                value.settings.session.version
-                    .execute { version -> render(value.settings, version) }
-                    .onException { e -> renderError(value.settings, e.toQueryUserMessage()) }
-            } catch (e: Throwable) {
-                renderError(value.settings, e.toQueryUserMessage())
+            render(value.settings, value.version as? String)
+            (value.version as? Throwable)?.let {
+                try {
+                    renderError(value.settings, it.toQueryUserMessage())
+                } catch (e: Throwable) {
+                    // Cannot display the error, so do nothing.
+                }
             }
         }
     }

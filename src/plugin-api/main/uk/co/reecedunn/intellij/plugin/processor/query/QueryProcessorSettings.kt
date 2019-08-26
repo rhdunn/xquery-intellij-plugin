@@ -105,6 +105,16 @@ class QueryProcessorSettings : Closeable {
 
 class QueryProcessorSettingsWithVersionCache(val settings: QueryProcessorSettings) {
     var version: Any? = null
+
+    fun calculateVersion() {
+        try {
+            settings.session.version
+                .execute { version -> this.version = version }
+                .onException { e -> this.version = e }
+        } catch (e: Throwable) {
+            this.version = e
+        }
+    }
 }
 
 fun List<QueryProcessorSettings>.addToModel(
@@ -113,7 +123,9 @@ fun List<QueryProcessorSettings>.addToModel(
 ) {
     forEach { processor ->
         if (processor.connection != null || !serversOnly) {
-            model.addElement(QueryProcessorSettingsWithVersionCache(processor))
+            val settings = QueryProcessorSettingsWithVersionCache(processor)
+            model.addElement(settings)
+            settings.calculateVersion()
         }
     }
 }
