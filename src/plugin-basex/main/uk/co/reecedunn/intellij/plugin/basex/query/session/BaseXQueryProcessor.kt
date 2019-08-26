@@ -19,10 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.cached
-import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.async.local_thread
+import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -36,7 +33,7 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
     LogViewProvider {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.results.first().value as String }
+            pooled_thread { query.run() }.then { results -> results.results.first().value as String }
         }
     }
 
@@ -64,14 +61,14 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
 
     override fun logs(): ExecutableOnPooledThread<List<String>> {
         return createRunnableQuery(BaseXQueries.Log.Logs, XQuery).use { query ->
-            query.run().then { results -> results.results.map { it.value as String } }
+            pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
         }
     }
 
     override fun log(name: String): ExecutableOnPooledThread<List<String>> {
         return createRunnableQuery(BaseXQueries.Log.Log, XQuery).use { query ->
             query.bindVariable("name", name, "xs:string")
-            query.run().then { results -> results.results.map { it.value as String } }
+            pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
         }
     }
 

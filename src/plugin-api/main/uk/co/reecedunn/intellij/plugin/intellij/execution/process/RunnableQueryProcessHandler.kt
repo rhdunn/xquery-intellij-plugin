@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProcessHandlerBase() {
@@ -22,7 +23,7 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
         super.startNotify()
         try {
             notifyBeginResults()
-            query.run().execute { results ->
+            pooled_thread { query.run() }.execute { results ->
                 try {
                     results.results.forEach { result -> notifyResult(result) }
                     notifyEndResults()

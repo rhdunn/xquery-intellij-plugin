@@ -19,10 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.cached
-import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.async.local_thread
+import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
@@ -35,7 +32,7 @@ internal class EXistDBQueryProcessor(private val baseUri: String, private val co
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(EXistDBQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.results.first().value as String }
+            pooled_thread { query.run() }.then { results -> results.results.first().value as String }
         }
     }
 

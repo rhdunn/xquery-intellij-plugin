@@ -17,8 +17,6 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -94,11 +92,11 @@ internal class SaxonXsltRunner(
         SaxonQueryResultIterator(result.iterator()).asSequence()
     }
 
-    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+    override fun run(): QueryResults {
         val start = System.nanoTime()
         val results = asSequence().toList()
         val end = System.nanoTime()
-        QueryResults(results, XsDuration.ns(end - start))
+        return QueryResults(results, XsDuration.ns(end - start))
     }
 
     override fun validate(): QueryError? {

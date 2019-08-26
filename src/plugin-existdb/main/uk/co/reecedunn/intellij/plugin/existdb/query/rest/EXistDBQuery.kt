@@ -19,8 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -61,7 +59,7 @@ internal class EXistDBQuery(
         throw UnsupportedOperationException()
     }
 
-    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+    override fun run(): QueryResults {
         val request = builder.build()
 
         val start = System.nanoTime()
@@ -82,7 +80,7 @@ internal class EXistDBQuery(
             val type = value.attribute("exist:type")!!
             QueryResult.fromItemType(++position, value.text() ?: "", type)
         }
-        QueryResults(results.toList(), XsDuration.ns(end - start))
+        return QueryResults(results.toList(), XsDuration.ns(end - start))
     }
 
     override fun close() {

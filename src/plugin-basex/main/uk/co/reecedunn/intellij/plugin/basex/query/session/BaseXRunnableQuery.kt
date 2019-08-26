@@ -19,8 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Query
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
@@ -61,8 +59,8 @@ internal class BaseXRunnableQuery(
         }
     }
 
-    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
-        check(classLoader, queryFile) {
+    override fun run(): QueryResults {
+        return check(classLoader, queryFile) {
             session.execute("set queryinfo off")
             session.execute("set xmlplan off")
             val query: Query = session.query(queryString)

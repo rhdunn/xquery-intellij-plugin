@@ -41,21 +41,21 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.results.first().value as String }
+            pooled_thread { query.run() }.then { results -> results.results.first().value as String }
         }
     }
 
     override val servers: ExecutableOnPooledThread<List<String>>
         get() {
             return createRunnableQuery(MarkLogicQueries.Servers, XQuery).use { query ->
-                query.run().then { results -> results.results.map { it.value as String } }
+                pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
             }
         }
 
     override val databases: ExecutableOnPooledThread<List<String>>
         get() {
             return createRunnableQuery(MarkLogicQueries.Databases, XQuery).use { query ->
-                query.run().then { results -> results.results.map { it.value as String } }
+                pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
             }
         }
 
@@ -109,14 +109,14 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
 
     override fun logs(): ExecutableOnPooledThread<List<String>> {
         return createRunnableQuery(MarkLogicQueries.Log.Logs, XQuery).use { query ->
-            query.run().then { results -> results.results.map { it.value as String } }
+            pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
         }
     }
 
     override fun log(name: String): ExecutableOnPooledThread<List<String>> {
         return createRunnableQuery(MarkLogicQueries.Log.Log, XQuery).use { query ->
             query.bindVariable("name", name, "xs:string")
-            query.run().then { results -> results.results.map { it.value as String } }
+            pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
         }
     }
 

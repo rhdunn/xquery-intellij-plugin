@@ -18,8 +18,6 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import com.intellij.lang.Language
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
@@ -52,7 +50,7 @@ internal class EXistDBHttpRequest(private val builder: RequestBuilder, private v
         throw UnsupportedOperationException()
     }
 
-    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+    override fun run(): QueryResults {
         val request = builder.build()
 
         val start = System.nanoTime()
@@ -67,7 +65,7 @@ internal class EXistDBHttpRequest(private val builder: RequestBuilder, private v
         }
 
         val contentType = response.allHeaders.firstOrNull { h -> h.name == "ContentType" }?.value
-        QueryResults(
+        return QueryResults(
             listOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain")),
             XsDuration.ns(end - start)
         )

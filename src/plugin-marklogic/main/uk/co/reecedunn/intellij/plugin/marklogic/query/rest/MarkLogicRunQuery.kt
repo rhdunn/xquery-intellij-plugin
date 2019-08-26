@@ -21,8 +21,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
@@ -93,7 +91,7 @@ internal class MarkLogicRunQuery(
         return builder.build()
     }
 
-    override fun run(): ExecutableOnPooledThread<QueryResults> = pooled_thread {
+    override fun run(): QueryResults {
         val response = connection.execute(request())
         val body = EntityUtils.toString(response.entity)
         response.close()
@@ -104,7 +102,7 @@ internal class MarkLogicRunQuery(
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
         val duration = (results.next().value as String).toXsDuration()
-        QueryResults(results.asSequence().toList(), duration!!)
+        return QueryResults(results.asSequence().toList(), duration!!)
     }
 
     override fun validate(): QueryError? {
