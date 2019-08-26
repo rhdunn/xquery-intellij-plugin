@@ -16,6 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session.binding
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.processor.query.HostConnectionException
+import java.lang.reflect.InvocationTargetException
+import java.net.ConnectException
 
 class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, username: String?, password: String?) :
     Session {
@@ -28,7 +31,14 @@ class ClientSession(classLoader: ClassLoader, hostname: String, port: Int, usern
         val constructor = `class`.getConstructor(
             String::class.java, Int::class.java, String::class.java, String::class.java
         )
-        `object` = constructor.newInstance(hostname, port, username, password)
+        try {
+            `object` = constructor.newInstance(hostname, port, username, password)
+        } catch (e: InvocationTargetException) {
+            if (e.targetException is ConnectException) {
+                throw HostConnectionException(hostname, e.targetException)
+            }
+            throw e
+        }
     }
 
     override fun execute(command: String): String? {

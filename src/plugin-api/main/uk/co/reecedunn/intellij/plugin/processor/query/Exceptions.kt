@@ -29,6 +29,8 @@ class UnsupportedJarFileException(jarType: String) : RuntimeException("Unsupport
 
 class MissingHostNameException : RuntimeException("Missing hostname.")
 
+class HostConnectionException(val host: String, cause: Throwable) : RuntimeException("Connection error.", cause)
+
 class UnsupportedQueryType(val language: Language) : RuntimeException("Unsupported query type: ${language.displayName}")
 
 fun Throwable.toQueryUserMessage(): String {
@@ -43,6 +45,8 @@ fun Throwable.toQueryUserMessage(): String {
             PluginApiBundle.message("processor.exception.host-connection-error", message ?: "")
         is HttpHostConnectException ->
             PluginApiBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
+        is HostConnectionException ->
+            PluginApiBundle.message("processor.exception.host-connection-error", host)
         is UnsupportedOperationException ->
             PluginApiBundle.message("processor.exception.unsupported-operation")
         is InvocationTargetException ->

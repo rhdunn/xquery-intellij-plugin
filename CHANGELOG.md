@@ -2,6 +2,10 @@
 
 ## 1.6 - (In Development)
 
+Run Configurations:
+
+1.  Improve the error handling and reporting when connecting to BaseX servers.
+
 ## 1.5.1 - 2019-08-01
 
 References, Resolving and Find Usages:
