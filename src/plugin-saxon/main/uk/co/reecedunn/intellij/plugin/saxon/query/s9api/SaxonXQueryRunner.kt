@@ -102,8 +102,8 @@ internal class SaxonXQueryRunner(
         QueryResults(results, XsDuration.ns(end - start))
     }
 
-    override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
-        try {
+    override fun validate(): QueryError? {
+        return try {
             check(queryFile, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {

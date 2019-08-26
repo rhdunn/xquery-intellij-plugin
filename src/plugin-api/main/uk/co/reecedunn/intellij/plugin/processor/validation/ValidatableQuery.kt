@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.validation
 
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 interface ValidatableQuery : Query {
-    fun validate(): ExecutableOnPooledThread<QueryError?>
+    fun validate(): QueryError?
 }

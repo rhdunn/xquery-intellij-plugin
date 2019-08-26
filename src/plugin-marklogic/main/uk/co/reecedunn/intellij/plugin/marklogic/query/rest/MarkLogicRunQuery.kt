@@ -107,7 +107,7 @@ internal class MarkLogicRunQuery(
         QueryResults(results.asSequence().toList(), duration!!)
     }
 
-    override fun validate(): ExecutableOnPooledThread<QueryError?> = pooled_thread {
+    override fun validate(): QueryError? {
         val response = connection.execute(request())
         val body = EntityUtils.toString(response.entity)
         response.close()
@@ -116,7 +116,7 @@ internal class MarkLogicRunQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        try {
+        return try {
             MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile)
             null
         } catch (e: QueryError) {
