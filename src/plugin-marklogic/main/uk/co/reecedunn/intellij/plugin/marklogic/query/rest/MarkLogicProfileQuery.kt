@@ -21,8 +21,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
@@ -92,7 +90,7 @@ internal class MarkLogicProfileQuery(
         return builder.build()
     }
 
-    override fun profile(): ExecutableOnPooledThread<ProfileQueryResults> = pooled_thread {
+    override fun profile(): ProfileQueryResults {
         val response = connection.execute(request())
         val body = EntityUtils.toString(response.entity)
         response.close()
@@ -103,7 +101,7 @@ internal class MarkLogicProfileQuery(
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
         val report = (results.next().value as String).toMarkLogicProfileReport(queryFile)
-        ProfileQueryResults(results.asSequence().toList(), report)
+        return ProfileQueryResults(results.asSequence().toList(), report)
     }
 
     override fun close() {

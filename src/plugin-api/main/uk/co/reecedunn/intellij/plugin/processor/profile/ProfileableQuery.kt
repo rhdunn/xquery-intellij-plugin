@@ -15,9 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.profile
 
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 
 interface ProfileableQuery : Query {
-    fun profile(): ExecutableOnPooledThread<ProfileQueryResults>
+    fun profile(): ProfileQueryResults
 }

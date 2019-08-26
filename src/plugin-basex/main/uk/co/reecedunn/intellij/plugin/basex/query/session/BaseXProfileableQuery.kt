@@ -20,8 +20,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.profiler.toFlatProfileReport
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Query
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
@@ -61,8 +59,8 @@ internal class BaseXProfileableQuery(
         }
     }
 
-    override fun profile(): ExecutableOnPooledThread<ProfileQueryResults> = pooled_thread {
-        check(classLoader, queryFile) {
+    override fun profile(): ProfileQueryResults {
+        return check(classLoader, queryFile) {
             session.execute("set queryinfo on")
             session.execute("set xmlplan off")
             val query: Query = session.query(queryString)

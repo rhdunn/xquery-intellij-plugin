@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
@@ -73,9 +71,9 @@ internal class SaxonQueryProfiler(
         runner.bindContextItem(value, type)
     }
 
-    override fun profile(): ExecutableOnPooledThread<ProfileQueryResults> = pooled_thread {
+    override fun profile(): ProfileQueryResults {
         val results = (runner as SaxonRunner).asSequence().toList()
-        ProfileQueryResults(results, listener.toProfileReport())
+        return ProfileQueryResults(results, listener.toProfileReport())
     }
 
     override fun close() {
