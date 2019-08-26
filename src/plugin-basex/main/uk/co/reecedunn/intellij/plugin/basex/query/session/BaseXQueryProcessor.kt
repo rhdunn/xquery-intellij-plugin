@@ -19,7 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
-import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -31,10 +30,9 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
     ProfileableQueryProvider,
     RunnableQueryProvider,
     LogViewProvider {
-    override val version: ExecutableOnPooledThread<String> by cached {
-        createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
-            pooled_thread { query.run() }.then { results -> results.results.first().value as String }
-        }
+
+    override val version get(): String {
+        return createRunnableQuery(BaseXQueries.Version, XQuery).run().results.first().value as String
     }
 
     override val servers: List<String> = listOf<String>()

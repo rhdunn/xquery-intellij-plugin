@@ -87,7 +87,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     }
 
     @Test @DisplayName("version") fun version() {
-        assertThat(provider!!.session.version.execute().get(), `is`(processorVersion))
+        assertThat(provider!!.session.version, `is`(processorVersion))
     }
 
     @Nested

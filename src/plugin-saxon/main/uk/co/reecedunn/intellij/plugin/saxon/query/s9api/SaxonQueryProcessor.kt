@@ -17,8 +17,6 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -44,9 +42,7 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
             Processor(classLoader, source)
     }
 
-    override val version: ExecutableOnPooledThread<String> = local_thread {
-        processor.version
-    }
+    override val version get(): String = processor.version
 
     override val servers: List<String> = listOf<String>()
 

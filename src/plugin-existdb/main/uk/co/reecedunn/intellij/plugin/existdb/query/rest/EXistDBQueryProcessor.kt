@@ -19,7 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
-import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
@@ -30,10 +29,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 internal class EXistDBQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     RunnableQueryProvider {
 
-    override val version: ExecutableOnPooledThread<String> by cached {
-        createRunnableQuery(EXistDBQueries.Version, XQuery).use { query ->
-            pooled_thread { query.run() }.then { results -> results.results.first().value as String }
-        }
+    override val version get(): String {
+        return createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
     }
 
     override val servers: List<String> = listOf<String>()

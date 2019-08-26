@@ -19,7 +19,6 @@ import com.google.gson.JsonObject
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
-import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
@@ -39,10 +38,8 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
     ValidatableQueryProvider,
     LogViewProvider {
 
-    override val version: ExecutableOnPooledThread<String> by cached {
-        createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
-            pooled_thread { query.run() }.then { results -> results.results.first().value as String }
-        }
+    override val version get(): String {
+        return createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value as String
     }
 
     override val servers get(): List<String> {

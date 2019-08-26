@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import java.io.Closeable
 import java.io.FileInputStream
 import java.io.InputStream
@@ -108,7 +109,8 @@ class QueryProcessorSettingsWithVersionCache(val settings: QueryProcessorSetting
 
     fun calculateVersion() {
         try {
-            settings.session.version
+            val session = settings.session
+            pooled_thread { session.version }
                 .execute { version -> this.version = version }
                 .onException { e -> this.version = e }
         } catch (e: Throwable) {
