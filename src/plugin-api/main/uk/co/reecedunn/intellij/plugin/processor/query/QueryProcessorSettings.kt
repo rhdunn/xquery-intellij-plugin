@@ -103,13 +103,17 @@ class QueryProcessorSettings : Closeable {
     }
 }
 
+class QueryProcessorSettingsWithVersionCache(val settings: QueryProcessorSettings) {
+    var version: Any? = null
+}
+
 fun List<QueryProcessorSettings>.addToModel(
-    model: DefaultComboBoxModel<QueryProcessorSettings>,
+    model: DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>,
     serversOnly: Boolean = false
 ) {
     forEach { processor ->
         if (processor.connection != null || !serversOnly) {
-            model.addElement(processor)
+            model.addElement(QueryProcessorSettingsWithVersionCache(processor))
         }
     }
 }

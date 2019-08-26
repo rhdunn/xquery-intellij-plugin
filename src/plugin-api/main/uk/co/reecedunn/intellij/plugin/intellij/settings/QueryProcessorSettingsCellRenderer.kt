@@ -20,7 +20,7 @@ import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.swing.JList
 
-class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettings>() {
+class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettingsWithVersionCache>() {
     private fun render(value: QueryProcessorSettings, version: String?) {
         clear()
         append(value.api.displayName)
@@ -36,18 +36,18 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
     }
 
     override fun customizeCellRenderer(
-        list: JList<out QueryProcessorSettings>,
-        value: QueryProcessorSettings?,
+        list: JList<out QueryProcessorSettingsWithVersionCache>,
+        value: QueryProcessorSettingsWithVersionCache?,
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
         if (value != null) {
-            render(value, null)
+            render(value.settings, null)
             try {
-                value.session.version
-                    .execute { version -> render(value, version) }
-                    .onException { e -> renderError(value, e.toQueryUserMessage()) }
+                value.settings.session.version
+                    .execute { version -> render(value.settings, version) }
+                    .onException { e -> renderError(value.settings, e.toQueryUserMessage()) }
             } catch (e: Throwable) {
-                renderError(value, e.toQueryUserMessage())
+                renderError(value.settings, e.toQueryUserMessage())
             }
         }
     }
