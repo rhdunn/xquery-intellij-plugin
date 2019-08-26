@@ -61,10 +61,10 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
         }
     }
 
-    override fun log(name: String): ExecutableOnPooledThread<List<String>> {
+    override fun log(name: String): List<String> {
         return createRunnableQuery(BaseXQueries.Log.Log, XQuery).use { query ->
             query.bindVariable("name", name, "xs:string")
-            pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
+            query.run().results.map { it.value as String }
         }
     }
 

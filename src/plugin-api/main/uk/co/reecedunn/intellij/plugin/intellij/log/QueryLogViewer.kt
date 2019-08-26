@@ -23,6 +23,7 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -124,7 +125,7 @@ class QueryLogViewerUI(val project: Project) {
         if (session is LogViewProvider) {
             val logFile = logFile?.selectedItem as? String
             if (logFile != null) {
-                session.log(logFile).execute { log ->
+                pooled_thread { session.log(logFile) }.execute { log ->
                     val offset = logConsole!!.offset
                     val isAtEnd = offset == logConsole!!.contentSize
 
