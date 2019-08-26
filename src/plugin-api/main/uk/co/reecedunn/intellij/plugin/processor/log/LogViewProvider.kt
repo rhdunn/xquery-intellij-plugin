@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.log
 
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 
 interface LogViewProvider : QueryProcessor {
-    fun logs(): ExecutableOnPooledThread<List<String>>
+    fun logs(): List<String>
 
     fun log(name: String): List<String>
 }

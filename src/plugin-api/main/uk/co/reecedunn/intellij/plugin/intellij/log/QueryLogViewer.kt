@@ -92,7 +92,7 @@ class QueryLogViewerUI(val project: Project) {
             null
         }
         if (session is LogViewProvider) {
-            session.logs().execute { logs ->
+            pooled_thread { session.logs() }.execute { logs ->
                 logFile?.removeAllItems()
                 logs.forEach { logFile?.addItem(it) }
             }.onException { logFile?.removeAllItems() }
