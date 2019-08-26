@@ -22,6 +22,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
@@ -137,12 +138,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateServerUI() {
-        val session = try {
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
-        } catch (e: Exception) {
-            null
-        }
-        session?.servers?.execute { servers ->
+        val settings = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings? ?: return
+        pooled_thread { settings.session.servers }.execute { servers ->
             val server = server!!
             val current = server.selectedItem
             server.removeAllItems()

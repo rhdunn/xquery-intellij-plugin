@@ -37,9 +37,7 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
         }
     }
 
-    override val servers: ExecutableOnPooledThread<List<String>> = local_thread {
-        listOf<String>()
-    }
+    override val servers: List<String> = listOf<String>()
 
     override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
         listOf<String>()

@@ -36,9 +36,7 @@ internal class EXistDBQueryProcessor(private val baseUri: String, private val co
         }
     }
 
-    override val servers: ExecutableOnPooledThread<List<String>> = local_thread {
-        listOf<String>()
-    }
+    override val servers: List<String> = listOf<String>()
 
     override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
         listOf<String>()
