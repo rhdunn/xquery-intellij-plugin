@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.event
 
-import com.intellij.openapi.application.ex.ApplicationManagerEx
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import com.intellij.openapi.application.ApplicationManager
 
 abstract class Stopwatch {
     private var startTime: Long = 0
@@ -26,12 +24,10 @@ abstract class Stopwatch {
 
     val elapsedTime: Long get() = endTime - startTime
 
-    fun start(interval: Long) = timer(interval).execute()
-
-    private fun timer(interval: Long): ExecutableOnPooledThread<Unit> = pooled_thread {
+    fun start(interval: Long) = ApplicationManager.getApplication().executeOnPooledThread {
         startTime = System.nanoTime()
         while (isRunning()) {
-            ApplicationManagerEx.getApplication().invokeLater {
+            ApplicationManager.getApplication().invokeLater {
                 if (isRunning()) {
                     endTime = System.nanoTime()
                     onInterval()
