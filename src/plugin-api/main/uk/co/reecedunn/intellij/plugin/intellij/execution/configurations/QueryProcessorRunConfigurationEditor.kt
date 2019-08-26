@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsC
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
 import javax.swing.*
 
@@ -64,9 +65,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun createQueryProcessorUI() {
         val model = DefaultComboBoxModel<QueryProcessorSettings>()
-        QueryProcessors.getInstance().processors.forEach { processor ->
-            model.addElement(processor)
-        }
+        QueryProcessors.getInstance().processors.addToModel(model)
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {

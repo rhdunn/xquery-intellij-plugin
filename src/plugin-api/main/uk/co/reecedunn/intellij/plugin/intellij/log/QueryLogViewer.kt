@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsC
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -67,9 +68,7 @@ class QueryLogViewerUI(val project: Project) {
             populateLogFiles()
         }
 
-        QueryProcessors.getInstance().processors.forEach { processor ->
-            processor.connection?.let { model.addElement(processor) }
-        }
+        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
     }
 
     // endregion

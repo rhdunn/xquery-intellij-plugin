@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 import java.io.Closeable
 import java.io.FileInputStream
 import java.io.InputStream
+import javax.swing.DefaultComboBoxModel
 
 class QueryProcessorSettings : Closeable {
     constructor()
@@ -98,6 +99,17 @@ class QueryProcessorSettings : Closeable {
         if (processor != null) {
             processor!!.close()
             processor = null
+        }
+    }
+}
+
+fun List<QueryProcessorSettings>.addToModel(
+    model: DefaultComboBoxModel<QueryProcessorSettings>,
+    serversOnly: Boolean = false
+) {
+    forEach { processor ->
+        if (processor.connection != null || !serversOnly) {
+            model.addElement(processor)
         }
     }
 }
