@@ -49,12 +49,9 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
         return createRunnableQuery(MarkLogicQueries.Servers, XQuery).run().results.map { it.value as String }
     }
 
-    override val databases: ExecutableOnPooledThread<List<String>>
-        get() {
-            return createRunnableQuery(MarkLogicQueries.Databases, XQuery).use { query ->
-                pooled_thread { query.run() }.then { results -> results.results.map { it.value as String } }
-            }
-        }
+    override val databases get(): List<String> {
+        return createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }
+    }
 
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()

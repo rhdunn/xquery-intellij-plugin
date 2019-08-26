@@ -23,5 +23,5 @@ interface QueryProcessor : Closeable {
 
     val servers: List<String>
 
-    val databases: ExecutableOnPooledThread<List<String>>
+    val databases: List<String>
 }

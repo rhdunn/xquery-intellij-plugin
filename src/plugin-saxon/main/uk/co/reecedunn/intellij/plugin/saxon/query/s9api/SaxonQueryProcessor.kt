@@ -50,9 +50,7 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override val servers: List<String> = listOf<String>()
 
-    override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
-        listOf<String>()
-    }
+    override val databases: List<String> = listOf<String>()
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
