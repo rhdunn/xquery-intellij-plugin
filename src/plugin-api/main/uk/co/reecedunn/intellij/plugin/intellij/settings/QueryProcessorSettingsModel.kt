@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JList
@@ -30,16 +31,21 @@ class QueryProcessorSettingsModel : DefaultComboBoxModel<QueryProcessorSettingsW
 
     fun updateElement(item: QueryProcessorSettingsWithVersionCache) {
         if (item.version != null) return
-        pooled_thread { item.settings.session.version }
-            .execute { version ->
-                val index = getIndexOf(item)
-                item.version = version
-                fireContentsChanged(item, index, index)
+        ApplicationManager.getApplication().executeOnPooledThread {
+            try {
+                val version = item.settings.session.version
+                ApplicationManager.getApplication().invokeLater({
+                    val index = getIndexOf(item)
+                    item.version = version
+                    fireContentsChanged(item, index, index)
+                }, ModalityState.any())
+            } catch (e: Throwable) {
+                ApplicationManager.getApplication().invokeLater({
+                    val index = getIndexOf(item)
+                    item.version = e
+                    fireContentsChanged(item, index, index)
+                }, ModalityState.any())
             }
-            .onException { e ->
-                val index = getIndexOf(item)
-                item.version = e
-                fireContentsChanged(item, index, index)
-            }
+        }
     }
 }
