@@ -15,34 +15,38 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import com.intellij.openapi.application.ModalityState
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProcessHandlerBase() {
     override fun startNotify() {
         super.startNotify()
-        try {
-            notifyBeginResults()
-            pooled_thread { query.run() }.execute { results ->
-                try {
-                    results.results.forEach { result -> notifyResult(result) }
-                    notifyEndResults()
-                    notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
-                } catch (e: Throwable) {
+
+        notifyBeginResults()
+        executeOnPooledThread {
+            try {
+                val results = query.run()
+                invokeLater(ModalityState.defaultModalityState()) {
+                    try {
+                        results.results.forEach { result -> notifyResult(result) }
+                        notifyEndResults()
+                        notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
+                    } catch (e: Throwable) {
+                        notifyEndResults()
+                        notifyException(e)
+                    } finally {
+                        notifyProcessDetached()
+                    }
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.defaultModalityState()) {
                     notifyEndResults()
                     notifyException(e)
-                } finally {
                     notifyProcessDetached()
                 }
-            }.onException { e ->
-                notifyEndResults()
-                notifyException(e)
-                notifyProcessDetached()
             }
-        } catch (e: Throwable) {
-            notifyEndResults()
-            notifyException(e)
-            notifyProcessDetached()
         }
     }
 }
