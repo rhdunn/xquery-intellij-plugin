@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.lang.Language
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
@@ -143,13 +146,23 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun populateServerUI() {
         val settings = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings? ?: return
-        pooled_thread { settings.session.servers }.execute { servers ->
+        executeOnPooledThread {
             val server = server!!
-            val current = server.selectedItem
-            server.removeAllItems()
-            server.addItem(null)
-            servers.forEach { name -> server.addItem(name) }
-            server.selectedItem = current
+            try {
+                val servers = settings.session.servers
+                invokeLater(ModalityState.any()) {
+                    val current = server.selectedItem
+                    server.removeAllItems()
+                    server.addItem(null)
+                    servers.forEach { name -> server.addItem(name) }
+                    server.selectedItem = current
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    server.removeAllItems()
+                    server.addItem(null)
+                }
+            }
         }
     }
 
