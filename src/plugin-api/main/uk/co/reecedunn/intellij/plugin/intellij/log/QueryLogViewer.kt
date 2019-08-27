@@ -17,12 +17,15 @@ package uk.co.reecedunn.intellij.plugin.intellij.log
 
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
@@ -93,10 +96,19 @@ class QueryLogViewerUI(val project: Project) {
             null
         }
         if (session is LogViewProvider) {
-            pooled_thread { session.logs() }.execute { logs ->
-                logFile?.removeAllItems()
-                logs.forEach { logFile?.addItem(it) }
-            }.onException { logFile?.removeAllItems() }
+            executeOnPooledThread {
+                try {
+                    val logs = session.logs()
+                    invokeLater(ModalityState.any()) {
+                        logFile?.removeAllItems()
+                        logs.forEach { logFile?.addItem(it) }
+                    }
+                } catch (e: Throwable) {
+                    invokeLater(ModalityState.any()) {
+                        logFile?.removeAllItems()
+                    }
+                }
+            }
         } else {
             logFile?.removeAllItems()
         }
