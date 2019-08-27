@@ -29,6 +29,7 @@ class QueryProcessorSettingsModel : DefaultComboBoxModel<QueryProcessorSettingsW
     }
 
     fun updateElement(item: QueryProcessorSettingsWithVersionCache) {
+        if (item.version != null) return
         pooled_thread { item.settings.session.version }
             .execute { version ->
                 val index = getIndexOf(item)
