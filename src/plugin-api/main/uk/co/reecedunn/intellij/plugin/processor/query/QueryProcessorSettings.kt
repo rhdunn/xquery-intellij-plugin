@@ -118,7 +118,6 @@ fun List<QueryProcessorSettings>.addToModel(
         if (processor.connection != null || !serversOnly) {
             val settings = QueryProcessorSettingsWithVersionCache(processor)
             model.addElement(settings)
-            model.calculateVersion(settings)
         }
     }
 }

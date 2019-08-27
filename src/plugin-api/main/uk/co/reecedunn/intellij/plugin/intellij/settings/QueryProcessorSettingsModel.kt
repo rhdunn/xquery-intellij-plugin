@@ -23,7 +23,12 @@ import javax.swing.DefaultComboBoxModel
 import javax.swing.JList
 
 class QueryProcessorSettingsModel : DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>() {
-    fun calculateVersion(item: QueryProcessorSettingsWithVersionCache) {
+    override fun addElement(item: QueryProcessorSettingsWithVersionCache?) {
+        super.addElement(item)
+        item?.let { updateElement(it) }
+    }
+
+    fun updateElement(item: QueryProcessorSettingsWithVersionCache) {
         pooled_thread { item.settings.session.version }
             .execute { version ->
                 val index = getIndexOf(item)

@@ -79,7 +79,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                         val settings = QueryProcessorSettingsWithVersionCache(item)
                         queryProcessor!!.childComponent.addItem(settings)
                         QueryProcessors.getInstance().addProcessor(item)
-                        model.calculateVersion(settings)
                     }
                 }
 
@@ -88,7 +87,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.edit(item.settings)) {
                         QueryProcessors.getInstance().setProcessor(index, item.settings)
-                        model.calculateVersion(item)
+                        model.updateElement(item)
                     }
                 }
 
