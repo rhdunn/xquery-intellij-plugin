@@ -89,27 +89,19 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFiles() {
-        val session = try {
-            (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
-        } catch (e: Exception) {
-            null
-        }
-        if (session is LogViewProvider) {
-            executeOnPooledThread {
-                try {
-                    val logs = session.logs()
-                    invokeLater(ModalityState.any()) {
-                        logFile?.removeAllItems()
-                        logs.forEach { logFile?.addItem(it) }
-                    }
-                } catch (e: Throwable) {
-                    invokeLater(ModalityState.any()) {
-                        logFile?.removeAllItems()
-                    }
+        val settings = queryProcessor?.selectedItem as? QueryProcessorSettings?
+        executeOnPooledThread {
+            try {
+                val logs = (settings?.session as? LogViewProvider)?.logs()
+                invokeLater(ModalityState.any()) {
+                    logFile?.removeAllItems()
+                    logs?.forEach { logFile?.addItem(it) }
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    logFile?.removeAllItems()
                 }
             }
-        } else {
-            logFile?.removeAllItems()
         }
     }
 
