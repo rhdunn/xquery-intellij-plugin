@@ -26,7 +26,6 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -138,25 +137,34 @@ class QueryLogViewerUI(val project: Project) {
         if (session is LogViewProvider) {
             val logFile = logFile?.selectedItem as? String
             if (logFile != null) {
-                pooled_thread { session.log(logFile) }.execute { log ->
-                    val offset = logConsole!!.offset
-                    val isAtEnd = offset == logConsole!!.contentSize
+                executeOnPooledThread {
+                    try {
+                        val log = session.log(logFile)
+                        invokeLater(ModalityState.any()) {
+                            val offset = logConsole!!.offset
+                            val isAtEnd = offset == logConsole!!.contentSize
 
-                    if (lines == -1) {
-                        logConsole?.clear()
-                    }
-                    log.withIndex().forEach { line ->
-                        if (line.index > lines) {
-                            logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
-                            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-                            lines = line.index
+                            if (lines == -1) {
+                                logConsole?.clear()
+                            }
+                            log.withIndex().forEach { line ->
+                                if (line.index > lines) {
+                                    logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
+                                    logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                                    lines = line.index
+                                }
+                            }
+
+                            if (isAtEnd) {
+                                logConsole?.scrollTo(logConsole!!.contentSize)
+                            }
+                        }
+                    } catch (e: Throwable) {
+                        invokeLater(ModalityState.any()) {
+                            logConsole?.clear()
                         }
                     }
-
-                    if (isAtEnd) {
-                        logConsole?.scrollTo(logConsole!!.contentSize)
-                    }
-                }.onException { logConsole?.clear() }
+                }
             }
         } else {
             logConsole?.clear()
