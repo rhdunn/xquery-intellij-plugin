@@ -66,7 +66,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun createQueryProcessorUI() {
         val model = DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>()
-        QueryProcessors.getInstance().processors.addToModel(model)
+        QueryProcessors.getInstance().processors.addToModel(model) {
+            queryProcessor!!.repaint()
+        }
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {
@@ -78,7 +80,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                         val settings = QueryProcessorSettingsWithVersionCache(item)
                         queryProcessor!!.childComponent.addItem(settings)
                         QueryProcessors.getInstance().addProcessor(item)
-                        settings.calculateVersion()
+                        settings.calculateVersion {
+                            queryProcessor!!.childComponent.repaint()
+                        }
                     }
                 }
 
@@ -87,7 +91,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.edit(item.settings)) {
                         QueryProcessors.getInstance().setProcessor(index, item.settings)
-                        item.calculateVersion()
+                        item.calculateVersion {
+                            queryProcessor!!.childComponent.repaint()
+                        }
                     }
                 }
 

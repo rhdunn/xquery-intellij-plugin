@@ -69,7 +69,9 @@ class QueryLogViewerUI(val project: Project) {
             populateLogFiles()
         }
 
-        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
+        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true) {
+            queryProcessor!!.repaint()
+        }
     }
 
     // endregion

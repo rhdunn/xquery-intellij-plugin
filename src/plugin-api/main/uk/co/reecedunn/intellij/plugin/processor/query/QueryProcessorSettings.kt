@@ -107,27 +107,36 @@ class QueryProcessorSettings : Closeable {
 class QueryProcessorSettingsWithVersionCache(val settings: QueryProcessorSettings) {
     var version: Any? = null
 
-    fun calculateVersion() {
-        try {
-            val session = settings.session
-            pooled_thread { session.version }
-                .execute { version -> this.version = version }
-                .onException { e -> this.version = e }
-        } catch (e: Throwable) {
-            this.version = e
-        }
+    fun calculateVersion(onupdate: () -> Unit) {
+        pooled_thread { settings.session.version }
+            .execute { version ->
+                this.version = version
+                onupdate()
+            }
+            .onException { e ->
+                this.version = e
+                onupdate()
+            }
     }
 }
 
 fun List<QueryProcessorSettings>.addToModel(
     model: DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>,
-    serversOnly: Boolean = false
+    onupdate: () -> Unit
+) {
+    addToModel(model, false, onupdate)
+}
+
+fun List<QueryProcessorSettings>.addToModel(
+    model: DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>,
+    serversOnly: Boolean,
+    onupdate: () -> Unit
 ) {
     forEach { processor ->
         if (processor.connection != null || !serversOnly) {
             val settings = QueryProcessorSettingsWithVersionCache(processor)
             model.addElement(settings)
-            settings.calculateVersion()
+            settings.calculateVersion(onupdate)
         }
     }
 }
