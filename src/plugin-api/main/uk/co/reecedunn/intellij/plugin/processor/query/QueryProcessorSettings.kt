@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import java.io.Closeable
 import java.io.FileInputStream
