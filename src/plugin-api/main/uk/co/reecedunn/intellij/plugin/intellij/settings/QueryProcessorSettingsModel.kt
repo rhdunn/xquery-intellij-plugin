@@ -15,13 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
-import com.intellij.ui.ColoredListCellRenderer
-import com.intellij.ui.SimpleTextAttributes
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import javax.swing.DefaultComboBoxModel
-import javax.swing.JList
 
 class QueryProcessorSettingsModel : DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>() {
     override fun addElement(item: QueryProcessorSettingsWithVersionCache?) {
@@ -31,20 +29,20 @@ class QueryProcessorSettingsModel : DefaultComboBoxModel<QueryProcessorSettingsW
 
     fun updateElement(item: QueryProcessorSettingsWithVersionCache) {
         if (item.version != null) return
-        ApplicationManager.getApplication().executeOnPooledThread {
+        executeOnPooledThread {
             try {
                 val version = item.settings.session.version
-                ApplicationManager.getApplication().invokeLater({
+                invokeLater(ModalityState.any()) {
                     val index = getIndexOf(item)
                     item.version = version
                     fireContentsChanged(item, index, index)
-                }, ModalityState.any())
+                }
             } catch (e: Throwable) {
-                ApplicationManager.getApplication().invokeLater({
+                invokeLater(ModalityState.any()) {
                     val index = getIndexOf(item)
                     item.version = e
                     fireContentsChanged(item, index, index)
-                }, ModalityState.any())
+                }
             }
         }
     }
