@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
@@ -61,7 +62,7 @@ class QueryLogViewerUI(val project: Project) {
     private var queryProcessor: JComboBox<QueryProcessorSettingsWithVersionCache>? = null
 
     private fun createQueryProcessorUI() {
-        val model = DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>()
+        val model = QueryProcessorSettingsModel()
         queryProcessor = ComboBox(model)
 
         queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
@@ -69,9 +70,7 @@ class QueryLogViewerUI(val project: Project) {
             populateLogFiles()
         }
 
-        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true) {
-            queryProcessor!!.repaint()
-        }
+        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
     }
 
     // endregion

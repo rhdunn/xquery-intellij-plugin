@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
@@ -65,10 +66,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>? = null
 
     private fun createQueryProcessorUI() {
-        val model = DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>()
-        QueryProcessors.getInstance().processors.addToModel(model) {
-            queryProcessor!!.repaint()
-        }
+        val model = QueryProcessorSettingsModel()
+        QueryProcessors.getInstance().processors.addToModel(model)
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {
@@ -80,9 +79,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                         val settings = QueryProcessorSettingsWithVersionCache(item)
                         queryProcessor!!.childComponent.addItem(settings)
                         QueryProcessors.getInstance().addProcessor(item)
-                        settings.calculateVersion {
-                            queryProcessor!!.childComponent.repaint()
-                        }
+                        model.calculateVersion(settings)
                     }
                 }
 
@@ -91,9 +88,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.edit(item.settings)) {
                         QueryProcessors.getInstance().setProcessor(index, item.settings)
-                        item.calculateVersion {
-                            queryProcessor!!.childComponent.repaint()
-                        }
+                        model.calculateVersion(item)
                     }
                 }
 

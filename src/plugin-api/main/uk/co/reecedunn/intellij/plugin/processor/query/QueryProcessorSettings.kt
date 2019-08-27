@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import java.io.Closeable
 import java.io.FileInputStream
 import java.io.InputStream
@@ -104,39 +105,20 @@ class QueryProcessorSettings : Closeable {
     }
 }
 
-class QueryProcessorSettingsWithVersionCache(val settings: QueryProcessorSettings) {
+data class QueryProcessorSettingsWithVersionCache(
+    val settings: QueryProcessorSettings,
     var version: Any? = null
-
-    fun calculateVersion(onupdate: () -> Unit) {
-        pooled_thread { settings.session.version }
-            .execute { version ->
-                this.version = version
-                onupdate()
-            }
-            .onException { e ->
-                this.version = e
-                onupdate()
-            }
-    }
-}
+)
 
 fun List<QueryProcessorSettings>.addToModel(
-    model: DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>,
-    onupdate: () -> Unit
-) {
-    addToModel(model, false, onupdate)
-}
-
-fun List<QueryProcessorSettings>.addToModel(
-    model: DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>,
-    serversOnly: Boolean,
-    onupdate: () -> Unit
+    model: QueryProcessorSettingsModel,
+    serversOnly: Boolean = false
 ) {
     forEach { processor ->
         if (processor.connection != null || !serversOnly) {
             val settings = QueryProcessorSettingsWithVersionCache(processor)
             model.addElement(settings)
-            settings.calculateVersion(onupdate)
+            model.calculateVersion(settings)
         }
     }
 }
