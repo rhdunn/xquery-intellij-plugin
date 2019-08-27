@@ -5,6 +5,8 @@
 Run Configurations:
 
 1.  Improve the error handling and reporting when connecting to BaseX servers.
+1.  Improve responsiveness when populating the query processor list, especially
+    for servers that are not responding.
 
 ## 1.5.1 - 2019-08-01
 

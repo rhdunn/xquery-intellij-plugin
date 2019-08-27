@@ -121,45 +121,39 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFile() {
-        val session = try {
-            (queryProcessor?.selectedItem as? QueryProcessorSettings?)?.session
-        } catch (e: Exception) {
-            null
-        }
-        if (session is LogViewProvider) {
-            val logFile = logFile?.selectedItem as? String
-            if (logFile != null) {
-                executeOnPooledThread {
-                    try {
-                        val log = session.log(logFile)
-                        invokeLater(ModalityState.any()) {
-                            val offset = logConsole!!.offset
-                            val isAtEnd = offset == logConsole!!.contentSize
+        val settings = queryProcessor?.selectedItem as? QueryProcessorSettings?
+        val logFile = logFile?.selectedItem as? String
+        executeOnPooledThread {
+            try {
+                val log = logFile?.let { (settings?.session as? LogViewProvider)?.log(logFile) }
+                invokeLater(ModalityState.any()) {
+                    if (log != null) {
+                        val offset = logConsole!!.offset
+                        val isAtEnd = offset == logConsole!!.contentSize
 
-                            if (lines == -1) {
-                                logConsole?.clear()
-                            }
-                            log.withIndex().forEach { line ->
-                                if (line.index > lines) {
-                                    logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
-                                    logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-                                    lines = line.index
-                                }
-                            }
-
-                            if (isAtEnd) {
-                                logConsole?.scrollTo(logConsole!!.contentSize)
-                            }
-                        }
-                    } catch (e: Throwable) {
-                        invokeLater(ModalityState.any()) {
+                        if (lines == -1) {
                             logConsole?.clear()
                         }
+                        log.withIndex().forEach { line ->
+                            if (line.index > lines) {
+                                logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
+                                logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                                lines = line.index
+                            }
+                        }
+
+                        if (isAtEnd) {
+                            logConsole?.scrollTo(logConsole!!.contentSize)
+                        }
+                    } else {
+                        logConsole?.clear()
                     }
                 }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    logConsole?.clear()
+                }
             }
-        } else {
-            logConsole?.clear()
         }
     }
 

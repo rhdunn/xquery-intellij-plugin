@@ -46,6 +46,7 @@
     <p>Run Configurations:</p>
     <ol>
       <li>Improve the error handling and reporting when connecting to BaseX servers.</li>
+      <li>Improve responsiveness when populating the query processor list, especially for servers that are not responding.</li>
     </ol>
   ]]></change-notes>
 
