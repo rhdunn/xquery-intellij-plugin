@@ -25,7 +25,6 @@ import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
@@ -193,13 +192,23 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun populateDatabaseUI() {
         val settings = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings? ?: return
-        pooled_thread { settings.session.databases }.execute { databases ->
+        executeOnPooledThread {
             val database = database!!
-            val current = database.selectedItem
-            database.removeAllItems()
-            database.addItem(null)
-            databases.forEach { name -> database.addItem(name) }
-            database.selectedItem = current
+            try {
+                val databases = settings.session.databases
+                invokeLater(ModalityState.any()) {
+                    val current = database.selectedItem
+                    database.removeAllItems()
+                    database.addItem(null)
+                    databases.forEach { name -> database.addItem(name) }
+                    database.selectedItem = current
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    database.removeAllItems()
+                    database.addItem(null)
+                }
+            }
         }
     }
 
