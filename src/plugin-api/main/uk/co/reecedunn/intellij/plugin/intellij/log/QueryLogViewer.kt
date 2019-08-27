@@ -89,7 +89,7 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFiles() {
-        val settings = queryProcessor?.selectedItem as? QueryProcessorSettings?
+        val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
         executeOnPooledThread {
             try {
                 val logs = (settings?.session as? LogViewProvider)?.logs()
@@ -121,7 +121,7 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFile() {
-        val settings = queryProcessor?.selectedItem as? QueryProcessorSettings?
+        val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
         val logFile = logFile?.selectedItem as? String
         executeOnPooledThread {
             try {
