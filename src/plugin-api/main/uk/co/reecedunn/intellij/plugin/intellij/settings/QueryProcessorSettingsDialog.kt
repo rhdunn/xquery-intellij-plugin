@@ -23,7 +23,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.ColoredListCellRenderer
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -43,12 +44,19 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
 
         val settings = QueryProcessorSettings()
         editor.apply(settings)
-        pooled_thread { settings.session.version }
-            .execute(ModalityState.any()) { onvalidate(true) }
-            .onException { e ->
-                editor.onerror(e.toQueryUserMessage())
-                onvalidate(false)
+        executeOnPooledThread {
+            try {
+                settings.session.version
+                invokeLater(ModalityState.any()) {
+                    onvalidate(true)
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    editor.onerror(e.toQueryUserMessage())
+                    onvalidate(false)
+                }
             }
+        }
     }
 
     override fun createSettingsUI(): SettingsUI<QueryProcessorSettings> {
