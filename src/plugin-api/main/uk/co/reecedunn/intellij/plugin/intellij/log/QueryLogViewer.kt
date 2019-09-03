@@ -83,8 +83,7 @@ class QueryLogViewerUI(val project: Project) {
     private fun createLogFileUI() {
         logFile = ComboBox()
         logFile!!.addActionListener {
-            lines = -1
-            populateLogFile()
+            populateLogFile(reloadLogFile = true)
         }
     }
 
@@ -105,9 +104,7 @@ class QueryLogViewerUI(val project: Project) {
                         }
                     }
                     updatingLogList = false
-
-                    lines = -1
-                    populateLogFile()
+                    populateLogFile(reloadLogFile = true)
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
@@ -133,7 +130,7 @@ class QueryLogViewerUI(val project: Project) {
         logConsole?.createActionToolbar(ActionPlaces.UNKNOWN)
     }
 
-    private fun populateLogFile() {
+    private fun populateLogFile(reloadLogFile: Boolean) {
         if (updatingLogList) return
 
         val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
@@ -146,9 +143,11 @@ class QueryLogViewerUI(val project: Project) {
                         val offset = logConsole!!.offset
                         val isAtEnd = offset == logConsole!!.contentSize
 
-                        if (lines == -1) {
+                        if (reloadLogFile) {
+                            lines = -1
                             logConsole?.clear()
                         }
+
                         log.withIndex().forEach { line ->
                             if (line.index > lines) {
                                 logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
