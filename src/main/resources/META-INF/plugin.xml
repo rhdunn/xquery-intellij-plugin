@@ -48,6 +48,11 @@
       <li>Improve the error handling and reporting when connecting to BaseX servers.</li>
       <li>Improve responsiveness when populating the query processor list, especially for servers that are not responding.</li>
     </ol>
+    <p>Log Viewer:</p>
+    <ol>
+      <li>When selecting a BaseX processor, default to the last (most recent) log file.</li>
+      <li>When selecting a MarkLogic processor, default to the `ErrorLog.txt` log file.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

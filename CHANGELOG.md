@@ -8,6 +8,11 @@ Run Configurations:
 1.  Improve responsiveness when populating the query processor list, especially
     for servers that are not responding.
 
+Log Viewer:
+
+1.  When selecting a BaseX processor, default to the last (most recent) log file.
+1.  When selecting a MarkLogic processor, default to the `ErrorLog.txt` log file.
+
 ## 1.5.1 - 2019-08-01
 
 References, Resolving and Find Usages:

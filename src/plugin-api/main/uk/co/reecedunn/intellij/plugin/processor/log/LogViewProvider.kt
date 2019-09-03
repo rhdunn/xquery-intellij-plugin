@@ -21,4 +21,6 @@ interface LogViewProvider : QueryProcessor {
     fun logs(): List<String>
 
     fun log(name: String): List<String>
+
+    fun defaultLogFile(logs: List<String>): String?
 }

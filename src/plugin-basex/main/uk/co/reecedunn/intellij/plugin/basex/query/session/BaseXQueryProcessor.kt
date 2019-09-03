@@ -64,6 +64,10 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
         }
     }
 
+    override fun defaultLogFile(logs: List<String>): String? {
+        return logs.lastOrNull()
+    }
+
     override fun close() {
         session.close()
     }

@@ -92,10 +92,17 @@ class QueryLogViewerUI(val project: Project) {
         val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
         executeOnPooledThread {
             try {
-                val logs = (settings?.session as? LogViewProvider)?.logs()
+                val logViewProvider = (settings?.session as? LogViewProvider)
+                val logs = logViewProvider?.logs()
+                val defaultLog = logs?.let { logViewProvider.defaultLogFile(logs) }
                 invokeLater(ModalityState.any()) {
                     logFile?.removeAllItems()
-                    logs?.forEach { logFile?.addItem(it) }
+                    logs?.forEach {
+                        logFile?.addItem(it)
+                        if (it == defaultLog) {
+                            logFile?.selectedItem = it
+                        }
+                    }
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {

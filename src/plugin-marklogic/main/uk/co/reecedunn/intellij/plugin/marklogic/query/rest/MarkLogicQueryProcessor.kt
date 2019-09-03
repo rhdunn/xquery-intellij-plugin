@@ -109,5 +109,7 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
         }
     }
 
+    override fun defaultLogFile(logs: List<String>): String? = "ErrorLog.txt"
+
     override fun close() = connection.close()
 }
