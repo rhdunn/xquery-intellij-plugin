@@ -96,6 +96,7 @@ class QueryLogViewerUI(val project: Project) {
                 val logs = logViewProvider?.logs()
                 val defaultLog = logs?.let { logViewProvider.defaultLogFile(logs) }
                 invokeLater(ModalityState.any()) {
+                    updatingLogList = true
                     logFile?.removeAllItems()
                     logs?.forEach {
                         logFile?.addItem(it)
@@ -103,6 +104,10 @@ class QueryLogViewerUI(val project: Project) {
                             logFile?.selectedItem = it
                         }
                     }
+                    updatingLogList = false
+
+                    lines = -1
+                    populateLogFile()
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
@@ -118,6 +123,7 @@ class QueryLogViewerUI(val project: Project) {
     private var logConsole: ConsoleViewEx? = null
     private var logView: JComponent? = null
     private var lines: Int = -1
+    private var updatingLogList: Boolean = false
 
     private fun createConsoleEditor() {
         logConsole = TextConsoleView(project)
@@ -128,6 +134,8 @@ class QueryLogViewerUI(val project: Project) {
     }
 
     private fun populateLogFile() {
+        if (updatingLogList) return
+
         val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
         val logFile = logFile?.selectedItem as? String
         executeOnPooledThread {
