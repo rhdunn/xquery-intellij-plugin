@@ -109,7 +109,12 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
         }
     }
 
-    override fun defaultLogFile(logs: List<String>): String? = "ErrorLog.txt"
+    override fun defaultLogFile(logs: List<String>): String? {
+        return if (logs.contains("ErrorLog.txt"))
+            "ErrorLog.txt" // The log has not rolled over.
+        else
+            "ErrorLog_1.txt" // The log has rolled over, and no new log entries have been added.
+    }
 
     override fun close() = connection.close()
 }
