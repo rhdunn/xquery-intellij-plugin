@@ -71,7 +71,7 @@ object XPathKindTestFilter : CompletionFilter {
             when (it) {
                 is XPathAtomicOrUnionType, // KindTest as ItemType without '()'
                 is XPathNodeTest -> { // KindTest as NodeTest
-                    (element.parent as XsQNameValue).isPrefixOrNCName(element)
+                    (element.parent as? XsQNameValue)?.isPrefixOrNCName(element) == true
                 }
                 is XPathFunctionCall -> { // Unknown KindTest with '()'
                     val fn = it as XPathFunctionReference

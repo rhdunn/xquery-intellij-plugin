@@ -589,6 +589,26 @@ private class XQueryCompletionFilterTest : ParserTestCase() {
                 assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
+        internal inner class NamedMapNodeTest {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
+            fun sequenceType() {
+                val context = ProcessingContext()
+                val element = completion("2 instance of object-node(\"completion-point\")")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (118) NodeTest")
+            fun nodeTest() {
+                val context = ProcessingContext()
+                val element = completion("()/object-node(\"completion-point\")")
+                assertThat(XPathKindTestFilter.accepts(element, context), `is`(false))
+            }
+        }
     }
 
     @Nested

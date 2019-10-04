@@ -2,6 +2,11 @@
 
 ## 1.6 - (In Development)
 
+Code Completion:
+
+1.  Don't crash when editing a `StringLiteral` inside an `NodeType` expression, e.g. using MarkLogic's
+    `object-node("...")`.
+
 Run Configurations:
 
 1.  Improve the error handling and reporting when connecting to BaseX servers.
