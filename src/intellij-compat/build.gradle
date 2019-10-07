@@ -1,6 +1,9 @@
 version = project.property('idea_since_build').toInteger()
 
-if (version >= 192) {
+if (version >= 193) {
+    sourceSets.main.java.srcDirs += '193'
+}
+else if (version >= 192) {
     sourceSets.main.java.srcDirs += '192'
 }
 else if (version >= 191) {
