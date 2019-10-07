@@ -25,7 +25,6 @@ import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageManagerImpl
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
@@ -34,7 +33,6 @@ import com.intellij.psi.xml.XmlTag
 import com.intellij.semantic.SemContributor
 import com.intellij.semantic.SemContributorEP
 import com.intellij.semantic.SemService
-import com.intellij.semantic.SemServiceImpl
 import com.intellij.util.xml.*
 import com.intellij.util.xml.impl.DomApplicationComponent
 import com.intellij.util.xml.impl.DomImplementationClassEP
@@ -44,6 +42,7 @@ import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.compat.semantic.SemServiceImpl
 import uk.co.reecedunn.compat.vfs.VirtualFileManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
@@ -88,7 +87,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         // IntelliJ >= 2019.1 places SemContributor on the application.
         registerExtensionPoint(SemContributor.EP_NAME, SemContributorEP::class.java)
 
-        registerApplicationService(SemService::class.java, SemServiceImpl(myProject, PsiManager.getInstance(myProject)))
+        registerApplicationService(SemService::class.java, SemServiceImpl(myProject))
 
         registerSemContributor("com.intellij.util.xml.impl.DomSemContributor")
 
