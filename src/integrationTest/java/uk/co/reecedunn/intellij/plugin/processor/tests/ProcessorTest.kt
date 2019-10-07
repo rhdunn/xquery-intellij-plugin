@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.tests
 
-import com.intellij.credentialStore.PasswordSafeSettings
 import com.intellij.ide.passwordSafe.PasswordSafe
-import com.intellij.ide.passwordSafe.impl.PasswordSafeImpl
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.vfs.CharsetToolkit
@@ -27,6 +25,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.junit.Assume
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.compat.ide.passwordSafe.impl.createPasswordSafe
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
@@ -57,7 +56,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         initApplication()
         Extensions.registerAreaClass("IDEA_PROJECT", null)
         myProject = MockProjectEx(testRootDisposable)
-        registerApplicationService(PasswordSafe::class.java, PasswordSafeImpl(PasswordSafeSettings()))
+        registerApplicationService(PasswordSafe::class.java, createPasswordSafe())
 
         registerExtensionPoint(QueryProcessorApi.QUERY_PROCESSOR_API_EP, QueryProcessorApi::class.java)
         registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, BaseXSession)
