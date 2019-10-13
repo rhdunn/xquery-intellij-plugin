@@ -94,8 +94,8 @@ abstract class ParsingTestCase<File : PsiFile>(
         super.setUp()
 
         // IntelliJ ParsingTestCase setUp
-        initApplication()
-        val appContainer = getApplication().picoContainer
+        val app = initApplication()
+        val appContainer = app.picoContainer
 
         val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
         if (component == null) {
@@ -116,7 +116,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProjectEx = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
-        registerComponentInstance(appContainer, MessageBus::class.java, getApplication().messageBus)
+        registerComponentInstance(appContainer, MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
         registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
         registerApplicationService(CommandProcessor::class.java, CoreCommandProcessor())
