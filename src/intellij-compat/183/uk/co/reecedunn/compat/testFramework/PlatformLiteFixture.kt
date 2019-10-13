@@ -30,8 +30,6 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
-import com.intellij.openapi.vfs.encoding.EncodingManager
-import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.testFramework.PlatformTestUtil
 import com.intellij.testFramework.UsefulTestCase
 import org.picocontainer.MutablePicoContainer
@@ -58,7 +56,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     fun initApplication(): MockApplicationEx {
         val app = MockApplicationEx(testRootDisposable)
         ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
-        app.registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
         Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
         return app
     }

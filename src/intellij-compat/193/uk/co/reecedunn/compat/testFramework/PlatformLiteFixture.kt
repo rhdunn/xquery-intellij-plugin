@@ -29,8 +29,6 @@ import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.Getter
-import com.intellij.openapi.vfs.encoding.EncodingManager
-import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.testFramework.UsefulTestCase
 import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier

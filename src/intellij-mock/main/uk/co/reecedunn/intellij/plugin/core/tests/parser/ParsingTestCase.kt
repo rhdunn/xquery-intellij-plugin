@@ -44,6 +44,8 @@ import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.encoding.EncodingManager
+import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.pom.PomModel
 import com.intellij.pom.core.impl.PomModelImpl
 import com.intellij.pom.tree.TreeAspect
@@ -104,7 +106,8 @@ abstract class ParsingTestCase<File : PsiFile>(
         mFileFactory = PsiFileFactoryImpl(psiManager)
         registerComponentInstance(appContainer, MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
-        registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
+        app.registerService(EditorFactory::class.java, editorFactory)
+        app.registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
         registerApplicationService(CommandProcessor::class.java, CoreCommandProcessor())
         app.registerService(
             FileDocumentManager::class.java,
