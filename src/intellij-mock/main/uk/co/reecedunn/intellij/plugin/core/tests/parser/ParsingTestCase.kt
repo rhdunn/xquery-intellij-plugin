@@ -106,8 +106,8 @@ abstract class ParsingTestCase<File : PsiFile>(
         val editorFactory = MockEditorFactoryEx()
         registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
         registerApplicationService(CommandProcessor::class.java, CoreCommandProcessor())
-        registerComponentInstance(
-            appContainer, FileDocumentManager::class.java,
+        app.registerService(
+            FileDocumentManager::class.java,
             MockFileDocumentManagerImpl(
                 { editorFactory.createDocument(it) }, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY
             )
