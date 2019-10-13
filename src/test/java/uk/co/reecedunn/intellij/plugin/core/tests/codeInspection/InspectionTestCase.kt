@@ -48,7 +48,7 @@ abstract class InspectionTestCase :
         super.setUp()
 
         myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
-        registerApplicationService(SmartPointerManager::class.java, MockSmartPointerManager())
+        myProject.registerService(SmartPointerManager::class.java, MockSmartPointerManager())
         myProject.registerService(InspectionManager::class.java, InspectionManagerEx(myProject))
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
