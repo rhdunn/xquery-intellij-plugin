@@ -37,14 +37,13 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     protected var myProjectEx: MockProjectEx? = null
     protected val myProject: MockProjectEx get() = myProjectEx!!
 
-    fun getApplication(): MockApplication {
-        return ApplicationManager.getApplication() as MockApplication
-    }
+    private var myApp: MockApplication? = null
+
+    fun getApplication(): MockApplication = myApp!!
 
     fun initApplication(): MockApplication {
-        val app = MockApplication(testRootDisposable)
-        ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
-        app.registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
+        val app = MockApplication.setUp(testRootDisposable)
+        myApp = app
         return app
     }
 
