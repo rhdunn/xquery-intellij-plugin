@@ -142,7 +142,7 @@ abstract class ParsingTestCase<File : PsiFile>(
                     loadFileTypeSafe("com.intellij.ide.highlighter.XmlFileType", "XML")
                 else
                     MockLanguageFileType(language!!, mFileExt)
-            registerComponentInstance(appContainer, FileTypeManager::class.java, MockFileTypeManager(fileType))
+            app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
         }
 
         // That's for reparse routines
