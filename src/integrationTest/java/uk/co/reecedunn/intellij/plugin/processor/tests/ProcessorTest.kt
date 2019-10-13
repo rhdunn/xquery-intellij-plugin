@@ -55,7 +55,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         super.setUp()
         initApplication()
         Extensions.registerAreaClass("IDEA_PROJECT", null)
-        myProject = MockProjectEx(testRootDisposable)
+        myProjectEx = MockProjectEx(testRootDisposable)
         registerApplicationService(PasswordSafe::class.java, createPasswordSafe())
 
         registerExtensionPoint(QueryProcessorApi.QUERY_PROCESSOR_API_EP, QueryProcessorApi::class.java)

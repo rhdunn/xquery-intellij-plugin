@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019 Reece H. Dunn
+ * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +17,105 @@
 package uk.co.reecedunn.compat.testFramework
 
 import com.intellij.mock.MockApplicationEx
+import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.ComponentManager
+import com.intellij.openapi.extensions.ExtensionPoint
+import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.extensions.ExtensionsArea
+import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.Getter
+import com.intellij.openapi.vfs.encoding.EncodingManager
+import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
+import com.intellij.testFramework.PlatformTestUtil
+import com.intellij.testFramework.UsefulTestCase
 import org.picocontainer.MutablePicoContainer
+import java.lang.reflect.Modifier
 
-// IntelliJ >= 2019.2 adds registerApplicationService.
-abstract class PlatformLiteFixture : com.intellij.testFramework.PlatformLiteFixture() {
-    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        getApplication().registerService(aClass, `object`)
-        Disposer.register(myProject, com.intellij.openapi.Disposable {
-            getApplication().picoContainer.unregisterComponent(aClass.name)
-        })
+abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
+    protected var myProjectEx: MockProjectEx? = null
+    protected val myProject: MockProjectEx get() = myProjectEx!!
+
+    @Throws(Exception::class)
+    override fun setUp() {
+        super.setUp()
+        Extensions.cleanRootArea(testRootDisposable)
     }
 
-    companion object {
-        fun getApplication(): MockApplicationEx = com.intellij.testFramework.PlatformLiteFixture.getApplication()
+    fun getApplication(): MockApplicationEx {
+        return ApplicationManager.getApplication() as MockApplicationEx
+    }
 
-        fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T) {
-            com.intellij.testFramework.PlatformLiteFixture.registerComponentInstance(container, key, implementation)
+    fun initApplication() {
+        val instance = MockApplicationEx(testRootDisposable)
+        ApplicationManager.setApplication(instance, Getter { FileTypeManager.getInstance() }, testRootDisposable)
+        getApplication().registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
+    }
+
+    @Throws(Exception::class)
+    override fun tearDown() {
+        myProjectEx = null
+        try {
+            super.tearDown()
+        } finally {
+            UsefulTestCase.clearFields(this)
         }
+    }
+
+    protected fun <T: Any> registerExtension(extensionPointName: ExtensionPointName<T>, t: T) {
+        registerExtension(Extensions.getRootArea(), extensionPointName, t)
+    }
+
+    fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, t: T) {
+        registerExtensionPoint(area, name, t.javaClass)
+        PlatformTestUtil.registerExtension(area, name, t, testRootDisposable)
+    }
+
+    protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
+        registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
+    }
+
+    protected open fun <T> registerExtensionPoint(
+        area: ExtensionsArea,
+        extensionPointName: ExtensionPointName<T>,
+        aClass: Class<out T>
+    ) {
+        if (!area.hasExtensionPoint(extensionPointName)) {
+            val kind =
+                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0) ExtensionPoint.Kind.INTERFACE else ExtensionPoint.Kind.BEAN_CLASS
+            area.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
+        }
+    }
+
+    protected fun registerComponentImplementation(
+        container: MutablePicoContainer,
+        key: Class<*>,
+        implementation: Class<*>
+    ) {
+        container.unregisterComponent(key)
+        container.registerComponentImplementation(key, implementation)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T): T {
+        val old = container.getComponentInstance(key)
+        container.unregisterComponent(key)
+        container.registerComponentInstance(key, implementation)
+
+        return old as T
+    }
+
+    fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
+        return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
+    }
+
+    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
+        getApplication().registerService(aClass, `object`)
+        Disposer.register(testRootDisposable, Disposable {
+            getApplication().picoContainer.unregisterComponent(aClass.name)
+        })
     }
 }
