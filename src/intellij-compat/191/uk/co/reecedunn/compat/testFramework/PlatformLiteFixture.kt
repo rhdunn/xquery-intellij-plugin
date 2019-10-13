@@ -53,6 +53,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         val app = MockApplicationEx(testRootDisposable)
         ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
         app.registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
+        Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
         return app
     }
 

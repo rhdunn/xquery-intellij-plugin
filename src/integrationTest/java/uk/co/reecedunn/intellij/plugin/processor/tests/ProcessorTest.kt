@@ -54,7 +54,6 @@ private class ProcessorTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
-        Extensions.registerAreaClass("IDEA_PROJECT", null)
         myProjectEx = MockProjectEx(testRootDisposable)
         registerApplicationService(PasswordSafe::class.java, createPasswordSafe())
 

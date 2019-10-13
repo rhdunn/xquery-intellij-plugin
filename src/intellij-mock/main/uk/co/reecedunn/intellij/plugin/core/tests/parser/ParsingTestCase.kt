@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016-2019 Reece H. Dunn
- * Copyright 2000-2016 JetBrains s.r.o.
+ * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,7 @@ abstract class ParsingTestCase<File : PsiFile>(
                 }
             })
         }
-        Extensions.registerAreaClass("IDEA_PROJECT", null)
+
         myProjectEx = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
