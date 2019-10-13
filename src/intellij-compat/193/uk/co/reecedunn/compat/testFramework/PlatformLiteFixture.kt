@@ -26,6 +26,8 @@ import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.extensions.ExtensionsArea
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.Getter
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
@@ -54,6 +56,13 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
             super.tearDown()
         } finally {
             UsefulTestCase.clearFields(this)
+        }
+    }
+
+    protected fun registerProgressManager(appContainer: MutablePicoContainer) {
+        val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
+        if (component == null) {
+            appContainer.registerComponentInstance(ProgressManager::class.java.name, ProgressManagerImpl())
         }
     }
 

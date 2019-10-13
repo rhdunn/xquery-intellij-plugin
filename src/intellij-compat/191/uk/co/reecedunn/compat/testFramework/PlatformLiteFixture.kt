@@ -26,6 +26,8 @@ import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.extensions.ExtensionsArea
 import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
 import com.intellij.openapi.vfs.encoding.EncodingManager
@@ -33,6 +35,10 @@ import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.testFramework.PlatformTestUtil
 import com.intellij.testFramework.UsefulTestCase
 import org.picocontainer.MutablePicoContainer
+import org.picocontainer.PicoContainer
+import org.picocontainer.PicoInitializationException
+import org.picocontainer.PicoIntrospectionException
+import org.picocontainer.defaults.AbstractComponentAdapter
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
@@ -64,6 +70,24 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
             super.tearDown()
         } finally {
             UsefulTestCase.clearFields(this)
+        }
+    }
+
+    protected fun registerProgressManager(appContainer: MutablePicoContainer) {
+        val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
+        if (component == null) {
+            appContainer.registerComponent(object :
+                AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
+
+                @Throws(PicoInitializationException::class, PicoIntrospectionException::class)
+                override fun getComponentInstance(container: PicoContainer): Any {
+                    return ProgressManagerImpl()
+                }
+
+                @Throws(PicoIntrospectionException::class)
+                override fun verify(container: PicoContainer) {
+                }
+            })
         }
     }
 

@@ -96,22 +96,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         // IntelliJ ParsingTestCase setUp
         val app = initApplication()
         val appContainer = app.picoContainer
-
-        val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
-        if (component == null) {
-            appContainer.registerComponent(object :
-                AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
-
-                @Throws(PicoInitializationException::class, PicoIntrospectionException::class)
-                override fun getComponentInstance(container: PicoContainer): Any {
-                    return ProgressManagerImpl()
-                }
-
-                @Throws(PicoIntrospectionException::class)
-                override fun verify(container: PicoContainer) {
-                }
-            })
-        }
+        registerProgressManager(appContainer)
 
         myProjectEx = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
