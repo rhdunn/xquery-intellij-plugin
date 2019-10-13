@@ -47,7 +47,7 @@ abstract class InspectionTestCase :
     override fun setUp() {
         super.setUp()
 
-        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         registerApplicationService(SmartPointerManager::class.java, MockSmartPointerManager())
         registerApplicationService(InspectionManager::class.java, InspectionManagerEx(myProject))
 

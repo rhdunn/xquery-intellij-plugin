@@ -43,7 +43,7 @@ abstract class AnnotatorTestCase :
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
     }
