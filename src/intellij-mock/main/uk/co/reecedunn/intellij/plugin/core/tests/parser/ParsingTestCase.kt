@@ -115,9 +115,6 @@ abstract class ParsingTestCase<File : PsiFile>(
                 { editorFactory.createDocument(it) }, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY
             )
         )
-        registerComponentInstance(
-            appContainer, PsiDocumentManager::class.java, MockPsiDocumentManagerEx()
-        )
 
         registerApplicationService(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
         registerApplicationService(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
@@ -125,6 +122,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProject.registerService(
             CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(psiManager))
         )
+        myProject.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx())
         myProject.registerService(PsiManager::class.java, psiManager)
         myProject.registerService(PsiFileFactory::class.java, mFileFactory!!)
         myProject.registerService(StartupManager::class.java, StartupManagerImpl(myProject))
