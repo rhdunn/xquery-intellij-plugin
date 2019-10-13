@@ -21,10 +21,12 @@ import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.VirtualFileManagerListener
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageManagerImpl
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
@@ -81,6 +83,16 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerExtension(SemContributor.EP_NAME, ep)
     }
 
+    private fun registerVirtualFileManager() {
+        registerExtensionPoint(
+            ExtensionPointName("com.intellij.virtualFileManagerListener"),
+            VirtualFileManagerListener::class.java
+        )
+
+        val bus = ApplicationManager.getApplication().getMessageBus()
+        registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(arrayOf(), bus))
+    }
+
     private fun registerDomManager() {
         // IntelliJ <= 2018.3 places SemContributor on the project.
         registerExtensionPoint(Extensions.getArea(myProject), SemContributor.EP_NAME, SemContributorEP::class.java)
@@ -90,9 +102,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerApplicationService(SemService::class.java, SemServiceImpl(myProject))
 
         registerSemContributor("com.intellij.util.xml.impl.DomSemContributor")
-
-        val bus = ApplicationManager.getApplication().getMessageBus()
-        registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(arrayOf(), bus))
+        registerVirtualFileManager()
         myProject.registerService(DomManager::class.java, DomManagerImpl(myProject))
     }
 
