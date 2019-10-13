@@ -59,6 +59,7 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
+import org.jetbrains.annotations.NotNull
 import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
@@ -132,8 +133,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         }
 
         if (mDefinitions.isNotEmpty()) {
-            language = mDefinitions[0].fileNodeType.language
-            addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, mDefinitions[0])
+            configureFromParserDefinition(mDefinitions[0], mFileExt)
         }
 
         if (language != null) {
@@ -149,6 +149,12 @@ abstract class ParsingTestCase<File : PsiFile>(
         val pomModel = PomModelImpl(myProject)
         myProject.registerService(PomModel::class.java, pomModel)
         TreeAspect(pomModel)
+    }
+
+    fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
+        language = definition.fileNodeType.language
+        mFileExt = extension
+        addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
     }
 
     private fun loadFileTypeSafe(className: String, fileTypeName: String): FileType {
