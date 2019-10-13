@@ -95,10 +95,11 @@ abstract class ParsingTestCase<File : PsiFile>(
 
         // IntelliJ ParsingTestCase setUp
         initApplication()
-        val component =
-            PlatformLiteFixture.getApplication().picoContainer.getComponentAdapter(ProgressManager::class.java.name)
+        val appContainer = PlatformLiteFixture.getApplication().picoContainer
+
+        val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
         if (component == null) {
-            PlatformLiteFixture.getApplication().picoContainer.registerComponent(object :
+            appContainer.registerComponent(object :
                 AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
 
                 @Throws(PicoInitializationException::class, PicoIntrospectionException::class)
@@ -115,7 +116,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProject = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
-        val appContainer = PlatformLiteFixture.getApplication().picoContainer
         registerComponentInstance(
             appContainer, MessageBus::class.java, PlatformLiteFixture.getApplication().messageBus
         )
@@ -159,11 +159,7 @@ abstract class ParsingTestCase<File : PsiFile>(
                     loadFileTypeSafe("com.intellij.ide.highlighter.XmlFileType", "XML")
                 else
                     MockLanguageFileType(language!!, mFileExt)
-            registerComponentInstance(
-                PlatformLiteFixture.getApplication().picoContainer,
-                FileTypeManager::class.java,
-                MockFileTypeManager(fileType)
-            )
+            registerComponentInstance(appContainer, FileTypeManager::class.java, MockFileTypeManager(fileType))
         }
 
         // That's for reparse routines
