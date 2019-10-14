@@ -39,7 +39,7 @@ import java.util.concurrent.ExecutionException
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery processor")
 private class ProcessorTest : PlatformLiteFixture() {
-    val home = System.getProperty("user.home")
+    val home: String = System.getProperty("user.home")
     // Modify these for the processor being tested:
     val processorVersion = "9.0"
     var provider: QueryProcessorSettings? = null
