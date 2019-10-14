@@ -130,6 +130,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerDomApplicationComponent()
         registerDomManager()
         registerConverterManager()
+        registerFileBasedIndex()
     }
 
     @AfterAll

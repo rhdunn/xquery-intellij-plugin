@@ -70,6 +70,10 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
+    protected fun registerFileBasedIndex() {
+        // Not needed for using the XML DOM on IntelliJ <= 2019.2
+    }
+
     protected fun registerProgressManager(appContainer: MutablePicoContainer) {
         val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
         if (component == null) {

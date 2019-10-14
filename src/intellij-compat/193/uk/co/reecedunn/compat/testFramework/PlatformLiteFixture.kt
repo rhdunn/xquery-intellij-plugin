@@ -28,8 +28,14 @@ import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
+import com.intellij.openapi.roots.ProjectFileIndex
+import com.intellij.openapi.roots.impl.DirectoryIndex
+import com.intellij.openapi.roots.impl.DirectoryIndexImpl
+import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
 import com.intellij.openapi.util.Getter
 import com.intellij.testFramework.UsefulTestCase
+import com.intellij.util.indexing.FileBasedIndex
+import com.intellij.util.indexing.FileBasedIndexImpl
 import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
@@ -55,6 +61,12 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         } finally {
             UsefulTestCase.clearFields(this)
         }
+    }
+
+    protected fun registerFileBasedIndex() {
+        myProject.registerService(DirectoryIndex::class.java, DirectoryIndexImpl(myProject))
+        myProject.registerService(ProjectFileIndex::class.java, ProjectFileIndexImpl(myProject))
+        registerApplicationService(FileBasedIndex::class.java, FileBasedIndexImpl())
     }
 
     protected fun registerProgressManager(appContainer: MutablePicoContainer) {
