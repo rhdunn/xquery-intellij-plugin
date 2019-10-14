@@ -204,7 +204,7 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=fb98e57ec409700a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val e = assertThrows<QueryError>(QueryError::class.java) {
+        val e = assertThrows(QueryError::class.java) {
             MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
         }
 

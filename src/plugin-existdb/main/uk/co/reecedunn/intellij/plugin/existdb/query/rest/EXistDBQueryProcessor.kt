@@ -33,9 +33,9 @@ internal class EXistDBQueryProcessor(private val baseUri: String, private val co
         return createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
     }
 
-    override val servers: List<String> = listOf<String>()
+    override val servers: List<String> = listOf()
 
-    override val databases: List<String> = listOf<String>()
+    override val databases: List<String> = listOf()
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {

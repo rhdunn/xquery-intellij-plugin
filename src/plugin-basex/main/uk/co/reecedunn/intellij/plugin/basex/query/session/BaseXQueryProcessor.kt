@@ -35,9 +35,9 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
         return createRunnableQuery(BaseXQueries.Version, XQuery).run().results.first().value as String
     }
 
-    override val servers: List<String> = listOf<String>()
+    override val servers: List<String> = listOf()
 
-    override val databases: List<String> = listOf<String>()
+    override val databases: List<String> = listOf()
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         return when (language) {

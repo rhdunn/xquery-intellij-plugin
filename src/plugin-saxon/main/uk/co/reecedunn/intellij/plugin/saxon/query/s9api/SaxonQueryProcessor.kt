@@ -44,9 +44,9 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override val version get(): String = processor.version
 
-    override val servers: List<String> = listOf<String>()
+    override val servers: List<String> = listOf()
 
-    override val databases: List<String> = listOf<String>()
+    override val databases: List<String> = listOf()
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
