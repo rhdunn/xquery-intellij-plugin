@@ -27,7 +27,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.compat.lang.injection.InjectedLanguageManager
 
-class MockInjectedLanguageManager() : InjectedLanguageManager() {
+class MockInjectedLanguageManager : InjectedLanguageManager() {
     override fun mightHaveInjectedFragmentAtOffset(hostDocument: Document, hostOffset: Int): Boolean = TODO()
 
     override fun enumerate(host: PsiElement, visitor: PsiLanguageInjectionHost.InjectedPsiVisitor) = TODO()
