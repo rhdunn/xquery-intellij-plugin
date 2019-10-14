@@ -56,6 +56,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
+    @Suppress("UnstableApiUsage")
     protected fun registerFileBasedIndex() {
         myProject.registerService(DirectoryIndex::class.java, DirectoryIndexImpl(myProject))
         myProject.registerService(ProjectFileIndex::class.java, ProjectFileIndexImpl(myProject))
@@ -79,6 +80,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("UnstableApiUsage")
     fun <T: Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
         registerExtension(area.extensionArea, name, extension)
     }
@@ -105,6 +107,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("UnstableApiUsage")
     protected open fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,

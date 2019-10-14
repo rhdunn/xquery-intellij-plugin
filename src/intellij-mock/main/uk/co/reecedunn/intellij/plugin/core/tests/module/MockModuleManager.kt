@@ -83,6 +83,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @Suppress("UnstableApiUsage")
     override fun getModuleGrouper(model: ModifiableModuleModel?): ModuleGrouper {
         TODO("not implemented")
     }
