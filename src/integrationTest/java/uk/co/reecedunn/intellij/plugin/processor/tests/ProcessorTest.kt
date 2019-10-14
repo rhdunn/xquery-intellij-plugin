@@ -119,11 +119,11 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].type, typeMatcher)
         }
 
-        private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
+        private fun atomicValues(value: String, type: String, valueMatcher: Matcher<String>) {
             atomic(value, type, valueMatcher, `is`(type))
         }
 
-        private fun atomic_types(value: String, type: String, typeMatcher: Matcher<String>) {
+        private fun atomicTypes(value: String, type: String, typeMatcher: Matcher<String>) {
             atomic(value, type, `is`(value), typeMatcher)
         }
 
@@ -262,7 +262,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("atomic type (primitive)")
         internal inner class AtomicTypePrimitive {
             @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
-            @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
+            @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomicValues("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
             @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
             @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
             @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
@@ -276,9 +276,9 @@ private class ProcessorTest : PlatformLiteFixture() {
             @Test @DisplayName("xs:gMonthDay") fun xsGMonthDay() { atomic("--10-12", "xs:gMonthDay") }
             @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
             @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
-            @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
+            @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomicValues("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
             @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
-            @Test @DisplayName("xs:string") fun xsString() { atomic_values("lorem &amp; ipsum", "xs:string", `is`("lorem & ipsum")) }
+            @Test @DisplayName("xs:string") fun xsString() { atomicValues("lorem &amp; ipsum", "xs:string", `is`("lorem & ipsum")) }
             @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
             @Test @DisplayName("xs:untypedAtomic") fun xsUntypedAtomic() { atomic("2", "xs:untypedAtomic") }
             @Test @DisplayName("xs:yearMonthDuration") fun xsYearMonthDuration() { atomic("P5M", "xs:yearMonthDuration") }
@@ -319,13 +319,13 @@ private class ProcessorTest : PlatformLiteFixture() {
         @Nested
         @DisplayName("atomic type (derived; XML Schema 1.1 Part 2)")
         internal inner class AtomicTypeDerivedXSD11 {
-            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic_types("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
+            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomicTypes("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
         }
 
         @Nested
         @DisplayName("union type")
         internal inner class UnionType {
-            @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", anyOf(`is`("xs:double"), `is`("xs:anySimpleType"))) }
+            @Test @DisplayName("xs:numeric") fun xsNumeric() { atomicTypes("2", "xs:numeric", anyOf(`is`("xs:double"), `is`("xs:anySimpleType"))) }
         }
     }
 
@@ -401,11 +401,11 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].type, typeMatcher)
         }
 
-        private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
+        private fun atomicValues(value: String, type: String, valueMatcher: Matcher<String>) {
             atomic(value, type, valueMatcher, `is`(type))
         }
 
-        private fun atomic_types(value: String, type: String, typeMatcher: Matcher<String>) {
+        private fun atomicTypes(value: String, type: String, typeMatcher: Matcher<String>) {
             atomic(value, type, `is`(value), typeMatcher)
         }
 
@@ -458,7 +458,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("as atomic type (primitive)")
         internal inner class AtomicTypePrimitive {
             @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
-            @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
+            @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomicValues("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
             @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
             @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
             @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
@@ -472,7 +472,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             @Test @DisplayName("xs:gMonthDay") fun xsGMonthDay() { atomic("--10-12", "xs:gMonthDay") }
             @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
             @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
-            @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
+            @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomicValues("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
             @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
             @Test @DisplayName("xs:string") fun xsString() { atomic("lorem & ipsum", "xs:string") }
             @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
@@ -512,13 +512,13 @@ private class ProcessorTest : PlatformLiteFixture() {
         @Nested
         @DisplayName("as atomic type (derived; XML Schema 1.1 Part 2)")
         internal inner class AtomicTypeDerivedXSD11 {
-            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic_types("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
+            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomicTypes("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
         }
 
         @Nested
         @DisplayName("as union type")
         internal inner class UnionType {
-            @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
+            @Test @DisplayName("xs:numeric") fun xsNumeric() { atomicTypes("2", "xs:numeric", `is`("xs:double")) }
         }
     }
 
@@ -554,11 +554,11 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].type, typeMatcher)
         }
 
-        private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
+        private fun atomicValues(value: String, type: String, valueMatcher: Matcher<String>) {
             atomic(value, type, valueMatcher, `is`(type))
         }
 
-        private fun atomic_types(value: String, type: String, typeMatcher: Matcher<String>) {
+        private fun atomicTypes(value: String, type: String, typeMatcher: Matcher<String>) {
             atomic(value, type, `is`(value), typeMatcher)
         }
 
@@ -611,7 +611,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("as atomic type (primitive)")
         internal inner class AtomicTypePrimitive {
             @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
-            @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
+            @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomicValues("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
             @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
             @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
             @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
@@ -625,7 +625,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             @Test @DisplayName("xs:gMonthDay") fun xsGMonthDay() { atomic("--10-12", "xs:gMonthDay") }
             @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
             @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
-            @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
+            @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomicValues("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
             @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
             @Test @DisplayName("xs:string") fun xsString() { atomic("lorem & ipsum", "xs:string") }
             @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
@@ -665,13 +665,13 @@ private class ProcessorTest : PlatformLiteFixture() {
         @Nested
         @DisplayName("as atomic type (derived; XML Schema 1.1 Part 2)")
         internal inner class AtomicTypeDerivedXSD11 {
-            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic_types("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
+            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomicTypes("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
         }
 
         @Nested
         @DisplayName("as union type")
         internal inner class UnionType {
-            @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
+            @Test @DisplayName("xs:numeric") fun xsNumeric() { atomicTypes("2", "xs:numeric", `is`("xs:double")) }
         }
     }
 
