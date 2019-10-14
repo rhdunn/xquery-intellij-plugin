@@ -21,10 +21,7 @@ import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
-import com.intellij.openapi.extensions.ExtensionPoint
-import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.extensions.Extensions
-import com.intellij.openapi.extensions.ExtensionsArea
+import com.intellij.openapi.extensions.*
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
@@ -99,6 +96,11 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
         registerExtensionPoint(area, name, extension.javaClass)
         PlatformTestUtil.registerExtension(area, name, extension, testRootDisposable)
+    }
+
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    fun <T: Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
+        registerExtension(Extensions.getArea(area), name, extension)
     }
 
     protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {

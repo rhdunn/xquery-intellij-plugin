@@ -78,7 +78,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         val ep = SemContributorEP()
         ep.implementation = service
         // IntelliJ <= 2018.3 places SemContributor on the project.
-        registerExtension(Extensions.getArea(myProject), SemContributor.EP_NAME, ep)
+        registerExtension(myProject, SemContributor.EP_NAME, ep)
         // IntelliJ >= 2019.1 places SemContributor on the application.
         registerExtension(SemContributor.EP_NAME, ep)
     }
