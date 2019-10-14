@@ -108,6 +108,15 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    protected open fun <T> registerExtensionPoint(
+        area: AreaInstance,
+        extensionPointName: ExtensionPointName<T>,
+        aClass: Class<out T>
+    ) {
+        registerExtensionPoint(area.extensionArea, extensionPointName, aClass)
+    }
+
     protected fun registerComponentImplementation(
         container: MutablePicoContainer,
         key: Class<*>,

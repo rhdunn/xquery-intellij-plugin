@@ -22,7 +22,6 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFileManager
@@ -95,7 +94,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
     private fun registerDomManager() {
         // IntelliJ <= 2018.3 places SemContributor on the project.
-        registerExtensionPoint(Extensions.getArea(myProject), SemContributor.EP_NAME, SemContributorEP::class.java)
+        registerExtensionPoint(myProject, SemContributor.EP_NAME, SemContributorEP::class.java)
         // IntelliJ >= 2019.1 places SemContributor on the application.
         registerExtensionPoint(SemContributor.EP_NAME, SemContributorEP::class.java)
 
