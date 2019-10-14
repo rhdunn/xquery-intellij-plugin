@@ -28,7 +28,6 @@ import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
 import com.intellij.testFramework.PlatformTestUtil
-import com.intellij.testFramework.UsefulTestCase
 import org.picocontainer.MutablePicoContainer
 import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
@@ -63,7 +62,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         try {
             super.tearDown()
         } finally {
-            UsefulTestCase.clearFields(this)
+            clearFields(this)
         }
     }
 

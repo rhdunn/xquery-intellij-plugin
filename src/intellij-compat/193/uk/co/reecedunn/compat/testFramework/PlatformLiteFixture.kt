@@ -27,7 +27,6 @@ import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.roots.impl.DirectoryIndex
 import com.intellij.openapi.roots.impl.DirectoryIndexImpl
 import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
-import com.intellij.testFramework.UsefulTestCase
 import com.intellij.util.indexing.FileBasedIndex
 import com.intellij.util.indexing.FileBasedIndexImpl
 import org.picocontainer.MutablePicoContainer
@@ -53,7 +52,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         try {
             super.tearDown()
         } finally {
-            UsefulTestCase.clearFields(this)
+            clearFields(this)
         }
     }
 
