@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.processor.tests
 
 import com.intellij.ide.passwordSafe.PasswordSafe
 import com.intellij.mock.MockProjectEx
-import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFile

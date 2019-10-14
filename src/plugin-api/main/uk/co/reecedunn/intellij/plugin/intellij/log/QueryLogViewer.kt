@@ -33,10 +33,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsC
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
-import javax.swing.DefaultComboBoxModel
 import javax.swing.JComboBox
 import javax.swing.JComponent
 import javax.swing.JPanel

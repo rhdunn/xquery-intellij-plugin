@@ -19,7 +19,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsM
 import java.io.Closeable
 import java.io.FileInputStream
 import java.io.InputStream
-import javax.swing.DefaultComboBoxModel
 
 class QueryProcessorSettings : Closeable {
     constructor()
