@@ -22,6 +22,7 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRoot
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
+@Suppress("NonExtendableApiUsage")
 class MockSourceFolder(private val file: VirtualFile, private val rootType: JpsModuleSourceRootType<*>) : SourceFolder {
     override fun getUrl(): String {
         TODO("not implemented")

@@ -21,6 +21,7 @@ import com.intellij.openapi.roots.*
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
+@Suppress("NonExtendableApiUsage")
 class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
     override fun <R : Any?> processOrder(policy: RootPolicy<R>, initialValue: R): R {
         TODO("not implemented")

@@ -23,6 +23,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
+@Suppress("NonExtendableApiUsage")
 class MockProjectRootsManager : ProjectRootManager() {
     override fun setProjectSdkName(name: String) {
         TODO("not implemented")

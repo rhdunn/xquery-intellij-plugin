@@ -15,4 +15,4 @@
  */
 package uk.co.reecedunn.compat.roots
 
-interface ContentEntry : com.intellij.openapi.roots.ContentEntry
+typealias ContentEntry = com.intellij.openapi.roots.ContentEntry
