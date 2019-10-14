@@ -31,17 +31,9 @@ class Multicaster<T : EventListener>(listenerClass: Class<T>) {
 
     val eventMulticaster = createEventMulticaster(listenerClass)
 
-    fun addListener(listener: T) {
-        listeners.add(listener)
-    }
-
     fun addListener(listener: T, parentDisposable: Disposable) {
         listeners.add(listener)
         Disposer.register(parentDisposable, Disposable { listeners.remove(listener) })
-    }
-
-    fun removeListener(listener: T) {
-        listeners.remove(listener)
     }
 
     @Suppress("UNCHECKED_CAST")

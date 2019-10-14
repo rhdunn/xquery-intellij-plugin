@@ -31,11 +31,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
 private class PluginPsiTest : ParserTestCase() {
-    fun parseResource(resource: String): XPath {
-        val file = ResourceVirtualFile(PluginPsiTest::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.7.3) Inline Function Expressions")
     internal inner class InlineFunctionExpressions {
