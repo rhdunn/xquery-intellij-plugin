@@ -50,7 +50,6 @@ import com.intellij.pom.PomModel
 import com.intellij.pom.core.impl.PomModelImpl
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.*
-import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
@@ -66,6 +65,7 @@ import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
+import uk.co.reecedunn.compat.psi.impl.PsiCachedValuesFactory
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -119,11 +119,11 @@ abstract class ParsingTestCase<File : PsiFile>(
         registerApplicationService(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
         registerApplicationService(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
         registerApplicationService(ReferenceProvidersRegistry::class.java, ReferenceProvidersRegistryImpl())
+        myProject.registerService(PsiManager::class.java, psiManager)
         myProject.registerService(
-            CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(psiManager))
+            CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(myProject))
         )
         myProject.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx())
-        myProject.registerService(PsiManager::class.java, psiManager)
         myProject.registerService(PsiFileFactory::class.java, mFileFactory!!)
         myProject.registerService(StartupManager::class.java, StartupManagerImpl(myProject))
         registerExtensionPoint("com.intellij.openapi.fileTypes.FileTypeFactory", "FILE_TYPE_FACTORY_EP")
