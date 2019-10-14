@@ -123,8 +123,8 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
+        myProject.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
-        registerApplicationService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
         registerApplicationService(DomService::class.java, DomServiceImpl())
 
         registerDomApplicationComponent()
