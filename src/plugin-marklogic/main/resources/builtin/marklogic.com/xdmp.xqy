@@ -51,6 +51,8 @@ declare %a:since("marklogic", "7.0") function xdmp:atomizable($item as item()) a
 declare %a:since("marklogic", "9.0") function xdmp:aws-region() as string? external;
 declare %a:since("marklogic", "9.0") function xdmp:aws-services-domain() as string? external;
 declare %a:since("marklogic", "9.0") function xdmp:aws-services-partition() as string? external;
+declare %a:since("marklogic", "10.0") function xdmp:azure-environment() as string? external;
+declare %a:since("marklogic", "10.0") function xdmp:azure-region() as string? external;
 declare %a:since("marklogic", "5.0") function xdmp:base64-decode($encoded as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:base64-encode($plaintext as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:binary-decode($encoded as node(), $encoding-name as xs:string) as xs:string external;

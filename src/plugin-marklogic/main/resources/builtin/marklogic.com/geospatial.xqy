@@ -64,8 +64,8 @@ declare %a:since("marklogic", "8.0") function geo:region-approximate($region as 
 declare %a:since("marklogic", "8.0") function geo:region-approximate($region as cts:region, $threshold as xs:double, $options as xs:string*) as cts:region external;
 declare %a:since("marklogic", "8.0") function geo:region-clean($region as cts:region) as cts:region external;
 declare %a:since("marklogic", "8.0") function geo:region-clean($region as cts:region, $options as xs:string*) as cts:region external;
-declare %a:since("marklogic", "8.0") function geo:region-contains($region as cts:region, $region as cts:region*) as xs:boolean external;
-declare %a:since("marklogic", "8.0") function geo:region-contains($region as cts:region, $region as cts:region*, $options as xs:string*) as xs:boolean external;
+declare %a:since("marklogic", "8.0") function geo:region-contains($target as cts:region, $region as cts:region*) as xs:boolean external;
+declare %a:since("marklogic", "8.0") function geo:region-contains($target as cts:region, $region as cts:region*, $options as xs:string*) as xs:boolean external;
 declare %a:since("marklogic", "8.0") function geo:region-intersects($target as cts:region, $region as cts:region*) as xs:boolean external;
 declare %a:since("marklogic", "8.0") function geo:region-intersects($target as cts:region, $region as cts:region*, $options as xs:string*) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function geo:region-de9im($region-1 as cts:region, $region-2 as cts:region) as xs:string external;
