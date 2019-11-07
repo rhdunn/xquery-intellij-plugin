@@ -12,6 +12,7 @@ Run Configurations:
 1.  Improve the error handling and reporting when connecting to BaseX servers.
 1.  Improve responsiveness when populating the query processor list, especially
     for servers that are not responding.
+1.  Don't use HTML formatting when displaying the Context column of the Flat Profile table.
 
 Log Viewer:
 

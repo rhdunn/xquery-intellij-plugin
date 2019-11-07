@@ -179,6 +179,12 @@ private object CONTEXT_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
         return o1!!.context.compareTo(o2!!.context)
     }
+
+    override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? {
+        val renderer = DefaultTableCellRenderer()
+        renderer.putClientProperty("html.disable", true)
+        return renderer
+    }
 }
 
 private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
