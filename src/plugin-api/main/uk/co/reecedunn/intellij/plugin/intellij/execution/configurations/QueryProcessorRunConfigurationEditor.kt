@@ -144,7 +144,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateServerUI() {
-        val settings = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings? ?: return
+        val settings = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings ?: return
         executeOnPooledThread {
             val server = server!!
             try {
@@ -191,7 +191,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateDatabaseUI() {
-        val settings = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings? ?: return
+        val settings = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings ?: return
         executeOnPooledThread {
             val database = database!!
             try {
@@ -308,7 +308,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun updateUI(isSparql: Boolean) {
-        val processor = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings
+        val processor = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache)?.settings
         rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
         updating!!.isEnabled = processor?.api?.canUpdate(languages[0]) == true
 
@@ -325,7 +325,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override var panel: JPanel? = null
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
-        if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
+        if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id != configuration.processorId)
             return true
         if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
@@ -351,7 +351,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
-        queryProcessor!!.childComponent.selectedItem = configuration.processor
+        queryProcessor?.childComponent?.let {
+            (0..it.itemCount).forEach { i ->
+                if (it.getItemAt(i)?.settings?.id == configuration.processorId) {
+                    it.selectedIndex = i
+                }
+            }
+        }
+
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
         server!!.selectedItem = configuration.server
         database!!.selectedItem = configuration.database
@@ -368,7 +375,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
-        configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
+        configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
         configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String

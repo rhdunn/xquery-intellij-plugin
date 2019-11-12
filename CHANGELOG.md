@@ -9,6 +9,7 @@ Code Completion:
 
 Run Configurations:
 
+1.  Fix saving the selected query processor in the run configuration.
 1.  Improve the error handling and reporting when connecting to BaseX servers.
 1.  Improve responsiveness when populating the query processor list, especially
     for servers that are not responding.
