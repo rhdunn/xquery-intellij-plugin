@@ -22,9 +22,12 @@ import com.intellij.ide.structureView.impl.xml.XmlStructureViewTreeModel
 import com.intellij.ide.structureView.xml.XmlStructureViewBuilderProvider
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.xml.XmlFile
+import uk.co.reecedunn.intellij.plugin.xslt.dom.xsltFile
 
 class XslStructureViewBuilderProvider : XmlStructureViewBuilderProvider {
+    @Suppress("UNUSED_VARIABLE")
     override fun createStructureViewBuilder(file: XmlFile): StructureViewBuilder? {
+        val xsl = file.xsltFile() ?: return null
         return object : TreeBasedStructureViewBuilder() {
             override fun createStructureViewModel(editor: Editor?): StructureViewModel {
                 return XmlStructureViewTreeModel(file, editor)
