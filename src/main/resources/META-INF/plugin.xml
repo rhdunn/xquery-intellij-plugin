@@ -127,6 +127,8 @@
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription"/>
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription"/>
 
+    <xmlStructureViewBuilderProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XslStructureViewBuilderProvider"/>
+
     <!-- XSLT Language Support -->
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
