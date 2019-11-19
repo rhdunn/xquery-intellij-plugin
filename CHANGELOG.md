@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.6 - (In Development)
+## 1.5.2 - 2019-11-19
 
 Code Completion:
 

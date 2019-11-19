@@ -44,7 +44,7 @@ buildscript {
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_version(ext.idea_since_build.toInteger())
 
-    ext.plugin_version = '1.6'
+    ext.plugin_version = '1.5.2'
     ext.suffix = '-dev'
 
     // The JBR version to use with buildSearchableOptions.
