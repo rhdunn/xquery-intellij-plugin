@@ -42,26 +42,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.5.2:</h3>
-    <p>Code Completion:</p>
-    <ol>
-      <li>
-        Don't crash when editing a <code>StringLiteral</code> inside an <code>NodeType</code>
-        expression, e.g. using MarkLogic's <code>object-node("...")</code>.
-      </li>
-    </ol>
-    <p>Run Configurations:</p>
-    <ol>
-      <li>Fix saving the selected query processor in the run configuration.</li>
-      <li>Improve the error handling and reporting when connecting to BaseX servers.</li>
-      <li>Improve responsiveness when populating the query processor list, especially for servers that are not responding.</li>
-      <li>Don't use HTML formatting when displaying the Context column of the Flat Profile table.</li>
-    </ol>
-    <p>Log Viewer:</p>
-    <ol>
-      <li>When selecting a BaseX processor, default to the last (most recent) log file.</li>
-      <li>When selecting a MarkLogic processor, default to the <code>ErrorLog.txt</code> log file.</li>
-    </ol>
+    <h3>Release 1.6-dev:</h3>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
