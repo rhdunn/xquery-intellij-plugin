@@ -20,12 +20,7 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
-private val STATIC_IMPORT_RESOLVERS by lazy {
-    sequenceOf(
-        sequenceOf(EmptyPathImportResolver),
-        ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence()
-    ).flatten()
-}
+private val STATIC_IMPORT_RESOLVERS by lazy { ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence() }
 
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data

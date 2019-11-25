@@ -34,12 +34,6 @@ interface ImportPathResolver {
     fun resolve(path: String): VirtualFile?
 }
 
-object EmptyPathImportResolver : ImportPathResolver {
-    override fun match(path: String): Boolean = path.isEmpty()
-
-    override fun resolve(path: String): VirtualFile? = null
-}
-
 class RelativeFileImportResolver(private val file: VirtualFile?) : ImportPathResolver {
     override fun match(path: String): Boolean = path.isNotEmpty() && !path.contains("://") && !path.startsWith("/")
 
