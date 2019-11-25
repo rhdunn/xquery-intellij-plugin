@@ -26,10 +26,8 @@ private object XQueryBuiltInModuleFileSystem : VirtualFileSystemImpl("res") {
     }
 }
 
-object StaticContextDefinitions : ImportPathResolver {
-    override fun match(path: String): Boolean = MODULES.containsKey(path)
-
-    override fun resolve(path: String): VirtualFile? {
+object StaticContextDefinitions {
+    fun resolve(path: String): VirtualFile? {
         return MODULES[path]?.let { XQueryBuiltInModuleFileSystem.findFileByPath(it) }
     }
 
