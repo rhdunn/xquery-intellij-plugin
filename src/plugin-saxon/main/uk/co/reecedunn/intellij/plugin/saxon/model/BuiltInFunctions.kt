@@ -34,6 +34,6 @@ object BuiltInFunctions : ImportPathResolver {
     }
 
     private val MODULES = mapOf(
-        "http://saxon.sf.net/" to "builtin/saxon.sf.net/default.xqy"
+        "http://saxon.sf.net/" to "net/sf/saxon/index.xqy"
     )
 }
