@@ -34,10 +34,10 @@ object BuiltInFunctions : ImportPathResolver {
     }
 
     private val MODULES = mapOf(
-        "http://www.w3.org/2001/XMLSchema" to "builtin/www.w3.org/2001/XMLSchema.xqy",
-        "http://www.w3.org/2005/xpath-functions" to "builtin/www.w3.org/2005/xpath-functions.xqy",
-        "http://www.w3.org/2005/xpath-functions/array" to "builtin/www.w3.org/2005/xpath-functions/array.xqy",
-        "http://www.w3.org/2005/xpath-functions/map" to "builtin/www.w3.org/2005/xpath-functions/map.xqy",
-        "http://www.w3.org/2005/xpath-functions/math" to "builtin/www.w3.org/2005/xpath-functions/math.xqy"
+        "http://www.w3.org/2001/XMLSchema" to "org/w3/www/2001/XMLSchema.xqy",
+        "http://www.w3.org/2005/xpath-functions" to "org/w3/www/2005/xpath-functions.xqy",
+        "http://www.w3.org/2005/xpath-functions/array" to "org/w3/www/2005/xpath-functions/array.xqy",
+        "http://www.w3.org/2005/xpath-functions/map" to "org/w3/www/2005/xpath-functions/map.xqy",
+        "http://www.w3.org/2005/xpath-functions/math" to "org/w3/www/2005/xpath-functions/math.xqy"
     )
 }

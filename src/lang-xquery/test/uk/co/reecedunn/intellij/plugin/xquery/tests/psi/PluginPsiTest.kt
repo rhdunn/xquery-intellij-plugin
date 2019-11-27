@@ -1199,7 +1199,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                     assertThat(
                         prologs[0].resourcePath(),
-                        endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy")
+                        endsWith("/org/w3/www/2005/xpath-functions/array.xqy")
                     )
                 }
 

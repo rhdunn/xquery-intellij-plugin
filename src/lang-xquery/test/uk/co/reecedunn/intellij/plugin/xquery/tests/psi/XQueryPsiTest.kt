@@ -4204,7 +4204,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
-                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    assertThat(prologs[0].resourcePath(), endsWith("/org/w3/www/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
@@ -4225,7 +4225,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
-                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    assertThat(prologs[0].resourcePath(), endsWith("/org/w3/www/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
@@ -4329,7 +4329,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
-                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    assertThat(prologs[0].resourcePath(), endsWith("/org/w3/www/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
