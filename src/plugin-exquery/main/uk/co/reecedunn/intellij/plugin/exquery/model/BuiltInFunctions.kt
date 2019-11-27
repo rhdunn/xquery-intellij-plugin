@@ -34,7 +34,7 @@ object BuiltInFunctions : ImportPathResolver {
     }
 
     private val MODULES = mapOf(
-        "http://exquery.org/ns/request" to "builtin/exquery.org/ns/request.xqy",
-        "http://exquery.org/ns/restxq" to "builtin/exquery.org/ns/restxq.xqy"
+        "http://exquery.org/ns/request" to "org/exquery/ns/request.xqy",
+        "http://exquery.org/ns/restxq" to "org/exquery/ns/restxq.xqy"
     )
 }
