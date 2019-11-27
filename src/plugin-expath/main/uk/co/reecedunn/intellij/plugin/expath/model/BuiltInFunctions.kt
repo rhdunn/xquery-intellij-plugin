@@ -34,12 +34,12 @@ object BuiltInFunctions : ImportPathResolver {
     }
 
     private val MODULES = mapOf(
-        "http://expath.org/ns/binary" to "builtin/expath.org/ns/binary.xqy",
-        "http://expath.org/ns/crypto" to "builtin/expath.org/ns/crypto.xqy",
-        "http://expath.org/ns/file" to "builtin/expath.org/ns/file.xqy",
-        "http://expath.org/ns/geo" to "builtin/expath.org/ns/geo.xqy",
-        "http://expath.org/ns/http-client" to "builtin/expath.org/ns/http-client.xqy",
-        "http://expath.org/ns/webapp" to "builtin/expath.org/ns/webapp.xqy",
-        "http://expath.org/ns/zip" to "builtin/expath.org/ns/zip.xqy"
+        "http://expath.org/ns/binary" to "org/expath/ns/binary.xqy",
+        "http://expath.org/ns/crypto" to "org/expath/ns/crypto.xqy",
+        "http://expath.org/ns/file" to "org/expath/ns/file.xqy",
+        "http://expath.org/ns/geo" to "org/expath/ns/geo.xqy",
+        "http://expath.org/ns/http-client" to "org/expath/ns/http-client.xqy",
+        "http://expath.org/ns/webapp" to "org/expath/ns/webapp.xqy",
+        "http://expath.org/ns/zip" to "org/expath/ns/zip.xqy"
     )
 }
