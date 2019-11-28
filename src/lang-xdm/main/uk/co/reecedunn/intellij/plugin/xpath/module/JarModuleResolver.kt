@@ -26,8 +26,19 @@ abstract class JarModuleResolver : ImportPathResolver {
     abstract val MODULES: Map<String, String>
 
     private val filesystem = object : VirtualFileSystemImpl("res") {
-        override fun findCacheableFile(path: String): VirtualFile? {
-            return ResourceVirtualFile(classLoader, path, this)
+        private val cache: HashMap<String, VirtualFile?> = HashMap()
+
+        fun findCacheableFile(path: String): VirtualFile? = ResourceVirtualFile(classLoader, path, this)
+
+        override fun findFileByPath(path: String): VirtualFile? {
+            return cache[path] ?: findCacheableFile(path)?.let {
+                cache[path] = it
+                it
+            }
+        }
+
+        override fun refresh(asynchronous: Boolean) {
+            cache.clear()
         }
     }
 

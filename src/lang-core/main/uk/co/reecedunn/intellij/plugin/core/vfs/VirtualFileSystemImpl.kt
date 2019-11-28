@@ -21,27 +21,8 @@ import com.intellij.openapi.vfs.VirtualFileSystem
 
 import java.io.IOException
 
-open class VirtualFileSystemImpl(private val protocol: String) : VirtualFileSystem() {
-    private val cache: HashMap<String, VirtualFile?> = HashMap()
-
-    open fun findCacheableFile(path: String): VirtualFile? = null
-
+abstract class VirtualFileSystemImpl(private val protocol: String) : VirtualFileSystem() {
     override fun getProtocol(): String = protocol
-
-    override fun findFileByPath(path: String): VirtualFile? {
-        val file = cache[path]
-        return if (file == null) {
-            val cacheableFile = findCacheableFile(path)
-            cache[path] = cacheableFile
-            cacheableFile
-        } else {
-            file
-        }
-    }
-
-    override fun refresh(asynchronous: Boolean) {
-        cache.clear()
-    }
 
     override fun refreshAndFindFileByPath(path: String): VirtualFile? {
         refresh(false)

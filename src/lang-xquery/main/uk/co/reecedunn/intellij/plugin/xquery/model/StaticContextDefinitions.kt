@@ -20,15 +20,26 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 
-private object XQueryBuiltInModuleFileSystem : VirtualFileSystemImpl("res") {
-    override fun findCacheableFile(path: String): VirtualFile? {
-        return ResourceVirtualFile(this::class.java.classLoader, path, this)
-    }
-}
-
 object StaticContextDefinitions {
+    private val filesystem = object : VirtualFileSystemImpl("res") {
+        private val cache: HashMap<String, VirtualFile?> = HashMap()
+
+        fun findCacheableFile(path: String): VirtualFile? = ResourceVirtualFile(this::class.java.classLoader, path, this)
+
+        override fun findFileByPath(path: String): VirtualFile? {
+            return cache[path] ?: findCacheableFile(path)?.let {
+                cache[path] = it
+                it
+            }
+        }
+
+        override fun refresh(asynchronous: Boolean) {
+            cache.clear()
+        }
+    }
+
     fun resolve(path: String): VirtualFile? {
-        return MODULES[path]?.let { XQueryBuiltInModuleFileSystem.findFileByPath(it) }
+        return MODULES[path]?.let { filesystem.findFileByPath(it) }
     }
 
     private val MODULES = mapOf(
