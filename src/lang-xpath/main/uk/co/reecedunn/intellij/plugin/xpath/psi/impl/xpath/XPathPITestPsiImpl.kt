@@ -49,11 +49,9 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
     // endregion
     // region XdmSequenceType
 
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override val typeName
         get(): String {
-            val name = nodeName
-            return when (name) {
+            return when (val name = nodeName) {
                 is XsNCNameValue -> "processing-instruction(${name.data})"
                 is XsStringValue -> "processing-instruction(${name.data})"
                 else -> "processing-instruction()"

@@ -133,12 +133,10 @@ fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
         NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
 }
 
-@Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
 fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null /* NCName */ -> {
-            val type = getNamespaceType()
-            when (type) {
+            when (val type = getNamespaceType()) {
                 XPathNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
                 XPathNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
                 XPathNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)

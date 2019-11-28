@@ -32,10 +32,8 @@ object XPathSequenceTypeProvider : CompletionProviderEx {
 
     private val XPATH_20_REC_SEQUENCE_TYPE = XPathKeywordLookup("empty-sequence", XPathInsertText.EMPTY_PARAMS)
 
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val version = context[XPathCompletionProperty.XPATH_VERSION]
-        when (version) {
+        when (context[XPathCompletionProperty.XPATH_VERSION]) {
             XPathSpec.REC_1_0_19991116 -> {
             }
             XPathSpec.WD_2_0_20030502 -> result.addElement(XPATH_20_WD_2003_SEQUENCE_TYPE)
@@ -73,10 +71,8 @@ object XPathItemTypeProvider : CompletionProviderEx {
         XPathKeywordLookup("map", XPathInsertText.PARAMS_KEY_VALUE_TYPE)
     )
 
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val version = context[XPathCompletionProperty.XPATH_VERSION]
-        when (version) {
+        when (context[XPathCompletionProperty.XPATH_VERSION]) {
             XPathSpec.WD_2_0_20030502 -> result.addAllElements(XPATH_20_ITEM_TYPES)
             XPathSpec.REC_2_0_20070123 -> result.addAllElements(XPATH_20_ITEM_TYPES)
             XPathSpec.REC_3_0_20140408 -> {
@@ -245,10 +241,8 @@ object XPathKindTestProvider : CompletionProviderEx {
         XPathKeywordLookup("text", XPathInsertText.EMPTY_PARAMS)
     )
 
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val version = context[XPathCompletionProperty.XPATH_VERSION]
-        when (version) {
+        when (context[XPathCompletionProperty.XPATH_VERSION]) {
             XPathSpec.REC_1_0_19991116 -> result.addAllElements(XPATH_10_KIND_TESTS)
             XPathSpec.WD_2_0_20030502 -> result.addAllElements(XPATH_20_WD_2003_KIND_TESTS)
             else -> result.addAllElements(XPATH_20_REC_KIND_TESTS)

@@ -55,7 +55,6 @@ object XQueryForwardOrReverseAxisProvider : CompletionProviderEx {
         }
     }
 
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         result.addAllElements(XQUERY_AXIS_STEPS)
 

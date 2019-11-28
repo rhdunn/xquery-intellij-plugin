@@ -38,11 +38,9 @@ object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
         return getExpressionAccess(reference.element)
     }
 
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun getExpressionAccess(expression: PsiElement): Access {
         if (expression.parent !is XPathVarName && expression.parent !is XPathParam) return Access.Read
-        val context = expression.parent.parent
-        return when (context) {
+        return when (expression.parent.parent) {
             is XPathVarRef -> Access.Read
             else -> Access.Write
         }

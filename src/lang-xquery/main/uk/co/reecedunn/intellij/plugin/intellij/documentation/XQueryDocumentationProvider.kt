@@ -30,10 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 
 object XQueryDocumentationProvider : AbstractDocumentationProvider() {
-    @Suppress("MoveVariableDeclarationIntoWhen") // Feature not supported in Kotlin 1.2 (IntelliJ 2018.1).
     override fun getQuickNavigateInfo(element: PsiElement?, originalElement: PsiElement?): String? {
-        val parent = element?.parent
-        return when (parent) {
+        return when (val parent = element?.parent) {
             is XQueryFunctionDecl -> {
                 val sig = parent.presentation?.presentableText
                 "declare function $sig"
