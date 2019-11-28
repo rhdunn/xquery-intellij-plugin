@@ -15,24 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFileBase
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
-
-interface ImportPathResolver {
-    companion object {
-        val IMPORT_PATH_RESOLVER_EP = ExtensionPointName.create<ImportPathResolver>(
-            "uk.co.reecedunn.intellij.importPathResolver"
-        )
-    }
-
-    fun match(path: String): Boolean
-
-    fun resolve(path: String): VirtualFile?
-}
 
 class RelativeFileImportResolver(private val file: VirtualFile?) : ImportPathResolver {
     override fun match(path: String): Boolean = path.isNotEmpty() && !path.contains("://") && !path.startsWith("/")
