@@ -15,25 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.model
 
-import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 
-private object EXQueryBuiltInFunctionFileSystem : VirtualFileSystemImpl("res") {
-    override fun findCacheableFile(path: String): VirtualFile? {
-        return ResourceVirtualFile(this::class.java.classLoader, path, this)
-    }
-}
+object BuiltInFunctions : JarModuleResolver() {
+    override val classLoader: ClassLoader = this::class.java.classLoader
 
-object BuiltInFunctions : ImportPathResolver {
-    override fun match(path: String): Boolean = MODULES.containsKey(path)
-
-    override fun resolve(path: String): VirtualFile? {
-        return MODULES[path]?.let { EXQueryBuiltInFunctionFileSystem.findFileByPath(it) }
-    }
-
-    private val MODULES = mapOf(
+    override val MODULES = mapOf(
         "http://exquery.org/ns/request" to "org/exquery/ns/request.xqy",
         "http://exquery.org/ns/restxq" to "org/exquery/ns/restxq.xqy"
     )

@@ -15,25 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.model
 
-import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 
-private object BaseXBuiltInFunctionFileSystem : VirtualFileSystemImpl("res") {
-    override fun findCacheableFile(path: String): VirtualFile? {
-        return ResourceVirtualFile(this::class.java.classLoader, path, this)
-    }
-}
+object BuiltInFunctions : JarModuleResolver() {
+    override val classLoader: ClassLoader = this::class.java.classLoader
 
-object BuiltInFunctions : ImportPathResolver {
-    override fun match(path: String): Boolean = MODULES.containsKey(path)
-
-    override fun resolve(path: String): VirtualFile? {
-        return MODULES[path]?.let { BaseXBuiltInFunctionFileSystem.findFileByPath(it) }
-    }
-
-    private val MODULES = mapOf(
+    override val MODULES = mapOf(
         "http://basex.org/modules/admin" to "org/basex/modules/admin.xqy",
         "http://basex.org/modules/archive" to "org/basex/modules/archive.xqy",
         "http://basex.org/modules/client" to "org/basex/modules/client.xqy",

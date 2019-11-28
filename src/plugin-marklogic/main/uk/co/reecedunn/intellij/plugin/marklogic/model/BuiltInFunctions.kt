@@ -15,25 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.model
 
-import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 
-private object MarkLogicBuiltInFunctionFileSystem : VirtualFileSystemImpl("res") {
-    override fun findCacheableFile(path: String): VirtualFile? {
-        return ResourceVirtualFile(this::class.java.classLoader, path, this)
-    }
-}
+object BuiltInFunctions : JarModuleResolver() {
+    override val classLoader: ClassLoader = this::class.java.classLoader
 
-object BuiltInFunctions : ImportPathResolver {
-    override fun match(path: String): Boolean = MODULES.containsKey(path)
-
-    override fun resolve(path: String): VirtualFile? {
-        return MODULES[path]?.let { MarkLogicBuiltInFunctionFileSystem.findFileByPath(it) }
-    }
-
-    private val MODULES = mapOf(
+    override val MODULES = mapOf(
         "http://marklogic.com/cts" to "com/marklogic/cts.xqy",
         "http://marklogic.com/geospatial" to "com/marklogic/geospatial.xqy",
         "http://marklogic.com/xdmp" to "com/marklogic/xdmp.xqy",

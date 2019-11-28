@@ -15,25 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.model
 
-import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 
-private object W3BuiltInFunctionFileSystem : VirtualFileSystemImpl("res") {
-    override fun findCacheableFile(path: String): VirtualFile? {
-        return ResourceVirtualFile(this::class.java.classLoader, path, this)
-    }
-}
+object BuiltInFunctions : JarModuleResolver() {
+    override val classLoader: ClassLoader = this::class.java.classLoader
 
-object BuiltInFunctions : ImportPathResolver {
-    override fun match(path: String): Boolean = MODULES.containsKey(path)
-
-    override fun resolve(path: String): VirtualFile? {
-        return MODULES[path]?.let { W3BuiltInFunctionFileSystem.findFileByPath(it) }
-    }
-
-    private val MODULES = mapOf(
+    override val MODULES = mapOf(
         "http://www.w3.org/2001/XMLSchema" to "org/w3/www/2001/XMLSchema.xqy",
         "http://www.w3.org/2005/xpath-functions" to "org/w3/www/2005/xpath-functions.xqy",
         "http://www.w3.org/2005/xpath-functions/array" to "org/w3/www/2005/xpath-functions/array.xqy",
