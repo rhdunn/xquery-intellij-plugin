@@ -50,6 +50,6 @@ object Annotations : ImportPathResolver {
     }
 
     private val MODULES = mapOf(
-        "http://reecedunn.co.uk/xquery/annotations" to "builtin/reecedunn.co.uk/xquery/annotations.xqy"
+        "http://reecedunn.co.uk/xquery/annotations" to "uk/co/reecedunn/xquery/annotations.xqy"
     )
 }
