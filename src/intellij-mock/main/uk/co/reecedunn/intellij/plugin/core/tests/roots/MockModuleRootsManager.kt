@@ -19,6 +19,7 @@ import com.intellij.openapi.module.Module
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.*
 import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.annotations.ApiStatus
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 @Suppress("NonExtendableApiUsage")
@@ -39,6 +40,7 @@ class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
         TODO("not implemented")
     }
 
+    @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
     override fun getExternalSource(): ProjectModelExternalSource? {
         TODO("not implemented")

@@ -20,6 +20,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.graph.Graph
+import org.jetbrains.annotations.ApiStatus
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
 import java.util.Comparator
 
@@ -62,6 +63,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
     override fun getUnloadedModuleDescriptions(): MutableCollection<UnloadedModuleDescription> {
         TODO("not implemented")
@@ -75,6 +77,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
     override fun getAllModuleDescriptions(): MutableCollection<ModuleDescription> {
         TODO("not implemented")
@@ -84,6 +87,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
     override fun getModuleGrouper(model: ModifiableModuleModel?): ModuleGrouper {
         TODO("not implemented")
@@ -93,6 +97,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         TODO("not implemented")
     }
 
+    @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
     override fun getUnloadedModuleDescription(moduleName: String): UnloadedModuleDescription? {
         TODO("not implemented")
