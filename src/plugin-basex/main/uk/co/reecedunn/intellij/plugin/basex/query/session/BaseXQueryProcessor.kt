@@ -31,9 +31,10 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
     RunnableQueryProvider,
     LogViewProvider {
 
-    override val version get(): String {
-        return createRunnableQuery(BaseXQueries.Version, XQuery).run().results.first().value as String
-    }
+    override val version
+        get(): String {
+            return createRunnableQuery(BaseXQueries.Version, XQuery).run().results.first().value as String
+        }
 
     override val servers: List<String> = listOf()
 

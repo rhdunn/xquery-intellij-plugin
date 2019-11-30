@@ -38,17 +38,20 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
     ValidatableQueryProvider,
     LogViewProvider {
 
-    override val version get(): String {
-        return createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value as String
-    }
+    override val version
+        get(): String {
+            return createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value as String
+        }
 
-    override val servers get(): List<String> {
-        return createRunnableQuery(MarkLogicQueries.Servers, XQuery).run().results.map { it.value as String }
-    }
+    override val servers
+        get(): List<String> {
+            return createRunnableQuery(MarkLogicQueries.Servers, XQuery).run().results.map { it.value as String }
+        }
 
-    override val databases get(): List<String> {
-        return createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }
-    }
+    override val databases
+        get(): List<String> {
+            return createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }
+        }
 
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()

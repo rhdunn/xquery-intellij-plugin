@@ -70,18 +70,18 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
-    protected fun <T: Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
+    protected fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
         registerExtension(Extensions.getRootArea(), extensionPointName, extension)
     }
 
-    private fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
+    private fun <T : Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
         registerExtensionPoint(area, name, extension.javaClass)
         area.getExtensionPoint<T>(name.name).registerExtension(extension, testRootDisposable)
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
     @Suppress("UnstableApiUsage")
-    fun <T: Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
+    fun <T : Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
         registerExtension(area.extensionArea, name, extension)
     }
 

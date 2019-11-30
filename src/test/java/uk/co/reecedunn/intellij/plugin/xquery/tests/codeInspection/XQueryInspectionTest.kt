@@ -237,7 +237,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
                 assertThat(problems!!.size, `is`(1))
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
-                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'test' has already been defined."))
+                assertThat(
+                    problems[0].descriptionTemplate,
+                    `is`("XQST0033: The namespace prefix 'test' has already been defined.")
+                )
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("test"))
             }
@@ -272,7 +275,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
                 assertThat(problems!!.size, `is`(1))
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
-                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(
+                    problems[0].descriptionTemplate,
+                    `is`("XQST0033: The namespace prefix 'one' has already been defined.")
+                )
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
@@ -293,7 +299,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
                 assertThat(problems!!.size, `is`(1))
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
-                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(
+                    problems[0].descriptionTemplate,
+                    `is`("XQST0033: The namespace prefix 'one' has already been defined.")
+                )
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
@@ -314,7 +323,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
                 assertThat(problems!!.size, `is`(1))
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
-                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(
+                    problems[0].descriptionTemplate,
+                    `is`("XQST0033: The namespace prefix 'one' has already been defined.")
+                )
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
@@ -363,7 +375,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
                 assertThat(problems!!.size, `is`(1))
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
-                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(
+                    problems[0].descriptionTemplate,
+                    `is`("XQST0033: The namespace prefix 'one' has already been defined.")
+                )
                 assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }

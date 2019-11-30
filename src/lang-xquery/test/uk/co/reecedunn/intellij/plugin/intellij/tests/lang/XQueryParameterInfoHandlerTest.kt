@@ -1194,7 +1194,10 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(ui.isSingleParameterInfo, `is`(false))
                 assertThat(ui.isUIComponentEnabled, `is`(false))
 
-                assertThat(ui.text, `is`("\$arg1 as xs:anyAtomicType?, \$arg2 as xs:anyAtomicType?, \$args as xs:anyAtomicType? ..."))
+                assertThat(
+                    ui.text,
+                    `is`("\$arg1 as xs:anyAtomicType?, \$arg2 as xs:anyAtomicType?, \$args as xs:anyAtomicType? ...")
+                )
                 assertThat(ui.highlightStart, `is`(56))
                 assertThat(ui.highlightEnd, `is`(86))
             }
@@ -1303,7 +1306,10 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(ui.isSingleParameterInfo, `is`(false))
                 assertThat(ui.isUIComponentEnabled, `is`(false))
 
-                assertThat(ui.text, `is`("\$arg1 as xs:anyAtomicType?, \$arg2 as xs:anyAtomicType?, \$args as xs:anyAtomicType? ..."))
+                assertThat(
+                    ui.text,
+                    `is`("\$arg1 as xs:anyAtomicType?, \$arg2 as xs:anyAtomicType?, \$args as xs:anyAtomicType? ...")
+                )
                 assertThat(ui.highlightStart, `is`(56))
                 assertThat(ui.highlightEnd, `is`(86))
             }

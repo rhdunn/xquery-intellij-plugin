@@ -24,7 +24,9 @@ object StaticContextDefinitions {
     private val filesystem = object : VirtualFileSystemImpl("res") {
         private val cache: HashMap<String, VirtualFile?> = HashMap()
 
-        fun findCacheableFile(path: String): VirtualFile? = ResourceVirtualFile(this::class.java.classLoader, path, this)
+        fun findCacheableFile(path: String): VirtualFile? {
+            return ResourceVirtualFile(this::class.java.classLoader, path, this)
+        }
 
         override fun findFileByPath(path: String): VirtualFile? {
             return cache[path] ?: findCacheableFile(path)?.let {

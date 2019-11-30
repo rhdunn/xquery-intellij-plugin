@@ -29,9 +29,10 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 internal class EXistDBQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     RunnableQueryProvider {
 
-    override val version get(): String {
-        return createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
-    }
+    override val version
+        get(): String {
+            return createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
+        }
 
     override val servers: List<String> = listOf()
 

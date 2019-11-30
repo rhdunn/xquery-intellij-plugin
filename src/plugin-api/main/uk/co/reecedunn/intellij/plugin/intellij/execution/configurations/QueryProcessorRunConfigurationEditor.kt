@@ -144,7 +144,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateServerUI() {
-        val settings = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings ?: return
+        val settings =
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+                ?: return
         executeOnPooledThread {
             val server = server!!
             try {
@@ -191,7 +193,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun populateDatabaseUI() {
-        val settings = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings ?: return
+        val settings =
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+                ?: return
         executeOnPooledThread {
             val database = database!!
             try {
@@ -308,7 +312,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun updateUI(isSparql: Boolean) {
-        val processor = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache)?.settings
+        val processor =
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache)?.settings
         rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
         updating!!.isEnabled = processor?.api?.canUpdate(languages[0]) == true
 
@@ -375,7 +380,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
-        configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
+        configuration.processorId =
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
         configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String

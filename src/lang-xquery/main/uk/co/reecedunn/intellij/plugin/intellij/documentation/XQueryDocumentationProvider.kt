@@ -64,7 +64,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
             }
             is XQueryElement -> {
                 val dynamic = XQueryBundle.message("element.dynamic")
-                "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic } {...}"
+                "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
             }
             else -> null
         }
