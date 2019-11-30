@@ -80,7 +80,7 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
 
     fun toXmlString(): String {
         val writer = StringWriter()
-        XmlDocument.formatter.transform(DOMSource(doc), StreamResult(writer))
+        formatter.transform(DOMSource(doc), StreamResult(writer))
         return writer.buffer.toString()
     }
 
