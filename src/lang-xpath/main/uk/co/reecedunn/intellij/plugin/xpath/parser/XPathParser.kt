@@ -1573,8 +1573,7 @@ open class XPathParser : PsiParser {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseExpr(builder, EXPR)) {
-            }
+            parseExpr(builder, EXPR)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -2501,7 +2500,7 @@ open class XPathParser : PsiParser {
             parseFTThesaurusOption(builder, marker) ||
             parseFTWildCardOption(builder, marker)
         ) {
-            //
+            return false
         } else if (builder.matchTokenType(XPathTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
@@ -3293,12 +3292,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (
-                parseElementTest(builder) ||
-                parseSchemaElementTest(builder)
-            ) {
-                //
-            }
+            parseElementTest(builder) || parseSchemaElementTest(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -3381,8 +3375,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameOrWildcard(builder, NCNAME) != null || parseStringLiteral(builder)) {
-            }
+            parseQNameOrWildcard(builder, NCNAME) != null || parseStringLiteral(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -3568,18 +3561,18 @@ open class XPathParser : PsiParser {
     open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)
         while (stringMarker != null) {
-            if (
+            return if (
                 builder.matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
                 builder.matchTokenType(XPathTokenType.ESCAPED_CHARACTER)
             ) {
-                //
+                continue
             } else if (builder.matchTokenType(XPathTokenType.STRING_LITERAL_END)) {
                 stringMarker.done(type)
-                return true
+                true
             } else {
                 stringMarker.done(type)
                 builder.error(XPathBundle.message("parser.error.incomplete-string"))
-                return true
+                true
             }
         }
         return false
