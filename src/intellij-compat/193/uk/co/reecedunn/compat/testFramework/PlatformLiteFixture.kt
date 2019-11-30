@@ -38,7 +38,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
 
     private var myApp: MockApplication? = null
 
-    fun getApplication(): MockApplication = myApp!!
+    private fun getApplication(): MockApplication = myApp!!
 
     fun initApplication(): MockApplication {
         val app = MockApplication.setUp(testRootDisposable)
@@ -74,7 +74,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtension(Extensions.getRootArea(), extensionPointName, extension)
     }
 
-    fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
+    private fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
         registerExtensionPoint(area, name, extension.javaClass)
         area.getExtensionPoint<T>(name.name).registerExtension(extension, testRootDisposable)
     }

@@ -145,7 +145,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         TreeAspect(pomModel)
     }
 
-    fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
+    private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
         language = definition.fileNodeType.language
         mFileExt = extension
         addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
