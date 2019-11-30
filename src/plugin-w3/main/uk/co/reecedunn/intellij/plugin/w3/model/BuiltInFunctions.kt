@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val MODULES = mapOf(
+    override val modules = mapOf(
         "http://www.w3.org/2001/XMLSchema" to "org/w3/www/2001/XMLSchema.xqy",
         "http://www.w3.org/2005/xpath-functions" to "org/w3/www/2005/xpath-functions.xqy",
         "http://www.w3.org/2005/xpath-functions/array" to "org/w3/www/2005/xpath-functions/array.xqy",

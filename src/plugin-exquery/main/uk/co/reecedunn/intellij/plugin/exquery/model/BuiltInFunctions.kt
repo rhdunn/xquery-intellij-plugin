@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val MODULES = mapOf(
+    override val modules = mapOf(
         "http://exquery.org/ns/request" to "org/exquery/ns/request.xqy",
         "http://exquery.org/ns/restxq" to "org/exquery/ns/restxq.xqy"
     )

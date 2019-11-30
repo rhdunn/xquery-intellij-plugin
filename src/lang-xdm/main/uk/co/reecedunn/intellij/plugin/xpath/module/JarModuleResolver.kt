@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
 abstract class JarModuleResolver : ImportPathResolver {
     abstract val classLoader: ClassLoader
 
-    abstract val MODULES: Map<String, String>
+    abstract val modules: Map<String, String>
 
     private val filesystem = object : VirtualFileSystemImpl("res") {
         private val cache: HashMap<String, VirtualFile?> = HashMap()
@@ -42,7 +42,7 @@ abstract class JarModuleResolver : ImportPathResolver {
         }
     }
 
-    override fun match(path: String): Boolean = MODULES.containsKey(path)
+    override fun match(path: String): Boolean = modules.containsKey(path)
 
-    override fun resolve(path: String): VirtualFile? = MODULES[path]?.let { filesystem.findFileByPath(it) }
+    override fun resolve(path: String): VirtualFile? = modules[path]?.let { filesystem.findFileByPath(it) }
 }

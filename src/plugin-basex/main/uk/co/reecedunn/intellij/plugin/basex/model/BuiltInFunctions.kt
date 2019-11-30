@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val MODULES = mapOf(
+    override val modules = mapOf(
         "http://basex.org/modules/admin" to "org/basex/modules/admin.xqy",
         "http://basex.org/modules/archive" to "org/basex/modules/archive.xqy",
         "http://basex.org/modules/client" to "org/basex/modules/client.xqy",

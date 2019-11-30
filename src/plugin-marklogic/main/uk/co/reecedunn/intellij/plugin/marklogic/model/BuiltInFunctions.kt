@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val MODULES = mapOf(
+    override val modules = mapOf(
         "http://marklogic.com/cts" to "com/marklogic/cts.xqy",
         "http://marklogic.com/geospatial" to "com/marklogic/geospatial.xqy",
         "http://marklogic.com/xdmp" to "com/marklogic/xdmp.xqy",
