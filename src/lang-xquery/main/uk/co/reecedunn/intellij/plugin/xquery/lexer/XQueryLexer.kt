@@ -329,17 +329,16 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
-                mType = when {
-                    mTokenRange.codePoint == '='.toInt() -> {
+                mType = when (mTokenRange.codePoint) {
+                    '='.toInt() -> {
                         mTokenRange.match()
                         XPathTokenType.NOT_EQUAL
                     }
-                    mTokenRange.codePoint == '!'.toInt() -> {
+                    '!'.toInt() -> {
                         mTokenRange.match()
                         XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
                     }
-                    else -> XPathTokenType.MAP_OPERATOR
-                    // XQuery 3.0
+                    else -> XPathTokenType.MAP_OPERATOR // XQuery 3.0
                 }
             }
             CharacterClass.DOLLAR -> {

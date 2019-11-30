@@ -1196,12 +1196,12 @@ class ModelTest {
             for (product in Saxon.products) {
                 for (version in Saxon.versions) {
                     flavours = product.flavoursForXQueryVersion(version, "1.0")
-                    when {
-                        product.id == "HE" -> {
+                    when (product.id) {
+                        "HE" -> {
                             assertThat(flavours.size, `is`(1))
                             assertThat(flavours[0], `is`(XQuerySpec))
                         }
-                        product.id == "PE" -> {
+                        "PE" -> {
                             assertThat(flavours.size, `is`(2))
                             assertThat(flavours[0], `is`(Saxon))
                             assertThat(flavours[1], `is`(XQuerySpec))
@@ -1215,12 +1215,12 @@ class ModelTest {
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.0")
-                    when {
-                        product.id == "HE" -> {
+                    when (product.id) {
+                        "HE" -> {
                             assertThat(flavours.size, `is`(1))
                             assertThat(flavours[0], `is`(XQuerySpec))
                         }
-                        product.id == "PE" -> {
+                        "PE" -> {
                             assertThat(flavours.size, `is`(2))
                             assertThat(flavours[0], `is`(Saxon))
                             assertThat(flavours[1], `is`(XQuerySpec))
@@ -1234,12 +1234,12 @@ class ModelTest {
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.1")
-                    when {
-                        product.id == "HE" -> {
+                    when (product.id) {
+                        "HE" -> {
                             assertThat(flavours.size, `is`(1))
                             assertThat(flavours[0], `is`(XQuerySpec))
                         }
-                        product.id == "PE" -> {
+                        "PE" -> {
                             assertThat(flavours.size, `is`(2))
                             assertThat(flavours[0], `is`(Saxon))
                             assertThat(flavours[1], `is`(XQuerySpec))
