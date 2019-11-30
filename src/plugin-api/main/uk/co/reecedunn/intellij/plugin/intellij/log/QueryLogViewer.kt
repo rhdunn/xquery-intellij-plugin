@@ -146,11 +146,11 @@ class QueryLogViewerUI(val project: Project) {
                             logConsole?.clear()
                         }
 
-                        log.withIndex().forEach { line ->
-                            if (line.index > lines) {
-                                logConsole?.print(line.value, ConsoleViewContentType.NORMAL_OUTPUT)
+                        log.withIndex().forEach { (index, value) ->
+                            if (index > lines) {
+                                logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
                                 logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-                                lines = line.index
+                                lines = index
                             }
                         }
 
