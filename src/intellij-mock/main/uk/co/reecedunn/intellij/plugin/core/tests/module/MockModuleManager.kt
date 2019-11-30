@@ -33,6 +33,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
         return module
     }
 
+    @Suppress("UnstableApiUsage")
     override fun setUnloadedModules(unloadedModuleNames: MutableList<String>) {
         TODO("not implemented")
     }

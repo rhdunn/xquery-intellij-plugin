@@ -24,6 +24,7 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.compat.roots.ContentEntry
 
+@Suppress("NonExtendableApiUsage")
 class MockContentEntry(private val file: VirtualFile) : ContentEntry {
     override fun setExcludePatterns(patterns: MutableList<String>) {
         TODO("not implemented")

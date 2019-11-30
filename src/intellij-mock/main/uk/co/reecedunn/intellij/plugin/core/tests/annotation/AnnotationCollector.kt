@@ -24,6 +24,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import java.util.*
 
+@Suppress("NonExtendableApiUsage")
 class AnnotationCollector : AnnotationHolder {
     val annotations: MutableList<Annotation> = ArrayList()
 
