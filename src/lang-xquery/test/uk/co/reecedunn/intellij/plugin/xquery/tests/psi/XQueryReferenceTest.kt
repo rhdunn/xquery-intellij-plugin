@@ -54,7 +54,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.count(), `is`(2))
+                assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.first().reference!!
                 assertThat(ref.canonicalText, `is`("http://example.com/test"))
@@ -75,7 +75,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.count(), `is`(2))
+                assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
                 assertThat(ref.canonicalText, `is`("test.xq"))
@@ -98,7 +98,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.count(), `is`(2))
+                assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
                 assertThat(ref.canonicalText, `is`("namespaces/ModuleDecl.xq"))
@@ -119,7 +119,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
                 val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.count(), `is`(2))
+                assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
                 assertThat(ref.canonicalText, `is`(""))
