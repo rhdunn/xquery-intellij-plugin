@@ -87,7 +87,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
             VirtualFileManagerListener::class.java
         )
 
-        val bus = ApplicationManager.getApplication().getMessageBus()
+        val bus = ApplicationManager.getApplication().messageBus
         registerApplicationService(VirtualFileManager::class.java, VirtualFileManagerImpl(arrayOf(), bus))
     }
 
