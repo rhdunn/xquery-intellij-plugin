@@ -1910,49 +1910,53 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region VersionDecl
 
-    @Test
-    fun testVersionDecl_Conformance() {
-        val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (2) VersionDecl")
+    internal inner class VersionDecl {
+        @Test
+        @DisplayName("version only")
+        fun version() {
+            val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
 
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        val versioned = versionDeclPsi as VersionConformance
+            val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+            val versioned = versionDeclPsi as VersionConformance
 
-        assertThat(versioned.requiresConformance.size, `is`(0))
+            assertThat(versioned.requiresConformance.size, `is`(0))
 
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_XQUERY))
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_XQUERY))
+        }
+
+        @Test
+        @DisplayName("version and encoding")
+        fun versionAndEncoding() {
+            val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
+
+            val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+            val versioned = versionDeclPsi as VersionConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_XQUERY))
+        }
+
+        @Test
+        @DisplayName("encoding only")
+        fun encoding() {
+            val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
+
+            val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+            val versioned = versionDeclPsi as VersionConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_ENCODING))
+        }
     }
-
-    @Test
-    fun testVersionDecl_WithEncoding_Conformance() {
-        val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        val versioned = versionDeclPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_XQUERY))
-    }
-
-    @Test
-    fun testVersionDecl_EncodingOnly_Conformance() {
-        val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        val versioned = versionDeclPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_ENCODING))
-    }
-
-    // endregion
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (33) ParamList")

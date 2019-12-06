@@ -76,65 +76,74 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: VersionDecl
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (2) VersionDecl")
+    internal inner class VersionDecl_XQuery10 {
+        @Test
+        @DisplayName("version only")
+        fun versionOnly() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testVersionDecl() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("version only; compact whitespace")
+        fun versionOnly_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("version and encoding")
+        fun versionAndEncoding() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("version and encoding; compact whitespace")
+        fun versionAndEncoding_compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'version' keyword")
+        fun missingVersionKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing version string")
+        fun missingVersionString() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionString.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionString.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing semicolon")
+        fun missingSemicolon() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingSemicolon.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingSemicolon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing encoding string")
+        fun missingEncodingString() {
+            val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testVersionDecl_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_WithEncoding() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_WithEncoding_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_MissingVersionKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_MissingVersionString() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionString.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionString.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_MissingSemicolon() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingSemicolon.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingSemicolon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_MissingEncodingString() {
-        val expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: MainModule
 
     @Test
@@ -5886,37 +5895,42 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // region XQuery 3.0 :: VersionDecl
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (2) VersionDecl")
+    internal inner class VersionDecl_XQuery30 {
+        @Test
+        @DisplayName("encoding only")
+        fun encoding() {
+            val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testVersionDecl_EncodingOnly() {
-        val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("encoding only; compact whitespace")
+        fun encoding_compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("encoding only; missing encoding string")
+        fun missingEncodingString() {
+            val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("encoding only; missing semicolon")
+        fun missingSemicolon() {
+            val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testVersionDecl_EncodingOnly_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_EncodingOnly_MissingEncodingString() {
-        val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVersionDecl_EncodingOnly_MissingSemicolon() {
-        val expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: DecimalFormatDecl
 
     @Test
