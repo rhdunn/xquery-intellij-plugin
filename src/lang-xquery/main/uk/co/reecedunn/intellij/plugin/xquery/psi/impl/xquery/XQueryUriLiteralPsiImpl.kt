@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBaseURIDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCollationDecl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
 class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
@@ -35,6 +36,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
         get() {
             val context = when (parent) {
                 is XQueryBaseURIDecl -> XdmUriContext.BaseUri
+                is XQueryDefaultCollationDecl -> XdmUriContext.Collation
                 else -> XdmUriContext.Namespace
             }
             return XsAnyUri(cachedContent.get()!!, context, this)

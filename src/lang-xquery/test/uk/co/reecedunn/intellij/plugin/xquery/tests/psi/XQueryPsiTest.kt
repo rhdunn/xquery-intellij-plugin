@@ -3981,7 +3981,30 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (4.5) BaseURIDecl")
+    @DisplayName("XQuery 3.1 (4.4) Default Collation Declaration")
+    internal inner class DefaultCollationDecl {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (10) DefaultCollationDecl")
+        internal inner class DefaultCollationDecl {
+            @Test
+            @DisplayName("non-empty uri")
+            fun nonEmptyUri() {
+                val expr = parse<XQueryDefaultCollationDecl>("declare default collation 'http://www.example.com';")[0]
+                assertThat(expr.collation!!.data, `is`("http://www.example.com"))
+                assertThat(expr.collation!!.context, `is`(XdmUriContext.Collation))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun noNamespaceUri() {
+                val expr = parse<XQueryDefaultCollationDecl>("declare default collation;")[0]
+                assertThat(expr.collation, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (4.5) Base URI Declaration")
     internal inner class BaseURIDecl {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (11) BaseURIDecl")
