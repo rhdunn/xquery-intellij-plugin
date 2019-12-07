@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiReference
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
@@ -32,13 +33,12 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))
     }
 
-    override val value: XsAnyAtomicType
-        get() {
-            val context = when (parent) {
-                is XQueryBaseURIDecl -> XdmUriContext.BaseUri
-                is XQueryDefaultCollationDecl -> XdmUriContext.Collation
-                else -> XdmUriContext.Namespace
-            }
-            return XsAnyUri(cachedContent.get()!!, context, this)
+    override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
+        val context = when (parent) {
+            is XQueryBaseURIDecl -> XdmUriContext.BaseUri
+            is XQueryDefaultCollationDecl -> XdmUriContext.Collation
+            else -> XdmUriContext.Namespace
         }
+        XsAnyUri(content, context, this)
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,25 +31,28 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 open class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedContent.invalidate()
+        cachedValue.invalidate()
     }
 
-    override val value: XsAnyAtomicType get() = XsString(cachedContent.get()!!, this)
+    override val value: XsAnyAtomicType get() = cachedValue.get()!!
 
-    protected val cachedContent = CacheableProperty {
-        children().map { child ->
-            when (child.node.elementType) {
-                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                    null
-                XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
-                    (child as XQueryPredefinedEntityRef).entityRef.value
-                XQueryTokenType.CHARACTER_REFERENCE ->
-                    (child as XQueryCharRef).codepoint.toString()
-                XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedValue
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
-    }
+    protected open val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty { XsString(content, this) }
+
+    protected val content: String
+        get() {
+            return children().map { child ->
+                when (child.node.elementType) {
+                    XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
+                        null
+                    XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
+                        (child as XQueryPredefinedEntityRef).entityRef.value
+                    XQueryTokenType.CHARACTER_REFERENCE ->
+                        (child as XQueryCharRef).codepoint.toString()
+                    XPathTokenType.ESCAPED_CHARACTER ->
+                        (child as XPathEscapeCharacter).unescapedValue
+                    else ->
+                        child.text
+                }
+            }.filterNotNull().joinToString(separator = "")
+        }
 }
