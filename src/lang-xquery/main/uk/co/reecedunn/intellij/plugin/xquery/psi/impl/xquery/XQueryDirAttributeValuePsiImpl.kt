@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
                 if ((parent as XPathDefaultNamespaceDeclaration).accepts(XPathNamespaceType.Undefined)) {
                     XsString(it, this)
                 } else {
-                    XsAnyUri(it, this)
+                    XsAnyUri(it, XdmUriContext.Namespace, this)
                 }
             }
         }

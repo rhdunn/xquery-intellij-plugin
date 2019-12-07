@@ -150,14 +150,21 @@ fun String.toXsDuration(): XsDurationValue? {
 interface XsAnyUriValue : XsAnyAtomicType {
     val data: String
 
+    val context: XdmUriContext
+
     val element: PsiElement?
 }
 
 data class XsAnyUri(
     override val data: String,
+    override val context: XdmUriContext,
     private val reference: WeakReference<PsiElement>?
 ) : XsAnyUriValue {
-    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+    constructor(
+        data: String,
+        context: XdmUriContext,
+        element: PsiElement?
+    ) : this(data, context, element?.let { WeakReference(it) })
 
     override val element get(): PsiElement? = reference?.get()
 }

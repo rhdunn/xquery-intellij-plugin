@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.functions.UndeclaredNamespacePrefixException
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")
 class PluginFunctionsAndOperatorsTest {
@@ -34,6 +35,7 @@ class PluginFunctionsAndOperatorsTest {
         fun uriQualifiedName() {
             val qname = op_qname_parse("Q{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
+            assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
             assertThat(qname.isLexicalQName, `is`(false))
@@ -44,6 +46,7 @@ class PluginFunctionsAndOperatorsTest {
         fun clarkNotation() {
             val qname = op_qname_parse("{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
+            assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
             assertThat(qname.isLexicalQName, `is`(false))
@@ -54,6 +57,7 @@ class PluginFunctionsAndOperatorsTest {
         fun qname() {
             val qname = op_qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+            assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.prefix!!.data, `is`("xs"))
             assertThat(qname.localName!!.data, `is`("string"))
             assertThat(qname.isLexicalQName, `is`(true))
@@ -73,6 +77,7 @@ class PluginFunctionsAndOperatorsTest {
         fun ncname() {
             val qname = op_qname_parse("string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`(""))
+            assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("string"))
             assertThat(qname.isLexicalQName, `is`(true))

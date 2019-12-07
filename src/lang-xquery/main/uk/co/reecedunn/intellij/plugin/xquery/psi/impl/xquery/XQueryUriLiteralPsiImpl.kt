@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
 class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
@@ -29,5 +30,5 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))
     }
 
-    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!, this)
+    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!, XdmUriContext.Namespace, this)
 }

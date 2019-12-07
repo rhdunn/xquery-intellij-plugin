@@ -19,7 +19,8 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 
 class XPathUriLiteralPsiImpl(node: ASTNode) : XPathStringLiteralPsiImpl(node), XPathUriLiteral {
-    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!, this)
+    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!, XdmUriContext.Namespace, this)
 }

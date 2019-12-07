@@ -42,24 +42,24 @@ fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
 fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue {
     return when {
         qname.startsWith("Q{") /* URIQualifiedName */ -> {
-            val ns = XsAnyUri(qname.substringBefore('}').substring(2), null as PsiElement?)
+            val ns = XsAnyUri(qname.substringBefore('}').substring(2), XdmUriContext.Namespace, null as PsiElement?)
             val localName = XsNCName(qname.substringAfter('}'), null as PsiElement?)
             XsQName(ns, null, localName, false, null as PsiElement?)
         }
         qname.startsWith('{') /* Clark Notation */ -> {
-            val ns = XsAnyUri(qname.substringBefore('}').substring(1), null as PsiElement?)
+            val ns = XsAnyUri(qname.substringBefore('}').substring(1), XdmUriContext.Namespace, null as PsiElement?)
             val localName = XsNCName(qname.substringAfter('}'), null as PsiElement?)
             XsQName(ns, null, localName, false, null as PsiElement?)
         }
         qname.contains(':') /* QName */ -> {
             val prefix = XsNCName(qname.substringBefore(':'), null as PsiElement?)
-            val ns = namespaces[prefix.data]?.let { XsAnyUri(it, null as PsiElement?) }
+            val ns = namespaces[prefix.data]?.let { XsAnyUri(it, XdmUriContext.Namespace, null as PsiElement?) }
                 ?: throw UndeclaredNamespacePrefixException(prefix.data)
             val localName = XsNCName(qname.substringAfter(':'), null as PsiElement?)
             XsQName(ns, prefix, localName, true, null as PsiElement?)
         }
         else /* NCName */ -> {
-            val ns = XsAnyUri("", null as PsiElement?)
+            val ns = XsAnyUri("", XdmUriContext.Namespace, null as PsiElement?)
             val localName = XsNCName(qname, null as PsiElement?)
             XsQName(ns, null, localName, true, null as PsiElement?)
         }

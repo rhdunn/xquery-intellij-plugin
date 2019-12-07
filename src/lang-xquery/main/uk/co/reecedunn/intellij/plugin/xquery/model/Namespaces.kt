@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-private val EMPTY_NAMESPACE = XsAnyUri("", null as PsiElement?)
-private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", null as PsiElement?)
+private val EMPTY_NAMESPACE = XsAnyUri("", XdmUriContext.Namespace, null as PsiElement?)
+private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", XdmUriContext.Namespace, null as PsiElement?)
 
 private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
