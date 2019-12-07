@@ -3938,6 +3938,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryModuleDecl>("module namespace test = \"http://www.example.com\";")[0] as XPathNamespaceDeclaration
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
 
                 assertThat((decl as XQueryPrologResolver).prolog.count(), `is`(0))
             }
@@ -3951,6 +3952,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 """)[0] as XPathNamespaceDeclaration
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
 
                 val prologs = (decl as XQueryPrologResolver).prolog.toList()
                 assertThat(prologs.size, `is`(1))
@@ -3965,6 +3967,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryModuleDecl>("module namespace = \"http://www.example.com\";")[0] as XPathNamespaceDeclaration
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
             }
 
             @Test
