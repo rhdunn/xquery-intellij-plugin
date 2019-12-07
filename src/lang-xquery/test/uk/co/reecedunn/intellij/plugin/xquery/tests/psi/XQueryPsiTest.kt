@@ -269,6 +269,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun bracedUriLiteral() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.context, `is`(XdmUriContext.Namespace))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -277,6 +278,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun unclosedBracedUriLiteral() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
+                assertThat(literal.context, `is`(XdmUriContext.Namespace))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -286,6 +288,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
                 val literal = parse<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(literal.context, `is`(XdmUriContext.Namespace))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -294,6 +297,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun charRef() {
                 val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                assertThat(literal.context, `is`(XdmUriContext.Namespace))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
