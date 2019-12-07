@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -34,7 +35,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     FoldablePsiElement {
     // region XQueryDirElemConstructor
 
-    override val openTag get(): XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
+    override val openTag get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val closeTag
         get(): XsQNameValue? {

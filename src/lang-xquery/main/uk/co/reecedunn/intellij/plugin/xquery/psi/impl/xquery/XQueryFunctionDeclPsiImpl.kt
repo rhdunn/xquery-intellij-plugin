@@ -22,7 +22,6 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
@@ -47,7 +46,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
-    override val functionName get(): XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
+    override val functionName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val arity get(): Range<Int> = paramList?.arity ?: XPathFunctionDeclaration.ARITY_ZERO
 

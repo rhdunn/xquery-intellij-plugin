@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
@@ -43,7 +42,7 @@ class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     // endregion
     // region XPathFunctionReference
 
-    override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
+    override val functionName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val arity
         get(): Int =
