@@ -4363,6 +4363,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/1999/xhtml"))
+                assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
@@ -4382,6 +4383,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
@@ -4399,6 +4401,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
+                assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
