@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBaseURIDecl
 
-class XQueryBaseURIDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryBaseURIDecl
+class XQueryBaseURIDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryBaseURIDecl {
+    override val baseUri get(): XsAnyUriValue? = findChildByClass(XPathUriLiteral::class.java)?.value as? XsAnyUriValue
+}

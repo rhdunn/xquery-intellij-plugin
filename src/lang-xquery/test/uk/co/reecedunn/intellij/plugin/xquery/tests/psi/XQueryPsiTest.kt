@@ -3981,6 +3981,29 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (4.5) BaseURIDecl")
+    internal inner class BaseURIDecl {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (11) BaseURIDecl")
+        internal inner class BaseURIDecl {
+            @Test
+            @DisplayName("non-empty uri")
+            fun nonEmptyUri() {
+                val expr = parse<XQueryBaseURIDecl>("declare base-uri 'http://www.example.com';")[0]
+                assertThat(expr.baseUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.baseUri!!.context, `is`(XdmUriContext.BaseUri))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun noNamespaceUri() {
+                val expr = parse<XQueryBaseURIDecl>("declare base-uri;")[0]
+                assertThat(expr.baseUri, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (4.10) Decimal Format Declaration")
     internal inner class DecimalFormatDeclaration {
         @Nested
