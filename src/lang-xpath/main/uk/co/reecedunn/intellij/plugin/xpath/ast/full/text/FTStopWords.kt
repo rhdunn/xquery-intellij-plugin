@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.full.text
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 
 /**
  * An XQuery Full Text 1.0 `FTStopWords` node in the XQuery AST.
  */
-interface FTStopWords : PsiElement
+interface FTStopWords : PsiElement {
+    val source: XsAnyUriValue?
+}

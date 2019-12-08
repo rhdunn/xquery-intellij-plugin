@@ -45,7 +45,7 @@ private class FullTextConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 with Full Text EBNF (51) FTContainsExpr")
+    @DisplayName("XQuery 3.1 with Full Text EBNF (51) FTContainsExpr")
     fun testFTContainsExpr() {
         val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 
@@ -60,7 +60,7 @@ private class FullTextConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 with Full Text EBNF (37) FTScoreVar")
+    @DisplayName("XQuery 3.1 with Full Text EBNF (37) FTScoreVar")
     fun testFTScoreVar() {
         val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
 
@@ -77,7 +77,7 @@ private class FullTextConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 with Full Text EBNF (24) FTOptionDecl")
+    @DisplayName("XQuery 3.1 with Full Text EBNF (24) FTOptionDecl")
     fun testFTOptionDecl() {
         val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
 

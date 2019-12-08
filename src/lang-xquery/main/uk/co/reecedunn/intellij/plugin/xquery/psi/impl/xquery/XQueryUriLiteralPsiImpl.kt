@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
@@ -36,6 +37,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
 
     override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
         val context = when (parent) {
+            is FTStopWords -> XdmUriContext.StopWords
             is PluginLocationURIList -> XdmUriContext.Location
             is PluginStylesheetImport -> XdmUriContext.Location
             is XQueryBaseURIDecl -> XdmUriContext.BaseUri

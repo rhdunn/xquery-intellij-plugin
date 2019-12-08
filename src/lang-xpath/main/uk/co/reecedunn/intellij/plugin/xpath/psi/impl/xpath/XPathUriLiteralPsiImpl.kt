@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
@@ -25,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 class XPathUriLiteralPsiImpl(node: ASTNode) : XPathStringLiteralPsiImpl(node), XPathUriLiteral {
     override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
         val context = when (parent) {
+            is FTStopWords -> XdmUriContext.StopWords
             else -> XdmUriContext.Namespace
         }
         XsAnyUri(content, context, this)
