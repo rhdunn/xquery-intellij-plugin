@@ -42,6 +42,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
             is XQueryDefaultCollationDecl -> XdmUriContext.Collation
             is XQueryGroupingSpec -> XdmUriContext.Collation
             is XQueryModuleImport -> XdmUriContext.TargetNamespace
+            is XQueryNamespaceDecl -> XdmUriContext.NamespaceDeclaration
             is XQueryOrderModifier -> XdmUriContext.Collation
             is XQuerySchemaImport -> XdmUriContext.TargetNamespace
             else -> XdmUriContext.Namespace

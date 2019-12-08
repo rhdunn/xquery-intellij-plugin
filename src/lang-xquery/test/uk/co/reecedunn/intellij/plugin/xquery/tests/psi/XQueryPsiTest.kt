@@ -4429,17 +4429,19 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("specified namespace prefix and uri")
             fun namespacePrefixAndUri() {
-                val expr = parse<XQueryNamespaceDecl>("declare namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
-                assertThat(expr.namespacePrefix!!.data, `is`("test"))
-                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                val decl = parse<XQueryNamespaceDecl>("declare namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(decl.namespacePrefix!!.data, `is`("test"))
+                assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
             }
 
             @Test
             @DisplayName("missing namespace prefix")
             fun noNamespacePrefix() {
-                val expr = parse<XQueryNamespaceDecl>("declare namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
-                assertThat(expr.namespacePrefix, `is`(nullValue()))
-                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                val decl = parse<XQueryNamespaceDecl>("declare namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
             }
 
             @Test
