@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryImport
 
-class XQueryImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryImport
+class XQueryImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryImport {
+    override val locationUris: Sequence<XsAnyUriValue> = emptySequence()
+}

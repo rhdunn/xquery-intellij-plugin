@@ -904,7 +904,7 @@ The other compatibility annotations are defined in Scripting Extension 1.0.
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[32\] | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` | |
+| \[32\] | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetImport` | |
 | \[33\] | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |         |
 
 MarkLogic supports importing the functions and variables from an XLST stylesheet.
@@ -1041,7 +1041,7 @@ These changes include support for:
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
 | \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList \| ("(" "$" VarName ")")) EnclosedExpr` | |
-| \[32\]   | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` |         |
+| \[32\]   | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetImport` |        |
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
 | \[35\]   | `TransactionSeparator`         | ::= | `";"`                                     |                 |

@@ -38,7 +38,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
-    // region XQueryModuleImport
+    // region XQueryImport
 
     override val locationUris
         get(): Sequence<XsAnyUriValue> {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,32 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 
 class PluginStylesheetImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginStylesheetImport, VersionConformance {
+    // region VersionConformance
+
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_6_0)
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
+    // region XQueryImport
+
+    override val locationUris
+        get(): Sequence<XsAnyUriValue> {
+            return children().filterIsInstance<XPathUriLiteral>().map { uri ->
+                uri.value as XsAnyUriValue
+            }.filterNotNull()
+        }
+
+    // endregion
 }

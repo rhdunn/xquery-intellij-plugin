@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
@@ -36,6 +37,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
     override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
         val context = when (parent) {
             is PluginLocationURIList -> XdmUriContext.Location
+            is PluginStylesheetImport -> XdmUriContext.Location
             is XQueryBaseURIDecl -> XdmUriContext.BaseUri
             is XQueryDefaultCollationDecl -> XdmUriContext.Collation
             is XQueryGroupingSpec -> XdmUriContext.Collation

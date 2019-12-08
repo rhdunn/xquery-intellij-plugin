@@ -37,7 +37,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
@@ -1461,6 +1463,34 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (4.3) Stylesheet Import")
+    internal inner class StylesheetImport {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (33) StylesheetImport")
+        internal inner class StylesheetImport {
+            @Test
+            @DisplayName("location uris; single uri")
+            fun singleLocationUri() {
+                val import = parse<PluginStylesheetImport>("import stylesheet at;")[0]
+
+                val uris = import.locationUris.toList()
+                assertThat(uris.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("missing location uri")
+            fun missingLocationUri() {
+                val import = parse<PluginStylesheetImport>("import stylesheet at 'test.xsl';")[0]
+
+                val uris = import.locationUris.toList()
+                assertThat(uris.size, `is`(1))
+                assertThat(uris[0].data, `is`("test.xsl"))
+                assertThat(uris[0].context, `is`(XdmUriContext.Location))
             }
         }
     }

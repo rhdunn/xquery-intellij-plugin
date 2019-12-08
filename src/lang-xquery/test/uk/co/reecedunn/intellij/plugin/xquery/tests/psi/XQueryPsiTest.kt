@@ -4112,7 +4112,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
                 assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
@@ -4132,7 +4132,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
                 assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
@@ -4151,7 +4151,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri, `is`(nullValue()))
 
-                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
                 assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
@@ -4171,7 +4171,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
                 assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
@@ -4229,7 +4229,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                val uris = (import as XQueryModuleImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
             }
 
@@ -4243,7 +4243,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                val uris = (import as XQueryModuleImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
             }
 
@@ -4257,7 +4257,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                val uris = (import as XQueryModuleImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
             }
 
@@ -4268,7 +4268,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri, `is`(nullValue()))
 
-                val uris = (import as XQueryModuleImport).locationUris.toList()
+                val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
             }
 
