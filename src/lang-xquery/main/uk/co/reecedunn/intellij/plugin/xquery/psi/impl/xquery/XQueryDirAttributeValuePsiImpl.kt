@@ -43,7 +43,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
                 if ((parent as XPathDefaultNamespaceDeclaration).accepts(XPathNamespaceType.Undefined)) {
                     XsString(it, this)
                 } else {
-                    XsAnyUri(it, XdmUriContext.Namespace, this)
+                    XsAnyUri(it, XdmUriContext.NamespaceDeclaration, this)
                 }
             }
         }

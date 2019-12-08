@@ -1104,6 +1104,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
@@ -1140,6 +1141,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
