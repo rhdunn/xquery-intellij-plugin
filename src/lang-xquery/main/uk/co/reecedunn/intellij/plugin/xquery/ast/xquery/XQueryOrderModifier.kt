@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 
 /**
  * An XQuery 1.0 `OrderModifier` node in the XQuery AST.
  */
-interface XQueryOrderModifier : PsiElement
+interface XQueryOrderModifier : PsiElement {
+    val collation: XsAnyUriValue?
+}

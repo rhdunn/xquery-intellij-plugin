@@ -3372,6 +3372,31 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.12.8) Order By Clause")
+    internal inner class OrderByClause {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (68) OrderModifier")
+        internal inner class OrderModifier {
+            @Test
+            @DisplayName("non-empty collation uri")
+            fun nonEmptyUri() {
+                val expr = parse<XQueryOrderModifier>(
+                    "for \$x in \$y order by \$x collation 'http://www.example.com'"
+                )[0]
+                assertThat(expr.collation!!.data, `is`("http://www.example.com"))
+                assertThat(expr.collation!!.context, `is`(XdmUriContext.Collation))
+            }
+
+            @Test
+            @DisplayName("missing collation uri")
+            fun noNamespaceUri() {
+                val expr = parse<XQueryOrderModifier>("for \$x in \$y order by \$x ascending")[0]
+                assertThat(expr.collation, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.16) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested

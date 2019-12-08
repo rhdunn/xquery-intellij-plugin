@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBaseURIDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCollationDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingSpec
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderModifier
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
 class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
@@ -39,6 +40,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
             is XQueryBaseURIDecl -> XdmUriContext.BaseUri
             is XQueryDefaultCollationDecl -> XdmUriContext.Collation
             is XQueryGroupingSpec -> XdmUriContext.Collation
+            is XQueryOrderModifier -> XdmUriContext.Collation
             else -> XdmUriContext.Namespace
         }
         XsAnyUri(content, context, this)
