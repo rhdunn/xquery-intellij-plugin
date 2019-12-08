@@ -918,16 +918,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_AT)) {
-                do {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
-                        builder.error(XQueryBundle.message("parser.error.expected-uri-string"))
-                        haveErrors = true
-                    }
-                    parseWhiteSpaceAndCommentTokens(builder)
-                } while (builder.matchTokenType(XPathTokenType.COMMA))
-            }
+            parseLocationURIList(builder)
             return true
         }
         return false

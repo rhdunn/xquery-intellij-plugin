@@ -9,10 +9,11 @@ XQueryModuleImpl[FILE(0:56)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
                LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:41)]('http://www.example.com/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(41:42)]('"')
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
-            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:55)]
-               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(44:45)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:54)]('/test.xqy')
-               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(54:55)]('"')
+            PluginLocationURIListImpl[XQUERY_LOCATION_URI_LIST(42:55)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
+               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:55)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(44:45)]('"')
+                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:54)]('/test.xqy')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(54:55)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(55:56)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(56:56)]('XPST0003: Missing query body.')

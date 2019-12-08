@@ -11,7 +11,8 @@ XQueryModuleImpl[FILE(0:47)]
                LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(42:43)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(44:46)]('at')
-            PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Missing URI string.')
+            PluginLocationURIListImpl[XQUERY_LOCATION_URI_LIST(44:46)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(44:46)]('at')
+               PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Missing URI string.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(46:47)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Missing query body.')

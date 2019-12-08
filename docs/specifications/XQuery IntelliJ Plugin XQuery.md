@@ -70,6 +70,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [4.5 Function Declaration](#45-function-declaration)
   - [4.6 Using Declaration](#46-using-declaration)
   - [4.7 Schema Import](#47-schema-import)
+  - [4.8 Module Import](#48-module-import)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XQuery 3.1 with Vendor Extensions](#a1-ebnf-for-xquery-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a2-reserved-function-names)
@@ -968,6 +969,17 @@ without setting the default element/type or function namespace.
 This splits out the location URI grammar into a separate symbol, making it
 easier to differentiate the target namespace from location URIs.
 
+### 4.8 Module Import
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[107\] | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |         |
+| \[108\] | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
+
+This splits out the location URI grammar into a separate symbol, making it
+easier to differentiate the target namespace from location URIs.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XQuery 3.1 with Vendor Extensions
@@ -1100,6 +1112,7 @@ These changes include support for:
 | \[105\]  | `UsingDecl`                    | ::= | `"using" "namespace" URILiteral`          |                 |
 | \[106\]  | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
 | \[107\]  | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |                 |
+| \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
 
 ### A.2 Reserved Function Names
 
@@ -1287,6 +1300,7 @@ behaviour of those constructs:
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
 1.  [Schema Import](#47-schema-import) \[1.6\]
+1.  [Module Import](#48-module-import) \[1.6\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:

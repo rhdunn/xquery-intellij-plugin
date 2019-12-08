@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -53,7 +54,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.first().reference!!
@@ -74,7 +75,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
@@ -97,7 +98,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
@@ -118,7 +119,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
                 assertThat(moduleImportPsi, `is`(notNullValue()))
 
-                val uriLiterals = moduleImportPsi.children().filterIsInstance<XPathUriLiteral>().toList()
+                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!

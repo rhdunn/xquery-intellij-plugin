@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
@@ -41,9 +42,10 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
 
     override val locationUris
         get(): Sequence<XsAnyUriValue> {
-            return children().filterIsInstance<XPathUriLiteral>().map { uri ->
+            val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
+            return uris?.children()?.filterIsInstance<XPathUriLiteral>()?.map { uri ->
                 uri.value as XsAnyUriValue
-            }.filterNotNull().drop(1)
+            }?.filterNotNull() ?: emptySequence()
         }
 
     // endregion
