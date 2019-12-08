@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 
-class FTThesaurusIDPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTThesaurusID
+class FTThesaurusIDPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTThesaurusID {
+    override val source: XsAnyUriValue?
+        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+}

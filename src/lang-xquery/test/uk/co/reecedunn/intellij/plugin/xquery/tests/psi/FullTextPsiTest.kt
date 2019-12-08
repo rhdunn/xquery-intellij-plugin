@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -29,6 +30,31 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 with Full Text 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class FullTextPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery and XPath Full Text 3.0 (3.4.3) Thesaurus Option")
+    internal inner class ThesaurusOption {
+        @Nested
+        @DisplayName("Full Text 3.0 EBNF (227) FTThesaurusID")
+        internal inner class FTThesaurusID_XPath31 {
+            @Test
+            @DisplayName("thesaurus uri")
+            fun uri() {
+                val thesaurus = parse<FTThesaurusID>(
+                    "x contains text 'test' using thesaurus at 'http://www.example.com'"
+                )[0]
+                assertThat(thesaurus.source!!.data, `is`("http://www.example.com"))
+                assertThat(thesaurus.source!!.context, `is`(XdmUriContext.Thesaurus))
+            }
+
+            @Test
+            @DisplayName("missing thesaurus uri")
+            fun wordList_single() {
+                val thesaurus = parse<FTThesaurusID>("x contains text 'test' using thesaurus at")[0]
+                assertThat(thesaurus.source, `is`(nullValue()))
+            }
+        }
+    }
+
     @Nested
     @DisplayName("XQuery and XPath Full Text 3.0 (3.4.7) Stop Word Option")
     internal inner class StopWordOption {
