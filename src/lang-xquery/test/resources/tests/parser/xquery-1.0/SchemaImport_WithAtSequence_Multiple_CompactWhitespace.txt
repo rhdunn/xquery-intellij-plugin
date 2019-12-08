@@ -9,15 +9,16 @@ XQueryModuleImpl[FILE(0:72)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
                LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:41)]('http://www.example.com/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(41:42)]('"')
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
-            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:55)]
-               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(44:45)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:54)]('/test.xsd')
-               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(54:55)]('"')
-            LeafPsiElement[XPATH_COMMA_TOKEN(55:56)](',')
-            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(56:71)]
-               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(56:57)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(57:70)]('/app/test.xsd')
-               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(70:71)]('"')
+            PluginLocationURIListImpl[XQUERY_LOCATION_URI_LIST(42:71)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
+               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:55)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(44:45)]('"')
+                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:54)]('/test.xsd')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(54:55)]('"')
+               LeafPsiElement[XPATH_COMMA_TOKEN(55:56)](',')
+               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(56:71)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(56:57)]('"')
+                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(57:70)]('/app/test.xsd')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(70:71)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(71:72)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(72:72)]('XPST0003: Missing query body.')

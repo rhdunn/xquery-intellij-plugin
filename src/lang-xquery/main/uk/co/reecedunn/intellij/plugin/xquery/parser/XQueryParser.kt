@@ -814,24 +814,14 @@ class XQueryParser : XPathParser() {
             builder.advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
-            var haveErrors = parseSchemaPrefix(builder)
+            val haveErrors = parseSchemaPrefix(builder)
 
-            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL)) {
+            if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-uri-string"))
-                haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_AT)) {
-                do {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
-                        builder.error(XQueryBundle.message("parser.error.expected-uri-string"))
-                        haveErrors = true
-                    }
-                    parseWhiteSpaceAndCommentTokens(builder)
-                } while (builder.matchTokenType(XPathTokenType.COMMA))
-            }
+            parseLocationURIList(builder)
             return true
         }
         return false
@@ -938,6 +928,24 @@ class XQueryParser : XPathParser() {
                     parseWhiteSpaceAndCommentTokens(builder)
                 } while (builder.matchTokenType(XPathTokenType.COMMA))
             }
+            return true
+        }
+        return false
+    }
+
+    private fun parseLocationURIList(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_AT)
+        if (marker != null) {
+            var haveErrors = false
+            do {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
+                    builder.error(XQueryBundle.message("parser.error.expected-uri-string"))
+                    haveErrors = true
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+            } while (builder.matchTokenType(XPathTokenType.COMMA))
+            marker.done(XQueryElementType.LOCATION_URI_LIST)
             return true
         }
         return false

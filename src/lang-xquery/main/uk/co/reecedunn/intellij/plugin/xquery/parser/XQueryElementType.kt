@@ -902,6 +902,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val LOCATION_URI_LIST: IElementType = ICompositeElementType(
+        "XQUERY_LOCATION_URI_LIST",
+        PluginLocationURIListPsiImpl::class.java,
+        XQuery
+    )
+
     val MODEL_GROUP_TEST: IElementType = ICompositeElementType(
         "XQUERY_MODEL_GROUP_TEST",
         PluginModelGroupTestPsiImpl::class.java,

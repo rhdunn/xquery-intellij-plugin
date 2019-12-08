@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.5 XQuery
+title: XQuery IntelliJ Plugin 1.6 XQuery
 ---
 
 This document includes material copied from or derived from the XQuery
@@ -69,6 +69,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [4.4 Transactions](#44-transactions)
   - [4.5 Function Declaration](#45-function-declaration)
   - [4.6 Using Declaration](#46-using-declaration)
+  - [4.7 Schema Import](#47-schema-import)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XQuery 3.1 with Vendor Extensions](#a1-ebnf-for-xquery-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a2-reserved-function-names)
@@ -956,6 +957,17 @@ variadic parameter is given a type, the elements in that array has that type.
 MarkLogic supports importing the functions and variables from an XQuery module
 without setting the default element/type or function namespace.
 
+### 4.7 Schema Import
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[106\] | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
+| \[107\] | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |         |
+
+This splits out the location URI grammar into a separate symbol, making it
+easier to differentiate the target namespace from location URIs.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XQuery 3.1 with Vendor Extensions
@@ -1086,6 +1098,8 @@ These changes include support for:
 | \[103\]  | `SchemaWildcardTest`           | ::= | `"schema-wildcard" "(" ")"`               |                 |
 | \[104\]  | `ModelGroupTest`               | ::= | `"model-group" "(" ElementNameOrWildcard? ")"` |            |
 | \[105\]  | `UsingDecl`                    | ::= | `"using" "namespace" URILiteral`          |                 |
+| \[106\]  | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
+| \[107\]  | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1272,6 +1286,7 @@ behaviour of those constructs:
 1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
+1.  [Schema Import](#47-schema-import) \[1.6\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
