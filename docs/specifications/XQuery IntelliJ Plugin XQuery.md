@@ -23,7 +23,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [2.1.2.2 Tuple Type](#2122-tuple-type)
       - [2.1.2.3 Binary Test](#2123-binary-test)
       - [2.1.2.4 Schema Kind Tests](#2124-schema-kind-tests)
-      - [2.1.2.5 JSON Node Tests](#2125-json-node-tests)
+      - [2.1.2.5 JSON Node Tests](#2125-json-node-test)
         - [2.1.2.5.1 Boolean Node Test](#21251-boolean-node-test)
         - [2.1.2.5.2 Number Node Test](#21252-number-node-test)
         - [2.1.2.5.3 Null Node Test](#21253-null-node-test)
@@ -1237,13 +1237,13 @@ MarkLogic also supports the following syntax for XQuery 3.0 constructs:
 1.  [Validate Expressions](#310-validate-expressions) -- alternate syntax for typed validations
 
 MarkLogic 8.0 supports the following JSON syntax extensions:
-1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays)
-1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#383-booleans)
+1.  [Array Node Test](#21254-array-node-test) and [Array Constructors](#382-arrays)
+1.  [Boolean Node Test](#21251-boolean-node-test) and [Boolean Constructors](#383-booleans)
 1.  [Document Tests](#211-sequencetype-syntax)
-1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps)
+1.  [Map Node Test](#21255-map-node-test) and [Map Constructors](#381-maps)
 1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\]
-1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#385-nulls)
-1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#384-numbers)
+1.  [Null Node Test](#21253-null-node-test) and [Null Constructors](#385-nulls)
+1.  [Number Node Test](#21252-number-node-test) and [Number Constructors](#384-numbers)
 1.  [Text Tests](#211-sequencetype-syntax)
 
 ### C.3 Saxon Vendor Extensions
@@ -1269,7 +1269,7 @@ behaviour of those constructs:
 1.  [Typeswitch](#331-typeswitch) \[1.1\]
 1.  [Block Expressions](#34-block-expressions) \[1.1\]
 1.  [Node Tests](#392-node-tests) \[1.3\]
-1.  [Any Item Type](#21211-item-type) \[1.3\]
+1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
 
@@ -1313,7 +1313,7 @@ __ije:IJVS0002__
 > It is a *static error* if an unprefixed function name contains a reserved
 > function name for constructs supported by the XQuery processor.
 >
-> See [A.3 Reserved Function Names](#a3-reserved-function-names).
+> See [A.2 Reserved Function Names](#a2-reserved-function-names).
 
 __ije:IJVS0003__
 > It is a *static error* if a PredefinedEntityRef name is not supported by
