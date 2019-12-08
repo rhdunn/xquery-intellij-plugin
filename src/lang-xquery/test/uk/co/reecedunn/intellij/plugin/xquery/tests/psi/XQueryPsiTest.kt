@@ -4107,65 +4107,108 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("specified namespace prefix and uri")
             fun namespacePrefixAndUri() {
-                val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
-                assertThat(expr.namespacePrefix!!.data, `is`("test"))
-                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                val import = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
+                assertThat(import.namespacePrefix!!.data, `is`("test"))
+                assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
             }
 
             @Test
             @DisplayName("missing namespace prefix")
             fun noNamespacePrefix() {
-                val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
-                assertThat(expr.namespacePrefix, `is`(nullValue()))
-                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                val import = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
+                assertThat(import.namespacePrefix, `is`(nullValue()))
+                assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
             }
 
             @Test
             @DisplayName("missing namespace uri")
             fun noNamespaceUri() {
-                val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XPathDefaultNamespaceDeclaration
-                assertThat(expr.namespacePrefix!!.data, `is`("test"))
-                assertThat(expr.namespaceUri, `is`(nullValue()))
+                val import = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XPathDefaultNamespaceDeclaration
+                assertThat(import.namespacePrefix!!.data, `is`("test"))
+                assertThat(import.namespaceUri, `is`(nullValue()))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
             }
 
             @Test
             @DisplayName("default element namespace")
             fun defaultElementNamespace() {
-                val expr = parse<XQuerySchemaImport>("import schema default element namespace 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
-                assertThat(expr.namespacePrefix, `is`(nullValue()))
-                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                val import = parse<XQuerySchemaImport>("import schema default element namespace 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
+                assertThat(import.namespacePrefix, `is`(nullValue()))
+                assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                val uris = (import as XQuerySchemaImport).locationUris.toList()
+                assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("location uris; single uri")
+            fun singleLocationUri() {
+                val import = parse<XQuerySchemaImport>(
+                    "import schema namespace test = 'http://www.example.com' at 'test1.xsd';"
+                )[0]
+
+                val uris = import.locationUris.toList()
+                assertThat(uris.size, `is`(1))
+                assertThat(uris[0].data, `is`("test1.xsd"))
+                assertThat(uris[0].context, `is`(XdmUriContext.Location))
+            }
+
+            @Test
+            @DisplayName("location uris; multiple uris")
+            fun multipleLocationUris() {
+                val import = parse<XQuerySchemaImport>(
+                    "import schema namespace test = 'http://www.example.com' at 'test1.xsd' , 'test2.xsd';"
+                )[0]
+
+                val uris = import.locationUris.toList()
+                assertThat(uris.size, `is`(2))
+                assertThat(uris[0].data, `is`("test1.xsd"))
+                assertThat(uris[0].context, `is`(XdmUriContext.Location))
+                assertThat(uris[1].data, `is`("test2.xsd"))
+                assertThat(uris[1].context, `is`(XdmUriContext.Location))
             }
         }
     }

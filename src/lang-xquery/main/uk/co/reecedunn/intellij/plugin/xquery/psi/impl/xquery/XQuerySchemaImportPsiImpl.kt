@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 
 class XQuerySchemaImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -46,6 +47,17 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
 
     override val namespaceUri
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+
+    // endregion
+    // region XQuerySchemaImport
+
+    override val locationUris
+        get(): Sequence<XsAnyUriValue> {
+            val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
+            return uris?.children()?.filterIsInstance<XPathUriLiteral>()?.map { uri ->
+                uri.value as XsAnyUriValue
+            }?.filterNotNull() ?: emptySequence()
+        }
 
     // endregion
 }
