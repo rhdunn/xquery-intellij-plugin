@@ -37,26 +37,33 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
         get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
-    // region XQueryPrologResolver
+    // region XQueryModuleImport
 
     override val locationUris
         get(): Sequence<XsAnyUriValue> {
-            val imports = children().filterIsInstance<XPathUriLiteral>().map { uri ->
+            return children().filterIsInstance<XPathUriLiteral>().map { uri ->
                 uri.value as XsAnyUriValue
-            }.filterNotNull().toList()
-            return if (imports.size == 1)
-                sequenceOf(imports[0])
-            else
-                imports.drop(1).asSequence()
+            }.filterNotNull().drop(1)
         }
+
+    // endregion
+    // region XQueryPrologResolver
 
     override val prolog
         get(): Sequence<XQueryProlog> {
-            return locationUris.flatMap { uri ->
-                val file = uri.resolveUri<XQueryModule>()
-                val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-                (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
-            }.filterNotNull()
+            val locations = locationUris
+            return if (locations.any())
+                locations.flatMap { uri ->
+                    val file = uri.resolveUri<XQueryModule>()
+                    val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+                    (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
+                }.filterNotNull()
+            else
+                children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.let { uri ->
+                    val file = (uri.value as XsAnyUriValue).resolveUri<XQueryModule>()
+                    val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+                    (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
+                } ?: emptySequence()
         }
 
     // endregion

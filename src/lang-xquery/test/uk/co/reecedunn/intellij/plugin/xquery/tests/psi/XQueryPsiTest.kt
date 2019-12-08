@@ -4179,37 +4179,40 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("specified namespace prefix and uri")
             fun namespacePrefixAndUri() {
-                val import = parse<XQueryModuleImport>("import module namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                val import = parse<XQueryModuleImport>(
+                    "import module namespace test = 'http://www.example.com';"
+                )[0] as XPathNamespaceDeclaration
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 val uris = (import as XQueryModuleImport).locationUris.toList()
-                assertThat(uris.size, `is`(1))
-                assertThat(uris[0].data, `is`("http://www.example.com"))
+                assertThat(uris.size, `is`(0))
             }
 
             @Test
             @DisplayName("missing namespace prefix NCName")
             fun noNamespacePrefixNCName() {
-                val import = parse<XQueryModuleImport>("import module namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                val import = parse<XQueryModuleImport>(
+                    "import module namespace = 'http://www.example.com';"
+                )[0] as XPathNamespaceDeclaration
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 val uris = (import as XQueryModuleImport).locationUris.toList()
-                assertThat(uris.size, `is`(1))
-                assertThat(uris[0].data, `is`("http://www.example.com"))
+                assertThat(uris.size, `is`(0))
             }
 
             @Test
             @DisplayName("missing namespace prefix")
             fun noNamespacePrefix() {
-                val import = parse<XQueryModuleImport>("import module 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                val import = parse<XQueryModuleImport>(
+                    "import module 'http://www.example.com';"
+                )[0] as XPathNamespaceDeclaration
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
 
                 val uris = (import as XQueryModuleImport).locationUris.toList()
-                assertThat(uris.size, `is`(1))
-                assertThat(uris[0].data, `is`("http://www.example.com"))
+                assertThat(uris.size, `is`(0))
             }
 
             @Test
@@ -4226,7 +4229,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("location uris; single uri")
             fun singleLocationUri() {
-                val import = parse<XQueryModuleImport>("import module namespace test = 'http://www.example.com' at 'test1.xqy';")[0]
+                val import = parse<XQueryModuleImport>(
+                    "import module namespace test = 'http://www.example.com' at 'test1.xqy';"
+                )[0]
 
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(1))
@@ -4236,7 +4241,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("location uris; multiple uris")
             fun multipleLocationUris() {
-                val import = parse<XQueryModuleImport>("import module namespace test = 'http://www.example.com' at 'test1.xqy' , 'test2.xqy';")[0]
+                val import = parse<XQueryModuleImport>(
+                    "import module namespace test = 'http://www.example.com' at 'test1.xqy' , 'test2.xqy';"
+                )[0]
 
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(2))
