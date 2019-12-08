@@ -3258,7 +3258,7 @@ private class XQueryPsiTest : ParserTestCase() {
         internal inner class GroupingSpec {
             @Test
             @DisplayName("NCName")
-            fun testGroupingSpec_NCName() {
+            fun ncname() {
                 val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableBinding
 
                 val qname = expr.variableName!!
@@ -3269,7 +3269,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("QName")
-            fun testGroupingSpec_QName() {
+            fun qname() {
                 val expr = parse<XQueryGroupingSpec>(
                     "for \$a:x in \$a:y group by \$a:z return \$a:w"
                 )[0] as XPathVariableBinding
@@ -3282,7 +3282,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("URIQualifiedName")
-            fun testGroupingSpec_URIQualifiedName() {
+            fun uriQualifiedName() {
                 val expr = parse<XQueryGroupingSpec>(
                     "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "group by \$Q{http://www.example.com}z " +
@@ -3297,9 +3297,26 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("missing VarName")
-            fun testGroupingSpec_MissingVarName() {
+            fun missingVarName() {
                 val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XPathVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("non-empty collation uri")
+            fun nonEmptyUri() {
+                val expr = parse<XQueryGroupingSpec>(
+                    "for \$x in \$y group by \$x collation 'http://www.example.com'"
+                )[0]
+                assertThat(expr.collation!!.data, `is`("http://www.example.com"))
+                assertThat(expr.collation!!.context, `is`(XdmUriContext.Collation))
+            }
+
+            @Test
+            @DisplayName("missing collation uri")
+            fun noNamespaceUri() {
+                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$x")[0]
+                assertThat(expr.collation, `is`(nullValue()))
             }
         }
 
@@ -3308,7 +3325,7 @@ private class XQueryPsiTest : ParserTestCase() {
         internal inner class GroupingVariable {
             @Test
             @DisplayName("NCName")
-            fun testGroupingVariable_NCName() {
+            fun ncname() {
                 val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableName
 
                 val qname = expr.variableName!!
@@ -3319,7 +3336,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("QName")
-            fun testGroupingVariable_QName() {
+            fun qname() {
                 val expr = parse<XQueryGroupingVariable>(
                     "for \$a:x in \$a:y group by \$a:z return \$a:w"
                 )[0] as XPathVariableName
@@ -3332,7 +3349,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("URIQualifiedName")
-            fun testGroupingVariable_URIQualifiedName() {
+            fun uriQualifiedName() {
                 val expr = parse<XQueryGroupingVariable>(
                     "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "group by \$Q{http://www.example.com}z " +
@@ -3347,7 +3364,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("missing VarName")
-            fun testGroupingVariable_MissingVarName() {
+            fun missingVarName() {
                 val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XPathVariableName
                 assertThat(expr.variableName, `is`(nullValue()))
             }
@@ -3987,7 +4004,7 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (10) DefaultCollationDecl")
         internal inner class DefaultCollationDecl {
             @Test
-            @DisplayName("non-empty uri")
+            @DisplayName("non-empty collation uri")
             fun nonEmptyUri() {
                 val expr = parse<XQueryDefaultCollationDecl>("declare default collation 'http://www.example.com';")[0]
                 assertThat(expr.collation!!.data, `is`("http://www.example.com"))
@@ -3995,7 +4012,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("missing namespace uri")
+            @DisplayName("missing collation uri")
             fun noNamespaceUri() {
                 val expr = parse<XQueryDefaultCollationDecl>("declare default collation;")[0]
                 assertThat(expr.collation, `is`(nullValue()))
