@@ -28,21 +28,24 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsString
 open class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedContent.invalidate()
+        cachedValue.invalidate()
     }
 
-    override val value: XsAnyAtomicType get() = XsString(cachedContent.get()!!, this)
+    override val value: XsAnyAtomicType get() = cachedValue.get()!!
 
-    protected val cachedContent = CacheableProperty {
-        children().map { child ->
-            when (child.node.elementType) {
-                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                    null
-                XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedValue
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
-    }
+    protected open val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty { XsString(content, this) }
+
+    protected val content: String
+        get() {
+            return children().map { child ->
+                when (child.node.elementType) {
+                    XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
+                        null
+                    XPathTokenType.ESCAPED_CHARACTER ->
+                        (child as XPathEscapeCharacter).unescapedValue
+                    else ->
+                        child.text
+                }
+            }.filterNotNull().joinToString(separator = "")
+        }
 }
