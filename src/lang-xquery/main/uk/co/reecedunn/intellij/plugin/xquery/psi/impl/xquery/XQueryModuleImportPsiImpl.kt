@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,8 +61,8 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
                 }.filterNotNull()
             else
-                children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.let { uri ->
-                    val file = (uri.value as XsAnyUriValue).resolveUri<XQueryModule>()
+                namespaceUri?.let { uri ->
+                    val file = uri.resolveUri<XQueryModule>()
                     val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
                 } ?: emptySequence()

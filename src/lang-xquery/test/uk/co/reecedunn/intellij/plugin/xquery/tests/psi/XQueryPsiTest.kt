@@ -4184,6 +4184,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0] as XPathNamespaceDeclaration
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
                 val uris = (import as XQueryModuleImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4197,6 +4198,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0] as XPathNamespaceDeclaration
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
                 val uris = (import as XQueryModuleImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4210,6 +4212,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0] as XPathNamespaceDeclaration
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
 
                 val uris = (import as XQueryModuleImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4236,6 +4239,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(1))
                 assertThat(uris[0].data, `is`("test1.xqy"))
+                assertThat(uris[0].context, `is`(XdmUriContext.Location))
             }
 
             @Test
@@ -4248,7 +4252,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(2))
                 assertThat(uris[0].data, `is`("test1.xqy"))
+                assertThat(uris[0].context, `is`(XdmUriContext.Location))
                 assertThat(uris[1].data, `is`("test2.xqy"))
+                assertThat(uris[1].context, `is`(XdmUriContext.Location))
             }
 
             @Nested
