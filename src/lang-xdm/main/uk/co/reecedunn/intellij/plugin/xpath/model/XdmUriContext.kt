@@ -23,17 +23,15 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
  */
 enum class XdmUriContext {
     /**
-     * This represents the Static Base URI from a BaseURIDecl.
+     * This represents the Static Base URIs.
      */
     BaseUri,
     /**
-     * This represents a string collation from a DefaultCollationDecl,
-     * GroupingSpec, or OrderModifier.
+     * This represents a string collation.
      */
     Collation,
     /**
-     * This represents a location URI from a ModuleImport, SchemaImport, or
-     * StylesheetImport.
+     * This represents a location URI for import statements.
      *
      * BaseX does not use location URIs when resolving modules. It converts
      * the namespace into a file system path or Java class path, and locates
@@ -59,13 +57,11 @@ enum class XdmUriContext {
      */
     Location,
     /**
-     * This represents a namespace from a BracedURILiteral,
-     * DefaultNamespaceDecl, ModuleDecl, or UsingDecl.
+     * This represents a namespace not part of an import or declaration.
      */
     Namespace,
     /**
-     * This represents a namespace declaration from a NamespaceDecl, or a
-     * namespace declaration attribute in a DirElemConstructor.
+     * This represents a namespace declaration.
      *
      * BaseX handles declared and imported Java classes differently. A declared
      * class supports constructing new instances of that class and accessing
@@ -91,14 +87,13 @@ enum class XdmUriContext {
      */
     NamespaceDeclaration,
     /**
-     * This represents a word list location from an FTStopWordOption.
+     * This represents a word list location.
      *
      * This is an XQuery and XPath Full Text feature.
      */
     StopWords,
     /**
-     * This represents the target namespace URI from a ModuleImport, or
-     * SchemaImport.
+     * This represents the target namespace URI for import statements.
      *
      * BaseX handles declared and imported Java classes differently. An
      * imported class has an instance of that class bound to the namespace.
@@ -115,7 +110,7 @@ enum class XdmUriContext {
      */
     TargetNamespace,
     /**
-     * This represents a word list location from an FTThesaurusOption.
+     * This represents a thesaurus location.
      *
      * This is an XQuery and XPath Full Text feature.
      */
