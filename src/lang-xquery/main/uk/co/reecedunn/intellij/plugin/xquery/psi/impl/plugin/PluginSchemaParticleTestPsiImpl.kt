@@ -24,10 +24,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaParticleTes
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSchemaParticle
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSchemaParticle
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 class PluginSchemaParticleTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSchemaParticleTest, XdmItemType, VersionConformance {

@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDuration
 
 internal class EXistDBQuery(
     private val builder: RequestBuilder,

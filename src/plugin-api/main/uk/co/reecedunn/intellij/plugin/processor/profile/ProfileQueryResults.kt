@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.profile
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
 
 data class FlatProfileEntry(
     val id: String,

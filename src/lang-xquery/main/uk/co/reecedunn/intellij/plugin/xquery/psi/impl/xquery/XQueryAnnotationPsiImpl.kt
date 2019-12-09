@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNumericLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsString
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsString
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon

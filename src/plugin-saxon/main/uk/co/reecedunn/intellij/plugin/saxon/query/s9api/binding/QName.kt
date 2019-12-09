@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 open class QName(val `object`: Any, val saxonClass: Class<*>) {
     open fun getNamespaceURI(): String {

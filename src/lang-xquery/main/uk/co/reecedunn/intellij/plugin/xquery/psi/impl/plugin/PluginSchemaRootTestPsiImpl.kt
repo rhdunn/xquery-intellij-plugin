@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaRootTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSchemaRoot
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSchemaRoot
 
 class PluginSchemaRootTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSchemaRootTest, XdmItemType, VersionConformance {

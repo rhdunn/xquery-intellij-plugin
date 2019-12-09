@@ -21,10 +21,10 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*

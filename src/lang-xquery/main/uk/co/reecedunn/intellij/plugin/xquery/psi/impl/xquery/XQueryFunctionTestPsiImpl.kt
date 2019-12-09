@@ -21,9 +21,9 @@ import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmFunction
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmFunction
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionTest
 
 class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionTest, XdmItemType {

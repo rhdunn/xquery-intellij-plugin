@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 interface XPathFunctionReference {
     val functionName: XsQNameValue?

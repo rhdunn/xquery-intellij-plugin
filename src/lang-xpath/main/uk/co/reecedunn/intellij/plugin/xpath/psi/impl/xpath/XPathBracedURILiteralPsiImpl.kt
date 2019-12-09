@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 class XPathBracedURILiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue {
     override fun subtreeChanged() {

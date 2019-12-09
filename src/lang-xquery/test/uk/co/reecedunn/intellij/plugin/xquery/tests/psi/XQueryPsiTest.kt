@@ -41,7 +41,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
@@ -1356,7 +1357,10 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val annotations = test.annotations.toList()
                 assertThat(annotations.size, `is`(1))
-                assertThat(op_qname_presentation(annotations[0].name!!), `is`("test"))
+                assertThat(
+                    op_qname_presentation(
+                        annotations[0].name!!
+                    ), `is`("test"))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("%test function(*)"))
@@ -1375,8 +1379,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val annotations = test.annotations.toList()
                 assertThat(annotations.size, `is`(2))
-                assertThat(op_qname_presentation(annotations[0].name!!), `is`("one"))
-                assertThat(op_qname_presentation(annotations[1].name!!), `is`("two"))
+                assertThat(
+                    op_qname_presentation(
+                        annotations[0].name!!
+                    ), `is`("one"))
+                assertThat(
+                    op_qname_presentation(
+                        annotations[1].name!!
+                    ), `is`("two"))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("%one %two function(xs:long) as xs:long"))
@@ -1396,7 +1406,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 val annotations = test.annotations.toList()
                 assertThat(annotations.size, `is`(2))
                 assertThat(annotations[0].name, `is`(nullValue()))
-                assertThat(op_qname_presentation(annotations[1].name!!), `is`("two"))
+                assertThat(
+                    op_qname_presentation(
+                        annotations[1].name!!
+                    ), `is`("two"))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("%two function(xs:long) as xs:long"))

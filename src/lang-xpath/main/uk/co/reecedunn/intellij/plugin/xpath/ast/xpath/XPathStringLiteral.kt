@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
 
 /**
  * An XPath 2.0 and XQuery 1.0 `StringLiteral` node in the XQuery AST.

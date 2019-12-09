@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 
 /**
  * A Saxon 9.8 `TupleField` node in the XQuery AST.

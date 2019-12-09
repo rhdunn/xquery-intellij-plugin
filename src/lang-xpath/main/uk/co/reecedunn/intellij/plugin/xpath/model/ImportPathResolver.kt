@@ -20,6 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFileBase
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
+import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
 
 class RelativeFileImportResolver(private val file: VirtualFile?) : ImportPathResolver {
     override fun match(path: String): Boolean = path.isNotEmpty() && !path.contains("://") && !path.startsWith("/")

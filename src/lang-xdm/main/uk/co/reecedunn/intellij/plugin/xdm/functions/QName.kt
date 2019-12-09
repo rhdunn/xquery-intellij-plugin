@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.functions
+package uk.co.reecedunn.intellij.plugin.xdm.functions
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
 class UndeclaredNamespacePrefixException(prefix: String) :
     RuntimeException("XPST0081: Undeclared namespace prefix: $prefix")

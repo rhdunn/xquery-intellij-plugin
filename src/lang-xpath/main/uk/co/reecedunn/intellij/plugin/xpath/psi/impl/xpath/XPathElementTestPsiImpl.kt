@@ -20,11 +20,11 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementTest
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmElement
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathElementTest, XdmItemType {
     // region ASTDelegatePsiElement

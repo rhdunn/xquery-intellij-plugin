@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XPathFunctionDeclaration?> {

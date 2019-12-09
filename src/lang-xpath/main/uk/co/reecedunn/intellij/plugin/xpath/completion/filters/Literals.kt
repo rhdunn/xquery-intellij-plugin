@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.filters
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.isPrefixOrNCName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.isPrefixOrNCName
 
 object XPathQNamePrefixFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {

@@ -19,10 +19,10 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 
 class XPathUriLiteralPsiImpl(node: ASTNode) : XPathStringLiteralPsiImpl(node), XPathUriLiteral {
     override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {

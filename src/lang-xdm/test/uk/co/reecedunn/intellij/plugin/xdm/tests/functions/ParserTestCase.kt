@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.functions
+package uk.co.reecedunn.intellij.plugin.xdm.tests.functions
 
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 

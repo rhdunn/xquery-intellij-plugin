@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
 
 /**
  * A MarkLogic 8.0 `NamedKindTest` node in the XQuery AST.

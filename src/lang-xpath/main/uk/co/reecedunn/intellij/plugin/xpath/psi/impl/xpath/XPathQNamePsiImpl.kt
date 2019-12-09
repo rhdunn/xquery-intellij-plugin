@@ -24,9 +24,9 @@ import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 open class XPathQNamePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 private val SAXON98: List<Version> = listOf()
 private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
@@ -37,8 +37,7 @@ private val OPTIONAL_TOKENS = TokenSet.create(
     XPathTokenType.ELVIS // ?: for compact whitespace
 )
 
-class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTupleField, VersionConformance {
+class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, VersionConformance {
     // region PluginTupleField
 
     override val fieldName: XsNCNameValue get() = (firstChild as XsQNameValue).localName!!

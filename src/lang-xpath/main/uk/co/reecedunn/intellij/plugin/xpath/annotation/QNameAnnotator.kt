@@ -22,9 +22,9 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmWildcardValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmWildcardValue
 
 class QNameAnnotator : Annotator {
     override fun annotate(qname: PsiElement, holder: AnnotationHolder) {

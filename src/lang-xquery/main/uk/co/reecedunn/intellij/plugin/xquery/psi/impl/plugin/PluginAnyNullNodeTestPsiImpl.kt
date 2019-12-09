@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyNullNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNullNode
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNullNode
 
 class PluginAnyNullNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginAnyNullNodeTest, XdmItemType, VersionConformance {

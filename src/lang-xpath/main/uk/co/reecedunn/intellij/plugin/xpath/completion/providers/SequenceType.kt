@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnio
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 object XPathSequenceTypeProvider : CompletionProviderEx {
     private val XPATH_20_WD_2003_SEQUENCE_TYPE = XPathKeywordLookup("empty", XPathInsertText.EMPTY_PARAMS)

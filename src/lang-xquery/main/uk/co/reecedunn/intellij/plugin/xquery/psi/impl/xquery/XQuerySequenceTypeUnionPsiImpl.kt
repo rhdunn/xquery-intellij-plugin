@@ -25,10 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceTypeUnion
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSingleItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceTypeUnion
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)

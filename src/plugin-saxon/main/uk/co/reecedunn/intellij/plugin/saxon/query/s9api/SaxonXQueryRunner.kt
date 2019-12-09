@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDuration
 
 internal class SaxonXQueryRunner(
     val processor: Processor,

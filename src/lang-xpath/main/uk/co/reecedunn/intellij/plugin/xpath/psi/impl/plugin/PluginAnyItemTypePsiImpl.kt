@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItem
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItem
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 
 class PluginAnyItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyItemType, XdmItemType {
     // region XdmSequenceType

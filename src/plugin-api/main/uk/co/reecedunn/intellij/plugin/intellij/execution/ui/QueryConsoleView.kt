@@ -32,9 +32,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultLis
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDuration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.toSeconds
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.toSeconds
 import java.awt.*
 import javax.swing.JComponent
 import javax.swing.JLabel

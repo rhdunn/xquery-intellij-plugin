@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.model
 
-import uk.co.reecedunn.intellij.plugin.xpath.module.JarModuleResolver
+import uk.co.reecedunn.intellij.plugin.xdm.module.JarModuleResolver
 
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader

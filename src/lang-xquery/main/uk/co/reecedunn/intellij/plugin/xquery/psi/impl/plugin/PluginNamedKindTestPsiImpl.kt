@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNode
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNode
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
 
 class PluginNamedKindTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginNamedKindTest, XdmItemType, VersionConformance {

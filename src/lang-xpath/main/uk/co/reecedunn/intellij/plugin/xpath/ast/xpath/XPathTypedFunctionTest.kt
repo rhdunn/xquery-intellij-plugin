@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 
 /**
  * An XPath 3.0 and XQuery 3.0 `TypedFunctionTest` node in the XQuery AST.

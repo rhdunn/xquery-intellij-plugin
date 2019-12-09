@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+
 interface XPathVariableName {
     val variableName: XsQNameValue?
 }

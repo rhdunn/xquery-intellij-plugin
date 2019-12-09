@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
 
 internal class BaseXRunnableQuery(
     val session: Session,

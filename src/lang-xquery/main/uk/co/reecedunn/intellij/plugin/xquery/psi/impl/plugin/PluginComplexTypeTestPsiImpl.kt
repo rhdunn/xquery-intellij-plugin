@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmComplexType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmComplexType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 
 class PluginComplexTypeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginComplexTypeTest, XdmItemType, VersionConformance {

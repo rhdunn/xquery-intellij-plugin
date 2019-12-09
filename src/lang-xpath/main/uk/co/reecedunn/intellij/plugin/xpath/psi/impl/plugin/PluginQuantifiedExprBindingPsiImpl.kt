@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBind
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmNamespace
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespace
 
 class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathNamespaceNodeTest, XdmItemType, VersionConformance {

@@ -18,6 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -25,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val EMPTY_NAMESPACE = XsAnyUri("", XdmUriContext.Namespace, null as PsiElement?)
+
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", XdmUriContext.Namespace, null as PsiElement?)
 
 private val NAMESPACE_TYPE = mapOf(

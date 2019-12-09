@@ -29,7 +29,7 @@
  * second reason is that each primitive type has a different representation
  * for its data.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.model
+package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
@@ -68,6 +68,7 @@ data class XsDecimal(override val data: BigDecimal) : XsDecimalValue {
         val ZERO = XsDecimal(BigDecimal.ZERO)
 
         fun milli(value: String): XsDecimal = XsDecimal(BigDecimal(value).scaleByPowerOfTen(-3).stripTrailingZeros())
+
         fun nano(value: Long): XsDecimal = XsDecimal(BigDecimal.valueOf(value, 9).stripTrailingZeros())
     }
 }
@@ -99,6 +100,7 @@ data class XsDuration(
         val ZERO = XsDuration(XsInteger.ZERO, XsDecimal.ZERO)
 
         fun ms(value: String): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.milli(value))
+
         fun ns(value: Long): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.nano(value))
     }
 }

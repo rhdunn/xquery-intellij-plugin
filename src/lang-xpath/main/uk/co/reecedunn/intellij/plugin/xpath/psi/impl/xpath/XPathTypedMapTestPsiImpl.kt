@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmMap
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmMap
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 
 class XPathTypedMapTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathTypedMapTest, XdmItemType, VersionConformance {

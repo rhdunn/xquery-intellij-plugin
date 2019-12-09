@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.full.text
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 /**
  * An XQuery Full Text 1.0 `FTStopWords` node in the XQuery AST.

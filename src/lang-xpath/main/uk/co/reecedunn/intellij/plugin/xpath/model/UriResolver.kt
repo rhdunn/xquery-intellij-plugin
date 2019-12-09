@@ -19,6 +19,8 @@ import com.intellij.psi.PsiFile
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 private val STATIC_IMPORT_RESOLVERS by lazy { ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence() }
 

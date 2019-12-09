@@ -22,13 +22,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptySequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
     XQuerySpec.REC_1_0_20070123,
     EXistDB.VERSION_4_0
 )
+
 private val XQUERY10_WD_EMPTY: List<Version> = listOf(
     XQuerySpec.WD_1_0_20030502,
     XQuerySpec.MARKLOGIC_0_9,

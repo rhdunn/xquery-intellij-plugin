@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 class XPathVarNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathVarName, XPathVariableName {
     override val variableName get(): XsQNameValue? = firstChild as? XsQNameValue

@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDecimalValue
 import java.math.BigDecimal
 
 class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence) :

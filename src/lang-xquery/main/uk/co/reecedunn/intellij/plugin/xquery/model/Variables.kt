@@ -22,7 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBind
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause

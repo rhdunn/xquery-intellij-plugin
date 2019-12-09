@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
 import java.util.*
 
 interface QueryResultListener : EventListener {

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.module
+package uk.co.reecedunn.intellij.plugin.xdm.module
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xpath.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
 
 abstract class JarModuleResolver : ImportPathResolver {
     abstract val classLoader: ClassLoader

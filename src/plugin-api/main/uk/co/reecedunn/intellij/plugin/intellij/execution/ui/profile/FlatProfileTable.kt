@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.awt.scope
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
 import java.awt.Color
 import java.awt.Component
 import java.awt.Graphics

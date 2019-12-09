@@ -19,9 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnySimpleType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnySimpleType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType, XdmItemType {

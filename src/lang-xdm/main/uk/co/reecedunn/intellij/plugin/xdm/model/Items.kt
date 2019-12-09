@@ -16,7 +16,7 @@
 /**
  * XPath 3.1 and XQuery 3.1 Type System Part 1: Items
  */
-package uk.co.reecedunn.intellij.plugin.xpath.model
+package uk.co.reecedunn.intellij.plugin.xdm.model
 
 // region XQuery and XPath 3.1 Data Model (2.7.4) : node()
 

@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.database.resolve
 import uk.co.reecedunn.intellij.plugin.processor.debug.createNavigatable
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
