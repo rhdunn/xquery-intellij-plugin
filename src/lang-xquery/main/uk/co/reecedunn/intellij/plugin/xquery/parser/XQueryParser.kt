@@ -914,7 +914,6 @@ class XQueryParser : XPathParser() {
 
             if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-uri-string"))
-                haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
