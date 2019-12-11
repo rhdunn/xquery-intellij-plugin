@@ -3,6 +3,7 @@
 ## Table of Contents
 1. [Core](#core)
 1. [Custom Language Support](#custom-language-support)
+1. [Importable and Declarable Module Support](#importable-and-declarable-module-support)
 1. [Plugin](#plugin)
 
 ## Core
@@ -22,6 +23,11 @@
 | `lang-xqdoc`      | xqDoc documentation support. |
 | `lang-xquery`     | XQuery language support. |
 | `lang-xslt`       | XSLT language support. |
+
+## Importable and Declarable Module Support
+| Package           | Description |
+|-------------------|-------------|
+| `lang-java`       | Support for Java modules (BaseX, eXist-db, Saxon). |
 
 ## Plugin
 | Package            | Description |

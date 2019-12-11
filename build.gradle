@@ -146,6 +146,8 @@ dependencies {
     compile project(':src:plugin-marklogic')
     compile project(':src:plugin-saxon')
 
+    compile project(':src:lang-java')
+
     compile project(':src:plugin-expath')
     compile project(':src:plugin-exquery')
     compile project(':src:plugin-w3')
