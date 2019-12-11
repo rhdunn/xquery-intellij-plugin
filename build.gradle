@@ -186,7 +186,7 @@ intellij {
     updateSinceUntilBuild = true
     sameSinceUntilBuild = true // 'until' is an open 'since' build
 
-    plugins 'coverage'  // Bundled plugin dependencies
+    plugins = ['coverage', 'java']
     pluginName 'xquery-intellij-plugin'
 }
 
