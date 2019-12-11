@@ -25,14 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
 
 private val INTELLIJ_XPATH_PLUGIN_ID = PluginId.getId("XPathView")
 
-fun isIntellijXPathPluginEnabled(): Boolean {
-    return PluginManager.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
-}
+fun isIntellijXPathPluginEnabled(): Boolean = PluginManager.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
 
-fun XmlTag.xslt(): XslDomElement? {
-    return DomManager.getDomManager(project).getDomElement(this) as? XslDomElement
-}
+fun XmlTag.xslt(): XslDomElement? = DomManager.getDomManager(project).getDomElement(this) as? XslDomElement
 
-fun PsiElement.xsltFile(): XslDomElement? {
-    return (containingFile as? XmlFile)?.rootTag?.xslt()
-}
+fun PsiElement.xsltFile(): XslDomElement? = (containingFile as? XmlFile)?.rootTag?.xslt()
