@@ -1,0 +1,14 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
+    <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
+
+    <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage"/>
+    <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
+
+    <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
+
+    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
+  </extensions>
+</idea-plugin>

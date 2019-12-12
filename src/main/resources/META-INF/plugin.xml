@@ -58,21 +58,9 @@
   </extensionPoints>
 
   <xi:include href="META-INF/plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="META-INF/plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- XML Path Language Support -->
-
-    <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
-    <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
-
-    <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterFactory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage"/>
-    <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
-
-    <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
-
-    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
-
     <!-- XML Query Language Support -->
 
     <fileType name="XQuery" language="XQuery" extensions="xq;xqy;xquery;xqu;xql;xqm;xqws"
