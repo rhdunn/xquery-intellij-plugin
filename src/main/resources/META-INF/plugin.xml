@@ -52,10 +52,6 @@
 
   <idea-version since-build="161"/>
 
-  <extensionPoints>
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver"/>
-  </extensionPoints>
-
   <xi:include href="META-INF/plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="META-INF/plugin-lang-sjs.xml" xpointer="xpointer(/idea-plugin/*)"/>
@@ -67,22 +63,6 @@
   <xi:include href="META-INF/plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
+  <xi:include href="META-INF/plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
-
-  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions"/>
-
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions"/>
-
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest"/>
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest"/>
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
-  </extensions>
 </idea-plugin>

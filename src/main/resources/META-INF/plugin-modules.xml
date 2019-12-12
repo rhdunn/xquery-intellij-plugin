@@ -1,0 +1,22 @@
+<idea-plugin>
+  <extensionPoints>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver"/>
+  </extensionPoints>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions"/>
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions"/>
+
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions"/>
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions"/>
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions"/>
+    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions"/>
+
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
+  </extensions>
+</idea-plugin>
