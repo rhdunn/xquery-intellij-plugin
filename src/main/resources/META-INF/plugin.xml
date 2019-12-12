@@ -58,16 +58,13 @@
   </extensionPoints>
 
   <xi:include href="META-INF/plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
+  <xi:include href="META-INF/plugin-lang-sjs.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- MarkLogic Server-Side JavaScript Language Support -->
-
-    <fileType name="Server-side JavaScript" language="MLJavaScript" extensions="sjs"
-              implementationClass="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType"/>
-
     <!-- Inspections -->
 
     <localInspection language="XQuery" shortName="IJVS0001" bundle="messages.XQueryPluginBundle"
