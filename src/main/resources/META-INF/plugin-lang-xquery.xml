@@ -1,0 +1,45 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="XQuery" language="XQuery" extensions="xq;xqy;xquery;xqu;xql;xqm;xqws"
+              implementationClass="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType"/>
+
+    <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
+    <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
+
+    <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
+    <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
+
+    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
+
+    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryPairedBraceMatcher"/>
+    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryCommenter"/>
+    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
+
+    <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewFactory"/>
+    <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.projectView.XQueryTreeStructureProvider"/>
+
+    <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
+    <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XQueryTypedHandler"/>
+    <codeInsight.parameterInfo language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
+
+    <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider"/>
+
+    <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ui.XQueryBreadcrumbProvider"/>
+
+    <!-- References and Resolve -->
+
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryUriLiteralManipulator"/>
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryQNamePsiImpl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryQNameManipulator"/>
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImpl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryNCNameManipulator"/>
+
+    <!-- Application / Project Settings -->
+
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
+    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
+  </extensions>
+</idea-plugin>
