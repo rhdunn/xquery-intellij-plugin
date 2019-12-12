@@ -1,0 +1,16 @@
+<!-- XPath Static (XPST) Inspections -->
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <localInspection language="XQuery" shortName="XPST0017" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
+                     key="inspection.xpst.XPST0017" hasStaticDescription="true"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0017"/>
+
+    <localInspection language="XQuery" shortName="XPST0081" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
+                     key="inspection.xpst.XPST0081" hasStaticDescription="true"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081"/>
+  </extensions>
+</idea-plugin>

@@ -1,0 +1,34 @@
+<!-- IntelliJ Vendor-Specific (IJVS) Inspections -->
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <localInspection language="XQuery" shortName="IJVS0001" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
+                     key="inspection.ijvs.IJVS0001" hasStaticDescription="true"
+                     enabledByDefault="true" level="WARNING"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001"/>
+
+    <localInspection language="XQuery" shortName="IJVS0002" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
+                     key="inspection.ijvs.IJVS0002" hasStaticDescription="true"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002"/>
+
+    <localInspection language="XQuery" shortName="IJVS0003" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
+                     key="inspection.ijvs.IJVS0003" hasStaticDescription="true"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003"/>
+
+    <localInspection language="XQuery" shortName="IJVS0004" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
+                     key="inspection.ijvs.IJVS0004" hasStaticDescription="true"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004"/>
+
+    <localInspection language="XQuery" shortName="IJVS0005" bundle="messages.XQueryPluginBundle"
+                     groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
+                     key="inspection.ijvs.IJVS0005" hasStaticDescription="true"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005"/>
+  </extensions>
+</idea-plugin>
