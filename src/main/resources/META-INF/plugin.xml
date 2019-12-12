@@ -9,7 +9,7 @@
   <depends>com.intellij.modules.lang</depends>
   <depends>com.intellij.modules.xdebugger</depends>
   <depends>com.intellij.modules.xml</depends>
-  <depends optional="true" config-file="plugin-java.xml">com.intellij.modules.java</depends>
+  <depends optional="true" config-file="plugin-depends-java.xml">com.intellij.modules.java</depends>
 
   <description><![CDATA[
     <p>
