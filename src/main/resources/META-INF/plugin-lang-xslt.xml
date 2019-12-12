@@ -1,0 +1,18 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
+
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.intellij.lang.injection.XPathInXsltLanguageInjection"/>
+
+    <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.completion.XPathCompletionContributor"/>
+    <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XPathTypedHandler"/>
+
+    <xmlStructureViewBuilderProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XslStructureViewBuilderProvider"/>
+
+    <!-- XSLT DOM Support -->
+
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription"/>
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription"/>
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription"/>
+  </extensions>
+</idea-plugin>
