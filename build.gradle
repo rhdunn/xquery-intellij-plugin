@@ -162,9 +162,13 @@ dependencies {
 idea_version = project.property('idea_since_build').toInteger()
 if (idea_version >= 192) {
     sourceSets.main.resources.srcDirs += 'src/main/resources-192'
+    // 'java' is a separate plugin in IntelliJ >= 2019.2
+    intellij.plugins = ['coverage', 'java']
 }
 else {
     sourceSets.main.resources.srcDirs += 'src/main/resources-191'
+    // 'java' is not a separate plugin in IntelliJ <= 2019.1
+    intellij.plugins = ['coverage']
 }
 
 tasks {
@@ -188,7 +192,6 @@ intellij {
     updateSinceUntilBuild = true
     sameSinceUntilBuild = true // 'until' is an open 'since' build
 
-    plugins = ['coverage', 'java']
     pluginName 'xquery-intellij-plugin'
 }
 
