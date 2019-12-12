@@ -54,7 +54,6 @@
 
   <extensionPoints>
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver"/>
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
   </extensionPoints>
 
   <xi:include href="META-INF/plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
@@ -68,30 +67,7 @@
   <xi:include href="META-INF/plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Application / Project Settings -->
-
-    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors"/>
-
-    <!-- Run/Debug Configurations -->
-
-    <executor implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor"/>
-
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorDebugger"/>
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorProfiler"/>
-
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.ServerSideJavaScriptConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SQLConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XQueryConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XSLTConfigurationType"/>
-
-    <!-- Log Viewer -->
-
-    <toolWindow id="Query Log" anchor="bottom" secondary="true" factoryClass="uk.co.reecedunn.intellij.plugin.intellij.log.QueryLogViewer"/>
-  </extensions>
+  <xi:include href="META-INF/plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
