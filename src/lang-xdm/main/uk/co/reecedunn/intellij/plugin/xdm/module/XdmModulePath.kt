@@ -13,19 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.java
+package uk.co.reecedunn.intellij.plugin.xdm.module
 
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePath
 
-class JavaModulePath private constructor(val project: Project, val classPath: String) : XdmModulePath {
-    override fun resolve(): PsiElement? = JavaModuleManager.getInstance(project).findClass(classPath)
-
-    companion object {
-        fun create(project: Project, path: String): JavaModulePath? {
-            if (path.startsWith("java:")) return JavaModulePath(project, path.substring(5))
-            return null
-        }
-    }
+interface XdmModulePath {
+    fun resolve(): PsiElement?
 }
