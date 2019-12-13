@@ -93,20 +93,21 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         assertThat(path.classPath, `is`("java.lang.String"))
     }
 
-    @Nested
-    internal inner class RelativePath {
-        @Test
-        @DisplayName("relative path")
-        fun relativePath() {
-            val uri = XsAnyUri("lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
-            assertThat(path, `is`(nullValue()))
-        }
+    @Test
+    @DisplayName("relative path")
+    fun relativePath() {
+        val uri = XsAnyUri("lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
+        val path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+    }
 
+    @Nested
+    @DisplayName("location paths")
+    internal inner class Location {
         @Test
         @DisplayName("XQuery file, 'xq' extension")
         fun xq() {
-            val uri = XsAnyUri("test.xq", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xq", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -114,7 +115,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XQuery file, 'xqy' extension")
         fun xqy() {
-            val uri = XsAnyUri("test.xqy", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xqy", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -122,7 +123,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XQuery file, 'xquery' extension")
         fun xquery() {
-            val uri = XsAnyUri("test.xquery", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xquery", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -130,7 +131,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XQuery file, 'xqu' extension")
         fun xqu() {
-            val uri = XsAnyUri("test.xqu", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xqu", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -138,7 +139,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XQuery file, 'xql' extension")
         fun xql() {
-            val uri = XsAnyUri("test.xql", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xql", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -146,7 +147,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XQuery file, 'xqm' extension")
         fun xqm() {
-            val uri = XsAnyUri("test.xqm", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xqm", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -154,7 +155,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XQuery file, 'xqws' extension")
         fun xqws() {
-            val uri = XsAnyUri("test.xqws", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xqws", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -162,7 +163,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XML Stylesheet file, 'xsl' extension")
         fun xsl() {
-            val uri = XsAnyUri("test.xsl", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xsl", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -170,7 +171,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XML Stylesheet file, 'xslt' extension")
         fun xslt() {
-            val uri = XsAnyUri("test.xslt", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xslt", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -178,7 +179,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         @Test
         @DisplayName("XML Schema file, 'xsd' extension")
         fun xsd() {
-            val uri = XsAnyUri("test.xsd", XdmUriContext.TargetNamespace, null as PsiElement?)
+            val uri = XsAnyUri("test.xsd", XdmUriContext.Location, null as PsiElement?)
             val path = JavaModulePath.create(project!!, uri)
             assertThat(path, `is`(nullValue()))
         }
