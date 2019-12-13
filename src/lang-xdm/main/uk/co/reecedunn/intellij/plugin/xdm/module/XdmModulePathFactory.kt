@@ -16,7 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module
 
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 interface XdmModulePathFactory {
-    fun create(project: Project, path: String): XdmModulePath?
+    fun create(project: Project, uri: XsAnyUriValue): XdmModulePath?
 }

@@ -28,7 +28,7 @@ class XQueryUriLiteralReference(element: XQueryUriLiteralPsiImpl, range: TextRan
 
     override fun resolve(): PsiElement? {
         val uri = element.value as XsAnyUriValue
-        val path = JavaModulePath.create(element.project, uri.data) ?: return uri.resolveUri()
+        val path = JavaModulePath.create(element.project, uri) ?: return uri.resolveUri()
         return path.resolve() ?: return uri.resolveUri()
     }
 

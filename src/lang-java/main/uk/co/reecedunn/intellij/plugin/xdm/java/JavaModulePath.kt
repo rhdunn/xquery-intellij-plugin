@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.java
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
 
@@ -26,7 +27,8 @@ class JavaModulePath private constructor(val project: Project, val classPath: St
     companion object : XdmModulePathFactory {
         private val NOT_JAVA_PATH: Regex = "([/:]|\\.(xq([lmuy]?|uery|ws)|xslt?|xsd)$)".toRegex()
 
-        override fun create(project: Project, path: String): JavaModulePath? {
+        override fun create(project: Project, uri: XsAnyUriValue): JavaModulePath? {
+            val path = uri.data
             if (path.startsWith("java:")) return JavaModulePath(project, path.substring(5))
             if (path.contains(NOT_JAVA_PATH) || path.isEmpty()) return null
             return JavaModulePath(project, path)
