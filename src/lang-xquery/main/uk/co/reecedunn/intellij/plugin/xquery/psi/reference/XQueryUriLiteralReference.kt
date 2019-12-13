@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
-import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleManager
+import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl
@@ -28,11 +28,8 @@ class XQueryUriLiteralReference(element: XQueryUriLiteralPsiImpl, range: TextRan
 
     override fun resolve(): PsiElement? {
         val uri = element.value as XsAnyUriValue
-        if (uri.data.startsWith("java:")) {
-            val qualifiedName = uri.data.substringAfter("java:")
-            return JavaModuleManager.getInstance(element.project).findClass(qualifiedName)
-        }
-        return uri.resolveUri()
+        val path = JavaModulePath.create(element.project, uri.data) ?: return uri.resolveUri()
+        return path.resolve() ?: return uri.resolveUri()
     }
 
     override fun getVariants(): Array<Any> = arrayOf()
