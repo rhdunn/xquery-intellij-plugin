@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
+import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleManager
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl
@@ -25,7 +26,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPs
 class XQueryUriLiteralReference(element: XQueryUriLiteralPsiImpl, range: TextRange) :
     PsiReferenceBase<XQueryUriLiteralPsiImpl>(element, range) {
 
-    override fun resolve(): PsiElement? = (element.value as XsAnyUriValue).resolveUri()
+    override fun resolve(): PsiElement? {
+        val uri = element.value as XsAnyUriValue
+        if (uri.data.startsWith("java:")) {
+            val qualifiedName = uri.data.substringAfter("java:")
+            return JavaModuleManager.getInstance(element.project).findClass(qualifiedName)
+        }
+        return uri.resolveUri()
+    }
 
     override fun getVariants(): Array<Any> = arrayOf()
 }

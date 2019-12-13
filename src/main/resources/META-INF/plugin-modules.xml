@@ -3,6 +3,10 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver"/>
   </extensionPoints>
 
+  <extensions defaultExtensionNs="com.intellij">
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleManager"/>
+  </extensions>
+
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
