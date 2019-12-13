@@ -48,56 +48,112 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     @Test
     @DisplayName("empty")
     fun empty() {
-        val uri = XsAnyUri("", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)
+        var uri = XsAnyUri("", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
         assertThat(path, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("HTTP scheme URL")
     fun httpScheme() {
-        val uri = XsAnyUri("http://www.example.com/lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)
+        var uri = XsAnyUri("http://www.example.com/lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("http://www.example.com/lorem/ipsum", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("http://www.example.com/lorem/ipsum", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
         assertThat(path, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("HTTPS scheme URL")
     fun httpsScheme() {
-        val uri = XsAnyUri("https://www.example.com/lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)
+        var uri = XsAnyUri("https://www.example.com/lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("https://www.example.com/lorem/ipsum", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("https://www.example.com/lorem/ipsum", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
         assertThat(path, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("file scheme URL")
     fun fileScheme() {
-        val uri = XsAnyUri("file:///C:/lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)
+        var uri = XsAnyUri("file:///C:/lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("file:///C:/lorem/ipsum", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("file:///C:/lorem/ipsum", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
         assertThat(path, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("URN scheme")
     fun urnScheme() {
-        val uri = XsAnyUri("urn:lorem:ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)
+        var uri = XsAnyUri("urn:lorem:ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("urn:lorem:ipsum", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("urn:lorem:ipsum", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
         assertThat(path, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("Java scheme")
     fun javaScheme() {
-        val uri = XsAnyUri("java:java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)!!
+        var uri = XsAnyUri("java:java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.classPath, `is`("java.lang.String"))
+
+        uri = XsAnyUri("java:java.lang.String", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.classPath, `is`("java.lang.String"))
+
+        uri = XsAnyUri("java:java.lang.String", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)!!
         assertThat(path.classPath, `is`("java.lang.String"))
     }
 
     @Test
     @DisplayName("relative path")
     fun relativePath() {
-        val uri = XsAnyUri("lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)
+        var uri = XsAnyUri("lorem/ipsum", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("lorem/ipsum", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
+        assertThat(path, `is`(nullValue()))
+
+        uri = XsAnyUri("lorem/ipsum", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)
         assertThat(path, `is`(nullValue()))
     }
 
@@ -188,8 +244,16 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     @Test
     @DisplayName("Java class path")
     fun javaClassPath() {
-        val uri = XsAnyUri("java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
-        val path = JavaModulePath.create(project!!, uri)!!
+        var uri = XsAnyUri("java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
+        var path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.classPath, `is`("java.lang.String"))
+
+        uri = XsAnyUri("java.lang.String", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.classPath, `is`("java.lang.String"))
+
+        uri = XsAnyUri("java.lang.String", XdmUriContext.Namespace, null as PsiElement?)
+        path = JavaModulePath.create(project!!, uri)!!
         assertThat(path.classPath, `is`("java.lang.String"))
     }
 }
