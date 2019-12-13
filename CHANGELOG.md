@@ -4,7 +4,7 @@
 
 Imported and Declared Modules:
 
-1.  Support navigating to Java classes specified by `java:` URIs (BaseX, eXist-db, Saxon).
+1.  Support navigating to Java classes specified by `java:` and unprefixed classpath URIs (BaseX, eXist-db, Saxon).
 
 ## 1.5.2 - 2019-11-19
 

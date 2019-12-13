@@ -24,9 +24,12 @@ class JavaModulePath private constructor(val project: Project, val classPath: St
     override fun resolve(): PsiElement? = JavaModuleManager.getInstance(project).findClass(classPath)
 
     companion object : XdmModulePathFactory {
+        private val NOT_JAVA_PATH: Regex = "([/:]|\\.(xq([lmuy]?|uery|ws)|xslt?|xsd)$)".toRegex()
+
         override fun create(project: Project, path: String): JavaModulePath? {
             if (path.startsWith("java:")) return JavaModulePath(project, path.substring(5))
-            return null
+            if (path.contains(NOT_JAVA_PATH) || path.isEmpty()) return null
+            return JavaModulePath(project, path)
         }
     }
 }

@@ -20,6 +20,7 @@ import com.intellij.testFramework.UsefulTestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath
@@ -28,6 +29,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath
 @DisplayName("Modules - Java Paths")
 private class JavaModulePathTest : UsefulTestCase() {
     private val project = MockProjectEx(testRootDisposable)
+
+    @Test
+    @DisplayName("empty")
+    fun empty() {
+        val path = JavaModulePath.create(project, "")
+        assertThat(path, `is`(nullValue()))
+    }
 
     @Test
     @DisplayName("HTTP scheme URL")
@@ -64,17 +72,90 @@ private class JavaModulePathTest : UsefulTestCase() {
         assertThat(path.classPath, `is`("java.lang.String"))
     }
 
-    @Test
-    @DisplayName("relative path")
-    fun relativePath() {
-        val path = JavaModulePath.create(project, "lorem/ipsum")
-        assertThat(path, `is`(nullValue()))
+    @Nested
+    internal inner class RelativePath {
+        @Test
+        @DisplayName("relative path")
+        fun relativePath() {
+            val path = JavaModulePath.create(project, "lorem/ipsum")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xq' extension")
+        fun xq() {
+            val path = JavaModulePath.create(project, "test.xq")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xqy' extension")
+        fun xqy() {
+            val path = JavaModulePath.create(project, "test.xqy")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xquery' extension")
+        fun xquery() {
+            val path = JavaModulePath.create(project, "test.xquery")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xqu' extension")
+        fun xqu() {
+            val path = JavaModulePath.create(project, "test.xqu")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xql' extension")
+        fun xql() {
+            val path = JavaModulePath.create(project, "test.xql")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xqm' extension")
+        fun xqm() {
+            val path = JavaModulePath.create(project, "test.xqm")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XQuery file, 'xqws' extension")
+        fun xqws() {
+            val path = JavaModulePath.create(project, "test.xqws")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XML Stylesheet file, 'xsl' extension")
+        fun xsl() {
+            val path = JavaModulePath.create(project, "test.xsl")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XML Stylesheet file, 'xslt' extension")
+        fun xslt() {
+            val path = JavaModulePath.create(project, "test.xslt")
+            assertThat(path, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XML Schema file, 'xsd' extension")
+        fun xsd() {
+            val path = JavaModulePath.create(project, "test.xsd")
+            assertThat(path, `is`(nullValue()))
+        }
     }
 
     @Test
     @DisplayName("Java class path")
     fun javaClassPath() {
-        val path = JavaModulePath.create(project, "java.lang.String")
-        assertThat(path, `is`(nullValue()))
+        val path = JavaModulePath.create(project, "java.lang.String")!!
+        assertThat(path.classPath, `is`("java.lang.String"))
     }
 }
