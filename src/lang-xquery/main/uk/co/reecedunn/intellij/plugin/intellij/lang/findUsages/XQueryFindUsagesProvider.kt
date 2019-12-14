@@ -23,16 +23,17 @@ import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
-import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 object XQueryFindUsagesProvider : FindUsagesProvider {
+    private val TYPE = mapOf(
+        XQueryElementType.FUNCTION_DECL to XQueryBundle.message("find-usages.function"),
+        XPathElementType.VAR_NAME to XQueryBundle.message("find-usages.variable")
+    )
+
     override fun getWordsScanner(): WordsScanner? {
         return XQueryWordsScanner()
     }
@@ -54,16 +55,8 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
                 XPathPrincipalNodeKind.Namespace -> XQueryBundle.message("find-usages.namespace")
                 null -> XQueryBundle.message("find-usages.identifier")
             }
-        else when (element.parent) {
-            is XQueryFunctionDecl -> XQueryBundle.message("find-usages.function")
-            is XPathVarName -> {
-                if (element.parent.parent is XQueryVarDecl)
-                    XQueryBundle.message("find-usages.variable")
-                else
-                    XQueryBundle.message("find-usages.identifier")
-            }
-            else -> XQueryBundle.message("find-usages.identifier")
-        }
+        else
+            TYPE.getOrElse(parentType) { XQueryBundle.message("find-usages.identifier") }
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
