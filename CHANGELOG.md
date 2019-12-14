@@ -4,8 +4,9 @@
 
 References and Resolving:
 
-1.  Support `URIQualifiedName` references, both the namespace part (`Q{...}`) and the function or variable `NCName`.
+1.  Support `BracedURILiteral` references (`Q{...}`).
 1.  Support navigating to Java classes specified by `java:` and unprefixed classpath URIs (BaseX, eXist-db, Saxon).
+1.  Fix resolving `URIQualifiedName` functions and variables.
 
 IntelliJ Integration:
 

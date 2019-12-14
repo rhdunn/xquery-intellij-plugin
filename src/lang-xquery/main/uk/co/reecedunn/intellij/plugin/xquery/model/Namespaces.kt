@@ -157,6 +157,16 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
                 XsQName(ns.namespaceUri, prefix, localName, false, element)
             }
         }
-        else /* URIQualifiedName */ -> sequenceOf(this)
+        else /* URIQualifiedName */ -> {
+            val expanded = element!!.staticallyKnownNamespaces().filter { ns ->
+                ns.namespaceUri?.data == namespace!!.data
+            }.map { ns ->
+                XsQName(ns.namespaceUri, prefix, localName, false, element)
+            }
+            if (expanded.any())
+                expanded
+            else
+                sequenceOf(this)
+        }
     }
 }

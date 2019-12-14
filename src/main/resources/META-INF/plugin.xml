@@ -50,14 +50,12 @@
     <h3>Release 1.6-dev:</h3>
     <p>References and Resolving:</p>
     <ol>
-      <li>
-        Support <code>URIQualifiedName</code> references, both the namespace part
-        (<code>Q{...}</code>) and the function or variable <code>NCName</code>.
-      </li>
+      <li>Support <code>BracedURILiteral</code> references (<code>Q{...}</code>).</li>
       <li>
         Support navigating to Java classes specified by <code>java:</code> and
         unprefixed classpath URIs (BaseX, eXist-db, Saxon).
       </li>
+      <li>Fix resolving `URIQualifiedName` functions and variables.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
