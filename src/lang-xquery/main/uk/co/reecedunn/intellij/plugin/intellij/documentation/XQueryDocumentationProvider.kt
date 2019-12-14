@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.documentation
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
@@ -32,8 +33,10 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun getQuickNavigateInfo(decl: XPathNamespaceDeclaration, element: PsiElement): String? {
         val prefix = decl.namespacePrefix?.data
         val uri = decl.namespaceUri?.data ?: return null
+        val path = decl.namespaceUri?.element?.containingFile?.resourcePath()
         return if (element is XQueryModuleDecl)
-            prefix?.let { "module namespace $it = \"$uri\"" } ?: "module namespace \"{$uri}\""
+            prefix?.let { "module namespace $it = \"$uri\"\nat \"$path\"" }
+                ?: "module namespace \"$uri\"\nat \"$path\""
         else
             prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
     }

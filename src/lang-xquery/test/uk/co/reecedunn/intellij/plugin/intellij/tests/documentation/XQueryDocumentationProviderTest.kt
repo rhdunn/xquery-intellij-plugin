@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 
 import com.intellij.psi.PsiElement
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -137,7 +136,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             )
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
-            assertThat(quickDoc, `is`("module namespace ex = \"http://www.example.com\""))
+            assertThat(quickDoc, `is`("module namespace ex = \"http://www.example.com\"\nat \"/testcase.xqy\""))
         }
 
         @Test
@@ -254,7 +253,8 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val ref = parse("declare namespace fn = \"http://www.w3.org/2005/xpath-functions\";")
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
-            assertThat(quickDoc, `is`("module namespace fn = \"http://www.w3.org/2005/xpath-functions\""))
+            assertThat(quickDoc, startsWith("module namespace fn = \"http://www.w3.org/2005/xpath-functions\"\nat \""))
+            assertThat(quickDoc, endsWith("/org/w3/www/2005/xpath-functions.xqy\""))
         }
     }
 }

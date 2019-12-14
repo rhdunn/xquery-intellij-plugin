@@ -59,6 +59,10 @@
         unprefixed classpath URIs (BaseX, eXist-db, Saxon).
       </li>
     </ol>
+    <p>IntelliJ Integration:</p>
+    <ol>
+      <li>Display the namespace signature and module path when holding Ctrl over a module namespace URI or prefix.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
