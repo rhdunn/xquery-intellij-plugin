@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
@@ -2132,6 +2133,26 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(steps[6].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // following
                 assertThat(steps[7].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Namespace)) // namespace
             }
+
+            @Test
+            @DisplayName("find usages type name")
+            fun findUsagesTypeName() {
+                val steps = parse<XPathNodeTest>(
+                    """
+                    child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                    following-sibling::six, following::seven, namespace::eight
+                    """
+                ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
+                assertThat(steps.size, `is`(8))
+                assertThat(XQueryFindUsagesProvider.getType(steps[0]), `is`("element")) // child
+                assertThat(XQueryFindUsagesProvider.getType(steps[1]), `is`("element")) // descendant
+                assertThat(XQueryFindUsagesProvider.getType(steps[2]), `is`("attribute")) // attribute
+                assertThat(XQueryFindUsagesProvider.getType(steps[3]), `is`("element")) // self
+                assertThat(XQueryFindUsagesProvider.getType(steps[4]), `is`("element")) // descendant-or-self
+                assertThat(XQueryFindUsagesProvider.getType(steps[5]), `is`("element")) // following-sibling
+                assertThat(XQueryFindUsagesProvider.getType(steps[6]), `is`("element")) // following
+                assertThat(XQueryFindUsagesProvider.getType(steps[7]), `is`("namespace")) // namespace
+            }
         }
 
         @Nested
@@ -2149,6 +2170,20 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(steps[2].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // preceding-sibling
                 assertThat(steps[3].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // preceding
                 assertThat(steps[4].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // ancestor-or-self
+            }
+
+            @Test
+            @DisplayName("find usages type name")
+            fun findUsagesTypeName() {
+                val steps = parse<XPathNodeTest>(
+                    "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
+                ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
+                assertThat(steps.size, `is`(5))
+                assertThat(XQueryFindUsagesProvider.getType(steps[0]), `is`("element")) // parent
+                assertThat(XQueryFindUsagesProvider.getType(steps[1]), `is`("element")) // ancestor
+                assertThat(XQueryFindUsagesProvider.getType(steps[2]), `is`("element")) // preceding-sibling
+                assertThat(XQueryFindUsagesProvider.getType(steps[3]), `is`("element")) // preceding
+                assertThat(XQueryFindUsagesProvider.getType(steps[4]), `is`("element")) // ancestor-or-self
             }
         }
     }
@@ -2347,6 +2382,17 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(steps.size, `is`(2))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element))
                 assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute))
+            }
+
+            @Test
+            @DisplayName("find usages type name")
+            fun findUsagesTypeName() {
+                val steps = parse<XPathNodeTest>("one, @two").map {
+                    it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
+                }
+                assertThat(steps.size, `is`(2))
+                assertThat(XQueryFindUsagesProvider.getType(steps[0]), `is`("element"))
+                assertThat(XQueryFindUsagesProvider.getType(steps[1]), `is`("attribute"))
             }
         }
     }

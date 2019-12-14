@@ -25,8 +25,10 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
@@ -1413,6 +1415,16 @@ private class PluginPsiTest : ParserTestCase() {
                 val steps = parse<XPathNodeTest>("property::one")
                 assertThat(steps.size, `is`(1))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // property
+            }
+
+            @Test
+            @DisplayName("find usages type name")
+            fun findUsagesTypeName() {
+                val steps = parse<XPathNodeTest>("property::one").map {
+                    it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
+                }
+                assertThat(steps.size, `is`(1))
+                assertThat(XQueryFindUsagesProvider.getType(steps[0]), `is`("element")) // property
             }
         }
     }

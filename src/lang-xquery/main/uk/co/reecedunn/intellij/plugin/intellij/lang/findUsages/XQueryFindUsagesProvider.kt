@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,15 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
+import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
+import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 
 object XQueryFindUsagesProvider : FindUsagesProvider {
     override fun getWordsScanner(): WordsScanner? {
@@ -40,7 +46,15 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
     }
 
     override fun getType(element: PsiElement): String {
-        return when (element.parent) {
+        val parentType = element.parent.node.elementType
+        return if (parentType === XPathElementType.NAME_TEST)
+            when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
+                XPathPrincipalNodeKind.Element -> XQueryBundle.message("find-usages.element")
+                XPathPrincipalNodeKind.Attribute -> XQueryBundle.message("find-usages.attribute")
+                XPathPrincipalNodeKind.Namespace -> XQueryBundle.message("find-usages.namespace")
+                null -> XQueryBundle.message("find-usages.identifier")
+            }
+        else when (element.parent) {
             is XQueryFunctionDecl -> XQueryBundle.message("find-usages.function")
             is XPathVarName -> {
                 if (element.parent.parent is XQueryVarDecl)
