@@ -58,6 +58,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.first().reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiterals.first())))
                 assertThat(ref.canonicalText, `is`("http://example.com/test"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(24))
@@ -79,6 +80,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiterals.last())))
                 assertThat(ref.canonicalText, `is`("test.xq"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(8))
@@ -102,6 +104,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiterals.last())))
                 assertThat(ref.canonicalText, `is`("namespaces/ModuleDecl.xq"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(25))
@@ -123,6 +126,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 assertThat(uriLiterals.size, `is`(2))
 
                 val ref = uriLiterals.last().reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiterals.last())))
                 assertThat(ref.canonicalText, `is`(""))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -153,6 +157,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = eqname.references
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(not(sameInstance(eqname))))
             assertThat(refs[0].canonicalText, `is`("http://www.w3.org/2001/XMLSchema"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(2))
             assertThat(refs[0].rangeInElement.endOffset, `is`(34))
@@ -174,6 +179,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )[0].firstChild
 
             val ref = eqname.reference!!
+            assertThat(ref.element, `is`(sameInstance(eqname)))
             assertThat(ref.canonicalText, `is`("xs"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(2))
@@ -187,6 +193,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = eqname.references
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(eqname)))
             assertThat(refs[0].canonicalText, `is`("xs"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(2))
@@ -230,6 +237,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[1].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[1].variableName?.element)))
             assertThat(ref.canonicalText, `is`("value"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(5))
@@ -242,6 +250,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[1].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[1].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("value"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(5))
@@ -263,6 +272,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[1].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[1].variableName?.element)))
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -275,6 +285,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[1].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[1].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("x"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -297,6 +308,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[9].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[9].variableName?.element)))
             assertThat(ref.canonicalText, `is`("z"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -309,6 +321,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[9].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[9].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("z"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -330,6 +343,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[5].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -342,6 +356,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("x"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -363,6 +378,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[7].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[7].variableName?.element)))
             assertThat(ref.canonicalText, `is`("i"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -375,6 +391,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[7].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[7].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("i"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -396,6 +413,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[5].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -408,6 +426,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("x"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -429,6 +448,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[5].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -441,6 +461,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("x"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -462,6 +483,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             )
 
             val ref = vars[5].variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -474,6 +496,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = vars[5].variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
+            assertThat(refs[0].element, `is`(sameInstance(vars[5].variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("x"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
