@@ -36,6 +36,8 @@
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryQNameManipulator"/>
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryNCNameManipulator"/>
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryURIQualifiedNamePsiImpl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryURIQualifiedNameManipulator"/>
 
     <!-- Application / Project Settings -->
 

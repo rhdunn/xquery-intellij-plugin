@@ -17,14 +17,46 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathURIQualifiedNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.*
 
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImpl(node) {
+    // region PsiElement
+
+    override fun getReferences(): Array<PsiReference> {
+        val eqnameStart = node.startOffset
+        val localName = localName as? PsiElement
+        val localNameRef: PsiReference? =
+            if (localName != null) when (parent) {
+                is XPathFunctionReference ->
+                    XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                is XPathVariableName ->
+                    XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                else -> null
+            } else {
+                null
+            }
+
+        val namespace = namespace as XQueryBracedURILiteralPsiImpl
+        if (localNameRef != null) {
+            return arrayOf(
+                XQueryBracedURILiteralReference(namespace, TextRange(2, namespace.textRange.length - 1)),
+                localNameRef
+            )
+        }
+        return arrayOf(XQueryBracedURILiteralReference(namespace, TextRange(2, namespace.textRange.length - 1)))
+    }
+
+    // endregion
     // region XsQNameValue
 
     override val namespace: XsAnyUriValue?

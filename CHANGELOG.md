@@ -2,8 +2,9 @@
 
 ## 1.6 - (In Development)
 
-Imported and Declared Modules:
+References and Resolving:
 
+1.  Support `URIQualifiedName` references, both the namespace part (`Q{...}`) and the function or variable `NCName`.
 1.  Support navigating to Java classes specified by `java:` and unprefixed classpath URIs (BaseX, eXist-db, Saxon).
 
 ## 1.5.2 - 2019-11-19

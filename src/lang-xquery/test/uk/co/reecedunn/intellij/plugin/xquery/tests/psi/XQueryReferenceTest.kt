@@ -151,7 +151,15 @@ private class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref, `is`(nullValue()))
 
             val refs = eqname.references
-            assertThat(refs.size, `is`(0))
+            assertThat(refs.size, `is`(1))
+
+            assertThat(refs[0].canonicalText, `is`("http://www.w3.org/2001/XMLSchema"))
+            assertThat(refs[0].rangeInElement.startOffset, `is`(2))
+            assertThat(refs[0].rangeInElement.endOffset, `is`(34))
+            assertThat(refs[0].variants.size, `is`(0))
+
+            val resolved = refs[0].resolve()!!
+            assertThat(resolved, `is`(instanceOf<PsiElement>(XQueryModule::class.java)))
         }
 
         @Test
