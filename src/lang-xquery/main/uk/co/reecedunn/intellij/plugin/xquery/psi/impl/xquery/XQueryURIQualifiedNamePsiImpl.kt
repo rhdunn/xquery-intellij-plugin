@@ -49,11 +49,11 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
         val namespace = namespace as XQueryBracedURILiteralPsiImpl
         if (localNameRef != null) {
             return arrayOf(
-                XQueryBracedURILiteralReference(namespace, TextRange(2, namespace.textRange.length - 1)),
+                XQueryBracedURILiteralReference(this, TextRange(2, namespace.textRange.length - 1)),
                 localNameRef
             )
         }
-        return arrayOf(XQueryBracedURILiteralReference(namespace, TextRange(2, namespace.textRange.length - 1)))
+        return arrayOf(XQueryBracedURILiteralReference(this, TextRange(2, namespace.textRange.length - 1)))
     }
 
     // endregion

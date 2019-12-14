@@ -157,7 +157,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val refs = eqname.references
             assertThat(refs.size, `is`(1))
 
-            assertThat(refs[0].element, `is`(not(sameInstance(eqname))))
+            assertThat(refs[0].element, `is`(sameInstance(eqname)))
             assertThat(refs[0].canonicalText, `is`("http://www.w3.org/2001/XMLSchema"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(2))
             assertThat(refs[0].rangeInElement.endOffset, `is`(34))
