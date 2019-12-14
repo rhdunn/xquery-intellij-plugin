@@ -15,9 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.module
 
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 interface XdmModulePathFactory {
+    companion object {
+        val EP_NAME = ExtensionPointName.create<XdmModulePathFactory>("uk.co.reecedunn.intellij.modulePathFactory")
+    }
+
     fun create(project: Project, uri: XsAnyUriValue): XdmModulePath?
 }

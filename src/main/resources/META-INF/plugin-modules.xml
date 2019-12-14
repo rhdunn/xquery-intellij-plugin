@@ -1,6 +1,7 @@
 <idea-plugin>
   <extensionPoints>
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" interface="uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory"/>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
@@ -8,6 +9,8 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath$Companion"/>
+
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions"/>
