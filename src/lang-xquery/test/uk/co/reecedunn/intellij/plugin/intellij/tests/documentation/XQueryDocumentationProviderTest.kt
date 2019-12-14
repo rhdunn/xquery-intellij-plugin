@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
@@ -234,6 +235,26 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*) as item()+"))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (4) LibraryModule")
+    internal inner class LibraryModule {
+        fun parse(text: String): Pair<PsiElement?, PsiElement?> {
+            val module = parseText(text)
+            val element = module.walkTree().filterIsInstance<XPathUriLiteral>().first()
+            val ref = element.references[0].resolve()
+            return element to ref
+        }
+
+        @Test
+        @DisplayName("builtin")
+        fun builtin() {
+            val ref = parse("declare namespace fn = \"http://www.w3.org/2005/xpath-functions\";")
+
+            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            assertThat(quickDoc, `is`("module namespace fn = \"http://www.w3.org/2005/xpath-functions\""))
         }
     }
 }

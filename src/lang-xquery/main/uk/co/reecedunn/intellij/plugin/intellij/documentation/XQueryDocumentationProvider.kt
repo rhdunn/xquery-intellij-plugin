@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.documentation
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -24,12 +25,19 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 
 object XQueryDocumentationProvider : AbstractDocumentationProvider() {
+    private fun getQuickNavigateInfo(decl: XPathNamespaceDeclaration, element: PsiElement): String? {
+        val prefix = decl.namespacePrefix?.data
+        val uri = decl.namespaceUri?.data ?: return null
+        return if (element is XQueryModuleDecl)
+            prefix?.let { "module namespace $it = \"$uri\"" } ?: "module namespace \"{$uri}\""
+        else
+            prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
+    }
+
     override fun getQuickNavigateInfo(element: PsiElement?, originalElement: PsiElement?): String? {
         return when (val parent = element?.parent) {
             is XQueryFunctionDecl -> {
@@ -54,19 +62,22 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
             }
             is XPathNCName -> {
                 (parent.parent as? XPathNamespaceDeclaration)?.let { decl ->
-                    val prefix = decl.namespacePrefix?.data
-                    val uri = decl.namespaceUri?.data ?: return null
-                    if (parent.parent is XQueryModuleDecl)
-                        prefix?.let { "module namespace $it = \"$uri\"" } ?: "module namespace \"{$uri}\""
-                    else
-                        prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
+                    getQuickNavigateInfo(decl, parent.parent)
                 }
             }
             is XQueryElement -> {
                 val dynamic = XQueryBundle.message("element.dynamic")
                 "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
             }
-            else -> null
+            else -> (element as? XQueryModule)?.let {
+                when (val module = it.mainOrLibraryModule) {
+                    is XQueryLibraryModule -> {
+                        val moduleDecl = module.firstChild
+                        getQuickNavigateInfo(moduleDecl as XPathNamespaceDeclaration, moduleDecl)
+                    }
+                    else -> null
+                }
+            }
         }
     }
 }
