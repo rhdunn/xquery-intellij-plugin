@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 
@@ -52,6 +53,9 @@ abstract class ParserTestCase :
         registerModules(manager)
         myProject.registerService(ModuleManager::class.java, manager)
 
+        registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
+        registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath)
+
         registerExtensionPoint(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, ImportPathResolver::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
@@ -62,6 +66,10 @@ abstract class ParserTestCase :
     @AfterAll
     override fun tearDown() {
         super.tearDown()
+    }
+
+    private fun registerModulePathFactory(factory: XdmModulePathFactory) {
+        registerExtension(XdmModulePathFactory.EP_NAME, factory)
     }
 
     private fun registerBuiltInFunctions(resolver: ImportPathResolver) {
