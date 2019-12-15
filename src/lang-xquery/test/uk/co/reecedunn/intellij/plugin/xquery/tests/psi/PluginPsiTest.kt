@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
@@ -40,9 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
@@ -142,6 +139,7 @@ private class PluginPsiTest : ParserTestCase() {
                     """
                 )[1] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1463,6 +1461,7 @@ private class PluginPsiTest : ParserTestCase() {
                     """
                 )[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))

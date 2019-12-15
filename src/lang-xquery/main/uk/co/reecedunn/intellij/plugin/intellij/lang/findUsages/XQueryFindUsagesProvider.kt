@@ -23,6 +23,7 @@ import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -30,7 +31,31 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 object XQueryFindUsagesProvider : FindUsagesProvider {
     private val TYPE = mapOf(
+        XQueryElementType.ANNOTATION to XQueryBundle.message("find-usages.annotation"),
+        XPathElementType.ARROW_FUNCTION_SPECIFIER to XQueryBundle.message("find-usages.function"),
+        XPathElementType.ATOMIC_OR_UNION_TYPE to XQueryBundle.message("find-usages.type"),
+        XPathElementType.ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
+        XQueryElementType.COMP_ATTR_CONSTRUCTOR to XQueryBundle.message("find-usages.attribute"),
+        XQueryElementType.COMP_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
+        XQueryElementType.CURRENT_ITEM to XQueryBundle.message("find-usages.variable"),
+        XQueryElementType.DECIMAL_FORMAT_DECL to XQueryBundle.message("find-usages.decimal-format"),
+        XQueryElementType.DIR_ATTRIBUTE to XQueryBundle.message("find-usages.attribute"),
+        XQueryElementType.DIR_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
+        XPathElementType.ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
+        XPathElementType.FUNCTION_CALL to XQueryBundle.message("find-usages.function"),
         XQueryElementType.FUNCTION_DECL to XQueryBundle.message("find-usages.function"),
+        XPathElementType.NAMED_FUNCTION_REF to XQueryBundle.message("find-usages.function"),
+        XQueryElementType.NEXT_ITEM to XQueryBundle.message("find-usages.variable"),
+        XQueryElementType.OPTION_DECL to XQueryBundle.message("find-usages.option"),
+        XPathElementType.PARAM to XQueryBundle.message("find-usages.parameter"),
+        XPathElementType.PRAGMA to XQueryBundle.message("find-usages.pragma"),
+        XQueryElementType.PREVIOUS_ITEM to XQueryBundle.message("find-usages.variable"),
+        XPathElementType.SCHEMA_ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
+        XPathElementType.SCHEMA_ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
+        XPathElementType.SIMPLE_TYPE_NAME to XQueryBundle.message("find-usages.type"),
+        XQueryElementType.TYPE_DECL to XQueryBundle.message("find-usages.type"),
+        XPathElementType.TYPE_NAME to XQueryBundle.message("find-usages.type"),
+        XPathElementType.UNION_TYPE to XQueryBundle.message("find-usages.type"),
         XPathElementType.VAR_NAME to XQueryBundle.message("find-usages.variable")
     )
 

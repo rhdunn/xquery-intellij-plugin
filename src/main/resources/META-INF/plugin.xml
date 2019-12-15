@@ -58,7 +58,8 @@
       <li>Fix resolving `URIQualifiedName` functions and variables.</li>
       <li>
         Display the correct type name in the find usages UI for EQNames that
-        are attributes, elements, and namespaces.
+        are annotations, attributes, decimal formats, elements, functions,
+        namespaces, options, parameters, pragmas, types, and variables.
       </li>
     </ol>
     <p>IntelliJ Integration:</p>

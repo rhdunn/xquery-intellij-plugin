@@ -5,9 +5,12 @@
 References, Resolving and Find Usages:
 
 1.  Support `BracedURILiteral` references (`Q{...}`).
-1.  Support navigating to Java classes specified by `java:` and unprefixed classpath URIs (BaseX, eXist-db, Saxon).
+1.  Support navigating to Java classes specified by `java:` and unprefixed classpath URIs
+    (BaseX, eXist-db, Saxon).
 1.  Fix resolving `URIQualifiedName` functions and variables.
-1.  Display the correct type name in the find usages UI for EQNames that are attributes, elements, and namespaces.
+1.  Display the correct type name in the find usages UI for EQNames that are annotations,
+    attributes, decimal formats, elements, functions, namespaces, options, parameters,
+    pragmas, types, and variables.
 
 IntelliJ Integration:
 
