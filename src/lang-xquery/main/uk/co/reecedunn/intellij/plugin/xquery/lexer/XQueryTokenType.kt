@@ -285,12 +285,5 @@ object XQueryTokenType {
         XML_COMMENT
     )
 
-    val LITERAL_TOKENS = TokenSet.create(
-        XPathTokenType.INTEGER_LITERAL,
-        XPathTokenType.DECIMAL_LITERAL,
-        XPathTokenType.DOUBLE_LITERAL,
-        XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
-    )
-
     // endregion
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
 class XQueryWordsScanner : WordsScanner {
@@ -37,7 +38,7 @@ class XQueryWordsScanner : WordsScanner {
                 if (!processToken(processor, WordOccurrence.Kind.COMMENTS)) return
             } else if (XQueryTokenType.STRING_LITERAL_TOKENS.contains(type)) {
                 if (!processToken(processor, WordOccurrence.Kind.LITERALS)) return
-            } else if (XQueryTokenType.LITERAL_TOKENS.contains(type)) {
+            } else if (XPathTokenType.LITERAL_TOKENS.contains(type)) {
                 mOccurrence.init(fileText, mLexer.tokenStart, mLexer.tokenEnd, WordOccurrence.Kind.CODE)
                 if (!processor.process(mOccurrence)) return
             } else {
