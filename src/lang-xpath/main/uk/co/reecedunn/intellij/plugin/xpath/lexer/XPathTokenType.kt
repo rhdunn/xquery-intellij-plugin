@@ -229,6 +229,10 @@ object XPathTokenType {
 
     val AND_EXPR_TOKENS = TokenSet.create(K_AND, K_ANDALSO)
 
+    val COMMENT_TOKENS = TokenSet.create(
+        COMMENT
+    )
+
     val COMP_SYMBOL_TOKENS = TokenSet.create(
         EQUAL,
         NOT_EQUAL,
@@ -312,6 +316,10 @@ object XPathTokenType {
     )
 
     val SEQUENCE_TYPE_TOKENS = TokenSet.create(K_EMPTY_SEQUENCE, K_EMPTY)
+
+    val STRING_LITERAL_TOKENS = TokenSet.create(
+        STRING_LITERAL_CONTENTS
+    )
 
     val UNARY_EXPR_TOKENS = ADDITIVE_EXPR_TOKENS
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,9 +40,9 @@ class XPathParserDefinition : ParserDefinition {
 
     override fun getWhitespaceTokens(): TokenSet = TokenSet.EMPTY
 
-    override fun getCommentTokens(): TokenSet = COMMENT_TOKENS
+    override fun getCommentTokens(): TokenSet = XPathTokenType.COMMENT_TOKENS
 
-    override fun getStringLiteralElements(): TokenSet = STRING_LITERAL_TOKENS
+    override fun getStringLiteralElements(): TokenSet = XPathTokenType.STRING_LITERAL_TOKENS
 
     override fun createElement(node: ASTNode): PsiElement {
         val type = node.elementType
@@ -54,14 +54,4 @@ class XPathParserDefinition : ParserDefinition {
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = XPathImpl(viewProvider)
-
-    companion object {
-        val STRING_LITERAL_TOKENS = TokenSet.create(
-            XPathTokenType.STRING_LITERAL_CONTENTS
-        )
-
-        val COMMENT_TOKENS = TokenSet.create(
-            XPathTokenType.COMMENT
-        )
-    }
 }
