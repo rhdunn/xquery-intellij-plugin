@@ -37,7 +37,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XPathElementType.ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.COMP_ATTR_CONSTRUCTOR to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.COMP_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
-        XQueryElementType.CURRENT_ITEM to XQueryBundle.message("find-usages.variable"),
+        XQueryElementType.CURRENT_ITEM to XPathBundle.message("find-usages.variable"),
         XQueryElementType.DECIMAL_FORMAT_DECL to XQueryBundle.message("find-usages.decimal-format"),
         XQueryElementType.DIR_ATTRIBUTE to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.DIR_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
@@ -48,11 +48,11 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XQueryElementType.MODULE_IMPORT to XQueryBundle.message("find-usages.namespace"),
         XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
         XQueryElementType.NAMESPACE_DECL to XQueryBundle.message("find-usages.namespace"),
-        XQueryElementType.NEXT_ITEM to XQueryBundle.message("find-usages.variable"),
+        XQueryElementType.NEXT_ITEM to XPathBundle.message("find-usages.variable"),
         XQueryElementType.OPTION_DECL to XQueryBundle.message("find-usages.option"),
         XPathElementType.PARAM to XQueryBundle.message("find-usages.parameter"),
         XPathElementType.PRAGMA to XQueryBundle.message("find-usages.pragma"),
-        XQueryElementType.PREVIOUS_ITEM to XQueryBundle.message("find-usages.variable"),
+        XQueryElementType.PREVIOUS_ITEM to XPathBundle.message("find-usages.variable"),
         XPathElementType.SCHEMA_ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
         XPathElementType.SCHEMA_ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
         XQueryElementType.SCHEMA_PREFIX to XQueryBundle.message("find-usages.namespace"),
@@ -60,7 +60,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XQueryElementType.TYPE_DECL to XPathBundle.message("find-usages.type"),
         XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
         XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type"),
-        XPathElementType.VAR_NAME to XQueryBundle.message("find-usages.variable")
+        XPathElementType.VAR_NAME to XPathBundle.message("find-usages.variable")
     )
 
     override fun getWordsScanner(): WordsScanner? = XQueryWordsScanner()

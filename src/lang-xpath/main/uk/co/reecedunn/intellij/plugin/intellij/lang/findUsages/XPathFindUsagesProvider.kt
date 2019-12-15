@@ -32,7 +32,8 @@ object XPathFindUsagesProvider : FindUsagesProvider {
         XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
         XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
         XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
-        XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type")
+        XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type"),
+        XPathElementType.VAR_NAME to XPathBundle.message("find-usages.variable")
     )
 
     override fun getWordsScanner(): WordsScanner? = XPathWordsScanner()
