@@ -50,7 +50,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XQueryElementType.NAMESPACE_DECL to XQueryBundle.message("find-usages.namespace"),
         XQueryElementType.NEXT_ITEM to XPathBundle.message("find-usages.variable"),
         XQueryElementType.OPTION_DECL to XQueryBundle.message("find-usages.option"),
-        XPathElementType.PARAM to XQueryBundle.message("find-usages.parameter"),
+        XPathElementType.PARAM to XPathBundle.message("find-usages.parameter"),
         XPathElementType.PRAGMA to XQueryBundle.message("find-usages.pragma"),
         XQueryElementType.PREVIOUS_ITEM to XPathBundle.message("find-usages.variable"),
         XPathElementType.SCHEMA_ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),

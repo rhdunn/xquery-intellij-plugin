@@ -1587,6 +1587,19 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(presentation.presentableText, `is`("\$x as element()"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
+
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncnameNamespaceResolution() {
+                val qname = parse<XPathEQName>("function (\$test) {}")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("parameter"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
         }
 
         @Nested

@@ -30,6 +30,7 @@ object XPathFindUsagesProvider : FindUsagesProvider {
         XPathElementType.ATOMIC_OR_UNION_TYPE to XPathBundle.message("find-usages.type"),
         XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
         XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
+        XPathElementType.PARAM to XPathBundle.message("find-usages.parameter"),
         XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
         XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
         XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type"),
