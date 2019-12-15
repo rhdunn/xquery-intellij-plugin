@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathURIQualifiedNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathBracedURILiteralReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.*
 
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImpl(node) {
@@ -49,11 +50,11 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
         val namespace = namespace as XQueryBracedURILiteralPsiImpl
         if (localNameRef != null) {
             return arrayOf(
-                XQueryBracedURILiteralReference(this, TextRange(2, namespace.textRange.length - 1)),
+                XPathBracedURILiteralReference(this, TextRange(2, namespace.textRange.length - 1)),
                 localNameRef
             )
         }
-        return arrayOf(XQueryBracedURILiteralReference(this, TextRange(2, namespace.textRange.length - 1)))
+        return arrayOf(XPathBracedURILiteralReference(this, TextRange(2, namespace.textRange.length - 1)))
     }
 
     // endregion
