@@ -33,7 +33,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
     private val TYPE = mapOf(
         XQueryElementType.ANNOTATION to XQueryBundle.message("find-usages.annotation"),
         XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathBundle.message("find-usages.function"),
-        XPathElementType.ATOMIC_OR_UNION_TYPE to XQueryBundle.message("find-usages.type"),
+        XPathElementType.ATOMIC_OR_UNION_TYPE to XPathBundle.message("find-usages.type"),
         XPathElementType.ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.COMP_ATTR_CONSTRUCTOR to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.COMP_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
@@ -56,10 +56,10 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XPathElementType.SCHEMA_ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
         XPathElementType.SCHEMA_ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
         XQueryElementType.SCHEMA_PREFIX to XQueryBundle.message("find-usages.namespace"),
-        XPathElementType.SIMPLE_TYPE_NAME to XQueryBundle.message("find-usages.type"),
-        XQueryElementType.TYPE_DECL to XQueryBundle.message("find-usages.type"),
-        XPathElementType.TYPE_NAME to XQueryBundle.message("find-usages.type"),
-        XPathElementType.UNION_TYPE to XQueryBundle.message("find-usages.type"),
+        XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
+        XQueryElementType.TYPE_DECL to XPathBundle.message("find-usages.type"),
+        XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
+        XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type"),
         XPathElementType.VAR_NAME to XQueryBundle.message("find-usages.variable")
     )
 

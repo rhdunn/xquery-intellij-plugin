@@ -367,19 +367,36 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(type.upperBound, `is`(1))
         }
 
-        @Test
+        @Nested
         @DisplayName("XPath 3.1 EBNF (82) AtomicOrUnionType")
-        fun atomicOrUnionType() {
-            val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
-            assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+        internal inner class AtomicOrUnionType {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>("() instance of test")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
-            val type = test as XdmItemType
-            assertThat(type.typeName, `is`("xs:string"))
-            assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+            @Test
+            @DisplayName("item type")
+            fun itemType() {
+                val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("xs:string"))
+                assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Test
@@ -539,6 +556,19 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 3.1 EBNF (101) TypeName")
         internal inner class TypeName {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>("() instance of element(*, test)")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
             @Test
             @DisplayName("item type")
             fun itemType() {
@@ -1837,19 +1867,36 @@ private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.1 (3.18.3) Cast")
     internal inner class Cast {
-        @Test
+        @Nested
         @DisplayName("XPath 3.1 EBNF (100) SimpleTypeName")
-        fun simpleTypeName() {
-            val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
-            assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+        internal inner class SimpleTypeName {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>("() cast as test")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
-            val type = test as XdmItemType
-            assertThat(type.typeName, `is`("xs:string"))
-            assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            @Test
+            @DisplayName("item type")
+            fun itemType() {
+                val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
+                assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("xs:string"))
+                assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+            }
         }
 
         @Test

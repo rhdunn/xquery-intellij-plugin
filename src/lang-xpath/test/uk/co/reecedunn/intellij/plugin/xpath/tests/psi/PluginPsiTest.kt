@@ -15,19 +15,123 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.psi.PsiElement
 import com.intellij.util.Range
-import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAnyUnionType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmMap
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
 private class PluginPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.1) Union Type")
+    internal inner class UnionType {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+        internal inner class UnionType {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>("() instance of union(test)")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val test = parse<PluginUnionType>("() instance of union ( (::) )")[0]
+
+                val memberTypes = test.memberTypes.toList()
+                assertThat(memberTypes.size, `is`(0))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("union()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("one")
+            fun one() {
+                val test = parse<PluginUnionType>("() instance of union ( xs:string )")[0]
+
+                val memberTypes = test.memberTypes.toList()
+                assertThat(memberTypes.size, `is`(1))
+                assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("union(xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("many")
+            fun many() {
+                val test = parse<PluginUnionType>("() instance of union ( xs:string , xs:anyURI )")[0]
+
+                val memberTypes = test.memberTypes.toList()
+                assertThat(memberTypes.size, `is`(2))
+                assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+                assertThat(op_qname_presentation(memberTypes[1]), `is`("xs:anyURI"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("union(xs:string, xs:anyURI)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (21) TypedMapTest")
+        internal inner class TypedMapTest {
+            @Test
+            @DisplayName("union key type")
+            fun unionKeyType() {
+                val test = parse<XPathTypedMapTest>("() instance of map ( union ( xs:string , xs:float ) , xs:int )")[0]
+                assertThat(test.keyType?.typeName, `is`("union(xs:string, xs:float)"))
+                assertThat(test.valueType?.typeName, `is`("xs:int"))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(union(xs:string, xs:float), xs:int)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.7.3) Inline Function Expressions")
     internal inner class InlineFunctionExpressions {
@@ -38,14 +142,14 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("variadic")
             fun variadic() {
                 val decl = parse<XPathFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
-                assertThat(decl.functionName, CoreMatchers.`is`(CoreMatchers.nullValue()))
-                assertThat(decl.returnType, CoreMatchers.`is`(CoreMatchers.nullValue()))
-                assertThat(decl.arity, CoreMatchers.`is`(Range(1, Int.MAX_VALUE)))
-                assertThat(decl.isVariadic, CoreMatchers.`is`(true))
+                assertThat(decl.functionName, `is`(nullValue()))
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+                assertThat(decl.isVariadic, `is`(true))
 
-                assertThat(decl.params.size, CoreMatchers.`is`(2))
-                assertThat(op_qname_presentation(decl.params[0].variableName!!), CoreMatchers.`is`("one"))
-                assertThat(op_qname_presentation(decl.params[1].variableName!!), CoreMatchers.`is`("two"))
+                assertThat(decl.params.size, `is`(2))
+                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
             }
         }
     }

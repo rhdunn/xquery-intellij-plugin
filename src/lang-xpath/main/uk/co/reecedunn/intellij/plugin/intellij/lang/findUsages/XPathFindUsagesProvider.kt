@@ -27,8 +27,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 object XPathFindUsagesProvider : FindUsagesProvider {
     private val TYPE = mapOf(
         XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathBundle.message("find-usages.function"),
+        XPathElementType.ATOMIC_OR_UNION_TYPE to XPathBundle.message("find-usages.type"),
         XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
-        XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function")
+        XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
+        XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
+        XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
+        XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type")
     )
 
     override fun getWordsScanner(): WordsScanner? = XPathWordsScanner()
