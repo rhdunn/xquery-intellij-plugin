@@ -4064,6 +4064,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
 
                 assertThat((decl as XQueryPrologResolver).prolog.count(), `is`(0))
+
+                val prefix = decl.namespacePrefix?.element?.parent!!
+                assertThat(XQueryFindUsagesProvider.getType(prefix), `is`("namespace"))
             }
 
             @Test
@@ -4204,6 +4207,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
                 assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
                 assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
+
+                val prefix = import.namespacePrefix?.element?.parent!!
+                assertThat(XQueryFindUsagesProvider.getType(prefix), `is`("namespace"))
             }
 
             @Test
@@ -4313,6 +4319,9 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
+
+                val prefix = import.namespacePrefix?.element?.parent!!
+                assertThat(XQueryFindUsagesProvider.getType(prefix), `is`("namespace"))
             }
 
             @Test
@@ -4515,6 +4524,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+
+                val prefix = decl.namespacePrefix?.element?.parent!!
+                assertThat(XQueryFindUsagesProvider.getType(prefix), `is`("namespace"))
             }
 
             @Test
