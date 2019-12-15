@@ -22,6 +22,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XPathWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
+import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 object XPathFindUsagesProvider : FindUsagesProvider {
@@ -46,7 +49,13 @@ object XPathFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         val parentType = element.parent.node.elementType
-        return TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
+        return if (parentType === XPathElementType.NAME_TEST)
+            when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
+                XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
+                else -> XPathBundle.message("find-usages.identifier")
+            }
+        else
+            TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
     }
 
     override fun getDescriptiveName(element: PsiElement): String {

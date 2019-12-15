@@ -44,10 +44,10 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XPathElementType.ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
         XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
         XQueryElementType.FUNCTION_DECL to XPathBundle.message("find-usages.function"),
-        XQueryElementType.MODULE_DECL to XQueryBundle.message("find-usages.namespace"),
-        XQueryElementType.MODULE_IMPORT to XQueryBundle.message("find-usages.namespace"),
+        XQueryElementType.MODULE_DECL to XPathBundle.message("find-usages.namespace"),
+        XQueryElementType.MODULE_IMPORT to XPathBundle.message("find-usages.namespace"),
         XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
-        XQueryElementType.NAMESPACE_DECL to XQueryBundle.message("find-usages.namespace"),
+        XQueryElementType.NAMESPACE_DECL to XPathBundle.message("find-usages.namespace"),
         XQueryElementType.NEXT_ITEM to XPathBundle.message("find-usages.variable"),
         XQueryElementType.OPTION_DECL to XQueryBundle.message("find-usages.option"),
         XPathElementType.PARAM to XPathBundle.message("find-usages.parameter"),
@@ -55,7 +55,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XQueryElementType.PREVIOUS_ITEM to XPathBundle.message("find-usages.variable"),
         XPathElementType.SCHEMA_ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
         XPathElementType.SCHEMA_ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
-        XQueryElementType.SCHEMA_PREFIX to XQueryBundle.message("find-usages.namespace"),
+        XQueryElementType.SCHEMA_PREFIX to XPathBundle.message("find-usages.namespace"),
         XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
         XQueryElementType.TYPE_DECL to XPathBundle.message("find-usages.type"),
         XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
@@ -75,7 +75,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
             when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
                 XPathPrincipalNodeKind.Element -> XQueryBundle.message("find-usages.element")
                 XPathPrincipalNodeKind.Attribute -> XQueryBundle.message("find-usages.attribute")
-                XPathPrincipalNodeKind.Namespace -> XQueryBundle.message("find-usages.namespace")
+                XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
                 null -> XPathBundle.message("find-usages.identifier")
             }
         else

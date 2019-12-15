@@ -24,6 +24,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
@@ -1683,6 +1684,19 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(steps[6].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // following
                 assertThat(steps[7].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Namespace)) // namespace
             }
+
+            @Test
+            @DisplayName("find usages type name")
+            fun findUsagesTypeName() {
+                val steps = parse<XPathNodeTest>(
+                    """
+                    child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                    following-sibling::six, following::seven, namespace::eight
+                    """
+                ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
+                assertThat(steps.size, `is`(8))
+                assertThat(XPathFindUsagesProvider.getType(steps[7]), `is`("namespace")) // namespace
+            }
         }
 
         @Nested
@@ -1707,6 +1721,23 @@ private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (47) NameTest")
+        internal inner class NameTest {
+            @Test
+            @DisplayName("NCName namespace resolution; namespace principal node kind")
+            fun namespaceNcname() {
+                val qname = parse<XPathEQName>("namespace::test")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("namespace"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+        }
+
         @Nested
         @DisplayName("XPath 3.1 EBNF (48) Wildcard")
         internal inner class Wildcard {
