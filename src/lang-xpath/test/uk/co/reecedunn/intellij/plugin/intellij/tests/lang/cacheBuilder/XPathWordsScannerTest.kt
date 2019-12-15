@@ -44,7 +44,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
+    @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
     fun testIntegerLiteral() {
         val testCase = "1234 56789"
         val occurrences = scanWords(testCase)
@@ -54,7 +54,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XQuery 3.1 EBNF (220) DecimalLiteral")
+    @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
     fun testDecimalLiteral() {
         val testCase = "1.25 2.4"
         val occurrences = scanWords(testCase)
@@ -64,7 +64,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XQuery 3.1 EBNF (221) DoubleLiteral")
+    @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
     fun testDoubleLiteral() {
         val testCase = "3e5 2e8"
         val occurrences = scanWords(testCase)
@@ -74,7 +74,7 @@ class XPathWordsScannerTest {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (235) NCName")
+    @DisplayName("XPath 3.1 EBNF (123) NCName")
     internal inner class NCName {
         @Test
         @DisplayName("keywords")
@@ -128,7 +128,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XQuery 3.1 EBNF (239) CommentContents")
+    @DisplayName("XPath 3.1 EBNF (126) CommentContents")
     fun testXQueryComment() {
         val testCase = "(: Lorem ipsum dolor :)"
         val occurrences = scanWords(testCase)
@@ -139,7 +139,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
+    @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
     fun testStringLiteral() {
         val testCase = "\"Lorem ipsum dolor\""
         val occurrences = scanWords(testCase)
