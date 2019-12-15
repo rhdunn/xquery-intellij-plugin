@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
 open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
@@ -34,7 +34,7 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
         return (localName as? PsiElement)?.let {
             when (parent) {
                 is XPathFunctionReference -> {
-                    val ref = XQueryFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    val ref = XPathFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }
                 is XPathVariableName -> {

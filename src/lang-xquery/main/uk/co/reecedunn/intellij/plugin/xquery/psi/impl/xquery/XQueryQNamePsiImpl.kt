@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryQNamePrefixReference
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
 class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
@@ -36,7 +36,7 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
         val localNameRef: PsiReference? =
             if (localName != null) when (parent) {
                 is XPathFunctionReference ->
-                    XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                    XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XPathVariableName ->
                     XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null

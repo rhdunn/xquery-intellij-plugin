@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
+package uk.co.reecedunn.intellij.plugin.xpath.psi.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
-class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) :
+class XPathFunctionNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {
 
     override fun resolve(): PsiElement? {
@@ -32,7 +32,5 @@ class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) :
         }?.functionName as? PsiElement
     }
 
-    override fun getVariants(): Array<Any> {
-        return arrayOf()
-    }
+    override fun getVariants(): Array<Any> = arrayOf()
 }

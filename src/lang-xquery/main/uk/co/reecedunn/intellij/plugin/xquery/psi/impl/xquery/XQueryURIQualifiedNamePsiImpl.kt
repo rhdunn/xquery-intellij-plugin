@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathURIQualifiedNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathBracedURILiteralReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.*
 
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImpl(node) {
@@ -39,7 +40,7 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
         val localNameRef: PsiReference? =
             if (localName != null) when (parent) {
                 is XPathFunctionReference ->
-                    XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                    XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XPathVariableName ->
                     XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
