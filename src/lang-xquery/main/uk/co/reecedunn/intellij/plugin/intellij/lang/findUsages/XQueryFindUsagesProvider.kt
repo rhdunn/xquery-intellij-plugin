@@ -62,17 +62,11 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XPathElementType.VAR_NAME to XQueryBundle.message("find-usages.variable")
     )
 
-    override fun getWordsScanner(): WordsScanner? {
-        return XQueryWordsScanner()
-    }
+    override fun getWordsScanner(): WordsScanner? = XQueryWordsScanner()
 
-    override fun canFindUsagesFor(psiElement: PsiElement): Boolean {
-        return psiElement is PsiNamedElement
-    }
+    override fun canFindUsagesFor(psiElement: PsiElement): Boolean = psiElement is PsiNamedElement
 
-    override fun getHelpId(psiElement: PsiElement): String? {
-        return HelpID.FIND_OTHER_USAGES
-    }
+    override fun getHelpId(psiElement: PsiElement): String? = HelpID.FIND_OTHER_USAGES
 
     override fun getType(element: PsiElement): String {
         val parentType = element.parent.node.elementType
@@ -92,7 +86,5 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         return name ?: ""
     }
 
-    override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
-        return getDescriptiveName(element)
-    }
+    override fun getNodeText(element: PsiElement, useFullName: Boolean): String = getDescriptiveName(element)
 }
