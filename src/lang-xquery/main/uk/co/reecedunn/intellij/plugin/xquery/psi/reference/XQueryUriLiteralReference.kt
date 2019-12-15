@@ -20,11 +20,11 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.paths
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl
 
-class XQueryUriLiteralReference(element: XQueryUriLiteralPsiImpl, range: TextRange) :
-    PsiReferenceBase<XQueryUriLiteralPsiImpl>(element, range) {
+class XQueryUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
+    PsiReferenceBase<XPathUriLiteral>(element, range) {
 
     override fun resolve(): PsiElement? {
         val uri = element.value as XsAnyUriValue
