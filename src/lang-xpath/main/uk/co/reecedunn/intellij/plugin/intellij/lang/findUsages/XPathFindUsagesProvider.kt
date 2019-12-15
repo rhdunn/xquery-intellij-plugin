@@ -39,7 +39,7 @@ object XPathFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         val parentType = element.parent.node.elementType
-        return TYPE.getOrElse(parentType) { "" }
+        return TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
     }
 
     override fun getDescriptiveName(element: PsiElement): String {

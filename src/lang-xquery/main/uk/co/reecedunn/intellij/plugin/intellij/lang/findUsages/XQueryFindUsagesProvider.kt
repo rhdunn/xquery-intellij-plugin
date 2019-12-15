@@ -76,10 +76,10 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
                 XPathPrincipalNodeKind.Element -> XQueryBundle.message("find-usages.element")
                 XPathPrincipalNodeKind.Attribute -> XQueryBundle.message("find-usages.attribute")
                 XPathPrincipalNodeKind.Namespace -> XQueryBundle.message("find-usages.namespace")
-                null -> XQueryBundle.message("find-usages.identifier")
+                null -> XPathBundle.message("find-usages.identifier")
             }
         else
-            TYPE.getOrElse(parentType) { XQueryBundle.message("find-usages.identifier") }
+            TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
