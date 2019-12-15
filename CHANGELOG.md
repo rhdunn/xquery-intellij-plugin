@@ -15,6 +15,7 @@ References, Resolving and Find Usages:
 IntelliJ Integration:
 
 1.  Display the namespace signature and module path when holding Ctrl over a module namespace URI or prefix.
+1.  Support find usage type names in XPath.
 
 ## 1.5.2 - 2019-11-19
 

@@ -36,12 +36,12 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XPathElementType.ATOMIC_OR_UNION_TYPE to XPathBundle.message("find-usages.type"),
         XPathElementType.ATTRIBUTE_TEST to XPathBundle.message("find-usages.attribute"),
         XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathBundle.message("find-usages.attribute"),
-        XQueryElementType.COMP_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
+        XQueryElementType.COMP_ELEM_CONSTRUCTOR to XPathBundle.message("find-usages.element"),
         XQueryElementType.CURRENT_ITEM to XPathBundle.message("find-usages.variable"),
         XQueryElementType.DECIMAL_FORMAT_DECL to XQueryBundle.message("find-usages.decimal-format"),
         XQueryElementType.DIR_ATTRIBUTE to XPathBundle.message("find-usages.attribute"),
-        XQueryElementType.DIR_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
-        XPathElementType.ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
+        XQueryElementType.DIR_ELEM_CONSTRUCTOR to XPathBundle.message("find-usages.element"),
+        XPathElementType.ELEMENT_TEST to XPathBundle.message("find-usages.element"),
         XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
         XQueryElementType.FUNCTION_DECL to XPathBundle.message("find-usages.function"),
         XQueryElementType.MODULE_DECL to XPathBundle.message("find-usages.namespace"),
@@ -54,7 +54,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XPathElementType.PRAGMA to XPathBundle.message("find-usages.pragma"),
         XQueryElementType.PREVIOUS_ITEM to XPathBundle.message("find-usages.variable"),
         XPathElementType.SCHEMA_ATTRIBUTE_TEST to XPathBundle.message("find-usages.attribute"),
-        XPathElementType.SCHEMA_ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
+        XPathElementType.SCHEMA_ELEMENT_TEST to XPathBundle.message("find-usages.element"),
         XQueryElementType.SCHEMA_PREFIX to XPathBundle.message("find-usages.namespace"),
         XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
         XQueryElementType.TYPE_DECL to XPathBundle.message("find-usages.type"),
@@ -73,8 +73,8 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         val parentType = element.parent.node.elementType
         return if (parentType === XPathElementType.NAME_TEST)
             when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-                XPathPrincipalNodeKind.Element -> XQueryBundle.message("find-usages.element")
                 XPathPrincipalNodeKind.Attribute -> XPathBundle.message("find-usages.attribute")
+                XPathPrincipalNodeKind.Element -> XPathBundle.message("find-usages.element")
                 XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
                 null -> XPathBundle.message("find-usages.identifier")
             }
