@@ -28,12 +28,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathUriLiteralReference
 
 class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
     override fun getReference(): PsiReference {
         val range = textRange
-        return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))
+        return XPathUriLiteralReference(this, TextRange(1, range.length - 1))
     }
 
     override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {

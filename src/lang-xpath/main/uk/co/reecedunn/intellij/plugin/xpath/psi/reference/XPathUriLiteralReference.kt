@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
+package uk.co.reecedunn.intellij.plugin.xpath.psi.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.paths
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
 
-class XQueryUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
+class XPathUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
     PsiReferenceBase<XPathUriLiteral>(element, range) {
 
     override fun resolve(): PsiElement? {
