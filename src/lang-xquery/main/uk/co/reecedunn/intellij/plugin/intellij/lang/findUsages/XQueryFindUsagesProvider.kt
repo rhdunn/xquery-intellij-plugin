@@ -21,6 +21,7 @@ import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
@@ -31,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 object XQueryFindUsagesProvider : FindUsagesProvider {
     private val TYPE = mapOf(
         XQueryElementType.ANNOTATION to XQueryBundle.message("find-usages.annotation"),
-        XPathElementType.ARROW_FUNCTION_SPECIFIER to XQueryBundle.message("find-usages.function"),
+        XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathBundle.message("find-usages.function"),
         XPathElementType.ATOMIC_OR_UNION_TYPE to XQueryBundle.message("find-usages.type"),
         XPathElementType.ATTRIBUTE_TEST to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.COMP_ATTR_CONSTRUCTOR to XQueryBundle.message("find-usages.attribute"),
@@ -41,11 +42,11 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
         XQueryElementType.DIR_ATTRIBUTE to XQueryBundle.message("find-usages.attribute"),
         XQueryElementType.DIR_ELEM_CONSTRUCTOR to XQueryBundle.message("find-usages.element"),
         XPathElementType.ELEMENT_TEST to XQueryBundle.message("find-usages.element"),
-        XPathElementType.FUNCTION_CALL to XQueryBundle.message("find-usages.function"),
-        XQueryElementType.FUNCTION_DECL to XQueryBundle.message("find-usages.function"),
+        XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
+        XQueryElementType.FUNCTION_DECL to XPathBundle.message("find-usages.function"),
         XQueryElementType.MODULE_DECL to XQueryBundle.message("find-usages.namespace"),
         XQueryElementType.MODULE_IMPORT to XQueryBundle.message("find-usages.namespace"),
-        XPathElementType.NAMED_FUNCTION_REF to XQueryBundle.message("find-usages.function"),
+        XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
         XQueryElementType.NAMESPACE_DECL to XQueryBundle.message("find-usages.namespace"),
         XQueryElementType.NEXT_ITEM to XQueryBundle.message("find-usages.variable"),
         XQueryElementType.OPTION_DECL to XQueryBundle.message("find-usages.option"),

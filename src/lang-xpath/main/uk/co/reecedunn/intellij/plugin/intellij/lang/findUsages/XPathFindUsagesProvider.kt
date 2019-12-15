@@ -21,8 +21,16 @@ import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XPathWordsScanner
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 object XPathFindUsagesProvider : FindUsagesProvider {
+    private val TYPE = mapOf(
+        XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathBundle.message("find-usages.function"),
+        XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
+        XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function")
+    )
+
     override fun getWordsScanner(): WordsScanner? = XPathWordsScanner()
 
     override fun canFindUsagesFor(psiElement: PsiElement): Boolean = psiElement is PsiNamedElement
@@ -30,7 +38,8 @@ object XPathFindUsagesProvider : FindUsagesProvider {
     override fun getHelpId(psiElement: PsiElement): String? = HelpID.FIND_OTHER_USAGES
 
     override fun getType(element: PsiElement): String {
-        return ""
+        val parentType = element.parent.node.elementType
+        return TYPE.getOrElse(parentType) { "" }
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
