@@ -31,10 +31,12 @@ object XPathFindUsagesProvider : FindUsagesProvider {
     private val TYPE = mapOf(
         XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathBundle.message("find-usages.function"),
         XPathElementType.ATOMIC_OR_UNION_TYPE to XPathBundle.message("find-usages.type"),
+        XPathElementType.ATTRIBUTE_TEST to XPathBundle.message("find-usages.attribute"),
         XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
         XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
         XPathElementType.PARAM to XPathBundle.message("find-usages.parameter"),
         XPathElementType.PRAGMA to XPathBundle.message("find-usages.pragma"),
+        XPathElementType.SCHEMA_ATTRIBUTE_TEST to XPathBundle.message("find-usages.attribute"),
         XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
         XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
         XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type"),
@@ -51,6 +53,7 @@ object XPathFindUsagesProvider : FindUsagesProvider {
         val parentType = element.parent.node.elementType
         return if (parentType === XPathElementType.NAME_TEST)
             when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
+                XPathPrincipalNodeKind.Attribute -> XPathBundle.message("find-usages.attribute")
                 XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
                 else -> XPathBundle.message("find-usages.identifier")
             }

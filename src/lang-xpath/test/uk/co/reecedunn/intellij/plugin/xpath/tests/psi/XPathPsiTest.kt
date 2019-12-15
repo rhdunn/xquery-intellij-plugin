@@ -885,6 +885,23 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(type.upperBound, `is`(1))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (98) AttributeName")
+        internal inner class AttributeName {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("() instance of attribute(test)")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+        }
     }
 
     @Nested
@@ -921,6 +938,23 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
                 assertThat(type.upperBound, `is`(1))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (93) AttributeDeclaration")
+        internal inner class AttributeDeclaration {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("() instance of schema-attribute(test)")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -1695,6 +1729,7 @@ private class XPathPsiTest : ParserTestCase() {
                     """
                 ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
                 assertThat(steps.size, `is`(8))
+                assertThat(XPathFindUsagesProvider.getType(steps[2]), `is`("attribute")) // attribute
                 assertThat(XPathFindUsagesProvider.getType(steps[7]), `is`("namespace")) // namespace
             }
         }
@@ -1724,6 +1759,19 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 3.1 EBNF (47) NameTest")
         internal inner class NameTest {
+            @Test
+            @DisplayName("NCName namespace resolution; attribute principal node kind")
+            fun attributeNcname() {
+                val qname = parse<XPathEQName>("attribute::test")[0] as XsQNameValue
+                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
             @Test
             @DisplayName("NCName namespace resolution; namespace principal node kind")
             fun namespaceNcname() {
@@ -1841,6 +1889,16 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(steps.size, `is`(2))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element))
                 assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute))
+            }
+
+            @Test
+            @DisplayName("find usages type name")
+            fun findUsagesTypeName() {
+                val steps = parse<XPathNodeTest>("one, @two").map {
+                    it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
+                }
+                assertThat(steps.size, `is`(2))
+                assertThat(XPathFindUsagesProvider.getType(steps[1]), `is`("attribute"))
             }
         }
     }
