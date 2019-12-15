@@ -26,7 +26,5 @@ class XQueryVariableNameReference(element: XPathEQName, range: TextRange) :
 
     override fun resolve(): PsiElement? = element.variableDefinition()?.variableName as? PsiElement
 
-    override fun getVariants(): Array<Any> {
-        return arrayOf()
-    }
+    override fun getVariants(): Array<Any> = arrayOf()
 }

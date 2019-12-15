@@ -31,7 +31,5 @@ class XQueryQNamePrefixReference(element: XPathEQName, range: TextRange) :
         return (ns?.parent as? XPathNamespaceDeclaration)?.namespacePrefix?.element
     }
 
-    override fun getVariants(): Array<Any> {
-        return arrayOf()
-    }
+    override fun getVariants(): Array<Any> = arrayOf()
 }
