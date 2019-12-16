@@ -20,6 +20,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
+import uk.co.reecedunn.intellij.plugin.intellij.editor.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathQueries
@@ -35,9 +36,16 @@ class XPathColorSettingsPage : ColorSettingsPage {
     override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? =
         XPathSyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
 
-    override fun getAttributeDescriptors(): Array<AttributesDescriptor> = XPathSyntaxHighlighterColors.DESCRIPTORS
+    override fun getAttributeDescriptors(): Array<AttributesDescriptor> = DESCRIPTORS
 
     override fun getColorDescriptors(): Array<ColorDescriptor> = ColorDescriptor.EMPTY_ARRAY
 
     override fun getDisplayName(): String = "XPath and XSLT"
+
+    companion object {
+        private val DESCRIPTORS = arrayOf(
+            XPathSyntaxHighlighterColors.DESCRIPTORS,
+            XsltSyntaxHighlighterColors.DESCRIPTORS
+        ).flatten().toTypedArray()
+    }
 }

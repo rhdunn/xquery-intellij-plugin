@@ -22,6 +22,7 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.editor.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage
@@ -95,7 +96,7 @@ class XPathColorSettingsPageTest {
     @DisplayName("attribute descriptors")
     fun testAttributeDescriptors() {
         val settings = XPathColorSettingsPage()
-        assertThat(settings.attributeDescriptors.size, `is`(8))
+        assertThat(settings.attributeDescriptors.size, `is`(9))
         assertThat(settings.attributeDescriptors[0].displayName, `is`("Invalid Character"))
         assertThat(settings.attributeDescriptors[0].key, `is`(XPathSyntaxHighlighterColors.BAD_CHARACTER))
         assertThat(settings.attributeDescriptors[1].displayName, `is`("Comment"))
@@ -112,6 +113,8 @@ class XPathColorSettingsPageTest {
         assertThat(settings.attributeDescriptors[6].key, `is`(XPathSyntaxHighlighterColors.NUMBER))
         assertThat(settings.attributeDescriptors[7].displayName, `is`("String"))
         assertThat(settings.attributeDescriptors[7].key, `is`(XPathSyntaxHighlighterColors.STRING))
+        assertThat(settings.attributeDescriptors[8].displayName, `is`("XSLT Directive"))
+        assertThat(settings.attributeDescriptors[8].key, `is`(XsltSyntaxHighlighterColors.XSLT_DIRECTIVE))
     }
 
     @Test
