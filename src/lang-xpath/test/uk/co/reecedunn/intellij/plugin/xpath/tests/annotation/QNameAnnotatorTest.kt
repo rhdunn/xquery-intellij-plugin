@@ -15,11 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.annotation
 
-import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.markup.TextAttributes
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -39,21 +37,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun wildcard() {
             val file = parse<XPath>("lorem:*")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -61,21 +48,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun keywordPrefixPart() {
             val file = parse<XPath>("cast:*")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(4))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(4))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 4, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 4, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -91,21 +67,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun keywordLocalPart() {
             val file = parse<XPath>("*:cast")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(2))
-            assertThat(annotations[0].endOffset, `is`(6))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(2))
-            assertThat(annotations[1].endOffset, `is`(6))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.IDENTIFIER))
+            info(annotations[0], 2, 6, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 2, 6, null, XPathSyntaxHighlighterColors.IDENTIFIER)
         }
 
         @Test
@@ -121,21 +86,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun whitespaceInQName_beforeColon() {
             val file = parse<XPath>("lorem :*")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -143,21 +97,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun whitespaceInQName_afterColon() {
             val file = parse<XPath>("lorem: *")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -165,21 +108,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun whitespaceInQName_beforeAndAfterColon() {
             val file = parse<XPath>("lorem : *")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -207,21 +139,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testNCName_Keyword() {
             val file = parse<XPath>("cast")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(4))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(4))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.IDENTIFIER))
+            info(annotations[0], 0, 4, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 4, null, XPathSyntaxHighlighterColors.IDENTIFIER)
         }
     }
 
@@ -233,21 +154,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testQName() {
             val file = parse<XPath>("lorem:ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -255,21 +165,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testQName_KeywordPrefixPart() {
             val file = parse<XPath>("cast:ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(4))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(4))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 4, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 4, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -285,35 +184,12 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testQName_KeywordLocalPart() {
             val file = parse<XPath>("lorem:cast")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(4))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
-
-            assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[2].startOffset, `is`(6))
-            assertThat(annotations[2].endOffset, `is`(10))
-            assertThat(annotations[2].message, `is`(nullValue()))
-            assertThat(annotations[2].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[2].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[3].startOffset, `is`(6))
-            assertThat(annotations[3].endOffset, `is`(10))
-            assertThat(annotations[3].message, `is`(nullValue()))
-            assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[3].textAttributes, `is`(XPathSyntaxHighlighterColors.IDENTIFIER))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[2], 6, 10, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[3], 6, 10, null, XPathSyntaxHighlighterColors.IDENTIFIER)
         }
 
         @Test
@@ -321,21 +197,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testQName_MissingLocalPart() {
             val file = parse<XPath>("lorem:")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -343,21 +208,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun whitespaceInQName_beforeColon() {
             val file = parse<XPath>("lorem :ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -365,21 +219,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun whitespaceInQName_afterColon() {
             val file = parse<XPath>("lorem: ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
         @Test
@@ -387,21 +230,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun whitespaceInQName_beforeAndAfterColon() {
             val file = parse<XPath>("lorem : ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(5))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(5))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
     }
 
@@ -421,21 +253,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testURIQualifiedName_Keyword() {
             val file = parse<XPath>("Q{http://www.example.com/test#}let")[0]
             val annotations = annotateTree(file, QNameAnnotator())
+
             assertThat(annotations.size, `is`(2))
-
-            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(31))
-            assertThat(annotations[0].endOffset, `is`(34))
-            assertThat(annotations[0].message, `is`(nullValue()))
-            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(31))
-            assertThat(annotations[1].endOffset, `is`(34))
-            assertThat(annotations[1].message, `is`(nullValue()))
-            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XPathSyntaxHighlighterColors.IDENTIFIER))
+            info(annotations[0], 31, 34, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            info(annotations[1], 31, 34, null, XPathSyntaxHighlighterColors.IDENTIFIER)
         }
     }
 }

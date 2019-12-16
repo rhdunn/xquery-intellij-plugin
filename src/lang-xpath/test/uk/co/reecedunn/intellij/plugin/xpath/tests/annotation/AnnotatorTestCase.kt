@@ -20,12 +20,17 @@ import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.annotation.Annotation
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
+import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.annotation.AnnotationCollector
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -64,5 +69,19 @@ abstract class AnnotatorTestCase :
         val annotationHolder = AnnotationCollector()
         annotateTree(file.node, annotationHolder, annotator)
         return annotationHolder.annotations
+    }
+
+    fun info(
+        annotation: Annotation, start: Int, end: Int, enforced: TextAttributes?, attributes: TextAttributesKey
+    ) {
+        assertThat(annotation.severity, CoreMatchers.`is`(HighlightSeverity.INFORMATION))
+        assertThat(annotation.startOffset, CoreMatchers.`is`(start))
+        assertThat(annotation.endOffset, CoreMatchers.`is`(end))
+        assertThat(annotation.message, CoreMatchers.`is`(CoreMatchers.nullValue()))
+        if (enforced != null)
+            assertThat(annotation.enforcedTextAttributes, CoreMatchers.`is`(enforced))
+        else
+            assertThat(annotation.enforcedTextAttributes, CoreMatchers.`is`(CoreMatchers.nullValue()))
+        assertThat(annotation.textAttributes, CoreMatchers.`is`(attributes))
     }
 }
