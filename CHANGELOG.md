@@ -17,6 +17,10 @@ IntelliJ Integration:
 1.  Display the namespace signature and module path when holding Ctrl over a module namespace URI or prefix.
 1.  Support find usage type names in XPath.
 
+XPath and XSLT:
+
+1.  Make XSLT elements use the template language colour style by default.
+
 ## 1.5.2 - 2019-11-19
 
 Code Completion:

@@ -8,6 +8,7 @@
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XPathTypedHandler"/>
 
     <xmlStructureViewBuilderProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XsltStructureViewBuilderProvider"/>
+    <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.editor.XsltNSColorProvider"/>
 
     <!-- XSLT DOM Support -->
 

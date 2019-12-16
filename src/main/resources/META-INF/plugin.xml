@@ -67,6 +67,10 @@
       <li>Display the namespace signature and module path when holding Ctrl over a module namespace URI or prefix.</li>
       <li>Support find usage type names in XPath.</li>
     </ol>
+    <p>XPath and XSLT:</p>
+    <ol>
+      <li>Make XSLT elements use the template language colour style by default.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
