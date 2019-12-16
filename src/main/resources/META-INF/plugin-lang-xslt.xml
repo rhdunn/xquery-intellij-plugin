@@ -12,7 +12,7 @@
     <!-- XSLT DOM Support -->
 
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription"/>
-    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription"/>
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription"/>
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription"/>
   </extensions>
 </idea-plugin>

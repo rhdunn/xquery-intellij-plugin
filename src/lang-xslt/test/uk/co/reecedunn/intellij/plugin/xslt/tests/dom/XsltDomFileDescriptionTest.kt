@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription
-import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Document Object Model - DomFileDescription")
@@ -61,7 +61,7 @@ private class XsltDomFileDescriptionTest : ParserTestCase() {
         val ss = DomApplicationComponent.getInstance().getFileDescriptions("transform").toList()
         assertThat(ss.size, `is`(1))
 
-        assertThat(ss[0], `is`(sameInstance(XslTransformDomFileDescription)))
+        assertThat(ss[0], `is`(sameInstance(XsltTransformDomFileDescription)))
         assertThat(ss[0].allPossibleRootTagNamespaces, `is`(arrayOf(XSLT.NAMESPACE)))
         assertThat(ss[0].rootElementClass, `is`(sameInstance(XsltStylesheet::class.java)))
         assertThat(ss[0].rootTagName, `is`("transform"))

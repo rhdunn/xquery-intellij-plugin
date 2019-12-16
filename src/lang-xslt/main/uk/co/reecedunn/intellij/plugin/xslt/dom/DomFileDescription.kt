@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 object XsltStylesheetDomFileDescription :
     DomFileDescription<XsltStylesheet>(XsltStylesheet::class.java, "stylesheet", XSLT.NAMESPACE)
 
-object XslTransformDomFileDescription :
+object XsltTransformDomFileDescription :
     DomFileDescription<XsltStylesheet>(XsltStylesheet::class.java, "transform", XSLT.NAMESPACE)
 
 object XslPackageDomFileDescription :

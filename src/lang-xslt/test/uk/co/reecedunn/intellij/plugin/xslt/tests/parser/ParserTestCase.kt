@@ -54,7 +54,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription
-import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -66,7 +66,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerExtensionPoint("com.intellij.util.xml.impl.DomFileMetaData", "EP_NAME")
 
         registerExtension(DomFileDescription.EP_NAME, XsltStylesheetDomFileDescription)
-        registerExtension(DomFileDescription.EP_NAME, XslTransformDomFileDescription)
+        registerExtension(DomFileDescription.EP_NAME, XsltTransformDomFileDescription)
         registerExtension(DomFileDescription.EP_NAME, XslPackageDomFileDescription)
 
         registerApplicationService(DomApplicationComponent::class.java, DomApplicationComponent())
