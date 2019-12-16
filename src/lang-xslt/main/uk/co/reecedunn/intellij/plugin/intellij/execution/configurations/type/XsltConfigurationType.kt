@@ -19,11 +19,11 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XSLTIcons
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XsltIcons
 import javax.swing.Icon
 
 class XsltConfigurationType : ConfigurationType {
-    override fun getIcon(): Icon = XSLTIcons.RunConfiguration
+    override fun getIcon(): Icon = XsltIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
 

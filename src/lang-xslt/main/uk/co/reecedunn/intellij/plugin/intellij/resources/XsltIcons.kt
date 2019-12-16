@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
-object XSLTIcons {
-    private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XSLTIcons::class.java)
+object XsltIcons {
+    private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XsltIcons::class.java)
 
     val RunConfiguration: Icon = getIcon("/icons/xslt/runConfiguration.svg")
 }
