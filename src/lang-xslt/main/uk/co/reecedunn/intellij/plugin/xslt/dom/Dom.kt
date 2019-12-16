@@ -21,12 +21,12 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.util.xml.DomManager
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltDomElement
 
 private val INTELLIJ_XPATH_PLUGIN_ID = PluginId.getId("XPathView")
 
 fun isIntellijXPathPluginEnabled(): Boolean = PluginManager.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
 
-fun XmlTag.xslt(): XslDomElement? = DomManager.getDomManager(project).getDomElement(this) as? XslDomElement
+fun XmlTag.xslt(): XsltDomElement? = DomManager.getDomManager(project).getDomElement(this) as? XsltDomElement
 
-fun PsiElement.xsltFile(): XslDomElement? = (containingFile as? XmlFile)?.rootTag?.xslt()
+fun PsiElement.xsltFile(): XsltDomElement? = (containingFile as? XmlFile)?.rootTag?.xslt()

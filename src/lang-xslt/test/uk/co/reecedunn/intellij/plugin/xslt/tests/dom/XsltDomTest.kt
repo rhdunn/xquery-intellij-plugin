@@ -20,7 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltDomElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.xslt
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Document Object Model")
 private class XsltDomTest : ParserTestCase() {
-    fun dom(contents: String, localName: String): XslDomElement? {
+    fun dom(contents: String, localName: String): XsltDomElement? {
         return element(contents, localName)[0].xslt()
     }
 

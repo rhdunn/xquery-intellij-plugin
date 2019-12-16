@@ -17,4 +17,4 @@ package uk.co.reecedunn.intellij.plugin.xslt.ast
 
 import com.intellij.util.xml.DomElement
 
-interface XslDomElement : DomElement
+interface XsltDomElement : DomElement

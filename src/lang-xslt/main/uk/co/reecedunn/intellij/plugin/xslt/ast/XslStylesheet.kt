@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.ast
 import com.intellij.util.xml.Attribute
 import com.intellij.util.xml.GenericAttributeValue
 
-interface XslStylesheet : XslDomElement {
+interface XslStylesheet : XsltDomElement {
     @get:Attribute("version")
     val version: GenericAttributeValue<String>
 }
