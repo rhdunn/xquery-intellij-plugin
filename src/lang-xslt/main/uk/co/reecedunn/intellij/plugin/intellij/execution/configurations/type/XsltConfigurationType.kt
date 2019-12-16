@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XSLTIcons
 import javax.swing.Icon
 
-class XSLTConfigurationType : ConfigurationType {
+class XsltConfigurationType : ConfigurationType {
     override fun getIcon(): Icon = XSLTIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
