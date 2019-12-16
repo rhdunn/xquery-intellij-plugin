@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
@@ -51,7 +51,7 @@ private class XsltDomFileDescriptionTest : ParserTestCase() {
 
         assertThat(ss[0], `is`(sameInstance(XslStylesheetDomFileDescription)))
         assertThat(ss[0].allPossibleRootTagNamespaces, `is`(arrayOf(XSLT.NAMESPACE)))
-        assertThat(ss[0].rootElementClass, `is`(sameInstance(XslStylesheet::class.java)))
+        assertThat(ss[0].rootElementClass, `is`(sameInstance(XsltStylesheet::class.java)))
         assertThat(ss[0].rootTagName, `is`("stylesheet"))
     }
 
@@ -63,7 +63,7 @@ private class XsltDomFileDescriptionTest : ParserTestCase() {
 
         assertThat(ss[0], `is`(sameInstance(XslTransformDomFileDescription)))
         assertThat(ss[0].allPossibleRootTagNamespaces, `is`(arrayOf(XSLT.NAMESPACE)))
-        assertThat(ss[0].rootElementClass, `is`(sameInstance(XslStylesheet::class.java)))
+        assertThat(ss[0].rootElementClass, `is`(sameInstance(XsltStylesheet::class.java)))
         assertThat(ss[0].rootTagName, `is`("transform"))
     }
 }
