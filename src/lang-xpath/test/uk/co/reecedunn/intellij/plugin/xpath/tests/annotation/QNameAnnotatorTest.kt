@@ -81,37 +81,41 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations.size, `is`(0))
         }
 
-        @Test
-        @DisplayName("whitespace in QName; before ':'")
-        fun whitespaceInQName_beforeColon() {
-            val file = parse<XPath>("lorem :*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
+        @Nested
+        @DisplayName("whitespace in QName")
+        internal inner class WhitespaceInQName {
+            @Test
+            @DisplayName("before ':'")
+            fun beforeColon() {
+                val file = parse<XPath>("lorem :*")[0]
+                val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
-        }
+                assertThat(annotations.size, `is`(2))
+                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+                info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            }
 
-        @Test
-        @DisplayName("whitespace in QName; after ':'")
-        fun whitespaceInQName_afterColon() {
-            val file = parse<XPath>("lorem: *")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
+            @Test
+            @DisplayName("after ':'")
+            fun afterColon() {
+                val file = parse<XPath>("lorem: *")[0]
+                val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
-        }
+                assertThat(annotations.size, `is`(2))
+                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+                info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            }
 
-        @Test
-        @DisplayName("whitespace in QName; before and after ':'")
-        fun whitespaceInQName_beforeAndAfterColon() {
-            val file = parse<XPath>("lorem : *")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
+            @Test
+            @DisplayName("before and after ':'")
+            fun beforeAndAfterColon() {
+                val file = parse<XPath>("lorem : *")[0]
+                val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                assertThat(annotations.size, `is`(2))
+                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+                info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            }
         }
 
         @Test
@@ -203,37 +207,41 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
         }
 
-        @Test
-        @DisplayName("whitespace in QName; before ':'")
-        fun whitespaceInQName_beforeColon() {
-            val file = parse<XPath>("lorem :ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
+        @Nested
+        @DisplayName("whitespace in QName")
+        internal inner class WhitespaceInQName {
+            @Test
+            @DisplayName("before ':'")
+            fun beforeColon() {
+                val file = parse<XPath>("lorem :ipsum")[0]
+                val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
-        }
+                assertThat(annotations.size, `is`(2))
+                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+                info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            }
 
-        @Test
-        @DisplayName("whitespace in QName; after ':'")
-        fun whitespaceInQName_afterColon() {
-            val file = parse<XPath>("lorem: ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
+            @Test
+            @DisplayName("after ':'")
+            fun afterColon() {
+                val file = parse<XPath>("lorem: ipsum")[0]
+                val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
-        }
+                assertThat(annotations.size, `is`(2))
+                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+                info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            }
 
-        @Test
-        @DisplayName("whitespace in QName; before and after ':'")
-        fun whitespaceInQName_beforeAndAfterColon() {
-            val file = parse<XPath>("lorem : ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
+            @Test
+            @DisplayName("before and after ':'")
+            fun beforeAndAfterColon() {
+                val file = parse<XPath>("lorem : ipsum")[0]
+                val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                assertThat(annotations.size, `is`(2))
+                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+                info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+            }
         }
     }
 
