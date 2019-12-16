@@ -19,14 +19,49 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmWildcardValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class QNameAnnotator : Annotator {
+    private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
+        val before = separator.prevSibling
+        if (
+            before.node.elementType === XPathTokenType.WHITE_SPACE ||
+            before.node.elementType === XPathElementType.COMMENT
+        ) {
+            val message =
+                if (qname is XPathWildcard)
+                    XPathBundle.message("parser.error.wildcard.whitespace-before-local-part")
+                else
+                    XPathBundle.message("parser.error.qname.whitespace-before-local-part")
+            holder.createErrorAnnotation(before, message)
+        }
+    }
+
+    private fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
+        val after = separator.nextSibling
+        if (
+            after.node.elementType === XPathTokenType.WHITE_SPACE ||
+            after.node.elementType === XPathElementType.COMMENT
+        ) {
+            val message =
+                if (qname is XPathWildcard)
+                    XPathBundle.message("parser.error.wildcard.whitespace-after-local-part")
+                else
+                    XPathBundle.message("parser.error.qname.whitespace-after-local-part")
+            holder.createErrorAnnotation(after, message)
+        }
+    }
+
     override fun annotate(qname: PsiElement, holder: AnnotationHolder) {
         if (qname !is XsQNameValue) return
         if (qname.language != XPath) return
@@ -43,6 +78,11 @@ class QNameAnnotator : Annotator {
                 }
                 else -> xmlns = false
             }
+
+            // Detect whitespace errors here instead of the parser so the QName annotator gets run.
+            val separator = qname.children().filter { it.node.elementType === XPathTokenType.QNAME_SEPARATOR }.first()
+            checkQNameWhitespaceBefore(qname, separator, holder)
+            checkQNameWhitespaceAfter(qname, separator, holder)
         } else {
             xmlns = false
         }

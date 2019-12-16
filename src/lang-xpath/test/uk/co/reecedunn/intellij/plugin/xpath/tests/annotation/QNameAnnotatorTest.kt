@@ -90,9 +90,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 val file = parse<XPath>("lorem :*")[0]
                 val annotations = annotateTree(file, QNameAnnotator())
 
-                assertThat(annotations.size, `is`(2))
+                assertThat(annotations.size, `is`(3))
                 info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
                 info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a wildcard.")
             }
 
             @Test
@@ -101,9 +102,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 val file = parse<XPath>("lorem: *")[0]
                 val annotations = annotateTree(file, QNameAnnotator())
 
-                assertThat(annotations.size, `is`(2))
+                assertThat(annotations.size, `is`(3))
                 info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
                 info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                error(annotations[2], 6, 7, "XPST0003: Whitespace is not allowed after ':' in a wildcard.")
             }
 
             @Test
@@ -112,9 +114,11 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 val file = parse<XPath>("lorem : *")[0]
                 val annotations = annotateTree(file, QNameAnnotator())
 
-                assertThat(annotations.size, `is`(2))
+                assertThat(annotations.size, `is`(4))
                 info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
                 info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a wildcard.")
+                error(annotations[3], 7, 8, "XPST0003: Whitespace is not allowed after ':' in a wildcard.")
             }
         }
 
@@ -216,9 +220,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 val file = parse<XPath>("lorem :ipsum")[0]
                 val annotations = annotateTree(file, QNameAnnotator())
 
-                assertThat(annotations.size, `is`(2))
+                assertThat(annotations.size, `is`(3))
                 info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
                 info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a qualified name.")
             }
 
             @Test
@@ -227,9 +232,10 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 val file = parse<XPath>("lorem: ipsum")[0]
                 val annotations = annotateTree(file, QNameAnnotator())
 
-                assertThat(annotations.size, `is`(2))
+                assertThat(annotations.size, `is`(3))
                 info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
                 info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                error(annotations[2], 6, 7, "XPST0003: Whitespace is not allowed after ':' in a qualified name.")
             }
 
             @Test
@@ -238,9 +244,11 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 val file = parse<XPath>("lorem : ipsum")[0]
                 val annotations = annotateTree(file, QNameAnnotator())
 
-                assertThat(annotations.size, `is`(2))
+                assertThat(annotations.size, `is`(4))
                 info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
                 info(annotations[1], 0, 5, null, XPathSyntaxHighlighterColors.NS_PREFIX)
+                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a qualified name.")
+                error(annotations[3], 7, 8, "XPST0003: Whitespace is not allowed after ':' in a qualified name.")
             }
         }
     }
