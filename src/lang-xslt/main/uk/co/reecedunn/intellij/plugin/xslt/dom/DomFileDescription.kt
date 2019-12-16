@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.dom
 
 import com.intellij.util.xml.DomFileDescription
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 
 object XslStylesheetDomFileDescription :
@@ -27,4 +27,4 @@ object XslTransformDomFileDescription :
     DomFileDescription<XsltStylesheet>(XsltStylesheet::class.java, "transform", XSLT.NAMESPACE)
 
 object XslPackageDomFileDescription :
-    DomFileDescription<XslPackage>(XslPackage::class.java, "package", XSLT.NAMESPACE)
+    DomFileDescription<XsltPackage>(XsltPackage::class.java, "package", XSLT.NAMESPACE)

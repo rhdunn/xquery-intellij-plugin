@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltDomElement
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.xslt
 import uk.co.reecedunn.intellij.plugin.xslt.dom.xsltFile
@@ -40,10 +40,10 @@ private class XsltDomTest : ParserTestCase() {
         @DisplayName("XSLT 3.0")
         fun version30() {
             val dom = dom("<package xmlns=\"http://www.w3.org/1999/XSL/Transform\" version=\"3.0\"/>", "package")
-            assertThat(dom, `is`(instanceOf(XslPackage::class.java)))
+            assertThat(dom, `is`(instanceOf(XsltPackage::class.java)))
             assertThat(dom?.xmlElement?.xsltFile(), `is`(sameInstance(dom)))
 
-            val pkg = dom as XslPackage
+            val pkg = dom as XsltPackage
             assertThat(pkg.version.value, `is`("3.0"))
         }
     }

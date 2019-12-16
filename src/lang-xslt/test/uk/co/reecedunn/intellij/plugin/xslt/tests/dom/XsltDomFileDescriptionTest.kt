@@ -22,7 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
+import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
@@ -39,7 +39,7 @@ private class XsltDomFileDescriptionTest : ParserTestCase() {
 
         assertThat(ss[0], `is`(sameInstance(XslPackageDomFileDescription)))
         assertThat(ss[0].allPossibleRootTagNamespaces, `is`(arrayOf(XSLT.NAMESPACE)))
-        assertThat(ss[0].rootElementClass, `is`(sameInstance(XslPackage::class.java)))
+        assertThat(ss[0].rootElementClass, `is`(sameInstance(XsltPackage::class.java)))
         assertThat(ss[0].rootTagName, `is`("package"))
     }
 
