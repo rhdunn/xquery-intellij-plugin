@@ -7,7 +7,7 @@
     <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.completion.XPathCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XPathTypedHandler"/>
 
-    <xmlStructureViewBuilderProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XslStructureViewBuilderProvider"/>
+    <xmlStructureViewBuilderProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XsltStructureViewBuilderProvider"/>
 
     <!-- XSLT DOM Support -->
 
