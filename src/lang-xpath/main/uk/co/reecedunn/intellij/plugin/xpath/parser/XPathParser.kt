@@ -3695,7 +3695,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseQNameOrWildcard(
+    fun parseQNameOrWildcard(
         builder: PsiBuilder,
         type: IElementType,
         endQNameOnSpace: Boolean = false
@@ -3703,7 +3703,8 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
         if (prefix != null) {
-            if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
+            // NOTE: Whitespace in QNames is reported by QNameAnnotator so the prefix can be correctly styled.
+            if (parseWhiteSpaceAndCommentTokens(builder) && endQNameOnSpace) {
                 return if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                     marker.done(XPathElementType.WILDCARD)
                     XPathElementType.WILDCARD
@@ -3715,9 +3716,8 @@ open class XPathParser : PsiParser {
 
             val nameMarker = builder.mark()
             if (parseQNameSeparator(builder, type)) {
-                if (
-                    parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
-                ) {
+                // NOTE: Whitespace in QNames is reported by QNameAnnotator so the prefix can be correctly styled.
+                if (parseWhiteSpaceAndCommentTokens(builder) && endQNameOnSpace) {
                     nameMarker.rollbackTo()
                     return if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                         marker.done(XPathElementType.WILDCARD)
@@ -3814,35 +3814,6 @@ open class XPathParser : PsiParser {
             builder.error(XPathBundle.message("parser.error.eqname.missing-local-name"))
         }
         return null
-    }
-
-    private fun parseQNameWhitespace(
-        builder: PsiBuilder,
-        type: QNamePart,
-        endQNameOnWhitespace: Boolean,
-        isWildcard: Boolean
-    ): Boolean {
-        val marker = builder.mark()
-        if (parseWhiteSpaceAndCommentTokens(builder)) {
-            if (endQNameOnWhitespace) {
-                marker.drop()
-                return true
-            } else if (type == QNamePart.Prefix && parseQNameSeparator(builder, null)) {
-                if (isWildcard)
-                    marker.error(XPathBundle.message("parser.error.wildcard.whitespace-before-local-part"))
-                else
-                    marker.error(XPathBundle.message("parser.error.qname.whitespace-before-local-part"))
-                return false
-            } else if (type == QNamePart.LocalName) {
-                if (isWildcard)
-                    marker.error(XPathBundle.message("parser.error.wildcard.whitespace-after-local-part"))
-                else
-                    marker.error(XPathBundle.message("parser.error.qname.whitespace-after-local-part"))
-                return false
-            }
-        }
-        marker.drop()
-        return false
     }
 
     open fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
