@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.completion
+package uk.co.reecedunn.intellij.plugin.xslt.tests.completion
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
-import uk.co.reecedunn.intellij.plugin.xslt.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
 private class XsltCompletionPropertyTest : ParserTestCase() {

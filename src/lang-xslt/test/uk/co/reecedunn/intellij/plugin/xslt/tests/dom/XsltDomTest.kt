@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.dom
+package uk.co.reecedunn.intellij.plugin.xslt.tests.dom
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -23,7 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslDomElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
-import uk.co.reecedunn.intellij.plugin.xslt.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.dom.xslt
+import uk.co.reecedunn.intellij.plugin.xslt.dom.xsltFile
+import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Document Object Model")
 private class XsltDomTest : ParserTestCase() {

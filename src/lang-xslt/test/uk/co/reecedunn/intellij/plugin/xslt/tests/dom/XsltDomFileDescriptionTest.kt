@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.dom
+package uk.co.reecedunn.intellij.plugin.xslt.tests.dom
 
 import com.intellij.util.xml.impl.DomApplicationComponent
 import org.hamcrest.CoreMatchers.`is`
@@ -24,7 +24,10 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XslStylesheet
-import uk.co.reecedunn.intellij.plugin.xslt.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Document Object Model - DomFileDescription")
 private class XsltDomFileDescriptionTest : ParserTestCase() {
