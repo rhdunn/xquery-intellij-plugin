@@ -53,7 +53,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
-import uk.co.reecedunn.intellij.plugin.xslt.dom.XslStylesheetDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XslTransformDomFileDescription
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
@@ -65,7 +65,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         registerExtensionPoint("com.intellij.util.xml.DomFileDescription", "EP_NAME")
         registerExtensionPoint("com.intellij.util.xml.impl.DomFileMetaData", "EP_NAME")
 
-        registerExtension(DomFileDescription.EP_NAME, XslStylesheetDomFileDescription)
+        registerExtension(DomFileDescription.EP_NAME, XsltStylesheetDomFileDescription)
         registerExtension(DomFileDescription.EP_NAME, XslTransformDomFileDescription)
         registerExtension(DomFileDescription.EP_NAME, XslPackageDomFileDescription)
 

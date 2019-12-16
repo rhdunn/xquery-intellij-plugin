@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 
-object XslStylesheetDomFileDescription :
+object XsltStylesheetDomFileDescription :
     DomFileDescription<XsltStylesheet>(XsltStylesheet::class.java, "stylesheet", XSLT.NAMESPACE)
 
 object XslTransformDomFileDescription :
