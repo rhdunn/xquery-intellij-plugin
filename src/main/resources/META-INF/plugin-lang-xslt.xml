@@ -13,6 +13,6 @@
 
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription"/>
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription"/>
-    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription"/>
+    <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XsltPackageDomFileDescription"/>
   </extensions>
 </idea-plugin>

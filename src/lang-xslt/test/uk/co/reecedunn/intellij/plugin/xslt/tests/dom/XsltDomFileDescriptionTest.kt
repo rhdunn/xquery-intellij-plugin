@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
 import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
-import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
@@ -37,7 +37,7 @@ private class XsltDomFileDescriptionTest : ParserTestCase() {
         val ss = DomApplicationComponent.getInstance().getFileDescriptions("package").toList()
         assertThat(ss.size, `is`(1))
 
-        assertThat(ss[0], `is`(sameInstance(XslPackageDomFileDescription)))
+        assertThat(ss[0], `is`(sameInstance(XsltPackageDomFileDescription)))
         assertThat(ss[0].allPossibleRootTagNamespaces, `is`(arrayOf(XSLT.NAMESPACE)))
         assertThat(ss[0].rootElementClass, `is`(sameInstance(XsltPackage::class.java)))
         assertThat(ss[0].rootTagName, `is`("package"))

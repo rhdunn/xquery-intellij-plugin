@@ -52,7 +52,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.dom.XslPackageDomFileDescription
+import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltPackageDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription
 import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription
 
@@ -67,7 +67,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
         registerExtension(DomFileDescription.EP_NAME, XsltStylesheetDomFileDescription)
         registerExtension(DomFileDescription.EP_NAME, XsltTransformDomFileDescription)
-        registerExtension(DomFileDescription.EP_NAME, XslPackageDomFileDescription)
+        registerExtension(DomFileDescription.EP_NAME, XsltPackageDomFileDescription)
 
         registerApplicationService(DomApplicationComponent::class.java, DomApplicationComponent())
     }

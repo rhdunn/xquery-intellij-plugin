@@ -26,5 +26,5 @@ object XsltStylesheetDomFileDescription :
 object XsltTransformDomFileDescription :
     DomFileDescription<XsltStylesheet>(XsltStylesheet::class.java, "transform", XSLT.NAMESPACE)
 
-object XslPackageDomFileDescription :
+object XsltPackageDomFileDescription :
     DomFileDescription<XsltPackage>(XsltPackage::class.java, "package", XSLT.NAMESPACE)
