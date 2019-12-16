@@ -78,6 +78,10 @@
     <ol>
       <li>Make XSLT elements use the template language colour style by default.</li>
     </ol>
+    <p>Run Configurations:</p>
+    <ol>
+      <li>Don't crash on the run configurations page if there are no query processors.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

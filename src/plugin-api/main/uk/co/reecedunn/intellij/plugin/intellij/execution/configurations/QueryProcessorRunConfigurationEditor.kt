@@ -357,7 +357,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
         queryProcessor?.childComponent?.let {
-            (0..it.itemCount).forEach { i ->
+            (0 until it.itemCount).forEach { i ->
                 if (it.getItemAt(i)?.settings?.id == configuration.processorId) {
                     it.selectedIndex = i
                 }

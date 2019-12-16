@@ -22,6 +22,10 @@ XPath and XSLT:
 
 1.  Make XSLT elements use the template language colour style by default.
 
+Run Configurations:
+
+1.  Don't crash on the run configurations page if there are no query processors.
+
 ## 1.5.2 - 2019-11-19
 
 Code Completion:
