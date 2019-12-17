@@ -20,11 +20,17 @@ import com.intellij.codeInsight.hints.HintInfo
 import com.intellij.codeInsight.hints.InlayInfo
 import com.intellij.codeInsight.hints.InlayParameterHintsProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
 object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getParameterHints(element: PsiElement?): List<InlayInfo> {
-        return emptyList()
+        if (element !is XPathArgumentList) return emptyList()
+        return element.bindings.filter { it.param.variableName != null && it.isNotEmpty() }.map { binding ->
+            val name = op_qname_presentation(binding.param.variableName!!)
+            InlayInfo(name, binding[0].textOffset, false)
+        }
     }
 
     override fun getDefaultBlackList(): Set<String> = setOf()

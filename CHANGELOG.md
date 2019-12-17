@@ -17,6 +17,7 @@ IntelliJ Integration:
 1.  Display the namespace signature and module path when holding Ctrl over a module namespace URI or prefix.
 1.  Support find usage type names in XPath.
 1.  Fixed QName prefix syntax highlighting and keyword in QName highlighting removal when the QName contains a space.
+1.  Implement inlay parameter hints for XQuery function calls and named arrow function expressions.
 
 XPath and XSLT:
 

@@ -33,7 +33,8 @@
       <li>Find usages.</li>
       <li>Function, variable, and QName prefix signature tooltips via Ctrl.</li>
       <li>Code folding.</li>
-      <li>Code completion and parameter information tooltips.</li>
+      <li>Code completion.</li>
+      <li>Parameter information tooltips and inlay hints.</li>
       <li>Structure view.</li>
       <li>Breadcrumb navigation.</li>
       <li>Paired brace matching.</li>
@@ -72,6 +73,10 @@
       <li>
         Fixed QName prefix syntax highlighting and keyword in QName highlighting
         removal when the QName contains a space.
+      </li>
+      <li>
+        Implement inlay parameter hints for XQuery function calls and named arrow
+        function expressions.
       </li>
     </ol>
     <p>XPath and XSLT:</p>
