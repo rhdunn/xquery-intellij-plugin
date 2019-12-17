@@ -13,11 +13,12 @@ XQueryModuleImpl[FILE(0:21)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   LeafPsiElement[XPATH_ARROW_TOKEN(4:6)]('=>')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                  XPathArrowFunctionSpecifierImpl[XPATH_ARROW_FUNCTION_SPECIFIER(7:18)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(7:18)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:17)]('upper-case')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(18:21)]
-                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(20:21)](')')
+                  PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(7:21)]
+                     XPathArrowFunctionSpecifierImpl[XPATH_ARROW_FUNCTION_SPECIFIER(7:18)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(7:18)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:17)]('upper-case')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                     XPathArgumentListImpl[XPATH_ARGUMENT_LIST(18:21)]
+                        LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                        LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(20:21)](')')

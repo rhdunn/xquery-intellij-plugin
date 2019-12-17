@@ -13,7 +13,8 @@ XQueryModuleImpl[FILE(0:17)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   LeafPsiElement[XPATH_ARROW_TOKEN(4:6)]('=>')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                  XPathArrowFunctionSpecifierImpl[XPATH_ARROW_FUNCTION_SPECIFIER(7:17)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(7:17)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:17)]('upper-case')
-                  PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected 'ArgumentList'.')
+                  PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(7:17)]
+                     XPathArrowFunctionSpecifierImpl[XPATH_ARROW_FUNCTION_SPECIFIER(7:17)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(7:17)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:17)]('upper-case')
+                     PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected 'ArgumentList'.')

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.5 XPath
+title: XQuery IntelliJ Plugin 1.6 XPath
 ---
 
 This document includes material copied from or derived from the XPath
@@ -31,6 +31,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.6 Primary Expressions](#36-primary-expressions)
     - [3.6.1 Inline Function Expressions](#361-inline-function-expressions)
     - [3.6.2 Simple Inline Function Expressions](#362-simple-inline-function-expressions)
+  - [3.7 Arrow Operator (=>)](#37-arrow-operator-)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a3-reserved-function-names)
@@ -277,6 +278,18 @@ syntax extensions for XPath and XQuery.
 The expression `fn{E}` is equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
+### 3.7 Arrow Operator (=>)
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |         |
+| \[28\] | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |         |
+
+This splits out the arrow function call grammar into a separate symbol, making
+it easier to bind the first argument of the referenced functions to the correct
+expression in the arrow sequence.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1 with Vendor Extensions
@@ -326,6 +339,8 @@ These changes include support for:
 | \[24\]  | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                 |                      |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[26\]  | `TupleField`                   | ::= | `NCName "?"? (":" SequenceType)?`   |                      |
+| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*` |                  |
+| \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
 
 ### A.2 Reserved Function Names
 
@@ -412,6 +427,7 @@ behaviour of those constructs:
 1.  [Any Item Type](#21211-item-type) \[1.3\]
 1.  [For Expressions](#33-for-expressions) \[1.4\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
+1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\]
 
 ### C.2 Saxon Vendor Extensions
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):

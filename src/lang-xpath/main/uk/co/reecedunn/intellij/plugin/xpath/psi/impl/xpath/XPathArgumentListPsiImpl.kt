@@ -20,10 +20,9 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
@@ -58,7 +57,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     override val functionReference: XPathFunctionReference?
         get() = when (parent) {
             is XPathFunctionCall -> parent as XPathFunctionReference
-            is XPathArrowExpr -> siblings().reversed().filterIsInstance<XPathFunctionReference>().firstOrNull()
+            is PluginArrowFunctionCall -> parent.firstChild as XPathFunctionReference
             else -> null
         }
 
@@ -76,7 +75,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             val params = target.params
             return params.mapIndexed { index, param ->
                 when {
-                    index == 0 && parent is XPathArrowExpr -> {
+                    index == 0 && parent is PluginArrowFunctionCall -> {
                         // First argument bound to an ArrowExpr evaluation result.
                         XPathFunctionParamBinding(param, listOf())
                     }

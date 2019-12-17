@@ -20,6 +20,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
@@ -37,7 +38,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
         context.itemsToShow = functionCandidates(args).filter {
             if (it.arity.from == 0 && it.arity.to == 0)
-                args?.parent !is XPathArrowExpr
+                args?.parent !is PluginArrowFunctionCall
             else
                 true
         }.toList().toTypedArray()
@@ -56,7 +57,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     override fun updateParameterInfo(parameterOwner: XPathArgumentList, context: UpdateParameterInfoContext) {
         val index =
             ParameterInfoUtils.getCurrentParameterIndex(parameterOwner.node, context.offset, XPathTokenType.COMMA)
-        context.setCurrentParameter(if (parameterOwner.parent is XPathArrowExpr) index + 1 else index)
+        context.setCurrentParameter(if (parameterOwner.parent is PluginArrowFunctionCall) index + 1 else index)
     }
 
     override fun updateUI(p: XPathFunctionDeclaration?, context: ParameterInfoUIContext) {

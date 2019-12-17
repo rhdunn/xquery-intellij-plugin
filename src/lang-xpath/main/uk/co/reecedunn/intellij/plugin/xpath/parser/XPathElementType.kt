@@ -858,6 +858,12 @@ object XPathElementType {
         XPath
     )
 
+    val ARROW_FUNCTION_CALL: IElementType = ICompositeElementType(
+        "XPATH_ARROW_FUNCTION_CALL",
+        PluginArrowFunctionCallPsiImpl::class.java,
+        XPath
+    )
+
     val EMPTY_SEQUENCE_TYPE: IElementType = ICompositeElementType(
         "XPATH_EMPTY_SEQUENCE_TYPE",
         PluginEmptySequenceTypePsiImpl::class.java,

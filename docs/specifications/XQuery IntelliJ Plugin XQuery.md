@@ -62,6 +62,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.12 Binary Constructors](#312-binary-constructors)
   - [3.13 Logical Expressions](#313-logical-expressions)
   - [3.14 Conditional Expressions](#314-conditional-expressions)
+  - [3.15 Arrow Operator (=>)](#315-arrow-operator-)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -858,6 +859,18 @@ the equivalent `IfExpr` is:
     let $a := A
     return if (exists($a)) then $a else B
 
+### 3.15 Arrow Operator (=>)
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |         |
+| \[110\] | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |         |
+
+This splits out the arrow function call grammar into a separate symbol, making
+it easier to bind the first argument of the referenced functions to the correct
+expression in the arrow sequence.
+
 ## 4 Modules and Prologs
 
 {: .ebnf-symbols }
@@ -1113,6 +1126,8 @@ These changes include support for:
 | \[106\]  | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
 | \[107\]  | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |                 |
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
+| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |                 |
+| \[110\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1301,6 +1316,7 @@ behaviour of those constructs:
 1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
 1.  [Schema Import](#47-schema-import) \[1.6\]
 1.  [Module Import](#48-module-import) \[1.6\]
+1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
