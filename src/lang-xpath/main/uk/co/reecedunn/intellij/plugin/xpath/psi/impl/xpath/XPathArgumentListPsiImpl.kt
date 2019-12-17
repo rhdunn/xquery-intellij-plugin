@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
@@ -77,7 +78,10 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                 when {
                     index == 0 && parent is PluginArrowFunctionCall -> {
                         // First argument bound to an ArrowExpr evaluation result.
-                        XPathFunctionParamBinding(param, listOf())
+                        val context = parent.siblings().reversed().filter {
+                            it is PluginArrowFunctionCall
+                        }.firstOrNull() ?: parent.parent.firstChild
+                        XPathFunctionParamBinding(param, context)
                     }
                     index == params.size - 1 -> {
                         // Last argument, maybe variadic.

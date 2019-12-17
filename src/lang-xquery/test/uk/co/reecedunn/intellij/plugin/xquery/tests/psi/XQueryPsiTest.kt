@@ -3722,7 +3722,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(bindings.size, `is`(5))
 
                 assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("value"))
-                assertThat(bindings[0].size, `is`(0))
+                assertThat(bindings[0].size, `is`(1))
+                assertThat(bindings[0][0].text, `is`("\$x "))
 
                 assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("picture"))
                 assertThat(bindings[1].size, `is`(1))
@@ -3762,7 +3763,35 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(bindings.size, `is`(1))
 
                 assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg"))
-                assertThat(bindings[0].size, `is`(0))
+                assertThat(bindings[0].size, `is`(1))
+                assertThat(bindings[0][0].text, `is`("\$x "))
+            }
+
+            @Test
+            @DisplayName("EQName specifier, empty ArgumentList, second call in the chain")
+            fun secondFunctionSpecifier() {
+                val f = parse<XPathArrowFunctionSpecifier>(
+                    "\$x => upper-case() => string-to-codepoints()"
+                )[1] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                assertThat(args.arity, `is`(0))
+                assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(1))
+
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg"))
+                assertThat(bindings[0].size, `is`(1))
+                assertThat(bindings[0][0].text, `is`("upper-case()"))
             }
 
             @Test

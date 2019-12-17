@@ -2160,6 +2160,29 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("EQName specifier, empty ArgumentList, second call in the chain")
+            fun secondFunctionSpecifier() {
+                val f = parse<XPathArrowFunctionSpecifier>(
+                    "\$x => upper-case() => string-to-codepoints()"
+                )[1] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                assertThat(args.arity, `is`(0))
+                assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(0))
+            }
+
+            @Test
             @DisplayName("EQName specifier, missing ArgumentList")
             fun missingArgumentList() {
                 val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case")[0] as XPathFunctionReference
