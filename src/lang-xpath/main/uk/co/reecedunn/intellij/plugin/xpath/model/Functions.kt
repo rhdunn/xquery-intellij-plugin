@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 // region Function Parameter Bindings
 
 interface XPathFunctionParamBinding {
-    val param: XPathVariableBinding?
+    val param: XPathVariableBinding
 }
 
 data class XPathFunctionNamedParamBinding(

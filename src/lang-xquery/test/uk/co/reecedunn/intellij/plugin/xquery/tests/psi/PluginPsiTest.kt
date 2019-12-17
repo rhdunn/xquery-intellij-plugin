@@ -1562,9 +1562,9 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(3))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("arg1"))
-                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("arg2"))
-                assertThat(op_qname_presentation(bindings[2].param?.variableName!!), `is`("args"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
+                assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
+                assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
             }
 
             @Test
@@ -1586,9 +1586,9 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(3))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("arg1"))
-                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("arg2"))
-                assertThat(op_qname_presentation(bindings[2].param?.variableName!!), `is`("args"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
+                assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
+                assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
             }
 
             @Test
@@ -1610,9 +1610,9 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(3))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("arg1"))
-                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("arg2"))
-                assertThat(op_qname_presentation(bindings[2].param?.variableName!!), `is`("args"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
+                assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
+                assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
             }
         }
     }

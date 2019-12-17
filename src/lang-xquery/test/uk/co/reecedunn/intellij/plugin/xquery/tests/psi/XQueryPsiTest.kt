@@ -1914,8 +1914,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(2))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("x"))
-                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("y"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
+                assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
             }
 
             @Test
@@ -1958,7 +1958,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(1))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("θ"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("θ"))
             }
 
             @Test
@@ -3711,11 +3711,11 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(5))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("value"))
-                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("picture"))
-                assertThat(op_qname_presentation(bindings[2].param?.variableName!!), `is`("language"))
-                assertThat(op_qname_presentation(bindings[3].param?.variableName!!), `is`("calendar"))
-                assertThat(op_qname_presentation(bindings[4].param?.variableName!!), `is`("place"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("value"))
+                assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("picture"))
+                assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("language"))
+                assertThat(op_qname_presentation(bindings[3].param.variableName!!), `is`("calendar"))
+                assertThat(op_qname_presentation(bindings[4].param.variableName!!), `is`("place"))
             }
 
             @Test
@@ -3737,7 +3737,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(1))
-                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("arg"))
+                assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg"))
             }
 
             @Test
