@@ -98,15 +98,14 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
 
     private fun functionCandidates(args: XPathArgumentList?): Sequence<XPathFunctionDeclaration> {
         val functionName = when (args?.parent) {
-            is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName?.element
+            is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName
             is XPathArrowExpr -> {
                 val specifier = args.siblings().reversed().filterIsInstance<XPathFunctionReference>().firstOrNull()
-                specifier?.functionName?.element
+                specifier?.functionName
             }
             else -> null
         }
-        return (functionName as? XPathEQName)?.staticallyKnownFunctions()
-            ?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
+        return functionName?.staticallyKnownFunctions()?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
     }
 
     private const val PARAM_SEPARATOR = ", "

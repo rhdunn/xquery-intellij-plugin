@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 interface XPathStaticContext {
@@ -40,6 +41,10 @@ fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPathDefault
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {
     return (containingFile as XPathStaticContext).staticallyKnownFunctions(this)
+}
+
+fun XsQNameValue.staticallyKnownFunctions(): Sequence<XPathFunctionDeclaration> {
+    return (element as XPathEQName).staticallyKnownFunctions()
 }
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDefinition> {
