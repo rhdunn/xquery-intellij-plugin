@@ -16,13 +16,33 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 data class XPathFunctionParamBinding(
-    val param: XPathVariableBinding
-)
+    val param: XPathVariableBinding,
+    private val values: List<PsiElement>
+) : List<PsiElement> {
+    constructor(param: XPathVariableBinding, value: PsiElement) : this(param, listOf(value))
+
+    // region List<PsiElement>
+
+    override val size: Int = values.size
+    override fun contains(element: PsiElement): Boolean = values.contains(element)
+    override fun containsAll(elements: Collection<PsiElement>): Boolean = values.containsAll(elements)
+    override fun get(index: Int): PsiElement = values[index]
+    override fun indexOf(element: PsiElement): Int = values.indexOf(element)
+    override fun isEmpty(): Boolean = values.isEmpty()
+    override fun iterator(): Iterator<PsiElement> = values.iterator()
+    override fun lastIndexOf(element: PsiElement): Int = values.lastIndexOf(element)
+    override fun listIterator(): ListIterator<PsiElement> = values.listIterator()
+    override fun listIterator(index: Int): ListIterator<PsiElement> = values.listIterator(index)
+    override fun subList(fromIndex: Int, toIndex: Int): List<PsiElement> = values.subList(fromIndex, toIndex)
+
+    // endregion
+}
 
 interface XPathFunctionReference {
     val functionName: XsQNameValue?

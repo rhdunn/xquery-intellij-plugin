@@ -72,8 +72,23 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                 f.arity.isWithin(ref.arity)
             } ?: return listOf()
 
-            return target.params.map {
-                XPathFunctionParamBinding(it)
+            val args = children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.iterator()
+            val params = target.params
+            return params.mapIndexed { index, param ->
+                when {
+                    index == 0 && parent is XPathArrowExpr -> {
+                        // First argument bound to an ArrowExpr evaluation result.
+                        XPathFunctionParamBinding(param, listOf())
+                    }
+                    index == params.size - 1 -> {
+                        // Last argument, maybe variadic.
+                        XPathFunctionParamBinding(param, args.asSequence().toList())
+                    }
+                    else -> {
+                        // Other argument bound to the relevant parameter.
+                        XPathFunctionParamBinding(param, args.next())
+                    }
+                }
             }
         }
 
