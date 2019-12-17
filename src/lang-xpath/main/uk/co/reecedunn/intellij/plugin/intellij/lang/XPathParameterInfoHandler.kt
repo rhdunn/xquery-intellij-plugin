@@ -20,11 +20,9 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
 object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPathFunctionDeclaration> {
@@ -97,14 +95,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
     }
 
     private fun functionCandidates(args: XPathArgumentList?): Sequence<XPathFunctionDeclaration> {
-        val functionName = when (args?.parent) {
-            is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName
-            is XPathArrowExpr -> {
-                val specifier = args.siblings().reversed().filterIsInstance<XPathFunctionReference>().firstOrNull()
-                specifier?.functionName
-            }
-            else -> null
-        }
+        val functionName = args?.functionReference?.functionName
         return functionName?.staticallyKnownFunctions()?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
     }
 

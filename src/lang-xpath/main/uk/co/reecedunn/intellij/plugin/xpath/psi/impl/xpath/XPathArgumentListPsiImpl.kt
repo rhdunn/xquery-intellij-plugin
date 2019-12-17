@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,14 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val ARGUMENTS = TokenSet.create(
@@ -34,6 +39,8 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList, VersionConformance {
+    // region VersionConformance
+
     override val requiresConformance
         get(): List<Version> {
             if (parent !is XPathPostfixExpr) {
@@ -44,6 +51,18 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val conformanceElement get(): PsiElement = firstChild
 
+    // endregion
+    // region XPathArgumentList
+
+    override val functionReference: XPathFunctionReference?
+        get() = when (parent) {
+            is XPathFunctionCall -> parent as XPathFunctionReference
+            is XPathArrowExpr -> siblings().reversed().filterIsInstance<XPathFunctionReference>().firstOrNull()
+            else -> null
+        }
+
     override val arity
         get(): Int = children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.count()
+
+    // endregion
 }
