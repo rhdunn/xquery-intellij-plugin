@@ -21,6 +21,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
@@ -31,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
@@ -66,10 +68,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     override val conformanceElement
         get(): PsiElement {
             val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
-            var previous: PsiElement? = element?.prevSibling
-            while (previous != null && (previous.node.elementType === XPathElementType.COMMENT || previous.node.elementType === XPathTokenType.WHITE_SPACE)) {
-                previous = previous.prevSibling
-            }
+            val previous = element?.siblings()?.reversed()?.filterNotWhitespace()?.firstOrNull()
             return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element!!
         }
 

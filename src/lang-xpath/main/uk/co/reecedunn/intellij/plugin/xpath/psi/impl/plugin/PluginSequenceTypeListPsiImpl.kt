@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -30,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSequenceTypeList, XdmSequenceTypeList, VersionConformance {
@@ -45,13 +47,7 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
 
     override val isParenthesized: Boolean
         get() {
-            var element = prevSibling
-            while (
-                element.node.elementType === XPathTokenType.WHITE_SPACE ||
-                element.node.elementType === XPathElementType.COMMENT
-            ) {
-                element = element.prevSibling
-            }
+            val element = siblings().reversed().filterNotWhitespace().first()
             return element.node.elementType === XPathTokenType.PARENTHESIS_OPEN
         }
 

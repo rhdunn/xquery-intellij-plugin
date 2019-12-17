@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -43,16 +44,7 @@ class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
     // region XPathArrowFunctionSpecifier
 
     override val argumentList: XPathArgumentList?
-        get() {
-            var e = nextSibling
-            while (
-                e != null &&
-                (e.node.elementType === XPathTokenType.WHITE_SPACE || e.node.elementType === XPathElementType.COMMENT)
-            ) {
-                e = e.nextSibling
-            }
-            return e as? XPathArgumentList
-        }
+        get() = siblings().filterNotWhitespace().firstOrNull() as? XPathArgumentList
 
     // endregion
 }
