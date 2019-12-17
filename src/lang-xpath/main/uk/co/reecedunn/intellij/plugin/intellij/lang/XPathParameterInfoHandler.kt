@@ -100,8 +100,8 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
         val functionName = when (args?.parent) {
             is XPathFunctionCall -> (args.parent as? XPathFunctionReference)?.functionName?.element
             is XPathArrowExpr -> {
-                val specifier = args.siblings().reversed().filterIsInstance<XPathArrowFunctionSpecifier>().firstOrNull()
-                specifier?.firstChild
+                val specifier = args.siblings().reversed().filterIsInstance<XPathFunctionReference>().firstOrNull()
+                specifier?.functionName?.element
             }
             else -> null
         }
