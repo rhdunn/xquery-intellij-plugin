@@ -28,6 +28,8 @@
 
     <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ui.XQueryBreadcrumbProvider"/>
 
+    <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathInlayParameterHintsProvider"/>
+
     <!-- References and Resolve -->
 
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
