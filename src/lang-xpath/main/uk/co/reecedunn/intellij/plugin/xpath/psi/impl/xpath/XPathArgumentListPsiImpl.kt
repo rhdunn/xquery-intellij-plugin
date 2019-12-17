@@ -68,9 +68,9 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val bindings: List<XPathFunctionParamBinding>
         get() {
-            val name = functionReference?.functionName
-            val target = name?.staticallyKnownFunctions()?.firstOrNull { f ->
-                f.arity.isWithin(arity)
+            val ref = functionReference
+            val target = ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
+                f.arity.isWithin(ref.arity)
             } ?: return listOf()
 
             return target.params.map {

@@ -753,6 +753,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         @Nested
         @DisplayName("XQuery 3.1 EBNF (194) PITest")
+
         internal inner class PITest {
             @Test
             @DisplayName("any")
@@ -3694,19 +3695,27 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EQName specifier, non-empty ArgumentList")
             fun nonEmptyArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => f(1, 2,  3)")[0] as XPathFunctionReference
-                assertThat(f.arity, `is`(4))
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => format-date(1, 2, 3,  4)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(5))
 
                 val qname = f.functionName!!
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("f"))
+                assertThat(qname.localName!!.data, `is`("format-date"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val args = (f as XPathArrowFunctionSpecifier).argumentList!!
-                assertThat(args.arity, `is`(3))
+                assertThat(args.arity, `is`(4))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(5))
+                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("value"))
+                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("picture"))
+                assertThat(op_qname_presentation(bindings[2].param?.variableName!!), `is`("language"))
+                assertThat(op_qname_presentation(bindings[3].param?.variableName!!), `is`("calendar"))
+                assertThat(op_qname_presentation(bindings[4].param?.variableName!!), `is`("place"))
             }
 
             @Test
@@ -3725,6 +3734,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 val args = (f as XPathArrowFunctionSpecifier).argumentList!!
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(1))
+                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("arg"))
             }
 
             @Test
@@ -3746,10 +3759,16 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case")[0] as XPathFunctionReference
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case()")[0] as XPathFunctionReference
                 assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
-                assertThat((f as XPathArrowFunctionSpecifier).argumentList, `is`(nullValue()))
+
+                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                assertThat(args.arity, `is`(0))
+                assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(0))
             }
 
             @Test
