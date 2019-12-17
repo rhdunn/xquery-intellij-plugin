@@ -41,7 +41,7 @@ object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         }
     }
 
-    override fun getDefaultBlackList(): Set<String> = setOf()
+    override fun getDefaultBlackList(): Set<String> = defaultBlackList
 
     override fun getHintInfo(element: PsiElement?): HintInfo.MethodInfo? {
         if (element !is XPathArgumentList) return null
@@ -51,4 +51,8 @@ object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         }
         return HintInfo.MethodInfo(eqname, params)
     }
+
+    private val defaultBlackList = setOf(
+        "(arg)" // e.g. fn:string#1, xs:QName#1
+    )
 }
