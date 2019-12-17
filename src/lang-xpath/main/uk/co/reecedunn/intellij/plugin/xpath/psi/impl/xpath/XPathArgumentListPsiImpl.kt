@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionNamedParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
@@ -74,7 +73,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             } ?: return listOf()
 
             return target.params.map {
-                XPathFunctionNamedParamBinding(it)
+                XPathFunctionParamBinding(it)
             }
         }
 

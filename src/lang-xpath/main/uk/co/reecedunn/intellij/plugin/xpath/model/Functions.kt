@@ -20,17 +20,9 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
-// region Function Parameter Bindings
-
-interface XPathFunctionParamBinding {
+data class XPathFunctionParamBinding(
     val param: XPathVariableBinding
-}
-
-data class XPathFunctionNamedParamBinding(
-    override val param: XPathVariableBinding
-) : XPathFunctionParamBinding
-
-// endregion
+)
 
 interface XPathFunctionReference {
     val functionName: XsQNameValue?
