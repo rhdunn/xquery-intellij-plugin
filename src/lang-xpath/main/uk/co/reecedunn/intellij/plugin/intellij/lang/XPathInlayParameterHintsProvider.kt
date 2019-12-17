@@ -21,15 +21,23 @@ import com.intellij.codeInsight.hints.InlayInfo
 import com.intellij.codeInsight.hints.InlayParameterHintsProvider
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
 object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getParameterHints(element: PsiElement?): List<InlayInfo> {
         if (element !is XPathArgumentList) return emptyList()
-        return element.bindings.filter { it.param.variableName != null && it.isNotEmpty() }.map { binding ->
-            val name = op_qname_presentation(binding.param.variableName!!)
-            InlayInfo(name, binding[0].textOffset, false)
+        return element.bindings.mapIndexedNotNull { index, binding ->
+            when {
+                binding.param.variableName == null -> null // Parameter with incomplete variable name.
+                binding.isEmpty() -> null // Empty variadic parameter.
+                index == 0 && element.parent is PluginArrowFunctionCall -> null // Arrow function call context argument.
+                else -> {
+                    val name = op_qname_presentation(binding.param.variableName!!)
+                    InlayInfo(name, binding[0].textOffset, false)
+                }
+            }
         }
     }
 
