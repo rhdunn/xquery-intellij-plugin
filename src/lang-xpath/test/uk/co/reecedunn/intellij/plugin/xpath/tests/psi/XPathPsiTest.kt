@@ -2117,6 +2117,10 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("f"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                assertThat(args.arity, `is`(3))
+                assertThat(args.functionReference, `is`(sameInstance(f)))
             }
 
             @Test
@@ -2131,6 +2135,10 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("upper-case"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                assertThat(args.arity, `is`(0))
+                assertThat(args.functionReference, `is`(sameInstance(f)))
             }
 
             @Test
@@ -2145,6 +2153,8 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("upper-case"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                assertThat((f as XPathArrowFunctionSpecifier).argumentList, `is`(nullValue()))
             }
 
             @Test
@@ -2153,6 +2163,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case")[0] as XPathFunctionReference
                 assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
+                assertThat((f as XPathArrowFunctionSpecifier).argumentList, `is`(nullValue()))
             }
 
             @Test

@@ -22,11 +22,14 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathFunctionReference,
     XPathArrowFunctionSpecifier {
+    // region XPathFunctionReference
 
     override val arity
         get(): Int {
@@ -35,4 +38,21 @@ class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
         }
 
     override val functionName get(): XsQNameValue? = firstChild as? XsQNameValue
+
+    // endregion
+    // region XPathArrowFunctionSpecifier
+
+    override val argumentList: XPathArgumentList?
+        get() {
+            var e = nextSibling
+            while (
+                e != null &&
+                (e.node.elementType === XPathTokenType.WHITE_SPACE || e.node.elementType === XPathElementType.COMMENT)
+            ) {
+                e = e.nextSibling
+            }
+            return e as? XPathArgumentList
+        }
+
+    // endregion
 }
