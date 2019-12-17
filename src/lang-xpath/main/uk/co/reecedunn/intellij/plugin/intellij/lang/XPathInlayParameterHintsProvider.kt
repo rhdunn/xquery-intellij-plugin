@@ -43,7 +43,12 @@ object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
 
     override fun getDefaultBlackList(): Set<String> = setOf()
 
-    override fun getHintInfo(element: PsiElement?): HintInfo? {
-        return null
+    override fun getHintInfo(element: PsiElement?): HintInfo.MethodInfo? {
+        if (element !is XPathArgumentList) return null
+        val eqname = element.functionReference?.functionName?.let { op_qname_presentation(it, true) } ?: return null
+        val params = element.bindings.mapNotNull {
+            it.param.variableName?.let { param -> op_qname_presentation(param) }
+        }
+        return HintInfo.MethodInfo(eqname, params)
     }
 }

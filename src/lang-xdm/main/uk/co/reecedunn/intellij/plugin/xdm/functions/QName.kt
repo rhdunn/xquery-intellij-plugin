@@ -70,8 +70,8 @@ fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue
 // region XQuery IntelliJ Plugin Functions and Operators (3.2) op:QName-presentation
 
 @Suppress("FunctionName")
-fun op_qname_presentation(qname: XsQNameValue): String {
-    return if (qname.prefix == null) {
+fun op_qname_presentation(qname: XsQNameValue, expanded: Boolean = false): String {
+    return if (qname.prefix == null || expanded) {
         if (qname.namespace == null)
             qname.localName!!.data
         else
