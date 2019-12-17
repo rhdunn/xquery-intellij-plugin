@@ -1910,6 +1910,11 @@ private class XQueryPsiTest : ParserTestCase() {
                 val args = (f as XPathFunctionCall).argumentList
                 assertThat(args.arity, `is`(2))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(2))
+                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("x"))
+                assertThat(op_qname_presentation(bindings[1].param?.variableName!!), `is`("y"))
             }
 
             @Test
@@ -1928,6 +1933,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 val args = (f as XPathFunctionCall).argumentList
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(0))
             }
 
             @Test
@@ -1946,18 +1954,25 @@ private class XQueryPsiTest : ParserTestCase() {
                 val args = (f as XPathFunctionCall).argumentList
                 assertThat(args.arity, `is`(1))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(1))
+                assertThat(op_qname_presentation(bindings[0].param?.variableName!!), `is`("θ"))
             }
 
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val f = parse<XPathFunctionCall>(":true()")[0] as XPathFunctionReference
-                assertThat(f.arity, `is`(0))
+                val f = parse<XPathFunctionCall>(":true(1)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
 
                 val args = (f as XPathFunctionCall).argumentList
-                assertThat(args.arity, `is`(0))
+                assertThat(args.arity, `is`(1))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(0))
             }
 
             @Test

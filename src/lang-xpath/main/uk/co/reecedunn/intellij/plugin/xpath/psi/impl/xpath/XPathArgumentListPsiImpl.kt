@@ -26,6 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionNamedParamBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -63,6 +65,18 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val arity
         get(): Int = children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.count()
+
+    override val bindings: List<XPathFunctionParamBinding>
+        get() {
+            val name = functionReference?.functionName
+            val target = name?.staticallyKnownFunctions()?.firstOrNull { f ->
+                f.arity.isWithin(arity)
+            } ?: return listOf()
+
+            return target.params.map {
+                XPathFunctionNamedParamBinding(it)
+            }
+        }
 
     // endregion
 }

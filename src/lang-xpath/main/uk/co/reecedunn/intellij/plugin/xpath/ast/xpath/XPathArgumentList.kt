@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
 /**
@@ -25,4 +26,6 @@ interface XPathArgumentList : PsiElement {
     val functionReference: XPathFunctionReference?
 
     val arity: Int
+
+    val bindings: List<XPathFunctionParamBinding>
 }
