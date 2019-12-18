@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.tests.module
+package uk.co.reecedunn.intellij.plugin.xdm.tests.module.path
 
 import com.intellij.mock.MockProjectEx
 import com.intellij.psi.PsiElement
@@ -23,7 +23,7 @@ import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - Location Paths")
