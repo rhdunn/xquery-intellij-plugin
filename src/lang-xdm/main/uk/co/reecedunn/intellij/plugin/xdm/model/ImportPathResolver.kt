@@ -20,9 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile
 
 interface ImportPathResolver {
     companion object {
-        val IMPORT_PATH_RESOLVER_EP = ExtensionPointName.create<ImportPathResolver>(
-            "uk.co.reecedunn.intellij.importPathResolver"
-        )
+        val EP_NAME = ExtensionPointName.create<ImportPathResolver>("uk.co.reecedunn.intellij.importPathResolver")
     }
 
     fun match(path: String): Boolean

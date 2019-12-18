@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
-private val STATIC_IMPORT_RESOLVERS by lazy { ImportPathResolver.IMPORT_PATH_RESOLVER_EP.extensions.asSequence() }
+private val STATIC_IMPORT_RESOLVERS by lazy { ImportPathResolver.EP_NAME.extensions.asSequence() }
 
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data

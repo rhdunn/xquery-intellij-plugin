@@ -56,7 +56,7 @@ abstract class ParserTestCase :
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath)
 
-        registerExtensionPoint(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, ImportPathResolver::class.java)
+        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
@@ -73,7 +73,7 @@ abstract class ParserTestCase :
     }
 
     private fun registerBuiltInFunctions(resolver: ImportPathResolver) {
-        registerExtension(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, resolver)
+        registerExtension(ImportPathResolver.EP_NAME, resolver)
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)

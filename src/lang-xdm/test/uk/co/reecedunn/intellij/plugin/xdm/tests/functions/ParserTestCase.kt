@@ -52,7 +52,7 @@ abstract class ParserTestCase :
         registerModules(manager)
         myProject.registerService(ModuleManager::class.java, manager)
 
-        registerExtensionPoint(ImportPathResolver.IMPORT_PATH_RESOLVER_EP, ImportPathResolver::class.java)
+        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
     }
 
     @AfterAll
