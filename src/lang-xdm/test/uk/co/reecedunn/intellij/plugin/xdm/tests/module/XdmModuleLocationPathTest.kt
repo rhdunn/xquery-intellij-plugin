@@ -91,6 +91,23 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
         }
     }
 
+    @Test
+    @DisplayName("resource scheme")
+    fun resourceScheme() {
+        XdmUriContext.values().forEach { context ->
+            val uri = XsAnyUri("resource:org/lorem/ipsum.xqm", context, null as PsiElement?)
+            val path = XdmModuleLocationPath.create(myProject, uri)
+            when (context) {
+                XdmUriContext.Location -> {
+                    assertThat(path, `is`(notNullValue()))
+                    assertThat(path!!.path, `is`("org/lorem/ipsum.xqm"))
+                    assertThat(path.isResource, `is`(true))
+                }
+                else -> assertThat(path, `is`(nullValue()))
+            }
+        }
+    }
+
     @Nested
     @DisplayName("Java scheme")
     internal inner class JavaScheme {
@@ -125,6 +142,7 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.path, `is`("lorem/ipsum"))
+                    assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
             }
@@ -141,6 +159,7 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.path, `is`("java.lang.String"))
+                    assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
             }

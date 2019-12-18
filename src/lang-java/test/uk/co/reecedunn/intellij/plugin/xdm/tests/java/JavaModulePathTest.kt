@@ -91,6 +91,16 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         }
     }
 
+    @Test
+    @DisplayName("resource scheme")
+    fun resourceScheme() {
+        XdmUriContext.values().forEach { context ->
+            val uri = XsAnyUri("resource:org/lorem/ipsum.xqm", context, null as PsiElement?)
+            val path = JavaModulePath.create(myProject, uri)
+            assertThat(path, `is`(nullValue()))
+        }
+    }
+
     @Nested
     @DisplayName("Java scheme")
     internal inner class JavaScheme {
