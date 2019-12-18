@@ -32,10 +32,11 @@ class XdmModuleLocationPath private constructor(val path: String, val isResource
                 XdmUriContext.Location -> {
                     val path = uri.data
                     when {
+                        path.isEmpty() -> null
                         path.startsWith(EXISTDB_PATH) -> XdmModuleLocationPath(path.substring(14), false) // eXist-db
                         path.startsWith(RES_PATH) -> XdmModuleLocationPath(path.substring(9), true) // eXist-db
-                        path.isEmpty() || path.contains(':') -> null
-                        else -> XdmModuleLocationPath(path, false) // MarkLogic
+                        path.contains(':') && !path.contains('/') -> null
+                        else -> XdmModuleLocationPath(path, false) // eXist-db, MarkLogic
                     }
                 }
                 else -> null

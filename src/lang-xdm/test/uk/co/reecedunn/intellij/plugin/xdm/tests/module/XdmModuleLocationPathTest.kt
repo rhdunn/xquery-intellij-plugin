@@ -57,7 +57,14 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("http://www.example.com/lorem/ipsum", context, null as PsiElement?)
             val path = XdmModuleLocationPath.create(myProject, uri)
-            assertThat(path, `is`(nullValue()))
+            when (context) {
+                XdmUriContext.Location -> {
+                    assertThat(path, `is`(notNullValue()))
+                    assertThat(path!!.path, `is`("http://www.example.com/lorem/ipsum"))
+                    assertThat(path.isResource, `is`(false))
+                }
+                else -> assertThat(path, `is`(nullValue()))
+            }
         }
     }
 
@@ -67,7 +74,14 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("https://www.example.com/lorem/ipsum", context, null as PsiElement?)
             val path = XdmModuleLocationPath.create(myProject, uri)
-            assertThat(path, `is`(nullValue()))
+            when (context) {
+                XdmUriContext.Location -> {
+                    assertThat(path, `is`(notNullValue()))
+                    assertThat(path!!.path, `is`("https://www.example.com/lorem/ipsum"))
+                    assertThat(path.isResource, `is`(false))
+                }
+                else -> assertThat(path, `is`(nullValue()))
+            }
         }
     }
 
@@ -77,7 +91,14 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("file:///C:/lorem/ipsum", context, null as PsiElement?)
             val path = XdmModuleLocationPath.create(myProject, uri)
-            assertThat(path, `is`(nullValue()))
+            when (context) {
+                XdmUriContext.Location -> {
+                    assertThat(path, `is`(notNullValue()))
+                    assertThat(path!!.path, `is`("file:///C:/lorem/ipsum"))
+                    assertThat(path.isResource, `is`(false))
+                }
+                else -> assertThat(path, `is`(nullValue()))
+            }
         }
     }
 
@@ -206,7 +227,14 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("http://saxon.sf.net/java-type", context, null as PsiElement?)
             val path = XdmModuleLocationPath.create(myProject, uri)
-            assertThat(path, `is`(nullValue()))
+            when (context) {
+                XdmUriContext.Location -> {
+                    assertThat(path, `is`(notNullValue()))
+                    assertThat(path!!.path, `is`("http://saxon.sf.net/java-type"))
+                    assertThat(path.isResource, `is`(false))
+                }
+                else -> assertThat(path, `is`(nullValue()))
+            }
         }
     }
 }
