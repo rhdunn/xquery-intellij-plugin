@@ -20,10 +20,18 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
 
-class JavaTypePath(val project: Project) {
+class JavaTypePath(val project: Project) : XdmModulePath {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")
-    private val facade: Any? = facadeClass?.getMethod("getInstance", Project::class.java)?.invoke(null, project)
+    private val facade: Any? = try {
+        facadeClass?.getMethod("getInstance", Project::class.java)?.invoke(null, project)
+    } catch (_: Throwable) {
+        null
+    }
 
     val isJavaPluginEnabled: Boolean = facade != null
 
@@ -33,9 +41,25 @@ class JavaTypePath(val project: Project) {
             ?.invoke(facade, qualifiedName, scope) as PsiElement?
     }
 
-    companion object {
+    override fun resolve(): PsiElement? = null
+
+    companion object : XdmModulePathFactory {
+        private const val JAVA_TYPE_NS = "http://saxon.sf.net/java-type"
+
         fun getInstance(project: Project): JavaTypePath {
             return ServiceManager.getService(project, JavaTypePath::class.java)
+        }
+
+        override fun create(project: Project, uri: XsAnyUriValue): JavaTypePath? {
+            return when (uri.context) {
+                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                    if (uri.data == JAVA_TYPE_NS)
+                        getInstance(project)
+                    else
+                        null
+                }
+                else -> null
+            }
         }
     }
 }
