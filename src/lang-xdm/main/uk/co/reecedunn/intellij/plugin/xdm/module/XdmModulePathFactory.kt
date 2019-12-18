@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.module
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
 interface XdmModulePathFactory {
     companion object {

@@ -22,7 +22,7 @@ import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
 
 class JavaTypePath(val project: Project) : XdmModulePath {

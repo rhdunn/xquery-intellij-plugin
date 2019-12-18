@@ -19,7 +19,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
 
 class XdmModuleLocationPath private constructor(val path: String, val isResource: Boolean) : XdmModulePath {
