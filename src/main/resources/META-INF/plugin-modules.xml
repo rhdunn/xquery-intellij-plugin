@@ -5,7 +5,7 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleManager"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

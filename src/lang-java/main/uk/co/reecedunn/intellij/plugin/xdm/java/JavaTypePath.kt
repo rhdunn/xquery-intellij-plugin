@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 
-class JavaModuleManager(val project: Project) {
+class JavaTypePath(val project: Project) {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")
     private val facade: Any? = facadeClass?.getMethod("getInstance", Project::class.java)?.invoke(null, project)
 
@@ -34,8 +34,8 @@ class JavaModuleManager(val project: Project) {
     }
 
     companion object {
-        fun getInstance(project: Project): JavaModuleManager {
-            return ServiceManager.getService(project, JavaModuleManager::class.java)
+        fun getInstance(project: Project): JavaTypePath {
+            return ServiceManager.getService(project, JavaTypePath::class.java)
         }
     }
 }

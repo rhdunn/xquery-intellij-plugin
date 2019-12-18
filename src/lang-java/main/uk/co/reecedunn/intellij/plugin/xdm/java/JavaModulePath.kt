@@ -30,7 +30,7 @@ class JavaModulePath private constructor(
     val classPath: String,
     val voidThis: Boolean
 ) : XdmModulePath {
-    override fun resolve(): PsiElement? = JavaModuleManager.getInstance(project).findClass(classPath)
+    override fun resolve(): PsiElement? = JavaTypePath.getInstance(project).findClass(classPath)
 
     companion object : XdmModulePathFactory {
         private val NOT_JAVA_PATH: Regex = "[/:]".toRegex()
