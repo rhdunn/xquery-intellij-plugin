@@ -19,7 +19,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.paths
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
 

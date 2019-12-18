@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
-import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 
 class JavaTypePath(val project: Project) : XdmModulePath {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")

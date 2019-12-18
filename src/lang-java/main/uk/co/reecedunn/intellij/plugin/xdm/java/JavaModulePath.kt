@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
-import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 
 /**
  * BaseX, eXist-db, and Saxon allow declaring a namespace to a Java class.
