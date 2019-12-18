@@ -36,17 +36,22 @@ class JavaModulePath private constructor(
         private val NOT_JAVA_PATH: Regex = "[/:]".toRegex()
 
         override fun create(project: Project, uri: XsAnyUriValue): JavaModulePath? {
-            if (uri.context === XdmUriContext.Location) return null
-
-            val path = uri.data
-            if (path.startsWith("java:")) {
-                return if (path.endsWith("?void=this")) // Saxon 9.7
-                    JavaModulePath(project, path.substring(5, path.length - 10), true)
-                else // BaseX, eXist-db, Saxon
-                    JavaModulePath(project, path.substring(5), false)
+            return when (uri.context) {
+                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                    val path = uri.data
+                    when {
+                        path.startsWith("java:") -> {
+                            if (path.endsWith("?void=this")) // Saxon 9.7
+                                JavaModulePath(project, path.substring(5, path.length - 10), true)
+                            else // BaseX, eXist-db, Saxon
+                                JavaModulePath(project, path.substring(5), false)
+                        }
+                        path.contains(NOT_JAVA_PATH) || path.isEmpty() -> null
+                        else -> JavaModulePath(project, path, false) // BaseX
+                    }
+                }
+                else -> null
             }
-            if (path.contains(NOT_JAVA_PATH) || path.isEmpty()) return null
-            return JavaModulePath(project, path, false) // BaseX
         }
     }
 }
