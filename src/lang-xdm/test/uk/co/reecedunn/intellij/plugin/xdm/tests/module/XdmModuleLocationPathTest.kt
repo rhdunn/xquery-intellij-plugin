@@ -150,6 +150,23 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
     }
 
     @Test
+    @DisplayName("MarkLogic database path")
+    fun markLogicDatabasePath() {
+        XdmUriContext.values().forEach { context ->
+            val uri = XsAnyUri("/lorem/ipsum.xqy", context, null as PsiElement?)
+            val path = XdmModuleLocationPath.create(myProject, uri)
+            when (context) {
+                XdmUriContext.Location -> {
+                    assertThat(path, `is`(notNullValue()))
+                    assertThat(path!!.path, `is`("/lorem/ipsum.xqy"))
+                    assertThat(path.isResource, `is`(false))
+                }
+                else -> assertThat(path, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Test
     @DisplayName("Java class path")
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->

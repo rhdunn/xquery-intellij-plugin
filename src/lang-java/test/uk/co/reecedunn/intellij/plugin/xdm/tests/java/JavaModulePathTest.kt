@@ -152,6 +152,16 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     }
 
     @Test
+    @DisplayName("MarkLogic database path")
+    fun markLogicDatabasePath() {
+        XdmUriContext.values().forEach { context ->
+            val uri = XsAnyUri("/lorem/ipsum.xqy", context, null as PsiElement?)
+            val path = JavaModulePath.create(myProject, uri)
+            assertThat(path, `is`(nullValue()))
+        }
+    }
+
+    @Test
     @DisplayName("Java class path")
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->
