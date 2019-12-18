@@ -22,7 +22,14 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.XdmModulePathFactory
 
-class JavaModulePath private constructor(val project: Project, val classPath: String) : XdmModulePath {
+/**
+ * BaseX, eXist-db, and Saxon allow declaring a namespace to a Java class.
+ */
+class JavaModulePath private constructor(
+    val project: Project,
+    val classPath: String,
+    val voidThis: Boolean
+) : XdmModulePath {
     override fun resolve(): PsiElement? = JavaModuleManager.getInstance(project).findClass(classPath)
 
     companion object : XdmModulePathFactory {
@@ -32,9 +39,14 @@ class JavaModulePath private constructor(val project: Project, val classPath: St
             if (uri.context === XdmUriContext.Location) return null
 
             val path = uri.data
-            if (path.startsWith("java:")) return JavaModulePath(project, path.substring(5))
+            if (path.startsWith("java:")) {
+                return if (path.endsWith("?void=this")) // Saxon 9.7
+                    JavaModulePath(project, path.substring(5, path.length - 10), true)
+                else // BaseX, eXist-db, Saxon
+                    JavaModulePath(project, path.substring(5), false)
+            }
             if (path.contains(NOT_JAVA_PATH) || path.isEmpty()) return null
-            return JavaModulePath(project, path)
+            return JavaModulePath(project, path, false) // BaseX
         }
     }
 }

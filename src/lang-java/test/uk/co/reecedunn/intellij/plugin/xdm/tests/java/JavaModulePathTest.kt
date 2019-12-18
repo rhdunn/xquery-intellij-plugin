@@ -18,8 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests.java
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -125,20 +124,52 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         assertThat(path, `is`(nullValue()))
     }
 
-    @Test
+    @Nested
     @DisplayName("Java scheme")
-    fun javaScheme() {
-        var uri = XsAnyUri("java:java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
-        var path = JavaModulePath.create(project!!, uri)!!
-        assertThat(path.classPath, `is`("java.lang.String"))
+    internal inner class JavaScheme {
+        @Test
+        @DisplayName("classpath")
+        fun classpath() {
+            var uri = XsAnyUri("java:java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
+            var path = JavaModulePath.create(project!!, uri)!!
+            assertThat(path.project, `is`(sameInstance(project)))
+            assertThat(path.classPath, `is`("java.lang.String"))
+            assertThat(path.voidThis, `is`(false))
 
-        uri = XsAnyUri("java:java.lang.String", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
-        path = JavaModulePath.create(project!!, uri)!!
-        assertThat(path.classPath, `is`("java.lang.String"))
+            uri = XsAnyUri("java:java.lang.String", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+            path = JavaModulePath.create(project!!, uri)!!
+            assertThat(path.project, `is`(sameInstance(project)))
+            assertThat(path.classPath, `is`("java.lang.String"))
+            assertThat(path.voidThis, `is`(false))
 
-        uri = XsAnyUri("java:java.lang.String", XdmUriContext.Namespace, null as PsiElement?)
-        path = JavaModulePath.create(project!!, uri)!!
-        assertThat(path.classPath, `is`("java.lang.String"))
+            uri = XsAnyUri("java:java.lang.String", XdmUriContext.Namespace, null as PsiElement?)
+            path = JavaModulePath.create(project!!, uri)!!
+            assertThat(path.project, `is`(sameInstance(project)))
+            assertThat(path.classPath, `is`("java.lang.String"))
+            assertThat(path.voidThis, `is`(false))
+        }
+
+        @Test
+        @DisplayName("classpath with void=this")
+        fun voidThis() {
+            var uri = XsAnyUri("java:java.lang.String?void=this", XdmUriContext.TargetNamespace, null as PsiElement?)
+            var path = JavaModulePath.create(project!!, uri)!!
+            assertThat(path.project, `is`(sameInstance(project)))
+            assertThat(path.classPath, `is`("java.lang.String"))
+            assertThat(path.voidThis, `is`(true))
+
+            uri = XsAnyUri("java:java.lang.String?void=this", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
+            path = JavaModulePath.create(project!!, uri)!!
+            assertThat(path.project, `is`(sameInstance(project)))
+            assertThat(path.classPath, `is`("java.lang.String"))
+            assertThat(path.voidThis, `is`(true))
+
+            uri = XsAnyUri("java:java.lang.String?void=this", XdmUriContext.Namespace, null as PsiElement?)
+            path = JavaModulePath.create(project!!, uri)!!
+            assertThat(path.project, `is`(sameInstance(project)))
+            assertThat(path.classPath, `is`("java.lang.String"))
+            assertThat(path.voidThis, `is`(true))
+        }
     }
 
     @Test
@@ -246,14 +277,20 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun javaClassPath() {
         var uri = XsAnyUri("java.lang.String", XdmUriContext.TargetNamespace, null as PsiElement?)
         var path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.project, `is`(sameInstance(project)))
         assertThat(path.classPath, `is`("java.lang.String"))
+        assertThat(path.voidThis, `is`(false))
 
         uri = XsAnyUri("java.lang.String", XdmUriContext.NamespaceDeclaration, null as PsiElement?)
         path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.project, `is`(sameInstance(project)))
         assertThat(path.classPath, `is`("java.lang.String"))
+        assertThat(path.voidThis, `is`(false))
 
         uri = XsAnyUri("java.lang.String", XdmUriContext.Namespace, null as PsiElement?)
         path = JavaModulePath.create(project!!, uri)!!
+        assertThat(path.project, `is`(sameInstance(project)))
         assertThat(path.classPath, `is`("java.lang.String"))
+        assertThat(path.voidThis, `is`(false))
     }
 }
