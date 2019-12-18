@@ -30,13 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 @DisplayName("Modules - Java Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class JavaModulePathTest : PlatformLiteFixture() {
-    private var project: Project? = null
-
     @BeforeAll
     override fun setUp() {
         super.setUp()
         initApplication()
-        project = MockProjectEx(testRootDisposable)
+        myProjectEx = MockProjectEx(testRootDisposable)
     }
 
     @AfterAll
@@ -49,7 +47,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun empty() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -59,7 +57,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun httpScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("http://www.example.com/lorem/ipsum", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -69,7 +67,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun httpsScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("https://www.example.com/lorem/ipsum", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -79,7 +77,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun fileScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("file:///C:/lorem/ipsum", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -89,7 +87,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun urnScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("urn:lorem:ipsum", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -102,11 +100,11 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         fun classpath() {
             XdmUriContext.values().forEach { context ->
                 val uri = XsAnyUri("java:java.lang.String", context, null as PsiElement?)
-                val path = JavaModulePath.create(project!!, uri)
+                val path = JavaModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.project, `is`(sameInstance(project)))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.classPath, `is`("java.lang.String"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -120,11 +118,11 @@ private class JavaModulePathTest : PlatformLiteFixture() {
         fun voidThis() {
             XdmUriContext.values().forEach { context ->
                 val uri = XsAnyUri("java:java.lang.String?void=this", context, null as PsiElement?)
-                val path = JavaModulePath.create(project!!, uri)
+                val path = JavaModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.project, `is`(sameInstance(project)))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.classPath, `is`("java.lang.String"))
                         assertThat(path.voidThis, `is`(true))
                     }
@@ -139,7 +137,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun relativePath() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("lorem/ipsum", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -149,11 +147,11 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("java.lang.String", context, null as PsiElement?)
-            val path = JavaModulePath.create(project!!, uri)
+            val path = JavaModulePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.project, `is`(sameInstance(project)))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
                     assertThat(path.classPath, `is`("java.lang.String"))
                     assertThat(path.voidThis, `is`(false))
                 }
