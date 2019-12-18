@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 
 object QueryProcessorApis : Sequence<QueryProcessorApi> {
     override fun iterator(): Iterator<QueryProcessorApi> {
-        return QueryProcessorApi.QUERY_PROCESSOR_API_EP.extensions.asSequence().sortedBy { api ->
+        return QueryProcessorApi.EP_NAME.extensions.asSequence().sortedBy { api ->
             api.displayName
         }.iterator()
     }

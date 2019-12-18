@@ -56,11 +56,11 @@ private class ProcessorTest : PlatformLiteFixture() {
         myProjectEx = MockProjectEx(testRootDisposable)
         registerApplicationService(PasswordSafe::class.java, createPasswordSafe())
 
-        registerExtensionPoint(QueryProcessorApi.QUERY_PROCESSOR_API_EP, QueryProcessorApi::class.java)
-        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, BaseXSession)
-        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, EXistDBRest)
-        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, MarkLogicRest)
-        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, SaxonS9API)
+        registerExtensionPoint(QueryProcessorApi.EP_NAME, QueryProcessorApi::class.java)
+        registerExtension(QueryProcessorApi.EP_NAME, BaseXSession)
+        registerExtension(QueryProcessorApi.EP_NAME, EXistDBRest)
+        registerExtension(QueryProcessorApi.EP_NAME, MarkLogicRest)
+        registerExtension(QueryProcessorApi.EP_NAME, SaxonS9API)
 
         provider = QueryProcessorSettings(
             name = "Test Instance",

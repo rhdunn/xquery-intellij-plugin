@@ -21,9 +21,7 @@ import java.io.InputStream
 
 interface QueryProcessorApi {
     companion object {
-        val QUERY_PROCESSOR_API_EP = ExtensionPointName.create<QueryProcessorApi>(
-            "uk.co.reecedunn.intellij.queryProcessorApi"
-        )
+        val EP_NAME = ExtensionPointName.create<QueryProcessorApi>("uk.co.reecedunn.intellij.queryProcessorApi")
     }
 
     val id: String
