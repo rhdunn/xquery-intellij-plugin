@@ -162,6 +162,16 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     }
 
     @Test
+    @DisplayName("eXist-db database path")
+    fun eXistDBDatabasePath() {
+        XdmUriContext.values().forEach { context ->
+            val uri = XsAnyUri("xmldb:exist:///db/modules/lorem/ipsum.xqm", context, null as PsiElement?)
+            val path = JavaModulePath.create(myProject, uri)
+            assertThat(path, `is`(nullValue()))
+        }
+    }
+
+    @Test
     @DisplayName("Java class path")
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->

@@ -24,12 +24,16 @@ class XdmModuleLocationPath private constructor(val path: String, val isResource
     override fun resolve(): PsiElement? = null
 
     companion object : XdmModulePathFactory {
+        private const val EXISTDB_PATH = "xmldb:exist://"
+        private const val RES_PATH = "resource:"
+
         override fun create(project: Project, uri: XsAnyUriValue): XdmModuleLocationPath? {
             return when (uri.context) {
                 XdmUriContext.Location -> {
                     val path = uri.data
                     when {
-                        path.startsWith("resource:") -> XdmModuleLocationPath(path.substring(9), true) // eXist-db
+                        path.startsWith(EXISTDB_PATH) -> XdmModuleLocationPath(path.substring(14), false) // eXist-db
+                        path.startsWith(RES_PATH) -> XdmModuleLocationPath(path.substring(9), true) // eXist-db
                         path.isEmpty() || path.contains(':') -> null
                         else -> XdmModuleLocationPath(path, false) // MarkLogic
                     }
