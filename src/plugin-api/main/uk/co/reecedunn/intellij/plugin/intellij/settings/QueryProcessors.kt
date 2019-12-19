@@ -28,11 +28,7 @@ data class QueryProcessorsData(
     var processors: List<QueryProcessorSettings> = ArrayList()
 )
 
-@Suppress("ReplaceArrayOfWithLiteral")
-@State(
-    name = "XIJPQueryProcessors",
-    storages = arrayOf(Storage("xijp_processors_config.xml"))
-)
+@State(name = "XIJPQueryProcessors", storages = [Storage("xijp_processors_config.xml")])
 class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
     private val data = QueryProcessorsData()
 

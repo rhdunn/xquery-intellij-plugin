@@ -15,15 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
-import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.intellij.util.xmlb.XmlSerializerUtil
+import com.intellij.util.xmlb.annotations.Attribute
+import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
-class XdmModuleLoaderSettings : XdmModuleLoader {
-    var loaderBeans: List<XdmModuleLoaderBean> = listOf(
+@State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
+class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmModuleLoaderSettings> {
+    @Attribute("loader")
+    var loaderBeans: List<XdmModuleLoaderBean> = arrayListOf(
         XdmModuleLoaderBean("java", null)
     )
         set(value) {
@@ -31,7 +36,10 @@ class XdmModuleLoaderSettings : XdmModuleLoader {
             loaders.invalidate()
         }
 
+    @Transient
     private val loaders = CacheableProperty { loaderBeans.map { it.loader } }
+
+    // region XdmModuleLoader
 
     override fun resolve(path: XdmModulePath): PsiElement? {
         return loaders.get()?.asSequence()?.mapNotNull { it?.resolve(path) }?.firstOrNull()
@@ -40,6 +48,15 @@ class XdmModuleLoaderSettings : XdmModuleLoader {
     override fun context(path: XdmModulePath): XdmStaticContext? {
         return loaders.get()?.asSequence()?.mapNotNull { it?.context(path) }?.firstOrNull()
     }
+
+    // endregion
+    // region PersistentStateComponent
+
+    override fun getState(): XdmModuleLoaderSettings? = this
+
+    override fun loadState(state: XdmModuleLoaderSettings) = XmlSerializerUtil.copyBean(state, this)
+
+    // endregion
 
     companion object {
         fun getInstance(project: Project): XdmModuleLoaderSettings {

@@ -21,11 +21,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 
-@Suppress("ReplaceArrayOfWithLiteral")
-@State(
-    name = "XQueryProjectSettings",
-    storages = arrayOf(Storage(StoragePathMacros.WORKSPACE_FILE), Storage("xquery_config.xml"))
-)
+@State(name = "XQueryProjectSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
     // region Settings
 

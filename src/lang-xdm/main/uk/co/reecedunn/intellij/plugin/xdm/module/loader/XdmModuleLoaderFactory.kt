@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.util.xmlb.annotations.Tag
 
 interface XdmModuleLoaderFactory {
     companion object {
@@ -31,6 +32,7 @@ interface XdmModuleLoaderFactory {
     fun loader(context: String?): XdmModuleLoader
 }
 
+@Tag("moduleLoader")
 data class XdmModuleLoaderBean(var id: String = "", var context: String? = null) {
     val loader: XdmModuleLoader? get() = XdmModuleLoaderFactory.create(id, context)
 }
