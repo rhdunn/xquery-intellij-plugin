@@ -13,14 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module.loader
+package uk.co.reecedunn.intellij.plugin.xdm.context
 
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
-
-interface XdmModuleLoader {
-    fun resolve(path: XdmModulePath): PsiElement?
-
-    fun context(path: XdmModulePath): XdmStaticContext?
-}
+interface XdmStaticContext
