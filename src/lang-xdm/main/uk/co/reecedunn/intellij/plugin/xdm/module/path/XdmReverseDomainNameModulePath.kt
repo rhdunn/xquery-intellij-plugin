@@ -16,14 +16,19 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.path
 
 import com.intellij.openapi.project.Project
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 object XdmReverseDomainNameModulePath : XdmModulePathFactory {
     private fun createUri(path: String): XdmModuleLocationPath? {
-        val parts = path.substringAfter("://").split('/')
+        val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
         val rdn = parts[0].split('.').reversed()
-        return createRelative(listOf(rdn, parts.drop(1)).flatten().joinToString("/"))
+        val rest = parts.drop(1)
+        return when {
+            rest.isEmpty() -> createRelative(rdn.joinToString("/") + '/')
+            else -> createRelative(listOf(rdn, rest).flatten().joinToString("/"))
+        }
     }
 
     private fun createUrn(path: String): XdmModuleLocationPath? {

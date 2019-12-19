@@ -80,6 +80,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 }
             }
         }
+
+        @Test
+        @DisplayName("without path")
+        fun withoutPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("http://www.example.com", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
     }
 
     @Nested
@@ -105,6 +122,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
+        @DisplayName("without path")
+        fun withoutPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("https://www.example.com", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
