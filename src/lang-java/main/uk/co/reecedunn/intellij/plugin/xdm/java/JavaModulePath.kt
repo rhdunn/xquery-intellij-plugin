@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 /**
  * BaseX, eXist-db, and Saxon allow declaring a namespace to a Java class.
  */
-class JavaModulePath private constructor(
+class JavaModulePath internal constructor(
     val project: Project,
     val classPath: String,
     val voidThis: Boolean

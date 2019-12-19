@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
-class XdmModuleLocationPath(val path: String, val isResource: Boolean?) : XdmModulePath {
+class XdmModuleLocationPath internal constructor(val path: String, val isResource: Boolean?) : XdmModulePath {
     override fun resolve(): PsiElement? = null
 
     companion object : XdmModulePathFactory {
