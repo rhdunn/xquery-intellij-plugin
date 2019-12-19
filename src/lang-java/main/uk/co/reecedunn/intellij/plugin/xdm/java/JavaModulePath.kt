@@ -46,7 +46,7 @@ class JavaModulePath private constructor(
         private fun createUri(project: Project, path: String): JavaModulePath? {
             val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
             val rdn = parts[0].split('.').reversed()
-            val rest = parts.drop(1).map { it.replace('.', '/') }
+            val rest = parts.drop(1)
             return when {
                 rest.isEmpty() -> createRelative(project, listOf(rdn, listOf("")).flatten())
                 else -> createRelative(project, listOf(rdn, rest).flatten())
@@ -54,15 +54,15 @@ class JavaModulePath private constructor(
         }
 
         private fun createUrn(project: Project, path: String): JavaModulePath? {
-            return createRelative(project, path.split(':'))
+            return createRelative(project, path.split(':').map { it.replace('/', '.') })
         }
 
         private fun createRelative(project: Project, paths: List<String>): JavaModulePath? {
             val path = paths.map { it.replace(SPECIAL_CHARACTERS, "-") }
             return when {
                 path.size == 1 && path.last().isEmpty() -> null
-                path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString("/")}index", false)
-                else -> JavaModulePath(project, path.joinToString("/"), false)
+                path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString(".")}index", false)
+                else -> JavaModulePath(project, path.joinToString("."), false)
             }
         }
 
