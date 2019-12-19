@@ -21,7 +21,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 object XdmReverseDomainNameModulePath : XdmModulePathFactory {
     private fun createUri(path: String): XdmModuleLocationPath {
-        return createRelative(path)
+        val parts = path.substringAfter("://").split('/')
+        val rdn = parts[0].split('.').reversed()
+        return createRelative(listOf(rdn, parts.drop(1)).flatten().joinToString("/"))
     }
 
     private fun createUrn(path: String): XdmModuleLocationPath {

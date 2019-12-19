@@ -60,7 +60,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("http://www.example.com/lorem/ipsum"))
+                    assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -77,7 +77,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("https://www.example.com/lorem/ipsum"))
+                    assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -230,7 +230,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("http://saxon.sf.net/java-type"))
+                    assertThat(path!!.path, `is`("net/sf/saxon/java-type"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
