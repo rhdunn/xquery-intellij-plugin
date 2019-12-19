@@ -43,6 +43,14 @@ class JavaModulePath private constructor(
                 JavaModulePath(project, path.substring(5), false)
         }
 
+        private fun createJava(project: Project, path: String, modulePaths: List<String>): JavaModulePath? {
+            val module = modulePaths.last().split('-').joinToString("") { it.capitalize() }
+            return when (modulePaths.size) {
+                1 -> JavaModulePath(project, "$path.$module", false)
+                else -> JavaModulePath(project, "$path.${modulePaths.dropLast(1).joinToString(".")}.$module", false)
+            }
+        }
+
         private fun createUri(project: Project, path: String): JavaModulePath? {
             val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
             val rdn = parts[0].split('.').reversed()
@@ -62,7 +70,7 @@ class JavaModulePath private constructor(
             return when {
                 path.size == 1 && path.last().isEmpty() -> null
                 path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString(".")}Index", false)
-                else -> JavaModulePath(project, path.joinToString("."), false)
+                else -> createJava(project, path.dropLast(1).joinToString("."), path.last().split('.'))
             }
         }
 
