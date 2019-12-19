@@ -26,7 +26,7 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
         val rdn = parts[0].split('.').reversed()
         val rest = parts.drop(1)
         return when {
-            rest.isEmpty() -> createRelative(rdn.joinToString("/") + '/')
+            rest.isEmpty() -> createRelative("${rdn.joinToString("/")}/")
             else -> createRelative(listOf(rdn, rest).flatten().joinToString("/"))
         }
     }
@@ -36,7 +36,11 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
     }
 
     private fun createRelative(path: String): XdmModuleLocationPath? {
-        return if (path.isEmpty()) null else XdmModuleLocationPath(path, null)
+        return when {
+            path.isEmpty() -> null
+            path.endsWith('/') -> XdmModuleLocationPath("${path}index", null)
+            else -> XdmModuleLocationPath(path, null)
+        }
     }
 
     override fun create(project: Project, uri: XsAnyUriValue): XdmModuleLocationPath? {

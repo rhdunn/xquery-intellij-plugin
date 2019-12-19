@@ -82,6 +82,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
 
         @Test
+        @DisplayName("with path, trailing slash")
+        fun withPathTrailingSlash() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("http://www.example.com/lorem/ipsum/", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum/index"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
         @DisplayName("without path")
         fun withoutPath() {
             XdmUriContext.values().forEach { context ->
@@ -90,7 +107,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/"))
+                        assertThat(path!!.path, `is`("com/example/www/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -130,6 +147,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
 
         @Test
+        @DisplayName("with path, trailing slash")
+        fun withPathTrailingSlash() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("https://www.example.com/lorem/ipsum/", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum/index"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
         @DisplayName("without path")
         fun withoutPath() {
             XdmUriContext.values().forEach { context ->
@@ -138,7 +172,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/"))
+                        assertThat(path!!.path, `is`("com/example/www/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -222,19 +256,40 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
     }
 
-    @Test
+    @Nested
     @DisplayName("relative path")
-    fun relativePath() {
-        XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("lorem/ipsum", context, null as PsiElement?)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("lorem/ipsum"))
-                    assertThat(path.isResource, `is`(nullValue()))
+    internal inner class RelativePath {
+        @Test
+        @DisplayName("relative path")
+        fun relativePath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("lorem/ipsum", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
                 }
-                else -> assertThat(path, `is`(nullValue()))
+            }
+        }
+
+        @Test
+        @DisplayName("trailing slash")
+        fun trailingSlash() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("lorem/ipsum/", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("lorem/ipsum/index"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
             }
         }
     }
