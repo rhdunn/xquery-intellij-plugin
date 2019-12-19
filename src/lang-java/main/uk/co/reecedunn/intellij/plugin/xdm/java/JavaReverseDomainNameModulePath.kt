@@ -54,7 +54,7 @@ object JavaReverseDomainNameModulePath : XdmModulePathFactory {
                 when {
                     path.startsWith("java:") -> null // Java paths are not converted by BaseX.
                     path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
-                    path.startsWith("file://") -> JavaModulePath(project, path, false) // Keep file URLs intact.
+                    path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
                     path.contains("://") -> createUri(project, path) // BaseX
                     path.contains(":") -> createUrn(project, path) // BaseX
                     else -> createRelative(project, path) // BaseX

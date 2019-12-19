@@ -265,15 +265,7 @@ private class JavaReverseDomainNameModulePathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("file:///C:/lorem/ipsum", context, null as PsiElement?)
             val path = JavaReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.project, `is`(sameInstance(myProject)))
-                    assertThat(path.classPath, `is`("file:///C:/lorem/ipsum"))
-                    assertThat(path.voidThis, `is`(false))
-                }
-                else -> assertThat(path, `is`(nullValue()))
-            }
+            assertThat(path, `is`(nullValue()))
         }
     }
 
