@@ -39,7 +39,10 @@ object JavaModuleLoader : XdmModuleLoaderFactory, XdmModuleLoader {
     }
 
     override fun context(path: XdmModulePath): XdmStaticContext? {
-        return null
+        return when (path) {
+            is JavaTypePath -> path
+            else -> null
+        }
     }
 
     // endregion

@@ -20,12 +20,13 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 
-class JavaTypePath(val project: Project) : XdmModulePath {
+class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")
     private val facade: Any? = try {
         facadeClass?.getMethod("getInstance", Project::class.java)?.invoke(null, project)
