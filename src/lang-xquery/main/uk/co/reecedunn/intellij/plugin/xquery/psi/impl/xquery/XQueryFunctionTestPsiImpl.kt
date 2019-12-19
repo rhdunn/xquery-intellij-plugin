@@ -45,7 +45,7 @@ class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        val annotations = annotations.map { (it as ItemPresentation).presentableText }.filterNotNull().joinToString(" ")
+        val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")
         "$annotations ${(functionTest as XdmItemType).typeName}"
     }
     override val typeName get(): String = cachedTypeName.get()!!

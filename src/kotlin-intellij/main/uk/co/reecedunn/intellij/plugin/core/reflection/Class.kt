@@ -35,5 +35,5 @@ fun Class<*>.getMethodOrNull(name: String, vararg parameterTypes: Class<*>): Met
 }
 
 fun Class<*>.getAnyMethod(vararg names: String): Method {
-    return names.asSequence().map { name -> getMethodOrNull(name) }.filterNotNull().first()
+    return names.asSequence().mapNotNull { name -> getMethodOrNull(name) }.first()
 }

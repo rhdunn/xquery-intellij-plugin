@@ -31,15 +31,15 @@ interface XdmModulePathFactory {
 }
 
 fun XsAnyUriValue.paths(project: Project): Sequence<XdmModulePath> {
-    return XdmModulePathFactory.EP_NAME.extensions.asSequence().map { it.create(project, this) }.filterNotNull()
+    return XdmModulePathFactory.EP_NAME.extensions.asSequence().mapNotNull { it.create(project, this) }
 }
 
 fun XsAnyUriValue.resolve(project: Project): PsiElement? {
     val loaders = XdmModuleLoaderSettings.getInstance(project)
-    return paths(project).map { loaders.resolve(it) }.filterNotNull().firstOrNull()
+    return paths(project).mapNotNull { loaders.resolve(it) }.firstOrNull()
 }
 
 fun XsAnyUriValue.context(project: Project): XdmStaticContext? {
     val loaders = XdmModuleLoaderSettings.getInstance(project)
-    return paths(project).map { loaders.context(it) }.filterNotNull().firstOrNull()
+    return paths(project).mapNotNull { loaders.context(it) }.firstOrNull()
 }
