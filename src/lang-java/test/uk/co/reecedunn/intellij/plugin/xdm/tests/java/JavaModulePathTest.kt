@@ -453,7 +453,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
-                    assertThat(path.classPath, `is`(".lorem.ipsum.xqy"))
+                    assertThat(path.classPath, `is`("lorem.ipsum.xqy"))
                     assertThat(path.voidThis, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))

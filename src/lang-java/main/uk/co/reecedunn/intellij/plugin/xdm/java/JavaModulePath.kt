@@ -77,6 +77,7 @@ class JavaModulePath private constructor(
                         path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
                         path.contains("://") -> createUri(project, path) // BaseX
                         path.contains(":") -> createUrn(project, path) // BaseX
+                        path.startsWith("/") -> createRelative(project, path.substring(1).split('/')) // BaseX
                         path.contains("/") -> createRelative(project, path.split('/')) // BaseX
                         else -> JavaModulePath(project, path, false) // BaseX, Saxon
                     }
