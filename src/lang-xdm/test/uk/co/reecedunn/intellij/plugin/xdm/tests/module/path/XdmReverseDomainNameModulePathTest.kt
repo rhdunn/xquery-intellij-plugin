@@ -82,6 +82,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
 
         @Test
+        @DisplayName("with dots in path")
+        fun withDotsInPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("http://www.example.com/lorem.ipsum", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
         @DisplayName("with path, trailing slash")
         fun withPathTrailingSlash() {
             XdmUriContext.values().forEach { context ->
@@ -134,6 +151,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = XsAnyUri("https://www.example.com/lorem/ipsum", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
+        @DisplayName("with dots in path")
+        fun withDotsInPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("https://www.example.com/lorem.ipsum", context, null as PsiElement?)
                 val path = XdmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {

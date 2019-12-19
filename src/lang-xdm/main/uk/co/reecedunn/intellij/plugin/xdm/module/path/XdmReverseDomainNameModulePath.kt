@@ -24,7 +24,7 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
     private fun createUri(path: String): XdmModuleLocationPath? {
         val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
         val rdn = parts[0].split('.').reversed()
-        val rest = parts.drop(1)
+        val rest = parts.drop(1).map { it.replace('.', '/') }
         return when {
             rest.isEmpty() -> createRelative("${rdn.joinToString("/")}/")
             else -> createRelative(listOf(rdn, rest).flatten().joinToString("/"))
