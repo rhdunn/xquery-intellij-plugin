@@ -18,16 +18,23 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
 class XdmModuleLoaderSettings : XdmModuleLoader {
+    private val loaders = CacheableProperty {
+        listOf(
+            XdmModuleLoaderFactory.create("java", null)
+        )
+    }
+
     override fun resolve(path: XdmModulePath): PsiElement? {
-        return null
+        return loaders.get()?.asSequence()?.mapNotNull { it?.resolve(path) }?.firstOrNull()
     }
 
     override fun context(path: XdmModulePath): XdmStaticContext? {
-        return null
+        return loaders.get()?.asSequence()?.mapNotNull { it?.context(path) }?.firstOrNull()
     }
 
     companion object {

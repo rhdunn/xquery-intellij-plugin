@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -60,6 +61,8 @@ abstract class ParserTestCase :
 
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath)
+
+        registerExtensionPoint(XdmModuleLoaderFactory.EP_NAME, XdmModuleLoaderFactory::class.java)
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)

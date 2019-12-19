@@ -20,6 +20,10 @@ import com.intellij.openapi.extensions.ExtensionPointName
 interface XdmModuleLoaderFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XdmModuleLoaderFactory>("uk.co.reecedunn.intellij.moduleLoaderFactory")
+
+        fun create(id: String, context: String?): XdmModuleLoader? {
+            return EP_NAME.extensions.find { it.id == id }?.loader(context)
+        }
     }
 
     val id: String
