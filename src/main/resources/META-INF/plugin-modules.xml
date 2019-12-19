@@ -21,6 +21,10 @@
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath$Companion"/>
 
+    <!-- Module Loaders -->
+
+    <moduleLoaderFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleLoader"/>
+
     <!-- Import Paths : Deprecated by Module Paths -->
 
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
