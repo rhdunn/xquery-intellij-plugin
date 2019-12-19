@@ -200,14 +200,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("xmldb:exist:///db/modules/lorem/ipsum.xqm", context, null as PsiElement?)
             val path = XdmReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("xmldb:exist:///db/modules/lorem/ipsum.xqm"))
-                    assertThat(path.isResource, `is`(nullValue()))
-                }
-                else -> assertThat(path, `is`(nullValue()))
-            }
+            assertThat(path, `is`(nullValue()))
         }
     }
 

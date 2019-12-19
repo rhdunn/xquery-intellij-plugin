@@ -27,6 +27,7 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
                 when {
                     path.isEmpty() -> null
                     path.startsWith("java:") -> null // Java paths are not converted by BaseX.
+                    path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
                     else -> XdmModuleLocationPath(path, null)
                 }
             }
