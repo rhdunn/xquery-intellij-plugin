@@ -30,20 +30,21 @@ object JavaReverseDomainNameModulePath : XdmModulePathFactory {
         val rdn = parts[0].split('.').reversed()
         val rest = parts.drop(1).map { it.replace('.', '/') }
         return when {
-            rest.isEmpty() -> createRelative(project, "${rdn.joinToString("/")}/")
-            else -> createRelative(project, listOf(rdn, rest).flatten().joinToString("/"))
+            rest.isEmpty() -> createRelative(project, listOf(rdn, listOf("")).flatten())
+            else -> createRelative(project, listOf(rdn, rest).flatten())
         }
     }
 
     private fun createUrn(project: Project, path: String): JavaModulePath? {
-        return createRelative(project, path.replace(':', '/'))
+        return createRelative(project, path.split(':'))
     }
 
-    private fun createRelative(project: Project, path: String): JavaModulePath? {
+    private fun createRelative(project: Project, paths: List<String>): JavaModulePath? {
+        val path = paths.map { it.replace(SPECIAL_CHARACTERS, "-") }
         return when {
-            path.isEmpty() -> null
-            path.endsWith('/') -> JavaModulePath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", false)
-            else -> JavaModulePath(project, path.replace(SPECIAL_CHARACTERS, "-"), false)
+            path.size == 1 && path.last().isEmpty() -> null
+            path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString("/")}index", false)
+            else -> JavaModulePath(project, path.joinToString("/"), false)
         }
     }
 
@@ -57,7 +58,7 @@ object JavaReverseDomainNameModulePath : XdmModulePathFactory {
                     path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
                     path.contains("://") -> createUri(project, path) // BaseX
                     path.contains(":") -> createUrn(project, path) // BaseX
-                    else -> createRelative(project, path) // BaseX
+                    else -> createRelative(project, path.split('/')) // BaseX
                 }
             }
             else -> null
