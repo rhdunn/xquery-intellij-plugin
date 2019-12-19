@@ -99,6 +99,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
 
         @Test
+        @DisplayName("with replacement characters in path")
+        fun withReplacementCharactersInPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("http://www.example.com/lorem^ipsum\$dolor12sed*emit", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
         @DisplayName("with path, trailing slash")
         fun withPathTrailingSlash() {
             XdmUriContext.values().forEach { context ->
@@ -181,6 +198,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
 
         @Test
+        @DisplayName("with replacement characters in path")
+        fun withReplacementCharactersInPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("https://www.example.com/lorem^ipsum\$dolor12sed*emit", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
         @DisplayName("with path, trailing slash")
         fun withPathTrailingSlash() {
             XdmUriContext.values().forEach { context ->
@@ -232,19 +266,40 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
     }
 
-    @Test
+    @Nested
     @DisplayName("URN scheme")
-    fun urnScheme() {
-        XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("urn:lorem:ipsum", context, null as PsiElement?)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("urn/lorem/ipsum"))
-                    assertThat(path.isResource, `is`(nullValue()))
+    internal inner class UrnScheme {
+        @Test
+        @DisplayName("urn")
+        fun urn() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("urn:lorem:ipsum", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("urn/lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
                 }
-                else -> assertThat(path, `is`(nullValue()))
+            }
+        }
+
+        @Test
+        @DisplayName("with replacement characters in path")
+        fun withReplacementCharactersInPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("urn:a:b:lorem^ipsum\$dolor12sed*emit", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("urn/a/b/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
             }
         }
     }
@@ -320,6 +375,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.path, `is`("lorem/ipsum/index"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Test
+        @DisplayName("with replacement characters in path")
+        fun withReplacementCharactersInPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("a/b/lorem^ipsum\$dolor12sed*emit", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("a/b/lorem-ipsum-dolor12sed-emit"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
