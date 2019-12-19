@@ -20,6 +20,18 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 object XdmReverseDomainNameModulePath : XdmModulePathFactory {
+    private fun createUri(path: String): XdmModuleLocationPath {
+        return createRelative(path)
+    }
+
+    private fun createUrn(path: String): XdmModuleLocationPath {
+        return createRelative(path.replace(':', '/'))
+    }
+
+    private fun createRelative(path: String): XdmModuleLocationPath {
+        return XdmModuleLocationPath(path, null)
+    }
+
     override fun create(project: Project, uri: XsAnyUriValue): XdmModuleLocationPath? {
         return when (uri.context) {
             XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
@@ -28,7 +40,10 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
                     path.isEmpty() -> null
                     path.startsWith("java:") -> null // Java paths are not converted by BaseX.
                     path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
-                    else -> XdmModuleLocationPath(path, null)
+                    path.startsWith("file://") -> XdmModuleLocationPath(path, null) // Keep file URLs intact.
+                    path.contains("://") -> createUri(path)
+                    path.contains(":") -> createUrn(path)
+                    else -> createRelative(path)
                 }
             }
             else -> null
