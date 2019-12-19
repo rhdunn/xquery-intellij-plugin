@@ -10,13 +10,18 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- Module Paths -->
+
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmReverseDomainNameModulePath"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath$Companion"/>
+
+    <!-- Import Paths : Deprecated by Module Paths -->
 
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
@@ -27,6 +32,8 @@
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions"/>
     <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions"/>
+
+    <!-- Query Processors -->
 
     <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>
     <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest"/>
