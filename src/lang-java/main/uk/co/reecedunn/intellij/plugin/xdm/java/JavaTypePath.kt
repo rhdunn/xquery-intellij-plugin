@@ -36,9 +36,11 @@ class JavaTypePath(val project: Project) : XdmModulePath {
     val isJavaPluginEnabled: Boolean = facade != null
 
     fun findClass(qualifiedName: String): PsiElement? {
-        val scope = GlobalSearchScope.allScope(project)
-        return facadeClass?.getMethod("findClass", String::class.java, GlobalSearchScope::class.java)
-            ?.invoke(facade, qualifiedName, scope) as PsiElement?
+        return facade?.let {
+            val scope = GlobalSearchScope.allScope(project)
+            facadeClass?.getMethod("findClass", String::class.java, GlobalSearchScope::class.java)
+                ?.invoke(it, qualifiedName, scope) as PsiElement?
+        }
     }
 
     override fun resolve(): PsiElement? = null

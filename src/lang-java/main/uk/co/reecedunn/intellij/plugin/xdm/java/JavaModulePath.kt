@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.java
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
@@ -25,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 /**
  * BaseX, eXist-db, and Saxon allow declaring a namespace to a Java class.
  */
-class JavaModulePath internal constructor(
+class JavaModulePath private constructor(
     val project: Project,
     val classPath: String,
     val voidThis: Boolean
@@ -33,21 +34,51 @@ class JavaModulePath internal constructor(
     override fun resolve(): PsiElement? = JavaTypePath.getInstance(project).findClass(classPath)
 
     companion object : XdmModulePathFactory {
-        private val NOT_JAVA_PATH: Regex = "[/:]".toRegex()
+        private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
+
+        private fun createJava(project: Project, path: String): JavaModulePath? {
+            return if (path.endsWith("?void=this")) // Saxon 9.7
+                JavaModulePath(project, path.substring(5, path.length - 10), true)
+            else // BaseX, eXist-db, Saxon
+                JavaModulePath(project, path.substring(5), false)
+        }
+
+        private fun createUri(project: Project, path: String): JavaModulePath? {
+            val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
+            val rdn = parts[0].split('.').reversed()
+            val rest = parts.drop(1).map { it.replace('.', '/') }
+            return when {
+                rest.isEmpty() -> createRelative(project, listOf(rdn, listOf("")).flatten())
+                else -> createRelative(project, listOf(rdn, rest).flatten())
+            }
+        }
+
+        private fun createUrn(project: Project, path: String): JavaModulePath? {
+            return createRelative(project, path.split(':'))
+        }
+
+        private fun createRelative(project: Project, paths: List<String>): JavaModulePath? {
+            val path = paths.map { it.replace(SPECIAL_CHARACTERS, "-") }
+            return when {
+                path.size == 1 && path.last().isEmpty() -> null
+                path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString("/")}index", false)
+                else -> JavaModulePath(project, path.joinToString("/"), false)
+            }
+        }
 
         override fun create(project: Project, uri: XsAnyUriValue): JavaModulePath? {
             return when (uri.context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     val path = uri.data
                     when {
-                        path.startsWith("java:") -> {
-                            if (path.endsWith("?void=this")) // Saxon 9.7
-                                JavaModulePath(project, path.substring(5, path.length - 10), true)
-                            else // BaseX, eXist-db, Saxon
-                                JavaModulePath(project, path.substring(5), false)
-                        }
-                        path.contains(NOT_JAVA_PATH) || path.isEmpty() -> null
-                        else -> JavaModulePath(project, path, false) // BaseX
+                        path.isEmpty() -> null
+                        path.startsWith("java:") -> createJava(project, path) // BaseX, eXist-db, Saxon
+                        path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
+                        path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
+                        path.contains("://") -> createUri(project, path) // BaseX
+                        path.contains(":") -> createUrn(project, path) // BaseX
+                        path.contains("/") -> createRelative(project, path.split('/')) // BaseX
+                        else -> JavaModulePath(project, path, false) // BaseX, Saxon
                     }
                 }
                 else -> null
