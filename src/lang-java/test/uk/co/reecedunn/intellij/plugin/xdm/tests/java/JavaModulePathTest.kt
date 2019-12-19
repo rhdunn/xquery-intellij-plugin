@@ -128,7 +128,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
-                        assertThat(path.classPath, `is`("com.example.www.lorem.ipsum.index"))
+                        assertThat(path.classPath, `is`("com.example.www.lorem.ipsum.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -146,7 +146,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
-                        assertThat(path.classPath, `is`("com.example.www.index"))
+                        assertThat(path.classPath, `is`("com.example.www.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -232,7 +232,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
-                        assertThat(path.classPath, `is`("com.example.www.lorem.ipsum.index"))
+                        assertThat(path.classPath, `is`("com.example.www.lorem.ipsum.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -250,7 +250,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
-                        assertThat(path.classPath, `is`("com.example.www.index"))
+                        assertThat(path.classPath, `is`("com.example.www.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -398,7 +398,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
-                        assertThat(path.classPath, `is`("lorem.ipsum.index"))
+                        assertThat(path.classPath, `is`("lorem.ipsum.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
                     else -> assertThat(path, `is`(nullValue()))

@@ -61,7 +61,7 @@ class JavaModulePath private constructor(
             val path = paths.map { it.replace(SPECIAL_CHARACTERS, "-") }
             return when {
                 path.size == 1 && path.last().isEmpty() -> null
-                path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString(".")}index", false)
+                path.last().isEmpty() -> JavaModulePath(project, "${path.joinToString(".")}Index", false)
                 else -> JavaModulePath(project, path.joinToString("."), false)
             }
         }
