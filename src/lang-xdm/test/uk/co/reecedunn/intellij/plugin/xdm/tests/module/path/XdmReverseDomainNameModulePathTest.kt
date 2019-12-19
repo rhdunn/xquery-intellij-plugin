@@ -398,6 +398,23 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 }
             }
         }
+
+        @Test
+        @DisplayName("local file")
+        fun localFile() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("lorem.xqy", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("lorem.xqy"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
+                }
+            }
+        }
     }
 
     @Test

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaReverseDomainNameModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmReverseDomainNameModulePath
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - BaseX Reverse Domain Name Java Paths")
@@ -407,6 +408,16 @@ private class JavaReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 }
             }
         }
+
+        @Test
+        @DisplayName("local file")
+        fun localFile() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("lorem.xqy", context, null as PsiElement?)
+                val path = JavaReverseDomainNameModulePath.create(myProject, uri)
+                assertThat(path, `is`(nullValue()))
+            }
+        }
     }
 
     @Test
@@ -443,15 +454,7 @@ private class JavaReverseDomainNameModulePathTest : PlatformLiteFixture() {
         XdmUriContext.values().forEach { context ->
             val uri = XsAnyUri("java.lang.String", context, null as PsiElement?)
             val path = JavaReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.project, `is`(sameInstance(myProject)))
-                    assertThat(path.classPath, `is`("java.lang.String"))
-                    assertThat(path.voidThis, `is`(false))
-                }
-                else -> assertThat(path, `is`(nullValue()))
-            }
+            assertThat(path, `is`(nullValue()))
         }
     }
 

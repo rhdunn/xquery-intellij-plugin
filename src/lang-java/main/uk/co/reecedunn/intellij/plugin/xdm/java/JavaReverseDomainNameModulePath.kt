@@ -58,7 +58,8 @@ object JavaReverseDomainNameModulePath : XdmModulePathFactory {
                     path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
                     path.contains("://") -> createUri(project, path) // BaseX
                     path.contains(":") -> createUrn(project, path) // BaseX
-                    else -> createRelative(project, path.split('/')) // BaseX
+                    path.contains("/") -> createRelative(project, path.split('/')) // BaseX
+                    else -> null // Handled by JavaModulePath
                 }
             }
             else -> null
