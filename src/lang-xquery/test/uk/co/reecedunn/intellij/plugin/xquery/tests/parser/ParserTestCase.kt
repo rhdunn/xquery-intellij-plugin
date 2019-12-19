@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -55,6 +56,7 @@ abstract class ParserTestCase :
         myProject.registerService(ModuleManager::class.java, manager)
 
         myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
+        myProject.registerService(XdmModuleLoaderSettings::class.java, XdmModuleLoaderSettings())
 
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath)
