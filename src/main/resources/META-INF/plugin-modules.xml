@@ -11,6 +11,7 @@
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath$Companion"/>
+    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaReverseDomainNameModulePath"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmReverseDomainNameModulePath"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath$Companion"/>
 
