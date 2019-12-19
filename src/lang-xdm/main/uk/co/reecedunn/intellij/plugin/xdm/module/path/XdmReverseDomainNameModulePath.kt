@@ -26,6 +26,7 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
                 val path = uri.data
                 when {
                     path.isEmpty() -> null
+                    path.startsWith("java:") -> null // Java paths are not converted by BaseX.
                     else -> XdmModuleLocationPath(path, null)
                 }
             }
