@@ -17,7 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.path
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 
 interface XdmModulePathFactory {
     companion object {
@@ -29,4 +32,14 @@ interface XdmModulePathFactory {
 
 fun XsAnyUriValue.paths(project: Project): Sequence<XdmModulePath> {
     return XdmModulePathFactory.EP_NAME.extensions.asSequence().map { it.create(project, this) }.filterNotNull()
+}
+
+fun XsAnyUriValue.resolve(project: Project): PsiElement? {
+    val loaders = XdmModuleLoaderSettings.getInstance(project)
+    return paths(project).map { loaders.resolve(it) }.filterNotNull().firstOrNull()
+}
+
+fun XsAnyUriValue.context(project: Project): XdmStaticContext? {
+    val loaders = XdmModuleLoaderSettings.getInstance(project)
+    return paths(project).map { loaders.context(it) }.filterNotNull().firstOrNull()
 }
