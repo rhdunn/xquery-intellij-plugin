@@ -51,36 +51,64 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         }
     }
 
-    @Test
-    @DisplayName("HTTP scheme URL")
-    fun httpScheme() {
-        XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("http://www.example.com/lorem/ipsum", context, null as PsiElement?)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
-                    assertThat(path.isResource, `is`(nullValue()))
+    @Nested
+    @DisplayName("HTTP scheme")
+    internal inner class HttpScheme {
+        @Test
+        @DisplayName("scheme only")
+        fun schemeOnly() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("http://", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                assertThat(path, `is`(nullValue()))
+            }
+        }
+
+        @Test
+        @DisplayName("with path")
+        fun withPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("http://www.example.com/lorem/ipsum", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
                 }
-                else -> assertThat(path, `is`(nullValue()))
             }
         }
     }
 
-    @Test
-    @DisplayName("HTTPS scheme URL")
-    fun httpsScheme() {
-        XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("https://www.example.com/lorem/ipsum", context, null as PsiElement?)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
-            when (context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
-                    assertThat(path.isResource, `is`(nullValue()))
+    @Nested
+    @DisplayName("HTTPS scheme")
+    internal inner class HttpsScheme {
+        @Test
+        @DisplayName("scheme only")
+        fun schemeOnly() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("https://", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                assertThat(path, `is`(nullValue()))
+            }
+        }
+
+        @Test
+        @DisplayName("with path")
+        fun withPath() {
+            XdmUriContext.values().forEach { context ->
+                val uri = XsAnyUri("https://www.example.com/lorem/ipsum", context, null as PsiElement?)
+                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                when (context) {
+                    XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                        assertThat(path, `is`(notNullValue()))
+                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.isResource, `is`(nullValue()))
+                    }
+                    else -> assertThat(path, `is`(nullValue()))
                 }
-                else -> assertThat(path, `is`(nullValue()))
             }
         }
     }

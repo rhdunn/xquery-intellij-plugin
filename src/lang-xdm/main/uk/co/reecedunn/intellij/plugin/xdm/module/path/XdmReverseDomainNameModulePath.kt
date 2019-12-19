@@ -20,18 +20,18 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 object XdmReverseDomainNameModulePath : XdmModulePathFactory {
-    private fun createUri(path: String): XdmModuleLocationPath {
+    private fun createUri(path: String): XdmModuleLocationPath? {
         val parts = path.substringAfter("://").split('/')
         val rdn = parts[0].split('.').reversed()
         return createRelative(listOf(rdn, parts.drop(1)).flatten().joinToString("/"))
     }
 
-    private fun createUrn(path: String): XdmModuleLocationPath {
+    private fun createUrn(path: String): XdmModuleLocationPath? {
         return createRelative(path.replace(':', '/'))
     }
 
-    private fun createRelative(path: String): XdmModuleLocationPath {
-        return XdmModuleLocationPath(path, null)
+    private fun createRelative(path: String): XdmModuleLocationPath? {
+        return if (path.isEmpty()) null else XdmModuleLocationPath(path, null)
     }
 
     override fun create(project: Project, uri: XsAnyUriValue): XdmModuleLocationPath? {
@@ -39,7 +39,6 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
             XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                 val path = uri.data
                 when {
-                    path.isEmpty() -> null
                     path.startsWith("java:") -> null // Java paths are not converted by BaseX.
                     path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
                     path.startsWith("file://") -> XdmModuleLocationPath(path, null) // Keep file URLs intact.
