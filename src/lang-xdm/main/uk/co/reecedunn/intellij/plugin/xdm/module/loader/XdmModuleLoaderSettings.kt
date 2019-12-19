@@ -23,11 +23,15 @@ import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
 class XdmModuleLoaderSettings : XdmModuleLoader {
-    private val loaders = CacheableProperty {
-        listOf(
-            XdmModuleLoaderFactory.create("java", null)
-        )
-    }
+    var loaderBeans: List<XdmModuleLoaderBean> = listOf(
+        XdmModuleLoaderBean("java", null)
+    )
+        set(value) {
+            field = value
+            loaders.invalidate()
+        }
+
+    private val loaders = CacheableProperty { loaderBeans.map { it.loader } }
 
     override fun resolve(path: XdmModulePath): PsiElement? {
         return loaders.get()?.asSequence()?.mapNotNull { it?.resolve(path) }?.firstOrNull()

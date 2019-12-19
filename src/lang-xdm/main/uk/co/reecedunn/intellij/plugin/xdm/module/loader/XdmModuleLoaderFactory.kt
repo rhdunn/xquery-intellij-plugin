@@ -30,3 +30,7 @@ interface XdmModuleLoaderFactory {
 
     fun loader(context: String?): XdmModuleLoader
 }
+
+data class XdmModuleLoaderBean(var id: String = "", var context: String? = null) {
+    val loader: XdmModuleLoader? get() = XdmModuleLoaderFactory.create(id, context)
+}
