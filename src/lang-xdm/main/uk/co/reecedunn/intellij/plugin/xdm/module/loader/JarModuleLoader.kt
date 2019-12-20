@@ -65,8 +65,6 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
     // region XdmModuleLoaderFactory
 
     companion object : XdmModuleLoaderFactory {
-        override val id: String = "jar"
-
         override fun loader(context: String?): XdmModuleLoader? {
             try {
                 val path = context?.let { File(context) } ?: return null

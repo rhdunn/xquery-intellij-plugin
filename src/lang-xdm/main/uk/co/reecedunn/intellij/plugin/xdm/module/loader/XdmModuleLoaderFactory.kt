@@ -24,8 +24,8 @@ interface XdmModuleLoaderFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XdmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
 
-        fun create(id: String, context: String?): XdmModuleLoader? {
-            return EP_NAME.extensions.find { it.name == id }?.let {
+        fun create(name: String, context: String?): XdmModuleLoader? {
+            return EP_NAME.extensions.find { it.name == name }?.let {
                 val container = ApplicationManager.getApplication().picoContainer
                 val instance = it.instantiateBean<XdmModuleLoaderFactory>(it.implementation, container)
                 instance.loader(context)
@@ -33,12 +33,10 @@ interface XdmModuleLoaderFactory {
         }
     }
 
-    val id: String
-
     fun loader(context: String?): XdmModuleLoader?
 }
 
 @Tag("moduleLoader")
-data class XdmModuleLoaderBean(var id: String = "", var context: String? = null) {
-    val loader: XdmModuleLoader? get() = XdmModuleLoaderFactory.create(id, context)
+data class XdmModuleLoaderBean(var name: String = "", var context: String? = null) {
+    val loader: XdmModuleLoader? get() = XdmModuleLoaderFactory.create(name, context)
 }

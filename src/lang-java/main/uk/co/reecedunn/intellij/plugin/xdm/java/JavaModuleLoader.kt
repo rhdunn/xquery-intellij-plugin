@@ -24,8 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 object JavaModuleLoader : XdmModuleLoaderFactory, XdmModuleLoader {
     // region XdmModuleLoaderFactory
 
-    override val id: String = "java"
-
     override fun loader(context: String?): XdmModuleLoader = this
 
     // endregion
