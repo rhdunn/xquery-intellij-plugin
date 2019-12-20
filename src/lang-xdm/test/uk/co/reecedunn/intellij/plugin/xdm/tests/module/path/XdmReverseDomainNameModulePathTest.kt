@@ -73,7 +73,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -90,7 +91,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -107,7 +109,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -124,7 +127,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum/index"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem/ipsum/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -141,7 +145,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/index"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -172,7 +177,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -189,7 +195,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -206,7 +213,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -223,7 +231,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/lorem/ipsum/index"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/lorem/ipsum/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -240,7 +249,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("com/example/www/index"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("com/example/www/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -258,7 +268,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("file:///C:/lorem/ipsum"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("file:///C:/lorem/ipsum"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -278,7 +289,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("urn/lorem/ipsum"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("urn/lorem/ipsum"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -295,7 +307,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("urn/a/b/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("urn/a/b/lorem-ipsum-dolor12sed-emit"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -313,7 +326,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("resource/org/lorem/ipsum.xqm"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("resource/org/lorem/ipsum.xqm"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -357,7 +371,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("lorem/ipsum"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("lorem/ipsum"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -374,7 +389,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("lorem/ipsum/index"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("lorem/ipsum/index"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -391,7 +407,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("a/b/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("a/b/lorem-ipsum-dolor12sed-emit"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -408,7 +425,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
-                        assertThat(path!!.path, `is`("lorem.xqy"))
+                        assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.path, `is`("lorem.xqy"))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -426,7 +444,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("/lorem/ipsum.xqy"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("/lorem/ipsum.xqy"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -453,7 +472,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("java.lang.String"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("java.lang.String"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -470,7 +490,8 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("net/sf/saxon/java-type"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("net/sf/saxon/java-type"))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))

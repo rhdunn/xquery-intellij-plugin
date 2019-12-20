@@ -20,7 +20,11 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
-class XdmModuleLocationPath internal constructor(val path: String, val isResource: Boolean?) : XdmModulePath {
+class XdmModuleLocationPath internal constructor(
+    val project: Project,
+    val path: String,
+    val isResource: Boolean?
+) : XdmModulePath {
     override fun resolve(): PsiElement? = null
 
     companion object : XdmModulePathFactory {
@@ -33,10 +37,10 @@ class XdmModuleLocationPath internal constructor(val path: String, val isResourc
                     val path = uri.data
                     when {
                         path.isEmpty() -> null
-                        path.startsWith(EXISTDB_PATH) -> XdmModuleLocationPath(path.substring(14), false) // eXist-db
-                        path.startsWith(RES_PATH) -> XdmModuleLocationPath(path.substring(9), true) // eXist-db
+                        path.startsWith(EXISTDB_PATH) -> XdmModuleLocationPath(project, path.substring(14), false) // eXist-db
+                        path.startsWith(RES_PATH) -> XdmModuleLocationPath(project, path.substring(9), true) // eXist-db
                         path.contains(':') && !path.contains('/') -> null
-                        else -> XdmModuleLocationPath(path, false) // eXist-db, MarkLogic
+                        else -> XdmModuleLocationPath(project, path, false) // eXist-db, MarkLogic
                     }
                 }
                 else -> null

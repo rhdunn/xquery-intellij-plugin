@@ -60,7 +60,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("http://www.example.com/lorem/ipsum"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("http://www.example.com/lorem/ipsum"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -77,7 +78,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("https://www.example.com/lorem/ipsum"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("https://www.example.com/lorem/ipsum"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -94,7 +96,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("file:///C:/lorem/ipsum"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("file:///C:/lorem/ipsum"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -121,7 +124,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("org/lorem/ipsum.xqm"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("org/lorem/ipsum.xqm"))
                     assertThat(path.isResource, `is`(true))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -162,7 +166,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("lorem/ipsum"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("lorem/ipsum"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -179,7 +184,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("/lorem/ipsum.xqy"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("/lorem/ipsum.xqy"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -196,7 +202,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("/db/modules/lorem/ipsum.xqm"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("/db/modules/lorem/ipsum.xqm"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -213,7 +220,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("java.lang.String"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("java.lang.String"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -230,7 +238,8 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
             when (context) {
                 XdmUriContext.Location -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.path, `is`("http://saxon.sf.net/java-type"))
+                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.path, `is`("http://saxon.sf.net/java-type"))
                     assertThat(path.isResource, `is`(false))
                 }
                 else -> assertThat(path, `is`(nullValue()))
