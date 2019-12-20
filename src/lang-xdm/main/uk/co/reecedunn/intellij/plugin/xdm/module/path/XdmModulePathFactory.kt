@@ -34,12 +34,12 @@ fun XsAnyUriValue.paths(project: Project): Sequence<XdmModulePath> {
     return XdmModulePathFactory.EP_NAME.extensions.asSequence().mapNotNull { it.create(project, this) }
 }
 
-fun XsAnyUriValue.resolve(project: Project): PsiElement? {
+fun XsAnyUriValue.resolve(project: Project, extensions: Array<String> = arrayOf()): PsiElement? {
     val loaders = XdmModuleLoaderSettings.getInstance(project)
-    return paths(project).mapNotNull { loaders.resolve(it) }.firstOrNull()
+    return paths(project).mapNotNull { loaders.resolve(it, extensions) }.firstOrNull()
 }
 
-fun XsAnyUriValue.context(project: Project): XdmStaticContext? {
+fun XsAnyUriValue.context(project: Project, extensions: Array<String> = arrayOf()): XdmStaticContext? {
     val loaders = XdmModuleLoaderSettings.getInstance(project)
-    return paths(project).mapNotNull { loaders.context(it) }.firstOrNull()
+    return paths(project).mapNotNull { loaders.context(it, extensions) }.firstOrNull()
 }
