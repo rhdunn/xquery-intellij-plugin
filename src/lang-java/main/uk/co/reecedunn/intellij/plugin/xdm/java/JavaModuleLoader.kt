@@ -29,7 +29,7 @@ object JavaModuleLoader : XdmModuleLoaderFactory, XdmModuleLoader {
     override fun loader(context: String?): XdmModuleLoader = this
 
     // endregion
-    // region XdmModuleLoaderFactory
+    // region XdmModuleLoader
 
     override fun resolve(path: XdmModulePath): PsiElement? {
         return when (path) {
