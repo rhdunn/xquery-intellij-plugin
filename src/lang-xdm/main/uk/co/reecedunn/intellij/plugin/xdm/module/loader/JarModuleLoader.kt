@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module
+package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.JarModuleLoader
 
-abstract class JarModuleResolver : ImportPathResolver {
-    abstract val classLoader: ClassLoader
+class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res") {
+    // region VirtualFileSystem
 
-    abstract val modules: Map<String, String>
+    private val cache: HashMap<String, VirtualFile?> = HashMap()
 
-    private val filesystem by lazy { JarModuleLoader(classLoader) }
+    private fun findCacheableFile(path: String): VirtualFile? = ResourceVirtualFile(classLoader, path, this)
 
-    override fun match(path: String): Boolean = modules.containsKey(path)
+    override fun findFileByPath(path: String): VirtualFile? {
+        return cache[path] ?: findCacheableFile(path)?.let {
+            cache[path] = it
+            it
+        }
+    }
 
-    override fun resolve(path: String): VirtualFile? = modules[path]?.let { filesystem.findFileByPath(it) }
+    override fun refresh(asynchronous: Boolean) {
+        cache.clear()
+    }
+
+    // endregion
 }
