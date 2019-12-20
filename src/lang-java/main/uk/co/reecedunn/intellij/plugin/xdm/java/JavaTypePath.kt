@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
+import java.lang.reflect.InvocationTargetException
 
 class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")
@@ -39,8 +40,12 @@ class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
     fun findClass(qualifiedName: String): PsiElement? {
         return facade?.let {
             val scope = GlobalSearchScope.allScope(project)
-            facadeClass?.getMethod("findClass", String::class.java, GlobalSearchScope::class.java)
-                ?.invoke(it, qualifiedName, scope) as PsiElement?
+            try {
+                facadeClass?.getMethod("findClass", String::class.java, GlobalSearchScope::class.java)
+                    ?.invoke(it, qualifiedName, scope) as PsiElement?
+            } catch (e: InvocationTargetException) {
+                throw e.targetException // e.g. ProcessCancelledException, or IndexNotReadyException
+            }
         }
     }
 
