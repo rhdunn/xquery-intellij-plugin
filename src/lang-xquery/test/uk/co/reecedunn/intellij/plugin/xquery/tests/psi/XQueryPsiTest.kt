@@ -60,12 +60,12 @@ import java.math.BigInteger
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(XQueryPsiTest::class.java.classLoader, resource)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 
     override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(ResourceVirtualFile(XQueryPsiTest::class.java.classLoader, "tests/module-xquery"))
+        manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
     }
 
     @Nested

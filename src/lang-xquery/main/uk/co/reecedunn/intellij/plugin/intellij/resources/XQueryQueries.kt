@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 
 object XQueryQueries {
     private fun resourceFile(path: String): VirtualFile {
-        val file = ResourceVirtualFile(XQueryQueries::class.java.classLoader, path)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
     }

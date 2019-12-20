@@ -29,7 +29,7 @@ import java.io.IOException
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
 class ResourceVirtualFileTest {
     private fun createFile(path: String): VirtualFile {
-        return ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, path, TestVirtualFileSystem)
+        return ResourceVirtualFile.create(this::class.java.classLoader, path, TestVirtualFileSystem)
     }
 
     @Test

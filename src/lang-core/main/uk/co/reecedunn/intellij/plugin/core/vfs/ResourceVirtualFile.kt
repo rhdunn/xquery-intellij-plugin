@@ -26,7 +26,7 @@ import java.io.OutputStream
 import java.net.JarURLConnection
 import java.net.URISyntaxException
 
-class ResourceVirtualFile(
+class ResourceVirtualFile private constructor(
     private val mLoader: ClassLoader,
     private val mResource: String,
     private val mFileSystem: VirtualFileSystem? = null
@@ -111,5 +111,11 @@ class ResourceVirtualFile(
     @Throws(IOException::class)
     override fun getInputStream(): InputStream? {
         return if (isDirectory) null else mLoader.getResourceAsStream(mResource)
+    }
+
+    companion object {
+        fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): ResourceVirtualFile {
+            return ResourceVirtualFile(loader, resource, fileSystem)
+        }
     }
 }

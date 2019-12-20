@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery Update Facility 3.0 - Implementation Conformance Checks")
 private class UpdateFacilityConformanceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(UpdateFacilityConformanceTest::class.java.classLoader, resource)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

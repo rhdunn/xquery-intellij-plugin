@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 object BaseXQueries {
     private fun resourceFile(path: String): VirtualFile {
-        val file = ResourceVirtualFile(BaseXQueries::class.java.classLoader, path)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
     }

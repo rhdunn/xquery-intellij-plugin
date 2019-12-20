@@ -30,12 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 @DisplayName("XQuery IntelliJ Plugin - XPath Parser")
 private class PluginParserTest : ParserTestCase() {
     fun parseResource(resource: String): XPath {
-        val file = ResourceVirtualFile(PluginParserTest::class.java.classLoader, resource)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 
     fun loadResource(resource: String): String? {
-        return ResourceVirtualFile(PluginParserTest::class.java.classLoader, resource).decode()
+        return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
     }
 
     @Nested

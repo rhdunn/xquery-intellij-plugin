@@ -30,12 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @DisplayName("XQuery 3.1 with Full Text 3.0 - Lexer")
 private class FullTextParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 
     fun loadResource(resource: String): String? {
-        return ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource).decode()
+        return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
     }
 
     @Nested

@@ -30,12 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 @Suppress("ClassName", "Reformat")
 private class XPathParserTest : ParserTestCase() {
     fun parseResource(resource: String): XPath {
-        val file = ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource)
+        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 
     fun loadResource(resource: String): String? {
-        return ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource).decode()
+        return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
     }
 
     @Nested
