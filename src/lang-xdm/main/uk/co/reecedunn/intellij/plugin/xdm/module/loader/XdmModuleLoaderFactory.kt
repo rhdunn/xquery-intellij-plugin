@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
+import uk.co.reecedunn.compat.extensions.instantiateBean
 
 interface XdmModuleLoaderFactory {
     companion object {
@@ -26,7 +27,7 @@ interface XdmModuleLoaderFactory {
         fun create(id: String, context: String?): XdmModuleLoader? {
             return EP_NAME.extensions.find { it.name == id }?.let {
                 val container = ApplicationManager.getApplication().picoContainer
-                val instance = it.instantiate<XdmModuleLoaderFactory>(it.implementation, container)
+                val instance = it.instantiateBean<XdmModuleLoaderFactory>(it.implementation, container)
                 instance.loader(context)
             }
         }
