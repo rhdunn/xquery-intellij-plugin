@@ -19,6 +19,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
@@ -28,7 +29,7 @@ class XPathBracedURILiteralReference(element: XPathEQName, range: TextRange) :
 
     override fun resolve(): PsiElement? {
         val uri = (element as XsQNameValue).namespace ?: return null
-        return uri.resolve(element.project) ?: uri.resolveUri()
+        return uri.resolve(element.project, XdmModulePathFactory.XQUERY_EXTENSIONS) ?: uri.resolveUri()
     }
 
     override fun getVariants(): Array<Any> = arrayOf()

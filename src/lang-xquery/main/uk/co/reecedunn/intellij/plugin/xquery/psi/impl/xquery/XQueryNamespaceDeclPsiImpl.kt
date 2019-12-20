@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -36,7 +37,9 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
 
     override val prolog
         get(): Sequence<XQueryProlog> {
-            val file = namespaceUri?.let { it.resolve(project) ?: it.resolveUri<XQueryModule>(true) }
+            val file = namespaceUri?.let {
+                it.resolve(project, XdmModulePathFactory.XQUERY_EXTENSIONS) ?: it.resolveUri<XQueryModule>(true)
+            }
             val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
             return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
         }

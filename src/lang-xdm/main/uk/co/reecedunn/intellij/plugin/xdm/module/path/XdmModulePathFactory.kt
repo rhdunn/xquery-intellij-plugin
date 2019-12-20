@@ -25,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 interface XdmModulePathFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XdmModulePathFactory>("uk.co.reecedunn.intellij.modulePathFactory")
+
+        val XQUERY_EXTENSIONS = arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")
     }
 
     fun create(project: Project, uri: XsAnyUriValue): XdmModulePath?
@@ -34,12 +36,12 @@ fun XsAnyUriValue.paths(project: Project): Sequence<XdmModulePath> {
     return XdmModulePathFactory.EP_NAME.extensions.asSequence().mapNotNull { it.create(project, this) }
 }
 
-fun XsAnyUriValue.resolve(project: Project, extensions: Array<String> = arrayOf()): PsiElement? {
+fun XsAnyUriValue.resolve(project: Project, extensions: Array<String>): PsiElement? {
     val loaders = XdmModuleLoaderSettings.getInstance(project)
     return paths(project).mapNotNull { loaders.resolve(it, extensions) }.firstOrNull()
 }
 
-fun XsAnyUriValue.context(project: Project, extensions: Array<String> = arrayOf()): XdmStaticContext? {
+fun XsAnyUriValue.context(project: Project, extensions: Array<String>): XdmStaticContext? {
     val loaders = XdmModuleLoaderSettings.getInstance(project)
     return paths(project).mapNotNull { loaders.context(it, extensions) }.firstOrNull()
 }
