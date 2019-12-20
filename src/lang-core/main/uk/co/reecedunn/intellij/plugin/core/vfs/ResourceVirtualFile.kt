@@ -30,7 +30,7 @@ class ResourceVirtualFile private constructor(
     private val mResource: String,
     private val mFileSystem: VirtualFileSystem?,
     private var mFile: File?,
-    private var mPath: String?
+    private var mPath: String
 ) : VirtualFile() {
     private var mParent: String? = null
     private var mName: String? = null
@@ -50,7 +50,7 @@ class ResourceVirtualFile private constructor(
 
     override fun getFileSystem(): VirtualFileSystem = mFileSystem ?: throw UnsupportedOperationException()
 
-    override fun getPath(): String = mPath ?: ""
+    override fun getPath(): String = mPath
 
     override fun isWritable(): Boolean = false
 
@@ -100,7 +100,7 @@ class ResourceVirtualFile private constructor(
     companion object {
         fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): ResourceVirtualFile {
             return createIfValid(loader, resource, fileSystem)
-                ?: ResourceVirtualFile(loader, resource, fileSystem, null, null)
+                ?: ResourceVirtualFile(loader, resource, fileSystem, null, "")
         }
 
         fun createIfValid(
