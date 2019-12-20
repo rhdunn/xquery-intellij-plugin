@@ -20,10 +20,11 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.xml.XmlElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
 
 class XsltNSColorProvider : XmlNSColorProvider {
     override fun getKeyForNamespace(namespace: String?, context: XmlElement?): TextAttributesKey? {
-        return if ((context as? XmlTag)?.namespace == XSLT.NAMESPACE)
+        return if ((context as? XmlTag)?.namespace == XSLT.NAMESPACE && !isIntellijXPathPluginEnabled())
             XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
         else
             null
