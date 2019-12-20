@@ -31,7 +31,9 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
 
     private val cache: HashMap<String, VirtualFile?> = HashMap()
 
-    private fun findCacheableFile(path: String): VirtualFile? = ResourceVirtualFile.create(classLoader, path, this)
+    private fun findCacheableFile(path: String): VirtualFile? {
+        return ResourceVirtualFile.createIfValid(classLoader, path, this)
+    }
 
     override fun findFileByPath(path: String): VirtualFile? {
         return cache[path] ?: findCacheableFile(path)?.let {
