@@ -69,7 +69,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         get(): PsiElement {
             val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
             val previous = element?.siblings()?.reversed()?.filterNotWhitespace()?.firstOrNull()
-            return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element!!
+            return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element
         }
 
     // endregion
