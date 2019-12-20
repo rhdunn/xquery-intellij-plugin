@@ -24,6 +24,7 @@
     <!-- Module Loaders -->
 
     <moduleLoaderFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleLoader"/>
+    <moduleLoaderFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.JarModuleLoader$Companion"/>
 
     <!-- Import Paths : Deprecated by Module Paths -->
 

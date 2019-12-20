@@ -29,7 +29,7 @@ interface XdmModuleLoaderFactory {
 
     val id: String
 
-    fun loader(context: String?): XdmModuleLoader
+    fun loader(context: String?): XdmModuleLoader?
 }
 
 @Tag("moduleLoader")

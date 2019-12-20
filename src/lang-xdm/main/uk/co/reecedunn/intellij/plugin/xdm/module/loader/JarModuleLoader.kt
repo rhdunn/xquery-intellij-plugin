@@ -23,6 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import java.io.File
+import java.net.URLClassLoader
 
 class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res"), XdmModuleLoader {
     // region VirtualFileSystem
@@ -56,6 +58,23 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
         return when (path) {
             is XdmModuleLocationPath -> resolve(path) as? XdmStaticContext
             else -> null
+        }
+    }
+
+    // endregion
+    // region XdmModuleLoaderFactory
+
+    companion object : XdmModuleLoaderFactory {
+        override val id: String = "jar"
+
+        override fun loader(context: String?): XdmModuleLoader? {
+            try {
+                val path = context?.let { File(context) } ?: return null
+                val classLoader = URLClassLoader(arrayOf(path.toURI().toURL()))
+                return JarModuleLoader(classLoader)
+            } catch (_: Throwable) {
+                return null
+            }
         }
     }
 
