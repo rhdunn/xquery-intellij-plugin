@@ -15,15 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
 
 interface XdmModuleLoaderFactory {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XdmModuleLoaderFactory>("uk.co.reecedunn.intellij.moduleLoaderFactory")
+        val EP_NAME = ExtensionPointName.create<XdmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
 
         fun create(id: String, context: String?): XdmModuleLoader? {
-            return EP_NAME.extensions.find { it.id == id }?.loader(context)
+            return EP_NAME.extensions.find { it.name == id }?.let {
+                val container = ApplicationManager.getApplication().picoContainer
+                val instance = it.instantiate<XdmModuleLoaderFactory>(it.implementation, container)
+                instance.loader(context)
+            }
         }
     }
 
