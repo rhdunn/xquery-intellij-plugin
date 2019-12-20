@@ -31,27 +31,31 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
 
     private val cache: HashMap<String, VirtualFile?> = HashMap()
 
-    private fun findCacheableFile(path: String): VirtualFile? {
+    private fun findCacheableFile(path: String, extensions: Array<String>): VirtualFile? {
+        extensions.forEach {
+            val file = ResourceVirtualFile.createIfValid(classLoader, "$path$it", this)
+            if (file != null) return file
+        }
         return ResourceVirtualFile.createIfValid(classLoader, path, this)
     }
 
-    override fun findFileByPath(path: String): VirtualFile? {
-        return cache[path] ?: findCacheableFile(path)?.let {
+    private fun findFileByPath(path: String, extensions: Array<String>): VirtualFile? {
+        return cache[path] ?: findCacheableFile(path, extensions)?.let {
             cache[path] = it
             it
         }
     }
 
-    override fun refresh(asynchronous: Boolean) {
-        cache.clear()
-    }
+    override fun findFileByPath(path: String): VirtualFile? = findFileByPath(path, arrayOf())
+
+    override fun refresh(asynchronous: Boolean) = cache.clear()
 
     // endregion
     // region XdmModuleLoader
 
     override fun resolve(path: XdmModulePath, extensions: Array<String>): PsiElement? {
         return when (path) {
-            is XdmModuleLocationPath -> findFileByPath(path.path)?.toPsiFile(path.project)
+            is XdmModuleLocationPath -> findFileByPath(path.path, extensions)?.toPsiFile(path.project)
             else -> null
         }
     }
