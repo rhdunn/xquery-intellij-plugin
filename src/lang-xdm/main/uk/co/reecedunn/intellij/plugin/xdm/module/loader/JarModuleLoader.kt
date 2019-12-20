@@ -16,10 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
-class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res") {
+class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res"), XdmModuleLoader {
     // region VirtualFileSystem
 
     private val cache: HashMap<String, VirtualFile?> = HashMap()
@@ -35,6 +40,23 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
 
     override fun refresh(asynchronous: Boolean) {
         cache.clear()
+    }
+
+    // endregion
+    // region XdmModuleLoader
+
+    override fun resolve(path: XdmModulePath): PsiElement? {
+        return when (path) {
+            is XdmModuleLocationPath -> findFileByPath(path.path)?.toPsiFile(path.project)
+            else -> null
+        }
+    }
+
+    override fun context(path: XdmModulePath): XdmStaticContext? {
+        return when (path) {
+            is XdmModuleLocationPath -> resolve(path) as? XdmStaticContext
+            else -> null
+        }
     }
 
     // endregion
