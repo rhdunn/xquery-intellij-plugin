@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
@@ -59,13 +60,13 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
             val locations = locationUris
             return if (locations.any())
                 locations.flatMap { uri ->
-                    val file = uri.resolveUri<XQueryModule>()
+                    val file = uri.resolve(project) ?: uri.resolveUri<XQueryModule>()
                     val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
                 }.filterNotNull()
             else
                 namespaceUri?.let { uri ->
-                    val file = uri.resolveUri<XQueryModule>()
+                    val file = uri.resolve(project) ?: uri.resolveUri<XQueryModule>()
                     val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
                 } ?: emptySequence()
