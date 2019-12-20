@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,16 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.net.JarURLConnection
-import java.net.URISyntaxException
 
 class ResourceVirtualFile private constructor(
     private val mLoader: ClassLoader,
     private val mResource: String,
-    private val mFileSystem: VirtualFileSystem? = null
+    private val mFileSystem: VirtualFileSystem?,
+    private var mFile: File?,
+    private var mPath: String?
 ) : VirtualFile() {
     private var mParent: String? = null
     private var mName: String? = null
-    private var mFile: File? = null
-    private var mPath: String? = null
 
     init {
         val idx = mResource.lastIndexOf('/')
@@ -44,21 +43,6 @@ class ResourceVirtualFile private constructor(
         } else {
             mParent = mResource.substring(0, idx)
             mName = mResource.substring(idx + 1)
-        }
-
-        val url = mLoader.getResource(mResource)
-        if (url != null) try {
-            if (url.protocol == "file") {
-                mFile = File(url.toURI())
-                mPath = mFile?.path
-            } else if (url.protocol == "jar") {
-                val connection = url.openConnection() as JarURLConnection
-                mFile = File(connection.jarFileURL.toURI())
-                mPath = "${mFile!!.path}!/$mResource"
-            }
-        } catch (e: URISyntaxException) {
-            //
-        } catch (e: IOException) {
         }
     }
 
@@ -75,7 +59,7 @@ class ResourceVirtualFile private constructor(
     override fun isValid(): Boolean = mFile != null
 
     override fun getParent(): VirtualFile? {
-        return if (mParent == null) null else ResourceVirtualFile(mLoader, mParent!!, mFileSystem)
+        return if (mParent == null) null else create(mLoader, mParent!!, mFileSystem)
     }
 
     override fun getChildren(): Array<VirtualFile>? {
@@ -84,7 +68,7 @@ class ResourceVirtualFile private constructor(
         }
 
         val children = mFile!!.list() ?: return null
-        return children.map { child -> ResourceVirtualFile(mLoader, "$mResource/$child", mFileSystem) }.toTypedArray()
+        return children.map { child -> create(mLoader, "$mResource/$child", mFileSystem) }.toTypedArray()
     }
 
     @Throws(IOException::class)
@@ -115,7 +99,29 @@ class ResourceVirtualFile private constructor(
 
     companion object {
         fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): ResourceVirtualFile {
-            return ResourceVirtualFile(loader, resource, fileSystem)
+            return createIfValid(loader, resource, fileSystem)
+                ?: ResourceVirtualFile(loader, resource, fileSystem, null, null)
+        }
+
+        fun createIfValid(
+            loader: ClassLoader,
+            resource: String,
+            fileSystem: VirtualFileSystem? = null
+        ): ResourceVirtualFile? {
+            return loader.getResource(resource)?.let {
+                when (it.protocol) {
+                    "file" -> {
+                        val file = File(it.toURI())
+                        ResourceVirtualFile(loader, resource, fileSystem, file, file.path)
+                    }
+                    "jar" -> {
+                        val connection = it.openConnection() as JarURLConnection
+                        val file = File(connection.jarFileURL.toURI())
+                        ResourceVirtualFile(loader, resource, fileSystem, file, "${file.path}!/$resource")
+                    }
+                    else -> null
+                }
+            }
         }
     }
 }
