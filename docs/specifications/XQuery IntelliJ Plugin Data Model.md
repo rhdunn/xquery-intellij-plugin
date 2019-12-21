@@ -22,7 +22,8 @@ various inspections.
 
 {: .toc }
 - [1 Introduction](#1-introduction)
-- [2 Concepts](#2-concepts)
+  - [1.1 PSI Tree and Data Model Construction](#11-psi-tree-and-data-model-construction)
+- [2 Basics](#2-basics)
   - [2.1 Type System](#21-type-system)
     - [2.1.1 Part 1: Items](#211-part-1-items)
     - [2.1.2 Part 2: Simple and Complex Types](#212-part-2-simple-and-complex-types)
@@ -51,6 +52,45 @@ data model needed to support these extensions is detailed in this document.
 
 The plugin data model extensions are to fill in gaps within the type system and
 to provide static type analysis.
+
+### 1.1 PSI Tree and Data Model Construction
+
+An XQuery document is parsed according to the combined XQuery, Full Text,
+Updating, Scripting, and Vendor syntax described in the
+[XQuery IntelliJ Plugin 1.6 XQuery](XQuery%20IntelliJ%20Plugin%20XQuery.md)
+document. The XQuery parser extends the XPath 2.0 parser to avoid duplicating
+code between the two parsers.
+
+An XPath 2.0 and later *expression*, *pattern*, and *sequence-type* are parsed
+according to the combined XPath, Full Text, and Vendor syntax described in the
+[XQuery IntelliJ Plugin 1.6 XPath](XQuery%20IntelliJ%20Plugin%20XPath.md)
+document. The *pattern* syntax is validated using the conformance checking
+intention used to check vendor specific, extension, or later version syntax
+constructs.¹
+
+An XPath 1.0 *expression*, *pattern*, and *sequence-type* is parsed according to
+the [XPath 1.0 as 2.0 EBNF Grammar](XPath%201.0%20as%202.0%20EBNF%20Grammar.md)
+document.¹ The extra-grammatical constraints and *pattern* syntax are validated
+using the conformance checking intention used to check vendor specific, extension,
+or later version syntax constructs.¹
+
+The XPath expression or XQuery file is parsed into an AST tree called a PSI tree
+by IntelliJ. These nodes are modelled on the XPath and XQuery symbols with a
+concrete class and corresponding interface. The XQuery symbols that are also
+XPath symbols are modelled as XPath PSI elements to avoid duplicating logic
+between the XPath and XQuery PSI trees.
+
+Symbols that are just a list of possible types, such as `ExprSingle` are only
+defined as an interface, to avoid adding unnecessary nodes to the PSI tree.
+If a symbol is only forwarding to another symbol, such as when a `RangeExpr`
+does not have a `to` part, the corresponding PSI element is omitted from the
+PSI tree to further simplify the model in memory.
+
+The PSI tree elements implement the model described in this document.
+
+1.  This functionality is not currently supported in the XQuery IntelliJ Plugin.
+    This is a specification for how that functionality is intended to be
+    implemented.
 
 ## 2 Basics
 This document uses the following namespace prefixes to represent the namespace
