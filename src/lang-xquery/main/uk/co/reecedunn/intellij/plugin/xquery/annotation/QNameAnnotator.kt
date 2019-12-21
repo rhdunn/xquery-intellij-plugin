@@ -85,13 +85,10 @@ class QNameAnnotator : Annotator {
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
-            val separator = qname.children().filter {
-                it.node.elementType === XPathTokenType.QNAME_SEPARATOR ||
-                        it.node.elementType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR ||
-                        it.node.elementType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
-            }.first()
-            checkQNameWhitespaceBefore(qname, separator, holder)
-            checkQNameWhitespaceAfter(qname, separator, holder)
+            qname.children().filter { it.node.elementType === XPathTokenType.QNAME_SEPARATOR }.firstOrNull()?.let {
+                checkQNameWhitespaceBefore(qname, it, holder)
+                checkQNameWhitespaceAfter(qname, it, holder)
+            }
         } else {
             xmlns = false
         }

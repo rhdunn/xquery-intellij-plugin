@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -33,6 +34,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (120) Wildcard")
     internal inner class Wildcard {
+        @Test
+        @DisplayName("any")
+        fun any() {
+            val file = parse<XQueryModule>("*")[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(0))
+        }
+
         @Test
         @DisplayName("prefix: identifier")
         fun wildcard() {

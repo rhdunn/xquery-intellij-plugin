@@ -33,6 +33,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @DisplayName("XPath 3.1 EBNF (48) Wildcard")
     internal inner class Wildcard {
         @Test
+        @DisplayName("any")
+        fun any() {
+            val file = parse<XPath>("*")[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(0))
+        }
+
+        @Test
         @DisplayName("prefix: identifier")
         fun wildcard() {
             val file = parse<XPath>("lorem:*")[0]
