@@ -35,13 +35,7 @@ class XPathWildcardPsiImpl(node: ASTNode) :
 
     override val prefix get(): XsNCNameValue? = if (isLexicalQName) names.first() else null
 
-    override val localName
-        get(): XsNCNameValue? {
-            return if (isLexicalQName)
-                names.toList().let { if (it.size == 2) it[1] else null }
-            else
-                names.first()
-        }
+    override val localName get(): XsNCNameValue? = if (isLexicalQName) names.last() else names.first()
 
     override val isLexicalQName get(): Boolean = namespace == null
 

@@ -2324,6 +2324,21 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (120) Wildcard")
         internal inner class Wildcard {
             @Test
+            @DisplayName("any")
+            fun any() {
+                val qname = parse<XPathWildcard>("*")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.prefix!!.data, `is`("*"))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+
+            @Test
             @DisplayName("wildcard prefix; wildcard local name")
             fun bothWildcard() {
                 val qname = parse<XPathWildcard>("*:*")[0] as XsQNameValue
@@ -2379,7 +2394,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.prefix!!.data, `is`("*"))
 
-                assertThat(qname.localName, `is`(nullValue()))
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
             }
 
             @Test
