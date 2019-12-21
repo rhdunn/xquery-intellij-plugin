@@ -41,6 +41,7 @@ various inspections.
 - [4 Data Model](#4-data-model)
   - [4.1 Sequence Types](#41-sequence-types)
   - [4.2 Atomic Type Values](#42-atomic-type-values)
+  - [4.3 EQNames and Wildcards](#43-eqnames-and-wildcards)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -531,6 +532,43 @@ The `xs:anyURI` representation is `String` as the content is not validated at
 the point the PSI tree is constructed. This is to permit partially typed URIs,
 or incorrectly typed URIs, to be represented correctly without throwing
 malformed URI exceptions.
+
+### 4.3 EQNames and Wildcards
+
+| Symbol                            | Type           | Interface          | Representation |
+|-----------------------------------|----------------|--------------------|----------------|
+| `NCName`<sup><em>Names</em></sup> | `xs:NCName`    | `XsNCNameValue`    | `String`       |
+| `BracedURILiteral`                | `xs:anyURI`    | `XsAnyUriValue`    | `String`       |
+| `WildcardIndicator`               | `xdm:wildcard` | `XdmWildcardValue` | `String`       |
+
+The parts that make up an EQName implement the interface corresponding to their
+associated atomic type defined above. These have a *data* property that is the
+atomic type's value as represented by the given Java type.
+
+The `xs:anyURI` representation is `String` as the content is not validated at
+the point the PSI tree is constructed. This is to permit partially typed URIs,
+or incorrectly typed URIs, to be represented correctly without throwing
+malformed URI exceptions.
+
+The `XsQNameValue` interface has the following properties:
+1.  *namespace*;
+1.  *prefix*;
+1.  *local name*;
+1.  *is lexical qname*.
+
+| Symbol             | namespace | prefix | local name | is lexical qname |
+|--------------------|-----------|--------|------------|------------------|
+| `QName`            | no        | yes    | yes        | true             |
+| `NCName`           | no        | no     | yes        | true             |
+| `URIQualifiedName` | yes       | no     | yes        | false            |
+
+The `Wildcard` symbol is also an `XsQNameValue`, with the properties mirroring
+the `NCName`, `QName`, or `URIQualifiedName`. The prefix or local parts can be
+an instance of `xdm:wildcard` to indicate that any value matches.
+
+A QName can be expanded, where a sequence of expanded QNames is returned with
+the namespace bound to the namespace of the matching namespace declarations in
+the prolog or any direct elements.
 
 ## A References
 
