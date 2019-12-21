@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.5 Data Model
+title: XQuery IntelliJ Plugin 1.6 Data Model
 ---
 
 This document includes material copied from or derived from the XPath and
@@ -69,6 +69,10 @@ not normative.
 
 ### 2.1 Type System
 
+The names in square brackets in the type diagrams are the Java/Kotlin interfaces
+in the `uk.co.reecedunn.intellij.plugin.xdm.model` package of `lang-xdm` that
+are used to model the specified type.
+
 #### 2.1.1 Part 1: Items
 
 <pre><code>item()
@@ -104,7 +108,7 @@ not normative.
 │    ├─── map(*)
 │    └─── array(*)
 ├─── annotation(*)
-└─── xs:anyAtomicType ──────────────────────────────────── See Part 3
+└─── xs:anyAtomicType [XsAnyAtomicType] ────────────────── See Part 3
 </code></pre>
 
 The `array-node()`, `boolean-node()`, `null-node()`, `number-node()`, and
@@ -119,18 +123,18 @@ The `binary()` type is a MarkLogic item type.
 
 #### 2.1.2 Part 2: Simple and Complex Types
 
-<pre><code>xs:anyType
-├─── xdm:anyComplexType
+<pre><code>xs:anyType [XsAnyType]
+├─── xdm:anyComplexType [XdmAnyComplexType]
 │    ├─── xs:untyped
 │    └─── <em>user-defined complex types</em>
-└─── xs:anySimpleType
-     ├─── xs:anyAtomicType ─────────────────────────────── See Part 3
-     ├─── xdm:anyListType
+└─── xs:anySimpleType [XsAnySimpleType]
+     ├─── xs:anyAtomicType [XsAnyAtomicType] ───────────── See Part 3
+     ├─── xdm:anyListType [XdmAnyListType]
      │    ├─── xs:IDREFS
      │    ├─── xs:NMTOKENS
      │    ├─── xs:ENTITIES
      │    └─── <em>user-defined list types</em>
-     └─── xdm:anyUnionType
+     └─── xdm:anyUnionType [XdmAnyUnionType]
           ├─── xs:numeric
           ├─── xs:error¹
           └─── <em>user-defined union types</em>
@@ -165,7 +169,7 @@ __xdm:anyUnionType__
 
 #### 2.1.3 Part 3: Atomic Types
 
-<pre><code>xs:anyAtomicType¹
+<pre><code>xs:anyAtomicType¹ [XsAnyAtomicType]
 ├─── xs:anyURI
 ├─── xs:base64Binary
 ├─── xs:boolean
