@@ -15,28 +15,44 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathUriLiteralReference
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node), XPathUriLiteral {
+class XQueryUriLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathUriLiteral {
+    // region PsiElement
+
     override fun getReference(): PsiReference {
         val range = textRange
         return XPathUriLiteralReference(this, TextRange(1, range.length - 1))
     }
 
-    override val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedValue.invalidate()
+    }
+
+    // endregion
+
+    override val value: XsAnyAtomicType get() = cachedValue.get()!!
+
+    private val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
         val context = when (parent) {
             is FTStopWords -> XdmUriContext.StopWords
             is FTThesaurusID -> XdmUriContext.Thesaurus
@@ -53,4 +69,22 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) : XQueryStringLiteralPsiImpl(node),
         }
         XsAnyUri(content, context, this)
     }
+
+    private val content: String
+        get() {
+            return children().map { child ->
+                when (child.node.elementType) {
+                    XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
+                        null
+                    XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
+                        (child as XQueryPredefinedEntityRef).entityRef.value
+                    XQueryTokenType.CHARACTER_REFERENCE ->
+                        (child as XQueryCharRef).codepoint.toString()
+                    XPathTokenType.ESCAPED_CHARACTER ->
+                        (child as XPathEscapeCharacter).unescapedValue
+                    else ->
+                        child.text
+                }
+            }.filterNotNull().joinToString(separator = "")
+        }
 }

@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-open class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
+class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedValue.invalidate()
@@ -36,9 +36,9 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
 
     override val value: XsAnyAtomicType get() = cachedValue.get()!!
 
-    protected open val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty { XsString(content, this) }
+    private val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty { XsString(content, this) }
 
-    protected val content: String
+    private val content: String
         get() {
             return children().map { child ->
                 when (child.node.elementType) {
