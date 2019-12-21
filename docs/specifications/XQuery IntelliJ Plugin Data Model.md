@@ -13,6 +13,11 @@ functionality that extends XQuery and associated W3C extensions. The
 plugin data model extensions are to fill in gaps within the type
 system and to provide static type analysis.
 
+This document also documents the internals of how the plugin models and
+processes XPath and XQuery constructs. These are used to implement
+IntelliJ integration such as inlay parameters, and static analysis for
+various inspections.
+
 ## Table of Contents
 
 {: .toc }
@@ -173,14 +178,14 @@ __xdm:anyUnionType__
 #### 2.1.3 Part 3: Atomic Types
 
 <pre><code>xs:anyAtomicType¹ [XsAnyAtomicType]
-├─── xs:anyURI
+├─── xs:anyURI [XsAnyUriValue]
 ├─── xs:base64Binary
 ├─── xs:boolean
 ├─── xs:date
 ├─── xs:dateTime
 │    └─── xs:dateTimeStamp²
-├─── xs:decimal
-│    └─── xs:integer
+├─── xs:decimal [XsDecimalValue³]
+│    └─── xs:integer [XsIntegerValue³]
 │         ├─── xs:long
 │         │    └─── xs:int
 │         │         └─── xs:short
@@ -193,8 +198,8 @@ __xdm:anyUnionType__
 │         │                   └─── xs:unsignedByte
 │         └─── xs:nonPositiveInteger
 │              └─── xs:negativeInteger
-├─── xs:double
-├─── xs:duration
+├─── xs:double [XsDoubleValue]
+├─── xs:duration [XsDurationValue]
 │    ├─── xs:dayTimeDuration¹
 │    └─── xs:yearMonthDuration¹
 ├─── xs:float
@@ -205,17 +210,17 @@ __xdm:anyUnionType__
 ├─── xs:gYearMonth
 ├─── xs:hexBinary
 ├─── xs:NOTATION
-├─── xs:QName
-├─── xs:string
-│    └─── xs:normalizedString
-│         ├─── xs:token
+├─── xs:QName [XsQNameValue]
+├─── xs:string [XsStringValue]
+│    └─── xs:normalizedString [XsNormalizedValue]
+│         ├─── xs:token [XsTokenValue]
 │         │    ├─── xs:language
-│         │    └─── xs:Name
-│         │         └─── xs:NCName
+│         │    └─── xs:Name [XsNameValue]
+│         │         └─── xs:NCName [XsNCNameValue]
 │         │              ├─── xs:ENTITY
 │         │              ├─── xs:ID
 │         │              ├─── xs:IDREF
-│         │              └─── xdm:wildcard
+│         │              └─── xdm:wildcard [XdmWildcardValue]
 │         └─── xs:NMTOKEN
 ├─── xs:time
 └─── xs:untypedAtomic
@@ -228,6 +233,11 @@ __xdm:anyUnionType__
 1.  `xs:dateTimeStamp` is defined in XML Schema 1.1 Part 2, but not in XQuery
     and XPath 3.1 Data Model. Support for this type is dependent on whether the
     implementation supports XML Schema 1.1.
+
+1.  In the interface hierarchy, `XsIntegerValue` is a base class of
+    `XsAnyAtomicType`, not `XsDecimalValue`. This is because `XsIntegerValue`
+    and `XsDecimalValue` are modelled as having different data value types,
+    so are incompatible in the API.
 
 The data model defines one additional atomic type: `xdm:wildcard`. This type is
 defined in an XQuery IntelliJ Plugin specific namespace.
