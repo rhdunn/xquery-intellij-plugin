@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -51,7 +50,7 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
 }

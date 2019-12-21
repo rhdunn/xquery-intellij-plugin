@@ -17,45 +17,44 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathUriLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathUriLiteral {
+class XPathUriLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue {
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedValue.invalidate()
+        cachedData.invalidate()
     }
 
-    override val value: XsAnyAtomicType get() = cachedValue.get()!!
+    override val element: PsiElement? get() = this
 
-    private val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty {
-        val context = when (parent) {
+    override val context: XdmUriContext
+        get() = when (parent) {
             is FTStopWords -> XdmUriContext.StopWords
             is FTThesaurusID -> XdmUriContext.Thesaurus
             else -> XdmUriContext.Namespace
         }
-        XsAnyUri(content, context, this)
-    }
 
-    private val content: String
-        get() {
-            return children().map { child ->
-                when (child.node.elementType) {
-                    XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                        null
-                    XPathTokenType.ESCAPED_CHARACTER ->
-                        (child as XPathEscapeCharacter).unescapedValue
-                    else ->
-                        child.text
-                }
-            }.filterNotNull().joinToString(separator = "")
-        }
+    override val data: String get() = cachedData.get()!!
+
+    private val cachedData: CacheableProperty<String> = CacheableProperty {
+        children().map { child ->
+            when (child.node.elementType) {
+                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
+                    null
+                XPathTokenType.ESCAPED_CHARACTER ->
+                    (child as XPathEscapeCharacter).unescapedValue
+                else ->
+                    child.text
+            }
+        }.filterNotNull().joinToString(separator = "")
+    }
 }

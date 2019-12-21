@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -34,11 +33,7 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
     override val namespacePrefix: XsNCNameValue? = null
 
     override val namespaceUri
-        get(): XsAnyUriValue? {
-            return children().filterIsInstance<XPathUriLiteral>().map { uri ->
-                uri.value as? XsAnyUriValue
-            }.filterNotNull().firstOrNull()
-        }
+        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XPathNamespaceType): Boolean {

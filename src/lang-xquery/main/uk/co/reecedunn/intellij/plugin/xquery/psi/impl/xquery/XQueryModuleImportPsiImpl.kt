@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -40,7 +39,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
     // region XQueryImport
@@ -48,9 +47,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
     override val locationUris
         get(): Sequence<XsAnyUriValue> {
             val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
-            return uris?.children()?.filterIsInstance<XPathUriLiteral>()?.map { uri ->
-                uri.value as XsAnyUriValue
-            }?.filterNotNull() ?: emptySequence()
+            return uris?.children()?.filterIsInstance<XsAnyUriValue>()?.filterNotNull() ?: emptySequence()
         }
 
     // endregion

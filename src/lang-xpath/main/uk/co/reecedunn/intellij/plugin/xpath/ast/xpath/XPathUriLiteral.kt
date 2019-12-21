@@ -21,6 +21,4 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
 /**
  * An XQuery 1.0 <code>URILiteral</code> node in the XQuery AST.
  */
-interface XPathUriLiteral : PsiElement {
-    val value: XsAnyAtomicType
-}
+interface XPathUriLiteral : PsiElement

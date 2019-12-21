@@ -28,7 +28,7 @@ class XPathUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
     PsiReferenceBase<XPathUriLiteral>(element, range) {
 
     override fun resolve(): PsiElement? {
-        val uri = element.value as XsAnyUriValue
+        val uri = element as XsAnyUriValue
         return uri.resolve(element.project, XdmModulePathFactory.XQUERY_EXTENSIONS) ?: uri.resolveUri()
     }
 

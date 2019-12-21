@@ -77,68 +77,50 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("uri literal content")
             fun uriLiteral() {
-                val psi = parse<XPathUriLiteral>("module namespace test = \"Lorem ipsum.\uFFFF\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
+                val literal = parse<XPathUriLiteral>("module namespace test = \"Lorem ipsum.\uFFFF\"")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("unclosed uri literal content")
             fun unclosedUriLiteral() {
-                val psi = parse<XPathUriLiteral>("module namespace test = \"Lorem ipsum.")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
+                val literal = parse<XPathUriLiteral>("module namespace test = \"Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
-                val psi = parse<XPathUriLiteral>("module namespace test = '''\"\"'")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
+                val literal = parse<XPathUriLiteral>("module namespace test = '''\"\"'")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("'\"\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
-                val psi = parse<XPathUriLiteral>("module namespace test = \"''\"\"\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
+                val literal = parse<XPathUriLiteral>("module namespace test = \"''\"\"\"")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("''\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val psi = parse<XPathUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
+                val literal = parse<XPathUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val psi = parse<XPathUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
+                val literal = parse<XPathUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
 

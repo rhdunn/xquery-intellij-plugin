@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
@@ -29,8 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
 class XQueryGroupingSpecPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryGroupingSpec, XPathVariableBinding {
     // region XQueryGroupingSpec
 
-    override val collation: XsAnyUriValue?
-        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+    override val collation: XsAnyUriValue? get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
     // region XPathVariableBinding

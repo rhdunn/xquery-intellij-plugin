@@ -18,11 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderModifier
 
 class XQueryOrderModifierPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryOrderModifier {
-    override val collation: XsAnyUriValue?
-        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+    override val collation: XsAnyUriValue? get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 }

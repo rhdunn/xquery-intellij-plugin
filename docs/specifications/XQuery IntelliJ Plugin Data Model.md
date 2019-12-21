@@ -521,10 +521,16 @@ the precise bounds as needed on the resolved types.
 | `DoubleLiteral`  | `xs:double`  | `XsDoubleLiteral` | `Double`       |
 | `IntegerLiteral` | `xs:integer` | `XsIntegerValue`  | `BigInteger`   |
 | `StringLiteral`  | `xs:string`  | `XsStringValue`   | `String`       |
+| `URILiteral`     | `xs:anyURI`  | `XsAnyUriValue`   | `String`       |
 
 The PSI elements for the literal symbols implement the interface corresponding
 to their associated atomic type defined above. These have a *data* property
 that is the literal's value as represented by the given Java type.
+
+The `xs:anyURI` representation is `String` as the content is not validated at
+the point the PSI tree is constructed. This is to permit partially typed URIs,
+or incorrectly typed URIs, to be represented correctly without throwing
+malformed URI exceptions.
 
 ## A References
 

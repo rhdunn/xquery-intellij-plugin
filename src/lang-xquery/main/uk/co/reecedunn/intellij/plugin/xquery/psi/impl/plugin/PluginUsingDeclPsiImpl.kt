@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 
@@ -35,7 +34,7 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     override fun accepts(namespaceType: XPathNamespaceType): Boolean {
         return namespaceType === XPathNamespaceType.DefaultFunctionRef // Usage only, not declaration.

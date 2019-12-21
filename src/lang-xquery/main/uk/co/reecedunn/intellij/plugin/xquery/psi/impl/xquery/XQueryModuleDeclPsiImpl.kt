@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
@@ -39,7 +38,7 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518

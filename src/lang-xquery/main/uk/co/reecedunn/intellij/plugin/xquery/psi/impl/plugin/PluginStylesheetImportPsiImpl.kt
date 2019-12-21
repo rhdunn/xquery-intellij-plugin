@@ -23,9 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 
 class PluginStylesheetImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginStylesheetImport, VersionConformance {
@@ -39,11 +37,7 @@ class PluginStylesheetImportPsiImpl(node: ASTNode) :
     // region XQueryImport
 
     override val locationUris
-        get(): Sequence<XsAnyUriValue> {
-            return children().filterIsInstance<XPathUriLiteral>().map { uri ->
-                uri.value as XsAnyUriValue
-            }.filterNotNull()
-        }
+        get(): Sequence<XsAnyUriValue> = children().filterIsInstance<XsAnyUriValue>().filterNotNull()
 
     // endregion
 }

@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 
 class XQuerySchemaImportPsiImpl(node: ASTNode) :
@@ -49,7 +48,7 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
         }
 
     override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
     // region XQueryImport
@@ -57,9 +56,7 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
     override val locationUris
         get(): Sequence<XsAnyUriValue> {
             val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
-            return uris?.children()?.filterIsInstance<XPathUriLiteral>()?.map { uri ->
-                uri.value as XsAnyUriValue
-            }?.filterNotNull() ?: emptySequence()
+            return uris?.children()?.filterIsInstance<XsAnyUriValue>()?.filterNotNull() ?: emptySequence()
         }
 
     // endregion

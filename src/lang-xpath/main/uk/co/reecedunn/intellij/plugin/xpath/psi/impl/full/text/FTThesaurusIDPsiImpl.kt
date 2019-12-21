@@ -24,5 +24,5 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 class FTThesaurusIDPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTThesaurusID {
     override val source: XsAnyUriValue?
-        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull() as? XsAnyUriValue
 }
