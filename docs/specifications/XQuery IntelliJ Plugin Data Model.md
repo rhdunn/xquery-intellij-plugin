@@ -121,6 +121,9 @@ schema types.
 
 The `binary()` type is a MarkLogic item type.
 
+The `annotation(*)` type is from the XPath NG annotation sequence types
+proposal.
+
 #### 2.1.2 Part 2: Simple and Complex Types
 
 <pre><code>xs:anyType [XsAnyType]
@@ -449,5 +452,7 @@ __XML Schema__
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
 
 ### A.2 XPath NG Proposals
+*  EXPath. *Proposal for Annotation Sequence Types*. EXPath Proposal. See
+   [https://github.com/expath/xpath-ng/pull/10]().
 *  EXPath. *Proposal for Restricted Sequences*. EXPath Proposal. See
    [https://github.com/expath/xpath-ng/pull/11]().
