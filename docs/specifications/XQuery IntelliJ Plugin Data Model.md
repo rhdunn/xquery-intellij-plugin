@@ -75,39 +75,39 @@ are used to model the specified type.
 
 #### 2.1.1 Part 1: Items
 
-<pre><code>item()
-├─── node()
-│    ├─── attribute()
+<pre><code>item() [XdmItem]
+├─── node() [XdmNode]
+│    ├─── attribute() [XdmAttribute]
 │    │    └─── <em>user-defined attribute types</em>
-│    ├─── document-node()
+│    ├─── document-node() [XdmDocument]
 │    │    └─── <em>document types with more precise content type</em>
-│    ├─── element()
+│    ├─── element() [XdmElement]
 │    │    └─── <em>user-defined element types</em>
-│    ├─── comment()
-│    ├─── namespace-node()
-│    ├─── processing-instruction()
-│    ├─── text()
-│    ├─── array-node()
-│    ├─── boolean-node()
-│    ├─── null-node()
-│    ├─── number-node()
-│    └─── object-node()
-├─── attribute-decl()
-├─── binary()
-├─── complex-type()
-├─── element-decl()
-├─── model-group()
-├─── schema-component()
-├─── schema-facet()
-├─── schema-particle()
-├─── schema-root()
-├─── schema-type()
-├─── schema-wildcard()
-├─── simple-type()
-├─── function(*)
-│    ├─── map(*)
-│    └─── array(*)
-├─── annotation(*)
+│    ├─── comment() [XdmComment]
+│    ├─── namespace-node() [XdmNamespace]
+│    ├─── processing-instruction() [XdmProcessingInstruction]
+│    ├─── text() [XdmText]
+│    ├─── array-node() [XdmArrayNode]
+│    ├─── boolean-node() [XdmBooleanNode]
+│    ├─── null-node() [XdmNullNode]
+│    ├─── number-node() [XdmNumberNode]
+│    └─── object-node() [XdmObjectNode]
+├─── attribute-decl() [XdmAttributeDecl]
+├─── binary() [XdmBinary]
+├─── complex-type() [XdmComplexType]
+├─── element-decl() [XdmElementDecl]
+├─── model-group() [XdmModelGroup]
+├─── schema-component() [XdmSchemaComponent]
+├─── schema-facet() [XdmSchemaFacet]
+├─── schema-particle() [XdmSchemaParticle]
+├─── schema-root() [XdmSchemaRoot]
+├─── schema-type() [XdmSchemaType]
+├─── schema-wildcard() [XdmSchemaWildcard]
+├─── simple-type() [XdmSimpleType]
+├─── function(*) [XdmFunction]
+│    ├─── map(*) [XdmMap]
+│    └─── array(*) [XdmArray]
+├─── annotation(*) [XdmAnnotation]
 └─── xs:anyAtomicType [XsAnyAtomicType] ────────────────── See Part 3
 </code></pre>
 
