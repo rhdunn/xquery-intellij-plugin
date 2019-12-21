@@ -40,7 +40,7 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
             when (it) {
                 is XsQNameValue -> it.localName
                 // TODO: Provide a way of validating that the StringLiteral is an NCName [XPTY0004].
-                is XPathStringLiteral -> XsNCName((it.value as XsStringValue).data.trim(), it)
+                is XPathStringLiteral -> XsNCName((it as XsStringValue).data.trim(), it)
                 else -> null
             }
         }.filterNotNull().firstOrNull()
@@ -53,7 +53,6 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
     override val typeName
         get(): String {
             return when (val name = nodeName) {
-                is XsNCNameValue -> "processing-instruction(${name.data})"
                 is XsStringValue -> "processing-instruction(${name.data})"
                 else -> "processing-instruction()"
             }

@@ -82,7 +82,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
                     is XQueryVersionDecl -> {
                         isFirst = false
                         val version = child.version
-                        val xquery = XQuerySpec.versionsForXQuery((version?.value as? XsStringValue)?.data)
+                        val xquery = XQuerySpec.versionsForXQuery((version as? XsStringValue)?.data)
                         XQueryVersionRef(version, xquery.firstOrNull())
                     }
                     is XQueryLibraryModule, is XQueryMainModule -> {

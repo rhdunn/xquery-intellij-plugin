@@ -1686,68 +1686,50 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("string literal content")
             fun stringLiteral() {
-                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XsStringValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("unclosed string literal content")
             fun unclosedStringLiteral() {
-                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XsStringValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
-                val psi = parse<XPathStringLiteral>("'''\"\"'")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XsStringValue
                 assertThat(literal.data, `is`("'\"\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
-                val psi = parse<XPathStringLiteral>("\"''\"\"\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XsStringValue
                 assertThat(literal.data, `is`("''\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val psi = parse<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XsStringValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val psi = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0] as XsStringValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
     }
@@ -4105,7 +4087,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("version, no encoding")
             fun versionOnly() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"1.0\";")[0]
-                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
                 assertThat(decl.encoding, `is`(nullValue()))
             }
 
@@ -4114,14 +4096,14 @@ private class XQueryPsiTest : ParserTestCase() {
             fun encodingOnly() {
                 val decl = parse<XQueryVersionDecl>("xquery encoding \"latin1\";")[0]
                 assertThat(decl.version, `is`(nullValue()))
-                assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+                assertThat((decl.encoding as XsStringValue).data, `is`("latin1"))
             }
 
             @Test
             @DisplayName("empty version, no encoding")
             fun emptyVersion() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"\";")[0]
-                assertThat((decl.version!!.value as XsStringValue).data, `is`(""))
+                assertThat((decl.version as XsStringValue).data, `is`(""))
                 assertThat(decl.encoding, `is`(nullValue()))
             }
 
@@ -4130,30 +4112,30 @@ private class XQueryPsiTest : ParserTestCase() {
             fun emptyEncoding() {
                 val decl = parse<XQueryVersionDecl>("xquery encoding \"\";")[0]
                 assertThat(decl.version, `is`(nullValue()))
-                assertThat((decl.encoding!!.value as XsStringValue).data, `is`(""))
+                assertThat((decl.encoding as XsStringValue).data, `is`(""))
             }
 
             @Test
             @DisplayName("version, encoding")
             fun versionAndEncoding() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"latin1\";")[0]
-                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-                assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.encoding as XsStringValue).data, `is`("latin1"))
             }
 
             @Test
             @DisplayName("version, empty encoding")
             fun emptyEncodingWithVersion() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"\";")[0]
-                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-                assertThat((decl.encoding!!.value as XsStringValue).data, `is`(""))
+                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.encoding as XsStringValue).data, `is`(""))
             }
 
             @Test
             @DisplayName("comment before declaration")
             fun commentBefore() {
                 val decl = parse<XQueryVersionDecl>("(: test :)\nxquery version \"1.0\";")[0]
-                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
                 assertThat(decl.encoding, `is`(nullValue()))
             }
 
@@ -4162,8 +4144,8 @@ private class XQueryPsiTest : ParserTestCase() {
             fun commentAsWhitespace() {
                 val decl =
                     parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
-                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-                assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.encoding as XsStringValue).data, `is`("latin1"))
             }
         }
     }

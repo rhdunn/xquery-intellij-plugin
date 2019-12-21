@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
@@ -24,28 +25,28 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsString
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
 
-class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
+class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedValue.invalidate()
+        cachedData.invalidate()
     }
 
-    override val value: XsAnyAtomicType get() = cachedValue.get()!!
+    override val element: PsiElement? get() = this
 
-    private val cachedValue: CacheableProperty<XsAnyAtomicType> = CacheableProperty { XsString(content, this) }
+    override val data: String get() = cachedData.get()!!
 
-    private val content: String
-        get() {
-            return children().map { child ->
-                when (child.node.elementType) {
-                    XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                        null
-                    XPathTokenType.ESCAPED_CHARACTER ->
-                        (child as XPathEscapeCharacter).unescapedValue
-                    else ->
-                        child.text
-                }
-            }.filterNotNull().joinToString(separator = "")
-        }
+    private val cachedData: CacheableProperty<String> = CacheableProperty {
+        children().map { child ->
+            when (child.node.elementType) {
+                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
+                    null
+                XPathTokenType.ESCAPED_CHARACTER ->
+                    (child as XPathEscapeCharacter).unescapedValue
+                else ->
+                    child.text
+            }
+        }.filterNotNull().joinToString(separator = "")
+    }
 }

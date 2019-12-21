@@ -520,6 +520,7 @@ the precise bounds as needed on the resolved types.
 | `DecimalLiteral` | `xs:decimal` | `XsDecimalValue`  | `BigDecimal`   |
 | `DoubleLiteral`  | `xs:double`  | `XsDoubleLiteral` | `Double`       |
 | `IntegerLiteral` | `xs:integer` | `XsIntegerValue`  | `BigInteger`   |
+| `StringLiteral`  | `xs:string`  | `XsStringValue`   | `String`       |
 
 The PSI elements for the literal symbols implement the interface corresponding
 to their associated atomic type defined above. These have a *data* property

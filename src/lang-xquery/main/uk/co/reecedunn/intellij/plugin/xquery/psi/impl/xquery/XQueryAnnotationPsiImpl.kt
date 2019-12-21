@@ -53,7 +53,7 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
             return children().map {
                 when (it) {
                     is XPathNumericLiteral -> it as XsAnyAtomicType
-                    is XPathStringLiteral -> it.value
+                    is XPathStringLiteral -> it as XsAnyAtomicType
                     else -> null
                 }
             }.filterNotNull()

@@ -1255,45 +1255,33 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("string literal content")
             fun stringLiteral() {
-                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XsStringValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("unclosed string literal content")
             fun unclosedStringLiteral() {
-                val psi = parse<XPathStringLiteral>("\"Lorem ipsum.")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XsStringValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
-                val psi = parse<XPathStringLiteral>("'''\"\"'")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XsStringValue
                 assertThat(literal.data, `is`("'\"\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
-                val psi = parse<XPathStringLiteral>("\"''\"\"\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
-
-                val literal = psi.value as XsStringValue
+                val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XsStringValue
                 assertThat(literal.data, `is`("''\""))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
     }

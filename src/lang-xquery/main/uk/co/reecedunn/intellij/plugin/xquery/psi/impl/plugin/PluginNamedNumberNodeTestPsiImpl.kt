@@ -33,7 +33,7 @@ class PluginNamedNumberNodeTestPsiImpl(node: ASTNode) :
     // region PluginNamedNumberNodeTest
 
     override val keyName: XsStringValue
-        get() = children().filterIsInstance<XPathStringLiteral>().first().value as XsStringValue
+        get() = children().filterIsInstance<XPathStringLiteral>().first() as XsStringValue
 
     // endregion
     // region XdmSequenceType
