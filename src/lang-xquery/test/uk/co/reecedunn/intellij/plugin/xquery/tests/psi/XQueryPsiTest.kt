@@ -4069,7 +4069,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("version, no encoding")
             fun versionOnly() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"1.0\";")[0]
-                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
+                assertThat(decl.version!!.data, `is`("1.0"))
                 assertThat(decl.encoding, `is`(nullValue()))
             }
 
@@ -4078,14 +4078,14 @@ private class XQueryPsiTest : ParserTestCase() {
             fun encodingOnly() {
                 val decl = parse<XQueryVersionDecl>("xquery encoding \"latin1\";")[0]
                 assertThat(decl.version, `is`(nullValue()))
-                assertThat((decl.encoding as XsStringValue).data, `is`("latin1"))
+                assertThat(decl.encoding!!.data, `is`("latin1"))
             }
 
             @Test
             @DisplayName("empty version, no encoding")
             fun emptyVersion() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"\";")[0]
-                assertThat((decl.version as XsStringValue).data, `is`(""))
+                assertThat(decl.version!!.data, `is`(""))
                 assertThat(decl.encoding, `is`(nullValue()))
             }
 
@@ -4094,40 +4094,39 @@ private class XQueryPsiTest : ParserTestCase() {
             fun emptyEncoding() {
                 val decl = parse<XQueryVersionDecl>("xquery encoding \"\";")[0]
                 assertThat(decl.version, `is`(nullValue()))
-                assertThat((decl.encoding as XsStringValue).data, `is`(""))
+                assertThat(decl.encoding!!.data, `is`(""))
             }
 
             @Test
             @DisplayName("version, encoding")
             fun versionAndEncoding() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"latin1\";")[0]
-                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
-                assertThat((decl.encoding as XsStringValue).data, `is`("latin1"))
+                assertThat(decl.version!!.data, `is`("1.0"))
+                assertThat(decl.encoding!!.data, `is`("latin1"))
             }
 
             @Test
             @DisplayName("version, empty encoding")
             fun emptyEncodingWithVersion() {
                 val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"\";")[0]
-                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
-                assertThat((decl.encoding as XsStringValue).data, `is`(""))
+                assertThat(decl.version!!.data, `is`("1.0"))
+                assertThat(decl.encoding!!.data, `is`(""))
             }
 
             @Test
             @DisplayName("comment before declaration")
             fun commentBefore() {
                 val decl = parse<XQueryVersionDecl>("(: test :)\nxquery version \"1.0\";")[0]
-                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
+                assertThat(decl.version!!.data, `is`("1.0"))
                 assertThat(decl.encoding, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("comment as whitespace")
             fun commentAsWhitespace() {
-                val decl =
-                    parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
-                assertThat((decl.version as XsStringValue).data, `is`("1.0"))
-                assertThat((decl.encoding as XsStringValue).data, `is`("latin1"))
+                val decl = parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
+                assertThat(decl.version!!.data, `is`("1.0"))
+                assertThat(decl.encoding!!.data, `is`("latin1"))
             }
         }
     }

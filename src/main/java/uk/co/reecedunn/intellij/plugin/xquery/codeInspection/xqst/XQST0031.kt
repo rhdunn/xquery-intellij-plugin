@@ -49,7 +49,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        version.declaration!!,
+                        version.declaration?.element!!,
                         description,
                         null as LocalQuickFix?,
                         ProblemHighlightType.GENERIC_ERROR,
@@ -66,7 +66,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        version.declaration!!,
+                        version.declaration?.element!!,
                         description,
                         null as LocalQuickFix?,
                         ProblemHighlightType.GENERIC_ERROR,
@@ -81,7 +81,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
                     XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        version.declaration!!,
+                        version.declaration?.element!!,
                         description,
                         null as LocalQuickFix?,
                         ProblemHighlightType.GENERIC_ERROR,

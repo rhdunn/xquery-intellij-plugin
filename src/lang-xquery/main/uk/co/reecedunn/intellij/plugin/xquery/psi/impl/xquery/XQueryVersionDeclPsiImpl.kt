@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL)
@@ -37,9 +38,9 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
 class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, VersionConformance {
-    override val version get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
+    override val version get(): XsStringValue? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
-    override val encoding get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
+    override val encoding get(): XsStringValue? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
 
     override val requiresConformance
         get(): List<Version> = if (conformanceElement === firstChild) XQUERY10 else XQUERY30
@@ -56,7 +57,7 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
         }
 
-    private fun getStringValueAfterKeyword(type: IKeywordOrNCNameType): XPathStringLiteral? {
+    private fun getStringValueAfterKeyword(type: IKeywordOrNCNameType): XsStringValue? {
         for (child in node.getChildren(STRINGS)) {
             var previous = child.treePrev
             while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XPathElementType.COMMENT) {
@@ -64,10 +65,10 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             }
 
             if (previous.elementType === type) {
-                return child.psi as XPathStringLiteral
+                return child.psi as XsStringValue
             } else if (previous is PsiErrorElementImpl) {
                 if (previous.firstChildNode.elementType === type) {
-                    return child.psi as XPathStringLiteral
+                    return child.psi as XsStringValue
                 }
             }
         }
