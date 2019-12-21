@@ -40,6 +40,7 @@ various inspections.
     - [3.3.3 Sequence Type Addition](#333-sequence-type-addition)
 - [4 Data Model](#4-data-model)
   - [4.1 Sequence Types](#41-sequence-types)
+  - [4.2 Atomic Type Values](#42-atomic-type-values)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -511,6 +512,18 @@ the precise bounds as needed on the resolved types.
     calculating the bounds from that type. If any of the context above the schema
     type, such as the schema namespace, changes then the type and everything it
     depends on need to be recalculated.
+
+### 4.2 Atomic Type Values
+
+| Symbol           | Type         | Interface         | Representation |
+|------------------|--------------|-------------------|----------------|
+| `DecimalLiteral` | `xs:decimal` | `XsDecimalValue`  | `BigDecimal`   |
+| `DoubleLiteral`  | `xs:double`  | `XsDoubleLiteral` | `Double`       |
+| `IntegerLiteral` | `xs:integer` | `XsIntegerValue`  | `BigInteger`   |
+
+The PSI elements for the literal symbols implement the interface corresponding
+to their associated atomic type defined above. These have a *data* property
+that is the literal's value as represented by the given Java type.
 
 ## A References
 
