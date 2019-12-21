@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
@@ -62,8 +63,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             else -> null
         }
 
-    override val arity
-        get(): Int = children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.count()
+    override val arity get(): Int = children().filterIsElementType(ARGUMENTS).count()
 
     override val bindings: List<XPathFunctionParamBinding>
         get() {
@@ -72,7 +72,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                 f.arity.isWithin(ref.arity)
             } ?: return listOf()
 
-            val args = children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.iterator()
+            val args = children().filterIsElementType(ARGUMENTS).iterator()
             val params = target.params
             return params.mapIndexed { index, param ->
                 when {

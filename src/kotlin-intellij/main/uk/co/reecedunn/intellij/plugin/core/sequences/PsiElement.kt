@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.sequences
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import java.util.*
 
 private class PsiElementTreeIterator(node: PsiElement?) : Iterator<PsiElement> {
@@ -131,4 +132,8 @@ fun PsiElement.walkTree(): PsiElementReversibleSequence {
 
 fun Sequence<PsiElement>.filterIsElementType(elementType: IElementType): Sequence<PsiElement> {
     return filter { it.node.elementType === elementType }
+}
+
+fun Sequence<PsiElement>.filterIsElementType(tokens: TokenSet): Sequence<PsiElement> {
+    return filter { tokens.contains(it.node.elementType) }
 }
