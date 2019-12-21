@@ -20,6 +20,7 @@ import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
@@ -85,7 +86,7 @@ class QNameAnnotator : Annotator {
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
-            qname.children().filter { it.node.elementType === XPathTokenType.QNAME_SEPARATOR }.firstOrNull()?.let {
+            qname.children().filterIsElementType(XPathTokenType.QNAME_SEPARATOR).firstOrNull()?.let {
                 checkQNameWhitespaceBefore(qname, it, holder)
                 checkQNameWhitespaceAfter(qname, it, holder)
             }
