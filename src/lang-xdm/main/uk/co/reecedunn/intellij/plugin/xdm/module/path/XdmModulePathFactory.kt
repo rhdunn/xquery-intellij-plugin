@@ -25,8 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 interface XdmModulePathFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XdmModulePathFactory>("uk.co.reecedunn.intellij.modulePathFactory")
-
-        val XQUERY_EXTENSIONS = arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")
     }
 
     fun create(project: Project, uri: XsAnyUriValue): XdmModulePath?
