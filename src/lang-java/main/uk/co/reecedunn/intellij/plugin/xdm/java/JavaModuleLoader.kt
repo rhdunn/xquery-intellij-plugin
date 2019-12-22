@@ -29,14 +29,14 @@ object JavaModuleLoader : XdmModuleLoaderFactory, XdmModuleLoader {
     // endregion
     // region XdmModuleLoader
 
-    override fun resolve(path: XdmModulePath, extensions: Array<String>): PsiElement? {
+    override fun resolve(path: XdmModulePath): PsiElement? {
         return when (path) {
             is JavaModulePath -> JavaTypePath.getInstance(path.project).findClass(path.classPath)
             else -> null
         }
     }
 
-    override fun context(path: XdmModulePath, extensions: Array<String>): XdmStaticContext? {
+    override fun context(path: XdmModulePath): XdmStaticContext? {
         return when (path) {
             is JavaTypePath -> path
             else -> null

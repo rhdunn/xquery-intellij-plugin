@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.path
 enum class XdmModuleType(val extensions: Array<String>) {
     DotNet(arrayOf()), // Saxon
     Java(arrayOf()), // BaseX, eXist-db, Saxon
-    XMLSchema(arrayOf("xsd")),
+    XMLSchema(arrayOf(".xsd")),
     XQuery(arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")),
     XSLT(arrayOf()); // MarkLogic
 

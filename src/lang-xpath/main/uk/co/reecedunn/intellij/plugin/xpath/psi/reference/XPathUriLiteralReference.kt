@@ -19,8 +19,6 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
@@ -30,7 +28,7 @@ class XPathUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
 
     override fun resolve(): PsiElement? {
         val uri = element as XsAnyUriValue
-        return uri.resolve(element.project, XdmModuleType.XQuery.extensions) ?: uri.resolveUri()
+        return uri.resolve(element.project) ?: uri.resolveUri()
     }
 
     override fun getVariants(): Array<Any> = arrayOf()

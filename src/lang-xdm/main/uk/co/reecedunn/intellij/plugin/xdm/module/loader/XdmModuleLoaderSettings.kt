@@ -41,12 +41,12 @@ class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmMod
 
     // region XdmModuleLoader
 
-    override fun resolve(path: XdmModulePath, extensions: Array<String>): PsiElement? {
-        return loaders.get()?.asSequence()?.mapNotNull { it?.resolve(path, extensions) }?.firstOrNull()
+    override fun resolve(path: XdmModulePath): PsiElement? {
+        return loaders.get()?.asSequence()?.mapNotNull { it?.resolve(path) }?.firstOrNull()
     }
 
-    override fun context(path: XdmModulePath, extensions: Array<String>): XdmStaticContext? {
-        return loaders.get()?.asSequence()?.mapNotNull { it?.context(path, extensions) }?.firstOrNull()
+    override fun context(path: XdmModulePath): XdmStaticContext? {
+        return loaders.get()?.asSequence()?.mapNotNull { it?.context(path) }?.firstOrNull()
     }
 
     // endregion

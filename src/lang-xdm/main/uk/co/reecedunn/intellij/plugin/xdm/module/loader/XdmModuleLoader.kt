@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
 interface XdmModuleLoader {
-    fun resolve(path: XdmModulePath, extensions: Array<String>): PsiElement?
+    fun resolve(path: XdmModulePath): PsiElement?
 
-    fun context(path: XdmModulePath, extensions: Array<String>): XdmStaticContext?
+    fun context(path: XdmModulePath): XdmStaticContext?
 }

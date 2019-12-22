@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.io.File
 import java.net.URLClassLoader
 
@@ -31,16 +32,18 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
 
     private val cache: HashMap<String, VirtualFile?> = HashMap()
 
-    private fun findCacheableFile(path: String, extensions: Array<String>): VirtualFile? {
-        extensions.forEach {
-            val file = ResourceVirtualFile.createIfValid(classLoader, "$path$it", this)
-            if (file != null) return file
+    private fun findCacheableFile(path: String, types: Array<XdmModuleType>): VirtualFile? {
+        types.forEach { type ->
+            type.extensions.forEach { extension ->
+                val file = ResourceVirtualFile.createIfValid(classLoader, "$path$extension", this)
+                if (file != null) return file
+            }
         }
         return ResourceVirtualFile.createIfValid(classLoader, path, this)
     }
 
-    private fun findFileByPath(path: String, extensions: Array<String>): VirtualFile? {
-        return cache[path] ?: findCacheableFile(path, extensions)?.let {
+    private fun findFileByPath(path: String, types: Array<XdmModuleType>): VirtualFile? {
+        return cache[path] ?: findCacheableFile(path, types)?.let {
             cache[path] = it
             it
         }
@@ -53,16 +56,16 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
     // endregion
     // region XdmModuleLoader
 
-    override fun resolve(path: XdmModulePath, extensions: Array<String>): PsiElement? {
+    override fun resolve(path: XdmModulePath): PsiElement? {
         return when (path) {
-            is XdmModuleLocationPath -> findFileByPath(path.path, extensions)?.toPsiFile(path.project)
+            is XdmModuleLocationPath -> findFileByPath(path.path, path.moduleTypes)?.toPsiFile(path.project)
             else -> null
         }
     }
 
-    override fun context(path: XdmModulePath, extensions: Array<String>): XdmStaticContext? {
+    override fun context(path: XdmModulePath): XdmStaticContext? {
         return when (path) {
-            is XdmModuleLocationPath -> resolve(path, extensions) as? XdmStaticContext
+            is XdmModuleLocationPath -> resolve(path) as? XdmStaticContext
             else -> null
         }
     }
