@@ -27,27 +27,7 @@ private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extension
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
     val project = element!!.project
-    val resolvers =
-        if (httpOnly)
-            STATIC_IMPORT_RESOLVERS
-        else {
-            val file = element!!.containingFile.virtualFile
-            sequenceOf(
-                STATIC_IMPORT_RESOLVERS,
-                moduleRootImportResolvers(
-                    project,
-                    JavaSourceRootType.SOURCE
-                ),
-                if (file?.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)
-                    moduleRootImportResolvers(
-                        project,
-                        JavaSourceRootType.TEST_SOURCE
-                    )
-                else
-                    emptySequence()
-            ).flatten()
-        }
-    return resolvers
+    return STATIC_IMPORT_RESOLVERS
         .filter { resolver -> resolver.match(path) }
         .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(project) }
         .filterNotNull().firstOrNull()

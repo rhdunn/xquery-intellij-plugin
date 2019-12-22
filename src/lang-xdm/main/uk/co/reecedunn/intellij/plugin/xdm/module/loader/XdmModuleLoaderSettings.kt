@@ -30,6 +30,8 @@ class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmMod
     @Attribute("loader")
     var loaderBeans: List<XdmModuleLoaderBean> = arrayListOf(
         XdmModuleLoaderBean("java", null),
+        XdmModuleLoaderBean("module", "java:source"),
+        XdmModuleLoaderBean("module", "java:test-source"),
         XdmModuleLoaderBean("relative", null)
     )
         set(value) {

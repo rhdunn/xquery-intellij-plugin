@@ -64,7 +64,8 @@ abstract class ParserTestCase :
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath)
 
         registerExtensionPoint(XdmModuleLoaderFactory.EP_NAME, XdmModuleLoaderFactoryBean::class.java)
-        registerModuleLoader("relative", uk.co.reecedunn.intellij.plugin.xdm.module.loader.RelativeModuleLoader)
+        registerModuleLoader("module",   "uk.co.reecedunn.intellij.plugin.xdm.module.loader.JspModuleSourceRootLoader\$Companion")
+        registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xdm.module.loader.RelativeModuleLoader")
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
@@ -82,10 +83,10 @@ abstract class ParserTestCase :
         registerExtension(XdmModulePathFactory.EP_NAME, factory)
     }
 
-    private fun registerModuleLoader(name: String, factory: XdmModuleLoaderFactory) {
+    private fun registerModuleLoader(name: String, implementation: String) {
         val bean = XdmModuleLoaderFactoryBean()
         bean.name = name
-        bean.implementation = factory::class.java.canonicalName
+        bean.implementation = implementation
         registerExtension(XdmModuleLoaderFactory.EP_NAME, bean)
     }
 

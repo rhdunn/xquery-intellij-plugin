@@ -4534,7 +4534,9 @@ private class XQueryPsiTest : ParserTestCase() {
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
-                    assertThat(prologs.size, `is`(0))
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/module-xquery/namespaces/ModuleDecl.xq"))
                 }
 
                 @Test
@@ -4546,7 +4548,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
-                    assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve-xquery/namespaces/ModuleDecl.xq"))
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/module-xquery/namespaces/ModuleDecl.xq"))
                 }
 
                 @Test
