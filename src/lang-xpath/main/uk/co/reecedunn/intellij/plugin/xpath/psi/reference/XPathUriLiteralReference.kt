@@ -28,7 +28,7 @@ class XPathUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
 
     override fun resolve(): PsiElement? {
         val uri = element as XsAnyUriValue
-        return uri.resolve(element.project) ?: uri.resolveUri()
+        return uri.resolve(element.project, element) ?: uri.resolveUri()
     }
 
     override fun getVariants(): Array<Any> = arrayOf()
