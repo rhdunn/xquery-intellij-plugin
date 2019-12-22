@@ -38,16 +38,16 @@ class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmMod
         }
 
     @Transient
-    private val loaders = CacheableProperty { loaderBeans.map { it.loader } }
+    private val loaders = CacheableProperty { loaderBeans.mapNotNull { it.loader } }
 
     // region XdmModuleLoader
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
-        return loaders.get()?.asSequence()?.mapNotNull { it?.resolve(path, context) }?.firstOrNull()
+        return loaders.get()?.asSequence()?.mapNotNull { it.resolve(path, context) }?.firstOrNull()
     }
 
     override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
-        return loaders.get()?.asSequence()?.mapNotNull { it?.context(path, context) }?.firstOrNull()
+        return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
     }
 
     // endregion
