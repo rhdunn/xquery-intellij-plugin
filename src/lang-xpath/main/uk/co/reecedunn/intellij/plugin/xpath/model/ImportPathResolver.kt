@@ -17,23 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.testFramework.LightVirtualFileBase
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
-
-class RelativeFileImportResolver(private val file: VirtualFile?) : ImportPathResolver {
-    override fun match(path: String): Boolean = path.isNotEmpty() && !path.contains("://") && !path.startsWith("/")
-
-    override fun resolve(path: String): VirtualFile? {
-        var file = file
-        if (file is LightVirtualFileBase) {
-            file = file.originalFile
-        }
-
-        return file?.parent?.findFileByRelativePath(path)
-    }
-}
 
 class ModuleFileImportResolver(private val root: VirtualFile) : ImportPathResolver {
     override fun match(path: String): Boolean = path.startsWith("/")

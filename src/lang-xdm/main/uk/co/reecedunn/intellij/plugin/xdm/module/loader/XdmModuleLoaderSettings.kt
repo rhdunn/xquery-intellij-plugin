@@ -29,7 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmModuleLoaderSettings> {
     @Attribute("loader")
     var loaderBeans: List<XdmModuleLoaderBean> = arrayListOf(
-        XdmModuleLoaderBean("java", null)
+        XdmModuleLoaderBean("java", null),
+        XdmModuleLoaderBean("relative", null)
     )
         set(value) {
             field = value

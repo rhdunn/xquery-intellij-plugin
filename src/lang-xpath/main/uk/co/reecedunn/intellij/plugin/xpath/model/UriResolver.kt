@@ -44,8 +44,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
                         JavaSourceRootType.TEST_SOURCE
                     )
                 else
-                    emptySequence(),
-                sequenceOf(RelativeFileImportResolver(file))
+                    emptySequence()
             ).flatten()
         }
     return resolvers
