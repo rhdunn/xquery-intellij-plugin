@@ -18,5 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.path
 import com.intellij.psi.PsiElement
 
 interface XdmModulePath {
+    val moduleTypes: Array<XdmModuleType>
+
     fun resolve(): PsiElement?
 }

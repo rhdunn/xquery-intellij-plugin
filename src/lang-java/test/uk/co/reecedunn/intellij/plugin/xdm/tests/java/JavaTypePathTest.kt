@@ -182,6 +182,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                 }
                 else -> assertThat(path, `is`(nullValue()))
             }

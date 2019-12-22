@@ -31,8 +31,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmReverseDomainNameModul
 @DisplayName("Modules - BaseX Reverse Domain Name Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
+    private val TEST_MODULE_TYPES = arrayOf(XdmModuleType.DotNet) // A unique object to this test.
+
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
-        return XsAnyUri(path, context, XdmModuleType.NONE, null as PsiElement?)
+        return XsAnyUri(path, context, TEST_MODULE_TYPES, null as PsiElement?)
     }
 
     @BeforeAll
@@ -81,6 +83,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -99,6 +102,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -117,6 +121,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -135,6 +140,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem/ipsum/index"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -153,6 +159,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/index"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -185,6 +192,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -203,6 +211,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem/ipsum"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -221,6 +230,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -239,6 +249,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/lorem/ipsum/index"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -257,6 +268,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("com/example/www/index"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -276,6 +288,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
                     assertThat(path.path, `is`("file:///C:/lorem/ipsum"))
+                    assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -297,6 +310,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("urn/lorem/ipsum"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -315,6 +329,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("urn/a/b/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -334,6 +349,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
                     assertThat(path.path, `is`("resource/org/lorem/ipsum.xqm"))
+                    assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -379,6 +395,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("lorem/ipsum"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -397,6 +414,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("lorem/ipsum/index"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -415,6 +433,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("a/b/lorem-ipsum-dolor12sed-emit"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -433,6 +452,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
                         assertThat(path.path, `is`("lorem.xqy"))
+                        assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                         assertThat(path.isResource, `is`(nullValue()))
                     }
                     else -> assertThat(path, `is`(nullValue()))
@@ -452,6 +472,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
                     assertThat(path.path, `is`("/lorem/ipsum.xqy"))
+                    assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -480,6 +501,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
                     assertThat(path.path, `is`("java.lang.String"))
+                    assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))
@@ -498,6 +520,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
                     assertThat(path.path, `is`("net/sf/saxon/java-type"))
+                    assertThat(path.moduleTypes, `is`(TEST_MODULE_TYPES))
                     assertThat(path.isResource, `is`(nullValue()))
                 }
                 else -> assertThat(path, `is`(nullValue()))

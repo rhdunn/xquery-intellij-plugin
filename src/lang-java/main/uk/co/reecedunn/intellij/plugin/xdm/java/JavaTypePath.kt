@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.lang.reflect.InvocationTargetException
 
 class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
@@ -48,6 +49,8 @@ class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
             }
         }
     }
+
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.JAVA
 
     override fun resolve(): PsiElement? = null
 

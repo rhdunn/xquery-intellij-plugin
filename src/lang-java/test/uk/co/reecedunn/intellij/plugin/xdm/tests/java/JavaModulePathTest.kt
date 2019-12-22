@@ -80,6 +80,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.lorem.Ipsum"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -98,6 +99,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.lorem.Ipsum"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -116,6 +118,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.LoremIpsumDolor12sedEmit"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -134,6 +137,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.lorem.ipsum.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -152,6 +156,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -184,6 +189,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.lorem.Ipsum"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -202,6 +208,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.lorem.Ipsum"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -220,6 +227,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.LoremIpsumDolor12sedEmit"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -238,6 +246,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.lorem.ipsum.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -256,6 +265,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("com.example.www.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -288,6 +298,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("urn.lorem.Ipsum"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -306,6 +317,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("urn.a.b.LoremIpsumDolor12sedEmit"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -325,6 +337,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                     assertThat(path.classPath, `is`("resource.org.lorem.ipsum.Xqm"))
                     assertThat(path.voidThis, `is`(false))
                 }
@@ -346,6 +359,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("java.lang.String"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -364,6 +378,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("java.lang.String"))
                         assertThat(path.voidThis, `is`(true))
                     }
@@ -386,6 +401,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("lorem.Ipsum"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -404,6 +420,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("lorem.ipsum.Index"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -422,6 +439,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("a.b.LoremIpsumDolor12sedEmit"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -440,6 +458,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
                         assertThat(path!!.project, `is`(sameInstance(myProject)))
+                        assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                         assertThat(path.classPath, `is`("lorem.xqy"))
                         assertThat(path.voidThis, `is`(false))
                     }
@@ -459,6 +478,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                     assertThat(path.classPath, `is`("lorem.ipsum.Xqy"))
                     assertThat(path.voidThis, `is`(false))
                 }
@@ -487,6 +507,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                     assertThat(path.classPath, `is`("java.lang.String"))
                     assertThat(path.voidThis, `is`(false))
                 }
@@ -505,6 +526,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
                     assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                     assertThat(path.classPath, `is`("net.sf.saxon.JavaType"))
                     assertThat(path.voidThis, `is`(false))
                 }

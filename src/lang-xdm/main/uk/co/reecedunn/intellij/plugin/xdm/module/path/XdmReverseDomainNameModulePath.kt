@@ -23,25 +23,27 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 object XdmReverseDomainNameModulePath : XdmModulePathFactory {
     private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
-    private fun createUri(project: Project, path: String): XdmModuleLocationPath? {
+    private fun createUri(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {
         val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
         val rdn = parts[0].split('.').reversed()
         val rest = parts.drop(1).map { it.replace('.', '/') }
         return when {
-            rest.isEmpty() -> createRelative(project, "${rdn.joinToString("/")}/")
-            else -> createRelative(project, listOf(rdn, rest).flatten().joinToString("/"))
+            rest.isEmpty() -> createRelative(project, "${rdn.joinToString("/")}/", uri)
+            else -> createRelative(project, listOf(rdn, rest).flatten().joinToString("/"), uri)
         }
     }
 
-    private fun createUrn(project: Project, path: String): XdmModuleLocationPath? {
-        return createRelative(project, path.replace(':', '/'))
+    private fun createUrn(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {
+        return createRelative(project, path.replace(':', '/'), uri)
     }
 
-    private fun createRelative(project: Project, path: String): XdmModuleLocationPath? {
+    private fun createRelative(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {
         return when {
             path.isEmpty() -> null
-            path.endsWith('/') -> XdmModuleLocationPath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", null)
-            else -> XdmModuleLocationPath(project, path.replace(SPECIAL_CHARACTERS, "-"), null)
+            path.endsWith('/') -> {
+                XdmModuleLocationPath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", uri.moduleTypes, null)
+            }
+            else -> XdmModuleLocationPath(project, path.replace(SPECIAL_CHARACTERS, "-"), uri.moduleTypes, null)
         }
     }
 
@@ -50,12 +52,14 @@ object XdmReverseDomainNameModulePath : XdmModulePathFactory {
             XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                 val path = uri.data
                 when {
-                    path.startsWith("java:") -> null // Java paths are not converted by BaseX.
-                    path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
-                    path.startsWith("file://") -> XdmModuleLocationPath(project, path, null) // Keep file URLs intact.
-                    path.contains("://") -> createUri(project, path) // BaseX
-                    path.contains(":") -> createUrn(project, path) // BaseX
-                    else -> createRelative(project, path) // BaseX
+                    path.startsWith("java:") /* Java paths are not converted by BaseX. */ -> null
+                    path.startsWith("xmldb:exist://") /* Ignore eXist-db database paths. */ -> null
+                    path.startsWith("file://") /* Keep file URLs intact. */ -> {
+                        XdmModuleLocationPath(project, path, uri.moduleTypes, null)
+                    }
+                    path.contains("://") /* BaseX */ -> createUri(project, path, uri)
+                    path.contains(":") /* BaseX */ -> createUrn(project, path, uri)
+                    else /* BaseX */ -> createRelative(project, path, uri)
                 }
             }
             else -> null

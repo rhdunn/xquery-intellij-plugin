@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 /**
  * BaseX, eXist-db, and Saxon allow declaring a namespace to a Java class.
@@ -31,6 +32,8 @@ class JavaModulePath private constructor(
     val classPath: String,
     val voidThis: Boolean
 ) : XdmModulePath {
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.JAVA
+
     override fun resolve(): PsiElement? = JavaTypePath.getInstance(project).findClass(classPath)
 
     companion object : XdmModulePathFactory {
