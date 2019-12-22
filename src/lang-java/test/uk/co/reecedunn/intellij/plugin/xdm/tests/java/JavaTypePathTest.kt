@@ -24,11 +24,16 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - Java Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class JavaTypePathTest : PlatformLiteFixture() {
+    private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
+        return XsAnyUri(path, context, null as PsiElement?)
+    }
+
     @BeforeAll
     override fun setUp() {
         super.setUp()
@@ -46,7 +51,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("empty")
     fun empty() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("", context, null as PsiElement?)
+            val uri = anyURI("", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -56,7 +61,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("HTTP scheme URL")
     fun httpScheme() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("http://www.example.com/lorem/ipsum", context, null as PsiElement?)
+            val uri = anyURI("http://www.example.com/lorem/ipsum", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -66,7 +71,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("HTTPS scheme URL")
     fun httpsScheme() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("https://www.example.com/lorem/ipsum", context, null as PsiElement?)
+            val uri = anyURI("https://www.example.com/lorem/ipsum", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -76,7 +81,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("file scheme URL")
     fun fileScheme() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("file:///C:/lorem/ipsum", context, null as PsiElement?)
+            val uri = anyURI("file:///C:/lorem/ipsum", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -86,7 +91,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("URN scheme")
     fun urnScheme() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("urn:lorem:ipsum", context, null as PsiElement?)
+            val uri = anyURI("urn:lorem:ipsum", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -96,7 +101,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("resource scheme")
     fun resourceScheme() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("resource:org/lorem/ipsum.xqm", context, null as PsiElement?)
+            val uri = anyURI("resource:org/lorem/ipsum.xqm", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -109,7 +114,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
         @DisplayName("classpath")
         fun classpath() {
             XdmUriContext.values().forEach { context ->
-                val uri = XsAnyUri("java:java.lang.String", context, null as PsiElement?)
+                val uri = anyURI("java:java.lang.String", context)
                 val path = JavaTypePath.create(myProject, uri)
                 assertThat(path, `is`(nullValue()))
             }
@@ -119,7 +124,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
         @DisplayName("classpath with void=this")
         fun voidThis() {
             XdmUriContext.values().forEach { context ->
-                val uri = XsAnyUri("java:java.lang.String?void=this", context, null as PsiElement?)
+                val uri = anyURI("java:java.lang.String?void=this", context)
                 val path = JavaTypePath.create(myProject, uri)
                 assertThat(path, `is`(nullValue()))
             }
@@ -130,7 +135,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("relative path")
     fun relativePath() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("lorem/ipsum", context, null as PsiElement?)
+            val uri = anyURI("lorem/ipsum", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -140,7 +145,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("MarkLogic database path")
     fun markLogicDatabasePath() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("/lorem/ipsum.xqy", context, null as PsiElement?)
+            val uri = anyURI("/lorem/ipsum.xqy", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -150,7 +155,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("eXist-db database path")
     fun eXistDBDatabasePath() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("xmldb:exist:///db/modules/lorem/ipsum.xqm", context, null as PsiElement?)
+            val uri = anyURI("xmldb:exist:///db/modules/lorem/ipsum.xqm", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -160,7 +165,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("Java class path")
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("java.lang.String", context, null as PsiElement?)
+            val uri = anyURI("java.lang.String", context)
             val path = JavaTypePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
@@ -170,7 +175,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     @DisplayName("Saxon java-type namespace")
     fun javaType() {
         XdmUriContext.values().forEach { context ->
-            val uri = XsAnyUri("http://saxon.sf.net/java-type", context, null as PsiElement?)
+            val uri = anyURI("http://saxon.sf.net/java-type", context)
             val path = JavaTypePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
