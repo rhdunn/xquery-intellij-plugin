@@ -50,7 +50,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     override val prolog: Sequence<XQueryProlog>
         get() {
             val file = namespaceUri?.let {
-                it.resolve(project, it.element!!) ?: it.resolveUri<XQueryModule>(true)
+                it.resolve() ?: it.resolveUri<XQueryModule>(true)
             }
             val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
             return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()

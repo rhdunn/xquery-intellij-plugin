@@ -57,13 +57,13 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
             val locations = locationUris
             return if (locations.any())
                 locations.flatMap { uri ->
-                    val file = uri.resolve(project, uri.element!!) ?: uri.resolveUri<XQueryModule>()
+                    val file = uri.resolve() ?: uri.resolveUri<XQueryModule>()
                     val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
                 }.filterNotNull()
             else
                 namespaceUri?.let { uri ->
-                    val file = uri.resolve(project, uri.element!!) ?: uri.resolveUri<XQueryModule>()
+                    val file = uri.resolve() ?: uri.resolveUri<XQueryModule>()
                     val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
                 } ?: emptySequence()

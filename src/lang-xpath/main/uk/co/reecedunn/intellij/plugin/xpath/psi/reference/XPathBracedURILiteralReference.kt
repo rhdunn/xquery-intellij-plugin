@@ -28,7 +28,7 @@ class XPathBracedURILiteralReference(element: XPathEQName, range: TextRange) :
 
     override fun resolve(): PsiElement? {
         val uri = (element as XsQNameValue).namespace ?: return null
-        return uri.resolve(element.project, element) ?: uri.resolveUri()
+        return uri.resolve() ?: uri.resolveUri()
     }
 
     override fun getVariants(): Array<Any> = arrayOf()
