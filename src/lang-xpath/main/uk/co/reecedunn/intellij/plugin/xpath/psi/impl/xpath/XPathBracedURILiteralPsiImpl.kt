@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 class XPathBracedURILiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue {
     override fun subtreeChanged() {
@@ -34,6 +35,8 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
     override val data: String get() = cachedContent.get()!!
 
     override val context: XdmUriContext = XdmUriContext.Namespace
+
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.MODULE_OR_SCHEMA
 
     override val element get(): PsiElement? = this
 

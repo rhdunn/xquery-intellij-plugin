@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
@@ -43,6 +44,8 @@ class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
     override val data: String get() = cachedContent.get()!!
 
     override val context: XdmUriContext = XdmUriContext.Namespace
+
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.MODULE_OR_SCHEMA
 
     private val cachedContent = CacheableProperty {
         children().map { child ->

@@ -17,8 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -28,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
@@ -50,6 +50,7 @@ private class FullTextPsiTest : ParserTestCase() {
                 )[0]
                 assertThat(thesaurus.source!!.data, `is`("http://www.example.com"))
                 assertThat(thesaurus.source!!.context, `is`(XdmUriContext.Thesaurus))
+                assertThat(thesaurus.source!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             }
 
             @Test
@@ -73,6 +74,7 @@ private class FullTextPsiTest : ParserTestCase() {
                 val words = parse<FTStopWords>("x contains text 'test' using stop words at 'http://www.example.com'")[0]
                 assertThat(words.source!!.data, `is`("http://www.example.com"))
                 assertThat(words.source!!.context, `is`(XdmUriContext.StopWords))
+                assertThat(words.source!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             }
 
             @Test

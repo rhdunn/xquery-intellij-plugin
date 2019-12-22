@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsString
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
@@ -47,7 +48,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
                 if ((parent as XPathDefaultNamespaceDeclaration).accepts(XPathNamespaceType.Undefined)) {
                     XsString(it, this)
                 } else {
-                    XsAnyUri(it, XdmUriContext.NamespaceDeclaration, this)
+                    XsAnyUri(it, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
                 }
             }
         }

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.UndeclaredNamespacePrefixException
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")
 class PluginFunctionsAndOperatorsTest {
@@ -36,6 +37,7 @@ class PluginFunctionsAndOperatorsTest {
             val qname = op_qname_parse("Q{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
             assertThat(qname.isLexicalQName, `is`(false))
@@ -47,6 +49,7 @@ class PluginFunctionsAndOperatorsTest {
             val qname = op_qname_parse("{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
             assertThat(qname.isLexicalQName, `is`(false))
@@ -58,6 +61,7 @@ class PluginFunctionsAndOperatorsTest {
             val qname = op_qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             assertThat(qname.prefix!!.data, `is`("xs"))
             assertThat(qname.localName!!.data, `is`("string"))
             assertThat(qname.isLexicalQName, `is`(true))
@@ -78,6 +82,7 @@ class PluginFunctionsAndOperatorsTest {
             val qname = op_qname_parse("string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`(""))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("string"))
             assertThat(qname.isLexicalQName, `is`(true))

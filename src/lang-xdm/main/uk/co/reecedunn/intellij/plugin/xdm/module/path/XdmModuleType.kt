@@ -23,6 +23,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
     XSLT(arrayOf()); // MarkLogic
 
     companion object {
+        val MODULE_OR_SCHEMA = arrayOf(XQuery, XMLSchema, Java, DotNet)
         val MODULE = arrayOf(XQuery, Java, DotNet)
         val SCHEMA = arrayOf(XMLSchema)
         val STYLESHEET = arrayOf(XSLT)

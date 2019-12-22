@@ -44,6 +44,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
@@ -254,6 +255,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
+                assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -263,6 +265,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
+                assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -273,6 +276,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
+                assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -282,6 +286,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
+                assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
@@ -3397,6 +3402,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0]
                 assertThat(expr.collation!!.data, `is`("http://www.example.com"))
                 assertThat(expr.collation!!.context, `is`(XdmUriContext.Collation))
+                assertThat(expr.collation!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             }
 
             @Test
@@ -3472,6 +3478,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0]
                 assertThat(expr.collation!!.data, `is`("http://www.example.com"))
                 assertThat(expr.collation!!.context, `is`(XdmUriContext.Collation))
+                assertThat(expr.collation!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             }
 
             @Test
@@ -4144,6 +4151,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
 
                 assertThat((decl as XQueryPrologResolver).prolog.count(), `is`(0))
 
@@ -4161,6 +4169,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
 
                 val prologs = (decl as XQueryPrologResolver).prolog.toList()
                 assertThat(prologs.size, `is`(1))
@@ -4176,6 +4185,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
             }
 
             @Test
@@ -4200,6 +4210,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQueryDefaultCollationDecl>("declare default collation 'http://www.example.com';")[0]
                 assertThat(expr.collation!!.data, `is`("http://www.example.com"))
                 assertThat(expr.collation!!.context, `is`(XdmUriContext.Collation))
+                assertThat(expr.collation!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             }
 
             @Test
@@ -4223,6 +4234,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQueryBaseURIDecl>("declare base-uri 'http://www.example.com';")[0]
                 assertThat(expr.baseUri!!.data, `is`("http://www.example.com"))
                 assertThat(expr.baseUri!!.context, `is`(XdmUriContext.BaseUri))
+                assertThat(expr.baseUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
             }
 
             @Test
@@ -4278,6 +4290,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
+                assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4301,6 +4314,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
+                assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4340,6 +4354,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
+                assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4362,8 +4377,10 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(1))
+
                 assertThat(uris[0].data, `is`("test1.xsd"))
                 assertThat(uris[0].context, `is`(XdmUriContext.Location))
+                assertThat(uris[0].moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
             }
 
             @Test
@@ -4375,10 +4392,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(2))
+
                 assertThat(uris[0].data, `is`("test1.xsd"))
                 assertThat(uris[0].context, `is`(XdmUriContext.Location))
+                assertThat(uris[0].moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
+
                 assertThat(uris[1].data, `is`("test2.xsd"))
                 assertThat(uris[1].context, `is`(XdmUriContext.Location))
+                assertThat(uris[1].moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
             }
         }
     }
@@ -4398,6 +4419,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
+                assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4415,6 +4437,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
+                assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4429,6 +4452,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
+                assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
@@ -4454,8 +4478,10 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(1))
+
                 assertThat(uris[0].data, `is`("test1.xqy"))
                 assertThat(uris[0].context, `is`(XdmUriContext.Location))
+                assertThat(uris[0].moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
             }
 
             @Test
@@ -4467,10 +4493,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = import.locationUris.toList()
                 assertThat(uris.size, `is`(2))
+
                 assertThat(uris[0].data, `is`("test1.xqy"))
                 assertThat(uris[0].context, `is`(XdmUriContext.Location))
+                assertThat(uris[0].moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
+
                 assertThat(uris[1].data, `is`("test2.xqy"))
                 assertThat(uris[1].context, `is`(XdmUriContext.Location))
+                assertThat(uris[1].moduleTypes, `is`(sameInstance(XdmModuleType.MODULE)))
             }
 
             @Nested
@@ -4606,6 +4636,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 val prefix = decl.namespacePrefix?.element?.parent!!
                 assertThat(XQueryFindUsagesProvider.getType(prefix), `is`("namespace"))
@@ -4618,6 +4649,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
             }
 
             @Test
@@ -4689,6 +4721,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/1999/xhtml"))
                 assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
@@ -4709,6 +4742,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
                 assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
@@ -4727,6 +4761,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))

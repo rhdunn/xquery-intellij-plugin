@@ -25,13 +25,14 @@ import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - Java Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class JavaModulePathTest : PlatformLiteFixture() {
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
-        return XsAnyUri(path, context, null as PsiElement?)
+        return XsAnyUri(path, context, XdmModuleType.NONE, null as PsiElement?)
     }
 
     @BeforeAll

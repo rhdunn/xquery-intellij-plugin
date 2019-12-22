@@ -21,6 +21,7 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 enum class XPathNamespaceType {
     DefaultElementOrType,
@@ -49,7 +50,8 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceD
     return if (prefix.isEmpty()) {
         object : XPathDefaultNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = null
-            override val namespaceUri: XsAnyUriValue? = XsAnyUri(value, XdmUriContext.Namespace, originalElement)
+            override val namespaceUri: XsAnyUriValue? =
+                XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, originalElement)
 
             override fun accepts(namespaceType: XPathNamespaceType): Boolean {
                 return namespaceType === XPathNamespaceType.DefaultElementOrType
@@ -70,7 +72,8 @@ private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
     } else {
         object : XPathNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = XsNCName(localName, originalElement)
-            override val namespaceUri: XsAnyUriValue? = XsAnyUri(value, XdmUriContext.Namespace, originalElement)
+            override val namespaceUri: XsAnyUriValue? =
+                XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.MODULE, originalElement)
         }
     }
 }
@@ -79,7 +82,8 @@ private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration 
     private const val FN_NAMESPACE_URI = "http://www.w3.org/2005/xpath-functions"
 
     override val namespacePrefix: XsNCNameValue? = null
-    override val namespaceUri: XsAnyUriValue? = XsAnyUri(FN_NAMESPACE_URI, XdmUriContext.Namespace, null as PsiElement?)
+    override val namespaceUri: XsAnyUriValue? =
+        XsAnyUri(FN_NAMESPACE_URI, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XPathNamespaceType): Boolean {

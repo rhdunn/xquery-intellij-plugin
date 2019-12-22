@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
@@ -42,6 +43,8 @@ class XPathUriLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathU
             is FTThesaurusID -> XdmUriContext.Thesaurus
             else -> XdmUriContext.Namespace
         }
+
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.NONE
 
     override val data: String get() = cachedData.get()!!
 

@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
@@ -1106,6 +1107,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
                 assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
@@ -1143,6 +1145,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
                 assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
@@ -1505,6 +1508,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(uris.size, `is`(1))
                 assertThat(uris[0].data, `is`("test.xsl"))
                 assertThat(uris[0].context, `is`(XdmUriContext.Location))
+                assertThat(uris[0].moduleTypes, `is`(sameInstance(XdmModuleType.STYLESHEET)))
             }
         }
     }
@@ -1660,6 +1664,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
                 assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
@@ -1678,6 +1683,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
+                assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
                 assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
                 assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))

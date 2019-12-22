@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBind
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -123,6 +124,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
+                assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
@@ -132,6 +134,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
+                assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
