@@ -34,7 +34,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.7 Arrow Operator (=>)](#37-arrow-operator-)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
-  - [A.2 Reserved Function Names](#a3-reserved-function-names)
+  - [A.2 Reserved Function Names](#a2-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
   - [B.2 MarkLogic References](#b2-marklogic-references)
@@ -424,7 +424,7 @@ implement features such as variable lookup. These changes do not modify the
 behaviour of those constructs:
 1.  [Quantified Expressions](#31-quantified-expressions) \[1.1\]
 1.  [Node Tests](#321-node-tests) \[1.3\]
-1.  [Any Item Type](#21211-item-type) \[1.3\]
+1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
 1.  [For Expressions](#33-for-expressions) \[1.4\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\]
