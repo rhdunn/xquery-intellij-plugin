@@ -13,6 +13,7 @@ exclude:
   - images/features/xquery.xqy
   - Gemfile.lock
   - Gemfile
+  - .gitignore
 
 markdown: kramdown
-plugins:
+plugins: []
