@@ -53,6 +53,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         assertThat(pkg.abbrev, `is`(nullValue()))
         assertThat(pkg.version, `is`(nullValue()))
         assertThat(pkg.spec, `is`(nullValue()))
+        assertThat(pkg.title, `is`(nullValue()))
     }
 
     @Test
@@ -66,6 +67,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
                      abbrev="test"
                      version="2.4"
                      spec="1.0">
+                <title>Test Package</title>
             </package>
             """.trimIndent()
         )
@@ -74,5 +76,6 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         assertThat(pkg.abbrev, `is`("test"))
         assertThat(pkg.version, `is`("2.4"))
         assertThat(pkg.spec, `is`("1.0"))
+        assertThat(pkg.title, `is`("Test Package"))
     }
 }

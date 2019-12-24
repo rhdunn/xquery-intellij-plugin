@@ -38,6 +38,8 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
 
     val spec: String? by lazy { xml.root.attribute("spec") }
 
+    val title: String? by lazy { xml.root.children("title").firstOrNull()?.text() }
+
     companion object {
         val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
     }
