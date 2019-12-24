@@ -15,11 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.xml
 
+import com.intellij.openapi.vfs.VirtualFile
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import java.io.StringReader
 import java.io.StringWriter
 import javax.xml.namespace.QName
@@ -97,7 +99,15 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
         }
 
         fun parse(xml: String, namespaces: Map<String, String>): XmlDocument {
-            return XmlDocument(builder.parse(InputSource(StringReader(xml))), namespaces)
+            return parse(InputSource(StringReader(xml)), namespaces)
+        }
+
+        fun parse(file: VirtualFile, namespaces: Map<String, String>): XmlDocument {
+            return parse(InputSource(file.inputStream), namespaces)
+        }
+
+        fun parse(xml: InputSource, namespaces: Map<String, String>): XmlDocument {
+            return XmlDocument(builder.parse(xml), namespaces)
         }
     }
 }
