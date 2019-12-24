@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.path
 
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
@@ -26,8 +25,6 @@ class XdmModuleLocationPath internal constructor(
     override val moduleTypes: Array<XdmModuleType>,
     val isResource: Boolean?
 ) : XdmModulePath {
-    override fun resolve(): PsiElement? = null
-
     companion object : XdmModulePathFactory {
         private const val EXISTDB_PATH = "xmldb:exist://"
         private const val RES_PATH = "resource:"

@@ -52,8 +52,6 @@ class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
 
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.JAVA
 
-    override fun resolve(): PsiElement? = null
-
     companion object : XdmModulePathFactory {
         private const val JAVA_TYPE_NS = "http://saxon.sf.net/java-type"
 

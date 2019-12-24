@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xdm.java
 
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
@@ -33,8 +32,6 @@ class JavaModulePath private constructor(
     val voidThis: Boolean
 ) : XdmModulePath {
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.JAVA
-
-    override fun resolve(): PsiElement? = JavaTypePath.getInstance(project).findClass(classPath)
 
     companion object : XdmModulePathFactory {
         private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
