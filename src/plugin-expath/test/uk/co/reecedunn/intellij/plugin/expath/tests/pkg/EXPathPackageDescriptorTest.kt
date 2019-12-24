@@ -24,6 +24,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDescriptor
+import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDtd
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageImport
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
@@ -666,5 +667,26 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
             assertThat(c.file, `is`("test.nvdl"))
         }
+    }
+
+    @Test
+    @DisplayName("DTD components")
+    fun dtd() {
+        @Language("XML")
+        val pkg = pkg(
+            """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dtd><public-id>lorem</public-id><system-id>ipsum</system-id><file>test.dtd</file></dtd>
+                </package>
+                """.trimIndent()
+        )
+
+        assertThat(pkg.components.size, `is`(1))
+
+        val c = pkg.components[0] as EXPathPackageDtd
+        assertThat(c.moduleType, `is`(XdmModuleType.DTD))
+        assertThat(c.publicId, `is`("lorem"))
+        assertThat(c.systemId, `is`("ipsum"))
+        assertThat(c.file, `is`("test.dtd"))
     }
 }

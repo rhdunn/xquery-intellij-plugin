@@ -53,6 +53,7 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
     val components: List<EXPathPackageComponent> by lazy {
         xml.root.children().mapNotNull {
             when (it.element.localName) {
+                "dtd" -> EXPathPackageDtd(it)
                 "nvdl" -> EXPathPackageImport(it, XdmModuleType.NVDL)
                 "rnc" -> EXPathPackageImport(it, XdmModuleType.RelaxNGCompact)
                 "rng" -> EXPathPackageImport(it, XdmModuleType.RelaxNG)

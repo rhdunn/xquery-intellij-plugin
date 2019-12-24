@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.path
 
 enum class XdmModuleType(val extensions: Array<String>) {
     DotNet(arrayOf()), // Saxon
+    DTD(arrayOf()), // EXPath Package
     Java(arrayOf()), // BaseX, eXist-db, Saxon
     NVDL(arrayOf()), // EXPath Package
     RelaxNG(arrayOf()), // EXPath Package
