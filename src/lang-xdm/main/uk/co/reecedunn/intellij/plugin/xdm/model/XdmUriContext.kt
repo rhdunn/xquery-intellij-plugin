@@ -87,9 +87,13 @@ enum class XdmUriContext {
      */
     NamespaceDeclaration,
     /**
-     * This represents an EXPath package name.
+     * This represents an EXPath package name or home path.
      */
     Package,
+    /**
+     * This represents an EXPath package resource public URI.
+     */
+    Resource,
     /**
      * This represents a word list location.
      *

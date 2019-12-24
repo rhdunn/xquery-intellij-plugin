@@ -55,6 +55,7 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
             when (it.element.localName) {
                 "dtd" -> EXPathPackageDtd(it)
                 "nvdl" -> EXPathPackageImport(it, XdmModuleType.NVDL)
+                "resource" -> EXPathPackageResource(it)
                 "rnc" -> EXPathPackageImport(it, XdmModuleType.RelaxNGCompact)
                 "rng" -> EXPathPackageImport(it, XdmModuleType.RelaxNG)
                 "schematron" -> EXPathPackageImport(it, XdmModuleType.Schematron)

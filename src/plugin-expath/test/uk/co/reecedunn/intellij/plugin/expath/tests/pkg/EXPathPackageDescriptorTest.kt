@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDescriptor
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDtd
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageImport
+import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageResource
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -688,5 +689,25 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         assertThat(c.publicId, `is`("lorem"))
         assertThat(c.systemId, `is`("ipsum"))
         assertThat(c.file, `is`("test.dtd"))
+    }
+
+    @Test
+    @DisplayName("resource components")
+    fun resource() {
+        @Language("XML")
+        val pkg = pkg(
+            """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <resource><public-uri>/lorem/ipsum.txt</public-uri><file>test.txt</file></resource>
+                </package>
+                """.trimIndent()
+        )
+
+        assertThat(pkg.components.size, `is`(1))
+
+        val c = pkg.components[0] as EXPathPackageResource
+        assertThat(c.moduleType, `is`(XdmModuleType.Resource))
+        assertThat(c.publicUri?.data, `is`("/lorem/ipsum.txt"))
+        assertThat(c.file, `is`("test.txt"))
     }
 }

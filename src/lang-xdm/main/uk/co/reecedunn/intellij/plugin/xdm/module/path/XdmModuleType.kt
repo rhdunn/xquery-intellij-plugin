@@ -22,6 +22,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
     NVDL(arrayOf()), // EXPath Package
     RelaxNG(arrayOf()), // EXPath Package
     RelaxNGCompact(arrayOf()), // EXPath Package
+    Resource(arrayOf()), // EXPath Package
     Schematron(arrayOf()), // EXPath Package
     XMLSchema(arrayOf(".xsd")), // Schema Aware Feature, EXPath Package
     XProc(arrayOf()), // EXPath Package
@@ -33,6 +34,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
         val MODULE = arrayOf(XQuery, Java, DotNet)
         val MODULE_OR_SCHEMA = arrayOf(XQuery, XMLSchema, Java, DotNet)
         val NONE = arrayOf<XdmModuleType>()
+        val RESOURCE = arrayOf(Resource)
         val SCHEMA = arrayOf(XMLSchema)
         val STYLESHEET = arrayOf(XSLT)
     }
