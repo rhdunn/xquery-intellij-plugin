@@ -22,6 +22,7 @@
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath$Companion"/>
+    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleUriPath"/>
 
     <!-- Module Loaders -->
 
