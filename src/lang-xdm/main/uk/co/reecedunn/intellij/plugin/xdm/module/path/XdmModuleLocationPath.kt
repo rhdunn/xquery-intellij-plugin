@@ -19,7 +19,7 @@ import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
-class XdmModuleLocationPath internal constructor(
+data class XdmModuleLocationPath internal constructor(
     val project: Project,
     val path: String,
     override val moduleTypes: Array<XdmModuleType>,
@@ -48,5 +48,27 @@ class XdmModuleLocationPath internal constructor(
                 else -> null
             }
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as XdmModuleLocationPath
+
+        if (project != other.project) return false
+        if (path != other.path) return false
+        if (!moduleTypes.contentEquals(other.moduleTypes)) return false
+        if (isResource != other.isResource) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = project.hashCode()
+        result = 31 * result + path.hashCode()
+        result = 31 * result + moduleTypes.contentHashCode()
+        result = 31 * result + (isResource?.hashCode() ?: 0)
+        return result
     }
 }

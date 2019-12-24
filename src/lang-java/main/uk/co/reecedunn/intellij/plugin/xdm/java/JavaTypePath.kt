@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.lang.reflect.InvocationTargetException
 
-class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
+data class JavaTypePath(val project: Project) : XdmModulePath, XdmStaticContext {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")
     private val facade: Any? = try {
         facadeClass?.getMethod("getInstance", Project::class.java)?.invoke(null, project)
