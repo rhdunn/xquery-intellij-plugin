@@ -23,35 +23,35 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class EXPathPackage(private val xml: XmlDocument) {
+data class EXPathPackage(private val descriptor: XmlDocument) {
     constructor(file: VirtualFile) : this(XmlDocument.parse(file, NAMESPACES))
 
     val name: XsAnyUriValue? by lazy {
-        xml.root.attribute("name")?.let {
+        descriptor.root.attribute("name")?.let {
             XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
         }
     }
 
-    val abbrev: String? by lazy { xml.root.attribute("abbrev") }
+    val abbrev: String? by lazy { descriptor.root.attribute("abbrev") }
 
-    val version: String? by lazy { xml.root.attribute("version") }
+    val version: String? by lazy { descriptor.root.attribute("version") }
 
-    val spec: String? by lazy { xml.root.attribute("spec") }
+    val spec: String? by lazy { descriptor.root.attribute("spec") }
 
-    val title: String? by lazy { xml.root.children("title").firstOrNull()?.text() }
+    val title: String? by lazy { descriptor.root.children("title").firstOrNull()?.text() }
 
     val home: XsAnyUriValue? by lazy {
-        xml.root.children("home").firstOrNull()?.text()?.let {
+        descriptor.root.children("home").firstOrNull()?.text()?.let {
             XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
         }
     }
 
     val dependencies: List<EXPathPackageDependency> by lazy {
-        xml.root.children("dependency").map { EXPathPackageDependency(it) }.toList()
+        descriptor.root.children("dependency").map { EXPathPackageDependency(it) }.toList()
     }
 
     val components: List<EXPathPackageComponent> by lazy {
-        xml.root.children().mapNotNull {
+        descriptor.root.children().mapNotNull {
             when (it.element.localName) {
                 "dtd" -> EXPathPackageDtd(it)
                 "nvdl" -> EXPathPackageImport(it, XdmModuleType.NVDL)
