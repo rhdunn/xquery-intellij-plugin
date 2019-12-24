@@ -53,6 +53,7 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
     val components: List<EXPathPackageComponent> by lazy {
         xml.root.children().mapNotNull {
             when (it.element.localName) {
+                "rng" -> EXPathPackageComponent(it, XdmModuleType.RelaxNG)
                 "xproc" -> EXPathPackageComponent(it, XdmModuleType.XProc)
                 "xquery" -> EXPathPackageComponent(it, XdmModuleType.XQuery)
                 "xsd" -> EXPathPackageComponent(it, XdmModuleType.XMLSchema)

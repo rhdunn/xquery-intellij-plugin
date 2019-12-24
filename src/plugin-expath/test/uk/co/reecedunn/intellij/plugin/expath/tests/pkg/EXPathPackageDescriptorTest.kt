@@ -482,4 +482,46 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.components[0].file, `is`("test.xsd"))
         }
     }
+
+    @Nested
+    @DisplayName("RelaxNG components")
+    internal inner class RngComponents {
+        @Test
+        @DisplayName("namespace")
+        fun namespace() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <rng><namespace>http://www.example.com/import</namespace><file>test.rng</file></rng>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.RelaxNG))
+            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
+            assertThat(pkg.components[0].file, `is`("test.rng"))
+        }
+
+        @Test
+        @DisplayName("import-uri")
+        fun importUri() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <rng><import-uri>http://www.example.com/import</import-uri><file>test.rng</file></rng>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.RelaxNG))
+            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(pkg.components[0].file, `is`("test.rng"))
+        }
+    }
 }
