@@ -106,6 +106,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].versions, `is`(listOf("1.1", "1.2")))
             assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semverMin, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMax, `is`(nullValue()))
         }
 
         @Test
@@ -127,6 +128,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semver, `is`("1.1"))
             assertThat(pkg.dependencies[0].semverMin, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMax, `is`(nullValue()))
         }
 
         @Test
@@ -148,6 +150,51 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semverMin, `is`("1.1"))
+            assertThat(pkg.dependencies[0].semverMax, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("semver-max")
+        fun semverMax() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency package="http://www.example.com/pkg1" semver-max="1.1"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg?.data, `is`("http://www.example.com/pkg1"))
+            assertThat(pkg.dependencies[0].processor, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMin, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMax, `is`("1.1"))
+        }
+
+        @Test
+        @DisplayName("semver-min and semver-max")
+        fun semverMinMax() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency package="http://www.example.com/pkg1" semver-min="1.1" semver-max="1.2"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg?.data, `is`("http://www.example.com/pkg1"))
+            assertThat(pkg.dependencies[0].processor, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMin, `is`("1.1"))
+            assertThat(pkg.dependencies[0].semverMax, `is`("1.2"))
         }
     }
 
@@ -173,6 +220,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].versions, `is`(listOf("9.8.11", "9.8.12")))
             assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semverMin, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMax, `is`(nullValue()))
         }
 
         @Test
@@ -194,6 +242,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semver, `is`("9.8"))
             assertThat(pkg.dependencies[0].semverMin, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMax, `is`(nullValue()))
         }
 
         @Test
@@ -215,6 +264,51 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semverMin, `is`("9.8"))
+            assertThat(pkg.dependencies[0].semverMax, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("semver-max")
+        fun semverMax() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency processor="http://saxon.sf.net/he" semver-max="9.8"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].processor, `is`("http://saxon.sf.net/he"))
+            assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMin, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMax, `is`("9.8"))
+        }
+
+        @Test
+        @DisplayName("semver-min and semver-max")
+        fun semverMinMax() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency processor="http://saxon.sf.net/he" semver-min="9.8" semver-max="9.9"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].processor, `is`("http://saxon.sf.net/he"))
+            assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semverMin, `is`("9.8"))
+            assertThat(pkg.dependencies[0].semverMax, `is`("9.9"))
         }
     }
 }

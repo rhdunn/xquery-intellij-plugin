@@ -36,4 +36,6 @@ data class EXPathPackageDependency(private val xml: XmlElement) {
     val semver: String? by lazy { xml.attribute("semver") }
 
     val semverMin: String? by lazy { xml.attribute("semver-min") }
+
+    val semverMax: String? by lazy { xml.attribute("semver-max") }
 }
