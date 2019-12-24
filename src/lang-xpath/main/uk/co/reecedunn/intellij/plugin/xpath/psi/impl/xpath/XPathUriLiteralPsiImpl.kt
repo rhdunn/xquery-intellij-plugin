@@ -25,15 +25,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathUriLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue {
+class XPathUriLiteralPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XdmModulePath {
+    // region PsiElement
+
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedData.invalidate()
     }
+
+    // endregion
+    // region XdAnyUriValue
 
     override val element: PsiElement? get() = this
 
@@ -60,4 +67,6 @@ class XPathUriLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathU
             }
         }.filterNotNull().joinToString(separator = "")
     }
+
+    // endregion
 }

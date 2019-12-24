@@ -24,13 +24,20 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-class XPathBracedURILiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue {
+class XPathBracedURILiteralPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue, XdmModulePath {
+    // region PsiElement
+
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedContent.invalidate()
     }
+
+    // endregion
+    // region XsAnyUriValue
 
     override val data: String get() = cachedContent.get()!!
 
@@ -50,4 +57,6 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
             }
         }.filterNotNull().joinToString(separator = "")
     }
+
+    // endregion
 }
