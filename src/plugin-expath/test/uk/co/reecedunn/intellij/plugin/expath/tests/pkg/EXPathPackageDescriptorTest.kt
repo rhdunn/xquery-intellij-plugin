@@ -566,4 +566,46 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.components[0].file, `is`("test.rnc"))
         }
     }
+
+    @Nested
+    @DisplayName("Schematron components")
+    internal inner class SchematronComponents {
+        @Test
+        @DisplayName("namespace")
+        fun namespace() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <schematron><namespace>http://www.example.com/import</namespace><file>test.sch</file></schematron>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.Schematron))
+            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
+            assertThat(pkg.components[0].file, `is`("test.sch"))
+        }
+
+        @Test
+        @DisplayName("import-uri")
+        fun importUri() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <schematron><import-uri>http://www.example.com/import</import-uri><file>test.sch</file></schematron>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.Schematron))
+            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(pkg.components[0].file, `is`("test.sch"))
+        }
+    }
 }

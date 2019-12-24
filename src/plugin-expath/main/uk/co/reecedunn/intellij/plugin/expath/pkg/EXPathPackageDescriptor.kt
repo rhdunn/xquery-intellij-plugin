@@ -55,6 +55,7 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
             when (it.element.localName) {
                 "rnc" -> EXPathPackageComponent(it, XdmModuleType.RelaxNGCompact)
                 "rng" -> EXPathPackageComponent(it, XdmModuleType.RelaxNG)
+                "schematron" -> EXPathPackageComponent(it, XdmModuleType.Schematron)
                 "xproc" -> EXPathPackageComponent(it, XdmModuleType.XProc)
                 "xquery" -> EXPathPackageComponent(it, XdmModuleType.XQuery)
                 "xsd" -> EXPathPackageComponent(it, XdmModuleType.XMLSchema)

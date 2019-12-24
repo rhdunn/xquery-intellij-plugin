@@ -20,6 +20,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
     Java(arrayOf()), // BaseX, eXist-db, Saxon
     RelaxNG(arrayOf()), // EXPath Package
     RelaxNGCompact(arrayOf()), // EXPath Package
+    Schematron(arrayOf()), // EXPath Package
     XMLSchema(arrayOf(".xsd")), // Schema Aware Feature, EXPath Package
     XProc(arrayOf()), // EXPath Package
     XQuery(arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")), // Module Feature, EXPath Package
