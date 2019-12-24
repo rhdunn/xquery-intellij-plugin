@@ -51,13 +51,14 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
     }
 
     val components: List<EXPathPackageComponent> by lazy {
-        xml.root.children().map {
+        xml.root.children().mapNotNull {
             when (it.element.localName) {
+                "xproc" -> EXPathPackageComponent(it, XdmModuleType.XProc)
                 "xquery" -> EXPathPackageComponent(it, XdmModuleType.XQuery)
                 "xslt" -> EXPathPackageComponent(it, XdmModuleType.XSLT)
                 else -> null
             }
-        }.filterNotNull().toList()
+        }.toList()
     }
 
     companion object {
