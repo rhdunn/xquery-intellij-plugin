@@ -24,6 +24,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDescriptor
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -56,6 +57,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         assertThat(pkg.title, `is`(nullValue()))
         assertThat(pkg.home, `is`(nullValue()))
         assertThat(pkg.dependencies.size, `is`(0))
+        assertThat(pkg.components.size, `is`(0))
     }
 
     @Test
@@ -82,6 +84,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         assertThat(pkg.title, `is`("Test Package"))
         assertThat(pkg.home?.data, `is`("http://www.example.com/home"))
         assertThat(pkg.dependencies.size, `is`(0))
+        assertThat(pkg.components.size, `is`(0))
     }
 
     @Nested
@@ -309,6 +312,29 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
             assertThat(pkg.dependencies[0].semverMin, `is`("9.8"))
             assertThat(pkg.dependencies[0].semverMax, `is`("9.9"))
+        }
+    }
+
+    @Nested
+    @DisplayName("components")
+    internal inner class Components {
+        @Test
+        @DisplayName("xslt")
+        fun xslt() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <xslt><import-uri>http://www.example.com/import</import-uri><file>test.xsl</file></xslt>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XSLT))
+            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(pkg.components[0].file, `is`("test.xsl"))
         }
     }
 }

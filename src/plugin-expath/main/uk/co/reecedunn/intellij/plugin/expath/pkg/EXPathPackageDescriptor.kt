@@ -50,6 +50,15 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
         xml.root.children("dependency").map { EXPathPackageDependency(it) }.toList()
     }
 
+    val components: List<EXPathPackageComponent> by lazy {
+        xml.root.children().map {
+            when (it.element.localName) {
+                "xslt" -> EXPathPackageComponent(it, XdmModuleType.XSLT)
+                else -> null
+            }
+        }.filterNotNull().toList()
+    }
+
     companion object {
         val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
     }
