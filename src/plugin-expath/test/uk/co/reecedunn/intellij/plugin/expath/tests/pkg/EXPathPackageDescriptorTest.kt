@@ -102,7 +102,31 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies.size, `is`(1))
 
             assertThat(pkg.dependencies[0].pkg?.data, `is`("http://www.example.com/pkg1"))
+            assertThat(pkg.dependencies[0].processor, `is`(nullValue()))
             assertThat(pkg.dependencies[0].versions, `is`(listOf("1.1", "1.2")))
+        }
+    }
+
+    @Nested
+    @DisplayName("processor dependencies")
+    internal inner class ProcessorDependencies {
+        @Test
+        @DisplayName("versions")
+        fun versions() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency processor="http://saxon.sf.net/he" versions="9.8.11 9.8.12"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].processor, `is`("http://saxon.sf.net/he"))
+            assertThat(pkg.dependencies[0].versions, `is`(listOf("9.8.11", "9.8.12")))
         }
     }
 }
