@@ -23,7 +23,7 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDescriptor
+import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDtd
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageImport
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageResource
@@ -43,8 +43,8 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         super.tearDown()
     }
 
-    private fun pkg(xml: String): EXPathPackageDescriptor {
-        return EXPathPackageDescriptor(createVirtualFile("package.xml", xml))
+    private fun pkg(xml: String): EXPathPackage {
+        return EXPathPackage(createVirtualFile("package.xml", xml))
     }
 
     @Test

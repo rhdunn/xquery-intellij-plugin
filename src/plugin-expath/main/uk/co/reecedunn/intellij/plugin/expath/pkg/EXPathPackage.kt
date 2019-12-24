@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class EXPathPackageDescriptor(private val xml: XmlDocument) {
+data class EXPathPackage(private val xml: XmlDocument) {
     constructor(file: VirtualFile) : this(XmlDocument.parse(file, NAMESPACES))
 
     val name: XsAnyUriValue? by lazy {
