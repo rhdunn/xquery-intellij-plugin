@@ -104,6 +104,27 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].pkg?.data, `is`("http://www.example.com/pkg1"))
             assertThat(pkg.dependencies[0].processor, `is`(nullValue()))
             assertThat(pkg.dependencies[0].versions, `is`(listOf("1.1", "1.2")))
+            assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("semver")
+        fun semver() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency package="http://www.example.com/pkg1" semver="1.1"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg?.data, `is`("http://www.example.com/pkg1"))
+            assertThat(pkg.dependencies[0].processor, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semver, `is`("1.1"))
         }
     }
 
@@ -127,6 +148,27 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.dependencies[0].pkg, `is`(nullValue()))
             assertThat(pkg.dependencies[0].processor, `is`("http://saxon.sf.net/he"))
             assertThat(pkg.dependencies[0].versions, `is`(listOf("9.8.11", "9.8.12")))
+            assertThat(pkg.dependencies[0].semver, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("semver")
+        fun semver() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <dependency processor="http://saxon.sf.net/he" semver="9.8"/>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.dependencies.size, `is`(1))
+
+            assertThat(pkg.dependencies[0].pkg, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].processor, `is`("http://saxon.sf.net/he"))
+            assertThat(pkg.dependencies[0].versions, `is`(nullValue()))
+            assertThat(pkg.dependencies[0].semver, `is`("9.8"))
         }
     }
 }
