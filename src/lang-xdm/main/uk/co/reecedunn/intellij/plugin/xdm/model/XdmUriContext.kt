@@ -87,6 +87,10 @@ enum class XdmUriContext {
      */
     NamespaceDeclaration,
     /**
+     * This represents an EXPath package name.
+     */
+    Package,
+    /**
      * This represents a word list location.
      *
      * This is an XQuery and XPath Full Text feature.

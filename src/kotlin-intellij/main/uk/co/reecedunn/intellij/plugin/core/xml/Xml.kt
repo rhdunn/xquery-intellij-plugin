@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.xml
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.text.nullize
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
@@ -69,8 +70,8 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun attribute(qname: QName): String? {
         return when {
-            qname.namespaceURI.isEmpty() -> element.getAttribute(qname.localPart)
-            else -> element.getAttributeNS(qname.namespaceURI, qname.localPart)
+            qname.namespaceURI.isEmpty() -> element.getAttribute(qname.localPart)?.nullize()
+            else -> element.getAttributeNS(qname.namespaceURI, qname.localPart)?.nullize()
         }
     }
 
