@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module
 
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.JarModuleLoader
 
