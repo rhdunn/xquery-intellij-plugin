@@ -27,7 +27,12 @@ data class EXPathPackageComponent(private val xml: XmlElement, val moduleType: X
         xml.children().map {
             when (it.element.localName) {
                 "import-uri" -> it.text()
-                "namespace" -> if (moduleType === XdmModuleType.XQuery) it.text() else null
+                "namespace" -> {
+                    if (moduleType === XdmModuleType.XQuery || moduleType === XdmModuleType.XMLSchema)
+                        it.text()
+                    else
+                        null
+                }
                 else -> null
             }
         }.filterNotNull().firstOrNull()?.let {

@@ -55,6 +55,7 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
             when (it.element.localName) {
                 "xproc" -> EXPathPackageComponent(it, XdmModuleType.XProc)
                 "xquery" -> EXPathPackageComponent(it, XdmModuleType.XQuery)
+                "xsd" -> EXPathPackageComponent(it, XdmModuleType.XMLSchema)
                 "xslt" -> EXPathPackageComponent(it, XdmModuleType.XSLT)
                 else -> null
             }
