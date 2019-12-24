@@ -443,7 +443,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
     @Nested
     @DisplayName("XMLSchema components")
-    internal inner class XMLSchemaComponents {
+    internal inner class XmlSchemaComponents {
         @Test
         @DisplayName("namespace")
         fun namespace() {
@@ -606,6 +606,48 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.Schematron))
             assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
             assertThat(pkg.components[0].file, `is`("test.sch"))
+        }
+    }
+
+    @Nested
+    @DisplayName("NVDL components")
+    internal inner class NvdlComponents {
+        @Test
+        @DisplayName("namespace")
+        fun namespace() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <nvdl><namespace>http://www.example.com/import</namespace><file>test.nvdl</file></nvdl>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.NVDL))
+            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
+            assertThat(pkg.components[0].file, `is`("test.nvdl"))
+        }
+
+        @Test
+        @DisplayName("import-uri")
+        fun importUri() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <nvdl><import-uri>http://www.example.com/import</import-uri><file>test.nvdl</file></nvdl>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.NVDL))
+            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(pkg.components[0].file, `is`("test.nvdl"))
         }
     }
 }
