@@ -34,4 +34,6 @@ data class EXPathPackageDependency(private val xml: XmlElement) {
     val versions: List<String>? by lazy { xml.attribute("versions")?.split(" ") }
 
     val semver: String? by lazy { xml.attribute("semver") }
+
+    val semverMin: String? by lazy { xml.attribute("semver-min") }
 }
