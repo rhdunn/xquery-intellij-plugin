@@ -40,6 +40,12 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
 
     val title: String? by lazy { xml.root.children("title").firstOrNull()?.text() }
 
+    val home: XsAnyUriValue? by lazy {
+        xml.root.children("home").firstOrNull()?.text()?.let {
+            XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
+        }
+    }
+
     companion object {
         val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
     }
