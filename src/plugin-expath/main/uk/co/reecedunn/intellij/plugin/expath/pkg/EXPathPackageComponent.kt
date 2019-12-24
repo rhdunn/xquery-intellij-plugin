@@ -15,30 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.expath.pkg
 
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class EXPathPackageComponent(private val xml: XmlElement, val moduleType: XdmModuleType) {
-    val importUri: XsAnyUriValue? by lazy {
-        xml.children().map {
-            when (it.element.localName) {
-                "import-uri" -> it.text()
-                "namespace" -> {
-                    if (moduleType === XdmModuleType.XQuery || moduleType === XdmModuleType.XMLSchema)
-                        it.text()
-                    else
-                        null
-                }
-                else -> null
-            }
-        }.filterNotNull().firstOrNull()?.let {
-            XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.NONE, null as? PsiElement?)
-        }
-    }
+interface EXPathPackageComponent {
+    val moduleType: XdmModuleType
 
-    val file: String? by lazy { xml.children("file").firstOrNull()?.text() }
+    val file: String?
 }

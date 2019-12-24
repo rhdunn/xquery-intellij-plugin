@@ -24,6 +24,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDescriptor
+import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageImport
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -332,9 +333,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XSLT))
-            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
-            assertThat(pkg.components[0].file, `is`("test.xsl"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XSLT))
+            assertThat(c.importUri?.data, `is`(nullValue()))
+            assertThat(c.file, `is`("test.xsl"))
         }
 
         @Test
@@ -351,9 +353,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XSLT))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.xsl"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XSLT))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.xsl"))
         }
     }
 
@@ -374,9 +377,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XQuery))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.xqy"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XQuery))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.xqy"))
         }
 
         @Test
@@ -393,9 +397,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XQuery))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.xqy"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XQuery))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.xqy"))
         }
     }
 
@@ -416,9 +421,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XProc))
-            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
-            assertThat(pkg.components[0].file, `is`("test.xpl"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XProc))
+            assertThat(c.importUri?.data, `is`(nullValue()))
+            assertThat(c.file, `is`("test.xpl"))
         }
 
         @Test
@@ -435,9 +441,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XProc))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.xpl"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XProc))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.xpl"))
         }
     }
 
@@ -458,9 +465,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XMLSchema))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.xsd"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XMLSchema))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.xsd"))
         }
 
         @Test
@@ -477,9 +485,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XMLSchema))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.xsd"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.XMLSchema))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.xsd"))
         }
     }
 
@@ -500,9 +509,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.RelaxNG))
-            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
-            assertThat(pkg.components[0].file, `is`("test.rng"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.RelaxNG))
+            assertThat(c.importUri?.data, `is`(nullValue()))
+            assertThat(c.file, `is`("test.rng"))
         }
 
         @Test
@@ -519,9 +529,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.RelaxNG))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.rng"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.RelaxNG))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.rng"))
         }
     }
 
@@ -542,9 +553,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.RelaxNGCompact))
-            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
-            assertThat(pkg.components[0].file, `is`("test.rnc"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.RelaxNGCompact))
+            assertThat(c.importUri?.data, `is`(nullValue()))
+            assertThat(c.file, `is`("test.rnc"))
         }
 
         @Test
@@ -561,9 +573,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.RelaxNGCompact))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.rnc"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.RelaxNGCompact))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.rnc"))
         }
     }
 
@@ -584,9 +597,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.Schematron))
-            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
-            assertThat(pkg.components[0].file, `is`("test.sch"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.Schematron))
+            assertThat(c.importUri?.data, `is`(nullValue()))
+            assertThat(c.file, `is`("test.sch"))
         }
 
         @Test
@@ -603,9 +617,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.Schematron))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.sch"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.Schematron))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.sch"))
         }
     }
 
@@ -626,9 +641,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.NVDL))
-            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
-            assertThat(pkg.components[0].file, `is`("test.nvdl"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.NVDL))
+            assertThat(c.importUri?.data, `is`(nullValue()))
+            assertThat(c.file, `is`("test.nvdl"))
         }
 
         @Test
@@ -645,9 +661,10 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
 
             assertThat(pkg.components.size, `is`(1))
 
-            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.NVDL))
-            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
-            assertThat(pkg.components[0].file, `is`("test.nvdl"))
+            val c = pkg.components[0] as EXPathPackageImport
+            assertThat(c.moduleType, `is`(XdmModuleType.NVDL))
+            assertThat(c.importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(c.file, `is`("test.nvdl"))
         }
     }
 }

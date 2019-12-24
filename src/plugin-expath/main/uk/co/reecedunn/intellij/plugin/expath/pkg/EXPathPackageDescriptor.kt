@@ -53,14 +53,14 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
     val components: List<EXPathPackageComponent> by lazy {
         xml.root.children().mapNotNull {
             when (it.element.localName) {
-                "nvdl" -> EXPathPackageComponent(it, XdmModuleType.NVDL)
-                "rnc" -> EXPathPackageComponent(it, XdmModuleType.RelaxNGCompact)
-                "rng" -> EXPathPackageComponent(it, XdmModuleType.RelaxNG)
-                "schematron" -> EXPathPackageComponent(it, XdmModuleType.Schematron)
-                "xproc" -> EXPathPackageComponent(it, XdmModuleType.XProc)
-                "xquery" -> EXPathPackageComponent(it, XdmModuleType.XQuery)
-                "xsd" -> EXPathPackageComponent(it, XdmModuleType.XMLSchema)
-                "xslt" -> EXPathPackageComponent(it, XdmModuleType.XSLT)
+                "nvdl" -> EXPathPackageImport(it, XdmModuleType.NVDL)
+                "rnc" -> EXPathPackageImport(it, XdmModuleType.RelaxNGCompact)
+                "rng" -> EXPathPackageImport(it, XdmModuleType.RelaxNG)
+                "schematron" -> EXPathPackageImport(it, XdmModuleType.Schematron)
+                "xproc" -> EXPathPackageImport(it, XdmModuleType.XProc)
+                "xquery" -> EXPathPackageImport(it, XdmModuleType.XQuery)
+                "xsd" -> EXPathPackageImport(it, XdmModuleType.XMLSchema)
+                "xslt" -> EXPathPackageImport(it, XdmModuleType.XSLT)
                 else -> null
             }
         }.toList()
