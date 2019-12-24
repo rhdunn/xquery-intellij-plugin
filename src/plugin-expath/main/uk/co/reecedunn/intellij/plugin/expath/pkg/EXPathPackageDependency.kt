@@ -28,4 +28,6 @@ data class EXPathPackageDependency(private val xml: XmlElement) {
             XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
         }
     }
+
+    val versions: List<String>? by lazy { xml.attribute("versions")?.split(" ") }
 }
