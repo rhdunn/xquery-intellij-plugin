@@ -23,12 +23,13 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.ref.WeakReference
 import java.net.JarURLConnection
 
 class ResourceVirtualFile private constructor(
     private val mLoader: ClassLoader,
     private val mResource: String,
-    private val mFileSystem: VirtualFileSystem?,
+    private val mFileSystem: WeakReference<VirtualFileSystem>?,
     private var mFile: File?,
     private var mPath: String
 ) : VirtualFile() {
@@ -48,7 +49,7 @@ class ResourceVirtualFile private constructor(
 
     override fun getName(): String = mName!!
 
-    override fun getFileSystem(): VirtualFileSystem = mFileSystem ?: throw UnsupportedOperationException()
+    override fun getFileSystem(): VirtualFileSystem = mFileSystem?.get() ?: throw UnsupportedOperationException()
 
     override fun getPath(): String = mPath
 
@@ -99,6 +100,14 @@ class ResourceVirtualFile private constructor(
 
     companion object {
         fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): ResourceVirtualFile {
+            return create(loader, resource, fileSystem?.let { WeakReference(it) })
+        }
+
+        private fun create(
+            loader: ClassLoader,
+            resource: String,
+            fileSystem: WeakReference<VirtualFileSystem>?
+        ): ResourceVirtualFile {
             return createIfValid(loader, resource, fileSystem)
                 ?: ResourceVirtualFile(loader, resource, fileSystem, null, "")
         }
@@ -107,6 +116,14 @@ class ResourceVirtualFile private constructor(
             loader: ClassLoader,
             resource: String,
             fileSystem: VirtualFileSystem? = null
+        ): ResourceVirtualFile? {
+            return createIfValid(loader, resource, fileSystem?.let { WeakReference(it) })
+        }
+
+        private fun createIfValid(
+            loader: ClassLoader,
+            resource: String,
+            fileSystem: WeakReference<VirtualFileSystem>?
         ): ResourceVirtualFile? {
             return loader.getResource(resource)?.let {
                 when (it.protocol) {
