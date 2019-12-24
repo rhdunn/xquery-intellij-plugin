@@ -53,6 +53,7 @@ data class EXPathPackageDescriptor(private val xml: XmlDocument) {
     val components: List<EXPathPackageComponent> by lazy {
         xml.root.children().map {
             when (it.element.localName) {
+                "xquery" -> EXPathPackageComponent(it, XdmModuleType.XQuery)
                 "xslt" -> EXPathPackageComponent(it, XdmModuleType.XSLT)
                 else -> null
             }

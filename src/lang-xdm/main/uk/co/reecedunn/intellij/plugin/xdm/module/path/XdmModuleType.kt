@@ -19,8 +19,8 @@ enum class XdmModuleType(val extensions: Array<String>) {
     DotNet(arrayOf()), // Saxon
     Java(arrayOf()), // BaseX, eXist-db, Saxon
     XMLSchema(arrayOf(".xsd")),
-    XQuery(arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")),
-    XSLT(arrayOf()); // MarkLogic
+    XQuery(arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")), // Module Feature, EXPath Package
+    XSLT(arrayOf()); // MarkLogic, EXPath Package
 
     companion object {
         val JAVA = arrayOf(Java)

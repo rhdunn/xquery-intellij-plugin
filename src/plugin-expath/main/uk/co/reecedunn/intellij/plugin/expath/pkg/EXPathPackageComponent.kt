@@ -24,7 +24,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class EXPathPackageComponent(private val xml: XmlElement, val moduleType: XdmModuleType) {
     val importUri: XsAnyUriValue? by lazy {
-        xml.children("import-uri").firstOrNull()?.text()?.let {
+        xml.children().map {
+            when (it.element.localName) {
+                "import-uri" -> it.text()
+                "namespace" -> if (moduleType === XdmModuleType.XQuery) it.text() else null
+                else -> null
+            }
+        }.filterNotNull().firstOrNull()?.let {
             XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.NONE, null as? PsiElement?)
         }
     }

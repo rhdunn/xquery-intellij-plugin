@@ -316,11 +316,30 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
     }
 
     @Nested
-    @DisplayName("components")
-    internal inner class Components {
+    @DisplayName("xslt components")
+    internal inner class XsltComponents {
         @Test
-        @DisplayName("xslt")
-        fun xslt() {
+        @DisplayName("namespace")
+        fun namespace() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <xslt><namespace>http://www.example.com/import</namespace><file>test.xsl</file></xslt>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XSLT))
+            assertThat(pkg.components[0].importUri?.data, `is`(nullValue()))
+            assertThat(pkg.components[0].file, `is`("test.xsl"))
+        }
+
+        @Test
+        @DisplayName("import-uri")
+        fun importUri() {
             @Language("XML")
             val pkg = pkg(
                 """
@@ -335,6 +354,48 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
             assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XSLT))
             assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
             assertThat(pkg.components[0].file, `is`("test.xsl"))
+        }
+    }
+
+    @Nested
+    @DisplayName("xquery components")
+    internal inner class XQueryComponents {
+        @Test
+        @DisplayName("namespace")
+        fun namespace() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <xquery><namespace>http://www.example.com/import</namespace><file>test.xqy</file></xquery>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XQuery))
+            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(pkg.components[0].file, `is`("test.xqy"))
+        }
+
+        @Test
+        @DisplayName("import-uri")
+        fun importUri() {
+            @Language("XML")
+            val pkg = pkg(
+                """
+                <package xmlns="http://expath.org/ns/pkg">
+                    <xquery><import-uri>http://www.example.com/import</import-uri><file>test.xqy</file></xquery>
+                </package>
+                """.trimIndent()
+            )
+
+            assertThat(pkg.components.size, `is`(1))
+
+            assertThat(pkg.components[0].moduleType, `is`(XdmModuleType.XQuery))
+            assertThat(pkg.components[0].importUri?.data, `is`("http://www.example.com/import"))
+            assertThat(pkg.components[0].file, `is`("test.xqy"))
         }
     }
 }
