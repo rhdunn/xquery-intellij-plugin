@@ -15,9 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.VirtualFileSystem
+import java.io.InputStream
+import java.io.OutputStream
 import java.util.zip.ZipEntry
 
-data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray) {
+data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray) : VirtualFile() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -37,4 +41,36 @@ data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray)
     }
 
     internal fun toPair(): Pair<ZipEntry, ByteArray> = entry to contents
+
+    // region VirtualFile
+
+    override fun getName(): String = TODO()
+
+    override fun getFileSystem(): VirtualFileSystem = TODO()
+
+    override fun getPath(): String = TODO()
+
+    override fun isWritable(): Boolean = TODO()
+
+    override fun isDirectory(): Boolean = TODO()
+
+    override fun isValid(): Boolean = TODO()
+
+    override fun getParent(): VirtualFile? = TODO()
+
+    override fun getChildren(): Array<VirtualFile> = TODO()
+
+    override fun getOutputStream(requestor: Any?, newModificationStamp: Long, newTimeStamp: Long): OutputStream = TODO()
+
+    override fun contentsToByteArray(): ByteArray = TODO()
+
+    override fun getTimeStamp(): Long = TODO()
+
+    override fun getLength(): Long = TODO()
+
+    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO()
+
+    override fun getInputStream(): InputStream = TODO()
+
+    // endregion
 }
