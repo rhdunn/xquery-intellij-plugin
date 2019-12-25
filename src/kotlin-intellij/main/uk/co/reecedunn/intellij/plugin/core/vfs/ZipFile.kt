@@ -59,7 +59,7 @@ data class ZipFile(
 
     override fun getPath(): String = entry.name
 
-    override fun isWritable(): Boolean = TODO()
+    override fun isWritable(): Boolean = false
 
     override fun isDirectory(): Boolean = TODO()
 

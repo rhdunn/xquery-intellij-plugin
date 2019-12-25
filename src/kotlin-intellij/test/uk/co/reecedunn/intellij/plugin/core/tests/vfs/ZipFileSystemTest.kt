@@ -79,6 +79,7 @@ class ZipFileSystemTest {
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("lorem-ipsum.txt"))
         assertThat(entry.name, `is`("lorem-ipsum.txt"))
+        assertThat(entry.isWritable, `is`(false))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
 
@@ -95,6 +96,7 @@ class ZipFileSystemTest {
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("contents/lorem-ipsum.txt"))
         assertThat(entry.name, `is`("lorem-ipsum.txt"))
+        assertThat(entry.isWritable, `is`(false))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
 }
