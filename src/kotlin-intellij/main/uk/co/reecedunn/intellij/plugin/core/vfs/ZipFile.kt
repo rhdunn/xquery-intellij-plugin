@@ -76,7 +76,7 @@ data class ZipFile(
 
     override fun contentsToByteArray(): ByteArray = contents
 
-    override fun getTimeStamp(): Long = TODO()
+    override fun getTimeStamp(): Long = entry.time
 
     override fun getLength(): Long = TODO()
 
