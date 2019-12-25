@@ -62,7 +62,7 @@ data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray)
 
     override fun getOutputStream(requestor: Any?, newModificationStamp: Long, newTimeStamp: Long): OutputStream = TODO()
 
-    override fun contentsToByteArray(): ByteArray = TODO()
+    override fun contentsToByteArray(): ByteArray = contents
 
     override fun getTimeStamp(): Long = TODO()
 

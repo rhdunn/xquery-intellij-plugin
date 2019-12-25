@@ -65,4 +65,18 @@ class ZipFileSystemTest {
             assertThat(fs.findFileByPath("test.txt"), `is`(nullValue()))
         }
     }
+
+    @Test
+    @DisplayName("single file")
+    fun singleFile() {
+        val zip = sequenceOf(
+            ZipEntry("lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("lorem-ipsum.txt")!!
+        assertThat(entry.path, `is`("lorem-ipsum.txt"))
+        assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
+    }
 }
