@@ -40,7 +40,7 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
 
     // region VirtualFileSystem
 
-    override fun findFileByPath(path: String): VirtualFile? = TODO()
+    override fun findFileByPath(path: String): VirtualFile? = entries.find { it.path == path }
 
     override fun refresh(asynchronous: Boolean) {}
 

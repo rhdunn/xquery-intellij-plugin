@@ -48,7 +48,7 @@ data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray)
 
     override fun getFileSystem(): VirtualFileSystem = TODO()
 
-    override fun getPath(): String = TODO()
+    override fun getPath(): String = entry.name
 
     override fun isWritable(): Boolean = TODO()
 

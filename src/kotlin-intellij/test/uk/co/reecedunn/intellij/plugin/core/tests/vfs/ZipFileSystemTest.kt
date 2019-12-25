@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
-import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -38,6 +38,10 @@ class ZipFileSystemTest {
 
             val entries = fs.save().unzip().toList()
             assertThat(entries.size, `is`(0))
+
+            assertThat(fs.findFileByPath("lorem-ipsum.txt"), `is`(nullValue()))
+            assertThat(fs.findFileByPath("hello.txt"), `is`(nullValue()))
+            assertThat(fs.findFileByPath("test.txt"), `is`(nullValue()))
         }
 
         @Test
@@ -55,6 +59,10 @@ class ZipFileSystemTest {
             assertThat(entries[0].second, `is`("Lorem ipsum dolor sed emit...".toByteArray()))
             assertThat(entries[1].first.name, `is`("hello.txt"))
             assertThat(entries[1].second, `is`("Hello, world!".toByteArray()))
+
+            assertThat(fs.findFileByPath("lorem-ipsum.txt"), `is`(not(nullValue())))
+            assertThat(fs.findFileByPath("hello.txt"), `is`(not(nullValue())))
+            assertThat(fs.findFileByPath("test.txt"), `is`(nullValue()))
         }
     }
 }
