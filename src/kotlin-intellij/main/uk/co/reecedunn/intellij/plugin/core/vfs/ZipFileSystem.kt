@@ -15,16 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.zip.entries
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import java.io.ByteArrayInputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 
-class ZipFileSystem {
+class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     private val entries = ArrayList<ZipFile>()
 
-    constructor(zip: ByteArray) {
+    constructor(zip: ByteArray) : this() {
         return ByteArrayInputStream(zip).use { stream ->
             ZipInputStream(stream).use { zip ->
                 zip.entries.forEach { (entry, contents) ->
@@ -35,4 +37,12 @@ class ZipFileSystem {
     }
 
     fun save(): ByteArray = entries.asSequence().map { it.toPair() }.toZipByteArray()
+
+    // region VirtualFileSystem
+
+    override fun findFileByPath(path: String): VirtualFile? = TODO()
+
+    override fun refresh(asynchronous: Boolean) {}
+
+    // endregion
 }
