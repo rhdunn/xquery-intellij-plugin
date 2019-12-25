@@ -67,8 +67,8 @@ class ZipFileSystemTest {
     }
 
     @Test
-    @DisplayName("single file")
-    fun singleFile() {
+    @DisplayName("file in root directory")
+    fun fileInRootDirectory() {
         val zip = sequenceOf(
             ZipEntry("lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("hello.txt") to "Hello, world!".toByteArray()
@@ -78,6 +78,23 @@ class ZipFileSystemTest {
         val entry = fs.findFileByPath("lorem-ipsum.txt")!!
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("lorem-ipsum.txt"))
+        assertThat(entry.name, `is`("lorem-ipsum.txt"))
+        assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
+    }
+
+    @Test
+    @DisplayName("file in directory")
+    fun fileInDirectory() {
+        val zip = sequenceOf(
+            ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("contents/lorem-ipsum.txt")!!
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`("contents/lorem-ipsum.txt"))
+        assertThat(entry.name, `is`("lorem-ipsum.txt"))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
 }

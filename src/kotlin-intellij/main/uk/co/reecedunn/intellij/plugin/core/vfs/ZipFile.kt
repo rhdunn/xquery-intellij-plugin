@@ -49,7 +49,11 @@ data class ZipFile(
 
     // region VirtualFile
 
-    override fun getName(): String = TODO()
+    private val filename: String by lazy {
+        path.split("/").last()
+    }
+
+    override fun getName(): String = filename
 
     override fun getFileSystem(): VirtualFileSystem = fileSystem.get()!!
 
