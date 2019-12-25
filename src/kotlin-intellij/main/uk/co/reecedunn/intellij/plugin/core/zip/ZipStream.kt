@@ -23,12 +23,16 @@ import java.util.zip.ZipOutputStream
 
 private class ZipEntryIterator(private val zip: ZipInputStream) : Iterator<Pair<ZipEntry, ByteArray>> {
     private var entry: ZipEntry? = zip.nextEntry
+    private val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
 
     override fun hasNext(): Boolean = entry != null
 
     override fun next(): Pair<ZipEntry, ByteArray> {
-        val ret = Pair(entry!!, zip.readAllBytes())
+        zip.copyTo(contents)
+        val ret = Pair(entry!!, contents.toByteArray())
+
         entry = zip.nextEntry
+        contents.reset()
         return ret
     }
 }
