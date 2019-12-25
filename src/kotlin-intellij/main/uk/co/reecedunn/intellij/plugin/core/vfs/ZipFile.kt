@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.vfs
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
+import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.lang.ref.WeakReference
@@ -82,7 +83,7 @@ data class ZipFile(
 
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO()
 
-    override fun getInputStream(): InputStream = TODO()
+    override fun getInputStream(): InputStream = ByteArrayInputStream(contents)
 
     // endregion
 }
