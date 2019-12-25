@@ -83,6 +83,7 @@ class ZipFileSystemTest {
         assertThat(entry.isDirectory, `is`(false))
         assertThat(entry.isValid, `is`(true))
         assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.length, `is`(29L))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
 
@@ -103,6 +104,7 @@ class ZipFileSystemTest {
         assertThat(entry.isDirectory, `is`(false))
         assertThat(entry.isValid, `is`(true))
         assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.length, `is`(29L))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
 
@@ -124,6 +126,7 @@ class ZipFileSystemTest {
         assertThat(entry.isDirectory, `is`(true))
         assertThat(entry.isValid, `is`(true))
         assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.length, `is`(0L))
         assertThat(entry.contentsToByteArray(), `is`(ByteArray(0)))
     }
 }
