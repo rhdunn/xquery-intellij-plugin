@@ -34,23 +34,23 @@ abstract class VirtualFileSystemImpl(private val protocol: String) : VirtualFile
     override fun removeVirtualFileListener(listener: VirtualFileListener) {}
 
     @Throws(IOException::class)
-    override fun deleteFile(requestor: Any, vFile: VirtualFile) = TODO()
+    override fun deleteFile(requestor: Any?, vFile: VirtualFile) = TODO()
 
     @Throws(IOException::class)
-    override fun moveFile(requestor: Any, vFile: VirtualFile, newParent: VirtualFile) = TODO()
+    override fun moveFile(requestor: Any?, vFile: VirtualFile, newParent: VirtualFile) = TODO()
 
     @Throws(IOException::class)
-    override fun renameFile(requestor: Any, vFile: VirtualFile, newName: String) = TODO()
+    override fun renameFile(requestor: Any?, vFile: VirtualFile, newName: String) = TODO()
 
     @Throws(IOException::class)
-    override fun createChildFile(requestor: Any, vDir: VirtualFile, fileName: String): VirtualFile = TODO()
+    override fun createChildFile(requestor: Any?, vDir: VirtualFile, fileName: String): VirtualFile = TODO()
 
     @Throws(IOException::class)
-    override fun createChildDirectory(requestor: Any, vDir: VirtualFile, dirName: String): VirtualFile = TODO()
+    override fun createChildDirectory(requestor: Any?, vDir: VirtualFile, dirName: String): VirtualFile = TODO()
 
     @Throws(IOException::class)
     override fun copyFile(
-        requestor: Any,
+        requestor: Any?,
         virtualFile: VirtualFile,
         newParent: VirtualFile,
         copyName: String
