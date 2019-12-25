@@ -80,6 +80,7 @@ class ZipFileSystemTest {
         assertThat(entry.path, `is`("lorem-ipsum.txt"))
         assertThat(entry.name, `is`("lorem-ipsum.txt"))
         assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(false))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
 
@@ -97,6 +98,26 @@ class ZipFileSystemTest {
         assertThat(entry.path, `is`("contents/lorem-ipsum.txt"))
         assertThat(entry.name, `is`("lorem-ipsum.txt"))
         assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(false))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
+    }
+
+    @Test
+    @DisplayName("directory")
+    fun directory() {
+        val zip = sequenceOf(
+            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("contents/")!!
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`("contents/"))
+        assertThat(entry.name, `is`("contents"))
+        assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(true))
+        assertThat(entry.contentsToByteArray(), `is`(ByteArray(0)))
     }
 }
