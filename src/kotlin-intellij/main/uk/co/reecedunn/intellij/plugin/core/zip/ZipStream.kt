@@ -21,6 +21,20 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
+private class ZipEntryIterator(private val zip: ZipInputStream) : Iterator<Pair<ZipEntry, ByteArray>> {
+    private var entry: ZipEntry? = zip.nextEntry
+
+    override fun hasNext(): Boolean = entry != null
+
+    override fun next(): Pair<ZipEntry, ByteArray> {
+        val ret = Pair(entry!!, zip.readAllBytes())
+        entry = zip.nextEntry
+        return ret
+    }
+}
+
+val ZipInputStream.entries: Sequence<Pair<ZipEntry, ByteArray>> get() = ZipEntryIterator(this).asSequence()
+
 fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
     return ByteArrayOutputStream().use { stream ->
         ZipOutputStream(stream).use { zip ->
@@ -36,14 +50,8 @@ fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
 
 fun ByteArray.unzip(): Sequence<Pair<ZipEntry, ByteArray>> {
     return ByteArrayInputStream(this).use { stream ->
-        val list = ArrayList<Pair<ZipEntry, ByteArray>>()
         ZipInputStream(stream).use { zip ->
-            var entry: ZipEntry? = zip.nextEntry
-            while (entry != null) {
-                list.add(Pair(entry, zip.readAllBytes()))
-                entry = zip.nextEntry
-            }
+            zip.entries.toList().asSequence()
         }
-        list.asSequence()
     }
 }
