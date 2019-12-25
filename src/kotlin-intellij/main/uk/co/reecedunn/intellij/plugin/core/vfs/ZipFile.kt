@@ -15,24 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
-import uk.co.reecedunn.intellij.plugin.core.zip.entries
-import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
-import java.io.ByteArrayInputStream
 import java.util.zip.ZipEntry
-import java.util.zip.ZipInputStream
 
-class ZipFileSystem {
-    private val entries = ArrayList<ZipFile>()
+data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
 
-    constructor(zip: ByteArray) {
-        return ByteArrayInputStream(zip).use { stream ->
-            ZipInputStream(stream).use { zip ->
-                zip.entries.forEach { (entry, contents) ->
-                    entries.add(ZipFile(entry, contents))
-                }
-            }
-        }
+        other as ZipFile
+
+        if (entry != other.entry) return false
+        if (!contents.contentEquals(other.contents)) return false
+
+        return true
     }
 
-    fun save(): ByteArray = entries.asSequence().map { it.toPair() }.toZipByteArray()
+    override fun hashCode(): Int {
+        var result = entry.hashCode()
+        result = 31 * result + contents.contentHashCode()
+        return result
+    }
+
+    internal fun toPair(): Pair<ZipEntry, ByteArray> = entry to contents
 }
