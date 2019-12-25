@@ -66,7 +66,7 @@ data class ZipFile(
 
     override fun isDirectory(): Boolean = path.endsWith('/')
 
-    override fun isValid(): Boolean = TODO()
+    override fun isValid(): Boolean = true
 
     override fun getParent(): VirtualFile? = TODO()
 
