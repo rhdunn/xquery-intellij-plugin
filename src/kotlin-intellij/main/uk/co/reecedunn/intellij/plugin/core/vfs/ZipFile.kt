@@ -19,9 +19,14 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.ref.WeakReference
 import java.util.zip.ZipEntry
 
-data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray) : VirtualFile() {
+data class ZipFile(
+    private val entry: ZipEntry,
+    private val contents: ByteArray,
+    private val fileSystem: WeakReference<ZipFileSystem>
+) : VirtualFile() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -46,7 +51,7 @@ data class ZipFile(private val entry: ZipEntry, private val contents: ByteArray)
 
     override fun getName(): String = TODO()
 
-    override fun getFileSystem(): VirtualFileSystem = TODO()
+    override fun getFileSystem(): VirtualFileSystem = fileSystem.get()!!
 
     override fun getPath(): String = entry.name
 

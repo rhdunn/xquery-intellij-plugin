@@ -76,6 +76,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("lorem-ipsum.txt")!!
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("lorem-ipsum.txt"))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
     }
