@@ -79,6 +79,8 @@ data class ZipFile(
 
     override fun getTimeStamp(): Long = entry.time
 
+    override fun getModificationStamp(): Long = 0
+
     override fun getLength(): Long = entry.size
 
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO()

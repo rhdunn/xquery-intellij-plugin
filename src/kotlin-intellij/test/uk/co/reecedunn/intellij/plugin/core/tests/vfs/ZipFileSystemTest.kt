@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
 import com.intellij.openapi.vfs.CharsetToolkit
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.core.Is
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -87,6 +88,7 @@ class ZipFileSystemTest {
         assertThat(entry.isDirectory, `is`(false))
         assertThat(entry.isValid, `is`(true))
         assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
         assertThat(entry.length, `is`(29L))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
@@ -111,6 +113,7 @@ class ZipFileSystemTest {
         assertThat(entry.isDirectory, `is`(false))
         assertThat(entry.isValid, `is`(true))
         assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
         assertThat(entry.length, `is`(29L))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
@@ -136,6 +139,7 @@ class ZipFileSystemTest {
         assertThat(entry.isDirectory, `is`(true))
         assertThat(entry.isValid, `is`(true))
         assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
         assertThat(entry.length, `is`(0L))
         assertThat(entry.contentsToByteArray(), `is`(ByteArray(0)))
         assertThat(entry.decode(), `is`(""))
