@@ -38,6 +38,8 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
         }
     }
 
+    constructor(zip: VirtualFile) : this(zip.contentsToByteArray())
+
     fun save(): ByteArray = entries.asSequence().map { it.toPair() }.toZipByteArray()
 
     // region VirtualFileSystem

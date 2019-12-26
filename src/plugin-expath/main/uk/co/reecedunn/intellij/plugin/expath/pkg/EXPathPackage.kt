@@ -79,7 +79,7 @@ data class EXPathPackage internal constructor(private val descriptor: XmlDocumen
                     ?: throw EXPathPackageMissingDescriptor()
                 EXPathPackage(descriptor)
             } else
-                create(ZipFileSystem(pkg.contentsToByteArray()))
+                create(ZipFileSystem(pkg))
         }
 
         fun create(pkg: VirtualFileSystem): EXPathPackage {
