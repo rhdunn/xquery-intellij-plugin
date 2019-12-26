@@ -50,7 +50,7 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         val zip = sequenceOf(
             ZipEntry("expath-pkg.xml") to xml.toByteArray()
         ).toZipByteArray()
-        return EXPathPackage.create(ZipFileSystem(zip))
+        return EXPathPackage.create(zip)
     }
 
     @Test

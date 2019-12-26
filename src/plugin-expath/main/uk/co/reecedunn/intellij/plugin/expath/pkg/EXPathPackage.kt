@@ -85,7 +85,11 @@ data class EXPathPackage internal constructor(
                 create(ZipFileSystem(pkg))
         }
 
-        fun create(pkg: VirtualFileSystem): EXPathPackage {
+        fun create(pkg: ByteArray): EXPathPackage {
+            return create(ZipFileSystem(pkg))
+        }
+
+        private fun create(pkg: ZipFileSystem): EXPathPackage {
             val descriptor = pkg.findFileByPath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
                 ?: throw EXPathPackageMissingDescriptor()
             return EXPathPackage(pkg, descriptor)
