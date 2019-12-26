@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class EXPathPackage internal constructor(
     private val filesystem: VirtualFileSystem,
+    private val root: VirtualFile,
     private val descriptor: XmlDocument
 ) {
     val name: XsAnyUriValue? by lazy {
@@ -80,7 +81,7 @@ data class EXPathPackage internal constructor(
             return if (pkg.isDirectory) {
                 val descriptor = pkg.findFileByRelativePath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
                     ?: throw EXPathPackageMissingDescriptor()
-                EXPathPackage(pkg.fileSystem, descriptor)
+                EXPathPackage(pkg.fileSystem, pkg, descriptor)
             } else
                 create(ZipFileSystem(pkg))
         }
@@ -92,7 +93,7 @@ data class EXPathPackage internal constructor(
         private fun create(pkg: ZipFileSystem): EXPathPackage {
             val descriptor = pkg.findFileByPath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
                 ?: throw EXPathPackageMissingDescriptor()
-            return EXPathPackage(pkg, descriptor)
+            return EXPathPackage(pkg, pkg.findFileByPath("")!!, descriptor)
         }
     }
 }
