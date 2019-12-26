@@ -69,7 +69,12 @@ data class ZipFile(
 
     override fun isValid(): Boolean = true
 
-    override fun getParent(): VirtualFile? = TODO()
+    private val parentPath: String by lazy {
+        val parts = if (isDirectory) path.split("/").dropLast(2) else path.split("/").dropLast(1)
+        if (parts.isEmpty()) "" else "${parts.joinToString("/")}/"
+    }
+
+    override fun getParent(): VirtualFile? = fileSystem.get()?.findFileByPath(parentPath)
 
     override fun getChildren(): Array<VirtualFile> = TODO()
 

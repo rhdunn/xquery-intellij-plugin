@@ -93,11 +93,13 @@ class ZipFileSystemTest {
         assertThat(entry.length, `is`(29L))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
+
+        assertThat(entry.parent, `is`(nullValue()))
     }
 
     @Test
-    @DisplayName("file in directory")
-    fun fileInDirectory() {
+    @DisplayName("file in directory with implicit directory entry")
+    fun fileInDirectoryWithImplicitDirectoryEntry() {
         val zip = sequenceOf(
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
@@ -118,6 +120,38 @@ class ZipFileSystemTest {
         assertThat(entry.length, `is`(29L))
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
+
+        assertThat(entry.parent, `is`(nullValue()))
+    }
+
+    @Test
+    @DisplayName("file in directory with explicit directory entry")
+    fun fileInDirectoryWithExplicitDirectoryEntry() {
+        val zip = sequenceOf(
+            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("contents/lorem-ipsum.txt")!!
+        entry.charset = CharsetToolkit.UTF8_CHARSET
+
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`("contents/lorem-ipsum.txt"))
+        assertThat(entry.name, `is`("lorem-ipsum.txt"))
+        assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(false))
+        assertThat(entry.isValid, `is`(true))
+        assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
+        assertThat(entry.length, `is`(29L))
+        assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
+        assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
+
+        val parent = entry.parent!!
+        assertThat(parent.path, `is`("contents/"))
+        assertThat(parent.isDirectory, `is`(true))
     }
 
     @Test
@@ -144,6 +178,8 @@ class ZipFileSystemTest {
         assertThat(entry.length, `is`(0L))
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
+
+        assertThat(entry.parent, `is`(nullValue()))
     }
 
     @Test
@@ -170,5 +206,38 @@ class ZipFileSystemTest {
         assertThat(entry.length, `is`(0L))
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
+
+        assertThat(entry.parent, `is`(nullValue()))
+    }
+
+    @Test
+    @DisplayName("nested directory with trailing slash")
+    fun nestedDirectoryWithTrailingSlash() {
+        val zip = sequenceOf(
+            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/test/") to ByteArray(0),
+            ZipEntry("contents/test/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("contents/test/hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("contents/test/")!!
+        entry.charset = CharsetToolkit.UTF8_CHARSET
+
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`("contents/test/"))
+        assertThat(entry.name, `is`("test"))
+        assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(true))
+        assertThat(entry.isValid, `is`(true))
+        assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
+        assertThat(entry.length, `is`(0L))
+        assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
+        assertThrows<UnsupportedOperationException> { entry.decode() }
+
+        val parent = entry.parent!!
+        assertThat(parent.path, `is`("contents/"))
+        assertThat(parent.isDirectory, `is`(true))
     }
 }
