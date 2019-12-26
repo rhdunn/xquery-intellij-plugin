@@ -21,6 +21,7 @@ import org.hamcrest.core.Is
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -141,7 +142,7 @@ class ZipFileSystemTest {
         assertThat(entry.timeStamp, `is`(not(0L)))
         assertThat(entry.modificationStamp, Is.`is`(0L))
         assertThat(entry.length, `is`(0L))
-        assertThat(entry.contentsToByteArray(), `is`(ByteArray(0)))
-        assertThat(entry.decode(), `is`(""))
+        assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
+        assertThrows<UnsupportedOperationException> { entry.decode() }
     }
 }

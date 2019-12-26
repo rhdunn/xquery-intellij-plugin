@@ -75,7 +75,9 @@ data class ZipFile(
 
     override fun getOutputStream(requestor: Any?, newModificationStamp: Long, newTimeStamp: Long): OutputStream = TODO()
 
-    override fun contentsToByteArray(): ByteArray = contents
+    override fun contentsToByteArray(): ByteArray {
+        return if (isDirectory) throw UnsupportedOperationException() else contents
+    }
 
     override fun getTimeStamp(): Long = entry.time
 
@@ -85,7 +87,9 @@ data class ZipFile(
 
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO()
 
-    override fun getInputStream(): InputStream = ByteArrayInputStream(contents)
+    override fun getInputStream(): InputStream {
+        return if (isDirectory) throw UnsupportedOperationException() else ByteArrayInputStream(contents)
+    }
 
     // endregion
 }
