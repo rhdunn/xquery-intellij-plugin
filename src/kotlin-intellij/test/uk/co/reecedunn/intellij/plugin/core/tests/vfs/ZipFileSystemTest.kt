@@ -94,9 +94,12 @@ class ZipFileSystemTest {
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
 
+        assertThat(entry.children.size, `is`(0))
+
         val parent = entry.parent!!
         assertThat(parent.path, `is`(""))
         assertThat(parent.isDirectory, `is`(true))
+        assertThat(parent.children.find { it.path == entry.path }, `is`(sameInstance(entry)))
     }
 
     @Test
@@ -123,9 +126,12 @@ class ZipFileSystemTest {
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
 
+        assertThat(entry.children.size, `is`(0))
+
         val parent = entry.parent!!
         assertThat(parent.path, `is`("contents/"))
         assertThat(parent.isDirectory, `is`(true))
+        assertThat(parent.children.find { it.path == entry.path }, `is`(sameInstance(entry)))
     }
 
     @Test
@@ -153,9 +159,12 @@ class ZipFileSystemTest {
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
 
+        assertThat(entry.children.size, `is`(0))
+
         val parent = entry.parent!!
         assertThat(parent.path, `is`("contents/"))
         assertThat(parent.isDirectory, `is`(true))
+        assertThat(parent.children.find { it.path == entry.path }, `is`(sameInstance(entry)))
     }
 
     @Test
@@ -164,7 +173,10 @@ class ZipFileSystemTest {
         val zip = sequenceOf(
             ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
-            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
+            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray(),
+            ZipEntry("contents/inner/") to ZipFileSystem.DIR_CONTENTS,
+            ZipEntry("contents/inner/one.txt") to "lorem".toByteArray(),
+            ZipEntry("contents/inner/two.txt") to "ipsum".toByteArray()
         ).toZipByteArray()
         val fs = ZipFileSystem(zip)
 
@@ -183,9 +195,25 @@ class ZipFileSystemTest {
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
 
+        val children = entry.children
+        assertThat(children.size, `is`(3))
+
+        assertThat(children[0].path, `is`("contents/lorem-ipsum.txt"))
+        assertThat(children[0].isDirectory, `is`(false))
+        assertThat(children[0].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[1].path, `is`("contents/hello.txt"))
+        assertThat(children[1].isDirectory, `is`(false))
+        assertThat(children[1].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[2].path, `is`("contents/inner/"))
+        assertThat(children[2].isDirectory, `is`(true))
+        assertThat(children[2].parent, `is`(sameInstance(entry)))
+
         val parent = entry.parent!!
         assertThat(parent.path, `is`(""))
         assertThat(parent.isDirectory, `is`(true))
+        assertThat(parent.children.find { it.path == entry.path }, `is`(sameInstance(entry)))
     }
 
     @Test
@@ -194,7 +222,10 @@ class ZipFileSystemTest {
         val zip = sequenceOf(
             ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
-            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
+            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray(),
+            ZipEntry("contents/inner/") to ZipFileSystem.DIR_CONTENTS,
+            ZipEntry("contents/inner/one.txt") to "lorem".toByteArray(),
+            ZipEntry("contents/inner/two.txt") to "ipsum".toByteArray()
         ).toZipByteArray()
         val fs = ZipFileSystem(zip)
 
@@ -213,9 +244,25 @@ class ZipFileSystemTest {
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
 
+        val children = entry.children
+        assertThat(children.size, `is`(3))
+
+        assertThat(children[0].path, `is`("contents/lorem-ipsum.txt"))
+        assertThat(children[0].isDirectory, `is`(false))
+        assertThat(children[0].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[1].path, `is`("contents/hello.txt"))
+        assertThat(children[1].isDirectory, `is`(false))
+        assertThat(children[1].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[2].path, `is`("contents/inner/"))
+        assertThat(children[2].isDirectory, `is`(true))
+        assertThat(children[2].parent, `is`(sameInstance(entry)))
+
         val parent = entry.parent!!
         assertThat(parent.path, `is`(""))
         assertThat(parent.isDirectory, `is`(true))
+        assertThat(parent.children.find { it.path == entry.path }, `is`(sameInstance(entry)))
     }
 
     @Test
@@ -225,7 +272,10 @@ class ZipFileSystemTest {
             ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/test/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/test/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
-            ZipEntry("contents/test/hello.txt") to "Hello, world!".toByteArray()
+            ZipEntry("contents/test/hello.txt") to "Hello, world!".toByteArray(),
+            ZipEntry("contents/test/inner/") to ZipFileSystem.DIR_CONTENTS,
+            ZipEntry("contents/test/inner/one.txt") to "lorem".toByteArray(),
+            ZipEntry("contents/test/inner/two.txt") to "ipsum".toByteArray()
         ).toZipByteArray()
         val fs = ZipFileSystem(zip)
 
@@ -244,9 +294,25 @@ class ZipFileSystemTest {
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
 
+        val children = entry.children
+        assertThat(children.size, `is`(3))
+
+        assertThat(children[0].path, `is`("contents/test/lorem-ipsum.txt"))
+        assertThat(children[0].isDirectory, `is`(false))
+        assertThat(children[0].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[1].path, `is`("contents/test/hello.txt"))
+        assertThat(children[1].isDirectory, `is`(false))
+        assertThat(children[1].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[2].path, `is`("contents/test/inner/"))
+        assertThat(children[2].isDirectory, `is`(true))
+        assertThat(children[2].parent, `is`(sameInstance(entry)))
+
         val parent = entry.parent!!
         assertThat(parent.path, `is`("contents/"))
         assertThat(parent.isDirectory, `is`(true))
+        assertThat(parent.children.find { it.path == entry.path }, `is`(sameInstance(entry)))
     }
 
     @Test
@@ -254,7 +320,10 @@ class ZipFileSystemTest {
     fun rootDirectory() {
         val zip = sequenceOf(
             ZipEntry("lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
-            ZipEntry("hello.txt") to "Hello, world!".toByteArray()
+            ZipEntry("hello.txt") to "Hello, world!".toByteArray(),
+            ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
+            ZipEntry("contents/one.txt") to "lorem".toByteArray(),
+            ZipEntry("contents/two.txt") to "ipsum".toByteArray()
         ).toZipByteArray()
         val fs = ZipFileSystem(zip)
 
@@ -272,6 +341,21 @@ class ZipFileSystemTest {
         assertThat(entry.length, `is`(0L))
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
+
+        val children = entry.children
+        assertThat(children.size, `is`(3))
+
+        assertThat(children[0].path, `is`("lorem-ipsum.txt"))
+        assertThat(children[0].isDirectory, `is`(false))
+        assertThat(children[0].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[1].path, `is`("hello.txt"))
+        assertThat(children[1].isDirectory, `is`(false))
+        assertThat(children[1].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[2].path, `is`("contents/"))
+        assertThat(children[2].isDirectory, `is`(true))
+        assertThat(children[2].parent, `is`(sameInstance(entry)))
 
         assertThat(entry.parent, `is`(nullValue()))
     }

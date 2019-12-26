@@ -78,7 +78,12 @@ data class ZipFile(
         return if (path.isEmpty()) null else fileSystem.get()?.findFileByPath(parentPath)
     }
 
-    override fun getChildren(): Array<VirtualFile> = TODO()
+    override fun getChildren(): Array<VirtualFile> {
+        if (!isDirectory) return emptyArray()
+        return fileSystem.get()?.entries?.filter {
+            it.parent === this
+        }?.toTypedArray<VirtualFile>() ?: emptyArray()
+    }
 
     override fun getOutputStream(requestor: Any?, newModificationStamp: Long, newTimeStamp: Long): OutputStream = TODO()
 

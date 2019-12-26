@@ -24,7 +24,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 
 class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
-    private val entries = ArrayList<ZipFile>()
+    internal val entries = ArrayList<ZipFile>()
     private val directories = HashMap<String, ZipFile>()
 
     constructor(zip: ByteArray) : this() {
