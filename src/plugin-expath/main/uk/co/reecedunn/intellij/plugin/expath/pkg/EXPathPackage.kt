@@ -72,6 +72,16 @@ data class EXPathPackage internal constructor(
         }.toList()
     }
 
+    fun load(component: EXPathPackageComponent): VirtualFile? {
+        val path = component.file?.let { "/$it" } ?: return null
+        return load(path, root)
+    }
+
+    private fun load(path: String, file: VirtualFile): VirtualFile? {
+        if (file.path.endsWith(path)) return file
+        return file.children.asSequence().map { load(path, it) }.filterNotNull().firstOrNull()
+    }
+
     companion object {
         private val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
 

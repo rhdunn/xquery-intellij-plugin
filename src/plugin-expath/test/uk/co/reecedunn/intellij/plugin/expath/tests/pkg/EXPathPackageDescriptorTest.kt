@@ -24,6 +24,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageDtd
@@ -46,10 +47,11 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         super.tearDown()
     }
 
-    private fun pkg(xml: String): EXPathPackage {
+    private fun pkg(xml: String, files: Sequence<Pair<ZipEntry, ByteArray>> = sequenceOf()): EXPathPackage {
         val zip = sequenceOf(
-            ZipEntry("expath-pkg.xml") to xml.toByteArray()
-        ).toZipByteArray()
+            sequenceOf(ZipEntry("expath-pkg.xml") to xml.toByteArray()),
+            files
+        ).flatten().toZipByteArray()
         return EXPathPackage.create(zip)
     }
 
@@ -715,5 +717,29 @@ private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLPa
         assertThat(c.moduleType, `is`(XdmModuleType.Resource))
         assertThat(c.publicUri?.data, `is`("/lorem/ipsum.txt"))
         assertThat(c.file, `is`("test.txt"))
+    }
+
+    @Test
+    @DisplayName("load")
+    fun load() {
+        @Language("XML")
+        val expathPkg =
+            """
+            <package xmlns="http://expath.org/ns/pkg">
+                <xslt><namespace>http://www.example.com/import</namespace><file>test.xsl</file></xslt>
+            </package>
+            """.trimIndent()
+        val pkg = pkg(
+            expathPkg,
+            sequenceOf(
+                ZipEntry("content/") to ByteArray(0),
+                ZipEntry("content/test.xsl") to "lorem ipsum".toByteArray(),
+                ZipEntry("content/test.xml") to "one two".toByteArray()
+            )
+        )
+
+        val file = pkg.load(pkg.components[0])
+        assertThat(file?.path, `is`("content/test.xsl"))
+        assertThat(file?.decode(), `is`("lorem ipsum"))
     }
 }
