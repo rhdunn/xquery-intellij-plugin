@@ -316,12 +316,56 @@ class ZipFileSystemTest {
     }
 
     @Test
-    @DisplayName("root directory")
-    fun rootDirectory() {
+    @DisplayName("root directory with explicit directory entry")
+    fun rootDirectoryWithExplicitDirectoryEntry() {
         val zip = sequenceOf(
             ZipEntry("lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("hello.txt") to "Hello, world!".toByteArray(),
             ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
+            ZipEntry("contents/one.txt") to "lorem".toByteArray(),
+            ZipEntry("contents/two.txt") to "ipsum".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("")!!
+        entry.charset = CharsetToolkit.UTF8_CHARSET
+
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`(""))
+        assertThat(entry.name, `is`(""))
+        assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(true))
+        assertThat(entry.isValid, `is`(true))
+        assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
+        assertThat(entry.length, `is`(0L))
+        assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
+        assertThrows<UnsupportedOperationException> { entry.decode() }
+
+        val children = entry.children
+        assertThat(children.size, `is`(3))
+
+        assertThat(children[0].path, `is`("lorem-ipsum.txt"))
+        assertThat(children[0].isDirectory, `is`(false))
+        assertThat(children[0].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[1].path, `is`("hello.txt"))
+        assertThat(children[1].isDirectory, `is`(false))
+        assertThat(children[1].parent, `is`(sameInstance(entry)))
+
+        assertThat(children[2].path, `is`("contents/"))
+        assertThat(children[2].isDirectory, `is`(true))
+        assertThat(children[2].parent, `is`(sameInstance(entry)))
+
+        assertThat(entry.parent, `is`(nullValue()))
+    }
+
+    @Test
+    @DisplayName("root directory with implicit directory entry")
+    fun rootDirectoryWithImplicitDirectoryEntry() {
+        val zip = sequenceOf(
+            ZipEntry("lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("hello.txt") to "Hello, world!".toByteArray(),
             ZipEntry("contents/one.txt") to "lorem".toByteArray(),
             ZipEntry("contents/two.txt") to "ipsum".toByteArray()
         ).toZipByteArray()

@@ -80,8 +80,10 @@ data class ZipFile(
 
     override fun getChildren(): Array<VirtualFile> {
         if (!isDirectory) return emptyArray()
-        return fileSystem.get()?.entries?.filter {
-            it.parent === this
+        return fileSystem.get()?.let { fs ->
+            val entries = fs.entries.filter { !it.isDirectory && it.parent === this }
+            val directories = fs.directories.values.filter { it.parent === this }
+            listOf(entries, directories).flatten()
         }?.toTypedArray<VirtualFile>() ?: emptyArray()
     }
 

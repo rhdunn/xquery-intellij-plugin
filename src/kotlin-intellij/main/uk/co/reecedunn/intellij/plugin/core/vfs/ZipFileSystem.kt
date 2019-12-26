@@ -25,7 +25,7 @@ import java.util.zip.ZipInputStream
 
 class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     internal val entries = ArrayList<ZipFile>()
-    private val directories = HashMap<String, ZipFile>()
+    internal val directories = HashMap<String, ZipFile>()
 
     constructor(zip: ByteArray) : this() {
         return ByteArrayInputStream(zip).use { stream ->
@@ -58,7 +58,7 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     // region VirtualFileSystem
 
     override fun findFileByPath(path: String): VirtualFile? {
-        val entry = entries.find { it.path == path } ?: directories[path]
+        val entry = directories[path] ?: entries.find { it.path == path }
         if (entry != null) return entry
         if (!path.endsWith('/')) return findFileByPath("$path/")
         return null
