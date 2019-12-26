@@ -32,8 +32,7 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
         return ByteArrayInputStream(zip).use { stream ->
             ZipInputStream(stream).use { zip ->
                 val fs = WeakReference(this)
-                val directoryContents = ByteArray(0)
-                directories[""] = ZipFile(direntry(""), directoryContents, fs) // root directory
+                directories[""] = ZipFile(direntry(""), DIR_CONTENTS, fs) // root directory
 
                 zip.entries.forEach { (entry, contents) ->
                     entries.add(ZipFile(entry, contents, fs))
@@ -65,4 +64,8 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     override fun refresh(asynchronous: Boolean) {}
 
     // endregion
+
+    companion object {
+        val DIR_CONTENTS = ByteArray(0)
+    }
 }

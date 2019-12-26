@@ -130,7 +130,7 @@ class ZipFileSystemTest {
     @DisplayName("file in directory with explicit directory entry")
     fun fileInDirectoryWithExplicitDirectoryEntry() {
         val zip = sequenceOf(
-            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
         ).toZipByteArray()
@@ -160,7 +160,7 @@ class ZipFileSystemTest {
     @DisplayName("directory with trailing slash")
     fun directoryWithTrailingSlash() {
         val zip = sequenceOf(
-            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
         ).toZipByteArray()
@@ -190,7 +190,7 @@ class ZipFileSystemTest {
     @DisplayName("directory without trailing slash")
     fun directoryWithoutTrailingSlash() {
         val zip = sequenceOf(
-            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
         ).toZipByteArray()
@@ -220,8 +220,8 @@ class ZipFileSystemTest {
     @DisplayName("nested directory with trailing slash")
     fun nestedDirectoryWithTrailingSlash() {
         val zip = sequenceOf(
-            ZipEntry("contents/") to ByteArray(0),
-            ZipEntry("contents/test/") to ByteArray(0),
+            ZipEntry("contents/") to ZipFileSystem.DIR_CONTENTS,
+            ZipEntry("contents/test/") to ZipFileSystem.DIR_CONTENTS,
             ZipEntry("contents/test/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
             ZipEntry("contents/test/hello.txt") to "Hello, world!".toByteArray()
         ).toZipByteArray()
