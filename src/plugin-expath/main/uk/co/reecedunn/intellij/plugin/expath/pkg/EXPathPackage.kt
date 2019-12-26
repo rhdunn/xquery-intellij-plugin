@@ -25,7 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class EXPathPackage internal constructor(private val descriptor: XmlDocument) {
+data class EXPathPackage internal constructor(
+    private val filesystem: VirtualFileSystem,
+    private val descriptor: XmlDocument
+) {
     val name: XsAnyUriValue? by lazy {
         descriptor.root.attribute("name")?.let {
             XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
@@ -77,7 +80,7 @@ data class EXPathPackage internal constructor(private val descriptor: XmlDocumen
             return if (pkg.isDirectory) {
                 val descriptor = pkg.findFileByRelativePath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
                     ?: throw EXPathPackageMissingDescriptor()
-                EXPathPackage(descriptor)
+                EXPathPackage(pkg.fileSystem, descriptor)
             } else
                 create(ZipFileSystem(pkg))
         }
@@ -85,7 +88,7 @@ data class EXPathPackage internal constructor(private val descriptor: XmlDocumen
         fun create(pkg: VirtualFileSystem): EXPathPackage {
             val descriptor = pkg.findFileByPath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
                 ?: throw EXPathPackageMissingDescriptor()
-            return EXPathPackage(descriptor)
+            return EXPathPackage(pkg, descriptor)
         }
     }
 }
