@@ -123,7 +123,9 @@ class ZipFileSystemTest {
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
 
-        assertThat(entry.parent, `is`(nullValue()))
+        val parent = entry.parent!!
+        assertThat(parent.path, `is`("contents/"))
+        assertThat(parent.isDirectory, `is`(true))
     }
 
     @Test

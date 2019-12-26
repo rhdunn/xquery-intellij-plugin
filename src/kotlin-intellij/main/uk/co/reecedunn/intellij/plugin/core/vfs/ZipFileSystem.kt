@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.zip.entries
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import java.io.ByteArrayInputStream
@@ -32,10 +31,10 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
         return ByteArrayInputStream(zip).use { stream ->
             ZipInputStream(stream).use { zip ->
                 val fs = WeakReference(this)
-                directories[""] = ZipFile(direntry(""), DIR_CONTENTS, fs) // root directory
-
                 zip.entries.forEach { (entry, contents) ->
-                    entries.add(ZipFile(entry, contents, fs))
+                    val file = ZipFile(entry, contents, fs)
+                    entries.add(file)
+                    mkdirs(file, fs)
                 }
             }
         }
@@ -43,11 +42,15 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
 
     constructor(zip: VirtualFile) : this(zip.contentsToByteArray())
 
-    @Suppress("SameParameterValue")
-    private fun direntry(path: String): ZipEntry {
-        val entry = ZipEntry(path)
+    private fun mkdirs(dir: ZipFile, fs: WeakReference<ZipFileSystem>) {
+        if (directories[dir.parentPath] != null) return
+
+        val entry = ZipEntry(dir.parentPath)
         entry.size = 0
-        return entry
+        val parent = ZipFile(entry, DIR_CONTENTS, fs)
+
+        directories[dir.parentPath] = parent
+        mkdirs(parent, fs)
     }
 
     fun save(): ByteArray = entries.asSequence().map { it.toPair() }.toZipByteArray()
