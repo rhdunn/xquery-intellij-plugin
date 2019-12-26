@@ -51,7 +51,7 @@ data class ZipFile(
     // region VirtualFile
 
     private val filename: String by lazy {
-        if (isDirectory)
+        if (path.endsWith('/'))
             path.split("/").dropLast(1).last()
         else
             path.split("/").last()
@@ -65,16 +65,18 @@ data class ZipFile(
 
     override fun isWritable(): Boolean = false
 
-    override fun isDirectory(): Boolean = path.endsWith('/')
+    override fun isDirectory(): Boolean = path.endsWith('/') || path.isEmpty()
 
     override fun isValid(): Boolean = true
 
     private val parentPath: String by lazy {
-        val parts = if (isDirectory) path.split("/").dropLast(2) else path.split("/").dropLast(1)
+        val parts = if (path.endsWith('/')) path.split("/").dropLast(2) else path.split("/").dropLast(1)
         if (parts.isEmpty()) "" else "${parts.joinToString("/")}/"
     }
 
-    override fun getParent(): VirtualFile? = fileSystem.get()?.findFileByPath(parentPath)
+    override fun getParent(): VirtualFile? {
+        return if (path.isEmpty()) null else fileSystem.get()?.findFileByPath(parentPath)
+    }
 
     override fun getChildren(): Array<VirtualFile> = TODO()
 

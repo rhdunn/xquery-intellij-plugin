@@ -94,7 +94,9 @@ class ZipFileSystemTest {
         assertThat(entry.contentsToByteArray(), `is`("Lorem ipsum dolor sed emit...".toByteArray()))
         assertThat(entry.decode(), `is`("Lorem ipsum dolor sed emit..."))
 
-        assertThat(entry.parent, `is`(nullValue()))
+        val parent = entry.parent!!
+        assertThat(parent.path, `is`(""))
+        assertThat(parent.isDirectory, `is`(true))
     }
 
     @Test
@@ -179,7 +181,9 @@ class ZipFileSystemTest {
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
 
-        assertThat(entry.parent, `is`(nullValue()))
+        val parent = entry.parent!!
+        assertThat(parent.path, `is`(""))
+        assertThat(parent.isDirectory, `is`(true))
     }
 
     @Test
@@ -207,7 +211,9 @@ class ZipFileSystemTest {
         assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
         assertThrows<UnsupportedOperationException> { entry.decode() }
 
-        assertThat(entry.parent, `is`(nullValue()))
+        val parent = entry.parent!!
+        assertThat(parent.path, `is`(""))
+        assertThat(parent.isDirectory, `is`(true))
     }
 
     @Test
@@ -239,5 +245,32 @@ class ZipFileSystemTest {
         val parent = entry.parent!!
         assertThat(parent.path, `is`("contents/"))
         assertThat(parent.isDirectory, `is`(true))
+    }
+
+    @Test
+    @DisplayName("root directory")
+    fun rootDirectory() {
+        val zip = sequenceOf(
+            ZipEntry("lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("")!!
+        entry.charset = CharsetToolkit.UTF8_CHARSET
+
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`(""))
+        assertThat(entry.name, `is`(""))
+        assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(true))
+        assertThat(entry.isValid, `is`(true))
+        assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
+        assertThat(entry.length, `is`(0L))
+        assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
+        assertThrows<UnsupportedOperationException> { entry.decode() }
+
+        assertThat(entry.parent, `is`(nullValue()))
     }
 }

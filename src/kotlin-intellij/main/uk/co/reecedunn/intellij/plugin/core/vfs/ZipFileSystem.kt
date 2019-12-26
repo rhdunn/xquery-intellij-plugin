@@ -26,11 +26,15 @@ import java.util.zip.ZipInputStream
 
 class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     private val entries = ArrayList<ZipFile>()
+    private val directories = HashMap<String, ZipFile>()
 
     constructor(zip: ByteArray) : this() {
         return ByteArrayInputStream(zip).use { stream ->
             ZipInputStream(stream).use { zip ->
                 val fs = WeakReference(this)
+                val directoryContents = ByteArray(0)
+                directories[""] = ZipFile(direntry(""), directoryContents, fs) // root directory
+
                 zip.entries.forEach { (entry, contents) ->
                     entries.add(ZipFile(entry, contents, fs))
                 }
@@ -40,12 +44,19 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
 
     constructor(zip: VirtualFile) : this(zip.contentsToByteArray())
 
+    @Suppress("SameParameterValue")
+    private fun direntry(path: String): ZipEntry {
+        val entry = ZipEntry(path)
+        entry.size = 0
+        return entry
+    }
+
     fun save(): ByteArray = entries.asSequence().map { it.toPair() }.toZipByteArray()
 
     // region VirtualFileSystem
 
     override fun findFileByPath(path: String): VirtualFile? {
-        val entry = entries.find { it.path == path }
+        val entry = entries.find { it.path == path } ?: directories[path]
         if (entry != null) return entry
         if (!path.endsWith('/')) return findFileByPath("$path/")
         return null
