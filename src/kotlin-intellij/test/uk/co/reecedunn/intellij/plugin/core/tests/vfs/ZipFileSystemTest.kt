@@ -121,8 +121,8 @@ class ZipFileSystemTest {
     }
 
     @Test
-    @DisplayName("directory")
-    fun directory() {
+    @DisplayName("directory with trailing slash")
+    fun directoryWithTrailingSlash() {
         val zip = sequenceOf(
             ZipEntry("contents/") to ByteArray(0),
             ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
@@ -131,6 +131,32 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("contents/")!!
+        entry.charset = CharsetToolkit.UTF8_CHARSET
+
+        assertThat(entry.fileSystem, `is`(sameInstance(fs)))
+        assertThat(entry.path, `is`("contents/"))
+        assertThat(entry.name, `is`("contents"))
+        assertThat(entry.isWritable, `is`(false))
+        assertThat(entry.isDirectory, `is`(true))
+        assertThat(entry.isValid, `is`(true))
+        assertThat(entry.timeStamp, `is`(not(0L)))
+        assertThat(entry.modificationStamp, Is.`is`(0L))
+        assertThat(entry.length, `is`(0L))
+        assertThrows<UnsupportedOperationException> { entry.contentsToByteArray() }
+        assertThrows<UnsupportedOperationException> { entry.decode() }
+    }
+
+    @Test
+    @DisplayName("directory without trailing slash")
+    fun directoryWithoutTrailingSlash() {
+        val zip = sequenceOf(
+            ZipEntry("contents/") to ByteArray(0),
+            ZipEntry("contents/lorem-ipsum.txt") to "Lorem ipsum dolor sed emit...".toByteArray(),
+            ZipEntry("contents/hello.txt") to "Hello, world!".toByteArray()
+        ).toZipByteArray()
+        val fs = ZipFileSystem(zip)
+
+        val entry = fs.findFileByPath("contents")!!
         entry.charset = CharsetToolkit.UTF8_CHARSET
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
