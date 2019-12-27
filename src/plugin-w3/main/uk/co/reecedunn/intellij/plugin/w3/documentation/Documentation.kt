@@ -17,15 +17,16 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 
 data class W3CSpecificationDocument(
     val spec: Specification,
-    val href: String,
-    val version: String
-) {
-    val name: String = spec.kind.name
+    override val href: String,
+    override val version: String
+) : XdmDocumentationSource {
+    override val name: String = spec.kind.name
 
-    val path: String = "w3/${spec.kind.id}/${spec.id}.html"
+    override val path: String = "w3/${spec.kind.id}/${spec.id}.html"
 }
 
 object FunctionsAndOperatorsDocumentation {
