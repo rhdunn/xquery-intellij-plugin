@@ -18,18 +18,25 @@ package uk.co.reecedunn.intellij.plugin.expath.pkg
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class EXPathPackage internal constructor(
     private val filesystem: VirtualFileSystem,
     private val root: VirtualFile,
     private val descriptor: XmlDocument
-) {
+) : XdmModuleLoader {
+    // region EXPath package descriptor
+
     val name: XsAnyUriValue? by lazy {
         descriptor.root.attribute("name")?.let {
             XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
@@ -81,6 +88,30 @@ data class EXPathPackage internal constructor(
         if (file.path.endsWith(path)) return file
         return file.children.asSequence().map { load(path, it) }.filterNotNull().firstOrNull()
     }
+
+    // endregion
+    // region XdmModuleLoader
+
+    override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
+        return when (path) {
+            is XsAnyUriValue -> {
+                val component = components.find {
+                    path.moduleTypes.contains(it.moduleType) && when (it) {
+                        is EXPathPackageImport -> path.data == it.importUri?.data
+                        else -> false
+                    }
+                }
+                component?.let { load(it)?.toPsiFile<PsiFile>(context.project) }
+            }
+            else -> null
+        }
+    }
+
+    override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
+        return resolve(path, context) as? XdmStaticContext
+    }
+
+    // endregion
 
     companion object {
         private val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
