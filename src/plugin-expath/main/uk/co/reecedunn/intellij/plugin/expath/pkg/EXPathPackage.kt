@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.expath.pkg
 
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.psi.PsiElement
@@ -27,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
@@ -112,12 +114,14 @@ data class EXPathPackage internal constructor(
     }
 
     // endregion
+    // region XdmModuleLoaderFactory
 
-    companion object {
+    companion object : XdmModuleLoaderFactory {
         private val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
 
         private const val DESCRIPTOR_FILE = "expath-pkg.xml"
 
+        @Suppress("MemberVisibilityCanBePrivate")
         fun create(pkg: VirtualFile): EXPathPackage {
             return if (pkg.isDirectory) {
                 val descriptor = pkg.findFileByRelativePath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
@@ -136,7 +140,14 @@ data class EXPathPackage internal constructor(
                 ?: throw EXPathPackageMissingDescriptor()
             return EXPathPackage(pkg, pkg.findFileByPath("")!!, descriptor)
         }
+
+        override fun loader(context: String?): XdmModuleLoader? {
+            val file = context?.let { LocalFileSystem.getInstance().findFileByPath(context) } ?: return null
+            return create(file)
+        }
     }
+
+    // endregion
 }
 
 class EXPathPackageMissingDescriptor : Exception("Cannot find expath-pkg.xml in the EXPath package.")
