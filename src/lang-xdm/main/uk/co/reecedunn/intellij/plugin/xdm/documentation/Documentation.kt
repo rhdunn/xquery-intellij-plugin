@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
+import com.intellij.openapi.extensions.ExtensionPointName
+
 interface XdmDocumentationSource {
     val name: String
 
@@ -23,4 +25,14 @@ interface XdmDocumentationSource {
     val href: String
 
     val path: String
+}
+
+interface XdmDocumentationSourceProvider {
+    companion object {
+        val EP_NAME = ExtensionPointName.create<XdmDocumentationSourceProvider>(
+            "uk.co.reecedunn.intellij.documentationSourceProvider"
+        )
+    }
+
+    val sources: List<XdmDocumentationSource>
 }

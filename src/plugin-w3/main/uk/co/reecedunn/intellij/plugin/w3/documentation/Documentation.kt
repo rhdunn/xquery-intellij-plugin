@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 
 data class W3CSpecificationDocument(
     val spec: Specification,
@@ -29,7 +30,7 @@ data class W3CSpecificationDocument(
     override val path: String = "w3/${spec.kind.id}/${spec.id}.html"
 }
 
-object FunctionsAndOperatorsDocumentation {
+object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
     val WD_1_0_20030502 = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec.WD_1_0_20030502, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
         "1.0 (Working Draft 2003 May 02)"
@@ -53,5 +54,13 @@ object FunctionsAndOperatorsDocumentation {
     val REC_3_1_20170321 = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec.REC_3_1_20170321, "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/",
         "3.1"
+    )
+
+    override val sources: List<XdmDocumentationSource> = listOf(
+        WD_1_0_20030502,
+        REC_1_0_20070123,
+        REC_1_0_20101214,
+        REC_3_0_20140408,
+        REC_3_1_20170321
     )
 }

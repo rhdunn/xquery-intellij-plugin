@@ -102,6 +102,7 @@
   <xi:include href="META-INF/plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
+  <xi:include href="META-INF/plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
 </idea-plugin>
