@@ -16,13 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 object XmlSchemaSpec : Versioned {
-    val REC_1_0_20041028 = Specification(
-        "1.0-20041028", 1.0, 20041028, "1.0", "https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/", this
-    )
-
-    val REC_1_1_20120405 = Specification(
-        "1.1-20120405", 1.1, 20120405, "1.1", "https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/", this
-    )
+    val REC_1_0_20041028 = Specification("1.0-20041028", 1.0, "1.0", this)
+    val REC_1_1_20120405 = Specification("1.1-20120405", 1.1, "1.1", this)
 
     override val id: String = "xmlschema"
 
@@ -35,34 +30,13 @@ object XmlSchemaSpec : Versioned {
 }
 
 object XPathSpec : Versioned {
-    val REC_1_0_19991116 = Specification(
-        "1.0-19991116", 1.0, 19991116, "1.0", "https://www.w3.org/TR/1999/REC-xpath-19991116/", this
-    )
-
-    val WD_2_0_20030502 = DraftSpecification(
-        "2.0-20030502", 2.0, 20030502, "2.0", "https://www.w3.org/TR/2003/WD-xpath20-20030502/", this,
-        "Working Draft 02 May 2003"
-    )
-
-    val REC_2_0_20070123 = Specification(
-        "1.0-20070123", 2.0, 20070123, "2.0", "https://www.w3.org/TR/2007/REC-xpath20-20070123/", this
-    )
-
-    val REC_2_0_20101214 = Specification(
-        "1.0-20101214", 2.0, 20101214, "2.0", "https://www.w3.org/TR/2010/REC-xpath20-20101214/", this
-    )
-
-    val REC_3_0_20140408 = Specification(
-        "3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xpath-30-20140408/", this
-    )
-
-    val CR_3_1_20151217 = Specification(
-        "3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xpath-31-20151217/", this
-    )
-
-    val REC_3_1_20170321 = Specification(
-        "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-31-20170321/", this
-    )
+    val REC_1_0_19991116 = Specification("1.0-19991116", 1.0, "1.0", this)
+    val WD_2_0_20030502 = DraftSpecification("2.0-20030502", 2.0, "2.0", this, "Working Draft 02 May 2003")
+    val REC_2_0_20070123 = Specification("1.0-20070123", 2.0, "2.0", this)
+    val REC_2_0_20101214 = Specification("1.0-20101214", 2.0, "2.0", this)
+    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, "3.0", this)
+    val CR_3_1_20151217 = Specification("3.1-20151217", 3.1, "3.1", this)
+    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, "3.1", this)
 
     override val id: String = "xpath"
 
@@ -79,54 +53,27 @@ object XPathSpec : Versioned {
 }
 
 object XQuerySpec : Versioned {
-    // region 1.0
-
-    val WD_1_0_20030502 = DraftSpecification(
-        "1.0-20030502", 1.0, 20030502, "1.0", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this,
-        "Working Draft 02 May 2003"
-    )
-
-    val REC_1_0_20070123 = Specification(
-        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/", this
-    )
-
-    val REC_1_0_20101214 = Specification(
-        "1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xquery-20101214/", this
-    )
-
-    // endregion
-    // region 3.0
+    val WD_1_0_20030502 = DraftSpecification("1.0-20030502", 1.0, "1.0", this, "Working Draft 02 May 2003")
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, "1.0", this)
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, "1.0", this)
 
     val REC_3_0_20140408 = Specification(
-        "3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xquery-30-20140408/", this,
+        "3.0-20140408", 3.0, "3.0", this,
         "%annotation, count, group by, try/catch, switch, etc."
     )
 
-    // endregion
-    // region 3.1
-
     val CR_3_1_20151217 = Specification(
-        "3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xquery-31-20151217/", this,
+        "3.1-20151217", 3.1, "3.1", this,
         "array, map, =>, ?key, {}, string interpolation"
     )
 
     val REC_3_1_20170321 = Specification(
-        "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xquery-31-20170321/", this,
+        "3.1-20170321", 3.1, "3.1", this,
         "array, map, =>, ?key, {}, string interpolation"
     )
 
-    // endregion
-    // region MarkLogic XQuery Versions
-
-    val MARKLOGIC_0_9 = Specification(
-        "0.9-ml", 0.9, 2007, "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735", this
-    ) // MarkLogic 3.2 (compatibility)
-
-    val MARKLOGIC_1_0 = Specification(
-        "1.0-ml", 1.0, 2008, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this
-    ) // MarkLogic 4.0+
-
-    // endregion
+    val MARKLOGIC_0_9 = Specification("0.9-ml", 0.9, "0.9-ml", this) // MarkLogic 3.2 (compatibility) [2007]
+    val MARKLOGIC_1_0 = Specification("1.0-ml", 1.0, "1.0-ml", this) // MarkLogic 4.0+ [2008]
 
     override val id get(): String = "xquery"
 
@@ -164,17 +111,9 @@ object XQuerySpec : Versioned {
 }
 
 object XsltSpec : Versioned {
-    val REC_1_0_19991116 = Specification(
-        "1.0-19991116", 1.0, 19991116, "1.0", "http://www.w3.org/TR/1999/REC-xslt-19991116/", this
-    )
-
-    val REC_2_0_20070123 = Specification(
-        "2.0-20070123", 2.0, 20070123, "2.0", "http://www.w3.org/TR/2007/REC-xslt20-20070123/", this
-    )
-
-    val REC_3_0_20170608 = Specification(
-        "3.0-20170608", 3.0, 20170608, "3.0", "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", this
-    )
+    val REC_1_0_19991116 = Specification("1.0-19991116", 1.0, "1.0", this)
+    val REC_2_0_20070123 = Specification("2.0-20070123", 2.0, "2.0", this)
+    val REC_3_0_20170608 = Specification("3.0-20170608", 3.0, "3.0", this)
 
     override val id get(): String = "xslt"
 
@@ -189,26 +128,11 @@ object XsltSpec : Versioned {
 
 @Suppress("MemberVisibilityCanBePrivate")
 object FunctionsAndOperatorsSpec : Versioned {
-    val WD_1_0_20030502 = DraftSpecification(
-        "1.0-20030502", 1.0, 20030502, "1.0", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this,
-        "Working Draft 02 May 2003"
-    )
-
-    val REC_1_0_20070123 = Specification(
-        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/", this
-    )
-
-    val REC_1_0_20101214 = Specification(
-        "1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/", this
-    )
-
-    val REC_3_0_20140408 = Specification(
-        "3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/", this
-    )
-
-    val REC_3_1_20170321 = Specification(
-        "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/", this
-    )
+    val WD_1_0_20030502 = DraftSpecification("1.0-20030502", 1.0, "1.0", this, "Working Draft 02 May 2003")
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, "1.0", this)
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, "1.0", this)
+    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, "3.0", this)
+    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, "3.1", this)
 
     override val id: String = "xpath-functions"
 
@@ -225,13 +149,8 @@ object FunctionsAndOperatorsSpec : Versioned {
 
 @Suppress("MemberVisibilityCanBePrivate")
 object FormalSemanticsSpec : Versioned {
-    val REC_1_0_20070123 = Specification(
-        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/", this
-    )
-
-    val REC_1_0_20101214 = Specification(
-        "1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-semantics-20101214/", this
-    )
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, "1.0", this)
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, "1.0", this)
 
     override val id: String = "xquery-semantics"
 
@@ -247,13 +166,8 @@ object FormalSemanticsSpec : Versioned {
 
 object FullTextSpec : Versioned {
     // NOTE: The only changes from 1.0 to 3.0 are to support the changes in grammar from XQuery 1.0 to 3.0.
-    val REC_1_0_20110317 = Specification(
-        "1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/", this
-    )
-
-    val REC_3_0_20151124 = Specification(
-        "3.0-20151124", 3.0, 20151124, "3.0", "https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/", this
-    )
+    val REC_1_0_20110317 = Specification("1.0-20110317", 1.0, "1.0", this)
+    val REC_3_0_20151124 = Specification("3.0-20151124", 3.0, "3.0", this)
 
     override val id: String = "xpath-full-text"
 
@@ -268,13 +182,8 @@ object FullTextSpec : Versioned {
 }
 
 object UpdateFacilitySpec : Versioned {
-    val REC_1_0_20110317 = Specification(
-        "1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/", this
-    )
-
-    val NOTE_3_0_20170124 = Specification(
-        "3.0-20170124", 3.0, 20170124, "3.0", "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/", this
-    )
+    val REC_1_0_20110317 = Specification("1.0-20110317", 1.0, "1.0", this)
+    val NOTE_3_0_20170124 = Specification("3.0-20170124", 3.0, "3.0", this)
 
     override val id: String = "xquery-update"
 
@@ -290,9 +199,7 @@ object UpdateFacilitySpec : Versioned {
 }
 
 object ScriptingSpec : Versioned {
-    val NOTE_1_0_20140918 = Specification(
-        "1.0-20140918", 1.0, 20140918, "1.0", "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/", this
-    )
+    val NOTE_1_0_20140918 = Specification("1.0-20140918", 1.0, "1.0", this)
 
     override val id: String = "xquery-sx"
 

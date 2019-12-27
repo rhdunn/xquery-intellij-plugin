@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,9 +59,7 @@ class NamedVersion(id: String, value: Double, val name: String, kind: Versioned)
 open class Specification(
     id: String,
     value: Double,
-    @Suppress("UNUSED_PARAMETER") date: Int,
     val versionId: String,
-    @Suppress("unused") val href: String,
     kind: Versioned,
     features: String? = null
 ) :
@@ -73,14 +71,12 @@ open class Specification(
 class DraftSpecification(
     id: String,
     value: Double,
-    date: Int,
     versionId: String,
-    href: String,
     kind: Versioned,
     private val status: String,
     features: String? = null
 ) :
-    Specification(id, value, date, versionId, href, kind, features) {
+    Specification(id, value, versionId, kind, features) {
 
     override fun toString(): String = "${super.toString()} ($status)"
 }
