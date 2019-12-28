@@ -58,6 +58,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     // region Disposable
 
     override fun dispose() {
+        super.dispose()
         queryProcessHandler?.removeQueryResultListener(this)
     }
 

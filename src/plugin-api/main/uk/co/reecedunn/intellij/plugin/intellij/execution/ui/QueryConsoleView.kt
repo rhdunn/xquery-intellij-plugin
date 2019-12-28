@@ -158,6 +158,7 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     override fun dispose() {
         queryProcessHandler?.removeQueryResultListener(this)
+        console.dispose()
     }
 
     // endregion

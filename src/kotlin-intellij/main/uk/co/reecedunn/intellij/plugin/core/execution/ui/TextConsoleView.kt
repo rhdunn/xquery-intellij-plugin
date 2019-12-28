@@ -59,6 +59,8 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         }
 
     private fun createConsoleEditor(): JComponent {
+        if (editor != null) return editor!!.component
+
         editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
         editor?.contextMenuGroupId = null // disabling default context menu
         (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
