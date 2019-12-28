@@ -16,15 +16,20 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
 import com.intellij.openapi.options.Configurable
+import com.intellij.ui.components.JBScrollPane
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import javax.swing.JComponent
 import javax.swing.JPanel
 
 class XdmDocumentationSources : Configurable {
+    // region Configurable
+
+    private val sources = XdmDocumentationSourcesTable()
+
     override fun getDisplayName(): String = XdmBundle.message("settings.document-sources.title")
 
     override fun createComponent(): JComponent? {
-        return JPanel()
+        return JBScrollPane(sources)
     }
 
     override fun isModified(): Boolean {
@@ -36,4 +41,6 @@ class XdmDocumentationSources : Configurable {
 
     override fun reset() {
     }
+
+    // endregion
 }
