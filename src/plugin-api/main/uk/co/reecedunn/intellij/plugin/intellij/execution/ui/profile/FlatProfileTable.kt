@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.ui.JBColor
 import com.intellij.ui.table.TableView
-import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.awt.scope
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
@@ -79,10 +79,10 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
 }
 
 @Suppress("ClassName")
-private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String>(
+private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String?>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): String? = item?.frame?.module?.name
+    override fun valueOf(item: FlatProfileEntry): String? = item.frame.module?.name
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -95,7 +95,7 @@ private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String>(
 private object LINE_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.line-number.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): Int? = item?.frame?.lineNumber
+    override fun valueOf(item: FlatProfileEntry): Int = item.frame.lineNumber
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -108,7 +108,7 @@ private object LINE_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
 private object COLUMN_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.column-number.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): Int? = item?.frame?.columnNumber
+    override fun valueOf(item: FlatProfileEntry): Int = item.frame.columnNumber
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -121,7 +121,7 @@ private object COLUMN_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
 private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.count.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): Int? = item?.count
+    override fun valueOf(item: FlatProfileEntry): Int = item.count
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -134,7 +134,7 @@ private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
 private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     PluginApiBundle.message("profile.entry.table.self-time.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): XsDurationValue? = item?.selfTime
+    override fun valueOf(item: FlatProfileEntry): XsDurationValue = item.selfTime
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -153,7 +153,7 @@ private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
 private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     PluginApiBundle.message("profile.entry.table.total-time.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): XsDurationValue? = item?.totalTime
+    override fun valueOf(item: FlatProfileEntry): XsDurationValue = item.totalTime
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
@@ -172,7 +172,7 @@ private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>
 private object CONTEXT_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.context.column.label")
 ), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry?): String? = item?.context
+    override fun valueOf(item: FlatProfileEntry): String = item.context
 
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 

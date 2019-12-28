@@ -17,15 +17,15 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.ui.table.TableView
 import com.intellij.util.Range
-import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 class QueryResultIndexColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, Long>(
     PluginApiBundle.message("query.result.table.index.column.label")
 ), Comparator<Pair<QueryResult, Range<Int>>> {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): Long? = item?.first?.position
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>): Long = item.first.position
 
     override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
 
@@ -37,7 +37,7 @@ class QueryResultIndexColumn(val sortable: Boolean = true) : ColumnInfo<Pair<Que
 class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
     PluginApiBundle.message("query.result.table.item-type.column.label")
 ), Comparator<Pair<QueryResult, Range<Int>>> {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): String? = item?.first?.type
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>): String = item.first.type
 
     override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
 
@@ -49,7 +49,7 @@ class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<
 class QueryResultMimeTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
     PluginApiBundle.message("query.result.table.mime-type.column.label")
 ), Comparator<Pair<QueryResult, Range<Int>>> {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>?): String? = item?.first?.mimetype
+    override fun valueOf(item: Pair<QueryResult, Range<Int>>): String = item.first.mimetype
 
     override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
 
