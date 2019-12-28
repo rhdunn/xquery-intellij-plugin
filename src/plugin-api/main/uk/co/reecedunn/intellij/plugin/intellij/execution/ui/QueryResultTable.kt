@@ -19,30 +19,37 @@ import com.intellij.ui.table.TableView
 import com.intellij.util.Range
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-class QueryResultIndexColumn(sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, Long>(
-    PluginApiBundle.message("query.result.table.index.column.label"), sortable
-) {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>): Long = item.first.position
-}
+private val RESULT_INDEX_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, Long>(
+    heading = PluginApiBundle.message("query.result.table.index.column.label"),
+    getter = { (first) -> first.position },
+    sortable = false
+)
 
-class QueryResultItemTypeColumn(sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
-    PluginApiBundle.message("query.result.table.item-type.column.label"), sortable
-) {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>): String = item.first.type
-}
+private val RESULT_ITEM_TYPE_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, String>(
+    heading = PluginApiBundle.message("query.result.table.item-type.column.label"),
+    getter = { (first) -> first.type },
+    sortable = false
+)
 
-class QueryResultMimeTypeColumn(sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
-    PluginApiBundle.message("query.result.table.mime-type.column.label"), sortable
-) {
-    override fun valueOf(item: Pair<QueryResult, Range<Int>>): String = item.first.mimetype
-}
+private val RESULT_MIME_TYPE_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, String>(
+    heading = PluginApiBundle.message("query.result.table.mime-type.column.label"),
+    getter = { (first) -> first.mimetype },
+    sortable = false
+)
 
-class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {
+private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
+    RESULT_INDEX_COLUMN,
+    RESULT_ITEM_TYPE_COLUMN,
+    RESULT_MIME_TYPE_COLUMN
+)
+
+class QueryResultTable : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {
     init {
-        setModelAndUpdateColumns(ListTableModel<Pair<QueryResult, Range<Int>>>(*columns))
+        setModelAndUpdateColumns(ListTableModel<Pair<QueryResult, Range<Int>>>(*COLUMNS))
         setEnableAntialiasing(true)
 
         updateEmptyText(running = false, exception = false)
