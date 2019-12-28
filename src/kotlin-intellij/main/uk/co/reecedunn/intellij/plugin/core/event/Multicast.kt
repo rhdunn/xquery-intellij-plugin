@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.event
 
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.progress.ProcessCanceledException
-import com.intellij.openapi.util.Disposer
 import com.intellij.util.containers.ContainerUtil
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Proxy
@@ -31,9 +29,12 @@ class Multicaster<T : EventListener>(listenerClass: Class<T>) {
 
     val eventMulticaster = createEventMulticaster(listenerClass)
 
-    fun addListener(listener: T, parentDisposable: Disposable) {
+    fun addListener(listener: T) {
         listeners.add(listener)
-        Disposer.register(parentDisposable, Disposable { listeners.remove(listener) })
+    }
+
+    fun removeListener(listener: T) {
+        listeners.remove(listener)
     }
 
     @Suppress("UNCHECKED_CAST")

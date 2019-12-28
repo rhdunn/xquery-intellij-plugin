@@ -28,8 +28,12 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
 
     private val profileReportListeners = Multicaster(ProfileReportListener::class.java)
 
-    fun addProfileReportListener(listener: ProfileReportListener, parentDisposable: Disposable) {
-        profileReportListeners.addListener(listener, parentDisposable)
+    fun addProfileReportListener(listener: ProfileReportListener) {
+        profileReportListeners.addListener(listener)
+    }
+
+    fun removeProfileReportListener(listener: ProfileReportListener) {
+        profileReportListeners.removeListener(listener)
     }
 
     private fun notifyProfileReport(report: FlatProfileReport) {

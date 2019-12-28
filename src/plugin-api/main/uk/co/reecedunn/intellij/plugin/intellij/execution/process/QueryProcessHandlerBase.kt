@@ -27,8 +27,12 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
 
     private val queryResultListeners = Multicaster(QueryResultListener::class.java)
 
-    fun addQueryResultListener(listener: QueryResultListener, parentDisposable: Disposable) {
-        queryResultListeners.addListener(listener, parentDisposable)
+    fun addQueryResultListener(listener: QueryResultListener) {
+        queryResultListeners.addListener(listener)
+    }
+
+    fun removeQueryResultListener(listener: QueryResultListener) {
+        queryResultListeners.addListener(listener)
     }
 
     fun notifyBeginResults() {

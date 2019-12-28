@@ -36,6 +36,8 @@ import javax.swing.JComponent
 class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryResultListener {
     // region ConsoleView
 
+    private var queryProcessHandler: QueryProcessHandlerBase? = null
+
     override fun getComponent(): JComponent {
         val component = super.getComponent() // Ensure the text view is initialized.
 
@@ -48,7 +50,15 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
+        queryProcessHandler = processHandler as? QueryProcessHandlerBase
+        queryProcessHandler?.addQueryResultListener(this)
+    }
+
+    // endregion
+    // region Disposable
+
+    override fun dispose() {
+        queryProcessHandler?.removeQueryResultListener(this)
     }
 
     // endregion

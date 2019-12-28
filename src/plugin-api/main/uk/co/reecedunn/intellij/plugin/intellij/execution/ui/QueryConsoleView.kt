@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
@@ -110,6 +111,8 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     // region ConsoleView
 
+    private var queryProcessHandler: QueryProcessHandlerBase? = null
+
     override fun clear() {
         console.clear()
 
@@ -133,7 +136,8 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         console.attachToProcess(processHandler)
-        (processHandler as? QueryProcessHandlerBase)?.addQueryResultListener(this, this)
+        queryProcessHandler = processHandler as? QueryProcessHandlerBase
+        queryProcessHandler?.addQueryResultListener(this)
     }
 
     override fun getComponent(): JComponent {
@@ -151,6 +155,13 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
     override fun scrollTo(offset: Int) {
         console.scrollTo(offset)
+    }
+
+    // endregion
+    // region Disposable
+
+    override fun dispose() {
+        queryProcessHandler?.removeQueryResultListener(this)
     }
 
     // endregion

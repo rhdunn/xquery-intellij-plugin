@@ -89,6 +89,8 @@ class FlatProfileTableView(val project: Project) :
     // endregion
     // region ContentProvider
 
+    private var queryProcessHandler: ProfileableQueryProcessHandler? = null
+
     override val contentId: String = "FlatProfile"
 
     override fun getContent(ui: RunnerLayoutUi): Content {
@@ -121,13 +123,15 @@ class FlatProfileTableView(val project: Project) :
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        (processHandler as? ProfileableQueryProcessHandler)?.addProfileReportListener(this, this)
+        queryProcessHandler = processHandler as? ProfileableQueryProcessHandler
+        queryProcessHandler?.addProfileReportListener(this)
     }
 
     // endregion
     // region Disposable
 
     override fun dispose() {
+        queryProcessHandler?.removeProfileReportListener(this)
     }
 
     // endregion
