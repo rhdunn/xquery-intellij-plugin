@@ -21,6 +21,7 @@ import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.awt.scope
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
@@ -33,7 +34,6 @@ import javax.swing.JTable
 import javax.swing.RowSorter
 import javax.swing.SortOrder
 import javax.swing.table.DefaultTableCellRenderer
-import javax.swing.table.TableCellRenderer
 
 @Suppress("ClassName")
 private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
@@ -78,64 +78,47 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
     }
 }
 
-@Suppress("ClassName")
-private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String>(
-    PluginApiBundle.message("profile.entry.table.module.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): String = item.frame.module?.name ?: ""
-}
+private val MODULE_PATH_COLUMN = columnInfo<FlatProfileEntry, String>(
+    heading = PluginApiBundle.message("profile.entry.table.module.column.label"),
+    getter = { item -> item.frame.module?.name ?: "" }
+)
 
-@Suppress("ClassName")
-private object LINE_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
-    PluginApiBundle.message("profile.entry.table.line-number.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): Int = item.frame.lineNumber
-}
+private val LINE_NUMBER_COLUMN = columnInfo<FlatProfileEntry, Int>(
+    heading = PluginApiBundle.message("profile.entry.table.line-number.column.label"),
+    getter = { item -> item.frame.lineNumber }
+)
 
-@Suppress("ClassName")
-private object COLUMN_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
-    PluginApiBundle.message("profile.entry.table.column-number.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): Int = item.frame.columnNumber
-}
+private val COLUMN_NUMBER_COLUMN = columnInfo<FlatProfileEntry, Int>(
+    heading = PluginApiBundle.message("profile.entry.table.column-number.column.label"),
+    getter = { item -> item.frame.columnNumber }
+)
 
-@Suppress("ClassName")
-private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
-    PluginApiBundle.message("profile.entry.table.count.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): Int = item.count
-}
+private val COUNT_COLUMN = columnInfo(
+    heading = PluginApiBundle.message("profile.entry.table.count.column.label"),
+    getter = FlatProfileEntry::count
+)
 
-@Suppress("ClassName")
-private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
-    PluginApiBundle.message("profile.entry.table.self-time.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): XsDurationValue = item.selfTime
+private val SELF_TIME_COLUMN = columnInfo(
+    heading = PluginApiBundle.message("profile.entry.table.self-time.column.label"),
+    getter = FlatProfileEntry::selfTime,
+    renderer = { TIME_CELL_RENDERER }
+)
 
-    override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
-}
+private val TOTAL_TIME_COLUMN = columnInfo(
+    heading = PluginApiBundle.message("profile.entry.table.total-time.column.label"),
+    getter = FlatProfileEntry::totalTime,
+    renderer = { TIME_CELL_RENDERER }
+)
 
-@Suppress("ClassName")
-private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
-    PluginApiBundle.message("profile.entry.table.total-time.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): XsDurationValue = item.totalTime
-
-    override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
-}
-
-@Suppress("ClassName")
-private object CONTEXT_COLUMN : ColumnInfo<FlatProfileEntry, String>(
-    PluginApiBundle.message("profile.entry.table.context.column.label")
-) {
-    override fun valueOf(item: FlatProfileEntry): String = item.context
-
-    override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? {
+private val CONTEXT_COLUMN = columnInfo(
+    heading = PluginApiBundle.message("profile.entry.table.context.column.label"),
+    getter = FlatProfileEntry::context,
+    renderer = {
         val renderer = DefaultTableCellRenderer()
         renderer.putClientProperty("html.disable", true)
-        return renderer
+        renderer
     }
-}
+)
 
 private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
     MODULE_PATH_COLUMN,
