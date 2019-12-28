@@ -79,68 +79,38 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
 }
 
 @Suppress("ClassName")
-private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String?>(
+private object MODULE_PATH_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
-), Comparator<FlatProfileEntry> {
-    override fun valueOf(item: FlatProfileEntry): String? = item.frame.module?.name
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return (o1?.frame?.module?.path ?: "").compareTo(o2?.frame?.module?.path ?: "")
-    }
+) {
+    override fun valueOf(item: FlatProfileEntry): String = item.frame.module?.name ?: ""
 }
 
 @Suppress("ClassName")
 private object LINE_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.line-number.column.label")
-), Comparator<FlatProfileEntry> {
+) {
     override fun valueOf(item: FlatProfileEntry): Int = item.frame.lineNumber
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1?.frame?.lineNumber!!.compareTo(o2?.frame?.lineNumber!!)
-    }
 }
 
 @Suppress("ClassName")
 private object COLUMN_NUMBER_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.column-number.column.label")
-), Comparator<FlatProfileEntry> {
+) {
     override fun valueOf(item: FlatProfileEntry): Int = item.frame.columnNumber
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1?.frame?.columnNumber!!.compareTo(o2?.frame?.columnNumber!!)
-    }
 }
 
 @Suppress("ClassName")
 private object COUNT_COLUMN : ColumnInfo<FlatProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.count.column.label")
-), Comparator<FlatProfileEntry> {
+) {
     override fun valueOf(item: FlatProfileEntry): Int = item.count
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1!!.count.compareTo(o2!!.count)
-    }
 }
 
 @Suppress("ClassName")
 private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     PluginApiBundle.message("profile.entry.table.self-time.column.label")
-), Comparator<FlatProfileEntry> {
+) {
     override fun valueOf(item: FlatProfileEntry): XsDurationValue = item.selfTime
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1!!.selfTime.compareTo(o2!!.selfTime)
-    }
 
     override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
 }
@@ -148,14 +118,8 @@ private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
 @Suppress("ClassName")
 private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     PluginApiBundle.message("profile.entry.table.total-time.column.label")
-), Comparator<FlatProfileEntry> {
+) {
     override fun valueOf(item: FlatProfileEntry): XsDurationValue = item.totalTime
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1!!.totalTime.compareTo(o2!!.totalTime)
-    }
 
     override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
 }
@@ -163,14 +127,8 @@ private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>
 @Suppress("ClassName")
 private object CONTEXT_COLUMN : ColumnInfo<FlatProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.context.column.label")
-), Comparator<FlatProfileEntry> {
+) {
     override fun valueOf(item: FlatProfileEntry): String = item.context
-
-    override fun getComparator(): Comparator<FlatProfileEntry>? = this
-
-    override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        return o1!!.context.compareTo(o2!!.context)
-    }
 
     override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? {
         val renderer = DefaultTableCellRenderer()

@@ -22,40 +22,22 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-class QueryResultIndexColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, Long>(
-    PluginApiBundle.message("query.result.table.index.column.label")
-), Comparator<Pair<QueryResult, Range<Int>>> {
+class QueryResultIndexColumn(sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, Long>(
+    PluginApiBundle.message("query.result.table.index.column.label"), sortable
+) {
     override fun valueOf(item: Pair<QueryResult, Range<Int>>): Long = item.first.position
-
-    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
-
-    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
-        return (o1?.first?.position ?: 0).compareTo(o2?.first?.position ?: 0)
-    }
 }
 
-class QueryResultItemTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
-    PluginApiBundle.message("query.result.table.item-type.column.label")
-), Comparator<Pair<QueryResult, Range<Int>>> {
+class QueryResultItemTypeColumn(sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
+    PluginApiBundle.message("query.result.table.item-type.column.label"), sortable
+) {
     override fun valueOf(item: Pair<QueryResult, Range<Int>>): String = item.first.type
-
-    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
-
-    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
-        return (o1?.first?.type ?: "").compareTo(o2?.first?.type ?: "")
-    }
 }
 
-class QueryResultMimeTypeColumn(val sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
-    PluginApiBundle.message("query.result.table.mime-type.column.label")
-), Comparator<Pair<QueryResult, Range<Int>>> {
+class QueryResultMimeTypeColumn(sortable: Boolean = true) : ColumnInfo<Pair<QueryResult, Range<Int>>, String>(
+    PluginApiBundle.message("query.result.table.mime-type.column.label"), sortable
+) {
     override fun valueOf(item: Pair<QueryResult, Range<Int>>): String = item.first.mimetype
-
-    override fun getComparator(): Comparator<Pair<QueryResult, Range<Int>>>? = if (sortable) this else null
-
-    override fun compare(o1: Pair<QueryResult, Range<Int>>?, o2: Pair<QueryResult, Range<Int>>?): Int {
-        return (o1?.first?.mimetype ?: "").compareTo(o2?.first?.mimetype ?: "")
-    }
 }
 
 class QueryResultTable(vararg columns: ColumnInfo<*, *>) : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {

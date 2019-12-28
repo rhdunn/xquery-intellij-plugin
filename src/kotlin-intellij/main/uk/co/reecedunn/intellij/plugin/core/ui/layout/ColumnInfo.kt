@@ -17,6 +17,14 @@ package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.util.ui.ColumnInfo
 
-abstract class ColumnInfo<Item, Aspect>(heading: String) : ColumnInfo<Item, Aspect>(heading) {
+abstract class ColumnInfo<Item, Aspect : Comparable<Aspect>>(
+    heading: String,
+    private val sortable: Boolean = true
+) : ColumnInfo<Item, Aspect>(heading) {
+
     abstract override fun valueOf(item: Item): Aspect
+
+    private val compare: Comparator<Item> = compareBy { valueOf(it) }
+
+    override fun getComparator(): Comparator<Item>? = if (sortable) compare else null
 }
