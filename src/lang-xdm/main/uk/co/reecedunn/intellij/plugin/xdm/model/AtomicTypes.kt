@@ -84,7 +84,7 @@ interface XsDoubleValue : XsAnyAtomicType {
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.6) xs:duration
 
-interface XsDurationValue : XsAnyAtomicType {
+interface XsDurationValue : XsAnyAtomicType, Comparable<XsDurationValue> {
     val months: XsInteger
     val seconds: XsDecimal
 }
@@ -97,6 +97,14 @@ data class XsDuration(
     override val months: XsInteger,
     override val seconds: XsDecimal
 ) : XsDurationValue {
+    override fun compareTo(other: XsDurationValue): Int {
+        val compared = months.data.compareTo(other.months.data)
+        return if (compared == 0)
+            seconds.data.compareTo(other.seconds.data)
+        else
+            compared
+    }
+
     companion object {
         val ZERO = XsDuration(XsInteger.ZERO, XsDecimal.ZERO)
 

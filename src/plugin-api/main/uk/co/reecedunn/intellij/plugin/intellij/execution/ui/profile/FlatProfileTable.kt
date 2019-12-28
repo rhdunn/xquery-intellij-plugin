@@ -139,11 +139,7 @@ private object SELF_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>(
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
     override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        val compared = o1!!.selfTime.months.data.compareTo(o2!!.selfTime.months.data)
-        return if (compared == 0)
-            o1.selfTime.seconds.data.compareTo(o2.selfTime.seconds.data)
-        else
-            compared
+        return o1!!.selfTime.compareTo(o2!!.selfTime)
     }
 
     override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
@@ -158,11 +154,7 @@ private object TOTAL_TIME_COLUMN : ColumnInfo<FlatProfileEntry, XsDurationValue>
     override fun getComparator(): Comparator<FlatProfileEntry>? = this
 
     override fun compare(o1: FlatProfileEntry?, o2: FlatProfileEntry?): Int {
-        val compared = o1!!.totalTime.months.data.compareTo(o2!!.totalTime.months.data)
-        return if (compared == 0)
-            o1.totalTime.seconds.data.compareTo(o2.totalTime.seconds.data)
-        else
-            compared
+        return o1!!.totalTime.compareTo(o2!!.totalTime)
     }
 
     override fun getRenderer(item: FlatProfileEntry?): TableCellRenderer? = TIME_CELL_RENDERER
