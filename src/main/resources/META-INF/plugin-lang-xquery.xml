@@ -44,6 +44,9 @@
     <!-- Application / Project Settings -->
 
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
-    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
+
+    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable">
+      <configurable implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.documentation.XdmDocumentationSources"/>
+    </projectConfigurable>
   </extensions>
 </idea-plugin>
