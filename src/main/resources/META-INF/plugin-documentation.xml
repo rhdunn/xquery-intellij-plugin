@@ -4,6 +4,10 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.documentationSourceProvider" interface="uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider" dynamic="true"/>
   </extensionPoints>
 
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader"/>
+  </extensions>
+
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <documentationSourceProvider implementation="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation"/>
   </extensions>

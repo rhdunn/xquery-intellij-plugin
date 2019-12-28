@@ -15,10 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
+import com.intellij.openapi.components.ServiceManager
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 
 enum class XdmDocumentationDownloadStatus(val label: String) {
     NotDownloaded(XdmBundle.message("download-status.not-downloaded")),
     Downloading(XdmBundle.message("download-status.downloading")),
     Downloaded(XdmBundle.message("download-status.downloaded"))
+}
+
+class XdmDocumentationDownloader {
+    fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
+        return XdmDocumentationDownloadStatus.NotDownloaded
+    }
+
+    companion object {
+        fun getInstance(): XdmDocumentationDownloader {
+            return ServiceManager.getService(XdmDocumentationDownloader::class.java)
+        }
+    }
 }
