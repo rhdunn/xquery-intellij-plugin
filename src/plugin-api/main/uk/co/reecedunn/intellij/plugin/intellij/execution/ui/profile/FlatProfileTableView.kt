@@ -24,6 +24,7 @@ import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.Content
 import com.intellij.util.Consumer
 import com.intellij.util.ui.ListTableModel
@@ -65,12 +66,11 @@ class FlatProfileTableView(val project: Project) :
     private var report: FlatProfileReport? = null
     private var save: SaveAction? = null
 
-    private var panel: JPanel? = null
+    private var component: JComponent? = null
     private var results: JTable? = null
 
-    private fun createUIComponents() {
+    private fun createComponent(): JComponent {
         results = FlatProfileTable()
-
         results!!.selectionModel.addListSelectionListener {
             val row = results!!.selectedRow
             if (row >= 0) {
@@ -79,6 +79,9 @@ class FlatProfileTableView(val project: Project) :
                 item.frame.createNavigatable(project)?.navigate(true)
             }
         }
+
+        component = JBScrollPane(results)
+        return component!!
     }
 
     // endregion
@@ -100,7 +103,7 @@ class FlatProfileTableView(val project: Project) :
         return content
     }
 
-    private fun getComponent(): JComponent = panel!!
+    private fun getComponent(): JComponent = component ?: createComponent()
 
     override fun clear() {
         report = null
