@@ -32,6 +32,9 @@ interface XdmDocumentationSourceProvider {
         val EP_NAME = ExtensionPointName.create<XdmDocumentationSourceProvider>(
             "uk.co.reecedunn.intellij.documentationSourceProvider"
         )
+
+        val allSources: Sequence<XdmDocumentationSource>
+            get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
     }
 
     val sources: List<XdmDocumentationSource>

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 import com.intellij.openapi.options.Configurable
 import com.intellij.ui.components.JBScrollPane
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import javax.swing.JComponent
 import javax.swing.JPanel
 
@@ -29,6 +30,7 @@ class XdmDocumentationSources : Configurable {
     override fun getDisplayName(): String = XdmBundle.message("settings.document-sources.title")
 
     override fun createComponent(): JComponent? {
+        XdmDocumentationSourceProvider.allSources.forEach { source -> sources.add(source) }
         return JBScrollPane(sources)
     }
 

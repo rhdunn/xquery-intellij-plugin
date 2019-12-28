@@ -28,4 +28,8 @@ class XdmDocumentationSourcesTable : TableView<XdmDocumentationSource>() {
         setModelAndUpdateColumns(ListTableModel<XdmDocumentationSource>(*COLUMNS))
         setEnableAntialiasing(true)
     }
+
+    fun add(source: XdmDocumentationSource) {
+        listTableModel.addRow(source)
+    }
 }
