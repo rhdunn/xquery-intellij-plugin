@@ -16,11 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
 import com.intellij.ui.table.TableView
-import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 
+private val NAME_COLUMN = columnInfo<XdmDocumentationSource, String>(
+    heading = XdmBundle.message("documentation-source-table.column.name.title"),
+    getter = { item -> item.name }
+)
+
+private val VERSION_COLUMN = columnInfo<XdmDocumentationSource, String>(
+    heading = XdmBundle.message("documentation-source-table.column.version.title"),
+    getter = { item -> item.version }
+)
+
 private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
+    NAME_COLUMN,
+    VERSION_COLUMN
 )
 
 class XdmDocumentationSourcesTable : TableView<XdmDocumentationSource>() {
