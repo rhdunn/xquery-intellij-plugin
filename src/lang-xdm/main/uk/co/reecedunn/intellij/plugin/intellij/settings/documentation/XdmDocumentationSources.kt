@@ -19,8 +19,10 @@ import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.util.text.nullize
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
@@ -68,13 +70,15 @@ class XdmDocumentationSources : Configurable {
     }
 
     override fun isModified(): Boolean {
-        return false
+        return XdmDocumentationDownloader.getInstance().basePath != cachePath.text
     }
 
     override fun apply() {
+        XdmDocumentationDownloader.getInstance().basePath = cachePath.text.nullize()
     }
 
     override fun reset() {
+        cachePath.text = XdmDocumentationDownloader.getInstance().basePath!!
     }
 
     // endregion
