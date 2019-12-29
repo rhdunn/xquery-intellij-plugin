@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import com.intellij.openapi.application.PathManager
-import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.components.*
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
 import com.intellij.util.io.HttpRequests
+import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import java.io.File
 
@@ -32,7 +32,8 @@ enum class XdmDocumentationDownloadStatus(val label: String) {
     Downloaded(XdmBundle.message("download-status.downloaded"))
 }
 
-class XdmDocumentationDownloader {
+@State(name = "XdmDocumentationDownloader", storages = [Storage("xijp_settings.xml")])
+class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDownloader> {
     var basePath: String? = null
         get() = field ?: "${PathManager.getSystemPath()}/xdm-cache/documentation"
 
@@ -50,6 +51,14 @@ class XdmDocumentationDownloader {
     fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
         return XdmDocumentationDownloadStatus.NotDownloaded
     }
+
+    // region PersistentStateComponent
+
+    override fun getState(): XdmDocumentationDownloader? = this
+
+    override fun loadState(state: XdmDocumentationDownloader) = XmlSerializerUtil.copyBean(state, this)
+
+    // endregion
 
     companion object {
         fun getInstance(): XdmDocumentationDownloader {
