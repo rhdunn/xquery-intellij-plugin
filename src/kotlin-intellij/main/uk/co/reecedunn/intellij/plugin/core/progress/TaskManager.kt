@@ -19,12 +19,22 @@ import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
+import com.intellij.util.containers.ContainerUtil
 
 class TaskManager<Item> {
+    private val active = ContainerUtil.createLockFreeCopyOnWriteList<Item>()
+
+    fun isActive(context: Item): Boolean = active.contains(context)
+
     fun backgroundable(title: String, project: Project?, context: Item, task: (ProgressIndicator) -> Unit) {
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, title) {
             override fun run(indicator: ProgressIndicator) {
-                task(indicator)
+                active.add(context)
+                try {
+                    task(indicator)
+                } finally {
+                    active.remove(context)
+                }
             }
         })
     }

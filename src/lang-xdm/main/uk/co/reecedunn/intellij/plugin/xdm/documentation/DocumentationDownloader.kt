@@ -44,7 +44,10 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
     }
 
     fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
-        return XdmDocumentationDownloadStatus.NotDownloaded
+        return when {
+            tasks.isActive(source) -> XdmDocumentationDownloadStatus.Downloading
+            else -> XdmDocumentationDownloadStatus.NotDownloaded
+        }
     }
 
     // region PersistentStateComponent
