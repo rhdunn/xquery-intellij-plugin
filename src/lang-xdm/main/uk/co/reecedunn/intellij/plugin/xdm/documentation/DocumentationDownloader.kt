@@ -20,6 +20,7 @@ import com.intellij.openapi.components.*
 import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
+import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import java.io.File
 
@@ -35,6 +36,10 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
         get() = field ?: "${PathManager.getSystemPath()}/xdm-cache/documentation"
 
     private val tasks = TaskManager<XdmDocumentationSource>()
+
+    fun addListener(listener: TaskProgressListener<XdmDocumentationSource>) = tasks.addListener(listener)
+
+    fun removeListener(listener: TaskProgressListener<XdmDocumentationSource>) = tasks.removeListener(listener)
 
     fun download(source: XdmDocumentationSource): Boolean {
         return tasks.backgroundable(XdmBundle.message("documentation-source.download.title"), source) { indicator ->

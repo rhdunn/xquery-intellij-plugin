@@ -15,14 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.progress
 
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.util.containers.ContainerUtil
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
+
+interface TaskProgressListener<Item> {
+    fun started(context: Item)
+
+    fun stopped(context: Item)
+}
 
 class TaskManager<Item> {
     private val active = ContainerUtil.createLockFreeCopyOnWriteList<Item>()
+    private val listeners = ContainerUtil.createLockFreeCopyOnWriteList<TaskProgressListener<Item>>()
+
+    fun addListener(listener: TaskProgressListener<Item>) = listeners.add(listener)
+
+    fun removeListener(listener: TaskProgressListener<Item>) = listeners.remove(listener)
 
     fun isActive(context: Item): Boolean = active.contains(context)
 
@@ -32,9 +45,15 @@ class TaskManager<Item> {
             override fun run(indicator: ProgressIndicator) {
                 active.add(context)
                 try {
+                    invokeLater(ModalityState.any()) {
+                        listeners.forEach { it.started(context) }
+                    }
                     task(indicator)
                 } finally {
                     active.remove(context)
+                    invokeLater(ModalityState.any()) {
+                        listeners.forEach { it.stopped(context) }
+                    }
                 }
             }
         })
