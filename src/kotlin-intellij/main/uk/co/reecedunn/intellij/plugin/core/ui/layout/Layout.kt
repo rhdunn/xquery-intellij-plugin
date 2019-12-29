@@ -23,6 +23,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
 import com.intellij.util.ui.JBUI
 import java.awt.Container
@@ -57,13 +58,34 @@ fun grid(x: Int, y: Int): GridBagConstraints {
 fun Container.label(text: String, constraints: Any? = null): JBLabel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.NONE
-        constraints.weightx = 0.0
         constraints.insets = JBUI.insets(0, 0, 4, 8)
     }
 
     val label = JBLabel(text)
     add(label, constraints)
     return label
+}
+
+// endregion
+// region textFieldWithBrowseButton
+
+fun Container.textFieldWithBrowseButton(
+    constraints: Any?,
+    init: TextFieldWithBrowseButton.() -> Unit
+): TextFieldWithBrowseButton {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.HORIZONTAL
+        constraints.insets = JBUI.insetsBottom(4)
+    }
+
+    val field = TextFieldWithBrowseButton()
+    field.init()
+    add(field, constraints)
+    return field
+}
+
+fun Container.textFieldWithBrowseButton(init: TextFieldWithBrowseButton.() -> Unit): TextFieldWithBrowseButton {
+    return textFieldWithBrowseButton(null, init)
 }
 
 // endregion

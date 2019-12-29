@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.label
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.textFieldWithBrowseButton
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
@@ -35,7 +36,7 @@ import javax.swing.JComponent
 class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentationSource> {
     // region Configurable
 
-    private val cachePath = TextFieldWithBrowseButton()
+    private lateinit var cachePath: TextFieldWithBrowseButton
     private val sources = XdmDocumentationSourcesTable()
 
     override fun getDisplayName(): String = XdmBundle.message("settings.document-sources.title")
@@ -44,20 +45,15 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
         XdmDocumentationSourceProvider.allSources.forEach { source -> sources.add(source) }
         XdmDocumentationDownloader.getInstance().addListener(this)
 
-        val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-        cachePath.addBrowseFolderListener(null, null, null, descriptor)
-
         return panel {
             label(XdmBundle.message("documentation-source.cache-path.label"), grid(0, 0))
 
-            val constraints = GridBagConstraints()
-            constraints.gridx = 1
-            constraints.gridy = 0
-            constraints.fill = GridBagConstraints.HORIZONTAL
-            constraints.weightx = 0.0
-            constraints.insets = JBUI.insetsBottom(4)
-            add(cachePath, constraints)
+            cachePath = textFieldWithBrowseButton(grid(1, 0)) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                addBrowseFolderListener(null, null, null, descriptor)
+            }
 
+            val constraints = GridBagConstraints()
             constraints.gridx = 0
             constraints.gridy = 1
             constraints.gridwidth = GridBagConstraints.REMAINDER
