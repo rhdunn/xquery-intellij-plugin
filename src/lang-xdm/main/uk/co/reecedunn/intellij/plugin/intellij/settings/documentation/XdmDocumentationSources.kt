@@ -21,15 +21,17 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.text.nullize
 import com.intellij.util.ui.JBUI
+import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class XdmDocumentationSources : Configurable {
+class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentationSource> {
     // region Configurable
 
     private val cachePath = TextFieldWithBrowseButton()
@@ -39,6 +41,7 @@ class XdmDocumentationSources : Configurable {
 
     override fun createComponent(): JComponent? {
         XdmDocumentationSourceProvider.allSources.forEach { source -> sources.add(source) }
+        XdmDocumentationDownloader.getInstance().addListener(this)
 
         val panel = JPanel(GridBagLayout())
         val constraints = GridBagConstraints()
@@ -69,6 +72,10 @@ class XdmDocumentationSources : Configurable {
         return panel
     }
 
+    override fun disposeUIResources() {
+        XdmDocumentationDownloader.getInstance().removeListener(this)
+    }
+
     override fun isModified(): Boolean {
         return XdmDocumentationDownloader.getInstance().basePath != cachePath.text
     }
@@ -79,6 +86,17 @@ class XdmDocumentationSources : Configurable {
 
     override fun reset() {
         cachePath.text = XdmDocumentationDownloader.getInstance().basePath!!
+    }
+
+    // endregion
+    // region TaskProgressListener<XdmDocumentationSource>
+
+    override fun started(context: XdmDocumentationSource) {
+        sources.update(context)
+    }
+
+    override fun stopped(context: XdmDocumentationSource) {
+        sources.update(context)
     }
 
     // endregion

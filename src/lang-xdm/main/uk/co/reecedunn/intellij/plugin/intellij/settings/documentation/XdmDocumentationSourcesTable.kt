@@ -54,4 +54,9 @@ class XdmDocumentationSourcesTable : TableView<XdmDocumentationSource>() {
     fun add(source: XdmDocumentationSource) {
         listTableModel.addRow(source)
     }
+
+    fun update(source: XdmDocumentationSource) {
+        val row = listTableModel.indexOf(source)
+        (0 until columnCount).forEach { listTableModel.fireTableCellUpdated(row, it) }
+    }
 }
