@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
@@ -42,6 +43,9 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
     override fun createComponent(): JComponent? {
         XdmDocumentationSourceProvider.allSources.forEach { source -> sources.add(source) }
         XdmDocumentationDownloader.getInstance().addListener(this)
+
+        val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+        cachePath.addBrowseFolderListener(null, null, null, descriptor)
 
         val panel = JPanel(GridBagLayout())
         val constraints = GridBagConstraints()
