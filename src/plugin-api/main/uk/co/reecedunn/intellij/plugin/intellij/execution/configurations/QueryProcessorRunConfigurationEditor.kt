@@ -22,12 +22,13 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.ui.ColoredListCellRenderer
+import com.intellij.ui.ToolbarDecorator
+import com.intellij.ui.components.JBList
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
-import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
@@ -74,8 +75,15 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {
-            val list = object : EditableListPanel<QueryProcessorSettingsWithVersionCache>(model) {
-                override fun add() {
+            val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
+                val list = JBList<QueryProcessorSettingsWithVersionCache>(model)
+                list.cellRenderer = QueryProcessorSettingsCellRenderer()
+                list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
+
+                val decorator = ToolbarDecorator.createDecorator(list)
+                decorator.disableUpDownActions()
+
+                decorator.setAddAction {
                     val item = QueryProcessorSettings()
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.create(item)) {
@@ -85,7 +93,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     }
                 }
 
-                override fun edit(index: Int) {
+                decorator.setEditAction {
+                    val index = list.selectedIndex
                     val item = queryProcessor!!.childComponent.getItemAt(index)
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.edit(item.settings)) {
@@ -94,18 +103,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     }
                 }
 
-                override fun remove(index: Int) {
+                decorator.setRemoveAction {
+                    val index = list.selectedIndex
                     queryProcessor!!.childComponent.removeItemAt(index)
                     QueryProcessors.getInstance().removeProcessor(index)
                 }
-            }
-            list.cellRenderer = QueryProcessorSettingsCellRenderer()
-            list.emptyText = PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty")
 
-            val panel = list.createPanel()
-            panel.minimumSize = Dimension(300, 200)
-
-            val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
+                val panel = decorator.createPanel()
+                panel.minimumSize = Dimension(300, 200)
                 setCenterPanel(panel)
             }
             dialog.showAndGet()
