@@ -46,6 +46,7 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
     fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
         return when {
             tasks.isActive(source) -> XdmDocumentationDownloadStatus.Downloading
+            File("$basePath/${source.path}").exists() -> XdmDocumentationDownloadStatus.Downloaded
             else -> XdmDocumentationDownloadStatus.NotDownloaded
         }
     }
