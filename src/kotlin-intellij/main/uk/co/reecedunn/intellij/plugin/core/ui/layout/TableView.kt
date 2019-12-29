@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.table.TableView as TableViewBase
 
-open class TableView<Item> : TableViewBase<Item>() {
+class TableView<Item> : TableViewBase<Item>() {
     fun add(item: Item) = listTableModel.addRow(item)
 
     fun updateAll() {
@@ -28,4 +29,12 @@ open class TableView<Item> : TableViewBase<Item>() {
         val row = listTableModel.indexOf(item)
         (0 until columnCount).forEach { listTableModel.fireTableCellUpdated(row, it) }
     }
+}
+
+fun <Item> JBScrollPane.tableView(init: TableView<Item>.() -> Unit): TableView<Item> {
+    val view = TableView<Item>()
+    view.setEnableAntialiasing(true)
+    view.init()
+    setViewportView(view)
+    return view
 }

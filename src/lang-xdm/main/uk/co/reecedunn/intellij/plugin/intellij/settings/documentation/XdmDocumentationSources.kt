@@ -19,6 +19,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
+import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
@@ -31,23 +32,23 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
     // region Configurable
 
     private lateinit var cachePath: TextFieldWithBrowseButton
-    private val sources = XdmDocumentationSourcesTable()
+    private lateinit var sources: TableView<XdmDocumentationSource>
 
     override fun getDisplayName(): String = XdmBundle.message("settings.document-sources.title")
 
-    override fun createComponent(): JComponent? {
-        XdmDocumentationSourceProvider.allSources.forEach { source -> sources.add(source) }
-        XdmDocumentationDownloader.getInstance().addListener(this)
+    override fun createComponent(): JComponent? = panel {
+        label(XdmBundle.message("documentation-source.cache-path.label"), grid(0, 0))
+        cachePath = textFieldWithBrowseButton(grid(1, 0)) {
+            val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+            addBrowseFolderListener(null, null, null, descriptor)
+        }
 
-        return panel {
-            label(XdmBundle.message("documentation-source.cache-path.label"), grid(0, 0))
-            cachePath = textFieldWithBrowseButton(grid(1, 0)) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                addBrowseFolderListener(null, null, null, descriptor)
-            }
+        scrollable(grid(0, 1)) {
+            sources = tableView {
+                setModelAndUpdateColumns(ListTableModel<XdmDocumentationSource>(*COLUMNS))
 
-            scrollable(grid(0, 1)) {
-                setViewportView(sources)
+                XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }
+                XdmDocumentationDownloader.getInstance().addListener(this@XdmDocumentationSources)
             }
         }
     }
