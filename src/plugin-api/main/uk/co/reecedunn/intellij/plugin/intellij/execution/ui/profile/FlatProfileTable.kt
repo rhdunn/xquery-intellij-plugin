@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.ui.JBColor
 import com.intellij.ui.table.TableView
-import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.awt.scope
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable

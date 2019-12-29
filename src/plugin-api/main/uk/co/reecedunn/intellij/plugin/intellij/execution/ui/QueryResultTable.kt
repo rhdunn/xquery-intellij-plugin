@@ -17,8 +17,6 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.ui.table.TableView
 import com.intellij.util.Range
-import com.intellij.util.ui.ListTableModel
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle

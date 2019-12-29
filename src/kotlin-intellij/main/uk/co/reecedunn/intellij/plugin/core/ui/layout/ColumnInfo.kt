@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import javax.swing.table.TableCellRenderer
-import com.intellij.util.ui.ColumnInfo as ColumnInfoBase
+import com.intellij.util.ui.ColumnInfo
 
-abstract class ColumnInfo<Item, Aspect : Comparable<Aspect>>(
+private abstract class ColumnInfoImpl<Item, Aspect : Comparable<Aspect>>(
     heading: String,
     private val sortable: Boolean = true
-) : ColumnInfoBase<Item, Aspect>(heading) {
+) : ColumnInfo<Item, Aspect>(heading) {
 
     abstract override fun valueOf(item: Item): Aspect
 
@@ -36,7 +36,7 @@ fun <Item, Aspect : Comparable<Aspect>> columnInfo(
     sortable: Boolean = true,
     renderer: (Item) -> TableCellRenderer? = { null }
 ): ColumnInfo<Item, Aspect> {
-    return object : ColumnInfo<Item, Aspect>(heading, sortable) {
+    return object : ColumnInfoImpl<Item, Aspect>(heading, sortable) {
         override fun valueOf(item: Item): Aspect = getter(item)
 
         override fun getRenderer(item: Item): TableCellRenderer? = renderer(item)

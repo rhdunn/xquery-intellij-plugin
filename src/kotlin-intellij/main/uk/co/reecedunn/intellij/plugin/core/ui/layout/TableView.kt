@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import com.intellij.ui.table.TableView as TableViewBase
 
