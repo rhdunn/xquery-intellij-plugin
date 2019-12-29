@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui
 
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.DialogWrapper
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 
 abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
     abstract val resizable: Boolean
@@ -30,23 +31,23 @@ abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
     private fun run(configuration: Configuration, title: String): Boolean {
         val editor = createSettingsUI()
 
-        val builder = DialogBuilder()
-        builder.resizable(resizable)
-        builder.setTitle(title)
-        builder.setCenterPanel(editor.panel!!)
-        builder.setPreferredFocusComponent(null)
-        builder.setOkOperation {
-            builder.dialogWrapper.isOKActionEnabled = false
-            validate(editor) { valid ->
-                builder.dialogWrapper.isOKActionEnabled = true
-                if (valid) {
-                    builder.dialogWrapper.close(DialogWrapper.OK_EXIT_CODE)
+        val dialog = dialog(title) {
+            resizable(resizable)
+            setCenterPanel(editor.panel!!)
+            setPreferredFocusComponent(null)
+            setOkOperation {
+                dialogWrapper.isOKActionEnabled = false
+                validate(editor) { valid ->
+                    dialogWrapper.isOKActionEnabled = true
+                    if (valid) {
+                        dialogWrapper.close(DialogWrapper.OK_EXIT_CODE)
+                    }
                 }
             }
         }
 
         editor.reset(configuration)
-        if (builder.showAndGet()) {
+        if (dialog.showAndGet()) {
             editor.apply(configuration)
             return true
         }

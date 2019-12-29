@@ -23,6 +23,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
@@ -65,7 +66,7 @@ fun Container.label(text: String, constraints: Any? = null): JBLabel {
 }
 
 // endregion
-// region textFieldWithBrowseButton
+// region text field with browse button
 
 fun Container.textFieldWithBrowseButton(
     constraints: Any?,
@@ -109,5 +110,15 @@ fun Container.scrollable(constraints: Any?, init: JBScrollPane.() -> Unit): JBSc
 }
 
 fun Container.scrollable(init: JBScrollPane.() -> Unit): JBScrollPane = scrollable(null, null, init)
+
+// endregion
+// region dialog
+
+fun dialog(title: String, init: DialogBuilder.() -> Unit): DialogBuilder {
+    val builder = DialogBuilder()
+    builder.setTitle(title)
+    builder.init()
+    return builder
+}
 
 // endregion

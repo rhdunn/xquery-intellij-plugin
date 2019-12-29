@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescripto
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -104,10 +105,10 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             val panel = list.createPanel()
             panel.minimumSize = Dimension(300, 200)
 
-            val builder = DialogBuilder()
-            builder.setTitle(PluginApiBundle.message("xquery.configurations.processor.manage-processors"))
-            builder.setCenterPanel(panel)
-            builder.showAndGet()
+            val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
+                setCenterPanel(panel)
+            }
+            dialog.showAndGet()
         }
 
         queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
