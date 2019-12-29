@@ -23,6 +23,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.ui.components.JBLabel
+import java.awt.Container
 import java.awt.GridBagLayout
 import java.awt.LayoutManager
 import javax.swing.JPanel
@@ -36,5 +38,14 @@ fun panel(layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
 }
 
 fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
+
+// endregion
+// region label
+
+fun Container.label(text: String, constraints: Any? = null): JBLabel {
+    val label = JBLabel(text)
+    add(label, constraints)
+    return label
+}
 
 // endregion
