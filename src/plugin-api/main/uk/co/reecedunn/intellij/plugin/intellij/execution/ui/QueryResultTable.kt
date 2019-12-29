@@ -20,6 +20,7 @@ import com.intellij.util.Range
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
@@ -41,15 +42,13 @@ private val RESULT_MIME_TYPE_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, 
     sortable = false
 )
 
-private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
-    RESULT_INDEX_COLUMN,
-    RESULT_ITEM_TYPE_COLUMN,
-    RESULT_MIME_TYPE_COLUMN
-)
-
 class QueryResultTable : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {
     init {
-        setModelAndUpdateColumns(ListTableModel<Pair<QueryResult, Range<Int>>>(*COLUMNS))
+        columns {
+            add(RESULT_INDEX_COLUMN)
+            add(RESULT_ITEM_TYPE_COLUMN)
+            add(RESULT_MIME_TYPE_COLUMN)
+        }
         setEnableAntialiasing(true)
 
         updateEmptyText(running = false, exception = false)

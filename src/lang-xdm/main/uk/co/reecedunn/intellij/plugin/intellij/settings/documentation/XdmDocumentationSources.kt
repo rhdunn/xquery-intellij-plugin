@@ -45,7 +45,11 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
 
         scrollable(grid(0, 1)) {
             sources = tableView {
-                setModelAndUpdateColumns(ListTableModel<XdmDocumentationSource>(*COLUMNS))
+                columns {
+                    add(NAME_COLUMN)
+                    add(VERSION_COLUMN)
+                    add(STATUS_COLUMN)
+                }
 
                 XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }
                 XdmDocumentationDownloader.getInstance().addListener(this@XdmDocumentationSources)

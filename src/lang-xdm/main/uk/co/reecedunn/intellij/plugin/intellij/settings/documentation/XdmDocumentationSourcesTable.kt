@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
@@ -34,10 +33,4 @@ val VERSION_COLUMN = columnInfo<XdmDocumentationSource, String>(
 val STATUS_COLUMN = columnInfo<XdmDocumentationSource, String>(
     heading = XdmBundle.message("documentation-source-table.column.status.title"),
     getter = { item -> XdmDocumentationDownloader.getInstance().status(item).label }
-)
-
-val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
-    NAME_COLUMN,
-    VERSION_COLUMN,
-    STATUS_COLUMN
 )

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.util.ui.ListTableModel
 import com.intellij.ui.table.TableView as TableViewBase
 
 class TableView<Item> : TableViewBase<Item>() {
@@ -37,4 +38,10 @@ fun <Item> JBScrollPane.tableView(init: TableView<Item>.() -> Unit): TableView<I
     view.init()
     setViewportView(view)
     return view
+}
+
+fun <Item> TableViewBase<Item>.columns(init: ArrayList<ColumnInfo<Item, *>>.() -> Unit) {
+    val columns = ArrayList<ColumnInfo<Item, *>>()
+    columns.init()
+    setModelAndUpdateColumns(ListTableModel(*columns.toTypedArray()))
 }

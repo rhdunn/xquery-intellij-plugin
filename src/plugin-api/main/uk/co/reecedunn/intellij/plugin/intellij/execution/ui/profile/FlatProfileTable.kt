@@ -22,6 +22,7 @@ import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.awt.scope
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
@@ -120,16 +121,6 @@ private val CONTEXT_COLUMN = columnInfo(
     }
 )
 
-private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
-    MODULE_PATH_COLUMN,
-    LINE_NUMBER_COLUMN,
-    COLUMN_NUMBER_COLUMN,
-    COUNT_COLUMN,
-    SELF_TIME_COLUMN,
-    TOTAL_TIME_COLUMN,
-    CONTEXT_COLUMN
-)
-
 class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
     companion object {
         private const val PROPERTY_SORT_COLUMN = "XQueryIntelliJPlugin.FlatProfileTable.SortKeys.Column"
@@ -137,7 +128,15 @@ class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
     }
 
     init {
-        setModelAndUpdateColumns(ListTableModel<FlatProfileEntry>(*COLUMNS))
+        columns {
+            add(MODULE_PATH_COLUMN)
+            add(LINE_NUMBER_COLUMN)
+            add(COLUMN_NUMBER_COLUMN)
+            add(COUNT_COLUMN)
+            add(SELF_TIME_COLUMN)
+            add(TOTAL_TIME_COLUMN)
+            add(CONTEXT_COLUMN)
+        }
         setEnableAntialiasing(true)
 
         updateEmptyText(running = false, exception = false)
