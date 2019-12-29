@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.openapi.Disposable
-import uk.co.reecedunn.intellij.plugin.core.event.Multicaster
+import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
 import java.io.OutputStream
@@ -25,34 +24,34 @@ import java.io.OutputStream
 abstract class QueryProcessHandlerBase : ProcessHandler() {
     // region Results
 
-    private val queryResultListeners = Multicaster(QueryResultListener::class.java)
+    private val queryResultListeners = ContainerUtil.createLockFreeCopyOnWriteList<QueryResultListener>()
 
     fun addQueryResultListener(listener: QueryResultListener) {
-        queryResultListeners.addListener(listener)
+        queryResultListeners.add(listener)
     }
 
     fun removeQueryResultListener(listener: QueryResultListener) {
-        queryResultListeners.addListener(listener)
+        queryResultListeners.add(listener)
     }
 
     fun notifyBeginResults() {
-        queryResultListeners.eventMulticaster.onBeginResults()
+        queryResultListeners.forEach { it.onBeginResults() }
     }
 
     fun notifyEndResults() {
-        queryResultListeners.eventMulticaster.onEndResults()
+        queryResultListeners.forEach { it.onEndResults() }
     }
 
     fun notifyException(e: Throwable) {
-        queryResultListeners.eventMulticaster.onException(e)
+        queryResultListeners.forEach { it.onException(e) }
     }
 
     fun notifyResult(result: QueryResult) {
-        queryResultListeners.eventMulticaster.onQueryResult(result)
+        queryResultListeners.forEach { it.onQueryResult(result) }
     }
 
     fun notifyResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
-        queryResultListeners.eventMulticaster.onQueryResultTime(resultTime, time)
+        queryResultListeners.forEach { it.onQueryResultTime(resultTime, time) }
     }
 
     // endregion

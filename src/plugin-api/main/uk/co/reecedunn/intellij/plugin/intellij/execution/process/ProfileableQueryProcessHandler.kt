@@ -15,29 +15,28 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ModalityState
+import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.core.event.Multicaster
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 
 class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : QueryProcessHandlerBase() {
     // region Profile Report
 
-    private val profileReportListeners = Multicaster(ProfileReportListener::class.java)
+    private val profileReportListeners = ContainerUtil.createLockFreeCopyOnWriteList<ProfileReportListener>()
 
     fun addProfileReportListener(listener: ProfileReportListener) {
-        profileReportListeners.addListener(listener)
+        profileReportListeners.add(listener)
     }
 
     fun removeProfileReportListener(listener: ProfileReportListener) {
-        profileReportListeners.removeListener(listener)
+        profileReportListeners.remove(listener)
     }
 
     private fun notifyProfileReport(report: FlatProfileReport) {
-        profileReportListeners.eventMulticaster.onProfileReport(report)
+        profileReportListeners.forEach { it.onProfileReport(report) }
     }
 
     // endregion
