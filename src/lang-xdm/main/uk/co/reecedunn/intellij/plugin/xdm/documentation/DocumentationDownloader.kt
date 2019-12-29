@@ -17,12 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.components.*
-import com.intellij.openapi.progress.ProgressIndicator
-import com.intellij.openapi.progress.ProgressManager
-import com.intellij.openapi.progress.Task
-import com.intellij.openapi.project.ProjectManager
 import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
+import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import java.io.File
 
@@ -37,15 +34,13 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
     var basePath: String? = null
         get() = field ?: "${PathManager.getSystemPath()}/xdm-cache/documentation"
 
+    private val tasks = TaskManager<XdmDocumentationSource>()
+
     fun download(source: XdmDocumentationSource) {
-        val file = File("$basePath/${source.path}")
-        val project = ProjectManager.getInstance().defaultProject
-        val title = XdmBundle.message("documentation-source.download.title")
-        ProgressManager.getInstance().run(object : Task.Backgroundable(project, title) {
-            override fun run(indicator: ProgressIndicator) {
-                HttpRequests.request(source.href).saveToFile(file, indicator)
-            }
-        })
+        tasks.backgroundable(XdmBundle.message("documentation-source.download.title"), source) { indicator ->
+            val file = File("$basePath/${source.path}")
+            HttpRequests.request(source.href).saveToFile(file, indicator)
+        }
     }
 
     fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
