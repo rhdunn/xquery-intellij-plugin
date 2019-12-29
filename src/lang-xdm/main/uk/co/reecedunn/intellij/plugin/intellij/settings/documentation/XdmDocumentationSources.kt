@@ -19,7 +19,6 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
-import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
@@ -46,9 +45,9 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
         scrollable(grid(0, 1)) {
             sources = tableView {
                 columns {
-                    add(NAME_COLUMN)
-                    add(VERSION_COLUMN)
-                    add(STATUS_COLUMN)
+                    nameColumn()
+                    versionColumn()
+                    statusColumn()
                 }
 
                 XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }

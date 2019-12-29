@@ -15,22 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
+import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 
-val NAME_COLUMN = columnInfo<XdmDocumentationSource, String>(
-    heading = XdmBundle.message("documentation-source-table.column.name.title"),
-    getter = { item -> item.name }
-)
+fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.nameColumn() {
+    val column = columnInfo<XdmDocumentationSource, String>(
+        heading = XdmBundle.message("documentation-source-table.column.name.title"),
+        getter = { item -> item.name }
+    )
+    add(column)
+}
 
-val VERSION_COLUMN = columnInfo<XdmDocumentationSource, String>(
-    heading = XdmBundle.message("documentation-source-table.column.version.title"),
-    getter = { item -> item.version }
-)
+fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.versionColumn() {
+    val column = columnInfo<XdmDocumentationSource, String>(
+        heading = XdmBundle.message("documentation-source-table.column.version.title"),
+        getter = { item -> item.name }
+    )
+    add(column)
+}
 
-val STATUS_COLUMN = columnInfo<XdmDocumentationSource, String>(
-    heading = XdmBundle.message("documentation-source-table.column.status.title"),
-    getter = { item -> XdmDocumentationDownloader.getInstance().status(item).label }
-)
+fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.statusColumn() {
+    val column = columnInfo<XdmDocumentationSource, String>(
+        heading = XdmBundle.message("documentation-source-table.column.status.title"),
+        getter = { item -> XdmDocumentationDownloader.getInstance().status(item).label }
+    )
+    add(column)
+}
