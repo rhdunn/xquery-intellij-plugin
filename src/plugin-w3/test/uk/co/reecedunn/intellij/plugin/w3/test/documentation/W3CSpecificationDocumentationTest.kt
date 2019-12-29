@@ -37,7 +37,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (Working Draft 2003 May 02)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2003/WD-xpath-functions-20030502/"))
-            assertThat(spec.path, `is`("w3/xpath-functions/1.0-20030502.html"))
+            assertThat(spec.path, `is`("w3/xpath-functions-1.0-20030502.html"))
 
             val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(5))
@@ -51,7 +51,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (First Edition)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2007/REC-xpath-functions-20070123/"))
-            assertThat(spec.path, `is`("w3/xpath-functions/1.0-20070123.html"))
+            assertThat(spec.path, `is`("w3/xpath-functions-1.0-20070123.html"))
 
             val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(5))
@@ -65,7 +65,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (Second Edition)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2010/REC-xpath-functions-20101214/"))
-            assertThat(spec.path, `is`("w3/xpath-functions/1.0-20101214.html"))
+            assertThat(spec.path, `is`("w3/xpath-functions-1.0-20101214.html"))
 
             val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(5))
@@ -79,7 +79,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.0"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/"))
-            assertThat(spec.path, `is`("w3/xpath-functions/3.0-20140408.html"))
+            assertThat(spec.path, `is`("w3/xpath-functions-3.0-20140408.html"))
 
             val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(5))
@@ -93,7 +93,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.1"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/"))
-            assertThat(spec.path, `is`("w3/xpath-functions/3.1-20170321.html"))
+            assertThat(spec.path, `is`("w3/xpath-functions-3.1-20170321.html"))
 
             val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(5))

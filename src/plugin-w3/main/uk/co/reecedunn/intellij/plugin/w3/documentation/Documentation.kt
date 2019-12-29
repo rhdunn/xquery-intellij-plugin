@@ -27,7 +27,7 @@ data class W3CSpecificationDocument(
 ) : XdmDocumentationSource {
     override val name: String = spec.kind.name
 
-    override val path: String = "w3/${spec.kind.id}/${spec.id}.html"
+    override val path: String = "w3/${spec.kind.id}-${spec.id}.html"
 }
 
 object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
