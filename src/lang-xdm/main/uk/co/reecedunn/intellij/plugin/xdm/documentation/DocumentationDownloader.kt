@@ -36,8 +36,8 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
 
     private val tasks = TaskManager<XdmDocumentationSource>()
 
-    fun download(source: XdmDocumentationSource) {
-        tasks.backgroundable(XdmBundle.message("documentation-source.download.title"), source) { indicator ->
+    fun download(source: XdmDocumentationSource): Boolean {
+        return tasks.backgroundable(XdmBundle.message("documentation-source.download.title"), source) { indicator ->
             val file = File("$basePath/${source.path}")
             HttpRequests.request(source.href).saveToFile(file, indicator)
         }

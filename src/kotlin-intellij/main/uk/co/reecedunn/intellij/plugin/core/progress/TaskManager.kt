@@ -26,7 +26,8 @@ class TaskManager<Item> {
 
     fun isActive(context: Item): Boolean = active.contains(context)
 
-    fun backgroundable(title: String, project: Project?, context: Item, task: (ProgressIndicator) -> Unit) {
+    fun backgroundable(title: String, project: Project?, context: Item, task: (ProgressIndicator) -> Unit): Boolean {
+        if (isActive(context)) return false
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, title) {
             override fun run(indicator: ProgressIndicator) {
                 active.add(context)
@@ -37,9 +38,10 @@ class TaskManager<Item> {
                 }
             }
         })
+        return true
     }
 
-    fun backgroundable(title: String, context: Item, task: (ProgressIndicator) -> Unit) {
-        backgroundable(title, null, context, task)
+    fun backgroundable(title: String, context: Item, task: (ProgressIndicator) -> Unit): Boolean {
+        return backgroundable(title, null, context, task)
     }
 }
