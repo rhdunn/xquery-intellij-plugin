@@ -23,6 +23,7 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.text.nullize
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
@@ -47,33 +48,32 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
         val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
         cachePath.addBrowseFolderListener(null, null, null, descriptor)
 
-        val panel = JPanel(GridBagLayout())
-        val constraints = GridBagConstraints()
+        return panel {
+            val constraints = GridBagConstraints()
 
-        constraints.gridx = 0
-        constraints.gridy = 0
-        constraints.fill = GridBagConstraints.NONE
-        constraints.weightx = 0.0
-        constraints.insets = JBUI.insets(0, 0, 4, 8)
-        panel.add(JBLabel(XdmBundle.message("documentation-source.cache-path.label")), constraints)
+            constraints.gridx = 0
+            constraints.gridy = 0
+            constraints.fill = GridBagConstraints.NONE
+            constraints.weightx = 0.0
+            constraints.insets = JBUI.insets(0, 0, 4, 8)
+            add(JBLabel(XdmBundle.message("documentation-source.cache-path.label")), constraints)
 
-        constraints.gridx = 1
-        constraints.gridy = 0
-        constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.weightx = 0.0
-        constraints.insets = JBUI.insetsBottom(4)
-        panel.add(cachePath, constraints)
+            constraints.gridx = 1
+            constraints.gridy = 0
+            constraints.fill = GridBagConstraints.HORIZONTAL
+            constraints.weightx = 0.0
+            constraints.insets = JBUI.insetsBottom(4)
+            add(cachePath, constraints)
 
-        constraints.gridx = 0
-        constraints.gridy = 1
-        constraints.gridwidth = GridBagConstraints.REMAINDER
-        constraints.fill = GridBagConstraints.BOTH
-        constraints.weightx = 1.0
-        constraints.weighty = 1.0
-        constraints.insets = JBUI.emptyInsets()
-        panel.add(JBScrollPane(sources), constraints)
-
-        return panel
+            constraints.gridx = 0
+            constraints.gridy = 1
+            constraints.gridwidth = GridBagConstraints.REMAINDER
+            constraints.fill = GridBagConstraints.BOTH
+            constraints.weightx = 1.0
+            constraints.weighty = 1.0
+            constraints.insets = JBUI.emptyInsets()
+            add(JBScrollPane(sources), constraints)
+        }
     }
 
     override fun disposeUIResources() {
