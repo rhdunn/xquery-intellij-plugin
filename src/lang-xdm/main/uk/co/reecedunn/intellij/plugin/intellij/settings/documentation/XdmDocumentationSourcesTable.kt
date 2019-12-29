@@ -15,12 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
-import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.ColumnInfo
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.TableView
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloadStatus
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 
@@ -49,18 +48,5 @@ class XdmDocumentationSourcesTable : TableView<XdmDocumentationSource>() {
     init {
         setModelAndUpdateColumns(ListTableModel<XdmDocumentationSource>(*COLUMNS))
         setEnableAntialiasing(true)
-    }
-
-    fun add(source: XdmDocumentationSource) {
-        listTableModel.addRow(source)
-    }
-
-    fun updateAll() {
-        (0 until rowCount).forEach { row -> update(listTableModel.getItem(row)) }
-    }
-
-    fun update(source: XdmDocumentationSource) {
-        val row = listTableModel.indexOf(source)
-        (0 until columnCount).forEach { listTableModel.fireTableCellUpdated(row, it) }
     }
 }
