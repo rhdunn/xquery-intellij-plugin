@@ -22,6 +22,7 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.text.nullize
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.label
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
@@ -47,15 +48,9 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
         cachePath.addBrowseFolderListener(null, null, null, descriptor)
 
         return panel {
+            label(XdmBundle.message("documentation-source.cache-path.label"), grid(0, 0))
+
             val constraints = GridBagConstraints()
-
-            constraints.gridx = 0
-            constraints.gridy = 0
-            constraints.fill = GridBagConstraints.NONE
-            constraints.weightx = 0.0
-            constraints.insets = JBUI.insets(0, 0, 4, 8)
-            label(XdmBundle.message("documentation-source.cache-path.label"), constraints)
-
             constraints.gridx = 1
             constraints.gridy = 0
             constraints.fill = GridBagConstraints.HORIZONTAL

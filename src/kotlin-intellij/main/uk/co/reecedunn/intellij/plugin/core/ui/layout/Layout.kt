@@ -24,7 +24,9 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.ui.components.JBLabel
+import com.intellij.util.ui.JBUI
 import java.awt.Container
+import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.LayoutManager
 import javax.swing.JPanel
@@ -40,9 +42,25 @@ fun panel(layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
 fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
 
 // endregion
+// region grid
+
+fun grid(x: Int, y: Int): GridBagConstraints {
+    val constraints = GridBagConstraints()
+    constraints.gridx = x
+    constraints.gridy = y
+    return constraints
+}
+
+// endregion
 // region label
 
 fun Container.label(text: String, constraints: Any? = null): JBLabel {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.NONE
+        constraints.weightx = 0.0
+        constraints.insets = JBUI.insets(0, 0, 4, 8)
+    }
+
     val label = JBLabel(text)
     add(label, constraints)
     return label
