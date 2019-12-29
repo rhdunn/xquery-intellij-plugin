@@ -82,10 +82,12 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
 
     override fun apply() {
         XdmDocumentationDownloader.getInstance().basePath = cachePath.text.nullize()
+        sources.updateAll()
     }
 
     override fun reset() {
         cachePath.text = XdmDocumentationDownloader.getInstance().basePath!!
+        sources.updateAll()
     }
 
     // endregion
