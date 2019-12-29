@@ -25,11 +25,9 @@ package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
+import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.JBUI
-import java.awt.Container
-import java.awt.GridBagConstraints
-import java.awt.GridBagLayout
-import java.awt.LayoutManager
+import java.awt.*
 import javax.swing.JPanel
 
 // region panel
@@ -87,5 +85,29 @@ fun Container.textFieldWithBrowseButton(
 fun Container.textFieldWithBrowseButton(init: TextFieldWithBrowseButton.() -> Unit): TextFieldWithBrowseButton {
     return textFieldWithBrowseButton(null, init)
 }
+
+// endregion
+// region scrollable
+
+fun Container.scrollable(view: Component?, constraints: Any?, init: JBScrollPane.() -> Unit): JBScrollPane {
+    if (constraints is GridBagConstraints) {
+        constraints.gridwidth = GridBagConstraints.REMAINDER
+        constraints.fill = GridBagConstraints.BOTH
+        constraints.weightx = 1.0
+        constraints.weighty = 1.0
+        constraints.insets = JBUI.emptyInsets()
+    }
+
+    val pane = JBScrollPane(view)
+    pane.init()
+    add(pane, constraints)
+    return pane
+}
+
+fun Container.scrollable(constraints: Any?, init: JBScrollPane.() -> Unit): JBScrollPane {
+    return scrollable(null, constraints, init)
+}
+
+fun Container.scrollable(init: JBScrollPane.() -> Unit): JBScrollPane = scrollable(null, null, init)
 
 // endregion

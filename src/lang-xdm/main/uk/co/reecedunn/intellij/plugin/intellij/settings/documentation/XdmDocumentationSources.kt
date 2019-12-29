@@ -18,19 +18,13 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.text.nullize
-import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.label
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.textFieldWithBrowseButton
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
-import java.awt.GridBagConstraints
 import javax.swing.JComponent
 
 class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentationSource> {
@@ -47,21 +41,14 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
 
         return panel {
             label(XdmBundle.message("documentation-source.cache-path.label"), grid(0, 0))
-
             cachePath = textFieldWithBrowseButton(grid(1, 0)) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 addBrowseFolderListener(null, null, null, descriptor)
             }
 
-            val constraints = GridBagConstraints()
-            constraints.gridx = 0
-            constraints.gridy = 1
-            constraints.gridwidth = GridBagConstraints.REMAINDER
-            constraints.fill = GridBagConstraints.BOTH
-            constraints.weightx = 1.0
-            constraints.weighty = 1.0
-            constraints.insets = JBUI.emptyInsets()
-            add(JBScrollPane(sources), constraints)
+            scrollable(grid(0, 1)) {
+                setViewportView(sources)
+            }
         }
     }
 
