@@ -94,6 +94,12 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
     }
 
+    private fun removeQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
+        val index = list.selectedIndex
+        queryProcessor!!.childComponent.removeItemAt(index)
+        QueryProcessors.getInstance().removeProcessor(index)
+    }
+
     private fun createQueryProcessorUI() {
         model = QueryProcessorSettingsModel()
         QueryProcessors.getInstance().processors.addToModel(model)
@@ -104,12 +110,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                 val panel = toolbar {
                     addAction(::addQueryProcessor)
                     editAction(::editQueryProcessor)
-
-                    removeAction {
-                        val index = list.selectedIndex
-                        queryProcessor!!.childComponent.removeItemAt(index)
-                        QueryProcessors.getInstance().removeProcessor(index)
-                    }
+                    removeAction(::removeQueryProcessor)
 
                     list = JBList<QueryProcessorSettingsWithVersionCache>(model)
                     list.cellRenderer = QueryProcessorSettingsCellRenderer()
