@@ -105,4 +105,10 @@
   <xi:include href="META-INF/plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="META-INF/plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationConfigurable groupId="language" displayName="XQuery and XSLT" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XdmProfileConfigurable">
+      <configurable implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.documentation.XdmDocumentationSources"/>
+    </applicationConfigurable>
+  </extensions>
 </idea-plugin>
