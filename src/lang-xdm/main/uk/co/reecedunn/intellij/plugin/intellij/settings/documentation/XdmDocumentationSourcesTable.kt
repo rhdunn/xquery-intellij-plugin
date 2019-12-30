@@ -32,7 +32,7 @@ fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.nameColumn() {
 fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.versionColumn() {
     val column = columnInfo<XdmDocumentationSource, String>(
         heading = XdmBundle.message("documentation-source-table.column.version.title"),
-        getter = { item -> item.name }
+        getter = { item -> item.version }
     )
     add(column)
 }
