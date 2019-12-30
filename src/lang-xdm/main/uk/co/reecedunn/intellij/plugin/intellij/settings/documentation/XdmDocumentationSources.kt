@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -43,6 +44,12 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
         }
 
         toolbarPanel(grid(0, 1)) {
+            action(XdmBundle.message("action.download.label"), AllIcons.Actions.Download) {
+                sources.selectedObject?.let {
+                    XdmDocumentationDownloader.getInstance().download(it)
+                }
+            }
+
             sources = tableView {
                 columns {
                     nameColumn()
