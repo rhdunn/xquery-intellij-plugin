@@ -21,6 +21,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
+import com.intellij.ui.AnActionButtonRunnable
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
@@ -31,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescripto
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbar
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -76,40 +78,39 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {
             val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-                val list = JBList<QueryProcessorSettingsWithVersionCache>(model)
-                list.cellRenderer = QueryProcessorSettingsCellRenderer()
-                list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
-
-                val decorator = ToolbarDecorator.createDecorator(list)
-                decorator.disableUpDownActions()
-
-                decorator.setAddAction {
-                    val item = QueryProcessorSettings()
-                    val dialog = QueryProcessorSettingsDialog(project)
-                    if (dialog.create(item)) {
-                        val settings = QueryProcessorSettingsWithVersionCache(item)
-                        queryProcessor!!.childComponent.addItem(settings)
-                        QueryProcessors.getInstance().addProcessor(item)
+                lateinit var list: JBList<QueryProcessorSettingsWithVersionCache>
+                val panel = toolbar {
+                    addAction {
+                        val item = QueryProcessorSettings()
+                        val dialog = QueryProcessorSettingsDialog(project)
+                        if (dialog.create(item)) {
+                            val settings = QueryProcessorSettingsWithVersionCache(item)
+                            queryProcessor!!.childComponent.addItem(settings)
+                            QueryProcessors.getInstance().addProcessor(item)
+                        }
                     }
-                }
 
-                decorator.setEditAction {
-                    val index = list.selectedIndex
-                    val item = queryProcessor!!.childComponent.getItemAt(index)
-                    val dialog = QueryProcessorSettingsDialog(project)
-                    if (dialog.edit(item.settings)) {
-                        QueryProcessors.getInstance().setProcessor(index, item.settings)
-                        model.updateElement(item)
+                    editAction {
+                        val index = list.selectedIndex
+                        val item = queryProcessor!!.childComponent.getItemAt(index)
+                        val dialog = QueryProcessorSettingsDialog(project)
+                        if (dialog.edit(item.settings)) {
+                            QueryProcessors.getInstance().setProcessor(index, item.settings)
+                            model.updateElement(item)
+                        }
                     }
-                }
 
-                decorator.setRemoveAction {
-                    val index = list.selectedIndex
-                    queryProcessor!!.childComponent.removeItemAt(index)
-                    QueryProcessors.getInstance().removeProcessor(index)
-                }
+                    removeAction {
+                        val index = list.selectedIndex
+                        queryProcessor!!.childComponent.removeItemAt(index)
+                        QueryProcessors.getInstance().removeProcessor(index)
+                    }
 
-                val panel = decorator.createPanel()
+                    list = JBList<QueryProcessorSettingsWithVersionCache>(model)
+                    list.cellRenderer = QueryProcessorSettingsCellRenderer()
+                    list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
+                    list
+                }
                 panel.minimumSize = Dimension(300, 200)
                 setCenterPanel(panel)
             }
