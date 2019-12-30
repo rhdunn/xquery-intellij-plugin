@@ -71,6 +71,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // region Option :: Query Processor
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>? = null
+    private lateinit var model: QueryProcessorSettingsModel
+    private lateinit var list: JBList<QueryProcessorSettingsWithVersionCache>
 
     private fun addQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
         val item = QueryProcessorSettings()
@@ -82,26 +84,26 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
     }
 
+    private fun editQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
+        val index = list.selectedIndex
+        val item = queryProcessor!!.childComponent.getItemAt(index)
+        val dialog = QueryProcessorSettingsDialog(project)
+        if (dialog.edit(item.settings)) {
+            QueryProcessors.getInstance().setProcessor(index, item.settings)
+            model.updateElement(item)
+        }
+    }
+
     private fun createQueryProcessorUI() {
-        val model = QueryProcessorSettingsModel()
+        model = QueryProcessorSettingsModel()
         QueryProcessors.getInstance().processors.addToModel(model)
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {
             val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-                lateinit var list: JBList<QueryProcessorSettingsWithVersionCache>
                 val panel = toolbar {
                     addAction(::addQueryProcessor)
-
-                    editAction {
-                        val index = list.selectedIndex
-                        val item = queryProcessor!!.childComponent.getItemAt(index)
-                        val dialog = QueryProcessorSettingsDialog(project)
-                        if (dialog.edit(item.settings)) {
-                            QueryProcessors.getInstance().setProcessor(index, item.settings)
-                            model.updateElement(item)
-                        }
-                    }
+                    editAction(::editQueryProcessor)
 
                     removeAction {
                         val index = list.selectedIndex
