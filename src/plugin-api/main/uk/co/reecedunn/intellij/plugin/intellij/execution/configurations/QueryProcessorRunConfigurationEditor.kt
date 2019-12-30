@@ -22,9 +22,7 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.ui.AnActionButton
-import com.intellij.ui.AnActionButtonRunnable
 import com.intellij.ui.ColoredListCellRenderer
-import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
@@ -33,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescripto
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbar
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -107,7 +105,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
         queryProcessor!!.addActionListener {
             val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-                val panel = toolbar {
+                toolbarPanel(minimumSize = Dimension(300, 200)) {
                     addAction(::addQueryProcessor)
                     editAction(::editQueryProcessor)
                     removeAction(::removeQueryProcessor)
@@ -117,8 +115,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
                     list
                 }
-                panel.minimumSize = Dimension(300, 200)
-                setCenterPanel(panel)
             }
             dialog.showAndGet()
         }

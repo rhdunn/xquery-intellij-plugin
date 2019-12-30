@@ -16,11 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.ui.AnActionButton
 import com.intellij.ui.AnActionButtonRunnable
 import com.intellij.ui.ToolbarDecorator
+import com.intellij.ui.components.JBList
 import com.intellij.ui.table.TableView
 import com.intellij.util.SmartList
+import java.awt.Dimension
 import javax.swing.*
 
 // NOTE: The ToolbarDecorator class is not easily usable as a DSL class, so this is a DSL wrapper around that class.
@@ -53,7 +56,7 @@ class ToolbarDecoratorBuilder {
     }
 }
 
-fun <T> toolbar(init: ToolbarDecoratorBuilder.() -> T): JPanel {
+fun <T> toolbarDecorator(init: ToolbarDecoratorBuilder.() -> T): ToolbarDecorator {
     val builder = ToolbarDecoratorBuilder()
     val decorator = when (val ui = builder.init()) {
         is JList<*> -> ToolbarDecorator.createDecorator(ui)
@@ -71,5 +74,12 @@ fun <T> toolbar(init: ToolbarDecoratorBuilder.() -> T): JPanel {
     decorator.setMoveDownAction(builder.moveDownActionRunnable)
 
     builder.extraActions.forEach { decorator.addExtraAction(it) }
-    return decorator.createPanel()
+    return decorator
+}
+
+fun <T> DialogBuilder.toolbarPanel(minimumSize: Dimension?, init: ToolbarDecoratorBuilder.() -> T): JPanel {
+    val panel = toolbarDecorator(init).createPanel()
+    minimumSize?.let { panel.minimumSize = it }
+    setCenterPanel(panel)
+    return panel
 }
