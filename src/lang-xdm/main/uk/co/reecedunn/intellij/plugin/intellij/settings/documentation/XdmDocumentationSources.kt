@@ -42,7 +42,7 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
             addBrowseFolderListener(null, null, null, descriptor)
         }
 
-        scrollable(grid(0, 1)) {
+        toolbarPanel(grid(0, 1)) {
             sources = tableView {
                 columns {
                     nameColumn()
@@ -53,6 +53,7 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
                 XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }
                 XdmDocumentationDownloader.getInstance().addListener(this@XdmDocumentationSources)
             }
+            sources
         }
     }
 

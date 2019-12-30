@@ -33,11 +33,19 @@ class TableView<Item> : TableViewBase<Item>() {
     }
 }
 
+@Suppress("unused")
 fun <Item> JBScrollPane.tableView(init: TableView<Item>.() -> Unit): TableView<Item> {
     val view = TableView<Item>()
     view.setEnableAntialiasing(true)
     view.init()
     setViewportView(view)
+    return view
+}
+
+fun <Item> ToolbarDecoratorBuilder.tableView(init: TableView<Item>.() -> Unit): TableView<Item> {
+    val view = TableView<Item>()
+    view.setEnableAntialiasing(true)
+    view.init()
     return view
 }
 
