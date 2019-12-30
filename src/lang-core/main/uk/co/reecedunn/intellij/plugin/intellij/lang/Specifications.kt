@@ -117,7 +117,7 @@ object XsltSpec : Versioned {
 
     override val id get(): String = "xslt"
 
-    override val name get(): String = "XSLT"
+    override val name get(): String = "XSL Transformations (XSLT)"
 
     override val versions: List<Version> = listOf(
         REC_1_0_19991116,

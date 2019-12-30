@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 
@@ -62,5 +63,25 @@ object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
         REC_1_0_20101214,
         REC_3_0_20140408,
         REC_3_1_20170321
+    )
+}
+
+object XsltDocumentation : XdmDocumentationSourceProvider {
+    val REC_1_0_19991116 = W3CSpecificationDocument(
+        XsltSpec.REC_1_0_19991116, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0"
+    )
+
+    val REC_2_0_20070123 = W3CSpecificationDocument(
+        XsltSpec.REC_2_0_20070123, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0"
+    )
+
+    val REC_3_0_20170608 = W3CSpecificationDocument(
+        XsltSpec.REC_3_0_20170608, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0"
+    )
+
+    override val sources: List<XdmDocumentationSource> = listOf(
+        REC_1_0_19991116,
+        REC_2_0_20070123,
+        REC_3_0_20170608
     )
 }
