@@ -21,6 +21,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
+import com.intellij.ui.AnActionButton
 import com.intellij.ui.AnActionButtonRunnable
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.ToolbarDecorator
@@ -71,6 +72,16 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>? = null
 
+    private fun addQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
+        val item = QueryProcessorSettings()
+        val dialog = QueryProcessorSettingsDialog(project)
+        if (dialog.create(item)) {
+            val settings = QueryProcessorSettingsWithVersionCache(item)
+            queryProcessor!!.childComponent.addItem(settings)
+            QueryProcessors.getInstance().addProcessor(item)
+        }
+    }
+
     private fun createQueryProcessorUI() {
         val model = QueryProcessorSettingsModel()
         QueryProcessors.getInstance().processors.addToModel(model)
@@ -80,15 +91,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
                 lateinit var list: JBList<QueryProcessorSettingsWithVersionCache>
                 val panel = toolbar {
-                    addAction {
-                        val item = QueryProcessorSettings()
-                        val dialog = QueryProcessorSettingsDialog(project)
-                        if (dialog.create(item)) {
-                            val settings = QueryProcessorSettingsWithVersionCache(item)
-                            queryProcessor!!.childComponent.addItem(settings)
-                            QueryProcessors.getInstance().addProcessor(item)
-                        }
-                    }
+                    addAction(::addQueryProcessor)
 
                     editAction {
                         val index = list.selectedIndex
