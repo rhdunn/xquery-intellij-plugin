@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import javax.swing.JComponent
 
-class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentationSource> {
+class XdmDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XdmDocumentationSource> {
     // region Configurable
 
     private lateinit var cachePath: TextFieldWithBrowseButton
@@ -58,7 +58,7 @@ class XdmDocumentationSources : Configurable, TaskProgressListener<XdmDocumentat
                 }
 
                 XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }
-                XdmDocumentationDownloader.getInstance().addListener(this@XdmDocumentationSources)
+                XdmDocumentationDownloader.getInstance().addListener(this@XdmDocumentationSourcesConfigurable)
             }
             sources
         }
