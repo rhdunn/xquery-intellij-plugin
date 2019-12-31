@@ -37,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -1236,7 +1236,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun testDefaultCaseClause_NCName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$x) default \$y return \$z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1249,7 +1249,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun testDefaultCaseClause_QName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$a:x) default \$a:y return \$a:z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1266,7 +1266,7 @@ private class PluginPsiTest : ParserTestCase() {
                     default ${'$'}Q{http://www.example.com}y
                     return ${'$'}Q{http://www.example.com}z
                     """
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1279,7 +1279,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun testDefaultCaseClause_NoVarName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$x) default return \$z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }

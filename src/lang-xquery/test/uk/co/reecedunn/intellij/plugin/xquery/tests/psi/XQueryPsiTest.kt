@@ -2839,7 +2839,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testPositionalVar_NCName() {
-                val expr = parse<XQueryPositionalVar>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryPositionalVar>("for \$x at \$y in \$z return \$w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2850,7 +2850,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun testPositionalVar_QName() {
-                val expr = parse<XQueryPositionalVar>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XPathVariableBinding
+                val expr = parse<XQueryPositionalVar>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -2864,7 +2864,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQueryPositionalVar>(
                     "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2875,7 +2875,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testPositionalVar_MissingVarName() {
-                val expr = parse<XQueryPositionalVar>("for \$x at \$ \$z return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryPositionalVar>("for \$x at \$ \$z return \$w")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -2890,7 +2890,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testForBinding_NCName() {
-                val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2901,7 +2901,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun testForBinding_QName() {
-                val expr = parse<XQueryForBinding>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XPathVariableBinding
+                val expr = parse<XQueryForBinding>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -2915,7 +2915,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQueryForBinding>(
                     "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2926,7 +2926,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testForBinding_MissingVarName() {
-                val expr = parse<XQueryForBinding>("for \$ \$y return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryForBinding>("for \$ \$y return \$w")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -2941,7 +2941,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testLetBinding_NCName() {
-                val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2952,7 +2952,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun testLetBinding_QName() {
-                val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XPathVariableBinding
+                val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -2965,7 +2965,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testLetBinding_URIQualifiedName() {
                 val expr = parse<XQueryLetBinding>(
                     "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}w"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2976,7 +2976,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testLetBinding_MissingVarName() {
-                val expr = parse<XQueryLetBinding>("let \$ := 2 return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryLetBinding>("let \$ := 2 return \$w")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -2993,7 +2993,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testTumblingWindowClause_NCName() {
                 val expr = parse<XQueryTumblingWindowClause>(
                     "for tumbling window \$x in \$y return \$z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3006,7 +3006,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testTumblingWindowClause_QName() {
                 val expr = parse<XQueryTumblingWindowClause>(
                     "for tumbling window \$a:x in \$a:y return \$a:z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3020,7 +3020,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQueryTumblingWindowClause>(
                     "for tumbling window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "return \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3031,7 +3031,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testTumblingWindowClause_MissingVarName() {
-                val expr = parse<XQueryTumblingWindowClause>("for tumbling window \$ \$y return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryTumblingWindowClause>("for tumbling window \$ \$y return \$w")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -3044,7 +3044,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testSlidingWindowClause_NCName() {
                 val expr = parse<XQuerySlidingWindowClause>(
                     "for sliding window \$x in \$y return \$z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3057,7 +3057,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testSlidingWindowClause_QName() {
                 val expr = parse<XQuerySlidingWindowClause>(
                     "for sliding window \$a:x in \$a:y return \$a:z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3071,7 +3071,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQuerySlidingWindowClause>(
                     "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "return \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3082,7 +3082,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testSlidingWindowClause_MissingVarName() {
-                val expr = parse<XQuerySlidingWindowClause>("for sliding window \$ \$y return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQuerySlidingWindowClause>("for sliding window \$ \$y return \$w")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -3118,7 +3118,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testCurrentItem_NCName() {
-                val expr = parse<XQueryCurrentItem>("for sliding window \$x in \$y start \$w when true() return \$z")[0] as XPathVariableBinding
+                val expr = parse<XQueryCurrentItem>("for sliding window \$x in \$y start \$w when true() return \$z")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3129,7 +3129,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun testCurrentItem_QName() {
-                val expr = parse<XQueryCurrentItem>("for sliding window \$a:x in \$a:y start \$a:w when true() return \$a:z")[0] as XPathVariableBinding
+                val expr = parse<XQueryCurrentItem>("for sliding window \$a:x in \$a:y start \$a:w when true() return \$a:z")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3144,7 +3144,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "start \$Q{http://www.example.com}w when true() " +
                             "return \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3186,7 +3186,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testPreviousItem_NCName() {
                 val expr = parse<XQueryPreviousItem>(
                     "for sliding window \$x in \$y start \$v previous \$w when true() return \$z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3199,7 +3199,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testPreviousItem_QName() {
                 val expr = parse<XQueryPreviousItem>(
                     "for sliding window \$a:x in \$a:y start \$a:v previous \$a:w when true() return \$a:z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3214,7 +3214,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "start \$Q{http://www.example.com}v previous \$Q{http://www.example.com}w when true() " +
                             "return \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3254,7 +3254,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testNextItem_NCName() {
-                val expr = parse<XQueryNextItem>("for sliding window \$x in \$y start \$v next \$w when true() return \$z")[0] as XPathVariableBinding
+                val expr = parse<XQueryNextItem>("for sliding window \$x in \$y start \$v next \$w when true() return \$z")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3267,7 +3267,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testNextItem_QName() {
                 val expr = parse<XQueryNextItem>(
                     "for sliding window \$a:x in \$a:y start \$a:v next \$a:w when true() return \$a:z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3282,7 +3282,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "start \$Q{http://www.example.com}v next \$Q{http://www.example.com}w when true() " +
                             "return \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3301,7 +3301,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun testCountClause_NCName() {
-                val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3312,7 +3312,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun testCountClause_QName() {
-                val expr = parse<XQueryCountClause>("for \$a:x in \$a:y count \$a:z return \$a:w")[0] as XPathVariableBinding
+                val expr = parse<XQueryCountClause>("for \$a:x in \$a:y count \$a:z return \$a:w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3326,7 +3326,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<XQueryCountClause>(
                     "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y count \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3337,7 +3337,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testCountClause_MissingVarName() {
-                val expr = parse<XQueryCountClause>("for \$x in \$y count \$")[0] as XPathVariableBinding
+                val expr = parse<XQueryCountClause>("for \$x in \$y count \$")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -3352,7 +3352,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableBinding
+                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3365,7 +3365,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun qname() {
                 val expr = parse<XQueryGroupingSpec>(
                     "for \$a:x in \$a:y group by \$a:z return \$a:w"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3380,7 +3380,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "group by \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3391,7 +3391,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun missingVarName() {
-                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XPathVariableBinding
+                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
 
@@ -3500,7 +3500,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
+                val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3511,7 +3511,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
+                val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3524,7 +3524,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun uriQualifiedName() {
                 val expr = parse<PluginQuantifiedExprBinding>(
                     "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3535,7 +3535,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun missingVarName() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
+                val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -3552,7 +3552,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testCaseClause_NCName() {
                 val expr = parse<XQueryCaseClause>(
                     "typeswitch (\$x) case \$y as xs:string return \$z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3565,7 +3565,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun testCaseClause_QName() {
                 val expr = parse<XQueryCaseClause>(
                     "typeswitch (\$a:x) case \$a:y as xs:string return \$a:z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3580,7 +3580,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "typeswitch (\$Q{http://www.example.com}x) " +
                             "case \$Q{http://www.example.com}y as xs:string " +
                             "return \$Q{http://www.example.com}z"
-                )[0] as XPathVariableBinding
+                )[0] as XdmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3591,7 +3591,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun testCaseClause_NoVarName() {
-                val expr = parse<XQueryCaseClause>("typeswitch (\$x) case xs:string return \$z")[0] as XPathVariableBinding
+                val expr = parse<XQueryCaseClause>("typeswitch (\$x) case xs:string return \$z")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
@@ -5134,7 +5134,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<XPathParam>("function (\$x) {}")[0] as XPathVariableBinding
+                val expr = parse<XPathParam>("function (\$x) {}")[0] as XdmVariableBinding
                 assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = expr.variableName!!
@@ -5152,7 +5152,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XPathVariableBinding
+                val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XdmVariableBinding
                 assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = expr.variableName!!
@@ -5170,7 +5170,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
-                val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XPathVariableBinding
+                val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XdmVariableBinding
                 assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = expr.variableName!!
@@ -5188,7 +5188,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun missingVarName() {
-                val expr = parse<XPathParam>("function (\$) {}")[0] as XPathVariableBinding
+                val expr = parse<XPathParam>("function (\$) {}")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
                 assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
 
@@ -5202,7 +5202,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("with type")
             fun withType() {
-                val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XPathVariableBinding
+                val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XdmVariableBinding
                 assertThat((expr as XdmVariableType).variableType?.typeName, `is`("element()"))
 
                 val qname = expr.variableName!!

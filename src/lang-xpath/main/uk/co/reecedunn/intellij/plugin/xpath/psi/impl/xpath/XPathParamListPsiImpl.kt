@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -82,10 +82,10 @@ class XPathParamListPsiImpl(node: ASTNode) :
     // region XPathParamList
 
     private val cachedParams = CacheableProperty {
-        children().filterIsInstance<XPathParam>().map { param -> param as XPathVariableBinding }.toList()
+        children().filterIsInstance<XPathParam>().map { param -> param as XdmVariableBinding }.toList()
     }
 
-    override val params: List<XPathVariableBinding> get() = cachedParams.get()!!
+    override val params: List<XdmVariableBinding> get() = cachedParams.get()!!
 
     private val cachedArity = CacheableProperty {
         params.size.let {

@@ -30,6 +30,6 @@ interface XdmVariableDefinition : XdmVariableName
 
 interface XdmVariableDeclaration : XdmVariableDefinition
 
-interface XPathVariableBinding : XdmVariableDefinition
+interface XdmVariableBinding : XdmVariableDefinition
 
 interface XPathVariableReference : XdmVariableName

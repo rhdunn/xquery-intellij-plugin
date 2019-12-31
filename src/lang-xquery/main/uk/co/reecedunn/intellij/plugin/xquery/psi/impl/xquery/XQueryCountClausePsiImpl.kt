@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCountClause
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCountClause
 class XQueryCountClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryCountClause,
-    XPathVariableBinding {
+    XdmVariableBinding {
 
     private val varName
         get(): XdmVariableName? = children().filterIsInstance<XdmVariableName>().firstOrNull()

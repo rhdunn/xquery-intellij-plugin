@@ -20,13 +20,13 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 
 data class XPathFunctionParamBinding(
-    val param: XPathVariableBinding,
+    val param: XdmVariableBinding,
     private val values: List<PsiElement>
 ) : List<PsiElement> {
-    constructor(param: XPathVariableBinding, value: PsiElement) : this(param, listOf(value))
+    constructor(param: XdmVariableBinding, value: PsiElement) : this(param, listOf(value))
 
     // region List<PsiElement>
 
@@ -62,7 +62,7 @@ interface XPathFunctionDeclaration {
 
     val returnType: XdmSequenceType?
 
-    val params: List<XPathVariableBinding>
+    val params: List<XdmVariableBinding>
 
     val paramListPresentation: ItemPresentation?
 

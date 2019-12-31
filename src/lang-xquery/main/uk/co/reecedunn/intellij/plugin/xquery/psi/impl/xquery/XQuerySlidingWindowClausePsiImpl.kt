@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause
@@ -32,7 +32,7 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQuerySlidingWindowClause,
     VersionConformance,
-    XPathVariableBinding {
+    XdmVariableBinding {
     // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
