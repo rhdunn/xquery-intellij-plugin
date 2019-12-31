@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDocumentTest
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmDocument
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmDocumentNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 class XPathDocumentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathDocumentTest, XdmItemType {
@@ -41,7 +41,7 @@ class XPathDocumentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = XdmDocument::class.java
+    override val typeClass: Class<*> = XdmDocumentNode::class.java
 
     // endregion
 }

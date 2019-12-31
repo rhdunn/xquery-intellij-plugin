@@ -71,7 +71,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("document-node(array-node())"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -86,7 +86,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("document-node(object-node())"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmDocument::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))

@@ -30,7 +30,7 @@ interface XdmAttributeNode : XdmNode
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : document-node()
 
-interface XdmDocument : XdmNode
+interface XdmDocumentNode : XdmNode
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
