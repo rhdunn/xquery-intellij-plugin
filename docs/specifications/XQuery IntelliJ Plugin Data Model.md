@@ -40,7 +40,7 @@ various inspections.
     - [3.2.2 Sequence Type Union](#322-sequence-type-union)
     - [3.3.3 Sequence Type Addition](#333-sequence-type-addition)
 - [4 Data Model](#4-data-model)
-  - [4.1 Atomic Type Values](#41-atomic-type-values)
+  - [4.1 Literals](#41-literals)
   - [4.2 EQNames and Wildcards](#42-eqnames-and-wildcards)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
@@ -514,7 +514,7 @@ The addition is then:
 
 ## 4 Data Model
 
-### 4.1 Atomic Type Values
+### 4.1 Literals
 
 | Symbol           | Type         | Interface         | Representation |
 |------------------|--------------|-------------------|----------------|
