@@ -29,6 +29,7 @@ various inspections.
     - [2.1.2 Part 2: Simple and Complex Types](#212-part-2-simple-and-complex-types)
     - [2.1.3 Part 3: Atomic Types](#213-part-3-atomic-types)
     - [2.1.4 Part 4: Sequences](#214-part-4-sequences)
+    - [2.1.5 Sequence Types](#215-sequence-types)
 - [3 Type Manipulation](#3-type-manipulation)
   - [3.1 Upper and Lower Bounds](#31-upper-and-lower-bounds)
     - [3.1.1 Minimum of two bounds](#311-minimum-of-two-bounds)
@@ -39,9 +40,8 @@ various inspections.
     - [3.2.2 Sequence Type Union](#322-sequence-type-union)
     - [3.3.3 Sequence Type Addition](#333-sequence-type-addition)
 - [4 Data Model](#4-data-model)
-  - [4.1 Sequence Types](#41-sequence-types)
-  - [4.2 Atomic Type Values](#42-atomic-type-values)
-  - [4.3 EQNames and Wildcards](#43-eqnames-and-wildcards)
+  - [4.1 Atomic Type Values](#41-atomic-type-values)
+  - [4.2 EQNames and Wildcards](#42-eqnames-and-wildcards)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -334,6 +334,45 @@ The *lower bound*, *upper bound*, and *item type* values are mapped as follows:
 > type of the cast expression on a list type, and for providing a replacement
 > suggestion in the IDE.
 
+#### 2.1.5 Sequence Types
+
+<pre><code>XdmSequenceType
+├─── XdmItemType
+├─── XdmSequenceTypeList
+└─── XdmSequenceTypeUnion
+</code></pre>
+
+An `XdmSequenceType` is any of the `SequenceType` symbols. It provides access
+to the *lower bound*, *upper bound*, and *item type* values of that sequence
+type, as well as a *type name* used for presenting the type to the user.
+
+An `XdmItemType` is any of the `ItemType` symbols that represent a sequence of
+size one whose item type is itself. An item type has a *type class* property
+that is the Java `Class` of the item. This is one of the interfaces defined in
+parts 1 to 3 of this section.
+
+An `XdmSequenceTypeList` is an instance of the `SequenceTypeList` symbol used
+in a `TypedFunctionTest`. It is a comma-separated list of *sequence types* that
+define the type of each item in an `ArgumentList`.
+
+An `XdmSequenceTypeUnion` is an instance of the `SequenceTypeUnion` symbol used
+in a `typeswitch` expression or parenthesized sequence type. It is a `|`-separated
+list of *sequence types* that define the possible types of a sequence type such
+as the *operand expression* in a `TypeswitchExpr`.
+
+Each PSI element in the `SequenceType` EBNF implements one of these interfaces,
+defining the properties according to the specific sequence type. This is limited
+to the information available at parse time, so precise values for the lower and
+upper bounds of XMLSchema types are not defined.¹ It should be possible to calculate
+the precise bounds as needed on the resolved types.
+
+1.  This is primarily for performance reasons. Identifying the precise XMLSchema
+    type requires expanding the namespace of the `AtomicOrUnionType`, locating the
+    bound namespace, locating the type within the schema files, and then
+    calculating the bounds from that type. If any of the context above the schema
+    type, such as the schema namespace, changes then the type and everything it
+    depends on need to be recalculated.
+
 ## 3 Type Manipulation
 
 ### 3.1 Upper and Lower Bounds
@@ -475,46 +514,7 @@ The addition is then:
 
 ## 4 Data Model
 
-#### 4.1 Sequence Types
-
-<pre><code>XdmSequenceType
-├─── XdmItemType
-├─── XdmSequenceTypeList
-└─── XdmSequenceTypeUnion
-</code></pre>
-
-An `XdmSequenceType` is any of the `SequenceType` symbols. It provides access
-to the *lower bound*, *upper bound*, and *item type* values of that sequence
-type, as well as a *type name* used for presenting the type to the user.
-
-An `XdmItemType` is any of the `ItemType` symbols that represent a sequence of
-size one whose item type is itself. An item type has a *type class* property
-that is the Java `Class` of the item. This is one of the interfaces defined in
-parts 1 to 3 of this section.
-
-An `XdmSequenceTypeList` is an instance of the `SequenceTypeList` symbol used
-in a `TypedFunctionTest`. It is a comma-separated list of *sequence types* that
-define the type of each item in an `ArgumentList`.
-
-An `XdmSequenceTypeUnion` is an instance of the `SequenceTypeUnion` symbol used
-in a `typeswitch` expression or parenthesized sequence type. It is a `|`-separated
-list of *sequence types* that define the possible types of a sequence type such
-as the *operand expression* in a `TypeswitchExpr`.
-
-Each PSI element in the `SequenceType` EBNF implements one of these interfaces,
-defining the properties according to the specific sequence type. This is limited
-to the information available at parse time, so precise values for the lower and
-upper bounds of XMLSchema types are not defined.¹ It should be possible to calculate
-the precise bounds as needed on the resolved types.
-
-1.  This is primarily for performance reasons. Identifying the precise XMLSchema
-    type requires expanding the namespace of the `AtomicOrUnionType`, locating the
-    bound namespace, locating the type within the schema files, and then
-    calculating the bounds from that type. If any of the context above the schema
-    type, such as the schema namespace, changes then the type and everything it
-    depends on need to be recalculated.
-
-### 4.2 Atomic Type Values
+### 4.1 Atomic Type Values
 
 | Symbol           | Type         | Interface         | Representation |
 |------------------|--------------|-------------------|----------------|
@@ -533,7 +533,7 @@ the point the PSI tree is constructed. This is to permit partially typed URIs,
 or incorrectly typed URIs, to be represented correctly without throwing
 malformed URI exceptions.
 
-### 4.3 EQNames and Wildcards
+### 4.2 EQNames and Wildcards
 
 | Symbol                            | Type           | Interface          | Representation |
 |-----------------------------------|----------------|--------------------|----------------|
