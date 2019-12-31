@@ -37,6 +37,8 @@ interface XdmDocumentNode : XdmNode
 
 interface XdmElementNode : XdmNode {
     val nodeName: XsQNameValue?
+
+    val closingTag: XsQNameValue?
 }
 
 // endregion

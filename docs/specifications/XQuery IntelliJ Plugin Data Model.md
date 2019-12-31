@@ -581,6 +581,11 @@ the prolog or any direct elements.
 | `CompElemConstructor` | `XdmElementNode` | yes       |
 | `DirElemConstructor`  | `XdmElementNode` | yes       |
 
+The `XdmElementNode` interface has an additional *closing tag* property. This
+is used for the `err:XQST0118` error condition inspection. For a
+`CompElemConstructor` or self-closing `DirElemConstructor` the *closing tag*
+property is the same as the*node name* property.
+
 ## A References
 
 ### A.1 W3C References

@@ -22,7 +22,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -33,18 +32,11 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     XQueryDirElemConstructor,
     XdmElementNode,
     FoldablePsiElement {
-    // region XQueryDirElemConstructor
-
-    override val closeTag
-        get(): XsQNameValue? {
-            val tag = findChildrenByClass(XPathEQName::class.java)
-            return if (tag.size == 2) tag[1] as XsQNameValue else null
-        }
-
-    // endregion
     // region XdmElementNode
 
     override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    override val closingTag: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().lastOrNull()
 
     // endregion
     // region FoldablePsiElement
