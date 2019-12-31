@@ -49,7 +49,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
@@ -2444,7 +2443,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName!!.data, `is`("b"))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
@@ -2461,7 +2460,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
@@ -2478,7 +2477,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
@@ -2496,7 +2495,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName!!.data, `is`("b"))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
@@ -2514,7 +2513,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName, `is`(nullValue()))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
@@ -2530,7 +2529,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(nullValue()))
             }
 
@@ -2547,7 +2546,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
 
-                val xdm = element as XQueryElement
+                val xdm = element as XdmElementNode
                 assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
@@ -2736,7 +2735,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("name")
             fun name() {
-                val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XQueryElement
+                val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XdmElementNode
 
                 val name = element.nodeName!!
                 assertThat(name.prefix!!.data, `is`("a"))
@@ -2746,7 +2745,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("expression")
             fun expr() {
-                val element = parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XQueryElement
+                val element = parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XdmElementNode
                 assertThat(element.nodeName, `is`(nullValue()))
             }
 

@@ -21,17 +21,17 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryDirElemConstructor,
-    XQueryElement,
+    XdmElementNode,
     FoldablePsiElement {
     // region XQueryDirElemConstructor
 
@@ -46,7 +46,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     override val isSelfClosing get(): Boolean = lastChild.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
 
     // endregion
-    // region XQueryElement
+    // region XdmElementNode
 
     override val nodeName: XsQNameValue? get() = openTag
 

@@ -42,6 +42,7 @@ various inspections.
 - [4 Data Model](#4-data-model)
   - [4.1 Literals](#41-literals)
   - [4.2 EQNames and Wildcards](#42-eqnames-and-wildcards)
+  - [4.3 Nodes](#43-nodes)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -90,7 +91,10 @@ If a symbol is only forwarding to another symbol, such as when a `RangeExpr`
 does not have a `to` part, the corresponding PSI element is omitted from the
 PSI tree to further simplify the model in memory.
 
-The PSI tree elements implement the model described in this document.
+The PSI tree elements implement the model described in this document. These
+symbols provide the statically known information for that given context. This
+is used for static analysis and IDE integration such as symbol navigation and
+code completion.
 
 1.  This functionality is not currently supported in the XQuery IntelliJ Plugin.
     This is a specification for how that functionality is intended to be
@@ -569,6 +573,13 @@ an instance of `xdm:wildcard` to indicate that any value matches.
 A QName can be expanded, where a sequence of expanded QNames is returned with
 the namespace bound to the namespace of the matching namespace declarations in
 the prolog or any direct elements.
+
+### 4.3 Nodes
+
+| Symbol                | Interface        | node name |
+|-----------------------|------------------|-----------|
+| `CompElemConstructor` | `XdmElementNode` | yes       |
+| `DirElemConstructor`  | `XdmElementNode` | yes       |
 
 ## A References
 

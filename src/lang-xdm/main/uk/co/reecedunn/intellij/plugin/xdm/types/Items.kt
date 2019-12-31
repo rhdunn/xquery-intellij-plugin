@@ -35,7 +35,9 @@ interface XdmDocumentNode : XdmNode
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
 
-interface XdmElementNode : XdmNode
+interface XdmElementNode : XdmNode {
+    val nodeName: XsQNameValue?
+}
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : comment()

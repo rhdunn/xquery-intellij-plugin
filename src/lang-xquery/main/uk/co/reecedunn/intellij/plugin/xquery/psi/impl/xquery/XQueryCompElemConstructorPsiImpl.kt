@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryElement
 
 class XQueryCompElemConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryCompElemConstructor, XQueryElement {
-    // region XQueryElement
+    ASTWrapperPsiElement(node), XQueryCompElemConstructor, XdmElementNode {
+    // region XdmElementNode
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
