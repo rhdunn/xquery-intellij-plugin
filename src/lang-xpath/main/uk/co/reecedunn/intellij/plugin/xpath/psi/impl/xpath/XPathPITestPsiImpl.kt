@@ -66,7 +66,7 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = XdmProcessingInstruction::class.java
+    override val typeClass: Class<*> = XdmProcessingInstructionNode::class.java
 
     // endregion
 }
