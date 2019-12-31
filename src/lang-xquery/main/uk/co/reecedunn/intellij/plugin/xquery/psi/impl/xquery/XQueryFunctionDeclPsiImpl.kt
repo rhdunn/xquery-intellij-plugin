@@ -22,9 +22,9 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryFunctionDecl, XPathFunctionDeclaration, ItemPresentation {
+    ASTWrapperPsiElement(node), XQueryFunctionDecl, XdmFunctionDeclaration, ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -42,13 +42,13 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     }
 
     // endregion
-    // region XPathFunctionDeclaration
+    // region XdmFunctionDeclaration
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
     override val functionName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val arity get(): Range<Int> = paramList?.arity ?: XPathFunctionDeclaration.ARITY_ZERO
+    override val arity get(): Range<Int> = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
 
     override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 

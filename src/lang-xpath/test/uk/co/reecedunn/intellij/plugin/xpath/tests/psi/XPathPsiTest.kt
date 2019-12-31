@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
@@ -1689,7 +1690,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty ParamList")
             fun emptyParamList() {
-                val decl = parse<XPathFunctionDeclaration>("function () {}")[0]
+                val decl = parse<XdmFunctionDeclaration>("function () {}")[0]
                 assertThat(decl.functionName, `is`(nullValue()))
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
@@ -1700,7 +1701,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ParamList")
             fun nonEmptyParamList() {
-                val decl = parse<XPathFunctionDeclaration>("function (\$one, \$two) {}")[0]
+                val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two) {}")[0]
                 assertThat(decl.functionName, `is`(nullValue()))
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
@@ -1715,7 +1716,7 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("non-empty ParamList with types")
             fun nonEmptyParamListWithTypes() {
                 val decl =
-                    parse<XPathFunctionDeclaration>("function (\$one  as  array ( * ), \$two  as  node((::))) {}")[0]
+                    parse<XdmFunctionDeclaration>("function (\$one  as  array ( * ), \$two  as  node((::))) {}")[0]
                 assertThat(decl.functionName, `is`(nullValue()))
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
@@ -1729,7 +1730,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("return type")
             fun returnType() {
-                val decl = parse<XPathFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
+                val decl = parse<XdmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
                 assertThat(decl.functionName, `is`(nullValue()))
                 assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                 assertThat(decl.arity, `is`(Range(0, 0)))

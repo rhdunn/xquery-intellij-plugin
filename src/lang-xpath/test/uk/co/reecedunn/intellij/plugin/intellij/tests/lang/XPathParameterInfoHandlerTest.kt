@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -48,7 +48,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(4))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -68,7 +68,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(7))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -88,7 +88,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(45))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -112,7 +112,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(26))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -132,7 +132,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(6))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -156,7 +156,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(31))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -176,7 +176,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(9))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -196,7 +196,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(12))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -216,7 +216,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(50))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -236,7 +236,7 @@ private class XPathParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(16))
 
-                val items = context.itemsToShow!!.map { it as XPathFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext

@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -142,11 +142,11 @@ private class XPathLookupElementTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (empty parameters)")
     internal inner class FunctionCall_EmptyParams {
-        fun parse(text: String): Pair<XQueryModule, XPathFunctionDeclaration> {
+        fun parse(text: String): Pair<XQueryModule, XdmFunctionDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
             val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
-            return module to ref as XPathFunctionDeclaration
+            return module to ref as XdmFunctionDeclaration
         }
 
         @Test
@@ -272,11 +272,11 @@ private class XPathLookupElementTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (with parameters)")
     internal inner class FunctionCall_WithParams {
-        fun parse(text: String): Pair<XQueryModule, XPathFunctionDeclaration> {
+        fun parse(text: String): Pair<XQueryModule, XdmFunctionDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
             val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
-            return module to ref as XPathFunctionDeclaration
+            return module to ref as XdmFunctionDeclaration
         }
 
         @Test

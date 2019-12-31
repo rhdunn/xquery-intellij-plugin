@@ -22,10 +22,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -36,7 +36,7 @@ private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLo
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathInlineFunctionExpr,
-    XPathFunctionDeclaration,
+    XdmFunctionDeclaration,
     VersionConformance {
     // region VersionConformance
 
@@ -51,13 +51,13 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.K_FUNCTION) ?: firstChild
 
     // endregion
-    // region XPathFunctionDeclaration
+    // region XdmFunctionDeclaration
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
     override val functionName: XsQNameValue? = null
 
-    override val arity get(): Range<Int> = paramList?.arity ?: XPathFunctionDeclaration.ARITY_ZERO
+    override val arity get(): Range<Int> = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
 
     override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 

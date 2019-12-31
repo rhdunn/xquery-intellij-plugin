@@ -15,10 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.functions
 
+import com.intellij.navigation.ItemPresentation
+import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 
 interface XdmFunctionReference {
     val functionName: XsQNameValue?
 
     val arity: Int
+}
+
+interface XdmFunctionDeclaration {
+    companion object {
+        val ARITY_ZERO = Range(0, 0)
+    }
+
+    val functionName: XsQNameValue?
+
+    val arity: Range<Int>
+
+    val returnType: XdmSequenceType?
+
+    val params: List<XdmVariableBinding>
+
+    val paramListPresentation: ItemPresentation?
+
+    val isVariadic: Boolean
 }

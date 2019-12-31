@@ -19,9 +19,9 @@ import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 
-class XPathFunctionCallLookup(localName: String, prefix: String?, private val function: XPathFunctionDeclaration) :
+class XPathFunctionCallLookup(localName: String, prefix: String?, private val function: XdmFunctionDeclaration) :
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
     init {
         presentation.icon = XPathIcons.Nodes.FunctionDecl

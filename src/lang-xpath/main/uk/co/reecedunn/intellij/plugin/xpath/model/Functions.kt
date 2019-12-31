@@ -15,11 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
-import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 
 data class XPathFunctionParamBinding(
@@ -43,22 +39,4 @@ data class XPathFunctionParamBinding(
     override fun subList(fromIndex: Int, toIndex: Int): List<PsiElement> = values.subList(fromIndex, toIndex)
 
     // endregion
-}
-
-interface XPathFunctionDeclaration {
-    companion object {
-        val ARITY_ZERO = Range(0, 0)
-    }
-
-    val functionName: XsQNameValue?
-
-    val arity: Range<Int>
-
-    val returnType: XdmSequenceType?
-
-    val params: List<XdmVariableBinding>
-
-    val paramListPresentation: ItemPresentation?
-
-    val isVariadic: Boolean
 }

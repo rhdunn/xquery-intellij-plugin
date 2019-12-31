@@ -20,13 +20,13 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
-object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPathFunctionDeclaration> {
+object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XdmFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
 
     override fun getParametersForLookup(item: LookupElement?, context: ParameterInfoContext?): Array<Any>? {
@@ -60,7 +60,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
         context.setCurrentParameter(if (parameterOwner.parent is PluginArrowFunctionCall) index + 1 else index)
     }
 
-    override fun updateUI(p: XPathFunctionDeclaration?, context: ParameterInfoUIContext) {
+    override fun updateUI(p: XdmFunctionDeclaration?, context: ParameterInfoUIContext) {
         if (p == null) return
 
         val params = p.params.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
@@ -95,7 +95,7 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XPath
         }
     }
 
-    private fun functionCandidates(args: XPathArgumentList?): Sequence<XPathFunctionDeclaration> {
+    private fun functionCandidates(args: XPathArgumentList?): Sequence<XdmFunctionDeclaration> {
         val functionName = args?.functionReference?.functionName
         return functionName?.staticallyKnownFunctions()?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
     }
