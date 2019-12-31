@@ -132,13 +132,16 @@ private fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQN
 
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XPathNamespaceType.Undefined
-    return if (parentType === XPathElementType.NAME_TEST)
-        when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-            XPathPrincipalNodeKind.Element -> XPathNamespaceType.DefaultElementOrType
-            else -> XPathNamespaceType.None
+    return when {
+        parentType === XPathElementType.NAME_TEST -> {
+            when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
+                XPathPrincipalNodeKind.Element -> XPathNamespaceType.DefaultElementOrType
+                else -> XPathNamespaceType.None
+            }
         }
-    else
-        NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
+        node.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XPathNamespaceType.XQuery
+        else -> NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
+    }
 }
 
 fun XsQNameValue.expand(): Sequence<XsQNameValue> {

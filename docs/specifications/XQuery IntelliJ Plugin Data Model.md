@@ -43,6 +43,7 @@ various inspections.
   - [4.1 Literals](#41-literals)
   - [4.2 EQNames and Wildcards](#42-eqnames-and-wildcards)
   - [4.3 Nodes](#43-nodes)
+  - [4.4 Annotations](#44-annotations)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -585,6 +586,19 @@ The `XdmElementNode` interface has an additional *closing tag* property. This
 is used for the `err:XQST0118` error condition inspection. For a
 `CompElemConstructor` or self-closing `DirElemConstructor` the *closing tag*
 property is the same as the*node name* property.
+
+### 4.4 Annotations
+
+| Symbol                    | Interface       |
+|---------------------------|-----------------|
+| `CompatibilityAnnotation` | `XdmAnnotation` |
+| `Annotation`              | `XdmAnnotation` |
+
+The *name* of the annotation is the unexpanded `xs:QName` annotation name.
+
+The *values* of the annotation is the list of `xs:string`, `xs:integer`,
+`xs:decimal`, and `xs:decimal` arguments passed to the annotation. For
+`CompatibilityAnnotation` this is always empty.
 
 ## A References
 

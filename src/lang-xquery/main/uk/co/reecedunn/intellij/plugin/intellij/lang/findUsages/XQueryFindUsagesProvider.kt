@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsSca
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -71,15 +72,20 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         val parentType = element.parent.node.elementType
-        return if (parentType === XPathElementType.NAME_TEST)
-            when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-                XPathPrincipalNodeKind.Attribute -> XPathBundle.message("find-usages.attribute")
-                XPathPrincipalNodeKind.Element -> XPathBundle.message("find-usages.element")
-                XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
-                null -> XPathBundle.message("find-usages.identifier")
+        return when {
+            parentType === XPathElementType.NAME_TEST -> {
+                when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
+                    XPathPrincipalNodeKind.Attribute -> XPathBundle.message("find-usages.attribute")
+                    XPathPrincipalNodeKind.Element -> XPathBundle.message("find-usages.element")
+                    XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
+                    null -> XPathBundle.message("find-usages.identifier")
+                }
             }
-        else
-            TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
+            element.node.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> {
+                XQueryBundle.message("find-usages.annotation")
+            }
+            else -> TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
+        }
     }
 
     override fun getDescriptiveName(element: PsiElement): String {

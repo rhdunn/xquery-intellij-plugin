@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
@@ -29,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
@@ -1482,6 +1484,82 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (4.2) Annotations")
+    internal inner class Annotations {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
+        internal inner class CompatibilityAnnotation {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<PluginCompatibilityAnnotation>("declare private function f() {};")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.XQuery))
+                assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("annotation"))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("private"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2012/xquery"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("private"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("MarkLogic")
+            fun markLogic() {
+                val annotation = parse<PluginCompatibilityAnnotation>("declare private function f() {};")[0] as XdmAnnotation
+                assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
+
+                val values = annotation.values.toList()
+                assertThat(values.size, `is`(0))
+
+                val presentation = annotation as ItemPresentation
+                assertThat(presentation.getIcon(false), `is`(XQueryIcons.Nodes.Annotation))
+                assertThat(presentation.locationString, `is`(nullValue()))
+                assertThat(presentation.presentableText, `is`("private"))
+            }
+
+            @Test
+            @DisplayName("XQuery Update Facility 3.0")
+            fun updateFacility() {
+                val annotation = parse<PluginCompatibilityAnnotation>("declare updating function f() {};")[0] as XdmAnnotation
+                assertThat(op_qname_presentation(annotation.name!!), `is`("updating"))
+
+                val values = annotation.values.toList()
+                assertThat(values.size, `is`(0))
+
+                val presentation = annotation as ItemPresentation
+                assertThat(presentation.getIcon(false), `is`(XQueryIcons.Nodes.Annotation))
+                assertThat(presentation.locationString, `is`(nullValue()))
+                assertThat(presentation.presentableText, `is`("updating"))
+            }
+
+            @Test
+            @DisplayName("Scripting Extension 1.0")
+            fun scriptingExtension() {
+                val annotation = parse<PluginCompatibilityAnnotation>("declare sequential function f() {};")[0] as XdmAnnotation
+                assertThat(op_qname_presentation(annotation.name!!), `is`("sequential"))
+
+                val values = annotation.values.toList()
+                assertThat(values.size, `is`(0))
+
+                val presentation = annotation as ItemPresentation
+                assertThat(presentation.getIcon(false), `is`(XQueryIcons.Nodes.Annotation))
+                assertThat(presentation.locationString, `is`(nullValue()))
+                assertThat(presentation.presentableText, `is`("sequential"))
             }
         }
     }

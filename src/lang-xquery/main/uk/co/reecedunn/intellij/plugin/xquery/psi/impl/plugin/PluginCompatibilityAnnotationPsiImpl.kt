@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
@@ -26,6 +28,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import javax.swing.Icon
 
 private val MARKLOGIC_60 = listOf(MarkLogic.VERSION_6_0)
 private val SCRIPTING_10 = listOf(ScriptingSpec.NOTE_1_0_20140918)
@@ -33,7 +39,34 @@ private val UPDATE_10 = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 private val UPDATE_30 = listOf(UpdateFacilitySpec.NOTE_3_0_20170124)
 
 class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginCompatibilityAnnotation, VersionConformance {
+    ASTWrapperPsiElement(node),
+    PluginCompatibilityAnnotation,
+    XsQNameValue,
+    XdmAnnotation,
+    VersionConformance,
+    ItemPresentation {
+    // region XsQNameValue
+
+    override val namespace: XsAnyUriValue? get() = null
+
+    override val prefix: XsNCNameValue? get() = null
+
+    override val localName: XsNCNameValue? get() = firstChild as XsNCNameValue
+
+    override val isLexicalQName: Boolean get() = true
+
+    override val element: PsiElement? get() = this
+
+    // endregion
+    // region XdmAnnotation
+
+    override val name: XsQNameValue? get() = this
+
+    override val values: Sequence<XsAnyAtomicType> = emptySequence()
+
+    // endregion
+    // region VersionConformance
+
     override val requiresConformance
         get(): List<Version> {
             return when (conformanceElement.node.elementType) {
@@ -47,4 +80,15 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
         }
 
     override val conformanceElement get(): PsiElement = firstChild
+
+    // endregion
+    // region ItemPresentation
+
+    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.Annotation
+
+    override fun getLocationString(): String? = null
+
+    override fun getPresentableText(): String? = firstChild.text
+
+    // endregion
 }
