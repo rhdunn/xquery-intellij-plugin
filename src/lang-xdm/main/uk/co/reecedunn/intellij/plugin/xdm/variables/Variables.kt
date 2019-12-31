@@ -32,4 +32,4 @@ interface XdmVariableDeclaration : XdmVariableDefinition
 
 interface XdmVariableBinding : XdmVariableDefinition
 
-interface XPathVariableReference : XdmVariableName
+interface XdmVariableReference : XdmVariableName

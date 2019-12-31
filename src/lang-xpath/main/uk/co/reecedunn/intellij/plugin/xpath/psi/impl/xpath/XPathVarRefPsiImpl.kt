@@ -20,13 +20,13 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableReference
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathVarRefPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathVarRef,
-    XPathVariableReference {
+    XdmVariableReference {
 
     private val varName
         get(): XdmVariableName? = children().filterIsInstance<XdmVariableName>().firstOrNull()

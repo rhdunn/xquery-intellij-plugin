@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableReference
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -160,7 +160,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class VarRef {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XPathVariableReference
+            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XdmVariableReference
             val element = call.variableName?.element!!
             val ref = element.references[1].resolve()
             return element to ref

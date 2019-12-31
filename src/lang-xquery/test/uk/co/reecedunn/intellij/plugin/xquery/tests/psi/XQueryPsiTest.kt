@@ -1731,7 +1731,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XPathVariableReference
+                val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1742,7 +1742,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val expr = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XPathVariableReference
+                val expr = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XdmVariableReference
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1755,7 +1755,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun uriQualifiedName() {
                 val expr = parse<XPathVarRef>(
                     "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                )[0] as XPathVariableReference
+                )[0] as XdmVariableReference
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1766,7 +1766,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun missingVarName() {
-                val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XPathVariableReference
+                val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XdmVariableReference
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }
