@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 
 open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass) {
     companion object {

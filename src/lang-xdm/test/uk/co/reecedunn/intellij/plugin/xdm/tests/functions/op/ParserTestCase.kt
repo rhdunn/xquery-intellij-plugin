@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.tests.functions
+package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
