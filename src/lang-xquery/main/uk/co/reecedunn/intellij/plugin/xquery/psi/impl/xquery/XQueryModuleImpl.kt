@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
@@ -146,7 +146,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         }.filterNotNull()
     }
 
-    override fun inScopeVariables(context: PsiElement): Sequence<XPathVariableDefinition> {
+    override fun inScopeVariables(context: PsiElement): Sequence<XdmVariableDefinition> {
         return context.xqueryInScopeVariables()
     }
 

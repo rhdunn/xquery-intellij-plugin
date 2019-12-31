@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
@@ -175,7 +175,7 @@ private fun XQueryProlog.varDecls(): Sequence<XPathVariableDeclaration?> {
 // endregion
 // region XPath 3.1 (2.1.1) In-scope variables
 
-fun PsiElement.xqueryInScopeVariables(): Sequence<XPathVariableDefinition> {
+fun PsiElement.xqueryInScopeVariables(): Sequence<XdmVariableDefinition> {
     val context = InScopeVariableContext()
     return walkTree().reversed()
         .flatMap { node ->
@@ -246,7 +246,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XPathVariableDefinition> {
         .filter { variable -> variable.variableName != null }
 }
 
-fun XPathEQName.variableDefinition(): XPathVariableDefinition? {
+fun XPathEQName.variableDefinition(): XdmVariableDefinition? {
     val name = this as XsQNameValue
     return inScopeVariables().find { variable ->
         val qname = variable.variableName!!

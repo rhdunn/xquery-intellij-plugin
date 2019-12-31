@@ -26,10 +26,10 @@ interface XdmVariableType {
     val variableType: XdmSequenceType?
 }
 
-interface XPathVariableDefinition : XdmVariableName
+interface XdmVariableDefinition : XdmVariableName
 
-interface XPathVariableDeclaration : XPathVariableDefinition
+interface XPathVariableDeclaration : XdmVariableDefinition
 
-interface XPathVariableBinding : XPathVariableDefinition
+interface XPathVariableBinding : XdmVariableDefinition
 
 interface XPathVariableReference : XdmVariableName
