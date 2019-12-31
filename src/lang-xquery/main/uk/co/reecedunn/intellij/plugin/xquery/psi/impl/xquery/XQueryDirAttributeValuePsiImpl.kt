@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType

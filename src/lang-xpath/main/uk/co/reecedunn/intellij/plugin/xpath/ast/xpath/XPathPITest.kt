@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 
 /**
  * An XPath 2.0 and XQuery 1.0 `PITest` node in the XQuery AST.

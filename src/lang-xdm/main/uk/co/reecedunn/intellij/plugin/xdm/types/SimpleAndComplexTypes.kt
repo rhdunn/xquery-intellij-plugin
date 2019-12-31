@@ -16,9 +16,7 @@
 /**
  * XPath 3.1 and XQuery 3.1 Type System Part 2: Simple and Complex Types
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
-
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItem
+package uk.co.reecedunn.intellij.plugin.xdm.types
 
 // region XQuery IntelliJ Plugin (2.2.2) xs:anyType
 

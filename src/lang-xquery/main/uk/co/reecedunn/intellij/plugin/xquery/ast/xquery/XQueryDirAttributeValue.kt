@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 
 /**
  * An XQuery 1.0 `DirAttributeValue` node in the XQuery AST.

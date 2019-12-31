@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypeName, XdmItemType {

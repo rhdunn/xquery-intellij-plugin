@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnySimpleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
