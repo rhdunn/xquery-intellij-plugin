@@ -21,17 +21,8 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-
-enum class XPathNamespaceType {
-    DefaultElementOrType,
-    DefaultFunctionDecl,
-    DefaultFunctionRef,
-    None,
-    Prefixed,
-    Undefined,
-    XQuery,
-}
 
 interface XPathNamespaceDeclaration {
     val namespacePrefix: XsNCNameValue?
@@ -40,7 +31,7 @@ interface XPathNamespaceDeclaration {
 }
 
 interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
-    fun accepts(namespaceType: XPathNamespaceType): Boolean
+    fun accepts(namespaceType: XdmNamespaceType): Boolean
 }
 
 private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceDeclaration? {
@@ -53,8 +44,8 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceD
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, originalElement)
 
-            override fun accepts(namespaceType: XPathNamespaceType): Boolean {
-                return namespaceType === XPathNamespaceType.DefaultElementOrType
+            override fun accepts(namespaceType: XdmNamespaceType): Boolean {
+                return namespaceType === XdmNamespaceType.DefaultElementOrType
             }
         }
     } else {
@@ -86,10 +77,10 @@ private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration 
         XsAnyUri(FN_NAMESPACE_URI, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return (
-            namespaceType === XPathNamespaceType.DefaultFunctionDecl ||
-            namespaceType === XPathNamespaceType.DefaultFunctionRef
+            namespaceType === XdmNamespaceType.DefaultFunctionDecl ||
+            namespaceType === XdmNamespaceType.DefaultFunctionRef
         )
     }
 }

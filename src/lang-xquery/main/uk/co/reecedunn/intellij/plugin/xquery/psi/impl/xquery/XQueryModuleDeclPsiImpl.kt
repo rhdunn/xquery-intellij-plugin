@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -42,10 +43,10 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return (
-            namespaceType === XPathNamespaceType.DefaultFunctionDecl ||
-            namespaceType === XPathNamespaceType.DefaultFunctionRef
+            namespaceType === XdmNamespaceType.DefaultFunctionDecl ||
+            namespaceType === XdmNamespaceType.DefaultFunctionRef
         )
     }
 

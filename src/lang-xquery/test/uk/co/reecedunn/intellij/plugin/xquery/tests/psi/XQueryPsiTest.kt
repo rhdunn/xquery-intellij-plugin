@@ -46,6 +46,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.variables.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -608,7 +609,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () instance of test
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -807,7 +808,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () instance of element(*, test)
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1058,7 +1059,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () instance of element(test)
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("element"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1129,7 +1130,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () instance of schema-element(test)
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("element"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1254,7 +1255,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("() instance of attribute(test)")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1319,7 +1320,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("() instance of schema-attribute(test)")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1814,7 +1815,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncnameNamespaceResolution() {
                 val qname = parse<XPathNCName>("\$test")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("variable"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1966,7 +1967,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     test()
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionRef))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultFunctionRef))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("function"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2039,7 +2040,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     test#1
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionRef))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultFunctionRef))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("function"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2213,7 +2214,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     ancestor::test
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("element"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2242,7 +2243,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     attribute::test
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2271,7 +2272,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     namespace::test
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("namespace"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2537,7 +2538,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     <test/>
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("element"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2564,7 +2565,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("<elem test=\"\"/>")[1] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2739,7 +2740,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     element test {}
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("element"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -2766,7 +2767,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("attribute test {}")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -3075,7 +3076,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val qname = parse<XPathNCName>(
                     "for sliding window \$x in () start \$test when () end when () return ()"
                 )[1] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("variable"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -3141,7 +3142,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val qname = parse<XPathNCName>(
                     "for sliding window \$x in () start previous \$test when () end when () return ()"
                 )[1] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("variable"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -3211,7 +3212,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val qname = parse<XPathNCName>(
                     "for sliding window \$x in () start next \$test when () end when () return ()"
                 )[1] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("variable"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -3614,7 +3615,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () cast as test
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -3802,7 +3803,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     () => test()
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionRef))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultFunctionRef))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("function"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -3833,7 +3834,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("(# test #)")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("pragma"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -4236,7 +4237,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("declare decimal-format test;")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("decimal format"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -4275,13 +4276,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
-                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 val prefix = import.namespacePrefix?.element?.parent!!
                 assertThat(XQueryFindUsagesProvider.getType(prefix), `is`("namespace"))
@@ -4299,13 +4300,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
-                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -4318,13 +4319,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
-                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -4339,13 +4340,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
 
-                assertThat(import.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(import.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -4705,13 +4706,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
                 assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -4726,13 +4727,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
                 assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -4745,13 +4746,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
                 assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -4762,13 +4763,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri, `is`(nullValue()))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
     }
@@ -4783,7 +4784,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("declare function %test f() {};")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.XQuery))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.XQuery))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("annotation"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -5087,7 +5088,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     declare function test() {};
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunctionDecl))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultFunctionDecl))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("function"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -5200,7 +5201,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncnameNamespaceResolution() {
                 val qname = parse<XPathEQName>("function (\$test) {}")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("parameter"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -5231,7 +5232,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("declare option test \"lorem ipsum\";")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.XQuery))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.XQuery))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("option"))
 
                 assertThat(qname.isLexicalQName, `is`(true))

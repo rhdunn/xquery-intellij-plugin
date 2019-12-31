@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
@@ -60,14 +61,14 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // endregion
     // region XQueryNamespaceDeclaration
 
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return children().filterIsInstance<XsQNameValue>().map { qname ->
             when {
-                qname.prefix?.data == "xmlns" -> namespaceType === XPathNamespaceType.Prefixed
-                qname.localName?.data == "xmlns" -> namespaceType === XPathNamespaceType.DefaultElementOrType
+                qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
+                qname.localName?.data == "xmlns" -> namespaceType === XdmNamespaceType.DefaultElementOrType
                 else -> null
             }
-        }.firstOrNull() ?: (namespaceType === XPathNamespaceType.Undefined)
+        }.firstOrNull() ?: (namespaceType === XdmNamespaceType.Undefined)
     }
 
     override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()

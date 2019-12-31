@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -570,20 +571,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noProlog() {
                 val ctx = parse<XQueryMainModule>("<br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -591,20 +592,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -616,20 +617,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -643,31 +644,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "import schema default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -675,20 +676,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -696,31 +697,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -734,31 +735,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -766,20 +767,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -787,31 +788,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -821,20 +822,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()"
                 )[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -842,20 +843,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -863,20 +864,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace ''; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -888,20 +889,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun prefixed() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -909,31 +910,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun default() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -941,31 +942,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns=''>{test()}</a>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultElementOrType).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElementOrType).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
     }
@@ -981,20 +982,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noProlog() {
                 val ctx = parse<XQueryMainModule>("<br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1002,20 +1003,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -1027,20 +1028,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -1054,20 +1055,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "import schema default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1075,20 +1076,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1096,20 +1097,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("import schema default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -1123,20 +1124,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>"
                 )[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1144,20 +1145,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1165,20 +1166,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun elementEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1188,31 +1189,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()"
                 )[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1220,20 +1221,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionMissingNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1241,31 +1242,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun functionEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace ''; <br/>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(2))
 
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
                 assertThat(element[1].namespacePrefix, `is`(nullValue()))
                 assertThat(element[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[1].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[1].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
@@ -1277,20 +1278,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun prefixed() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1298,20 +1299,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun default() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1319,20 +1320,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
             fun defaultEmptyNamespace() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns=''>{test()}</a>")[0]
 
-                val element = ctx.defaultNamespace(XPathNamespaceType.DefaultFunctionRef).toList()
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(element[0].accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(element[0].accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
     }

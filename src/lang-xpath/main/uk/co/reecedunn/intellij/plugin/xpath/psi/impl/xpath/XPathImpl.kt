@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -48,12 +49,12 @@ class XPathImpl(provider: FileViewProvider) :
 
     override fun defaultNamespace(
         context: PsiElement,
-        type: XPathNamespaceType
+        type: XdmNamespaceType
     ): Sequence<XPathDefaultNamespaceDeclaration> {
         return when (type) {
-            XPathNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
-            XPathNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
-            XPathNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
+            XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
+            XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
+            XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
             else -> emptySequence()
         }
     }

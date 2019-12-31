@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -36,13 +37,13 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
         get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return children().map { child ->
             when (child.node.elementType) {
-                XPathTokenType.K_ELEMENT -> namespaceType === XPathNamespaceType.DefaultElementOrType
+                XPathTokenType.K_ELEMENT -> namespaceType === XdmNamespaceType.DefaultElementOrType
                 XPathTokenType.K_FUNCTION -> {
-                    namespaceType === XPathNamespaceType.DefaultFunctionDecl ||
-                    namespaceType === XPathNamespaceType.DefaultFunctionRef
+                    namespaceType === XdmNamespaceType.DefaultFunctionDecl ||
+                    namespaceType === XdmNamespaceType.DefaultFunctionRef
                 }
                 else -> null
             }

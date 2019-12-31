@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -36,8 +37,8 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
     override val namespaceUri
         get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
-        return namespaceType === XPathNamespaceType.DefaultFunctionRef // Usage only, not declaration.
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
+        return namespaceType === XdmNamespaceType.DefaultFunctionRef // Usage only, not declaration.
     }
 
     // endregion

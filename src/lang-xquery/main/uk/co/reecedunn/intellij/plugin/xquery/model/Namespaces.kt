@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -36,38 +37,38 @@ private val XQUERY_NAMESPACE =
     XsAnyUri("http://www.w3.org/2012/xquery", XdmUriContext.Namespace, XdmModuleType.NONE, null as PsiElement?)
 
 private val NAMESPACE_TYPE = mapOf(
-    XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
-    XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunctionRef,
-    XPathElementType.ATOMIC_OR_UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
-    XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,
-    XQueryElementType.COMP_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
-    XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
-    XQueryElementType.DECIMAL_FORMAT_DECL to XPathNamespaceType.None,
-    XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
-    XQueryElementType.DIR_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.ELEMENT_TEST to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.FUNCTION_CALL to XPathNamespaceType.DefaultFunctionRef,
-    XQueryElementType.FUNCTION_DECL to XPathNamespaceType.DefaultFunctionDecl,
-    XPathElementType.NAMED_FUNCTION_REF to XPathNamespaceType.DefaultFunctionRef,
-    XQueryElementType.NEXT_ITEM to XPathNamespaceType.None,
-    XQueryElementType.OPTION_DECL to XPathNamespaceType.XQuery,
-    XPathElementType.PARAM to XPathNamespaceType.None,
-    XPathElementType.PRAGMA to XPathNamespaceType.None,
-    XQueryElementType.PREVIOUS_ITEM to XPathNamespaceType.None,
-    XPathElementType.SCHEMA_ATTRIBUTE_TEST to XPathNamespaceType.None,
-    XPathElementType.SCHEMA_ELEMENT_TEST to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.SIMPLE_TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
-    XQueryElementType.TYPE_DECL to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
-    XPathElementType.VAR_NAME to XPathNamespaceType.None
+    XQueryElementType.ANNOTATION to XdmNamespaceType.XQuery,
+    XPathElementType.ARROW_FUNCTION_SPECIFIER to XdmNamespaceType.DefaultFunctionRef,
+    XPathElementType.ATOMIC_OR_UNION_TYPE to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.ATTRIBUTE_TEST to XdmNamespaceType.None,
+    XQueryElementType.COMP_ATTR_CONSTRUCTOR to XdmNamespaceType.None,
+    XQueryElementType.COMP_ELEM_CONSTRUCTOR to XdmNamespaceType.DefaultElementOrType,
+    XQueryElementType.CURRENT_ITEM to XdmNamespaceType.None,
+    XQueryElementType.DECIMAL_FORMAT_DECL to XdmNamespaceType.None,
+    XQueryElementType.DIR_ATTRIBUTE to XdmNamespaceType.None,
+    XQueryElementType.DIR_ELEM_CONSTRUCTOR to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.ELEMENT_TEST to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.FUNCTION_CALL to XdmNamespaceType.DefaultFunctionRef,
+    XQueryElementType.FUNCTION_DECL to XdmNamespaceType.DefaultFunctionDecl,
+    XPathElementType.NAMED_FUNCTION_REF to XdmNamespaceType.DefaultFunctionRef,
+    XQueryElementType.NEXT_ITEM to XdmNamespaceType.None,
+    XQueryElementType.OPTION_DECL to XdmNamespaceType.XQuery,
+    XPathElementType.PARAM to XdmNamespaceType.None,
+    XPathElementType.PRAGMA to XdmNamespaceType.None,
+    XQueryElementType.PREVIOUS_ITEM to XdmNamespaceType.None,
+    XPathElementType.SCHEMA_ATTRIBUTE_TEST to XdmNamespaceType.None,
+    XPathElementType.SCHEMA_ELEMENT_TEST to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.SIMPLE_TYPE_NAME to XdmNamespaceType.DefaultElementOrType,
+    XQueryElementType.TYPE_DECL to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.TYPE_NAME to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.UNION_TYPE to XdmNamespaceType.DefaultElementOrType,
+    XPathElementType.VAR_NAME to XdmNamespaceType.None
 )
 
 // region XPath 3.1 (2.1.1) Default element/type namespace ; XPath 3.1 (2.1.1) Default function namespace
 
 fun PsiElement.defaultNamespace(
-    type: XPathNamespaceType,
+    type: XdmNamespaceType,
     resolveProlog: Boolean
 ): Sequence<XPathDefaultNamespaceDeclaration> {
     var visitedProlog = false
@@ -130,17 +131,17 @@ private fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQN
     }
 }
 
-fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
-    val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XPathNamespaceType.Undefined
+fun XsQNameValue.getNamespaceType(): XdmNamespaceType {
+    val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XdmNamespaceType.Undefined
     return when {
         parentType === XPathElementType.NAME_TEST -> {
             when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-                XPathPrincipalNodeKind.Element -> XPathNamespaceType.DefaultElementOrType
-                else -> XPathNamespaceType.None
+                XPathPrincipalNodeKind.Element -> XdmNamespaceType.DefaultElementOrType
+                else -> XdmNamespaceType.None
             }
         }
-        node.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XPathNamespaceType.XQuery
-        else -> NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
+        node.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XdmNamespaceType.XQuery
+        else -> NAMESPACE_TYPE.getOrDefault(parentType, XdmNamespaceType.Undefined)
     }
 }
 
@@ -148,11 +149,11 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null /* NCName */ -> {
             when (val type = getNamespaceType()) {
-                XPathNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
-                XPathNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
-                XPathNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)
-                XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
-                XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
+                XdmNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
+                XdmNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
+                XdmNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)
+                XdmNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
+                XdmNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
                 else -> sequenceOf(this)
             }
         }

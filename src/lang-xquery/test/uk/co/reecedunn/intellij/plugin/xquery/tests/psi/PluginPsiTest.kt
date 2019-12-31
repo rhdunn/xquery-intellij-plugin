@@ -40,6 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
@@ -145,7 +146,7 @@ private class PluginPsiTest : ParserTestCase() {
                     declare type decl = union(test);
                     """
                 )[1] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1115,13 +1116,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1132,13 +1133,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1153,13 +1154,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(true))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1172,13 +1173,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
 
-                assertThat(expr.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(expr.accepts(XPathNamespaceType.Undefined), `is`(true))
-                assertThat(expr.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Nested
@@ -1469,7 +1470,7 @@ private class PluginPsiTest : ParserTestCase() {
                     declare type test = xs:string;
                     """
                 )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1500,7 +1501,7 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<PluginCompatibilityAnnotation>("declare private function f() {};")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.XQuery))
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.XQuery))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("annotation"))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -1748,13 +1749,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
                 assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1767,13 +1768,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
                 assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -1784,13 +1785,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri, `is`(nullValue()))
 
-                assertThat(decl.accepts(XPathNamespaceType.DefaultElementOrType), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.DefaultFunctionRef), `is`(true))
-                assertThat(decl.accepts(XPathNamespaceType.None), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Prefixed), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.Undefined), `is`(false))
-                assertThat(decl.accepts(XPathNamespaceType.XQuery), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
     }

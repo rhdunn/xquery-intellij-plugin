@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -35,10 +36,10 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
 
     private val schemaPrefix get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 
-    override fun accepts(namespaceType: XPathNamespaceType): Boolean {
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return when (schemaPrefix?.firstChild?.node?.elementType) {
-            XPathTokenType.K_NAMESPACE -> namespaceType === XPathNamespaceType.Prefixed
-            else -> namespaceType === XPathNamespaceType.DefaultElementOrType
+            XPathTokenType.K_NAMESPACE -> namespaceType === XdmNamespaceType.Prefixed
+            else -> namespaceType === XdmNamespaceType.DefaultElementOrType
         }
     }
 
