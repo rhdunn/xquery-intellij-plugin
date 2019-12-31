@@ -1164,7 +1164,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute()"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -1180,7 +1180,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute()"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -1196,7 +1196,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -1217,7 +1217,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(*,attr-type)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -1238,7 +1238,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(test,attr-type)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -1288,7 +1288,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("schema-attribute(<unknown>)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))
@@ -1303,7 +1303,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("schema-attribute(test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttribute::class.java)))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))

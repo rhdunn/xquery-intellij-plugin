@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAttributeTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttribute
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -66,7 +66,7 @@ class XPathAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = XdmAttribute::class.java
+    override val typeClass: Class<*> = XdmAttributeNode::class.java
 
     // endregion
 }
