@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyMapTest
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmMap
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
 
 class XPathAnyMapTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAnyMapTest, XdmItemType, VersionConformance {

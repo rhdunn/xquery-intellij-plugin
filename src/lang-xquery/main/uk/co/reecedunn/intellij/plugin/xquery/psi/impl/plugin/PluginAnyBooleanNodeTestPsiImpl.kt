@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyBooleanNodeTes
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmBooleanNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmBooleanNode
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 
 class PluginAnyBooleanNodeTestPsiImpl(node: ASTNode) :

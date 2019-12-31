@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmObjectNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmObjectNode
 
 class PluginAnyMapNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginAnyMapNodeTest, XdmItemType, VersionConformance {

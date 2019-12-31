@@ -20,9 +20,9 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmProcessingInstruction
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
 class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITest, XdmItemType {
     // region ASTDelegatePsiElement

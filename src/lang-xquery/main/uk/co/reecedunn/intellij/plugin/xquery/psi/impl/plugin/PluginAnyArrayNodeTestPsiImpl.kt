@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyArrayNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmArrayNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArrayNode
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 
 class PluginAnyArrayNodeTestPsiImpl(node: ASTNode) :

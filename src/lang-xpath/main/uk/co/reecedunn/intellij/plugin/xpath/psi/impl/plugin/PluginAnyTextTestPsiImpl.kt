@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmText
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmText
 
 class PluginAnyTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyTextTest, XdmItemType {
     // region XdmSequenceType
