@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmBinary
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryTest
 
 class PluginBinaryTestPsiImpl(node: ASTNode) :

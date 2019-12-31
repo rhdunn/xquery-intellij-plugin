@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArray
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 class XPathAnyArrayTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAnyArrayTest, XdmItemType, VersionConformance {

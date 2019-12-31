@@ -26,10 +26,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceTypeList
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSingleItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 

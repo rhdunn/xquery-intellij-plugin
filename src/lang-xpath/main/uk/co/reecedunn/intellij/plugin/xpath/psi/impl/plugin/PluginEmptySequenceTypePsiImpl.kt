@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptySequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
     XQuerySpec.REC_1_0_20070123,

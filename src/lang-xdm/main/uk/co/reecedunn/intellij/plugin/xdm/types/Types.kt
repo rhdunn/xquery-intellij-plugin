@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
-
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItem
+package uk.co.reecedunn.intellij.plugin.xdm.types
 
 interface XdmSequenceType {
     val typeName: String

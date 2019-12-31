@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmBooleanNode
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 class PluginAnyBooleanNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginAnyBooleanNodeTest, XdmItemType, VersionConformance {

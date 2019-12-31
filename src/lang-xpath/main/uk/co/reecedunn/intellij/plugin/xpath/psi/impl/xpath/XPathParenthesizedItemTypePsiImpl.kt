@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmEmptySequence
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmEmptySequence
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val XQUERY3 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)

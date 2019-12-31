@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionTest
 
 class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionTest, XdmItemType {

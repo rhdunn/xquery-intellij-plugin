@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDocumentTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmDocument
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 class XPathDocumentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathDocumentTest, XdmItemType {
     // region XPathDocumentTest

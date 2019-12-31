@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArray
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
 class XPathTypedArrayTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathTypedArrayTest, XdmItemType, VersionConformance {

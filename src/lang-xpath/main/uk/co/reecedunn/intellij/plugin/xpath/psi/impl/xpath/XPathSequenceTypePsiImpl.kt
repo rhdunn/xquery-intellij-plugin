@@ -21,8 +21,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
 class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, XdmSequenceType {
     // region XdmSequenceType

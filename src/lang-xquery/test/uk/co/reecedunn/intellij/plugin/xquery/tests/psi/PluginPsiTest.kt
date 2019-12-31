@@ -35,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType

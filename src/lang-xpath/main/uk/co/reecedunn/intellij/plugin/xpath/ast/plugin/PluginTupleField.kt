@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 
 /**
