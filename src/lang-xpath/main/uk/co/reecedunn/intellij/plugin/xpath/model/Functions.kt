@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
 
 data class XPathFunctionParamBinding(
     val param: XPathVariableBinding,

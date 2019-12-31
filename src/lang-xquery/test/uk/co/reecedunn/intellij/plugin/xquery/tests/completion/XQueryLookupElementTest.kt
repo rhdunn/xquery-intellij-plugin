@@ -32,8 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 

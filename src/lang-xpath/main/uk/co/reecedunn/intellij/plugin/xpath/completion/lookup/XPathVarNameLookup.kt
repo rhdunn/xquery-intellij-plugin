@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDefinition
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableType
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableType
 
 class XPathVarNameLookup(localName: String, prefix: String?, private val variable: XPathVariableDefinition) :
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
