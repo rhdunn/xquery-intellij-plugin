@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.model
+package uk.co.reecedunn.intellij.plugin.xdm.functions
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 
-data class XPathFunctionParamBinding(
+data class XdmFunctionParamBinding(
     val param: XdmVariableBinding,
     private val values: List<PsiElement>
 ) : List<PsiElement> {

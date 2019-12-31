@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
@@ -65,7 +65,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val arity get(): Int = children().filterIsElementType(ARGUMENTS).count()
 
-    override val bindings: List<XPathFunctionParamBinding>
+    override val bindings: List<XdmFunctionParamBinding>
         get() {
             val ref = functionReference
             val target = ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
@@ -81,15 +81,15 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                         val context = parent.siblings().reversed().filter {
                             it is PluginArrowFunctionCall
                         }.firstOrNull() ?: parent.parent.firstChild
-                        XPathFunctionParamBinding(param, context)
+                        XdmFunctionParamBinding(param, context)
                     }
                     index == params.size - 1 -> {
                         // Last argument, maybe variadic.
-                        XPathFunctionParamBinding(param, args.asSequence().toList())
+                        XdmFunctionParamBinding(param, args.asSequence().toList())
                     }
                     else -> {
                         // Other argument bound to the relevant parameter.
-                        XPathFunctionParamBinding(param, args.next())
+                        XdmFunctionParamBinding(param, args.next())
                     }
                 }
             }
