@@ -20,7 +20,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
@@ -38,7 +38,7 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
             if (localName != null) when (parent) {
                 is XPathFunctionReference ->
                     XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
-                is XPathVariableName ->
+                is XdmVariableName ->
                     XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
             } else {

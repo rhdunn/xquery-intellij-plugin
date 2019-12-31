@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.variables
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-interface XPathVariableName {
+interface XdmVariableName {
     val variableName: XsQNameValue?
 }
 
@@ -26,10 +26,10 @@ interface XPathVariableType {
     val variableType: XdmSequenceType?
 }
 
-interface XPathVariableDefinition : XPathVariableName
+interface XPathVariableDefinition : XdmVariableName
 
 interface XPathVariableDeclaration : XPathVariableDefinition
 
 interface XPathVariableBinding : XPathVariableDefinition
 
-interface XPathVariableReference : XPathVariableName
+interface XPathVariableReference : XdmVariableName

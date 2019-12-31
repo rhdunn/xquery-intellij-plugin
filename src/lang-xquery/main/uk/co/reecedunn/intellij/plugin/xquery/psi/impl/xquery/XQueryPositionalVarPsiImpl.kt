@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar
 
@@ -29,7 +29,7 @@ class XQueryPositionalVarPsiImpl(node: ASTNode) :
     XPathVariableBinding {
 
     private val varName
-        get(): XPathVariableName? = children().filterIsInstance<XPathVariableName>().firstOrNull()
+        get(): XdmVariableName? = children().filterIsInstance<XdmVariableName>().firstOrNull()
 
     override val variableName get(): XsQNameValue? = varName?.variableName
 }

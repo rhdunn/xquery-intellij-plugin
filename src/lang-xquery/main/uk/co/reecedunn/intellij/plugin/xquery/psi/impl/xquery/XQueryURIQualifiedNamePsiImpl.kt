@@ -24,7 +24,7 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathURIQualifiedNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathBracedURILiteralReference
@@ -41,7 +41,7 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
             if (localName != null) when (parent) {
                 is XPathFunctionReference ->
                     XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
-                is XPathVariableName ->
+                is XdmVariableName ->
                     XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
             } else {

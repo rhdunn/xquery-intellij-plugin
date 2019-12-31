@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -43,7 +43,7 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode) :
     // region XPathVariableBinding
 
     private val varName
-        get(): XPathVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
+        get(): XdmVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
 
     override val variableName get(): XsQNameValue? = varName?.variableName
 

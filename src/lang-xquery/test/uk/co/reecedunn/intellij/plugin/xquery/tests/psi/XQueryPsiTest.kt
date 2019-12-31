@@ -1777,7 +1777,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XPathVariableName
+                val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1788,7 +1788,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XPathVariableName
+                val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XdmVariableName
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1801,7 +1801,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun uriQualifiedName() {
                 val expr = parse<XPathVarName>(
                     "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                )[0] as XPathVariableName
+                )[0] as XdmVariableName
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3420,7 +3420,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableName
+                val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XdmVariableName
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3433,7 +3433,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun qname() {
                 val expr = parse<XQueryGroupingVariable>(
                     "for \$a:x in \$a:y group by \$a:z return \$a:w"
-                )[0] as XPathVariableName
+                )[0] as XdmVariableName
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -3448,7 +3448,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "group by \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                )[0] as XPathVariableName
+                )[0] as XdmVariableName
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -3459,7 +3459,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun missingVarName() {
-                val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XPathVariableName
+                val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XdmVariableName
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }

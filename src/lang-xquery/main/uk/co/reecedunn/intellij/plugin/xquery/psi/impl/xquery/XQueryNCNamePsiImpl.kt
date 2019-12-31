@@ -22,7 +22,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
@@ -37,7 +37,7 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
                     val ref = XPathFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }
-                is XPathVariableName -> {
+                is XdmVariableName -> {
                     val ref = XQueryVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }
