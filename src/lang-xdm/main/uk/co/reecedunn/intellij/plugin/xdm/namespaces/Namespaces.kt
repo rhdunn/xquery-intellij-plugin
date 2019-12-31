@@ -33,3 +33,7 @@ interface XdmNamespaceDeclaration {
 
     val namespaceUri: XsAnyUriValue?
 }
+
+interface XdmDefaultNamespaceDeclaration : XdmNamespaceDeclaration {
+    fun accepts(namespaceType: XdmNamespaceType): Boolean
+}

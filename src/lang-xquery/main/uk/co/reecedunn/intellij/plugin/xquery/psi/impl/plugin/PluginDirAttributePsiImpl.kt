@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
@@ -37,7 +37,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginDirAttribute,
     XQueryPrologResolver,
-    XPathDefaultNamespaceDeclaration {
+    XdmDefaultNamespaceDeclaration {
     // region PsiElement
 
     override fun subtreeChanged() {

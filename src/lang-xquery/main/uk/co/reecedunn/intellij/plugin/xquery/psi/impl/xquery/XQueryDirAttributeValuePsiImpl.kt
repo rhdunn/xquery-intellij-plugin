@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
@@ -46,7 +46,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     override val value
         get(): XsAnyAtomicType? {
             return cachedContent.get()?.let {
-                if ((parent as XPathDefaultNamespaceDeclaration).accepts(XdmNamespaceType.Undefined)) {
+                if ((parent as XdmDefaultNamespaceDeclaration).accepts(XdmNamespaceType.Undefined)) {
                     XsString(it, this)
                 } else {
                     XsAnyUri(it, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)

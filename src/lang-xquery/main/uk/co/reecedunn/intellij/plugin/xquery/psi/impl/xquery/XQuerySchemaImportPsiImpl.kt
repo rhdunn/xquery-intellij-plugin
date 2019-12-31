@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
@@ -31,8 +31,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 class XQuerySchemaImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQuerySchemaImport,
-    XPathDefaultNamespaceDeclaration {
-    // region XPathDefaultNamespaceDeclaration
+    XdmDefaultNamespaceDeclaration {
+    // region XdmDefaultNamespaceDeclaration
 
     private val schemaPrefix get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 

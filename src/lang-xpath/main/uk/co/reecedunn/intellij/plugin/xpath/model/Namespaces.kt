@@ -21,20 +21,17 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 
-interface XPathDefaultNamespaceDeclaration : XdmNamespaceDeclaration {
-    fun accepts(namespaceType: XdmNamespaceType): Boolean
-}
-
-private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceDeclaration? {
+private fun XmlAttribute.toDefaultNamespaceDeclaration(): XdmDefaultNamespaceDeclaration? {
     if (!isNamespaceDeclaration) return null
     val prefix = namespacePrefix
     val value = value ?: return null
     return if (prefix.isEmpty()) {
-        object : XPathDefaultNamespaceDeclaration {
+        object : XdmDefaultNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = null
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, originalElement)
@@ -64,7 +61,7 @@ private fun XmlAttribute.toNamespaceDeclaration(): XdmNamespaceDeclaration? {
     }
 }
 
-private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration {
+private object DefaultFunctionXPathNamespace : XdmDefaultNamespaceDeclaration {
     private const val FN_NAMESPACE_URI = "http://www.w3.org/2005/xpath-functions"
 
     override val namespacePrefix: XsNCNameValue? = null
@@ -81,11 +78,11 @@ private object DefaultFunctionXPathNamespace : XPathDefaultNamespaceDeclaration 
 }
 
 @Suppress("unused")
-fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XdmDefaultNamespaceDeclaration> {
     return sequenceOf(DefaultFunctionXPathNamespace)
 }
 
-fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XdmDefaultNamespaceDeclaration> {
     return toXmlAttributeValue()?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toDefaultNamespaceDeclaration() }
     }?.filterNotNull() ?: sequenceOf()

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -70,23 +71,23 @@ private val NAMESPACE_TYPE = mapOf(
 fun PsiElement.defaultNamespace(
     type: XdmNamespaceType,
     resolveProlog: Boolean
-): Sequence<XPathDefaultNamespaceDeclaration> {
+): Sequence<XdmDefaultNamespaceDeclaration> {
     var visitedProlog = false
     return walkTree().reversed().flatMap { node ->
         when (node) {
             is XQueryProlog -> {
                 visitedProlog = true
-                node.children().reversed().filterIsInstance<XPathDefaultNamespaceDeclaration>()
+                node.children().reversed().filterIsInstance<XdmDefaultNamespaceDeclaration>()
             }
             is XQueryModule -> {
                 if (resolveProlog)
                     node.predefinedStaticContext?.children()?.reversed()
-                        ?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
+                        ?.filterIsInstance<XdmDefaultNamespaceDeclaration>() ?: emptySequence()
                 else
                     emptySequence()
             }
             is XQueryModuleDecl -> {
-                sequenceOf(node as XPathDefaultNamespaceDeclaration)
+                sequenceOf(node as XdmDefaultNamespaceDeclaration)
             }
             is XQueryMainModule ->
                 if (resolveProlog && !visitedProlog)
@@ -95,7 +96,7 @@ fun PsiElement.defaultNamespace(
                     emptySequence()
             is XQueryDirElemConstructor ->
                 node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                    ?.children()?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
+                    ?.children()?.filterIsInstance<XdmDefaultNamespaceDeclaration>() ?: emptySequence()
             else -> emptySequence()
         }
     }.filter { ns -> ns.accepts(type) && ns.namespaceUri?.data != null }
@@ -103,8 +104,8 @@ fun PsiElement.defaultNamespace(
 
 // endregion
 
-private fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
-    var seenDefaultNamespace: XPathDefaultNamespaceDeclaration? = null
+private fun Sequence<XdmDefaultNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
+    var seenDefaultNamespace: XdmDefaultNamespaceDeclaration? = null
     val expanded = flatMap { decl ->
         val isDefaultNamespace = decl is XQueryDefaultNamespaceDecl
         if ((isDefaultNamespace && seenDefaultNamespace == null) || !isDefaultNamespace) {
