@@ -35,8 +35,6 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     FoldablePsiElement {
     // region XQueryDirElemConstructor
 
-    override val openTag get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
-
     override val closeTag
         get(): XsQNameValue? {
             val tag = findChildrenByClass(XPathEQName::class.java)
@@ -48,7 +46,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     // endregion
     // region XdmElementNode
 
-    override val nodeName: XsQNameValue? get() = openTag
+    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
     // region FoldablePsiElement

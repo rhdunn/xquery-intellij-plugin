@@ -2433,121 +2433,107 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("open and close tags")
             fun openAndCloseTags() {
                 val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag!!
+                val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
                 assertThat(open.localName!!.data, `is`("b"))
 
                 val close = element.closeTag!!
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName!!.data, `is`("b"))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
             @Test
             @DisplayName("self-closing")
             fun selfClosing() {
                 val element = parse<XQueryDirElemConstructor>("<h:br/>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(true))
 
-                val open = element.openTag!!
+                val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("h"))
                 assertThat(open.localName!!.data, `is`("br"))
 
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
             @Test
             @DisplayName("error recovery: missing close tag")
             fun missingClosingTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag!!
+                val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
                 assertThat(open.localName!!.data, `is`("b"))
 
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
             @Test
             @DisplayName("error recovery: incomplete open tag")
             fun incompleteOpenTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag!!
+                val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
                 assertThat(open.localName, `is`(nullValue()))
 
                 val close = element.closeTag!!
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName!!.data, `is`("b"))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
             @Test
             @DisplayName("error recovery: incomplete close tag")
             fun incompleteCloseTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag!!
+                val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
                 assertThat(open.localName!!.data, `is`("b"))
 
                 val close = element.closeTag!!
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName, `is`(nullValue()))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
             @Test
             @DisplayName("error recovery: partial close tag only")
             fun partialCloseTagOnly() {
                 val element = parse<XQueryDirElemConstructor>("</<test>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag
+                val open = element.nodeName
                 assertThat(open, `is`(nullValue()))
 
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("error recovery: close tag only")
             fun soloCloseTag() {
                 val element = parse<XQueryDirElemConstructor>("</a:b>")[0]
+                val xdm = element as XdmElementNode
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag!!
+                val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
                 assertThat(open.localName!!.data, `is`("b"))
 
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
-
-                val xdm = element as XdmElementNode
-                assertThat(xdm.nodeName, `is`(sameInstance(element.openTag)))
             }
 
             @Test

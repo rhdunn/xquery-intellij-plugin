@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
  * An XQuery 1.0 `DirElemConstructor` node in the XQuery AST.
  */
 interface XQueryDirElemConstructor : XQueryDirectConstructor {
-    val openTag: XsQNameValue?
-
     val closeTag: XsQNameValue?
 
     val isSelfClosing: Boolean
