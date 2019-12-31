@@ -28,7 +28,7 @@ interface XdmVariableType {
 
 interface XdmVariableDefinition : XdmVariableName
 
-interface XPathVariableDeclaration : XdmVariableDefinition
+interface XdmVariableDeclaration : XdmVariableDefinition
 
 interface XPathVariableBinding : XdmVariableDefinition
 

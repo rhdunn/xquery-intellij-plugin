@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
@@ -44,7 +44,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryVarDecl,
     VersionConformance,
-    XPathVariableDeclaration,
+    XdmVariableDeclaration,
     XdmVariableType,
     ItemPresentation {
     // region ASTDelegatePsiElement
