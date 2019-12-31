@@ -132,7 +132,7 @@ are used to model the specified type.
 │    │    └─── <em>document types with more precise content type</em>
 │    ├─── element() [XdmElementNode]
 │    │    └─── <em>user-defined element types</em>
-│    ├─── comment() [XdmComment]
+│    ├─── comment() [XdmCommentNode]
 │    ├─── namespace-node() [XdmNamespace]
 │    ├─── processing-instruction() [XdmProcessingInstruction]
 │    ├─── text() [XdmText]

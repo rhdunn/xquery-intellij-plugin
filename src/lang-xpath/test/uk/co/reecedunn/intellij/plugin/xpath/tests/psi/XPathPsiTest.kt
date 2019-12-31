@@ -485,7 +485,7 @@ private class XPathPsiTest : ParserTestCase() {
         fun commentTest() {
             val type = parse<XPathCommentTest>("() instance of comment ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("comment()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmComment::class.java)))
+            assertThat(type.typeClass, `is`(sameInstance(XdmCommentNode::class.java)))
 
             assertThat(type.itemType, `is`(sameInstance(type)))
             assertThat(type.lowerBound, `is`(1))
