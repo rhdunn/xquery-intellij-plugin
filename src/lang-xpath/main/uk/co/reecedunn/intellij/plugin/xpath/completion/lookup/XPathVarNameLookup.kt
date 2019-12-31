@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableDefinition
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XPathVariableType
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableType
 
 class XPathVarNameLookup(localName: String, prefix: String?, private val variable: XPathVariableDefinition) :
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
     init {
         presentation.icon = XPathIcons.Nodes.VarDecl
-        presentation.typeText = (variable as? XPathVariableType)?.variableType?.typeName
+        presentation.typeText = (variable as? XdmVariableType)?.variableType?.typeName
     }
 
     override fun getObject(): Any = variable

@@ -22,7 +22,7 @@ interface XdmVariableName {
     val variableName: XsQNameValue?
 }
 
-interface XPathVariableType {
+interface XdmVariableType {
     val variableType: XdmSequenceType?
 }
 
