@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
-import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactoryBean
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings

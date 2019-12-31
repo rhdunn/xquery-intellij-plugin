@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xdm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extensions.asSequence()

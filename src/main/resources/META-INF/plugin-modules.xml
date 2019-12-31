@@ -1,7 +1,7 @@
 <idea-plugin>
   <extensionPoints>
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xdm.module.ImportPathResolver" dynamic="true"/>
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" interface="uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory" dynamic="true"/>
     <!--suppress PluginXmlValidity -->
