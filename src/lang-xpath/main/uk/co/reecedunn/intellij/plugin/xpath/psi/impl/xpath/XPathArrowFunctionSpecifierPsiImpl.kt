@@ -18,17 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    XPathFunctionReference,
+    XdmFunctionReference,
     XPathArrowFunctionSpecifier {
-    // region XPathFunctionReference
+    // region XdmFunctionReference
 
     override val arity
         get(): Int {

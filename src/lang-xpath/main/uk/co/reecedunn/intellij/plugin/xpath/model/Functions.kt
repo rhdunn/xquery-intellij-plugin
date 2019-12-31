@@ -45,12 +45,6 @@ data class XPathFunctionParamBinding(
     // endregion
 }
 
-interface XPathFunctionReference {
-    val functionName: XsQNameValue?
-
-    val arity: Int
-}
-
 interface XPathFunctionDeclaration {
     companion object {
         val ARITY_ZERO = Range(0, 0)

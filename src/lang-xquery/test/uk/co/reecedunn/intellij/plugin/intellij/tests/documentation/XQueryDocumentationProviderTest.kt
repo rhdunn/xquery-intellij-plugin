@@ -21,10 +21,10 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -37,7 +37,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class ModuleImport {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XPathFunctionReference
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[0].resolve()
             return element to ref
@@ -79,7 +79,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class NamespaceDecl {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XPathFunctionReference
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[0].resolve()
             return element to ref
@@ -190,7 +190,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class FunctionCall {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XPathFunctionReference
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[1].resolve()
             return element to ref

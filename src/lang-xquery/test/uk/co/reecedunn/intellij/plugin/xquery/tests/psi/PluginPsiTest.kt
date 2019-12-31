@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
@@ -1630,7 +1631,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("variadic; no arguments specified for the variadic parameter")
             fun variadicEmpty() {
-                val f = parse<XPathFunctionCall>("fn:concat(2, 4)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("fn:concat(2, 4)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(2))
 
                 val qname = f.functionName!!
@@ -1662,7 +1663,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("variadic; single argument specified for the variadic parameter")
             fun variadicSingle() {
-                val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(3))
 
                 val qname = f.functionName!!
@@ -1695,7 +1696,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("variadic; multiple arguments specified for the variadic parameter")
             fun variadicMultiple() {
-                val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(4))
 
                 val qname = f.functionName!!

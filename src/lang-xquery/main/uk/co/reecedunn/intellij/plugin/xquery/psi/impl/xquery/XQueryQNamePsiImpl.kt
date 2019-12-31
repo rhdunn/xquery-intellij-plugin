@@ -20,9 +20,9 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
@@ -36,7 +36,7 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
         val localName = localName as? PsiElement
         val localNameRef: PsiReference? =
             if (localName != null) when (parent) {
-                is XPathFunctionReference ->
+                is XdmFunctionReference ->
                     XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XdmVariableName ->
                     XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))

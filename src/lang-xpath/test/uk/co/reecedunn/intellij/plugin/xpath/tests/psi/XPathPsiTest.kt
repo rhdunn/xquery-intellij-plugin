@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
@@ -1404,7 +1405,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ArgumentList")
             fun nonEmptyArguments() {
-                val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(2))
 
                 val qname = f.functionName!!
@@ -1425,7 +1426,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty ArgumentList")
             fun emptyArguments() {
-                val f = parse<XPathFunctionCall>("fn:true()")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("fn:true()")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(0))
 
                 val qname = f.functionName!!
@@ -1446,7 +1447,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("ArgumentPlaceholder")
             fun argumentPlaceholder() {
-                val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
 
                 val qname = f.functionName!!
@@ -1467,7 +1468,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val f = parse<XPathFunctionCall>(":true(1)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>(":true(1)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
 
@@ -1528,7 +1529,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("named function reference")
             fun namedFunctionRef() {
-                val f = parse<XPathNamedFunctionRef>("true#3")[0] as XPathFunctionReference
+                val f = parse<XPathNamedFunctionRef>("true#3")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(3))
 
                 val qname = f.functionName!!
@@ -1542,7 +1543,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing arity")
             fun missingArity() {
-                val f = parse<XPathNamedFunctionRef>("true#")[0] as XPathFunctionReference
+                val f = parse<XPathNamedFunctionRef>("true#")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(0))
 
                 val qname = f.functionName!!
@@ -1556,7 +1557,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XPathFunctionReference
+                val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(0))
                 assertThat(f.functionName, `is`(nullValue()))
             }
@@ -2131,7 +2132,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EQName specifier, non-empty ArgumentList")
             fun nonEmptyArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => format-date(1, 2, 3,  4)")[0] as XPathFunctionReference
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => format-date(1, 2, 3,  4)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(5))
 
                 val qname = f.functionName!!
@@ -2152,7 +2153,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EQName specifier, empty ArgumentList")
             fun emptyArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case()")[0] as XPathFunctionReference
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case()")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
 
                 val qname = f.functionName!!
@@ -2175,7 +2176,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun secondFunctionSpecifier() {
                 val f = parse<XPathArrowFunctionSpecifier>(
                     "\$x => upper-case() => string-to-codepoints()"
-                )[1] as XPathFunctionReference
+                )[1] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
 
                 val qname = f.functionName!!
@@ -2196,7 +2197,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EQName specifier, missing ArgumentList")
             fun missingArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case")[0] as XPathFunctionReference
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
 
                 val qname = f.functionName!!
@@ -2212,7 +2213,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case()")[0] as XPathFunctionReference
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case()")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
 

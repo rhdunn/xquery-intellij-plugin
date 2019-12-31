@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnyUnionType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
@@ -33,7 +34,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -161,7 +161,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("variadic; no arguments specified for the variadic parameter")
             fun variadicEmpty() {
-                val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(2))
 
                 val qname = f.functionName!!
@@ -182,7 +182,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("variadic; single argument specified for the variadic parameter")
             fun variadicSingle() {
-                val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(3))
 
                 val qname = f.functionName!!
@@ -203,7 +203,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("variadic; multiple arguments specified for the variadic parameter")
             fun variadicMultiple() {
-                val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XPathFunctionReference
+                val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(4))
 
                 val qname = f.functionName!!

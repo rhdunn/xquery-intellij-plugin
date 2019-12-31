@@ -23,10 +23,10 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
 class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader) {
@@ -34,7 +34,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XPathFunctionReference>()
+        file.walkTree().filterIsInstance<XdmFunctionReference>()
             .forEach { ref ->
                 val qname = ref.functionName ?: return@forEach
                 if (qname.localName == null) return@forEach
@@ -53,7 +53,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                     )
                 } else {
                     // 2. The number of arguments does not match the arity of a function signature in the static context.
-                    val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
+                    val arity = (qname.parent as? XdmFunctionReference)?.arity ?: -1
                     if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
                         descriptors.add(
                             manager.createProblemDescriptor(

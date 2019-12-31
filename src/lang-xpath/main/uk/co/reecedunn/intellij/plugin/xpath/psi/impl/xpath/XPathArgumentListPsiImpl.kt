@@ -23,12 +23,12 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
@@ -56,10 +56,10 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // endregion
     // region XPathArgumentList
 
-    override val functionReference: XPathFunctionReference?
+    override val functionReference: XdmFunctionReference?
         get() = when (parent) {
-            is XPathFunctionCall -> parent as XPathFunctionReference
-            is PluginArrowFunctionCall -> parent.firstChild as XPathFunctionReference
+            is XPathFunctionCall -> parent as XdmFunctionReference
+            is PluginArrowFunctionCall -> parent.firstChild as XdmFunctionReference
             else -> null
         }
 

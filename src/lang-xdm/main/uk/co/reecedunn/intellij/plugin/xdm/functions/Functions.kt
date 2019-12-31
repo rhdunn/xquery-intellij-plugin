@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xdm.functions
 
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionParamBinding
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-/**
- * An XPath 3.0 and XQuery 3.0 `ArgumentList` node in the XQuery AST.
- */
-interface XPathArgumentList : PsiElement {
-    val functionReference: XdmFunctionReference?
+interface XdmFunctionReference {
+    val functionName: XsQNameValue?
 
     val arity: Int
-
-    val bindings: List<XPathFunctionParamBinding>
 }

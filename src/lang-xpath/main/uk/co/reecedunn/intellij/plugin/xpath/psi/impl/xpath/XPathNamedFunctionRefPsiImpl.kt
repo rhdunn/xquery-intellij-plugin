@@ -20,9 +20,9 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsIntegerValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.toInt
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    XPathFunctionReference,
+    XdmFunctionReference,
     XPathNamedFunctionRef,
     VersionConformance {
     // region VersionConformance
@@ -40,7 +40,7 @@ class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.FUNCTION_REF_OPERATOR) ?: this
 
     // endregion
-    // region XPathFunctionReference
+    // region XdmFunctionReference
 
     override val functionName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 

@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionReference, XPathFunctionCall {
+class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XdmFunctionReference, XPathFunctionCall {
     override val argumentList: XPathArgumentList get() = children().filterIsInstance<XPathArgumentList>().first()
 
     override val functionName get(): XsQNameValue? = firstChild as? XsQNameValue

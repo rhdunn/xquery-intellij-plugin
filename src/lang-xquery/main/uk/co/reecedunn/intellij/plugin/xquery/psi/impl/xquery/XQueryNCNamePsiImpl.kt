@@ -20,8 +20,8 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
@@ -33,7 +33,7 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
     override fun getReferences(): Array<PsiReference> {
         return (localName as? PsiElement)?.let {
             when (parent) {
-                is XPathFunctionReference -> {
+                is XdmFunctionReference -> {
                     val ref = XPathFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }
