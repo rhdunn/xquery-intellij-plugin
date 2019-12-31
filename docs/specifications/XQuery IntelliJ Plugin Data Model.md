@@ -126,11 +126,11 @@ are used to model the specified type.
 
 <pre><code>item() [XdmItem]
 ├─── node() [XdmNode]
-│    ├─── attribute() [XdmAttribute]
+│    ├─── attribute() [XdmAttributeNode]
 │    │    └─── <em>user-defined attribute types</em>
-│    ├─── document-node() [XdmDocument]
+│    ├─── document-node() [XdmDocumentNode]
 │    │    └─── <em>document types with more precise content type</em>
-│    ├─── element() [XdmElement]
+│    ├─── element() [XdmElementNode]
 │    │    └─── <em>user-defined element types</em>
 │    ├─── comment() [XdmComment]
 │    ├─── namespace-node() [XdmNamespace]
