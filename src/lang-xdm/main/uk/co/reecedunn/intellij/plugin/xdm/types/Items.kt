@@ -45,7 +45,7 @@ interface XdmCommentNode : XdmNode
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : namespace-node()
 
-interface XdmNamespace : XdmNode
+interface XdmNamespaceNode : XdmNode
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : processing-instruction()

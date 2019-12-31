@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespace
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
 
 class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathNamespaceNodeTest, XdmItemType, VersionConformance {
@@ -40,7 +40,7 @@ class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = XdmNamespace::class.java
+    override val typeClass: Class<*> = XdmNamespaceNode::class.java
 
     // endregion
     // region VersionConformance

@@ -732,7 +732,7 @@ private class XQueryPsiTest : ParserTestCase() {
         fun namespaceNodeTest() {
             val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("namespace-node()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmNamespace::class.java)))
+            assertThat(type.typeClass, `is`(sameInstance(XdmNamespaceNode::class.java)))
 
             assertThat(type.itemType, `is`(sameInstance(type)))
             assertThat(type.lowerBound, `is`(1))

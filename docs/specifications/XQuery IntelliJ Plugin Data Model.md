@@ -133,7 +133,7 @@ are used to model the specified type.
 │    ├─── element() [XdmElementNode]
 │    │    └─── <em>user-defined element types</em>
 │    ├─── comment() [XdmCommentNode]
-│    ├─── namespace-node() [XdmNamespace]
+│    ├─── namespace-node() [XdmNamespaceNode]
 │    ├─── processing-instruction() [XdmProcessingInstruction]
 │    ├─── text() [XdmText]
 │    ├─── array-node() [XdmArrayNode]
