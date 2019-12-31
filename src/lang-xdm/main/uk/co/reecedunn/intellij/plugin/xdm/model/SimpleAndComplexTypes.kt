@@ -18,6 +18,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItem
+
 // region XQuery IntelliJ Plugin (2.2.2) xs:anyType
 
 interface XsAnyType

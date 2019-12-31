@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
+package uk.co.reecedunn.intellij.plugin.xdm.types
 
 // region XQuery and XPath 3.1 Data Model (2.7.4) : item()
 

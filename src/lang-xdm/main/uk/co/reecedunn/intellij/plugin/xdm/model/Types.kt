@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItem
+
 interface XdmSequenceType {
     val typeName: String
 
