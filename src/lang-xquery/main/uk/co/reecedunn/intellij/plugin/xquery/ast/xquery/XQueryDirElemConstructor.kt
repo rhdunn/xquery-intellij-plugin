@@ -22,6 +22,4 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
  */
 interface XQueryDirElemConstructor : XQueryDirectConstructor {
     val closeTag: XsQNameValue?
-
-    val isSelfClosing: Boolean
 }

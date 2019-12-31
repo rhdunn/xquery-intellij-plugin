@@ -41,8 +41,6 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             return if (tag.size == 2) tag[1] as XsQNameValue else null
         }
 
-    override val isSelfClosing get(): Boolean = lastChild.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
-
     // endregion
     // region XdmElementNode
 

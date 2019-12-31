@@ -2434,7 +2434,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun openAndCloseTags() {
                 val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
@@ -2450,7 +2449,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun selfClosing() {
                 val element = parse<XQueryDirElemConstructor>("<h:br/>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(true))
 
                 val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("h"))
@@ -2465,7 +2463,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun missingClosingTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
@@ -2480,7 +2477,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun incompleteOpenTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
@@ -2496,7 +2492,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun incompleteCloseTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
@@ -2512,7 +2507,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun partialCloseTagOnly() {
                 val element = parse<XQueryDirElemConstructor>("</<test>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.nodeName
                 assertThat(open, `is`(nullValue()))
@@ -2526,7 +2520,6 @@ private class XQueryPsiTest : ParserTestCase() {
             fun soloCloseTag() {
                 val element = parse<XQueryDirElemConstructor>("</a:b>")[0]
                 val xdm = element as XdmElementNode
-                assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.nodeName!!
                 assertThat(open.prefix!!.data, `is`("a"))
