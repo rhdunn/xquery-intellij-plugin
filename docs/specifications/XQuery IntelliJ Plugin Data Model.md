@@ -135,7 +135,7 @@ are used to model the specified type.
 │    ├─── comment() [XdmCommentNode]
 │    ├─── namespace-node() [XdmNamespaceNode]
 │    ├─── processing-instruction() [XdmProcessingInstructionNode]
-│    ├─── text() [XdmText]
+│    ├─── text() [XdmTextNode]
 │    ├─── array-node() [XdmArrayNode]
 │    ├─── boolean-node() [XdmBooleanNode]
 │    ├─── null-node() [XdmNullNode]

@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmText
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 
 class PluginAnyTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyTextTest, XdmItemType {
     // region XdmSequenceType
@@ -35,7 +35,7 @@ class PluginAnyTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plug
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = XdmText::class.java
+    override val typeClass: Class<*> = XdmTextNode::class.java
 
     // endregion
 }

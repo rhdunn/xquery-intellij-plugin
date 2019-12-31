@@ -117,7 +117,7 @@ private class PluginPsiTest : ParserTestCase() {
 
             val type = test as XdmItemType
             assertThat(type.typeName, `is`("text(\"test\")"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmText::class.java)))
+            assertThat(type.typeClass, `is`(sameInstance(XdmTextNode::class.java)))
 
             assertThat(type.itemType, `is`(sameInstance(type)))
             assertThat(type.lowerBound, `is`(1))

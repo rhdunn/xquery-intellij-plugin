@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmText
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 class PluginNamedTextTestPsiImpl(node: ASTNode) :
@@ -50,7 +50,7 @@ class PluginNamedTextTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = XdmText::class.java
+    override val typeClass: Class<*> = XdmTextNode::class.java
 
     // endregion
     // region VersionConformance

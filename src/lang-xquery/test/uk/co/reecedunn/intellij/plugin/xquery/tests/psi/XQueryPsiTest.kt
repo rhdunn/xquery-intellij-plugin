@@ -708,7 +708,7 @@ private class XQueryPsiTest : ParserTestCase() {
         fun textTest() {
             val type = parse<PluginAnyTextTest>("() instance of text ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("text()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmText::class.java)))
+            assertThat(type.typeClass, `is`(sameInstance(XdmTextNode::class.java)))
 
             assertThat(type.itemType, `is`(sameInstance(type)))
             assertThat(type.lowerBound, `is`(1))
