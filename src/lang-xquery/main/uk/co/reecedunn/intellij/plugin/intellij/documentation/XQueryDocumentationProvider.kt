@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.intellij.documentation
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -82,5 +81,20 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 }
             }
         }
+    }
+
+    override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
+        // Generate the main documentation for the documentation pane.
+        return null
+    }
+
+    override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
+        // Generate the summary documentation for the documentation hover tooltip.
+        return null
+    }
+
+    override fun getUrlFor(element: PsiElement?, originalElement: PsiElement?): List<String> {
+        // Generate the external documentation links displayed below the main/summary documentation.
+        return emptyList()
     }
 }
