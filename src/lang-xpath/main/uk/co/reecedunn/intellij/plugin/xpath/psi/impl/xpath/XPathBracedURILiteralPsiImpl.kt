@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 

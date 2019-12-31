@@ -18,8 +18,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.types
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
-
 // region XQuery and XPath 3.1 Data Model (2.7.4) : node()
 
 interface XdmNode : XdmItem

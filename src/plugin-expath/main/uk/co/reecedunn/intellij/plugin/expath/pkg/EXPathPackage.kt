@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath

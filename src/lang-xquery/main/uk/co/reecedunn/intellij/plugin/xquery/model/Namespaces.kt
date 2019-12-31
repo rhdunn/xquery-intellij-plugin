@@ -19,9 +19,9 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQName
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*

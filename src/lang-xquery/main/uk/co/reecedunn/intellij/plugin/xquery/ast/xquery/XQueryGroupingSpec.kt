@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 /**
  * An XQuery 3.0 `GroupingSpec` node in the XQuery AST.

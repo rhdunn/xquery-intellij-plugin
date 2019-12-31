@@ -22,7 +22,7 @@ import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType

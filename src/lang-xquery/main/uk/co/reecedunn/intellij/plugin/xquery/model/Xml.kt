@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 interface XQueryElement {
     val nodeName: XsQNameValue?

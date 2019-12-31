@@ -16,11 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiFile
-import org.jetbrains.jps.model.java.JavaSourceRootType
-import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.model.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extensions.asSequence()
 

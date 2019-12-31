@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmWildcardValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType

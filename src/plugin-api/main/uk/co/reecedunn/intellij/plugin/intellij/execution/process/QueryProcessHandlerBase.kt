@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import java.io.OutputStream
 
 abstract class QueryProcessHandlerBase : ProcessHandler() {

@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.path
 
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 object XdmModuleUriPath : XdmModulePathFactory {
     override fun create(project: Project, uri: XsAnyUriValue): XdmModulePath? {

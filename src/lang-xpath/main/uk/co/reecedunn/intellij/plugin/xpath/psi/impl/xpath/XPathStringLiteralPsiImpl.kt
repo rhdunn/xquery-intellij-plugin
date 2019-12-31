@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
     override fun subtreeChanged() {

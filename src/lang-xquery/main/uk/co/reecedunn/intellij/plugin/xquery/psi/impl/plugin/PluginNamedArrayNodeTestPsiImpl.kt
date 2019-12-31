@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArrayNode
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 class PluginNamedArrayNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginNamedArrayNodeTest, XdmItemType, VersionConformance {

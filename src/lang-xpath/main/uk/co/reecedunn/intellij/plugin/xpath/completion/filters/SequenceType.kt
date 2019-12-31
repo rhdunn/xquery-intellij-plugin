@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleTypeName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.isPrefixOrNCName
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.isPrefixOrNCName
 
 object XPathSequenceTypeFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {

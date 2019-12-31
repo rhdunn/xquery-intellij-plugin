@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.expath.pkg
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class EXPathPackageResource(private val xml: XmlElement) : EXPathPackageComponent {

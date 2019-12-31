@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.PsiErrorElementImpl
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -29,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL)

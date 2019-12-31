@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnyUnionType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall

@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * A Saxon 9.8 `UnionType` node in the XQuery AST.

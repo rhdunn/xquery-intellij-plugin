@@ -23,8 +23,8 @@ import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

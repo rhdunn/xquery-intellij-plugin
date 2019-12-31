@@ -19,7 +19,7 @@ import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 
 interface XdmModulePathFactory {

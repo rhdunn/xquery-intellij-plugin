@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * A Saxon 9.8 `TypeDecl` node in the XQuery AST.

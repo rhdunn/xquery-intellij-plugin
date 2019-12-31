@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 /**
  * An XQuery 1.0 and 3.0 `VersionDecl` node in the XQuery AST.

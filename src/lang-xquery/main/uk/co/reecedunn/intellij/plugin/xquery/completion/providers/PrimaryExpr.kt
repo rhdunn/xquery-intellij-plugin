@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables

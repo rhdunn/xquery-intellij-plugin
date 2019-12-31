@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * An XPath 3.0 and XQuery 3.0 `AtomicOrUnionType` node in the XQuery AST.

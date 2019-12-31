@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.full.text
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 /**
  * An XQuery Full Text 1.0 `FTThesaurusID` node in the XQuery AST.

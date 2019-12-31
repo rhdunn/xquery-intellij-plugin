@@ -22,18 +22,17 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmWildcardValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class QNameAnnotator : Annotator {
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {

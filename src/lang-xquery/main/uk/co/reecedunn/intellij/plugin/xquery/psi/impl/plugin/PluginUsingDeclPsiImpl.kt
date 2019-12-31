@@ -20,9 +20,9 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 

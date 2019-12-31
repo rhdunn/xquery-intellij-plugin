@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDuration
 
 private fun String.toBaseXInfoBlocks(): Sequence<String> {
     return replace("\r\n", "\n").replace('\r', '\n').split("\n\n").asSequence().map {

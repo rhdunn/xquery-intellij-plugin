@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * An XPath 2.0 and XQuery 1.0 `AttributeTest` node in the XQuery AST.

@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSchemaAttributeTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttribute
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathSchemaAttributeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathSchemaAttributeTest, XdmItemType {

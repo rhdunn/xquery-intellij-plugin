@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesP
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase

@@ -21,9 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :

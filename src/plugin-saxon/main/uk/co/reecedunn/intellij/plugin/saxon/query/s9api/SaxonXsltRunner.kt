@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.RawDestination
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDuration
 import javax.xml.transform.stream.StreamSource
 
 internal class SaxonXsltRunner(

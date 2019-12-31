@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSchemaFacet
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class PluginSchemaFacetTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSchemaFacetTest, XdmItemType, VersionConformance {

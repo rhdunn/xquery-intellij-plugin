@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

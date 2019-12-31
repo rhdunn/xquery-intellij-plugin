@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsString
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.model.*

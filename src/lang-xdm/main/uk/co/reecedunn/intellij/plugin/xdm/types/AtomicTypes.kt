@@ -29,14 +29,12 @@
  * second reason is that each primitive type has a different representation
  * for its data.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
+package uk.co.reecedunn.intellij.plugin.xdm.types
 
 import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -66,13 +64,21 @@ interface XsDecimalValue : XsAnyAtomicType {
     val data: BigDecimal
 }
 
-data class XsDecimal(override val data: BigDecimal) : XsDecimalValue {
+data class XsDecimal(override val data: BigDecimal) :
+    XsDecimalValue {
     companion object {
         val ZERO = XsDecimal(BigDecimal.ZERO)
 
-        fun milli(value: String): XsDecimal = XsDecimal(BigDecimal(value).scaleByPowerOfTen(-3).stripTrailingZeros())
+        fun milli(value: String): XsDecimal =
+            XsDecimal(BigDecimal(value).scaleByPowerOfTen(-3).stripTrailingZeros())
 
-        fun nano(value: Long): XsDecimal = XsDecimal(BigDecimal.valueOf(value, 9).stripTrailingZeros())
+        fun nano(value: Long): XsDecimal =
+            XsDecimal(
+                BigDecimal.valueOf(
+                    value,
+                    9
+                ).stripTrailingZeros()
+            )
     }
 }
 
@@ -108,11 +114,22 @@ data class XsDuration(
     }
 
     companion object {
-        val ZERO = XsDuration(XsInteger.ZERO, XsDecimal.ZERO)
+        val ZERO = XsDuration(
+            XsInteger.ZERO,
+            XsDecimal.ZERO
+        )
 
-        fun ms(value: String): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.milli(value))
+        fun ms(value: String): XsDuration =
+            XsDuration(
+                XsInteger.ZERO,
+                XsDecimal.milli(value)
+            )
 
-        fun ns(value: Long): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.nano(value))
+        fun ns(value: Long): XsDuration =
+            XsDuration(
+                XsInteger.ZERO,
+                XsDecimal.nano(value)
+            )
     }
 }
 
@@ -151,9 +168,17 @@ fun String.toXsDuration(): XsDurationValue? {
         val monthDuration = yearsAsMonths + months
         val secondDuration = (daysAsSeconds + hoursAsSeconds + minutesAsSeconds).toBigDecimal() + seconds
         if (it.groupValues[1] == "-")
-            XsDuration(XsInteger(-monthDuration), XsDecimal(-secondDuration))
+            XsDuration(
+                XsInteger(
+                    -monthDuration
+                ), XsDecimal(-secondDuration)
+            )
         else
-            XsDuration(XsInteger(monthDuration), XsDecimal(secondDuration))
+            XsDuration(
+                XsInteger(
+                    monthDuration
+                ), XsDecimal(secondDuration)
+            )
     }
 }
 
@@ -282,7 +307,8 @@ interface XsIntegerValue : XsAnyAtomicType {
 
 fun XsIntegerValue.toInt(): Int = data.toInt()
 
-data class XsInteger(override val data: BigInteger) : XsIntegerValue {
+data class XsInteger(override val data: BigInteger) :
+    XsIntegerValue {
     companion object {
         val ZERO = XsInteger(BigInteger.ZERO)
     }

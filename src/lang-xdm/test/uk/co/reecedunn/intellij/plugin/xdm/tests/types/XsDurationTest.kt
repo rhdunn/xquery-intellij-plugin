@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.tests.model
+package uk.co.reecedunn.intellij.plugin.xdm.tests.types
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.model.toXsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.toXsDuration
 import java.math.BigDecimal
 import java.math.BigInteger
 

@@ -20,9 +20,8 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
 
 enum class XPathNamespaceType {
     DefaultElementOrType,

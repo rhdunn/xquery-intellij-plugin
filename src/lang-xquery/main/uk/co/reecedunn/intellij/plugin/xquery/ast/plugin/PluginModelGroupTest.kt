@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * A MarkLogic 7.0 `ModelGroupTest` node in the XQuery AST.

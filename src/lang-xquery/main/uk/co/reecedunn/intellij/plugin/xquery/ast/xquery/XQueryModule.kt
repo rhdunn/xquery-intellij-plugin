@@ -17,11 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 data class XQueryVersionRef(val declaration: XsStringValue?, val version: Specification?) {

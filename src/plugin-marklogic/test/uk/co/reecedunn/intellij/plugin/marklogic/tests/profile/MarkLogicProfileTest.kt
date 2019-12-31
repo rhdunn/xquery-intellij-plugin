@@ -22,8 +22,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsDecimal
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsInteger
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDecimal
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsInteger
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Profiler - MarkLogicProfile")

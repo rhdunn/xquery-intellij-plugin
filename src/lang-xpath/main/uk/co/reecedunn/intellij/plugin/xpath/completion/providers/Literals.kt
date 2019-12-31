@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 enum class EQNameCompletionType {
     NCName,

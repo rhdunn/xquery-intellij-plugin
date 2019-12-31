@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnySimpleType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType, XdmItemType {

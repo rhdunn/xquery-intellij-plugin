@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryImport
 
 class XQueryImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryImport {

@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
-import uk.co.reecedunn.intellij.plugin.xdm.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 class PluginNamedKindTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginNamedKindTest, XdmItemType, VersionConformance {
