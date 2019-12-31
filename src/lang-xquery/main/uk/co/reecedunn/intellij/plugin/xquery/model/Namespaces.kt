@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsQNameValue

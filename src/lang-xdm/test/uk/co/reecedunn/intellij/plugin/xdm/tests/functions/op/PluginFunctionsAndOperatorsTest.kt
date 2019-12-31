@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.UndeclaredNamespacePrefixException
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")

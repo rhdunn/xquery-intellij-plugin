@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.functions.op
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 
 class UndeclaredNamespacePrefixException(prefix: String) :
     RuntimeException("XPST0081: Undeclared namespace prefix: $prefix")

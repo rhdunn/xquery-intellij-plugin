@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType

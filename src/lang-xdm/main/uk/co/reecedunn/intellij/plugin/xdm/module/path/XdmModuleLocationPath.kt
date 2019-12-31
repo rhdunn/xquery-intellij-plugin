@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.path
 
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XsAnyUriValue
 
 data class XdmModuleLocationPath internal constructor(

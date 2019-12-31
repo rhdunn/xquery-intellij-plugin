@@ -35,6 +35,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
