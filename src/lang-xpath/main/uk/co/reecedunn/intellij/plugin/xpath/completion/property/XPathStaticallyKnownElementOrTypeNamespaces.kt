@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
@@ -25,7 +26,7 @@ object XPathStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES] == null) {
             val namespaces = element.defaultNamespace(XdmNamespaceType.DefaultElementOrType).firstOrNull()?.let {
-                val list = mutableListOf<XPathNamespaceDeclaration>(it)
+                val list = mutableListOf<XdmNamespaceDeclaration>(it)
                 list.addAll(element.staticallyKnownNamespaces())
                 list
             } ?: mutableListOf()

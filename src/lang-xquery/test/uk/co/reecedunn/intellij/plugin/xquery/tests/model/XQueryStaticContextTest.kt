@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -43,7 +44,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (2.1.1) Statically known namespaces")
     internal inner class StaticallyKnownNamespaces {
-        private fun namespace(namespaces: List<XPathNamespaceDeclaration>, prefix: String): String {
+        private fun namespace(namespaces: List<XdmNamespaceDeclaration>, prefix: String): String {
             return namespaces.asIterable().first { ns -> ns.namespacePrefix!!.data == prefix }.namespaceUri!!.data
         }
 
@@ -492,7 +493,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
         @Nested
         @DisplayName("predefined namespaces")
         internal inner class PredefinedNamespaces {
-            private fun namespace(namespaces: List<XPathNamespaceDeclaration>, prefix: String): String {
+            private fun namespace(namespaces: List<XdmNamespaceDeclaration>, prefix: String): String {
                 return namespaces.asIterable().first { ns -> ns.namespacePrefix!!.data == prefix }.namespaceUri!!.data
             }
 

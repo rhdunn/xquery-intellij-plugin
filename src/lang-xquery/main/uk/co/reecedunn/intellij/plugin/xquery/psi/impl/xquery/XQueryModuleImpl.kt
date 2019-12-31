@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -109,19 +110,17 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XPathStaticContext
 
-    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration> {
+    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XdmNamespaceDeclaration> {
         return context.walkTree().reversed().flatMap { node ->
             when (node) {
-                is XPathNamespaceDeclaration ->
-                    sequenceOf(node as XPathNamespaceDeclaration)
+                is XdmNamespaceDeclaration -> sequenceOf(node as XdmNamespaceDeclaration)
                 is XQueryDirElemConstructor ->
                     node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                        ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { it as XPathNamespaceDeclaration }
+                        ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { it as XdmNamespaceDeclaration }
                         ?: emptySequence()
-                is XQueryProlog ->
-                    node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()
+                is XQueryProlog -> node.children().reversed().filterIsInstance<XdmNamespaceDeclaration>()
                 is XQueryModule ->
-                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>()
+                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XdmNamespaceDeclaration>()
                         ?: emptySequence()
                 else -> emptySequence()
             }

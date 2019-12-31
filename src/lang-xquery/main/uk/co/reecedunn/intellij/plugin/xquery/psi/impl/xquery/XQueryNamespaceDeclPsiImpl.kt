@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
@@ -31,7 +31,7 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryNamespaceDecl,
     XQueryPrologResolver,
-    XPathNamespaceDeclaration {
+    XdmNamespaceDeclaration {
     // region XQueryPrologResolver
 
     override val prolog
@@ -44,7 +44,7 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
         }
 
     // endregion
-    // region XPathNamespaceDeclaration
+    // region XdmNamespaceDeclaration
 
     override val namespacePrefix
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName

@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 
 class PluginUsingDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginUsingDecl, XPathDefaultNamespaceDeclaration, VersionConformance {
-    // region XPathNamespaceDeclaration
+    // region XdmNamespaceDeclaration
 
     override val namespacePrefix
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName

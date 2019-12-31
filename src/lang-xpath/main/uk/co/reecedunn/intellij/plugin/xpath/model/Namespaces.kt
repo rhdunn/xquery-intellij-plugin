@@ -21,16 +21,11 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 
-interface XPathNamespaceDeclaration {
-    val namespacePrefix: XsNCNameValue?
-
-    val namespaceUri: XsAnyUriValue?
-}
-
-interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
+interface XPathDefaultNamespaceDeclaration : XdmNamespaceDeclaration {
     fun accepts(namespaceType: XdmNamespaceType): Boolean
 }
 
@@ -53,7 +48,7 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XPathDefaultNamespaceD
     }
 }
 
-private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
+private fun XmlAttribute.toNamespaceDeclaration(): XdmNamespaceDeclaration? {
     if (!isNamespaceDeclaration) return null
     val prefix = namespacePrefix
     val localName = localName
@@ -61,7 +56,7 @@ private fun XmlAttribute.toNamespaceDeclaration(): XPathNamespaceDeclaration? {
     return if (prefix.isEmpty()) {
         null
     } else {
-        object : XPathNamespaceDeclaration {
+        object : XdmNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = XsNCName(localName, originalElement)
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.MODULE, originalElement)
@@ -96,7 +91,7 @@ fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XPathDefaultNamesp
     }?.filterNotNull() ?: sequenceOf()
 }
 
-fun PsiElement.staticallyKnownXPathNamespaces(): Sequence<XPathNamespaceDeclaration> {
+fun PsiElement.staticallyKnownXPathNamespaces(): Sequence<XdmNamespaceDeclaration> {
     return toXmlAttributeValue()?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toNamespaceDeclaration() }
     }?.filterNotNull() ?: sequenceOf()

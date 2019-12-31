@@ -19,7 +19,7 @@ import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Product
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object XPathCompletionProperty {
     val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathVersion")
@@ -32,9 +32,9 @@ object XPathCompletionProperty {
 
     val XPATH_PRODUCT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathProductVersion")
 
-    val STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES: Key<List<XPathNamespaceDeclaration>> =
+    val STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES: Key<List<XdmNamespaceDeclaration>> =
         Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownElementOrTypeNamespaces")
 
-    val STATICALLY_KNOWN_FUNCTION_NAMESPACES: Key<List<XPathNamespaceDeclaration>> =
+    val STATICALLY_KNOWN_FUNCTION_NAMESPACES: Key<List<XdmNamespaceDeclaration>> =
         Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownFunctionNamespaces")
 }

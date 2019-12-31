@@ -24,12 +24,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 object XQueryDocumentationProvider : AbstractDocumentationProvider() {
-    private fun getQuickNavigateInfo(decl: XPathNamespaceDeclaration, element: PsiElement): String? {
+    private fun getQuickNavigateInfo(decl: XdmNamespaceDeclaration, element: PsiElement): String? {
         val prefix = decl.namespacePrefix?.data
         val uri = decl.namespaceUri?.data ?: return null
         val path = decl.namespaceUri?.element?.containingFile?.resourcePath()
@@ -63,7 +63,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 }
             }
             is XPathNCName -> {
-                (parent.parent as? XPathNamespaceDeclaration)?.let { decl ->
+                (parent.parent as? XdmNamespaceDeclaration)?.let { decl ->
                     getQuickNavigateInfo(decl, parent.parent)
                 }
             }
@@ -75,7 +75,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 when (val module = it.mainOrLibraryModule) {
                     is XQueryLibraryModule -> {
                         val moduleDecl = module.firstChild
-                        getQuickNavigateInfo(moduleDecl as XPathNamespaceDeclaration, moduleDecl)
+                        getQuickNavigateInfo(moduleDecl as XdmNamespaceDeclaration, moduleDecl)
                     }
                     else -> null
                 }

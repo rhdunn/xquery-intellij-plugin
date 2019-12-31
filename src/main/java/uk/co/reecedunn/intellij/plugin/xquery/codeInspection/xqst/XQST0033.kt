@@ -22,13 +22,13 @@ import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
@@ -39,7 +39,7 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
             val prefices = HashMap<String, XsAnyUriValue?>()
 
             val moduleDecl =
-                module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
+                module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XdmNamespaceDeclaration
             if (moduleDecl != null) {
                 val prefix = moduleDecl.namespacePrefix?.data
                 val uri = moduleDecl.namespaceUri
@@ -50,7 +50,7 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
 
             val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             prolog?.children()?.forEach(fun(child) {
-                val ns = child as? XPathNamespaceDeclaration
+                val ns = child as? XdmNamespaceDeclaration
                 val prefix = ns?.namespacePrefix?.data
 
                 if (ns == null || prefix == null)

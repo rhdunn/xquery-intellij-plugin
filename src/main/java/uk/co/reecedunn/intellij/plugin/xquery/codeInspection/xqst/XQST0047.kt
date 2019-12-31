@@ -22,12 +22,12 @@ import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
@@ -35,11 +35,11 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.children().forEach { module ->
-            val uris = HashMap<String, XPathNamespaceDeclaration>()
+            val uris = HashMap<String, XdmNamespaceDeclaration>()
 
             val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun(child) {
-                val ns = child as? XPathNamespaceDeclaration
+                val ns = child as? XdmNamespaceDeclaration
                 val uri = ns?.namespaceUri?.data
 
                 // NOTE: A ModuleImport without a namespace prefix can import
@@ -47,7 +47,7 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
                 if (ns == null || uri == null || ns.namespacePrefix == null)
                     return
 
-                val duplicate: XPathNamespaceDeclaration? = uris[uri]
+                val duplicate: XdmNamespaceDeclaration? = uris[uri]
                 if (duplicate != null) {
                     val description =
                         XQueryPluginBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)

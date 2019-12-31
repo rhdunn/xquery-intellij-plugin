@@ -19,8 +19,8 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
@@ -81,7 +81,7 @@ fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryPr
         sequenceOf(
             // 1. Imported modules in the current module.
             thisProlog?.children()?.reversed()?.flatMap { child ->
-                if (child is XPathNamespaceDeclaration && child.namespaceUri?.data == name.namespace?.data)
+                if (child is XdmNamespaceDeclaration && child.namespaceUri?.data == name.namespace?.data)
                     (child as? XQueryPrologResolver)?.prolog?.map { prolog -> name to prolog } ?: emptySequence()
                 else
                     emptySequence()

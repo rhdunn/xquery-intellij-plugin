@@ -33,7 +33,7 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     XQueryModuleDecl,
     XQueryPrologResolver,
     XPathDefaultNamespaceDeclaration {
-    // region XPathNamespaceDeclaration
+    // region XdmNamespaceDeclaration
 
     override val namespacePrefix
         get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName

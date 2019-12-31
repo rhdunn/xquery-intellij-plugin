@@ -18,13 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 interface XPathStaticContext : XdmStaticContext {
-    fun staticallyKnownNamespaces(context: PsiElement): Sequence<XPathNamespaceDeclaration>
+    fun staticallyKnownNamespaces(context: PsiElement): Sequence<XdmNamespaceDeclaration>
 
     fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XPathDefaultNamespaceDeclaration>
 
@@ -35,7 +36,7 @@ interface XPathStaticContext : XdmStaticContext {
     fun inScopeVariables(context: PsiElement): Sequence<XdmVariableDefinition>
 }
 
-fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
+fun PsiElement.staticallyKnownNamespaces(): Sequence<XdmNamespaceDeclaration> {
     return (containingFile as XPathStaticContext).staticallyKnownNamespaces(this)
 }
 
