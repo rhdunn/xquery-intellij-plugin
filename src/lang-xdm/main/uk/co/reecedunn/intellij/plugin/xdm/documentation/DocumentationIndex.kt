@@ -26,5 +26,7 @@ interface XdmDocumentationReference {
 }
 
 interface XdmDocumentationIndex {
+    fun invalidate()
+
     fun lookup(ref: XdmFunctionReference): XdmDocumentationReference?
 }

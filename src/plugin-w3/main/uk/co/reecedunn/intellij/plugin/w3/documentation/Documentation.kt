@@ -41,6 +41,8 @@ private data class W3CSpecificationDocument(
         file?.let { Jsoup.parse(it.inputStream, null, "") }
     }
 
+    override fun invalidate() = doc.invalidate()
+
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return null
     }
@@ -102,6 +104,8 @@ object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentati
 
     // endregion
     // region XdmDocumentationIndex
+
+    override fun invalidate() = (REC_3_1_20170321 as XdmDocumentationIndex).invalidate()
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)

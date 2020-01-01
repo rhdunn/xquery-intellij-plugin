@@ -29,6 +29,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
     // endregion
     // region XdmDocumentationIndex
 
+    override fun invalidate() {}
+
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return object : XdmDocumentationReference {
             val name: String = ref.functionName?.let {
