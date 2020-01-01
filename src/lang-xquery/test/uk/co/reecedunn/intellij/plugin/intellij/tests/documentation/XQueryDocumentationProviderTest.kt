@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -32,6 +34,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Documentation Provider - XQuery")
 private class XQueryDocumentationProviderTest : ParserTestCase() {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+
+        registerExtensionPoint(XdmDocumentationSourceProvider.EP_NAME, XdmDocumentationSourceProvider::class.java)
+        registerExtension(XdmDocumentationSourceProvider.EP_NAME, DocumentationSourceProvider)
+    }
+
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
     internal inner class ModuleImport {
