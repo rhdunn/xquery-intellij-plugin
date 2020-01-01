@@ -24,13 +24,19 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 
 private class W3CFunctionReference(node: Element, val baseHref: String): XdmDocumentationReference {
+    fun normalize(node: Element): Element {
+        // JEditorPanel does not support vertical-align on tr/td elements, so use valign instead.
+        node.select("tr").forEach { it.attr("valign", "top") }
+        return node
+    }
+
     val id: String = node.selectFirst("h4 > a").attr("id")
 
     override val href: String = "$baseHref#$id"
 
-    override val summary: String = node.selectFirst("dl > dt").nextElementSibling().html()
+    override val summary: String = normalize(node.selectFirst("dl > dt").nextElementSibling()).html()
 
-    override val documentation: String = node.selectFirst("dl").outerHtml()
+    override val documentation: String = normalize(node.selectFirst("dl")).outerHtml()
 }
 
 private data class W3CSpecificationDocument(
