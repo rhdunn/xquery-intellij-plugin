@@ -16,10 +16,22 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
+import org.jsoup.nodes.TextNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
+
+private class W3CFunctionReference(node: Element, val baseHref: String): XdmDocumentationReference {
+    val id: String = node.selectFirst("h4 > a").attr("id")
+
+    override val href: String = "$baseHref#$id"
+
+    override val summary: String = node.selectFirst("dl > dt").nextElementSibling().html()
+
+    override val documentation: String = node.selectFirst("dl").html()
+}
 
 private data class W3CSpecificationDocument(
     val type: XdmSpecificationType,
@@ -44,7 +56,15 @@ private data class W3CSpecificationDocument(
     override fun invalidate() = doc.invalidate()
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
-        return null
+        val prefix = "fn"
+        val localName = ref.functionName?.localName?.data ?: return null
+        val lookupName = "$prefix:$localName"
+        val match = doc.get()?.select("h4 > a")?.firstOrNull {
+            val parts = (it.nextSibling() as? TextNode)?.text()?.split(" ") ?: return@firstOrNull false
+            val name = parts.asReversed().find { part -> part.isNotEmpty() }
+            name == lookupName
+        }
+        return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
 
     // endregion

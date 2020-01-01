@@ -46,11 +46,12 @@ This plugin provides integration with the following IntelliJ features:
 1.  Structure view;
 1.  Breadcrumb navigation;
 1.  Paired brace matching;
-1.  Commenting code.
+1.  Commenting code;
+1.  Integrated function documentation ("Quick Documentation", Ctrl+Q).
 
 -----
 
-Copyright (C) 2016-2019 Reece H. Dunn
+Copyright (C) 2016-2020 Reece H. Dunn
 
 This software and document includes material copied from or derived from the
 XPath and XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,

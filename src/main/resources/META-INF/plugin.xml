@@ -39,6 +39,7 @@
       <li>Breadcrumb navigation.</li>
       <li>Paired brace matching.</li>
       <li>Commenting code.</li>
+      <li>Integrated function documentation ("Quick Documentation", Ctrl+Q).</li>
     </ol>
     <p>XPath and XSLT:</p>
     <ol>
@@ -66,6 +67,13 @@
     <p>IntelliJ Integration:</p>
     <ol>
       <li>
+        Implement inlay parameter hints for XQuery function calls and named arrow
+        function expressions.
+      </li>
+      <li>
+        Support quick documentation (Ctrl+Q) for W3C XQuery functions.
+      </li>
+      <li>
         Display the namespace signature and module path when holding Ctrl over
         a module namespace URI or prefix.
       </li>
@@ -73,10 +81,6 @@
       <li>
         Fixed QName prefix syntax highlighting and keyword in QName highlighting
         removal when the QName contains a space.
-      </li>
-      <li>
-        Implement inlay parameter hints for XQuery function calls and named arrow
-        function expressions.
       </li>
     </ol>
     <p>XPath and XSLT:</p>
