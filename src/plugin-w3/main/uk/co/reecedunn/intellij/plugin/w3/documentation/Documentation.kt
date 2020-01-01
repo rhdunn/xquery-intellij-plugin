@@ -30,7 +30,7 @@ private class W3CFunctionReference(node: Element, val baseHref: String): XdmDocu
 
     override val summary: String = node.selectFirst("dl > dt").nextElementSibling().html()
 
-    override val documentation: String = node.selectFirst("dl").html()
+    override val documentation: String = node.selectFirst("dl").outerHtml()
 }
 
 private data class W3CSpecificationDocument(
