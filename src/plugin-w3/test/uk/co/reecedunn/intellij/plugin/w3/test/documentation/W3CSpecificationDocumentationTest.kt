@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDoc
 import uk.co.reecedunn.intellij.plugin.w3.documentation.XsltDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Documentation - W3C Specification Document")
@@ -31,6 +32,14 @@ private class W3CSpecificationDocumentationTest {
     @Nested
     @DisplayName("XQuery and XPath Functions and Operators")
     internal inner class FunctionsAndOperators {
+        @Test
+        @DisplayName("specification type")
+        fun specificationType() {
+            val type: XdmSpecificationType = FunctionsAndOperatorsDocumentation
+            assertThat(type.id, `is`("xpath-functions"))
+            assertThat(type.name, `is`("XQuery and XPath Functions and Operators"))
+        }
+
         @Test
         @DisplayName("1.0 Working Draft 02 May 2003")
         fun spec20030502() {
@@ -105,6 +114,14 @@ private class W3CSpecificationDocumentationTest {
     @Nested
     @DisplayName("XSL Transformations (XSLT)")
     internal inner class Xslt {
+        @Test
+        @DisplayName("specification type")
+        fun specificationType() {
+            val type: XdmSpecificationType = XsltDocumentation
+            assertThat(type.id, `is`("xslt"))
+            assertThat(type.name, `is`("XSL Transformations (XSLT)"))
+        }
+
         @Test
         @DisplayName("1.0 Recommendation 16 Nov 1999")
         fun spec19991116() {

@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 
 private data class W3CSpecificationDocument(
     val spec: Specification,
@@ -31,7 +32,9 @@ private data class W3CSpecificationDocument(
     override val path: String = "w3/${spec.kind.id}-${spec.id}.html"
 }
 
-object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
+object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentationSourceProvider {
+    // region Specifications
+
     val WD_1_0_20030502: XdmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec.WD_1_0_20030502, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
         "1.0 (Working Draft 02 May 2003)" // Used by the MarkLogic 0.9-ml XQuery version.
@@ -57,6 +60,16 @@ object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
         "3.1"
     )
 
+    // endregion
+    // region XdmSpecificationType
+
+    override val id: String = "xpath-functions"
+
+    override val name = "XQuery and XPath Functions and Operators"
+
+    // endregion
+    // region XdmDocumentationSourceProvider
+
     override val sources: List<XdmDocumentationSource> = listOf(
         WD_1_0_20030502,
         REC_1_0_20070123,
@@ -64,9 +77,13 @@ object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
         REC_3_0_20140408,
         REC_3_1_20170321
     )
+
+    // endregion
 }
 
-object XsltDocumentation : XdmDocumentationSourceProvider {
+object XsltDocumentation : XdmSpecificationType, XdmDocumentationSourceProvider {
+    // region Specifications
+
     val REC_1_0_19991116: XdmDocumentationSource = W3CSpecificationDocument(
         XsltSpec.REC_1_0_19991116, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0"
     )
@@ -79,9 +96,21 @@ object XsltDocumentation : XdmDocumentationSourceProvider {
         XsltSpec.REC_3_0_20170608, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0"
     )
 
+    // endregion
+    // region XdmSpecificationType
+
+    override val id: String = "xslt"
+
+    override val name = "XSL Transformations (XSLT)"
+
+    // endregion
+    // region XdmDocumentationSourceProvider
+
     override val sources: List<XdmDocumentationSource> = listOf(
         REC_1_0_19991116,
         REC_2_0_20070123,
         REC_3_0_20170608
     )
+
+    // endregion
 }
