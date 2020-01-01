@@ -10,7 +10,6 @@
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <documentationSourceProvider implementation="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation"/>
-    <documentationSourceProvider implementation="uk.co.reecedunn.intellij.plugin.w3.documentation.XsltDocumentation"/>
     <documentationSourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation"/>
   </extensions>
 </idea-plugin>
