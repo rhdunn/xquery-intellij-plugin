@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.compat.lang.documentation.AbstractDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmTemplates
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
@@ -90,12 +91,18 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     // Generate the main documentation for the documentation pane.
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
-        return originalElement?.let { lookup(it).firstOrNull()?.documentation }
+        return originalElement?.let {
+            val text = lookup(it).firstOrNull()?.documentation ?: return@let null
+            return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
+        }
     }
 
     // Generate the summary documentation for the documentation hover tooltip.
     override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
-        return originalElement?.let { lookup(it).firstOrNull()?.summary }
+        return originalElement?.let {
+            val text = lookup(it).firstOrNull()?.summary ?: return@let null
+            return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
+        }
     }
 
     // Generate the external documentation links displayed below the main/summary documentation.

@@ -17,24 +17,29 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Matcher
+import org.hamcrest.core.StringContains
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Documentation Provider - XQuery")
 private class XQueryDocumentationProviderTest : ParserTestCase() {
+    companion object {
+        fun body(substring: String): Matcher<out String?> = StringContains.containsString("<body>$substring</body>")
+    }
+
     @BeforeAll
     override fun setUp() {
         super.setUp()
@@ -262,12 +267,12 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                `is`("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
             )
 
             assertThat(
                 XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
-                `is`("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
             )
 
             assertThat(
@@ -286,12 +291,12 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                `is`("function documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("function documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
             )
 
             assertThat(
                 XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
-                `is`("function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
             )
 
             assertThat(
@@ -310,12 +315,12 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                `is`("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
             )
 
             assertThat(
                 XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
-                `is`("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
             )
 
             assertThat(
