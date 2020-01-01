@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import org.jsoup.Jsoup
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 
@@ -36,6 +35,11 @@ private data class W3CSpecificationDocument(
 
     // endregion
     // region XdmDocumentationIndex
+
+    private val doc = CacheableProperty {
+        val file = XdmDocumentationDownloader.getInstance().load(this)
+        file?.let { Jsoup.parse(it.inputStream, null, "") }
+    }
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return null

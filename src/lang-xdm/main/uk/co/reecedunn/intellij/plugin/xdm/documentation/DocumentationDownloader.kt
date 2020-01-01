@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.components.*
+import com.intellij.openapi.vfs.LocalFileSystem
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
@@ -48,10 +50,14 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
         }
     }
 
+    fun load(source: XdmDocumentationSource): VirtualFile? {
+        return LocalFileSystem.getInstance().findFileByPath("$basePath/${source.path}")
+    }
+
     fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
         return when {
             tasks.isActive(source) -> XdmDocumentationDownloadStatus.Downloading
-            File("$basePath/${source.path}").exists() -> XdmDocumentationDownloadStatus.Downloaded
+            load(source) != null -> XdmDocumentationDownloadStatus.Downloaded
             else -> XdmDocumentationDownloadStatus.NotDownloaded
         }
     }

@@ -101,6 +101,7 @@ configure(allprojects - project(':src')) {
 
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile "org.jsoup:jsoup:1.12.1"
 
         testCompile "org.junit.jupiter:junit-jupiter-api:5.4.0$junit_milestone"
 
