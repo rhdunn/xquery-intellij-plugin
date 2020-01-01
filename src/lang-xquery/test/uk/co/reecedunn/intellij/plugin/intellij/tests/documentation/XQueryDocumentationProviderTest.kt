@@ -177,6 +177,82 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+    internal inner class FunctionDecl {
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : NCName")
+        fun ncname() {
+            val target = parse<XsQNameValue>("declare function true() {}; 2")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                body("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0"))
+            )
+        }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : QName")
+        fun qname() {
+            val target = parse<XsQNameValue>("declare function fn:true() {}; 2")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                body("function documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                body("function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("function href=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0"))
+            )
+        }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : URIQualifiedName")
+        fun uriQualifiedName() {
+            val target = parse<XsQNameValue>("declare function Q{http://www.w3.org/2005/xpath-functions}true() {}; 2")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                body("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0"))
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {

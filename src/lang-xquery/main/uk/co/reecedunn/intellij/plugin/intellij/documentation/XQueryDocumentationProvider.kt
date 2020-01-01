@@ -126,6 +126,12 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                     override val arity: Int = ref.arity
                 })
             }
+            is XdmFunctionDeclaration -> {
+                XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
+                    override val functionName: XsQNameValue? = ref.functionName?.expand()?.firstOrNull()
+                    override val arity: Int = ref.arity.from
+                })
+            }
             else -> emptySequence()
         }
     }
