@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,27 +123,6 @@ object XsltSpec : Versioned {
         REC_1_0_19991116,
         REC_2_0_20070123,
         REC_3_0_20170608
-    )
-}
-
-@Suppress("MemberVisibilityCanBePrivate")
-object FunctionsAndOperatorsSpec : Versioned {
-    val WD_1_0_20030502 = DraftSpecification("1.0-20030502", 1.0, "1.0", this, "Working Draft 02 May 2003")
-    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, "1.0", this)
-    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, "1.0", this)
-    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, "3.0", this)
-    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, "3.1", this)
-
-    override val id: String = "xpath-functions"
-
-    override val name: String = "XQuery and XPath Functions and Operators"
-
-    override val versions: List<Version> = listOf(
-        WD_1_0_20030502,
-        REC_1_0_20070123,
-        REC_1_0_20101214,
-        REC_3_0_20140408,
-        REC_3_1_20170321
     )
 }
 

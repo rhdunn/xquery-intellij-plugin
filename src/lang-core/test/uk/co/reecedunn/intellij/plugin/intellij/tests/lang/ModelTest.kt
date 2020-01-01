@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,11 +42,6 @@ class ModelTest {
             assertThat(XQuerySpec.MARKLOGIC_0_9.toString(), `is`("XQuery 0.9-ml"))
 
             assertThat(FullTextSpec.REC_1_0_20110317.toString(), `is`("XQuery and XPath Full Text 1.0"))
-
-            assertThat(
-                FunctionsAndOperatorsSpec.REC_1_0_20070123.toString(),
-                `is`("XQuery and XPath Functions and Operators 1.0")
-            )
 
             assertThat(ScriptingSpec.NOTE_1_0_20140918.toString(), `is`("XQuery Scripting Extension 1.0"))
 
@@ -100,7 +95,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(true))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
 
@@ -118,7 +112,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
 
@@ -136,25 +129,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(true))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
-            assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
-            assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
-
-            assertThat(versioned.supportsDialect(BaseX), `is`(false))
-            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
-            assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
-            assertThat(versioned.supportsDialect(Saxon), `is`(false))
-            assertThat(versioned.supportsDialect(W3C), `is`(false))
-        }
-
-        @Test
-        @DisplayName("XPath and XQuery Functions and Operators specification")
-        fun testFunctionsAndOperators_SupportsDialect() {
-            val versioned = FunctionsAndOperatorsSpec
-            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
-            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(true))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
 
@@ -172,7 +146,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(true))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(true))
 
@@ -190,7 +163,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(true))
 
@@ -208,7 +180,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(true))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(true))
 
@@ -226,7 +197,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
 
@@ -244,7 +214,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
 
@@ -262,7 +231,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(true))
 
@@ -280,7 +248,6 @@ class ModelTest {
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
             assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
-            assertThat(versioned.supportsDialect(FunctionsAndOperatorsSpec), `is`(false))
             assertThat(versioned.supportsDialect(ScriptingSpec), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacilitySpec), `is`(false))
 
@@ -551,20 +518,6 @@ class ModelTest {
                     assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(true))
 
                     // endregion
-                    // region Specification: XQuery and XPath Functions and Operators
-
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20070123), `is`(false))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20101214), `is`(false))
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408),
-                        `is`(version.value >= 7.7)
-                    )
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321),
-                        `is`(version.value >= 8.6)
-                    )
-
-                    // endregion
                     // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
@@ -650,17 +603,6 @@ class ModelTest {
 
                     assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(false))
                     assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(false))
-
-                    // endregion
-                    // region Specification: XQuery and XPath Functions and Operators
-
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20070123), `is`(false))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20101214), `is`(false))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408), `is`(true))
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321),
-                        `is`(version.value >= 4.0)
-                    )
 
                     // endregion
                     // region Specification: XQuery Scripting Extension
@@ -750,14 +692,6 @@ class ModelTest {
                     assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(false))
 
                     // endregion
-                    // region Specification: XQuery and XPath Functions and Operators
-
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20070123), `is`(true))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20101214), `is`(false))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408), `is`(true))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321), `is`(false))
-
-                    // endregion
                     // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
@@ -843,27 +777,6 @@ class ModelTest {
                     assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(false))
 
                     // endregion
-                    // region Specification: XQuery and XPath Functions and Operators
-
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20070123), `is`(true))
-                    assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20101214), `is`(false))
-                    if (product.id == "HE") {
-                        assertThat(
-                            product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408),
-                            `is`(version.value >= 9.6)
-                        )
-                    } else {
-                        assertThat(
-                            product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408),
-                            `is`(version.value >= 9.5)
-                        )
-                    }
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321),
-                        `is`(version.value >= 9.8)
-                    )
-
-                    // endregion
                     // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
@@ -947,26 +860,6 @@ class ModelTest {
 
                     assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(version.value == 1.0))
                     assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(version.value == 1.0))
-
-                    // endregion
-                    // region Specification: XQuery and XPath Functions and Operators
-
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20070123),
-                        `is`(version.value == 1.0)
-                    )
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_1_0_20101214),
-                        `is`(version.value == 2.0)
-                    )
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_0_20140408),
-                        `is`(version.value == 1.0)
-                    )
-                    assertThat(
-                        product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321),
-                        `is`(version.value == 1.0)
-                    )
 
                     // endregion
                     // region Specification: XQuery Scripting Extension
