@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.compat.lang.documentation.AbstractDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -83,18 +84,23 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
         }
     }
 
+    // Generate the main documentation for the documentation pane.
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
-        // Generate the main documentation for the documentation pane.
-        return null
+        return originalElement?.let { lookup(it).firstOrNull()?.documentation }
     }
 
+    // Generate the summary documentation for the documentation hover tooltip.
     override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
-        // Generate the summary documentation for the documentation hover tooltip.
-        return null
+        return originalElement?.let { lookup(it).firstOrNull()?.summary }
     }
 
+    // Generate the external documentation links displayed below the main/summary documentation.
     override fun getUrlFor(element: PsiElement?, originalElement: PsiElement?): List<String> {
-        // Generate the external documentation links displayed below the main/summary documentation.
-        return emptyList()
+        return originalElement?.let { lookup(it).map { ref -> ref.href }.toList() } ?: emptyList()
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    private fun lookup(element: PsiElement): Sequence<XdmDocumentationReference> {
+        return sequenceOf()
     }
 }
