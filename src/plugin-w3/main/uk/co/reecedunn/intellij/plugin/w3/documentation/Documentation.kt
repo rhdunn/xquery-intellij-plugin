@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ data class W3CSpecificationDocument(
 object FunctionsAndOperatorsDocumentation : XdmDocumentationSourceProvider {
     val WD_1_0_20030502 = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec.WD_1_0_20030502, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
-        "1.0 (Working Draft 2003 May 02)"
+        "1.0 (Working Draft 02 May 2003)" // Used by the MarkLogic 0.9-ml XQuery version.
     )
 
     val REC_1_0_20070123 = W3CSpecificationDocument(

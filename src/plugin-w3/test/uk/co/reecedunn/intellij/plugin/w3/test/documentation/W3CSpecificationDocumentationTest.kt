@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,11 +32,11 @@ private class W3CSpecificationDocumentationTest {
     @DisplayName("XQuery and XPath Functions and Operators")
     internal inner class FunctionsAndOperators {
         @Test
-        @DisplayName("1.0 Working Draft 2003 May 02")
+        @DisplayName("1.0 Working Draft 02 May 2003")
         fun spec20030502() {
             val spec: XdmDocumentationSource = FunctionsAndOperatorsDocumentation.WD_1_0_20030502
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
-            assertThat(spec.version, `is`("1.0 (Working Draft 2003 May 02)"))
+            assertThat(spec.version, `is`("1.0 (Working Draft 02 May 2003)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2003/WD-xpath-functions-20030502/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20030502.html"))
 
@@ -46,7 +46,7 @@ private class W3CSpecificationDocumentationTest {
         }
 
         @Test
-        @DisplayName("1.0 Recommendation 2007 Jan 23")
+        @DisplayName("1.0 Recommendation 23 Jan 2007")
         fun spec20070123() {
             val spec: XdmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20070123
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
@@ -60,7 +60,7 @@ private class W3CSpecificationDocumentationTest {
         }
 
         @Test
-        @DisplayName("1.0 Recommendation 2010 Dec 14")
+        @DisplayName("1.0 Recommendation 14 Dec 2010")
         fun spec20101214() {
             val spec: XdmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20101214
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
@@ -74,7 +74,7 @@ private class W3CSpecificationDocumentationTest {
         }
 
         @Test
-        @DisplayName("3.0 Recommendation 2014 Apr 08")
+        @DisplayName("3.0 Recommendation 08 Apr 2014")
         fun spec20140408() {
             val spec: XdmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_0_20140408
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
@@ -88,7 +88,7 @@ private class W3CSpecificationDocumentationTest {
         }
 
         @Test
-        @DisplayName("3.1 Recommendation 2014 Apr 08")
+        @DisplayName("3.1 Recommendation 21 Apr 2017")
         fun spec20170321() {
             val spec: XdmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_1_20170321
             assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
@@ -106,7 +106,7 @@ private class W3CSpecificationDocumentationTest {
     @DisplayName("XSL Transformations (XSLT)")
     internal inner class Xslt {
         @Test
-        @DisplayName("1.0 Recommendation 1999 Nov 16")
+        @DisplayName("1.0 Recommendation 16 Nov 1999")
         fun spec19991116() {
             val spec: XdmDocumentationSource = XsltDocumentation.REC_1_0_19991116
             assertThat(spec.name, `is`("XSL Transformations (XSLT)"))
@@ -120,7 +120,7 @@ private class W3CSpecificationDocumentationTest {
         }
 
         @Test
-        @DisplayName("2.0 Recommendation 2007 Jan 23")
+        @DisplayName("2.0 Recommendation 23 Jan 2007")
         fun spec20070123() {
             val spec: XdmDocumentationSource = XsltDocumentation.REC_2_0_20070123
             assertThat(spec.name, `is`("XSL Transformations (XSLT)"))
@@ -134,7 +134,7 @@ private class W3CSpecificationDocumentationTest {
         }
 
         @Test
-        @DisplayName("3.0 Recommendation 2017 Jun 08")
+        @DisplayName("3.0 Recommendation 08 Jun 2017")
         fun spec20170608() {
             val spec: XdmDocumentationSource = XsltDocumentation.REC_3_0_20170608
             assertThat(spec.name, `is`("XSL Transformations (XSLT)"))
