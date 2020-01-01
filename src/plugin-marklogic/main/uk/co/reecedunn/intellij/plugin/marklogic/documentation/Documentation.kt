@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 
-data class MarkLogicZippedDocumentation(
+private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
 ) : XdmDocumentationSource {
@@ -30,11 +30,11 @@ data class MarkLogicZippedDocumentation(
 }
 
 object MarkLogicProductDocumentation : XdmDocumentationSourceProvider {
-    val MARKLOGIC_6 = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
-    val MARKLOGIC_7 = MarkLogicZippedDocumentation("7.0", "MarkLogic_7_pubs.zip")
-    val MARKLOGIC_8 = MarkLogicZippedDocumentation("8.0", "MarkLogic_8_pubs.zip")
-    val MARKLOGIC_9 = MarkLogicZippedDocumentation("9.0", "MarkLogic_9_pubs.zip")
-    val MARKLOGIC_10 = MarkLogicZippedDocumentation("10.0", "MarkLogic_10_pubs.zip")
+    val MARKLOGIC_6: XdmDocumentationSource = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
+    val MARKLOGIC_7: XdmDocumentationSource = MarkLogicZippedDocumentation("7.0", "MarkLogic_7_pubs.zip")
+    val MARKLOGIC_8: XdmDocumentationSource = MarkLogicZippedDocumentation("8.0", "MarkLogic_8_pubs.zip")
+    val MARKLOGIC_9: XdmDocumentationSource = MarkLogicZippedDocumentation("9.0", "MarkLogic_9_pubs.zip")
+    val MARKLOGIC_10: XdmDocumentationSource = MarkLogicZippedDocumentation("10.0", "MarkLogic_10_pubs.zip")
 
     override val sources: List<XdmDocumentationSource> = listOf(
         MARKLOGIC_6,
