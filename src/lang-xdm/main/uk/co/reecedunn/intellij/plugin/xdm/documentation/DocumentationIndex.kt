@@ -17,6 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 
+interface XdmDocumentationReference {
+    val href: String
+
+    val documentation: String
+
+    val summary: String
+}
+
 interface XdmDocumentationIndex {
-    fun lookup(ref: XdmFunctionReference): String
+    fun lookup(ref: XdmFunctionReference): XdmDocumentationReference?
 }
