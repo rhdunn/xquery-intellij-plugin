@@ -48,6 +48,11 @@ object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentati
         "1.0-20101214", "1.0 (Second Edition)"
     )
 
+    val WD_3_0_20111213: XdmDocumentationSource = W3CSpecificationDocument(
+        this, "http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/",
+        "3.0-20111213", "3.0 (Working Draft 13 Dec 2011)" // Used by the MarkLogic 1.0-ml XQuery version.
+    )
+
     val REC_3_0_20140408: XdmDocumentationSource = W3CSpecificationDocument(
         this, "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/",
         "3.0-20140408", "3.0"
@@ -72,6 +77,7 @@ object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentati
         WD_1_0_20030502,
         REC_1_0_20070123,
         REC_1_0_20101214,
+        WD_3_0_20111213,
         REC_3_0_20140408,
         REC_3_1_20170321
     )
