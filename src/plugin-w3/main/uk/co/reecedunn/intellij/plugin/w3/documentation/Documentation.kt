@@ -15,49 +15,47 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
-import uk.co.reecedunn.intellij.plugin.intellij.lang.FunctionsAndOperatorsSpec
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 
 private data class W3CSpecificationDocument(
-    val spec: Specification,
+    val type: XdmSpecificationType,
     override val href: String,
+    val id: String,
     override val version: String
 ) : XdmDocumentationSource {
-    override val name: String = spec.kind.name
+    override val name: String = type.name
 
-    override val path: String = "w3/${spec.kind.id}-${spec.id}.html"
+    override val path: String = "w3/${type.id}-$id.html"
 }
 
 object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentationSourceProvider {
     // region Specifications
 
     val WD_1_0_20030502: XdmDocumentationSource = W3CSpecificationDocument(
-        FunctionsAndOperatorsSpec.WD_1_0_20030502, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
-        "1.0 (Working Draft 02 May 2003)" // Used by the MarkLogic 0.9-ml XQuery version.
+        this, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
+        "1.0-20030502", "1.0 (Working Draft 02 May 2003)" // Used by the MarkLogic 0.9-ml XQuery version.
     )
 
     val REC_1_0_20070123: XdmDocumentationSource = W3CSpecificationDocument(
-        FunctionsAndOperatorsSpec.REC_1_0_20070123, "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/",
-        "1.0 (First Edition)"
+        this, "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/",
+        "1.0-20070123", "1.0 (First Edition)"
     )
 
     val REC_1_0_20101214: XdmDocumentationSource = W3CSpecificationDocument(
-        FunctionsAndOperatorsSpec.REC_1_0_20101214, "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/",
-        "1.0 (Second Edition)"
+        this, "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/",
+        "1.0-20101214", "1.0 (Second Edition)"
     )
 
     val REC_3_0_20140408: XdmDocumentationSource = W3CSpecificationDocument(
-        FunctionsAndOperatorsSpec.REC_3_0_20140408, "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/",
-        "3.0"
+        this, "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/",
+        "3.0-20140408", "3.0"
     )
 
     val REC_3_1_20170321: XdmDocumentationSource = W3CSpecificationDocument(
-        FunctionsAndOperatorsSpec.REC_3_1_20170321, "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/",
-        "3.1"
+        this, "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/",
+        "3.1-20170321", "3.1"
     )
 
     // endregion
@@ -85,15 +83,15 @@ object XsltDocumentation : XdmSpecificationType, XdmDocumentationSourceProvider 
     // region Specifications
 
     val REC_1_0_19991116: XdmDocumentationSource = W3CSpecificationDocument(
-        XsltSpec.REC_1_0_19991116, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0"
+        this, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0-19991116", "1.0"
     )
 
     val REC_2_0_20070123: XdmDocumentationSource = W3CSpecificationDocument(
-        XsltSpec.REC_2_0_20070123, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0"
+        this, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0-20070123", "2.0"
     )
 
     val REC_3_0_20170608: XdmDocumentationSource = W3CSpecificationDocument(
-        XsltSpec.REC_3_0_20170608, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0"
+        this, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0-20170608", "3.0"
     )
 
     // endregion
