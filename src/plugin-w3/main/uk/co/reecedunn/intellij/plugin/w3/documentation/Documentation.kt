@@ -15,8 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 
 private data class W3CSpecificationDocument(
@@ -24,13 +27,24 @@ private data class W3CSpecificationDocument(
     override val href: String,
     val id: String,
     override val version: String
-) : XdmDocumentationSource {
+) : XdmDocumentationSource, XdmDocumentationIndex {
+    // region XdmDocumentationSource
+
     override val name: String = type.name
 
     override val path: String = "w3/${type.id}-$id.html"
+
+    // endregion
+    // region XdmDocumentationIndex
+
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+        return null
+    }
+
+    // endregion
 }
 
-object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentationSourceProvider {
+object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentationSourceProvider, XdmDocumentationIndex {
     // region Specifications
 
     val WD_1_0_20030502: XdmDocumentationSource = W3CSpecificationDocument(
@@ -81,6 +95,13 @@ object FunctionsAndOperatorsDocumentation : XdmSpecificationType, XdmDocumentati
         REC_3_0_20140408,
         REC_3_1_20170321
     )
+
+    // endregion
+    // region XdmDocumentationIndex
+
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
+    }
 
     // endregion
 }
