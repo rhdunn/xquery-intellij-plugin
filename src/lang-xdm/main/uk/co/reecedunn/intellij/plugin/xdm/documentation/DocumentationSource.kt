@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 
 interface XdmDocumentationSource {
     val name: String
@@ -35,6 +36,10 @@ interface XdmDocumentationSourceProvider {
 
         val allSources: Sequence<XdmDocumentationSource>
             get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
+
+        fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentationReference> {
+            return EP_NAME.extensions.asSequence().mapNotNull { (it as? XdmDocumentationIndex)?.lookup(ref) }
+        }
     }
 
     val sources: List<XdmDocumentationSource>

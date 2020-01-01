@@ -15,9 +15,33 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 
-object DocumentationSourceProvider : XdmDocumentationSourceProvider {
+object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocumentationIndex {
+    // region XdmDocumentationSourceProvider
+
     override val sources: List<XdmDocumentationSource> = listOf()
+
+    // endregion
+    // region XdmDocumentationIndex
+
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+        return object : XdmDocumentationReference {
+            val name: String = ref.functionName?.let {
+                "[prefix=${it.prefix?.data ?: "(null)"} namespace=${it.namespace?.data ?: "(null)"} localname=${it.localName?.data ?: "(null)"}]"
+            } ?: "(null)"
+
+            override val href: String = "function href=${name}#${ref.arity}"
+
+            override val documentation: String = "function documentation=${name}#${ref.arity}"
+
+            override val summary: String = "function summary=${name}#${ref.arity}"
+        }
+    }
+
+    // endregion
 }

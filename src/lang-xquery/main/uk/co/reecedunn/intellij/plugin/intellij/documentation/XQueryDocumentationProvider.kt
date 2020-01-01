@@ -20,14 +20,18 @@ import uk.co.reecedunn.compat.lang.documentation.AbstractDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 
 object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun getQuickNavigateInfo(decl: XdmNamespaceDeclaration, element: PsiElement): String? {
@@ -99,8 +103,23 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
         return originalElement?.let { lookup(it).map { ref -> ref.href }.toList() } ?: emptyList()
     }
 
-    @Suppress("UNUSED_PARAMETER")
     private fun lookup(element: PsiElement): Sequence<XdmDocumentationReference> {
-        return sequenceOf()
+        val parent = element.parent
+        return when {
+            parent is XsQNameValue && parent.localName?.element === element -> lookup(parent as XsQNameValue)
+            else -> emptySequence()
+        }
+    }
+
+    private fun lookup(qname: XsQNameValue): Sequence<XdmDocumentationReference> {
+        return when (val ref = qname.element?.parent) {
+            is XdmFunctionReference -> {
+                XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
+                    override val functionName: XsQNameValue? = ref.functionName?.expand()?.firstOrNull()
+                    override val arity: Int = ref.arity
+                })
+            }
+            else -> emptySequence()
+        }
     }
 }

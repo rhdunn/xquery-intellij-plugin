@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentatio
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -249,6 +250,78 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*) as item()+"))
+        }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : NCName")
+        fun ncname() {
+            val target = parse<XsQNameValue>("concat(1,2)")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                `is`("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                `is`("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2"))
+            )
+        }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : QName")
+        fun qname() {
+            val target = parse<XsQNameValue>("fn:concat(1,2)")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                `is`("function documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                `is`("function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("function href=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2"))
+            )
+        }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : URIQualifiedName")
+        fun uriQualifiedName() {
+            val target = parse<XsQNameValue>("Q{http://www.w3.org/2005/xpath-functions}concat(1,2)")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                `is`("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                `is`("function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2"))
+            )
         }
     }
 
