@@ -147,29 +147,30 @@ blockquote {
 
 a.button {
   text-decoration: none;
-  text-transform: uppercase;
   text-rendering: optimizelegibility;
   display: inline-block;
-  background-color: #161616;
-  color: white;
-  font-weight: 800;
-  font-size: 12px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 50px;
   text-align: center;
   padding: 0 35px;
   margin: 0 15px;
 }
-a.button.button-hollow {
-  background-color: inherit;
-  color: inherit;
-  text-transform: inherit;
+.banner a.button {
   font-weight: normal;
-  font-size: 18px;
+  font-size: 16px;
+  color: inherit;
   border: 1px solid #18a3fa;
+  border-radius: 40px;
   height: 40px;
   line-height: 40px;
+}
+.main a.button {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 12px;
+  background-color: #161616;
+  color: white;
+  border-radius: 50px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .highlight .keyword {
