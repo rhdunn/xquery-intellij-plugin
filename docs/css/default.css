@@ -29,7 +29,7 @@ main.error {
 }
 
 nav.banner {
-  height: 70px;
+  height: 60px;
   background-color: white;
   border-bottom: 1px solid #cccbcb;
   position: fixed;
@@ -58,7 +58,7 @@ nav.banner ol {
 }
 nav.banner ol li {
   display: inline-block;
-  padding: 0 20px;
+  padding: 0 8px;
   font-size: 16px;
 }
 nav.banner ol li a {
@@ -150,27 +150,37 @@ a.button {
   text-rendering: optimizelegibility;
   display: inline-block;
   text-align: center;
-  padding: 0 35px;
+  color: white;
   margin: 0 15px;
 }
 .banner a.button {
   font-weight: normal;
   font-size: 16px;
-  color: inherit;
-  border: 1px solid #18a3fa;
-  border-radius: 40px;
-  height: 40px;
-  line-height: 40px;
+  background-color: #167dff;
+  padding: 0 25px;
+  border-radius: 32px;
+  height: 32px;
+  line-height: 32px;
 }
 .main a.button {
   text-transform: uppercase;
   font-weight: 800;
   font-size: 12px;
   background-color: #161616;
-  color: white;
+  padding: 0 35px;
   border-radius: 50px;
   height: 50px;
   line-height: 50px;
+}
+
+a.button:hover {
+  color: white !important;
+}
+.banner a.button:hover {
+  background-color: #167dffe0;
+}
+.main a.button:hover {
+  background-color: #161616d0;
 }
 
 .highlight .keyword {
