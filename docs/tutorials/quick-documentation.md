@@ -8,10 +8,9 @@ image:
   alt: Quick documentation
 ---
 
-1.  [Tool Window](#tool-window)
-1.  [Popup Window](#popup-window)
-
------
+{: .toc }
+- [Tool Window](#tool-window)
+- [Popup Window](#popup-window)
 
 To display quick documentation, you can:
 

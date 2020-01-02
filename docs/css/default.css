@@ -108,6 +108,30 @@ section img { margin-bottom: 20px; }
 
 ul.toc, ul.toc ul {
   list-style: none;
+  margin: 0;
+}
+ul.toc {
+  padding: 0;
+}
+
+@media screen and (min-width: 1510px) {
+  #table-of-contents {
+    display: none;
+  }
+  ul.toc {
+    position: fixed;
+    top: 61px;
+    left: 8px;
+    width: 330px;
+    height: calc(100% - 61px);
+    overflow: auto;
+  }
+  ul.toc ul {
+    padding: 0;
+  }
+  ul.toc li {
+    margin: 6px 0;
+  }
 }
 
 table {

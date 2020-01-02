@@ -3,11 +3,10 @@ layout: page
 title: Specifications
 ---
 
-1. [XPath and XQuery Vendor Extensions](#xpath-and-xquery-vendor-extensions)
-1. [Specifications](#specifications)
-1. [Grammar](#grammar)
-
------
+{: .toc }
+- [XPath and XQuery Vendor Extensions](#xpath-and-xquery-vendor-extensions)
+- [Specifications](#specifications)
+- [Grammar](#grammar)
 
 ## XPath and XQuery Vendor Extensions
 

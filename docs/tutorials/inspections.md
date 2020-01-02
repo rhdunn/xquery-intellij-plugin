@@ -8,9 +8,8 @@ image:
   alt: Inspections
 ---
 
-1.  [Inspections](#inspections)
-
------
+{: .toc }
+- [Inspections](#inspections)
 
 To configure the XQuery inspections (warnings and errors), you can:
 

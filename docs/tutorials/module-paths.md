@@ -8,10 +8,9 @@ image:
   alt: Module paths
 ---
 
-1.  [Specifying the source root](#specifying-the-source-root)
-1.  [Adding content roots](#adding-content-roots)
-
------
+{: .toc }
+- [Specifying the source root](#specifying-the-source-root)
+- [Adding content roots](#adding-content-roots)
 
 To configure the module paths, you can:
 

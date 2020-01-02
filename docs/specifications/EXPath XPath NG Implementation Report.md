@@ -3,6 +3,13 @@ layout: page
 title: EXPath XPath NG Implementation Report
 ---
 
+{: .toc }
+- [Lexer](#lexer)
+- [Parser](#parser)
+- [XDM (Data Model)](#xdm-data-model)
+- [Static Context](#static-context)
+- [Error Conditions](#error-conditions)
+
 This document describes the implementation of the xpath-ng syntax extension
 proposals from the EXPath group in the XQuery IntelliJ Plugin.
 
@@ -74,7 +81,7 @@ parts).
 The PSI tree nodes implement a conformance interface that describes which
 specifications and vendor implementations support the language construct.
 
-## XDM (XQuery and XPath Data Model)
+## XDM (Data Model)
 
 The plugin implements the XDM and associated functionality (XMLSchema datatypes,
 casting rules, subtype judgement, etc.) where needed to implement the static
