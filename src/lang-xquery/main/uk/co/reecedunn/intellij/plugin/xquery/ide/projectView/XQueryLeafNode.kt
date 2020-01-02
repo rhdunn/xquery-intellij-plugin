@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.AbstractPsiBasedNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 
 class XQueryLeafNode(node: XQueryStructureViewElement, viewSettings: ViewSettings) :
@@ -27,13 +28,12 @@ class XQueryLeafNode(node: XQueryStructureViewElement, viewSettings: ViewSetting
 
     override fun updateImpl(data: PresentationData) {
         val presentation = value.presentation!!
-        data.presentableText = presentation.presentableText
+        data.presentableText =
+            (presentation as? ItemPresentationEx)?.structurePresentableText ?: presentation.presentableText
         data.setIcon(presentation.getIcon(false))
     }
 
-    override fun getChildrenImpl(): MutableCollection<AbstractTreeNode<Any>> {
-        return mutableListOf()
-    }
+    override fun getChildrenImpl(): MutableCollection<AbstractTreeNode<Any>> = mutableListOf()
 
     override fun extractPsiFromValue(): PsiElement? = value
 }

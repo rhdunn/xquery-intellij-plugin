@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
 import javax.swing.Icon
 
@@ -32,12 +33,15 @@ class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     // endregion
     // region TreeElement
 
-    override fun getPresentation(): ItemPresentation = element?.presentation!!
+    override fun getPresentation(): ItemPresentation = this
 
     // endregion
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = element?.presentation?.presentableText
+    override fun getPresentableText(): String? {
+        val presentation = element?.presentation
+        return (presentation as? ItemPresentationEx)?.structurePresentableText ?: presentation?.presentableText
+    }
 
     override fun getIcon(open: Boolean): Icon? = element?.presentation?.getIcon(open)
 

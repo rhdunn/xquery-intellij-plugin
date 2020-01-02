@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.documentation
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.compat.lang.documentation.AbstractDocumentationProvider
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmTemplates
@@ -49,7 +50,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     override fun getQuickNavigateInfo(element: PsiElement?, originalElement: PsiElement?): String? {
         return when (val parent = element?.parent) {
             is XQueryFunctionDecl -> {
-                val sig = parent.presentation?.presentableText
+                val sig = (parent.presentation as? ItemPresentationEx)?.structurePresentableText
                 "declare function $sig"
             }
             is XPathInlineFunctionExpr -> {

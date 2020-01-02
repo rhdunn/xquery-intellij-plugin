@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
@@ -32,12 +33,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryFunctionDecl, XdmFunctionDeclaration, ItemPresentation {
+    ASTWrapperPsiElement(node), XQueryFunctionDecl, XdmFunctionDeclaration, ItemPresentationEx {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedPresentableText.invalidate()
+        cachedStructurePresentableText.invalidate()
         cachedAlphaSortKey.invalidate()
     }
 
@@ -71,6 +73,16 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override fun getLocationString(): String? = null
 
     private val cachedPresentableText = CacheableProperty {
+        functionName?.let { op_qname_presentation(it) }
+    }
+
+    // e.g. the documentation tool window title.
+    override fun getPresentableText(): String? = cachedPresentableText.get()
+
+    // endregion
+    // region ItemPresentationEx
+
+    private val cachedStructurePresentableText = CacheableProperty {
         functionName?.let { name ->
             val returnType = returnType
             if (returnType == null)
@@ -81,7 +93,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         }
     }
 
-    override fun getPresentableText(): String? = cachedPresentableText.get()
+    override val structurePresentableText: String? = cachedStructurePresentableText.get()
 
     // endregion
     // region SortableTreeElement

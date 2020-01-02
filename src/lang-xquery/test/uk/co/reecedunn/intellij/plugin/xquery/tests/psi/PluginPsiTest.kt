@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
@@ -1620,10 +1621,11 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val presentation = (decl as NavigatablePsiElement).presentation!!
+                val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.presentableText, `is`("test(\$one, \$two ...)"))
+                assertThat(presentation.structurePresentableText, `is`("test(\$one, \$two ...)"))
+                assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
         }
