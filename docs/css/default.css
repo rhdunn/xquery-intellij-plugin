@@ -119,7 +119,17 @@ ul.toc, ul.toc ul {
 ul.toc {
   padding: 0;
 }
+ul.toc li {
+  margin: 6px 0;
+}
 
+@media screen and (max-width: 1510px) {
+  ul.toc {
+    padding-bottom: 8px;
+    border-bottom: 3px solid #eeeeee;
+    margin-bottom: 8px;
+  }
+}
 @media screen and (min-width: 1510px) {
   #table-of-contents {
     display: none;
@@ -134,9 +144,6 @@ ul.toc {
   }
   ul.toc ul {
     padding: 0;
-  }
-  ul.toc li {
-    margin: 6px 0;
   }
 }
 
