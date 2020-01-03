@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 
@@ -33,7 +34,14 @@ private data class MarkLogicZippedDocumentation(
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate() {}
+    private val apidocs = CacheableProperty {
+        val file = XdmDocumentationDownloader.getInstance().load(this)
+        file?.let { ApiDocs.create(it) }
+    }
+
+    override fun invalidate() {
+        apidocs.invalidate()
+    }
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return null
