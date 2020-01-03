@@ -51,6 +51,8 @@ private class ApiDocsTest {
 
         val modules = apidocs.modules
         assertThat(modules.size, `is`(1))
+
+        assertThat(modules[0].name, `is`("AdminModule"))
     }
 
     @Test
@@ -69,5 +71,7 @@ private class ApiDocsTest {
 
         val modules = apidocs.modules
         assertThat(modules.size, `is`(1))
+
+        assertThat(modules[0].name, `is`("AdminBuiltins"))
     }
 }
