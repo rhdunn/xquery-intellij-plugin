@@ -15,21 +15,36 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 
 private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
-) : XdmDocumentationSource {
+) : XdmDocumentationSource, XdmDocumentationIndex {
+    // region XdmDocumentationSource
+
     override val name: String = "MarkLogic"
 
     override val href: String = "https://docs.marklogic.com/$zip"
 
     override val path: String = "marklogic/$zip"
+
+    // endregion
+    // region XdmDocumentationIndex
+
+    override fun invalidate() {}
+
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+        return null
+    }
+
+    // endregion
 }
 
-object MarkLogicProductDocumentation : XdmDocumentationSourceProvider {
+object MarkLogicProductDocumentation : XdmDocumentationSourceProvider, XdmDocumentationIndex {
+    // region XdmDocumentationSourceProvider
+
     val MARKLOGIC_6: XdmDocumentationSource = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
     val MARKLOGIC_7: XdmDocumentationSource = MarkLogicZippedDocumentation("7.0", "MarkLogic_7_pubs.zip")
     val MARKLOGIC_8: XdmDocumentationSource = MarkLogicZippedDocumentation("8.0", "MarkLogic_8_pubs.zip")
@@ -43,4 +58,15 @@ object MarkLogicProductDocumentation : XdmDocumentationSourceProvider {
         MARKLOGIC_9,
         MARKLOGIC_10
     )
+
+    // endregion
+    // region XdmDocumentationIndex
+
+    override fun invalidate() = (MARKLOGIC_10 as XdmDocumentationIndex).invalidate()
+
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(ref)
+    }
+
+    // endregion
 }
