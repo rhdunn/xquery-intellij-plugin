@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,6 +76,12 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
     }
 
     fun appendChild(child: Node): Node? = element.appendChild(child)
+
+    fun `is`(qname: String): Boolean = `is`(qname.toQName(namespaces))
+
+    fun `is`(qname: QName): Boolean {
+        return element.localName == qname.localPart && element.namespaceURI == qname.namespaceURI
+    }
 }
 
 class XmlDocument internal constructor(val doc: Document, namespaces: Map<String, String>) {

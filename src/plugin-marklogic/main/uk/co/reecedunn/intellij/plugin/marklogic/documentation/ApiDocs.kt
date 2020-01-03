@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
@@ -33,7 +34,24 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
 
     // endregion
 
+    val modules: List<ApiDocsModule> by lazy {
+        root.children[0].findFileByRelativePath("pubs/raw/apidoc")!!.children.asSequence().map {
+            if (it.name.endsWith(".xml")) {
+                val xml = XmlDocument.parse(it, NAMESPACES)
+                when {
+                    xml.root.`is`("apidoc:module") -> ApiDocsModule(xml.root)
+                    else -> null
+                }
+            } else
+                null
+        }.filterNotNull().toList()
+    }
+
     companion object {
+        private val NAMESPACES = mapOf(
+            "apidoc" to "http://marklogic.com/xdmp/apidoc"
+        )
+
         fun create(docs: VirtualFile): ApiDocs {
             return if (docs.isDirectory) {
                 ApiDocs(docs.fileSystem, docs)
