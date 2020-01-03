@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 
-data class ApiDocsModule(private val xml: XmlElement) {
+data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReference {
+    // region apidoc:module
+
     val name: String by lazy { xml.attribute("name")!! }
 
     val category: String by lazy { xml.attribute("category")!! }
@@ -26,5 +29,14 @@ data class ApiDocsModule(private val xml: XmlElement) {
 
     val bucket: String? by lazy { xml.attribute("bucket") }
 
-    val summary: String? by lazy { xml.children("apidoc:summary").firstOrNull()?.innerXml() }
+    // endregion
+    // region XdmDocumentationReference
+
+    override val href: String = "https://docs.marklogic.com/$lib"
+
+    override val documentation: String by lazy { xml.child("apidoc:summary")?.innerXml() ?: "" }
+
+    override val summary: String by lazy { xml.child("apidoc:summary")?.child("p")?.xml() ?: "" }
+
+    // endregion
 }

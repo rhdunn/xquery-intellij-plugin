@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import java.util.zip.ZipEntry
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -57,7 +58,11 @@ private class ApiDocsTest {
         assertThat(modules[0].category, `is`("Admin Library"))
         assertThat(modules[0].lib, `is`("admin"))
         assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
-        assertThat(modules[0].summary, `is`("<p>Lorem ipsum dolor.</p>   <p>Sed <code>emit</code> et dolor.</p>"))
+
+        val ref = modules[0] as XdmDocumentationReference
+        assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
+        assertThat(ref.documentation, `is`("<p>Lorem ipsum dolor.</p>   <p>Sed <code>emit</code> et dolor.</p>"))
+        assertThat(ref.summary, `is`("<p>Lorem ipsum dolor.</p>"))
     }
 
     @Test
@@ -81,6 +86,10 @@ private class ApiDocsTest {
         assertThat(modules[0].category, `is`("AdminBuiltins"))
         assertThat(modules[0].lib, `is`("xdmp"))
         assertThat(modules[0].bucket, `is`(nullValue()))
-        assertThat(modules[0].summary, `is`(nullValue()))
+
+        val ref = modules[0] as XdmDocumentationReference
+        assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
+        assertThat(ref.documentation, `is`(""))
+        assertThat(ref.summary, `is`(""))
     }
 }

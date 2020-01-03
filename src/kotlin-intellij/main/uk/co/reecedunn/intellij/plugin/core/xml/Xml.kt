@@ -65,6 +65,10 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
         }.elements { XmlElement(it, namespaces) }
     }
 
+    fun child(qname: String): XmlElement? = children(qname).firstOrNull()
+
+    fun child(qname: QName): XmlElement? = children(qname).firstOrNull()
+
     fun text(): String? = element.firstChild?.nodeValue
 
     fun attribute(qname: String): String? = attribute(qname.toQName(namespaces))
