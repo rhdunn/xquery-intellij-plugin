@@ -43,7 +43,13 @@ private class ApiDocsTest {
         val adminLib = """
             <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
                            xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                <apidoc:summary><p>Lorem ipsum dolor.</p>   <p>Sed <code>emit</code> et dolor.</p></apidoc:summary>
+                <apidoc:summary>
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Sed <code>emit</code> et dolor.</p>
+                    <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
+		  at "/MarkLogic/admin.xqy" ;
+                    </code></p>
+                </apidoc:summary>
                 <apidoc:function name="get-database-ids" lib="admin"/>
             </apidoc:module>
         """
@@ -58,10 +64,25 @@ private class ApiDocsTest {
         assertThat(modules[0].category, `is`("Admin Library"))
         assertThat(modules[0].lib, `is`("admin"))
         assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
+        assertThat(modules[0].namespaceUri, `is`("http://marklogic.com/xdmp/admin"))
+        assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
         val ref = modules[0] as XdmDocumentationReference
         assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
-        assertThat(ref.documentation, `is`("<p>Lorem ipsum dolor.</p>   <p>Sed <code>emit</code> et dolor.</p>"))
+        assertThat(
+            ref.documentation.split("\r?\n[ \t]+".toRegex()),
+            `is`(
+                listOf(
+                    "",
+                    "<p>Lorem ipsum dolor.</p>",
+                    "<p>Sed <code>emit</code> et dolor.</p>",
+                    "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
+                    "at \"/MarkLogic/admin.xqy\" ;",
+                    "</code></p>",
+                    ""
+                )
+            )
+        )
         assertThat(ref.summary, `is`("<p>Lorem ipsum dolor.</p>"))
     }
 
@@ -86,6 +107,8 @@ private class ApiDocsTest {
         assertThat(modules[0].category, `is`("AdminBuiltins"))
         assertThat(modules[0].lib, `is`("xdmp"))
         assertThat(modules[0].bucket, `is`(nullValue()))
+        assertThat(modules[0].namespaceUri, `is`(nullValue()))
+        assertThat(modules[0].locationUri, `is`(nullValue()))
 
         val ref = modules[0] as XdmDocumentationReference
         assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))

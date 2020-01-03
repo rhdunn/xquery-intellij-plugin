@@ -29,6 +29,16 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
 
     val bucket: String? by lazy { xml.attribute("bucket") }
 
+    private val importDecl: MatchResult? by lazy {
+        xml.child("apidoc:summary")?.children("p")?.mapNotNull { p ->
+            p.child("code")?.text()?.let { text -> RE_IMPORT_DECL.find(text) }
+        }?.firstOrNull()
+    }
+
+    val namespaceUri: String? by lazy { importDecl?.groups?.get(2)?.value }
+
+    val locationUri: String? by lazy { importDecl?.groups?.get(3)?.value }
+
     // endregion
     // region XdmDocumentationReference
 
@@ -39,4 +49,9 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
     override val summary: String by lazy { xml.child("apidoc:summary")?.child("p")?.xml() ?: "" }
 
     // endregion
+
+    companion object {
+        private val RE_IMPORT_DECL =
+            "^import module namespace ([a-zA-Z0-9\\-]+) = \"([^\"]+)\"\\s*at\\s*\"([^\"]+)\"\\s*;\\s*$".toRegex()
+    }
 }
