@@ -25,4 +25,6 @@ data class ApiDocsModule(private val xml: XmlElement) {
     val lib: String by lazy { xml.attribute("lib")!! }
 
     val bucket: String? by lazy { xml.attribute("bucket") }
+
+    val summary: String? by lazy { xml.children("apidoc:summary").firstOrNull()?.innerXml() }
 }

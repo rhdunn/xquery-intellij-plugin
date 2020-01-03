@@ -22,14 +22,15 @@ import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
-import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import java.io.StringReader
 import java.io.StringWriter
 import javax.xml.namespace.QName
 import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
+
 
 private class NodeListIterator(val nodes: NodeList) : Iterator<Node> {
     private var current: Int = 0
@@ -81,6 +82,29 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun `is`(qname: QName): Boolean {
         return element.localName == qname.localPart && element.namespaceURI == qname.namespaceURI
+    }
+
+    fun xml(): String {
+        val buffer = StringWriter()
+        transformer.transform(DOMSource(element), StreamResult(buffer))
+        return buffer.toString()
+    }
+
+    fun innerXml(): String {
+        val buffer = StringWriter()
+        val result = StreamResult(buffer)
+        element.childNodes.asSequence().forEach {
+            transformer.transform(DOMSource(it), result)
+        }
+        return buffer.toString()
+    }
+
+    companion object {
+        private val transformer by lazy {
+            val transformer = TransformerFactory.newInstance().newTransformer()
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes")
+            transformer
+        }
     }
 }
 

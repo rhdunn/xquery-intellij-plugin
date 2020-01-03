@@ -42,7 +42,7 @@ private class ApiDocsTest {
         val adminLib = """
             <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
                            xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
+                <apidoc:summary><p>Lorem ipsum dolor.</p>   <p>Sed <code>emit</code> et dolor.</p></apidoc:summary>
                 <apidoc:function name="get-database-ids" lib="admin"/>
             </apidoc:module>
         """
@@ -57,6 +57,7 @@ private class ApiDocsTest {
         assertThat(modules[0].category, `is`("Admin Library"))
         assertThat(modules[0].lib, `is`("admin"))
         assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
+        assertThat(modules[0].summary, `is`("<p>Lorem ipsum dolor.</p>   <p>Sed <code>emit</code> et dolor.</p>"))
     }
 
     @Test
@@ -80,5 +81,6 @@ private class ApiDocsTest {
         assertThat(modules[0].category, `is`("AdminBuiltins"))
         assertThat(modules[0].lib, `is`("xdmp"))
         assertThat(modules[0].bucket, `is`(nullValue()))
+        assertThat(modules[0].summary, `is`(nullValue()))
     }
 }
