@@ -56,7 +56,7 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
             return if (docs.isDirectory) {
                 ApiDocs(docs.fileSystem, docs)
             } else
-                create(ZipFileSystem(docs))
+                create(ZipFileSystem(docs.inputStream)) // contentsToByteArray can throw a file too big exception.
         }
 
         fun create(pkg: ByteArray): ApiDocs = create(ZipFileSystem(pkg))

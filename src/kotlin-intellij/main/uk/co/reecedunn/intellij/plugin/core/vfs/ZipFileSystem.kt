@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.zip.entries
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import java.io.ByteArrayInputStream
+import java.io.InputStream
 import java.lang.ref.WeakReference
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -27,8 +28,8 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     internal val entries = ArrayList<ZipFile>()
     internal val directories = HashMap<String, ZipFile>()
 
-    constructor(zip: ByteArray) : this() {
-        return ByteArrayInputStream(zip).use { stream ->
+    constructor(zip: InputStream) : this() {
+        zip.use { stream ->
             ZipInputStream(stream).use { zip ->
                 val fs = WeakReference(this)
                 zip.entries.forEach { (entry, contents) ->
@@ -39,6 +40,8 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
             }
         }
     }
+
+    constructor(zip: ByteArray) : this(ByteArrayInputStream(zip))
 
     constructor(zip: VirtualFile) : this(zip.contentsToByteArray())
 
