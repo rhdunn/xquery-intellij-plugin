@@ -23,4 +23,6 @@ data class ApiDocsModule(private val xml: XmlElement) {
     val category: String by lazy { xml.attribute("category")!! }
 
     val lib: String by lazy { xml.attribute("lib")!! }
+
+    val bucket: String? by lazy { xml.attribute("bucket") }
 }

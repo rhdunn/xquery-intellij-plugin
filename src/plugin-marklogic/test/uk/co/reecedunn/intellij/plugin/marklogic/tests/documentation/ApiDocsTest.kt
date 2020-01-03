@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.documentation
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -55,6 +56,7 @@ private class ApiDocsTest {
         assertThat(modules[0].name, `is`("AdminModule"))
         assertThat(modules[0].category, `is`("Admin Library"))
         assertThat(modules[0].lib, `is`("admin"))
+        assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
     }
 
     @Test
@@ -77,5 +79,6 @@ private class ApiDocsTest {
         assertThat(modules[0].name, `is`("AdminBuiltins"))
         assertThat(modules[0].category, `is`("AdminBuiltins"))
         assertThat(modules[0].lib, `is`("xdmp"))
+        assertThat(modules[0].bucket, `is`(nullValue()))
     }
 }
