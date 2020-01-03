@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
@@ -36,83 +37,88 @@ private class ApiDocsTest {
         return ApiDocs.create(zip)
     }
 
-    @Test
-    @DisplayName("importable module")
-    fun importableModule() {
-        @Language("XML")
-        val adminLib = """
-            <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
-                           xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                <apidoc:summary>
-                    <p>Lorem ipsum dolor.</p>
-                    <p>Sed <code>emit</code> et dolor.</p>
-                    <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
-		  at "/MarkLogic/admin.xqy" ;
-                    </code></p>
-                </apidoc:summary>
-                <apidoc:function name="get-database-ids" lib="admin"/>
-            </apidoc:module>
-        """
-        val apidocs = create(
-            "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
-        )
+    @Nested
+    @DisplayName("modules")
+    internal inner class Modules {
+        @Test
+        @DisplayName("importable module ; multi-paragraph summary")
+        fun importableModule() {
+            @Language("XML")
+            val adminLib = """
+                <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary>
+                        <p>Lorem ipsum dolor.</p>
+                        <p>Sed <code>emit</code> et dolor.</p>
+                        <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
+              at "/MarkLogic/admin.xqy" ;
+                        </code></p>
+                    </apidoc:summary>
+                    <apidoc:function name="get-database-ids" lib="admin"/>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
+            )
 
-        val modules = apidocs.modules
-        assertThat(modules.size, `is`(1))
+            val modules = apidocs.modules
+            assertThat(modules.size, `is`(1))
 
-        assertThat(modules[0].name, `is`("AdminModule"))
-        assertThat(modules[0].category, `is`("Admin Library"))
-        assertThat(modules[0].lib, `is`("admin"))
-        assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
-        assertThat(modules[0].namespaceUri, `is`("http://marklogic.com/xdmp/admin"))
-        assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
+            assertThat(modules[0].name, `is`("AdminModule"))
+            assertThat(modules[0].category, `is`("Admin Library"))
+            assertThat(modules[0].lib, `is`("admin"))
+            assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
+            assertThat(modules[0].namespaceUri, `is`("http://marklogic.com/xdmp/admin"))
+            assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
-        val ref = modules[0] as XdmDocumentationReference
-        assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
-        assertThat(
-            ref.documentation.split("\r?\n[ \t]+".toRegex()),
-            `is`(
-                listOf(
-                    "",
-                    "<p>Lorem ipsum dolor.</p>",
-                    "<p>Sed <code>emit</code> et dolor.</p>",
-                    "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
-                    "at \"/MarkLogic/admin.xqy\" ;",
-                    "</code></p>",
-                    ""
+            val ref = modules[0] as XdmDocumentationReference
+            assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
+            assertThat(
+                ref.documentation.split("\r?\n[ \t]+".toRegex()),
+                `is`(
+                    listOf(
+                        "",
+                        "<p>Lorem ipsum dolor.</p>",
+                        "<p>Sed <code>emit</code> et dolor.</p>",
+                        "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
+                        "at \"/MarkLogic/admin.xqy\" ;",
+                        "</code></p>",
+                        ""
+                    )
                 )
             )
-        )
-        assertThat(ref.summary, `is`("<p>Lorem ipsum dolor.</p>"))
-    }
+            assertThat(ref.summary, `is`("<p>Lorem ipsum dolor.</p>"))
+        }
 
-    @Test
-    @DisplayName("builtin module")
-    fun builtinModule() {
-        @Language("XML")
-        val adminBuiltins = """
-            <apidoc:module name="AdminBuiltins" category="AdminBuiltins" lib="xdmp"
-                           xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                <apidoc:function name="database-journal-archive-purge" type="builtin" lib="xdmp" category="AdminBuiltins"/>
-            </apidoc:module>
-        """
-        val apidocs = create(
-            "MarkLogic_10_pubs/pubs/raw/apidoc/AdminBuiltins.xml" to adminBuiltins
-        )
+        @Test
+        @DisplayName("builtin module ; single-paragraph summary")
+        fun builtinModule() {
+            @Language("XML")
+            val adminBuiltins = """
+                <apidoc:module name="AdminBuiltins" category="AdminBuiltins" lib="xdmp"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary>Lorem ipsum dolor.</apidoc:summary>
+                    <apidoc:function name="database-journal-archive-purge" type="builtin" lib="xdmp" category="AdminBuiltins"/>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/AdminBuiltins.xml" to adminBuiltins
+            )
 
-        val modules = apidocs.modules
-        assertThat(modules.size, `is`(1))
+            val modules = apidocs.modules
+            assertThat(modules.size, `is`(1))
 
-        assertThat(modules[0].name, `is`("AdminBuiltins"))
-        assertThat(modules[0].category, `is`("AdminBuiltins"))
-        assertThat(modules[0].lib, `is`("xdmp"))
-        assertThat(modules[0].bucket, `is`(nullValue()))
-        assertThat(modules[0].namespaceUri, `is`(nullValue()))
-        assertThat(modules[0].locationUri, `is`(nullValue()))
+            assertThat(modules[0].name, `is`("AdminBuiltins"))
+            assertThat(modules[0].category, `is`("AdminBuiltins"))
+            assertThat(modules[0].lib, `is`("xdmp"))
+            assertThat(modules[0].bucket, `is`(nullValue()))
+            assertThat(modules[0].namespaceUri, `is`(nullValue()))
+            assertThat(modules[0].locationUri, `is`(nullValue()))
 
-        val ref = modules[0] as XdmDocumentationReference
-        assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
-        assertThat(ref.documentation, `is`(""))
-        assertThat(ref.summary, `is`(""))
+            val ref = modules[0] as XdmDocumentationReference
+            assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
+            assertThat(ref.documentation, `is`("Lorem ipsum dolor."))
+            assertThat(ref.summary, `is`("Lorem ipsum dolor."))
+        }
     }
 }
