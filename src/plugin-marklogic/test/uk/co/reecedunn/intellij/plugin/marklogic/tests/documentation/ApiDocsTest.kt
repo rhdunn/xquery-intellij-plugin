@@ -54,6 +54,7 @@ private class ApiDocsTest {
 
         assertThat(modules[0].name, `is`("AdminModule"))
         assertThat(modules[0].category, `is`("Admin Library"))
+        assertThat(modules[0].lib, `is`("admin"))
     }
 
     @Test
@@ -75,5 +76,6 @@ private class ApiDocsTest {
 
         assertThat(modules[0].name, `is`("AdminBuiltins"))
         assertThat(modules[0].category, `is`("AdminBuiltins"))
+        assertThat(modules[0].lib, `is`("xdmp"))
     }
 }
