@@ -18,8 +18,21 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 
-data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) {
+data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) : XdmDocumentationIndex {
+    // region XdmDocumentationIndex
+
+    override fun invalidate() {}
+
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+        return null
+    }
+
+    // endregion
+
     companion object {
         fun create(docs: VirtualFile): ApiDocs {
             return if (docs.isDirectory) {

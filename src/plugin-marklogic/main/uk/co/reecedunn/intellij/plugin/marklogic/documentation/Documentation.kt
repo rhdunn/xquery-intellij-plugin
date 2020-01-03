@@ -44,7 +44,7 @@ private data class MarkLogicZippedDocumentation(
     }
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
-        return null
+        return apidocs.get()?.lookup(ref)
     }
 
     // endregion
