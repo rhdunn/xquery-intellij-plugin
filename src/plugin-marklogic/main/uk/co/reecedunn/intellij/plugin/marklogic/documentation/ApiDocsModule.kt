@@ -19,4 +19,6 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 
 data class ApiDocsModule(private val xml: XmlElement) {
     val name: String by lazy { xml.attribute("name")!! }
+
+    val category: String by lazy { xml.attribute("category")!! }
 }
