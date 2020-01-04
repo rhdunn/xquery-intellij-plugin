@@ -15,9 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 
 data class ApiDocsFunction(private val xml: XmlElement) {
     // region apidoc:function
+
+    val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
+
     // endregion
 }
