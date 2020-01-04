@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
-data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReference {
+data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // region apidoc:module
 
     val name: String by lazy { xml.attribute("name")!! }

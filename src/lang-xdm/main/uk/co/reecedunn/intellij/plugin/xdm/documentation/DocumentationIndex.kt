@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.documentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-interface XdmDocumentationReference {
+interface XdmDocumentation {
     val href: String?
 
     val summary: String?
@@ -27,12 +27,12 @@ interface XdmDocumentationReference {
 interface XdmDocumentationIndex {
     fun invalidate()
 
-    fun lookup(ref: XdmFunctionReference): XdmDocumentationReference?
+    fun lookup(ref: XdmFunctionReference): XdmDocumentation?
 
-    fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference?
+    fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation?
 }
 
-val XdmDocumentationReference.sections: String
+val XdmDocumentation.sections: String
     get() {
         val sections = sequenceOf(
             "Summary" to summary

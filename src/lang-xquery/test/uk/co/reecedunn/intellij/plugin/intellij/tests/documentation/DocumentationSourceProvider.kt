@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
@@ -32,8 +32,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
-        return object : XdmDocumentationReference {
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
+        return object : XdmDocumentation {
             val name: String = ref.functionName?.let {
                 "[prefix=${it.prefix?.data ?: "(null)"} namespace=${it.namespace?.data ?: "(null)"} localname=${it.localName?.data ?: "(null)"}]"
             } ?: "(null)"
@@ -44,8 +44,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
         }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
-        return object : XdmDocumentationReference {
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
+        return object : XdmDocumentation {
             val name: String =
                 "[prefix=${decl.namespacePrefix?.data ?: "(null)"} namespace=${decl.namespaceUri?.data ?: "(null)"}]"
 

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -76,7 +76,7 @@ private class ApiDocsTest {
             assertThat(modules[0].namespaceUri?.moduleTypes, `is`(XdmModuleType.MODULE))
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
-            val ref = modules[0] as XdmDocumentationReference
+            val ref = modules[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
             assertThat(
                 ref.summary?.split("\r?\n[ \t]+".toRegex()),
@@ -119,7 +119,7 @@ private class ApiDocsTest {
             assertThat(modules[0].namespaceUri, `is`(nullValue()))
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
-            val ref = modules[0] as XdmDocumentationReference
+            val ref = modules[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
         }
@@ -149,7 +149,7 @@ private class ApiDocsTest {
             assertThat(modules[0].namespaceUri, `is`(nullValue()))
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
-            val ref = modules[0] as XdmDocumentationReference
+            val ref = modules[0] as XdmDocumentation
             assertThat(ref.href, `is`(nullValue()))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
         }
@@ -199,7 +199,7 @@ private class ApiDocsTest {
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
-            val ref = functions[0] as XdmDocumentationReference
+            val ref = functions[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
@@ -245,7 +245,7 @@ private class ApiDocsTest {
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
-            val ref = functions[0] as XdmDocumentationReference
+            val ref = functions[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
             assertThat(
                 ref.summary?.split("\r?\n[ \t]+".toRegex()),
@@ -292,7 +292,7 @@ private class ApiDocsTest {
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
-            val ref = functions[0] as XdmDocumentationReference
+            val ref = functions[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }

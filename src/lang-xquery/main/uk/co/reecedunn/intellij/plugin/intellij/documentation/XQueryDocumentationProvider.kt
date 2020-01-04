@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmTemplates
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.sections
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
@@ -112,7 +112,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
         return originalElement?.let { lookup(it).mapNotNull { ref -> ref.href }.toList() } ?: emptyList()
     }
 
-    private fun lookup(element: PsiElement): Sequence<XdmDocumentationReference> {
+    private fun lookup(element: PsiElement): Sequence<XdmDocumentation> {
         val parent = element.parent
         return when {
             (parent as? XsQNameValue)?.prefix?.element === element -> lookupPrefix(parent as XsQNameValue)
@@ -121,12 +121,12 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
         }
     }
 
-    private fun lookupPrefix(qname: XsQNameValue): Sequence<XdmDocumentationReference> {
+    private fun lookupPrefix(qname: XsQNameValue): Sequence<XdmDocumentation> {
         val decl = qname.expand().firstOrNull()?.namespace?.element?.parent as? XdmNamespaceDeclaration
         return decl?.let { XdmDocumentationSourceProvider.lookup(it) } ?: emptySequence()
     }
 
-    private fun lookupLocalName(qname: XsQNameValue): Sequence<XdmDocumentationReference> {
+    private fun lookupLocalName(qname: XsQNameValue): Sequence<XdmDocumentation> {
         return when (val ref = qname.element?.parent) {
             is XdmFunctionReference -> {
                 XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {

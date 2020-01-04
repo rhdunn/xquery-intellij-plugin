@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
@@ -104,11 +104,11 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun invalidate() = (REC_3_1_20170321 as XdmDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
         return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
         return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl)
     }
 

@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-internal class W3CFunctionReference(private val node: Element, baseHref: String): XdmDocumentationReference {
+internal class W3CFunctionReference(private val node: Element, baseHref: String): XdmDocumentation {
     private fun normalize(node: Element): Element {
         // JEditorPanel does not support vertical-align on tr/td elements, so use valign instead.
         node.select("tr").forEach { it.attr("valign", "top") }
@@ -61,7 +61,7 @@ internal data class W3CSpecificationDocument(
 
     override fun invalidate() = doc.invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"
@@ -73,7 +73,7 @@ internal data class W3CSpecificationDocument(
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
         return null
     }
 

@@ -38,11 +38,11 @@ interface XdmDocumentationSourceProvider {
         val allSources: Sequence<XdmDocumentationSource>
             get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
 
-        fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentationReference> {
+        fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull { (it as? XdmDocumentationIndex)?.lookup(ref) }
         }
 
-        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XdmDocumentationReference> {
+        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XdmDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull { (it as? XdmDocumentationIndex)?.lookup(decl) }
         }
     }

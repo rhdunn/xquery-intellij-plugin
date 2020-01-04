@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) :
-    XsQNameValue, XdmDocumentationReference {
+    XsQNameValue, XdmDocumentation {
     // region apidoc:function
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }

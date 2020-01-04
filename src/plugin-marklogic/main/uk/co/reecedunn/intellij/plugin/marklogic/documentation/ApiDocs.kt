@@ -20,7 +20,7 @@ import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
@@ -29,14 +29,14 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
+    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
         val name = ref.functionName ?: return null
         return functions.find {
             it.localName.data == name.localName?.data && it.namespace?.data == name.namespace?.data
         }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
         return modules.find { it.namespaceUri?.data == decl.namespaceUri?.data }
     }
 
