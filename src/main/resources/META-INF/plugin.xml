@@ -70,9 +70,8 @@
         Implement inlay parameter hints for XQuery function calls and named arrow
         function expressions.
       </li>
-      <li>
-        Support quick documentation (Ctrl+Q) for W3C XQuery functions.
-      </li>
+      <li>Support quick documentation (Ctrl+Q) for W3C XQuery functions.</li>
+      <li>Support quick documentation (Ctrl+Q) for MarkLogic modules.</li>
       <li>
         Display the namespace signature and module path when holding Ctrl over
         a module namespace URI or prefix.

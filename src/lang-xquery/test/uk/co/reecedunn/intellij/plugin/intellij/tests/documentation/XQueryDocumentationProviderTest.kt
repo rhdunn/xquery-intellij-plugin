@@ -114,6 +114,30 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`(nullValue()))
         }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor")
+        fun quickDoc() {
+            val target = parse<XsQNameValue>("import module namespace ex = \"http://www.example.com\";")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                body("module documentation=[prefix=ex namespace=http://www.example.com]")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                body("module summary=[prefix=ex namespace=http://www.example.com]")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("module href=[prefix=ex namespace=http://www.example.com]"))
+            )
+        }
     }
 
     @Nested
@@ -194,6 +218,30 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor")
+        fun quickDoc() {
+            val target = parse<XsQNameValue>("declare namespace ex = \"http://www.example.com\";")[0]
+
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                body("module documentation=[prefix=ex namespace=http://www.example.com]")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                body("module summary=[prefix=ex namespace=http://www.example.com]")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                `is`(listOf("module href=[prefix=ex namespace=http://www.example.com]"))
+            )
         }
     }
 

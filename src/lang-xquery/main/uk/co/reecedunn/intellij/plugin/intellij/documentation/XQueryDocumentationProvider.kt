@@ -139,6 +139,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                     override val arity: Int = ref.arity.from
                 })
             }
+            is XdmNamespaceDeclaration -> XdmDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
         }
     }
