@@ -197,6 +197,38 @@ private class ApiDocsTest {
         }
 
         @Test
+        @DisplayName("from other module")
+        fun fromOtherModule() {
+            @Language("XML")
+            val adminLib = """
+                <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary>
+                        <p>Lorem ipsum dolor.</p>
+                        <p>Sed <code>emit</code> et dolor.</p>
+                        <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
+              at "/MarkLogic/admin.xqy" ;
+                        </code></p>
+                    </apidoc:summary>
+                    <apidoc:function name="version" lib="xdmp" category="Other"/>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
+            )
+
+            val functions = apidocs.modules[0].functions
+            assertThat(functions.size, `is`(1))
+
+            val qname = functions[0] as XsQNameValue
+            assertThat(qname.prefix?.data, `is`("xdmp"))
+            assertThat(qname.localName?.data, `is`("version"))
+            assertThat(qname.namespace, `is`(nullValue()))
+            assertThat(qname.isLexicalQName, `is`(true))
+            assertThat(qname.element, `is`(nullValue()))
+        }
+
+        @Test
         @DisplayName("builtin (cts namespace)")
         fun builtinCts() {
             @Language("XML")
