@@ -28,6 +28,8 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     val category: String by lazy { xml.attribute("category")!! }
 
+    val subcategory: String? by lazy { xml.attribute("subcategory") }
+
     val bucket: String? by lazy { xml.attribute("bucket") }
 
     // endregion
