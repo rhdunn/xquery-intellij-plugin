@@ -41,6 +41,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override val notes: String? = null
 
+            override val examples: String? = null
+
             override val signatures: String? = null
 
             override val properties: String? = null
@@ -61,6 +63,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val summary: String = "module summary=${name}"
 
             override val notes: String? = null
+
+            override val examples: String? = null
         }
     }
 

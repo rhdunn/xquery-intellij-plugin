@@ -67,6 +67,8 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
 
     override val notes: String? = null
 
+    override val examples: String? = null
+
     // endregion
 
     companion object {

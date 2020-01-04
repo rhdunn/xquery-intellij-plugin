@@ -21,6 +21,8 @@ interface XdmDocumentation {
     val summary: String?
 
     val notes: String?
+
+    val examples: String?
 }
 
 interface XdmFunctionDocumentation : XdmDocumentation {
@@ -41,7 +43,8 @@ val XdmDocumentation.sections: String
             "Properties" to (this as? XdmFunctionDocumentation)?.properties,
             "Rules" to (this as? XdmFunctionDocumentation)?.rules,
             "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
-            "Notes" to notes
+            "Notes" to notes,
+            "Examples" to examples
         ).filter { it.second != null }
         return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }
