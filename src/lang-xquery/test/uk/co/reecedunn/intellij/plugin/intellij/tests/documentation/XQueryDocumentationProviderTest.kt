@@ -54,6 +54,27 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (4) LibraryModule")
+    internal inner class LibraryModule {
+        fun parse(text: String): Pair<PsiElement?, PsiElement?> {
+            val module = parseText(text)
+            val element = module.walkTree().filterIsInstance<XPathUriLiteral>().first()
+            val ref = element.references[0].resolve()
+            return element to ref
+        }
+
+        @Test
+        @DisplayName("builtin")
+        fun builtin() {
+            val ref = parse("declare namespace fn = \"http://www.w3.org/2005/xpath-functions\";")
+
+            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            assertThat(quickDoc, startsWith("module namespace fn = \"http://www.w3.org/2005/xpath-functions\"\nat \""))
+            assertThat(quickDoc, endsWith("/org/w3/www/2005/xpath-functions.xqy\""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
     internal inner class ModuleImport {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
@@ -407,23 +428,30 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (4) LibraryModule")
-    internal inner class LibraryModule {
-        fun parse(text: String): Pair<PsiElement?, PsiElement?> {
-            val module = parseText(text)
-            val element = module.walkTree().filterIsInstance<XPathUriLiteral>().first()
-            val ref = element.references[0].resolve()
-            return element to ref
-        }
-
+    @DisplayName("XQuery 3.1 EBNF (234) QName")
+    internal inner class QName {
         @Test
-        @DisplayName("builtin")
-        fun builtin() {
-            val ref = parse("declare namespace fn = \"http://www.w3.org/2005/xpath-functions\";")
+        @DisplayName("generateDoc, generateHoverDoc, getUrlFor : prefix")
+        fun prefix() {
+            val target = parse<XsQNameValue>("fn:concat(1,2)")[0]
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
-            assertThat(quickDoc, startsWith("module namespace fn = \"http://www.w3.org/2005/xpath-functions\"\nat \""))
-            assertThat(quickDoc, endsWith("/org/w3/www/2005/xpath-functions.xqy\""))
+            // Only the original element is used, but element is non-null for generateHoverDoc.
+            val element = target.element?.containingFile as PsiElement
+
+            assertThat(
+                XQueryDocumentationProvider.generateDoc(element, target.prefix?.element),
+                body("module documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.generateHoverDoc(element, target.prefix?.element),
+                body("module summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]")
+            )
+
+            assertThat(
+                XQueryDocumentationProvider.getUrlFor(element, target.prefix?.element),
+                `is`(listOf("module href=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]"))
+            )
         }
     }
 }

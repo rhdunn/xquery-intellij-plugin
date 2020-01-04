@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XdmDocumentationSource {
     val name: String
@@ -39,6 +40,10 @@ interface XdmDocumentationSourceProvider {
 
         fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentationReference> {
             return EP_NAME.extensions.asSequence().mapNotNull { (it as? XdmDocumentationIndex)?.lookup(ref) }
+        }
+
+        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XdmDocumentationReference> {
+            return EP_NAME.extensions.asSequence().mapNotNull { (it as? XdmDocumentationIndex)?.lookup(decl) }
         }
     }
 

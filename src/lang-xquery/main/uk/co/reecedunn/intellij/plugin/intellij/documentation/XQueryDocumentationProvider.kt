@@ -114,12 +114,18 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun lookup(element: PsiElement): Sequence<XdmDocumentationReference> {
         val parent = element.parent
         return when {
-            parent is XsQNameValue && parent.localName?.element === element -> lookup(parent as XsQNameValue)
+            (parent as? XsQNameValue)?.prefix?.element === element -> lookupPrefix(parent as XsQNameValue)
+            (parent as? XsQNameValue)?.localName?.element === element -> lookupLocalName(parent as XsQNameValue)
             else -> emptySequence()
         }
     }
 
-    private fun lookup(qname: XsQNameValue): Sequence<XdmDocumentationReference> {
+    private fun lookupPrefix(qname: XsQNameValue): Sequence<XdmDocumentationReference> {
+        val decl = qname.expand().firstOrNull()?.namespace?.element?.parent as? XdmNamespaceDeclaration
+        return decl?.let { XdmDocumentationSourceProvider.lookup(it) } ?: emptySequence()
+    }
+
+    private fun lookupLocalName(qname: XsQNameValue): Sequence<XdmDocumentationReference> {
         return when (val ref = qname.element?.parent) {
             is XdmFunctionReference -> {
                 XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
