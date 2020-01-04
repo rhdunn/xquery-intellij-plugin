@@ -152,4 +152,28 @@ private class ApiDocsTest {
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
         }
     }
+
+    @Nested
+    @DisplayName("functions")
+    internal inner class Functions {
+        @Test
+        @DisplayName("importable")
+        fun importable() {
+            @Language("XML")
+            val adminLib = """
+                <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary>Lorem ipsum dolor.</apidoc:summary>
+                    <apidoc:function name="get-database-ids" lib="admin" category="Admin Library"
+                                     bucket="XQuery Library Modules" subcategory="database"/>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
+            )
+
+            val functions = apidocs.modules[0].functions
+            assertThat(functions.size, `is`(1))
+        }
+    }
 }

@@ -39,6 +39,10 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
 
     val locationUri: String? by lazy { importDecl?.groups?.get(3)?.value }
 
+    val functions: List<ApiDocsFunction> by lazy {
+        xml.children("apidoc:function").map { ApiDocsFunction(it) }.toList()
+    }
+
     // endregion
     // region XdmDocumentationReference
 
