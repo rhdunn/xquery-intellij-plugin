@@ -47,6 +47,8 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
     override val properties: String? = section("Properties")
 
     override val rules: String? = section("Rules")
+
+    override val errorConditions: String? = section("Error Conditions")
 }
 
 internal data class W3CSpecificationDocument(

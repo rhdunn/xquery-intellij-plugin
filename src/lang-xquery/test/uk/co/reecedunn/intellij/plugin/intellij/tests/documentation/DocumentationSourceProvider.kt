@@ -44,6 +44,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val properties: String? = null
 
             override val rules: String? = null
+
+            override val errorConditions: String? = null
         }
     }
 
