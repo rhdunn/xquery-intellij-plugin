@@ -60,5 +60,7 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val properties: String? = null
 
+    override val rules: String? = null
+
     // endregion
 }

@@ -25,6 +25,8 @@ interface XdmFunctionDocumentation : XdmDocumentation {
     val signatures: String?
 
     val properties: String?
+
+    val rules: String?
 }
 
 val XdmDocumentation.sections: String
@@ -32,7 +34,8 @@ val XdmDocumentation.sections: String
         val sections = sequenceOf(
             "Summary" to summary,
             "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
-            "Properties" to (this as? XdmFunctionDocumentation)?.properties
+            "Properties" to (this as? XdmFunctionDocumentation)?.properties,
+            "Rules" to (this as? XdmFunctionDocumentation)?.rules
         ).filter { it.second != null }
         return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }

@@ -42,6 +42,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val signatures: String? = null
 
             override val properties: String? = null
+
+            override val rules: String? = null
         }
     }
 
