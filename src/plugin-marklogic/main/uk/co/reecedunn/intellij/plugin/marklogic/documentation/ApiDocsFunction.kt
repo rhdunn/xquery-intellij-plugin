@@ -26,6 +26,8 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
 
+    val category: String by lazy { xml.attribute("category")!! }
+
     // endregion
     // region XsQNameValue
 

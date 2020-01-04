@@ -187,6 +187,7 @@ private class ApiDocsTest {
             assertThat(functions.size, `is`(1))
 
             assertThat(functions[0].isBuiltin, `is`(false))
+            assertThat(functions[0].category, `is`("Admin Library"))
 
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("admin"))
@@ -223,6 +224,7 @@ private class ApiDocsTest {
             assertThat(functions.size, `is`(1))
 
             assertThat(functions[0].isBuiltin, `is`(true))
+            assertThat(functions[0].category, `is`("Other"))
 
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("xdmp"))
@@ -251,6 +253,7 @@ private class ApiDocsTest {
             assertThat(functions.size, `is`(1))
 
             assertThat(functions[0].isBuiltin, `is`(true))
+            assertThat(functions[0].category, `is`("Classifier"))
 
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("cts"))
