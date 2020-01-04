@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 
 data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReference {
     // region apidoc:module
@@ -40,7 +44,14 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
     val locationUri: String? by lazy { importDecl?.groups?.get(3)?.value }
 
     val functions: List<ApiDocsFunction> by lazy {
-        xml.children("apidoc:function").map { ApiDocsFunction(it) }.toList()
+        xml.children("apidoc:function").map {
+            ApiDocsFunction(
+                it,
+                namespaceUri?.let { uri ->
+                    XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
+                }
+            )
+        }.toList()
     }
 
     // endregion

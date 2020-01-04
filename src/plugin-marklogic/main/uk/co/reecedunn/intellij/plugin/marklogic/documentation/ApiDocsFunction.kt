@@ -21,14 +21,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-data class ApiDocsFunction(private val xml: XmlElement) : XsQNameValue {
+data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) : XsQNameValue {
     // region XsQNameValue
 
     override val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }
 
     override val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
-
-    override val namespace: XsAnyUriValue? = null
 
     override val isLexicalQName: Boolean = true
 

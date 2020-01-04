@@ -25,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import java.util.zip.ZipEntry
 
@@ -164,7 +166,13 @@ private class ApiDocsTest {
             val adminLib = """
                 <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
                                xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                    <apidoc:summary>Lorem ipsum dolor.</apidoc:summary>
+                    <apidoc:summary>
+                        <p>Lorem ipsum dolor.</p>
+                        <p>Sed <code>emit</code> et dolor.</p>
+                        <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
+              at "/MarkLogic/admin.xqy" ;
+                        </code></p>
+                    </apidoc:summary>
                     <apidoc:function name="get-database-ids" lib="admin" category="Admin Library"
                                      bucket="XQuery Library Modules" subcategory="database"/>
                 </apidoc:module>
@@ -179,6 +187,34 @@ private class ApiDocsTest {
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("admin"))
             assertThat(qname.localName?.data, `is`("get-database-ids"))
+            assertThat(qname.namespace?.data, `is`("http://marklogic.com/xdmp/admin"))
+            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
+            assertThat(qname.isLexicalQName, `is`(true))
+            assertThat(qname.element, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("builtin (cts namespace)")
+        fun builtinCts() {
+            @Language("XML")
+            val adminLib = """
+                <apidoc:module name="ClassifierBuiltins" category="Classifier" lib="cts"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
+                    <apidoc:function name="train" type="builtin" lib="cts" category="Classifier"/>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
+            )
+
+            val functions = apidocs.modules[0].functions
+            assertThat(functions.size, `is`(1))
+
+            val qname = functions[0] as XsQNameValue
+            assertThat(qname.prefix?.data, `is`("cts"))
+            assertThat(qname.localName?.data, `is`("train"))
             assertThat(qname.namespace, `is`(nullValue()))
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
