@@ -59,6 +59,8 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
     // endregion
     // region XdmFunctionDocumentation
 
+    override val operatorMapping: String? = null
+
     override val signatures: String? = null
 
     override val properties: String? = null

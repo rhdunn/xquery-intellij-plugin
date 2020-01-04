@@ -46,6 +46,8 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val examples: String? = section("Examples")
 
+    override val operatorMapping: String? = section("Operator Mapping")
+
     override val signatures: String? = section("Signatures") ?: section("Signature")
 
     override val properties: String? = section("Properties")

@@ -43,6 +43,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override val examples: String? = null
 
+            override val operatorMapping: String? = null
+
             override val signatures: String? = null
 
             override val properties: String? = null

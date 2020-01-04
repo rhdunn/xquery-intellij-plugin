@@ -26,6 +26,8 @@ interface XdmDocumentation {
 }
 
 interface XdmFunctionDocumentation : XdmDocumentation {
+    val operatorMapping: String?
+
     val signatures: String?
 
     val properties: String?
@@ -39,6 +41,7 @@ val XdmDocumentation.sections: String
     get() {
         val sections = sequenceOf(
             "Summary" to summary,
+            "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,
             "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
             "Properties" to (this as? XdmFunctionDocumentation)?.properties,
             "Rules" to (this as? XdmFunctionDocumentation)?.rules,
