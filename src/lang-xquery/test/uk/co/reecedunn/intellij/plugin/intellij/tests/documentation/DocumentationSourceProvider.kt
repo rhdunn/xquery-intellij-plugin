@@ -41,6 +41,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val href: String = "function href=${name}#${ref.arity}"
 
             override val summary: String = "function summary=${name}#${ref.arity}"
+
+            override val signatures: String? = null
         }
     }
 
@@ -52,6 +54,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val href: String = "module href=${name}"
 
             override val summary: String = "module summary=${name}"
+
+            override val signatures: String? = null
         }
     }
 

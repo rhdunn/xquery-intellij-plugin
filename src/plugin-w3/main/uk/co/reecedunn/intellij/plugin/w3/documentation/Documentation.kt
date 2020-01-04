@@ -35,7 +35,14 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val href: String = "$baseHref#$id"
 
-    override val summary: String = normalize(node.selectFirst("dl > dt").nextElementSibling()).html()
+    private fun section(name: String): String? {
+        val section = node.select("dl > dt").find { it.text() == name }?.nextElementSibling()
+        return section?.let { normalize(it).html() }
+    }
+
+    override val summary: String? = section("Summary")
+
+    override val signatures: String? = section("Signatures") ?: section("Signature")
 }
 
 internal data class W3CSpecificationDocument(

@@ -22,6 +22,8 @@ interface XdmDocumentation {
     val href: String?
 
     val summary: String?
+
+    val signatures: String?
 }
 
 interface XdmDocumentationIndex {
@@ -35,7 +37,8 @@ interface XdmDocumentationIndex {
 val XdmDocumentation.sections: String
     get() {
         val sections = sequenceOf(
-            "Summary" to summary
+            "Summary" to summary,
+            "Signatures" to signatures
         ).filter { it.second != null }
-        return "<dl>${sections.joinToString { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
+        return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }
