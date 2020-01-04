@@ -17,14 +17,22 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-data class ApiDocsFunction(private val xml: XmlElement) {
-    // region apidoc:function
+data class ApiDocsFunction(private val xml: XmlElement) : XsQNameValue {
+    // region XsQNameValue
 
-    val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }
+    override val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }
 
-    val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
+    override val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
+
+    override val namespace: XsAnyUriValue? = null
+
+    override val isLexicalQName: Boolean = true
+
+    override val element: PsiElement? = null
 
     // endregion
 }

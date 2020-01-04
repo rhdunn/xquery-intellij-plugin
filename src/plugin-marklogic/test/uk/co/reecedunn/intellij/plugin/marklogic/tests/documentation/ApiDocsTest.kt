@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import java.util.zip.ZipEntry
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -175,8 +176,12 @@ private class ApiDocsTest {
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
-            assertThat(functions[0].prefix.data, `is`("admin"))
-            assertThat(functions[0].localName.data, `is`("get-database-ids"))
+            val qname = functions[0] as XsQNameValue
+            assertThat(qname.prefix?.data, `is`("admin"))
+            assertThat(qname.localName?.data, `is`("get-database-ids"))
+            assertThat(qname.namespace, `is`(nullValue()))
+            assertThat(qname.isLexicalQName, `is`(true))
+            assertThat(qname.element, `is`(nullValue()))
         }
     }
 }
