@@ -22,6 +22,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) : XsQNameValue {
+    // region apidoc:function
+
+    val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
+
+    // endregion
     // region XsQNameValue
 
     override val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }

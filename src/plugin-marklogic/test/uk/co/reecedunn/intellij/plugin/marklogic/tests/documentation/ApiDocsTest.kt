@@ -186,6 +186,8 @@ private class ApiDocsTest {
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
+            assertThat(functions[0].isBuiltin, `is`(false))
+
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("admin"))
             assertThat(qname.localName?.data, `is`("get-database-ids"))
@@ -210,7 +212,7 @@ private class ApiDocsTest {
               at "/MarkLogic/admin.xqy" ;
                         </code></p>
                     </apidoc:summary>
-                    <apidoc:function name="version" lib="xdmp" category="Other"/>
+                    <apidoc:function name="version" lib="xdmp" type="builtin" category="Other"/>
                 </apidoc:module>
             """
             val apidocs = create(
@@ -219,6 +221,8 @@ private class ApiDocsTest {
 
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
+
+            assertThat(functions[0].isBuiltin, `is`(true))
 
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("xdmp"))
@@ -245,6 +249,8 @@ private class ApiDocsTest {
 
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
+
+            assertThat(functions[0].isBuiltin, `is`(true))
 
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("cts"))
