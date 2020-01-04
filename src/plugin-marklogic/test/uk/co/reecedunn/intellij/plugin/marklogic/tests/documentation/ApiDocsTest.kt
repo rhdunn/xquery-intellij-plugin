@@ -175,6 +175,7 @@ private class ApiDocsTest {
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
+            assertThat(functions[0].prefix.data, `is`("admin"))
             assertThat(functions[0].localName.data, `is`("get-database-ids"))
         }
     }

@@ -22,6 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 data class ApiDocsFunction(private val xml: XmlElement) {
     // region apidoc:function
 
+    val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }
+
     val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
 
     // endregion
