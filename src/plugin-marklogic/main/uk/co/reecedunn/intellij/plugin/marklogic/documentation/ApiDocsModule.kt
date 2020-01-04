@@ -49,12 +49,12 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
     val locationUri: String? by lazy { importDecl?.groups?.get(3)?.value }
 
     val functions: List<ApiDocsFunction> by lazy {
-        xml.children("apidoc:function").map {
-            val prefix = it.attribute("lib")
-            if (prefix == lib)
-                ApiDocsFunction(it, namespaceUri)
-            else
-                ApiDocsFunction(it, null)
+        xml.children("apidoc:function").mapNotNull {
+            when {
+                it.attribute("name") == null -> null
+                it.attribute("lib") == lib -> ApiDocsFunction(it, namespaceUri)
+                else -> ApiDocsFunction(it, null)
+            }
         }.toList()
     }
 

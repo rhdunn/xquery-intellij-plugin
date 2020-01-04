@@ -302,5 +302,26 @@ private class ApiDocsTest {
             assertThat(ref.documentation, `is`("Lorem function dolor sed emit."))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
+
+        @Test
+        @DisplayName("stub (semantics-stub.xml) ; null localName")
+        fun stub() {
+            @Language("XML")
+            val stub = """
+                <apidoc:module name="semantics-lib" category="Semantics Library" bucket="XQuery Library Modules"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
+                    <apidoc:function name="" lib="sem" category="Semantics Library" bucket="XQuery Library Modules">
+                        <apidoc:summary/>
+                    </apidoc:function>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/semantics-stub.xml" to stub
+            )
+
+            val functions = apidocs.modules[0].functions
+            assertThat(functions.size, `is`(0)) // Function without a name.
+        }
     }
 }
