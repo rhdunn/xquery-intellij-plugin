@@ -23,7 +23,7 @@ interface XdmDocumentationReference {
 
     val documentation: String
 
-    val summary: String
+    val summary: String?
 }
 
 interface XdmDocumentationIndex {

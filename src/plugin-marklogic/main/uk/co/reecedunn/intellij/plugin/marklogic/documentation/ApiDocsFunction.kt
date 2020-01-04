@@ -52,9 +52,9 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val documentation: String by lazy { xml.child("apidoc:summary")?.innerXml() ?: "" }
 
-    override val summary: String by lazy {
+    override val summary: String? by lazy {
         val summary = xml.child("apidoc:summary")
-        summary?.child("p")?.xml() ?: summary?.text() ?: ""
+        summary?.child("p")?.xml() ?: summary?.text()
     }
 
     // endregion
