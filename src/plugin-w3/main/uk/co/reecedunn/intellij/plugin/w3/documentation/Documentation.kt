@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-internal class W3CFunctionReference(private val node: Element, baseHref: String): XdmDocumentation {
+internal class W3CFunctionReference(private val node: Element, baseHref: String): XdmFunctionDocumentation {
     private fun normalize(node: Element): Element {
         // JEditorPanel does not support vertical-align on tr/td elements, so use valign instead.
         node.select("tr").forEach { it.attr("valign", "top") }

@@ -18,12 +18,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) :
-    XsQNameValue, XdmDocumentation {
+    XsQNameValue, XdmFunctionDocumentation {
     // region apidoc:function
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
@@ -46,11 +47,14 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
     override val element: PsiElement? = null
 
     // endregion
-    // region XdmDocumentationReference
+    // region XdmDocumentation
 
     override val href: String? = "https://docs.marklogic.com/${prefix.data}:${localName.data}"
 
     override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
+
+    // endregion
+    // region XdmFunctionDocumentation
 
     override val signatures: String? = null
 
