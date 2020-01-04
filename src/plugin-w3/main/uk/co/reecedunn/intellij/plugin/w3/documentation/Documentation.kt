@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-internal class W3CFunctionReference(node: Element, baseHref: String): XdmDocumentationReference {
+internal class W3CFunctionReference(private val node: Element, baseHref: String): XdmDocumentationReference {
     private fun normalize(node: Element): Element {
         // JEditorPanel does not support vertical-align on tr/td elements, so use valign instead.
         node.select("tr").forEach { it.attr("valign", "top") }
@@ -36,8 +36,6 @@ internal class W3CFunctionReference(node: Element, baseHref: String): XdmDocumen
     override val href: String = "$baseHref#$id"
 
     override val summary: String = normalize(node.selectFirst("dl > dt").nextElementSibling()).html()
-
-    override val documentation: String = normalize(node.selectFirst("dl")).outerHtml()
 }
 
 internal data class W3CSpecificationDocument(

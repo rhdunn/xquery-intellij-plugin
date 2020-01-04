@@ -125,7 +125,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("module documentation=[prefix=ex namespace=http://www.example.com]")
+                body("<dl><dt>Summary</dt><dd>module summary=[prefix=ex namespace=http://www.example.com]</dd></dl>")
             )
 
             assertThat(
@@ -230,7 +230,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("module documentation=[prefix=ex namespace=http://www.example.com]")
+                body("<dl><dt>Summary</dt><dd>module summary=[prefix=ex namespace=http://www.example.com]</dd></dl>")
             )
 
             assertThat(
@@ -258,7 +258,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+                body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
@@ -282,7 +282,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("function documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+                body("<dl><dt>Summary</dt><dd>function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
@@ -306,7 +306,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0")
+                body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
@@ -412,7 +412,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
@@ -436,7 +436,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("function documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("<dl><dt>Summary</dt><dd>function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
@@ -460,7 +460,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
-                body("function documentation=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2")
+                body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
@@ -488,7 +488,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
             assertThat(
                 XQueryDocumentationProvider.generateDoc(element, target.prefix?.element),
-                body("module documentation=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]")
+                body("<dl><dt>Summary</dt><dd>module summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]</dd></dl>")
             )
 
             assertThat(

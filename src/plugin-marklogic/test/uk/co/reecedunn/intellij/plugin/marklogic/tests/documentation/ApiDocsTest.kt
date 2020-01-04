@@ -78,20 +78,6 @@ private class ApiDocsTest {
 
             val ref = modules[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
-            assertThat(
-                ref.documentation.split("\r?\n[ \t]+".toRegex()),
-                `is`(
-                    listOf(
-                        "",
-                        "<p>Lorem ipsum dolor.</p>",
-                        "<p>Sed <code>emit</code> et dolor.</p>",
-                        "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
-                        "at \"/MarkLogic/admin.xqy\" ;",
-                        "</code></p>",
-                        ""
-                    )
-                )
-            )
             assertThat(ref.summary, `is`("<p>Lorem ipsum dolor.</p>"))
         }
 
@@ -122,7 +108,6 @@ private class ApiDocsTest {
 
             val ref = modules[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
-            assertThat(ref.documentation, `is`("Lorem ipsum dolor."))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
         }
 
@@ -153,7 +138,6 @@ private class ApiDocsTest {
 
             val ref = modules[0] as XdmDocumentationReference
             assertThat(ref.href, `is`(nullValue()))
-            assertThat(ref.documentation, `is`("Lorem ipsum dolor."))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
         }
     }
@@ -204,7 +188,6 @@ private class ApiDocsTest {
 
             val ref = functions[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
-            assertThat(ref.documentation, `is`("Lorem function dolor sed emit."))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
 
@@ -251,17 +234,6 @@ private class ApiDocsTest {
 
             val ref = functions[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
-            assertThat(
-                ref.documentation.split("\r?\n[ \t]+".toRegex()),
-                `is`(
-                    listOf(
-                        "",
-                        "<p>Lorem function dolor.</p>",
-                        "<p>Sed <code>emit</code> et dolor.</p>",
-                        ""
-                    )
-                )
-            )
             assertThat(ref.summary, `is`("<p>Lorem function dolor.</p>"))
         }
 
@@ -299,7 +271,6 @@ private class ApiDocsTest {
 
             val ref = functions[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
-            assertThat(ref.documentation, `is`("Lorem function dolor sed emit."))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
 

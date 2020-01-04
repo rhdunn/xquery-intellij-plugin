@@ -40,8 +40,6 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override val href: String = "function href=${name}#${ref.arity}"
 
-            override val documentation: String = "function documentation=${name}#${ref.arity}"
-
             override val summary: String = "function summary=${name}#${ref.arity}"
         }
     }
@@ -52,8 +50,6 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
                 "[prefix=${decl.namespacePrefix?.data ?: "(null)"} namespace=${decl.namespaceUri?.data ?: "(null)"}]"
 
             override val href: String = "module href=${name}"
-
-            override val documentation: String = "module documentation=${name}"
 
             override val summary: String = "module summary=${name}"
         }

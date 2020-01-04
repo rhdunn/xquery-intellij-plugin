@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmTemplates
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.sections
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
@@ -93,7 +94,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     // Generate the main documentation for the documentation pane.
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
         return originalElement?.let {
-            val text = lookup(it).firstOrNull()?.documentation ?: return@let null
+            val text = lookup(it).firstOrNull()?.sections ?: return@let null
             return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }

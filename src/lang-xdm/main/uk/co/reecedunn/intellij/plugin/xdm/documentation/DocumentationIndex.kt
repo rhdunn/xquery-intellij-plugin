@@ -21,8 +21,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 interface XdmDocumentationReference {
     val href: String?
 
-    val documentation: String
-
     val summary: String?
 }
 
@@ -33,3 +31,11 @@ interface XdmDocumentationIndex {
 
     fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference?
 }
+
+val XdmDocumentationReference.sections: String
+    get() {
+        val sections = sequenceOf(
+            "Summary" to summary
+        ).filter { it.second != null }
+        return "<dl>${sections.joinToString { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
+    }
