@@ -23,13 +23,16 @@ interface XdmDocumentation {
 
 interface XdmFunctionDocumentation : XdmDocumentation {
     val signatures: String?
+
+    val properties: String?
 }
 
 val XdmDocumentation.sections: String
     get() {
         val sections = sequenceOf(
             "Summary" to summary,
-            "Signatures" to (this as? XdmFunctionDocumentation)?.signatures
+            "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
+            "Properties" to (this as? XdmFunctionDocumentation)?.properties
         ).filter { it.second != null }
         return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }

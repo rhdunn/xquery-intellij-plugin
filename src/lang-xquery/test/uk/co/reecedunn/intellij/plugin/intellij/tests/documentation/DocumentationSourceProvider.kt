@@ -40,6 +40,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val summary: String = "function summary=${name}#${ref.arity}"
 
             override val signatures: String? = null
+
+            override val properties: String? = null
         }
     }
 
