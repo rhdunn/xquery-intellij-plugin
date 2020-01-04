@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 interface XdmDocumentationIndex {
     fun invalidate()
 
-    fun lookup(ref: XdmFunctionReference): XdmDocumentation?
+    fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation?
 
     fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation?
 }

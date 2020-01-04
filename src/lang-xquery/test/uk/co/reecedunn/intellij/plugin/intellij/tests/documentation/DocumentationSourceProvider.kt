@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
@@ -32,8 +29,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
-        return object : XdmDocumentation {
+    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
+        return object : XdmFunctionDocumentation {
             val name: String = ref.functionName?.let {
                 "[prefix=${it.prefix?.data ?: "(null)"} namespace=${it.namespace?.data ?: "(null)"} localname=${it.localName?.data ?: "(null)"}]"
             } ?: "(null)"
@@ -41,6 +38,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val href: String = "function href=${name}#${ref.arity}"
 
             override val summary: String = "function summary=${name}#${ref.arity}"
+
+            override val signatures: String? = null
         }
     }
 

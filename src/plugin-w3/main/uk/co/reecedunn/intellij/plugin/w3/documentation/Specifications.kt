@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -104,7 +101,7 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun invalidate() = (REC_3_1_20170321 as XdmDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
         return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
     }
 

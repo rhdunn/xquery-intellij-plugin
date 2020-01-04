@@ -68,7 +68,7 @@ internal data class W3CSpecificationDocument(
 
     override fun invalidate() = doc.invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"
