@@ -63,10 +63,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
 
     override val href: String? = lib?.let { "https://docs.marklogic.com/$it" }
 
-    override val summary: String? by lazy {
-        val summary = xml.child("apidoc:summary")
-        summary?.child("p")?.xml() ?: summary?.text()
-    }
+    override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 
     // endregion
 

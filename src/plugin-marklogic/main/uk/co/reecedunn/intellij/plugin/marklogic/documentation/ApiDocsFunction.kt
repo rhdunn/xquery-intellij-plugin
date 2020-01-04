@@ -50,10 +50,7 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val href: String? = "https://docs.marklogic.com/${prefix.data}:${localName.data}"
 
-    override val summary: String? by lazy {
-        val summary = xml.child("apidoc:summary")
-        summary?.child("p")?.xml() ?: summary?.text()
-    }
+    override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 
     // endregion
 }

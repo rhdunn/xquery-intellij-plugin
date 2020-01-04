@@ -78,7 +78,20 @@ private class ApiDocsTest {
 
             val ref = modules[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
-            assertThat(ref.summary, `is`("<p>Lorem ipsum dolor.</p>"))
+            assertThat(
+                ref.summary?.split("\r?\n[ \t]+".toRegex()),
+                `is`(
+                    listOf(
+                        "",
+                        "<p>Lorem ipsum dolor.</p>",
+                        "<p>Sed <code>emit</code> et dolor.</p>",
+                        "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
+                        "at \"/MarkLogic/admin.xqy\" ;",
+                        "</code></p>",
+                        ""
+                    )
+                )
+            )
         }
 
         @Test
@@ -234,7 +247,17 @@ private class ApiDocsTest {
 
             val ref = functions[0] as XdmDocumentationReference
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
-            assertThat(ref.summary, `is`("<p>Lorem function dolor.</p>"))
+            assertThat(
+                ref.summary?.split("\r?\n[ \t]+".toRegex()),
+                `is`(
+                    listOf(
+                        "",
+                        "<p>Lorem function dolor.</p>",
+                        "<p>Sed <code>emit</code> et dolor.</p>",
+                        ""
+                    )
+                )
+            )
         }
 
         @Test
