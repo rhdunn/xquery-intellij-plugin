@@ -15,13 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+interface XdmDocumentation {
+    val href: String?
 
-interface XdmDocumentationIndex {
-    fun invalidate()
+    val summary: String?
 
-    fun lookup(ref: XdmFunctionReference): XdmDocumentation?
-
-    fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation?
+    val signatures: String?
 }
+
+val XdmDocumentation.sections: String
+    get() {
+        val sections = sequenceOf(
+            "Summary" to summary,
+            "Signatures" to signatures
+        ).filter { it.second != null }
+        return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
+    }
