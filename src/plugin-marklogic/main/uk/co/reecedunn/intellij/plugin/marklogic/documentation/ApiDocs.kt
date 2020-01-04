@@ -30,7 +30,10 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
     override fun invalidate() {}
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
-        return null
+        val name = ref.functionName ?: return null
+        return functions.find {
+            it.localName.data == name.localName?.data && it.namespace?.data == name.namespace?.data
+        }
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
@@ -51,6 +54,8 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
                 null
         }.filterNotNull().toList()
     }
+
+    val functions: Sequence<ApiDocsFunction> get() = modules.asSequence().flatMap { it.functions.asSequence() }
 
     companion object {
         private val NAMESPACES = mapOf(
