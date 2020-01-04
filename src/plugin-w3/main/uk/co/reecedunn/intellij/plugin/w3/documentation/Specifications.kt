@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object FunctionsAndOperatorsDocumentation :
     XdmSpecificationType, XdmDocumentationSourceProvider, XdmDocumentationIndex {
@@ -105,6 +106,10 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
+    }
+
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl)
     }
 
     // endregion

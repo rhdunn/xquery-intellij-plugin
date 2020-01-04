@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 private data class MarkLogicZippedDocumentation(
     override val version: String,
@@ -47,6 +48,10 @@ private data class MarkLogicZippedDocumentation(
         return apidocs.get()?.lookup(ref)
     }
 
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+        return apidocs.get()?.lookup(decl)
+    }
+
     // endregion
 }
 
@@ -74,6 +79,10 @@ object MarkLogicProductDocumentation : XdmDocumentationSourceProvider, XdmDocume
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(ref)
+    }
+
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(decl)
     }
 
     // endregion

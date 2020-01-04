@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XdmDocumentationReference {
     val href: String?
@@ -29,4 +30,6 @@ interface XdmDocumentationIndex {
     fun invalidate()
 
     fun lookup(ref: XdmFunctionReference): XdmDocumentationReference?
+
+    fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference?
 }

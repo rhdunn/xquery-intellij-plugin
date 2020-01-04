@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReferen
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocumentationIndex {
     // region XdmDocumentationSourceProvider
@@ -42,6 +43,19 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
             override val documentation: String = "function documentation=${name}#${ref.arity}"
 
             override val summary: String = "function summary=${name}#${ref.arity}"
+        }
+    }
+
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+        return object : XdmDocumentationReference {
+            val name: String =
+                "[prefix=${decl.namespacePrefix?.data ?: "(null)"} namespace=${decl.namespaceUri?.data ?: "(null)"}]"
+
+            override val href: String = "module href=${name}"
+
+            override val documentation: String = "module documentation=${name}"
+
+            override val summary: String = "module summary=${name}"
         }
     }
 

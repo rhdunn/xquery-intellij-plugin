@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) : XdmDocumentationIndex {
     // region XdmDocumentationIndex
@@ -30,6 +31,10 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
 
     override fun lookup(ref: XdmFunctionReference): XdmDocumentationReference? {
         return null
+    }
+
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+        return modules.find { it.namespaceUri == decl.namespaceUri?.data }
     }
 
     // endregion

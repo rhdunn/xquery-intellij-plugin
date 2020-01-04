@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 internal class W3CFunctionReference(node: Element, baseHref: String): XdmDocumentationReference {
     private fun normalize(node: Element): Element {
@@ -72,6 +73,10 @@ internal data class W3CSpecificationDocument(
             name == lookupName
         }
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
+    }
+
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentationReference? {
+        return null
     }
 
     // endregion
