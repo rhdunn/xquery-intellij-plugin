@@ -19,6 +19,8 @@ interface XdmDocumentation {
     val href: String?
 
     val summary: String?
+
+    val notes: String?
 }
 
 interface XdmFunctionDocumentation : XdmDocumentation {
@@ -38,7 +40,8 @@ val XdmDocumentation.sections: String
             "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
             "Properties" to (this as? XdmFunctionDocumentation)?.properties,
             "Rules" to (this as? XdmFunctionDocumentation)?.rules,
-            "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions
+            "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
+            "Notes" to notes
         ).filter { it.second != null }
         return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }

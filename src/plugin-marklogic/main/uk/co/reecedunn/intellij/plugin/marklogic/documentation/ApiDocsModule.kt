@@ -65,6 +65,8 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
 
     override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 
+    override val notes: String? = null
+
     // endregion
 
     companion object {
