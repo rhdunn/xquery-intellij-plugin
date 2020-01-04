@@ -176,7 +176,9 @@ private class ApiDocsTest {
                         </code></p>
                     </apidoc:summary>
                     <apidoc:function name="get-database-ids" lib="admin" category="Admin Library"
-                                     bucket="XQuery Library Modules" subcategory="database"/>
+                                     bucket="XQuery Library Modules" subcategory="database">
+                        <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
+                    </apidoc:function>
                 </apidoc:module>
             """
             val apidocs = create(
@@ -199,6 +201,11 @@ private class ApiDocsTest {
             assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
+
+            val ref = functions[0] as XdmDocumentationReference
+            assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
+            assertThat(ref.documentation, `is`("Lorem function dolor sed emit."))
+            assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
 
         @Test
@@ -215,7 +222,12 @@ private class ApiDocsTest {
               at "/MarkLogic/admin.xqy" ;
                         </code></p>
                     </apidoc:summary>
-                    <apidoc:function name="version" lib="xdmp" type="builtin" category="Other"/>
+                    <apidoc:function name="version" lib="xdmp" type="builtin" category="Other">
+                        <apidoc:summary>
+                            <p>Lorem function dolor.</p>
+                            <p>Sed <code>emit</code> et dolor.</p>
+                        </apidoc:summary>
+                    </apidoc:function>
                 </apidoc:module>
             """
             val apidocs = create(
@@ -236,6 +248,21 @@ private class ApiDocsTest {
             assertThat(qname.namespace, `is`(nullValue()))
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
+
+            val ref = functions[0] as XdmDocumentationReference
+            assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
+            assertThat(
+                ref.documentation.split("\r?\n[ \t]+".toRegex()),
+                `is`(
+                    listOf(
+                        "",
+                        "<p>Lorem function dolor.</p>",
+                        "<p>Sed <code>emit</code> et dolor.</p>",
+                        ""
+                    )
+                )
+            )
+            assertThat(ref.summary, `is`("<p>Lorem function dolor.</p>"))
         }
 
         @Test
@@ -246,7 +273,9 @@ private class ApiDocsTest {
                 <apidoc:module name="ClassifierBuiltins" category="Classifier" lib="cts"
                                xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
                     <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
-                    <apidoc:function name="train" type="builtin" lib="cts" category="Classifier"/>
+                    <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
+                        <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
+                    </apidoc:function>
                 </apidoc:module>
             """
             val apidocs = create(
@@ -267,6 +296,11 @@ private class ApiDocsTest {
             assertThat(qname.namespace, `is`(nullValue()))
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
+
+            val ref = functions[0] as XdmDocumentationReference
+            assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
+            assertThat(ref.documentation, `is`("Lorem function dolor sed emit."))
+            assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
     }
 }

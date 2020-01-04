@@ -17,11 +17,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) : XsQNameValue {
+data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) :
+    XsQNameValue, XdmDocumentationReference {
     // region apidoc:function
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
@@ -42,6 +44,18 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
     override val isLexicalQName: Boolean = true
 
     override val element: PsiElement? = null
+
+    // endregion
+    // region XdmDocumentationReference
+
+    override val href: String? = "https://docs.marklogic.com/${prefix.data}:${localName.data}"
+
+    override val documentation: String by lazy { xml.child("apidoc:summary")?.innerXml() ?: "" }
+
+    override val summary: String by lazy {
+        val summary = xml.child("apidoc:summary")
+        summary?.child("p")?.xml() ?: summary?.text() ?: ""
+    }
 
     // endregion
 }
