@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationReferen
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReference {
     // region apidoc:module
@@ -39,19 +40,16 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
         }?.firstOrNull()
     }
 
-    val namespaceUri: String? by lazy { importDecl?.groups?.get(2)?.value }
+    val namespaceUri: XsAnyUriValue? by lazy {
+        importDecl?.groups?.get(2)?.value?.let {
+            XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
+        }
+    }
 
     val locationUri: String? by lazy { importDecl?.groups?.get(3)?.value }
 
     val functions: List<ApiDocsFunction> by lazy {
-        xml.children("apidoc:function").map {
-            ApiDocsFunction(
-                it,
-                namespaceUri?.let { uri ->
-                    XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
-                }
-            )
-        }.toList()
+        xml.children("apidoc:function").map { ApiDocsFunction(it, namespaceUri) }.toList()
     }
 
     // endregion

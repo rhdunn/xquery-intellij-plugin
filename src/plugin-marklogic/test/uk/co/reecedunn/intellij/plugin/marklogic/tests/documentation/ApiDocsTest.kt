@@ -71,7 +71,9 @@ private class ApiDocsTest {
             assertThat(modules[0].category, `is`("Admin Library"))
             assertThat(modules[0].lib, `is`("admin"))
             assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
-            assertThat(modules[0].namespaceUri, `is`("http://marklogic.com/xdmp/admin"))
+            assertThat(modules[0].namespaceUri?.data, `is`("http://marklogic.com/xdmp/admin"))
+            assertThat(modules[0].namespaceUri?.context, `is`(XdmUriContext.Namespace))
+            assertThat(modules[0].namespaceUri?.moduleTypes, `is`(XdmModuleType.MODULE))
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
             val ref = modules[0] as XdmDocumentationReference
