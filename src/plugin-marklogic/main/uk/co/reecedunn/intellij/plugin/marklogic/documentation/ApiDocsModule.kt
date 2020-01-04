@@ -25,7 +25,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
 
     val category: String by lazy { xml.attribute("category")!! }
 
-    val lib: String by lazy { xml.attribute("lib")!! }
+    val lib: String? by lazy { xml.attribute("lib") }
 
     val bucket: String? by lazy { xml.attribute("bucket") }
 
@@ -42,7 +42,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentationReferenc
     // endregion
     // region XdmDocumentationReference
 
-    override val href: String = "https://docs.marklogic.com/$lib"
+    override val href: String? = lib?.let { "https://docs.marklogic.com/$it" }
 
     override val documentation: String by lazy { xml.child("apidoc:summary")?.innerXml() ?: "" }
 

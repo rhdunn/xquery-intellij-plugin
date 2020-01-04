@@ -120,5 +120,36 @@ private class ApiDocsTest {
             assertThat(ref.documentation, `is`("Lorem ipsum dolor."))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
         }
+
+        @Test
+        @DisplayName("builtin module ; no lib attribute")
+        fun builtinModuleNoLibAttribute() {
+            @Language("XML")
+            val crypt = """
+                <apidoc:module name="Crypt" category="Crypt"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary>Lorem ipsum dolor.</apidoc:summary>
+                    <apidoc:function name="crypt" type="builtin" lib="xdmp" category="Extension" subcategory="Extension"/>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/Crypt.xml" to crypt
+            )
+
+            val modules = apidocs.modules
+            assertThat(modules.size, `is`(1))
+
+            assertThat(modules[0].name, `is`("Crypt"))
+            assertThat(modules[0].category, `is`("Crypt"))
+            assertThat(modules[0].lib, `is`(nullValue()))
+            assertThat(modules[0].bucket, `is`(nullValue()))
+            assertThat(modules[0].namespaceUri, `is`(nullValue()))
+            assertThat(modules[0].locationUri, `is`(nullValue()))
+
+            val ref = modules[0] as XdmDocumentationReference
+            assertThat(ref.href, `is`(nullValue()))
+            assertThat(ref.documentation, `is`("Lorem ipsum dolor."))
+            assertThat(ref.summary, `is`("Lorem ipsum dolor."))
+        }
     }
 }
