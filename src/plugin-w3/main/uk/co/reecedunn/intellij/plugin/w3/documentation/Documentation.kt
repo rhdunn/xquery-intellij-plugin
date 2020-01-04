@@ -31,7 +31,7 @@ internal class W3CFunctionReference(node: Element, baseHref: String): XdmDocumen
         return node
     }
 
-    val id: String = node.selectFirst("h4 > a").attr("id")
+    val id: String = node.selectFirst("* > a").attr("id")
 
     override val href: String = "$baseHref#$id"
 
@@ -67,7 +67,7 @@ internal data class W3CSpecificationDocument(
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"
-        val match = doc.get()?.select("h4 > a")?.firstOrNull {
+        val match = doc.get()?.select("h3 > a, h4 > a")?.firstOrNull {
             val parts = (it.nextSibling() as? TextNode)?.text()?.split(" ") ?: return@firstOrNull false
             val name = parts.asReversed().find { part -> part.isNotEmpty() }
             name == lookupName
