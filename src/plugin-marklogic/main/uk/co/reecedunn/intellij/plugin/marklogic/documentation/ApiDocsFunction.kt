@@ -56,7 +56,10 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
     override val notes: String? = null
 
     override val examples: String? by lazy {
-        xml.children("apidoc:example").joinToString("\n") { "<div class=\"example\">${it.innerXml()}</div>" }.nullize()
+        xml.children("apidoc:example").joinToString("\n") {
+            val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
+        }.nullize()
     }
 
     // endregion

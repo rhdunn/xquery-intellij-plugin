@@ -273,12 +273,12 @@ at "/MarkLogic/admin.xqy" ;
             ))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples?.splitXml(), isListOf(
-                "<div class=\"example\"><pre xml:space=\"preserve\"><![CDATA[",
+                "<div class=\"example\"><pre xml:space=\"preserve\">",
                 "  1. Lorem ipsum dolor.",
-                "]]></pre></div>",
-                "<div class=\"example\"><pre xml:space=\"preserve\"><![CDATA[",
+                "</pre></div>",
+                "<div class=\"example\"><pre xml:space=\"preserve\">",
                 "  2. Lorem ipsum dolor.",
-                "]]></pre></div>"
+                "</pre></div>"
             ))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
@@ -301,7 +301,7 @@ at "/MarkLogic/admin.xqy" ;
                         <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
                         <apidoc:usage>These are the usage notes.</apidoc:usage>
                         <apidoc:example><pre xml:space="preserve"><![CDATA[
-  Lorem ipsum dolor.
+  a < b & b > c
 ]]></pre></apidoc:example>
                     </apidoc:function>
                 </apidoc:module>
@@ -330,9 +330,9 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples?.splitXml(), isListOf(
-                "<div class=\"example\"><pre xml:space=\"preserve\"><![CDATA[",
-                "  Lorem ipsum dolor.",
-                "]]></pre></div>"
+                "<div class=\"example\"><pre xml:space=\"preserve\">",
+                "  a &lt; b &amp; b &gt; c",
+                "</pre></div>"
             ))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
