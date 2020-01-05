@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import java.util.zip.ZipEntry
 
-private fun String.splitXml(): List<String> = split("\r?\n[ \t]+".toRegex()).filter { it.isNotEmpty() }
+private fun String.splitXml(): List<String> = split("\r?\n".toRegex()).filter { it.isNotBlank() }
 
 private fun <T> isListOf(vararg items: T) = `is`(listOf(*items))
 
@@ -57,11 +57,11 @@ private class ApiDocsTest {
                 <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
                                xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
                     <apidoc:summary>
-                        <p>Lorem ipsum dolor.</p>
-                        <p>Sed <code>emit</code> et dolor.</p>
-                        <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
-              at "/MarkLogic/admin.xqy" ;
-                        </code></p>
+<p>Lorem ipsum dolor.</p>
+<p>Sed <code>emit</code> et dolor.</p>
+<p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
+at "/MarkLogic/admin.xqy" ;
+</code></p>
                     </apidoc:summary>
                     <apidoc:function name="get-database-ids" lib="admin"/>
                 </apidoc:module>
@@ -226,17 +226,23 @@ private class ApiDocsTest {
                 <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
                                xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
                     <apidoc:summary>
-                        <p>Lorem ipsum dolor.</p>
-                        <p>Sed <code>emit</code> et dolor.</p>
-                        <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
-              at "/MarkLogic/admin.xqy" ;
-                        </code></p>
+<p>Lorem ipsum dolor.</p>
+<p>Sed <code>emit</code> et dolor.</p>
+<p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
+at "/MarkLogic/admin.xqy" ;
+</code></p>
                     </apidoc:summary>
                     <apidoc:function name="version" lib="xdmp" type="builtin" category="Other">
                         <apidoc:summary>
-                            <p>Lorem function dolor.</p>
-                            <p>Sed <code>emit</code> et dolor.</p>
+<p>Lorem function dolor.</p>
+<p>Sed <code>emit</code> et dolor.</p>
                         </apidoc:summary>
+                        <apidoc:example><pre xml:space="preserve"><![CDATA[
+  1. Lorem ipsum dolor.
+]]></pre></apidoc:example>
+                        <apidoc:example><pre xml:space="preserve"><![CDATA[
+  2. Lorem ipsum dolor.
+]]></pre></apidoc:example>
                     </apidoc:function>
                 </apidoc:module>
             """
@@ -266,7 +272,14 @@ private class ApiDocsTest {
                 "<p>Sed <code>emit</code> et dolor.</p>"
             ))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
+            assertThat(ref.examples?.splitXml(), isListOf(
+                "<div class=\"example\"><pre xml:space=\"preserve\"><![CDATA[",
+                "  1. Lorem ipsum dolor.",
+                "]]></pre></div>",
+                "<div class=\"example\"><pre xml:space=\"preserve\"><![CDATA[",
+                "  2. Lorem ipsum dolor.",
+                "]]></pre></div>"
+            ))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -275,6 +288,7 @@ private class ApiDocsTest {
             assertThat(ref.errorConditions, `is`(nullValue()))
         }
 
+        @Suppress("Reformat")
         @Test
         @DisplayName("builtin (cts namespace)")
         fun builtinCts() {
@@ -286,6 +300,9 @@ private class ApiDocsTest {
                     <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
                         <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
                         <apidoc:usage>These are the usage notes.</apidoc:usage>
+                        <apidoc:example><pre xml:space="preserve"><![CDATA[
+  Lorem ipsum dolor.
+]]></pre></apidoc:example>
                     </apidoc:function>
                 </apidoc:module>
             """
@@ -312,7 +329,11 @@ private class ApiDocsTest {
             assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
+            assertThat(ref.examples?.splitXml(), isListOf(
+                "<div class=\"example\"><pre xml:space=\"preserve\"><![CDATA[",
+                "  Lorem ipsum dolor.",
+                "]]></pre></div>"
+            ))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.psi.PsiElement
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -54,7 +55,9 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val notes: String? = null
 
-    override val examples: String? = null
+    override val examples: String? by lazy {
+        xml.children("apidoc:example").joinToString("\n") { "<div class=\"example\">${it.innerXml()}</div>" }.nullize()
+    }
 
     // endregion
     // region XdmFunctionDocumentation
