@@ -213,6 +213,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
             assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.privileges, `is`(nullValue()))
             assertThat(ref.rules, `is`(nullValue()))
             assertThat(ref.errorConditions, `is`(nullValue()))
         }
@@ -243,6 +244,7 @@ at "/MarkLogic/admin.xqy" ;
                         <apidoc:example><pre xml:space="preserve"><![CDATA[
   2. Lorem ipsum dolor.
 ]]></pre></apidoc:example>
+                        <apidoc:privilege>MarkLogic privileges are documented here.</apidoc:privilege>
                     </apidoc:function>
                 </apidoc:module>
             """
@@ -284,6 +286,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
             assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.privileges, `is`("MarkLogic privileges are documented here."))
             assertThat(ref.rules, `is`(nullValue()))
             assertThat(ref.errorConditions, `is`(nullValue()))
         }
@@ -338,6 +341,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
             assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.privileges, `is`(nullValue()))
             assertThat(ref.rules, `is`("These are the usage notes."))
             assertThat(ref.errorConditions, `is`(nullValue()))
         }

@@ -32,6 +32,8 @@ interface XdmFunctionDocumentation : XdmDocumentation {
 
     val properties: String?
 
+    val privileges: String?
+
     val rules: String?
 
     val errorConditions: String?
@@ -44,6 +46,7 @@ val XdmDocumentation.sections: String
             "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,
             "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
             "Properties" to (this as? XdmFunctionDocumentation)?.properties,
+            "Required Privileges" to (this as? XdmFunctionDocumentation)?.privileges,
             "Rules" to (this as? XdmFunctionDocumentation)?.rules,
             "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
             "Notes" to notes,
