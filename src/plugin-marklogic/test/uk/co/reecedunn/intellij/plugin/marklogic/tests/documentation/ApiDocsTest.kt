@@ -285,6 +285,7 @@ private class ApiDocsTest {
                     <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
                     <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
                         <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
+                        <apidoc:usage>These are the usage notes.</apidoc:usage>
                     </apidoc:function>
                 </apidoc:module>
             """
@@ -316,7 +317,7 @@ private class ApiDocsTest {
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
             assertThat(ref.properties, `is`(nullValue()))
-            assertThat(ref.rules, `is`(nullValue()))
+            assertThat(ref.rules, `is`("These are the usage notes."))
             assertThat(ref.errorConditions, `is`(nullValue()))
         }
 

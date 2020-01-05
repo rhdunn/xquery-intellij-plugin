@@ -65,7 +65,7 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val properties: String? = null
 
-    override val rules: String? = null
+    override val rules: String? by lazy { xml.child("apidoc:usage")?.innerXml() }
 
     override val errorConditions: String? = null
 
