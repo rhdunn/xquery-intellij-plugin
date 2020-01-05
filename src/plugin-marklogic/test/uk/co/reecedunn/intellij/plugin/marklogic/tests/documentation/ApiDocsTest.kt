@@ -30,6 +30,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import java.util.zip.ZipEntry
 
+private fun String.splitXml(): List<String> = split("\r?\n[ \t]+".toRegex()).filter { it.isNotEmpty() }
+
+private fun <T> isListOf(vararg items: T) = `is`(listOf(*items))
+
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Documentation - MarkLogic API Documentation")
 private class ApiDocsTest {
@@ -43,6 +47,7 @@ private class ApiDocsTest {
     @Nested
     @DisplayName("modules")
     internal inner class Modules {
+        @Suppress("Reformat")
         @Test
         @DisplayName("importable module ; multi-paragraph summary")
         fun importableModule() {
@@ -78,20 +83,13 @@ private class ApiDocsTest {
 
             val ref = modules[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
-            assertThat(
-                ref.summary?.split("\r?\n[ \t]+".toRegex()),
-                `is`(
-                    listOf(
-                        "",
-                        "<p>Lorem ipsum dolor.</p>",
-                        "<p>Sed <code>emit</code> et dolor.</p>",
-                        "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
-                        "at \"/MarkLogic/admin.xqy\" ;",
-                        "</code></p>",
-                        ""
-                    )
-                )
-            )
+            assertThat(ref.summary?.splitXml(), isListOf(
+                "<p>Lorem ipsum dolor.</p>",
+                "<p>Sed <code>emit</code> et dolor.</p>",
+                "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
+                "at \"/MarkLogic/admin.xqy\" ;",
+                "</code></p>"
+            ))
         }
 
         @Test
@@ -204,6 +202,7 @@ private class ApiDocsTest {
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
         }
 
+        @Suppress("Reformat")
         @Test
         @DisplayName("from other module")
         fun fromOtherModule() {
@@ -247,17 +246,10 @@ private class ApiDocsTest {
 
             val ref = functions[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
-            assertThat(
-                ref.summary?.split("\r?\n[ \t]+".toRegex()),
-                `is`(
-                    listOf(
-                        "",
-                        "<p>Lorem function dolor.</p>",
-                        "<p>Sed <code>emit</code> et dolor.</p>",
-                        ""
-                    )
-                )
-            )
+            assertThat(ref.summary?.splitXml(), isListOf(
+                "<p>Lorem function dolor.</p>",
+                "<p>Sed <code>emit</code> et dolor.</p>"
+            ))
         }
 
         @Test
