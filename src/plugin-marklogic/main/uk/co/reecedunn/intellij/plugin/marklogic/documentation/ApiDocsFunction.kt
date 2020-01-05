@@ -17,8 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -26,6 +28,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) :
     XsQNameValue, XdmFunctionDocumentation {
     // region apidoc:function
+
+    var moduleType: XdmModuleType = XdmModuleType.XQuery
+        set(value) {
+            field = value
+            cachedExample.invalidate()
+        }
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
 
@@ -55,12 +63,21 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val notes: String? = null
 
-    override val examples: String? by lazy {
-        xml.children("apidoc:example").joinToString("\n") {
-            val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-            "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
-        }.nullize()
+    val cachedExample = CacheableProperty {
+        xml.children("apidoc:example").mapNotNull {
+            val type = when (it.attribute("class")) {
+                "javascript" -> XdmModuleType.JavaScript
+                else -> XdmModuleType.XQuery
+            }
+            if (type === moduleType) {
+                val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
+            } else
+                null
+        }.joinToString("\n").nullize()
     }
+
+    override val examples: String? get() = cachedExample.get()
 
     // endregion
     // region XdmFunctionDocumentation
