@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -90,6 +91,8 @@ private class ApiDocsTest {
                 "at \"/MarkLogic/admin.xqy\" ;",
                 "</code></p>"
             ))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
         }
 
         @Test
@@ -120,6 +123,8 @@ private class ApiDocsTest {
             val ref = modules[0] as XdmDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
         }
 
         @Test
@@ -150,6 +155,8 @@ private class ApiDocsTest {
             val ref = modules[0] as XdmDocumentation
             assertThat(ref.href, `is`(nullValue()))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
         }
     }
 
@@ -197,9 +204,17 @@ private class ApiDocsTest {
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
-            val ref = functions[0] as XdmDocumentation
+            val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.operatorMapping, `is`(nullValue()))
+            assertThat(ref.signatures, `is`(nullValue()))
+            assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.rules, `is`(nullValue()))
+            assertThat(ref.errorConditions, `is`(nullValue()))
         }
 
         @Suppress("Reformat")
@@ -244,12 +259,20 @@ private class ApiDocsTest {
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
-            val ref = functions[0] as XdmDocumentation
+            val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
             assertThat(ref.summary?.splitXml(), isListOf(
                 "<p>Lorem function dolor.</p>",
                 "<p>Sed <code>emit</code> et dolor.</p>"
             ))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.operatorMapping, `is`(nullValue()))
+            assertThat(ref.signatures, `is`(nullValue()))
+            assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.rules, `is`(nullValue()))
+            assertThat(ref.errorConditions, `is`(nullValue()))
         }
 
         @Test
@@ -284,9 +307,17 @@ private class ApiDocsTest {
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
-            val ref = functions[0] as XdmDocumentation
+            val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.operatorMapping, `is`(nullValue()))
+            assertThat(ref.signatures, `is`(nullValue()))
+            assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.rules, `is`(nullValue()))
+            assertThat(ref.errorConditions, `is`(nullValue()))
         }
 
         @Test
