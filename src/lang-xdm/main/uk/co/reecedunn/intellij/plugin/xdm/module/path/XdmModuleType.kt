@@ -19,13 +19,14 @@ enum class XdmModuleType(val extensions: Array<String>) {
     DotNet(arrayOf()), // Saxon
     DTD(arrayOf()), // EXPath Package
     Java(arrayOf()), // BaseX, eXist-db, Saxon
+    JavaScript(arrayOf()), // MarkLogic
     NVDL(arrayOf()), // EXPath Package
     RelaxNG(arrayOf()), // EXPath Package
     RelaxNGCompact(arrayOf()), // EXPath Package
     Resource(arrayOf()), // EXPath Package
     Schematron(arrayOf()), // EXPath Package
     XMLSchema(arrayOf(".xsd")), // Schema Aware Feature, EXPath Package
-    XPath(arrayOf()), // Documentation
+    XPath(arrayOf()), // XSLT
     XProc(arrayOf()), // EXPath Package
     XQuery(arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")), // Module Feature, EXPath Package
     XSLT(arrayOf()); // MarkLogic, EXPath Package

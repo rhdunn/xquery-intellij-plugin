@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 private data class MarkLogicZippedDocumentation(
@@ -55,7 +57,20 @@ private data class MarkLogicZippedDocumentation(
     // endregion
 }
 
-object MarkLogicProductDocumentation : XdmDocumentationSourceProvider, XdmDocumentationIndex {
+object MarkLogicProductDocumentation : XdmProductType, XdmDocumentationSourceProvider, XdmDocumentationIndex {
+    // region XdmProductType
+
+    override val id: String = "marklogic"
+
+    override val name = "MarkLogic"
+
+    override val moduleTypes: Array<XdmModuleType> = arrayOf(
+        XdmModuleType.XQuery,
+        XdmModuleType.XPath,
+        XdmModuleType.JavaScript
+    )
+
+    // endregion
     // region XdmDocumentationSourceProvider
 
     val MARKLOGIC_6: XdmDocumentationSource = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
