@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.lang
 
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+
 interface XdmSpecificationType {
     val id: String
 
     val name: String
+
+    val moduleTypes: Array<XdmModuleType>
 }

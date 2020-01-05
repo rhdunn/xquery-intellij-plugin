@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
     Resource(arrayOf()), // EXPath Package
     Schematron(arrayOf()), // EXPath Package
     XMLSchema(arrayOf(".xsd")), // Schema Aware Feature, EXPath Package
+    XPath(arrayOf()), // Documentation
     XProc(arrayOf()), // EXPath Package
     XQuery(arrayOf(".xq", ".xqm", ".xqy", ".xql", ".xqu", ".xquery")), // Module Feature, EXPath Package
     XSLT(arrayOf()); // MarkLogic, EXPath Package
