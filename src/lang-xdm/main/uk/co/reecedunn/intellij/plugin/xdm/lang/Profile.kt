@@ -13,16 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.documentation
+package uk.co.reecedunn.intellij.plugin.xdm.lang
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-interface XdmDocumentationIndex {
-    fun invalidate()
-
-    fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation?
-
-    fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation?
-}
+data class XdmLanguageProfile(
+    val moduleType: XdmModuleType
+)

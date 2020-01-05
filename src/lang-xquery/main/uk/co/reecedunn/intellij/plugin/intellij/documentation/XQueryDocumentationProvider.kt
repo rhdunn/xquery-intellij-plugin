@@ -30,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -93,54 +95,61 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     // Generate the main documentation for the documentation pane.
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
+        val profile = XdmLanguageProfile(XdmModuleType.XQuery)
         return originalElement?.let {
-            val text = lookup(it).firstOrNull()?.sections ?: return@let null
+            val text = lookup(it, profile).firstOrNull()?.sections ?: return@let null
             return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }
 
     // Generate the summary documentation for the documentation hover tooltip.
     override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
+        val profile = XdmLanguageProfile(XdmModuleType.XQuery)
         return originalElement?.let {
-            val text = lookup(it).firstOrNull()?.summary ?: return@let null
+            val text = lookup(it, profile).firstOrNull()?.summary ?: return@let null
             return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }
 
     // Generate the external documentation links displayed below the main/summary documentation.
     override fun getUrlFor(element: PsiElement?, originalElement: PsiElement?): List<String> {
-        return originalElement?.let { lookup(it).mapNotNull { ref -> ref.href }.toList() } ?: emptyList()
+        val profile = XdmLanguageProfile(XdmModuleType.XQuery)
+        return originalElement?.let { lookup(it, profile).mapNotNull { ref -> ref.href }.toList() } ?: emptyList()
     }
 
-    private fun lookup(element: PsiElement): Sequence<XdmDocumentation> {
+    private fun lookup(element: PsiElement, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
         val parent = element.parent
         return when {
-            (parent as? XsQNameValue)?.prefix?.element === element -> lookupPrefix(parent as XsQNameValue)
-            (parent as? XsQNameValue)?.localName?.element === element -> lookupLocalName(parent as XsQNameValue)
+            (parent as? XsQNameValue)?.prefix?.element === element -> {
+                lookupPrefix(parent as XsQNameValue, profile)
+            }
+            (parent as? XsQNameValue)?.localName?.element === element -> {
+                lookupLocalName(parent as XsQNameValue, profile)
+            }
             else -> emptySequence()
         }
     }
 
-    private fun lookupPrefix(qname: XsQNameValue): Sequence<XdmDocumentation> {
+    private fun lookupPrefix(qname: XsQNameValue, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
         val decl = qname.expand().firstOrNull()?.namespace?.element?.parent as? XdmNamespaceDeclaration
-        return decl?.let { XdmDocumentationSourceProvider.lookup(it) } ?: emptySequence()
+        return decl?.let { XdmDocumentationSourceProvider.lookup(it, profile) } ?: emptySequence()
     }
 
-    private fun lookupLocalName(qname: XsQNameValue): Sequence<XdmDocumentation> {
+    private fun lookupLocalName(qname: XsQNameValue, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
         return when (val ref = qname.element?.parent) {
             is XdmFunctionReference -> {
                 XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
                     override val functionName: XsQNameValue? = ref.functionName?.expand()?.firstOrNull()
                     override val arity: Int = ref.arity
-                })
+                }, profile)
             }
             is XdmFunctionDeclaration -> {
                 XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
                     override val functionName: XsQNameValue? = ref.functionName?.expand()?.firstOrNull()
                     override val arity: Int = ref.arity.from
-                })
+                }, profile)
             }
-            is XdmNamespaceDeclaration -> XdmDocumentationSourceProvider.lookup(ref)
+            is XdmNamespaceDeclaration -> XdmDocumentationSourceProvider.lookup(ref, profile)
             else -> emptySequence()
         }
     }

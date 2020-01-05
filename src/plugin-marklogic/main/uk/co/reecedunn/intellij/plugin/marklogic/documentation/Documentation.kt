@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -46,12 +47,12 @@ private data class MarkLogicZippedDocumentation(
         apidocs.invalidate()
     }
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
-        return apidocs.get()?.lookup(ref)
+    override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
+        return apidocs.get()?.lookup(ref, profile)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
-        return apidocs.get()?.lookup(decl)
+    override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
+        return apidocs.get()?.lookup(decl, profile)
     }
 
     // endregion
@@ -92,12 +93,12 @@ object MarkLogicProductDocumentation : XdmProductType, XdmDocumentationSourcePro
 
     override fun invalidate() = (MARKLOGIC_10 as XdmDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
-        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(ref)
+    override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
+        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(ref, profile)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
-        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(decl)
+    override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
+        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(decl, profile)
     }
 
     // endregion

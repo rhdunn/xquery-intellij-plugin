@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -104,12 +105,12 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun invalidate() = (REC_3_1_20170321 as XdmDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
-        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
+    override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
+        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref, profile)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
-        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl)
+    override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
+        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl, profile)
     }
 
     // endregion
