@@ -137,20 +137,20 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     private fun lookupLocalName(qname: XsQNameValue, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
         return when (val ref = qname.element?.parent) {
-            is XdmFunctionReference -> {
-                XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
-                    override val functionName: XsQNameValue? = ref.functionName?.expand()?.firstOrNull()
-                    override val arity: Int = ref.arity
-                }, profile)
-            }
-            is XdmFunctionDeclaration -> {
-                XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
-                    override val functionName: XsQNameValue? = ref.functionName?.expand()?.firstOrNull()
-                    override val arity: Int = ref.arity.from
-                }, profile)
-            }
+            is XdmFunctionReference -> lookupFunction(ref.functionName, ref.arity, profile)
+            is XdmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from, profile)
             is XdmNamespaceDeclaration -> XdmDocumentationSourceProvider.lookup(ref, profile)
             else -> emptySequence()
         }
+    }
+
+    private fun lookupFunction(functionName: XsQNameValue?, arity: Int, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
+        // NOTE: NCName may bind to the current module (MarkLogic behaviour) and the default function namespace.
+        return functionName?.expand()?.flatMap {
+            XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
+                override val functionName: XsQNameValue? = it
+                override val arity: Int = arity
+            }, profile)
+        } ?: emptySequence()
     }
 }
