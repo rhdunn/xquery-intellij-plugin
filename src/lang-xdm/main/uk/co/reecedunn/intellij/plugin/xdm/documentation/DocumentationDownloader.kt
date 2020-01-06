@@ -52,13 +52,17 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
     }
 
     fun load(source: XdmDocumentationSource): VirtualFile? {
-        return LocalFileSystem.getInstance().findFileByPath("$basePath/${source.path}")
+        return LocalFileSystem.getInstance().findFileByIoFile(file(source))
+    }
+
+    fun file(source: XdmDocumentationSource): File {
+        return File("$basePath/${source.path}")
     }
 
     fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
         return when {
             tasks.isActive(source) -> XdmDocumentationDownloadStatus.Downloading
-            load(source) != null -> XdmDocumentationDownloadStatus.Downloaded
+            file(source).exists() -> XdmDocumentationDownloadStatus.Downloaded
             else -> XdmDocumentationDownloadStatus.NotDownloaded
         }
     }
