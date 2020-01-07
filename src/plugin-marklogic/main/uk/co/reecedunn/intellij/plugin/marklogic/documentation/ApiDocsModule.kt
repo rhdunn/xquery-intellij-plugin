@@ -50,9 +50,10 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
 
     val functions: List<ApiDocsFunction> by lazy {
         xml.children("apidoc:function").mapNotNull {
+            val prefix = it.attribute("lib")!!
             when {
                 it.attribute("name") == null -> null
-                it.attribute("lib") == lib -> ApiDocsFunction(it, namespaceUri)
+                prefix == lib -> ApiDocsFunction(it, namespaceUri ?: BUILTIN_NAMESPACES[prefix])
                 else -> ApiDocsFunction(it, null)
             }
         }.toList()
@@ -72,7 +73,13 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // endregion
 
     companion object {
+        private fun uri(uri: String) = XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
+
         private val RE_IMPORT_DECL =
             "^import module namespace ([a-zA-Z0-9\\-]+) = \"([^\"]+)\"\\s*at\\s*\"([^\"]+)\"\\s*;\\s*$".toRegex()
+
+        private val BUILTIN_NAMESPACES = mapOf(
+            "cts" to uri("http://marklogic.com/cts") // MarkLogic 5.0
+        )
     }
 }

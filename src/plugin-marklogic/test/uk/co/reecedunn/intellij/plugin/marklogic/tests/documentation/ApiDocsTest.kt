@@ -338,7 +338,9 @@ at "/MarkLogic/admin.xqy" ;
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("cts"))
             assertThat(qname.localName?.data, `is`("train"))
-            assertThat(qname.namespace, `is`(nullValue()))
+            assertThat(qname.namespace?.data, `is`("http://marklogic.com/cts"))
+            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 
