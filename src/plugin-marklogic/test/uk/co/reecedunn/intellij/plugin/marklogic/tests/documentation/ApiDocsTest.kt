@@ -224,8 +224,8 @@ at "/MarkLogic/admin.xqy" ;
 
         @Suppress("Reformat")
         @Test
-        @DisplayName("from other module")
-        fun fromOtherModule() {
+        @DisplayName("builtin (xdmp namespace) from other module")
+        fun builtinXdmpFromOtherModule() {
             @Language("XML")
             val adminLib = """
                 <apidoc:module name="AdminModule" category="Admin Library" lib="admin" bucket="XQuery Library Modules"
@@ -270,7 +270,9 @@ at "/MarkLogic/admin.xqy" ;
             val qname = functions[0] as XsQNameValue
             assertThat(qname.prefix?.data, `is`("xdmp"))
             assertThat(qname.localName?.data, `is`("version"))
-            assertThat(qname.namespace, `is`(nullValue()))
+            assertThat(qname.namespace?.data, `is`("http://marklogic.com/xdmp"))
+            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
             assertThat(qname.isLexicalQName, `is`(true))
             assertThat(qname.element, `is`(nullValue()))
 

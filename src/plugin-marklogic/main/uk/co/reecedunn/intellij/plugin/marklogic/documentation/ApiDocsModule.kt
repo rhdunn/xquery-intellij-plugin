@@ -54,7 +54,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
             when {
                 it.attribute("name") == null -> null
                 prefix == lib -> ApiDocsFunction(it, namespaceUri ?: BUILTIN_NAMESPACES[prefix])
-                else -> ApiDocsFunction(it, null)
+                else -> ApiDocsFunction(it, BUILTIN_NAMESPACES[prefix])
             }
         }.toList()
     }
@@ -79,7 +79,8 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
             "^import module namespace ([a-zA-Z0-9\\-]+) = \"([^\"]+)\"\\s*at\\s*\"([^\"]+)\"\\s*;\\s*$".toRegex()
 
         private val BUILTIN_NAMESPACES = mapOf(
-            "cts" to uri("http://marklogic.com/cts") // MarkLogic 5.0
+            "cts" to uri("http://marklogic.com/cts"), // MarkLogic 5.0
+            "xdmp" to uri("http://marklogic.com/xdmp") // MarkLogic 5.0
         )
     }
 }
