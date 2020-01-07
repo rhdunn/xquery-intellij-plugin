@@ -78,7 +78,9 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
         private val RE_IMPORT_DECL =
             "^import module namespace ([a-zA-Z0-9\\-]+) = \"([^\"]+)\"\\s*at\\s*\"([^\"]+)\"\\s*;\\s*$".toRegex()
 
+        // These are the namespaces that have builtin functions in MarkLogic.
         private val BUILTIN_NAMESPACES = mapOf(
+            "cntk" to uri("http://marklogic.com/cntk"), // MarkLogic 10.0
             "cts" to uri("http://marklogic.com/cts"), // MarkLogic 5.0
             "xdmp" to uri("http://marklogic.com/xdmp") // MarkLogic 5.0
         )

@@ -224,6 +224,118 @@ at "/MarkLogic/admin.xqy" ;
 
         @Suppress("Reformat")
         @Test
+        @DisplayName("builtin (cntk namespace)")
+        fun builtinCntk() {
+            @Language("XML")
+            val cntk = """
+                <apidoc:module name="CNTKBuiltins" category="CNTKBuiltins" lib="cntk"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
+                    <apidoc:function name="cpu" type="builtin" lib="cntk" category="CntkBuiltins">
+                        <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
+                    </apidoc:function>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/CNTKBuiltins.xml" to cntk
+            )
+
+            val functions = apidocs.modules[0].functions
+            assertThat(functions.size, `is`(1))
+
+            assertThat(functions[0].isBuiltin, `is`(true))
+            assertThat(functions[0].category, `is`("CntkBuiltins"))
+            assertThat(functions[0].subcategory, `is`(nullValue()))
+            assertThat(functions[0].bucket, `is`(nullValue()))
+
+            val qname = functions[0] as XsQNameValue
+            assertThat(qname.prefix?.data, `is`("cntk"))
+            assertThat(qname.localName?.data, `is`("cpu"))
+            assertThat(qname.namespace?.data, `is`("http://marklogic.com/cntk"))
+            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
+            assertThat(qname.isLexicalQName, `is`(true))
+            assertThat(qname.element, `is`(nullValue()))
+
+            val ref = functions[0] as XdmFunctionDocumentation
+            assertThat(ref.href, `is`("https://docs.marklogic.com/cntk:cpu"))
+            assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.operatorMapping, `is`(nullValue()))
+            assertThat(ref.signatures, `is`(nullValue()))
+            assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.privileges, `is`(nullValue()))
+            assertThat(ref.rules, `is`(nullValue()))
+            assertThat(ref.errorConditions, `is`(nullValue()))
+
+            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
+            assertThat(ref.examples, `is`(nullValue()))
+        }
+
+        @Suppress("Reformat")
+        @Test
+        @DisplayName("builtin (cts namespace)")
+        fun builtinCts() {
+            @Language("XML")
+            val adminLib = """
+                <apidoc:module name="ClassifierBuiltins" category="Classifier" lib="cts"
+                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                    <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
+                    <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
+                        <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
+                        <apidoc:usage>These are the usage notes.</apidoc:usage>
+                        <apidoc:example><pre xml:space="preserve"><![CDATA[
+  a < b & b > c
+]]></pre></apidoc:example>
+                    </apidoc:function>
+                </apidoc:module>
+            """
+            val apidocs = create(
+                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
+            )
+
+            val functions = apidocs.modules[0].functions
+            assertThat(functions.size, `is`(1))
+
+            assertThat(functions[0].isBuiltin, `is`(true))
+            assertThat(functions[0].category, `is`("Classifier"))
+            assertThat(functions[0].subcategory, `is`(nullValue()))
+            assertThat(functions[0].bucket, `is`(nullValue()))
+
+            val qname = functions[0] as XsQNameValue
+            assertThat(qname.prefix?.data, `is`("cts"))
+            assertThat(qname.localName?.data, `is`("train"))
+            assertThat(qname.namespace?.data, `is`("http://marklogic.com/cts"))
+            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
+            assertThat(qname.isLexicalQName, `is`(true))
+            assertThat(qname.element, `is`(nullValue()))
+
+            val ref = functions[0] as XdmFunctionDocumentation
+            assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
+            assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
+            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.examples?.splitXml(), isListOf(
+                "<div class=\"example\"><pre xml:space=\"preserve\">",
+                "  a &lt; b &amp; b &gt; c",
+                "</pre></div>"
+            ))
+
+            assertThat(ref.operatorMapping, `is`(nullValue()))
+            assertThat(ref.signatures, `is`(nullValue()))
+            assertThat(ref.properties, `is`(nullValue()))
+            assertThat(ref.privileges, `is`(nullValue()))
+            assertThat(ref.rules, `is`("These are the usage notes."))
+            assertThat(ref.errorConditions, `is`(nullValue()))
+
+            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
+            assertThat(ref.examples, `is`(nullValue()))
+        }
+
+        @Suppress("Reformat")
+        @Test
         @DisplayName("builtin (xdmp namespace) from other module")
         fun builtinXdmpFromOtherModule() {
             @Language("XML")
@@ -305,66 +417,6 @@ at "/MarkLogic/admin.xqy" ;
                 "  3. Lorem ipsum dolor.",
                 "</pre></div>"
             ))
-        }
-
-        @Suppress("Reformat")
-        @Test
-        @DisplayName("builtin (cts namespace)")
-        fun builtinCts() {
-            @Language("XML")
-            val adminLib = """
-                <apidoc:module name="ClassifierBuiltins" category="Classifier" lib="cts"
-                               xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                    <apidoc:summary><p>Lorem ipsum dolor.</p></apidoc:summary>
-                    <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
-                        <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
-                        <apidoc:usage>These are the usage notes.</apidoc:usage>
-                        <apidoc:example><pre xml:space="preserve"><![CDATA[
-  a < b & b > c
-]]></pre></apidoc:example>
-                    </apidoc:function>
-                </apidoc:module>
-            """
-            val apidocs = create(
-                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
-            )
-
-            val functions = apidocs.modules[0].functions
-            assertThat(functions.size, `is`(1))
-
-            assertThat(functions[0].isBuiltin, `is`(true))
-            assertThat(functions[0].category, `is`("Classifier"))
-            assertThat(functions[0].subcategory, `is`(nullValue()))
-            assertThat(functions[0].bucket, `is`(nullValue()))
-
-            val qname = functions[0] as XsQNameValue
-            assertThat(qname.prefix?.data, `is`("cts"))
-            assertThat(qname.localName?.data, `is`("train"))
-            assertThat(qname.namespace?.data, `is`("http://marklogic.com/cts"))
-            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
-            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
-            assertThat(qname.isLexicalQName, `is`(true))
-            assertThat(qname.element, `is`(nullValue()))
-
-            val ref = functions[0] as XdmFunctionDocumentation
-            assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
-            assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
-            assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples?.splitXml(), isListOf(
-                "<div class=\"example\"><pre xml:space=\"preserve\">",
-                "  a &lt; b &amp; b &gt; c",
-                "</pre></div>"
-            ))
-
-            assertThat(ref.operatorMapping, `is`(nullValue()))
-            assertThat(ref.signatures, `is`(nullValue()))
-            assertThat(ref.properties, `is`(nullValue()))
-            assertThat(ref.privileges, `is`(nullValue()))
-            assertThat(ref.rules, `is`("These are the usage notes."))
-            assertThat(ref.errorConditions, `is`(nullValue()))
-
-            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
-            assertThat(ref.examples, `is`(nullValue()))
         }
 
         @Test
