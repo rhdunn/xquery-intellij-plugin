@@ -189,12 +189,12 @@ at "/MarkLogic/admin.xqy" ;
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
+            assertThat(functions[0].lib, `is`("admin"))
             assertThat(functions[0].isBuiltin, `is`(false))
             assertThat(functions[0].category, `is`("Admin Library"))
             assertThat(functions[0].subcategory, `is`("database"))
             assertThat(functions[0].bucket, `is`("XQuery Library Modules"))
 
-            assertThat(functions[0].prefix.data, `is`("admin"))
             assertThat(functions[0].localName.data, `is`("get-database-ids"))
             assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/xdmp/admin"))
             assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
@@ -235,12 +235,12 @@ at "/MarkLogic/admin.xqy" ;
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
+            assertThat(functions[0].lib, `is`("cntk"))
             assertThat(functions[0].isBuiltin, `is`(true))
             assertThat(functions[0].category, `is`("CntkBuiltins"))
             assertThat(functions[0].subcategory, `is`(nullValue()))
             assertThat(functions[0].bucket, `is`(nullValue()))
 
-            assertThat(functions[0].prefix.data, `is`("cntk"))
             assertThat(functions[0].localName.data, `is`("cpu"))
             assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/cntk"))
             assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
@@ -285,12 +285,12 @@ at "/MarkLogic/admin.xqy" ;
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
+            assertThat(functions[0].lib, `is`("cts"))
             assertThat(functions[0].isBuiltin, `is`(true))
             assertThat(functions[0].category, `is`("Classifier"))
             assertThat(functions[0].subcategory, `is`(nullValue()))
             assertThat(functions[0].bucket, `is`(nullValue()))
 
-            assertThat(functions[0].prefix.data, `is`("cts"))
             assertThat(functions[0].localName.data, `is`("train"))
             assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/cts"))
             assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
@@ -354,12 +354,12 @@ at "/MarkLogic/admin.xqy" ;
             val functions = apidocs.modules[0].functions
             assertThat(functions.size, `is`(1))
 
+            assertThat(functions[0].lib, `is`("xdmp"))
             assertThat(functions[0].isBuiltin, `is`(true))
             assertThat(functions[0].category, `is`("Other"))
             assertThat(functions[0].subcategory, `is`(nullValue()))
             assertThat(functions[0].bucket, `is`(nullValue()))
 
-            assertThat(functions[0].prefix.data, `is`("xdmp"))
             assertThat(functions[0].localName.data, `is`("version"))
             assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/xdmp"))
             assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
