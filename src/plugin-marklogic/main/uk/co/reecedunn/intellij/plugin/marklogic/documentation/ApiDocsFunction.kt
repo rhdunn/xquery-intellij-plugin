@@ -31,7 +31,7 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: XsAnyUriV
 
     val lib: String by lazy { xml.attribute("lib")!! }
 
-    val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
+    val name: String by lazy { xml.attribute("name")!! }
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
 
@@ -44,7 +44,7 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: XsAnyUriV
     // endregion
     // region XdmDocumentation
 
-    override val href: String? = "https://docs.marklogic.com/$lib:${localName.data}"
+    override val href: String? = "https://docs.marklogic.com/$lib:$name"
 
     override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 
