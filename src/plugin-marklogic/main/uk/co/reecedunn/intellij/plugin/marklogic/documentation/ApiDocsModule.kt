@@ -15,13 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // region apidoc:module
@@ -40,11 +35,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
         }?.firstOrNull()
     }
 
-    val namespaceUri: XsAnyUriValue? by lazy {
-        importDecl?.groups?.get(2)?.value?.let {
-            XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
-        }
-    }
+    val namespaceUri: String? by lazy { importDecl?.groups?.get(2)?.value }
 
     val locationUri: String? by lazy { importDecl?.groups?.get(3)?.value }
 
@@ -53,7 +44,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
             val prefix = it.attribute("lib")!!
             when {
                 it.attribute("name") == null -> null
-                prefix == lib -> ApiDocsFunction(it, namespaceUri?.data ?: BUILTIN_NAMESPACES[prefix])
+                prefix == lib -> ApiDocsFunction(it, namespaceUri ?: BUILTIN_NAMESPACES[prefix])
                 else -> ApiDocsFunction(it, BUILTIN_NAMESPACES[prefix])
             }
         }.toList()

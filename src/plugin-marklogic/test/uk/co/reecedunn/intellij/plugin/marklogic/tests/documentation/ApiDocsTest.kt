@@ -26,8 +26,6 @@ import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import java.util.zip.ZipEntry
 
 private fun String.splitXml(): List<String> = split("\r?\n".toRegex()).filter { it.isNotBlank() }
@@ -76,9 +74,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].category, `is`("Admin Library"))
             assertThat(modules[0].lib, `is`("admin"))
             assertThat(modules[0].bucket, `is`("XQuery Library Modules"))
-            assertThat(modules[0].namespaceUri?.data, `is`("http://marklogic.com/xdmp/admin"))
-            assertThat(modules[0].namespaceUri?.context, `is`(XdmUriContext.Namespace))
-            assertThat(modules[0].namespaceUri?.moduleTypes, `is`(XdmModuleType.MODULE))
+            assertThat(modules[0].namespaceUri, `is`("http://marklogic.com/xdmp/admin"))
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
             val ref = modules[0] as XdmDocumentation

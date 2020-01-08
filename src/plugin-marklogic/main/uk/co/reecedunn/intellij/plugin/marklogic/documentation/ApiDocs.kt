@@ -39,7 +39,7 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
-        return modules.find { it.namespaceUri?.data == decl.namespaceUri?.data }
+        return modules.find { it.namespaceUri == decl.namespaceUri?.data }
     }
 
     // endregion
