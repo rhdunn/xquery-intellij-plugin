@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,14 @@ package uk.co.reecedunn.intellij.plugin.core.psi
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileSystemItem
-import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
+import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 
 private fun PsiFile.resourcePath(): String {
     return ancestorsAndSelf().map { (it as PsiFileSystemItem).name }.toList().reversed().joinToString("/")
 }
 
 fun PsiElement.resourcePath(): String {
-    var file = containingFile.virtualFile ?: return containingFile.resourcePath()
-    if (file is LightVirtualFileBase) {
-        file = file.originalFile ?: return containingFile.resourcePath()
-    }
+    val file = containingFile.virtualFile?.originalFile ?: return containingFile.resourcePath()
     return file.path.replace('\\', '/')
 }

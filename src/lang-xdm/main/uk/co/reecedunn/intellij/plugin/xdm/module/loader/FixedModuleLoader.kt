@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
-import com.intellij.testFramework.LightVirtualFileBase
+import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
@@ -62,12 +62,7 @@ class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
             }
         }
 
-        fun loader(file: VirtualFile): XdmModuleLoader? {
-            return if (file is LightVirtualFileBase)
-                FixedModuleLoader(file.originalFile)
-            else
-                FixedModuleLoader(file)
-        }
+        fun loader(file: VirtualFile): XdmModuleLoader? = FixedModuleLoader(file.originalFile)
     }
 
     // endregion
