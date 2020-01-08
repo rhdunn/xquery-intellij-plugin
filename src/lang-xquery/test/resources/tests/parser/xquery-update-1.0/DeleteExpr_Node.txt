@@ -1,16 +1,15 @@
 XQueryModuleImpl[FILE(0:15)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
-            UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(0:15)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(0:6)]('delete')
-               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
-               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(12:15)]
-                  XPathVarRefImpl[XPATH_VAR_REF(12:15)]
-                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                     XPathVarNameImpl[XPATH_VAR_NAME(14:15)]
-                        XQueryNCNameImpl[XQUERY_NCNAME(14:15)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('x')
+         UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(0:15)]
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(0:6)]('delete')
+            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(12:15)]
+               XPathVarRefImpl[XPATH_VAR_REF(12:15)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                  XPathVarNameImpl[XPATH_VAR_NAME(14:15)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(14:15)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('x')

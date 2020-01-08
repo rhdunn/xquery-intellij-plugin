@@ -1,25 +1,24 @@
 XQueryModuleImpl[FILE(0:36)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:36)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:36)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:36)]
-            XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:36)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
-               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
-               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
-               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-               PluginUnionTypeImpl[XPATH_UNION_TYPE(14:36)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(14:19)]('union')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                  XQueryQNameImpl[XQUERY_QNAME(22:32)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:24)]('xs')
-                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(24:25)](':')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:32)]('integer')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                  LeafPsiElement[XPATH_COMMA_TOKEN(33:34)](',')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Expected 'EQName'.')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(35:36)](')')
+         XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:36)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            PluginUnionTypeImpl[XPATH_UNION_TYPE(14:36)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(14:19)]('union')
+               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+               XQueryQNameImpl[XQUERY_QNAME(22:32)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:24)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(24:25)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:32)]('integer')
+               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+               LeafPsiElement[XPATH_COMMA_TOKEN(33:34)](',')
+               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Expected 'EQName'.')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(35:36)](')')

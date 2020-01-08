@@ -1,34 +1,32 @@
 XQueryModuleImpl[FILE(0:70)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:70)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:70)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:70)]
-            XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:70)]
-               XPathPragmaImpl[XPATH_PRAGMA(0:33)]
-                  LeafPsiElement[XPATH_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                  XQueryQNameImpl[XQUERY_QNAME(3:11)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:6)]('ext')
-                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(6:7)](':')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:11)]('test')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                  LeafPsiElement[XPATH_PRAGMA_CONTENTS_TOKEN(12:31)]('Lorem ipsum dolor. ')
-                  LeafPsiElement[XPATH_PRAGMA_END_TOKEN(31:33)]('#)')
-               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-               XPathPragmaImpl[XPATH_PRAGMA(34:64)]
-                  LeafPsiElement[XPATH_PRAGMA_BEGIN_TOKEN(34:36)]('(#')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                  XQueryQNameImpl[XQUERY_QNAME(37:46)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(37:40)]('ext')
-                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(40:41)](':')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(41:46)]('test2')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                  LeafPsiElement[XPATH_PRAGMA_CONTENTS_TOKEN(47:62)]('One two three. ')
-                  LeafPsiElement[XPATH_PRAGMA_END_TOKEN(62:64)]('#)')
-               PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(65:66)]('{')
-               PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
-               XQueryExprImpl[XQUERY_EXPR(67:69)]
-                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(67:69)]
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(67:68)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(68:69)](' ')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(69:70)]('}')
+         XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:70)]
+            XPathPragmaImpl[XPATH_PRAGMA(0:33)]
+               LeafPsiElement[XPATH_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
+               PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+               XQueryQNameImpl[XQUERY_QNAME(3:11)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:6)]('ext')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(6:7)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:11)]('test')
+               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+               LeafPsiElement[XPATH_PRAGMA_CONTENTS_TOKEN(12:31)]('Lorem ipsum dolor. ')
+               LeafPsiElement[XPATH_PRAGMA_END_TOKEN(31:33)]('#)')
+            PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+            XPathPragmaImpl[XPATH_PRAGMA(34:64)]
+               LeafPsiElement[XPATH_PRAGMA_BEGIN_TOKEN(34:36)]('(#')
+               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+               XQueryQNameImpl[XQUERY_QNAME(37:46)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(37:40)]('ext')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(40:41)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(41:46)]('test2')
+               PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+               LeafPsiElement[XPATH_PRAGMA_CONTENTS_TOKEN(47:62)]('One two three. ')
+               LeafPsiElement[XPATH_PRAGMA_END_TOKEN(62:64)]('#)')
+            PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(65:66)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
+            XQueryExprImpl[XQUERY_EXPR(67:69)]
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(67:68)]('2')
+               PsiWhiteSpaceImpl[WHITE_SPACE(68:69)](' ')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(69:70)]('}')

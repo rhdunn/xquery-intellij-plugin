@@ -62,7 +62,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.CONCAT_EXPR))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
         }
 
         @Test
@@ -230,7 +230,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.CONCAT_EXPR))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
         }
 
         @Test

@@ -1,41 +1,40 @@
 XQueryModuleImpl[FILE(0:75)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:75)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:75)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:75)]
-            FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:75)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-               PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-               FTSelectionImpl[XPATH_FT_SELECTION(20:75)]
-                  FTMildNotImpl[XPATH_FT_MILD_NOT(20:75)]
-                     FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                           LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                           LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                           LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(28:31)]('not')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(32:34)]('in')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                     FTWordsValueImpl[XPATH_FT_WORDS_VALUE(35:54)]
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:54)]
-                           LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(35:36)]('"')
-                           LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(36:53)]('lorem ipsum dolor')
-                           LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(53:54)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(55:58)]('not')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(59:61)]('in')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
-                     FTWordsValueImpl[XPATH_FT_WORDS_VALUE(62:75)]
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(62:75)]
-                           LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(62:63)]('"')
-                           LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(63:74)]('lorem ipsum')
-                           LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(74:75)]('"')
+         FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:75)]
+            XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+               XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            FTSelectionImpl[XPATH_FT_SELECTION(20:75)]
+               FTMildNotImpl[XPATH_FT_MILD_NOT(20:75)]
+                  FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(28:31)]('not')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(32:34)]('in')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                  FTWordsValueImpl[XPATH_FT_WORDS_VALUE(35:54)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:54)]
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(35:36)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(36:53)]('lorem ipsum dolor')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(53:54)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NOT(55:58)]('not')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(59:61)]('in')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
+                  FTWordsValueImpl[XPATH_FT_WORDS_VALUE(62:75)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(62:75)]
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(62:63)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(63:74)]('lorem ipsum')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(74:75)]('"')

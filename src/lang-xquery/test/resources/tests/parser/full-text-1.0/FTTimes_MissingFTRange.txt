@@ -1,35 +1,33 @@
 XQueryModuleImpl[FILE(0:44)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:44)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:44)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:44)]
-            FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:44)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-               PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-               FTSelectionImpl[XPATH_FT_SELECTION(20:44)]
-                  FTPrimaryImpl[XPATH_FT_PRIMARY(20:44)]
-                     FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:31)]
-                        LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                        XQueryExprImpl[XQUERY_EXPR(22:30)]
-                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(22:30)]
-                              XPathVarRefImpl[XPATH_VAR_REF(22:30)]
-                                 LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                                 XPathVarNameImpl[XPATH_VAR_NAME(24:30)]
-                                    XQueryNCNameImpl[XQUERY_NCNAME(24:30)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                        LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                     FTTimesImpl[XPATH_FT_TIMES(32:44)]
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected 'FTRange'.')
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TIMES(39:44)]('times')
+         FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:44)]
+            XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+               XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            FTSelectionImpl[XPATH_FT_SELECTION(20:44)]
+               FTPrimaryImpl[XPATH_FT_PRIMARY(20:44)]
+                  FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:31)]
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                     XQueryExprImpl[XQUERY_EXPR(22:30)]
+                        XPathVarRefImpl[XPATH_VAR_REF(22:30)]
+                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                           XPathVarNameImpl[XPATH_VAR_NAME(24:30)]
+                              XQueryNCNameImpl[XQUERY_NCNAME(24:30)]
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                  FTTimesImpl[XPATH_FT_TIMES(32:44)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected 'FTRange'.')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TIMES(39:44)]('times')

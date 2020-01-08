@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
                 parent.node.elementType === XQueryElementType.MODULE ->
                     // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
                     MARKLOGIC60
-                siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null ->
+                nextSibling === null ->
                     // The last TransactionSeparator in a QueryBody.
                     // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
                     XQUERY

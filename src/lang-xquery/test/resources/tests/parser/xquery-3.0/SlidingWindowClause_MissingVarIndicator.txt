@@ -1,66 +1,65 @@
 XQueryModuleImpl[FILE(0:77)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:77)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:77)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:77)]
-            XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:77)]
-               XQueryWindowClauseImpl[XQUERY_WINDOW_CLAUSE(0:67)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                  XQuerySlidingWindowClauseImpl[XQUERY_SLIDING_WINDOW_CLAUSE(4:67)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SLIDING(4:11)]('sliding')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WINDOW(12:18)]('window')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-                     PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected '$'.')
-                     XPathVarNameImpl[XPATH_VAR_NAME(19:21)]
-                        XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(21:23)]('in')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                     XPathVarRefImpl[XPATH_VAR_REF(24:28)]
-                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                        XPathVarNameImpl[XPATH_VAR_NAME(26:28)]
-                           XQueryNCNameImpl[XQUERY_NCNAME(26:28)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('y')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(28:48)]
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(28:33)]('start')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                        XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(34:34)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(34:38)]('when')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                        XPathFunctionCallImpl[XPATH_FUNCTION_CALL(39:47)]
-                           XQueryNCNameImpl[XQUERY_NCNAME(39:44)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(39:43)]('true')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                           XPathArgumentListImpl[XPATH_ARGUMENT_LIST(44:47)]
-                              LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                              LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                     XQueryWindowEndConditionImpl[XQUERY_WINDOW_END_CONDITION(48:67)]
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_END(48:51)]('end')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
-                        XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(52:52)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(52:56)]('when')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
-                        XPathFunctionCallImpl[XPATH_FUNCTION_CALL(57:66)]
-                           XQueryNCNameImpl[XQUERY_NCNAME(57:63)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(57:62)]('false')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
-                           XPathArgumentListImpl[XPATH_ARGUMENT_LIST(63:66)]
-                              LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(63:64)]('(')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-                              LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(65:66)](')')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
-               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(67:77)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(67:73)]('return')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(73:74)](' ')
-                  XPathVarRefImpl[XPATH_VAR_REF(74:77)]
-                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(74:75)]('$')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
-                     XPathVarNameImpl[XPATH_VAR_NAME(76:77)]
-                        XQueryNCNameImpl[XQUERY_NCNAME(76:77)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(76:77)]('x')
+         XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:77)]
+            XQueryWindowClauseImpl[XQUERY_WINDOW_CLAUSE(0:67)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+               XQuerySlidingWindowClauseImpl[XQUERY_SLIDING_WINDOW_CLAUSE(4:67)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SLIDING(4:11)]('sliding')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WINDOW(12:18)]('window')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected '$'.')
+                  XPathVarNameImpl[XPATH_VAR_NAME(19:21)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(21:23)]('in')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                  XPathVarRefImpl[XPATH_VAR_REF(24:28)]
+                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                     XPathVarNameImpl[XPATH_VAR_NAME(26:28)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(26:28)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('y')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                  XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(28:48)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(28:33)]('start')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                     XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(34:34)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(34:38)]('when')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                     XPathFunctionCallImpl[XPATH_FUNCTION_CALL(39:47)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(39:44)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(39:43)]('true')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+                        XPathArgumentListImpl[XPATH_ARGUMENT_LIST(44:47)]
+                           LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                           LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
+                  XQueryWindowEndConditionImpl[XQUERY_WINDOW_END_CONDITION(48:67)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_END(48:51)]('end')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
+                     XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(52:52)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(52:56)]('when')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
+                     XPathFunctionCallImpl[XPATH_FUNCTION_CALL(57:66)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(57:63)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(57:62)]('false')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
+                        XPathArgumentListImpl[XPATH_ARGUMENT_LIST(63:66)]
+                           LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(63:64)]('(')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
+                           LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(65:66)](')')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
+            PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(67:77)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(67:73)]('return')
+               PsiWhiteSpaceImpl[WHITE_SPACE(73:74)](' ')
+               XPathVarRefImpl[XPATH_VAR_REF(74:77)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(74:75)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
+                  XPathVarNameImpl[XPATH_VAR_NAME(76:77)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(76:77)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(76:77)]('x')

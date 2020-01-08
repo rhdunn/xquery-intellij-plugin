@@ -40,6 +40,7 @@ open class XPathParser : PsiParser {
 
     open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
+    open val CONCAT_EXPR: IElementType? = null
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
 
     // endregion
@@ -207,16 +208,21 @@ open class XPathParser : PsiParser {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
+            var multipleExprSingles = false
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseExprSingle(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected-expression"))
-                    haveErrors = true
+                if (!parseExprSingle(builder)) {
+                    if (!haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected-expression"))
+                        haveErrors = true
+                    }
+                } else {
+                    multipleExprSingles = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (type == null)
+            if (type == null || (!multipleExprSingles && type === CONCAT_EXPR))
                 marker.drop()
             else
                 marker.done(type)

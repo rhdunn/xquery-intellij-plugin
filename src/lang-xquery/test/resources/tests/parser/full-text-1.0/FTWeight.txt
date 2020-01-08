@@ -1,32 +1,30 @@
 XQueryModuleImpl[FILE(0:40)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:40)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:40)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:40)]
-            FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:40)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-               PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-               FTSelectionImpl[XPATH_FT_SELECTION(20:40)]
-                  FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:40)]
-                     FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                           LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                           LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                           LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     FTWeightImpl[XPATH_FT_WEIGHT(28:40)]
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WEIGHT(28:34)]('weight')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                        LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(35:36)]('{')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                        XQueryExprImpl[XQUERY_EXPR(37:39)]
-                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(37:39)]
-                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(37:38)]('5')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                        LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(39:40)]('}')
+         FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:40)]
+            XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+               XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            FTSelectionImpl[XPATH_FT_SELECTION(20:40)]
+               FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:40)]
+                  FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                  FTWeightImpl[XPATH_FT_WEIGHT(28:40)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WEIGHT(28:34)]('weight')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(35:36)]('{')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                     XQueryExprImpl[XQUERY_EXPR(37:39)]
+                        XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(37:38)]('5')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(39:40)]('}')

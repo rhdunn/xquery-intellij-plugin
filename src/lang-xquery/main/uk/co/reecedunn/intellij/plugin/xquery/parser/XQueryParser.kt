@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +61,7 @@ class XQueryParser : XPathParser() {
 
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
+    override val CONCAT_EXPR: IElementType? = XQueryElementType.CONCAT_EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
 
     // endregion
