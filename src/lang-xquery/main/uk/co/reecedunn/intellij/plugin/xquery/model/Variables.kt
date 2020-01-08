@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -194,7 +193,24 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XdmVariableDefinition> {
                     } else
                         sequenceOf(node as XdmVariableBinding)
                 }
-                is XPathExprSingle -> {
+                is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
+                is XQueryCaseClause, is PluginDefaultCaseClause -> {
+                    // Only the `case`/`default` clause variable of the return expression is in scope.
+                    if (!context.visitedTypeswitch) {
+                        context.visitedTypeswitch = true
+                        sequenceOf(node as XdmVariableBinding)
+                    } else
+                        emptySequence()
+                }
+                is XQueryTypeswitchExpr -> {
+                    context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
+                    emptySequence()
+                }
+                is XPathParamList -> node.children().filterIsInstance<XdmVariableBinding>()
+                is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
+                is ScriptingBlockVarDecl -> node.blockVarDecl(context)
+                is ScriptingBlockDecls -> node.blockDecls(context)
+                else -> {
                     when (node.parent) {
                         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                             context.visitedFlworBinding = true
@@ -223,24 +239,6 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XdmVariableDefinition> {
                     }
                     emptySequence()
                 }
-                is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
-                is XQueryCaseClause, is PluginDefaultCaseClause -> {
-                    // Only the `case`/`default` clause variable of the return expression is in scope.
-                    if (!context.visitedTypeswitch) {
-                        context.visitedTypeswitch = true
-                        sequenceOf(node as XdmVariableBinding)
-                    } else
-                        emptySequence()
-                }
-                is XQueryTypeswitchExpr -> {
-                    context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
-                    emptySequence()
-                }
-                is XPathParamList -> node.children().filterIsInstance<XdmVariableBinding>()
-                is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
-                is ScriptingBlockVarDecl -> node.blockVarDecl(context)
-                is ScriptingBlockDecls -> node.blockDecls(context)
-                else -> emptySequence()
             }
         }
         .filter { variable -> variable.variableName != null }
