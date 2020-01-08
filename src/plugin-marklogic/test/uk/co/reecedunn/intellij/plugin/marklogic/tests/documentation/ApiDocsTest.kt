@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import java.util.zip.ZipEntry
 
 private fun String.splitXml(): List<String> = split("\r?\n".toRegex()).filter { it.isNotBlank() }
@@ -195,14 +194,11 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(functions[0].subcategory, `is`("database"))
             assertThat(functions[0].bucket, `is`("XQuery Library Modules"))
 
-            val qname = functions[0] as XsQNameValue
-            assertThat(qname.prefix?.data, `is`("admin"))
-            assertThat(qname.localName?.data, `is`("get-database-ids"))
-            assertThat(qname.namespace?.data, `is`("http://marklogic.com/xdmp/admin"))
-            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
-            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
-            assertThat(qname.isLexicalQName, `is`(true))
-            assertThat(qname.element, `is`(nullValue()))
+            assertThat(functions[0].prefix.data, `is`("admin"))
+            assertThat(functions[0].localName.data, `is`("get-database-ids"))
+            assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/xdmp/admin"))
+            assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(functions[0].namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
 
             val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
@@ -244,14 +240,11 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(functions[0].subcategory, `is`(nullValue()))
             assertThat(functions[0].bucket, `is`(nullValue()))
 
-            val qname = functions[0] as XsQNameValue
-            assertThat(qname.prefix?.data, `is`("cntk"))
-            assertThat(qname.localName?.data, `is`("cpu"))
-            assertThat(qname.namespace?.data, `is`("http://marklogic.com/cntk"))
-            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
-            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
-            assertThat(qname.isLexicalQName, `is`(true))
-            assertThat(qname.element, `is`(nullValue()))
+            assertThat(functions[0].prefix.data, `is`("cntk"))
+            assertThat(functions[0].localName.data, `is`("cpu"))
+            assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/cntk"))
+            assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(functions[0].namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
 
             val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/cntk:cpu"))
@@ -297,14 +290,11 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(functions[0].subcategory, `is`(nullValue()))
             assertThat(functions[0].bucket, `is`(nullValue()))
 
-            val qname = functions[0] as XsQNameValue
-            assertThat(qname.prefix?.data, `is`("cts"))
-            assertThat(qname.localName?.data, `is`("train"))
-            assertThat(qname.namespace?.data, `is`("http://marklogic.com/cts"))
-            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
-            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
-            assertThat(qname.isLexicalQName, `is`(true))
-            assertThat(qname.element, `is`(nullValue()))
+            assertThat(functions[0].prefix.data, `is`("cts"))
+            assertThat(functions[0].localName.data, `is`("train"))
+            assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/cts"))
+            assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(functions[0].namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
 
             val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
@@ -369,14 +359,11 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(functions[0].subcategory, `is`(nullValue()))
             assertThat(functions[0].bucket, `is`(nullValue()))
 
-            val qname = functions[0] as XsQNameValue
-            assertThat(qname.prefix?.data, `is`("xdmp"))
-            assertThat(qname.localName?.data, `is`("version"))
-            assertThat(qname.namespace?.data, `is`("http://marklogic.com/xdmp"))
-            assertThat(qname.namespace?.context, `is`(XdmUriContext.Namespace))
-            assertThat(qname.namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
-            assertThat(qname.isLexicalQName, `is`(true))
-            assertThat(qname.element, `is`(nullValue()))
+            assertThat(functions[0].prefix.data, `is`("xdmp"))
+            assertThat(functions[0].localName.data, `is`("version"))
+            assertThat(functions[0].namespace?.data, `is`("http://marklogic.com/xdmp"))
+            assertThat(functions[0].namespace?.context, `is`(XdmUriContext.Namespace))
+            assertThat(functions[0].namespace?.moduleTypes, `is`(XdmModuleType.MODULE))
 
             val ref = functions[0] as XdmFunctionDocumentation
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))

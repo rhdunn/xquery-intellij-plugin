@@ -25,9 +25,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-data class ApiDocsFunction(private val xml: XmlElement, override val namespace: XsAnyUriValue?) :
-    XsQNameValue, XdmFunctionDocumentation {
+data class ApiDocsFunction(private val xml: XmlElement, val namespace: XsAnyUriValue?) :
+    XdmFunctionDocumentation {
     // region apidoc:function
+
+    val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }
+
+    val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
 
@@ -36,17 +40,6 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
     val subcategory: String? by lazy { xml.attribute("subcategory") }
 
     val bucket: String? by lazy { xml.attribute("bucket") }
-
-    // endregion
-    // region XsQNameValue
-
-    override val prefix: XsNCName by lazy { XsNCName(xml.attribute("lib")!!, null as PsiElement?) }
-
-    override val localName: XsNCName by lazy { XsNCName(xml.attribute("name")!!, null as PsiElement?) }
-
-    override val isLexicalQName: Boolean = true
-
-    override val element: PsiElement? = null
 
     // endregion
     // region XdmDocumentation
