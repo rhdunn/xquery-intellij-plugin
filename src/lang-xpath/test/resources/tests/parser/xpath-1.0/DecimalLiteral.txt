@@ -1,3 +1,2 @@
 XPathImpl[FILE(0:7)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:7)]
-      XPathDecimalLiteralImpl[XPATH_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
+   XPathDecimalLiteralImpl[XPATH_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')

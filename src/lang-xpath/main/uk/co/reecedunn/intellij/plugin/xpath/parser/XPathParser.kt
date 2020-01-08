@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -671,14 +671,19 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseAndExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
+            var haveOrExpr = false
             while (builder.matchTokenType(XPathTokenType.OR_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseAndExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "AndExpr"))
                 }
+                haveOrExpr = true
             }
 
-            marker.done(XPathElementType.OR_EXPR)
+            if (haveOrExpr)
+                marker.done(XPathElementType.OR_EXPR)
+            else
+                marker.drop()
             return true
         }
         marker.drop()

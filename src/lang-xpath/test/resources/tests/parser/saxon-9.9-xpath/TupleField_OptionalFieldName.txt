@@ -1,29 +1,28 @@
 XPathImpl[FILE(0:39)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:39)]
-      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:39)]
-         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
-         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
-         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
-         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-         PluginTupleTypeImpl[XPATH_TUPLE_TYPE(14:39)]
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
-            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
-            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-            PluginTupleFieldImpl[XPATH_TUPLE_FIELD(22:38)]
-               XPathNCNameImpl[XPATH_NCNAME(22:23)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:23)]('a')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               LeafPsiElement[XPATH_OPTIONAL_TOKEN(24:25)]('?')
-               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(26:27)](':')
-               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-               XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(28:37)]
-                  XPathQNameImpl[XPATH_QNAME(28:37)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:30)]('xs')
-                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(30:31)](':')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:37)]('string')
-               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
+   XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:39)]
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      PluginTupleTypeImpl[XPATH_TUPLE_TYPE(14:39)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
+         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
+         PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+         PluginTupleFieldImpl[XPATH_TUPLE_FIELD(22:38)]
+            XPathNCNameImpl[XPATH_NCNAME(22:23)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:23)]('a')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            LeafPsiElement[XPATH_OPTIONAL_TOKEN(24:25)]('?')
+            PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(26:27)](':')
+            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+            XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(28:37)]
+               XPathQNameImpl[XPATH_QNAME(28:37)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:30)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(30:31)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:37)]('string')
+            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(38:39)](')')

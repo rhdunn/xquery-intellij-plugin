@@ -8,5 +8,4 @@ XQueryModuleImpl[FILE(0:5)]
                   XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('x')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(2:4)](':=')
-               XPathOrExprImpl[XPATH_OR_EXPR(4:5)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('2')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('2')

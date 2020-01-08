@@ -1,22 +1,20 @@
 XPathImpl[FILE(0:27)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:27)]
-      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:27)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-               XPathNCNameImpl[XPATH_NCNAME(0:6)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-         FTSelectionImpl[XPATH_FT_SELECTION(19:27)]
-            FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:27)]
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(19:20)]('{')
-               XPathExprImpl[XPATH_EXPR(20:26)]
-                  XPathOrExprImpl[XPATH_OR_EXPR(20:26)]
-                     XPathVarRefImpl[XPATH_VAR_REF(20:26)]
-                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(20:21)]('$')
-                        XPathVarNameImpl[XPATH_VAR_NAME(21:26)]
-                           XPathNCNameImpl[XPATH_NCNAME(21:26)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:26)]('value')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(26:27)]('}')
+   FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:27)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+            XPathNCNameImpl[XPATH_NCNAME(0:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+      FTSelectionImpl[XPATH_FT_SELECTION(19:27)]
+         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:27)]
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(19:20)]('{')
+            XPathExprImpl[XPATH_EXPR(20:26)]
+               XPathVarRefImpl[XPATH_VAR_REF(20:26)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(20:21)]('$')
+                  XPathVarNameImpl[XPATH_VAR_NAME(21:26)]
+                     XPathNCNameImpl[XPATH_NCNAME(21:26)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:26)]('value')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(26:27)]('}')

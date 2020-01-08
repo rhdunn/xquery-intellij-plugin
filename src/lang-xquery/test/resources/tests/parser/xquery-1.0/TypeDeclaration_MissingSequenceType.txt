@@ -19,8 +19,7 @@ XQueryModuleImpl[FILE(0:32)]
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(26:28)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(29:31)]
-                  XPathOrExprImpl[XPATH_OR_EXPR(29:31)]
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(29:30)]('1')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(29:30)]('1')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(31:32)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Missing query body.')

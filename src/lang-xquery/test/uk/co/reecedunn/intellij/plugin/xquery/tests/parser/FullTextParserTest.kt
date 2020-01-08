@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "Reformat")
-@DisplayName("XQuery 3.1 with Full Text 3.0 - Lexer")
+@DisplayName("XQuery 3.1 with Full Text 3.0 - Parser")
 private class FullTextParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)

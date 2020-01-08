@@ -1,17 +1,16 @@
 XPathImpl[FILE(0:26)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:26)]
-      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:26)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-               XPathNCNameImpl[XPATH_NCNAME(0:6)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-         FTSelectionImpl[XPATH_FT_SELECTION(19:26)]
-            FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
+   FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:26)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+            XPathNCNameImpl[XPATH_NCNAME(0:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+      FTSelectionImpl[XPATH_FT_SELECTION(19:26)]
+         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')

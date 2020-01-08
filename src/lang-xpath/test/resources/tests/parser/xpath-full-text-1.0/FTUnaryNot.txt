@@ -1,21 +1,20 @@
 XPathImpl[FILE(0:33)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:33)]
-      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:33)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-               XPathNCNameImpl[XPATH_NCNAME(0:6)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-         FTSelectionImpl[XPATH_FT_SELECTION(20:33)]
-            FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:33)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTNOT(20:25)]('ftnot')
-               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               FTWordsValueImpl[XPATH_FT_WORDS_VALUE(26:33)]
-                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(26:33)]
-                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(26:27)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(27:32)]('lorem')
-                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(32:33)]('"')
+   FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:33)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+            XPathNCNameImpl[XPATH_NCNAME(0:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+      PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+      FTSelectionImpl[XPATH_FT_SELECTION(20:33)]
+         FTUnaryNotImpl[XPATH_FT_UNARY_NOT(20:33)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTNOT(20:25)]('ftnot')
+            PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+            FTWordsValueImpl[XPATH_FT_WORDS_VALUE(26:33)]
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(26:33)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(26:27)]('"')
+                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(27:32)]('lorem')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(32:33)]('"')

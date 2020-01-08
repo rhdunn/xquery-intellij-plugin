@@ -1,29 +1,28 @@
 XPathImpl[FILE(0:52)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:52)]
-      FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:52)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-            XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-               XPathNCNameImpl[XPATH_NCNAME(0:6)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-         FTSelectionImpl[XPATH_FT_SELECTION(20:52)]
-            FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
-            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-            FTDistanceImpl[XPATH_FT_DISTANCE(28:52)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
-               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-               FTRangeImpl[XPATH_FT_RANGE(37:47)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(45:46)]('4')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-               FTUnitImpl[XPATH_FT_UNIT(47:52)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(47:52)]('words')
+   FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:52)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+            XPathNCNameImpl[XPATH_NCNAME(0:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
+               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+      PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+      FTSelectionImpl[XPATH_FT_SELECTION(20:52)]
+         FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
+               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
+         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+         FTDistanceImpl[XPATH_FT_DISTANCE(28:52)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
+            PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+            FTRangeImpl[XPATH_FT_RANGE(37:47)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
+               PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(45:46)]('4')
+               PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+            FTUnitImpl[XPATH_FT_UNIT(47:52)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(47:52)]('words')

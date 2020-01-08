@@ -2,14 +2,12 @@ XQueryModuleImpl[FILE(0:16)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:16)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:16)]
-            XPathOrExprImpl[XPATH_OR_EXPR(0:12)]
-               XPathDecimalLiteralImpl[XPATH_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')
-               PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')
-                  LeafPsiElement[XPATH_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')
-               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            XPathDecimalLiteralImpl[XPATH_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')
+            PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')
+               LeafPsiElement[XPATH_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(12:13)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-            XPathOrExprImpl[XPATH_OR_EXPR(14:16)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('3')
-               PsiErrorElementImpl[ERROR_ELEMENT(15:16)]('XPST0003: Incomplete double exponent.')
-                  LeafPsiElement[XPATH_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(15:16)]('e')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('3')
+            PsiErrorElementImpl[ERROR_ELEMENT(15:16)]('XPST0003: Incomplete double exponent.')
+               LeafPsiElement[XPATH_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(15:16)]('e')

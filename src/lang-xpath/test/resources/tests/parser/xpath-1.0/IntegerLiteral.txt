@@ -1,3 +1,2 @@
 XPathImpl[FILE(0:4)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
-      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:4)]('1234')
+   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:4)]('1234')

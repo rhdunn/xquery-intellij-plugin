@@ -1,22 +1,21 @@
 XPathImpl[FILE(0:41)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:41)]
-      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:41)]
-         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
-         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
-         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
-         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-         PluginUnionTypeImpl[XPATH_UNION_TYPE(14:41)]
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(14:19)]('union')
-            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
-            XPathQNameImpl[XPATH_QNAME(20:30)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:22)]('xs')
-               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(22:23)](':')
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:30)]('integer')
-            LeafPsiElement[XPATH_COMMA_TOKEN(30:31)](',')
-            XPathQNameImpl[XPATH_QNAME(31:40)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:33)]('xs')
-               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(33:34)](':')
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(34:40)]('double')
-            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(40:41)](')')
+   XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:41)]
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      PluginUnionTypeImpl[XPATH_UNION_TYPE(14:41)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(14:19)]('union')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
+         XPathQNameImpl[XPATH_QNAME(20:30)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:22)]('xs')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(22:23)](':')
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:30)]('integer')
+         LeafPsiElement[XPATH_COMMA_TOKEN(30:31)](',')
+         XPathQNameImpl[XPATH_QNAME(31:40)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:33)]('xs')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(33:34)](':')
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(34:40)]('double')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(40:41)](')')

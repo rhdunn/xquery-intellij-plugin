@@ -1,14 +1,13 @@
 XPathImpl[FILE(0:21)]
-   XPathOrExprImpl[XPATH_OR_EXPR(0:21)]
-      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:21)]
-         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
-         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
-         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
-         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-         PluginTupleTypeImpl[XPATH_TUPLE_TYPE(14:21)]
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
-            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
-            PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected 'NCName'.')
+   XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:21)]
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      PluginTupleTypeImpl[XPATH_TUPLE_TYPE(14:21)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
+         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
+         PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected 'NCName'.')
