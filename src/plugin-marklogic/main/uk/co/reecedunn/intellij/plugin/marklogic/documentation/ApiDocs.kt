@@ -34,7 +34,7 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
     override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
         val name = ref.functionName ?: return null
         return functions.find {
-            it.name == name.localName?.data && it.namespace?.data == name.namespace?.data
+            it.name == name.localName?.data && it.namespace == name.namespace?.data
         }
     }
 

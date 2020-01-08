@@ -53,7 +53,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
             val prefix = it.attribute("lib")!!
             when {
                 it.attribute("name") == null -> null
-                prefix == lib -> ApiDocsFunction(it, namespaceUri ?: BUILTIN_NAMESPACES[prefix])
+                prefix == lib -> ApiDocsFunction(it, namespaceUri?.data ?: BUILTIN_NAMESPACES[prefix])
                 else -> ApiDocsFunction(it, BUILTIN_NAMESPACES[prefix])
             }
         }.toList()
@@ -73,16 +73,14 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // endregion
 
     companion object {
-        private fun uri(uri: String) = XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
-
         private val RE_IMPORT_DECL =
             "^import module namespace ([a-zA-Z0-9\\-]+) = \"([^\"]+)\"\\s*at\\s*\"([^\"]+)\"\\s*;\\s*$".toRegex()
 
         // These are the namespaces that have builtin functions in MarkLogic.
         private val BUILTIN_NAMESPACES = mapOf(
-            "cntk" to uri("http://marklogic.com/cntk"), // MarkLogic 10.0
-            "cts" to uri("http://marklogic.com/cts"), // MarkLogic 5.0
-            "xdmp" to uri("http://marklogic.com/xdmp") // MarkLogic 5.0
+            "cntk" to "http://marklogic.com/cntk", // MarkLogic 10.0
+            "cts" to "http://marklogic.com/cts", // MarkLogic 5.0
+            "xdmp" to "http://marklogic.com/xdmp" // MarkLogic 5.0
         )
     }
 }

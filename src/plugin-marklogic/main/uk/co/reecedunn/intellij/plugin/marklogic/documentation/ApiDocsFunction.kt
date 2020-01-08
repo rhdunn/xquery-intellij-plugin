@@ -15,17 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
-import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCName
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-data class ApiDocsFunction(private val xml: XmlElement, val namespace: XsAnyUriValue?) :
+data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) :
     XdmFunctionDocumentation {
     // region apidoc:function
 
