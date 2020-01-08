@@ -29,12 +29,6 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
     XsQNameValue, XdmFunctionDocumentation {
     // region apidoc:function
 
-    var moduleType: XdmModuleType = XdmModuleType.XQuery
-        set(value) {
-            field = value
-            cachedExample.invalidate()
-        }
-
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
 
     val category: String by lazy { xml.attribute("category")!! }
@@ -63,21 +57,17 @@ data class ApiDocsFunction(private val xml: XmlElement, override val namespace: 
 
     override val notes: String? = null
 
-    val cachedExample = CacheableProperty {
+    override val examples: String? by lazy {
         xml.children("apidoc:example").mapNotNull {
-            val type = when (it.attribute("class")) {
-                "javascript" -> XdmModuleType.JavaScript
-                else -> XdmModuleType.XQuery
+            when (it.attribute("class")) {
+                "javascript" -> null
+                else -> {
+                    val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                    "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
+                }
             }
-            if (type === moduleType) {
-                val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-                "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
-            } else
-                null
         }.joinToString("\n").nullize()
     }
-
-    override val examples: String? get() = cachedExample.get()
 
     // endregion
     // region XdmFunctionDocumentation

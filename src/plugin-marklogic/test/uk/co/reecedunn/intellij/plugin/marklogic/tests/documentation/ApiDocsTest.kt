@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
-import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocsFunction
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -217,9 +216,6 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.privileges, `is`(nullValue()))
             assertThat(ref.rules, `is`(nullValue()))
             assertThat(ref.errorConditions, `is`(nullValue()))
-
-            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
-            assertThat(ref.examples, `is`(nullValue()))
         }
 
         @Suppress("Reformat")
@@ -269,9 +265,6 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.privileges, `is`(nullValue()))
             assertThat(ref.rules, `is`(nullValue()))
             assertThat(ref.errorConditions, `is`(nullValue()))
-
-            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
-            assertThat(ref.examples, `is`(nullValue()))
         }
 
         @Suppress("Reformat")
@@ -329,9 +322,6 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.privileges, `is`(nullValue()))
             assertThat(ref.rules, `is`("These are the usage notes."))
             assertThat(ref.errorConditions, `is`(nullValue()))
-
-            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
-            assertThat(ref.examples, `is`(nullValue()))
         }
 
         @Suppress("Reformat")
@@ -410,13 +400,6 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.privileges, `is`("MarkLogic privileges are documented here."))
             assertThat(ref.rules, `is`(nullValue()))
             assertThat(ref.errorConditions, `is`(nullValue()))
-
-            (ref as ApiDocsFunction).moduleType = XdmModuleType.JavaScript
-            assertThat(ref.examples?.splitXml(), isListOf(
-                "<div class=\"example\"><pre xml:space=\"preserve\">",
-                "  3. Lorem ipsum dolor.",
-                "</pre></div>"
-            ))
         }
 
         @Test
