@@ -707,8 +707,9 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseComparisonExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
+                } else {
+                    haveAndExpr = true
                 }
-                haveAndExpr = true
             }
 
             if (haveAndExpr)
