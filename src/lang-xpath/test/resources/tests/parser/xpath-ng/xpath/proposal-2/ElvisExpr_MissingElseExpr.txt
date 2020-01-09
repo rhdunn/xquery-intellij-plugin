@@ -1,6 +1,5 @@
 XPathImpl[FILE(0:4)]
-   PluginElvisExprImpl[XPATH_ELVIS_EXPR(0:4)]
-      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
-      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-      LeafPsiElement[XPATH_ELVIS_TOKEN(2:4)]('?:')
-      PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'OrExpr'.')
+   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+   LeafPsiElement[XPATH_ELVIS_TOKEN(2:4)]('?:')
+   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'OrExpr'.')

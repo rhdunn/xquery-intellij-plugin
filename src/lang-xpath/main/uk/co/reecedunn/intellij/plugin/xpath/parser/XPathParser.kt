@@ -661,9 +661,10 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseOrExpr(builder, null)) {
                     builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.ELVIS_EXPR)
                 }
-
-                marker.done(XPathElementType.ELVIS_EXPR)
             } else {
                 marker.drop()
             }
