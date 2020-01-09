@@ -909,8 +909,9 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseIntersectExceptExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "IntersectExceptExpr"))
+                } else {
+                    haveUnionExpr = true
                 }
-                haveUnionExpr = true
             }
 
             if (haveUnionExpr)
