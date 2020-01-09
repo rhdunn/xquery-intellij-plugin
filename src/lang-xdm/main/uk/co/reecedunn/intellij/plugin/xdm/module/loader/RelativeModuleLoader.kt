@@ -33,7 +33,8 @@ object RelativeModuleLoader : XdmModuleLoader, XdmModuleLoaderFactory {
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
             is XdmModuleLocationPath -> {
-                findFileByPath(path.path, context.containingFile.virtualFile)?.toPsiFile(path.project)
+                val file = context.containingFile.virtualFile ?: return null
+                findFileByPath(path.path, file)?.toPsiFile(path.project)
             }
             else -> null
         }
