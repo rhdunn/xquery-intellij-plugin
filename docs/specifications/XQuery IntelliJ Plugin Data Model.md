@@ -19,7 +19,6 @@ IntelliJ integration such as inlay parameters, and static analysis for
 various inspections.
 
 ## Table of Contents
-
 {: .toc }
 - [1 Introduction](#1-introduction)
   - [1.1 PSI Tree and Data Model Construction](#11-psi-tree-and-data-model-construction)
@@ -60,7 +59,6 @@ The plugin data model extensions are to fill in gaps within the type system and
 to provide static type analysis.
 
 ### 1.1 PSI Tree and Data Model Construction
-
 An XQuery document is parsed according to the combined XQuery, Full Text,
 Updating, Scripting, and Vendor syntax described in the
 [XQuery IntelliJ Plugin 1.6 XQuery](XQuery%20IntelliJ%20Plugin%20XQuery.md)
@@ -92,6 +90,28 @@ If a symbol is only forwarding to another symbol, such as when a `RangeExpr`
 does not have a `to` part, the corresponding PSI element is omitted from the
 PSI tree to further simplify the model in memory.
 
+> __Example__
+>
+> The expression `5 instance of xs:string?` has the following PSI tree from
+> the XPath parser:
+>
+>     XPath
+>         InstanceofExpr
+>            IntegerLiteral       "5"
+>            XmlNCName            "instance"
+>            XmlNCName            "of"
+>            SequenceType
+>               AtomicOrUnionType
+>                  QName
+>                     XmlNCName   "xs"
+>                     Token       ":"
+>                     XmlNCName   "string"
+>               Token             "?"
+>
+> A similar PSI tree is built for XQuery expressions. If the occurrence
+> indicator is missing in the above expression, the `SequenceType` node
+> is not included, only the `AtomicOrUnionType` node.
+
 The PSI tree elements implement the model described in this document. These
 symbols provide the statically known information for that given context. This
 is used for static analysis and IDE integration such as symbol navigation and
@@ -122,13 +142,11 @@ not normative.
 *  `xdm = http://reecedunn.co.uk/xquery-datamodel`
 
 ### 2.1 Type System
-
 The names in square brackets in the type diagrams are the Java/Kotlin interfaces
 in the `uk.co.reecedunn.intellij.plugin.xdm.model` package of `lang-xdm` that
 are used to model the specified type.
 
 #### 2.1.1 Part 1: Items
-
 <pre><code>item() [XdmItem]
 ├─── node() [XdmNode]
 │    ├─── attribute() [XdmAttributeNode]
@@ -179,7 +197,6 @@ The `annotation(*)` type is from the XPath NG annotation sequence types
 proposal.
 
 #### 2.1.2 Part 2: Simple and Complex Types
-
 <pre><code>xs:anyType [XsAnyType]
 ├─── xdm:anyComplexType [XdmAnyComplexType]
 │    ├─── xs:untyped
@@ -225,7 +242,6 @@ __xdm:anyUnionType__
 > and union types are derived.
 
 #### 2.1.3 Part 3: Atomic Types
-
 <pre><code>xs:anyAtomicType¹ [XsAnyAtomicType]
 ├─── xs:anyURI [XsAnyUriValue]
 ├─── xs:base64Binary
@@ -340,7 +356,6 @@ The *lower bound*, *upper bound*, and *item type* values are mapped as follows:
 > suggestion in the IDE.
 
 #### 2.1.5 Sequence Types
-
 <pre><code>XdmSequenceType
 ├─── XdmItemType
 ├─── XdmSequenceTypeList
@@ -520,7 +535,6 @@ The addition is then:
 ## 4 Data Model
 
 ### 4.1 Literals
-
 | Symbol           | Type         | Interface         | Representation |
 |------------------|--------------|-------------------|----------------|
 | `DecimalLiteral` | `xs:decimal` | `XsDecimalValue`  | `BigDecimal`   |
@@ -539,7 +553,6 @@ or incorrectly typed URIs, to be represented correctly without throwing
 malformed URI exceptions.
 
 ### 4.2 EQNames and Wildcards
-
 | Symbol                            | Type           | Interface          | Representation |
 |-----------------------------------|----------------|--------------------|----------------|
 | `NCName`<sup><em>Names</em></sup> | `xs:NCName`    | `XsNCNameValue`    | `String`       |
@@ -576,7 +589,6 @@ the namespace bound to the namespace of the matching namespace declarations in
 the prolog or any direct elements.
 
 ### 4.3 Nodes
-
 | Symbol                | Interface        | node name |
 |-----------------------|------------------|-----------|
 | `CompElemConstructor` | `XdmElementNode` | yes       |
@@ -588,7 +600,6 @@ is used for the `err:XQST0118` error condition inspection. For a
 property is the same as the*node name* property.
 
 ### 4.4 Annotations
-
 | Symbol                    | Interface       |
 |---------------------------|-----------------|
 | `CompatibilityAnnotation` | `XdmAnnotation` |
