@@ -3061,13 +3061,14 @@ class XQueryParser : XPathParser() {
         if (parseComparisonExpr(builder, type)) {
             var haveUpdateExpr = false
             while (builder.matchTokenType(XQueryTokenType.K_UPDATE)) {
-                haveUpdateExpr = true
-
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
+                    haveUpdateExpr = true
                     parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
                 } else if (!parseExpr(builder, XQueryElementType.EXPR)) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
+                } else {
+                    haveUpdateExpr = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
             }
