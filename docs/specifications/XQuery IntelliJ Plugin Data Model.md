@@ -19,6 +19,7 @@ IntelliJ integration such as inlay parameters, and static analysis for
 various inspections.
 
 ## Table of Contents
+
 {: .toc }
 - [1 Introduction](#1-introduction)
   - [1.1 PSI Tree and Data Model Construction](#11-psi-tree-and-data-model-construction)
@@ -535,6 +536,7 @@ The addition is then:
 ## 4 Data Model
 
 ### 4.1 Literals
+
 | Symbol           | Type         | Interface         | Representation |
 |------------------|--------------|-------------------|----------------|
 | `DecimalLiteral` | `xs:decimal` | `XsDecimalValue`  | `BigDecimal`   |
@@ -553,6 +555,7 @@ or incorrectly typed URIs, to be represented correctly without throwing
 malformed URI exceptions.
 
 ### 4.2 EQNames and Wildcards
+
 | Symbol                            | Type           | Interface          | Representation |
 |-----------------------------------|----------------|--------------------|----------------|
 | `NCName`<sup><em>Names</em></sup> | `xs:NCName`    | `XsNCNameValue`    | `String`       |
@@ -589,6 +592,7 @@ the namespace bound to the namespace of the matching namespace declarations in
 the prolog or any direct elements.
 
 ### 4.3 Nodes
+
 | Symbol                | Interface        | node name |
 |-----------------------|------------------|-----------|
 | `CompElemConstructor` | `XdmElementNode` | yes       |
@@ -600,6 +604,7 @@ is used for the `err:XQST0118` error condition inspection. For a
 property is the same as the*node name* property.
 
 ### 4.4 Annotations
+
 | Symbol                    | Interface       |
 |---------------------------|-----------------|
 | `CompatibilityAnnotation` | `XdmAnnotation` |
