@@ -885,8 +885,9 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseUnionExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
+                } else {
+                    haveMultiplicativeExpr = true
                 }
-                haveMultiplicativeExpr = true
             }
 
             if (haveMultiplicativeExpr)
