@@ -815,9 +815,10 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseRangeExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "RangeExpr"))
+                } else {
+                    haveStringConcatExpr = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
-                haveStringConcatExpr = true
             }
 
             if (haveStringConcatExpr)
