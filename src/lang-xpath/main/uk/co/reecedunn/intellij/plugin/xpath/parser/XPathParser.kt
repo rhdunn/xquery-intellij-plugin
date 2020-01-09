@@ -839,8 +839,10 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseAdditiveExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.RANGE_EXPR)
                 }
-                marker.done(XPathElementType.RANGE_EXPR)
             } else {
                 marker.drop()
             }
