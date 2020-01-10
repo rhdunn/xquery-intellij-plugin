@@ -32,8 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>) : XdmModuleLoader {
     // region XdmModuleLoader
 
-    private fun findFileByPath(root: VirtualFile, path: String, moduleTypes: Array<XdmModuleType>): VirtualFile? {
-        moduleTypes.forEach { type ->
+    private fun findFileByPath(root: VirtualFile, path: String, moduleTypes: Array<XdmModuleType>?): VirtualFile? {
+        moduleTypes?.forEach { type ->
             type.extensions.forEach { extension ->
                 val file = root.findFileByRelativePath("$path$extension")
                 if (file != null) return file
@@ -42,7 +42,7 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
         return root.findFileByRelativePath(path)
     }
 
-    private fun findFileByPath(project: Project, path: String, moduleTypes: Array<XdmModuleType>): VirtualFile? {
+    private fun findFileByPath(project: Project, path: String, moduleTypes: Array<XdmModuleType>?): VirtualFile? {
         return project.sourceFolders(rootType).map { folder ->
             folder.file?.let { findFileByPath(it, path, moduleTypes) }
         }.filterNotNull().firstOrNull()
@@ -51,9 +51,12 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
             is XdmModuleLocationPath -> {
-                if (rootType === JavaSourceRootType.SOURCE || rootType === context.getSourceRootType(path.project))
-                    findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile<PsiFile>(path.project)
-                else
+                if (rootType === JavaSourceRootType.SOURCE || rootType === context.getSourceRootType(path.project)) {
+                    if (path.isResource == null) // BaseX reverse domain name module path
+                        findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile<PsiFile>(path.project)
+                    else
+                        findFileByPath(path.project, path.path, null)?.toPsiFile<PsiFile>(path.project)
+                } else
                     null
             }
             else -> null

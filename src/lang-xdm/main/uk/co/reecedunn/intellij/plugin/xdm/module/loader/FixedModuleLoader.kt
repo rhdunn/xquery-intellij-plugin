@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
     // region XdmModuleLoader
 
-    private fun findFileByPath(path: String, moduleTypes: Array<XdmModuleType>): VirtualFile? {
-        moduleTypes.forEach { type ->
+    private fun findFileByPath(path: String, moduleTypes: Array<XdmModuleType>?): VirtualFile? {
+        moduleTypes?.forEach { type ->
             type.extensions.forEach { extension ->
                 val file = root.findFileByRelativePath("$path$extension")
                 if (file != null) return file
@@ -40,7 +40,12 @@ class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
-            is XdmModuleLocationPath -> findFileByPath(path.path, path.moduleTypes)?.toPsiFile(path.project)
+            is XdmModuleLocationPath -> {
+                if (path.isResource == null) // BaseX reverse domain name module path
+                    findFileByPath(path.path, path.moduleTypes)?.toPsiFile(path.project)
+                else
+                    findFileByPath(path.path, null)?.toPsiFile(path.project)
+            }
             else -> null
         }
     }
