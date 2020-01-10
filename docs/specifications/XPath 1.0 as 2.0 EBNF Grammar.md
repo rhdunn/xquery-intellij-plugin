@@ -14,17 +14,17 @@ for precedence changes.
 
 ## Table of Contents
 
-{: .toc }
-- [A XPath Grammar](#a-xpath-grammar)
-  - [A.1 EBNF](#a1-ebnf)
-    - [A.1.1 Extra-grammatical Constraints](#a11-extra-grammatical-constraints)
-    - [A.1.2 Grammar Notes](#a12-grammar-notes)
-  - [A.2 Terminal Symbols](#a2-terminal-symbols)
-  - [A.3 Reserved Function Names](#a3-reserved-function-names)
-- [B References](#b-references)
-  - [B.1 W3C References](#b1-w3c-references)
-- [C Change Log](#c-change-log)
-- [D Differences Between XPath 1.0 and XPath 2.0](#d-differences-between-xpath-10-and-xpath-20)
+{: .toc.toc-numbered }
+- {: .toc-letter } [XPath Grammar](#a-xpath-grammar)
+  - [EBNF](#a1-ebnf)
+    - [Extra-grammatical Constraints](#a11-extra-grammatical-constraints)
+    - [Grammar Notes](#a12-grammar-notes)
+  - [Terminal Symbols](#a2-terminal-symbols)
+  - [Reserved Function Names](#a3-reserved-function-names)
+- {: .toc-letter } [References](#b-references)
+  - [W3C References](#b1-w3c-references)
+- {: .toc-letter } [Change Log](#c-change-log)
+- {: .toc-letter } [Differences Between XPath 1.0 and XPath 2.0](#d-differences-between-xpath-10-and-xpath-20)
 
 ## A XPath Grammar
 
