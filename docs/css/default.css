@@ -123,6 +123,14 @@ ul.toc li {
   margin: 6px 0;
 }
 
+ul.toc.toc-numbered { counter-reset: toc-1; }
+ul.toc.toc-numbered > li::before { counter-increment: toc-1; content: counter(toc-1); padding-right: 8px; }
+ul.toc.toc-numbered > li.toc-letter::before { counter-increment: toc-1; content: counter(toc-1, upper-latin); }
+
+ul.toc.toc-numbered ul { counter-reset: toc-n; }
+ul.toc.toc-numbered ul > li::before { counter-increment: toc-n; content: counter(toc-1)"."counters(toc-n, "."); padding-right: 8px; }
+ul.toc.toc-numbered > li.toc-letter ul > li::before { counter-increment: toc-n; content: counter(toc-1, upper-latin)"."counters(toc-n, "."); padding-right: 8px; }
+
 @media screen and (max-width: 1510px) {
   ul.toc {
     padding-bottom: 8px;
@@ -145,6 +153,7 @@ ul.toc li {
   ul.toc ul {
     padding: 0;
   }
+  ul.toc.toc-numbered li::before { display: inline-block; min-width: 3pc; }
 }
 
 table {

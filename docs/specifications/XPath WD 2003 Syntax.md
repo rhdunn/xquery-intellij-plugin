@@ -13,13 +13,13 @@ versions of XQuery processors.
 
 ## Table of Contents
 
-{: .toc }
-- [A XPath Grammar](#a-xpath-grammar)
-  - [A.1 EBNF](#a1-ebnf)
-  - [A.2 Terminal Symbols](#a2-terminal-symbols)
-- [B References](#b-references)
-  - [B.1 W3C References](#b1-w3c-references)
-- [C Differences Between WD and REC](#c-differences-between-wd-and-rec)
+{: .toc.toc-numbered }
+- {: .toc-letter } [XPath Grammar](#a-xpath-grammar)
+  - [EBNF](#a1-ebnf)
+  - [Terminal Symbols](#a2-terminal-symbols)
+- {: .toc-letter } [References](#b-references)
+  - [W3C References](#b1-w3c-references)
+- {: .toc-letter } [Differences Between WD and REC](#c-differences-between-wd-and-rec)
 
 ## A XPath Grammar
 
