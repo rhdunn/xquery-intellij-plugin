@@ -241,4 +241,5 @@ ul.toc.toc-numbered > li.toc-letter ul > li::before { counter-increment: toc-n; 
   }
   ul.toc ul { padding: 0; }
   ul.toc.toc-numbered li::before { display: inline-block; min-width: 3pc; }
+  ul.toc.toc-numbered-5 li::before { min-width: 4pc; }
 }
