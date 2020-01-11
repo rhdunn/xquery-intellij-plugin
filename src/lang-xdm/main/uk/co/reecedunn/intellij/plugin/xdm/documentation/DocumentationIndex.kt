@@ -16,13 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XdmDocumentationIndex {
     fun invalidate()
 
-    fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation?
+    fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation?
 
-    fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation?
+    fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation?
 }

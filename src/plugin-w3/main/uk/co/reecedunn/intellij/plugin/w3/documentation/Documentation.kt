@@ -21,7 +21,6 @@ import org.jsoup.nodes.TextNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -87,7 +86,7 @@ internal data class W3CSpecificationDocument(
 
     override fun invalidate() = doc.invalidate()
 
-    override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"
@@ -99,7 +98,7 @@ internal data class W3CSpecificationDocument(
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
         return null
     }
 

@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) : XdmDocumentationIndex {
@@ -31,14 +30,14 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
         val name = ref.functionName ?: return null
         return functions.find {
             it.name == name.localName?.data && it.namespace == name.namespace?.data
         }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
         return modules.find { it.namespaceUri == decl.namespaceUri?.data }
     }
 

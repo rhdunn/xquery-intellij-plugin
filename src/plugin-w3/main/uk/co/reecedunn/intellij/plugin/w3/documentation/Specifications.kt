@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -51,7 +50,8 @@ object FunctionsAndOperatorsDocumentation :
 
     val WD_1_0_20030502: XdmDocumentationSource = W3CSpecificationDocument(
         this, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
-        "1.0-20030502", "1.0 (Working Draft 02 May 2003)", NAMESPACES_10_20030502 // Used by the MarkLogic 0.9-ml XQuery version.
+        "1.0-20030502", "1.0 (Working Draft 02 May 2003)",
+        NAMESPACES_10_20030502 // Used by the MarkLogic 0.9-ml XQuery version.
     )
 
     val REC_1_0_20070123: XdmDocumentationSource = W3CSpecificationDocument(
@@ -105,12 +105,12 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun invalidate() = (REC_3_1_20170321 as XdmDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): XdmFunctionDocumentation? {
-        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref, profile)
+    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
+        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): XdmDocumentation? {
-        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl, profile)
+    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
+        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl)
     }
 
     // endregion

@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XdmDocumentationSource {
@@ -39,15 +38,15 @@ interface XdmDocumentationSourceProvider {
         val allSources: Sequence<XdmDocumentationSource>
             get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
 
-        fun lookup(ref: XdmFunctionReference, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
+        fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull {
-                (it as? XdmDocumentationIndex)?.lookup(ref, profile)
+                (it as? XdmDocumentationIndex)?.lookup(ref)
             }
         }
 
-        fun lookup(decl: XdmNamespaceDeclaration, profile: XdmLanguageProfile): Sequence<XdmDocumentation> {
+        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XdmDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull {
-                (it as? XdmDocumentationIndex)?.lookup(decl, profile)
+                (it as? XdmDocumentationIndex)?.lookup(decl)
             }
         }
     }
