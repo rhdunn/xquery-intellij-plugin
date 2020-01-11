@@ -97,7 +97,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
         val profile = XdmLanguageProfile(XdmModuleType.XQuery)
         return originalElement?.let {
-            val text = lookup(it, profile).firstOrNull()?.sections ?: return@let null
+            val text = lookup(it, profile).firstOrNull()?.sections(XdmModuleType.XQuery) ?: return@let null
             return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }

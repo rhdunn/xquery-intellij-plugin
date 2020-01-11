@@ -42,18 +42,17 @@ interface XdmFunctionDocumentation : XdmDocumentation {
     val errorConditions: String?
 }
 
-val XdmDocumentation.sections: String
-    get() {
-        val sections = sequenceOf(
-            "Summary" to summary,
-            "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,
-            "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
-            "Properties" to (this as? XdmFunctionDocumentation)?.properties,
-            "Required Privileges" to (this as? XdmFunctionDocumentation)?.privileges,
-            "Rules" to (this as? XdmFunctionDocumentation)?.rules,
-            "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
-            "Notes" to notes,
-            "Examples" to examples(XdmModuleType.XQuery).joinToString("\n").nullize()
-        ).filter { it.second != null }
-        return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
-    }
+fun XdmDocumentation.sections(moduleType: XdmModuleType): String {
+    val sections = sequenceOf(
+        "Summary" to summary,
+        "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,
+        "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
+        "Properties" to (this as? XdmFunctionDocumentation)?.properties,
+        "Required Privileges" to (this as? XdmFunctionDocumentation)?.privileges,
+        "Rules" to (this as? XdmFunctionDocumentation)?.rules,
+        "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
+        "Notes" to notes,
+        "Examples" to examples(moduleType).joinToString("\n").nullize()
+    ).filter { it.second != null }
+    return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
+}
