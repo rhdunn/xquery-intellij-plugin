@@ -112,50 +112,6 @@ section p { font-size: inherit; margin-right: 10px; }
 section.columns section { margin-top: 30px; display: block; }
 section img { margin-bottom: 20px; }
 
-ul.toc, ul.toc ul {
-  list-style: none;
-  margin: 0;
-}
-ul.toc {
-  padding: 0;
-}
-ul.toc li {
-  margin: 6px 0;
-}
-
-ul.toc.toc-numbered { counter-reset: toc-1 toc-latn; }
-ul.toc.toc-numbered > li::before { counter-increment: toc-1; content: counter(toc-1); padding-right: 8px; }
-ul.toc.toc-numbered > li.toc-letter::before { counter-increment: toc-latn; content: counter(toc-latn, upper-latin); }
-
-ul.toc.toc-numbered ul { counter-reset: toc-n; }
-ul.toc.toc-numbered ul > li::before { counter-increment: toc-n; content: counter(toc-1)"."counters(toc-n, "."); padding-right: 8px; }
-ul.toc.toc-numbered > li.toc-letter ul > li::before { counter-increment: toc-n; content: counter(toc-latn, upper-latin)"."counters(toc-n, "."); padding-right: 8px; }
-
-@media screen and (max-width: 1510px) {
-  ul.toc {
-    padding-bottom: 8px;
-    border-bottom: 3px solid #eeeeee;
-    margin-bottom: 8px;
-  }
-}
-@media screen and (min-width: 1510px) {
-  #table-of-contents {
-    display: none;
-  }
-  ul.toc {
-    position: fixed;
-    top: 61px;
-    left: 8px;
-    width: 330px;
-    height: calc(100% - 61px);
-    overflow: auto;
-  }
-  ul.toc ul {
-    padding: 0;
-  }
-  ul.toc.toc-numbered li::before { display: inline-block; min-width: 3pc; }
-}
-
 table {
   width: 100%;
   margin-bottom: 15px;
@@ -245,4 +201,44 @@ div.intellij-version {
 
 div.intellij-version ~ h3 {
   clear: none;
+}
+
+/* Table of Contents ------------------------------------------------------- */
+
+ul.toc, ul.toc ul { list-style: none; margin: 0; }
+ul.toc { padding: 0; }
+ul.toc li { margin: 6px 0; }
+
+/* numbered, depth=1 */
+ul.toc.toc-numbered { counter-reset: toc-1 toc-latn; }
+ul.toc.toc-numbered > li::before { counter-increment: toc-1; content: counter(toc-1); padding-right: 8px; }
+ul.toc.toc-numbered > li.toc-letter::before { counter-increment: toc-latn; content: counter(toc-latn, upper-latin); }
+
+/* numbered, depth=2,3,4,... */
+ul.toc.toc-numbered ul { counter-reset: toc-n; }
+ul.toc.toc-numbered ul > li::before { counter-increment: toc-n; content: counter(toc-1)"."counters(toc-n, "."); padding-right: 8px; }
+ul.toc.toc-numbered > li.toc-letter ul > li::before { counter-increment: toc-n; content: counter(toc-latn, upper-latin)"."counters(toc-n, "."); padding-right: 8px; }
+
+/* small screen -- display the toc in the document flow */
+@media screen and (max-width: 1510px) {
+  ul.toc {
+    padding-bottom: 8px;
+    border-bottom: 3px solid #eeeeee;
+    margin-bottom: 8px;
+  }
+}
+
+/* wide screen -- display the toc on the left */
+@media screen and (min-width: 1510px) {
+  #table-of-contents { display: none; } /* remove the toc section heading in the document flow */
+  ul.toc {
+    position: fixed;
+    top: 61px;
+    left: 8px;
+    width: 330px;
+    height: calc(100% - 61px);
+    overflow: auto;
+  }
+  ul.toc ul { padding: 0; }
+  ul.toc.toc-numbered li::before { display: inline-block; min-width: 3pc; }
 }
