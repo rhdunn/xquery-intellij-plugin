@@ -338,6 +338,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
@@ -367,6 +368,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
@@ -402,6 +404,16 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(xqueryExamples.size, `is`(1))
             assertThat(
                 xqueryExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  a &lt; b &amp; b &gt; c",
+                    "</pre></div>"
+                )
+            )
+
+            val xpathExamples = ref.examples(XdmModuleType.XPath).toList()
+            assertThat(xpathExamples.size, `is`(1))
+            assertThat(
+                xpathExamples[0].splitXml(), isListOf(
                     "<div class=\"example\"><pre xml:space=\"preserve\">",
                     "  a &lt; b &amp; b &gt; c",
                     "</pre></div>"
@@ -462,6 +474,23 @@ at "/MarkLogic/admin.xqy" ;
                 )
             )
 
+            val xpathExamples = ref.examples(XdmModuleType.XPath).toList()
+            assertThat(xpathExamples.size, `is`(2))
+            assertThat(
+                xpathExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  1. Lorem ipsum dolor.",
+                    "</pre></div>"
+                )
+            )
+            assertThat(
+                xpathExamples[1].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  2. Lorem ipsum dolor.",
+                    "</pre></div>"
+                )
+            )
+
             val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
             assertThat(javascriptExamples.size, `is`(1))
             assertThat(
@@ -499,6 +528,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))

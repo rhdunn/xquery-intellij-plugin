@@ -45,12 +45,8 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     override fun examples(moduleType: XdmModuleType): Sequence<String> {
         return xml.children("apidoc:example").mapNotNull {
-            val etype = when (val name = it.attribute("class")) {
-                "javascript" -> XdmModuleType.JavaScript
-                "xquery", null -> XdmModuleType.XQuery
-                else -> throw UnsupportedOperationException("Unknown MarkLogic example class '$name'")
-            }
-            if (moduleType === etype) {
+            val etype = it.moduleType
+            if (moduleType === etype || (moduleType === XdmModuleType.XPath && etype === XdmModuleType.XQuery)) {
                 val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                 "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
             } else

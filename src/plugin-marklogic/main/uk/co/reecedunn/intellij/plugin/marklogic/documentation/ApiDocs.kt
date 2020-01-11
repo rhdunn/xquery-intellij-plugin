@@ -19,10 +19,12 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationIndex
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) : XdmDocumentationIndex {
@@ -75,3 +77,10 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
         private fun create(pkg: ZipFileSystem): ApiDocs = ApiDocs(pkg, pkg.findFileByPath("")!!)
     }
 }
+
+internal val XmlElement.moduleType: XdmModuleType
+    get() = when (val name = attribute("class")) {
+        "javascript" -> XdmModuleType.JavaScript
+        "xquery", null -> XdmModuleType.XQuery
+        else -> throw UnsupportedOperationException("Unknown MarkLogic apidoc class '$name'")
+    }
