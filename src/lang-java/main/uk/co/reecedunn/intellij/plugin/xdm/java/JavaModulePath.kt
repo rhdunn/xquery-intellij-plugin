@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.java
 
 import com.intellij.openapi.project.Project
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.core.text.pascalCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
@@ -44,7 +45,7 @@ data class JavaModulePath internal constructor(
         }
 
         private fun createJava(project: Project, path: String, modulePaths: List<String>): JavaModulePath? {
-            val module = modulePaths.last().split('-').joinToString("") { it.capitalize() }
+            val module = modulePaths.last().pascalCase()
             return when (modulePaths.size) {
                 1 -> JavaModulePath(project, "$path.$module", false)
                 else -> JavaModulePath(project, "$path.${modulePaths.dropLast(1).joinToString(".")}.$module", false)
