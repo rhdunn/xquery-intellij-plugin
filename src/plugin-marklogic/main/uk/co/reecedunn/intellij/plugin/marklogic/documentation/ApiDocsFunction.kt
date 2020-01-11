@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import uk.co.reecedunn.intellij.plugin.core.text.camelCase
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -24,7 +25,14 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     val lib: String by lazy { xml.attribute("lib")!! }
 
-    val name: String by lazy { xml.attribute("name")!! }
+    fun name(moduleType: XdmModuleType): String = when (moduleType) {
+        XdmModuleType.XPath, XdmModuleType.XQuery -> xml.attribute("name")!!
+        XdmModuleType.JavaScript -> {
+            val jsname = xml.children("apidoc:name").filter { it.attribute("class") == "javascript" }.firstOrNull()
+            jsname?.text() ?: xml.attribute("name")!!.camelCase()
+        }
+        else -> throw UnsupportedOperationException("No name for $moduleType.")
+    }
 
     val isBuiltin: Boolean by lazy { xml.attribute("type") == "builtin" }
 
@@ -37,7 +45,7 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
     // endregion
     // region XdmDocumentation
 
-    override val href: String? = "https://docs.marklogic.com/$lib:$name"
+    override val href: String? = "https://docs.marklogic.com/$lib:${name(XdmModuleType.XQuery)}"
 
     override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 

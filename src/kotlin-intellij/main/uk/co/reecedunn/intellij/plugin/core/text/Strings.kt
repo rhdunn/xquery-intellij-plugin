@@ -27,4 +27,8 @@ fun CharSequence.commonPrefixLength(offset: Int, text: String): Int {
     return i
 }
 
+fun CharSequence.camelCase(): String = split('-').withIndex().joinToString("") {
+    if (it.index == 0) it.value else it.value.capitalize()
+}
+
 fun CharSequence.pascalCase(): String = split('-').joinToString("") { it.capitalize() }

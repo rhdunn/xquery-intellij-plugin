@@ -186,8 +186,12 @@ at "/MarkLogic/admin.xqy" ;
                 val ref = apidocs.modules[0].functions[0]
                 assertThat(ref.lib, `is`("admin"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/xdmp/admin"))
-                assertThat(ref.name, `is`("get-database-ids"))
                 assertThat(ref.isBuiltin, `is`(false))
+
+                assertThat(ref.name(XdmModuleType.XPath), `is`("get-database-ids"))
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("get-database-ids"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("getDatabaseIds"))
+
                 assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
             }
 
@@ -211,9 +215,12 @@ at "/MarkLogic/admin.xqy" ;
                 val ref = apidocs.modules[0].functions[0]
                 assertThat(ref.lib, `is`("cntk"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cntk"))
-                assertThat(ref.name, `is`("cpu"))
                 assertThat(ref.isBuiltin, `is`(true))
                 assertThat(ref.href, `is`("https://docs.marklogic.com/cntk:cpu"))
+
+                assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("cpu"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("cpu"))
             }
 
             @Test
@@ -232,9 +239,12 @@ at "/MarkLogic/admin.xqy" ;
                 val ref = apidocs.modules[0].functions[0]
                 assertThat(ref.lib, `is`("cntk"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cntk"))
-                assertThat(ref.name, `is`("cpu"))
                 assertThat(ref.isBuiltin, `is`(true))
                 assertThat(ref.href, `is`("https://docs.marklogic.com/cntk:cpu"))
+
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("cpu"))
+                assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("cpu"))
             }
 
             @Test
@@ -253,18 +263,23 @@ at "/MarkLogic/admin.xqy" ;
                 val ref = apidocs.modules[0].functions[0]
                 assertThat(ref.lib, `is`("cts"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cts"))
-                assertThat(ref.name, `is`("train"))
                 assertThat(ref.isBuiltin, `is`(true))
                 assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
+
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("train"))
+                assertThat(ref.name(XdmModuleType.XPath), `is`("train"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("train"))
             }
 
             @Test
-            @DisplayName("builtin 'xdmp' namespace")
+            @DisplayName("builtin 'xdmp' namespace; JavaScript name override")
             fun builtinXdmp() {
                 @Language("XML")
                 val builtins = """
                     <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                        <apidoc:function name="version" type="builtin" lib="xdmp"/>
+                        <apidoc:function name="to-json" type="builtin" lib="xdmp">
+                            <apidoc:name class="javascript">toJSON</apidoc:name>
+                        </apidoc:function>
                     </apidoc:module>
                 """
                 val apidocs = create(
@@ -274,9 +289,12 @@ at "/MarkLogic/admin.xqy" ;
                 val ref = apidocs.modules[0].functions[0]
                 assertThat(ref.lib, `is`("xdmp"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/xdmp"))
-                assertThat(ref.name, `is`("version"))
                 assertThat(ref.isBuiltin, `is`(true))
-                assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:version"))
+                assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:to-json"))
+
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("to-json"))
+                assertThat(ref.name(XdmModuleType.XPath), `is`("to-json"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("toJSON"))
             }
         }
 
