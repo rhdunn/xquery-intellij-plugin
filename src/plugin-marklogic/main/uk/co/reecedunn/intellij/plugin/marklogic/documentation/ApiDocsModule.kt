@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // region apidoc:module
@@ -59,7 +60,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
 
     override val notes: String? = null
 
-    override val examples: String? = null
+    override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
 
     // endregion
 

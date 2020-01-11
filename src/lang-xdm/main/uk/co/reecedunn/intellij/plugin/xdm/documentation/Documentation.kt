@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.documentation
 
+import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+
 interface XdmDocumentation {
     val href: String?
 
@@ -22,7 +25,7 @@ interface XdmDocumentation {
 
     val notes: String?
 
-    val examples: String?
+    fun examples(moduleType: XdmModuleType): Sequence<String>
 }
 
 interface XdmFunctionDocumentation : XdmDocumentation {
@@ -50,7 +53,7 @@ val XdmDocumentation.sections: String
             "Rules" to (this as? XdmFunctionDocumentation)?.rules,
             "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
             "Notes" to notes,
-            "Examples" to examples
+            "Examples" to examples(XdmModuleType.XQuery).joinToString("\n").nullize()
         ).filter { it.second != null }
         return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }

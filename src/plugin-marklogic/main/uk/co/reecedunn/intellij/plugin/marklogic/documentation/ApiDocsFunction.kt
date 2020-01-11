@@ -35,21 +35,6 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     val bucket: String? by lazy { xml.attribute("bucket") }
 
-    fun example(type: XdmModuleType): Sequence<String> {
-        return xml.children("apidoc:example").mapNotNull {
-            val etype = when (val name = it.attribute("class")) {
-                "javascript" -> XdmModuleType.JavaScript
-                "xquery", null -> XdmModuleType.XQuery
-                else -> throw UnsupportedOperationException("Unknown MarkLogic example class '$name'")
-            }
-            if (type === etype) {
-                val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-                "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
-            } else
-                null
-        }
-    }
-
     // endregion
     // region XdmDocumentation
 
@@ -59,7 +44,20 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     override val notes: String? = null
 
-    override val examples: String? by lazy { example(XdmModuleType.XQuery).joinToString("\n").nullize() }
+    override fun examples(moduleType: XdmModuleType): Sequence<String> {
+        return xml.children("apidoc:example").mapNotNull {
+            val etype = when (val name = it.attribute("class")) {
+                "javascript" -> XdmModuleType.JavaScript
+                "xquery", null -> XdmModuleType.XQuery
+                else -> throw UnsupportedOperationException("Unknown MarkLogic example class '$name'")
+            }
+            if (moduleType === etype) {
+                val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
+            } else
+                null
+        }
+    }
 
     // endregion
     // region XdmFunctionDocumentation

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocumentationIndex {
@@ -42,7 +43,7 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override val notes: String? = null
 
-            override val examples: String? = null
+            override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
 
             override val operatorMapping: String? = null
 
@@ -69,7 +70,7 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override val notes: String? = null
 
-            override val examples: String? = null
+            override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
         }
     }
 

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmLanguageProfile
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 internal class W3CFunctionReference(private val node: Element, baseHref: String): XdmFunctionDocumentation {
@@ -45,7 +46,10 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val notes: String? = section("Notes")
 
-    override val examples: String? = section("Examples")
+    override fun examples(moduleType: XdmModuleType): Sequence<String> = when (moduleType) {
+        XdmModuleType.XQuery -> section("Examples")?.let { sequenceOf(it) } ?: emptySequence()
+        else -> emptySequence()
+    }
 
     override val operatorMapping: String? = section("Operator Mapping")
 

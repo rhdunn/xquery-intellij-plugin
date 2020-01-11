@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.util.zip.ZipEntry
 
@@ -90,7 +89,8 @@ at "/MarkLogic/admin.xqy" ;
                 )
             )
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
+            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
         }
 
         @Test
@@ -122,7 +122,8 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
+            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
         }
 
         @Test
@@ -154,7 +155,8 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.href, `is`(nullValue()))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
+            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
         }
     }
 
@@ -335,10 +337,8 @@ at "/MarkLogic/admin.xqy" ;
             val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
-
-            assertThat(ref.example(XdmModuleType.XQuery).count(), `is`(0))
-            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -366,10 +366,8 @@ at "/MarkLogic/admin.xqy" ;
             val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
-
-            assertThat(ref.example(XdmModuleType.XQuery).count(), `is`(0))
-            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -399,15 +397,8 @@ at "/MarkLogic/admin.xqy" ;
             val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(
-                ref.examples?.splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  a &lt; b &amp; b &gt; c",
-                    "</pre></div>"
-                )
-            )
 
-            val xqueryExamples = ref.example(XdmModuleType.XQuery).toList()
+            val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
             assertThat(xqueryExamples.size, `is`(1))
             assertThat(
                 xqueryExamples[0].splitXml(), isListOf(
@@ -417,7 +408,7 @@ at "/MarkLogic/admin.xqy" ;
                 )
             )
 
-            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -453,18 +444,8 @@ at "/MarkLogic/admin.xqy" ;
             val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(
-                ref.examples?.splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  1. Lorem ipsum dolor.",
-                    "</pre></div>",
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  2. Lorem ipsum dolor.",
-                    "</pre></div>"
-                )
-            )
 
-            val xqueryExamples = ref.example(XdmModuleType.XQuery).toList()
+            val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
             assertThat(xqueryExamples.size, `is`(2))
             assertThat(
                 xqueryExamples[0].splitXml(), isListOf(
@@ -481,7 +462,7 @@ at "/MarkLogic/admin.xqy" ;
                 )
             )
 
-            val javascriptExamples = ref.example(XdmModuleType.JavaScript).toList()
+            val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
             assertThat(javascriptExamples.size, `is`(1))
             assertThat(
                 javascriptExamples[0].splitXml(), isListOf(
@@ -517,10 +498,8 @@ at "/MarkLogic/admin.xqy" ;
             val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples, `is`(nullValue()))
-
-            assertThat(ref.example(XdmModuleType.XQuery).count(), `is`(0))
-            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
