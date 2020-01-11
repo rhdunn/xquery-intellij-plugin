@@ -19,7 +19,7 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 interface XdmDocumentation {
-    val href: String?
+    fun href(moduleType: XdmModuleType): String?
 
     val summary: String?
 

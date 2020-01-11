@@ -45,7 +45,10 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
     // endregion
     // region XdmDocumentation
 
-    override val href: String? = "https://docs.marklogic.com/$lib:${name(XdmModuleType.XQuery)}"
+    override fun href(moduleType: XdmModuleType): String? = when (moduleType) {
+        XdmModuleType.JavaScript -> "https://docs.marklogic.com/$lib.${name(moduleType)}"
+        else -> "https://docs.marklogic.com/$lib:${name(moduleType)}"
+    }
 
     override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 

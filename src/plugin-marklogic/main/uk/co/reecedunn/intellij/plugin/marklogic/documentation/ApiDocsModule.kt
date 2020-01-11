@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import uk.co.reecedunn.intellij.plugin.core.text.camelCase
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -54,7 +55,13 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // endregion
     // region XdmDocumentation
 
-    override val href: String? = lib?.let { "https://docs.marklogic.com/$it" }
+    override fun href(moduleType: XdmModuleType): String? = lib?.let {
+        when (moduleType) {
+            XdmModuleType.XPath, XdmModuleType.XQuery -> "https://docs.marklogic.com/$it"
+            XdmModuleType.JavaScript -> "https://docs.marklogic.com/js/$it"
+            else -> throw UnsupportedOperationException("No href for $moduleType.")
+        }
+    }
 
     override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
 

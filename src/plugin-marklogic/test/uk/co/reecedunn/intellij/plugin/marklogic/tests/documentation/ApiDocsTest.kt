@@ -78,7 +78,6 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.href, `is`("https://docs.marklogic.com/admin"))
             assertThat(
                 ref.summary?.splitXml(), isListOf(
                     "<p>Lorem ipsum dolor.</p>",
@@ -89,7 +88,13 @@ at "/MarkLogic/admin.xqy" ;
                 )
             )
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/admin"))
+            assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/admin"))
+            assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/js/admin"))
+
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
         }
 
@@ -119,10 +124,15 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp"))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/xdmp"))
+            assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/xdmp"))
+            assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/js/xdmp"))
+
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
         }
 
@@ -152,10 +162,15 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.href, `is`(nullValue()))
             assertThat(ref.summary, `is`("Lorem ipsum dolor."))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.href(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.href(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.href(XdmModuleType.JavaScript), `is`(nullValue()))
+
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
         }
     }
@@ -192,7 +207,9 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("get-database-ids"))
                 assertThat(ref.name(XdmModuleType.JavaScript), `is`("getDatabaseIds"))
 
-                assertThat(ref.href, `is`("https://docs.marklogic.com/admin:get-database-ids"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/admin:get-database-ids"))
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/admin:get-database-ids"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/admin.getDatabaseIds"))
             }
 
             @Test
@@ -216,11 +233,14 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("cntk"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cntk"))
                 assertThat(ref.isBuiltin, `is`(true))
-                assertThat(ref.href, `is`("https://docs.marklogic.com/cntk:cpu"))
 
-                assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("cpu"))
+                assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
                 assertThat(ref.name(XdmModuleType.JavaScript), `is`("cpu"))
+
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/cntk:cpu"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/cntk:cpu"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/cntk.cpu"))
             }
 
             @Test
@@ -240,11 +260,14 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("cntk"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cntk"))
                 assertThat(ref.isBuiltin, `is`(true))
-                assertThat(ref.href, `is`("https://docs.marklogic.com/cntk:cpu"))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("cpu"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
                 assertThat(ref.name(XdmModuleType.JavaScript), `is`("cpu"))
+
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/cntk:cpu"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/cntk:cpu"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/cntk.cpu"))
             }
 
             @Test
@@ -264,11 +287,14 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("cts"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cts"))
                 assertThat(ref.isBuiltin, `is`(true))
-                assertThat(ref.href, `is`("https://docs.marklogic.com/cts:train"))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("train"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("train"))
                 assertThat(ref.name(XdmModuleType.JavaScript), `is`("train"))
+
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/cts:train"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/cts:train"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/cts.train"))
             }
 
             @Test
@@ -290,11 +316,14 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("xdmp"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/xdmp"))
                 assertThat(ref.isBuiltin, `is`(true))
-                assertThat(ref.href, `is`("https://docs.marklogic.com/xdmp:to-json"))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("to-json"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("to-json"))
                 assertThat(ref.name(XdmModuleType.JavaScript), `is`("toJSON"))
+
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/xdmp:to-json"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/xdmp:to-json"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/xdmp.toJSON"))
             }
         }
 

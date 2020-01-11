@@ -110,7 +110,9 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     // Generate the external documentation links displayed below the main/summary documentation.
     override fun getUrlFor(element: PsiElement?, originalElement: PsiElement?): List<String> {
-        return originalElement?.let { lookup(it).mapNotNull { ref -> ref.href }.toList() } ?: emptyList()
+        return originalElement?.let {
+            lookup(it).mapNotNull { ref -> ref.href(XdmModuleType.XQuery) }.toList()
+        } ?: emptyList()
     }
 
     private fun lookup(element: PsiElement): Sequence<XdmDocumentation> {
