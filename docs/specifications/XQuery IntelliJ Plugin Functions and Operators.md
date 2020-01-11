@@ -14,23 +14,23 @@ JetBrain's IntelliJ IDEs.
 
 ## Table of Contents
 
-{: .toc }
-- [1 Introduction](#1-introduction)
-  - [1.1 Namespaces and prefixes](#11-namespaces-and-prefixes)
-  - [1.2 Common definitions](#12-common-definitions)
-    - [1.2.1 implementation](#121-implementation)
-    - [1.2.2 specification](#122-specification)
-    - [1.2.3 version](#123-version)
-- [2 Options](#2-options)
-  - [2.1 o:implements-module](#21-oimplements-module)
-  - [2.2 o:requires](#22-orequires)
-  - [2.3 o:requires-import](#23-orequires-import)
-- [3 Functions related to QNames](#3-functions-related-to-qnames)
-  - [3.1 op:QName-parse](#31-opqname-parse)
-- [A References](#a-references)
-  - [A.1 W3C References](#a1-w3c-references)
-  - [A.2 EXPath References](#a2-expath-references)
-  - [A.3 EXQuery References](#a3-exquery-references)
+{: .toc.toc-numbered }
+- [Introduction](#1-introduction)
+  - [Namespaces and prefixes](#11-namespaces-and-prefixes)
+  - [Common definitions](#12-common-definitions)
+    - [implementation](#121-implementation)
+    - [specification](#122-specification)
+    - [version](#123-version)
+- [Options](#2-options)
+  - [o:implements-module](#21-oimplements-module)
+  - [o:requires](#22-orequires)
+  - [o:requires-import](#23-orequires-import)
+- [Functions related to QNames](#3-functions-related-to-qnames)
+  - [op:QName-parse](#31-opqname-parse)
+- {: .toc-letter } [References](#a-references)
+  - [W3C References](#a1-w3c-references)
+  - [EXPath References](#a2-expath-references)
+  - [EXQuery References](#a3-exquery-references)
 
 ## 1 Introduction
 The purpose of this document is to catalog the options, annotations, functions,
