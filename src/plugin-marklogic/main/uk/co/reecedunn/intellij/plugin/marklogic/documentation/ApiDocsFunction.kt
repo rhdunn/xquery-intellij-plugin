@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) :
-    XdmFunctionDocumentation {
+data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) : XdmFunctionDocumentation {
     // region apidoc:function
 
     val lib: String by lazy { xml.attribute("lib")!! }
@@ -35,6 +35,21 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     val bucket: String? by lazy { xml.attribute("bucket") }
 
+    fun example(type: XdmModuleType): Sequence<String> {
+        return xml.children("apidoc:example").mapNotNull {
+            val etype = when (val name = it.attribute("class")) {
+                "javascript" -> XdmModuleType.JavaScript
+                "xquery", null -> XdmModuleType.XQuery
+                else -> throw UnsupportedOperationException("Unknown MarkLogic example class '$name'")
+            }
+            if (type === etype) {
+                val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
+            } else
+                null
+        }
+    }
+
     // endregion
     // region XdmDocumentation
 
@@ -44,17 +59,7 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     override val notes: String? = null
 
-    override val examples: String? by lazy {
-        xml.children("apidoc:example").mapNotNull {
-            when (it.attribute("class")) {
-                "javascript" -> null
-                else -> {
-                    val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-                    "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
-                }
-            }
-        }.joinToString("\n").nullize()
-    }
+    override val examples: String? by lazy { example(XdmModuleType.XQuery).joinToString("\n").nullize() }
 
     // endregion
     // region XdmFunctionDocumentation

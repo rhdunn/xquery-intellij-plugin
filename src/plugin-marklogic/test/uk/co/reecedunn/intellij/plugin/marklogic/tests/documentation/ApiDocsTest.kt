@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmFunctionDocumentation
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.util.zip.ZipEntry
 
 private fun String.splitXml(): List<String> = split("\r?\n".toRegex()).filter { it.isNotBlank() }
@@ -331,10 +332,13 @@ at "/MarkLogic/admin.xqy" ;
                 "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
             )
 
-            val ref = apidocs.modules[0].functions[0] as XdmFunctionDocumentation
+            val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.example(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -359,10 +363,13 @@ at "/MarkLogic/admin.xqy" ;
                 "MarkLogic_10_pubs/pubs/raw/apidoc/ClassifierBuiltins.xml" to classifier
             )
 
-            val ref = apidocs.modules[0].functions[0] as XdmFunctionDocumentation
+            val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.example(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -389,7 +396,7 @@ at "/MarkLogic/admin.xqy" ;
                 "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
             )
 
-            val ref = apidocs.modules[0].functions[0] as XdmFunctionDocumentation
+            val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(
@@ -399,6 +406,18 @@ at "/MarkLogic/admin.xqy" ;
                     "</pre></div>"
                 )
             )
+
+            val xqueryExamples = ref.example(XdmModuleType.XQuery).toList()
+            assertThat(xqueryExamples.size, `is`(1))
+            assertThat(
+                xqueryExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  a &lt; b &amp; b &gt; c",
+                    "</pre></div>"
+                )
+            )
+
+            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -431,7 +450,7 @@ at "/MarkLogic/admin.xqy" ;
                 "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
             )
 
-            val ref = apidocs.modules[0].functions[0] as XdmFunctionDocumentation
+            val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(
@@ -441,6 +460,33 @@ at "/MarkLogic/admin.xqy" ;
                     "</pre></div>",
                     "<div class=\"example\"><pre xml:space=\"preserve\">",
                     "  2. Lorem ipsum dolor.",
+                    "</pre></div>"
+                )
+            )
+
+            val xqueryExamples = ref.example(XdmModuleType.XQuery).toList()
+            assertThat(xqueryExamples.size, `is`(2))
+            assertThat(
+                xqueryExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  1. Lorem ipsum dolor.",
+                    "</pre></div>"
+                )
+            )
+            assertThat(
+                xqueryExamples[1].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  2. Lorem ipsum dolor.",
+                    "</pre></div>"
+                )
+            )
+
+            val javascriptExamples = ref.example(XdmModuleType.JavaScript).toList()
+            assertThat(javascriptExamples.size, `is`(1))
+            assertThat(
+                javascriptExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  3. Lorem ipsum dolor.",
                     "</pre></div>"
                 )
             )
@@ -468,10 +514,13 @@ at "/MarkLogic/admin.xqy" ;
                 "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
             )
 
-            val ref = apidocs.modules[0].functions[0] as XdmFunctionDocumentation
+            val ref = apidocs.modules[0].functions[0]
             assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
             assertThat(ref.examples, `is`(nullValue()))
+
+            assertThat(ref.example(XdmModuleType.XQuery).count(), `is`(0))
+            assertThat(ref.example(XdmModuleType.JavaScript).count(), `is`(0))
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
