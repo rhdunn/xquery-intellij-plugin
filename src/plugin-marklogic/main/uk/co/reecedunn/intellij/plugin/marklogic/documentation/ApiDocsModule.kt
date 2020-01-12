@@ -55,6 +55,8 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
     // endregion
     // region XdmDocumentation
 
+    override val moduleTypes: Array<XdmModuleType> = arrayOf()
+
     override fun href(moduleType: XdmModuleType): String? = lib?.let {
         when (moduleType) {
             XdmModuleType.XPath, XdmModuleType.XQuery -> "https://docs.marklogic.com/$it"

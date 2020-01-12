@@ -32,6 +32,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
     override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
         return object : XdmFunctionDocumentation {
+            override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
+
             val name: String = ref.functionName?.let {
                 "[prefix=${it.prefix?.data ?: "(null)"} namespace=${it.namespace?.data ?: "(null)"} localname=${it.localName?.data ?: "(null)"}]"
             } ?: "(null)"
@@ -60,6 +62,8 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
     override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
         return object : XdmDocumentation {
+            override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
+
             val name: String =
                 "[prefix=${decl.namespacePrefix?.data ?: "(null)"} namespace=${decl.namespaceUri?.data ?: "(null)"}]"
 

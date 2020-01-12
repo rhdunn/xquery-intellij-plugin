@@ -45,6 +45,8 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
     // endregion
     // region XdmDocumentation
 
+    override val moduleTypes: Array<XdmModuleType> by lazy { xml.moduleTypes }
+
     override fun href(moduleType: XdmModuleType): String? = when (moduleType) {
         XdmModuleType.JavaScript -> "https://docs.marklogic.com/$lib.${name(moduleType)}"
         else -> "https://docs.marklogic.com/$lib:${name(moduleType)}"

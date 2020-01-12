@@ -19,6 +19,8 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 interface XdmDocumentation {
+    val moduleTypes: Array<XdmModuleType>
+
     fun href(moduleType: XdmModuleType): String?
 
     val summary: String?

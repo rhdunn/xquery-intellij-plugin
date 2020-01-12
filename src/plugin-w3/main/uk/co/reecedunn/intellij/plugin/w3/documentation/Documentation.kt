@@ -34,6 +34,8 @@ internal class W3CFunctionReference(private val node: Element, private val baseH
 
     val id: String = node.selectFirst("* > a").attr("id")
 
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
+
     override fun href(moduleType: XdmModuleType): String = "$baseHref#$id"
 
     private fun section(name: String): String? {

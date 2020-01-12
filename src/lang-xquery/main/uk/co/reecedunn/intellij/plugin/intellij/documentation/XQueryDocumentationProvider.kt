@@ -145,6 +145,6 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 override val functionName: XsQNameValue? = it
                 override val arity: Int = arity
             })
-        } ?: emptySequence()
+        }?.filter { it.moduleTypes.contains(XdmModuleType.XQuery) } ?: emptySequence()
     }
 }

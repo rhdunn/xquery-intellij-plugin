@@ -202,6 +202,7 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("admin"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/xdmp/admin"))
                 assertThat(ref.isBuiltin, `is`(false))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.MARKLOGIC))
 
                 assertThat(ref.name(XdmModuleType.XPath), `is`("get-database-ids"))
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("get-database-ids"))
@@ -233,6 +234,7 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("cntk"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cntk"))
                 assertThat(ref.isBuiltin, `is`(true))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.MARKLOGIC))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("cpu"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
@@ -260,6 +262,7 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("cntk"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cntk"))
                 assertThat(ref.isBuiltin, `is`(true))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.MARKLOGIC))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("cpu"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("cpu"))
@@ -287,6 +290,7 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("cts"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/cts"))
                 assertThat(ref.isBuiltin, `is`(true))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.MARKLOGIC))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("train"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("train"))
@@ -316,6 +320,7 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.lib, `is`("xdmp"))
                 assertThat(ref.namespace, `is`("http://marklogic.com/xdmp"))
                 assertThat(ref.isBuiltin, `is`(true))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.MARKLOGIC))
 
                 assertThat(ref.name(XdmModuleType.XQuery), `is`("to-json"))
                 assertThat(ref.name(XdmModuleType.XPath), `is`("to-json"))
@@ -324,6 +329,62 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/xdmp:to-json"))
                 assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/xdmp:to-json"))
                 assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/xdmp.toJSON"))
+            }
+
+            @Test
+            @DisplayName("XQuery only")
+            fun xqueryOnly() {
+                @Language("XML")
+                val builtins = """
+                    <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="walk" type="builtin" lib="cts" class="xquery"/>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/Walkers.xml" to builtins
+                )
+
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.lib, `is`("cts"))
+                assertThat(ref.namespace, `is`("http://marklogic.com/cts"))
+                assertThat(ref.isBuiltin, `is`(true))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.XPATH_OR_XQUERY))
+
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("walk"))
+                assertThat(ref.name(XdmModuleType.XPath), `is`("walk"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("walk"))
+
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/cts:walk"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/cts:walk"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/cts.walk"))
+            }
+
+            @Test
+            @DisplayName("JavaScript only")
+            fun javascriptOnly() {
+                @Language("XML")
+                val builtins = """
+                    <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="xquery-eval" type="builtin" lib="xdmp" class="javascript"/>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/Eval.xml" to builtins
+                )
+
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.lib, `is`("xdmp"))
+                assertThat(ref.namespace, `is`("http://marklogic.com/xdmp"))
+                assertThat(ref.isBuiltin, `is`(true))
+                assertThat(ref.moduleTypes, `is`(XdmModuleType.JAVASCRIPT))
+
+                assertThat(ref.name(XdmModuleType.XQuery), `is`("xquery-eval"))
+                assertThat(ref.name(XdmModuleType.XPath), `is`("xquery-eval"))
+                assertThat(ref.name(XdmModuleType.JavaScript), `is`("xqueryEval"))
+
+                assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/xdmp:xquery-eval"))
+                assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/xdmp:xquery-eval"))
+                assertThat(ref.href(XdmModuleType.JavaScript), `is`("https://docs.marklogic.com/xdmp.xqueryEval"))
             }
         }
 
