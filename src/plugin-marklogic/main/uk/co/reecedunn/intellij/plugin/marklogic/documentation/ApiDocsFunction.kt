@@ -56,8 +56,8 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     override fun examples(moduleType: XdmModuleType): Sequence<String> {
         return xml.children("apidoc:example").mapNotNull {
-            val etype = it.moduleType
-            if (moduleType === etype || (moduleType === XdmModuleType.XPath && etype === XdmModuleType.XQuery)) {
+            val etype = it.moduleTypes
+            if (etype.contains(moduleType)) {
                 val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                 "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
             } else

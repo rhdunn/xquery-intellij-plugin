@@ -467,7 +467,15 @@ at "/MarkLogic/admin.xqy" ;
                 )
             )
 
-            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
+            val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
+            assertThat(javascriptExamples.size, `is`(1))
+            assertThat(
+                javascriptExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  a &lt; b &amp; b &gt; c",
+                    "</pre></div>"
+                )
+            )
 
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
@@ -539,9 +547,16 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
-            assertThat(javascriptExamples.size, `is`(1))
+            assertThat(javascriptExamples.size, `is`(2))
             assertThat(
                 javascriptExamples[0].splitXml(), isListOf(
+                    "<div class=\"example\"><pre xml:space=\"preserve\">",
+                    "  1. Lorem ipsum dolor.",
+                    "</pre></div>"
+                )
+            )
+            assertThat(
+                javascriptExamples[1].splitXml(), isListOf(
                     "<div class=\"example\"><pre xml:space=\"preserve\">",
                     "  3. Lorem ipsum dolor.",
                     "</pre></div>"

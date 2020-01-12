@@ -33,9 +33,12 @@ enum class XdmModuleType(val extensions: Array<String>) {
 
     companion object {
         val JAVA = arrayOf(Java)
+        val JAVASCRIPT = arrayOf(JavaScript)
+        val MARKLOGIC = arrayOf(XPath, XQuery, JavaScript)
         val MODULE = arrayOf(XQuery, Java, DotNet)
         val MODULE_OR_SCHEMA = arrayOf(XQuery, XMLSchema, Java, DotNet)
         val NONE = arrayOf<XdmModuleType>()
+        val XPATH_OR_XQUERY = arrayOf(XPath, XQuery)
         val RESOURCE = arrayOf(Resource)
         val SCHEMA = arrayOf(XMLSchema)
         val STYLESHEET = arrayOf(XSLT)

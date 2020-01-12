@@ -78,9 +78,10 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
     }
 }
 
-internal val XmlElement.moduleType: XdmModuleType
+internal val XmlElement.moduleTypes: Array<XdmModuleType>
     get() = when (val name = attribute("class")) {
-        "javascript" -> XdmModuleType.JavaScript
-        "xquery", null -> XdmModuleType.XQuery
+        "javascript" -> XdmModuleType.JAVASCRIPT
+        "xquery" -> XdmModuleType.XPATH_OR_XQUERY
+        null -> XdmModuleType.MARKLOGIC
         else -> throw UnsupportedOperationException("Unknown MarkLogic apidoc class '$name'")
     }
