@@ -39,7 +39,7 @@ interface XdmFunctionDocumentation : XdmDocumentation {
 
     val privileges: String?
 
-    val rules: String?
+    fun rules(moduleType: XdmModuleType): String?
 
     val errorConditions: String?
 }
@@ -51,7 +51,7 @@ fun XdmDocumentation.sections(moduleType: XdmModuleType): String {
         "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
         "Properties" to (this as? XdmFunctionDocumentation)?.properties,
         "Required Privileges" to (this as? XdmFunctionDocumentation)?.privileges,
-        "Rules" to (this as? XdmFunctionDocumentation)?.rules,
+        "Rules" to (this as? XdmFunctionDocumentation)?.rules(moduleType),
         "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
         "Notes" to notes(moduleType),
         "Examples" to examples(moduleType).joinToString("\n").nullize()

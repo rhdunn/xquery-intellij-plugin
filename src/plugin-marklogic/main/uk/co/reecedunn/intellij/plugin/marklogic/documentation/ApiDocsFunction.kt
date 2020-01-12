@@ -79,7 +79,9 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
 
     override val privileges: String? by lazy { xml.child("apidoc:privilege")?.innerXml() }
 
-    override val rules: String? by lazy { xml.child("apidoc:usage")?.innerXml() }
+    override fun rules(moduleType: XdmModuleType): String? {
+        return xml.children("apidoc:usage").find { it.moduleTypes.contains(moduleType) }?.innerXml()
+    }
 
     override val errorConditions: String? = null
 

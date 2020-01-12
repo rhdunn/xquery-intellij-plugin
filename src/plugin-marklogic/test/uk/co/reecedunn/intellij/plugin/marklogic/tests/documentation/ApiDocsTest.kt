@@ -482,16 +482,19 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
                 assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
+                assertThat(ref.rules(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.JavaScript), `is`(nullValue()))
+
                 assertThat(ref.operatorMapping, `is`(nullValue()))
                 assertThat(ref.signatures, `is`(nullValue()))
                 assertThat(ref.properties, `is`(nullValue()))
                 assertThat(ref.privileges, `is`(nullValue()))
-                assertThat(ref.rules, `is`(nullValue()))
                 assertThat(ref.errorConditions, `is`(nullValue()))
             }
 
             @Test
-            @DisplayName("language-specific")
+            @DisplayName("language specific")
             fun languageSpecific() {
                 @Language("XML")
                 val builtins = """
@@ -519,204 +522,264 @@ at "/MarkLogic/admin.xqy" ;
                 assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
                 assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
+                assertThat(ref.rules(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.JavaScript), `is`(nullValue()))
+
                 assertThat(ref.operatorMapping, `is`(nullValue()))
                 assertThat(ref.signatures, `is`(nullValue()))
                 assertThat(ref.properties, `is`(nullValue()))
                 assertThat(ref.privileges, `is`(nullValue()))
-                assertThat(ref.rules, `is`(nullValue()))
                 assertThat(ref.errorConditions, `is`(nullValue()))
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("usage (rules)")
-        fun usage() {
-            @Language("XML")
-            val classifier = """
-                <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                    <apidoc:function name="train" type="builtin" lib="cts">
-                        <apidoc:usage>These are the usage notes.</apidoc:usage>
-                    </apidoc:function>
-                </apidoc:module>
-            """
-            val apidocs = create(
-                "MarkLogic_10_pubs/pubs/raw/apidoc/ClassifierBuiltins.xml" to classifier
-            )
+        internal inner class Usage {
+            @Test
+            @DisplayName("language generic")
+            fun languageGeneric() {
+                @Language("XML")
+                val classifier = """
+                    <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="train" type="builtin" lib="cts">
+                            <apidoc:usage>These are the usage notes.</apidoc:usage>
+                        </apidoc:function>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/ClassifierBuiltins.xml" to classifier
+                )
 
-            val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
-            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
-            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
-            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
-            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
-            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
 
-            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
-            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
-            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
-            assertThat(ref.operatorMapping, `is`(nullValue()))
-            assertThat(ref.signatures, `is`(nullValue()))
-            assertThat(ref.properties, `is`(nullValue()))
-            assertThat(ref.privileges, `is`(nullValue()))
-            assertThat(ref.rules, `is`("These are the usage notes."))
-            assertThat(ref.errorConditions, `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.XQuery), `is`("These are the usage notes."))
+                assertThat(ref.rules(XdmModuleType.XPath), `is`("These are the usage notes."))
+                assertThat(ref.rules(XdmModuleType.JavaScript), `is`("These are the usage notes."))
+
+                assertThat(ref.operatorMapping, `is`(nullValue()))
+                assertThat(ref.signatures, `is`(nullValue()))
+                assertThat(ref.properties, `is`(nullValue()))
+                assertThat(ref.privileges, `is`(nullValue()))
+                assertThat(ref.errorConditions, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("language specific")
+            fun languageSpecific() {
+                @Language("XML")
+                val classifier = """
+                    <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="train" type="builtin" lib="cts">
+                            <apidoc:usage class="xquery">These are the XPath/XQuery usage notes.</apidoc:usage>
+                            <apidoc:usage class="javascript">These are the JavaScript usage notes.</apidoc:usage>
+                        </apidoc:function>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/ClassifierBuiltins.xml" to classifier
+                )
+
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
+
+                assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
+
+                assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
+
+                assertThat(ref.rules(XdmModuleType.XQuery), `is`("These are the XPath/XQuery usage notes."))
+                assertThat(ref.rules(XdmModuleType.XPath), `is`("These are the XPath/XQuery usage notes."))
+                assertThat(ref.rules(XdmModuleType.JavaScript), `is`("These are the JavaScript usage notes."))
+
+                assertThat(ref.operatorMapping, `is`(nullValue()))
+                assertThat(ref.signatures, `is`(nullValue()))
+                assertThat(ref.properties, `is`(nullValue()))
+                assertThat(ref.privileges, `is`(nullValue()))
+                assertThat(ref.errorConditions, `is`(nullValue()))
+            }
         }
 
-        @Test
-        @DisplayName("examples, xquery only")
-        fun examplesXQuery() {
-            @Language("XML")
-            val adminLib = """
-                <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                    <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
-                        <apidoc:example><pre xml:space="preserve"><![CDATA[
+        @Nested
+        @DisplayName("examples")
+        internal inner class Examples {
+            @Test
+            @DisplayName("language generic")
+            fun languageGeneric() {
+                @Language("XML")
+                val adminLib = """
+                    <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="train" type="builtin" lib="cts" category="Classifier">
+                            <apidoc:example><pre xml:space="preserve"><![CDATA[
   a < b & b > c
 ]]></pre></apidoc:example>
-                    </apidoc:function>
-                </apidoc:module>
-            """
-            val apidocs = create(
-                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
-            )
-
-            val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
-            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
-            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
-
-            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
-            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
-            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
-
-            val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
-            assertThat(xqueryExamples.size, `is`(1))
-            assertThat(
-                xqueryExamples[0].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  a &lt; b &amp; b &gt; c",
-                    "</pre></div>"
+                        </apidoc:function>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
                 )
-            )
 
-            val xpathExamples = ref.examples(XdmModuleType.XPath).toList()
-            assertThat(xpathExamples.size, `is`(1))
-            assertThat(
-                xpathExamples[0].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  a &lt; b &amp; b &gt; c",
-                    "</pre></div>"
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
+
+                assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
+
+                val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
+                assertThat(xqueryExamples.size, `is`(1))
+                assertThat(
+                    xqueryExamples[0].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  a &lt; b &amp; b &gt; c",
+                        "</pre></div>"
+                    )
                 )
-            )
 
-            val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
-            assertThat(javascriptExamples.size, `is`(1))
-            assertThat(
-                javascriptExamples[0].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  a &lt; b &amp; b &gt; c",
-                    "</pre></div>"
+                val xpathExamples = ref.examples(XdmModuleType.XPath).toList()
+                assertThat(xpathExamples.size, `is`(1))
+                assertThat(
+                    xpathExamples[0].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  a &lt; b &amp; b &gt; c",
+                        "</pre></div>"
+                    )
                 )
-            )
 
-            assertThat(ref.operatorMapping, `is`(nullValue()))
-            assertThat(ref.signatures, `is`(nullValue()))
-            assertThat(ref.properties, `is`(nullValue()))
-            assertThat(ref.privileges, `is`(nullValue()))
-            assertThat(ref.rules, `is`(nullValue()))
-            assertThat(ref.errorConditions, `is`(nullValue()))
-        }
+                val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
+                assertThat(javascriptExamples.size, `is`(1))
+                assertThat(
+                    javascriptExamples[0].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  a &lt; b &amp; b &gt; c",
+                        "</pre></div>"
+                    )
+                )
 
-        @Test
-        @DisplayName("examples, xquery and javascript")
-        fun examplesXQueryAndJavaScript() {
-            @Language("XML")
-            val adminLib = """
-                <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                    <apidoc:function name="version" lib="xdmp" type="builtin">
-                        <apidoc:example><pre xml:space="preserve"><![CDATA[
+                assertThat(ref.rules(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.JavaScript), `is`(nullValue()))
+
+                assertThat(ref.operatorMapping, `is`(nullValue()))
+                assertThat(ref.signatures, `is`(nullValue()))
+                assertThat(ref.properties, `is`(nullValue()))
+                assertThat(ref.privileges, `is`(nullValue()))
+                assertThat(ref.errorConditions, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("language specific")
+            fun languageSpecific() {
+                @Language("XML")
+                val adminLib = """
+                    <apidoc:module xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="version" lib="xdmp" type="builtin">
+                            <apidoc:example><pre xml:space="preserve"><![CDATA[
   1. Lorem ipsum dolor.
 ]]></pre></apidoc:example>
-                        <apidoc:example class="xquery"><pre xml:space="preserve"><![CDATA[
+                            <apidoc:example class="xquery"><pre xml:space="preserve"><![CDATA[
   2. Lorem ipsum dolor.
 ]]></pre></apidoc:example>
-                        <apidoc:example class="javascript"><pre xml:space="preserve"><![CDATA[
+                            <apidoc:example class="javascript"><pre xml:space="preserve"><![CDATA[
   3. Lorem ipsum dolor.
 ]]></pre></apidoc:example>
-                    </apidoc:function>
-                </apidoc:module>
-            """
-            val apidocs = create(
-                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
-            )
-
-            val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
-            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
-            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
-
-            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
-            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
-            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
-
-            val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
-            assertThat(xqueryExamples.size, `is`(2))
-            assertThat(
-                xqueryExamples[0].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  1. Lorem ipsum dolor.",
-                    "</pre></div>"
+                        </apidoc:function>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
                 )
-            )
-            assertThat(
-                xqueryExamples[1].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  2. Lorem ipsum dolor.",
-                    "</pre></div>"
-                )
-            )
 
-            val xpathExamples = ref.examples(XdmModuleType.XPath).toList()
-            assertThat(xpathExamples.size, `is`(2))
-            assertThat(
-                xpathExamples[0].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  1. Lorem ipsum dolor.",
-                    "</pre></div>"
-                )
-            )
-            assertThat(
-                xpathExamples[1].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  2. Lorem ipsum dolor.",
-                    "</pre></div>"
-                )
-            )
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
-            val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
-            assertThat(javascriptExamples.size, `is`(2))
-            assertThat(
-                javascriptExamples[0].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  1. Lorem ipsum dolor.",
-                    "</pre></div>"
-                )
-            )
-            assertThat(
-                javascriptExamples[1].splitXml(), isListOf(
-                    "<div class=\"example\"><pre xml:space=\"preserve\">",
-                    "  3. Lorem ipsum dolor.",
-                    "</pre></div>"
-                )
-            )
+                assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
 
-            assertThat(ref.operatorMapping, `is`(nullValue()))
-            assertThat(ref.signatures, `is`(nullValue()))
-            assertThat(ref.properties, `is`(nullValue()))
-            assertThat(ref.privileges, `is`(nullValue()))
-            assertThat(ref.rules, `is`(nullValue()))
-            assertThat(ref.errorConditions, `is`(nullValue()))
+                val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
+                assertThat(xqueryExamples.size, `is`(2))
+                assertThat(
+                    xqueryExamples[0].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  1. Lorem ipsum dolor.",
+                        "</pre></div>"
+                    )
+                )
+                assertThat(
+                    xqueryExamples[1].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  2. Lorem ipsum dolor.",
+                        "</pre></div>"
+                    )
+                )
+
+                val xpathExamples = ref.examples(XdmModuleType.XPath).toList()
+                assertThat(xpathExamples.size, `is`(2))
+                assertThat(
+                    xpathExamples[0].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  1. Lorem ipsum dolor.",
+                        "</pre></div>"
+                    )
+                )
+                assertThat(
+                    xpathExamples[1].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  2. Lorem ipsum dolor.",
+                        "</pre></div>"
+                    )
+                )
+
+                val javascriptExamples = ref.examples(XdmModuleType.JavaScript).toList()
+                assertThat(javascriptExamples.size, `is`(2))
+                assertThat(
+                    javascriptExamples[0].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  1. Lorem ipsum dolor.",
+                        "</pre></div>"
+                    )
+                )
+                assertThat(
+                    javascriptExamples[1].splitXml(), isListOf(
+                        "<div class=\"example\"><pre xml:space=\"preserve\">",
+                        "  3. Lorem ipsum dolor.",
+                        "</pre></div>"
+                    )
+                )
+
+                assertThat(ref.rules(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.rules(XdmModuleType.JavaScript), `is`(nullValue()))
+
+                assertThat(ref.operatorMapping, `is`(nullValue()))
+                assertThat(ref.signatures, `is`(nullValue()))
+                assertThat(ref.properties, `is`(nullValue()))
+                assertThat(ref.privileges, `is`(nullValue()))
+                assertThat(ref.errorConditions, `is`(nullValue()))
+            }
         }
 
         @Test
@@ -747,11 +810,14 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
 
+            assertThat(ref.rules(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.rules(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.rules(XdmModuleType.JavaScript), `is`(nullValue()))
+
             assertThat(ref.operatorMapping, `is`(nullValue()))
             assertThat(ref.signatures, `is`(nullValue()))
             assertThat(ref.properties, `is`(nullValue()))
             assertThat(ref.privileges, `is`("MarkLogic privileges are documented here."))
-            assertThat(ref.rules, `is`(nullValue()))
             assertThat(ref.errorConditions, `is`(nullValue()))
         }
 
