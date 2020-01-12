@@ -78,7 +78,9 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(
                 ref.summary(XdmModuleType.XQuery)?.splitXml(), isListOf(
@@ -143,7 +145,9 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(ref.summary(XdmModuleType.XQuery), `is`("Lorem ipsum dolor."))
             assertThat(ref.summary(XdmModuleType.XPath), `is`("Lorem ipsum dolor."))
@@ -184,7 +188,9 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(ref.summary(XdmModuleType.XQuery), `is`("Lorem ipsum dolor."))
             assertThat(ref.summary(XdmModuleType.XPath), `is`("Lorem ipsum dolor."))
@@ -464,7 +470,9 @@ at "/MarkLogic/admin.xqy" ;
                 )
 
                 val ref = apidocs.modules[0].functions[0]
-                assertThat(ref.notes, `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
                 assertThat(ref.summary(XdmModuleType.XQuery), `is`("Lorem function dolor sed emit."))
                 assertThat(ref.summary(XdmModuleType.XPath), `is`("Lorem function dolor sed emit."))
@@ -499,7 +507,9 @@ at "/MarkLogic/admin.xqy" ;
                 )
 
                 val ref = apidocs.modules[0].functions[0]
-                assertThat(ref.notes, `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+                assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
                 assertThat(ref.summary(XdmModuleType.XQuery), `is`("1. Lorem function dolor sed emit."))
                 assertThat(ref.summary(XdmModuleType.XPath), `is`("1. Lorem function dolor sed emit."))
@@ -534,7 +544,9 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
@@ -570,7 +582,9 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
@@ -638,7 +652,9 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
@@ -719,7 +735,9 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
 
             assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))

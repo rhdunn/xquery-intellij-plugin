@@ -56,7 +56,7 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
         return xml.children("apidoc:summary").find { it.moduleTypes.contains(moduleType) }?.innerXml()
     }
 
-    override val notes: String? = null
+    override fun notes(moduleType: XdmModuleType): String? = null
 
     override fun examples(moduleType: XdmModuleType): Sequence<String> {
         return xml.children("apidoc:example").mapNotNull {

@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
-import uk.co.reecedunn.intellij.plugin.core.text.camelCase
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -67,7 +66,7 @@ data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
 
     override fun summary(moduleType: XdmModuleType): String? = xml.child("apidoc:summary")?.innerXml()
 
-    override val notes: String? = null
+    override fun notes(moduleType: XdmModuleType): String? = null
 
     override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
 

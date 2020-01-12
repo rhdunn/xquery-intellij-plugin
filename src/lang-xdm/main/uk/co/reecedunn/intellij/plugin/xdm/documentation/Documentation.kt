@@ -25,7 +25,7 @@ interface XdmDocumentation {
 
     fun summary(moduleType: XdmModuleType): String?
 
-    val notes: String?
+    fun notes(moduleType: XdmModuleType): String?
 
     fun examples(moduleType: XdmModuleType): Sequence<String>
 }
@@ -53,7 +53,7 @@ fun XdmDocumentation.sections(moduleType: XdmModuleType): String {
         "Required Privileges" to (this as? XdmFunctionDocumentation)?.privileges,
         "Rules" to (this as? XdmFunctionDocumentation)?.rules,
         "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
-        "Notes" to notes,
+        "Notes" to notes(moduleType),
         "Examples" to examples(moduleType).joinToString("\n").nullize()
     ).filter { it.second != null }
     return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"

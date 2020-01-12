@@ -42,7 +42,7 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override fun summary(moduleType: XdmModuleType): String = "function summary=${name}#${ref.arity}"
 
-            override val notes: String? = null
+            override fun notes(moduleType: XdmModuleType): String? = null
 
             override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
 
@@ -71,7 +71,7 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override fun summary(moduleType: XdmModuleType): String = "module summary=${name}"
 
-            override val notes: String? = null
+            override fun notes(moduleType: XdmModuleType): String? = null
 
             override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
         }
