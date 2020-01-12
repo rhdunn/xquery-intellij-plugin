@@ -40,7 +40,7 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override fun href(moduleType: XdmModuleType): String = "function href=${name}#${ref.arity}"
 
-            override val summary: String = "function summary=${name}#${ref.arity}"
+            override fun summary(moduleType: XdmModuleType): String = "function summary=${name}#${ref.arity}"
 
             override val notes: String? = null
 
@@ -69,7 +69,7 @@ object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocument
 
             override fun href(moduleType: XdmModuleType): String = "module href=${name}"
 
-            override val summary: String = "module summary=${name}"
+            override fun summary(moduleType: XdmModuleType): String = "module summary=${name}"
 
             override val notes: String? = null
 

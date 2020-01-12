@@ -23,7 +23,7 @@ interface XdmDocumentation {
 
     fun href(moduleType: XdmModuleType): String?
 
-    val summary: String?
+    fun summary(moduleType: XdmModuleType): String?
 
     val notes: String?
 
@@ -46,7 +46,7 @@ interface XdmFunctionDocumentation : XdmDocumentation {
 
 fun XdmDocumentation.sections(moduleType: XdmModuleType): String {
     val sections = sequenceOf(
-        "Summary" to summary,
+        "Summary" to summary(moduleType),
         "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,
         "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
         "Properties" to (this as? XdmFunctionDocumentation)?.properties,

@@ -78,8 +78,10 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
             val ref = modules[0] as XdmDocumentation
+            assertThat(ref.notes, `is`(nullValue()))
+
             assertThat(
-                ref.summary?.splitXml(), isListOf(
+                ref.summary(XdmModuleType.XQuery)?.splitXml(), isListOf(
                     "<p>Lorem ipsum dolor.</p>",
                     "<p>Sed <code>emit</code> et dolor.</p>",
                     "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
@@ -87,7 +89,24 @@ at "/MarkLogic/admin.xqy" ;
                     "</code></p>"
                 )
             )
-            assertThat(ref.notes, `is`(nullValue()))
+            assertThat(
+                ref.summary(XdmModuleType.XPath)?.splitXml(), isListOf(
+                    "<p>Lorem ipsum dolor.</p>",
+                    "<p>Sed <code>emit</code> et dolor.</p>",
+                    "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
+                    "at \"/MarkLogic/admin.xqy\" ;",
+                    "</code></p>"
+                )
+            )
+            assertThat(
+                ref.summary(XdmModuleType.JavaScript)?.splitXml(), isListOf(
+                    "<p>Lorem ipsum dolor.</p>",
+                    "<p>Sed <code>emit</code> et dolor.</p>",
+                    "<p><code>import module namespace admin = \"http://marklogic.com/xdmp/admin\"",
+                    "at \"/MarkLogic/admin.xqy\" ;",
+                    "</code></p>"
+                )
+            )
 
             assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/admin"))
             assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/admin"))
@@ -124,8 +143,11 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.summary, `is`("Lorem ipsum dolor."))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.summary(XdmModuleType.XQuery), `is`("Lorem ipsum dolor."))
+            assertThat(ref.summary(XdmModuleType.XPath), `is`("Lorem ipsum dolor."))
+            assertThat(ref.summary(XdmModuleType.JavaScript), `is`("Lorem ipsum dolor."))
 
             assertThat(ref.href(XdmModuleType.XQuery), `is`("https://docs.marklogic.com/xdmp"))
             assertThat(ref.href(XdmModuleType.XPath), `is`("https://docs.marklogic.com/xdmp"))
@@ -162,8 +184,11 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
             val ref = modules[0] as XdmDocumentation
-            assertThat(ref.summary, `is`("Lorem ipsum dolor."))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.summary(XdmModuleType.XQuery), `is`("Lorem ipsum dolor."))
+            assertThat(ref.summary(XdmModuleType.XPath), `is`("Lorem ipsum dolor."))
+            assertThat(ref.summary(XdmModuleType.JavaScript), `is`("Lorem ipsum dolor."))
 
             assertThat(ref.href(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.href(XdmModuleType.XPath), `is`(nullValue()))
@@ -420,41 +445,77 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(ref.bucket, `is`("XQuery Library Modules"))
         }
 
-        @Test
+        @Nested
         @DisplayName("summary")
-        fun summary() {
-            @Language("XML")
-            val adminLib = """
-                <apidoc:module lib="admin" xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
-                    <apidoc:summary>
-                        <p>Lorem ipsum dolor.</p>
-                        <p>Sed <code>emit</code> et dolor.</p>
-                        <p><code>import module namespace admin = "http://marklogic.com/xdmp/admin"
-              at "/MarkLogic/admin.xqy" ;
-                        </code></p>
-                    </apidoc:summary>
-                    <apidoc:function name="get-database-ids" lib="admin">
-                        <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
-                    </apidoc:function>
-                </apidoc:module>
-            """
-            val apidocs = create(
-                "MarkLogic_10_pubs/pubs/raw/apidoc/admin.xml" to adminLib
-            )
+        internal inner class Summary {
+            @Test
+            @DisplayName("language generic")
+            fun languageGeneric() {
+                @Language("XML")
+                val builtins = """
+                    <apidoc:module lib="cts" xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="train" type="builtin" lib="cts">
+                            <apidoc:summary>Lorem function dolor sed emit.</apidoc:summary>
+                        </apidoc:function>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/ClassifierBuiltins.xml" to builtins
+                )
 
-            val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.summary, `is`("Lorem function dolor sed emit."))
-            assertThat(ref.notes, `is`(nullValue()))
-            assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
-            assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
-            assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.notes, `is`(nullValue()))
 
-            assertThat(ref.operatorMapping, `is`(nullValue()))
-            assertThat(ref.signatures, `is`(nullValue()))
-            assertThat(ref.properties, `is`(nullValue()))
-            assertThat(ref.privileges, `is`(nullValue()))
-            assertThat(ref.rules, `is`(nullValue()))
-            assertThat(ref.errorConditions, `is`(nullValue()))
+                assertThat(ref.summary(XdmModuleType.XQuery), `is`("Lorem function dolor sed emit."))
+                assertThat(ref.summary(XdmModuleType.XPath), `is`("Lorem function dolor sed emit."))
+                assertThat(ref.summary(XdmModuleType.JavaScript), `is`("Lorem function dolor sed emit."))
+
+                assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
+
+                assertThat(ref.operatorMapping, `is`(nullValue()))
+                assertThat(ref.signatures, `is`(nullValue()))
+                assertThat(ref.properties, `is`(nullValue()))
+                assertThat(ref.privileges, `is`(nullValue()))
+                assertThat(ref.rules, `is`(nullValue()))
+                assertThat(ref.errorConditions, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("language-specific")
+            fun languageSpecific() {
+                @Language("XML")
+                val builtins = """
+                    <apidoc:module lib="cts" xmlns:apidoc="http://marklogic.com/xdmp/apidoc">
+                        <apidoc:function name="train" type="builtin" lib="cts">
+                            <apidoc:summary class="xquery">1. Lorem function dolor sed emit.</apidoc:summary>
+                            <apidoc:summary class="javascript">2. Lorem function dolor sed emit.</apidoc:summary>
+                        </apidoc:function>
+                    </apidoc:module>
+                """
+                val apidocs = create(
+                    "MarkLogic_10_pubs/pubs/raw/apidoc/ClassifierBuiltins.xml" to builtins
+                )
+
+                val ref = apidocs.modules[0].functions[0]
+                assertThat(ref.notes, `is`(nullValue()))
+
+                assertThat(ref.summary(XdmModuleType.XQuery), `is`("1. Lorem function dolor sed emit."))
+                assertThat(ref.summary(XdmModuleType.XPath), `is`("1. Lorem function dolor sed emit."))
+                assertThat(ref.summary(XdmModuleType.JavaScript), `is`("2. Lorem function dolor sed emit."))
+
+                assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
+                assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
+
+                assertThat(ref.operatorMapping, `is`(nullValue()))
+                assertThat(ref.signatures, `is`(nullValue()))
+                assertThat(ref.properties, `is`(nullValue()))
+                assertThat(ref.privileges, `is`(nullValue()))
+                assertThat(ref.rules, `is`(nullValue()))
+                assertThat(ref.errorConditions, `is`(nullValue()))
+            }
         }
 
         @Test
@@ -473,8 +534,12 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
+
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))
@@ -505,8 +570,11 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
 
             val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
             assertThat(xqueryExamples.size, `is`(1))
@@ -570,8 +638,11 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
 
             val xqueryExamples = ref.examples(XdmModuleType.XQuery).toList()
             assertThat(xqueryExamples.size, `is`(2))
@@ -648,8 +719,12 @@ at "/MarkLogic/admin.xqy" ;
             )
 
             val ref = apidocs.modules[0].functions[0]
-            assertThat(ref.summary, `is`(nullValue()))
             assertThat(ref.notes, `is`(nullValue()))
+
+            assertThat(ref.summary(XdmModuleType.XQuery), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.XPath), `is`(nullValue()))
+            assertThat(ref.summary(XdmModuleType.JavaScript), `is`(nullValue()))
+
             assertThat(ref.examples(XdmModuleType.XQuery).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.XPath).count(), `is`(0))
             assertThat(ref.examples(XdmModuleType.JavaScript).count(), `is`(0))

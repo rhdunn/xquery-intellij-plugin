@@ -52,14 +52,15 @@ data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) 
         else -> "https://docs.marklogic.com/$lib:${name(moduleType)}"
     }
 
-    override val summary: String? by lazy { xml.child("apidoc:summary")?.innerXml() }
+    override fun summary(moduleType: XdmModuleType): String? {
+        return xml.children("apidoc:summary").find { it.moduleTypes.contains(moduleType) }?.innerXml()
+    }
 
     override val notes: String? = null
 
     override fun examples(moduleType: XdmModuleType): Sequence<String> {
         return xml.children("apidoc:example").mapNotNull {
-            val etype = it.moduleTypes
-            if (etype.contains(moduleType)) {
+            if (it.moduleTypes.contains(moduleType)) {
                 val code = it.child("pre")?.text()!!.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                 "<div class=\"example\"><pre xml:space=\"preserve\">${code}</pre></div>"
             } else

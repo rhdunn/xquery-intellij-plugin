@@ -43,7 +43,7 @@ internal class W3CFunctionReference(private val node: Element, private val baseH
         return section?.let { normalize(it).html() }
     }
 
-    override val summary: String? = section("Summary")
+    override fun summary(moduleType: XdmModuleType): String? = section("Summary")
 
     override val notes: String? = section("Notes")
 
