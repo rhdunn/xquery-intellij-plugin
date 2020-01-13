@@ -69,13 +69,12 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // region XQueryNamespaceDeclaration
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
-        return children().filterIsInstance<XsQNameValue>().map { qname ->
-            when {
-                qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
-                qname.localName?.data == "xmlns" -> namespaceType === XdmNamespaceType.DefaultElementOrType
-                else -> null
-            }
-        }.firstOrNull() ?: (namespaceType === XdmNamespaceType.Undefined)
+        val qname = nodeName
+        return when {
+            qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
+            qname.localName?.data == "xmlns" -> namespaceType === XdmNamespaceType.DefaultElementOrType
+            else -> namespaceType === XdmNamespaceType.Undefined
+        }
     }
 
     override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()
