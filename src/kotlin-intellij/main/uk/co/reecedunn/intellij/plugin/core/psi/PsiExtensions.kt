@@ -15,14 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.psi
 
-import com.intellij.extapi.psi.ASTDelegatePsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiErrorElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.tree.IElementType
 
-fun ASTDelegatePsiElement.contains(type: IElementType): Boolean {
+fun PsiElement.contains(type: IElementType): Boolean {
     return node.findChildByType(type) != null
 }
 

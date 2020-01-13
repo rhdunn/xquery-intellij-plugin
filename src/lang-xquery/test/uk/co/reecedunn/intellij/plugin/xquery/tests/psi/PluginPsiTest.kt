@@ -1138,10 +1138,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
-                assertThat(
-                    value.element,
-                    `is`((expr as PsiElement).children().filterIsInstance<XQueryDirAttributeValue>().first())
-                )
+                assertThat(value.element, `is`(expr as PsiElement))
             }
 
             @Test
@@ -1199,10 +1196,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
-                assertThat(
-                    value.element,
-                    `is`((expr as PsiElement).children().filterIsInstance<XQueryDirAttributeValue>().first())
-                )
+                assertThat(value.element, `is`(expr as PsiElement))
             }
 
             @Test
@@ -1231,10 +1225,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val value = node.nodeValue as XsUntypedAtomicValue
                 assertThat(value.data, `is`("http://www.example.com"))
-                assertThat(
-                    value.element,
-                    `is`((expr as PsiElement).children().filterIsInstance<XQueryDirAttributeValue>().first())
-                )
+                assertThat(value.element, `is`(expr as PsiElement))
             }
 
             @Nested

@@ -17,19 +17,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.find
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class PluginDirAttributePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -37,12 +40,53 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     XdmAttributeNode,
     XQueryPrologResolver,
     XdmDefaultNamespaceDeclaration {
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedNodeValue.invalidate()
+    }
+
+    // endregion
     // region XdmAttributeNode
 
     override val nodeName: XsQNameValue get() = firstChild as XsQNameValue
 
-    override val nodeValue: XsAnyAtomicType?
-        get() = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()?.value
+    override val nodeValue: XsAnyAtomicType? get() = cachedNodeValue.get()
+
+    private val cachedNodeValue = CacheableProperty {
+        val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
+            ?: return@CacheableProperty null
+        val contents =
+            if (attrValue.contains(XQueryElementType.ENCLOSED_EXPR))
+                null // Cannot evaluate enclosed content expressions statically.
+            else
+                attrValue.children().map { child ->
+                    when (child.node.elementType) {
+                        XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
+                            null
+                        XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
+                            (child as XQueryPredefinedEntityRef).entityRef.value
+                        XQueryTokenType.XML_CHARACTER_REFERENCE ->
+                            (child as XQueryCharRef).codepoint.toString()
+                        XQueryTokenType.XML_ESCAPED_CHARACTER ->
+                            (child as XPathEscapeCharacter).unescapedValue
+                        else ->
+                            child.text
+                    }
+                }.filterNotNull().joinToString(separator = "")
+        val qname = nodeName
+        when {
+            contents == null -> null
+            qname.prefix?.data == "xmlns" -> {
+                XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
+            }
+            qname.localName?.data == "xmlns" -> {
+                XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
+            }
+            else -> XsUntypedAtomic(contents, this)
+        }
+    }
 
     // endregion
     // region XQueryPrologResolver
