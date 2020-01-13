@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.find
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
@@ -41,7 +42,6 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedNamespacePrefix.invalidate()
         cachedNamespaceUri.invalidate()
     }
 
@@ -77,15 +77,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
         }
     }
 
-    override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()
-    private val cachedNamespacePrefix = CacheableProperty {
-        children().filterIsInstance<XsQNameValue>().map { qname ->
-            if (qname.prefix?.data == "xmlns")
-                qname.localName
-            else
-                null
-        }.firstOrNull()
-    }
+    override val namespacePrefix get(): XsNCNameValue? = nodeName.find { it.prefix?.data == "xmlns" }?.localName
 
     override val namespaceUri get(): XsAnyUriValue? = cachedNamespaceUri.get()
     private val cachedNamespaceUri = CacheableProperty {
