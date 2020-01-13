@@ -55,6 +55,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
@@ -2594,10 +2595,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("attribute value content")
             fun attributeValue() {
-                val psi = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0]
-                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
-
-                val literal = psi.value as XsUntypedAtomicValue
+                val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmAttributeNode
+                val literal = psi.nodeValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2605,10 +2604,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("unclosed attribute value content")
             fun unclosedAttributeValue() {
-                val psi = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0]
-                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
-
-                val literal = psi.value as XsUntypedAtomicValue
+                val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com")[0] as XdmAttributeNode
+                val literal = psi.nodeValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("http://www.example.com"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2616,10 +2613,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
-                val psi = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'")[0]
-                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
-
-                val literal = psi.value as XsUntypedAtomicValue
+                val psi = parse<PluginDirAttribute>("<a b='''\"\"{{}}'")[0] as XdmAttributeNode
+                val literal = psi.nodeValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("'\"\"{}"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2627,10 +2622,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
-                val psi = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
-
-                val literal = psi.value as XsUntypedAtomicValue
+                val psi = parse<PluginDirAttribute>("<a b=\"''\"\"{{}}\"")[0] as XdmAttributeNode
+                val literal = psi.nodeValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("''\"{}"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2639,10 +2632,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val psi = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
-
-                val literal = psi.value as XsUntypedAtomicValue
+                val psi = parse<PluginDirAttribute>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XdmAttributeNode
+                val literal = psi.nodeValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2650,10 +2641,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val psi = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
-
-                val literal = psi.value as XsUntypedAtomicValue
+                val psi = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;\"")[0] as XdmAttributeNode
+                val literal = psi.nodeValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2661,48 +2650,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("EnclosedExpr tokens")
             fun enclosedExpr() {
-                val psi = parse<XQueryDirAttributeValue>("<a b=\"x{\$y}z\"")[0]
-                assertThat(psi.value, `is`(nullValue()))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (3.9.1.2) Namespace Declaration Attributes")
-        internal inner class NamespaceDeclarationAttributes {
-            @Test
-            @DisplayName("namespace prefix")
-            fun namespacePrefix() {
-                val psi = parse<XQueryDirAttributeValue>("<a xmlns:b=\"http://www.example.com")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
-                assertThat(literal.data, `is`("http://www.example.com"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("namespace prefix containing an EnclosedExpr")
-            fun namespacePrefixWithEnclosedExpr() {
-                val psi = parse<XQueryDirAttributeValue>("<a xmlns:b=\"http://www.{\"example\"}.com\"/>")[0]
-                assertThat(psi.value, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("default element/type namespace")
-            fun defaultElementTypeNamespace() {
-                val psi = parse<XQueryDirAttributeValue>("<a xmlns=\"http://www.example.com")[0]
-                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
-
-                val literal = psi.value as XsAnyUriValue
-                assertThat(literal.data, `is`("http://www.example.com"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("default element/type namespace containing an EnclosedExpr")
-            fun defaultElementTypeNamespaceEnclosedExpr() {
-                val psi = parse<XQueryDirAttributeValue>("<a xmlns:b=\"http://www.{\"example\"}.com\"/>")[0]
-                assertThat(psi.value, `is`(nullValue()))
+                val psi = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"")[0] as XdmAttributeNode
+                assertThat(psi.nodeValue, `is`(nullValue()))
             }
         }
     }

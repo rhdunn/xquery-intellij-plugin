@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
@@ -50,7 +49,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
