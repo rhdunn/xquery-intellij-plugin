@@ -2595,9 +2595,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("attribute value content")
             fun attributeValue() {
                 val psi = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2606,9 +2606,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("unclosed attribute value content")
             fun unclosedAttributeValue() {
                 val psi = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("http://www.example.com"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2617,9 +2617,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
                 val psi = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("'\"\"{}"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2628,9 +2628,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
                 val psi = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("''\"{}"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2640,9 +2640,9 @@ private class XQueryPsiTest : ParserTestCase() {
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
                 val psi = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2651,9 +2651,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("CharRef tokens")
             fun charRef() {
                 val psi = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsUntypedAtomicValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }

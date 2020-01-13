@@ -40,6 +40,24 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.text.NumberFormat
 
+// region XQuery and XPath Data Model 3.1 (2.7.2) xs:untypedAtomic
+
+interface XsUntypedAtomicValue : XsAnyAtomicType {
+    val data: String
+
+    val element: PsiElement?
+}
+
+data class XsUntypedAtomic(
+    override val data: String,
+    private val reference: WeakReference<PsiElement>?
+) : XsUntypedAtomicValue {
+    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
+
+// endregion
 // region XML Schema 1.1 Part 2 (3.3.1) xs:string
 
 interface XsStringValue : XsAnyAtomicType {

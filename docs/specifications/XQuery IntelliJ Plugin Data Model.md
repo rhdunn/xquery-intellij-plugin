@@ -289,7 +289,7 @@ __xdm:anyUnionType__
 │         │              └─── xdm:wildcard [XdmWildcardValue]
 │         └─── xs:NMTOKEN
 ├─── xs:time
-└─── xs:untypedAtomic
+└─── xs:untypedAtomic [XsUntypedAtomicValue]
 </code></pre>
 
 1.  `xs:anyAtomicType`, `xs:yearMonthDuration`, and `xs:dayTimeDuration` are
@@ -603,11 +603,11 @@ property is the same as the*node name* property.
 The type of the *node value* property for `DirAttribute` depends on the *node
 name* property, and is determined as follows.
 
-| node name        | Type         | Interface         | Representation |
-|------------------|--------------|-------------------|----------------|
-| `xmlns:*`        | `xs:anyURI`  | `XsAnyURIValue`   | `String`       |
-| `xmlns`          | `xs:anyURI`  | `XsAnyURIValue`   | `String`       |
-| `*`              | `xs:string`  | `XsStringValue`   | `String`       |
+| node name | Type               | Interface              | Representation |
+|-----------|--------------------|------------------------|----------------|
+| `xmlns:*` | `xs:anyURI`        | `XsAnyURIValue`        | `String`       |
+| `xmlns`   | `xs:anyURI`        | `XsAnyURIValue`        | `String`       |
+| `*`       | `xs:untypedAtomic` | `XsUntypedAtomicValue` | `String`       |
 
 If the `DirAttributeValue` contains an `EnclosedExpr`, the *node value* of the
 element at static evaluation time (accessible in the `DirAttribute` PSI element)

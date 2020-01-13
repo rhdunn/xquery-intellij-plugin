@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
@@ -49,6 +50,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -1136,6 +1138,10 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                assertThat(
+                    value.element,
+                    `is`((expr as PsiElement).children().filterIsInstance<XQueryDirAttributeValue>().first())
+                )
             }
 
             @Test
@@ -1193,6 +1199,10 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                assertThat(
+                    value.element,
+                    `is`((expr as PsiElement).children().filterIsInstance<XQueryDirAttributeValue>().first())
+                )
             }
 
             @Test
@@ -1219,8 +1229,12 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName.namespace, `is`(nullValue()))
                 assertThat(node.nodeName.isLexicalQName, `is`(true))
 
-                val value = node.nodeValue as XsStringValue
+                val value = node.nodeValue as XsUntypedAtomicValue
                 assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(
+                    value.element,
+                    `is`((expr as PsiElement).children().filterIsInstance<XQueryDirAttributeValue>().first())
+                )
             }
 
             @Nested
