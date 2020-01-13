@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.find
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
@@ -38,14 +37,6 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     XdmAttributeNode,
     XQueryPrologResolver,
     XdmDefaultNamespaceDeclaration {
-    // region PsiElement
-
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        cachedNamespaceUri.invalidate()
-    }
-
-    // endregion
     // region XdmAttributeNode
 
     override val nodeName: XsQNameValue get() = firstChild as XsQNameValue
@@ -79,12 +70,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
 
     override val namespacePrefix get(): XsNCNameValue? = nodeName.find { it.prefix?.data == "xmlns" }?.localName
 
-    override val namespaceUri get(): XsAnyUriValue? = cachedNamespaceUri.get()
-    private val cachedNamespaceUri = CacheableProperty {
-        children().filterIsInstance<XQueryDirAttributeValue>().map { attr ->
-            attr.value as? XsAnyUriValue
-        }.firstOrNull()
-    }
+    override val namespaceUri get(): XsAnyUriValue? = nodeValue as? XsAnyUriValue
 
     // endregion
 }
