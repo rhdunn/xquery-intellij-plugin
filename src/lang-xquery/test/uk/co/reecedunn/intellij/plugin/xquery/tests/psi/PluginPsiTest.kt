@@ -1131,6 +1131,11 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName.localName?.data, `is`("b"))
                 assertThat(node.nodeName.namespace, `is`(nullValue()))
                 assertThat(node.nodeName.isLexicalQName, `is`(true))
+
+                val value = node.nodeValue as XsAnyUriValue
+                assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
             }
 
             @Test
@@ -1154,6 +1159,8 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName.localName?.data, `is`("b"))
                 assertThat(node.nodeName.namespace, `is`(nullValue()))
                 assertThat(node.nodeName.isLexicalQName, `is`(true))
+
+                assertThat(node.nodeValue, `is`(nullValue()))
             }
 
             @Test
@@ -1181,6 +1188,11 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName.localName?.data, `is`("xmlns"))
                 assertThat(node.nodeName.namespace, `is`(nullValue()))
                 assertThat(node.nodeName.isLexicalQName, `is`(true))
+
+                val value = node.nodeValue as XsAnyUriValue
+                assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
             }
 
             @Test
@@ -1206,6 +1218,9 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName.localName?.data, `is`("b"))
                 assertThat(node.nodeName.namespace, `is`(nullValue()))
                 assertThat(node.nodeName.isLexicalQName, `is`(true))
+
+                val value = node.nodeValue as XsStringValue
+                assertThat(value.data, `is`("http://www.example.com"))
             }
 
             @Nested

@@ -27,6 +27,8 @@ interface XdmNode : XdmItem
 
 interface XdmAttributeNode : XdmNode {
     val nodeName: XsQNameValue
+
+    val nodeValue: XsAnyAtomicType?
 }
 
 // endregion

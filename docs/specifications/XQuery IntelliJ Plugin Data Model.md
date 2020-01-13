@@ -587,22 +587,31 @@ The `Wildcard` symbol is also an `XsQNameValue`, with the properties mirroring
 the `NCName`, `QName`, or `URIQualifiedName`. The prefix or local parts can be
 an instance of `xdm:wildcard` to indicate that any value matches.
 
-A QName can be expanded, where a sequence of expanded QNames is returned with
-the namespace bound to the namespace of the matching namespace declarations in
-the prolog or any direct elements.
-
 ### 4.3 Nodes
 
-| Symbol                | Interface          | node name |
-|-----------------------|--------------------|-----------|
-| `CompElemConstructor` | `XdmElementNode`   | yes       |
-| `DirAttribute`        | `XdmAttributeNode` | yes       |
-| `DirElemConstructor`  | `XdmElementNode`   | yes       |
+| Symbol                | Interface          | node name | node value |
+|-----------------------|--------------------|-----------|------------|
+| `CompElemConstructor` | `XdmElementNode`   | yes       | no         |
+| `DirAttribute`        | `XdmAttributeNode` | yes       | yes        |
+| `DirElemConstructor`  | `XdmElementNode`   | yes       | no         |
 
 The `XdmElementNode` interface has an additional *closing tag* property. This
 is used for the `err:XQST0118` error condition inspection. For a
 `CompElemConstructor` or self-closing `DirElemConstructor` the *closing tag*
 property is the same as the*node name* property.
+
+The type of the *node value* property for `DirAttribute` depends on the *node
+name* property, and is determined as follows.
+
+| node name        | Type         | Interface         | Representation |
+|------------------|--------------|-------------------|----------------|
+| `xmlns:*`        | `xs:anyURI`  | `XsAnyURIValue`   | `String`       |
+| `xmlns`          | `xs:anyURI`  | `XsAnyURIValue`   | `String`       |
+| `*`              | `xs:string`  | `XsStringValue`   | `String`       |
+
+If the `DirAttributeValue` contains an `EnclosedExpr`, the *node value* of the
+element at static evaluation time (accessible in the `DirAttribute` PSI element)
+is `null`.
 
 ### 4.4 Annotations
 

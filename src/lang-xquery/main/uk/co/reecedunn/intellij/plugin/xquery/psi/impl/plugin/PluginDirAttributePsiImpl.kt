@@ -19,14 +19,11 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
@@ -52,6 +49,9 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // region XdmAttributeNode
 
     override val nodeName: XsQNameValue get() = firstChild as XsQNameValue
+
+    override val nodeValue: XsAnyAtomicType?
+        get() = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()?.value
 
     // endregion
     // region XQueryPrologResolver
