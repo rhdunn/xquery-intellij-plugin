@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.find
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
@@ -112,7 +111,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
         }
     }
 
-    override val namespacePrefix get(): XsNCNameValue? = nodeName.find { it.prefix?.data == "xmlns" }?.localName
+    override val namespacePrefix get(): XsNCNameValue? = nodeName.takeIf { it.prefix?.data == "xmlns" }?.localName
 
     override val namespaceUri get(): XsAnyUriValue? = nodeValue as? XsAnyUriValue
 
