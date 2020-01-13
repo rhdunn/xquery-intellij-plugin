@@ -1125,6 +1125,12 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                 assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName.prefix?.data, `is`("xmlns"))
+                assertThat(node.nodeName.localName?.data, `is`("b"))
+                assertThat(node.nodeName.namespace, `is`(nullValue()))
+                assertThat(node.nodeName.isLexicalQName, `is`(true))
             }
 
             @Test
@@ -1142,6 +1148,12 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
                 assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                 assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName.prefix?.data, `is`("xmlns"))
+                assertThat(node.nodeName.localName?.data, `is`("b"))
+                assertThat(node.nodeName.namespace, `is`(nullValue()))
+                assertThat(node.nodeName.isLexicalQName, `is`(true))
             }
 
             @Test
@@ -1163,6 +1175,12 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                 assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                 assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName.prefix, `is`(nullValue()))
+                assertThat(node.nodeName.localName?.data, `is`("xmlns"))
+                assertThat(node.nodeName.namespace, `is`(nullValue()))
+                assertThat(node.nodeName.isLexicalQName, `is`(true))
             }
 
             @Test
@@ -1182,6 +1200,12 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                 assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
                 assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName.prefix, `is`(nullValue()))
+                assertThat(node.nodeName.localName?.data, `is`("b"))
+                assertThat(node.nodeName.namespace, `is`(nullValue()))
+                assertThat(node.nodeName.isLexicalQName, `is`(true))
             }
 
             @Nested

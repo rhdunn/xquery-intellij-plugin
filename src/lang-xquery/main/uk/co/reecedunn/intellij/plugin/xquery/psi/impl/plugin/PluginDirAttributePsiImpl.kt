@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
@@ -36,6 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 class PluginDirAttributePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginDirAttribute,
+    XdmAttributeNode,
     XQueryPrologResolver,
     XdmDefaultNamespaceDeclaration {
     // region PsiElement
@@ -45,6 +47,11 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
         cachedNamespacePrefix.invalidate()
         cachedNamespaceUri.invalidate()
     }
+
+    // endregion
+    // region XdmAttributeNode
+
+    override val nodeName: XsQNameValue get() = firstChild as XsQNameValue
 
     // endregion
     // region XQueryPrologResolver

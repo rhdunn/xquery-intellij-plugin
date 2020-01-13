@@ -593,10 +593,11 @@ the prolog or any direct elements.
 
 ### 4.3 Nodes
 
-| Symbol                | Interface        | node name |
-|-----------------------|------------------|-----------|
-| `CompElemConstructor` | `XdmElementNode` | yes       |
-| `DirElemConstructor`  | `XdmElementNode` | yes       |
+| Symbol                | Interface          | node name |
+|-----------------------|--------------------|-----------|
+| `CompElemConstructor` | `XdmElementNode`   | yes       |
+| `DirAttribute`        | `XdmAttributeNode` | yes       |
+| `DirElemConstructor`  | `XdmElementNode`   | yes       |
 
 The `XdmElementNode` interface has an additional *closing tag* property. This
 is used for the `err:XQST0118` error condition inspection. For a
