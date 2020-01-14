@@ -42,14 +42,14 @@ import java.text.NumberFormat
 
 // region XQuery and XPath Data Model 3.1 (2.7.2) xs:untypedAtomic
 
-interface XsUntypedAtomicValue : XsAnyAtomicType, XdmElementRef {
+interface XsUntypedAtomicValue : XsAnyAtomicType {
     val data: String
 }
 
 data class XsUntypedAtomic(
     override val data: String,
     private val reference: WeakReference<PsiElement>?
-) : XsUntypedAtomicValue {
+) : XsUntypedAtomicValue, XdmElementRef {
     constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
 
     override val element get(): PsiElement? = reference?.get()
