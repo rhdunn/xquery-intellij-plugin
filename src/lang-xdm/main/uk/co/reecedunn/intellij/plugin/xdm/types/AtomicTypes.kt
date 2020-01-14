@@ -93,7 +93,7 @@ interface XsAnyUriValue : XsAnyAtomicType {
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.18) xs:QName
 
-interface XsQNameValue : XsAnyAtomicType, XdmElementRef {
+interface XsQNameValue : XsAnyAtomicType {
     val namespace: XsAnyUriValue?
     val prefix: XsNCNameValue?
     val localName: XsNCNameValue?
@@ -114,7 +114,7 @@ data class XsQName(
     override val localName: XsNCNameValue?,
     override val isLexicalQName: Boolean,
     private val reference: WeakReference<PsiElement>?
-) : XsQNameValue {
+) : XsQNameValue, XdmElementRef {
     constructor(
         namespace: XsAnyUriValue?,
         prefix: XsNCNameValue?,

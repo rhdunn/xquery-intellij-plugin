@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableType
 

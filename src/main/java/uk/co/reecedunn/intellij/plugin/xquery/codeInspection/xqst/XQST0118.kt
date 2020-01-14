@@ -19,10 +19,10 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
@@ -45,7 +45,7 @@ class XQST0118 : Inspection("xqst/XQST0118.md", XQST0118::class.java.classLoader
                     op_qname_presentation(closeTag),
                     op_qname_presentation(openTag)
                 )
-                val context = closeTag.element!!
+                val context = closeTag as PsiElement
                 descriptors.add(
                     manager.createProblemDescriptor(
                         context,

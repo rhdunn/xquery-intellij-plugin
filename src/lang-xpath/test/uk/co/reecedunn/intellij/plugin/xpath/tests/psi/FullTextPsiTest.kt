@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
 import com.intellij.psi.PsiElement
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -28,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
@@ -108,7 +108,7 @@ private class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, CoreMatchers.sameInstance(qname as PsiElement))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
         }
     }

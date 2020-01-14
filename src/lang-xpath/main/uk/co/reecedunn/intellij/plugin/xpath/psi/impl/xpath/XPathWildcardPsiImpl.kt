@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -38,6 +37,4 @@ class XPathWildcardPsiImpl(node: ASTNode) :
     override val localName get(): XsNCNameValue? = if (isLexicalQName) names.last() else names.first()
 
     override val isLexicalQName get(): Boolean = namespace == null
-
-    override val element get(): PsiElement? = this
 }

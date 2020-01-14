@@ -55,8 +55,6 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
 
     override val isLexicalQName: Boolean get() = true
 
-    override val element: PsiElement? get() = this
-
     // endregion
     // region XdmAnnotation
 
