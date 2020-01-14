@@ -35,6 +35,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -58,24 +59,6 @@ interface XsStringValue : XsAnyAtomicType {
 
 interface XsDecimalValue : XsAnyAtomicType {
     val data: BigDecimal
-}
-
-data class XsDecimal(override val data: BigDecimal) :
-    XsDecimalValue {
-    companion object {
-        val ZERO = XsDecimal(BigDecimal.ZERO)
-
-        fun milli(value: String): XsDecimal =
-            XsDecimal(BigDecimal(value).scaleByPowerOfTen(-3).stripTrailingZeros())
-
-        fun nano(value: Long): XsDecimal =
-            XsDecimal(
-                BigDecimal.valueOf(
-                    value,
-                    9
-                ).stripTrailingZeros()
-            )
-    }
 }
 
 // endregion
