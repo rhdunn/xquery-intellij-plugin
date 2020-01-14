@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xdm.types.impl.values
 
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsInteger
 import java.math.BigDecimal
 import java.math.BigInteger
 

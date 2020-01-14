@@ -35,6 +35,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsInteger
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.text.NumberFormat
@@ -142,13 +143,6 @@ interface XsIntegerValue : XsAnyAtomicType {
 }
 
 fun XsIntegerValue.toInt(): Int = data.toInt()
-
-data class XsInteger(override val data: BigInteger) :
-    XsIntegerValue {
-    companion object {
-        val ZERO = XsInteger(BigInteger.ZERO)
-    }
-}
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.3) xdm:wildcard
