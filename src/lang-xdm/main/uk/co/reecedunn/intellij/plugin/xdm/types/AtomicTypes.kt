@@ -66,15 +66,6 @@ interface XsStringValue : XsAnyAtomicType {
     val element: PsiElement?
 }
 
-data class XsString(
-    override val data: String,
-    private val reference: WeakReference<PsiElement>?
-) : XsStringValue {
-    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-}
-
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.3) xs:decimal
 
