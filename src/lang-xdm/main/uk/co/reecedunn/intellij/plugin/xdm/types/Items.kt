@@ -26,7 +26,7 @@ interface XdmNode : XdmItem
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 
 interface XdmAttributeNode : XdmNode {
-    val nodeName: XsQNameValue
+    val nodeName: XsQNameValue?
 
     val nodeValue: XsAnyAtomicType?
 }

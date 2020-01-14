@@ -592,6 +592,7 @@ an instance of `xdm:wildcard` to indicate that any value matches.
 
 | Symbol                | Interface          | node name | node value |
 |-----------------------|--------------------|-----------|------------|
+| `CompAttrConstructor` | `XdmAttributeNode` | yes       | no         |
 | `CompElemConstructor` | `XdmElementNode`   | yes       | no         |
 | `DirAttribute`        | `XdmAttributeNode` | yes       | yes        |
 | `DirElemConstructor`  | `XdmElementNode`   | yes       | no         |

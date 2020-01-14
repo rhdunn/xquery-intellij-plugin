@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 
-class XQueryCompAttrConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompAttrConstructor
+class XQueryCompAttrConstructorPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryCompAttrConstructor,
+    XdmAttributeNode {
+    // region XdmAttributeNode
+
+    override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    override val nodeValue: XsAnyAtomicType? get() = null
+
+    // endregion
+}

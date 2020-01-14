@@ -2715,6 +2715,42 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
         internal inner class CompAttrConstructor {
             @Test
+            @DisplayName("nodeName as an EQName")
+            fun nodeNameEQName() {
+                val attr = parse<XQueryCompAttrConstructor>("attribute a:b {}")[0] as XdmAttributeNode
+
+                val name = attr.nodeName!!
+                assertThat(name.prefix!!.data, `is`("a"))
+                assertThat(name.localName!!.data, `is`("b"))
+
+                assertThat(attr.nodeValue, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("nodeName as an expression")
+            fun nodeNameExpr() {
+                val attr = parse<XQueryCompAttrConstructor>("attribute { \"a:\" || \"b\" } {}")[0] as XdmAttributeNode
+                assertThat(attr.nodeName, `is`(nullValue()))
+                assertThat(attr.nodeValue, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("nodeValue as a StringLiteral")
+            fun nodeValueStringLiteral() {
+                val attr = parse<XQueryCompAttrConstructor>("attribute test { \"lorem-ipsum\" }")[0] as XdmAttributeNode
+                assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
+                assertThat(attr.nodeValue, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("nodeValue as an expression")
+            fun nodeValueExpr() {
+                val attr = parse<XQueryCompAttrConstructor>("attribute test { 1 + 2 }")[0] as XdmAttributeNode
+                assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
+                assertThat(attr.nodeValue, `is`(nullValue()))
+            }
+
+            @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("attribute test {}")[0] as XsQNameValue
