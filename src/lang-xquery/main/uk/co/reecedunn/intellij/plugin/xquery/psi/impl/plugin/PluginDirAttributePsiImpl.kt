@@ -76,7 +76,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
                 }.filterNotNull().joinToString(separator = "")
         val qname = nodeName
         when {
-            contents == null -> null
+            contents == null -> null as XsAnyAtomicType?
             qname.prefix?.data == "xmlns" -> {
                 XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
             }

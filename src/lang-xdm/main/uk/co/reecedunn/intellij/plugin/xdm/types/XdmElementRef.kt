@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xdm.types
 
 import com.intellij.psi.PsiElement
 
-// region XQuery and XPath 3.1 Data Model (2.7.4) : item()
-
-interface XdmItem
-
-val XdmItem.element: PsiElement?
-    get() = when (this) {
-        is XdmElementRef -> element
-        is PsiElement -> this
-        else -> null
-    }
-
-// endregion
+interface XdmElementRef {
+    val element: PsiElement?
+}

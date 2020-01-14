@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.types
 
+import com.intellij.psi.PsiElement
+
 // region XQuery IntelliJ Plugin (2.2.2) xs:anyType
 
 interface XsAnyType
+
+val XsAnyType.element: PsiElement?
+    get() = when (this) {
+        is XdmElementRef -> element
+        is PsiElement -> this
+        else -> null
+    }
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyComplexType
@@ -37,6 +46,8 @@ interface XsAnySimpleType : XsAnyType
 // region XQuery IntelliJ Plugin (2.2.2) xs:anyAtomicType
 
 interface XsAnyAtomicType : XsAnySimpleType, XdmItem
+
+val XsAnyAtomicType.element: PsiElement? get() = (this as XdmItem).element
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyListType

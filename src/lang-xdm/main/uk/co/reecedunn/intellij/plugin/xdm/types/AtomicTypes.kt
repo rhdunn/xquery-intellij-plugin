@@ -42,10 +42,8 @@ import java.text.NumberFormat
 
 // region XQuery and XPath Data Model 3.1 (2.7.2) xs:untypedAtomic
 
-interface XsUntypedAtomicValue : XsAnyAtomicType {
+interface XsUntypedAtomicValue : XsAnyAtomicType, XdmElementRef {
     val data: String
-
-    val element: PsiElement?
 }
 
 data class XsUntypedAtomic(
@@ -60,10 +58,8 @@ data class XsUntypedAtomic(
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.1) xs:string
 
-interface XsStringValue : XsAnyAtomicType {
+interface XsStringValue : XsAnyAtomicType, XdmElementRef {
     val data: String
-
-    val element: PsiElement?
 }
 
 // endregion
@@ -194,14 +190,12 @@ fun String.toXsDuration(): XsDurationValue? {
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.17) xs:anyURI
 
-interface XsAnyUriValue : XsAnyAtomicType {
+interface XsAnyUriValue : XsAnyAtomicType, XdmElementRef {
     val data: String
 
     val context: XdmUriContext
 
     val moduleTypes: Array<XdmModuleType>
-
-    val element: PsiElement?
 }
 
 data class XsAnyUri(
@@ -243,13 +237,11 @@ data class XsAnyUri(
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.18) xs:QName
 
-interface XsQNameValue : XsAnyAtomicType {
+interface XsQNameValue : XsAnyAtomicType, XdmElementRef {
     val namespace: XsAnyUriValue?
     val prefix: XsNCNameValue?
     val localName: XsNCNameValue?
     val isLexicalQName: Boolean
-
-    val element: PsiElement?
 }
 
 fun XsQNameValue.isPrefixOrNCName(element: PsiElement): Boolean {
