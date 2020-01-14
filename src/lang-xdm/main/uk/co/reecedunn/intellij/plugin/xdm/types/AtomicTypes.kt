@@ -35,7 +35,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
-import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.text.NumberFormat
@@ -134,15 +133,6 @@ val XsNCNameValue.element: PsiElement? get() = (this as XdmItem).element
 // region XML Schema 1.1 Part 2 (3.4.8) xs:ID
 
 interface XsIDValue : XsNCNameValue
-
-data class XsID(
-    override val data: String,
-    private val reference: WeakReference<PsiElement>?
-) : XsIDValue, XdmElementRef {
-    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-}
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.13) xs:integer

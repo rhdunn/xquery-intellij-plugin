@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclara
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsID
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsUntypedAtomic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
