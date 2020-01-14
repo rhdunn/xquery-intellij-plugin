@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class XPST0081 : Inspection("xpst/XPST0081.md", XPST0081::class.java.classLoader) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {

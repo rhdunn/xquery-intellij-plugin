@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginWildcardIndicator
@@ -27,8 +26,6 @@ class PluginWildcardIndicatorPsiImpl(type: IElementType, text: CharSequence) :
     XdmWildcardValue {
 
     override val data: String = "*"
-
-    override val element get(): PsiElement? = this
 
     override fun toString(): String = "PluginWildcardIndicatorImpl"
 }

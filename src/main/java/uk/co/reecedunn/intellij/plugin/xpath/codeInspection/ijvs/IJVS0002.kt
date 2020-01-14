@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader) {
     private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IKeywordOrNCNameType.KeywordType>? {

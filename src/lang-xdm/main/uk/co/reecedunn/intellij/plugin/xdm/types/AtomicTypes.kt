@@ -126,12 +126,14 @@ interface XsNameValue : XsTokenValue
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.7) xs:NCName
 
-interface XsNCNameValue : XsNameValue, XdmElementRef
+interface XsNCNameValue : XsNameValue
+
+val XsNCNameValue.element: PsiElement? get() = (this as XdmItem).element
 
 data class XsNCName(
     override val data: String,
     private val reference: WeakReference<PsiElement>?
-) : XsNCNameValue {
+) : XsNCNameValue, XdmElementRef {
     constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
 
     override val element get(): PsiElement? = reference?.get()
@@ -145,7 +147,7 @@ interface XsIDValue : XsNCNameValue
 data class XsID(
     override val data: String,
     private val reference: WeakReference<PsiElement>?
-) : XsIDValue {
+) : XsIDValue, XdmElementRef {
     constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
 
     override val element get(): PsiElement? = reference?.get()

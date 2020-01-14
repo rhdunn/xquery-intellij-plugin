@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -25,8 +24,6 @@ class XmlNCNameImpl(type: IElementType, text: CharSequence) :
     XsNCNameValue {
 
     override val data: String get() = text
-
-    override val element get(): PsiElement? = this
 
     override fun toString(): String = "XmlNCNameImpl"
 }
