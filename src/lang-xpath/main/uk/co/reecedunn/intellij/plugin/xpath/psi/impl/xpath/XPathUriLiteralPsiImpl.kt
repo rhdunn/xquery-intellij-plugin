@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
@@ -41,8 +40,6 @@ class XPathUriLiteralPsiImpl(node: ASTNode) :
 
     // endregion
     // region XdAnyUriValue
-
-    override val element: PsiElement? get() = this
 
     override val context: XdmUriContext
         get() = when (parent) {

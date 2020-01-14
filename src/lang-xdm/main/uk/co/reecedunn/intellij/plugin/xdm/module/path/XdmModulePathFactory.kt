@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 interface XdmModulePathFactory {
     companion object {

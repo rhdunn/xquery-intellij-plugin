@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
@@ -44,8 +43,6 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) :
     override val context: XdmUriContext = XdmUriContext.Namespace
 
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.MODULE_OR_SCHEMA
-
-    override val element get(): PsiElement? = this
 
     private val cachedContent = CacheableProperty {
         children().map { child ->

@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -54,8 +53,6 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) :
 
     // endregion
     // region XsAnyUriValue
-
-    override val element: PsiElement? get() = this
 
     override val context: XdmUriContext
         get() = when (parent) {

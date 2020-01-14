@@ -64,8 +64,6 @@ class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
         }.filterNotNull().joinToString(separator = "")
     }
 
-    override val element get(): PsiElement? = this
-
     // endregion
     // region VersionConformance
 

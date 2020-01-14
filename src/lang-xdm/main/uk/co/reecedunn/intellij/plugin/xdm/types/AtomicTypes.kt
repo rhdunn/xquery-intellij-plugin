@@ -83,7 +83,7 @@ fun XsDurationValue.toSeconds(precision: NumberFormat = Units.Precision.milli): 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.17) xs:anyURI
 
-interface XsAnyUriValue : XsAnyAtomicType, XdmElementRef {
+interface XsAnyUriValue : XsAnyAtomicType {
     val data: String
 
     val context: XdmUriContext
@@ -96,7 +96,7 @@ data class XsAnyUri(
     override val context: XdmUriContext,
     override val moduleTypes: Array<XdmModuleType>,
     private val reference: WeakReference<PsiElement>?
-) : XsAnyUriValue {
+) : XsAnyUriValue, XdmElementRef {
     constructor(
         data: String,
         context: XdmUriContext,
