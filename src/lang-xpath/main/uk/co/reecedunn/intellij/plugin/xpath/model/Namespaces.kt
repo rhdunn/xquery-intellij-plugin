@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsNCName
 
 private fun XmlAttribute.toDefaultNamespaceDeclaration(): XdmDefaultNamespaceDeclaration? {
     if (!isNamespaceDeclaration) return null

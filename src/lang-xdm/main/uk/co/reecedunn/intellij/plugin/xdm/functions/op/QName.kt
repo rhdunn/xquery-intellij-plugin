@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.functions.op
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
 
 class UndeclaredNamespacePrefixException(prefix: String) :
@@ -48,23 +48,23 @@ fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue
     return when {
         qname.startsWith("Q{") /* URIQualifiedName */ -> {
             val ns = anyURI(qname.substringBefore('}').substring(2))
-            val localName = XsNCName(qname.substringAfter('}'), null as PsiElement?)
+            val localName = XsNCName(qname.substringAfter('}'))
             XsQName(ns, null, localName, false)
         }
         qname.startsWith('{') /* Clark Notation */ -> {
             val ns = anyURI(qname.substringBefore('}').substring(1))
-            val localName = XsNCName(qname.substringAfter('}'), null as PsiElement?)
+            val localName = XsNCName(qname.substringAfter('}'))
             XsQName(ns, null, localName, false)
         }
         qname.contains(':') /* QName */ -> {
-            val prefix = XsNCName(qname.substringBefore(':'), null as PsiElement?)
+            val prefix = XsNCName(qname.substringBefore(':'))
             val ns = namespaces[prefix.data]?.let { anyURI(it) }
                 ?: throw UndeclaredNamespacePrefixException(prefix.data)
-            val localName = XsNCName(qname.substringAfter(':'), null as PsiElement?)
+            val localName = XsNCName(qname.substringAfter(':'))
             XsQName(ns, prefix, localName, true)
         }
         else /* NCName */ -> {
-            val localName = XsNCName(qname, null as PsiElement?)
+            val localName = XsNCName(qname)
             XsQName(anyURI(""), null, localName, true)
         }
     }
