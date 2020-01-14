@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.functions.op
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 class UndeclaredNamespacePrefixException(prefix: String) :
     RuntimeException("XPST0081: Undeclared namespace prefix: $prefix")
@@ -39,9 +40,7 @@ fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
 // endregion
 // region XQuery IntelliJ Plugin Functions and Operators (3.1) op:QName-parse
 
-private fun anyURI(uri: String): XsAnyUriValue {
-    return XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.NONE, null as PsiElement?)
-}
+private fun anyURI(uri: String): XsAnyUriValue = XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.NONE)
 
 @Suppress("FunctionName")
 fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue {

@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.expath.pkg
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 data class EXPathPackageImport(
     private val xml: XmlElement,
@@ -39,7 +39,7 @@ data class EXPathPackageImport(
                 else -> null
             }
         }.filterNotNull().firstOrNull()?.let {
-            XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.NONE, null as? PsiElement?)
+            XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.NONE)
         }
     }
 

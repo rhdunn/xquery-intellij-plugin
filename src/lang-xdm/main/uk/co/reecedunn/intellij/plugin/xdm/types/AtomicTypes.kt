@@ -32,7 +32,6 @@
 package uk.co.reecedunn.intellij.plugin.xdm.types
 
 import com.intellij.psi.PsiElement
-import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
@@ -89,42 +88,6 @@ interface XsAnyUriValue : XsAnyAtomicType {
     val context: XdmUriContext
 
     val moduleTypes: Array<XdmModuleType>
-}
-
-data class XsAnyUri(
-    override val data: String,
-    override val context: XdmUriContext,
-    override val moduleTypes: Array<XdmModuleType>,
-    private val reference: WeakReference<PsiElement>?
-) : XsAnyUriValue, XdmElementRef {
-    constructor(
-        data: String,
-        context: XdmUriContext,
-        moduleTypes: Array<XdmModuleType>,
-        element: PsiElement?
-    ) : this(data, context, moduleTypes, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as XsAnyUri
-
-        if (data != other.data) return false
-        if (context != other.context) return false
-        if (!moduleTypes.contentEquals(other.moduleTypes)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = data.hashCode()
-        result = 31 * result + context.hashCode()
-        result = 31 * result + moduleTypes.contentHashCode()
-        return result
-    }
 }
 
 // endregion

@@ -19,23 +19,21 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-private val EMPTY_NAMESPACE =
-    XsAnyUri("", XdmUriContext.Namespace, XdmModuleType.NONE, null as PsiElement?)
+private val EMPTY_NAMESPACE = XsAnyUri("", XdmUriContext.Namespace, XdmModuleType.NONE)
 
-private val XQUERY_NAMESPACE =
-    XsAnyUri("http://www.w3.org/2012/xquery", XdmUriContext.Namespace, XdmModuleType.NONE, null as PsiElement?)
+private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", XdmUriContext.Namespace, XdmModuleType.NONE)
 
 private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XdmNamespaceType.XQuery,

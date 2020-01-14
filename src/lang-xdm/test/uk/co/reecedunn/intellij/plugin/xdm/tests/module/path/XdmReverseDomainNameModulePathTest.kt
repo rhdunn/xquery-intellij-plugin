@@ -22,10 +22,10 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmReverseDomainNameModulePath
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - BaseX Reverse Domain Name Paths")
@@ -34,7 +34,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     private val TEST_MODULE_TYPES = arrayOf(XdmModuleType.DotNet) // A unique object to this test.
 
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
-        return XsAnyUri(path, context, TEST_MODULE_TYPES, null as PsiElement?)
+        return XsAnyUri(path, context, TEST_MODULE_TYPES)
     }
 
     @BeforeAll

@@ -25,12 +25,12 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 data class EXPathPackage internal constructor(
     private val filesystem: VirtualFileSystem,
@@ -41,7 +41,7 @@ data class EXPathPackage internal constructor(
 
     val name: XsAnyUriValue? by lazy {
         descriptor.root.attribute("name")?.let {
-            XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
+            XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE)
         }
     }
 
@@ -55,7 +55,7 @@ data class EXPathPackage internal constructor(
 
     val home: XsAnyUriValue? by lazy {
         descriptor.root.children("home").firstOrNull()?.text()?.let {
-            XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE, null as? PsiElement?)
+            XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE)
         }
     }
 

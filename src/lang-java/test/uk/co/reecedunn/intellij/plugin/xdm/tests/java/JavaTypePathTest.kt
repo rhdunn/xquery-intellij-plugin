@@ -16,23 +16,22 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests.java
 
 import com.intellij.mock.MockProjectEx
-import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - Java Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class JavaTypePathTest : PlatformLiteFixture() {
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
-        return XsAnyUri(path, context, XdmModuleType.NONE, null as PsiElement?)
+        return XsAnyUri(path, context, XdmModuleType.NONE)
     }
 
     @BeforeAll

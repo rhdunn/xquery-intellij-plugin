@@ -15,17 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.expath.pkg
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 data class EXPathPackageResource(private val xml: XmlElement) : EXPathPackageComponent {
     val publicUri: XsAnyUriValue? by lazy {
         xml.children("public-uri").firstOrNull()?.text()?.let {
-            XsAnyUri(it, XdmUriContext.Resource, XdmModuleType.RESOURCE, null as? PsiElement?)
+            XsAnyUri(it, XdmUriContext.Resource, XdmModuleType.RESOURCE)
         }
     }
 
