@@ -49,7 +49,7 @@ interface XsUntypedAtomicValue : XsAnyAtomicType {
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.1) xs:string
 
-interface XsStringValue : XsAnyAtomicType, XdmElementRef {
+interface XsStringValue : XsAnyAtomicType {
     val data: String
 }
 
@@ -279,7 +279,7 @@ interface XsNameValue : XsTokenValue
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.7) xs:NCName
 
-interface XsNCNameValue : XsNameValue
+interface XsNCNameValue : XsNameValue, XdmElementRef
 
 data class XsNCName(
     override val data: String,

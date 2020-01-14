@@ -19,6 +19,7 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -49,7 +50,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        version.declaration?.element!!,
+                        version.declaration as PsiElement,
                         description,
                         null as LocalQuickFix?,
                         ProblemHighlightType.GENERIC_ERROR,
@@ -66,7 +67,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        version.declaration?.element!!,
+                        version.declaration as PsiElement,
                         description,
                         null as LocalQuickFix?,
                         ProblemHighlightType.GENERIC_ERROR,
@@ -81,7 +82,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", XQST0031::class.java.classLoader
                     XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
                 descriptors.add(
                     manager.createProblemDescriptor(
-                        version.declaration?.element!!,
+                        version.declaration as PsiElement,
                         description,
                         null as LocalQuickFix?,
                         ProblemHighlightType.GENERIC_ERROR,

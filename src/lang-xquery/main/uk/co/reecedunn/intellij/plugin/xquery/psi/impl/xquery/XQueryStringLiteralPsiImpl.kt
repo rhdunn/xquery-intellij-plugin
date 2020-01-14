@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
@@ -33,8 +32,6 @@ class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XP
         super.subtreeChanged()
         cachedData.invalidate()
     }
-
-    override val element: PsiElement? get() = this
 
     override val data: String get() = cachedData.get()!!
 
