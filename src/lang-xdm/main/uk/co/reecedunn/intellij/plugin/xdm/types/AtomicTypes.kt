@@ -108,24 +108,6 @@ fun XsQNameValue.isLocalNameOrNCName(element: PsiElement): Boolean {
     return (isLexicalQName && prefix == null) || localName?.element === element
 }
 
-data class XsQName(
-    override val namespace: XsAnyUriValue?,
-    override val prefix: XsNCNameValue?,
-    override val localName: XsNCNameValue?,
-    override val isLexicalQName: Boolean,
-    private val reference: WeakReference<PsiElement>?
-) : XsQNameValue, XdmElementRef {
-    constructor(
-        namespace: XsAnyUriValue?,
-        prefix: XsNCNameValue?,
-        localName: XsNCNameValue?,
-        isLexicalQName: Boolean,
-        element: PsiElement?
-    ) : this(namespace, prefix, localName, isLexicalQName, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-}
-
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.1) xs:normalizedString
 

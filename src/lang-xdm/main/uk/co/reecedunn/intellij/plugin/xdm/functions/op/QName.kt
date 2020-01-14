@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
 
 class UndeclaredNamespacePrefixException(prefix: String) :
     RuntimeException("XPST0081: Undeclared namespace prefix: $prefix")
@@ -48,23 +49,23 @@ fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue
         qname.startsWith("Q{") /* URIQualifiedName */ -> {
             val ns = anyURI(qname.substringBefore('}').substring(2))
             val localName = XsNCName(qname.substringAfter('}'), null as PsiElement?)
-            XsQName(ns, null, localName, false, null as PsiElement?)
+            XsQName(ns, null, localName, false)
         }
         qname.startsWith('{') /* Clark Notation */ -> {
             val ns = anyURI(qname.substringBefore('}').substring(1))
             val localName = XsNCName(qname.substringAfter('}'), null as PsiElement?)
-            XsQName(ns, null, localName, false, null as PsiElement?)
+            XsQName(ns, null, localName, false)
         }
         qname.contains(':') /* QName */ -> {
             val prefix = XsNCName(qname.substringBefore(':'), null as PsiElement?)
             val ns = namespaces[prefix.data]?.let { anyURI(it) }
                 ?: throw UndeclaredNamespacePrefixException(prefix.data)
             val localName = XsNCName(qname.substringAfter(':'), null as PsiElement?)
-            XsQName(ns, prefix, localName, true, null as PsiElement?)
+            XsQName(ns, prefix, localName, true)
         }
         else /* NCName */ -> {
             val localName = XsNCName(qname, null as PsiElement?)
-            XsQName(anyURI(""), null, localName, true, null as PsiElement?)
+            XsQName(anyURI(""), null, localName, true)
         }
     }
 }
