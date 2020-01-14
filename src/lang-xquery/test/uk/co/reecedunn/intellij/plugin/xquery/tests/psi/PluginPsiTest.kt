@@ -1198,6 +1198,32 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("xml:id")
+            fun id() {
+                val expr = parse<PluginDirAttribute>("<a xml:id='lorem-ipsum'/>")[0] as XdmDefaultNamespaceDeclaration
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName.prefix?.data, `is`("xml"))
+                assertThat(node.nodeName.localName?.data, `is`("id"))
+                assertThat(node.nodeName.namespace, `is`(nullValue()))
+                assertThat(node.nodeName.isLexicalQName, `is`(true))
+
+                val value = node.nodeValue as XsIDValue
+                assertThat(value.data, `is`("lorem-ipsum"))
+                assertThat(value.element, `is`(expr as PsiElement))
+            }
+
+            @Test
             @DisplayName("non-namespace declaration attribute")
             fun attribute() {
                 val expr = parse<PluginDirAttribute>(

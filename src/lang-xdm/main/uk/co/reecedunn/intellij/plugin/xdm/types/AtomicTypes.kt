@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -311,6 +311,20 @@ data class XsNCName(
     override val data: String,
     private val reference: WeakReference<PsiElement>?
 ) : XsNCNameValue {
+    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
+
+// endregion
+// region XML Schema 1.1 Part 2 (3.4.8) xs:ID
+
+interface XsIDValue : XsNCNameValue
+
+data class XsID(
+    override val data: String,
+    private val reference: WeakReference<PsiElement>?
+) : XsIDValue {
     constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
 
     override val element get(): PsiElement? = reference?.get()

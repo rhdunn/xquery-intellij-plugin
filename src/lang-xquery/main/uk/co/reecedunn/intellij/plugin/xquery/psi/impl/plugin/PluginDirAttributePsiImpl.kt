@@ -83,6 +83,9 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
             qname.localName?.data == "xmlns" -> {
                 XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
             }
+            qname.prefix?.data == "xml" && qname.localName?.data == "id" -> {
+                XsID(contents, this)
+            }
             else -> XsUntypedAtomic(contents, this)
         }
     }

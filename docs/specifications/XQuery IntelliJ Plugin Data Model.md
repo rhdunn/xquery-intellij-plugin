@@ -118,6 +118,12 @@ symbols provide the statically known information for that given context. This
 is used for static analysis and IDE integration such as symbol navigation and
 code completion.
 
+The atomic type values determined statically are not checked to see if they
+conform to the given type aside from that specified by the EBNF grammar. The
+validation and normalisation is deferred to later processing and validation
+checks after the PSI tree has been constructed. This is to permit partially
+typed or incorrect values without throwing invalid/malformed type exceptions.
+
 1.  This functionality is not currently supported in the XQuery IntelliJ Plugin.
     This is a specification for how that functionality is intended to be
     implemented.
@@ -284,7 +290,7 @@ __xdm:anyUnionType__
 │         │    └─── xs:Name [XsNameValue]
 │         │         └─── xs:NCName [XsNCNameValue]
 │         │              ├─── xs:ENTITY
-│         │              ├─── xs:ID
+│         │              ├─── xs:ID [XsIDValue]
 │         │              ├─── xs:IDREF
 │         │              └─── xdm:wildcard [XdmWildcardValue]
 │         └─── xs:NMTOKEN
@@ -566,11 +572,6 @@ The parts that make up an EQName implement the interface corresponding to their
 associated atomic type defined above. These have a *data* property that is the
 atomic type's value as represented by the given Java type.
 
-The `xs:anyURI` representation is `String` as the content is not validated at
-the point the PSI tree is constructed. This is to permit partially typed URIs,
-or incorrectly typed URIs, to be represented correctly without throwing
-malformed URI exceptions.
-
 The `XsQNameValue` interface has the following properties:
 1.  *namespace*;
 1.  *prefix*;
@@ -607,6 +608,7 @@ name* property, and is determined as follows.
 |-----------|--------------------|------------------------|----------------|
 | `xmlns:*` | `xs:anyURI`        | `XsAnyURIValue`        | `String`       |
 | `xmlns`   | `xs:anyURI`        | `XsAnyURIValue`        | `String`       |
+| `xml:id`  | `xs:ID`            | `XsIDValue`            | `String`       |
 | `*`       | `xs:untypedAtomic` | `XsUntypedAtomicValue` | `String`       |
 
 If the `DirAttributeValue` contains an `EnclosedExpr`, the *node value* of the

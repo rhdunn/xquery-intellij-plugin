@@ -747,7 +747,6 @@ private class XQueryPsiTest : ParserTestCase() {
 
         @Nested
         @DisplayName("XQuery 3.1 EBNF (194) PITest")
-
         internal inner class PITest {
             @Test
             @DisplayName("any")
