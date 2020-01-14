@@ -20,8 +20,8 @@ import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXBundle
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDuration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

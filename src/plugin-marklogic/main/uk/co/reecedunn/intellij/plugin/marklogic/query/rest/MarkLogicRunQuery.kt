@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
-import uk.co.reecedunn.intellij.plugin.xdm.types.toXsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 internal class MarkLogicRunQuery(
     private val builder: RequestBuilder,

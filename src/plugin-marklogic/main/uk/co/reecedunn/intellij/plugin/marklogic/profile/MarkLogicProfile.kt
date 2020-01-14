@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDuration
-import uk.co.reecedunn.intellij.plugin.xdm.types.toXsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 

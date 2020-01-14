@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXInfo
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDuration
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseX info text")
 class BaseXQueryInfoTest {
