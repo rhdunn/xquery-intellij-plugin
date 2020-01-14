@@ -34,8 +34,6 @@ package uk.co.reecedunn.intellij.plugin.xdm.types
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsInteger
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.text.NumberFormat
@@ -71,8 +69,8 @@ interface XsDoubleValue : XsAnyAtomicType {
 // region XML Schema 1.1 Part 2 (3.3.6) xs:duration
 
 interface XsDurationValue : XsAnyAtomicType, Comparable<XsDurationValue> {
-    val months: XsInteger
-    val seconds: XsDecimal
+    val months: XsIntegerValue
+    val seconds: XsDecimalValue
 }
 
 fun XsDurationValue.toSeconds(precision: NumberFormat = Units.Precision.milli): String {
