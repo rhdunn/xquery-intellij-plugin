@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathUriLiteralPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XdmModulePath {
@@ -39,7 +38,7 @@ class XPathUriLiteralPsiImpl(node: ASTNode) :
     }
 
     // endregion
-    // region XdAnyUriValue
+    // region XsAnyUriValue
 
     override val context: XdmUriContext
         get() = when (parent) {
@@ -53,16 +52,7 @@ class XPathUriLiteralPsiImpl(node: ASTNode) :
     override val data: String get() = cachedData.get()!!
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
-        children().map { child ->
-            when (child.node.elementType) {
-                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                    null
-                XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XdmLiteralTextPart).unescapedValue
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
+        children().filterIsInstance<XdmLiteralTextPart>().joinToString("") { it.unescapedValue }
     }
 
     // endregion
