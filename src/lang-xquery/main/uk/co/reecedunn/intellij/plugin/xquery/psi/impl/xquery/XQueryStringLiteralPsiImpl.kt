@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
@@ -45,7 +45,7 @@ class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XP
                 XQueryTokenType.CHARACTER_REFERENCE ->
                     (child as XQueryCharRef).codepoint.toString()
                 XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedValue
+                    (child as XdmLiteralTextPart).unescapedValue
                 else ->
                     child.text
             }

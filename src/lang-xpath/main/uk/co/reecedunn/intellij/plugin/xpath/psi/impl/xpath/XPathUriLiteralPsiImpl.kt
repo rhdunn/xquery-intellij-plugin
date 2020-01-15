@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
@@ -26,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathUriLiteralPsiImpl(node: ASTNode) :
@@ -58,7 +58,7 @@ class XPathUriLiteralPsiImpl(node: ASTNode) :
                 XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
                     null
                 XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedValue
+                    (child as XdmLiteralTextPart).unescapedValue
                 else ->
                     child.text
             }

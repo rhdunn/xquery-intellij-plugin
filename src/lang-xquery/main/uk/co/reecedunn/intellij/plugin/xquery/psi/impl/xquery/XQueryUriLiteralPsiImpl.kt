@@ -21,6 +21,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
@@ -28,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
@@ -99,7 +99,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) :
                 XQueryTokenType.CHARACTER_REFERENCE ->
                     (child as XQueryCharRef).codepoint.toString()
                 XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedValue
+                    (child as XdmLiteralTextPart).unescapedValue
                 else ->
                     child.text
             }

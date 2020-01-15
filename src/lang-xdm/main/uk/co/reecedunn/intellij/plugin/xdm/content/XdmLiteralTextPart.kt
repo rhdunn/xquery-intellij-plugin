@@ -16,4 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.xdm.content
 
 interface XdmLiteralTextPart {
+    val unescapedValue: CharSequence
 }

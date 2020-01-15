@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextEscaper
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPartHost
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
@@ -49,7 +48,7 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
                 XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
                     null
                 XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedValue
+                    (child as XdmLiteralTextPart).unescapedValue
                 else ->
                     child.text
             }

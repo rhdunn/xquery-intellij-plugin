@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
@@ -29,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsID
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsUntypedAtomic
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -72,7 +72,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
                         XQueryTokenType.XML_CHARACTER_REFERENCE ->
                             (child as XQueryCharRef).codepoint.toString()
                         XQueryTokenType.XML_ESCAPED_CHARACTER ->
-                            (child as XPathEscapeCharacter).unescapedValue
+                            (child as XdmLiteralTextPart).unescapedValue
                         else ->
                             child.text
                     }

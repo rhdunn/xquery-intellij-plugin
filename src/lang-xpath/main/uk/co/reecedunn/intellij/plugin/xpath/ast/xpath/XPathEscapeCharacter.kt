@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,4 @@ import com.intellij.psi.PsiElement
  * providing different functionality where the entity may map to multiple
  * characters.
  */
-interface XPathEscapeCharacter : PsiElement {
-    val unescapedValue: CharSequence
-}
+interface XPathEscapeCharacter : PsiElement
