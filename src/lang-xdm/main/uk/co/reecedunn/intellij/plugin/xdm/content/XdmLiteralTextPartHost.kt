@@ -18,5 +18,5 @@ package uk.co.reecedunn.intellij.plugin.xdm.content
 import com.intellij.psi.PsiLanguageInjectionHost
 
 interface XdmLiteralTextPartHost : PsiLanguageInjectionHost {
-    val parts: List<XdmLiteralTextPart>
+    val parts: Sequence<XdmLiteralTextPart>
 }

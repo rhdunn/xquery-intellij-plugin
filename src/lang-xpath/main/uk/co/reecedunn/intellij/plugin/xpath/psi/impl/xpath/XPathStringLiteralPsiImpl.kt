@@ -17,18 +17,29 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.LiteralTextEscaper
+import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextEscaper
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
+import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPartHost
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
-class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
+class XPathStringLiteralPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue, XdmLiteralTextPartHost {
+    // region PsiElement
+
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedData.invalidate()
     }
+
+    // endregion
+    // region XsStringValue
 
     override val data: String get() = cachedData.get()!!
 
@@ -44,4 +55,21 @@ class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
             }
         }.filterNotNull().joinToString(separator = "")
     }
+
+    // endregion
+    // region XdmLiteralTextPartHost
+
+    override val parts: Sequence<XdmLiteralTextPart> get() = children().filterIsInstance<XdmLiteralTextPart>()
+
+    override fun isValidHost(): Boolean = true
+
+    override fun updateText(text: String): PsiLanguageInjectionHost {
+        TODO()
+    }
+
+    override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {
+        return XdmLiteralTextEscaper(this)
+    }
+
+    // endregion
 }
