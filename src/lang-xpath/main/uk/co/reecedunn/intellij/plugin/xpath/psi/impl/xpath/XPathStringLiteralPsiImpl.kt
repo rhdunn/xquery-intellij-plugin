@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextEscaper
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPartHost
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 class XPathStringLiteralPsiImpl(node: ASTNode) :
@@ -43,16 +42,7 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
     override val data: String get() = cachedData.get()!!
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
-        children().map { child ->
-            when (child.node.elementType) {
-                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                    null
-                XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XdmLiteralTextPart).unescapedValue
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
+        parts.joinToString("") { it.unescapedValue }
     }
 
     // endregion
