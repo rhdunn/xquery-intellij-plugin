@@ -15,18 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.content
 
-import com.intellij.openapi.util.TextRange
-import com.intellij.psi.LiteralTextEscaper
-import java.lang.StringBuilder
+import com.intellij.psi.PsiLanguageInjectionHost
 
-class XdmLiteralTextEscaper(host: XdmLiteralTextPartHost) : LiteralTextEscaper<XdmLiteralTextPartHost>(host) {
-    override fun isOneLine(): Boolean = false
-
-    override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int {
-        return -1
-    }
-
-    override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
-        return false
-    }
+interface XdmLiteralTextPartHost : PsiLanguageInjectionHost {
+    val parts: List<XdmLiteralTextPart>
 }
