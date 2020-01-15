@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:66)]
             PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(35:64)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(35:36)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(36:63)]('http://www.example.org/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(36:63)]('http://www.example.org/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(63:64)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(65:66)](';')

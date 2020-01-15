@@ -12,5 +12,5 @@ XPathImpl[FILE(0:26)]
          FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')

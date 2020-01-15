@@ -14,7 +14,7 @@ XPathImpl[FILE(0:53)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(28:32)]('ftor')
@@ -22,7 +22,7 @@ XPathImpl[FILE(0:53)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(33:40)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(33:34)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('ipsum')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('ipsum')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(39:40)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTOR(41:45)]('ftor')
@@ -30,5 +30,5 @@ XPathImpl[FILE(0:53)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(46:53)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(46:53)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(46:47)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(47:52)]('dolor')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(47:52)]('dolor')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(52:53)]('"')

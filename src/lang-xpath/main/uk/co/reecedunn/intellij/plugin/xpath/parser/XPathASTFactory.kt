@@ -36,6 +36,7 @@ class XPathASTFactory : ASTFactory() {
             XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
             XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
             XPathTokenType.ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
+            XPathTokenType.STRING_LITERAL_CONTENTS -> XPathStringLiteralContentsImpl(type, text)
             XPathTokenType.DOT -> XPathContextItemExprPsiImpl(type, text)
             XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
             XPathTokenType.STAR -> PluginWildcardIndicatorPsiImpl(type, text)

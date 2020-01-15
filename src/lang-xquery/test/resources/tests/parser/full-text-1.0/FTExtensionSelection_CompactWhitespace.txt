@@ -24,6 +24,6 @@ XQueryModuleImpl[FILE(0:41)]
                      FTWordsValueImpl[XPATH_FT_WORDS_VALUE(33:40)]
                         XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
                            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(33:34)]('"')
-                           LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
+                           XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
                            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(39:40)]('"')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(40:41)]('}')

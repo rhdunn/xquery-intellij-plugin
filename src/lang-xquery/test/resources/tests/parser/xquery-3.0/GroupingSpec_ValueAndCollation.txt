@@ -44,7 +44,7 @@ XQueryModuleImpl[FILE(0:58)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                         XQueryUriLiteralImpl[XQUERY_URI_LITERAL(43:47)]
                            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(43:44)]('"')
-                           LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(44:46)]('en')
+                           XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(44:46)]('en')
                            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(46:47)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
             PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(48:58)]

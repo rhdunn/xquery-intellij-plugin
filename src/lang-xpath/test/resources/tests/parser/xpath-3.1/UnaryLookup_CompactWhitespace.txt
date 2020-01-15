@@ -15,5 +15,5 @@ XPathImpl[FILE(0:14)]
       LeafPsiElement[XPATH_EQUAL_TOKEN(7:8)]('=')
       XPathStringLiteralImpl[XPATH_STRING_LITERAL(8:14)]
          LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(8:9)]('"')
-         LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(9:13)]('test')
+         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(9:13)]('test')
          LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(13:14)]('"')

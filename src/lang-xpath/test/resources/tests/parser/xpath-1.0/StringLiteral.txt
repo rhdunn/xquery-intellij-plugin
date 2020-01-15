@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:9)]
    XPathStringLiteralImpl[XPATH_STRING_LITERAL(0:9)]
       LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(0:1)]('"')
-      LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
+      XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
       LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(8:9)]('"')

@@ -9,6 +9,6 @@ XQueryModuleImpl[FILE(0:21)]
             XQueryExprImpl[XQUERY_EXPR(15:21)]
                XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:21)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(15:16)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(16:20)]('true')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(16:20)]('true')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(20:21)]('"')
             PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected '}'.')

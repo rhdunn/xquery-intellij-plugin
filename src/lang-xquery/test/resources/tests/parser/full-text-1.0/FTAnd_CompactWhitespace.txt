@@ -15,11 +15,11 @@ XQueryModuleImpl[FILE(0:38)]
                   FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
                      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
                         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                        XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(26:31)]('ftand')
                   FTWordsValueImpl[XPATH_FT_WORDS_VALUE(31:38)]
                      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(31:38)]
                         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(31:32)]('"')
-                        LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(32:37)]('ipsum')
+                        XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(32:37)]('ipsum')
                         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(37:38)]('"')

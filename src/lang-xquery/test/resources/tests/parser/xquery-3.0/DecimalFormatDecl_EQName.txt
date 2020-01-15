@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:62)]
             XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(23:60)]
                XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(23:54)]
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(23:25)]('Q{')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(25:53)]('http://www.example.com/test#')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(25:53)]('http://www.example.com/test#')
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(53:54)]('}')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(54:60)]('format')
             PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')

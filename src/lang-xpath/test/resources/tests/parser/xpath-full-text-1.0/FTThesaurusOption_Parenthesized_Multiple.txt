@@ -14,7 +14,7 @@ XPathImpl[FILE(0:127)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(28:33)]('using')
@@ -33,7 +33,7 @@ XPathImpl[FILE(0:127)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
                   XPathUriLiteralImpl[XPATH_URI_LITERAL(59:89)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(59:60)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(60:88)]('http://www.example.com/de-CH')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(60:88)]('http://www.example.com/de-CH')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(88:89)]('"')
                   PsiWhiteSpaceImpl[WHITE_SPACE(89:90)](' ')
                LeafPsiElement[XPATH_COMMA_TOKEN(90:91)](',')
@@ -43,7 +43,7 @@ XPathImpl[FILE(0:127)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(94:95)](' ')
                   XPathUriLiteralImpl[XPATH_URI_LITERAL(95:125)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(95:96)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(96:124)]('http://www.example.com/de-DE')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(96:124)]('http://www.example.com/de-DE')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(124:125)]('"')
                   PsiWhiteSpaceImpl[WHITE_SPACE(125:126)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(126:127)](')')

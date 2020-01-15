@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:142)]
             PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(25:54)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(25:26)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(26:53)]('http://www.example.org/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(26:53)]('http://www.example.org/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(53:54)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(55:56)](';')
@@ -56,7 +56,7 @@ XQueryModuleImpl[FILE(0:142)]
                PsiWhiteSpaceImpl[WHITE_SPACE(134:135)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(135:141)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(135:136)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(136:140)]('test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(136:140)]('test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(140:141)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(141:142)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(142:142)]('XPST0003: Missing query body.')

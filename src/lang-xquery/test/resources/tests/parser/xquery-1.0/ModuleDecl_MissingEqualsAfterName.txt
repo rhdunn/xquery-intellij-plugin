@@ -11,6 +11,6 @@ XQueryModuleImpl[FILE(0:46)]
          PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected '='.')
          XQueryUriLiteralImpl[XQUERY_URI_LITERAL(21:45)]
             LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(21:22)]('"')
-            LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(22:44)]('http://www.example.com')
+            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(22:44)]('http://www.example.com')
             LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(44:45)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(45:46)](';')

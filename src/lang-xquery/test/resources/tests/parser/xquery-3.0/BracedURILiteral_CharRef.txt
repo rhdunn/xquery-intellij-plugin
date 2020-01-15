@@ -9,15 +9,15 @@ XQueryModuleImpl[FILE(0:43)]
             XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:35)]
                XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:30)]
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                   XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(20:26)]('&#xA0;')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(26:29)]('two')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(26:29)]('two')
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(29:30)]('}')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(30:35)]('three')
             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(36:42)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(36:37)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:41)]('Test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:41)]('Test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(41:42)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(42:43)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(43:43)]('XPST0003: Missing query body.')

@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:50)]
             PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: collation, element, function, order.')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:48)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(16:17)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(17:47)]('http://www.example.org/lang/es')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(17:47)]('http://www.example.org/lang/es')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(47:48)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(49:50)](';')

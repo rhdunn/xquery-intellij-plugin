@@ -8,6 +8,6 @@ XQueryModuleImpl[FILE(0:41)]
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(17:41)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(17:18)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(18:40)]('http://www.example.org')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(18:40)]('http://www.example.org')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(40:41)]('"')
          PsiErrorElementImpl[ERROR_ELEMENT(41:41)]('XPST0003: Expected ';'.')

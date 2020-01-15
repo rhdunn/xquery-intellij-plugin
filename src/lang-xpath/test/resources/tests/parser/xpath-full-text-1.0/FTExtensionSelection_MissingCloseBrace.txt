@@ -26,6 +26,6 @@ XPathImpl[FILE(0:45)]
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(38:45)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(38:45)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(38:39)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(39:44)]('lorem')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(39:44)]('lorem')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(44:45)]('"')
             PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected '}'.')

@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:52)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(37:42)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(37:38)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(38:41)]('key')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(38:41)]('key')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(41:42)]('"')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(42:43)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(43:51)]('external')

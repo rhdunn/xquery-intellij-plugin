@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:43)]
                FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             FTIgnoreOptionImpl[XPATH_FT_IGNORE_OPTION(28:43)]
@@ -24,5 +24,5 @@ XQueryModuleImpl[FILE(0:43)]
                PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected keyword: content.')
                XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(36:43)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(36:37)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:42)]('ipsum')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:42)]('ipsum')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(42:43)]('"')

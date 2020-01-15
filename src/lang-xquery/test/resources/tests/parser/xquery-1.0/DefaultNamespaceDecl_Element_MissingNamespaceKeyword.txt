@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:55)]
             PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected keyword: namespace.')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(24:53)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(24:25)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(25:52)]('http://www.example.org/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(25:52)]('http://www.example.org/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(52:53)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(54:55)](';')

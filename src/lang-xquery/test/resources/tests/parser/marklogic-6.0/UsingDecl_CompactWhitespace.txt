@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:45)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(6:15)]('namespace')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(15:44)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(15:16)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(16:43)]('http://www.example.com/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(16:43)]('http://www.example.com/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(43:44)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(44:45)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Missing query body.')

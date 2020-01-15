@@ -13,17 +13,17 @@ XPathImpl[FILE(0:50)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(26:31)]('ftand')
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(31:38)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(31:38)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(31:32)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(32:37)]('ipsum')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(32:37)]('ipsum')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(37:38)]('"')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FTAND(38:43)]('ftand')
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(43:50)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(43:50)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(43:44)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(44:49)]('dolor')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(44:49)]('dolor')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(49:50)]('"')

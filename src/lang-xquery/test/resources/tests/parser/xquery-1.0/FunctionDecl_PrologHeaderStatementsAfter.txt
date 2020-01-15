@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(57:81)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(57:58)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(58:80)]('http://www.example.org')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(58:80)]('http://www.example.org')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(80:81)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(81:82)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(82:83)](';')
@@ -77,7 +77,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiWhiteSpaceImpl[WHITE_SPACE(214:215)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(215:247)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(215:216)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(216:246)]('http://www.example.org/lang/es')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(216:246)]('http://www.example.org/lang/es')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(246:247)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(247:248)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(248:249)](';')
@@ -94,7 +94,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiWhiteSpaceImpl[WHITE_SPACE(283:284)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(284:313)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(284:285)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(285:312)]('http://www.example.org/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(285:312)]('http://www.example.org/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(312:313)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(313:314)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(314:315)](';')
@@ -126,7 +126,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiWhiteSpaceImpl[WHITE_SPACE(379:380)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(380:409)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(380:381)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(381:408)]('http://www.example.org/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(381:408)]('http://www.example.org/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(408:409)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(409:410)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(410:411)](';')
@@ -149,7 +149,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiWhiteSpaceImpl[WHITE_SPACE(452:453)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(453:482)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(453:454)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(454:481)]('http://www.example.com/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(454:481)]('http://www.example.com/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(481:482)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(482:483)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(483:484)](';')
@@ -162,7 +162,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiWhiteSpaceImpl[WHITE_SPACE(498:499)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(499:528)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(499:500)]('"')
-               LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(500:527)]('http://www.example.com/test')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(500:527)]('http://www.example.com/test')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(527:528)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(528:529)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(529:530)](';')

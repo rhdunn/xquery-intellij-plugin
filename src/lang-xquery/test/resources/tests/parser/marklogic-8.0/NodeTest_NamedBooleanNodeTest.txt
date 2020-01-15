@@ -7,6 +7,6 @@ XQueryModuleImpl[FILE(0:19)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(13:18)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:17)]('key')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:17)]('key')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(17:18)]('"')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(18:19)](')')

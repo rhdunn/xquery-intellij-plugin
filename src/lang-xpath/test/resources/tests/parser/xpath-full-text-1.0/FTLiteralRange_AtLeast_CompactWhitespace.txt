@@ -13,7 +13,7 @@ XPathImpl[FILE(0:91)]
             FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
                XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                  LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_USING(26:31)]('using')
             PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
@@ -24,7 +24,7 @@ XPathImpl[FILE(0:91)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(42:44)]('at')
                   XPathUriLiteralImpl[XPATH_URI_LITERAL(44:74)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(44:45)]('"')
-                     LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(73:74)]('"')
                   FTLiteralRangeImpl[XPATH_FT_LITERAL_RANGE(74:84)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AT(74:76)]('at')
