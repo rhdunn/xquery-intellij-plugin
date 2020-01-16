@@ -30,17 +30,6 @@
 
     <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathInlayParameterHintsProvider"/>
 
-    <!-- References and Resolve -->
-
-    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryUriLiteralManipulator"/>
-    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryQNamePsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryQNameManipulator"/>
-    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryNCNameManipulator"/>
-    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryURIQualifiedNamePsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryURIQualifiedNameManipulator"/>
-
     <!-- Application / Project Settings -->
 
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
