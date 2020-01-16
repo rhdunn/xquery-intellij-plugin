@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
 open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {

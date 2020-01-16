@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathUriLiteralReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathUriLiteralReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 

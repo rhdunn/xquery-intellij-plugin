@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathURIQualifiedNamePsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathBracedURILiteralReference
-import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathBracedURILiteralReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.*
 
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImpl(node) {
