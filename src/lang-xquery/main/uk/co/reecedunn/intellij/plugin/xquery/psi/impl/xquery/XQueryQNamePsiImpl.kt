@@ -24,9 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryQNamePrefixReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
 
 class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
     // region PsiElement
