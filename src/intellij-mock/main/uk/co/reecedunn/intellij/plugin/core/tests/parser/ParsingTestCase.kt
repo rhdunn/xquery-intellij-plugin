@@ -116,7 +116,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProject.registerService(
             CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(myProject))
         )
-        myProject.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx())
+        myProject.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(myProject))
         myProject.registerService(PsiFileFactory::class.java, mFileFactory!!)
         myProject.registerService(StartupManager::class.java, StartupManagerImpl(myProject))
         registerExtensionPoint("com.intellij.openapi.fileTypes.FileTypeFactory", "FILE_TYPE_FACTORY_EP")
