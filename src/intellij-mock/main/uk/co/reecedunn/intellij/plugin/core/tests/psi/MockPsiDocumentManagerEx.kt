@@ -22,11 +22,12 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Computable
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
-import com.intellij.psi.impl.PsiDocumentManagerBase
+import uk.co.reecedunn.compat.psi.impl.PsiDocumentManagerBase
 
 // NOTE: PSI document modifications rely on PsiDocumentManagerBase, which
 // MockPsiDocumentManager does not derive from.
 class MockPsiDocumentManagerEx(project: Project) : PsiDocumentManagerBase(project) {
+
     override fun getPsiFile(document: Document): PsiFile? = TODO()
 
     override fun getCachedPsiFile(document: Document): PsiFile? = TODO()
