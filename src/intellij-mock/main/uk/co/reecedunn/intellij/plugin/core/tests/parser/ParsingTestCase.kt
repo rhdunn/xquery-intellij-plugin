@@ -52,6 +52,7 @@ import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import com.intellij.psi.impl.source.tree.TreeCopyHandler
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
@@ -143,6 +144,10 @@ abstract class ParsingTestCase<File : PsiFile>(
         val pomModel = PomModelImpl(myProject)
         myProject.registerService(PomModel::class.java, pomModel)
         TreeAspect(pomModel)
+    }
+
+    protected fun registerPsiModification() {
+        registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {

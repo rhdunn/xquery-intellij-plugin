@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,8 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
     @BeforeAll
     override fun setUp() {
         super.setUp()
+        registerPsiModification()
+
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
