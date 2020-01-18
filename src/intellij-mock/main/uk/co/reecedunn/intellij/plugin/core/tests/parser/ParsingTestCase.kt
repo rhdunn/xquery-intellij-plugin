@@ -61,6 +61,7 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.compat.codeStyle.ProjectCodeStyleSettingsManagerEx
 import uk.co.reecedunn.compat.psi.impl.PsiCachedValuesFactory
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
@@ -164,6 +165,9 @@ abstract class ParsingTestCase<File : PsiFile>(
         registerExtensionPoint(FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java)
 
         registerApplicationService(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
+        myProject.registerService(
+            ProjectCodeStyleSettingsManager::class.java, ProjectCodeStyleSettingsManagerEx(myProject)
+        )
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
