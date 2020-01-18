@@ -49,6 +49,8 @@ import com.intellij.pom.core.impl.PomModelImpl
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.*
 import com.intellij.psi.impl.PsiFileFactoryImpl
+import com.intellij.psi.impl.source.codeStyle.IndentHelper
+import com.intellij.psi.impl.source.codeStyle.IndentHelperImpl
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
 import com.intellij.psi.impl.source.tree.LeafPsiElement
@@ -148,6 +150,7 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     protected fun registerPsiModification() {
         registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
+        registerApplicationService(IndentHelper::class.java, IndentHelperImpl())
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
