@@ -34,6 +34,7 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
     @BeforeAll
     override fun setUp() {
         super.setUp()
+        registerPomModel()
         registerPsiModification()
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())

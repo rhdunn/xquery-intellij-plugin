@@ -48,6 +48,7 @@ abstract class ParserTestCase :
     @BeforeAll
     override fun setUp() {
         super.setUp()
+        registerPomModel()
         registerPsiModification()
 
         myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())

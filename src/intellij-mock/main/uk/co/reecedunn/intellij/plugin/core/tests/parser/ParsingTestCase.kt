@@ -141,8 +141,9 @@ abstract class ParsingTestCase<File : PsiFile>(
                     MockLanguageFileType(language!!, mFileExt)
             app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
         }
+    }
 
-        // That's for reparse routines
+    protected fun registerPomModel() {
         val pomModel = PomModelImpl(myProject)
         myProject.registerService(PomModel::class.java, pomModel)
         TreeAspect(pomModel)
