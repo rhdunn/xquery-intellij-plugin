@@ -178,6 +178,8 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProject.registerService(
             ProjectCodeStyleSettingsManager::class.java, ProjectCodeStyleSettingsManagerEx(myProject)
         )
+
+        registerCodeStyleSettingsModifier()
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {

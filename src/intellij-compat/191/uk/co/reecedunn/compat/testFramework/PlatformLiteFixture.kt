@@ -39,6 +39,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     protected var myProjectEx: MockProjectEx? = null
     protected val myProject: MockProjectEx get() = myProjectEx!!
 
+    @Suppress("UnstableApiUsage")
     @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
@@ -88,10 +89,24 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
+    @Suppress("UnstableApiUsage")
+    protected fun registerCodeStyleSettingsModifier() {
+        try {
+            val epClass = Class.forName("com.intellij.application.options.CodeStyleCachingUtil")
+            val epname = epClass.getDeclaredField("CODE_STYLE_SETTINGS_MODIFIER_EP_NAME")
+            epname.isAccessible = true
+            @Suppress("UNCHECKED_CAST")
+            registerExtensionPoint(epname.get(null) as ExtensionPointName<Any>, epClass as Class<Any>)
+        } catch (e: Exception) {
+            // Don't register the extension point, as the associated class is not found.
+        }
+    }
+
     protected fun <T: Any> registerExtension(extensionPointName: ExtensionPointName<T>, t: T) {
         registerExtension(Extensions.getRootArea(), extensionPointName, t)
     }
 
+    @Suppress("UnstableApiUsage")
     fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, t: T) {
         registerExtensionPoint(area, name, t.javaClass)
         PlatformTestUtil.registerExtension(area, name, t, testRootDisposable)
@@ -106,6 +121,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
     }
 
+    @Suppress("UnstableApiUsage")
     protected open fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
@@ -119,6 +135,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("SameParameterValue")
     protected open fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,

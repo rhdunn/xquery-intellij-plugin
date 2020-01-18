@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,7 @@ import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.roots.impl.DirectoryIndex
 import com.intellij.openapi.roots.impl.DirectoryIndexImpl
 import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
+import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.util.indexing.FileBasedIndex
 import com.intellij.util.indexing.FileBasedIndexImpl
 import org.picocontainer.MutablePicoContainer
@@ -68,6 +69,11 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         if (component == null) {
             appContainer.registerComponentInstance(ProgressManager::class.java.name, ProgressManagerImpl())
         }
+    }
+
+    @Suppress("UnstableApiUsage")
+    protected fun registerCodeStyleSettingsModifier() {
+        registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
     }
 
     protected fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,7 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
+import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.testFramework.PlatformTestUtil
 import org.picocontainer.MutablePicoContainer
 import org.picocontainer.PicoContainer
@@ -39,6 +40,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     protected var myProjectEx: MockProjectEx? = null
     protected val myProject: MockProjectEx get() = myProjectEx!!
 
+    @Suppress("UnstableApiUsage")
     @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
@@ -88,10 +90,16 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
+    @Suppress("UnstableApiUsage")
+    protected fun registerCodeStyleSettingsModifier() {
+        registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
+    }
+
     protected fun <T: Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
         registerExtension(Extensions.getRootArea(), extensionPointName, extension)
     }
 
+    @Suppress("UnstableApiUsage")
     fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
         registerExtensionPoint(area, name, extension.javaClass)
         PlatformTestUtil.registerExtension(area, name, extension, testRootDisposable)
@@ -106,6 +114,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
     }
 
+    @Suppress("UnstableApiUsage")
     protected open fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
@@ -119,6 +128,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("SameParameterValue")
     protected open fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,
