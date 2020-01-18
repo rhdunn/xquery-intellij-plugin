@@ -395,6 +395,11 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
                 assertThat(name.nameIdentifier?.text, `is`("test"))
+
+                val renamed = name.setName("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathQName::class.java)))
+                assertThat(renamed.text, `is`("a:lorem-ipsum"))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
 
             @Test
@@ -487,6 +492,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val renamed = name.setName("lorem-ipsum")
                 assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat(renamed.text, `is`("lorem-ipsum"))
                 assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
 
