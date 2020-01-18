@@ -162,6 +162,8 @@ abstract class ParsingTestCase<File : PsiFile>(
         val schemeManagerFactory = MockSchemeManagerFactory()
         registerApplicationService(SchemeManagerFactory::class.java, schemeManagerFactory)
         registerApplicationService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
+
+        registerExtensionPoint(FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java)
     }
 
     private fun registerCodeStyleSettingsManager() {
