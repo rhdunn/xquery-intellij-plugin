@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -282,6 +282,10 @@ private class XPathPsiTest : ParserTestCase() {
 
                 assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
                 assertThat(name.nameIdentifier?.text, `is`("test"))
+
+                val renamed = name.setName("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
         }
 
