@@ -164,6 +164,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         registerApplicationService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
 
         registerExtensionPoint(FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java)
+        registerExtensionPoint(FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java)
     }
 
     private fun registerCodeStyleSettingsManager() {
