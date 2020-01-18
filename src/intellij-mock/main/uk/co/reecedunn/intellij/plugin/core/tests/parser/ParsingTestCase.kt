@@ -47,6 +47,7 @@ import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.*
+import com.intellij.psi.codeStyle.*
 import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.codeStyle.IndentHelper
 import com.intellij.psi.impl.source.codeStyle.IndentHelperImpl
@@ -152,6 +153,17 @@ abstract class ParsingTestCase<File : PsiFile>(
     protected fun registerPsiModification() {
         registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
         registerApplicationService(IndentHelper::class.java, IndentHelperImpl())
+        registerCodeStyleSettingsManager()
+    }
+
+    private fun registerCodeStyleSettingsManager() {
+        registerExtensionPoint(CodeStyleSettingsProvider.EXTENSION_POINT_NAME, CodeStyleSettingsProvider::class.java)
+        registerExtensionPoint(
+            LanguageCodeStyleSettingsProvider.EP_NAME, LanguageCodeStyleSettingsProvider::class.java
+        )
+        registerExtensionPoint(FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java)
+
+        registerApplicationService(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
