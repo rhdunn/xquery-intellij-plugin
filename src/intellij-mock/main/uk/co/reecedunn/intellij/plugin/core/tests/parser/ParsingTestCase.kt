@@ -37,6 +37,7 @@ import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.fileTypes.PlainTextLanguage
+import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.Disposer
@@ -51,12 +52,14 @@ import com.intellij.psi.codeStyle.*
 import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.codeStyle.IndentHelper
 import com.intellij.psi.impl.source.codeStyle.IndentHelperImpl
+import com.intellij.psi.impl.source.codeStyle.PersistableCodeStyleSchemes
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.TreeCopyHandler
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.LightVirtualFile
+import com.intellij.testFramework.MockSchemeManagerFactory
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
@@ -155,6 +158,10 @@ abstract class ParsingTestCase<File : PsiFile>(
         registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
         registerApplicationService(IndentHelper::class.java, IndentHelperImpl())
         registerCodeStyleSettingsManager()
+
+        val schemeManagerFactory = MockSchemeManagerFactory()
+        registerApplicationService(SchemeManagerFactory::class.java, schemeManagerFactory)
+        registerApplicationService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
     }
 
     private fun registerCodeStyleSettingsManager() {
