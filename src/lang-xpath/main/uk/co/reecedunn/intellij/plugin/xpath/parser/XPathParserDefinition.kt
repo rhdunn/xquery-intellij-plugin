@@ -66,6 +66,7 @@ object XPathParserDefinition : ParserDefinition {
     fun spaceExistenceTypeBetweenTokens(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
         return when {
             isNonDelimiting(left) && isNonDelimiting(right) -> ParserDefinition.SpaceRequirements.MUST
+            left is INCNameType && isNCNamePart(right) -> ParserDefinition.SpaceRequirements.MUST
             else -> ParserDefinition.SpaceRequirements.MAY
         }
     }
@@ -76,6 +77,14 @@ object XPathParserDefinition : ParserDefinition {
             XPathTokenType.INTEGER_LITERAL -> true
             XPathTokenType.DECIMAL_LITERAL -> true
             XPathTokenType.DOUBLE_LITERAL -> true
+            else -> false
+        }
+    }
+
+    private fun isNCNamePart(symbol: IElementType): Boolean {
+        return when (symbol) {
+            XPathTokenType.DOT -> true
+            XPathTokenType.MINUS -> true
             else -> false
         }
     }

@@ -170,6 +170,10 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
             required(XPathTokenType.NCNAME, XPathTokenType.NCNAME)
             required(XPathTokenType.NCNAME, XPathTokenType.K_CHILD) // keyword tokens
             optional(XPathTokenType.NCNAME, XPathTokenType.VARIABLE_INDICATOR) // ':='
+
+            // T is a QName or an NCName and U is "." or "-".
+            required(XPathTokenType.NCNAME, XPathTokenType.DOT)
+            required(XPathTokenType.NCNAME, XPathTokenType.MINUS)
         }
 
         @Test
@@ -182,6 +186,10 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
             required(XPathTokenType.K_CHILD, XPathTokenType.NCNAME)
             required(XPathTokenType.K_CHILD, XPathTokenType.K_CHILD) // keyword tokens
             optional(XPathTokenType.K_CHILD, XPathTokenType.VARIABLE_INDICATOR) // ':='
+
+            // T is a QName or an NCName and U is "." or "-".
+            required(XPathTokenType.K_CHILD, XPathTokenType.DOT)
+            required(XPathTokenType.K_CHILD, XPathTokenType.MINUS)
         }
     }
 }
