@@ -40,6 +40,7 @@ This plugin provides integration with the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references;
 1.  Code folding;
 1.  Find usages;
+1.  Rename refactoring for variables;
 1.  Code completion;
 1.  Parameter information;
 1.  Parameter inlay hints;

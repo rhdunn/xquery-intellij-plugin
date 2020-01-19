@@ -59,6 +59,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -1803,6 +1804,14 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val ref = (qname as PsiElement).reference!!
+                assertThat(ref, `is`(instanceOf(XQueryVariableNameReference::class.java)))
+
+                val renamed = ref.handleElementRename("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat(renamed.text, `is`("lorem-ipsum"))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
 
             @Test

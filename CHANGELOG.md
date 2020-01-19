@@ -2,6 +2,8 @@
 
 ## 1.6 - (In Development)
 
+1.  Rename refactoring support for variables.
+
 References, Resolving and Find Usages:
 
 1.  Support `BracedURILiteral` references (`Q{...}`).
