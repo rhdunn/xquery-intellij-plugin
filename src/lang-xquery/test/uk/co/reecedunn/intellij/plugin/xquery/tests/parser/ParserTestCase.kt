@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition) {
 
     open fun registerModules(manager: MockModuleManager) {}
 

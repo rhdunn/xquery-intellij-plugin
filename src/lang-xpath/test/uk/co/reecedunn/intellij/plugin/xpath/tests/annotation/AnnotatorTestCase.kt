@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase :
-    ParsingTestCase<XPath>("xqy", XPathParserDefinition()) {
+    ParsingTestCase<XPath>("xqy", XPathParserDefinition) {
 
     @BeforeAll
     override fun setUp() {
