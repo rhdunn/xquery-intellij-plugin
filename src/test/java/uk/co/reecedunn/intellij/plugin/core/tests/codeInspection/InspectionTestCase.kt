@@ -37,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition()) {
 
     private val inspectionManager get(): InspectionManager = InspectionManager.getInstance(myProject)
 
