@@ -134,6 +134,9 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
             required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.NCNAME)
             required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.K_CHILD) // keyword tokens
             optional(XPathTokenType.INTEGER_LITERAL, XPathTokenType.VARIABLE_INDICATOR) // ':='
+
+            // T is a numeric literal and U is ".", or vice versa.
+            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.DOT)
         }
 
         @Test
@@ -146,6 +149,9 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
             required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.NCNAME)
             required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.K_CHILD) // keyword tokens
             optional(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.VARIABLE_INDICATOR) // ':='
+
+            // T is a numeric literal and U is ".", or vice versa.
+            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.DOT)
         }
 
         @Test
@@ -158,6 +164,9 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
             required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.NCNAME)
             required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.K_CHILD) // keyword tokens
             optional(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.VARIABLE_INDICATOR) // ':='
+
+            // T is a numeric literal and U is ".", or vice versa.
+            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.DOT)
         }
 
         @Test
@@ -190,6 +199,15 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
             // T is a QName or an NCName and U is "." or "-".
             required(XPathTokenType.K_CHILD, XPathTokenType.DOT)
             required(XPathTokenType.K_CHILD, XPathTokenType.MINUS)
+        }
+
+        @Test
+        @DisplayName("T=.")
+        fun dot() {
+            // T is a numeric literal and U is ".", or vice versa.
+            required(XPathTokenType.DOT, XPathTokenType.INTEGER_LITERAL)
+            required(XPathTokenType.DOT, XPathTokenType.DECIMAL_LITERAL)
+            required(XPathTokenType.DOT, XPathTokenType.DOUBLE_LITERAL)
         }
     }
 }

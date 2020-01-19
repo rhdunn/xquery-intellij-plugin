@@ -67,6 +67,8 @@ object XPathParserDefinition : ParserDefinition {
         return when {
             isNonDelimiting(left) && isNonDelimiting(right) -> ParserDefinition.SpaceRequirements.MUST
             left is INCNameType && isNCNamePart(right) -> ParserDefinition.SpaceRequirements.MUST
+            isNumericLiteral(left) && right === XPathTokenType.DOT -> ParserDefinition.SpaceRequirements.MUST
+            left === XPathTokenType.DOT && isNumericLiteral(right) -> ParserDefinition.SpaceRequirements.MUST
             else -> ParserDefinition.SpaceRequirements.MAY
         }
     }
@@ -85,6 +87,15 @@ object XPathParserDefinition : ParserDefinition {
         return when (symbol) {
             XPathTokenType.DOT -> true
             XPathTokenType.MINUS -> true
+            else -> false
+        }
+    }
+
+    private fun isNumericLiteral(symbol: IElementType): Boolean {
+        return when (symbol) {
+            XPathTokenType.INTEGER_LITERAL -> true
+            XPathTokenType.DECIMAL_LITERAL -> true
+            XPathTokenType.DOUBLE_LITERAL -> true
             else -> false
         }
     }
