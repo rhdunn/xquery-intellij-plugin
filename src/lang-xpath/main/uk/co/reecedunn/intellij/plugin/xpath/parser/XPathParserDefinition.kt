@@ -23,10 +23,12 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
@@ -54,4 +56,27 @@ object XPathParserDefinition : ParserDefinition {
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = XPathImpl(viewProvider)
+
+    override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
+        val leftType = left?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
+        val rightType = right?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
+        return spaceExistenceTypeBetweenTokens(leftType, rightType)
+    }
+
+    fun spaceExistenceTypeBetweenTokens(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
+        return when {
+            isNonDelimiting(left) && isNonDelimiting(right) -> ParserDefinition.SpaceRequirements.MUST
+            else -> ParserDefinition.SpaceRequirements.MAY
+        }
+    }
+
+    private fun isNonDelimiting(symbol: IElementType): Boolean {
+        return when (symbol) {
+            is INCNameType -> true
+            XPathTokenType.INTEGER_LITERAL -> true
+            XPathTokenType.DECIMAL_LITERAL -> true
+            XPathTokenType.DOUBLE_LITERAL -> true
+            else -> false
+        }
+    }
 }

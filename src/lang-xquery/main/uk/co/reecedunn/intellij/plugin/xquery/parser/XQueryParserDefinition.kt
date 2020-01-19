@@ -23,12 +23,14 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.STATE_XQUERY_COMMENT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
@@ -68,4 +70,14 @@ object XQueryParserDefinition : ParserDefinition {
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = XQueryModuleImpl(viewProvider)
+
+    override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
+        val leftType = left?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
+        val rightType = right?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
+        return spaceExistenceTypeBetweenTokens(leftType, rightType)
+    }
+
+    fun spaceExistenceTypeBetweenTokens(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
+        return XPathParserDefinition.spaceExistenceTypeBetweenTokens(left, right)
+    }
 }
