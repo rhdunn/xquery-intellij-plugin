@@ -4,7 +4,6 @@ sourceSets.main.resources.srcDirs += 'main/resources'
 sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
-    compile project(':src:intellij-compat')
     compile project(':src:kotlin-intellij')
     compile project(':src:lang-xdm')
 
