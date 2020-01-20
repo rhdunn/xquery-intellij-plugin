@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.codeStyle
+package com.intellij.compat.psi.codeStyle
 
-typealias ProjectCodeStyleSettingsManagerEx = com.intellij.psi.codeStyle.ProjectCodeStyleSettingsManager
+// IntelliJ >= 2019.3 adds a project constructor parameter.
+typealias ProjectCodeStyleSettingsManager = com.intellij.psi.codeStyle.ProjectCodeStyleSettingsManager

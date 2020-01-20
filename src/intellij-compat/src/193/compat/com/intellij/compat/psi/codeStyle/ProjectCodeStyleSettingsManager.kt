@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.codeStyle
+package com.intellij.compat.psi.codeStyle
 
 import com.intellij.openapi.project.Project
-import com.intellij.psi.codeStyle.ProjectCodeStyleSettingsManager
 
+// IntelliJ >= 2019.3 adds a project constructor parameter.
 @Suppress("UNUSED_PARAMETER")
-class ProjectCodeStyleSettingsManagerEx(project: Project) : ProjectCodeStyleSettingsManager()
+class ProjectCodeStyleSettingsManager(project: Project) : com.intellij.psi.codeStyle.ProjectCodeStyleSettingsManager()
