@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.ide.passwordSafe.impl
+package com.intellij.compat.ide.passwordSafe.impl
 
-import com.intellij.credentialStore.PasswordSafeSettings
 import com.intellij.ide.passwordSafe.PasswordSafe
 import com.intellij.ide.passwordSafe.impl.PasswordSafeImpl
 
-fun createPasswordSafe(): PasswordSafe = PasswordSafeImpl(PasswordSafeSettings())
+// IntelliJ 2019.3 removes the PasswordSafeSettings constructor parameter.
+//
+// The class is final, so cannot be derived from to provide compatibility.
+fun createPasswordSafe(): PasswordSafe = PasswordSafeImpl()
