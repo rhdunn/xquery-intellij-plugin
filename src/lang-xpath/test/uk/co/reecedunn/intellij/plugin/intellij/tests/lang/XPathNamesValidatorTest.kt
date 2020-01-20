@@ -78,4 +78,11 @@ class XPathNamesValidatorTest {
         assertThat(XPathNamesValidator.isKeyword("\$test", null), `is`(false))
         assertThat(XPathNamesValidator.isIdentifier("\$test", null), `is`(false))
     }
+
+    @Test
+    @DisplayName("multiple tokens")
+    fun multipleTokens() {
+        assertThat(XPathNamesValidator.isKeyword("lorem ipsum", null), `is`(false))
+        assertThat(XPathNamesValidator.isIdentifier("lorem ipsum", null), `is`(false))
+    }
 }
