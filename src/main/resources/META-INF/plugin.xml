@@ -25,6 +25,11 @@
       <li>Log viewer for BaseX and MarkLogic.</li>
       <li>Built-in namespace and function support for BaseX, eXist-db, MarkLogic, and Saxon.</li>
     </ol>
+    <p>XPath and XSLT:</p>
+    <ol>
+      <li>XSLT 3.0 XMLSchema support.</li>
+      <li>Experimental XPath support when the XPathView plugin is disabled.</li>
+    </ol>
     <p>IntelliJ integration:</p>
     <ol>
       <li>Robust syntax highlighting and error reporting.</li>
@@ -41,11 +46,6 @@
       <li>Paired brace matching.</li>
       <li>Commenting code.</li>
       <li>Integrated function documentation ("Quick Documentation", Ctrl+Q).</li>
-    </ol>
-    <p>XPath and XSLT:</p>
-    <ol>
-      <li>XSLT 3.0 XMLSchema support.</li>
-      <li>Experimental XPath support when the XPathView plugin is disabled.</li>
     </ol>
   ]]></description>
 
