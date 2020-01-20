@@ -6,6 +6,8 @@
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
 
+    <lang.namesValidator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.refactoring.XPathNamesValidator"/>
+
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
     <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
 
