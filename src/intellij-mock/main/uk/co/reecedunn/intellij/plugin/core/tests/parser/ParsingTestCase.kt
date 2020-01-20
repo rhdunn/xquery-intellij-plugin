@@ -19,6 +19,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.parser
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
+import com.intellij.compat.psi.impl.PsiCachedValuesFactory
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
@@ -64,7 +65,6 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.compat.psi.impl.PsiCachedValuesFactory
 import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree

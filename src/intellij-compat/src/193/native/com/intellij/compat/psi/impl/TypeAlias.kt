@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.psi.impl
+package com.intellij.compat.psi.impl
 
-import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiManager
-
-class PsiCachedValuesFactory(project: Project):
-    com.intellij.psi.impl.PsiCachedValuesFactory(PsiManager.getInstance(project))
+// IntelliJ >= 2019.3 changes the constructor parameter to a Project instance.
+typealias PsiCachedValuesFactory = com.intellij.psi.impl.PsiCachedValuesFactory
