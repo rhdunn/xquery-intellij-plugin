@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.documentation
 
+import com.intellij.compat.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.compat.lang.documentation.AbstractDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle

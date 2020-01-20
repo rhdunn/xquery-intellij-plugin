@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.lang.documentation
+package com.intellij.compat.lang.documentation
 
 // IntelliJ >= 2019.3 support generateHoverDoc
 typealias AbstractDocumentationProvider = com.intellij.lang.documentation.AbstractDocumentationProvider
