@@ -2,8 +2,6 @@
 
 ## 1.6 - (In Development)
 
-1.  Rename refactoring support for variables.
-
 References, Resolving and Find Usages:
 
 1.  Support `BracedURILiteral` references (`Q{...}`).
@@ -16,6 +14,7 @@ References, Resolving and Find Usages:
 
 IntelliJ Integration:
 
+1.  Rename refactoring support for variables and functions.
 1.  Implement inlay parameter hints for XQuery function calls and named arrow function expressions.
 1.  Support quick documentation (Ctrl+Q) for W3C XQuery functions.
 1.  Support quick documentation (Ctrl+Q) for MarkLogic modules.

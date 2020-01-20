@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -33,4 +34,8 @@ class XPathFunctionNameReference(element: XPathEQName, range: TextRange) :
     }
 
     override fun getVariants(): Array<Any> = arrayOf()
+
+    override fun handleElementRename(newElementName: String): PsiElement {
+        return (element as PsiNamedElement).setName(newElementName)
+    }
 }

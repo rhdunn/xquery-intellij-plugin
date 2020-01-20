@@ -55,6 +55,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
@@ -1804,14 +1805,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
-
-                val ref = (qname as PsiElement).reference!!
-                assertThat(ref, `is`(instanceOf(XQueryVariableNameReference::class.java)))
-
-                val renamed = ref.handleElementRename("lorem-ipsum")
-                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
-                assertThat(renamed.text, `is`("lorem-ipsum"))
-                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
 
             @Test
@@ -1859,6 +1852,20 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
+
+                val ref = (expr.variableName as PsiElement).reference!!
+                assertThat(ref, `is`(instanceOf(XQueryVariableNameReference::class.java)))
+
+                val renamed = ref.handleElementRename("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat(renamed.text, `is`("lorem-ipsum"))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
         }
     }
@@ -2012,6 +2019,20 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathFunctionCall>("test()")[0] as XdmFunctionReference
+
+                val ref = (expr.functionName as PsiElement).reference!!
+                assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
+
+                val renamed = ref.handleElementRename("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat(renamed.text, `is`("lorem-ipsum"))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+            }
         }
     }
 
@@ -2084,6 +2105,20 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathNamedFunctionRef>("test#1")[0] as XdmFunctionReference
+
+                val ref = (expr.functionName as PsiElement).reference!!
+                assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
+
+                val renamed = ref.handleElementRename("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat(renamed.text, `is`("lorem-ipsum"))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
         }
     }
@@ -3831,6 +3866,20 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathArrowFunctionSpecifier>("1 => test()")[0] as XdmFunctionReference
+
+                val ref = (expr.functionName as PsiElement).reference!!
+                assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
+
+                val renamed = ref.handleElementRename("lorem-ipsum")
+                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                assertThat(renamed.text, `is`("lorem-ipsum"))
+                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
             }
         }
     }

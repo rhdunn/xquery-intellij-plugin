@@ -1409,6 +1409,15 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
+
+                val ref = (expr.variableName as PsiElement).reference
+                assertThat(ref, `is`(nullValue()))
+            }
         }
     }
 
@@ -1508,6 +1517,15 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("true"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathFunctionCall>("test()")[0] as XdmFunctionReference
+
+                val ref = (expr.functionName as PsiElement).reference
+                assertThat(ref, `is`(nullValue()))
+            }
         }
 
         @Nested
@@ -1589,6 +1607,15 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("true"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathNamedFunctionRef>("test#1")[0] as XdmFunctionReference
+
+                val ref = (expr.functionName as PsiElement).reference
+                assertThat(ref, `is`(nullValue()))
             }
         }
     }
@@ -2252,6 +2279,15 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("reference rename")
+            fun referenceRename() {
+                val expr = parse<XPathArrowFunctionSpecifier>("1 => test()")[0] as XdmFunctionReference
+
+                val ref = (expr.functionName as PsiElement).reference
+                assertThat(ref, `is`(nullValue()))
             }
         }
     }
