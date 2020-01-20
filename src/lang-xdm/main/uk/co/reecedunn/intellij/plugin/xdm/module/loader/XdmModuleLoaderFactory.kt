@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
+import com.intellij.compat.openapi.extensions.instantiateBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
-import uk.co.reecedunn.compat.extensions.instantiateBean
 
 interface XdmModuleLoaderFactory {
     companion object {

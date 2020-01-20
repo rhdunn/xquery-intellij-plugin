@@ -5,7 +5,7 @@ versions of IntelliJ.
 
 -----
 
-Copyright (C) 2020 Reece H. Dunn
+Copyright (C) 2019-2020 Reece H. Dunn
 
 The IntelliJ Compatibility Library is licensed under the [Apache 2.0](LICENSE)
 license.

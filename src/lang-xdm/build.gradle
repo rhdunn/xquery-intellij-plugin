@@ -6,6 +6,7 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 
 
 dependencies {
+    compile project(':src:intellij-compat')
     compile project(':src:lang-core')
 
     testCompile project(':src:intellij-mock')
