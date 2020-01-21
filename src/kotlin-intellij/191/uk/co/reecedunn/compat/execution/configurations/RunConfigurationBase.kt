@@ -16,7 +16,6 @@
 package uk.co.reecedunn.compat.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.*
 import org.jdom.Element
@@ -43,8 +42,4 @@ private val serializer = object : XmlSerializerImpl.XmlSerializerBase() {
         beanBinding.init(aClass, this)
         return beanBinding
     }
-}
-
-fun serializeConfigurationInto(configuration: RunConfiguration, element: Element) {
-    com.intellij.execution.impl.serializeConfigurationInto(configuration, element)
 }
