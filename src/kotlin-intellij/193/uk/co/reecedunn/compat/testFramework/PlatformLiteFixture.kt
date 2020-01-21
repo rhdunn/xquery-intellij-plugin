@@ -87,17 +87,4 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
     ) {
         registerExtensionPoint(area.extensionArea, extensionPointName, aClass)
     }
-
-    @Suppress("UNCHECKED_CAST")
-    fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T): T {
-        val old = container.getComponentInstance(key)
-        container.unregisterComponent(key)
-        container.registerComponentInstance(key, implementation)
-
-        return old as T
-    }
-
-    fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
-        return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
-    }
 }

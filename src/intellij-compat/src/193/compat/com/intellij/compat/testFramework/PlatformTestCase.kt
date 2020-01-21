@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +21,12 @@ import com.intellij.mock.MockApplicationEx
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
+import org.picocontainer.MutablePicoContainer
 
 abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     // region Application
@@ -35,14 +38,6 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
         Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
         return app
-    }
-
-    fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        val application = ApplicationManager.getApplication() as MockApplicationEx
-        application.registerService(aClass, `object`)
-        Disposer.register(testRootDisposable, Disposable {
-            application.picoContainer.unregisterComponent(aClass.name)
-        })
     }
 
     // endregion
@@ -72,6 +67,33 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         } finally {
             clearFields(this)
         }
+    }
+
+    // endregion
+    // region Registering Application Services
+
+    fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
+        val application = ApplicationManager.getApplication() as MockApplicationEx
+        application.registerService(aClass, `object`)
+        Disposer.register(testRootDisposable, Disposable {
+            application.picoContainer.unregisterComponent(aClass.name)
+        })
+    }
+
+    // endregion
+    // region Registering Component Instances
+
+    fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T): T {
+        val old = container.getComponentInstance(key)
+        container.unregisterComponent(key)
+        container.registerComponentInstance(key, implementation)
+
+        @Suppress("UNCHECKED_CAST")
+        return old as T
+    }
+
+    fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
+        return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
     }
 
     // endregion

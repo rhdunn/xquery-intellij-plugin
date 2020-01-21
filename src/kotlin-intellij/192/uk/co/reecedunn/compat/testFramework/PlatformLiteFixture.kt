@@ -16,11 +16,9 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.testFramework.PlatformTestUtil
-import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
@@ -73,18 +71,5 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
         aClass: Class<out T>
     ) {
         registerExtensionPoint(Extensions.getArea(area), extensionPointName, aClass)
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T): T {
-        val old = container.getComponentInstance(key)
-        container.unregisterComponent(key)
-        container.registerComponentInstance(key, implementation)
-
-        return old as T
-    }
-
-    fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
-        return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
     }
 }
