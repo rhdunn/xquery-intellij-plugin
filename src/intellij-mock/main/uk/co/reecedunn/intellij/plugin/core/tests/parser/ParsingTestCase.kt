@@ -20,6 +20,7 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.psi.impl.PsiCachedValuesFactory
+import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
@@ -99,7 +100,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         // IntelliJ ParsingTestCase setUp
         val app = initApplication()
         val appContainer = app.picoContainer
-        registerProgressManager(appContainer)
+        appContainer.registerProgressManager()
 
         myProject = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)

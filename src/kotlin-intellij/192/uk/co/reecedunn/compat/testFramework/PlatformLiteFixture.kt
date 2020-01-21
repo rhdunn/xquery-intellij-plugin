@@ -18,38 +18,14 @@ package uk.co.reecedunn.compat.testFramework
 
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
-import com.intellij.openapi.progress.ProgressManager
-import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.testFramework.PlatformTestUtil
 import org.picocontainer.MutablePicoContainer
-import org.picocontainer.PicoContainer
-import org.picocontainer.PicoInitializationException
-import org.picocontainer.PicoIntrospectionException
-import org.picocontainer.defaults.AbstractComponentAdapter
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
     protected fun registerFileBasedIndex() {
         // Not needed for using the XML DOM on IntelliJ <= 2019.2
-    }
-
-    protected fun registerProgressManager(appContainer: MutablePicoContainer) {
-        val component = appContainer.getComponentAdapter(ProgressManager::class.java.name)
-        if (component == null) {
-            appContainer.registerComponent(object :
-                AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
-
-                @Throws(PicoInitializationException::class, PicoIntrospectionException::class)
-                override fun getComponentInstance(container: PicoContainer): Any {
-                    return ProgressManagerImpl()
-                }
-
-                @Throws(PicoIntrospectionException::class)
-                override fun verify(container: PicoContainer) {
-                }
-            })
-        }
     }
 
     @Suppress("UnstableApiUsage")
