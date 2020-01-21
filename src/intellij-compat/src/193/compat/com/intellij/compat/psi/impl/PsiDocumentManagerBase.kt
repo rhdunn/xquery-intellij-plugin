@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.psi.impl
+package com.intellij.compat.psi.impl
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.TransactionId
@@ -31,6 +31,8 @@ private class DocumentCommitProcessorImpl : DocumentCommitProcessor {
     }
 }
 
+// IntelliJ >= 2019.3 changes the constructor parameter to a Project instance.
+// IntelliJ >= 2019.3 adds a commitAllDocumentsUnderProgress method.
 abstract class PsiDocumentManagerBase(project: Project) :
     com.intellij.psi.impl.PsiDocumentManagerBase(
         project,
