@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.execution.configurations
+package com.intellij.compat.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.project.Project
-import com.intellij.util.xmlb.*
+import com.intellij.util.xmlb.BeanBinding
+import com.intellij.util.xmlb.Binding
+import com.intellij.util.xmlb.XmlSerializerImpl
 import org.jdom.Element
 import java.lang.reflect.Type
 

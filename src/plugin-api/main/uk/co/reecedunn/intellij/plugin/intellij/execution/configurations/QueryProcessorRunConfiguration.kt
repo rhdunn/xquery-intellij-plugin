@@ -30,7 +30,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
-import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
+import com.intellij.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
