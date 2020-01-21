@@ -6,6 +6,6 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="uk.co.reecedunn.compat.fileTypes.FileTypeFactory"/>
+    <fileTypeFactory implementation="com.intellij.compat.openapi.fileTypes.FileTypeFactory"/>
   </extensions>
 </idea-plugin>
