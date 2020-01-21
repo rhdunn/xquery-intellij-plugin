@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lang
 
+import com.intellij.compat.openapi.fileTypes.acceptsCharSequence
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Key
-import uk.co.reecedunn.compat.fileTypes.acceptsCharSequence
 
 interface LanguageData {
     companion object {

@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.fileChooser
 
+import com.intellij.compat.openapi.fileTypes.acceptsCharSequence
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.fileChooser.FileElement
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.compat.fileTypes.acceptsCharSequence
 
 class FileNameMatcherDescriptor(private val associations: List<FileNameMatcher>) :
     FileChooserDescriptor(true, false, false, true, false, false) {

@@ -16,5 +16,7 @@ else {
 }
 
 dependencies {
+    compile project(':src:intellij-compat')
+
     testCompile project(':src:kotlin-hamcrest')
 }

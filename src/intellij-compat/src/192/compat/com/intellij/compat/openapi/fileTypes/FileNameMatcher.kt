@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.fileTypes
+package com.intellij.compat.openapi.fileTypes
 
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import org.jetbrains.annotations.NonNls
 
 // IntelliJ >= 2019.2 deprecates FileNameMatcher#accepts.
 fun List<FileNameMatcher>.acceptsCharSequence(@NonNls fileName: CharSequence): Boolean {
-    return find { association -> association.acceptsCharSequence(fileName) } != null
+    return find { association -> association.accept(fileName.toString()) } != null
 }
