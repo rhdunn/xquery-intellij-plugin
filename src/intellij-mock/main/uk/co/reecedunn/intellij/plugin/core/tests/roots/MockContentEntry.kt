@@ -22,10 +22,11 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
-import uk.co.reecedunn.compat.roots.ContentEntry
+import com.intellij.compat.openapi.roots.ContentEntry
 
 @Suppress("NonExtendableApiUsage")
-class MockContentEntry(private val file: VirtualFile) : ContentEntry {
+class MockContentEntry(private val file: VirtualFile) :
+    ContentEntry {
     override fun setExcludePatterns(patterns: MutableList<String>) {
         TODO("not implemented")
     }

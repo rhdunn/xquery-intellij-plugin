@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.roots
+package com.intellij.compat.openapi.roots
 
-interface ContentEntry : com.intellij.openapi.roots.ContentEntry
+import com.intellij.openapi.roots.ModuleRootModel
+
+// IntelliJ 2019.2 added the getRootModel method.
+interface ContentEntry : com.intellij.openapi.roots.ContentEntry {
+    fun getRootModel(): ModuleRootModel
+}
