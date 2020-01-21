@@ -16,7 +16,6 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.mock.MockApplication
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
@@ -33,16 +32,6 @@ import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
-    private var myApp: MockApplication? = null
-
-    private fun getApplication(): MockApplication = myApp!!
-
-    fun initApplication(): MockApplication {
-        val app = MockApplication.setUp(testRootDisposable)
-        myApp = app
-        return app
-    }
-
     @Suppress("UnstableApiUsage")
     protected fun registerFileBasedIndex() {
         myProject.registerService(DirectoryIndex::class.java, DirectoryIndexImpl(myProject))
@@ -128,9 +117,5 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
 
     fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
         return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
-    }
-
-    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        getApplication().registerService(aClass, `object`, testRootDisposable)
     }
 }

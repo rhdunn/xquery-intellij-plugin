@@ -15,9 +15,25 @@
  */
 package com.intellij.compat.testFramework
 
+import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 
 abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
+    // region Application
+
+    private var myApp: MockApplication? = null
+
+    fun initApplication(): MockApplication {
+        val app = MockApplication.setUp(testRootDisposable)
+        myApp = app
+        return app
+    }
+
+    fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
+        myApp!!.registerService(aClass, `object`, testRootDisposable)
+    }
+
+    // endregion
     // region Project
 
     private var myProjectEx: MockProjectEx? = null
@@ -25,6 +41,9 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         set(value) {
             myProjectEx = value
         }
+
+    // endregion
+    // region JUnit
 
     @Throws(Exception::class)
     override fun tearDown() {

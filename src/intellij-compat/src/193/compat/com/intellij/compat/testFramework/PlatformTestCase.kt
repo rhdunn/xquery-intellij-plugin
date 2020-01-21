@@ -15,9 +15,37 @@
  */
 package com.intellij.compat.testFramework
 
+import com.intellij.mock.MockApplication
+import com.intellij.mock.MockApplicationEx
 import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.Getter
 
 abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
+    // region Application
+
+    private var myApp: MockApplication? = null
+
+    fun initApplication(): MockApplication {
+        val app = MockApplicationEx(testRootDisposable)
+        ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
+        Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
+        return app
+    }
+
+    fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
+        val application = ApplicationManager.getApplication() as MockApplicationEx
+        application.registerService(aClass, `object`)
+        Disposer.register(testRootDisposable, Disposable {
+            application.picoContainer.unregisterComponent(aClass.name)
+        })
+    }
+
+    // endregion
     // region Project
 
     private var myProjectEx: MockProjectEx? = null
@@ -25,6 +53,16 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         set(value) {
             myProjectEx = value
         }
+
+    // endregion
+    // region JUnit
+
+    @Suppress("UnstableApiUsage")
+    @Throws(Exception::class)
+    override fun setUp() {
+        super.setUp()
+        Extensions.cleanRootArea(testRootDisposable)
+    }
 
     @Throws(Exception::class)
     override fun tearDown() {

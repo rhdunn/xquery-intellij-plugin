@@ -16,16 +16,10 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.mock.MockApplicationEx
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
-import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
-import com.intellij.openapi.util.Disposer
-import com.intellij.openapi.util.Getter
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.testFramework.PlatformTestUtil
 import org.picocontainer.MutablePicoContainer
@@ -36,24 +30,6 @@ import org.picocontainer.defaults.AbstractComponentAdapter
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
-    @Suppress("UnstableApiUsage")
-    @Throws(Exception::class)
-    override fun setUp() {
-        super.setUp()
-        Extensions.cleanRootArea(testRootDisposable)
-    }
-
-    fun getApplication(): MockApplicationEx {
-        return ApplicationManager.getApplication() as MockApplicationEx
-    }
-
-    fun initApplication(): MockApplicationEx {
-        val app = MockApplicationEx(testRootDisposable)
-        ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
-        Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
-        return app
-    }
-
     protected fun registerFileBasedIndex() {
         // Not needed for using the XML DOM on IntelliJ <= 2019.2
     }
@@ -143,12 +119,5 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
 
     fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
         return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
-    }
-
-    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        getApplication().registerService(aClass, `object`)
-        Disposer.register(testRootDisposable, Disposable {
-            getApplication().picoContainer.unregisterComponent(aClass.name)
-        })
     }
 }
