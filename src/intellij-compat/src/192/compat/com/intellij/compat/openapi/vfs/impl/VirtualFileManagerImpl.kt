@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.vfs
+package com.intellij.compat.openapi.vfs.impl
 
+// IntelliJ >= 2019.2 changes the fileSystems parameter to a List.
 typealias VirtualFileManagerImpl = com.intellij.openapi.vfs.impl.VirtualFileManagerImpl

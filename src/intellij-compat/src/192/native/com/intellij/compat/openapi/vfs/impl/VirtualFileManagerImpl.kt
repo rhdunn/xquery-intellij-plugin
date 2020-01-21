@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.vfs
+package com.intellij.compat.openapi.vfs.impl
 
 import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.util.messages.MessageBus
 
+// IntelliJ >= 2019.2 changes the fileSystems parameter to a List.
 class VirtualFileManagerImpl(fileSystems: Array<VirtualFileSystem>, bus: MessageBus) :
     com.intellij.openapi.vfs.impl.VirtualFileManagerImpl(fileSystems.toMutableList(), bus)

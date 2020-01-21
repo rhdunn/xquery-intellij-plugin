@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
+import com.intellij.compat.openapi.vfs.impl.VirtualFileManagerImpl
 import com.intellij.compat.semantic.SemServiceImpl
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.injection.InjectedLanguageManager
@@ -43,7 +44,6 @@ import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
-import uk.co.reecedunn.compat.vfs.VirtualFileManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
