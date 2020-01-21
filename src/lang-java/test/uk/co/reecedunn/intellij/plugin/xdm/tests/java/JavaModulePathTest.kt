@@ -38,7 +38,7 @@ private class JavaModulePathTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
-        myProjectEx = MockProjectEx(testRootDisposable)
+        myProject = MockProjectEx(testRootDisposable)
     }
 
     @AfterAll

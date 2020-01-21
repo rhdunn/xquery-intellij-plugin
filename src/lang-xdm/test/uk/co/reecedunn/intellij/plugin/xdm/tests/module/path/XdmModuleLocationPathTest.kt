@@ -41,7 +41,7 @@ private class XdmModuleLocationPathTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
-        myProjectEx = MockProjectEx(testRootDisposable)
+        myProject = MockProjectEx(testRootDisposable)
     }
 
     @AfterAll

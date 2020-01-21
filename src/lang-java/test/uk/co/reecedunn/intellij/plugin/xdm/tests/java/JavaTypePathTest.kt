@@ -38,7 +38,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
-        myProjectEx = MockProjectEx(testRootDisposable)
+        myProject = MockProjectEx(testRootDisposable)
         myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
     }
 

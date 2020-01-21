@@ -17,7 +17,6 @@
 package uk.co.reecedunn.compat.testFramework
 
 import com.intellij.mock.MockApplicationEx
-import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
@@ -35,10 +34,7 @@ import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
 import java.lang.reflect.Modifier
 
-abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
-    protected var myProjectEx: MockProjectEx? = null
-    protected val myProject: MockProjectEx get() = myProjectEx!!
-
+abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
     @Suppress("UnstableApiUsage")
     @Throws(Exception::class)
     override fun setUp() {
@@ -55,16 +51,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
         Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
         return app
-    }
-
-    @Throws(Exception::class)
-    override fun tearDown() {
-        myProjectEx = null
-        try {
-            super.tearDown()
-        } finally {
-            clearFields(this)
-        }
     }
 
     protected fun registerFileBasedIndex() {

@@ -101,7 +101,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         val appContainer = app.picoContainer
         registerProgressManager(appContainer)
 
-        myProjectEx = MockProjectEx(testRootDisposable)
+        myProject = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
         registerComponentInstance(appContainer, MessageBus::class.java, app.messageBus)

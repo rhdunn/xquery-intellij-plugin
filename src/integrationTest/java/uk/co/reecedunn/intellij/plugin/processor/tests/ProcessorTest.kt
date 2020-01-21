@@ -53,7 +53,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
-        myProjectEx = MockProjectEx(testRootDisposable)
+        myProject = MockProjectEx(testRootDisposable)
         registerApplicationService(PasswordSafe::class.java, createPasswordSafe())
 
         registerExtensionPoint(QueryProcessorApi.EP_NAME, QueryProcessorApi::class.java)

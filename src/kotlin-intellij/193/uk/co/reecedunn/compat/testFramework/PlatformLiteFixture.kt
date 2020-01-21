@@ -17,7 +17,6 @@
 package uk.co.reecedunn.compat.testFramework
 
 import com.intellij.mock.MockApplication
-import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
@@ -33,10 +32,7 @@ import com.intellij.util.indexing.FileBasedIndexImpl
 import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
-abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
-    protected var myProjectEx: MockProjectEx? = null
-    protected val myProject: MockProjectEx get() = myProjectEx!!
-
+abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
     private var myApp: MockApplication? = null
 
     private fun getApplication(): MockApplication = myApp!!
@@ -45,16 +41,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         val app = MockApplication.setUp(testRootDisposable)
         myApp = app
         return app
-    }
-
-    @Throws(Exception::class)
-    override fun tearDown() {
-        myProjectEx = null
-        try {
-            super.tearDown()
-        } finally {
-            clearFields(this)
-        }
     }
 
     @Suppress("UnstableApiUsage")
