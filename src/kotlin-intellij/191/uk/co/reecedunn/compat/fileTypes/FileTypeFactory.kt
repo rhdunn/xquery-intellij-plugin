@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.compat.fileTypes
 
+import com.intellij.compat.openapi.fileTypes.FileTypeBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.fileTypes.FileTypeConsumer
 import com.intellij.openapi.extensions.ExtensionPointName

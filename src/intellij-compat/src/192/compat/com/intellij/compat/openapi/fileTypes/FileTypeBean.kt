@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.fileTypes
+package com.intellij.compat.openapi.fileTypes
 
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
 import com.intellij.util.xmlb.annotations.Attribute
