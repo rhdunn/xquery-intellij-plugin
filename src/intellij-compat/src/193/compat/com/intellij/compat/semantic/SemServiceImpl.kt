@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.semantic
+package com.intellij.compat.semantic
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiManager
 
+// IntelliJ >= 2019.3 changes the constructor parameter to a Project instance.
 class SemServiceImpl(project: Project) :
     com.intellij.semantic.SemServiceImpl(project, PsiManager.getInstance(project))

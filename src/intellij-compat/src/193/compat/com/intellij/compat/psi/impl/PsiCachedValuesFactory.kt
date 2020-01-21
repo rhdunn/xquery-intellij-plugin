@@ -19,6 +19,5 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiManager
 
 // IntelliJ >= 2019.3 changes the constructor parameter to a Project instance.
-
 class PsiCachedValuesFactory(project: Project) :
     com.intellij.psi.impl.PsiCachedValuesFactory(PsiManager.getInstance(project))
