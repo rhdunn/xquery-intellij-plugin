@@ -96,20 +96,20 @@
 
   <idea-version since-build="161"/>
 
-  <xi:include href="META-INF/plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <xi:include href="META-INF/plugin-lang-sjs.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-lang-sjs.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <xi:include href="META-INF/plugin-inspections-ijvs.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-inspections-ijvs.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <xi:include href="META-INF/plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="META-INF/plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable groupId="language" displayName="XQuery and XSLT" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XdmProfileConfigurable">
