@@ -20,6 +20,7 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.psi.impl.PsiCachedValuesFactory
+import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerCodeStyleSettingsModifier
 import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.ide.startup.impl.StartupManagerImpl
@@ -66,7 +67,6 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx

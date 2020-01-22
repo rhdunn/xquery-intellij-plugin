@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests.module.path
 
+import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.mock.MockProjectEx
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue

@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests.java
 
+import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.mock.MockProjectEx
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext

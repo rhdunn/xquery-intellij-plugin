@@ -25,7 +25,7 @@ import org.hamcrest.Matcher
 import org.junit.Assume
 import org.junit.jupiter.api.*
 import com.intellij.compat.ide.passwordSafe.impl.createPasswordSafe
-import uk.co.reecedunn.compat.testFramework.PlatformLiteFixture
+import com.intellij.compat.testFramework.PlatformLiteFixture
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest
