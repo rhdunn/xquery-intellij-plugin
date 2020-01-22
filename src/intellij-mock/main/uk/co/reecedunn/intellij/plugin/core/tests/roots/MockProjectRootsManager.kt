@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.roots
 
+import com.intellij.compat.openapi.roots.ProjectRootManager
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.OrderEnumerator
 import com.intellij.openapi.roots.ProjectFileIndex
-import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 @Suppress("NonExtendableApiUsage")
 class MockProjectRootsManager : ProjectRootManager() {
     override fun setProjectSdkName(name: String) {
+        TODO("not implemented")
+    }
+
+    override fun setProjectSdkName(name: String, sdkTypeName: String) {
         TODO("not implemented")
     }
 
@@ -38,6 +42,10 @@ class MockProjectRootsManager : ProjectRootManager() {
     }
 
     override fun getContentRootsFromAllModules(): Array<VirtualFile> {
+        TODO("not implemented")
+    }
+
+    override fun getProjectSdkTypeName(): String? {
         TODO("not implemented")
     }
 
