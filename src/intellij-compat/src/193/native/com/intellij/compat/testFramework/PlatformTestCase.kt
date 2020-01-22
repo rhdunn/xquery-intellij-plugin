@@ -19,6 +19,10 @@ package com.intellij.compat.testFramework
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.components.ComponentManager
+import com.intellij.openapi.extensions.AreaInstance
+import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.extensions.ExtensionsArea
 import org.picocontainer.MutablePicoContainer
 
 abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
@@ -36,7 +40,8 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     // region Project
 
     private var myProjectEx: MockProjectEx? = null
-    protected var myProject: MockProjectEx get() = myProjectEx!!
+    protected var myProject: MockProjectEx
+        get() = myProjectEx!!
         set(value) {
             myProjectEx = value
         }
@@ -75,6 +80,23 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
 
     fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
         return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
+    }
+
+    // endregion
+    // region Registering Extensions
+
+    private fun <T : Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
+        area.getExtensionPoint<T>(name.name).registerExtension(extension, testRootDisposable)
+    }
+
+    fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
+        registerExtension(Extensions.getRootArea(), extensionPointName, extension)
+    }
+
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("UnstableApiUsage")
+    fun <T : Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
+        registerExtension(area.extensionArea, name, extension)
     }
 
     // endregion

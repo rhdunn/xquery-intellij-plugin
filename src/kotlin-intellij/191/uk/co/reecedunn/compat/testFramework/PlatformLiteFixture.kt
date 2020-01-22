@@ -17,7 +17,6 @@
 package uk.co.reecedunn.compat.testFramework
 
 import com.intellij.openapi.extensions.*
-import com.intellij.testFramework.PlatformTestUtil
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
@@ -36,21 +35,6 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
-    }
-
-    protected fun <T: Any> registerExtension(extensionPointName: ExtensionPointName<T>, t: T) {
-        registerExtension(Extensions.getRootArea(), extensionPointName, t)
-    }
-
-    @Suppress("UnstableApiUsage")
-    fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, t: T) {
-        registerExtensionPoint(area, name, t.javaClass)
-        PlatformTestUtil.registerExtension(area, name, t, testRootDisposable)
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    fun <T: Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
-        registerExtension(Extensions.getArea(area), name, extension)
     }
 
     protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {

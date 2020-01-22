@@ -22,10 +22,14 @@ import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
+import com.intellij.openapi.extensions.AreaInstance
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.extensions.ExtensionsArea
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
+import com.intellij.testFramework.PlatformTestUtil
 import org.picocontainer.MutablePicoContainer
 
 abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
@@ -44,7 +48,8 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     // region Project
 
     private var myProjectEx: MockProjectEx? = null
-    protected var myProject: MockProjectEx get() = myProjectEx!!
+    protected var myProject: MockProjectEx
+        get() = myProjectEx!!
         set(value) {
             myProjectEx = value
         }
@@ -94,6 +99,23 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
 
     fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
         return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
+    }
+
+    // endregion
+    // region Registering Extensions
+
+    @Suppress("UnstableApiUsage")
+    private fun <T : Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
+        PlatformTestUtil.registerExtension(area, name, extension, testRootDisposable)
+    }
+
+    fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
+        registerExtension(Extensions.getRootArea(), extensionPointName, extension)
+    }
+
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    fun <T : Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
+        registerExtension(Extensions.getArea(area), name, extension)
     }
 
     // endregion

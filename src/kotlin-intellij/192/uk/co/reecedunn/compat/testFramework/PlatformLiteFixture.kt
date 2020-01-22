@@ -18,7 +18,6 @@ package uk.co.reecedunn.compat.testFramework
 
 import com.intellij.openapi.extensions.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
-import com.intellij.testFramework.PlatformTestUtil
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
@@ -29,21 +28,6 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
     @Suppress("UnstableApiUsage")
     protected fun registerCodeStyleSettingsModifier() {
         registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
-    }
-
-    protected fun <T: Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
-        registerExtension(Extensions.getRootArea(), extensionPointName, extension)
-    }
-
-    @Suppress("UnstableApiUsage")
-    fun <T: Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
-        registerExtensionPoint(area, name, extension.javaClass)
-        PlatformTestUtil.registerExtension(area, name, extension, testRootDisposable)
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    fun <T: Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
-        registerExtension(Extensions.getArea(area), name, extension)
     }
 
     protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {

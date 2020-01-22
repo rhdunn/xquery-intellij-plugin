@@ -16,7 +16,6 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.roots.ProjectFileIndex
@@ -26,7 +25,6 @@ import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.util.indexing.FileBasedIndex
 import com.intellij.util.indexing.FileBasedIndexImpl
-import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
@@ -40,21 +38,6 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
     @Suppress("UnstableApiUsage")
     protected fun registerCodeStyleSettingsModifier() {
         registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
-    }
-
-    protected fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
-        registerExtension(Extensions.getRootArea(), extensionPointName, extension)
-    }
-
-    private fun <T : Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
-        registerExtensionPoint(area, name, extension.javaClass)
-        area.getExtensionPoint<T>(name.name).registerExtension(extension, testRootDisposable)
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage")
-    fun <T : Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
-        registerExtension(area.extensionArea, name, extension)
     }
 
     protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
