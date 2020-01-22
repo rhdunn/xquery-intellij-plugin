@@ -18,7 +18,7 @@ package com.intellij.compat.testFramework
 import com.intellij.openapi.extensions.ExtensionPointName
 
 @Suppress("UnstableApiUsage")
-fun PlatformTestCase.registerCodeStyleSettingsModifier() {
+fun PlatformLiteFixture.registerCodeStyleSettingsModifier() {
     try {
         val epClass = Class.forName("com.intellij.application.options.CodeStyleCachingUtil")
         val epname = epClass.getDeclaredField("CODE_STYLE_SETTINGS_MODIFIER_EP_NAME")

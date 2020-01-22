@@ -18,6 +18,6 @@ package com.intellij.compat.testFramework
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 
 @Suppress("UnstableApiUsage")
-fun PlatformTestCase.registerCodeStyleSettingsModifier() {
+fun PlatformLiteFixture.registerCodeStyleSettingsModifier() {
     registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
 }

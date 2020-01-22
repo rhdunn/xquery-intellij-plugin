@@ -39,6 +39,6 @@ fun MutablePicoContainer.registerProgressManager() {
     }
 }
 
-fun PlatformTestCase.registerFileBasedIndex() {
+fun PlatformLiteFixture.registerFileBasedIndex() {
     // Not needed for using the XML DOM on IntelliJ <= 2019.2
 }

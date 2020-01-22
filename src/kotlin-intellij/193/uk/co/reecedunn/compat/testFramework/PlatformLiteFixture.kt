@@ -16,4 +16,4 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-typealias PlatformLiteFixture = com.intellij.compat.testFramework.PlatformTestCase
+typealias PlatformLiteFixture = com.intellij.compat.testFramework.PlatformLiteFixture

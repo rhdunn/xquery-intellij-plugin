@@ -17,23 +17,29 @@
 package com.intellij.compat.testFramework
 
 import com.intellij.mock.MockApplication
+import com.intellij.mock.MockApplicationEx
 import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
-import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
+import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.Getter
+import com.intellij.testFramework.PlatformTestUtil
 import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
-abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
+abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
     // region Application
 
     private var myApp: MockApplication? = null
 
     fun initApplication(): MockApplication {
-        val app = MockApplication.setUp(testRootDisposable)
-        myApp = app
+        val app = MockApplicationEx(testRootDisposable)
+        ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
+        Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
         return app
     }
 
@@ -52,6 +58,13 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     // endregion
     // region JUnit
 
+    @Suppress("UnstableApiUsage")
+    @Throws(Exception::class)
+    override fun setUp() {
+        super.setUp()
+        Extensions.cleanRootArea(testRootDisposable)
+    }
+
     @Throws(Exception::class)
     override fun tearDown() {
         myProjectEx = null
@@ -66,7 +79,11 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     // region Registering Application Services
 
     fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        myApp!!.registerService(aClass, `object`, testRootDisposable)
+        val application = ApplicationManager.getApplication() as MockApplicationEx
+        application.registerService(aClass, `object`)
+        Disposer.register(testRootDisposable, Disposable {
+            application.picoContainer.unregisterComponent(aClass.name)
+        })
     }
 
     // endregion
@@ -99,6 +116,7 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
     }
 
+    @Suppress("UnstableApiUsage")
     fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
@@ -110,8 +128,7 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
                     ExtensionPoint.Kind.INTERFACE
                 else
                     ExtensionPoint.Kind.BEAN_CLASS
-            val impl = area as ExtensionsAreaImpl
-            impl.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
+            area.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
             Disposer.register(myProject, com.intellij.openapi.Disposable {
                 area.unregisterExtensionPoint(extensionPointName.name)
             })
@@ -119,20 +136,21 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage", "SameParameterValue")
+    @Suppress("SameParameterValue")
     fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>
     ) {
-        registerExtensionPoint(area.extensionArea, extensionPointName, aClass)
+        registerExtensionPoint(Extensions.getArea(area), extensionPointName, aClass)
     }
 
     // endregion
     // region Registering Extensions
 
+    @Suppress("UnstableApiUsage")
     private fun <T : Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
-        area.getExtensionPoint<T>(name.name).registerExtension(extension, testRootDisposable)
+        PlatformTestUtil.registerExtension(area, name, extension, testRootDisposable)
     }
 
     fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
@@ -140,9 +158,8 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage")
     fun <T : Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
-        registerExtension(area.extensionArea, name, extension)
+        registerExtension(Extensions.getArea(area), name, extension)
     }
 
     // endregion

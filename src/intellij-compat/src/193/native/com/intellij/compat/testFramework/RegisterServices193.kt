@@ -33,7 +33,7 @@ fun MutablePicoContainer.registerProgressManager() {
 }
 
 @Suppress("UnstableApiUsage")
-fun PlatformTestCase.registerFileBasedIndex() {
+fun PlatformLiteFixture.registerFileBasedIndex() {
     registerProjectService(DirectoryIndex::class.java, DirectoryIndexImpl(project))
     registerProjectService(ProjectFileIndex::class.java, ProjectFileIndexImpl(project))
     registerApplicationService(FileBasedIndex::class.java, FileBasedIndexImpl())
