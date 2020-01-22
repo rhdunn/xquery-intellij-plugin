@@ -180,5 +180,40 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtension(area.extensionArea, name, extension)
     }
 
+    fun <T : Any> registerExtension(
+        area: ExtensionsArea,
+        epClassName: String,
+        epField: String,
+        aClass: Class<T>,
+        extension: T
+    ) {
+        try {
+            val epClass = Class.forName(epClassName)
+            val epname = epClass.getDeclaredField(epField)
+            val register = PlatformLiteFixture::class.java.getDeclaredMethod(
+                "registerExtension", ExtensionsArea::class.java, ExtensionPointName::class.java, aClass
+            )
+            epname.isAccessible = true
+            register.invoke(this, area, epname.get(null), extension)
+        } catch (e: Exception) {
+            // Don't register the extension point, as the associated class is not found.
+        }
+    }
+
+    inline fun <reified T : Any> registerExtension(epClassName: String, epField: String, extension: T) {
+        registerExtension(Extensions.getRootArea(), epClassName, epField, T::class.java, extension)
+    }
+
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("UnstableApiUsage")
+    inline fun <reified T: Any> registerExtension(
+        area: AreaInstance,
+        epClassName: String,
+        epField: String,
+        extension: T
+    ) {
+        registerExtension(area.extensionArea, epClassName, epField, T::class.java, extension)
+    }
+
     // endregion
 }
