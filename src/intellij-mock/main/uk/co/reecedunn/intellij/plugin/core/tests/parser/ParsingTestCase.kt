@@ -207,13 +207,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         })
     }
 
-    @Suppress("UNCHECKED_CAST")
-    fun <T> newInstance(className: String): T {
-        val constructor = Class.forName(className).getDeclaredConstructor()
-        constructor.isAccessible = true
-        return constructor.newInstance() as T
-    }
-
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
         val file = LightVirtualFile(name, language!!, text)
         file.charset = CharsetToolkit.UTF8_CHARSET

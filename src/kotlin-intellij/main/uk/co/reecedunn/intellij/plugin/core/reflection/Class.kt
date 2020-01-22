@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,4 +36,11 @@ fun Class<*>.getMethodOrNull(name: String, vararg parameterTypes: Class<*>): Met
 
 fun Class<*>.getAnyMethod(vararg names: String): Method {
     return names.asSequence().mapNotNull { name -> getMethodOrNull(name) }.first()
+}
+
+fun <T> newInstance(className: String): T {
+    val constructor = Class.forName(className).getDeclaredConstructor()
+    constructor.isAccessible = true
+    @Suppress("UNCHECKED_CAST")
+    return constructor.newInstance() as T
 }
