@@ -63,7 +63,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.dom.XsltTransformDomFileDescription
 abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
     @Suppress("DEPRECATION") // DomFileDescription.EP_NAME
     private fun registerDomApplicationComponent() {
-        registerExtensionPoint(DomImplementationClassEP.EP_NAME, DomImplementationClassEP::class.java)
+        registerExtensionPoint("com.intellij.util.xml.impl.DomImplementationClassEP", "EP_NAME")
         registerExtensionPoint("com.intellij.util.xml.DomFileDescription", "EP_NAME")
         registerExtensionPoint("com.intellij.util.xml.impl.DomFileMetaData", "EP_NAME")
 
