@@ -16,23 +16,8 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.openapi.extensions.*
-
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
     protected fun registerFileBasedIndex() {
         // Not needed for using the XML DOM on IntelliJ <= 2019.2
-    }
-
-    @Suppress("UnstableApiUsage")
-    protected fun registerCodeStyleSettingsModifier() {
-        try {
-            val epClass = Class.forName("com.intellij.application.options.CodeStyleCachingUtil")
-            val epname = epClass.getDeclaredField("CODE_STYLE_SETTINGS_MODIFIER_EP_NAME")
-            epname.isAccessible = true
-            @Suppress("UNCHECKED_CAST")
-            registerExtensionPoint(epname.get(null) as ExtensionPointName<Any>, epClass as Class<Any>)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
-        }
     }
 }

@@ -20,6 +20,7 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.psi.impl.PsiCachedValuesFactory
+import com.intellij.compat.testFramework.registerCodeStyleSettingsModifier
 import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
@@ -33,7 +34,6 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.fileTypes.FileType

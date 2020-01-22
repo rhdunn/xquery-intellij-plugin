@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2019-2020 Reece H. Dunn
- * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.compat.testFramework
+package com.intellij.compat.testFramework
 
-abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
-    protected fun registerFileBasedIndex() {
-        // Not needed for using the XML DOM on IntelliJ <= 2019.2
-    }
+import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
+
+@Suppress("UnstableApiUsage")
+fun PlatformTestCase.registerCodeStyleSettingsModifier() {
+    registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
 }
