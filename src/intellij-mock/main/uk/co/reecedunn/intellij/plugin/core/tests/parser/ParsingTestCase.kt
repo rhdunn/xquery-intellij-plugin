@@ -209,9 +209,6 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     override fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
         super.registerExtensionPoint(extensionPointName, aClass)
-        Disposer.register(myProject, com.intellij.openapi.Disposable {
-            Extensions.getRootArea().unregisterExtensionPoint(extensionPointName.name)
-        })
     }
 
     fun registerExtensionPoint(epClassName: String, epField: String) {

@@ -21,6 +21,7 @@ import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
+import com.intellij.openapi.util.Disposer
 import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
@@ -88,7 +89,7 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
     }
 
-    open fun <T> registerExtensionPoint(
+    fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>
@@ -99,18 +100,17 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
                     ExtensionPoint.Kind.INTERFACE
                 else
                     ExtensionPoint.Kind.BEAN_CLASS
-            (area as ExtensionsAreaImpl).registerExtensionPoint(
-                extensionPointName,
-                aClass.name,
-                kind,
-                testRootDisposable
-            )
+            val impl = area as ExtensionsAreaImpl
+            impl.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
+            Disposer.register(myProject, com.intellij.openapi.Disposable {
+                area.unregisterExtensionPoint(extensionPointName.name)
+            })
         }
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
     @Suppress("UnstableApiUsage", "SameParameterValue")
-    open fun <T> registerExtensionPoint(
+    fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>

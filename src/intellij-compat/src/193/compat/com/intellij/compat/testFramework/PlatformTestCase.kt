@@ -107,21 +107,27 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     }
 
     @Suppress("UnstableApiUsage")
-    open fun <T> registerExtensionPoint(
+    fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>
     ) {
         if (!area.hasExtensionPoint(extensionPointName)) {
             val kind =
-                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0) ExtensionPoint.Kind.INTERFACE else ExtensionPoint.Kind.BEAN_CLASS
+                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0)
+                    ExtensionPoint.Kind.INTERFACE
+                else
+                    ExtensionPoint.Kind.BEAN_CLASS
             area.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
+            Disposer.register(myProject, com.intellij.openapi.Disposable {
+                area.unregisterExtensionPoint(extensionPointName.name)
+            })
         }
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
     @Suppress("SameParameterValue")
-    open fun <T> registerExtensionPoint(
+    fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>
