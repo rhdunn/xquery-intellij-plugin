@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import com.intellij.compat.openapi.vfs.impl.VirtualFileManagerImpl
 import com.intellij.compat.semantic.SemServiceImpl
+import com.intellij.compat.testFramework.registerFileBasedIndex
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage

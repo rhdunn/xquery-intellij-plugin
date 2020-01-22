@@ -24,6 +24,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
 import com.intellij.testFramework.PlatformTestUtil
@@ -51,6 +52,8 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         set(value) {
             myProjectEx = value
         }
+
+    val project: Project get() = myProject
 
     // endregion
     // region JUnit
@@ -81,6 +84,13 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
         Disposer.register(testRootDisposable, Disposable {
             application.picoContainer.unregisterComponent(aClass.name)
         })
+    }
+
+    // endregion
+    // region Registering Project Services
+
+    fun <T> registerProjectService(aClass: Class<T>, `object`: T) {
+        myProject.registerService(aClass, `object`)
     }
 
     // endregion

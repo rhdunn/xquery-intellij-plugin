@@ -16,8 +16,4 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
-    protected fun registerFileBasedIndex() {
-        // Not needed for using the XML DOM on IntelliJ <= 2019.2
-    }
-}
+typealias PlatformLiteFixture = com.intellij.compat.testFramework.PlatformTestCase

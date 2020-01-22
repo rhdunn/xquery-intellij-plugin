@@ -21,6 +21,7 @@ import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
@@ -46,6 +47,8 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
             myProjectEx = value
         }
 
+    val project: Project get() = myProject
+
     // endregion
     // region JUnit
 
@@ -64,6 +67,13 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
 
     fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
         myApp!!.registerService(aClass, `object`, testRootDisposable)
+    }
+
+    // endregion
+    // region Registering Project Services
+
+    fun <T> registerProjectService(aClass: Class<T>, `object`: T) {
+        myProject.registerService(aClass, `object`)
     }
 
     // endregion

@@ -17,6 +17,12 @@ package com.intellij.compat.testFramework
 
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
+import com.intellij.openapi.roots.ProjectFileIndex
+import com.intellij.openapi.roots.impl.DirectoryIndex
+import com.intellij.openapi.roots.impl.DirectoryIndexImpl
+import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
+import com.intellij.util.indexing.FileBasedIndex
+import com.intellij.util.indexing.FileBasedIndexImpl
 import org.picocontainer.MutablePicoContainer
 
 fun MutablePicoContainer.registerProgressManager() {
@@ -24,4 +30,11 @@ fun MutablePicoContainer.registerProgressManager() {
     if (component == null) {
         registerComponentInstance(ProgressManager::class.java.name, ProgressManagerImpl())
     }
+}
+
+@Suppress("UnstableApiUsage")
+fun PlatformTestCase.registerFileBasedIndex() {
+    registerProjectService(DirectoryIndex::class.java, DirectoryIndexImpl(project))
+    registerProjectService(ProjectFileIndex::class.java, ProjectFileIndexImpl(project))
+    registerApplicationService(FileBasedIndex::class.java, FileBasedIndexImpl())
 }
