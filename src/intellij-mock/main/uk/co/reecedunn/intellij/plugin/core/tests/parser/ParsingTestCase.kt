@@ -208,17 +208,6 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun registerApplicationService(className: String) {
-        try {
-            val aClass = Class.forName(className) as Class<Any>
-            val `object` = aClass.getConstructor().newInstance()
-            registerApplicationService(aClass, `object`)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
-        }
-    }
-
-    @Suppress("UNCHECKED_CAST")
     fun <T> newInstance(className: String): T {
         val constructor = Class.forName(className).getDeclaredConstructor()
         constructor.isAccessible = true
