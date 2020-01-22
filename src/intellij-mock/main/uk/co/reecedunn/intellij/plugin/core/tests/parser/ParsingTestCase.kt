@@ -207,24 +207,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         })
     }
 
-    override fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
-        super.registerExtensionPoint(extensionPointName, aClass)
-    }
-
-    fun registerExtensionPoint(epClassName: String, epField: String) {
-        try {
-            val epClass = Class.forName(epClassName)
-            val epname = epClass.getDeclaredField(epField)
-            val register = ParsingTestCase::class.java.getDeclaredMethod(
-                "registerExtensionPoint", ExtensionPointName::class.java, Class::class.java
-            )
-            epname.isAccessible = true
-            register.invoke(this, epname.get(null), epClass)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
-        }
-    }
-
     @Suppress("UNCHECKED_CAST")
     fun registerApplicationService(className: String) {
         try {

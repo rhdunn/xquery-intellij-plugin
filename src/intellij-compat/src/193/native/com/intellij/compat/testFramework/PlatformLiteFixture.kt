@@ -95,8 +95,22 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     // endregion
     // region Registering Extension Points
 
-    open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
+    fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
         registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
+    }
+
+    fun registerExtensionPoint(epClassName: String, epField: String) {
+        try {
+            val epClass = Class.forName(epClassName)
+            val epname = epClass.getDeclaredField(epField)
+            val register = PlatformLiteFixture::class.java.getDeclaredMethod(
+                "registerExtensionPoint", ExtensionPointName::class.java, Class::class.java
+            )
+            epname.isAccessible = true
+            register.invoke(this, epname.get(null), epClass)
+        } catch (e: Exception) {
+            // Don't register the extension point, as the associated class is not found.
+        }
     }
 
     fun <T> registerExtensionPoint(
