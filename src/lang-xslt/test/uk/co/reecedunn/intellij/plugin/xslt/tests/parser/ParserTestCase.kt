@@ -37,7 +37,6 @@ import com.intellij.semantic.SemContributorEP
 import com.intellij.semantic.SemService
 import com.intellij.util.xml.*
 import com.intellij.util.xml.impl.DomApplicationComponent
-import com.intellij.util.xml.impl.DomImplementationClassEP
 import com.intellij.util.xml.impl.DomManagerImpl
 import com.intellij.util.xml.impl.DomServiceImpl
 import com.intellij.xml.XmlExtension
@@ -108,7 +107,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
     }
 
     private fun registerConverterManager() {
-        registerExtensionPoint(DomImplementationClassEP.CONVERTER_EP_NAME, DomImplementationClassEP::class.java)
+        registerExtensionPoint("com.intellij.util.xml.impl.DomImplementationClassEP", "CONVERTER_EP_NAME")
 
         val converter = newInstance<ConverterManager>("com.intellij.util.xml.impl.ConverterManagerImpl")
         registerApplicationService(ConverterManager::class.java, converter)
