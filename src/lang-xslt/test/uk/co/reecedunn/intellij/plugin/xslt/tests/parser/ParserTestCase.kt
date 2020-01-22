@@ -33,7 +33,6 @@ import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
-import com.intellij.semantic.SemContributor
 import com.intellij.semantic.SemContributorEP
 import com.intellij.semantic.SemService
 import com.intellij.util.xml.*
@@ -78,9 +77,9 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         val ep = SemContributorEP()
         ep.implementation = service
         // IntelliJ <= 2018.3 places SemContributor on the project.
-        registerExtension(myProject, SemContributor.EP_NAME, ep)
+        registerExtension(myProject, "com.intellij.semantic.SemContributor", "EP_NAME", ep)
         // IntelliJ >= 2019.1 places SemContributor on the application.
-        registerExtension(SemContributor.EP_NAME, ep)
+        registerExtension("com.intellij.semantic.SemContributor", "EP_NAME", ep)
     }
 
     private fun registerVirtualFileManager() {
@@ -95,9 +94,11 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
 
     private fun registerDomManager() {
         // IntelliJ <= 2018.3 places SemContributor on the project.
-        registerExtensionPoint(myProject, SemContributor.EP_NAME, SemContributorEP::class.java)
+        registerExtensionPoint(
+            myProject, "com.intellij.semantic.SemContributor", "EP_NAME", SemContributorEP::class.java
+        )
         // IntelliJ >= 2019.1 places SemContributor on the application.
-        registerExtensionPoint(SemContributor.EP_NAME, SemContributorEP::class.java)
+        registerExtensionPoint("com.intellij.semantic.SemContributor", "EP_NAME", SemContributorEP::class.java)
 
         registerApplicationService(SemService::class.java, SemServiceImpl(myProject))
 
