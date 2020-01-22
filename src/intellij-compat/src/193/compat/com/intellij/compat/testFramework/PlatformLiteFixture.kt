@@ -127,18 +127,8 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
     }
 
-    fun registerExtensionPoint(epClassName: String, epField: String) {
-        try {
-            val epClass = Class.forName(epClassName)
-            val epname = epClass.getDeclaredField(epField)
-            val register = PlatformLiteFixture::class.java.getDeclaredMethod(
-                "registerExtensionPoint", ExtensionPointName::class.java, Class::class.java
-            )
-            epname.isAccessible = true
-            register.invoke(this, epname.get(null), epClass)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
-        }
+    fun registerExtensionPoint(epClassName: String, epField: String, aClass: Class<*>? = null) {
+        registerExtensionPoint(Extensions.getRootArea(), epClassName, epField, aClass)
     }
 
     @Suppress("UnstableApiUsage")
@@ -160,6 +150,20 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
+    fun registerExtensionPoint(area: ExtensionsArea, epClassName: String, epField: String, aClass: Class<*>? = null) {
+        try {
+            val epClass = Class.forName(epClassName)
+            val epname = epClass.getDeclaredField(epField)
+            val register = PlatformLiteFixture::class.java.getDeclaredMethod(
+                "registerExtensionPoint", ExtensionsArea::class.java, ExtensionPointName::class.java, Class::class.java
+            )
+            epname.isAccessible = true
+            register.invoke(this, area, epname.get(null), aClass ?: epClass)
+        } catch (e: Exception) {
+            // Don't register the extension point, as the associated class is not found.
+        }
+    }
+
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
     @Suppress("SameParameterValue")
     fun <T> registerExtensionPoint(
@@ -168,6 +172,11 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         aClass: Class<out T>
     ) {
         registerExtensionPoint(Extensions.getArea(area), extensionPointName, aClass)
+    }
+
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    fun registerExtensionPoint(area: AreaInstance, epClassName: String, epField: String, aClass: Class<*>? = null) {
+        registerExtensionPoint(Extensions.getArea(area), epClassName, epField, aClass)
     }
 
     // endregion

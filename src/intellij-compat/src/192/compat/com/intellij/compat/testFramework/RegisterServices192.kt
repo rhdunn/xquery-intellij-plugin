@@ -15,17 +15,9 @@
  */
 package com.intellij.compat.testFramework
 
-import com.intellij.openapi.extensions.ExtensionPointName
-
 @Suppress("UnstableApiUsage")
 fun PlatformLiteFixture.registerCodeStyleSettingsModifier() {
-    try {
-        val epClass = Class.forName("com.intellij.application.options.CodeStyleCachingUtil")
-        val epname = epClass.getDeclaredField("CODE_STYLE_SETTINGS_MODIFIER_EP_NAME")
-        epname.isAccessible = true
-        @Suppress("UNCHECKED_CAST")
-        registerExtensionPoint(epname.get(null) as ExtensionPointName<Any>, epClass as Class<Any>)
-    } catch (e: Exception) {
-        // Don't register the extension point, as the associated class is not found.
-    }
+    registerExtensionPoint(
+        "com.intellij.application.options.CodeStyleCachingUtil", "CODE_STYLE_SETTINGS_MODIFIER_EP_NAME"
+    )
 }
