@@ -16,8 +16,6 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.openapi.extensions.*
-import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.roots.impl.DirectoryIndex
 import com.intellij.openapi.roots.impl.DirectoryIndexImpl
@@ -25,7 +23,6 @@ import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.util.indexing.FileBasedIndex
 import com.intellij.util.indexing.FileBasedIndexImpl
-import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
     @Suppress("UnstableApiUsage")
@@ -38,36 +35,5 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
     @Suppress("UnstableApiUsage")
     protected fun registerCodeStyleSettingsModifier() {
         registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
-    }
-
-    protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
-        registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
-    }
-
-    protected open fun <T> registerExtensionPoint(
-        area: ExtensionsArea,
-        extensionPointName: ExtensionPointName<T>,
-        aClass: Class<out T>
-    ) {
-        if (!area.hasExtensionPoint(extensionPointName)) {
-            val kind =
-                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0) ExtensionPoint.Kind.INTERFACE else ExtensionPoint.Kind.BEAN_CLASS
-            (area as ExtensionsAreaImpl).registerExtensionPoint(
-                extensionPointName,
-                aClass.name,
-                kind,
-                testRootDisposable
-            )
-        }
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage")
-    protected open fun <T> registerExtensionPoint(
-        area: AreaInstance,
-        extensionPointName: ExtensionPointName<T>,
-        aClass: Class<out T>
-    ) {
-        registerExtensionPoint(area.extensionArea, extensionPointName, aClass)
     }
 }

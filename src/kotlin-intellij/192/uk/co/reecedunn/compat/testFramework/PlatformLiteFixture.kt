@@ -16,9 +16,7 @@
  */
 package uk.co.reecedunn.compat.testFramework
 
-import com.intellij.openapi.extensions.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
-import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformTestCase() {
     protected fun registerFileBasedIndex() {
@@ -28,32 +26,5 @@ abstract class PlatformLiteFixture : com.intellij.compat.testFramework.PlatformT
     @Suppress("UnstableApiUsage")
     protected fun registerCodeStyleSettingsModifier() {
         registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
-    }
-
-    protected open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
-        registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
-    }
-
-    @Suppress("UnstableApiUsage")
-    protected open fun <T> registerExtensionPoint(
-        area: ExtensionsArea,
-        extensionPointName: ExtensionPointName<T>,
-        aClass: Class<out T>
-    ) {
-        if (!area.hasExtensionPoint(extensionPointName)) {
-            val kind =
-                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0) ExtensionPoint.Kind.INTERFACE else ExtensionPoint.Kind.BEAN_CLASS
-            area.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
-        }
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("SameParameterValue")
-    protected open fun <T> registerExtensionPoint(
-        area: AreaInstance,
-        extensionPointName: ExtensionPointName<T>,
-        aClass: Class<out T>
-    ) {
-        registerExtensionPoint(Extensions.getArea(area), extensionPointName, aClass)
     }
 }

@@ -22,15 +22,13 @@ import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
-import com.intellij.openapi.extensions.AreaInstance
-import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.extensions.Extensions
-import com.intellij.openapi.extensions.ExtensionsArea
+import com.intellij.openapi.extensions.*
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Getter
 import com.intellij.testFramework.PlatformTestUtil
 import org.picocontainer.MutablePicoContainer
+import java.lang.reflect.Modifier
 
 abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
     // region Application
@@ -99,6 +97,36 @@ abstract class PlatformTestCase : com.intellij.testFramework.UsefulTestCase() {
 
     fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
         return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
+    }
+
+    // endregion
+    // region Registering Extension Points
+
+    open fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
+        registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
+    }
+
+    @Suppress("UnstableApiUsage")
+    open fun <T> registerExtensionPoint(
+        area: ExtensionsArea,
+        extensionPointName: ExtensionPointName<T>,
+        aClass: Class<out T>
+    ) {
+        if (!area.hasExtensionPoint(extensionPointName)) {
+            val kind =
+                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0) ExtensionPoint.Kind.INTERFACE else ExtensionPoint.Kind.BEAN_CLASS
+            area.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
+        }
+    }
+
+    // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("SameParameterValue")
+    open fun <T> registerExtensionPoint(
+        area: AreaInstance,
+        extensionPointName: ExtensionPointName<T>,
+        aClass: Class<out T>
+    ) {
+        registerExtensionPoint(Extensions.getArea(area), extensionPointName, aClass)
     }
 
     // endregion
