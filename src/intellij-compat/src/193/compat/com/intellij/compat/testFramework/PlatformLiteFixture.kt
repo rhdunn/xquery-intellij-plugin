@@ -196,39 +196,35 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtension(Extensions.getArea(area), name, extension)
     }
 
-    fun <T : Any> registerExtension(
+    private fun <T : Any> registerExtension(
         area: ExtensionsArea,
         epClassName: String,
         epField: String,
-        aClass: Class<T>,
         extension: T
     ) {
         try {
             val epClass = Class.forName(epClassName)
             val epname = epClass.getDeclaredField(epField)
-            val register = PlatformLiteFixture::class.java.getDeclaredMethod(
-                "registerExtension", ExtensionsArea::class.java, ExtensionPointName::class.java, aClass
-            )
-            epname.isAccessible = true
-            register.invoke(this, area, epname.get(null), extension)
+            @Suppress("UNCHECKED_CAST")
+            registerExtension(area, epname.get(null) as ExtensionPointName<T>, extension)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
     }
 
-    inline fun <reified T : Any> registerExtension(epClassName: String, epField: String, extension: T) {
-        registerExtension(Extensions.getRootArea(), epClassName, epField, T::class.java, extension)
+    fun <T : Any> registerExtension(epClassName: String, epField: String, extension: T) {
+        registerExtension(Extensions.getRootArea(), epClassName, epField, extension)
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
     @Suppress("UnstableApiUsage")
-    inline fun <reified T: Any> registerExtension(
+    fun <T : Any> registerExtension(
         area: AreaInstance,
         epClassName: String,
         epField: String,
         extension: T
     ) {
-        registerExtension(Extensions.getArea(area), epClassName, epField, T::class.java, extension)
+        registerExtension(Extensions.getArea(area), epClassName, epField, extension)
     }
 
     // endregion
