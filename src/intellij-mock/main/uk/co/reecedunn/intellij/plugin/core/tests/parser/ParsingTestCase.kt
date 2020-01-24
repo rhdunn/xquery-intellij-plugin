@@ -155,6 +155,9 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     protected fun registerPsiModification() {
+        registerExtensionPoint(FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java)
+        registerExtensionPoint(FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java)
+
         registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
         registerApplicationService(IndentHelper::class.java, IndentHelperImpl())
         registerCodeStyleSettingsManager()
@@ -162,9 +165,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         val schemeManagerFactory = MockSchemeManagerFactory()
         registerApplicationService(SchemeManagerFactory::class.java, schemeManagerFactory)
         registerApplicationService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
-
-        registerExtensionPoint(FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java)
-        registerExtensionPoint(FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java)
     }
 
     private fun registerCodeStyleSettingsManager() {
