@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
-import com.google.gson.JsonParser
+import com.google.compat.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import java.io.InputStreamReader
 
@@ -126,7 +126,7 @@ fun CharSequence.entityReferenceCodePoint(): Int {
 
 private fun loadPredefinedEntities(entities: HashMap<String, EntityRef>, path: String, type: EntityReferenceType) {
     val file = ResourceVirtualFile.create(EntityRef::class.java.classLoader, path)
-    val data = JsonParser().parse(InputStreamReader(file.inputStream!!)).asJsonObject
+    val data = JsonParser.parseReader(InputStreamReader(file.inputStream!!)).asJsonObject
     data.entrySet().forEach { entity ->
         val chars = entity.value.asJsonObject.get("characters").asString
         entities.putIfAbsent(entity.key, EntityRef(entity.key, chars, type))
