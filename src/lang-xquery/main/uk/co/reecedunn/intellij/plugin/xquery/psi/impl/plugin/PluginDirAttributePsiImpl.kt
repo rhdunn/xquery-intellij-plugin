@@ -79,7 +79,10 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
                 }.filterNotNull().joinToString(separator = "")
         val qname = nodeName
         when {
-            contents == null -> null as XsAnyAtomicType?
+            contents == null -> {
+                @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
+                null as XsAnyAtomicType?
+            }
             qname.prefix?.data == "xmlns" -> {
                 XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
             }
