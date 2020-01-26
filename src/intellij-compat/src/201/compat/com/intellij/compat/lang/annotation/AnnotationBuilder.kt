@@ -15,16 +15,29 @@
  */
 package com.intellij.compat.lang.annotation
 
+import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
 
 class AnnotationBuilder(
     private val holder: AnnotationHolder,
     private val severity: HighlightSeverity,
     private val message: String?
 ) {
+    private var textRange: TextRange? = null
+
+    fun range(range: TextRange): AnnotationBuilder {
+        textRange = range
+        return this
+    }
+
+    fun range(element: ASTNode): AnnotationBuilder = range(element.textRange)
+
+    fun range(element: PsiElement): AnnotationBuilder = range(element.textRange)
+
     fun create() {
-        val textRange: TextRange = holder.currentElement!!.textRange
+        val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
     }
 }
