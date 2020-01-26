@@ -18,6 +18,7 @@ package com.intellij.compat.lang.annotation
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.lang.annotation.ProblemGroup
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.GutterIconRenderer
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.openapi.util.TextRange
@@ -35,6 +36,7 @@ class AnnotationBuilder(
     private var gutterIconRenderer: GutterIconRenderer? = null
     private var problemGroup: ProblemGroup? = null
     private var enforcedTextAttributes: TextAttributes? = null
+    private var textAttributes: TextAttributesKey? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -70,6 +72,11 @@ class AnnotationBuilder(
         return this
     }
 
+    fun textAttributes(enforcedAttributes: TextAttributesKey): AnnotationBuilder {
+        textAttributes = enforcedAttributes
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
@@ -78,5 +85,6 @@ class AnnotationBuilder(
         gutterIconRenderer?.let { annotation.gutterIconRenderer = it }
         problemGroup?.let { annotation.problemGroup = it }
         enforcedTextAttributes?.let { annotation.enforcedTextAttributes = it }
+        textAttributes?.let { annotation.textAttributes = it }
     }
 }
