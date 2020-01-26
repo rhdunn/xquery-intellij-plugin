@@ -24,6 +24,7 @@ abstract class Annotator : com.intellij.lang.annotation.Annotator {
         if (currentHolder?.holder != holder) {
             currentHolder = AnnotationHolder(holder)
         }
+        currentHolder!!.currentElement = element
         annotateElement(element, currentHolder!!)
     }
 

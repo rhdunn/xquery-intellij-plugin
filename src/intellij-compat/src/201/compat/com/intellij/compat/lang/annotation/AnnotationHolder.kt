@@ -21,6 +21,8 @@ import com.intellij.psi.PsiElement
 import org.jetbrains.annotations.ApiStatus
 
 class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder) {
+    internal var currentElement: PsiElement? = null
+
     fun createErrorAnnotation(elt: PsiElement, message: String?): Annotation {
         return holder.createErrorAnnotation(elt, message)
     }

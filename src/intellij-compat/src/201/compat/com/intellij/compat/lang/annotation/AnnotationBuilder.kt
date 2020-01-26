@@ -16,10 +16,15 @@
 package com.intellij.compat.lang.annotation
 
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.util.TextRange
 
 class AnnotationBuilder(
     private val holder: AnnotationHolder,
     private val severity: HighlightSeverity,
     private val message: String?
 ) {
+    fun create() {
+        val textRange: TextRange = holder.currentElement!!.textRange
+        val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
+    }
 }
