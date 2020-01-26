@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,17 +64,17 @@ class QNameAnnotator : Annotator {
         }
     }
 
-    override fun annotate(qname: PsiElement, holder: AnnotationHolder) {
-        if (qname !is XsQNameValue) return
-        if (qname.language != XPath) return
+    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
+        if (element !is XsQNameValue) return
+        if (element.language != XPath) return
 
         val xmlns: Boolean
-        if (qname.prefix != null) {
+        if (element.prefix != null) {
             when {
-                qname.prefix!!.data == "xmlns" -> xmlns = true
-                qname.prefix !is XdmWildcardValue -> {
+                element.prefix!!.data == "xmlns" -> xmlns = true
+                element.prefix !is XdmWildcardValue -> {
                     xmlns = false
-                    val prefix = qname.prefix?.element!!
+                    val prefix = element.prefix?.element!!
                     holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                     holder.createInfoAnnotation(prefix, null).textAttributes = XPathSyntaxHighlighterColors.NS_PREFIX
                 }
@@ -82,16 +82,16 @@ class QNameAnnotator : Annotator {
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
-            qname.children().filterIsElementType(XPathTokenType.QNAME_SEPARATOR).firstOrNull()?.let {
-                checkQNameWhitespaceBefore(qname, it, holder)
-                checkQNameWhitespaceAfter(qname, it, holder)
+            element.children().filterIsElementType(XPathTokenType.QNAME_SEPARATOR).firstOrNull()?.let {
+                checkQNameWhitespaceBefore(element, it, holder)
+                checkQNameWhitespaceAfter(element, it, holder)
             }
         } else {
             xmlns = false
         }
 
-        if (qname.localName != null) {
-            val localName = qname.localName?.element!!
+        if (element.localName != null) {
+            val localName = element.localName?.element!!
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 holder.createInfoAnnotation(localName, null).textAttributes = XPathSyntaxHighlighterColors.NS_PREFIX
