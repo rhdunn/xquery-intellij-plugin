@@ -15,5 +15,17 @@
  */
 package com.intellij.compat.lang.annotation
 
+import com.intellij.psi.PsiElement
+
 abstract class Annotator : com.intellij.lang.annotation.Annotator {
+    private var currentHolder: AnnotationHolder? = null
+
+    override fun annotate(element: PsiElement, holder: com.intellij.lang.annotation.AnnotationHolder) {
+        if (currentHolder?.holder != holder) {
+            currentHolder = AnnotationHolder(holder)
+        }
+        annotateElement(element, currentHolder!!)
+    }
+
+    abstract fun annotateElement(element: PsiElement, holder: AnnotationHolder)
 }

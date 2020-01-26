@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.annotation
 
+import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
-import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -64,7 +64,7 @@ class QNameAnnotator : Annotator() {
         }
     }
 
-    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
+    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
         if (element.language != XPath) return
 

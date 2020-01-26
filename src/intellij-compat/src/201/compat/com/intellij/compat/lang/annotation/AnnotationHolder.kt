@@ -15,10 +15,15 @@
  */
 package com.intellij.compat.lang.annotation
 
+import com.intellij.lang.annotation.Annotation
 import com.intellij.psi.PsiElement
 
-abstract class Annotator : com.intellij.lang.annotation.Annotator {
-    override fun annotate(element: PsiElement, holder: AnnotationHolder) = annotateElement(element, holder)
+class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder) {
+    fun createErrorAnnotation(elt: PsiElement, message: String?): Annotation {
+        return holder.createErrorAnnotation(elt, message)
+    }
 
-    abstract fun annotateElement(element: PsiElement, holder: AnnotationHolder)
+    fun createInfoAnnotation(elt: PsiElement, message: String?): Annotation {
+        return holder.createInfoAnnotation(elt, message)
+    }
 }
