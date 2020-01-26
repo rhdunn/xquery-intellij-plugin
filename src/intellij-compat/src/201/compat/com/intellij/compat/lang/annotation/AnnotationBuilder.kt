@@ -20,6 +20,7 @@ import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 
+@Suppress("unused")
 class AnnotationBuilder(
     private val holder: AnnotationHolder,
     private val severity: HighlightSeverity,
@@ -27,6 +28,7 @@ class AnnotationBuilder(
 ) {
     private var textRange: TextRange? = null
     private var isAfterEndOfLine: Boolean? = null
+    private var isFileLevelAnnotation: Boolean? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -42,9 +44,15 @@ class AnnotationBuilder(
         return this
     }
 
+    fun fileLevel(): AnnotationBuilder {
+        isFileLevelAnnotation = true
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
         isAfterEndOfLine?.let { annotation.isAfterEndOfLine = it }
+        isFileLevelAnnotation?.let { annotation.isFileLevelAnnotation = it }
     }
 }
