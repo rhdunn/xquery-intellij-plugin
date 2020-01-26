@@ -24,6 +24,7 @@ import com.intellij.openapi.editor.markup.GutterIconRenderer
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.xml.util.XmlStringUtil
 
 @Suppress("unused")
 class AnnotationBuilder(
@@ -39,6 +40,7 @@ class AnnotationBuilder(
     private var enforcedTextAttributes: TextAttributes? = null
     private var textAttributes: TextAttributesKey? = null
     private var highlightType: ProblemHighlightType? = null
+    private var tooltip: String? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -84,9 +86,18 @@ class AnnotationBuilder(
         return this
     }
 
+    fun tooltip(tooltip: String): AnnotationBuilder {
+        this.tooltip = tooltip
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
-        val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
+        if (tooltip == null && message != null) {
+            tooltip = XmlStringUtil.wrapInHtml(XmlStringUtil.escapeString(message))
+        }
+
+        val annotation = holder.holder.createAnnotation(severity, textRange, message, tooltip)
         isAfterEndOfLine?.let { annotation.isAfterEndOfLine = it }
         isFileLevelAnnotation?.let { annotation.isFileLevelAnnotation = it }
         gutterIconRenderer?.let { annotation.gutterIconRenderer = it }
