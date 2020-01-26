@@ -16,7 +16,9 @@
 package com.intellij.compat.lang.annotation
 
 import com.intellij.lang.annotation.Annotation
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
+import org.jetbrains.annotations.ApiStatus
 
 class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder) {
     fun createErrorAnnotation(elt: PsiElement, message: String?): Annotation {
@@ -25,5 +27,17 @@ class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder
 
     fun createInfoAnnotation(elt: PsiElement, message: String?): Annotation {
         return holder.createInfoAnnotation(elt, message)
+    }
+
+    @Suppress("UnstableApiUsage")
+    @ApiStatus.Experimental
+    fun newAnnotation(severity: HighlightSeverity, message: String): AnnotationBuilder {
+        return AnnotationBuilder(this, severity, message)
+    }
+
+    @Suppress("UnstableApiUsage")
+    @ApiStatus.Experimental
+    fun newSilentAnnotation(severity: HighlightSeverity): AnnotationBuilder {
+        return AnnotationBuilder(this, severity, null)
     }
 }

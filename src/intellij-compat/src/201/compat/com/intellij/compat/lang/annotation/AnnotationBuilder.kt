@@ -15,7 +15,11 @@
  */
 package com.intellij.compat.lang.annotation
 
-typealias AnnotationHolder = com.intellij.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.HighlightSeverity
 
-@Suppress("UnstableApiUsage")
-typealias AnnotationBuilder = com.intellij.lang.annotation.AnnotationBuilder
+class AnnotationBuilder(
+    private val holder: AnnotationHolder,
+    private val severity: HighlightSeverity,
+    private val message: String?
+) {
+}
