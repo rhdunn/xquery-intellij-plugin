@@ -15,6 +15,7 @@
  */
 package com.intellij.compat.lang.annotation
 
+import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.lang.annotation.ProblemGroup
@@ -37,6 +38,7 @@ class AnnotationBuilder(
     private var problemGroup: ProblemGroup? = null
     private var enforcedTextAttributes: TextAttributes? = null
     private var textAttributes: TextAttributesKey? = null
+    private var highlightType: ProblemHighlightType? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -77,6 +79,11 @@ class AnnotationBuilder(
         return this
     }
 
+    fun highlightType(highlightType: ProblemHighlightType): AnnotationBuilder {
+        this.highlightType = highlightType
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
@@ -86,5 +93,6 @@ class AnnotationBuilder(
         problemGroup?.let { annotation.problemGroup = it }
         enforcedTextAttributes?.let { annotation.enforcedTextAttributes = it }
         textAttributes?.let { annotation.textAttributes = it }
+        highlightType?.let { annotation.highlightType = it }
     }
 }
