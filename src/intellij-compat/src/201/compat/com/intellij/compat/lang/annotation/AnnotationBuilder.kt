@@ -26,6 +26,7 @@ class AnnotationBuilder(
     private val message: String?
 ) {
     private var textRange: TextRange? = null
+    private var isAfterEndOfLine: Boolean? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -36,8 +37,14 @@ class AnnotationBuilder(
 
     fun range(element: PsiElement): AnnotationBuilder = range(element.textRange)
 
+    fun afterEndOfLine(): AnnotationBuilder {
+        isAfterEndOfLine = true
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
+        isAfterEndOfLine?.let { annotation.isAfterEndOfLine = it }
     }
 }
