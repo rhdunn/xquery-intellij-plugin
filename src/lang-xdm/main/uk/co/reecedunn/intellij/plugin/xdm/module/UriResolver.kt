@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extensions.asSequence()
 
-fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
+fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? {
     val path = data
     val project = element!!.project
     return STATIC_IMPORT_RESOLVERS
