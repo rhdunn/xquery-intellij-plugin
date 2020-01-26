@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.dom
 
-import com.intellij.ide.plugins.PluginManager
+import com.intellij.compat.ide.plugins.PluginManagerCore
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltDomElement
 
 private val INTELLIJ_XPATH_PLUGIN_ID = PluginId.getId("XPathView")
 
-fun isIntellijXPathPluginEnabled(): Boolean = PluginManager.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
+fun isIntellijXPathPluginEnabled(): Boolean = PluginManagerCore.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
 
 fun XmlTag.xslt(): XsltDomElement? = DomManager.getDomManager(project).getDomElement(this) as? XsltDomElement
 
