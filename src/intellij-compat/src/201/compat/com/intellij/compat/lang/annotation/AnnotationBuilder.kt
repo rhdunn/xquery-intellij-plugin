@@ -26,7 +26,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.xml.util.XmlStringUtil
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class AnnotationBuilder(
     private val holder: AnnotationHolder,
     private val severity: HighlightSeverity,
@@ -41,6 +41,7 @@ class AnnotationBuilder(
     private var textAttributes: TextAttributesKey? = null
     private var highlightType: ProblemHighlightType? = null
     private var tooltip: String? = null
+    private var needsUpdateOnTyping: Boolean? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -91,6 +92,13 @@ class AnnotationBuilder(
         return this
     }
 
+    fun needsUpdateOnTyping(): AnnotationBuilder = needsUpdateOnTyping(true)
+
+    fun needsUpdateOnTyping(value: Boolean): AnnotationBuilder {
+        needsUpdateOnTyping = value
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         if (tooltip == null && message != null) {
@@ -105,5 +113,6 @@ class AnnotationBuilder(
         enforcedTextAttributes?.let { annotation.enforcedTextAttributes = it }
         textAttributes?.let { annotation.textAttributes = it }
         highlightType?.let { annotation.highlightType = it }
+        needsUpdateOnTyping?.let { annotation.setNeedsUpdateOnTyping(it) }
     }
 }
