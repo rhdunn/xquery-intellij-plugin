@@ -15,19 +15,13 @@
  */
 package com.intellij.compat.lang.annotation
 
-import com.intellij.lang.annotation.Annotation
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
 import org.jetbrains.annotations.ApiStatus
-import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.TestOnly
 
 class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder) {
     internal var currentElement: PsiElement? = null
-
-    fun createInfoAnnotation(elt: PsiElement, message: String?): Annotation {
-        return holder.createInfoAnnotation(elt, message)
-    }
 
     @Suppress("UnstableApiUsage")
     @ApiStatus.Experimental

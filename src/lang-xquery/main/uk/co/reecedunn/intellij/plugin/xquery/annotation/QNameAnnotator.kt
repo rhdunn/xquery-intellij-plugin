@@ -77,11 +77,17 @@ class QNameAnnotator : Annotator() {
                 element.prefix !is XdmWildcardValue -> {
                     xmlns = false
                     val prefix = element.prefix?.element!!
-                    holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                        .create()
                     if (element.parent is PluginDirAttribute || element.parent is XQueryDirElemConstructor) {
-                        holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.XML_TAG
+                        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                            .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                            .create()
                     }
-                    holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighterColors.NS_PREFIX
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                        .textAttributes(XQuerySyntaxHighlighterColors.NS_PREFIX)
+                        .create()
                 }
                 else -> xmlns = false
             }
@@ -98,22 +104,39 @@ class QNameAnnotator : Annotator() {
         if (element.localName != null) {
             val localName = element.localName?.element!!
             if (xmlns) {
-                holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
                 if (element.parent is PluginDirAttribute) {
-                    holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.XML_TAG
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                        .create()
                 }
-                holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.NS_PREFIX
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .textAttributes(XQuerySyntaxHighlighterColors.NS_PREFIX)
+                    .create()
             } else if (element.parent is XQueryAnnotation) {
-                holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.ANNOTATION
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .textAttributes(XQuerySyntaxHighlighterColors.ANNOTATION)
+                    .create()
             } else if (localName.node.elementType is IKeywordOrNCNameType) {
-                holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighterColors.IDENTIFIER
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .textAttributes(XQuerySyntaxHighlighterColors.IDENTIFIER)
+                    .create()
             } else if (localName is XPathNCName) {
                 if (localName.node.elementType is IKeywordOrNCNameType) {
-                    holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                    holder.createInfoAnnotation(localName, null).textAttributes =
-                        XQuerySyntaxHighlighterColors.IDENTIFIER
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                        .create()
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .textAttributes(XQuerySyntaxHighlighterColors.IDENTIFIER)
+                        .create()
                 }
             }
         }

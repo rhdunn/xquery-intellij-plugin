@@ -76,8 +76,12 @@ class QNameAnnotator : Annotator() {
                 element.prefix !is XdmWildcardValue -> {
                     xmlns = false
                     val prefix = element.prefix?.element!!
-                    holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                    holder.createInfoAnnotation(prefix, null).textAttributes = XPathSyntaxHighlighterColors.NS_PREFIX
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                        .create()
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                        .textAttributes(XPathSyntaxHighlighterColors.NS_PREFIX)
+                        .create()
                 }
                 else -> xmlns = false
             }
@@ -94,16 +98,27 @@ class QNameAnnotator : Annotator() {
         if (element.localName != null) {
             val localName = element.localName?.element!!
             if (xmlns) {
-                holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(localName, null).textAttributes = XPathSyntaxHighlighterColors.NS_PREFIX
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .textAttributes(XPathSyntaxHighlighterColors.NS_PREFIX)
+                    .create()
             } else if (localName.node.elementType is IKeywordOrNCNameType) {
-                holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(localName, null).textAttributes = XPathSyntaxHighlighterColors.IDENTIFIER
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                    .textAttributes(XPathSyntaxHighlighterColors.IDENTIFIER)
+                    .create()
             } else if (localName is XPathNCName) {
                 if (localName.node.elementType is IKeywordOrNCNameType) {
-                    holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                    holder.createInfoAnnotation(localName, null).textAttributes =
-                        XPathSyntaxHighlighterColors.IDENTIFIER
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                        .create()
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .textAttributes(XPathSyntaxHighlighterColors.IDENTIFIER)
+                        .create()
                 }
             }
         }
