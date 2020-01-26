@@ -17,6 +17,7 @@ package com.intellij.compat.lang.annotation
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.lang.annotation.ProblemGroup
 import com.intellij.openapi.editor.markup.GutterIconRenderer
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -31,6 +32,7 @@ class AnnotationBuilder(
     private var isAfterEndOfLine: Boolean? = null
     private var isFileLevelAnnotation: Boolean? = null
     private var gutterIconRenderer: GutterIconRenderer? = null
+    private var problemGroup: ProblemGroup? = null
 
     fun range(range: TextRange): AnnotationBuilder {
         textRange = range
@@ -56,11 +58,17 @@ class AnnotationBuilder(
         return this
     }
 
+    fun problemGroup(problemGroup: ProblemGroup): AnnotationBuilder {
+        this.problemGroup = problemGroup
+        return this
+    }
+
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         val annotation = holder.holder.createAnnotation(severity, textRange, message, null)
         isAfterEndOfLine?.let { annotation.isAfterEndOfLine = it }
         isFileLevelAnnotation?.let { annotation.isFileLevelAnnotation = it }
         gutterIconRenderer?.let { annotation.gutterIconRenderer = it }
+        problemGroup?.let { annotation.problemGroup = it }
     }
 }
