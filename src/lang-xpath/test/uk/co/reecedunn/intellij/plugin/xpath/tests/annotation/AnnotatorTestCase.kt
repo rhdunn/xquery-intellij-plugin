@@ -15,24 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.annotation
 
+import com.intellij.codeInsight.daemon.impl.AnnotationHolderImpl
 import com.intellij.lang.ASTNode
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.lang.annotation.*
 import com.intellij.lang.annotation.Annotation
-import com.intellij.lang.annotation.AnnotationHolder
-import com.intellij.lang.annotation.Annotator
-import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
-import uk.co.reecedunn.intellij.plugin.core.tests.annotation.AnnotationCollector
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
@@ -69,9 +66,9 @@ abstract class AnnotatorTestCase :
     }
 
     internal fun annotateTree(file: XPath, annotator: Annotator): List<Annotation> {
-        val annotationHolder = AnnotationCollector()
+        val annotationHolder = AnnotationHolderImpl(AnnotationSession(file))
         annotateTree(file.node, annotationHolder, annotator)
-        return annotationHolder.annotations
+        return annotationHolder
     }
 
     fun info(
