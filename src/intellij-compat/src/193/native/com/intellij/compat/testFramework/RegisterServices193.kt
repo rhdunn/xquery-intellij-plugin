@@ -22,6 +22,7 @@ import com.intellij.openapi.roots.impl.DirectoryIndex
 import com.intellij.openapi.roots.impl.DirectoryIndexImpl
 import com.intellij.openapi.roots.impl.ProjectFileIndexImpl
 import com.intellij.util.indexing.FileBasedIndex
+import com.intellij.util.indexing.FileBasedIndexExtension
 import com.intellij.util.indexing.FileBasedIndexImpl
 import org.picocontainer.MutablePicoContainer
 
@@ -34,6 +35,7 @@ fun MutablePicoContainer.registerProgressManager() {
 
 @Suppress("UnstableApiUsage")
 fun PlatformLiteFixture.registerFileBasedIndex() {
+    registerExtensionPoint(FileBasedIndexExtension.EXTENSION_POINT_NAME, FileBasedIndexExtension::class.java)
     registerProjectService(DirectoryIndex::class.java, DirectoryIndexImpl(project))
     registerProjectService(ProjectFileIndex::class.java, ProjectFileIndexImpl(project))
     registerApplicationService(FileBasedIndex::class.java, FileBasedIndexImpl())
