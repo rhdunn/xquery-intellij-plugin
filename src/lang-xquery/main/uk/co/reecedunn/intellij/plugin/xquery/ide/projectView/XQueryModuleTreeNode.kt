@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
@@ -40,8 +42,16 @@ class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
                 is XQueryAnnotatedDecl -> {
                     decl.children().map { annotatedDecl ->
                         when (annotatedDecl) {
-                            is XQueryFunctionDecl -> XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
-                            is XQueryVarDecl -> XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
+                            is XQueryFunctionDecl -> {
+                                (annotatedDecl as XdmFunctionDeclaration).functionName?.localName?.let {
+                                    XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
+                                }
+                            }
+                            is XQueryVarDecl -> {
+                                (annotatedDecl as XdmVariableDeclaration).variableName?.localName?.let {
+                                    XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
+                                }
+                            }
                             else -> null
                         }
                     }
