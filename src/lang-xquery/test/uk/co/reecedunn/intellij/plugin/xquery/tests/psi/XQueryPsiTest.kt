@@ -5144,6 +5144,29 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("invalid local name")
+            fun invalidLocalName() {
+                // e.g. MarkLogic's roxy framework has template files declaring 'c:#function-name'.
+                val decl = parse<XdmFunctionDeclaration>("declare function fn:#true() external;")[0]
+                assertThat(decl.returnType, `is`(nullValue()))
+                assertThat(decl.arity, `is`(Range(0, 0)))
+                assertThat(decl.params.size, `is`(0))
+                assertThat(decl.isVariadic, `is`(false))
+
+                val qname = decl.functionName!!
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                assertThat(presentation.structurePresentableText, `is`(nullValue()))
+                assertThat(presentation.presentableText, `is`(nullValue()))
+                assertThat(presentation.locationString, `is`(nullValue()))
+            }
+
+            @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>(

@@ -73,7 +73,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override fun getLocationString(): String? = null
 
     private val cachedPresentableText = CacheableProperty {
-        functionName?.let { op_qname_presentation(it) }
+        val name = functionName
+        name?.localName ?: return@CacheableProperty null
+        op_qname_presentation(name)
     }
 
     // e.g. the documentation tool window title.
@@ -83,17 +85,18 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // region ItemPresentationEx
 
     private val cachedStructurePresentableText = CacheableProperty {
-        functionName?.let { name ->
-            val returnType = returnType
-            if (returnType == null)
-                "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}"
-            else
-                "${op_qname_presentation(name)}${paramList?.presentation?.presentableText
-                    ?: "()"} as ${returnType.typeName}"
-        }
+        val name = functionName
+        name?.localName ?: return@CacheableProperty null
+
+        val returnType = returnType
+        if (returnType == null)
+            "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}"
+        else
+            "${op_qname_presentation(name)}${paramList?.presentation?.presentableText
+                ?: "()"} as ${returnType.typeName}"
     }
 
-    override val structurePresentableText: String? = cachedStructurePresentableText.get()
+    override val structurePresentableText: String? get() = cachedStructurePresentableText.get()
 
     // endregion
     // region SortableTreeElement
