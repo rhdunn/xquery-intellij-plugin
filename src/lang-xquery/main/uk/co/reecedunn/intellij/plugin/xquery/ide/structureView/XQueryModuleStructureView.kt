@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import javax.swing.Icon
@@ -31,8 +33,16 @@ class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQuer
                         is XQueryAnnotatedDecl -> {
                             decl.children().map { annotatedDecl ->
                                 when (annotatedDecl) {
-                                    is XQueryFunctionDecl -> StructureViewLeafNode(annotatedDecl)
-                                    is XQueryVarDecl -> StructureViewLeafNode(annotatedDecl)
+                                    is XQueryFunctionDecl -> {
+                                        (annotatedDecl as XdmFunctionDeclaration).functionName?.localName?.let {
+                                            StructureViewLeafNode(annotatedDecl)
+                                        }
+                                    }
+                                    is XQueryVarDecl -> {
+                                        (annotatedDecl as XdmVariableDeclaration).variableName?.localName?.let {
+                                            StructureViewLeafNode(annotatedDecl)
+                                        }
+                                    }
                                     else -> null
                                 }
                             }
