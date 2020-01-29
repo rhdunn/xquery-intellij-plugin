@@ -76,12 +76,15 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
     }
 
     private fun createConsole(executor: Executor): ConsoleView? {
-        val console = when (executor.id) {
-            DefaultRunExecutor.EXECUTOR_ID -> QueryTextConsoleView(environment.project)
-            DefaultProfileExecutor.EXECUTOR_ID -> QueryTextConsoleView(environment.project)
+        return when (executor.id) {
+            DefaultRunExecutor.EXECUTOR_ID -> {
+                QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
+            }
+            DefaultProfileExecutor.EXECUTOR_ID -> {
+                QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
+            }
             else -> throw UnsupportedOperationException()
         }
-        return QueryConsoleView(environment.project, console)
     }
 
     @Suppress("UNUSED_PARAMETER")
