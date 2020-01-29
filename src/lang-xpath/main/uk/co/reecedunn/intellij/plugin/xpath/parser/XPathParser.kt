@@ -3758,6 +3758,12 @@ open class XPathParser : PsiParser {
                 }
                 nameMarker.drop()
 
+                // MarkLogic's roxy project uses 'c:#function-name' in several template files.
+                builder.errorOnTokenType(
+                    XPathTokenType.FUNCTION_REF_OPERATOR,
+                    XPathBundle.message("parser.error.qname.missing-local-name")
+                )
+
                 val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix == XPathTokenType.STAR)
                 return if (
                     type === XPathElementType.WILDCARD &&

@@ -5147,7 +5147,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("invalid local name")
             fun invalidLocalName() {
                 // e.g. MarkLogic's roxy framework has template files declaring 'c:#function-name'.
-                val decl = parse<XdmFunctionDeclaration>("declare function fn:#true() external;")[0]
+                val decl = parse<XdmFunctionDeclaration>("declare function fn:() external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
