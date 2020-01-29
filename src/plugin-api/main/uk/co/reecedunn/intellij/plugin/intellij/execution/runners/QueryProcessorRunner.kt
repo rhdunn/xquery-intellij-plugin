@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.runners
 
 import com.intellij.execution.configurations.RunProfile
+import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.configurations.RunnerSettings
 import com.intellij.execution.executors.DefaultRunExecutor
-import com.intellij.execution.runners.DefaultProgramRunner
+import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.execution.runners.GenericProgramRunner
+import com.intellij.execution.runners.RunContentBuilder
+import com.intellij.execution.ui.RunContentDescriptor
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
 
-class QueryProcessorRunner : DefaultProgramRunner() {
+class QueryProcessorRunner : GenericProgramRunner<RunnerSettings>() {
     override fun getRunnerId(): String = "XIJPQueryProcessorRunner"
 
     override fun canRun(executorId: String, profile: RunProfile): Boolean {
@@ -28,5 +34,12 @@ class QueryProcessorRunner : DefaultProgramRunner() {
             return false
         }
         return profile.processor?.api?.canExecute(profile.language, executorId) == true
+    }
+
+    override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
+        FileDocumentManager.getInstance().saveAllDocuments()
+        return state.execute(environment.executor, this)?.let {
+            RunContentBuilder(it, environment).showRunContent(environment.contentToReuse)
+        }
     }
 }
