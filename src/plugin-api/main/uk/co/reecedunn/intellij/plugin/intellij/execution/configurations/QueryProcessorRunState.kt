@@ -84,11 +84,9 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 val console = QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
-                val builder = ConsoleRunnerLayoutUiBuilder(console)
-                builder.contentProvider(FlatProfileTableView(environment.project))
-                    .active()
-                    .add()
-                builder.consoleView()
+                ConsoleRunnerLayoutUiBuilder(console)
+                    .contentProvider(FlatProfileTableView(environment.project), active = true)
+                    .consoleView()
             }
             else -> throw UnsupportedOperationException()
         }

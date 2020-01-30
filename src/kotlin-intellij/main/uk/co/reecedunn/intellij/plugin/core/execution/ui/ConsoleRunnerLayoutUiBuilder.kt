@@ -27,27 +27,18 @@ import javax.swing.border.Border
 class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBase(primary), ConsoleViewEx {
     // region Builder
 
-    private val builders: ArrayList<ContentProviderBuilder> = ArrayList()
+    private val providers: ArrayList<ContentProvider> = ArrayList()
+    private var activeProvider: ContentProvider? = null
 
-    fun contentProvider(provider: ContentProvider): ContentProviderBuilder {
-        return ContentProviderBuilder(provider)
+    fun contentProvider(provider: ContentProvider, active: Boolean = false): ConsoleRunnerLayoutUiBuilder {
+        providers.add(provider)
+        if (active) {
+            activeProvider = provider
+        }
+        return this
     }
 
     fun consoleView(): ConsoleView = this
-
-    inner class ContentProviderBuilder(internal val provider: ContentProvider) {
-        internal var active: Boolean = false
-
-        fun active(): ContentProviderBuilder {
-            active = true
-            return this
-        }
-
-        fun add(): ConsoleRunnerLayoutUiBuilder {
-            builders.add(this)
-            return this@ConsoleRunnerLayoutUiBuilder
-        }
-    }
 
     // endregion
     // region ExecutionConsoleEx
@@ -56,20 +47,20 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
         RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
 
         var actions: DefaultActionGroup? = null
-        builders.forEach { builder ->
-            val content = builder.provider.getContent(layoutUi)
+        providers.forEach { provider ->
+            val content = provider.getContent(layoutUi)
             layoutUi.contentManager.addContent(content)
 
-            val runnerActions = builder.provider.createRunnerLayoutActions()
+            val runnerActions = provider.createRunnerLayoutActions()
             if (runnerActions.isNotEmpty()) {
                 if (actions == null) {
                     actions = DefaultActionGroup()
                 }
-                actions!!.addAll(*builder.provider.createRunnerLayoutActions())
+                actions!!.addAll(*provider.createRunnerLayoutActions())
             }
 
-            builder.provider.attachToConsole(delegate)
-            if (builder.active) {
+            provider.attachToConsole(delegate)
+            if (provider === activeProvider) {
                 layoutUi.contentManager.setSelectedContent(content)
             }
         }
@@ -82,13 +73,13 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
     // region ConsoleView
 
     override fun dispose() {
-        builders.clear()
+        providers.clear()
         super.dispose()
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
         super.attachToProcess(processHandler)
-        builders.forEach { it.provider.attachToProcess(processHandler) }
+        providers.forEach { it.attachToProcess(processHandler) }
     }
 
     // endregion
