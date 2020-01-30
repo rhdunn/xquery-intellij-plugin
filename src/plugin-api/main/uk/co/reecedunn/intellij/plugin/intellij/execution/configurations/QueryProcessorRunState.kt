@@ -25,7 +25,6 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.ui.ConsoleView
-import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
@@ -41,7 +40,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         val processHandler = startProcess()
         val console = createConsole(executor!!)
         console?.attachToProcess(processHandler)
-        return DefaultExecutionResult(console, processHandler, *createActions(console, processHandler, executor))
+        return DefaultExecutionResult(console, processHandler)
     }
 
     private fun startProcess(): ProcessHandler {
@@ -90,14 +89,5 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             }
             else -> throw UnsupportedOperationException()
         }
-    }
-
-    @Suppress("UNUSED_PARAMETER")
-    private fun createActions(
-        console: ConsoleView?,
-        processHandler: ProcessHandler,
-        executor: Executor?
-    ): Array<AnAction> {
-        return AnAction.EMPTY_ARRAY
     }
 }
