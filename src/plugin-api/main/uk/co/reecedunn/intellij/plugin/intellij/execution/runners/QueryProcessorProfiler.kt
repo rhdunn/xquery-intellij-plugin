@@ -20,6 +20,7 @@ import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.configurations.RunnerSettings
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.GenericProgramRunner
+import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
@@ -39,9 +40,7 @@ class QueryProcessorProfiler : GenericProgramRunner<RunnerSettings>() {
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
         FileDocumentManager.getInstance().saveAllDocuments()
         return state.execute(environment.executor, this)?.let {
-            val tab = ProfileRunTab(it, environment)
-            tab.addContentProvider(FlatProfileTableView(environment.project), isActiveProvider = true)
-            tab.runContentDescriptor
+            RunContentBuilder(it, environment).showRunContent(environment.contentToReuse)
         }
     }
 }
