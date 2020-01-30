@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
 import com.intellij.execution.console.ConsoleViewWrapperBase
+import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.RunnerLayoutUi
@@ -51,11 +52,6 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
     // endregion
     // region ExecutionConsoleEx
 
-    override fun dispose() {
-        builders.clear()
-        super.dispose()
-    }
-
     override fun buildUi(layoutUi: RunnerLayoutUi?) {
         RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
 
@@ -79,6 +75,19 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
         if (actions != null) {
             layoutUi.options.setTopToolbar(actions!!, ActionPlaces.RUNNER_TOOLBAR)
         }
+    }
+
+    // endregion
+    // region ConsoleView
+
+    override fun dispose() {
+        builders.clear()
+        super.dispose()
+    }
+
+    override fun attachToProcess(processHandler: ProcessHandler?) {
+        super.attachToProcess(processHandler)
+        builders.forEach { it.provider.attachToProcess(processHandler) }
     }
 
     // endregion
