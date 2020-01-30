@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportL
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
-import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.SaveAction
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.debug.createNavigatable
@@ -43,7 +42,6 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
-import javax.swing.JPanel
 import javax.swing.JTable
 
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -60,7 +58,6 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
 
 class FlatProfileTableView(val project: Project) :
     ContentProvider,
-    QueryTableProvider,
     Disposable,
     ProfileReportListener {
     // region UI
@@ -85,11 +82,6 @@ class FlatProfileTableView(val project: Project) :
         component = JBScrollPane(results)
         return component!!
     }
-
-    // endregion
-    // region QueryTableProvider
-
-    override val table: QueryTable get() = results as QueryTable
 
     // endregion
     // region ContentProvider
@@ -133,7 +125,7 @@ class FlatProfileTableView(val project: Project) :
     }
 
     override fun attachToConsole(consoleView: ConsoleView) {
-        (consoleView as? QueryConsoleView)?.registerQueryTable(table)
+        (consoleView as? QueryConsoleView)?.registerQueryTable(results as QueryTable)
     }
 
     // endregion
