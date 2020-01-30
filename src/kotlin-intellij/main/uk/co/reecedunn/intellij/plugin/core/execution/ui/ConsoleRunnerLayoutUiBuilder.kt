@@ -22,10 +22,26 @@ import com.intellij.execution.ui.RunnerLayoutUi
 import javax.swing.border.Border
 
 class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBase(primary), ConsoleViewEx {
+    // region Builder
+
+    private val providers: ArrayList<ContentProvider> = ArrayList()
+
+    fun contentProvider(provider: ContentProvider): ConsoleRunnerLayoutUiBuilder {
+        providers.add(provider)
+        return this
+    }
+
+    fun consoleView(): ConsoleView = this
+
+    // endregion
     // region ExecutionConsoleEx
 
     override fun buildUi(layoutUi: RunnerLayoutUi?) {
         RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
+        providers.forEach { provider ->
+            val content = provider.getContent(layoutUi)
+            layoutUi.contentManager.addContent(content)
+        }
     }
 
     // endregion

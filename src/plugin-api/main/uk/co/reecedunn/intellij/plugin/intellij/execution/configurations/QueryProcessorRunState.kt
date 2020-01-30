@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfi
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
@@ -83,8 +84,9 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 val console = QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
-                val builder = ConsoleRunnerLayoutUiBuilder(console)
-                builder
+                ConsoleRunnerLayoutUiBuilder(console)
+                    .contentProvider(FlatProfileTableView(environment.project))
+                    .consoleView()
             }
             else -> throw UnsupportedOperationException()
         }
