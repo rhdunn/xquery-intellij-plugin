@@ -19,6 +19,8 @@ import com.intellij.execution.console.ConsoleViewWrapperBase
 import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.DefaultActionGroup
 import javax.swing.border.Border
 
 class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBase(primary), ConsoleViewEx {
@@ -56,13 +58,26 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
 
     override fun buildUi(layoutUi: RunnerLayoutUi?) {
         RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
+
+        var actions: DefaultActionGroup? = null
         builders.forEach { builder ->
             val content = builder.provider.getContent(layoutUi)
             layoutUi.contentManager.addContent(content)
 
+            val runnerActions = builder.provider.createRunnerLayoutActions()
+            if (runnerActions.isNotEmpty()) {
+                if (actions == null) {
+                    actions = DefaultActionGroup()
+                }
+                actions!!.addAll(*builder.provider.createRunnerLayoutActions())
+            }
+
             if (builder.active) {
                 layoutUi.contentManager.setSelectedContent(content)
             }
+        }
+        if (actions != null) {
+            layoutUi.options.setTopToolbar(actions!!, ActionPlaces.RUNNER_TOOLBAR)
         }
     }
 
