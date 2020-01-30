@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile
 
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.Disposable
@@ -31,6 +32,7 @@ import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTableProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.SaveAction
@@ -128,6 +130,10 @@ class FlatProfileTableView(val project: Project) :
     override fun attachToProcess(processHandler: ProcessHandler?) {
         queryProcessHandler = processHandler as? ProfileableQueryProcessHandler
         queryProcessHandler?.addProfileReportListener(this)
+    }
+
+    override fun attachToConsole(consoleView: ConsoleView) {
+        (consoleView as? QueryConsoleView)?.registerQueryTable(table)
     }
 
     // endregion

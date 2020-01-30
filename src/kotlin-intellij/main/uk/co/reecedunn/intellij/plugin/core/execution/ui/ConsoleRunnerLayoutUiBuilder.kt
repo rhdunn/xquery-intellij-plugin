@@ -68,6 +68,7 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
                 actions!!.addAll(*builder.provider.createRunnerLayoutActions())
             }
 
+            builder.provider.attachToConsole(delegate)
             if (builder.active) {
                 layoutUi.contentManager.setSelectedContent(content)
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.ui.content.Content
@@ -30,4 +31,6 @@ interface ContentProvider {
     fun createRunnerLayoutActions(): Array<AnAction>
 
     fun attachToProcess(processHandler: ProcessHandler?)
+
+    fun attachToConsole(consoleView: ConsoleView)
 }
