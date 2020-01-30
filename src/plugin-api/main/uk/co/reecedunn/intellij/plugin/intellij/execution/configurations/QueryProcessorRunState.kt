@@ -26,6 +26,7 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.openapi.actionSystem.AnAction
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
@@ -81,7 +82,9 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
-                QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
+                val console = QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
+                val builder = ConsoleRunnerLayoutUiBuilder(console)
+                builder
             }
             else -> throw UnsupportedOperationException()
         }
