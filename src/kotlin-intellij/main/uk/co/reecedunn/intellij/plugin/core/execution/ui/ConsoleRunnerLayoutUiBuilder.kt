@@ -24,23 +24,45 @@ import javax.swing.border.Border
 class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBase(primary), ConsoleViewEx {
     // region Builder
 
-    private val providers: ArrayList<ContentProvider> = ArrayList()
+    private val builders: ArrayList<ContentProviderBuilder> = ArrayList()
 
-    fun contentProvider(provider: ContentProvider): ConsoleRunnerLayoutUiBuilder {
-        providers.add(provider)
-        return this
+    fun contentProvider(provider: ContentProvider): ContentProviderBuilder {
+        return ContentProviderBuilder(provider)
     }
 
     fun consoleView(): ConsoleView = this
 
+    inner class ContentProviderBuilder(internal val provider: ContentProvider) {
+        internal var active: Boolean = false
+
+        fun active(): ContentProviderBuilder {
+            active = true
+            return this
+        }
+
+        fun add(): ConsoleRunnerLayoutUiBuilder {
+            builders.add(this)
+            return this@ConsoleRunnerLayoutUiBuilder
+        }
+    }
+
     // endregion
     // region ExecutionConsoleEx
 
+    override fun dispose() {
+        builders.clear()
+        super.dispose()
+    }
+
     override fun buildUi(layoutUi: RunnerLayoutUi?) {
         RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
-        providers.forEach { provider ->
-            val content = provider.getContent(layoutUi)
+        builders.forEach { builder ->
+            val content = builder.provider.getContent(layoutUi)
             layoutUi.contentManager.addContent(content)
+
+            if (builder.active) {
+                layoutUi.contentManager.setSelectedContent(content)
+            }
         }
     }
 
