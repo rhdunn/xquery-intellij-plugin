@@ -57,6 +57,11 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         myProjectEx = null
         try {
             super.tearDown()
+        } catch (e: Throwable) {
+            // IntelliJ 2020.1 can throw an error in CodeStyleSettingsManager.getCurrentSettings
+            // when trying to clean up the registered endpoints. Log that error, but don't make
+            // it fail the test.
+            LOG.warn(e)
         } finally {
             clearFields(this)
         }
