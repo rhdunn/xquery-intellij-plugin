@@ -21,6 +21,7 @@
 
     <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewFactory"/>
     <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.projectView.XQueryTreeStructureProvider"/>
+    <navbar implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.navigationToolbar.XQueryNavBarModelExtension"/>
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XQueryTypedHandler"/>

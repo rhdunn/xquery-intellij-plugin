@@ -41,7 +41,7 @@
       <li>Code folding.</li>
       <li>Code completion.</li>
       <li>Parameter information tooltips and inlay hints.</li>
-      <li>Structure view.</li>
+      <li>Structure view, including on the navigation bar in IntelliJ 2020.1+.</li>
       <li>Breadcrumb navigation.</li>
       <li>Paired brace matching.</li>
       <li>Commenting code.</li>
@@ -63,6 +63,10 @@
         Display the correct type name in the find usages UI for EQNames that
         are annotations, attributes, decimal formats, elements, functions,
         namespaces, options, parameters, pragmas, types, and variables.
+      </li>
+      <li>
+        Support displaying the XQuery file structure view in the navigation bar
+        on IntelliJ 2020.1.
       </li>
     </ol>
     <p>IntelliJ Integration:</p>

@@ -11,6 +11,8 @@ References, Resolving and Find Usages:
 1.  Display the correct type name in the find usages UI for EQNames that are annotations,
     attributes, decimal formats, elements, functions, namespaces, options, parameters,
     pragmas, types, and variables.
+1.  Support displaying the XQuery file structure view in the navigation bar on
+    IntelliJ 2020.1.
 
 IntelliJ Integration:
 
