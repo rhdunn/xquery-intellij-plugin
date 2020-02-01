@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder
 
+import com.intellij.compat.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.cacheBuilder.WordOccurrence
-import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
@@ -24,12 +24,12 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathWordsScanner : WordsScanner {
+class XPathWordsScanner : WordsScanner() {
     private val mLexer = XPathLexer(XmlCodePointRangeImpl())
     private val mOccurrence = WordOccurrence(null, 0, 0, null)
     private val mRange = CodePointRangeImpl()
 
-    override fun processWords(fileText: CharSequence, processor: Processor<WordOccurrence>) {
+    override fun processWordsEx(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
         mLexer.start(fileText)
         while (mLexer.tokenType != null) {
             mRange.start(fileText, mLexer.tokenStart, mLexer.tokenEnd)
@@ -50,7 +50,7 @@ class XPathWordsScanner : WordsScanner {
         }
     }
 
-    private fun processToken(processor: Processor<WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
+    private fun processToken(processor: Processor<in WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
         var inWord = false
         while (true)
             when (CharacterClass.getCharClass(mRange.codePoint)) {
