@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.ide.navigationToolbar
 import com.intellij.compat.ide.navigationToolbar.StructureAwareNavBarModelExtension
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
@@ -27,6 +28,7 @@ class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
     }
 
     override fun getPresentableText(`object`: Any?, forPopup: Boolean): String? {
+        if ((`object` as? PsiElement)?.language !== language) return null
         return when (`object`) {
             is ItemPresentationEx -> `object`.structurePresentableText
             is ItemPresentation -> `object`.presentableText
