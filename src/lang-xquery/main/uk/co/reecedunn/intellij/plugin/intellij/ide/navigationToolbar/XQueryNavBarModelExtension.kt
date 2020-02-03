@@ -21,6 +21,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
     override fun getPresentableText(`object`: Any?): String? {
@@ -34,6 +35,10 @@ class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
             is ItemPresentation -> `object`.presentableText
             else -> null
         }
+    }
+
+    override fun getParent(psiElement: PsiElement?): PsiElement? {
+        return (psiElement?.containingFile as? XQueryModule)
     }
 
     override val language: Language = XQuery
