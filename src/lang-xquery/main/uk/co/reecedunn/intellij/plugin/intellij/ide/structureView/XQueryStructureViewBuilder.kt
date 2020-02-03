@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryModuleStru
 
 class XQueryStructureViewBuilder(private val psiFile: PsiFile) : TreeBasedStructureViewBuilder() {
     override fun createStructureViewModel(editor: Editor?): StructureViewModel {
-        return StructureViewModelBase(psiFile, XQueryModuleStructureView(psiFile as XQueryModule))
+        return StructureViewModelBase(psiFile, editor, XQueryModuleStructureView(psiFile as XQueryModule))
             .withSuitableClasses(XQueryStructureViewElement::class.java)
             .withSorters(Sorter.ALPHA_SORTER)
     }
