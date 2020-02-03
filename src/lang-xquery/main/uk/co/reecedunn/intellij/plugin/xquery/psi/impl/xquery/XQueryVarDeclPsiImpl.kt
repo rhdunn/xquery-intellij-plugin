@@ -99,9 +99,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         varName?.variableName?.let { name ->
             val type = variableType
             if (type == null)
-                "\$${op_qname_presentation(name)}"
+                op_qname_presentation(name)
             else
-                "\$${op_qname_presentation(name)} as ${type.typeName}"
+                "${op_qname_presentation(name)} as ${type.typeName}"
         }
     }
 

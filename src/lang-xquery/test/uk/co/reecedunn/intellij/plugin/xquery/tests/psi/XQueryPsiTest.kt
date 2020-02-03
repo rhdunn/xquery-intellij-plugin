@@ -4934,7 +4934,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
-                assertThat(presentation.presentableText, `is`("\$x"))
+                assertThat(presentation.presentableText, `is`("x"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
 
@@ -4952,7 +4952,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
-                assertThat(presentation.presentableText, `is`("\$a:x"))
+                assertThat(presentation.presentableText, `is`("a:x"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
 
@@ -4972,7 +4972,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
-                assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
+                assertThat(presentation.presentableText, `is`("Q{http://www.example.com}x"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
 
@@ -5018,7 +5018,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
-                assertThat(presentation.presentableText, `is`("\$a:x as node()?"))
+                assertThat(presentation.presentableText, `is`("a:x as node()?"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
         }

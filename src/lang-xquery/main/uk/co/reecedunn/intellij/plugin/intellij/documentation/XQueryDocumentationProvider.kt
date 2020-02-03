@@ -69,7 +69,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
             is XPathVarName -> {
                 (parent.parent as? XQueryVarDecl)?.let {
                     val sig = it.presentation?.presentableText
-                    "declare variable $sig"
+                    "declare variable \$$sig"
                 }
             }
             is XPathNCName -> {
