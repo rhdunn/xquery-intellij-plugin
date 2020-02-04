@@ -64,10 +64,6 @@
         are annotations, attributes, decimal formats, elements, functions,
         namespaces, options, parameters, pragmas, types, and variables.
       </li>
-      <li>
-        Support displaying the XQuery file structure view in the navigation bar
-        on IntelliJ 2020.1.
-      </li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
@@ -78,6 +74,10 @@
       </li>
       <li>Support quick documentation (Ctrl+Q) for W3C XQuery functions.</li>
       <li>Support quick documentation (Ctrl+Q) for MarkLogic modules.</li>
+      <li>
+        Support displaying the XQuery file structure view in the navigation bar
+        on IntelliJ 2020.1.
+      </li>
       <li>
         Display the namespace signature and module path when holding Ctrl over
         a module namespace URI or prefix.
