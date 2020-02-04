@@ -24,22 +24,18 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
-    override fun getPresentableText(`object`: Any?): String? {
-        return getPresentableText(`object`, false)
-    }
+    override fun getPresentableText(`object`: Any?): String? = getPresentableText(`object`, false)
 
     override fun getPresentableText(`object`: Any?, forPopup: Boolean): String? {
         if ((`object` as? PsiElement)?.language !== language) return null
         return when (`object`) {
-            is ItemPresentationEx -> `object`.structurePresentableText
+            is ItemPresentationEx -> if (forPopup) `object`.structurePresentableText else `object`.presentableText
             is ItemPresentation -> `object`.presentableText
             else -> null
         }
     }
 
-    override fun getParent(psiElement: PsiElement?): PsiElement? {
-        return (psiElement?.containingFile as? XQueryModule)
-    }
+    override fun getParent(psiElement: PsiElement?): PsiElement? = (psiElement?.containingFile as? XQueryModule)
 
     override val language: Language = XQuery
 }
