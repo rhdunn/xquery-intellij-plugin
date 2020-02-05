@@ -16,31 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation
 
 import com.intellij.lang.Language
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import com.intellij.util.LocalTimeCounter
-import com.intellij.xdebugger.XSourcePosition
-import com.intellij.xdebugger.evaluation.EvaluationMode
-import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
+import com.intellij.xdebugger.evaluation.XDebuggerEditorsProviderBase
 
 @Suppress("unused")
-class QueryEditorsProvider(private val language: Language) : XDebuggerEditorsProvider() {
+class QueryEditorsProvider(private val language: Language) : XDebuggerEditorsProviderBase() {
     override fun getFileType(): FileType = language.associatedFileType!!
 
-    @Suppress("OverridingDeprecatedMember")
-    override fun createDocument(
+    override fun createExpressionCodeFragment(
         project: Project,
-        expression: String,
-        sourcePosition: XSourcePosition?,
-        mode: EvaluationMode
-    ): Document {
-        val psiFile = PsiFileFactory.getInstance(project).createFileFromText(
-            "expression." + fileType.defaultExtension, fileType, expression,
+        text: String,
+        context: PsiElement?,
+        isPhysical: Boolean
+    ): PsiFile {
+        return PsiFileFactory.getInstance(project).createFileFromText(
+            "expression." + fileType.defaultExtension, fileType, text,
             LocalTimeCounter.currentTime(), true
         )
-        return PsiDocumentManager.getInstance(project).getDocument(psiFile)!!
     }
 }
