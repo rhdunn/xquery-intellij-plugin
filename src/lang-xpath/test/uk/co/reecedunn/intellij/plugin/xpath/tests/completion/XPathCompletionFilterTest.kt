@@ -210,6 +210,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
             assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
         }
 
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (71) NamedTextTest")
+        fun namedTextTest() {
+            val context = ProcessingContext()
+            val element = completion("\$x/text(\"completion-point\")")
+            assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
+        }
+
         @Nested
         @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
         internal inner class FunctionCall {
