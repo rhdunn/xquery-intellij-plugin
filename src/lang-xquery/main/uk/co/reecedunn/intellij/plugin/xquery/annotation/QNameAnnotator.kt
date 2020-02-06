@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.annotation
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -47,7 +48,7 @@ class QNameAnnotator : Annotator() {
                     XPathBundle.message("parser.error.wildcard.whitespace-before-local-part")
                 else
                     XPathBundle.message("parser.error.qname.whitespace-before-local-part")
-            holder.createErrorAnnotation(before, message)
+            holder.newAnnotation(HighlightSeverity.ERROR, message).range(before).create()
         }
     }
 
@@ -62,7 +63,7 @@ class QNameAnnotator : Annotator() {
                     XPathBundle.message("parser.error.wildcard.whitespace-after-local-part")
                 else
                     XPathBundle.message("parser.error.qname.whitespace-after-local-part")
-            holder.createErrorAnnotation(after, message)
+            holder.newAnnotation(HighlightSeverity.ERROR, message).range(after).create()
         }
     }
 
