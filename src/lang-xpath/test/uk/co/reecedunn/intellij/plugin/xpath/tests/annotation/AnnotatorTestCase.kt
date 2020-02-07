@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.annotation
 
 import com.intellij.codeInsight.daemon.impl.AnnotationHolderImpl
+import com.intellij.compat.lang.annotation.runAnnotatorWithContext
 import com.intellij.lang.ASTNode
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.annotation.*
@@ -55,9 +56,9 @@ abstract class AnnotatorTestCase :
 
     private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {
         if (node is CompositeElement) {
-            annotator.annotate(node.psi, annotationHolder)
+            annotationHolder.runAnnotatorWithContext(node.psi, annotator)
         } else if (node is LeafPsiElement) {
-            annotator.annotate(node, annotationHolder)
+            annotationHolder.runAnnotatorWithContext(node, annotator)
         }
 
         for (child in node.getChildren(null)) {
@@ -66,7 +67,7 @@ abstract class AnnotatorTestCase :
     }
 
     internal fun annotateTree(file: XPath, annotator: Annotator): List<Annotation> {
-        val annotationHolder = AnnotationHolderImpl(AnnotationSession(file))
+        @Suppress("UnstableApiUsage") val annotationHolder = AnnotationHolderImpl(AnnotationSession(file))
         annotateTree(file.node, annotationHolder, annotator)
         return annotationHolder
     }

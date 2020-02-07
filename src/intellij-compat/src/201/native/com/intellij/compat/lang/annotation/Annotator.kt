@@ -15,10 +15,21 @@
  */
 package com.intellij.compat.lang.annotation
 
+import com.intellij.codeInsight.daemon.impl.AnnotationHolderImpl
 import com.intellij.psi.PsiElement
+import org.jetbrains.annotations.TestOnly
 
 abstract class Annotator : com.intellij.lang.annotation.Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) = annotateElement(element, holder)
 
     abstract fun annotateElement(element: PsiElement, holder: AnnotationHolder)
+}
+
+@Suppress("UnstableApiUsage")
+@TestOnly
+fun com.intellij.lang.annotation.AnnotationHolder.runAnnotatorWithContext(
+    element: PsiElement,
+    annotator: com.intellij.lang.annotation.Annotator
+) {
+    return (this as AnnotationHolderImpl).runAnnotatorWithContext(element, annotator)
 }

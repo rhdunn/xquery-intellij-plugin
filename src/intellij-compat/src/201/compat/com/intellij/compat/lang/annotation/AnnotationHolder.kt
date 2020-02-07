@@ -19,6 +19,8 @@ import com.intellij.lang.annotation.Annotation
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
 import org.jetbrains.annotations.ApiStatus
+import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.TestOnly
 
 class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder) {
     internal var currentElement: PsiElement? = null
@@ -42,4 +44,12 @@ class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder
     fun newSilentAnnotation(severity: HighlightSeverity): AnnotationBuilder {
         return AnnotationBuilder(this, severity, null)
     }
+}
+
+@TestOnly
+fun com.intellij.lang.annotation.AnnotationHolder.runAnnotatorWithContext(
+    element: PsiElement,
+    annotator: com.intellij.lang.annotation.Annotator
+) {
+    return annotator.annotate(element, this)
 }
