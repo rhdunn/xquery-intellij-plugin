@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2019 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
-import com.intellij.CommonBundle
+import com.intellij.BundleBase
 import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
 import java.lang.ref.SoftReference
@@ -38,6 +38,6 @@ object XQueryBundle {
         }
 
     fun message(@PropertyKey(resourceBundle = PATH_TO_BUNDLE) key: String, vararg params: Any): String {
-        return CommonBundle.message(bundle, key, *params)
+        return BundleBase.message(bundle, key, *params)
     }
 }
