@@ -21,7 +21,7 @@ import com.intellij.openapi.util.TextRange
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocCommentLineExtractor
 
 class XPathCommentPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -42,9 +42,9 @@ class XPathCommentPsiImpl(node: ASTNode) :
             val text = this.text
             val parser =
                 if (text.endsWith(":)"))
-                    XQueryCommentLineExtractor(text.subSequence(2, text.length - 2))
+                    XQDocCommentLineExtractor(text.subSequence(2, text.length - 2))
                 else
-                    XQueryCommentLineExtractor(text.subSequence(2, text.length))
+                    XQDocCommentLineExtractor(text.subSequence(2, text.length))
             return if (parser.next()) {
                 if (parser.isXQDoc)
                     "(:~ ${parser.text} :)"
