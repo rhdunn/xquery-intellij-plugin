@@ -24,15 +24,15 @@ import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
 import javax.swing.JComponent
 
-class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XdmDocumentationSource> {
+class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XQDocDocumentationSource> {
     // region Configurable
 
     private lateinit var cachePath: TextFieldWithBrowseButton
-    private lateinit var sources: TableView<XdmDocumentationSource>
+    private lateinit var sources: TableView<XQDocDocumentationSource>
 
     override fun getDisplayName(): String = XQDocBundle.message("settings.document-sources.title")
 
@@ -85,11 +85,11 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
     // endregion
     // region TaskProgressListener<XdmDocumentationSource>
 
-    override fun started(context: XdmDocumentationSource) {
+    override fun started(context: XQDocDocumentationSource) {
         sources.update(context)
     }
 
-    override fun stopped(context: XdmDocumentationSource) {
+    override fun stopped(context: XQDocDocumentationSource) {
         sources.update(context)
     }
 

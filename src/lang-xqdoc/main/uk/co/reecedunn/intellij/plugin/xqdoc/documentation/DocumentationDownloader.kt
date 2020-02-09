@@ -37,13 +37,13 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
     var basePath: String? = null
         get() = field ?: "${PathManager.getSystemPath()}/xdm-cache/documentation"
 
-    private val tasks = TaskManager<XdmDocumentationSource>()
+    private val tasks = TaskManager<XQDocDocumentationSource>()
 
-    fun addListener(listener: TaskProgressListener<XdmDocumentationSource>) = tasks.addListener(listener)
+    fun addListener(listener: TaskProgressListener<XQDocDocumentationSource>) = tasks.addListener(listener)
 
-    fun removeListener(listener: TaskProgressListener<XdmDocumentationSource>) = tasks.removeListener(listener)
+    fun removeListener(listener: TaskProgressListener<XQDocDocumentationSource>) = tasks.removeListener(listener)
 
-    fun download(source: XdmDocumentationSource): Boolean {
+    fun download(source: XQDocDocumentationSource): Boolean {
         return tasks.backgroundable(XQDocBundle.message("documentation-source.download.title"), source) { indicator ->
             val file = File("$basePath/${source.path}")
             HttpRequests.request(source.href).saveToFile(file, indicator)
@@ -51,15 +51,15 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
         }
     }
 
-    fun load(source: XdmDocumentationSource): VirtualFile? {
+    fun load(source: XQDocDocumentationSource): VirtualFile? {
         return LocalFileSystem.getInstance().findFileByIoFile(file(source))
     }
 
-    fun file(source: XdmDocumentationSource): File {
+    fun file(source: XQDocDocumentationSource): File {
         return File("$basePath/${source.path}")
     }
 
-    fun status(source: XdmDocumentationSource): XdmDocumentationDownloadStatus {
+    fun status(source: XQDocDocumentationSource): XdmDocumentationDownloadStatus {
         return when {
             tasks.isActive(source) -> XdmDocumentationDownloadStatus.Downloading
             file(source).exists() -> XdmDocumentationDownloadStatus.Downloaded

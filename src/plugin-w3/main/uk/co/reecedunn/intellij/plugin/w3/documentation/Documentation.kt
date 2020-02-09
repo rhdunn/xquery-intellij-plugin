@@ -72,7 +72,7 @@ internal data class W3CSpecificationDocument(
     val id: String,
     override val version: String,
     private val namespaces: Map<String, String>
-) : XdmDocumentationSource, XdmDocumentationIndex {
+) : XQDocDocumentationSource, XdmDocumentationIndex {
     // region XdmDocumentationSource
 
     override val name: String = type.name

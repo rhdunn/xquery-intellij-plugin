@@ -19,7 +19,7 @@ import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-interface XdmDocumentationSource {
+interface XQDocDocumentationSource {
     val name: String
 
     val version: String
@@ -35,7 +35,7 @@ interface XdmDocumentationSourceProvider {
             "uk.co.reecedunn.intellij.documentationSourceProvider"
         )
 
-        val allSources: Sequence<XdmDocumentationSource>
+        val allSources: Sequence<XQDocDocumentationSource>
             get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
 
         fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentation> {
@@ -51,5 +51,5 @@ interface XdmDocumentationSourceProvider {
         }
     }
 
-    val sources: List<XdmDocumentationSource>
+    val sources: List<XQDocDocumentationSource>
 }

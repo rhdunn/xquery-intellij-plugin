@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 object DocumentationSourceProvider : XdmDocumentationSourceProvider, XdmDocumentationIndex {
     // region XdmDocumentationSourceProvider
 
-    override val sources: List<XdmDocumentationSource> = listOf()
+    override val sources: List<XQDocDocumentationSource> = listOf()
 
     // endregion
     // region XdmDocumentationIndex

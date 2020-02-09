@@ -19,26 +19,26 @@ import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 
-fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.nameColumn() {
-    val column = columnInfo<XdmDocumentationSource, String>(
+fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.nameColumn() {
+    val column = columnInfo<XQDocDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.name.title"),
         getter = { item -> item.name }
     )
     add(column)
 }
 
-fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.versionColumn() {
-    val column = columnInfo<XdmDocumentationSource, String>(
+fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.versionColumn() {
+    val column = columnInfo<XQDocDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.version.title"),
         getter = { item -> item.version }
     )
     add(column)
 }
 
-fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.statusColumn() {
-    val column = columnInfo<XdmDocumentationSource, String>(
+fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.statusColumn() {
+    val column = columnInfo<XQDocDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.status.title"),
         getter = { item -> XdmDocumentationDownloader.getInstance().status(item).label }
     )
