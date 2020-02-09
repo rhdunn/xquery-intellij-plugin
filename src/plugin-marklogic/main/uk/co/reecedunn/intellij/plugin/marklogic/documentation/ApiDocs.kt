@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationIndex
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmFunctionDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -32,7 +32,7 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         val name = ref.functionName ?: return null
         return functions.find {
             it.name(XdmModuleType.XQuery) == name.localName?.data && it.namespace == name.namespace?.data

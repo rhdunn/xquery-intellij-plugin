@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import uk.co.reecedunn.intellij.plugin.core.text.camelCase
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmFunctionDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) : XdmFunctionDocumentation {
+data class ApiDocsFunction(private val xml: XmlElement, val namespace: String?) : XQDocFunctionDocumentation {
     // region apidoc:function
 
     val lib: String by lazy { xml.attribute("lib")!! }

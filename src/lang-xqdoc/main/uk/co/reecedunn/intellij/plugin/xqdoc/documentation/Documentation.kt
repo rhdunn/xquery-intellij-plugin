@@ -30,7 +30,7 @@ interface XQDocDocumentation {
     fun examples(moduleType: XdmModuleType): Sequence<String>
 }
 
-interface XdmFunctionDocumentation : XQDocDocumentation {
+interface XQDocFunctionDocumentation : XQDocDocumentation {
     val operatorMapping: String?
 
     val signatures: String?
@@ -47,12 +47,12 @@ interface XdmFunctionDocumentation : XQDocDocumentation {
 fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
     val sections = sequenceOf(
         "Summary" to summary(moduleType),
-        "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,
-        "Signatures" to (this as? XdmFunctionDocumentation)?.signatures,
-        "Properties" to (this as? XdmFunctionDocumentation)?.properties,
-        "Required Privileges" to (this as? XdmFunctionDocumentation)?.privileges,
-        "Rules" to (this as? XdmFunctionDocumentation)?.rules(moduleType),
-        "Error Conditions" to (this as? XdmFunctionDocumentation)?.errorConditions,
+        "Operator Mapping" to (this as? XQDocFunctionDocumentation)?.operatorMapping,
+        "Signatures" to (this as? XQDocFunctionDocumentation)?.signatures,
+        "Properties" to (this as? XQDocFunctionDocumentation)?.properties,
+        "Required Privileges" to (this as? XQDocFunctionDocumentation)?.privileges,
+        "Rules" to (this as? XQDocFunctionDocumentation)?.rules(moduleType),
+        "Error Conditions" to (this as? XQDocFunctionDocumentation)?.errorConditions,
         "Notes" to notes(moduleType),
         "Examples" to examples(moduleType).joinToString("\n").nullize()
     ).filter { it.second != null }

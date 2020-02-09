@@ -46,7 +46,7 @@ private data class MarkLogicZippedDocumentation(
         apidocs.invalidate()
     }
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         return apidocs.get()?.lookup(ref)
     }
 
@@ -92,7 +92,7 @@ object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceP
 
     override fun invalidate() = (MARKLOGIC_10 as XQDocDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(ref)
     }
 

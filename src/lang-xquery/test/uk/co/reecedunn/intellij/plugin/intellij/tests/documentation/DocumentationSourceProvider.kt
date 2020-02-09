@@ -30,8 +30,8 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
-        return object : XdmFunctionDocumentation {
+    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
+        return object : XQDocFunctionDocumentation {
             override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 
             val name: String = ref.functionName?.let {

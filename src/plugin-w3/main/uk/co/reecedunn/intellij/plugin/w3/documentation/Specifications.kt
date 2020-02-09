@@ -105,7 +105,7 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun invalidate() = (REC_3_1_20170321 as XQDocDocumentationIndex).invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
+    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(ref)
     }
 
