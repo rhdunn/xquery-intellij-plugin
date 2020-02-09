@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 
 fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.nameColumn() {
@@ -40,7 +40,7 @@ fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.versionColumn() {
 fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.statusColumn() {
     val column = columnInfo<XQDocDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.status.title"),
-        getter = { item -> XdmDocumentationDownloader.getInstance().status(item).label }
+        getter = { item -> XQDocDocumentationDownloader.getInstance().status(item).label }
     )
     add(column)
 }

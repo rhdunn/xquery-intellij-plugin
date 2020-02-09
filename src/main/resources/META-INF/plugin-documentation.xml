@@ -5,7 +5,7 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader"/>
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

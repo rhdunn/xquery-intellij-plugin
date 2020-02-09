@@ -33,7 +33,7 @@ enum class XQDocDocumentationDownloadStatus(val label: String) {
 }
 
 @State(name = "XdmDocumentationDownloader", storages = [Storage("xijp_settings.xml")])
-class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDownloader> {
+class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentationDownloader> {
     var basePath: String? = null
         get() = field ?: "${PathManager.getSystemPath()}/xdm-cache/documentation"
 
@@ -69,15 +69,15 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
 
     // region PersistentStateComponent
 
-    override fun getState(): XdmDocumentationDownloader? = this
+    override fun getState(): XQDocDocumentationDownloader? = this
 
-    override fun loadState(state: XdmDocumentationDownloader) = XmlSerializerUtil.copyBean(state, this)
+    override fun loadState(state: XQDocDocumentationDownloader) = XmlSerializerUtil.copyBean(state, this)
 
     // endregion
 
     companion object {
-        fun getInstance(): XdmDocumentationDownloader {
-            return ServiceManager.getService(XdmDocumentationDownloader::class.java)
+        fun getInstance(): XQDocDocumentationDownloader {
+            return ServiceManager.getService(XQDocDocumentationDownloader::class.java)
         }
     }
 }

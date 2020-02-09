@@ -38,7 +38,7 @@ private data class MarkLogicZippedDocumentation(
     // region XdmDocumentationIndex
 
     private val apidocs = CacheableProperty {
-        val file = XdmDocumentationDownloader.getInstance().load(this)
+        val file = XQDocDocumentationDownloader.getInstance().load(this)
         file?.let { ApiDocs.create(it) }
     }
 

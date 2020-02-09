@@ -23,7 +23,7 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import javax.swing.JComponent
@@ -46,7 +46,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
         toolbarPanel(grid(0, 1)) {
             action(XQDocBundle.message("action.download.label"), AllIcons.Actions.Download) {
                 sources.selectedObject?.let {
-                    XdmDocumentationDownloader.getInstance().download(it)
+                    XQDocDocumentationDownloader.getInstance().download(it)
                 }
             }
 
@@ -58,27 +58,27 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
                 }
 
                 XQDocDocumentationSourceProvider.allSources.forEach { source -> add(source) }
-                XdmDocumentationDownloader.getInstance().addListener(this@XQDocDocumentationSourcesConfigurable)
+                XQDocDocumentationDownloader.getInstance().addListener(this@XQDocDocumentationSourcesConfigurable)
             }
             sources
         }
     }
 
     override fun disposeUIResources() {
-        XdmDocumentationDownloader.getInstance().removeListener(this)
+        XQDocDocumentationDownloader.getInstance().removeListener(this)
     }
 
     override fun isModified(): Boolean {
-        return XdmDocumentationDownloader.getInstance().basePath != cachePath.text
+        return XQDocDocumentationDownloader.getInstance().basePath != cachePath.text
     }
 
     override fun apply() {
-        XdmDocumentationDownloader.getInstance().basePath = cachePath.text.nullize()
+        XQDocDocumentationDownloader.getInstance().basePath = cachePath.text.nullize()
         sources.updateAll()
     }
 
     override fun reset() {
-        cachePath.text = XdmDocumentationDownloader.getInstance().basePath!!
+        cachePath.text = XQDocDocumentationDownloader.getInstance().basePath!!
         sources.updateAll()
     }
 
