@@ -117,7 +117,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable groupId="language" displayName="XQuery and XSLT" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XdmProfileConfigurable">
-      <configurable implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.documentation.XdmDocumentationSourcesConfigurable"/>
+      <configurable implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.documentation.XQDocDocumentationSourcesConfigurable"/>
     </applicationConfigurable>
   </extensions>
 </idea-plugin>

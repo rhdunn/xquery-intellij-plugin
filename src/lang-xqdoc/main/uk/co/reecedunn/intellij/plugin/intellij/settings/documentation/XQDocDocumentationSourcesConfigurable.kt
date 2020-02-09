@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourc
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
 import javax.swing.JComponent
 
-class XdmDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XdmDocumentationSource> {
+class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XdmDocumentationSource> {
     // region Configurable
 
     private lateinit var cachePath: TextFieldWithBrowseButton
@@ -58,7 +58,7 @@ class XdmDocumentationSourcesConfigurable : Configurable, TaskProgressListener<X
                 }
 
                 XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }
-                XdmDocumentationDownloader.getInstance().addListener(this@XdmDocumentationSourcesConfigurable)
+                XdmDocumentationDownloader.getInstance().addListener(this@XQDocDocumentationSourcesConfigurable)
             }
             sources
         }
