@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-data class ApiDocsModule(private val xml: XmlElement) : XdmDocumentation {
+data class ApiDocsModule(private val xml: XmlElement) : XQDocDocumentation {
     // region apidoc:module
 
     val name: String by lazy { xml.attribute("name")!! }

@@ -101,7 +101,7 @@ internal data class W3CSpecificationDocument(
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
         return null
     }
 

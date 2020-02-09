@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationIndex
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -39,7 +39,7 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
         }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
         return modules.find { it.namespaceUri == decl.namespaceUri?.data }
     }
 

@@ -38,13 +38,13 @@ interface XQDocDocumentationSourceProvider {
         val allSources: Sequence<XQDocDocumentationSource>
             get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
 
-        fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentation> {
+        fun lookup(ref: XdmFunctionReference): Sequence<XQDocDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull {
                 (it as? XQDocDocumentationIndex)?.lookup(ref)
             }
         }
 
-        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XdmDocumentation> {
+        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XQDocDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull {
                 (it as? XQDocDocumentationIndex)?.lookup(decl)
             }

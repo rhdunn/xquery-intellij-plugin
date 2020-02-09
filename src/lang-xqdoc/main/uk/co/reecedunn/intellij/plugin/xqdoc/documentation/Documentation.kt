@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-interface XdmDocumentation {
+interface XQDocDocumentation {
     val moduleTypes: Array<XdmModuleType>
 
     fun href(moduleType: XdmModuleType): String?
@@ -30,7 +30,7 @@ interface XdmDocumentation {
     fun examples(moduleType: XdmModuleType): Sequence<String>
 }
 
-interface XdmFunctionDocumentation : XdmDocumentation {
+interface XdmFunctionDocumentation : XQDocDocumentation {
     val operatorMapping: String?
 
     val signatures: String?
@@ -44,7 +44,7 @@ interface XdmFunctionDocumentation : XdmDocumentation {
     val errorConditions: String?
 }
 
-fun XdmDocumentation.sections(moduleType: XdmModuleType): String {
+fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
     val sections = sequenceOf(
         "Summary" to summary(moduleType),
         "Operator Mapping" to (this as? XdmFunctionDocumentation)?.operatorMapping,

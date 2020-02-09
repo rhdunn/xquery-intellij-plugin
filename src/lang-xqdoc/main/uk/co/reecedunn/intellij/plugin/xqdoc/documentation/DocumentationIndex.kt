@@ -23,5 +23,5 @@ interface XQDocDocumentationIndex {
 
     fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation?
 
-    fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation?
+    fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation?
 }

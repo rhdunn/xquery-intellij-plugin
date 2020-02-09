@@ -109,7 +109,7 @@ object FunctionsAndOperatorsDocumentation :
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(ref)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
+    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(decl)
     }
 

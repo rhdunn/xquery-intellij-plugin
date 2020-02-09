@@ -60,8 +60,8 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
         }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
-        return object : XdmDocumentation {
+    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
+        return object : XQDocDocumentation {
             override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 
             val name: String =

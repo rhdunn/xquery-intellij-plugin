@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.ApiDocs
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.util.zip.ZipEntry
 
@@ -77,7 +77,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].namespaceUri, `is`("http://marklogic.com/xdmp/admin"))
             assertThat(modules[0].locationUri, `is`("/MarkLogic/admin.xqy"))
 
-            val ref = modules[0] as XdmDocumentation
+            val ref = modules[0] as XQDocDocumentation
             assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
             assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
@@ -144,7 +144,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].namespaceUri, `is`(nullValue()))
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
-            val ref = modules[0] as XdmDocumentation
+            val ref = modules[0] as XQDocDocumentation
             assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
             assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
@@ -187,7 +187,7 @@ at "/MarkLogic/admin.xqy" ;
             assertThat(modules[0].namespaceUri, `is`(nullValue()))
             assertThat(modules[0].locationUri, `is`(nullValue()))
 
-            val ref = modules[0] as XdmDocumentation
+            val ref = modules[0] as XQDocDocumentation
             assertThat(ref.notes(XdmModuleType.XQuery), `is`(nullValue()))
             assertThat(ref.notes(XdmModuleType.XPath), `is`(nullValue()))
             assertThat(ref.notes(XdmModuleType.JavaScript), `is`(nullValue()))
