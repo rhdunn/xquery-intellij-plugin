@@ -22,7 +22,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
@@ -34,17 +34,17 @@ class XdmDocumentationSourcesConfigurable : Configurable, TaskProgressListener<X
     private lateinit var cachePath: TextFieldWithBrowseButton
     private lateinit var sources: TableView<XdmDocumentationSource>
 
-    override fun getDisplayName(): String = XdmBundle.message("settings.document-sources.title")
+    override fun getDisplayName(): String = XQDocBundle.message("settings.document-sources.title")
 
     override fun createComponent(): JComponent? = panel {
-        label(XdmBundle.message("documentation-source.cache-path.label"), grid(0, 0))
+        label(XQDocBundle.message("documentation-source.cache-path.label"), grid(0, 0))
         cachePath = textFieldWithBrowseButton(grid(1, 0)) {
             val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
             addBrowseFolderListener(null, null, null, descriptor)
         }
 
         toolbarPanel(grid(0, 1)) {
-            action(XdmBundle.message("action.download.label"), AllIcons.Actions.Download) {
+            action(XQDocBundle.message("action.download.label"), AllIcons.Actions.Download) {
                 sources.selectedObject?.let {
                     XdmDocumentationDownloader.getInstance().download(it)
                 }

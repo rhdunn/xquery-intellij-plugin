@@ -21,9 +21,9 @@ import org.jetbrains.annotations.PropertyKey
 import java.lang.ref.SoftReference
 import java.util.*
 
-object XdmBundle {
+object XQDocBundle {
     @NonNls
-    private const val PATH_TO_BUNDLE = "messages.XdmBundle"
+    private const val PATH_TO_BUNDLE = "messages.XQDocBundle"
 
     private var sBundle: SoftReference<ResourceBundle>? = null
     private val bundle: ResourceBundle

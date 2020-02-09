@@ -23,13 +23,13 @@ import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import java.io.File
 
 enum class XdmDocumentationDownloadStatus(val label: String) {
-    NotDownloaded(XdmBundle.message("download-status.not-downloaded")),
-    Downloading(XdmBundle.message("download-status.downloading")),
-    Downloaded(XdmBundle.message("download-status.downloaded"))
+    NotDownloaded(XQDocBundle.message("download-status.not-downloaded")),
+    Downloading(XQDocBundle.message("download-status.downloading")),
+    Downloaded(XQDocBundle.message("download-status.downloaded"))
 }
 
 @State(name = "XdmDocumentationDownloader", storages = [Storage("xijp_settings.xml")])
@@ -44,7 +44,7 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
     fun removeListener(listener: TaskProgressListener<XdmDocumentationSource>) = tasks.removeListener(listener)
 
     fun download(source: XdmDocumentationSource): Boolean {
-        return tasks.backgroundable(XdmBundle.message("documentation-source.download.title"), source) { indicator ->
+        return tasks.backgroundable(XQDocBundle.message("documentation-source.download.title"), source) { indicator ->
             val file = File("$basePath/${source.path}")
             HttpRequests.request(source.href).saveToFile(file, indicator)
             (source as? XdmDocumentationIndex)?.invalidate()

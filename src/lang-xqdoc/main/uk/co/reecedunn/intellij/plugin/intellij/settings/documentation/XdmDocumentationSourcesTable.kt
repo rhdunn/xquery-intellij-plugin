@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 
 import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSource
 
 fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.nameColumn() {
     val column = columnInfo<XdmDocumentationSource, String>(
-        heading = XdmBundle.message("documentation-source-table.column.name.title"),
+        heading = XQDocBundle.message("documentation-source-table.column.name.title"),
         getter = { item -> item.name }
     )
     add(column)
@@ -31,7 +31,7 @@ fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.nameColumn() {
 
 fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.versionColumn() {
     val column = columnInfo<XdmDocumentationSource, String>(
-        heading = XdmBundle.message("documentation-source-table.column.version.title"),
+        heading = XQDocBundle.message("documentation-source-table.column.version.title"),
         getter = { item -> item.version }
     )
     add(column)
@@ -39,7 +39,7 @@ fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.versionColumn() {
 
 fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.statusColumn() {
     val column = columnInfo<XdmDocumentationSource, String>(
-        heading = XdmBundle.message("documentation-source-table.column.status.title"),
+        heading = XQDocBundle.message("documentation-source-table.column.status.title"),
         getter = { item -> XdmDocumentationDownloader.getInstance().status(item).label }
     )
     add(column)
