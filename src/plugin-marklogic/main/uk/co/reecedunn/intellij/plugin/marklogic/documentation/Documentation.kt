@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
-) : XQDocDocumentationSource, XdmDocumentationIndex {
+) : XQDocDocumentationSource, XQDocDocumentationIndex {
     // region XdmDocumentationSource
 
     override val name: String = "MarkLogic"
@@ -57,7 +57,7 @@ private data class MarkLogicZippedDocumentation(
     // endregion
 }
 
-object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceProvider, XdmDocumentationIndex {
+object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XdmProductType
 
     override val id: String = "marklogic"
@@ -90,14 +90,14 @@ object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceP
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate() = (MARKLOGIC_10 as XdmDocumentationIndex).invalidate()
+    override fun invalidate() = (MARKLOGIC_10 as XQDocDocumentationIndex).invalidate()
 
     override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
-        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(ref)
+        return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(ref)
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
-        return (MARKLOGIC_10 as XdmDocumentationIndex).lookup(decl)
+        return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(decl)
     }
 
     // endregion

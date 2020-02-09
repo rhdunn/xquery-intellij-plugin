@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XdmDocumentationIndex {
+object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XdmDocumentationSourceProvider
 
     override val sources: List<XQDocDocumentationSource> = listOf()

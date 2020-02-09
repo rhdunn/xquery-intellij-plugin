@@ -20,14 +20,14 @@ import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationIndex
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationIndex
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmFunctionDocumentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) : XdmDocumentationIndex {
+data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: VirtualFile) : XQDocDocumentationIndex {
     // region XdmDocumentationIndex
 
     override fun invalidate() {}

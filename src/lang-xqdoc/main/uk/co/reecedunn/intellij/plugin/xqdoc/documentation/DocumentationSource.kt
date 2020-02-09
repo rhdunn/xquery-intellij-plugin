@@ -40,13 +40,13 @@ interface XQDocDocumentationSourceProvider {
 
         fun lookup(ref: XdmFunctionReference): Sequence<XdmDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull {
-                (it as? XdmDocumentationIndex)?.lookup(ref)
+                (it as? XQDocDocumentationIndex)?.lookup(ref)
             }
         }
 
         fun lookup(decl: XdmNamespaceDeclaration): Sequence<XdmDocumentation> {
             return EP_NAME.extensions.asSequence().mapNotNull {
-                (it as? XdmDocumentationIndex)?.lookup(decl)
+                (it as? XQDocDocumentationIndex)?.lookup(decl)
             }
         }
     }

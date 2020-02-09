@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object FunctionsAndOperatorsDocumentation :
-    XdmSpecificationType, XQDocDocumentationSourceProvider, XdmDocumentationIndex {
+    XdmSpecificationType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
 
     private val NAMESPACES_10_20030502 = mapOf(
@@ -103,14 +103,14 @@ object FunctionsAndOperatorsDocumentation :
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate() = (REC_3_1_20170321 as XdmDocumentationIndex).invalidate()
+    override fun invalidate() = (REC_3_1_20170321 as XQDocDocumentationIndex).invalidate()
 
     override fun lookup(ref: XdmFunctionReference): XdmFunctionDocumentation? {
-        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(ref)
+        return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(ref)
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XdmDocumentation? {
-        return (REC_3_1_20170321 as XdmDocumentationIndex).lookup(decl)
+        return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(decl)
     }
 
     // endregion
