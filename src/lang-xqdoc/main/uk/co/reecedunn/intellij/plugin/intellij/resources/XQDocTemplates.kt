@@ -20,7 +20,8 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 
-object XdmTemplates {
+object XQDocTemplates {
+    @Suppress("SameParameterValue")
     private fun resourceFile(path: String): VirtualFile {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
         file.charset = CharsetToolkit.UTF8_CHARSET

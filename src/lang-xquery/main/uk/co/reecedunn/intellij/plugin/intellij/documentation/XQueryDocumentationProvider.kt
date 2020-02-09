@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmTemplates
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocTemplates
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
@@ -97,7 +97,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
         return originalElement?.let {
             val text = lookup(it).firstOrNull()?.sections(XdmModuleType.XQuery) ?: return@let null
-            return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
+            return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }
 
@@ -105,7 +105,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
         return originalElement?.let {
             val text = lookup(it).firstOrNull()?.summary(XdmModuleType.XQuery) ?: return@let null
-            return XdmTemplates.QuickDocumentation.replace("[CONTENTS]", text)
+            return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }
 
