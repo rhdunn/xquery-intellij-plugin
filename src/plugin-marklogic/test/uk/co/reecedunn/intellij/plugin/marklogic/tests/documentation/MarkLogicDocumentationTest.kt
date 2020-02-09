@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
@@ -46,7 +46,7 @@ private class MarkLogicDocumentationTest {
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_6_pubs.zip"))
         assertThat(spec.path, `is`("marklogic/MarkLogic_6_pubs.zip"))
 
-        val provider: XdmDocumentationSourceProvider = MarkLogicProductDocumentation
+        val provider: XQDocDocumentationSourceProvider = MarkLogicProductDocumentation
         assertThat(provider.sources.size, `is`(5))
         assertThat(provider.sources.indexOf(spec), `is`(0))
     }
@@ -60,7 +60,7 @@ private class MarkLogicDocumentationTest {
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_7_pubs.zip"))
         assertThat(spec.path, `is`("marklogic/MarkLogic_7_pubs.zip"))
 
-        val provider: XdmDocumentationSourceProvider = MarkLogicProductDocumentation
+        val provider: XQDocDocumentationSourceProvider = MarkLogicProductDocumentation
         assertThat(provider.sources.size, `is`(5))
         assertThat(provider.sources.indexOf(spec), `is`(1))
     }
@@ -74,7 +74,7 @@ private class MarkLogicDocumentationTest {
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_8_pubs.zip"))
         assertThat(spec.path, `is`("marklogic/MarkLogic_8_pubs.zip"))
 
-        val provider: XdmDocumentationSourceProvider = MarkLogicProductDocumentation
+        val provider: XQDocDocumentationSourceProvider = MarkLogicProductDocumentation
         assertThat(provider.sources.size, `is`(5))
         assertThat(provider.sources.indexOf(spec), `is`(2))
     }
@@ -88,7 +88,7 @@ private class MarkLogicDocumentationTest {
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_9_pubs.zip"))
         assertThat(spec.path, `is`("marklogic/MarkLogic_9_pubs.zip"))
 
-        val provider: XdmDocumentationSourceProvider = MarkLogicProductDocumentation
+        val provider: XQDocDocumentationSourceProvider = MarkLogicProductDocumentation
         assertThat(provider.sources.size, `is`(5))
         assertThat(provider.sources.indexOf(spec), `is`(3))
     }
@@ -102,7 +102,7 @@ private class MarkLogicDocumentationTest {
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_10_pubs.zip"))
         assertThat(spec.path, `is`("marklogic/MarkLogic_10_pubs.zip"))
 
-        val provider: XdmDocumentationSourceProvider = MarkLogicProductDocumentation
+        val provider: XQDocDocumentationSourceProvider = MarkLogicProductDocumentation
         assertThat(provider.sources.size, `is`(5))
         assertThat(provider.sources.indexOf(spec), `is`(4))
     }

@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import javax.swing.JComponent
 
 class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XQDocDocumentationSource> {
@@ -57,7 +57,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
                     statusColumn()
                 }
 
-                XdmDocumentationSourceProvider.allSources.forEach { source -> add(source) }
+                XQDocDocumentationSourceProvider.allSources.forEach { source -> add(source) }
                 XdmDocumentationDownloader.getInstance().addListener(this@XQDocDocumentationSourcesConfigurable)
             }
             sources

@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object FunctionsAndOperatorsDocumentation :
-    XdmSpecificationType, XdmDocumentationSourceProvider, XdmDocumentationIndex {
+    XdmSpecificationType, XQDocDocumentationSourceProvider, XdmDocumentationIndex {
     // region Namespaces
 
     private val NAMESPACES_10_20030502 = mapOf(
@@ -117,7 +117,7 @@ object FunctionsAndOperatorsDocumentation :
 }
 
 object XsltDocumentation :
-    XdmSpecificationType, XdmDocumentationSourceProvider {
+    XdmSpecificationType, XQDocDocumentationSourceProvider {
     // region Namespaces
 
     private val NAMESPACES = mapOf<String, String>()

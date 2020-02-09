@@ -23,7 +23,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -45,8 +45,8 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     override fun setUp() {
         super.setUp()
 
-        registerExtensionPoint(XdmDocumentationSourceProvider.EP_NAME, XdmDocumentationSourceProvider::class.java)
-        registerExtension(XdmDocumentationSourceProvider.EP_NAME, DocumentationSourceProvider)
+        registerExtensionPoint(XQDocDocumentationSourceProvider.EP_NAME, XQDocDocumentationSourceProvider::class.java)
+        registerExtension(XQDocDocumentationSourceProvider.EP_NAME, DocumentationSourceProvider)
     }
 
     @AfterAll

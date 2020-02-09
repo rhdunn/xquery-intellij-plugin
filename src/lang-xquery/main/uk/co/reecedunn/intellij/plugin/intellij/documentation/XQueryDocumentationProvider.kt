@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocTemplates
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
@@ -127,14 +127,14 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     private fun lookupPrefix(qname: XsQNameValue): Sequence<XdmDocumentation> {
         val decl = qname.expand().firstOrNull()?.namespace?.element?.parent as? XdmNamespaceDeclaration
-        return decl?.let { XdmDocumentationSourceProvider.lookup(it) } ?: emptySequence()
+        return decl?.let { XQDocDocumentationSourceProvider.lookup(it) } ?: emptySequence()
     }
 
     private fun lookupLocalName(qname: XsQNameValue): Sequence<XdmDocumentation> {
         return when (val ref = qname.element?.parent) {
             is XdmFunctionReference -> lookupFunction(ref.functionName, ref.arity)
             is XdmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from)
-            is XdmNamespaceDeclaration -> XdmDocumentationSourceProvider.lookup(ref)
+            is XdmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
         }
     }
@@ -142,7 +142,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun lookupFunction(functionName: XsQNameValue?, arity: Int): Sequence<XdmDocumentation> {
         // NOTE: NCName may bind to the current module (MarkLogic behaviour) and the default function namespace.
         return functionName?.expand()?.flatMap {
-            XdmDocumentationSourceProvider.lookup(object : XdmFunctionReference {
+            XQDocDocumentationSourceProvider.lookup(object : XdmFunctionReference {
                 override val functionName: XsQNameValue? = it
                 override val arity: Int = arity
             })

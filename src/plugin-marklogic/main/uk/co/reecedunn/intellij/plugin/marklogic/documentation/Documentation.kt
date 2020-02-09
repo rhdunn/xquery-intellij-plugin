@@ -57,7 +57,7 @@ private data class MarkLogicZippedDocumentation(
     // endregion
 }
 
-object MarkLogicProductDocumentation : XdmProductType, XdmDocumentationSourceProvider, XdmDocumentationIndex {
+object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceProvider, XdmDocumentationIndex {
     // region XdmProductType
 
     override val id: String = "marklogic"

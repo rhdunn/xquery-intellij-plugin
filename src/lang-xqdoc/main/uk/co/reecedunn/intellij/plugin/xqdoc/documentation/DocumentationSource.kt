@@ -29,9 +29,9 @@ interface XQDocDocumentationSource {
     val path: String
 }
 
-interface XdmDocumentationSourceProvider {
+interface XQDocDocumentationSourceProvider {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XdmDocumentationSourceProvider>(
+        val EP_NAME = ExtensionPointName.create<XQDocDocumentationSourceProvider>(
             "uk.co.reecedunn.intellij.documentationSourceProvider"
         )
 

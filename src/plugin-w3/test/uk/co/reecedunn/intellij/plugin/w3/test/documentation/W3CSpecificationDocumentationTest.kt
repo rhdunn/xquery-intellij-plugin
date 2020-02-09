@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation
 import uk.co.reecedunn.intellij.plugin.w3.documentation.XsltDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
@@ -51,7 +51,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("https://www.w3.org/TR/2003/WD-xpath-functions-20030502/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20030502.html"))
 
-            val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
+            val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(0))
         }
@@ -65,7 +65,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("https://www.w3.org/TR/2007/REC-xpath-functions-20070123/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20070123.html"))
 
-            val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
+            val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(1))
         }
@@ -79,7 +79,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("https://www.w3.org/TR/2010/REC-xpath-functions-20101214/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20101214.html"))
 
-            val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
+            val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(2))
         }
@@ -93,7 +93,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/"))
             assertThat(spec.path, `is`("w3/xpath-functions-3.0-20111213.html"))
 
-            val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
+            val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(3))
         }
@@ -107,7 +107,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/"))
             assertThat(spec.path, `is`("w3/xpath-functions-3.0-20140408.html"))
 
-            val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
+            val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(4))
         }
@@ -121,7 +121,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/"))
             assertThat(spec.path, `is`("w3/xpath-functions-3.1-20170321.html"))
 
-            val provider: XdmDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
+            val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(5))
         }
@@ -148,7 +148,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("http://www.w3.org/TR/1999/REC-xslt-19991116/"))
             assertThat(spec.path, `is`("w3/xslt-1.0-19991116.html"))
 
-            val provider: XdmDocumentationSourceProvider = XsltDocumentation
+            val provider: XQDocDocumentationSourceProvider = XsltDocumentation
             assertThat(provider.sources.size, `is`(3))
             assertThat(provider.sources.indexOf(spec), `is`(0))
         }
@@ -162,7 +162,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("http://www.w3.org/TR/2007/REC-xslt20-20070123/"))
             assertThat(spec.path, `is`("w3/xslt-2.0-20070123.html"))
 
-            val provider: XdmDocumentationSourceProvider = XsltDocumentation
+            val provider: XQDocDocumentationSourceProvider = XsltDocumentation
             assertThat(provider.sources.size, `is`(3))
             assertThat(provider.sources.indexOf(spec), `is`(1))
         }
@@ -176,7 +176,7 @@ private class W3CSpecificationDocumentationTest {
             assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xslt-30-20170608/"))
             assertThat(spec.path, `is`("w3/xslt-3.0-20170608.html"))
 
-            val provider: XdmDocumentationSourceProvider = XsltDocumentation
+            val provider: XQDocDocumentationSourceProvider = XsltDocumentation
             assertThat(provider.sources.size, `is`(3))
             assertThat(provider.sources.indexOf(spec), `is`(2))
         }
