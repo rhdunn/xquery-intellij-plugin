@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import java.io.File
 
-enum class XdmDocumentationDownloadStatus(val label: String) {
+enum class XQDocDocumentationDownloadStatus(val label: String) {
     NotDownloaded(XQDocBundle.message("download-status.not-downloaded")),
     Downloading(XQDocBundle.message("download-status.downloading")),
     Downloaded(XQDocBundle.message("download-status.downloaded"))
@@ -59,11 +59,11 @@ class XdmDocumentationDownloader : PersistentStateComponent<XdmDocumentationDown
         return File("$basePath/${source.path}")
     }
 
-    fun status(source: XQDocDocumentationSource): XdmDocumentationDownloadStatus {
+    fun status(source: XQDocDocumentationSource): XQDocDocumentationDownloadStatus {
         return when {
-            tasks.isActive(source) -> XdmDocumentationDownloadStatus.Downloading
-            file(source).exists() -> XdmDocumentationDownloadStatus.Downloaded
-            else -> XdmDocumentationDownloadStatus.NotDownloaded
+            tasks.isActive(source) -> XQDocDocumentationDownloadStatus.Downloading
+            file(source).exists() -> XQDocDocumentationDownloadStatus.Downloaded
+            else -> XQDocDocumentationDownloadStatus.NotDownloaded
         }
     }
 
