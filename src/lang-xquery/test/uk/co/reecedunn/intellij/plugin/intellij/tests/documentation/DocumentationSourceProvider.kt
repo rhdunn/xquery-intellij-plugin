@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.tests.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.*
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration

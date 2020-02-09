@@ -1,11 +1,11 @@
 <idea-plugin>
   <extensionPoints>
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.documentationSourceProvider" interface="uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.documentationSourceProvider" interface="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider" dynamic="true"/>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader"/>
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

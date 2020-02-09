@@ -21,9 +21,9 @@ import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmTemplates
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentation
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.sections
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr

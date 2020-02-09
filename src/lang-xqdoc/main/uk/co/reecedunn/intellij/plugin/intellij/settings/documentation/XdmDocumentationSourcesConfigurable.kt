@@ -23,9 +23,9 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSourceProvider
 import javax.swing.JComponent
 
 class XdmDocumentationSourcesConfigurable : Configurable, TaskProgressListener<XdmDocumentationSource> {

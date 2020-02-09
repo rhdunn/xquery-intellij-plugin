@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.documentation
+package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType

@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
 import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationDownloader
-import uk.co.reecedunn.intellij.plugin.xdm.documentation.XdmDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationDownloader
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XdmDocumentationSource
 
 fun ArrayList<ColumnInfo<XdmDocumentationSource, *>>.nameColumn() {
     val column = columnInfo<XdmDocumentationSource, String>(
