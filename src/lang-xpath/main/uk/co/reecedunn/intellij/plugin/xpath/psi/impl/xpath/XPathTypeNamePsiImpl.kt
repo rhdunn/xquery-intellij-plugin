@@ -32,7 +32,7 @@ open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
     // endregion
     // region XdmSequenceType
 
-    override val typeName get(): String = op_qname_presentation(type)
+    override val typeName get(): String = op_qname_presentation(type) ?: ""
 
     override val itemType get(): XdmItemType = this
 

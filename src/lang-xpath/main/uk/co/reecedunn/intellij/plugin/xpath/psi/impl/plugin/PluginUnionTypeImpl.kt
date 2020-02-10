@@ -47,7 +47,7 @@ class PluginUnionTypeImpl(node: ASTNode) :
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        "union(${memberTypes.joinToString { op_qname_presentation(it) }})"
+        "union(${memberTypes.mapNotNull { op_qname_presentation(it) }.joinToString()})"
     }
     override val typeName get(): String = cachedTypeName.get()!!
 
