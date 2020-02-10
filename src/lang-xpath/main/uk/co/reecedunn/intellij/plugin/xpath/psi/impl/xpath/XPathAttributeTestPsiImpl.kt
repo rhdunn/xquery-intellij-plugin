@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 
 class XPathAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAttributeTest, XdmItemType {
     // region ASTDelegatePsiElement
@@ -39,7 +40,11 @@ class XPathAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val nodeType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+    override val nodeType: XdmSequenceType?
+        get() = when (val type = children().filterIsInstance<XdmSequenceType>().firstOrNull()) {
+            is XPathTypeName -> if (type.type.localName == null) null else type
+            else -> type
+        }
 
     // endregion
     // region XdmSequenceType
