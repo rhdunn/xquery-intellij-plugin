@@ -1079,6 +1079,22 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(type.lowerBound, `is`(1))
                 assertThat(type.upperBound, `is`(1))
             }
+
+            @Test
+            @DisplayName("invalid TypeName")
+            fun invalidTypeName() {
+                val test = parse<XPathElementTest>("() instance of element ( test , xs: )")[0]
+                assertThat(test.nodeName?.localName!!.data, `is`("test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("element(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElementNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
 
         @Nested

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 
 class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathElementTest, XdmItemType {
     // region ASTDelegatePsiElement
@@ -39,7 +40,11 @@ class XPathElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val nodeType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+    override val nodeType: XdmSequenceType?
+        get() = when (val type = children().filterIsInstance<XdmSequenceType>().firstOrNull()) {
+            is XPathTypeName -> if (type.type.localName == null) null else type
+            else -> type
+        }
 
     // endregion
     // region XdmSequenceType
