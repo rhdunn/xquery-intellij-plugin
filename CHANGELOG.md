@@ -5,24 +5,28 @@
 References, Resolving and Find Usages:
 
 1.  Support `BracedURILiteral` references (`Q{...}`).
-1.  Support navigating to Java classes specified by `java:` and unprefixed classpath URIs
-    (BaseX, eXist-db, Saxon).
+1.  Support navigating to Java classes specified by `java:` and unprefixed
+    classpath URIs (BaseX, eXist-db, Saxon).
 1.  Fix resolving `URIQualifiedName` functions and variables.
-1.  Display the correct type name in the find usages UI for EQNames that are annotations,
-    attributes, decimal formats, elements, functions, namespaces, options, parameters,
-    pragmas, types, and variables.
+1.  Display the correct type name in the find usages UI for EQNames that are
+    annotations, attributes, decimal formats, elements, functions, namespaces,
+    options, parameters, pragmas, types, and variables.
 
 IntelliJ Integration:
 
 1.  Rename refactoring support for variables and functions.
-1.  Implement inlay parameter hints for XQuery function calls and named arrow function expressions.
+1.  Implement inlay parameter hints for XQuery function calls and named arrow
+    function expressions.
 1.  Support quick documentation (Ctrl+Q) for W3C XQuery functions.
 1.  Support quick documentation (Ctrl+Q) for MarkLogic modules.
 1.  Support displaying the XQuery file structure view in the navigation bar on
     IntelliJ 2020.1.
-1.  Display the namespace signature and module path when holding Ctrl over a module namespace URI or prefix.
+1.  Provide bundled dictionaries for XPath terms.
+1.  Display the namespace signature and module path when holding Ctrl over a
+    module namespace URI or prefix.
 1.  Support find usage type names in XPath.
-1.  Fixed QName prefix syntax highlighting and keyword in QName highlighting removal when the QName contains a space.
+1.  Fixed QName prefix syntax highlighting and keyword in QName highlighting
+    removal when the QName contains a space.
 
 XPath and XSLT:
 

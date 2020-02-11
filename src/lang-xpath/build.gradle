@@ -4,6 +4,12 @@ sourceSets.main.resources.srcDirs += 'main/resources'
 sourceSets.test.java.srcDirs += 'test'
 sourceSets.test.resources.srcDirs += 'test/resources'
 
+processResources {
+    from ('main') {
+        include '**/*.dic'
+    }
+}
+
 dependencies {
     compile project(':src:lang-xqdoc')
     compile project(':src:plugin-api')

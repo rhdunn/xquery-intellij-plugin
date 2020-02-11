@@ -14,5 +14,7 @@
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
     <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
+
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XPathBundledDictionaryProvider"/>
   </extensions>
 </idea-plugin>
