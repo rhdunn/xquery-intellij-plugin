@@ -10,6 +10,7 @@ concat
 contravariant
 covariant
 datatype
+datatypes
 deliverables
 dereference
 dereferenced
@@ -17,6 +18,8 @@ ebnf
 ebv
 expr
 exprs
+foar
+foay
 forg
 formedness
 foty
@@ -40,6 +43,8 @@ json
 kleene
 localname
 lookahead
+lookup
+lookups
 mille
 namespace
 namespaces
@@ -48,6 +53,7 @@ nillable
 nmtokens
 nonlocal
 normatively
+orderspecs
 overwriteable
 param
 parens
@@ -57,6 +63,7 @@ precomposed
 psvi
 psvidm
 redeclares
+refactored
 runtime
 schemaless
 schemas
@@ -68,7 +75,9 @@ sublanguage
 subsequences
 subsetting
 substring
+subtyping
 tokenization
+tokenize
 tokenizing
 tuple
 tuples
@@ -88,5 +97,6 @@ xmlns
 xpdy
 xpst
 xpty
+xqdy
 xqst
 xslt
