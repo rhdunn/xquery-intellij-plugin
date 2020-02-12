@@ -28,6 +28,8 @@ expr
 exprs
 filesystem
 flwor
+foar
+foay
 foer
 forg
 formedness
@@ -53,6 +55,7 @@ kleene
 localname
 lookahead
 lookup
+lookups
 middleware
 mille
 namespace
@@ -79,10 +82,13 @@ prologs
 psvi
 psvidm
 redeclared
+refactored
 runtime
+sandboxed
 schemaless
 schemas
 sortspec
+sparql
 stylesheet
 subclause
 subelement
@@ -92,6 +98,8 @@ subexpressions
 subsequence
 subsequences
 substring
+subtyping
+tokenize
 tokenizing
 tuple
 tuples
@@ -104,6 +112,7 @@ unescaped
 unparsed
 unprefixed
 validator
+versa
 whitespace
 wildcard
 wildcards
