@@ -21,7 +21,7 @@ IntelliJ Integration:
 1.  Support quick documentation (Ctrl+Q) for MarkLogic modules.
 1.  Support displaying the XQuery file structure view in the navigation bar on
     IntelliJ 2020.1.
-1.  Provide bundled dictionaries for XPath terms.
+1.  Provide bundled dictionaries for XPath, XQuery, and XSLT terms.
 1.  Display the namespace signature and module path when holding Ctrl over a
     module namespace URI or prefix.
 1.  Support find usage type names in XPath.

@@ -46,7 +46,7 @@
       <li>Paired brace matching.</li>
       <li>Commenting code.</li>
       <li>Integrated function documentation ("Quick Documentation", Ctrl+Q).</li>
-      <li>Bundle a dictionary with XPath terms.</li>
+      <li>Bundle dictionaries with XPath and XQuery terms.</li>
     </ol>
   ]]></description>
 
