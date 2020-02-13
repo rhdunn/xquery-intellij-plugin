@@ -10,6 +10,8 @@
     <xmlStructureViewBuilderProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XsltStructureViewBuilderProvider"/>
     <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.editor.XsltNSColorProvider"/>
 
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XsltBundledDictionaryProvider"/>
+
     <!-- XSLT DOM Support -->
 
     <dom.fileDescription implementation="uk.co.reecedunn.intellij.plugin.xslt.dom.XsltStylesheetDomFileDescription"/>
