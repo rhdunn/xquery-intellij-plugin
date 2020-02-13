@@ -28,6 +28,7 @@ composability
 composable
 concat
 conformant
+const
 contravariant
 cosecant
 counterintuitive
@@ -183,6 +184,7 @@ redef
 refactored
 regex
 revalidate
+revalidated
 revalidating
 revalidation
 runtime
@@ -222,6 +224,9 @@ substrings
 subtree
 subtrees
 subtyping
+sxdy
+sxst
+sxty
 tailorings
 templating
 testlang
@@ -241,6 +246,7 @@ tzname
 tzoffset
 unabbreviated
 unary
+unassignable
 undeclaration
 undeclare
 unescaped
@@ -262,10 +268,12 @@ xpst
 xpty
 xqdy
 xqst
+xqsx
 xqty
 xquery
 xqueryx
 xqxft
+xqxsx
 xqxuf
 xslt
 xudy
