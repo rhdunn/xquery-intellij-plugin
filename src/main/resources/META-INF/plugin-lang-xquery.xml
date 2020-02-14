@@ -33,7 +33,9 @@
 
     <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathInlayParameterHintsProvider"/>
 
+    <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XQuerySpellcheckingStrategy"/>
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XQueryBundledDictionaryProvider"/>
+
 
     <!-- Application / Project Settings -->
 

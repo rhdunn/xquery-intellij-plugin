@@ -49,7 +49,8 @@ This plugin provides integration with the following IntelliJ features:
 1.  Paired brace matching;
 1.  Commenting code;
 1.  Integrated function documentation ("Quick Documentation", Ctrl+Q);
-1.  Bundle dictionaries with XPath, XQuery, and XSLT terms.
+1.  Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT
+    terms.
 
 -----
 
