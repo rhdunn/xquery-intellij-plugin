@@ -46,6 +46,7 @@
       <li>Paired brace matching.</li>
       <li>Commenting code.</li>
       <li>Integrated function documentation ("Quick Documentation", Ctrl+Q).</li>
+      <li>Context information (Alt+Q) for XQuery function declarations.</li>
       <li>Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT terms.</li>
     </ol>
   ]]></description>
@@ -83,6 +84,7 @@
         Provide spellchecking support with bundled dictionaries for XPath,
         XQuery, and XSLT terms.
       </li>
+      <li>Support context information (Alt+Q) for XQuery function declarations.</li>
       <li>
         Display the namespace signature and module path when holding Ctrl over
         a module namespace URI or prefix.

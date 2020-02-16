@@ -23,6 +23,7 @@ IntelliJ Integration:
     IntelliJ 2020.1.
 1.  Provide spellchecking support with bundled dictionaries for XPath, XQuery,
     and XSLT terms.
+1.  Support context information (Alt+Q) for XQuery function declarations.
 1.  Display the namespace signature and module path when holding Ctrl over a
     module namespace URI or prefix.
 1.  Support find usage type names in XPath.

@@ -19,6 +19,9 @@
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryCommenter"/>
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
+    <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.hint.XQueryFunctionDeclRangeHandler"/>
+
     <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewFactory"/>
     <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.projectView.XQueryTreeStructureProvider"/>
     <navbar implementation="uk.co.reecedunn.intellij.plugin.intellij.ide.navigationToolbar.XQueryNavBarModelExtension"/>

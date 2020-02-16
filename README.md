@@ -36,7 +36,7 @@ For those XQuery implementations, this plugin supports:
 
 ### IntelliJ Integration
 
-This plugin provides integration with the following IntelliJ features:
+This plugin provides support for the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references;
 1.  Code folding;
 1.  Find usages;
@@ -49,6 +49,7 @@ This plugin provides integration with the following IntelliJ features:
 1.  Paired brace matching;
 1.  Commenting code;
 1.  Integrated function documentation ("Quick Documentation", Ctrl+Q);
+1.  Context information (Alt+Q) for XQuery function declarations;
 1.  Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT
     terms.
 
