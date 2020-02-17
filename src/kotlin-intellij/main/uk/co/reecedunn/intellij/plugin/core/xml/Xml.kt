@@ -22,6 +22,8 @@ import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
+import java.io.File
+import java.io.FileWriter
 import java.io.StringReader
 import java.io.StringWriter
 import javax.xml.namespace.QName
@@ -119,6 +121,12 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
         val writer = StringWriter()
         formatter.transform(DOMSource(doc), StreamResult(writer))
         return writer.buffer.toString()
+    }
+
+    fun save(file: File) {
+        FileWriter(file).use {
+            formatter.transform(DOMSource(doc), StreamResult(it))
+        }
     }
 
     companion object {

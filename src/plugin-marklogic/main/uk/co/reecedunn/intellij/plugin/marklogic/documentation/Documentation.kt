@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import java.io.File
 
 private data class MarkLogicZippedDocumentation(
     override val version: String,
@@ -38,8 +39,11 @@ private data class MarkLogicZippedDocumentation(
     // region XdmDocumentationIndex
 
     private val apidocs = CacheableProperty {
-        val file = XQDocDocumentationDownloader.getInstance().load(this)
-        file?.let { ApiDocs.create(it) }
+        XQDocDocumentationDownloader.getInstance().load(this)?.let {
+            val docs = ApiDocs.create(it)
+            docs.docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
+            docs
+        }
     }
 
     override fun invalidate() {

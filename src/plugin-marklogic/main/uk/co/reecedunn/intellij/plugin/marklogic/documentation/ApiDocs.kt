@@ -45,6 +45,23 @@ data class ApiDocs(private val filesystem: VirtualFileSystem, private val root: 
 
     // endregion
 
+    val docs: XmlDocument by lazy {
+        val docs = XmlDocument.parse("<apidoc:collection xmlns:apidoc=\"http://marklogic.com/xdmp/apidoc\"/>", NAMESPACES)
+        root.children[0].findFileByRelativePath("pubs/raw/apidoc")!!.children.forEach {
+            if (it.name.endsWith(".xml")) {
+                val xml = XmlDocument.parse(it, NAMESPACES)
+                when {
+                    xml.root.`is`("apidoc:module") -> {
+                        val node = docs.doc.importNode(xml.root.element, true)
+                        docs.root.appendChild(node)
+                    }
+                    else -> {}
+                }
+            }
+        }
+        docs
+    }
+
     val modules: List<ApiDocsModule> by lazy {
         root.children[0].findFileByRelativePath("pubs/raw/apidoc")!!.children.asSequence().map {
             if (it.name.endsWith(".xml")) {
