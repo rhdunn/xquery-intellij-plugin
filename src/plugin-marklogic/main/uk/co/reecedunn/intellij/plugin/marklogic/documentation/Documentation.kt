@@ -15,13 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
-import java.io.File
 
 private data class MarkLogicZippedDocumentation(
     override val version: String,
@@ -38,24 +36,15 @@ private data class MarkLogicZippedDocumentation(
     // endregion
     // region XdmDocumentationIndex
 
-    private val apidocs = CacheableProperty {
-        XQDocDocumentationDownloader.getInstance().load(this)?.let {
-            val docs = ApiDocs.create(it)
-            docs.docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
-            docs
-        }
-    }
-
     override fun invalidate() {
-        apidocs.invalidate()
     }
 
     override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
-        return apidocs.get()?.lookup(ref)
+        return null
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
-        return apidocs.get()?.lookup(decl)
+        return null
     }
 
     // endregion
