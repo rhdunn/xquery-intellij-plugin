@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.editor
 
+import com.intellij.compat.openapi.editor.CaretModel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.*
 import com.intellij.openapi.editor.event.CaretListener
@@ -74,6 +75,8 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
     override fun addCaret(pos: VisualPosition): Caret? = TODO()
 
     override fun addCaret(pos: VisualPosition, makePrimary: Boolean): Caret? = TODO()
+
+    override fun addCaret(pos: LogicalPosition, makePrimary: Boolean): Caret? = TODO()
 
     override fun runForEachCaret(action: CaretAction) = TODO()
 
