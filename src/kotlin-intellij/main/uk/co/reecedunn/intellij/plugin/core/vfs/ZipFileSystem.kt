@@ -19,6 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.zip.entries
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.lang.ref.WeakReference
 import java.util.zip.ZipEntry
@@ -32,8 +33,11 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
         zip.use { stream ->
             ZipInputStream(stream).use { zip ->
                 val fs = WeakReference(this)
-                zip.entries.forEach { (entry, contents) ->
-                    val file = ZipFile(entry, contents, fs)
+                val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+                zip.entries.forEach { entry ->
+                    zip.copyTo(contents)
+                    val file = ZipFile(entry, contents.toByteArray(), fs)
+                    contents.reset()
                     entries.add(file)
                     mkdirs(file, fs)
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,27 +17,30 @@ package uk.co.reecedunn.intellij.plugin.core.zip
 
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
-private class ZipEntryIterator(private val zip: ZipInputStream) : Iterator<Pair<ZipEntry, ByteArray>> {
+private class ZipEntryIterator(private val zip: ZipInputStream) : Iterator<ZipEntry> {
     private var entry: ZipEntry? = zip.nextEntry
-    private val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+    private var consumedNext = false
 
-    override fun hasNext(): Boolean = entry != null
+    override fun hasNext(): Boolean {
+        if (consumedNext) {
+            consumedNext = false
+            entry = zip.nextEntry
+        }
+        return entry != null
+    }
 
-    override fun next(): Pair<ZipEntry, ByteArray> {
-        zip.copyTo(contents)
-        val ret = Pair(entry!!, contents.toByteArray())
-
-        entry = zip.nextEntry
-        contents.reset()
-        return ret
+    override fun next(): ZipEntry {
+        consumedNext = true
+        return entry!!
     }
 }
 
-val ZipInputStream.entries: Sequence<Pair<ZipEntry, ByteArray>> get() = ZipEntryIterator(this).asSequence()
+val ZipInputStream.entries: Sequence<ZipEntry> get() = ZipEntryIterator(this).asSequence()
 
 fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
     return ByteArrayOutputStream().use { stream ->
@@ -53,9 +56,15 @@ fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
 }
 
 fun ByteArray.unzip(): Sequence<Pair<ZipEntry, ByteArray>> {
+    val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
     return ByteArrayInputStream(this).use { stream ->
         ZipInputStream(stream).use { zip ->
-            zip.entries.toList().asSequence()
+            zip.entries.map { entry ->
+                zip.copyTo(contents)
+                val ret = Pair(entry, contents.toByteArray())
+                contents.reset()
+                ret
+            }.toList().asSequence()
         }
     }
 }
