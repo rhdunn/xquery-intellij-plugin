@@ -16,32 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.zip.entries
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
+import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.lang.ref.WeakReference
 import java.util.zip.ZipEntry
-import java.util.zip.ZipInputStream
 
 class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     internal val entries = ArrayList<ZipFile>()
     internal val directories = HashMap<String, ZipFile>()
 
     constructor(zip: InputStream) : this() {
-        zip.use { stream ->
-            ZipInputStream(stream).use { zip ->
-                val fs = WeakReference(this)
-                val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
-                zip.entries.forEach { entry ->
-                    zip.copyTo(contents)
-                    val file = ZipFile(entry, contents.toByteArray(), fs)
-                    contents.reset()
-                    entries.add(file)
-                    mkdirs(file, fs)
-                }
-            }
+        val fs = WeakReference(this)
+        val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        zip.unzip { entry, stream ->
+            stream.copyTo(contents)
+            val file = ZipFile(entry, contents.toByteArray(), fs)
+            contents.reset()
+            entries.add(file)
+            mkdirs(file, fs)
         }
     }
 

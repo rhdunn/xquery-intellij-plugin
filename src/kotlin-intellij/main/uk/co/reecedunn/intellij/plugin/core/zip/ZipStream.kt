@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.zip
 
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
@@ -54,16 +55,21 @@ fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
     }
 }
 
-fun ByteArray.unzip(): List<Pair<ZipEntry, ByteArray>> {
-    val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
-    return ByteArrayInputStream(this).use { stream ->
+fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit) {
+    return use { stream ->
         ZipInputStream(stream).use { zip ->
-            zip.entries.map { entry ->
-                zip.copyTo(contents)
-                val ret = Pair(entry, contents.toByteArray())
-                contents.reset()
-                ret
-            }.toList()
+            zip.entries.forEach { entry -> f(entry, zip) }
         }
     }
+}
+
+fun ByteArray.unzip(): List<Pair<ZipEntry, ByteArray>> {
+    val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+    val ret = ArrayList<Pair<ZipEntry, ByteArray>>()
+    ByteArrayInputStream(this).unzip { entry, zip ->
+        zip.copyTo(contents)
+        ret.add(Pair(entry, contents.toByteArray()))
+        contents.reset()
+    }
+    return ret
 }
