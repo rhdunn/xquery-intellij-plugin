@@ -40,7 +40,7 @@ class ZipFileSystemTest {
             val zip = sequenceOf<Pair<ZipEntry, ByteArray>>().toZipByteArray()
             val fs = ZipFileSystem(zip)
 
-            val entries = fs.save().unzip().toList()
+            val entries = fs.save().unzip()
             assertThat(entries.size, `is`(0))
 
             assertThat(fs.findFileByPath("lorem-ipsum.txt"), `is`(nullValue()))
@@ -57,7 +57,7 @@ class ZipFileSystemTest {
             ).toZipByteArray()
             val fs = ZipFileSystem(zip)
 
-            val entries = fs.save().unzip().toList()
+            val entries = fs.save().unzip()
             assertThat(entries.size, `is`(2))
             assertThat(entries[0].first.name, `is`("lorem-ipsum.txt"))
             assertThat(entries[0].second, `is`("Lorem ipsum dolor sed emit...".toByteArray()))

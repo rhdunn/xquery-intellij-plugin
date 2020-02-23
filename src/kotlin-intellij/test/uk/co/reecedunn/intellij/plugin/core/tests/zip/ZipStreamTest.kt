@@ -31,7 +31,7 @@ class ZipStreamTest {
         val zip = sequenceOf<Pair<ZipEntry, ByteArray>>().toZipByteArray()
         assertThat(zip.size, `is`(22))
 
-        val entries = zip.unzip().toList()
+        val entries = zip.unzip()
         assertThat(entries.size, `is`(0))
     }
 
@@ -43,7 +43,7 @@ class ZipStreamTest {
         ).toZipByteArray()
         assertThat(zip.size, `is`(144))
 
-        val entries = zip.unzip().toList()
+        val entries = zip.unzip()
         assertThat(entries.size, `is`(1))
 
         assertThat(entries[0].first.name, `is`("text.txt"))
@@ -61,7 +61,7 @@ class ZipStreamTest {
         ).toZipByteArray()
         assertThat(zip.size, `is`(134))
 
-        val entries = zip.unzip().toList()
+        val entries = zip.unzip()
         assertThat(entries.size, `is`(1))
 
         assertThat(entries[0].first.name, `is`("contents/"))
@@ -80,7 +80,7 @@ class ZipStreamTest {
         ).toZipByteArray()
         assertThat(zip.size, `is`(300))
 
-        val entries = zip.unzip().toList()
+        val entries = zip.unzip()
         assertThat(entries.size, `is`(2))
 
         assertThat(entries[0].first.name, `is`("lorem-ipsum.txt"))
