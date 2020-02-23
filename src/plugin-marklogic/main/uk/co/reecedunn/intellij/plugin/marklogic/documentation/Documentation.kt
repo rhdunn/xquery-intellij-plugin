@@ -15,11 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import java.io.File
 
 private data class MarkLogicZippedDocumentation(
     override val version: String,
@@ -36,18 +40,47 @@ private data class MarkLogicZippedDocumentation(
     // endregion
     // region XdmDocumentationIndex
 
+    private val apidocs = CacheableProperty {
+        XQDocDocumentationDownloader.getInstance().load(this)?.let {
+            val docs = XmlDocument.parse(ML_DOC_TEMPLATE, NAMESPACES)
+            it.inputStream.unzip { entry, stream ->
+                if (entry.name.contains("pubs/raw/apidoc") && entry.name.endsWith(".xml")) {
+                    val xml = XmlDocument.parse(stream, NAMESPACES)
+                    if (xml.root.`is`("apidoc:module")) {
+                        val node = docs.doc.importNode(xml.root.element, true)
+                        docs.root.appendChild(node)
+                    }
+                }
+            }
+            docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
+            docs
+        }
+    }
+
     override fun invalidate() {
+        apidocs.invalidate()
     }
 
     override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
+        apidocs.get()
         return null
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
+        apidocs.get()
         return null
     }
 
     // endregion
+
+    companion object {
+        private val NAMESPACES = mapOf(
+            "apidoc" to "http://marklogic.com/xdmp/apidoc"
+        )
+
+        // language=xml
+        private const val ML_DOC_TEMPLATE = "<apidoc:apidoc xmlns:apidoc=\"http://marklogic.com/xdmp/apidoc\"/>"
+    }
 }
 
 object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {

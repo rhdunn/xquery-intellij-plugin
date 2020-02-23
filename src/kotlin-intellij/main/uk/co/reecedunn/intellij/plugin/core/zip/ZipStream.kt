@@ -65,6 +65,8 @@ fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit) {
     }
 }
 
+fun ByteArray.unzip(f: (ZipEntry, InputStream) -> Unit) = ByteArrayInputStream(this).unzip(f)
+
 fun ByteArray.unzip(): List<Pair<ZipEntry, ByteArray>> {
     val contents = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
     val ret = ArrayList<Pair<ZipEntry, ByteArray>>()

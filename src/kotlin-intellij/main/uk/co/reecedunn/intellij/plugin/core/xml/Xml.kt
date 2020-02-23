@@ -22,10 +22,7 @@ import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
-import java.io.File
-import java.io.FileWriter
-import java.io.StringReader
-import java.io.StringWriter
+import java.io.*
 import javax.xml.namespace.QName
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
@@ -147,6 +144,10 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
 
         fun parse(file: VirtualFile, namespaces: Map<String, String>): XmlDocument {
             return parse(InputSource(file.inputStream), namespaces)
+        }
+
+        fun parse(xml: InputStream, namespaces: Map<String, String>): XmlDocument {
+            return parse(InputSource(xml), namespaces)
         }
 
         fun parse(xml: InputSource, namespaces: Map<String, String>): XmlDocument {
