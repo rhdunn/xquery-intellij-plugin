@@ -103,7 +103,7 @@ object FunctionsAndOperatorsDocumentation :
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate() = (REC_3_1_20170321 as XQDocDocumentationIndex).invalidate()
+    override fun invalidate() {}
 
     override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(ref)

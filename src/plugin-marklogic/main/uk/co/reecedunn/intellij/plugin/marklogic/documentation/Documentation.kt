@@ -116,7 +116,7 @@ object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceP
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate() = (MARKLOGIC_10 as XQDocDocumentationIndex).invalidate()
+    override fun invalidate() {}
 
     override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(ref)
