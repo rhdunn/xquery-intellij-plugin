@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xdm.module.loader
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
 interface XdmModuleLoader {
     fun resolve(path: XdmModulePath, context: PsiElement): PsiElement?
 
-    fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext?
+    fun context(path: XdmModulePath, context: PsiElement): XstContext?
 }

@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -63,9 +63,9 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
         }
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
+    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
         return when (path) {
-            is XdmModuleLocationPath -> resolve(path, context) as? XdmStaticContext
+            is XdmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
     }

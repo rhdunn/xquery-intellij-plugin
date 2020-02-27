@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.java
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
@@ -36,7 +36,7 @@ object JavaModuleLoader : XdmModuleLoaderFactory, XdmModuleLoader {
         }
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
+    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
         return when (path) {
             is JavaTypePath -> path
             else -> null

@@ -23,7 +23,7 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
@@ -109,8 +109,8 @@ data class EXPathPackage internal constructor(
         }
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
-        return resolve(path, context) as? XdmStaticContext
+    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
+        return resolve(path, context) as? XstContext
     }
 
     // endregion

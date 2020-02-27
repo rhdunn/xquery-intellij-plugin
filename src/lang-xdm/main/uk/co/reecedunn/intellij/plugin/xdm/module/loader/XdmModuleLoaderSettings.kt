@@ -22,7 +22,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Attribute
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
@@ -48,7 +48,7 @@ class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmMod
         return loaders.get()?.asSequence()?.mapNotNull { it.resolve(path, context) }?.firstOrNull()
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
+    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
         return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
     }
 

@@ -20,7 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -50,9 +50,9 @@ class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
         }
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XdmStaticContext? {
+    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
         return when (path) {
-            is XdmModuleLocationPath -> resolve(path, context) as? XdmStaticContext
+            is XdmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
     }

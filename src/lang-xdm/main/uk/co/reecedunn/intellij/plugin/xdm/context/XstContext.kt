@@ -15,4 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.context
 
-interface XdmStaticContext
+interface XstContext

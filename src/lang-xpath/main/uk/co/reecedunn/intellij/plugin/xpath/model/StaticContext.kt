@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.context.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
-interface XPathStaticContext : XdmStaticContext {
+interface XPathStaticContext : XstContext {
     fun staticallyKnownNamespaces(context: PsiElement): Sequence<XdmNamespaceDeclaration>
 
     fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XdmDefaultNamespaceDeclaration>
