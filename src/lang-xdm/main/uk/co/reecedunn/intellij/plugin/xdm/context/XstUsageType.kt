@@ -18,5 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xdm.context
 enum class XstUsageType {
     Attribute,
     Element,
-    Namespace
+    Function,
+    Namespace,
+    Parameter,
+    Pragma,
+    Type,
+    Variable
 }

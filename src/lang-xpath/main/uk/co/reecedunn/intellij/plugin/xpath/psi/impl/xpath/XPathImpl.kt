@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -28,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class XPathImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XPath),
@@ -74,4 +76,23 @@ class XPathImpl(provider: FileViewProvider) :
     }
 
     // endregion
+
+    companion object {
+        val USAGE_TYPES = mapOf(
+            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.Function,
+            XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
+            XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
+            XPathElementType.ELEMENT_TEST to XstUsageType.Element,
+            XPathElementType.FUNCTION_CALL to XstUsageType.Function,
+            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.Function,
+            XPathElementType.PARAM to XstUsageType.Parameter,
+            XPathElementType.PRAGMA to XstUsageType.Pragma,
+            XPathElementType.SCHEMA_ATTRIBUTE_TEST to XstUsageType.Attribute,
+            XPathElementType.SCHEMA_ELEMENT_TEST to XstUsageType.Element,
+            XPathElementType.SIMPLE_TYPE_NAME to XstUsageType.Type,
+            XPathElementType.TYPE_NAME to XstUsageType.Type,
+            XPathElementType.UNION_TYPE to XstUsageType.Type,
+            XPathElementType.VAR_NAME to XstUsageType.Variable
+        )
+    }
 }

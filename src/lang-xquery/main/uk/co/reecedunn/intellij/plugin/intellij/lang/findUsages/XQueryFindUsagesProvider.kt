@@ -77,7 +77,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
                     XstUsageType.Attribute -> XPathBundle.message("find-usages.attribute")
                     XstUsageType.Element -> XPathBundle.message("find-usages.element")
                     XstUsageType.Namespace -> XPathBundle.message("find-usages.namespace")
-                    null -> XPathBundle.message("find-usages.identifier")
+                    else -> XPathBundle.message("find-usages.identifier")
                 }
             }
             element.node.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 
 fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
     return when (parent.node.elementType) {
@@ -30,4 +32,12 @@ fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
         }
         else -> XstUsageType.Element
     }
+}
+
+fun PsiElement.getUsageType(): XstUsageType? {
+    val parentType = parent.node.elementType
+    return if (parentType === XPathElementType.NAME_TEST)
+        (parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()
+    else
+        XPathImpl.USAGE_TYPES[parentType]
 }
