@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
@@ -59,7 +58,7 @@ data class JavaTypePath(val project: Project) : XdmModulePath, XstContext {
     // endregion
     // region XstContext
 
-    override val usageTypes: Map<IElementType, XstUsageType> = mapOf()
+    override fun getUsageType(element: PsiElement): XstUsageType? = null
 
     // endregion
 

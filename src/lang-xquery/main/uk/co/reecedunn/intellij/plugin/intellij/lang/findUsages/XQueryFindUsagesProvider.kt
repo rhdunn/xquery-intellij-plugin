@@ -21,9 +21,7 @@ import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 object XQueryFindUsagesProvider : FindUsagesProvider {
     override fun getWordsScanner(): WordsScanner? = XQueryWordsScanner()
@@ -32,14 +30,7 @@ object XQueryFindUsagesProvider : FindUsagesProvider {
 
     override fun getHelpId(psiElement: PsiElement): String? = HelpID.FIND_OTHER_USAGES
 
-    override fun getType(element: PsiElement): String {
-        return when {
-            element.node.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> {
-                XdmBundle.message("usage-type.annotation")
-            }
-            else -> element.getUsageType().label
-        }
-    }
+    override fun getType(element: PsiElement): String = element.getUsageType().label
 
     override fun getDescriptiveName(element: PsiElement): String {
         val name = (element as PsiNamedElement).name

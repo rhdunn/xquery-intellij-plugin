@@ -19,13 +19,13 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -115,7 +116,10 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override val usageTypes: Map<IElementType, XstUsageType> get() = USAGE_TYPES
+    override fun getUsageType(element: PsiElement): XstUsageType? = when (element.node.elementType) {
+        XQueryElementType.COMPATIBILITY_ANNOTATION -> XstUsageType.Annotation
+        else -> USAGE_TYPES[element.parent.node.elementType]
+    }
 
     // endregion
     // region XPathStaticContext

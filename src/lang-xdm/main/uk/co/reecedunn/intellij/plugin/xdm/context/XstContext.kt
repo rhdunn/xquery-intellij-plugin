@@ -16,10 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xdm.context
 
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.IElementType
 
 interface XstContext {
-    val usageTypes: Map<IElementType, XstUsageType>
+    fun getUsageType(element: PsiElement): XstUsageType?
 }
 
 val PsiElement.staticContext get(): XstContext? = this.containingFile as? XstContext
