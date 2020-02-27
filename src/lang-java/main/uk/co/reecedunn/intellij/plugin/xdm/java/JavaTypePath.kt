@@ -19,8 +19,10 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
@@ -50,7 +52,16 @@ data class JavaTypePath(val project: Project) : XdmModulePath, XstContext {
         }
     }
 
+    // region XdmModulePath
+
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.JAVA
+
+    // endregion
+    // region XstContext
+
+    override val usageTypes: Map<IElementType, XstUsageType> = mapOf()
+
+    // endregion
 
     companion object : XdmModulePathFactory {
         private const val JAVA_TYPE_NS = "http://saxon.sf.net/java-type"

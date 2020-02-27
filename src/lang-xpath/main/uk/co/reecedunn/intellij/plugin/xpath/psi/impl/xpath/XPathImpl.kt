@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
@@ -43,6 +44,11 @@ class XPathImpl(provider: FileViewProvider) :
     // region PsiFile
 
     override fun getFileType(): FileType = XPathFileType
+
+    // endregion
+    // region XstContext
+
+    override val usageTypes: Map<IElementType, XstUsageType> get() = USAGE_TYPES
 
     // endregion
     // region XPathStaticContext
