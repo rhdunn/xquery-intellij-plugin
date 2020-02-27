@@ -1492,7 +1492,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun principalNodeKind() {
                 val steps = parse<XPathNodeTest>("property::one")
                 assertThat(steps.size, `is`(1))
-                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // property
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XstUsageType.Element)) // property
             }
 
             @Test

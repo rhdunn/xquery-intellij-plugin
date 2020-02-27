@@ -136,7 +136,7 @@ fun XsQNameValue.getNamespaceType(): XdmNamespaceType {
     return when {
         parentType === XPathElementType.NAME_TEST -> {
             when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-                XPathPrincipalNodeKind.Element -> XdmNamespaceType.DefaultElementOrType
+                XstUsageType.Element -> XdmNamespaceType.DefaultElementOrType
                 else -> XdmNamespaceType.None
             }
         }

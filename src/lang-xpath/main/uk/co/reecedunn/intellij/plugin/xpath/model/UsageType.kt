@@ -19,20 +19,20 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-enum class XPathPrincipalNodeKind {
+enum class XstUsageType {
     Attribute,
     Element,
     Namespace
 }
 
-fun XPathNodeTest.getPrincipalNodeKind(): XPathPrincipalNodeKind {
+fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
     return when (parent.node.elementType) {
-        XPathElementType.ABBREV_FORWARD_STEP -> XPathPrincipalNodeKind.Attribute
+        XPathElementType.ABBREV_FORWARD_STEP -> XstUsageType.Attribute
         XPathElementType.FORWARD_STEP -> when (parent.firstChild.firstChild.node.elementType) {
-            XPathTokenType.K_ATTRIBUTE -> XPathPrincipalNodeKind.Attribute
-            XPathTokenType.K_NAMESPACE -> XPathPrincipalNodeKind.Namespace
-            else -> XPathPrincipalNodeKind.Element
+            XPathTokenType.K_ATTRIBUTE -> XstUsageType.Attribute
+            XPathTokenType.K_NAMESPACE -> XstUsageType.Namespace
+            else -> XstUsageType.Element
         }
-        else -> XPathPrincipalNodeKind.Element
+        else -> XstUsageType.Element
     }
 }

@@ -23,7 +23,7 @@ import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XPathWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
+import uk.co.reecedunn.intellij.plugin.xpath.model.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
@@ -55,9 +55,9 @@ object XPathFindUsagesProvider : FindUsagesProvider {
         val parentType = element.parent.node.elementType
         return if (parentType === XPathElementType.NAME_TEST)
             when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-                XPathPrincipalNodeKind.Attribute -> XPathBundle.message("find-usages.attribute")
-                XPathPrincipalNodeKind.Element -> XPathBundle.message("find-usages.element")
-                XPathPrincipalNodeKind.Namespace -> XPathBundle.message("find-usages.namespace")
+                XstUsageType.Attribute -> XPathBundle.message("find-usages.attribute")
+                XstUsageType.Element -> XPathBundle.message("find-usages.element")
+                XstUsageType.Namespace -> XPathBundle.message("find-usages.namespace")
                 else -> XPathBundle.message("find-usages.identifier")
             }
         else
