@@ -35,8 +35,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryModuleImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XQuery), XQueryModule, XPathStaticContext {
@@ -113,7 +115,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override val usageTypes: Map<IElementType, XstUsageType> = mapOf()
+    override val usageTypes: Map<IElementType, XstUsageType> get() = USAGE_TYPES
 
     // endregion
     // region XPathStaticContext
@@ -160,4 +162,39 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     }
 
     // endregion
+
+    companion object {
+        val USAGE_TYPES = mapOf(
+            XQueryElementType.ANNOTATION to XstUsageType.Annotation,
+            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.Function,
+            XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
+            XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
+            XQueryElementType.COMP_ATTR_CONSTRUCTOR to XstUsageType.Attribute,
+            XQueryElementType.COMP_ELEM_CONSTRUCTOR to XstUsageType.Element,
+            XQueryElementType.CURRENT_ITEM to XstUsageType.Variable,
+            XQueryElementType.DECIMAL_FORMAT_DECL to XstUsageType.DecimalFormat,
+            XQueryElementType.DIR_ATTRIBUTE to XstUsageType.Attribute,
+            XQueryElementType.DIR_ELEM_CONSTRUCTOR to XstUsageType.Element,
+            XPathElementType.ELEMENT_TEST to XstUsageType.Element,
+            XPathElementType.FUNCTION_CALL to XstUsageType.Function,
+            XQueryElementType.FUNCTION_DECL to XstUsageType.Function,
+            XQueryElementType.MODULE_DECL to XstUsageType.Namespace,
+            XQueryElementType.MODULE_IMPORT to XstUsageType.Namespace,
+            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.Function,
+            XQueryElementType.NAMESPACE_DECL to XstUsageType.Namespace,
+            XQueryElementType.NEXT_ITEM to XstUsageType.Variable,
+            XQueryElementType.OPTION_DECL to XstUsageType.Option,
+            XPathElementType.PARAM to XstUsageType.Parameter,
+            XPathElementType.PRAGMA to XstUsageType.Pragma,
+            XQueryElementType.PREVIOUS_ITEM to XstUsageType.Variable,
+            XPathElementType.SCHEMA_ATTRIBUTE_TEST to XstUsageType.Attribute,
+            XPathElementType.SCHEMA_ELEMENT_TEST to XstUsageType.Element,
+            XQueryElementType.SCHEMA_PREFIX to XstUsageType.Namespace,
+            XPathElementType.SIMPLE_TYPE_NAME to XstUsageType.Type,
+            XQueryElementType.TYPE_DECL to XstUsageType.Type,
+            XPathElementType.TYPE_NAME to XstUsageType.Type,
+            XPathElementType.UNION_TYPE to XstUsageType.Type,
+            XPathElementType.VAR_NAME to XstUsageType.Variable
+        )
+    }
 }

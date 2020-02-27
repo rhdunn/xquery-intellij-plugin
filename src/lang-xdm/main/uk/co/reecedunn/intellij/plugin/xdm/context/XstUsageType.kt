@@ -16,10 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xdm.context
 
 enum class XstUsageType {
+    Annotation,
     Attribute,
+    DecimalFormat,
     Element,
     Function,
     Namespace,
+    Option,
     Parameter,
     Pragma,
     Type,
