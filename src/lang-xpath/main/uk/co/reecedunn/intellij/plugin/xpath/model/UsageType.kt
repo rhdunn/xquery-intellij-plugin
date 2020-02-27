@@ -15,15 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-
-enum class XstUsageType {
-    Attribute,
-    Element,
-    Namespace
-}
 
 fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
     return when (parent.node.elementType) {

@@ -23,8 +23,8 @@ import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
