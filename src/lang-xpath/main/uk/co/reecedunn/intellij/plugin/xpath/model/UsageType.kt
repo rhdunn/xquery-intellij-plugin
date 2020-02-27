@@ -34,10 +34,10 @@ fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
     }
 }
 
-fun PsiElement.getUsageType(): XstUsageType? {
+fun PsiElement.getUsageType(): XstUsageType {
     val parentType = parent.node.elementType
     return if (parentType === XPathElementType.NAME_TEST)
-        (parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()
+        (parent.parent as? XPathNodeTest)?.getPrincipalNodeKind() ?: XstUsageType.Unknown
     else
-        staticContext?.usageTypes?.get(parentType)
+        staticContext?.usageTypes?.get(parentType) ?: XstUsageType.Unknown
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,48 +21,16 @@ import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XPathWordsScanner
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
 object XPathFindUsagesProvider : FindUsagesProvider {
-    private val TYPE = mapOf(
-        XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathBundle.message("find-usages.function"),
-        XPathElementType.ATOMIC_OR_UNION_TYPE to XPathBundle.message("find-usages.type"),
-        XPathElementType.ATTRIBUTE_TEST to XPathBundle.message("find-usages.attribute"),
-        XPathElementType.ELEMENT_TEST to XPathBundle.message("find-usages.element"),
-        XPathElementType.FUNCTION_CALL to XPathBundle.message("find-usages.function"),
-        XPathElementType.NAMED_FUNCTION_REF to XPathBundle.message("find-usages.function"),
-        XPathElementType.PARAM to XPathBundle.message("find-usages.parameter"),
-        XPathElementType.PRAGMA to XPathBundle.message("find-usages.pragma"),
-        XPathElementType.SCHEMA_ATTRIBUTE_TEST to XPathBundle.message("find-usages.attribute"),
-        XPathElementType.SCHEMA_ELEMENT_TEST to XPathBundle.message("find-usages.element"),
-        XPathElementType.SIMPLE_TYPE_NAME to XPathBundle.message("find-usages.type"),
-        XPathElementType.TYPE_NAME to XPathBundle.message("find-usages.type"),
-        XPathElementType.UNION_TYPE to XPathBundle.message("find-usages.type"),
-        XPathElementType.VAR_NAME to XPathBundle.message("find-usages.variable")
-    )
-
     override fun getWordsScanner(): WordsScanner? = XPathWordsScanner()
 
     override fun canFindUsagesFor(psiElement: PsiElement): Boolean = psiElement is PsiNamedElement
 
     override fun getHelpId(psiElement: PsiElement): String? = HelpID.FIND_OTHER_USAGES
 
-    override fun getType(element: PsiElement): String {
-        val parentType = element.parent.node.elementType
-        return if (parentType === XPathElementType.NAME_TEST)
-            when ((element.parent.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
-                XstUsageType.Attribute -> XPathBundle.message("find-usages.attribute")
-                XstUsageType.Element -> XPathBundle.message("find-usages.element")
-                XstUsageType.Namespace -> XPathBundle.message("find-usages.namespace")
-                else -> XPathBundle.message("find-usages.identifier")
-            }
-        else
-            TYPE.getOrElse(parentType) { XPathBundle.message("find-usages.identifier") }
-    }
+    override fun getType(element: PsiElement): String = element.getUsageType().label
 
     override fun getDescriptiveName(element: PsiElement): String {
         val name = (element as PsiNamedElement).name

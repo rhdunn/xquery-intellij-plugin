@@ -15,16 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.context
 
-enum class XstUsageType {
-    Annotation,
-    Attribute,
-    DecimalFormat,
-    Element,
-    Function,
-    Namespace,
-    Option,
-    Parameter,
-    Pragma,
-    Type,
-    Variable
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+
+enum class XstUsageType(val label: String) {
+    Annotation(""),
+    Attribute(XdmBundle.message("usage-type.attribute")),
+    DecimalFormat(""),
+    Element(XdmBundle.message("usage-type.element")),
+    Function(XdmBundle.message("usage-type.function")),
+    Namespace(XdmBundle.message("usage-type.namespace")),
+    Option(""),
+    Parameter(XdmBundle.message("usage-type.parameter")),
+    Pragma(XdmBundle.message("usage-type.pragma")),
+    Type(XdmBundle.message("usage-type.type")),
+    Unknown(XdmBundle.message("usage-type.identifier")),
+    Variable(XdmBundle.message("usage-type.variable"))
 }
