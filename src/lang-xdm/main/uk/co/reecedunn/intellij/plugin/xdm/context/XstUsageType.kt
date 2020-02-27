@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xdm.context
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 
 enum class XstUsageType(val label: String) {
-    Annotation(""),
+    Annotation(XdmBundle.message("usage-type.annotation")),
     Attribute(XdmBundle.message("usage-type.attribute")),
-    DecimalFormat(""),
+    DecimalFormat(XdmBundle.message("usage-type.decimal-format")),
     Element(XdmBundle.message("usage-type.element")),
     Function(XdmBundle.message("usage-type.function")),
     Namespace(XdmBundle.message("usage-type.namespace")),
-    Option(""),
+    Option(XdmBundle.message("usage-type.option")),
     Parameter(XdmBundle.message("usage-type.parameter")),
     Pragma(XdmBundle.message("usage-type.pragma")),
     Type(XdmBundle.message("usage-type.type")),
