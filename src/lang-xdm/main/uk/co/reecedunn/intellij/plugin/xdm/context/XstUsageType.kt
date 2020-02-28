@@ -16,18 +16,20 @@
 package uk.co.reecedunn.intellij.plugin.xdm.context
 
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 
-enum class XstUsageType(val label: String) {
-    Annotation(XdmBundle.message("usage-type.annotation")),
-    Attribute(XdmBundle.message("usage-type.attribute")),
-    DecimalFormat(XdmBundle.message("usage-type.decimal-format")),
-    Element(XdmBundle.message("usage-type.element")),
-    Function(XdmBundle.message("usage-type.function")),
-    Namespace(XdmBundle.message("usage-type.namespace")),
-    Option(XdmBundle.message("usage-type.option")),
-    Parameter(XdmBundle.message("usage-type.parameter")),
-    Pragma(XdmBundle.message("usage-type.pragma")),
-    Type(XdmBundle.message("usage-type.type")),
-    Unknown(XdmBundle.message("usage-type.identifier")),
-    Variable(XdmBundle.message("usage-type.variable"))
+enum class XstUsageType(val label: String, val namespaceType: XdmNamespaceType) {
+    Annotation(XdmBundle.message("usage-type.annotation"), XdmNamespaceType.XQuery),
+    Attribute(XdmBundle.message("usage-type.attribute"), XdmNamespaceType.None),
+    DecimalFormat(XdmBundle.message("usage-type.decimal-format"), XdmNamespaceType.None),
+    Element(XdmBundle.message("usage-type.element"), XdmNamespaceType.DefaultElementOrType),
+    FunctionDecl(XdmBundle.message("usage-type.function"), XdmNamespaceType.DefaultFunctionDecl),
+    FunctionRef(XdmBundle.message("usage-type.function"), XdmNamespaceType.DefaultFunctionRef),
+    Namespace(XdmBundle.message("usage-type.namespace"), XdmNamespaceType.None),
+    Option(XdmBundle.message("usage-type.option"), XdmNamespaceType.XQuery),
+    Parameter(XdmBundle.message("usage-type.parameter"), XdmNamespaceType.None),
+    Pragma(XdmBundle.message("usage-type.pragma"), XdmNamespaceType.None),
+    Type(XdmBundle.message("usage-type.type"), XdmNamespaceType.DefaultElementOrType),
+    Unknown(XdmBundle.message("usage-type.identifier"), XdmNamespaceType.Undefined),
+    Variable(XdmBundle.message("usage-type.variable"), XdmNamespaceType.None)
 }

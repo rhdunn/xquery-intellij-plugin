@@ -84,12 +84,12 @@ class XPathImpl(provider: FileViewProvider) :
 
     companion object {
         val USAGE_TYPES = mapOf(
-            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.Function,
+            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.FunctionRef,
             XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
             XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
             XPathElementType.ELEMENT_TEST to XstUsageType.Element,
-            XPathElementType.FUNCTION_CALL to XstUsageType.Function,
-            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.Function,
+            XPathElementType.FUNCTION_CALL to XstUsageType.FunctionRef,
+            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.FunctionRef,
             XPathElementType.PARAM to XstUsageType.Parameter,
             XPathElementType.PRAGMA to XstUsageType.Pragma,
             XPathElementType.SCHEMA_ATTRIBUTE_TEST to XstUsageType.Attribute,

@@ -170,7 +170,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     companion object {
         val USAGE_TYPES = mapOf(
             XQueryElementType.ANNOTATION to XstUsageType.Annotation,
-            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.Function,
+            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.FunctionRef,
             XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
             XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
             XQueryElementType.COMP_ATTR_CONSTRUCTOR to XstUsageType.Attribute,
@@ -180,11 +180,11 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.DIR_ATTRIBUTE to XstUsageType.Attribute,
             XQueryElementType.DIR_ELEM_CONSTRUCTOR to XstUsageType.Element,
             XPathElementType.ELEMENT_TEST to XstUsageType.Element,
-            XPathElementType.FUNCTION_CALL to XstUsageType.Function,
-            XQueryElementType.FUNCTION_DECL to XstUsageType.Function,
+            XPathElementType.FUNCTION_CALL to XstUsageType.FunctionRef,
+            XQueryElementType.FUNCTION_DECL to XstUsageType.FunctionDecl,
             XQueryElementType.MODULE_DECL to XstUsageType.Namespace,
             XQueryElementType.MODULE_IMPORT to XstUsageType.Namespace,
-            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.Function,
+            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.FunctionRef,
             XQueryElementType.NAMESPACE_DECL to XstUsageType.Namespace,
             XQueryElementType.NEXT_ITEM to XstUsageType.Variable,
             XQueryElementType.OPTION_DECL to XstUsageType.Option,
