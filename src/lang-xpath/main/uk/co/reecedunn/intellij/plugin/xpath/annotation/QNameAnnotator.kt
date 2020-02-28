@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.annotation
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -25,16 +26,22 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class QNameAnnotator : Annotator() {
+    private fun getHighlightAttributes(element: PsiElement): TextAttributesKey {
+        return when (element.getUsageType()) {
+            else -> XPathSyntaxHighlighterColors.IDENTIFIER
+        }
+    }
+
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (
@@ -97,22 +104,17 @@ class QNameAnnotator : Annotator() {
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            if (xmlns) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .textAttributes(XPathSyntaxHighlighterColors.NS_PREFIX)
-                    .create()
-            } else if (localName.node.elementType is IKeywordOrNCNameType) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .textAttributes(XPathSyntaxHighlighterColors.IDENTIFIER)
-                    .create()
-            } else if (localName is XPathNCName) {
-                if (localName.node.elementType is IKeywordOrNCNameType) {
+            val highlight = if (xmlns) XPathSyntaxHighlighterColors.NS_PREFIX else getHighlightAttributes(element)
+            when {
+                highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> {
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                        .create()
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .textAttributes(highlight)
+                        .create()
+                }
+                localName.node.elementType is IKeywordOrNCNameType -> {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
                         .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
                         .create()

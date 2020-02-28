@@ -18,25 +18,33 @@ package uk.co.reecedunn.intellij.plugin.xquery.annotation
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class QNameAnnotator : Annotator() {
+    private fun getHighlightAttributes(element: PsiElement): TextAttributesKey {
+        return when (element.getUsageType()) {
+            XstUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
+            else -> XQuerySyntaxHighlighterColors.IDENTIFIER
+        }
+    }
+
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (
@@ -103,34 +111,22 @@ class QNameAnnotator : Annotator() {
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            if (xmlns) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
-                if (element.parent is PluginDirAttribute) {
+            val highlight = if (xmlns) XQuerySyntaxHighlighterColors.NS_PREFIX else getHighlightAttributes(element)
+            when {
+                highlight !== XQuerySyntaxHighlighterColors.IDENTIFIER -> {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                        .create()
+                    if (element.parent is PluginDirAttribute) {
+                        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                            .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                            .create()
+                    }
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
+                        .textAttributes(highlight)
                         .create()
                 }
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .textAttributes(XQuerySyntaxHighlighterColors.NS_PREFIX)
-                    .create()
-            } else if (element.parent is XQueryAnnotation) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .textAttributes(XQuerySyntaxHighlighterColors.ANNOTATION)
-                    .create()
-            } else if (localName.node.elementType is IKeywordOrNCNameType) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                    .textAttributes(XQuerySyntaxHighlighterColors.IDENTIFIER)
-                    .create()
-            } else if (localName is XPathNCName) {
-                if (localName.node.elementType is IKeywordOrNCNameType) {
+                localName.node.elementType is IKeywordOrNCNameType -> {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
                         .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
                         .create()
