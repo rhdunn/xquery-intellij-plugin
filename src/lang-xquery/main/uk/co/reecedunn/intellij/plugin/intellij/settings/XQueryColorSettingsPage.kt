@@ -30,7 +30,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
 
     override fun getHighlighter(): SyntaxHighlighter = XQuerySyntaxHighlighter()
 
-    override fun getDemoText(): String = XQueryQueries.ColorSettingsDemo
+    override fun getDemoText(): String = demo
 
     override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? =
         XQuerySyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
@@ -40,4 +40,12 @@ class XQueryColorSettingsPage : ColorSettingsPage {
     override fun getColorDescriptors(): Array<ColorDescriptor> = ColorDescriptor.EMPTY_ARRAY
 
     override fun getDisplayName(): String = "XQuery"
+
+    companion object {
+        private val demo: String by lazy {
+            var ret = XQueryQueries.ColorSettingsDemo
+            ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
+            ret
+        }
+    }
 }

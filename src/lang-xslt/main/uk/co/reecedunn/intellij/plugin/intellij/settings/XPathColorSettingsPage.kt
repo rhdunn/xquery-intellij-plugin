@@ -31,7 +31,7 @@ class XPathColorSettingsPage : ColorSettingsPage {
 
     override fun getHighlighter(): SyntaxHighlighter = XPathSyntaxHighlighter()
 
-    override fun getDemoText(): String = XPathQueries.ColorSettingsDemo
+    override fun getDemoText(): String = demo
 
     override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? =
         XPathSyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
@@ -47,5 +47,11 @@ class XPathColorSettingsPage : ColorSettingsPage {
             XPathSyntaxHighlighterColors.DESCRIPTORS,
             XsltSyntaxHighlighterColors.DESCRIPTORS
         ).flatten().toTypedArray()
+
+        private val demo: String by lazy {
+            var ret = XPathQueries.ColorSettingsDemo
+            ret = ret.replace("([^a-zA-Z0-9_])fn:".toRegex()) { it.groups[1]!!.value + "<nsprefix>fn</nsprefix>:" }
+            ret
+        }
     }
 }
