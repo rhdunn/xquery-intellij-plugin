@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,17 +30,17 @@ import java.util.*
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Color Settings Page")
 class XPathColorSettingsPageTest {
+    private val settings = XPathColorSettingsPage()
+
     @Test
     @DisplayName("icon")
     fun testIcon() {
-        val settings = XPathColorSettingsPage()
         assertThat(settings.icon, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("highlighter")
     fun testHighlighter() {
-        val settings = XPathColorSettingsPage()
         val highlighter = settings.highlighter
         assertThat(highlighter.javaClass.name, `is`(XPathSyntaxHighlighter::class.java.name))
     }
@@ -48,14 +48,12 @@ class XPathColorSettingsPageTest {
     @Test
     @DisplayName("demo text contains valid separators")
     fun testDemoTextSeparators() {
-        val settings = XPathColorSettingsPage()
         StringUtil.assertValidSeparators(settings.demoText)
     }
 
     @Test
     @DisplayName("demo text contains all syntax highlighter highlight types")
     fun testDemoText() {
-        val settings = XPathColorSettingsPage()
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
         lexer.start(settings.demoText)
@@ -84,7 +82,6 @@ class XPathColorSettingsPageTest {
     @Test
     @DisplayName("additional highlighting tag to descriptor map")
     fun testAdditionalHighlightingTagToDescriptorMap() {
-        val settings = XPathColorSettingsPage()
         assertThat(settings.additionalHighlightingTagToDescriptorMap?.size, `is`(1))
         assertThat(
             settings.additionalHighlightingTagToDescriptorMap?.get("nsprefix"),
@@ -95,7 +92,6 @@ class XPathColorSettingsPageTest {
     @Test
     @DisplayName("attribute descriptors")
     fun testAttributeDescriptors() {
-        val settings = XPathColorSettingsPage()
         assertThat(settings.attributeDescriptors.size, `is`(9))
         assertThat(settings.attributeDescriptors[0].displayName, `is`("Invalid Character"))
         assertThat(settings.attributeDescriptors[0].key, `is`(XPathSyntaxHighlighterColors.BAD_CHARACTER))
@@ -120,14 +116,12 @@ class XPathColorSettingsPageTest {
     @Test
     @DisplayName("color descriptors")
     fun testColorDescriptors() {
-        val settings = XPathColorSettingsPage()
         assertThat(settings.colorDescriptors.size, `is`(0))
     }
 
     @Test
     @DisplayName("display name")
     fun testDisplayName() {
-        val settings = XPathColorSettingsPage()
         assertThat(settings.displayName, `is`("XPath and XSLT"))
     }
 }
