@@ -29,12 +29,6 @@ import java.util.*
 class XPathColorSettingsPageTest {
     private val settings = XPathColorSettingsPage()
 
-    @Test
-    @DisplayName("demo text contains valid separators")
-    fun testDemoTextSeparators() {
-        StringUtil.assertValidSeparators(settings.demoText)
-    }
-
     private fun getTextAttributeKeysForTokens(text: String): List<TextAttributesKey> {
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
@@ -53,6 +47,22 @@ class XPathColorSettingsPageTest {
         return keys
     }
 
+    private fun getTextAttributeKeysForAdditionalDescriptors(text: String): List<Pair<String, TextAttributesKey>> {
+        return settings.additionalHighlightingTagToDescriptorMap!!.asSequence().flatMap { (name, attributesKey) ->
+            val matches = "<$name>([^<]*)</$name>".toRegex().findAll(text)
+            assertThat("additional highlight '$name' XML annotation is present", matches.any(), `is`(true))
+            matches.map { match ->
+                match.groups[1]?.value!! to attributesKey
+            }
+        }.toList()
+    }
+
+    @Test
+    @DisplayName("demo text contains valid separators")
+    fun testDemoTextSeparators() {
+        StringUtil.assertValidSeparators(settings.demoText)
+    }
+
     @Test
     @DisplayName("demo text contains all syntax-based text attribute keys")
     fun syntaxHighlightingTextAttributeKeys() {
@@ -65,5 +75,14 @@ class XPathColorSettingsPageTest {
         assertThat(keys.contains(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.BAD_CHARACTER), `is`(true))
         assertThat(keys.size, `is`(7)) // No other matching highlight colours
+    }
+
+    @Test
+    @DisplayName("demo text contains all semantic-based text attribute keys")
+    fun semanticHighlightingTextAttributeKeys() {
+        val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
+        assertThat(keys.size, `is`(2))
+        assertThat(keys[0], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[1], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
     }
 }

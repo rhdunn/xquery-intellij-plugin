@@ -29,12 +29,6 @@ import java.util.*
 class XQueryColorSettingsPageTest {
     private val settings = XQueryColorSettingsPage()
 
-    @Test
-    @DisplayName("demo text contains valid separators")
-    fun testDemoTextSeparators() {
-        StringUtil.assertValidSeparators(settings.demoText)
-    }
-
     private fun getTextAttributeKeysForTokens(text: String): List<TextAttributesKey> {
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
@@ -51,6 +45,22 @@ class XQueryColorSettingsPageTest {
             lexer.advance()
         }
         return keys
+    }
+
+    private fun getTextAttributeKeysForAdditionalDescriptors(text: String): List<Pair<String, TextAttributesKey>> {
+        return settings.additionalHighlightingTagToDescriptorMap!!.asSequence().flatMap { (name, attributesKey) ->
+            val matches = "<$name>([^<]*)</$name>".toRegex().findAll(text)
+            assertThat("additional highlight '$name' XML annotation is present", matches.any(), `is`(true))
+            matches.map { match ->
+                match.groups[1]?.value!! to attributesKey
+            }
+        }.toList()
+    }
+
+    @Test
+    @DisplayName("demo text contains valid separators")
+    fun testDemoTextSeparators() {
+        StringUtil.assertValidSeparators(settings.demoText)
     }
 
     @Test
@@ -76,5 +86,13 @@ class XQueryColorSettingsPageTest {
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_MARKUP), `is`(true))
         assertThat(keys.size, `is`(18)) // No other matching highlight colours
+    }
+
+    @Test
+    @DisplayName("demo text contains all semantic-based text attribute keys")
+    fun semanticHighlightingTextAttributeKeys() {
+        val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
+        assertThat(keys.size, `is`(1))
+        assertThat(keys[0], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
     }
 }
