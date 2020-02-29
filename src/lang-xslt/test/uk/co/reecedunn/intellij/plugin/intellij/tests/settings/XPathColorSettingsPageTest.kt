@@ -35,12 +35,10 @@ class XPathColorSettingsPageTest {
         StringUtil.assertValidSeparators(settings.demoText)
     }
 
-    @Test
-    @DisplayName("demo text contains all syntax highlighting colours")
-    fun syntaxHighlighting() {
+    private fun getTextAttributeKeysForTokens(text: String): List<TextAttributesKey> {
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
-        lexer.start(settings.demoText)
+        lexer.start(text)
 
         val keys = ArrayList<TextAttributesKey>()
         while (lexer.tokenType != null) {
@@ -52,7 +50,13 @@ class XPathColorSettingsPageTest {
 
             lexer.advance()
         }
+        return keys
+    }
 
+    @Test
+    @DisplayName("demo text contains all syntax-based text attribute keys")
+    fun syntaxHighlightingTextAttributeKeys() {
+        val keys = getTextAttributeKeysForTokens(settings.demoText)
         assertThat(keys.contains(XPathSyntaxHighlighterColors.COMMENT), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.IDENTIFIER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.KEYWORD), `is`(true))
