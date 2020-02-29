@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.editor.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage
 import java.util.*
@@ -84,5 +85,24 @@ class XPathColorSettingsPageTest {
         assertThat(keys.size, `is`(2))
         assertThat(keys[0], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
         assertThat(keys[1], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
+    }
+
+    @Test
+    @DisplayName("demo text contains all keys from the attribute descriptors")
+    fun allDescriptorsPresentInDemoText() {
+        val tokens = getTextAttributeKeysForTokens(settings.demoText)
+        val additional = getTextAttributeKeysForAdditionalDescriptors(settings.demoText).map { (_, key) -> key }
+        val keys = tokens.union(additional).toMutableSet()
+        keys.add(XsltSyntaxHighlighterColors.XSLT_DIRECTIVE)
+
+        val descriptorKeys = settings.attributeDescriptors.map { it.key }
+
+        keys.forEach { key ->
+            assertThat("$key from demo text in attributeDescriptors", descriptorKeys.contains(key), `is`(true))
+        }
+
+        descriptorKeys.forEach { key ->
+            assertThat("$key from attributeDescriptors in keys from demo text", keys.contains(key), `is`(true))
+        }
     }
 }

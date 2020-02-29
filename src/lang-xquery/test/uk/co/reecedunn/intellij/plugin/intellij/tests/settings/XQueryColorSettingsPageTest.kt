@@ -95,4 +95,21 @@ class XQueryColorSettingsPageTest {
         assertThat(keys.size, `is`(1))
         assertThat(keys[0], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
     }
+
+    @Test
+    @DisplayName("demo text contains all keys from the attribute descriptors")
+    fun allDescriptorsPresentInDemoText() {
+        val tokens = getTextAttributeKeysForTokens(settings.demoText)
+        val additional = getTextAttributeKeysForAdditionalDescriptors(settings.demoText).map { (_, key) -> key }
+        val keys = tokens.union(additional)
+        val descriptorKeys = settings.attributeDescriptors.map { it.key }
+
+        keys.forEach { key ->
+            assertThat("$key from demo text in attributeDescriptors", descriptorKeys.contains(key), `is`(true))
+        }
+
+        descriptorKeys.forEach { key ->
+            assertThat("$key from attributeDescriptors in keys from demo text", keys.contains(key), `is`(true))
+        }
+    }
 }
