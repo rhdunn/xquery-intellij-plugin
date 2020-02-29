@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColo
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage
 import java.util.*
 
-@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Color Settings Page")
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath Color Settings Page")
 class XPathColorSettingsPageTest {
     private val settings = XPathColorSettingsPage()
 
@@ -36,8 +36,8 @@ class XPathColorSettingsPageTest {
     }
 
     @Test
-    @DisplayName("demo text contains all syntax highlighter highlight types")
-    fun testDemoText() {
+    @DisplayName("demo text contains all syntax highlighting colours")
+    fun syntaxHighlighting() {
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
         lexer.start(settings.demoText)
@@ -53,7 +53,6 @@ class XPathColorSettingsPageTest {
             lexer.advance()
         }
 
-        assertThat(keys.size, `is`(7))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.COMMENT), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.IDENTIFIER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.KEYWORD), `is`(true))
@@ -61,5 +60,6 @@ class XPathColorSettingsPageTest {
         assertThat(keys.contains(XPathSyntaxHighlighterColors.STRING), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.BAD_CHARACTER), `is`(true))
+        assertThat(keys.size, `is`(7)) // No other matching highlight colours
     }
 }

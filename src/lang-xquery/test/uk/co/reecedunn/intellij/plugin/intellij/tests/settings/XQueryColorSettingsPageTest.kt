@@ -36,8 +36,8 @@ class XQueryColorSettingsPageTest {
     }
 
     @Test
-    @DisplayName("demo text contains all syntax highlighter highlight types")
-    fun testDemoText() {
+    @DisplayName("demo text contains all syntax highlighting colours")
+    fun syntaxHighlighting() {
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
         lexer.start(settings.demoText)
@@ -53,7 +53,6 @@ class XQueryColorSettingsPageTest {
             lexer.advance()
         }
 
-        assertThat(keys.size, `is`(18))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.COMMENT), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.IDENTIFIER), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.KEYWORD), `is`(true))
@@ -72,5 +71,6 @@ class XQueryColorSettingsPageTest {
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_MARKUP), `is`(true))
+        assertThat(keys.size, `is`(18)) // No other matching highlight colours
     }
 }
