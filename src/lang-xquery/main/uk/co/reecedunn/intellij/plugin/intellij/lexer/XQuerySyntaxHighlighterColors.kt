@@ -98,6 +98,10 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_ANNOTATION", DefaultLanguageHighlighterColors.METADATA
     )
 
+    val ATTRIBUTE = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_ATTRIBUTE", XPathSyntaxHighlighterColors.ATTRIBUTE
+    )
+
     val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
         "XQUERY_NS_PREFIX", XPathSyntaxHighlighterColors.NS_PREFIX
     )
@@ -107,6 +111,7 @@ object XQuerySyntaxHighlighterColors {
 
     val DESCRIPTORS = arrayOf(
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.annotation"), ANNOTATION),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.attribute"), ATTRIBUTE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.bad.character"), BAD_CHARACTER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.comment"), COMMENT),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.entity.reference"), ENTITY_REFERENCE),
@@ -128,6 +133,7 @@ object XQuerySyntaxHighlighterColors {
     )
 
     val ADDITIONAL_DESCRIPTORS = mapOf(
+        "attribute" to ATTRIBUTE,
         "nsprefix" to NS_PREFIX
     )
 

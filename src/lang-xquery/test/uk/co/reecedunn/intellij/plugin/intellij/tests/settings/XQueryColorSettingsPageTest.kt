@@ -92,8 +92,9 @@ class XQueryColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(1))
-        assertThat(keys[0], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys.size, `is`(2))
+        assertThat(keys[0], `is`("value" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
+        assertThat(keys[1], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
     }
 
     @Test

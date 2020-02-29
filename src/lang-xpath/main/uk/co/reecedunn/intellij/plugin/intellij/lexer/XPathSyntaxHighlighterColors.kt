@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lexer
 
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
+import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
@@ -55,6 +56,10 @@ object XPathSyntaxHighlighterColors {
     // endregion
     // region Semantic Highlighting (Usage and Reference Types)
 
+    val ATTRIBUTE = TextAttributesKey.createTextAttributesKey(
+        "XPATH_ATTRIBUTE", XmlHighlighterColors.XML_ATTRIBUTE_NAME
+    )
+
     val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
         "XPATH_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
     )
@@ -63,6 +68,7 @@ object XPathSyntaxHighlighterColors {
     // region Descriptors
 
     val DESCRIPTORS = arrayOf(
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.attribute"), ATTRIBUTE),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.bad.character"), BAD_CHARACTER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.comment"), COMMENT),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.escaped.character"), ESCAPED_CHARACTER),
@@ -74,6 +80,7 @@ object XPathSyntaxHighlighterColors {
     )
 
     val ADDITIONAL_DESCRIPTORS = mapOf(
+        "attribute" to ATTRIBUTE,
         "nsprefix" to NS_PREFIX
     )
 

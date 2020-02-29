@@ -82,9 +82,10 @@ class XPathColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(2))
-        assertThat(keys[0], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys.size, `is`(3))
+        assertThat(keys[0], `is`("value" to XPathSyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[1], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[2], `is`("fn" to XPathSyntaxHighlighterColors.NS_PREFIX))
     }
 
     @Test
