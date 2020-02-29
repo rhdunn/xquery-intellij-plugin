@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import com.intellij.openapi.options.colors.AttributesDescriptor
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 
 object XPathSyntaxHighlighterColors {
+    // region Syntax Highlighting (Lexical Tokens)
+
     val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
         "XPATH_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER
     )
@@ -42,10 +44,6 @@ object XPathSyntaxHighlighterColors {
         "XPATH_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD
     )
 
-    val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
-        "XPATH_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
-    )
-
     val NUMBER = TextAttributesKey.createTextAttributesKey(
         "XPATH_NUMBER", DefaultLanguageHighlighterColors.NUMBER
     )
@@ -53,6 +51,16 @@ object XPathSyntaxHighlighterColors {
     val STRING = TextAttributesKey.createTextAttributesKey(
         "XPATH_STRING", DefaultLanguageHighlighterColors.STRING
     )
+
+    // endregion
+    // region Semantic Highlighting (Usage and Reference Types)
+
+    val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
+        "XPATH_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
+    )
+
+    // endregion
+    // region Descriptors
 
     val DESCRIPTORS = arrayOf(
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.bad.character"), BAD_CHARACTER),
@@ -68,4 +76,6 @@ object XPathSyntaxHighlighterColors {
     val ADDITIONAL_DESCRIPTORS = mapOf(
         "nsprefix" to NS_PREFIX
     )
+
+    // endregion
 }
