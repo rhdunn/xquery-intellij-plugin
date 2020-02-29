@@ -44,6 +44,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
     companion object {
         private val demo: String by lazy {
             var ret = XQueryQueries.ColorSettingsDemo
+            ret = ret.replace(" fmt ", " <decimal-format>fmt</decimal-format> ")
             ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
             ret

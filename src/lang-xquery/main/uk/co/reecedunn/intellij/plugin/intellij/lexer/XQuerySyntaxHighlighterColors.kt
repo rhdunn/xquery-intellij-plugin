@@ -102,6 +102,10 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_ATTRIBUTE", XPathSyntaxHighlighterColors.ATTRIBUTE
     )
 
+    val DECIMAL_FORMAT = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_DECIMAL_FORMAT", IDENTIFIER
+    )
+
     val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
         "XQUERY_NS_PREFIX", XPathSyntaxHighlighterColors.NS_PREFIX
     )
@@ -114,6 +118,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.attribute"), ATTRIBUTE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.bad.character"), BAD_CHARACTER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.comment"), COMMENT),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.decimal-format"), DECIMAL_FORMAT),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.entity.reference"), ENTITY_REFERENCE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), ESCAPED_CHARACTER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), IDENTIFIER),
@@ -134,6 +139,7 @@ object XQuerySyntaxHighlighterColors {
 
     val ADDITIONAL_DESCRIPTORS = mapOf(
         "attribute" to ATTRIBUTE,
+        "decimal-format" to DECIMAL_FORMAT,
         "nsprefix" to NS_PREFIX
     )
 
