@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @Suppress("Reformat")
@@ -30,8 +29,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("syntax highlighter factory")
     fun testFactory() {
-        val factory = XPathSyntaxHighlighterFactory()
-        val highlighter = factory.getSyntaxHighlighter(null, null)
+        val highlighter = XPathSyntaxHighlighter.getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(XPathSyntaxHighlighter::class.java.name))
     }
 

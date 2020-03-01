@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -32,8 +31,7 @@ class XQuerySyntaxHighlighterTest {
     @Test
     @DisplayName("syntax highlighter factory")
     fun testFactory() {
-        val factory = XQuerySyntaxHighlighterFactory()
-        val highlighter = factory.getSyntaxHighlighter(null, null)
+        val highlighter = XQuerySyntaxHighlighter.getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(XQuerySyntaxHighlighter::class.java.name))
     }
 

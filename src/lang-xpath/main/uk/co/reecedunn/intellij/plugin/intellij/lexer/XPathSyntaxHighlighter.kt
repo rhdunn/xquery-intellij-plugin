@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,11 @@ package uk.co.reecedunn.intellij.plugin.intellij.lexer
 
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
+import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -35,7 +39,11 @@ class XPathSyntaxHighlighter : SyntaxHighlighterBase() {
         return XPathSyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
     }
 
-    companion object {
+    companion object : SyntaxHighlighterFactory() {
         val DEFAULT: Array<out TextAttributesKey> = emptyArray()
+
+        override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
+            return XPathSyntaxHighlighter()
+        }
     }
 }
