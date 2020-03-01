@@ -151,6 +151,7 @@ private class PluginPsiTest : ParserTestCase() {
                 )[1] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1505,6 +1506,16 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(steps.size, `is`(1))
                 assertThat(XQueryFindUsagesProvider.getType(steps[0]), `is`("element")) // property
             }
+
+            @Test
+            @DisplayName("usage type")
+            fun usageType() {
+                val steps = parse<XPathNodeTest>("property::one").map {
+                    it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
+                }
+                assertThat(steps.size, `is`(1))
+                assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element)) // property
+            }
         }
     }
 
@@ -1543,6 +1554,7 @@ private class PluginPsiTest : ParserTestCase() {
                 )[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1574,6 +1586,7 @@ private class PluginPsiTest : ParserTestCase() {
                 val qname = parse<PluginCompatibilityAnnotation>("declare private function f() {};")[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.XQuery))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("annotation"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Annotation))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))

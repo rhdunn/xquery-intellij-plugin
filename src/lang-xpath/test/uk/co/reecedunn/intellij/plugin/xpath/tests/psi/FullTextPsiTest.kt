@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
@@ -29,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -103,6 +105,7 @@ private class FullTextPsiTest : ParserTestCase() {
             fun ncname() {
                 val qname = parse<XPathNCName>("() contains text (# test #)")[0] as XsQNameValue
                 assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("pragma"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Pragma))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))

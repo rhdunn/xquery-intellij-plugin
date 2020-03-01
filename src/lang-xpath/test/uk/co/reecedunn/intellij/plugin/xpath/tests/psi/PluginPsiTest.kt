@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -31,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -47,6 +49,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun ncname() {
                 val qname = parse<XPathEQName>("() instance of union(test)")[0] as XsQNameValue
                 assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
