@@ -108,6 +108,10 @@ internal object XQuerySyntaxHighlighterKeys {
         XQuerySyntaxHighlighterColors.ANNOTATION
     )
 
+    val ATTRIBUTE_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.ATTRIBUTE
+    )
+
     // endregion
     // region Keys
 
@@ -129,6 +133,7 @@ internal object XQuerySyntaxHighlighterKeys {
         XQueryTokenType.PARTIAL_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
         XQueryTokenType.EMPTY_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
         XQueryTokenType.CHARACTER_REFERENCE to ENTITY_REFERENCE_KEYS,
+        XPathTokenType.ATTRIBUTE_SELECTOR to ATTRIBUTE_KEYS,
         XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS,
         XPathTokenType.NCNAME to IDENTIFIER_KEYS,
         XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,

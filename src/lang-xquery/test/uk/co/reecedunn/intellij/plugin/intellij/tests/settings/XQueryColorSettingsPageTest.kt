@@ -67,25 +67,26 @@ class XQueryColorSettingsPageTest {
     @DisplayName("demo text contains all syntax-based text attribute keys")
     fun syntaxHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForTokens(settings.demoText)
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ANNOTATION), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ATTRIBUTE), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.BAD_CHARACTER), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.COMMENT), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ENTITY_REFERENCE), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ESCAPED_CHARACTER), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.IDENTIFIER), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.KEYWORD), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ANNOTATION), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.NUMBER), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.STRING), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ESCAPED_CHARACTER), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.ENTITY_REFERENCE), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.BAD_CHARACTER), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_TAG), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_TAG_NAME), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ENTITY_REFERENCE), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_TAG), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_TAG_NAME), `is`(true))
+        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_MARKUP), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_MARKUP), `is`(true))
-        assertThat(keys.size, `is`(18)) // No other matching highlight colours
+        assertThat(keys.size, `is`(19)) // No other matching highlight colours
     }
 
     @Test

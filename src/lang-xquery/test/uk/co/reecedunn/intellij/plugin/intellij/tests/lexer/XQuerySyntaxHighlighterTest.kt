@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -831,30 +831,6 @@ class XQuerySyntaxHighlighterTest {
     }
 
     @Test
-    @DisplayName("annotation")
-    fun testTokenHighlights_Annotation() {
-        val highlighter = XQuerySyntaxHighlighter()
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
-    }
-
-    @Test
     @DisplayName("xml tag")
     fun testTokenHighlights_XmlTag() {
         val highlighter = XQuerySyntaxHighlighter()
@@ -1002,7 +978,6 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ASSIGN_EQUAL).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.DIRECT_DESCENDANTS_PATH).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ALL_DESCENDANTS_PATH).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.SQUARE_OPEN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.SQUARE_CLOSE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PARENT_SELECTOR).size, `is`(0))
@@ -1143,5 +1118,38 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.CHARACTER_REFERENCE).size, `is`(2))
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.CHARACTER_REFERENCE)[0], `is`(XQuerySyntaxHighlighterColors.COMMENT))
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.CHARACTER_REFERENCE)[1], `is`(XQuerySyntaxHighlighterColors.XQDOC_MARKUP))
+    }
+
+    @Test
+    @DisplayName("annotation")
+    fun testTokenHighlights_Annotation() {
+        val highlighter = XQuerySyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+    }
+
+    @Test
+    @DisplayName("attribute")
+    fun testTokenHighlights_Attribute() {
+        val highlighter = XQuerySyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR)[0], `is`(XQuerySyntaxHighlighterColors.ATTRIBUTE))
     }
 }

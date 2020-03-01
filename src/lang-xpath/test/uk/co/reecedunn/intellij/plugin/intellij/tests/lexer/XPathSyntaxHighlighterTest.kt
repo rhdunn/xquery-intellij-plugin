@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -497,7 +497,6 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ASSIGN_EQUAL).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.DIRECT_DESCENDANTS_PATH).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ALL_DESCENDANTS_PATH).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.SQUARE_OPEN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.SQUARE_CLOSE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PARENT_SELECTOR).size, `is`(0))
@@ -518,5 +517,14 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_IF).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_ELSE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ELVIS).size, `is`(0))
+    }
+
+    @Test
+    @DisplayName("attribute")
+    fun testTokenHighlights_Attribute() {
+        val highlighter = XPathSyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR)[0], `is`(XPathSyntaxHighlighterColors.ATTRIBUTE))
     }
 }

@@ -53,6 +53,11 @@ internal object XPathSyntaxHighlighterKeys {
 
     // endregion
     // region Semantic Highlighting (Usage and Reference Types)
+
+    val ATTRIBUTE_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.ATTRIBUTE
+    )
+
     // endregion
     // region Keys
 
@@ -71,6 +76,7 @@ internal object XPathSyntaxHighlighterKeys {
         XPathTokenType.COMMENT to COMMENT_KEYS,
         XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
         XPathTokenType.NCNAME to IDENTIFIER_KEYS,
+        XPathTokenType.ATTRIBUTE_SELECTOR to ATTRIBUTE_KEYS,
         XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS
     )
 

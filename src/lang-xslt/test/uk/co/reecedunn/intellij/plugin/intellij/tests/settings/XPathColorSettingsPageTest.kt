@@ -68,14 +68,15 @@ class XPathColorSettingsPageTest {
     @DisplayName("demo text contains all syntax-based text attribute keys")
     fun syntaxHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForTokens(settings.demoText)
+        assertThat(keys.contains(XPathSyntaxHighlighterColors.ATTRIBUTE), `is`(true))
+        assertThat(keys.contains(XPathSyntaxHighlighterColors.BAD_CHARACTER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.COMMENT), `is`(true))
+        assertThat(keys.contains(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.IDENTIFIER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.KEYWORD), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.NUMBER), `is`(true))
         assertThat(keys.contains(XPathSyntaxHighlighterColors.STRING), `is`(true))
-        assertThat(keys.contains(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER), `is`(true))
-        assertThat(keys.contains(XPathSyntaxHighlighterColors.BAD_CHARACTER), `is`(true))
-        assertThat(keys.size, `is`(7)) // No other matching highlight colours
+        assertThat(keys.size, `is`(8)) // No other matching highlight colours
     }
 
     @Test
