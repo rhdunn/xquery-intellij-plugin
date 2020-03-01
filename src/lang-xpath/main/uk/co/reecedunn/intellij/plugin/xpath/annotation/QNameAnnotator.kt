@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
@@ -38,6 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 class QNameAnnotator : Annotator() {
     private fun getHighlightAttributes(element: PsiElement): TextAttributesKey {
         return when (element.getUsageType()) {
+            XstUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
             else -> XPathSyntaxHighlighterColors.IDENTIFIER
         }
     }

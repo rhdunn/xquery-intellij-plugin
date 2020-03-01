@@ -41,6 +41,7 @@ class QNameAnnotator : Annotator() {
     private fun getHighlightAttributes(element: PsiElement): TextAttributesKey {
         return when (element.getUsageType()) {
             XstUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
+            XstUsageType.Attribute -> XQuerySyntaxHighlighterColors.ATTRIBUTE
             else -> XQuerySyntaxHighlighterColors.IDENTIFIER
         }
     }

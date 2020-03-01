@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -338,38 +337,116 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (27) Annotation")
-    internal inner class AnnotationXQuery {
+    @DisplayName("Usage Type: Annotation")
+    internal inner class UsageType_Annotation {
         @Test
-        @DisplayName("ncname")
-        fun testAnnotation() {
-            val file = parse<XQueryModule>("declare % private function test ( ) external ;")[0]
+        @DisplayName("XQuery 3.1 EBNF (27) Annotation")
+        fun annotation() {
+            val file = parse<XQueryModule>(
+                """
+                |declare %private function test() external;
+                |declare %xs:string function test() external;
+                """.trimIndent())[0]
             val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 10, 17, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
+            assertThat(annotations.size, `is`(6))
             info(annotations[1], 10, 17, null, XQuerySyntaxHighlighterColors.ANNOTATION)
+            info(annotations[3], 54 , 56, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 57, 63, null, XQuerySyntaxHighlighterColors.ANNOTATION)
         }
+    }
 
+    @Nested
+    @DisplayName("Usage Type: Attribute")
+    internal inner class UsageType_Attribute {
         @Test
-        @DisplayName("qname")
-        fun testAnnotation_QName() {
-            val file = parse<XQueryModule>("declare % xs:string function test ( ) external ;")[0]
+        @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
+        fun forwardAxis() {
+            val file = parse<XQueryModule>("attribute::test, attribute::ns:test, attribute::Q{}test, attribute::*")[0]
             val annotations = annotateTree(file, QNameAnnotator())
 
-            assertThat(annotations.size, `is`(4))
-            info(annotations[0], 10, 12, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 10, 12, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[2], 13, 19, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[3], 13, 19, null, XQuerySyntaxHighlighterColors.ANNOTATION)
+            assertThat(annotations.size, `is`(10))
+            info(annotations[1], 11, 15, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[3], 28, 30, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 31, 35, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[7], 51, 55, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[9], 68, 69, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
         }
 
         @Test
-        @DisplayName("xpath annotator")
-        fun xpathAnnotator() {
-            val file = parse<XQueryModule>("declare % xs:string function test ( ) external ;")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+        @DisplayName("XQuery 3.1 EBNF (114) AbbrevForwardStep")
+        fun abbrevForwardStep() {
+            val file = parse<XQueryModule>("@test, @ns:test, @Q{}test, @*")[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+
+            assertThat(annotations.size, `is`(10))
+            info(annotations[1], 1, 5, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[3], 8, 10, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 11, 15, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[7], 21, 25, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[9], 28, 29, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+        fun dirAttributeList() {
+            val file = parse<XQueryModule>("""<a test="one" ns:test="two"/>""")[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+
+            assertThat(annotations.size, `is`(9))
+            info(annotations[2], 3, 7, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[5], 14, 16, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[8], 17, 21, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+        fun compAttrConstructor() {
+            val file = parse<XQueryModule>("attribute test {}, attribute ns:test {}, attribute Q{}test {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+
+            assertThat(annotations.size, `is`(8))
+            info(annotations[1], 10, 14, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[3], 29, 31, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 32, 36, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[7], 54, 58, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (198) AttributeDeclaration")
+        fun attributeDeclaration() {
+            val file = parse<XQueryModule>(
+                """
+                |() instance of schema-attribute(test),
+                |() instance of schema-attribute(ns:test),
+                |() instance of schema-attribute(Q{}test)
+                """.trimMargin())[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+
+            assertThat(annotations.size, `is`(8))
+            info(annotations[1], 32, 36, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[3], 71, 73, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 74, 78, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[7], 116, 120, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (203) AttributeName")
+        fun attributeName() {
+            val file = parse<XQueryModule>(
+                """
+                |() instance of attribute(test),
+                |() instance of attribute(ns:test),
+                |() instance of attribute(Q{}test),
+                |() instance of attribute(*)
+                """.trimMargin())[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+
+            assertThat(annotations.size, `is`(8))
+            info(annotations[1], 25, 29, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[3], 57, 59, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 60, 64, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            info(annotations[7], 95, 99, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
         }
     }
 }
