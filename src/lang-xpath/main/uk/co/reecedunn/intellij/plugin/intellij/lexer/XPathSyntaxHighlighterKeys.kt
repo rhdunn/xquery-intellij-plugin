@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @Suppress("MemberVisibilityCanBePrivate")
 internal object XPathSyntaxHighlighterKeys {
+    // region Syntax Highlighting (Lexical Tokens)
+
     val BAD_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XPathSyntaxHighlighterColors.BAD_CHARACTER
     )
@@ -49,6 +51,11 @@ internal object XPathSyntaxHighlighterKeys {
         XPathSyntaxHighlighterColors.STRING
     )
 
+    // endregion
+    // region Semantic Highlighting (Usage and Reference Types)
+    // endregion
+    // region Keys
+
     val KEYS = mapOf(
         XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
         XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
@@ -66,4 +73,6 @@ internal object XPathSyntaxHighlighterKeys {
         XPathTokenType.NCNAME to IDENTIFIER_KEYS,
         XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS
     )
+
+    // endregion
 }

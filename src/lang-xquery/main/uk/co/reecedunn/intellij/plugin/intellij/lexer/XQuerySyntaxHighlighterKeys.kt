@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @Suppress("MemberVisibilityCanBePrivate")
 internal object XQuerySyntaxHighlighterKeys {
+    // region Syntax Highlighting (Lexical Tokens)
+
     val BAD_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XQuerySyntaxHighlighterColors.BAD_CHARACTER
+    )
+
+    val COMMENT_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.COMMENT
     )
 
     val ENTITY_REFERENCE_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
@@ -43,44 +49,12 @@ internal object XQuerySyntaxHighlighterKeys {
         XQuerySyntaxHighlighterColors.KEYWORD
     )
 
-    val ANNOTATION_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.ANNOTATION
-    )
-
     val NUMBER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XQuerySyntaxHighlighterColors.NUMBER
     )
 
     val STRING_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XQuerySyntaxHighlighterColors.STRING
-    )
-
-    val COMMENT_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.COMMENT
-    )
-
-    val XQDOC_TAG_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.COMMENT,
-        XQuerySyntaxHighlighterColors.XQDOC_TAG
-    )
-
-    val XQDOC_TAG_VALUE_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.COMMENT,
-        XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE
-    )
-
-    val XQDOC_MARKUP_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.COMMENT,
-        XQuerySyntaxHighlighterColors.XQDOC_MARKUP
-    )
-
-    val XML_TAG_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.XML_TAG
-    )
-
-    val XML_TAG_NAME_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XQuerySyntaxHighlighterColors.XML_TAG,
-        XQuerySyntaxHighlighterColors.XML_TAG_NAME
     )
 
     val XML_ATTRIBUTE_NAME_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
@@ -102,6 +76,40 @@ internal object XQuerySyntaxHighlighterKeys {
         XQuerySyntaxHighlighterColors.XML_TAG,
         XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER
     )
+
+    val XML_TAG_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.XML_TAG
+    )
+
+    val XML_TAG_NAME_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.XML_TAG,
+        XQuerySyntaxHighlighterColors.XML_TAG_NAME
+    )
+
+    val XQDOC_MARKUP_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.COMMENT,
+        XQuerySyntaxHighlighterColors.XQDOC_MARKUP
+    )
+
+    val XQDOC_TAG_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.COMMENT,
+        XQuerySyntaxHighlighterColors.XQDOC_TAG
+    )
+
+    val XQDOC_TAG_VALUE_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.COMMENT,
+        XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE
+    )
+
+    // endregion
+    // region Semantic Highlighting (Usage and Reference Types)
+
+    val ANNOTATION_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XQuerySyntaxHighlighterColors.ANNOTATION
+    )
+
+    // endregion
+    // region Keys
 
     val KEYS = mapOf(
         XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
@@ -184,4 +192,6 @@ internal object XQuerySyntaxHighlighterKeys {
         XQDocTokenType.CHARACTER_REFERENCE to XQDOC_MARKUP_KEYS,
         XQDocTokenType.INVALID to XQDOC_MARKUP_KEYS
     )
+
+    // endregion
 }
