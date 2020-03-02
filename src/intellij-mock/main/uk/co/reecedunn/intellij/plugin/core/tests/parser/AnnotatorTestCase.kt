@@ -1,0 +1,80 @@
+/*
+ * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright 2000-2019 JetBrains s.r.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.core.tests.parser
+
+import com.intellij.codeInsight.daemon.impl.AnnotationHolderImpl
+import com.intellij.compat.lang.annotation.runAnnotatorWithContext
+import com.intellij.lang.ASTNode
+import com.intellij.lang.ParserDefinition
+import com.intellij.lang.annotation.*
+import com.intellij.lang.annotation.Annotation
+import com.intellij.openapi.editor.colors.CodeInsightColors
+import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.editor.markup.TextAttributes
+import com.intellij.psi.PsiFile
+import com.intellij.psi.impl.source.tree.CompositeElement
+import com.intellij.psi.impl.source.tree.LeafPsiElement
+import org.hamcrest.CoreMatchers
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+
+@Suppress("SameParameterValue")
+abstract class AnnotatorTestCase<File : PsiFile>(
+    private var mFileExt: String?,
+    vararg definitions: ParserDefinition
+) : ParsingTestCase<File>(mFileExt, *definitions) {
+
+    private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {
+        if (node is CompositeElement) {
+            annotationHolder.runAnnotatorWithContext(node.psi, annotator)
+        } else if (node is LeafPsiElement) {
+            annotationHolder.runAnnotatorWithContext(node, annotator)
+        }
+
+        for (child in node.getChildren(null)) {
+            annotateTree(child, annotationHolder, annotator)
+        }
+    }
+
+    protected fun annotateTree(file: File, annotator: Annotator): List<Annotation> {
+        @Suppress("UnstableApiUsage") val annotationHolder = AnnotationHolderImpl(AnnotationSession(file))
+        annotateTree(file.node, annotationHolder, annotator)
+        return annotationHolder
+    }
+
+    fun info(
+        annotation: Annotation, start: Int, end: Int, enforced: TextAttributes?, attributes: TextAttributesKey
+    ) {
+        assertThat(annotation.severity, CoreMatchers.`is`(HighlightSeverity.INFORMATION))
+        assertThat(annotation.startOffset, CoreMatchers.`is`(start))
+        assertThat(annotation.endOffset, CoreMatchers.`is`(end))
+        assertThat(annotation.message, CoreMatchers.`is`(CoreMatchers.nullValue()))
+        if (enforced != null)
+            assertThat(annotation.enforcedTextAttributes, CoreMatchers.`is`(enforced))
+        else
+            assertThat(annotation.enforcedTextAttributes, CoreMatchers.`is`(CoreMatchers.nullValue()))
+        assertThat(annotation.textAttributes, CoreMatchers.`is`(attributes))
+    }
+
+    fun error(annotation: Annotation, start: Int, end: Int, message: String) {
+        assertThat(annotation.severity, CoreMatchers.`is`(HighlightSeverity.ERROR))
+        assertThat(annotation.startOffset, CoreMatchers.`is`(start))
+        assertThat(annotation.endOffset, CoreMatchers.`is`(end))
+        assertThat(annotation.message, CoreMatchers.`is`(message))
+        assertThat(annotation.enforcedTextAttributes, CoreMatchers.`is`(CoreMatchers.nullValue()))
+        assertThat(annotation.textAttributes, CoreMatchers.`is`(CodeInsightColors.ERRORS_ATTRIBUTES))
+    }
+}
