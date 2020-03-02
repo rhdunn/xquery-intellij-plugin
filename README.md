@@ -39,7 +39,7 @@ For those XQuery implementations, this plugin supports:
 This plugin provides support for the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references;
 1.  Code folding;
-1.  Find usages;
+1.  Find usages and semantic usage highlighting;
 1.  Rename refactoring for variables;
 1.  Code completion;
 1.  Parameter information;

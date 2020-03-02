@@ -35,7 +35,7 @@
       <li>Robust syntax highlighting and error reporting.</li>
       <li>Inspections for several XPath/XQuery static errors.</li>
       <li>Navigate to file, namespace, variable, and function.</li>
-      <li>Find usages.</li>
+      <li>Find usages and semantic usage highlighting.</li>
       <li>Rename refactoring for variables.</li>
       <li>Function, variable, and QName prefix signature tooltips via Ctrl.</li>
       <li>Code folding.</li>
@@ -65,6 +65,10 @@
         Display the correct type name in the find usages UI for EQNames that
         are annotations, attributes, decimal formats, elements, functions,
         namespaces, options, parameters, pragmas, types, and variables.
+      </li>
+      <li>
+        Semantic highlighting of usage types for annotations, attributes, and
+        decimal formats.
       </li>
     </ol>
     <p>IntelliJ Integration:</p>

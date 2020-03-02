@@ -449,4 +449,24 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             info(annotations[7], 95, 99, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Decimal Format")
+    internal inner class UsageType_DecimalFormat {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (18) DecimalFormatDecl")
+        fun decimalFormatDecl() {
+            val file = parse<XQueryModule>(
+                """
+                |declare decimal-format test;
+                |declare decimal-format ns:test;
+                """.trimIndent())[0]
+            val annotations = annotateTree(file, QNameAnnotator())
+
+            assertThat(annotations.size, `is`(6))
+            info(annotations[1], 24, 28, null, XQuerySyntaxHighlighterColors.DECIMAL_FORMAT)
+            info(annotations[3], 54 , 56, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            info(annotations[5], 57, 61, null, XQuerySyntaxHighlighterColors.DECIMAL_FORMAT)
+        }
+    }
 }

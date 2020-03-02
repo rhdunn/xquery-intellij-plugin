@@ -42,6 +42,7 @@ class QNameAnnotator : Annotator() {
         return when (element.getUsageType()) {
             XstUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
             XstUsageType.Attribute -> XQuerySyntaxHighlighterColors.ATTRIBUTE
+            XstUsageType.DecimalFormat -> XQuerySyntaxHighlighterColors.DECIMAL_FORMAT
             else -> XQuerySyntaxHighlighterColors.IDENTIFIER
         }
     }
