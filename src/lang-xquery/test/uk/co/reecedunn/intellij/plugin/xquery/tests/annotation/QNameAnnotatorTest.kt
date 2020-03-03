@@ -15,14 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
-import com.intellij.openapi.editor.HighlighterColors
-import com.intellij.openapi.editor.markup.TextAttributes
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -37,57 +35,66 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("any")
         fun any() {
             val file = parse<XQueryModule>("*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
 
         @Test
         @DisplayName("prefix: identifier")
         fun wildcard() {
             val file = parse<XQueryModule>("lorem:*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("prefix: keyword")
         fun keywordPrefixPart() {
             val file = parse<XQueryModule>("cast:*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 4, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 4, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("prefix: missing")
         fun missingPrefixPart() {
             val file = parse<XQueryModule>(":*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
 
         @Test
         @DisplayName("local name: keyword")
         fun keywordLocalPart() {
             val file = parse<XQueryModule>("*:cast")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 2, 6, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 2, 6, null, XQuerySyntaxHighlighterColors.IDENTIFIER)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (2:6) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("local name: missing")
         fun missingLocalPart() {
             val file = parse<XQueryModule>("*:")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
 
         @Nested
@@ -97,37 +104,46 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             @DisplayName("before ':'")
             fun beforeColon() {
                 val file = parse<XQueryModule>("lorem :*")[0]
-                val annotations = annotateTree(file, QNameAnnotator())
-
-                assertThat(annotations.size, `is`(3))
-                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-                info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a wildcard.")
+                val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                        ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a wildcard."
+                        """.trimIndent()
+                    )
+                )
             }
 
             @Test
             @DisplayName("after ':'")
             fun afterColon() {
                 val file = parse<XQueryModule>("lorem: *")[0]
-                val annotations = annotateTree(file, QNameAnnotator())
-
-                assertThat(annotations.size, `is`(3))
-                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-                info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-                error(annotations[2], 6, 7, "XPST0003: Whitespace is not allowed after ':' in a wildcard.")
+                val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                        ERROR (6:7) "XPST0003: Whitespace is not allowed after ':' in a wildcard."
+                        """.trimIndent()
+                    )
+                )
             }
 
             @Test
             @DisplayName("before and after ':'")
             fun beforeAndAfterColon() {
                 val file = parse<XQueryModule>("lorem : *")[0]
-                val annotations = annotateTree(file, QNameAnnotator())
-
-                assertThat(annotations.size, `is`(4))
-                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-                info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a wildcard.")
-                error(annotations[3], 7, 8, "XPST0003: Whitespace is not allowed after ':' in a wildcard.")
+                val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                        ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a wildcard."
+                        ERROR (7:8) "XPST0003: Whitespace is not allowed after ':' in a wildcard."
+                        """.trimIndent()
+                    )
+                )
             }
         }
 
@@ -135,8 +151,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("URIQualifiedName wildcard")
         fun uriQualifiedName() {
             val file = parse<XQueryModule>("Q{http://www.example.com/test#}*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
     }
 
@@ -147,27 +163,30 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("identifier")
         fun testNCName() {
             val file = parse<XQueryModule>("lorem-ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
 
         @Test
         @DisplayName("keyword")
         fun testNCName_Keyword() {
             val file = parse<XQueryModule>("cast")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 4, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 4, null, XQuerySyntaxHighlighterColors.IDENTIFIER)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("xpath annotator")
         fun xpathAnnotator() {
             val file = parse<XQueryModule>("cast")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
     }
 
@@ -178,54 +197,65 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("prefix: identifier; local name: identifier")
         fun testQName() {
             val file = parse<XQueryModule>("lorem:ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("prefix: keyword")
         fun testQName_KeywordPrefixPart() {
             val file = parse<XQueryModule>("cast:ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 4, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 4, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("prefix: missing")
         fun testQName_MissingPrefixPart() {
             val file = parse<XQueryModule>(":ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
 
         @Test
         @DisplayName("local name: keyword")
         fun testQName_KeywordLocalPart() {
             val file = parse<XQueryModule>("lorem:cast")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(4))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[2], 6, 10, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[3], 6, 10, null, XQuerySyntaxHighlighterColors.IDENTIFIER)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (6:10) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("local name: missing")
         fun testQName_MissingLocalPart() {
             val file = parse<XQueryModule>("lorem:")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
         }
 
         @Nested
@@ -235,37 +265,46 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             @DisplayName("before ':'")
             fun beforeColon() {
                 val file = parse<XQueryModule>("lorem :ipsum")[0]
-                val annotations = annotateTree(file, QNameAnnotator())
-
-                assertThat(annotations.size, `is`(3))
-                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-                info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a qualified name.")
+                val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                        ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a qualified name."
+                        """.trimIndent()
+                    )
+                )
             }
 
             @Test
             @DisplayName("after ':'")
             fun afterColon() {
                 val file = parse<XQueryModule>("lorem: ipsum")[0]
-                val annotations = annotateTree(file, QNameAnnotator())
-
-                assertThat(annotations.size, `is`(3))
-                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-                info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-                error(annotations[2], 6, 7, "XPST0003: Whitespace is not allowed after ':' in a qualified name.")
+                val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                        ERROR (6:7) "XPST0003: Whitespace is not allowed after ':' in a qualified name."
+                        """.trimIndent()
+                    )
+                )
             }
 
             @Test
             @DisplayName("before and after ':'")
             fun beforeAndAfterColon() {
                 val file = parse<XQueryModule>("lorem : ipsum")[0]
-                val annotations = annotateTree(file, QNameAnnotator())
-
-                assertThat(annotations.size, `is`(4))
-                info(annotations[0], 0, 5, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-                info(annotations[1], 0, 5, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-                error(annotations[2], 5, 6, "XPST0003: Whitespace is not allowed before ':' in a qualified name.")
-                error(annotations[3], 7, 8, "XPST0003: Whitespace is not allowed after ':' in a qualified name.")
+                val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                        ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a qualified name."
+                        ERROR (7:8) "XPST0003: Whitespace is not allowed after ':' in a qualified name."
+                        """.trimIndent()
+                    )
+                )
             }
         }
 
@@ -273,8 +312,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("xpath annotator")
         fun xpathAnnotator() {
             val file = parse<XQueryModule>("cast:as")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
     }
 
@@ -285,27 +324,30 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("local name: identifier")
         fun testURIQualifiedName() {
             val file = parse<XQueryModule>("Q{http://www.example.com/test#}lorem-ipsum")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
 
         @Test
         @DisplayName("local name: keyword")
         fun testURIQualifiedName_Keyword() {
             val file = parse<XQueryModule>("Q{http://www.example.com/test#}let")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(2))
-            info(annotations[0], 31, 34, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 31, 34, null, XQuerySyntaxHighlighterColors.IDENTIFIER)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (31:34) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("xpath annotator")
         fun xpathAnnotator() {
             val file = parse<XQueryModule>("Q{http://www.example.com/test#}let")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
     }
 
@@ -316,23 +358,23 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("xmlns:prefix")
         fun testDirAttributeList_XmlnsAttribute() {
             val file = parse<XQueryModule>("<a:b xmlns:a=\"http://www.example.com/a\"/>")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(6))
-            info(annotations[0], 1, 2, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[1], 1, 2, null, XQuerySyntaxHighlighterColors.XML_TAG)
-            info(annotations[2], 1, 2, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[3], 11, 12, TextAttributes.ERASE_MARKER, HighlighterColors.NO_HIGHLIGHTING)
-            info(annotations[4], 11, 12, null, XQuerySyntaxHighlighterColors.XML_TAG)
-            info(annotations[5], 11, 12, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:2) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    INFORMATION (11:12) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("xpath annotator")
         fun xpathAnnotator() {
             val file = parse<XQueryModule>("<a:b xmlns:a=\"http://www.example.com/a\"/>")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator())
-            assertThat(annotations.size, `is`(0))
+            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
+            assertThat(annotations, `is`(""))
         }
     }
 
@@ -346,13 +388,18 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 """
                 |declare %private function test() external;
                 |declare %xs:string function test() external;
-                """.trimIndent())[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(6))
-            info(annotations[1], 10, 17, null, XQuerySyntaxHighlighterColors.ANNOTATION)
-            info(annotations[3], 54 , 56, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 57, 63, null, XQuerySyntaxHighlighterColors.ANNOTATION)
+                """.trimIndent()
+            )[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (10:17) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    INFORMATION (54:56) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (57:63) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    """.trimIndent()
+                )
+            )
         }
     }
 
@@ -363,53 +410,69 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
         fun forwardAxis() {
             val file = parse<XQueryModule>("attribute::test, attribute::ns:test, attribute::Q{}test, attribute::*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(10))
-            info(annotations[1], 11, 15, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[3], 28, 30, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 31, 35, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[7], 51, 55, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[9], 68, 69, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (11:15) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (28:30) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (31:35) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (51:55) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (68:69) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (114) AbbrevForwardStep")
         fun abbrevForwardStep() {
             val file = parse<XQueryModule>("@test, @ns:test, @Q{}test, @*")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(10))
-            info(annotations[1], 1, 5, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[3], 8, 10, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 11, 15, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[7], 21, 25, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[9], 28, 29, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:5) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (8:10) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (11:15) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (21:25) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (28:29) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
         fun dirAttributeList() {
             val file = parse<XQueryModule>("""<a test="one" ns:test="two"/>""")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(9))
-            info(annotations[2], 3, 7, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[5], 14, 16, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[8], 17, 21, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (3:7) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
+                    INFORMATION (14:16) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    INFORMATION (17:21) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
         fun compAttrConstructor() {
             val file = parse<XQueryModule>("attribute test {}, attribute ns:test {}, attribute Q{}test {}")[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(8))
-            info(annotations[1], 10, 14, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[3], 29, 31, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 32, 36, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[7], 54, 58, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (10:14) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (29:31) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (32:36) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (54:58) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -421,13 +484,17 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |() instance of schema-attribute(ns:test),
                 |() instance of schema-attribute(Q{}test)
                 """.trimMargin())[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(8))
-            info(annotations[1], 32, 36, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[3], 71, 73, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 74, 78, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[7], 116, 120, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (32:36) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (71:73) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (74:78) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (116:120) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -440,13 +507,17 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |() instance of attribute(Q{}test),
                 |() instance of attribute(*)
                 """.trimMargin())[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(8))
-            info(annotations[1], 25, 29, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[3], 57, 59, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 60, 64, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
-            info(annotations[7], 95, 99, null, XQuerySyntaxHighlighterColors.ATTRIBUTE)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (25:29) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (57:59) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (60:64) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (95:99) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
         }
     }
 
@@ -461,12 +532,16 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |declare decimal-format test;
                 |declare decimal-format ns:test;
                 """.trimIndent())[0]
-            val annotations = annotateTree(file, QNameAnnotator())
-
-            assertThat(annotations.size, `is`(6))
-            info(annotations[1], 24, 28, null, XQuerySyntaxHighlighterColors.DECIMAL_FORMAT)
-            info(annotations[3], 54 , 56, null, XQuerySyntaxHighlighterColors.NS_PREFIX)
-            info(annotations[5], 57, 61, null, XQuerySyntaxHighlighterColors.DECIMAL_FORMAT)
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (24:28) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
+                    INFORMATION (54:56) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (57:61) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
+                    """.trimIndent()
+                )
+            )
         }
     }
 }

@@ -78,3 +78,16 @@ abstract class AnnotatorTestCase<File : PsiFile>(
         assertThat(annotation.textAttributes, CoreMatchers.`is`(CodeInsightColors.ERRORS_ATTRIBUTES))
     }
 }
+
+fun List<Annotation>.prettyPrint(): String {
+    return groupBy { "${it.severity} (${it.startOffset}:${it.endOffset})" }.asSequence().joinToString("\n") {
+        val annotations = it.value.joinToString(" + ") { a ->
+            when {
+                a.enforcedTextAttributes === TextAttributes.ERASE_MARKER -> "ERASED/${a.textAttributes.externalName}"
+                a.message != null -> "\"${a.message}\""
+                else -> a.textAttributes.externalName
+            }
+        }
+        "${it.key} $annotations"
+    }
+}
