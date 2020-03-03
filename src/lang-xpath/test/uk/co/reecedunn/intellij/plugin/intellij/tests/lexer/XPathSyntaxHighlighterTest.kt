@@ -29,14 +29,14 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("syntax highlighter factory")
     fun testFactory() {
-        val highlighter = XPathSyntaxHighlighter.getSyntaxHighlighter(null, null)
+        val highlighter = XPathSyntaxHighlighter.Factory.getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(XPathSyntaxHighlighter::class.java.name))
     }
 
     @Test
     @DisplayName("bad character")
     fun testTokenHighlights_BadCharacter() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.BAD_CHARACTER).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.BAD_CHARACTER)[0], `is`(XPathSyntaxHighlighterColors.BAD_CHARACTER))
@@ -45,7 +45,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("comment")
     fun testTokenHighlights_Comment() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_START_TAG).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_START_TAG)[0], `is`(XPathSyntaxHighlighterColors.COMMENT))
@@ -60,7 +60,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("number")
     fun testTokenHighlights_Number() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.INTEGER_LITERAL).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.INTEGER_LITERAL)[0], `is`(XPathSyntaxHighlighterColors.NUMBER))
@@ -79,7 +79,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("string")
     fun testTokenHighlights_String() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_START).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_START)[0], `is`(XPathSyntaxHighlighterColors.STRING))
@@ -100,7 +100,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("escaped character")
     fun testTokenHighlights_EscapedCharacter() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ESCAPED_CHARACTER).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ESCAPED_CHARACTER)[0], `is`(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER))
@@ -109,7 +109,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("identifier")
     fun testTokenHighlights_Identifier() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.NCNAME).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.NCNAME)[0], `is`(XPathSyntaxHighlighterColors.IDENTIFIER))
@@ -118,7 +118,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("keywords")
     fun testTokenHighlights_Keywords() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ALL).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ALL)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
@@ -472,7 +472,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.NOT_EQUAL).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.VARIABLE_INDICATOR).size, `is`(0))
@@ -522,7 +522,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("attribute")
     fun testTokenHighlights_Attribute() {
-        val highlighter = XPathSyntaxHighlighter()
+        val highlighter = XPathSyntaxHighlighter
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR)[0], `is`(XPathSyntaxHighlighterColors.ATTRIBUTE))

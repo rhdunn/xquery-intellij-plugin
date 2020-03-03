@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 
-class XPathSyntaxHighlighter : SyntaxHighlighterBase() {
+object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
+    val DEFAULT: Array<out TextAttributesKey> = emptyArray()
+
     override fun getHighlightingLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
@@ -39,11 +41,9 @@ class XPathSyntaxHighlighter : SyntaxHighlighterBase() {
         return XPathSyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
     }
 
-    companion object : SyntaxHighlighterFactory() {
-        val DEFAULT: Array<out TextAttributesKey> = emptyArray()
-
+    object Factory : SyntaxHighlighterFactory() {
         override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
-            return XPathSyntaxHighlighter()
+            return XPathSyntaxHighlighter
         }
     }
 }

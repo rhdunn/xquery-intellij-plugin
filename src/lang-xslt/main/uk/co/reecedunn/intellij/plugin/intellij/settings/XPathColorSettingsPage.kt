@@ -29,7 +29,7 @@ import javax.swing.Icon
 class XPathColorSettingsPage : ColorSettingsPage {
     override fun getIcon(): Icon? = null
 
-    override fun getHighlighter(): SyntaxHighlighter = XPathSyntaxHighlighter()
+    override fun getHighlighter(): SyntaxHighlighter = XPathSyntaxHighlighter
 
     override fun getDemoText(): String = demo
 
