@@ -36,7 +36,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun any() {
             val file = parse<XQueryModule>("*")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:1) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -48,6 +54,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (6:7) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -62,6 +69,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:4) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (5:6) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -83,7 +91,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (2:6) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    INFORMATION (2:6) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -94,7 +102,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun missingLocalPart() {
             val file = parse<XQueryModule>("*:")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:1) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Nested
@@ -110,6 +124,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a wildcard."
+                        INFORMATION (7:8) ERASED/DEFAULT + XQUERY_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -125,6 +140,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
                         ERROR (6:7) "XPST0003: Whitespace is not allowed after ':' in a wildcard."
+                        INFORMATION (7:8) ERASED/DEFAULT + XQUERY_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -141,6 +157,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a wildcard."
                         ERROR (7:8) "XPST0003: Whitespace is not allowed after ':' in a wildcard."
+                        INFORMATION (8:9) ERASED/DEFAULT + XQUERY_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -152,7 +169,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun uriQualifiedName() {
             val file = parse<XQueryModule>("Q{http://www.example.com/test#}*")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (31:32) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
     }
 
@@ -164,7 +187,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testNCName() {
             val file = parse<XQueryModule>("lorem-ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:11) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -175,7 +204,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -202,6 +231,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (6:11) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -216,6 +246,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:4) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (5:10) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -238,7 +269,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
-                    INFORMATION (6:10) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    INFORMATION (6:10) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -271,6 +302,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a qualified name."
+                        INFORMATION (7:12) ERASED/DEFAULT + XQUERY_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -286,6 +318,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
                         ERROR (6:7) "XPST0003: Whitespace is not allowed after ':' in a qualified name."
+                        INFORMATION (7:12) ERASED/DEFAULT + XQUERY_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -302,6 +335,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         INFORMATION (0:5) ERASED/DEFAULT + XQUERY_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a qualified name."
                         ERROR (7:8) "XPST0003: Whitespace is not allowed after ':' in a qualified name."
+                        INFORMATION (8:13) ERASED/DEFAULT + XQUERY_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -325,7 +359,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testURIQualifiedName() {
             val file = parse<XQueryModule>("Q{http://www.example.com/test#}lorem-ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (31:42) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -336,7 +376,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (31:34) ERASED/DEFAULT + XQUERY_IDENTIFIER
+                    INFORMATION (31:34) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -363,6 +403,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (1:2) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    INFORMATION (3:4) ERASED/DEFAULT + XQUERY_ELEMENT
                     INFORMATION (11:12) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
                     """.trimIndent()
                 )
@@ -450,6 +491,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (1:2) ERASED/DEFAULT + XQUERY_ELEMENT
                     INFORMATION (3:7) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
                     INFORMATION (14:16) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
                     INFORMATION (17:21) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
@@ -539,6 +581,124 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     INFORMATION (24:28) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
                     INFORMATION (54:56) ERASED/DEFAULT + XQUERY_NS_PREFIX
                     INFORMATION (57:61) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Element")
+    internal inner class UsageType_Element {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
+        fun forwardAxis() {
+            val file = parse<XQueryModule>("child::test, child::ns:test, child::Q{}test, child::*")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (7:11) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (20:22) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (39:43) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (52:53) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (114) AbbrevForwardStep")
+        fun abbrevForwardStep() {
+            val file = parse<XQueryModule>("test, ns:test, Q{}test, *")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (6:8) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (9:13) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (18:22) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (24:25) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+        fun dirElemConstructor() {
+            val file = parse<XQueryModule>("""<test/>, <ns:test/>""")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:5) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (10:12) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    INFORMATION (13:17) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+        fun compElemConstructor() {
+            val file = parse<XQueryModule>("element test {}, element ns:test {}, element Q{}test {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (8:12) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (25:27) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (28:32) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (48:52) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (202) ElementDeclaration")
+        fun elementDeclaration() {
+            val file = parse<XQueryModule>(
+                """
+                |() instance of schema-element(test),
+                |() instance of schema-element(ns:test),
+                |() instance of schema-element(Q{}test)
+                """.trimMargin())[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (30:34) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (67:69) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (70:74) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (110:114) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (204) ElementName")
+        fun elementName() {
+            val file = parse<XQueryModule>(
+                """
+                |() instance of element(test),
+                |() instance of element(ns:test),
+                |() instance of element(Q{}test),
+                |() instance of element(*)
+                """.trimMargin())[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (53:55) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (56:60) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (89:93) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )

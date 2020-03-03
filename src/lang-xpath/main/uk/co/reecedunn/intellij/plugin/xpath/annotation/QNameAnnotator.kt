@@ -40,6 +40,7 @@ class QNameAnnotator : Annotator() {
     private fun getHighlightAttributes(element: PsiElement): TextAttributesKey {
         return when (element.getUsageType()) {
             XstUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
+            XstUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
             else -> XPathSyntaxHighlighterColors.IDENTIFIER
         }
     }

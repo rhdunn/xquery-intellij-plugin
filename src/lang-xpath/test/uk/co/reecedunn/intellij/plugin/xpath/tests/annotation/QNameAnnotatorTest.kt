@@ -35,7 +35,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun any() {
             val file = parse<XPath>("*")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:1) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -47,6 +53,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (6:7) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -61,6 +68,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:4) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (5:6) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -82,7 +90,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (2:6) ERASED/DEFAULT + XPATH_IDENTIFIER
+                    INFORMATION (2:6) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -93,7 +101,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun missingLocalPart() {
             val file = parse<XPath>("*:")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:1) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Nested
@@ -109,6 +123,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a wildcard."
+                        INFORMATION (7:8) ERASED/DEFAULT + XPATH_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -124,6 +139,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
                         ERROR (6:7) "XPST0003: Whitespace is not allowed after ':' in a wildcard."
+                        INFORMATION (7:8) ERASED/DEFAULT + XPATH_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -140,6 +156,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a wildcard."
                         ERROR (7:8) "XPST0003: Whitespace is not allowed after ':' in a wildcard."
+                        INFORMATION (8:9) ERASED/DEFAULT + XPATH_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -151,7 +168,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun uriQualifiedName() {
             val file = parse<XPath>("Q{http://www.example.com/test#}*")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (31:32) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
     }
 
@@ -163,7 +186,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testNCName() {
             val file = parse<XPath>("lorem-ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:11) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -174,7 +203,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (0:4) ERASED/DEFAULT + XPATH_IDENTIFIER
+                    INFORMATION (0:4) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -193,6 +222,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (6:11) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -207,6 +237,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:4) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (5:10) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -229,7 +260,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
-                    INFORMATION (6:10) ERASED/DEFAULT + XPATH_IDENTIFIER
+                    INFORMATION (6:10) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -262,6 +293,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a qualified name."
+                        INFORMATION (7:12) ERASED/DEFAULT + XPATH_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -277,6 +309,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         """
                         INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
                         ERROR (6:7) "XPST0003: Whitespace is not allowed after ':' in a qualified name."
+                        INFORMATION (7:12) ERASED/DEFAULT + XPATH_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -293,6 +326,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                         INFORMATION (0:5) ERASED/DEFAULT + XPATH_NS_PREFIX
                         ERROR (5:6) "XPST0003: Whitespace is not allowed before ':' in a qualified name."
                         ERROR (7:8) "XPST0003: Whitespace is not allowed after ':' in a qualified name."
+                        INFORMATION (8:13) ERASED/DEFAULT + XPATH_ELEMENT
                         """.trimIndent()
                     )
                 )
@@ -308,7 +342,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun testURIQualifiedName() {
             val file = parse<XPath>("Q{http://www.example.com/test#}lorem-ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (31:42) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
 
         @Test
@@ -319,7 +359,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (31:34) ERASED/DEFAULT + XPATH_IDENTIFIER
+                    INFORMATION (31:34) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
@@ -405,6 +445,91 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     INFORMATION (57:59) ERASED/DEFAULT + XPATH_NS_PREFIX
                     INFORMATION (60:64) ERASED/DEFAULT + XPATH_ATTRIBUTE
                     INFORMATION (95:99) ERASED/DEFAULT + XPATH_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Element")
+    internal inner class UsageType_Element {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (41) ForwardAxis")
+        fun forwardAxis() {
+            val file = parse<XPath>("child::test, child::ns:test, child::Q{}test, child::*")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (7:11) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (20:22) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (23:27) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (39:43) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (52:53) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
+        fun abbrevForwardStep() {
+            val file = parse<XPath>("test, ns:test, Q{}test, *")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (6:8) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (9:13) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (18:22) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (24:25) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (97) ElementDeclaration")
+        fun elementDeclaration() {
+            val file = parse<XPath>(
+                """
+                |() instance of schema-element(test),
+                |() instance of schema-element(ns:test),
+                |() instance of schema-element(Q{}test)
+                """.trimMargin())[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (30:34) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (67:69) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (70:74) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (110:114) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (99) ElementName")
+        fun elementName() {
+            val file = parse<XPath>(
+                """
+                |() instance of element(test),
+                |() instance of element(ns:test),
+                |() instance of element(Q{}test),
+                |() instance of element(*)
+                """.trimMargin())[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (23:27) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (53:55) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (56:60) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (89:93) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
             )
