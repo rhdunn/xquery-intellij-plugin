@@ -28,7 +28,7 @@ import javax.swing.Icon
 class XQueryColorSettingsPage : ColorSettingsPage {
     override fun getIcon(): Icon? = null
 
-    override fun getHighlighter(): SyntaxHighlighter = XQuerySyntaxHighlighter()
+    override fun getHighlighter(): SyntaxHighlighter = XQuerySyntaxHighlighter
 
     override fun getDemoText(): String = demo
 

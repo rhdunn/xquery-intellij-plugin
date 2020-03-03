@@ -30,7 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
-class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
+object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
+    val DEFAULT: Array<out TextAttributesKey> = emptyArray()
+
     override fun getHighlightingLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
@@ -54,11 +56,9 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         return XQuerySyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
     }
 
-    companion object : SyntaxHighlighterFactory() {
-        val DEFAULT: Array<out TextAttributesKey> = emptyArray()
-
+    object Factory : SyntaxHighlighterFactory() {
         override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
-            return XQuerySyntaxHighlighter()
+            return XQuerySyntaxHighlighter
         }
     }
 }
