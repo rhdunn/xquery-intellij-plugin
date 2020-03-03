@@ -752,6 +752,13 @@ class XPathLexerTest : LexerTestCase() {
             matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
             matchToken(lexer, "", 0, 13, 13, null)
+
+            // XPath does not support predefined entity references; they are handled by XML.
+            lexer.start("'One &amp; Two'")
+            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "One &amp; Two", 2, 1, 14, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "'", 2, 14, 15, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 15, 15, null)
         }
 
         @Test

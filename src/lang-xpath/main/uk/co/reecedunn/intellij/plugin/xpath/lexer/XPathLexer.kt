@@ -485,7 +485,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
         } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
         } else {
-            while (c != type.toInt() && c != CodePointRange.END_OF_BUFFER && c != '&'.toInt() && !(type == '}' && c == '{'.toInt())) {
+            while (c != type.toInt() && c != CodePointRange.END_OF_BUFFER && !(type == '}' && c == '{'.toInt())) {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
             }
