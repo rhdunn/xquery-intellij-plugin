@@ -53,6 +53,9 @@ class XPathColorSettingsPage : ColorSettingsPage {
             ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace("lorem[", "<element>lorem</element>[")
             ret = ret.replace("::ipsum[", "::<element>ipsum</element>[")
+            ret = ret.replace(":position(", ":<function-call>position</function-call>(")
+            ret = ret.replace(":true(", ":<function-call>true</function-call>(")
+            ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace("([^a-zA-Z0-9_])fn:".toRegex()) { it.groups[1]!!.value + "<nsprefix>fn</nsprefix>:" }
             ret
         }

@@ -64,6 +64,10 @@ object XPathSyntaxHighlighterColors {
         "XPATH_ELEMENT", XmlHighlighterColors.XML_TAG_NAME
     )
 
+    val FUNCTION_CALL = TextAttributesKey.createTextAttributesKey(
+        "XPATH_FUNCTION_CALL", DefaultLanguageHighlighterColors.FUNCTION_CALL
+    )
+
     val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
         "XPATH_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
     )
@@ -77,6 +81,7 @@ object XPathSyntaxHighlighterColors {
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.comment"), COMMENT),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.element"), ELEMENT),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.escaped.character"), ESCAPED_CHARACTER),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.function-call"), FUNCTION_CALL),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.identifier"), IDENTIFIER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.keyword"), KEYWORD),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.ns-prefix"), NS_PREFIX),
@@ -87,6 +92,7 @@ object XPathSyntaxHighlighterColors {
     val ADDITIONAL_DESCRIPTORS = mapOf(
         "attribute" to ATTRIBUTE,
         "element" to ELEMENT,
+        "function-call" to FUNCTION_CALL,
         "nsprefix" to NS_PREFIX
     )
 

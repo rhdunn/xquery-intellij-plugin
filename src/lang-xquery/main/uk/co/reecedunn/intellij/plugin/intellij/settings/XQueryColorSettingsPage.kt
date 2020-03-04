@@ -47,8 +47,9 @@ class XQueryColorSettingsPage : ColorSettingsPage {
             ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace(" fmt ", " <decimal-format>fmt</decimal-format> ")
             ret = ret.replace(" data/", " <element>data</element>/")
-            ret = ret.replace(" update(", " <function-decl>update</function-decl>")
+            ret = ret.replace(" update(", " <function-decl>update</function-decl>(")
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
+            ret = ret.replace(" fn:true(", " <nsprefix>fn</nsprefix>:<function-call>true</function-call>(")
             ret
         }
     }
