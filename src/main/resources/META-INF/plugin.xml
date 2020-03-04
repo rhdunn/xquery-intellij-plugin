@@ -76,8 +76,8 @@
         XQuery and XPath.
       </li>
       <li>
-        Semantic highlighting of usage types for annotations, attributes, and
-        decimal formats.
+        Semantic highlighting of usage types for annotations, attributes, decimal
+        formats, elements, and function declarations in XQuery and XPath.
       </li>
       <li>Make XSLT elements use the template language colour style by default.</li>
     </ol>

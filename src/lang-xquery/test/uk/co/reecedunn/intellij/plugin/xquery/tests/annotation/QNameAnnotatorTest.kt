@@ -426,18 +426,21 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun annotation() {
             val file = parse<XQueryModule>(
                 """
-                |declare %private function test() external; (: 'private' is an annotation keyword :)
-                |declare %test function test() external;
-                |declare %xs:string function test() external;
+                declare %private function test() external; (: 'private' is an annotation keyword :)
+                declare %test function test() external;
+                declare %xs:string function test() external;
                 """.trimIndent()
             )[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (95:99) ERASED/DEFAULT + XQUERY_ANNOTATION
-                    INFORMATION (136:138) ERASED/DEFAULT + XQUERY_NS_PREFIX
-                    INFORMATION (139:145) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    INFORMATION (26:30) ERASED/DEFAULT + XQUERY_FUNCTION_DECL
+                    INFORMATION (93:97) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    INFORMATION (107:111) ERASED/DEFAULT + XQUERY_FUNCTION_DECL
+                    INFORMATION (133:135) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (136:142) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    INFORMATION (152:156) ERASED/DEFAULT + XQUERY_FUNCTION_DECL
                     """.trimIndent()
                 )
             )
@@ -568,16 +571,16 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun decimalFormatDecl() {
             val file = parse<XQueryModule>(
                 """
-                |declare decimal-format test;
-                |declare decimal-format ns:test;
+                declare decimal-format test;
+                declare decimal-format ns:test;
                 """.trimIndent())[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (24:28) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
-                    INFORMATION (54:56) ERASED/DEFAULT + XQUERY_NS_PREFIX
-                    INFORMATION (57:61) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
+                    INFORMATION (52:54) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (55:59) ERASED/DEFAULT + XQUERY_DECIMAL_FORMAT
                     """.trimIndent()
                 )
             )
@@ -694,6 +697,33 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     INFORMATION (53:55) ERASED/DEFAULT + XQUERY_NS_PREFIX
                     INFORMATION (56:60) ERASED/DEFAULT + XQUERY_ELEMENT
                     INFORMATION (89:93) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Function Declaration")
+    internal inner class UsageType_FunctionDecl {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+        fun functionDecl() {
+            val file = parse<XQueryModule>(
+                """
+                declare function test() external;
+                declare function ns:test() external;
+                declare function Q{}test() external;
+                """.trimMargin()
+            )[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (33:37) ERASED/DEFAULT + XQUERY_FUNCTION_DECL
+                    INFORMATION (83:85) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (86:90) ERASED/DEFAULT + XQUERY_FUNCTION_DECL
+                    INFORMATION (139:143) ERASED/DEFAULT + XQUERY_FUNCTION_DECL
                     """.trimIndent()
                 )
             )

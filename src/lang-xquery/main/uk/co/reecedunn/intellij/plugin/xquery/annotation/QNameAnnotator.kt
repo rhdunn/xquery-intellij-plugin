@@ -45,6 +45,7 @@ class QNameAnnotator : Annotator() {
             XstUsageType.Attribute -> XQuerySyntaxHighlighterColors.ATTRIBUTE
             XstUsageType.DecimalFormat -> XQuerySyntaxHighlighterColors.DECIMAL_FORMAT
             XstUsageType.Element -> XQuerySyntaxHighlighterColors.ELEMENT
+            XstUsageType.FunctionDecl -> XQuerySyntaxHighlighterColors.FUNCTION_DECL
             else -> XQuerySyntaxHighlighterColors.IDENTIFIER
         }
     }

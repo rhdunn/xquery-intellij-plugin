@@ -16,8 +16,8 @@ Semantic Highlighting
 1.  Display the correct type name in the find usages UI for EQNames that are
     annotations, attributes, decimal formats, elements, functions, namespaces,
     options, parameters, pragmas, types, and variables in XQuery and XPath.
-1.  Semantic highlighting of usage types for annotations, attributes, and
-    decimal formats.
+1.  Semantic highlighting of usage types for annotations, attributes, decimal
+    formats, elements, and function declarations in XQuery and XPath.
 1.  Make XSLT elements use the template language colour style by default.
 
 IntelliJ Integration:
