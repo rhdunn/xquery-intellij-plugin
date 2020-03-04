@@ -54,7 +54,7 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.6-dev:</h3>
-    <p>References, Resolving and Find Usages:</p>
+    <p>References and Resolving:</p>
     <ol>
       <li>Support <code>BracedURILiteral</code> references (<code>Q{...}</code>).</li>
       <li>
@@ -62,15 +62,24 @@
         unprefixed classpath URIs (BaseX, eXist-db, Saxon).
       </li>
       <li>Fix resolving `URIQualifiedName` functions and variables.</li>
+    </ol>
+    <p>Semantic Highlighting:</p>
+    <ol>
+      <li>
+        Fixed QName prefix semantic highlighting and keyword in QName highlighting
+        removal when the QName contains a space.
+      </li>
       <li>
         Display the correct type name in the find usages UI for EQNames that
         are annotations, attributes, decimal formats, elements, functions,
-        namespaces, options, parameters, pragmas, types, and variables.
+        namespaces, options, parameters, pragmas, types, and variables in
+        XQuery and XPath.
       </li>
       <li>
         Semantic highlighting of usage types for annotations, attributes, and
         decimal formats.
       </li>
+      <li>Make XSLT elements use the template language colour style by default.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
@@ -95,14 +104,6 @@
         a module namespace URI or prefix.
       </li>
       <li>Support find usage type names in XPath.</li>
-      <li>
-        Fixed QName prefix syntax highlighting and keyword in QName highlighting
-        removal when the QName contains a space.
-      </li>
-    </ol>
-    <p>XPath and XSLT:</p>
-    <ol>
-      <li>Make XSLT elements use the template language colour style by default.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

@@ -2,17 +2,23 @@
 
 ## 1.6 - (In Development)
 
-References, Resolving and Find Usages:
+References and Resolving:
 
 1.  Support `BracedURILiteral` references (`Q{...}`).
 1.  Support navigating to Java classes specified by `java:` and unprefixed
     classpath URIs (BaseX, eXist-db, Saxon).
 1.  Fix resolving `URIQualifiedName` functions and variables.
+
+Semantic Highlighting
+
+1.  Fixed QName prefix semantic highlighting and keyword in QName highlighting
+    removal when the QName contains a space.
 1.  Display the correct type name in the find usages UI for EQNames that are
     annotations, attributes, decimal formats, elements, functions, namespaces,
-    options, parameters, pragmas, types, and variables.
+    options, parameters, pragmas, types, and variables in XQuery and XPath.
 1.  Semantic highlighting of usage types for annotations, attributes, and
     decimal formats.
+1.  Make XSLT elements use the template language colour style by default.
 
 IntelliJ Integration:
 
@@ -28,13 +34,6 @@ IntelliJ Integration:
 1.  Support context information (Alt+Q) for XQuery function declarations.
 1.  Display the namespace signature and module path when holding Ctrl over a
     module namespace URI or prefix.
-1.  Support find usage type names in XPath.
-1.  Fixed QName prefix syntax highlighting and keyword in QName highlighting
-    removal when the QName contains a space.
-
-XPath and XSLT:
-
-1.  Make XSLT elements use the template language colour style by default.
 
 Run Configurations:
 
