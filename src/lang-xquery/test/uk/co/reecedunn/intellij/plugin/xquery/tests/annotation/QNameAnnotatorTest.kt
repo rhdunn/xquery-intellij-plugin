@@ -403,7 +403,6 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (1:2) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
-                    INFORMATION (3:4) ERASED/DEFAULT + XQUERY_ELEMENT
                     INFORMATION (11:12) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
                     """.trimIndent()
                 )
@@ -427,7 +426,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         fun annotation() {
             val file = parse<XQueryModule>(
                 """
-                |declare %private function test() external;
+                |declare %private function test() external; (: 'private' is an annotation keyword :)
+                |declare %test function test() external;
                 |declare %xs:string function test() external;
                 """.trimIndent()
             )[0]
@@ -435,9 +435,9 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (10:17) ERASED/DEFAULT + XQUERY_ANNOTATION
-                    INFORMATION (54:56) ERASED/DEFAULT + XQUERY_NS_PREFIX
-                    INFORMATION (57:63) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    INFORMATION (95:99) ERASED/DEFAULT + XQUERY_ANNOTATION
+                    INFORMATION (136:138) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (139:145) ERASED/DEFAULT + XQUERY_ANNOTATION
                     """.trimIndent()
                 )
             )
@@ -491,10 +491,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (1:2) ERASED/DEFAULT + XQUERY_ELEMENT
-                    INFORMATION (3:7) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
                     INFORMATION (14:16) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
-                    INFORMATION (17:21) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
                     """.trimIndent()
                 )
             )
@@ -634,9 +631,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (1:5) ERASED/DEFAULT + XQUERY_ELEMENT
                     INFORMATION (10:12) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
-                    INFORMATION (13:17) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )
             )
