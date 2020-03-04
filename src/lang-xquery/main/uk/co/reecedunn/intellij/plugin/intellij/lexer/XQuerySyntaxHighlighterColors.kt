@@ -110,6 +110,10 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_ELEMENT", XPathSyntaxHighlighterColors.ELEMENT
     )
 
+    val FUNCTION_DECL = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_FUNCTION_DECL", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
+    )
+
     val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
         "XQUERY_NS_PREFIX", XPathSyntaxHighlighterColors.NS_PREFIX
     )
@@ -126,6 +130,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.element"), ELEMENT),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.entity.reference"), ENTITY_REFERENCE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), ESCAPED_CHARACTER),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.function-declaration"), FUNCTION_DECL),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), IDENTIFIER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.keyword"), KEYWORD),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.ns-prefix"), NS_PREFIX),
@@ -146,6 +151,7 @@ object XQuerySyntaxHighlighterColors {
         "attribute" to ATTRIBUTE,
         "decimal-format" to DECIMAL_FORMAT,
         "element" to ELEMENT,
+        "function-decl" to FUNCTION_DECL,
         "nsprefix" to NS_PREFIX
     )
 

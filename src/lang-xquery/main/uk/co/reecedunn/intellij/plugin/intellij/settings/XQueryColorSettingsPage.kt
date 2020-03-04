@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
             ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace(" fmt ", " <decimal-format>fmt</decimal-format> ")
             ret = ret.replace(" data/", " <element>data</element>/")
+            ret = ret.replace(" update(", " <function-decl>update</function-decl>")
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
             ret
         }
