@@ -5,6 +5,7 @@
   <name>xquery-intellij-plugin</name>
   <version>VERSION</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
+  <category>XML</category>
 
   <depends>com.intellij.modules.lang</depends>
   <depends>com.intellij.modules.xdebugger</depends>
