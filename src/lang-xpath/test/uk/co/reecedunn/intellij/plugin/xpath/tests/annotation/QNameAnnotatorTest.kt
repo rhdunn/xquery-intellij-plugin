@@ -535,5 +535,59 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
-}
 
+    @Nested
+    @DisplayName("Usage Type: Function Call")
+    internal inner class UsageType_FunctionCall {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+        fun functionCall() {
+            val file = parse<XPath>("test(), ns:test(), Q{}test()")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (8:10) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (11:15) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (22:26) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+        fun namedFunctionRef() {
+            val file = parse<XPath>("test#0, ns:test#0, Q{}test#0")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (8:10) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (11:15) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (22:26) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier")
+        fun arrowFunctionSpecifier() {
+            val file = parse<XPath>("() => test(), () => ns:test(), () => Q{}test()")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (6:10) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (20:22) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (23:27) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (40:44) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+}

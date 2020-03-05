@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -697,6 +698,61 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     INFORMATION (53:55) ERASED/DEFAULT + XQUERY_NS_PREFIX
                     INFORMATION (56:60) ERASED/DEFAULT + XQUERY_ELEMENT
                     INFORMATION (89:93) ERASED/DEFAULT + XQUERY_ELEMENT
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Function Call")
+    internal inner class UsageType_FunctionCall {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
+        fun functionCall() {
+            val file = parse<XQueryModule>("test(), ns:test(), Q{}test()")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (8:10) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (11:15) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (22:26) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (168) NamedFunctionRef")
+        fun namedFunctionRef() {
+            val file = parse<XQueryModule>("test#0, ns:test#0, Q{}test#0")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (8:10) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (11:15) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (22:26) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        fun arrowFunctionSpecifier() {
+            val file = parse<XQueryModule>("() => test(), () => ns:test(), () => Q{}test()")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (6:10) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (20:22) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (40:44) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
                     """.trimIndent()
                 )
             )

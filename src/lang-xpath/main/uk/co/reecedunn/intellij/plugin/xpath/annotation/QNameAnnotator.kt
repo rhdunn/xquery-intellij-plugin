@@ -41,6 +41,7 @@ class QNameAnnotator : Annotator() {
         return when (element.getUsageType()) {
             XstUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
             XstUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
+            XstUsageType.FunctionRef -> XPathSyntaxHighlighterColors.FUNCTION_CALL
             else -> XPathSyntaxHighlighterColors.IDENTIFIER
         }
     }
