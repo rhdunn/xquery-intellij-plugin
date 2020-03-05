@@ -80,21 +80,15 @@ class QNameAnnotator : Annotator() {
         if (element !is XsQNameValue) return
         if (element.language != XPath) return
 
-        val xmlns: Boolean
         if (element.prefix != null) {
-            when {
-                element.prefix!!.data == "xmlns" -> xmlns = true
-                element.prefix !is XdmWildcardValue -> {
-                    xmlns = false
-                    val prefix = element.prefix?.element!!
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                        .create()
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XPathSyntaxHighlighterColors.NS_PREFIX)
-                        .create()
-                }
-                else -> xmlns = false
+            if (element.prefix !is XdmWildcardValue) {
+                val prefix = element.prefix?.element!!
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                    .textAttributes(XPathSyntaxHighlighterColors.NS_PREFIX)
+                    .create()
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
@@ -102,13 +96,11 @@ class QNameAnnotator : Annotator() {
                 checkQNameWhitespaceBefore(element, it, holder)
                 checkQNameWhitespaceAfter(element, it, holder)
             }
-        } else {
-            xmlns = false
         }
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            val highlight = if (xmlns) XPathSyntaxHighlighterColors.NS_PREFIX else getHighlightAttributes(element)
+            val highlight = getHighlightAttributes(element)
             when {
                 highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
