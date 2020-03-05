@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -56,7 +57,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_CONTAINS))
+        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_CONTAINS))
     }
 
     @Test
@@ -73,7 +74,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_SCORE))
+        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_SCORE))
     }
 
     @Test
@@ -88,6 +89,6 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FT_OPTION))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_FT_OPTION))
     }
 }

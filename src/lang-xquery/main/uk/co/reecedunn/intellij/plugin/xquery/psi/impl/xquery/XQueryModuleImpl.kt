@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -116,9 +117,9 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override fun getUsageType(element: PsiElement): XstUsageType? = when (element.node.elementType) {
+    override fun getUsageType(element: PsiElement): XstUsageType? = when (element.elementType) {
         XQueryElementType.COMPATIBILITY_ANNOTATION -> XstUsageType.Annotation
-        else -> USAGE_TYPES[element.parent.node.elementType]
+        else -> USAGE_TYPES[element.parent.elementType]
     }
 
     // endregion

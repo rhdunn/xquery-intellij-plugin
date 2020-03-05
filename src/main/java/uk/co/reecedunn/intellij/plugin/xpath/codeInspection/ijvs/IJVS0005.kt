@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
@@ -43,7 +44,7 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", IJVS0005::class.java.classLoader
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun(element) {
-            if (element.parent.node.elementType === XQueryElementType.MODULE)
+            if (element.parent.elementType === XQueryElementType.MODULE)
                 return
 
             if (element.siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() !== null)

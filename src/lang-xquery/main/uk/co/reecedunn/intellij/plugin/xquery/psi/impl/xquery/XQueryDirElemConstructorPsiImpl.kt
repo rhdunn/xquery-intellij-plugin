@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
@@ -56,18 +57,18 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             }
 
             var start: PsiElement? = firstChild
-            if (start!!.node.elementType === XQueryTokenType.OPEN_XML_TAG)
+            if (start!!.elementType === XQueryTokenType.OPEN_XML_TAG)
                 start = start!!.nextSibling
-            if (start!!.node.elementType === XQueryTokenType.XML_WHITE_SPACE)
+            if (start!!.elementType === XQueryTokenType.XML_WHITE_SPACE)
                 start = start!!.nextSibling
             if (
-                start!!.node.elementType === XQueryElementType.NCNAME ||
-                start!!.node.elementType === XQueryElementType.QNAME
+                start!!.elementType === XQueryElementType.NCNAME ||
+                start!!.elementType === XQueryElementType.QNAME
             )
                 start = start!!.nextSibling
-            if (start?.node?.elementType === XQueryTokenType.XML_WHITE_SPACE)
+            if (start?.elementType === XQueryTokenType.XML_WHITE_SPACE)
                 start = start.nextSibling
-            if (start?.node?.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
+            if (start?.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
                 hasMultiLineAttributes = start.textContains('\n')
                 if (!hasMultiLineAttributes) {
                     start = start.nextSibling
@@ -77,8 +78,8 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             val end = lastChild
             val endOffset =
                 if (
-                    end.node.elementType === XQueryTokenType.CLOSE_XML_TAG ||
-                    end.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
+                    end.elementType === XQueryTokenType.CLOSE_XML_TAG ||
+                    end.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
                 ) {
                     end.prevSibling.textRange.endOffset
                 } else {

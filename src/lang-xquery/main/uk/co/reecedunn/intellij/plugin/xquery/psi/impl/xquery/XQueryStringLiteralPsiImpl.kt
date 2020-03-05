@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
@@ -37,7 +38,7 @@ class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XP
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
         children().map { child ->
-            when (child.node.elementType) {
+            when (child.elementType) {
                 XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
                     null
                 XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->

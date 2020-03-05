@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -64,7 +65,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
                 null // Cannot evaluate enclosed content expressions statically.
             else
                 attrValue.children().map { child ->
-                    when (child.node.elementType) {
+                    when (child.elementType) {
                         XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
                             null
                         XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->

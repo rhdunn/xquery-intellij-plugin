@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntermediateClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -32,13 +33,13 @@ class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     VersionConformance {
     override val requiresConformance
         get(): List<Version> {
-            val current = firstChild.node.elementType
+            val current = firstChild.elementType
             if (current === XQueryElementType.COUNT_CLAUSE || current === XQueryElementType.GROUP_BY_CLAUSE) {
                 return XQUERY30
             }
 
             val prevElement = prevSibling
-            val prev = if (prevElement is XQueryInitialClause) null else prevElement.firstChild.node.elementType
+            val prev = if (prevElement is XQueryInitialClause) null else prevElement.firstChild.elementType
             if (prev === XQueryElementType.WHERE_CLAUSE) {
                 return if (current === XQueryElementType.ORDER_BY_CLAUSE) XQUERY10 else XQUERY30
             } else if (prev === XQueryElementType.ORDER_BY_CLAUSE) {

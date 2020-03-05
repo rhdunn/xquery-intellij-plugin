@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
@@ -119,7 +120,7 @@ private class XPathInspectionTest : InspectionTestCase() {
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL))
                 assertThat(problems[0].descriptionTemplate, `is`("XPST0081: Cannot resolve namespace prefix."))
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("xdmp"))
             }
 
@@ -139,7 +140,7 @@ private class XPathInspectionTest : InspectionTestCase() {
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL))
                 assertThat(problems[0].descriptionTemplate, `is`("XPST0081: Cannot resolve namespace prefix."))
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("x"))
             }
         }

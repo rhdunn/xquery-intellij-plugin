@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
@@ -39,7 +40,7 @@ class IJVS0004 : Inspection("ijvs/IJVS0004.md", IJVS0004::class.java.classLoader
         }
         val isSaxonExtension =
             productVersion?.kind === Saxon && productVersion.value >= 9.4 && productVersion.value <= 9.7
-        return conformanceElement.node.elementType === XPathTokenType.ASSIGN_EQUAL == isSaxonExtension
+        return conformanceElement.elementType === XPathTokenType.ASSIGN_EQUAL == isSaxonExtension
     }
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {

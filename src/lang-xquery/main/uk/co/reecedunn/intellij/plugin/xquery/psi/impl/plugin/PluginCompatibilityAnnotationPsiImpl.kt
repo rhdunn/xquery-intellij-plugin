@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
@@ -67,7 +68,7 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
 
     override val requiresConformance
         get(): List<Version> {
-            return when (conformanceElement.node.elementType) {
+            return when (conformanceElement.elementType) {
                 XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
                 XQueryTokenType.K_UPDATING -> {
                     val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
@@ -35,7 +36,7 @@ class XPathTypedMapTestPsiImpl(node: ASTNode) :
         get() {
             val type = children().filterIsInstance<XdmItemType>().filterNotNull().firstOrNull()
             val commaBefore = (type as? PsiElement)?.siblings()?.reversed()?.find {
-                it.node.elementType == XPathTokenType.COMMA
+                it.elementType == XPathTokenType.COMMA
             }
             return if (commaBefore != null) null else type
         }
@@ -44,7 +45,7 @@ class XPathTypedMapTestPsiImpl(node: ASTNode) :
         get() {
             val type = children().reversed().filterIsInstance<XdmItemType>().filterNotNull().firstOrNull()
             val commaAfter = (type as? PsiElement)?.siblings()?.find {
-                it.node.elementType == XPathTokenType.COMMA
+                it.elementType == XPathTokenType.COMMA
             }
             return if (commaAfter != null) null else type
         }

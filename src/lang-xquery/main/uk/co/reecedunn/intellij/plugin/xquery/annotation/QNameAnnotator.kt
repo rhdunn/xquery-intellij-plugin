@@ -21,6 +21,7 @@ import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
@@ -52,7 +53,7 @@ class QNameAnnotator : Annotator() {
     }
 
     private fun getElementHighlight(element: PsiElement): TextAttributesKey {
-        val ret = XQuerySyntaxHighlighter.getTokenHighlights(element.node.elementType)
+        val ret = XQuerySyntaxHighlighter.getTokenHighlights(element.elementType!!)
         return when {
             ret.isEmpty() -> XQuerySyntaxHighlighterColors.IDENTIFIER
             ret.size == 1 -> ret[0]
@@ -66,10 +67,7 @@ class QNameAnnotator : Annotator() {
 
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
-        if (
-            before.node.elementType === XPathTokenType.WHITE_SPACE ||
-            before.node.elementType === XPathElementType.COMMENT
-        ) {
+        if (before.elementType === XPathTokenType.WHITE_SPACE || before.elementType === XPathElementType.COMMENT) {
             val message =
                 if (qname is XPathWildcard)
                     XPathBundle.message("parser.error.wildcard.whitespace-before-local-part")
@@ -81,10 +79,7 @@ class QNameAnnotator : Annotator() {
 
     private fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val after = separator.nextSibling
-        if (
-            after.node.elementType === XPathTokenType.WHITE_SPACE ||
-            after.node.elementType === XPathElementType.COMMENT
-        ) {
+        if (after.elementType === XPathTokenType.WHITE_SPACE || after.elementType === XPathElementType.COMMENT) {
             val message =
                 if (qname is XPathWildcard)
                     XPathBundle.message("parser.error.wildcard.whitespace-after-local-part")
@@ -146,7 +141,7 @@ class QNameAnnotator : Annotator() {
                         .textAttributes(highlight)
                         .create()
                 }
-                localName.node.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {
+                localName.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
                         .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
                         .create()

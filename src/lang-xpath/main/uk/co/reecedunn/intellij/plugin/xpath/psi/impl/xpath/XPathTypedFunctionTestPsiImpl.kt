@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
@@ -53,7 +54,7 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
         get() {
             val type = children().reversed().filterIsInstance<XdmSequenceType>().firstOrNull()
             val asBefore = (type as? PsiElement)?.siblings()?.reversed()?.find {
-                it.node.elementType === XPathTokenType.K_AS
+                it.elementType === XPathTokenType.K_AS
             }
             return if (asBefore != null) type else null
         }

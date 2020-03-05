@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -33,7 +34,7 @@ class XQueryDirCommentConstructorPsiImpl(node: ASTNode) :
     override val foldingPlaceholderText: String?
         get() {
             var length = textRange.length
-            if (lastChild.node.elementType === XQueryTokenType.XML_COMMENT_END_TAG)
+            if (lastChild.elementType === XQueryTokenType.XML_COMMENT_END_TAG)
                 length -= 3
 
             val firstLine = text.substring(4, length).split("\n").firstOrNull { line ->

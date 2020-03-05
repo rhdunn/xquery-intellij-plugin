@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
@@ -51,7 +52,7 @@ class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
 
     private val cachedContent = CacheableProperty {
         children().map { child ->
-            when (child.node.elementType) {
+            when (child.elementType) {
                 XPathTokenType.BRACED_URI_LITERAL_START, XPathTokenType.BRACED_URI_LITERAL_END ->
                     null
                 XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->

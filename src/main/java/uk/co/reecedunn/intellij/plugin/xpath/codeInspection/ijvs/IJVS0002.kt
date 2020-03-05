@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
@@ -41,7 +42,7 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader
     private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IKeywordOrNCNameType.KeywordType>? {
         if (name != null && name.isLexicalQName && name.prefix == null) {
             val localname = name.localName?.element!!
-            val type = localname.node.elementType
+            val type = localname.elementType
             if (type is IKeywordOrNCNameType) {
                 return Pair(localname, type.keywordType)
             }

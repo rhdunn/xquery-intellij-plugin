@@ -20,6 +20,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
@@ -2210,7 +2211,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0' does not support XQuery 3.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ENCODING))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_ENCODING))
                 }
 
                 @Test
@@ -2256,7 +2257,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_DELETE))
                 }
 
                 @Test
@@ -2287,7 +2288,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0' does not support XQuery Update Facility 3.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_INVOKE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_INVOKE))
                 }
 
                 @Test
@@ -2306,7 +2307,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Saxon 9.5 does not support XQuery Update Facility 3.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_INVOKE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_INVOKE))
                 }
 
                 @Test
@@ -2337,7 +2338,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Saxon 9.5 does not support XQuery Update Facility 3.0, or BaseX 8.5 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_TRANSFORM))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_TRANSFORM))
                 }
             }
 
@@ -2372,7 +2373,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: MarkLogic 7.0 does not support XQuery Scripting Extension 1.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BLOCK))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_BLOCK))
                 }
             }
 
@@ -2407,7 +2408,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: W3C Recommendation (First Edition) does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_EMPTY))
                 }
 
                 @Test
@@ -2438,7 +2439,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0-ml' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_EMPTY))
                 }
 
                 @Test
@@ -2457,7 +2458,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_EMPTY))
                 }
             }
 
@@ -2480,7 +2481,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: W3C Working Draft does not support XQuery 1.0, or eXist-db 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
                 }
 
                 @Test
@@ -2511,7 +2512,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '0.9-ml' does not support XQuery 1.0, or eXist-db 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
                 }
 
                 @Test
@@ -2570,14 +2571,14 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: MarkLogic 7.0 does not support BaseX 7.8 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_UPDATE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_UPDATE))
 
                     assertThat(problems[1].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[1].descriptionTemplate,
                         `is`("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs.")
                     )
-                    assertThat(problems[1].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE))
+                    assertThat(problems[1].psiElement.elementType, `is`(XQueryTokenType.K_DELETE))
                 }
             }
 
@@ -2624,7 +2625,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Saxon 9.5 does not support MarkLogic 4.0, or XQuery 0.9-ml constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BINARY))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_BINARY))
                 }
             }
 
@@ -2647,7 +2648,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '0.9-ml' does not support MarkLogic 7.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
                 }
 
                 @Test
@@ -2678,7 +2679,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Saxon 9.5 does not support MarkLogic 7.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
                 }
             }
 
@@ -2701,7 +2702,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '0.9-ml' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
                 }
 
                 @Test
@@ -2732,7 +2733,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
                 }
             }
         }
@@ -2783,7 +2784,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
+                        assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
                     }
                 }
 
@@ -2816,7 +2817,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
+                        assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_WHILE))
                     }
                 }
             }
@@ -2864,7 +2865,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
+                        assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
                     }
                 }
 
@@ -2897,7 +2898,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
+                        assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_WHILE))
                     }
                 }
             }
@@ -2920,7 +2921,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Reserved XQuery 1.0 keyword used as a function name.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_IF))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_IF))
                 }
 
                 @Test
@@ -2938,7 +2939,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Reserved XQuery 3.0 keyword used as a function name.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_FUNCTION))
                 }
 
                 @Nested
@@ -2970,7 +2971,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
+                        assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_WHILE))
                     }
                 }
             }
@@ -3237,7 +3238,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
                 }
 
                 @Test
@@ -3284,7 +3285,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
                 }
 
                 @Test
@@ -3329,7 +3330,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
                 }
             }
         }
@@ -3456,7 +3457,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery Scripting Extension 1.0 requires ';' at the end of each statement.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
                 }
 
                 @Test

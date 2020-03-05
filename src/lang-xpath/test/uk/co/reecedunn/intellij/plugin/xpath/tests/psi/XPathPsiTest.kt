@@ -23,6 +23,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -2158,14 +2159,14 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("key, value")
             fun keyValue() {
                 val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+                assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
             }
 
             @Test
             @DisplayName("key, no value")
             fun saxon() {
                 val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
+                assertThat(entry.separator.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
             }
         }
     }

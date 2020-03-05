@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.psi
 
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiFileFactory
-import com.intellij.psi.PsiFileSystemItem
+import com.intellij.psi.*
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
@@ -31,6 +29,16 @@ fun PsiElement.resourcePath(): String {
     val file = containingFile.virtualFile?.originalFile ?: return containingFile.resourcePath()
     return file.path.replace('\\', '/')
 }
+
+// The equivalent of this is available in IntelliJ 2019.3 which cannot be used due to
+// support for older IntelliJ versions.
+val PsiElement?.elementType: IElementType?
+    get() = when (this) {
+        null -> null
+        is StubBasedPsiElement<*> -> this.elementType
+        is PsiFile -> this.fileElementType
+        else -> node?.elementType
+    }
 
 fun <T> PsiElement.createElement(text: String, `class`: Class<T>): T? {
     val file = PsiFileFactory.getInstance(project).createFileFromText(text, containingFile)

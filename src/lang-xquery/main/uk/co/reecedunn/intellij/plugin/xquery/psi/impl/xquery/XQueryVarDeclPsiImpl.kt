@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
@@ -70,7 +71,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         get(): PsiElement {
             val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
             val previous = element?.siblings()?.reversed()?.filterNotWhitespace()?.firstOrNull()
-            return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element
+            return if (previous == null || previous.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element
         }
 
     // endregion

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
@@ -37,7 +38,7 @@ class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
     override val requiresConformance
         get(): List<Version> {
             return when {
-                parent.node.elementType === XQueryElementType.MODULE ->
+                parent.elementType === XQueryElementType.MODULE ->
                     // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
                     MARKLOGIC60
                 nextSibling === null ->

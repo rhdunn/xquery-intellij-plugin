@@ -20,6 +20,7 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -60,7 +61,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_UPDATING))
+            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_UPDATING))
         }
 
         @Test
@@ -77,7 +78,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.NOTE_3_0_20170124))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_UPDATING))
+            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_UPDATING))
         }
     }
 
@@ -93,7 +94,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_DELETE))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_DELETE))
     }
 
     @Nested
@@ -113,7 +114,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_UPDATING))
+            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_UPDATING))
         }
     }
 
@@ -129,7 +130,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_INSERT))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_INSERT))
     }
 
     @Test
@@ -144,7 +145,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_RENAME))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_RENAME))
     }
 
     @Test
@@ -159,7 +160,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_REPLACE))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_REPLACE))
     }
 
     @Test
@@ -174,7 +175,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_REVALIDATION))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_REVALIDATION))
     }
 
     @Test
@@ -189,7 +190,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_COPY))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_COPY))
     }
 
     @Test
@@ -205,7 +206,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[1], `is`(BaseX.VERSION_8_5))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_TRANSFORM))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_TRANSFORM))
     }
 
     @Test
@@ -220,6 +221,6 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.NOTE_3_0_20170124))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_INVOKE))
+        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_INVOKE))
     }
 }

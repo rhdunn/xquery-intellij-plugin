@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -29,7 +30,7 @@ class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
     VersionConformance {
     override val requiresConformance
         get(): List<Version> {
-            if (conformanceElement.node.elementType === XPathTokenType.K_ARRAY_NODE) {
+            if (conformanceElement.elementType === XPathTokenType.K_ARRAY_NODE) {
                 return MARKLOGIC80
             }
             return XQUERY31

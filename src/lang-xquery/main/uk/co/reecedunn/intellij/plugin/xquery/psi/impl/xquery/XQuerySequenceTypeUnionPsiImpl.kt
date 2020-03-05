@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
@@ -50,7 +51,7 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     override val isParenthesized: Boolean
         get() {
             val element = siblings().reversed().filterNotWhitespace().first()
-            return element.node.elementType === XPathTokenType.PARENTHESIS_OPEN
+            return element.elementType === XPathTokenType.PARENTHESIS_OPEN
         }
 
     // endregion

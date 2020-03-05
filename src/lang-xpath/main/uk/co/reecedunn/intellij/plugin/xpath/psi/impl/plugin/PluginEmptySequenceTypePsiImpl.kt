@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
@@ -53,7 +54,7 @@ class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
 
     override val requiresConformance: List<Version>
         get() {
-            return if (conformanceElement.node.elementType == XPathTokenType.K_EMPTY)
+            return if (conformanceElement.elementType == XPathTokenType.K_EMPTY)
                 XQUERY10_WD_EMPTY
             else
                 XQUERY10_REC_EMPTY

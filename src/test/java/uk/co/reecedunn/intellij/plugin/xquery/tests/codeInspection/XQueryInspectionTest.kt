@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -63,7 +64,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0031: The implementation does not support this XQuery version.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                 assertThat(problems[0].psiElement.text, `is`("\"\""))
             }
 
@@ -81,7 +82,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0031: The implementation does not support this XQuery version.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                 assertThat(problems[0].psiElement.text, `is`("\"3.99\""))
             }
 
@@ -113,7 +114,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0031: The implementation does not support this XQuery version.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                 assertThat(problems[0].psiElement.text, `is`("\"1.0-ml\""))
             }
 
@@ -148,7 +149,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0031: The implementation does not support this XQuery version.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"1.0-ml\""))
 
                     assertThat(problems[1].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
@@ -156,7 +157,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[1].descriptionTemplate,
                         `is`("XQST0031: The implementation does not support this XQuery version.")
                     )
-                    assertThat(problems[1].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[1].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                     assertThat(problems[1].psiElement.text, `is`("\"1.0-ml\""))
                 }
 
@@ -176,7 +177,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0031: The implementation does not support this XQuery version.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"0.2\""))
                 }
 
@@ -196,7 +197,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0031: MarkLogic requires that XQuery versions are the same across different transactions.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"0.9-ml\""))
                 }
             }
@@ -241,7 +242,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0033: The namespace prefix 'test' has already been defined.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("test"))
             }
 
@@ -279,7 +280,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0033: The namespace prefix 'one' has already been defined.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
 
@@ -303,7 +304,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0033: The namespace prefix 'one' has already been defined.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
 
@@ -327,7 +328,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0033: The namespace prefix 'one' has already been defined.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
 
@@ -379,7 +380,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0033: The namespace prefix 'one' has already been defined.")
                 )
-                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
             }
         }
@@ -424,7 +425,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'b' does not match the open tag 'a'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.NCNAME))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.NCNAME))
                     assertThat(problems[0].psiElement.text, `is`("b"))
                 }
 
@@ -516,7 +517,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'c:b' does not match the open tag 'a:b'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.QNAME))
                     assertThat(problems[0].psiElement.text, `is`("c:b"))
                 }
 
@@ -534,7 +535,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'a:c' does not match the open tag 'a:b'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.QNAME))
                     assertThat(problems[0].psiElement.text, `is`("a:c"))
                 }
             }

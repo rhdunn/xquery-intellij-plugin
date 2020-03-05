@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.context.staticContext
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
@@ -23,9 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
-    return when (parent.node.elementType) {
+    return when (parent.elementType) {
         XPathElementType.ABBREV_FORWARD_STEP -> XstUsageType.Attribute
-        XPathElementType.FORWARD_STEP -> when (parent.firstChild.firstChild.node.elementType) {
+        XPathElementType.FORWARD_STEP -> when (parent.firstChild.firstChild.elementType) {
             XPathTokenType.K_ATTRIBUTE -> XstUsageType.Attribute
             XPathTokenType.K_NAMESPACE -> XstUsageType.Namespace
             else -> XstUsageType.Element
@@ -35,7 +36,7 @@ fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType {
 }
 
 fun PsiElement.getUsageType(): XstUsageType {
-    return if (parent.node.elementType === XPathElementType.NAME_TEST)
+    return if (parent.elementType === XPathElementType.NAME_TEST)
         (parent.parent as? XPathNodeTest)?.getPrincipalNodeKind() ?: XstUsageType.Unknown
     else
         staticContext?.getUsageType(this) ?: XstUsageType.Unknown

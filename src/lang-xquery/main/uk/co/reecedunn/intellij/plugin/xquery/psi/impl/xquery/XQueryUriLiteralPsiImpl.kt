@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.content.XdmLiteralTextPart
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
@@ -91,7 +92,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) :
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
         children().map { child ->
-            when (child.node.elementType) {
+            when (child.elementType) {
                 XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
                     null
                 XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->

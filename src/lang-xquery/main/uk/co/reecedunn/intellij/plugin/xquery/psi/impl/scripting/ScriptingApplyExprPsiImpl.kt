@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -40,7 +41,7 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) :
     override val requiresConformance
         get(): List<Version> {
             val element = conformanceElement
-            if (element === firstChild || element.node.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
+            if (element === firstChild || element.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
                 return XQUERY
             }
             return SCRIPTING10

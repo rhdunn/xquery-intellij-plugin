@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -31,7 +32,7 @@ class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     FTContainsExpr, VersionConformance {
     override val requiresConformance
         get(): List<Version> {
-            return if (conformanceElement.node.elementType == XPathTokenType.K_CONTAINS)
+            return if (conformanceElement.elementType == XPathTokenType.K_CONTAINS)
                 FULL_TEXT
             else
                 XQUERY

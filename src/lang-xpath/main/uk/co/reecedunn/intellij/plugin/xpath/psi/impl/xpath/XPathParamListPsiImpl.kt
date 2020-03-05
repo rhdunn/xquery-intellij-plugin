@@ -23,6 +23,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
@@ -45,7 +46,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     override val requiresConformance: List<Version> get() = if (isVariadic) EXPATH else XQUERY1
 
     override val conformanceElement: PsiElement
-        get() = children().reversed().firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.node.elementType) } ?: firstChild
+        get() = children().reversed().firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) } ?: firstChild
 
     // endregion
     // region PsiElement
@@ -89,7 +90,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     private val cachedArity = CacheableProperty {
         params.size.let {
-            if (conformanceElement.node.elementType == XPathElementType.PARAM)
+            if (conformanceElement.elementType == XPathElementType.PARAM)
                 Range(it, it) // non-variadic parameter list
             else
                 Range(it - 1, Int.MAX_VALUE) // variadic parameter list
@@ -98,7 +99,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     override val arity get(): Range<Int> = cachedArity.get()!!
 
-    override val isVariadic: Boolean get() = conformanceElement.node.elementType == XPathTokenType.ELLIPSIS
+    override val isVariadic: Boolean get() = conformanceElement.elementType == XPathTokenType.ELLIPSIS
 
     // endregion
 }

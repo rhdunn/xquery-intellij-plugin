@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalFormatDecl
@@ -37,7 +38,7 @@ class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
     override val conformanceElement
         get(): PsiElement {
             return children().filterIsInstance<XQueryDFPropertyName>().filter { e ->
-                e.firstChild.node.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
+                e.firstChild.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
             }.firstOrNull() ?: (findChildByType(XQueryTokenType.K_DECIMAL_FORMAT) ?: this)
         }
 }

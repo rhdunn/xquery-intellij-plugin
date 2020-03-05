@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
@@ -39,7 +40,7 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return children().map { child ->
-            when (child.node.elementType) {
+            when (child.elementType) {
                 XPathTokenType.K_ELEMENT -> namespaceType === XdmNamespaceType.DefaultElementOrType
                 XPathTokenType.K_FUNCTION -> {
                     namespaceType === XdmNamespaceType.DefaultFunctionDecl ||

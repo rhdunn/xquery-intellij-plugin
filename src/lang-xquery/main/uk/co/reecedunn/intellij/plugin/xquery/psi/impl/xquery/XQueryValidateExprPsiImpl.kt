@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -41,7 +42,7 @@ class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         get(): List<Version> {
             val element = conformanceElement
             if (element !== firstChild) {
-                return when (element.node.elementType) {
+                return when (element.elementType) {
                     XPathTokenType.K_AS, XQueryTokenType.K_FULL -> MARKLOGIC60
                     else -> XQUERY30
                 }

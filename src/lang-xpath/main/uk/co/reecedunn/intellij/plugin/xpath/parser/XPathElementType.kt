@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text.*
@@ -904,6 +905,6 @@ object XPathElementType {
 }
 
 fun Sequence<PsiElement>.filterNotWhitespace(): Sequence<PsiElement> = filterNot { e ->
-    val elementType = e.node.elementType
+    val elementType = e.elementType
     elementType === XPathTokenType.WHITE_SPACE || elementType === XPathElementType.COMMENT
 }
