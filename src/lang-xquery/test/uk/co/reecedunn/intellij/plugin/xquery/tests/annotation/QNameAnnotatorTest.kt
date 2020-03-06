@@ -851,4 +851,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Option")
+    internal inner class UsageType_Option {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (37) OptionDecl")
+        fun optionDecl() {
+            val file = parse<XQueryModule>("declare option test \"lorem ipsum\";")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (15:19) ERASED/DEFAULT + XQUERY_OPTION
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
