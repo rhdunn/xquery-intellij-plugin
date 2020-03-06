@@ -26,18 +26,17 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -117,9 +116,18 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override fun getUsageType(element: PsiElement): XstUsageType? = when (element.elementType) {
-        XQueryElementType.COMPATIBILITY_ANNOTATION -> XstUsageType.Annotation
-        else -> USAGE_TYPES[element.parent.elementType]
+    override fun getUsageType(element: PsiElement): XstUsageType? {
+        val parentType = element.parent.elementType
+        return when {
+            element.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XstUsageType.Annotation
+            parentType === XQueryElementType.DIR_ATTRIBUTE -> {
+                if ((element as? XsQNameValue)?.prefix?.data == "xmlns")
+                    XstUsageType.Namespace
+                else
+                    XstUsageType.Attribute
+            }
+            else -> USAGE_TYPES[parentType]
+        }
     }
 
     // endregion
@@ -178,7 +186,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.COMP_ELEM_CONSTRUCTOR to XstUsageType.Element,
             XQueryElementType.CURRENT_ITEM to XstUsageType.Variable,
             XQueryElementType.DECIMAL_FORMAT_DECL to XstUsageType.DecimalFormat,
-            XQueryElementType.DIR_ATTRIBUTE to XstUsageType.Attribute,
+            //XQueryElementType.DIR_ATTRIBUTE to XstUsageType.Attribute,
             XQueryElementType.DIR_ELEM_CONSTRUCTOR to XstUsageType.Element,
             XPathElementType.ELEMENT_TEST to XstUsageType.Element,
             XPathElementType.FUNCTION_CALL to XstUsageType.FunctionRef,

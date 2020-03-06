@@ -2753,6 +2753,48 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val qname = parse<XPathQName>("<elem fn:test=\"\"/>")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
+                assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("attribute"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(expanded[0].prefix!!.data, `is`("fn"))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("namespace declaration attributes")
+            fun namespaceDeclarationAttributes() {
+                val qname = parse<XPathQName>("<elem xmlns:abc=\"http://www.example.com\"/>")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
+                assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("namespace"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Namespace))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xmlns"))
+                assertThat(qname.localName!!.data, `is`("abc"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(0))
+            }
         }
 
         @Nested
