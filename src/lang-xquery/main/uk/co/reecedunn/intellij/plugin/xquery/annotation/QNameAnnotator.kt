@@ -50,6 +50,7 @@ class QNameAnnotator : Annotator() {
             XstUsageType.FunctionRef -> XQuerySyntaxHighlighterColors.FUNCTION_CALL
             XstUsageType.Namespace -> XQuerySyntaxHighlighterColors.NS_PREFIX
             XstUsageType.Option -> XQuerySyntaxHighlighterColors.OPTION
+            XstUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
             else -> XQuerySyntaxHighlighterColors.IDENTIFIER
         }
     }

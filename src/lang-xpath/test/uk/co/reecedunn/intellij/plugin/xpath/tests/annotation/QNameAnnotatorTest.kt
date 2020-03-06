@@ -612,4 +612,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Parameter")
+    internal inner class UsageType_Parameter {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (3) Param")
+        fun param() {
+            val file = parse<XPath>("function (\$test) {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (11:15) ERASED/DEFAULT + XPATH_PARAMETER
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }

@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -864,6 +863,24 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (15:19) ERASED/DEFAULT + XQUERY_OPTION
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Parameter")
+    internal inner class UsageType_Parameter {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (34) Param")
+        fun param() {
+            val file = parse<XQueryModule>("function (\$test) {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (11:15) ERASED/DEFAULT + XQUERY_PARAMETER
                     """.trimIndent()
                 )
             )
