@@ -44,11 +44,14 @@ class XQueryColorSettingsPage : ColorSettingsPage {
     companion object {
         private val demo: String by lazy {
             var ret = XQueryQueries.ColorSettingsDemo
-            ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace(" fmt ", " <decimal-format>fmt</decimal-format> ")
-            ret = ret.replace(" data/", " <element>data</element>/")
             ret = ret.replace(" update(", " <function-decl>update</function-decl>(")
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
+            ret = ret.replace("::one,", "::<element>one</element>,")
+            ret = ret.replace("::two,", "::<attribute>two</attribute>,")
+            ret = ret.replace("::three,", "::<nsprefix>three</nsprefix>,")
+            ret = ret.replace(" data/", " <element>data</element>/")
+            ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace(" fn:true(", " <nsprefix>fn</nsprefix>:<function-call>true</function-call>(")
             ret
         }

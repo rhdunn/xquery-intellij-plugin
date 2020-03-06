@@ -50,13 +50,15 @@ class XPathColorSettingsPage : ColorSettingsPage {
 
         private val demo: String by lazy {
             var ret = XPathQueries.ColorSettingsDemo
-            ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace("lorem[", "<element>lorem</element>[")
-            ret = ret.replace("::ipsum[", "::<element>ipsum</element>[")
+            ret = ret.replace("([^a-zA-Z0-9_])fn:".toRegex()) { it.groups[1]!!.value + "<nsprefix>fn</nsprefix>:" }
             ret = ret.replace(":position(", ":<function-call>position</function-call>(")
             ret = ret.replace(":true(", ":<function-call>true</function-call>(")
+            ret = ret.replace("::ipsum[", "::<element>ipsum</element>[")
             ret = ret.replace("@value", "@<attribute>value</attribute>")
-            ret = ret.replace("([^a-zA-Z0-9_])fn:".toRegex()) { it.groups[1]!!.value + "<nsprefix>fn</nsprefix>:" }
+            ret = ret.replace("::one ", "::<element>one</element> ")
+            ret = ret.replace("::two ", "::<attribute>two</attribute> ")
+            ret = ret.replace("::three\n", "::<nsprefix>three</nsprefix>\n")
             ret
         }
     }

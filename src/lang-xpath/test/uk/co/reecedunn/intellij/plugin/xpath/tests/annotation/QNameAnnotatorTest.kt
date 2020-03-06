@@ -590,4 +590,26 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Namespace Prefix")
+    internal inner class UsageType_NamespacePrefix {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
+        fun forwardAxis() {
+            val file = parse<XPath>("namespace::test, namespace::ns:test, namespace::Q{}test, namespace::*")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (11:15) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (28:30) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (31:35) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (51:55) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (68:69) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }

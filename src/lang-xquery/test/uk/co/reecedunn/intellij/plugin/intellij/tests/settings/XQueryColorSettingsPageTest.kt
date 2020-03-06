@@ -93,14 +93,17 @@ class XQueryColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(7))
-        assertThat(keys[0], `is`("value" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
-        assertThat(keys[1], `is`("fmt" to XQuerySyntaxHighlighterColors.DECIMAL_FORMAT))
-        assertThat(keys[2], `is`("data" to XQuerySyntaxHighlighterColors.ELEMENT))
-        assertThat(keys[3], `is`("true" to XQuerySyntaxHighlighterColors.FUNCTION_CALL))
-        assertThat(keys[4], `is`("update" to XQuerySyntaxHighlighterColors.FUNCTION_DECL))
-        assertThat(keys[5], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[6], `is`("fn" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys.size, `is`(10))
+        assertThat(keys[0], `is`("two" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
+        assertThat(keys[1], `is`("value" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
+        assertThat(keys[2], `is`("fmt" to XQuerySyntaxHighlighterColors.DECIMAL_FORMAT))
+        assertThat(keys[3], `is`("one" to XQuerySyntaxHighlighterColors.ELEMENT))
+        assertThat(keys[4], `is`("data" to XQuerySyntaxHighlighterColors.ELEMENT))
+        assertThat(keys[5], `is`("true" to XQuerySyntaxHighlighterColors.FUNCTION_CALL))
+        assertThat(keys[6], `is`("update" to XQuerySyntaxHighlighterColors.FUNCTION_DECL))
+        assertThat(keys[7], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[8], `is`("three" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[9], `is`("fn" to XQuerySyntaxHighlighterColors.NS_PREFIX))
     }
 
     @Test
