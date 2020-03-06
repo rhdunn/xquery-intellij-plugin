@@ -47,6 +47,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
             ret = ret.replace(" json =", " <nsprefix>json</nsprefix> =")
             ret = ret.replace(" zip =", " <nsprefix>zip</nsprefix> =")
             ret = ret.replace(" fmt ", " <decimal-format>fmt</decimal-format> ")
+            ret = ret.replace(" opt ", " <option>opt</option> ")
             ret = ret.replace(" update(", " <function-decl>update</function-decl>(")
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
             ret = ret.replace("::one,", "::<element>one</element>,")

@@ -5,6 +5,7 @@ import module namespace json = "http://marklogic.com/xdmp/json"
 declare namespace zip = "http://expath.org/ns/zip";
 
 declare decimal-format fmt decimal-separator = ".";
+declare option opt "lorem ipsum";
 
 (:~ Documentation <code>Markup</code>
  : @param $a parameter A.
