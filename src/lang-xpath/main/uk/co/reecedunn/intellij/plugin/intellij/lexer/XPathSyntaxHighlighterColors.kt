@@ -72,6 +72,10 @@ object XPathSyntaxHighlighterColors {
         "XPATH_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
     )
 
+    val PARAMETER = TextAttributesKey.createTextAttributesKey(
+        "XPATH_PARAMETER", DefaultLanguageHighlighterColors.PARAMETER
+    )
+
     // endregion
     // region Descriptors
 
@@ -86,6 +90,7 @@ object XPathSyntaxHighlighterColors {
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.keyword"), KEYWORD),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.ns-prefix"), NS_PREFIX),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.number"), NUMBER),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.parameter"), PARAMETER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.string"), STRING)
     )
 
@@ -93,7 +98,8 @@ object XPathSyntaxHighlighterColors {
         "attribute" to ATTRIBUTE,
         "element" to ELEMENT,
         "function-call" to FUNCTION_CALL,
-        "nsprefix" to NS_PREFIX
+        "nsprefix" to NS_PREFIX,
+        "parameter" to PARAMETER
     )
 
     // endregion

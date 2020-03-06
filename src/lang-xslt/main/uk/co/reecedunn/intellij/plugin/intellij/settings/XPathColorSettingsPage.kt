@@ -56,6 +56,8 @@ class XPathColorSettingsPage : ColorSettingsPage {
             ret = ret.replace(":true(", ":<function-call>true</function-call>(")
             ret = ret.replace("::ipsum[", "::<element>ipsum</element>[")
             ret = ret.replace("@value", "@<attribute>value</attribute>")
+            ret = ret.replace("(\$a ", "(\$<parameter>a</parameter> ")
+            ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
             ret = ret.replace("::one ", "::<element>one</element> ")
             ret = ret.replace("::two ", "::<attribute>two</attribute> ")
             ret = ret.replace("::three\n", "::<nsprefix>three</nsprefix>\n")

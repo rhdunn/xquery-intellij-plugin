@@ -126,6 +126,10 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_OPTION", IDENTIFIER
     )
 
+    val PARAMETER = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_PARAMETER", XPathSyntaxHighlighterColors.PARAMETER
+    )
+
     // endregion
     // region Descriptors
 
@@ -145,6 +149,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.ns-prefix"), NS_PREFIX),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), NUMBER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.option"), OPTION),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.parameter"), PARAMETER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), STRING),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.name"), XML_ATTRIBUTE_NAME),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), XML_ATTRIBUTE_VALUE),
@@ -164,7 +169,8 @@ object XQuerySyntaxHighlighterColors {
         "function-call" to FUNCTION_CALL,
         "function-decl" to FUNCTION_DECL,
         "nsprefix" to NS_PREFIX,
-        "option" to OPTION
+        "option" to OPTION,
+        "parameter" to PARAMETER
     )
 
     // endregion
