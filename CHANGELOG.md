@@ -17,7 +17,8 @@ Semantic Highlighting
     annotations, attributes, decimal formats, elements, functions, namespaces,
     options, parameters, pragmas, types, and variables in XQuery and XPath.
 1.  Semantic highlighting of usage types for annotations, attributes, decimal
-    formats, elements, and function calls and declarations in XQuery and XPath.
+    formats, elements, function calls and declarations, and namespace
+    declarations in XQuery and XPath.
 1.  Make XSLT elements use the template language colour style by default.
 
 IntelliJ Integration:

@@ -44,6 +44,8 @@ class XQueryColorSettingsPage : ColorSettingsPage {
     companion object {
         private val demo: String by lazy {
             var ret = XQueryQueries.ColorSettingsDemo
+            ret = ret.replace(" json =", " <nsprefix>json</nsprefix> =")
+            ret = ret.replace(" zip =", " <nsprefix>zip</nsprefix> =")
             ret = ret.replace(" fmt ", " <decimal-format>fmt</decimal-format> ")
             ret = ret.replace(" update(", " <function-decl>update</function-decl>(")
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")

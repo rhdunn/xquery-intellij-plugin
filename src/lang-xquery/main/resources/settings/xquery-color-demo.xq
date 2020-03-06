@@ -1,6 +1,10 @@
 xquery version "1.0"; (: Comment :)
 
-declare decimal-format fmt decimal-separator = "." ;
+import module namespace json = "http://marklogic.com/xdmp/json"
+                     at "/MarkLogic/json/json.xqy";
+declare namespace zip = "http://expath.org/ns/zip";
+
+declare decimal-format fmt decimal-separator = ".";
 
 (:~ Documentation <code>Markup</code>
  : @param $a parameter A.

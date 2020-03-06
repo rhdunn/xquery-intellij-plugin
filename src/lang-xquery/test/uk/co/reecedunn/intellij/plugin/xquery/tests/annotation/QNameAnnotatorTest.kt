@@ -763,6 +763,62 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @DisplayName("Usage Type: Namespace Prefix")
     internal inner class UsageType_NamespacePrefix {
         @Test
+        @DisplayName("XQuery 3.1 EBNF (5) ModuleDecl")
+        fun moduleDecl() {
+            val file = parse<XQueryModule>("module namespace test = \"http://www.example.com\";")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (17:21) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (21) SchemaImport")
+        fun schemaImport() {
+            val file = parse<XQueryModule>("import schema namespace test = 'http://www.example.com';")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (24:28) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
+        fun moduleImport() {
+            val file = parse<XQueryModule>("import module namespace test = 'http://www.example.com';")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (24:28) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (24) NamespaceDecl")
+        fun namespaceDecl() {
+            val file = parse<XQueryModule>("declare namespace test = 'http://www.example.com';")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (18:22) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
         fun forwardAxis() {
             val file = parse<XQueryModule>("namespace::test, namespace::ns:test, namespace::Q{}test, namespace::*")[0]

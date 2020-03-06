@@ -4341,7 +4341,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (4.2) Module Declaration")
     internal inner class ModuleDeclaration {
         @Nested
-        @DisplayName("XQuery 3.1 [4.2] Module Declaration : [5] ModuleDecl")
+        @DisplayName("XQuery 3.1 EBNF (5) ModuleDecl")
         internal inner class ModuleDecl {
             @Test
             @DisplayName("without prolog")

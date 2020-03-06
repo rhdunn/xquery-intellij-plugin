@@ -93,7 +93,7 @@ class XQueryColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(10))
+        assertThat(keys.size, `is`(12))
         assertThat(keys[0], `is`("two" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[1], `is`("value" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[2], `is`("fmt" to XQuerySyntaxHighlighterColors.DECIMAL_FORMAT))
@@ -101,9 +101,11 @@ class XQueryColorSettingsPageTest {
         assertThat(keys[4], `is`("data" to XQuerySyntaxHighlighterColors.ELEMENT))
         assertThat(keys[5], `is`("true" to XQuerySyntaxHighlighterColors.FUNCTION_CALL))
         assertThat(keys[6], `is`("update" to XQuerySyntaxHighlighterColors.FUNCTION_DECL))
-        assertThat(keys[7], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[8], `is`("three" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[9], `is`("fn" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[7], `is`("json" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[8], `is`("zip" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[9], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[10], `is`("three" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[11], `is`("fn" to XQuerySyntaxHighlighterColors.NS_PREFIX))
     }
 
     @Test
