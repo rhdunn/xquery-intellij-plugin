@@ -48,6 +48,7 @@ class QNameAnnotator : Annotator() {
             XstUsageType.Element -> XQuerySyntaxHighlighterColors.ELEMENT
             XstUsageType.FunctionDecl -> XQuerySyntaxHighlighterColors.FUNCTION_DECL
             XstUsageType.FunctionRef -> XQuerySyntaxHighlighterColors.FUNCTION_CALL
+            XstUsageType.Namespace -> XQuerySyntaxHighlighterColors.NS_PREFIX
             else -> XQuerySyntaxHighlighterColors.IDENTIFIER
         }
     }
@@ -92,26 +93,20 @@ class QNameAnnotator : Annotator() {
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
 
-        val xmlns: Boolean
         if (element.prefix != null) {
-            when {
-                element.prefix!!.data == "xmlns" -> xmlns = true
-                element.prefix !is XdmWildcardValue -> {
-                    xmlns = false
-                    val prefix = element.prefix?.element!!
+            if (element.prefix !is XdmWildcardValue && element.prefix?.data != "xmlns") {
+                val prefix = element.prefix?.element!!
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                    .create()
+                if (element.parent is PluginDirAttribute || element.parent is XQueryDirElemConstructor) {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                        .create()
-                    if (element.parent is PluginDirAttribute || element.parent is XQueryDirElemConstructor) {
-                        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                            .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
-                            .create()
-                    }
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XQuerySyntaxHighlighterColors.NS_PREFIX)
+                        .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
                         .create()
                 }
-                else -> xmlns = false
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
+                    .textAttributes(XQuerySyntaxHighlighterColors.NS_PREFIX)
+                    .create()
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
@@ -119,13 +114,11 @@ class QNameAnnotator : Annotator() {
                 checkQNameWhitespaceBefore(element, it, holder)
                 checkQNameWhitespaceAfter(element, it, holder)
             }
-        } else {
-            xmlns = false
         }
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            val highlight = if (xmlns) XQuerySyntaxHighlighterColors.NS_PREFIX else getHighlightAttributes(element)
+            val highlight = getHighlightAttributes(element)
             val elementHighlight = getElementHighlight(localName)
             when {
                 highlight !== elementHighlight -> {
