@@ -46,6 +46,7 @@ class QNameAnnotator : Annotator() {
             XstUsageType.Namespace -> XPathSyntaxHighlighterColors.NS_PREFIX
             XstUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
             XstUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
+            XstUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
             else -> XPathSyntaxHighlighterColors.IDENTIFIER
         }
     }

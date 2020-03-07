@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -899,6 +900,82 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (3:7) ERASED/DEFAULT + XQUERY_PRAGMA
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Type")
+    internal inner class UsageType_Type {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (187) AtomicOrUnionType")
+        fun atomicOrUnionType() {
+            val file = parse<XQueryModule>("() instance of test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (15:19) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (205) SimpleTypeName")
+        fun simpleTypeName() {
+            val file = parse<XQueryModule>("() cast as test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (11:15) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (206) TypeName")
+        fun typeName() {
+            val file = parse<XQueryModule>("() instance of element(*, test)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (26:30) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
+        fun typeDecl() {
+            val file = parse<XQueryModule>("declare type test := xs:string;")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (13:17) ERASED/DEFAULT + XQUERY_TYPE
+                    INFORMATION (21:23) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (24:30) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+        fun unionType() {
+            val file = parse<XQueryModule>("() instance of union(test)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (21:25) ERASED/DEFAULT + XQUERY_TYPE
                     """.trimIndent()
                 )
             )

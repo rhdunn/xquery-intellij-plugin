@@ -648,4 +648,64 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Type")
+    internal inner class UsageType_Type {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (82) AtomicOrUnionType")
+        fun atomicOrUnionType() {
+            val file = parse<XPath>("() instance of test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (15:19) ERASED/DEFAULT + XPATH_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (100) SimpleTypeName")
+        fun simpleTypeName() {
+            val file = parse<XPath>("() cast as test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (11:15) ERASED/DEFAULT + XPATH_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (101) TypeName")
+        fun typeName() {
+            val file = parse<XPath>("() instance of element(*, test)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (26:30) ERASED/DEFAULT + XPATH_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+        fun unionType() {
+            val file = parse<XPath>("() instance of union(test)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (21:25) ERASED/DEFAULT + XPATH_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
