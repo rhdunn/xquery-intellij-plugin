@@ -31,9 +31,16 @@ class XPathColorSettingsPageTest {
     private val settings = XPathColorSettingsPage()
 
     private fun getTextAttributeKeysForTokens(text: String): List<TextAttributesKey> {
+        var withoutHighlightElements = text
+        settings.additionalHighlightingTagToDescriptorMap!!.forEach { (name, _) ->
+            withoutHighlightElements = "<$name>([^<]*)</$name>".toRegex().replace(withoutHighlightElements) {
+                it.groups[1]!!.value
+            }
+        }
+
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
-        lexer.start(text)
+        lexer.start(withoutHighlightElements)
 
         val keys = ArrayList<TextAttributesKey>()
         while (lexer.tokenType != null) {
@@ -83,7 +90,7 @@ class XPathColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(14))
+        assertThat(keys.size, `is`(16))
         assertThat(keys[0], `is`("value" to XPathSyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[1], `is`("two" to XPathSyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[2], `is`("lorem" to XPathSyntaxHighlighterColors.ELEMENT))
@@ -98,6 +105,8 @@ class XPathColorSettingsPageTest {
         assertThat(keys[11], `is`("a" to XPathSyntaxHighlighterColors.PARAMETER))
         assertThat(keys[12], `is`("ext" to XPathSyntaxHighlighterColors.PRAGMA))
         assertThat(keys[13], `is`("integer" to XPathSyntaxHighlighterColors.TYPE))
+        assertThat(keys[14], `is`("items" to XPathSyntaxHighlighterColors.VARIABLE))
+        assertThat(keys[15], `is`("a" to XPathSyntaxHighlighterColors.VARIABLE))
     }
 
     @Test
@@ -106,7 +115,7 @@ class XPathColorSettingsPageTest {
         val tokens = getTextAttributeKeysForTokens(settings.demoText)
         val additional = getTextAttributeKeysForAdditionalDescriptors(settings.demoText).map { (_, key) -> key }
         val keys = tokens.union(additional).toMutableSet()
-        keys.add(XsltSyntaxHighlighterColors.XSLT_DIRECTIVE)
+        keys.add(XsltSyntaxHighlighterColors.XSLT_DIRECTIVE) // Not tokenized by XPath.
 
         val descriptorKeys = settings.attributeDescriptors.map { it.key }
 

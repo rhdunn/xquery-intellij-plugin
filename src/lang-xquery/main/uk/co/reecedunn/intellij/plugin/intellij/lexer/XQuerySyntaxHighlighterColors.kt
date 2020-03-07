@@ -138,6 +138,10 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_TYPE", XPathSyntaxHighlighterColors.TYPE
     )
 
+    val VARIABLE = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_VARIABLE", XPathSyntaxHighlighterColors.VARIABLE
+    )
+
     // endregion
     // region Descriptors
 
@@ -161,6 +165,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.pragma"), PRAGMA),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), STRING),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.type"), TYPE),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.variable"), VARIABLE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.name"), XML_ATTRIBUTE_NAME),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), XML_ATTRIBUTE_VALUE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.entity.reference"), XML_ENTITY_REFERENCE),
@@ -182,7 +187,8 @@ object XQuerySyntaxHighlighterColors {
         "option" to OPTION,
         "parameter" to PARAMETER,
         "pragma" to PRAGMA,
-        "type" to TYPE
+        "type" to TYPE,
+        "variable" to VARIABLE
     )
 
     // endregion

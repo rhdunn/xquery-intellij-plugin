@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.editor.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage
 import java.util.*
@@ -30,9 +31,16 @@ class XQueryColorSettingsPageTest {
     private val settings = XQueryColorSettingsPage()
 
     private fun getTextAttributeKeysForTokens(text: String): List<TextAttributesKey> {
+        var withoutHighlightElements = text
+        settings.additionalHighlightingTagToDescriptorMap!!.forEach { (name, _) ->
+            withoutHighlightElements = "<$name>([^<]*)</$name>".toRegex().replace(withoutHighlightElements) {
+                it.groups[1]!!.value
+            }
+        }
+
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
-        lexer.start(text)
+        lexer.start(withoutHighlightElements)
 
         val keys = ArrayList<TextAttributesKey>()
         while (lexer.tokenType != null) {
@@ -93,7 +101,7 @@ class XQueryColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(16))
+        assertThat(keys.size, `is`(18))
         assertThat(keys[0], `is`("two" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[1], `is`("value" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[2], `is`("fmt" to XQuerySyntaxHighlighterColors.DECIMAL_FORMAT))
@@ -110,6 +118,8 @@ class XQueryColorSettingsPageTest {
         assertThat(keys[13], `is`("a" to XQuerySyntaxHighlighterColors.PARAMETER))
         assertThat(keys[14], `is`("ext" to XQuerySyntaxHighlighterColors.PRAGMA))
         assertThat(keys[15], `is`("integer" to XQuerySyntaxHighlighterColors.TYPE))
+        assertThat(keys[16], `is`("test" to XQuerySyntaxHighlighterColors.VARIABLE))
+        assertThat(keys[17], `is`("items" to XQuerySyntaxHighlighterColors.VARIABLE))
     }
 
     @Test

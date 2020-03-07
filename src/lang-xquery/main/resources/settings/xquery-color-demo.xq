@@ -7,13 +7,14 @@ declare namespace zip = "http://expath.org/ns/zip";
 declare decimal-format fmt decimal-separator = ".";
 declare option opt "lorem ipsum";
 
+declare variable $test := 1234;
+
 (:~ Documentation <code>Markup</code>
  : @param $a parameter A.
  :)
 declare updating function update($a as xs:integer) external;
 
-let $_ := (
-    1234,
+let $items := (
     "One "" Two &quot; Three",
     child::one, attribute::two, namespace::three,
     data/@value,
