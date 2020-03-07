@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -976,6 +975,75 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (21:25) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("Usage Type: Variable")
+    internal inner class UsageType_Variable {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (56) CurrentItem")
+        fun currentItem() {
+            val file = parse<XQueryModule>(
+                "for sliding window \$x in () start \$test when () end when () return ()"
+            )[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (20:21) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (35:39) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (57) PreviousItem")
+        fun previousItem() {
+            val file = parse<XQueryModule>(
+                "for sliding window \$x in () start previous \$test when () end when () return ()"
+            )[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (20:21) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (44:48) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (58) NextItem")
+        fun nextItem() {
+            val file = parse<XQueryModule>(
+                "for sliding window \$x in () start next \$test when () end when () return ()"
+            )[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (20:21) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (40:44) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (132) VarName")
+        fun varName() {
+            val file = parse<XQueryModule>("\$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:5) ERASED/DEFAULT + XQUERY_VARIABLE
                     """.trimIndent()
                 )
             )

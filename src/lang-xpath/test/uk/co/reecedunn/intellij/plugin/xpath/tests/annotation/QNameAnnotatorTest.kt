@@ -708,4 +708,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Variable")
+    internal inner class UsageType_Variable {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (60) VarName")
+        fun varName() {
+            val file = parse<XPath>("\$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:5) ERASED/DEFAULT + XPATH_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
