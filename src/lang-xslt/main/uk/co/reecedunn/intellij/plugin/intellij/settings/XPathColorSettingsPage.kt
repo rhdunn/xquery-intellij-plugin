@@ -60,7 +60,8 @@ class XPathColorSettingsPage : ColorSettingsPage {
             ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
             ret = ret.replace("::one ", "::<element>one</element> ")
             ret = ret.replace("::two ", "::<attribute>two</attribute> ")
-            ret = ret.replace("::three\n", "::<nsprefix>three</nsprefix>\n")
+            ret = ret.replace("::three ", "::<nsprefix>three</nsprefix> ")
+            ret = ret.replace(" ext ", " <pragma>ext</pragma> ")
             ret
         }
     }

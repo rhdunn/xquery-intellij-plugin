@@ -17,7 +17,8 @@ let $_ := (
     "One "" Two &quot; Three",
     child::one, attribute::two, namespace::three,
     data/@value,
-    fn:true()
+    fn:true(),
+    (# ext Lorem Ipsum #) { }
 )
 return <test comment="One "" Two &quot; Three">Lorem ipsum.</test>
 
