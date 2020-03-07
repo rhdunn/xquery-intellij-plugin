@@ -630,4 +630,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Pragma")
+    internal inner class UsageType_Pragma {
+        @Test
+        @DisplayName("Full Text 3.0 EBNF (107) Pragma")
+        fun pragma() {
+            val file = parse<XPath>("() contains text (# test #) {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (20:24) ERASED/DEFAULT + XPATH_PRAGMA
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }

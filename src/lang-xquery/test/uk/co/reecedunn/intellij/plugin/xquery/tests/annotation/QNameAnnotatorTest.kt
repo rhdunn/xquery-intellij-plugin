@@ -886,4 +886,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("Usage Type: Pragma")
+    internal inner class UsageType_Pragma {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (105) Pragma")
+        fun pragma() {
+            val file = parse<XQueryModule>("(# test #) {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (3:7) ERASED/DEFAULT + XQUERY_PRAGMA
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }

@@ -18,7 +18,7 @@ Semantic Highlighting
     options, parameters, pragmas, types, and variables in XQuery and XPath.
 1.  Semantic highlighting of usage types for annotations, attributes, decimal
     formats, elements, function calls and declarations, namespace declarations,
-    options, and parameters in XQuery and XPath.
+    options, parameters, and pragmas in XQuery and XPath.
 1.  Make XSLT elements use the template language colour style by default.
 
 IntelliJ Integration:

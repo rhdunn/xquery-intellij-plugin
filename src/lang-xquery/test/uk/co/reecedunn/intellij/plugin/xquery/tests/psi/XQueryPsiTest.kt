@@ -4050,7 +4050,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
-                val qname = parse<XPathNCName>("(# test #)")[0] as XsQNameValue
+                val qname = parse<XPathNCName>("(# test #) {}")[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                 assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("pragma"))
                 assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Pragma))
