@@ -50,7 +50,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
             ret = ret.replace(" opt ", " <option>opt</option> ")
             ret = ret.replace(" update(", " <function-decl>update</function-decl>(")
             ret = ret.replace("(\$a ", "(\$<parameter>a</parameter> ")
-            ret = ret.replace(" xs:", " <nsprefix>xs</nsprefix>:")
+            ret = ret.replace(" xs:integer)", " <nsprefix>xs</nsprefix>:<type>integer</type>)")
             ret = ret.replace("::one,", "::<element>one</element>,")
             ret = ret.replace("::two,", "::<attribute>two</attribute>,")
             ret = ret.replace("::three,", "::<nsprefix>three</nsprefix>,")
