@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 import com.intellij.openapi.application.ModalityState
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProcessHandlerBase() {
@@ -30,6 +31,9 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                 val results = query.run()
                 invokeLater(ModalityState.defaultModalityState()) {
                     try {
+                        if (results.status.statusCode != 200) {
+                            notifyResult(QueryResult.fromItemType(0, results.status.toString(), "http:status-line"))
+                        }
                         results.results.forEach { result -> notifyResult(result) }
                         notifyEndResults()
                         notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
