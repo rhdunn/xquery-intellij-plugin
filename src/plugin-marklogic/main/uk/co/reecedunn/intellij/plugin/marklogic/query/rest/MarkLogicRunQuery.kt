@@ -96,13 +96,9 @@ internal class MarkLogicRunQuery(
         val body = EntityUtils.toString(response.entity)
         response.close()
 
-        if (response.statusLine.statusCode != 200) {
-            throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
-        }
-
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
         val duration = (results.next().value as String).toXsDuration()
-        return QueryResults(results.asSequence().toList(), duration!!)
+        return QueryResults(response.statusLine, results.asSequence().toList(), duration!!)
     }
 
     override fun validate(): QueryError? {

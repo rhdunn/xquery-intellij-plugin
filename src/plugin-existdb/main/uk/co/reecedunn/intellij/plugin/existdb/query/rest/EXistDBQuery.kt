@@ -69,9 +69,8 @@ internal class EXistDBQuery(
         val body = EntityUtils.toString(response.entity)
         response.close()
 
-        if (response.statusLine.statusCode != 200) when (response.statusLine.statusCode) {
-            400 -> throw body.toEXistDBQueryError(queryFile)
-            else -> throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
+        if (response.statusLine.statusCode == 400) {
+            throw body.toEXistDBQueryError(queryFile)
         }
 
         var position: Long = -1
@@ -80,7 +79,7 @@ internal class EXistDBQuery(
             val type = value.attribute("exist:type")!!
             QueryResult.fromItemType(++position, value.text() ?: "", type)
         }
-        return QueryResults(results.toList(), XsDuration.ns(end - start))
+        return QueryResults(response.statusLine, results.toList(), XsDuration.ns(end - start))
     }
 
     override fun close() {

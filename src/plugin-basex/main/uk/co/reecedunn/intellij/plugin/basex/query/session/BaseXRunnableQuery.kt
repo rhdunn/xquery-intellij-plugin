@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import org.apache.http.StatusLine
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Query
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -70,7 +71,7 @@ internal class BaseXRunnableQuery(
 
             val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence().toList()
             val info = query.info()!!.toBaseXInfo()
-            QueryResults(results, info["Total Time"] as XsDurationValue)
+            QueryResults(QueryResults.OK, results, info["Total Time"] as XsDurationValue)
         }
     }
 

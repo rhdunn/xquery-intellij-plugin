@@ -81,7 +81,7 @@ internal class SaxonXPathRunner(
         val start = System.nanoTime()
         val results = asSequence().toList()
         val end = System.nanoTime()
-        return QueryResults(results, XsDuration.ns(end - start))
+        return QueryResults(QueryResults.OK, results, XsDuration.ns(end - start))
     }
 
     override fun validate(): QueryError? {

@@ -60,12 +60,9 @@ internal class EXistDBHttpRequest(private val builder: RequestBuilder, private v
         val body = EntityUtils.toString(response.entity)
         response.close()
 
-        if (response.statusLine.statusCode != 200) {
-            throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
-        }
-
         val contentType = response.allHeaders.firstOrNull { h -> h.name == "ContentType" }?.value
         return QueryResults(
+            response.statusLine,
             listOf(QueryResult(0, body, "xs:string", contentType ?: "text/plain")),
             XsDuration.ns(end - start)
         )
