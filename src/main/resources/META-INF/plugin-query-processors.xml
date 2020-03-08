@@ -28,4 +28,13 @@
 
     <toolWindow id="Query Log" anchor="bottom" secondary="true" factoryClass="uk.co.reecedunn.intellij.plugin.intellij.log.QueryLogViewer"/>
   </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- Query Processors -->
+
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
+  </extensions>
 </idea-plugin>
