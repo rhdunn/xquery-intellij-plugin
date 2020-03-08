@@ -83,7 +83,7 @@ internal data class W3CSpecificationDocument(
     // region XdmDocumentationIndex
 
     private val doc = CacheableProperty {
-        val file = XQDocDocumentationDownloader.getInstance().load(this)
+        val file = XQDocDocumentationDownloader.getInstance().load(this, download = true)
         file?.let { Jsoup.parse(it.inputStream, null, "") }
     }
 

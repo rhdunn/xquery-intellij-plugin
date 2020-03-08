@@ -41,7 +41,7 @@ private data class MarkLogicZippedDocumentation(
     // region XdmDocumentationIndex
 
     private val apidocs = CacheableProperty {
-        XQDocDocumentationDownloader.getInstance().load(this)?.let {
+        XQDocDocumentationDownloader.getInstance().load(this, download = true)?.let {
             val docs = XmlDocument.parse(ML_DOC_TEMPLATE, NAMESPACES)
             it.inputStream.unzip { entry, stream ->
                 if (entry.name.contains("pubs/raw/apidoc") && entry.name.endsWith(".xml")) {

@@ -51,8 +51,21 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
         }
     }
 
-    fun load(source: XQDocDocumentationSource): VirtualFile? {
-        return LocalFileSystem.getInstance().findFileByIoFile(file(source))
+    fun load(source: XQDocDocumentationSource, download: Boolean = false): VirtualFile? {
+        val file = file(source)
+        if (download) {
+            if (!file.exists() || tasks.isActive(source)) {
+                if (download(source)) {
+                    while (!tasks.isActive(source)) {
+                        Thread.sleep(250)
+                    }
+                }
+                while (tasks.isActive(source)) {
+                    Thread.sleep(250)
+                }
+            }
+        }
+        return LocalFileSystem.getInstance().findFileByIoFile(file)
     }
 
     fun file(source: XQDocDocumentationSource): File {
