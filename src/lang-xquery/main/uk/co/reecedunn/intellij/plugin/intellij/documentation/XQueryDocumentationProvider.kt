@@ -104,7 +104,7 @@ object XQueryDocumentationProvider : AbstractDocumentationProvider() {
     // Generate the summary documentation for the documentation hover tooltip.
     override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
         return originalElement?.let {
-            val text = lookup(it).firstOrNull()?.summary(XdmModuleType.XQuery) ?: return@let null
+            val text = lookup(it).firstOrNull()?.sections(XdmModuleType.XQuery) ?: return@let null
             return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
         }
     }
