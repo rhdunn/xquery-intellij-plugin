@@ -45,6 +45,19 @@ fun panel(layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
 
 fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
 
+fun Container.horizontalPanel(constraints: Any?, init: JPanel.() -> Unit): JPanel {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.HORIZONTAL
+        constraints.insets = JBUI.insets(2, 4, 2, 4)
+        constraints.weightx = 1.0
+    }
+
+    val panel = JPanel(GridBagLayout())
+    panel.init()
+    add(panel, constraints)
+    return panel
+}
+
 // endregion
 // region grid
 
@@ -168,6 +181,7 @@ fun dialog(title: String, init: DialogBuilder.() -> Unit): DialogBuilder {
 fun Container.horizontalSpacer(constraints: Any? = null): Spacer {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.HORIZONTAL
+        constraints.weightx = 1.0
     }
 
     val spacer = Spacer()

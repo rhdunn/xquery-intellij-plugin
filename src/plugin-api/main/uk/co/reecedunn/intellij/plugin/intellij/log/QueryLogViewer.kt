@@ -143,29 +143,31 @@ class QueryLogViewerUI(val project: Project) {
     // region Form
 
     val panel = panel {
-        label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
-        queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0)) {
-            val model = QueryProcessorSettingsModel()
-            this.model = model
+        horizontalPanel(grid(0, 0)) {
+            label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
+            queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0)) {
+                val model = QueryProcessorSettingsModel()
+                this.model = model
 
-            renderer = QueryProcessorSettingsCellRenderer()
-            addActionListener {
-                populateLogFiles()
+                renderer = QueryProcessorSettingsCellRenderer()
+                addActionListener {
+                    populateLogFiles()
+                }
+
+                QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
             }
 
-            QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
-        }
-
-        label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
-        logFile = comboBox(grid(3, 0)) {
-            addActionListener {
-                populateLogFile(reloadLogFile = true)
+            label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
+            logFile = comboBox(grid(3, 0)) {
+                addActionListener {
+                    populateLogFile(reloadLogFile = true)
+                }
             }
+
+            horizontalSpacer(grid(4, 0))
         }
 
-        horizontalSpacer(grid(4, 0))
-
-        logConsole = textConsole(project, grid(0, 1).size(5, 1)) {
+        logConsole = textConsole(project, grid(0, 1)) {
             setConsoleBorder(Borders.ConsoleToolbarTop)
             createActionToolbar(ActionPlaces.UNKNOWN)
         }
