@@ -20,7 +20,6 @@ import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
@@ -67,14 +66,6 @@ class QueryLogViewerUI(val project: Project) {
     // region Filter :: Log File
 
     private var logFile: JComboBox<String>? = null
-
-    private fun createLogFileUI(): JComponent {
-        logFile = ComboBox()
-        logFile!!.addActionListener {
-            populateLogFile(reloadLogFile = true)
-        }
-        return logFile!!
-    }
 
     private fun populateLogFiles() {
         val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
@@ -178,9 +169,11 @@ class QueryLogViewerUI(val project: Project) {
         }
 
         label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
-        val gbc2 = grid(3, 0)
-        gbc2.fill = GridBagConstraints.HORIZONTAL
-        add(createLogFileUI(), gbc2)
+        logFile = comboBox(grid(3, 0)) {
+            addActionListener {
+                populateLogFile(reloadLogFile = true)
+            }
+        }
 
         horizontalSpacer(grid(4, 0))
 
@@ -190,6 +183,8 @@ class QueryLogViewerUI(val project: Project) {
         gbc4.weightx = 1.0
         gbc4.weighty = 1.0
         add(createConsoleEditor(), gbc4)
+
+        populateLogFiles()
     }
 
     // endregion
