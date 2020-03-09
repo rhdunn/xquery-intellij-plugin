@@ -103,10 +103,10 @@ class XPathColorSettingsPageTest {
         assertThat(keys[9], `is`("xs" to XPathSyntaxHighlighterColors.NS_PREFIX))
         assertThat(keys[10], `is`("three" to XPathSyntaxHighlighterColors.NS_PREFIX))
         assertThat(keys[11], `is`("a" to XPathSyntaxHighlighterColors.PARAMETER))
-        assertThat(keys[12], `is`("ext" to XPathSyntaxHighlighterColors.PRAGMA))
-        assertThat(keys[13], `is`("integer" to XPathSyntaxHighlighterColors.TYPE))
-        assertThat(keys[14], `is`("items" to XPathSyntaxHighlighterColors.VARIABLE))
-        assertThat(keys[15], `is`("a" to XPathSyntaxHighlighterColors.VARIABLE))
+        assertThat(keys[12], `is`("a" to XPathSyntaxHighlighterColors.PARAMETER))
+        assertThat(keys[13], `is`("ext" to XPathSyntaxHighlighterColors.PRAGMA))
+        assertThat(keys[14], `is`("integer" to XPathSyntaxHighlighterColors.TYPE))
+        assertThat(keys[15], `is`("items" to XPathSyntaxHighlighterColors.VARIABLE))
     }
 
     @Test

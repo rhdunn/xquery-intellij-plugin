@@ -12,7 +12,7 @@ declare variable $test := 1234;
 (:~ Documentation <code>Markup</code>
  : @param $a parameter A.
  :)
-declare updating function update($a as xs:integer) external;
+declare updating function update($a as xs:integer) { $a };
 
 let $items := (
     "One "" Two &quot; Three",

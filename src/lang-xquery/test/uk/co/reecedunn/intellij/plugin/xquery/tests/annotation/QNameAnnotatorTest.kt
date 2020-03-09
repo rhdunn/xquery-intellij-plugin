@@ -875,12 +875,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (34) Param")
         fun param() {
-            val file = parse<XQueryModule>("function (\$test) {}")[0]
+            val file = parse<XQueryModule>("function (\$test) { \$test }")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
                     INFORMATION (11:15) ERASED/DEFAULT + XQUERY_PARAMETER
+                    INFORMATION (20:24) ERASED/DEFAULT + XQUERY_PARAMETER
                     """.trimIndent()
                 )
             )
@@ -1038,12 +1039,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (132) VarName")
         fun varName() {
-            val file = parse<XQueryModule>("\$test")[0]
+            val file = parse<XQueryModule>("let \$test := 2 return \$test")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (1:5) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_VARIABLE
                     """.trimIndent()
                 )
             )

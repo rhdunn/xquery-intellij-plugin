@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class QNameAnnotator : Annotator() {
-    private fun getHighlightAttributes(element: PsiElement): TextAttributesKey {
+    private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {
         return when (element.getUsageType()) {
             XstUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
             XstUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
@@ -51,7 +51,14 @@ class QNameAnnotator : Annotator() {
             XstUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
             XstUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
             XstUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
-            XstUsageType.Variable -> XPathSyntaxHighlighterColors.VARIABLE
+            XstUsageType.Variable -> {
+                if (resolveReferences)
+                    element.reference?.resolve()?.let {
+                        getHighlightAttributes(it, false)
+                    } ?: XPathSyntaxHighlighterColors.VARIABLE
+                else
+                    XPathSyntaxHighlighterColors.VARIABLE
+            }
             XstUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
         }
     }

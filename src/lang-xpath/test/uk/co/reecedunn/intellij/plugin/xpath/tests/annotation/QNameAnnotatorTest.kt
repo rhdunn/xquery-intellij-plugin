@@ -619,12 +619,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("XPath 3.1 EBNF (3) Param")
         fun param() {
-            val file = parse<XPath>("function (\$test) {}")[0]
+            val file = parse<XPath>("function (\$test) { \$test }")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
                     INFORMATION (11:15) ERASED/DEFAULT + XPATH_PARAMETER
+                    INFORMATION (20:24) ERASED/DEFAULT + XPATH_VARIABLE
                     """.trimIndent()
                 )
             )
@@ -715,12 +716,13 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("XPath 3.1 EBNF (60) VarName")
         fun varName() {
-            val file = parse<XPath>("\$test")[0]
+            val file = parse<XPath>("let \$test := 2 return \$test")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
-                    INFORMATION (1:5) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (5:9) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (23:27) ERASED/DEFAULT + XPATH_VARIABLE
                     """.trimIndent()
                 )
             )
