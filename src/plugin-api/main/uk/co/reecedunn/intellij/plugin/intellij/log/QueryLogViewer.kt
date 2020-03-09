@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,20 +24,26 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
+import com.intellij.uiDesigner.core.Spacer
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.label
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
+import java.awt.Dimension
+import java.awt.GridBagConstraints
 import javax.swing.JComboBox
 import javax.swing.JComponent
-import javax.swing.JPanel
 
 class QueryLogViewer : ToolWindowFactory, DumbAware {
     private var logView: QueryLogViewerUI? = null
@@ -61,7 +67,7 @@ class QueryLogViewerUI(val project: Project) {
 
     private var queryProcessor: JComboBox<QueryProcessorSettingsWithVersionCache>? = null
 
-    private fun createQueryProcessorUI() {
+    private fun createQueryProcessorUI(): JComponent {
         val model = QueryProcessorSettingsModel()
         queryProcessor = ComboBox(model)
 
@@ -71,6 +77,7 @@ class QueryLogViewerUI(val project: Project) {
         }
 
         QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
+        return queryProcessor!!
     }
 
     // endregion
@@ -78,11 +85,12 @@ class QueryLogViewerUI(val project: Project) {
 
     private var logFile: JComboBox<String>? = null
 
-    private fun createLogFileUI() {
+    private fun createLogFileUI(): JComponent {
         logFile = ComboBox()
         logFile!!.addActionListener {
             populateLogFile(reloadLogFile = true)
         }
+        return logFile!!
     }
 
     private fun populateLogFiles() {
@@ -116,16 +124,16 @@ class QueryLogViewerUI(val project: Project) {
     // region Log View
 
     private var logConsole: ConsoleViewEx? = null
-    private var logView: JComponent? = null
     private var lines: Int = -1
     private var updatingLogList: Boolean = false
 
-    private fun createConsoleEditor() {
+    private fun createConsoleEditor(): JComponent {
         logConsole = TextConsoleView(project)
-        logView = logConsole?.component
+        val component = logConsole!!.component
 
         logConsole?.setConsoleBorder(Borders.ConsoleToolbarTop)
         logConsole?.createActionToolbar(ActionPlaces.UNKNOWN)
+        return component
     }
 
     private fun populateLogFile(reloadLogFile: Boolean) {
@@ -172,12 +180,27 @@ class QueryLogViewerUI(val project: Project) {
     // endregion
     // region Form
 
-    var panel: JPanel? = null
+    val panel = panel {
+        label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
+        val gbc1 = grid(1, 0)
+        gbc1.fill = GridBagConstraints.HORIZONTAL
+        add(createQueryProcessorUI(), gbc1)
 
-    private fun createUIComponents() {
-        createQueryProcessorUI()
-        createLogFileUI()
-        createConsoleEditor()
+        label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
+        val gbc2 = grid(3, 0)
+        gbc2.fill = GridBagConstraints.HORIZONTAL
+        add(createLogFileUI(), gbc2)
+
+        val gbc3 = grid(4, 0)
+        gbc3.fill = GridBagConstraints.HORIZONTAL
+        add(Spacer(), gbc3)
+
+        val gbc4 = grid(0, 1)
+        gbc4.gridwidth = 5
+        gbc4.fill = GridBagConstraints.BOTH
+        gbc4.weightx = 1.0
+        gbc4.weighty = 1.0
+        add(createConsoleEditor(), gbc4)
     }
 
     // endregion
