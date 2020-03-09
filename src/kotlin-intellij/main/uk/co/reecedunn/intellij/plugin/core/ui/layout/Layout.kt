@@ -23,6 +23,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -30,6 +31,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBUI
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import java.awt.*
 import javax.swing.JPanel
 
@@ -101,6 +103,23 @@ fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): Com
     combobox.init()
     add(combobox, constraints)
     return combobox
+}
+
+// endregion
+// region text console
+
+fun Container.textConsole(project: Project, constraints: Any?, init: TextConsoleView.() -> Unit): TextConsoleView {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.BOTH
+        constraints.weightx = 1.0
+        constraints.weighty = 1.0
+    }
+
+    val view = TextConsoleView(project)
+    val console = view.component
+    view.init()
+    add(console, constraints)
+    return view
 }
 
 // endregion

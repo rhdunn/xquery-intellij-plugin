@@ -101,15 +101,6 @@ class QueryLogViewerUI(val project: Project) {
     private var lines: Int = -1
     private var updatingLogList: Boolean = false
 
-    private fun createConsoleEditor(): JComponent {
-        logConsole = TextConsoleView(project)
-        val component = logConsole!!.component
-
-        logConsole?.setConsoleBorder(Borders.ConsoleToolbarTop)
-        logConsole?.createActionToolbar(ActionPlaces.UNKNOWN)
-        return component
-    }
-
     private fun populateLogFile(reloadLogFile: Boolean) {
         if (updatingLogList) return
 
@@ -179,10 +170,10 @@ class QueryLogViewerUI(val project: Project) {
 
         val gbc4 = grid(0, 1)
         gbc4.gridwidth = 5
-        gbc4.fill = GridBagConstraints.BOTH
-        gbc4.weightx = 1.0
-        gbc4.weighty = 1.0
-        add(createConsoleEditor(), gbc4)
+        logConsole = textConsole(project, gbc4) {
+            setConsoleBorder(Borders.ConsoleToolbarTop)
+            createActionToolbar(ActionPlaces.UNKNOWN)
+        }
 
         populateLogFiles()
     }
