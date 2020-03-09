@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 interface XQDocDocumentation {
@@ -46,15 +47,15 @@ interface XQDocFunctionDocumentation : XQDocDocumentation {
 
 fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
     val sections = sequenceOf(
-        "Summary" to summary(moduleType),
-        "Operator Mapping" to (this as? XQDocFunctionDocumentation)?.operatorMapping,
-        "Signatures" to (this as? XQDocFunctionDocumentation)?.signatures,
-        "Properties" to (this as? XQDocFunctionDocumentation)?.properties,
-        "Required Privileges" to (this as? XQDocFunctionDocumentation)?.privileges,
-        "Rules" to (this as? XQDocFunctionDocumentation)?.rules(moduleType),
-        "Error Conditions" to (this as? XQDocFunctionDocumentation)?.errorConditions,
-        "Notes" to notes(moduleType),
-        "Examples" to examples(moduleType).joinToString("\n").nullize()
+        XQDocBundle.message("section.summary") to summary(moduleType),
+        XQDocBundle.message("section.operator-mapping") to (this as? XQDocFunctionDocumentation)?.operatorMapping,
+        XQDocBundle.message("section.signatures") to (this as? XQDocFunctionDocumentation)?.signatures,
+        XQDocBundle.message("section.properties") to (this as? XQDocFunctionDocumentation)?.properties,
+        XQDocBundle.message("section.required-privileges") to (this as? XQDocFunctionDocumentation)?.privileges,
+        XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules(moduleType),
+        XQDocBundle.message("section.error-conditions") to (this as? XQDocFunctionDocumentation)?.errorConditions,
+        XQDocBundle.message("section.notes") to notes(moduleType),
+        XQDocBundle.message("section.examples") to examples(moduleType).joinToString("\n").nullize()
     ).filter { it.second != null }
     return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
 }
