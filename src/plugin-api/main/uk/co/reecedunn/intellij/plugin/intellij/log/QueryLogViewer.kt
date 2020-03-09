@@ -26,7 +26,6 @@ import com.intellij.ui.content.ContentFactory
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
-import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -36,9 +35,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
-import java.awt.GridBagConstraints
 import javax.swing.JComboBox
-import javax.swing.JComponent
 
 class QueryLogViewer : ToolWindowFactory, DumbAware {
     private var logView: QueryLogViewerUI? = null
@@ -168,9 +165,7 @@ class QueryLogViewerUI(val project: Project) {
 
         horizontalSpacer(grid(4, 0))
 
-        val gbc4 = grid(0, 1)
-        gbc4.gridwidth = 5
-        logConsole = textConsole(project, gbc4) {
+        logConsole = textConsole(project, grid(0, 1).size(5, 1)) {
             setConsoleBorder(Borders.ConsoleToolbarTop)
             createActionToolbar(ActionPlaces.UNKNOWN)
         }

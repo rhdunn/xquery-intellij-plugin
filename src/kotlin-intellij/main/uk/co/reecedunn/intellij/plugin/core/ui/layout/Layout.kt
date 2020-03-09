@@ -55,6 +55,12 @@ fun grid(x: Int, y: Int): GridBagConstraints {
     return constraints
 }
 
+fun GridBagConstraints.size(dx: Int, dy: Int): GridBagConstraints {
+    gridwidth = dx
+    gridheight = dy
+    return this
+}
+
 // endregion
 // region label
 
