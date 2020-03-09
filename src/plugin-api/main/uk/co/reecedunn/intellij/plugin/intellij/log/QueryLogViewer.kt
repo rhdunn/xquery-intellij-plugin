@@ -29,10 +29,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.horizontalSpacer
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.label
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
@@ -65,19 +62,6 @@ class QueryLogViewerUI(val project: Project) {
     // region Filter :: Server
 
     private var queryProcessor: JComboBox<QueryProcessorSettingsWithVersionCache>? = null
-
-    private fun createQueryProcessorUI(): JComponent {
-        val model = QueryProcessorSettingsModel()
-        queryProcessor = ComboBox(model)
-
-        queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
-        queryProcessor!!.addActionListener {
-            populateLogFiles()
-        }
-
-        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
-        return queryProcessor!!
-    }
 
     // endregion
     // region Filter :: Log File
@@ -181,9 +165,17 @@ class QueryLogViewerUI(val project: Project) {
 
     val panel = panel {
         label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
-        val gbc1 = grid(1, 0)
-        gbc1.fill = GridBagConstraints.HORIZONTAL
-        add(createQueryProcessorUI(), gbc1)
+        queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0)) {
+            val model = QueryProcessorSettingsModel()
+            this.model = model
+
+            renderer = QueryProcessorSettingsCellRenderer()
+            addActionListener {
+                populateLogFiles()
+            }
+
+            QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
+        }
 
         label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
         val gbc2 = grid(3, 0)

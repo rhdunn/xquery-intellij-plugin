@@ -23,6 +23,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
@@ -86,6 +87,20 @@ fun Container.textFieldWithBrowseButton(
 
 fun Container.textFieldWithBrowseButton(init: TextFieldWithBrowseButton.() -> Unit): TextFieldWithBrowseButton {
     return textFieldWithBrowseButton(null, init)
+}
+
+// endregion
+// region combo box
+
+fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): ComboBox<T> {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.HORIZONTAL
+    }
+
+    val combobox = ComboBox<T>()
+    combobox.init()
+    add(combobox, constraints)
+    return combobox
 }
 
 // endregion
