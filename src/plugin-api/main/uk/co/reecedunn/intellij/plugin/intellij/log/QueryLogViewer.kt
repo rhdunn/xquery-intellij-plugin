@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
+import java.awt.Dimension
 import javax.swing.JComboBox
 
 class QueryLogViewer : ToolWindowFactory, DumbAware {
@@ -146,6 +147,8 @@ class QueryLogViewerUI(val project: Project) {
         horizontalPanel(grid(0, 0)) {
             label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
             queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0)) {
+                preferredSize = Dimension(200, preferredSize.height)
+
                 val model = QueryProcessorSettingsModel()
                 this.model = model
 
@@ -159,6 +162,8 @@ class QueryLogViewerUI(val project: Project) {
 
             label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
             logFile = comboBox(grid(3, 0)) {
+                preferredSize = Dimension(200, preferredSize.height)
+
                 addActionListener {
                     populateLogFile(reloadLogFile = true)
                 }
