@@ -24,13 +24,13 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
-import com.intellij.uiDesigner.core.Spacer
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.horizontalSpacer
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.label
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -40,7 +40,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
-import java.awt.Dimension
 import java.awt.GridBagConstraints
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -191,9 +190,7 @@ class QueryLogViewerUI(val project: Project) {
         gbc2.fill = GridBagConstraints.HORIZONTAL
         add(createLogFileUI(), gbc2)
 
-        val gbc3 = grid(4, 0)
-        gbc3.fill = GridBagConstraints.HORIZONTAL
-        add(Spacer(), gbc3)
+        horizontalSpacer(grid(4, 0))
 
         val gbc4 = grid(0, 1)
         gbc4.gridwidth = 5

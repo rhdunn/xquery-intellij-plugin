@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBUI
 import java.awt.*
 import javax.swing.JPanel
@@ -119,6 +120,19 @@ fun dialog(title: String, init: DialogBuilder.() -> Unit): DialogBuilder {
     builder.setTitle(title)
     builder.init()
     return builder
+}
+
+// endregion
+// region spacers
+
+fun Container.horizontalSpacer(constraints: Any? = null): Spacer {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.HORIZONTAL
+    }
+
+    val spacer = Spacer()
+    add(spacer, constraints)
+    return spacer
 }
 
 // endregion
