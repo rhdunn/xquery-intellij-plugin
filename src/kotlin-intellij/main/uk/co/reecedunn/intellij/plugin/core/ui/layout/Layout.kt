@@ -80,7 +80,10 @@ fun GridBagConstraints.size(dx: Int, dy: Int): GridBagConstraints {
 fun Container.label(text: String, constraints: Any? = null): JBLabel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.NONE
-        constraints.insets = JBUI.insets(0, 0, 4, 8)
+        if (constraints.gridx == 0)
+            constraints.insets = JBUI.insets(0, 0, 4, 8)
+        else
+            constraints.insets = JBUI.insets(0, 8, 4, 8)
     }
 
     val label = JBLabel(text)
