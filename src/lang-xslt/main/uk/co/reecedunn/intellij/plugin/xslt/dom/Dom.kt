@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xslt.dom
 
 import com.intellij.compat.ide.plugins.PluginManagerCore
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
-import com.intellij.psi.xml.XmlTag
-import com.intellij.util.xml.DomManager
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltDomElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 
 private val INTELLIJ_XPATH_PLUGIN_ID = PluginId.getId("XPathView")
 
 fun isIntellijXPathPluginEnabled(): Boolean = PluginManagerCore.getPlugin(INTELLIJ_XPATH_PLUGIN_ID)?.isEnabled == true
 
-fun XmlTag.xslt(): XsltDomElement? = DomManager.getDomManager(project).getDomElement(this) as? XsltDomElement
-
-fun PsiElement.xsltFile(): XsltDomElement? = (containingFile as? XmlFile)?.rootTag?.xslt()
+fun XmlFile.isXslt(): Boolean {
+    if (rootTag?.namespace != XSLT.NAMESPACE) return false
+    return when (rootTag?.localName) {
+        "stylesheet" -> true
+        "transform" -> true
+        "package" -> true
+        else -> false
+    }
+}

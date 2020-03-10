@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,12 @@ import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltPackage
-import uk.co.reecedunn.intellij.plugin.xslt.ast.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
-import uk.co.reecedunn.intellij.plugin.xslt.dom.xsltFile
+import uk.co.reecedunn.intellij.plugin.xslt.dom.isXslt
 
 class XPathInXsltLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
@@ -34,13 +33,13 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        if (isIntellijXPathPluginEnabled() || !context.xsltFile().let { it is XsltStylesheet || it is XsltPackage })
+        if (isIntellijXPathPluginEnabled() || (context as? XmlFile)?.isXslt() == false)
             return
 
         when (XPathSyntaxSubset.get(context)) {
             XPathSubset.XPath, XPathSubset.XsltPattern -> {
                 val host = context as PsiLanguageInjectionHost
-                val range = context.textRange
+                val range = host.textRange
 
                 registrar.startInjecting(XPath)
                 registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
