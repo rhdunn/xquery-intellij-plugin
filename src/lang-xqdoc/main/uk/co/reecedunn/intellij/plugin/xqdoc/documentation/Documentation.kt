@@ -45,17 +45,18 @@ interface XQDocFunctionDocumentation : XQDocDocumentation {
     val errorConditions: String?
 }
 
-fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
-    val sections = sequenceOf(
-        XQDocBundle.message("section.summary") to summary,
-        XQDocBundle.message("section.operator-mapping") to (this as? XQDocFunctionDocumentation)?.operatorMapping,
-        XQDocBundle.message("section.signatures") to (this as? XQDocFunctionDocumentation)?.signatures,
-        XQDocBundle.message("section.properties") to (this as? XQDocFunctionDocumentation)?.properties,
-        XQDocBundle.message("section.required-privileges") to (this as? XQDocFunctionDocumentation)?.privileges,
-        XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules,
-        XQDocBundle.message("section.error-conditions") to (this as? XQDocFunctionDocumentation)?.errorConditions,
-        XQDocBundle.message("section.notes") to notes,
-        XQDocBundle.message("section.examples") to examples.joinToString("\n").nullize()
-    ).filter { it.second != null }
-    return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
-}
+val XQDocDocumentation.sections: String
+    get() {
+        val sections = sequenceOf(
+            XQDocBundle.message("section.summary") to summary,
+            XQDocBundle.message("section.operator-mapping") to (this as? XQDocFunctionDocumentation)?.operatorMapping,
+            XQDocBundle.message("section.signatures") to (this as? XQDocFunctionDocumentation)?.signatures,
+            XQDocBundle.message("section.properties") to (this as? XQDocFunctionDocumentation)?.properties,
+            XQDocBundle.message("section.required-privileges") to (this as? XQDocFunctionDocumentation)?.privileges,
+            XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules,
+            XQDocBundle.message("section.error-conditions") to (this as? XQDocFunctionDocumentation)?.errorConditions,
+            XQDocBundle.message("section.notes") to notes,
+            XQDocBundle.message("section.examples") to examples.joinToString("\n").nullize()
+        ).filter { it.second != null }
+        return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
+    }
