@@ -46,7 +46,7 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val summary: String? get() = section("Summary")
 
-    override fun notes(moduleType: XdmModuleType): String? = section("Notes")
+    override val notes: String? get() = section("Notes")
 
     override fun examples(moduleType: XdmModuleType): Sequence<String> = when (moduleType) {
         XdmModuleType.XQuery, XdmModuleType.XPath -> section("Examples")?.let { sequenceOf(it) } ?: emptySequence()
