@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 interface XQDocDocumentation {
     val moduleTypes: Array<XdmModuleType>
 
-    fun href(moduleType: XdmModuleType): String?
+    val href: String?
 
     fun summary(moduleType: XdmModuleType): String?
 

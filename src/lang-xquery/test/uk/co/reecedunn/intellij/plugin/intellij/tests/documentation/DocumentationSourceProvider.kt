@@ -38,7 +38,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
                 "[prefix=${it.prefix?.data ?: "(null)"} namespace=${it.namespace?.data ?: "(null)"} localname=${it.localName?.data ?: "(null)"}]"
             } ?: "(null)"
 
-            override fun href(moduleType: XdmModuleType): String = "function href=${name}#${ref.arity}"
+            override val href: String = "function href=${name}#${ref.arity}"
 
             override fun summary(moduleType: XdmModuleType): String = "function summary=${name}#${ref.arity}"
 
@@ -67,7 +67,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
             val name: String =
                 "[prefix=${decl.namespacePrefix?.data ?: "(null)"} namespace=${decl.namespaceUri?.data ?: "(null)"}]"
 
-            override fun href(moduleType: XdmModuleType): String = "module href=${name}"
+            override val href: String = "module href=${name}"
 
             override fun summary(moduleType: XdmModuleType): String = "module summary=${name}"
 

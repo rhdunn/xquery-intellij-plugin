@@ -37,7 +37,7 @@ internal class W3CFunctionReference(private val node: Element, private val baseH
 
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 
-    override fun href(moduleType: XdmModuleType): String = "$baseHref#$id"
+    override val href: String = "$baseHref#$id"
 
     private fun section(name: String): String? {
         val section = node.select("dl > dt").find { it.text() == name }?.nextElementSibling()
