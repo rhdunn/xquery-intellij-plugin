@@ -54,7 +54,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
             override val privileges: String? = null
 
-            override fun rules(moduleType: XdmModuleType): String? = null
+            override val rules: String? = null
 
             override val errorConditions: String? = null
         }

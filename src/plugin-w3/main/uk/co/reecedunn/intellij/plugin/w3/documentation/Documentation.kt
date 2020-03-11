@@ -50,17 +50,17 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val examples: Sequence<String> get() = section("Examples")?.let { sequenceOf(it) } ?: emptySequence()
 
-    override val operatorMapping: String? = section("Operator Mapping")
+    override val operatorMapping: String? get() = section("Operator Mapping")
 
-    override val signatures: String? = section("Signatures") ?: section("Signature")
+    override val signatures: String? get() = section("Signatures") ?: section("Signature")
 
-    override val properties: String? = section("Properties")
+    override val properties: String? get() = section("Properties")
 
     override val privileges: String? = null
 
-    override fun rules(moduleType: XdmModuleType): String? = section("Rules")
+    override val rules: String? get() = section("Rules")
 
-    override val errorConditions: String? = section("Error Conditions")
+    override val errorConditions: String? get() = section("Error Conditions")
 }
 
 internal data class W3CSpecificationDocument(

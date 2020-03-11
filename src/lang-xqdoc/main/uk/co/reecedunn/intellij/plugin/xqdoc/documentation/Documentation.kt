@@ -40,7 +40,7 @@ interface XQDocFunctionDocumentation : XQDocDocumentation {
 
     val privileges: String?
 
-    fun rules(moduleType: XdmModuleType): String?
+    val rules: String?
 
     val errorConditions: String?
 }
@@ -52,7 +52,7 @@ fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
         XQDocBundle.message("section.signatures") to (this as? XQDocFunctionDocumentation)?.signatures,
         XQDocBundle.message("section.properties") to (this as? XQDocFunctionDocumentation)?.properties,
         XQDocBundle.message("section.required-privileges") to (this as? XQDocFunctionDocumentation)?.privileges,
-        XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules(moduleType),
+        XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules,
         XQDocBundle.message("section.error-conditions") to (this as? XQDocFunctionDocumentation)?.errorConditions,
         XQDocBundle.message("section.notes") to notes,
         XQDocBundle.message("section.examples") to examples.joinToString("\n").nullize()
