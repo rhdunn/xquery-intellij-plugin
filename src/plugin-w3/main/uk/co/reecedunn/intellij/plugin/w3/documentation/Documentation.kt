@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
-internal class W3CFunctionReference(private val node: Element, private val baseHref: String) :
+internal class W3CFunctionReference(private val node: Element, baseHref: String) :
     XQDocFunctionDocumentation {
     private fun normalize(node: Element): Element {
         // JEditorPanel does not support vertical-align on tr/td elements, so use valign instead.
@@ -44,7 +44,7 @@ internal class W3CFunctionReference(private val node: Element, private val baseH
         return section?.let { normalize(it).html() }
     }
 
-    override fun summary(moduleType: XdmModuleType): String? = section("Summary")
+    override val summary: String? get() = section("Summary")
 
     override fun notes(moduleType: XdmModuleType): String? = section("Notes")
 

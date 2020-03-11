@@ -24,7 +24,7 @@ interface XQDocDocumentation {
 
     val href: String?
 
-    fun summary(moduleType: XdmModuleType): String?
+    val summary: String?
 
     fun notes(moduleType: XdmModuleType): String?
 
@@ -47,7 +47,7 @@ interface XQDocFunctionDocumentation : XQDocDocumentation {
 
 fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
     val sections = sequenceOf(
-        XQDocBundle.message("section.summary") to summary(moduleType),
+        XQDocBundle.message("section.summary") to summary,
         XQDocBundle.message("section.operator-mapping") to (this as? XQDocFunctionDocumentation)?.operatorMapping,
         XQDocBundle.message("section.signatures") to (this as? XQDocFunctionDocumentation)?.signatures,
         XQDocBundle.message("section.properties") to (this as? XQDocFunctionDocumentation)?.properties,
