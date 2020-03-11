@@ -5,14 +5,14 @@ buildscript {
     ext.since_from_version = { version ->
         // (1) Year and Version
 
-        def since = version =~ /([A-Z]+-)?20([0-9][0-9])\.([1-3])(\.[0-9]+)?/
+        def since = version =~ /([A-Z]+-)?20([0-9][0-9])\.([1-3])(\.[0-9]+)?$/
         if (since.matches()) {
             return "${since.group(2)}${since.group(3)}"
         }
 
         // (2) Build ID
 
-        since = version =~ /([A-Z]+-)?([0-9][0-9][0-9])\.[0-9]+?/
+        since = version =~ /([A-Z]+-)?([0-9][0-9][0-9])\.[0-9]+?$/
         if (since.matches()) {
             return since.group(2)
         }
