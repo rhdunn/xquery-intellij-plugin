@@ -28,7 +28,7 @@ interface XQDocDocumentation {
 
     val notes: String?
 
-    fun examples(moduleType: XdmModuleType): Sequence<String>
+    val examples: Sequence<String>
 }
 
 interface XQDocFunctionDocumentation : XQDocDocumentation {
@@ -55,7 +55,7 @@ fun XQDocDocumentation.sections(moduleType: XdmModuleType): String {
         XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules(moduleType),
         XQDocBundle.message("section.error-conditions") to (this as? XQDocFunctionDocumentation)?.errorConditions,
         XQDocBundle.message("section.notes") to notes,
-        XQDocBundle.message("section.examples") to examples(moduleType).joinToString("\n").nullize()
+        XQDocBundle.message("section.examples") to examples.joinToString("\n").nullize()
     ).filter { it.second != null }
     return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
 }

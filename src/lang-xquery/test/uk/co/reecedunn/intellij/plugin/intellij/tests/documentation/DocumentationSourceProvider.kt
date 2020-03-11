@@ -44,7 +44,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
             override val notes: String? = null
 
-            override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
+            override val examples: Sequence<String> = emptySequence()
 
             override val operatorMapping: String? = null
 
@@ -73,7 +73,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
             override val notes: String? = null
 
-            override fun examples(moduleType: XdmModuleType): Sequence<String> = emptySequence()
+            override val examples: Sequence<String> = emptySequence()
         }
     }
 
