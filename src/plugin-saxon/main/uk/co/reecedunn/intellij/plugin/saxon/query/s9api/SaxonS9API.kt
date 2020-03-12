@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,6 +56,14 @@ object SaxonS9API : QueryProcessorApi {
             throw MissingJarFileException(displayName)
         return try {
             Saxon(File(jar), config)
+        } catch (e: ClassNotFoundException) {
+            throw UnsupportedJarFileException(displayName)
+        }
+    }
+
+    override fun newInstanceManager(classLoader: ClassLoader, config: InputStream?): QueryProcessorInstanceManager {
+        return try {
+            Saxon(classLoader, config)
         } catch (e: ClassNotFoundException) {
             throw UnsupportedJarFileException(displayName)
         }

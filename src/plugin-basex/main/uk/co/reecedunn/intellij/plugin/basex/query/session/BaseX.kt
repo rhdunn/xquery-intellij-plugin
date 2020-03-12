@@ -32,8 +32,9 @@ internal fun mapType(type: String?): String? {
         type
 }
 
-class BaseX(path: File) : QueryProcessorInstanceManager {
-    private val classLoader = URLClassLoader(arrayOf(path.toURI().toURL()))
+class BaseX(private val classLoader: ClassLoader) : QueryProcessorInstanceManager {
+    constructor(path: File) : this(URLClassLoader(arrayOf(path.toURI().toURL())))
+
     private val context = Context(classLoader, true)
 
     override fun create(): QueryProcessor {

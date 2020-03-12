@@ -61,4 +61,8 @@ object MarkLogicRest : QueryProcessorApi {
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         return MarkLogic()
     }
+
+    override fun newInstanceManager(classLoader: ClassLoader, config: InputStream?): QueryProcessorInstanceManager {
+        return MarkLogic()
+    }
 }

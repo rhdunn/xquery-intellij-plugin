@@ -55,4 +55,12 @@ object BaseXSession : QueryProcessorApi {
             throw UnsupportedJarFileException(displayName)
         }
     }
+
+    override fun newInstanceManager(classLoader: ClassLoader, config: InputStream?): QueryProcessorInstanceManager {
+        return try {
+            BaseX(classLoader)
+        } catch (e: ClassNotFoundException) {
+            throw UnsupportedJarFileException(displayName)
+        }
+    }
 }

@@ -39,4 +39,6 @@ interface QueryProcessorApi {
     fun canExecute(language: Language, executorId: String): Boolean
 
     fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager
+
+    fun newInstanceManager(classLoader: ClassLoader, config: InputStream?): QueryProcessorInstanceManager
 }

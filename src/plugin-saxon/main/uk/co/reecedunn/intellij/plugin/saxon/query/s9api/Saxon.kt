@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import java.io.InputStream
 import java.net.URLClassLoader
 import javax.xml.transform.stream.StreamSource
 
-class Saxon(path: File, private val config: InputStream?) : QueryProcessorInstanceManager {
-    private val classLoader = URLClassLoader(arrayOf(path.toURI().toURL()))
+class Saxon(private val classLoader: ClassLoader, private val config: InputStream?) : QueryProcessorInstanceManager {
+    constructor(path: File, config: InputStream?) : this(URLClassLoader(arrayOf(path.toURI().toURL())), config)
 
     override fun create(): QueryProcessor {
         return SaxonQueryProcessor(classLoader, config?.let { StreamSource(it) })

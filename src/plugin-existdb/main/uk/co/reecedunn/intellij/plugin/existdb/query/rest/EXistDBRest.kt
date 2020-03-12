@@ -47,4 +47,8 @@ object EXistDBRest : QueryProcessorApi {
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         return EXistDB()
     }
+
+    override fun newInstanceManager(classLoader: ClassLoader, config: InputStream?): QueryProcessorInstanceManager {
+        return EXistDB()
+    }
 }
