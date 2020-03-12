@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,10 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import org.w3c.dom.Node
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -30,7 +33,8 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.RawDestination
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
-import javax.xml.transform.stream.StreamSource
+import javax.xml.transform.Source
+import javax.xml.transform.dom.DOMSource
 
 internal class SaxonXsltRunner(
     val processor: Processor,
@@ -61,7 +65,7 @@ internal class SaxonXsltRunner(
 
     override var modulePath: String = ""
 
-    private var context: StreamSource? = null
+    private var context: Source? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
@@ -71,6 +75,9 @@ internal class SaxonXsltRunner(
         context = when (value) {
             is DatabaseModule -> value.path.toStreamSource()
             is VirtualFile -> value.decode()?.toStreamSource()
+            is XmlDocument -> DOMSource(value.doc)
+            is XmlElement -> DOMSource(value.element)
+            is Node -> DOMSource(value)
             else -> value?.toString()?.toStreamSource()
         }
     }
