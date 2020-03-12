@@ -203,6 +203,43 @@ div.intellij-version ~ h3 {
   clear: none;
 }
 
+/* Posts ------------------------------------------------------------------- */
+
+ul.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.posts li span {
+  font-family: Consolas, "Liberation Mono", monospace;
+}
+
+ul.posts li span:after {
+  display: inline-block;
+  content: '\A0\2013\A0';
+}
+
+h2.posts-year {
+  font-size: 24px;
+}
+
+.post div.title {
+  clear: both;
+  margin-bottom: 30px;
+}
+
+.post div.title h1 {
+  margin-bottom: 0;
+}
+
+.post div.title p.date {
+  float: right;
+  margin-top: -1.75em;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
 /* Table of Contents ------------------------------------------------------- */
 
 ul.toc, ul.toc ul { list-style: none; margin: 0; }

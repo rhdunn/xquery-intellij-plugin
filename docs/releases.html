@@ -1,0 +1,28 @@
+---
+layout: page
+title: Releases
+---
+
+{% for post in site.posts %}{% if post.category == "release" %}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+
+    {% if forloop.first %}
+    <h2 class="posts-year">{{this_year}}</h2>
+    <ul class="posts">
+    {% endif %}
+
+    <li>
+        <span>{{ post.date | date_to_string }}</span><a rel="s:blogPost" href="{{site.baseurl}}/{{post.url}}">{{ post.title }}</a>
+    </li>
+
+    {% if forloop.last %}
+    </ul>
+    {% else %}
+        {% if this_year != next_year %}
+        </ul>
+        <h2 class="posts-year">{{next_year}}</h2>
+        <ul class="posts">
+        {% endif %}
+    {% endif %}
+{% endif %}{% endfor %}
