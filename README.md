@@ -8,7 +8,7 @@
 
 ## IntelliJ XQuery Plugin
 
-This is a plugin for IntelliJ IDE 2019.1 &ndash; 2019.3 that adds support
+This is a plugin for IntelliJ IDE 2019.1 &ndash; 2020.1 that adds support
 for the XML Query (XQuery) language. This covers support for:
 1.  XQuery 1.0, 3.0, and 3.1;
 1.  XQuery and XPath Full Text extension;
@@ -29,7 +29,7 @@ This plugin provides support for the following implementations of XQuery:
 1.  Saxon 9.2 &ndash; 9.9.
 
 For those XQuery implementations, this plugin supports:
-1.  Running XQuery, XSLT, XPath, SPARQL, SQL, ans JavaScript queries where
+1.  Running XQuery, XSLT, XPath, SPARQL, SQL, and JavaScript queries where
     supported by the implementation;
 1.  Profiling XQuery and XSLT queries;
 1.  Viewing access and error log files.
@@ -39,19 +39,20 @@ For those XQuery implementations, this plugin supports:
 This plugin provides support for the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references;
 1.  Code folding;
-1.  Find usages and semantic usage highlighting;
-1.  Rename refactoring for variables;
+1.  Find usages;
+1.  Semantic usage highlighting; __(Coming in 1.6)__
+1.  Rename refactoring for variables; __(Coming in 1.6)__
 1.  Code completion;
 1.  Parameter information;
-1.  Parameter inlay hints;
+1.  Parameter inlay hints; __(Coming in 1.6)__
 1.  Structure view;
 1.  Breadcrumb navigation;
 1.  Paired brace matching;
 1.  Commenting code;
-1.  Integrated function documentation ("Quick Documentation", Ctrl+Q);
-1.  Context information (Alt+Q) for XQuery function declarations;
+1.  Integrated function documentation ("Quick Documentation", Ctrl+Q); __(Coming in 1.6)__
+1.  Context information (Alt+Q) for XQuery function declarations; __(Coming in 1.6)__
 1.  Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT
-    terms.
+    terms. __(Coming in 1.6)__
 
 -----
 

@@ -90,7 +90,6 @@
         function expressions.
       </li>
       <li>Support quick documentation (Ctrl+Q) for W3C XQuery functions.</li>
-      <li>Support quick documentation (Ctrl+Q) for MarkLogic modules.</li>
       <li>
         Support displaying the XQuery file structure view in the navigation bar
         on IntelliJ 2020.1.

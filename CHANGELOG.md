@@ -27,7 +27,6 @@ IntelliJ Integration:
 1.  Implement inlay parameter hints for XQuery function calls and named arrow
     function expressions.
 1.  Support quick documentation (Ctrl+Q) for W3C XQuery functions.
-1.  Support quick documentation (Ctrl+Q) for MarkLogic modules.
 1.  Support displaying the XQuery file structure view in the navigation bar on
     IntelliJ 2020.1.
 1.  Provide spellchecking support with bundled dictionaries for XPath, XQuery,
