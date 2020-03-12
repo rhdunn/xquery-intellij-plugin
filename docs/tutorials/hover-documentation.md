@@ -2,13 +2,13 @@
 layout: page
 title: Hover documentation
 image:
-  url: /images/tutorials/hover-documentation.png
+  url: /images/tutorials/quick-documentation.png
   width: 450px
-  height: 100px
+  height: 160px
   alt: Hover documentation
 ---
 
-To enable hover summary documentation, you can:
+To enable quick documentation on hover, you can:
 
 1.  Select the *File* menu.
 1.  Select the *Settings* menu.
@@ -21,6 +21,6 @@ To enable hover summary documentation, you can:
 Once you are finished, press the *Apply* button to make the changes and keep
 the dialog open, or *OK* to make the changes and close the dialog.
 
-The summary documentation will now appear when you hover over an item in the
+The quick documentation will now appear when you hover over an item in the
 editor that has documentation, like hovering over the <code>exp</code> part
 of the <code>math:exp</code> function in the screenshot above.
