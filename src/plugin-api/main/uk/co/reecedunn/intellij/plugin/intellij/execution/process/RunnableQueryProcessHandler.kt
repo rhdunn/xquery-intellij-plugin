@@ -35,19 +35,18 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                             notifyResult(QueryResult.fromItemType(0, results.status.toString(), "http:status-line"))
                         }
                         results.results.forEach { result -> notifyResult(result) }
-                        notifyEndResults()
                         notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
                     } catch (e: Throwable) {
-                        notifyEndResults()
                         notifyException(e)
                     } finally {
+                        notifyEndResults()
                         notifyProcessDetached()
                     }
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.defaultModalityState()) {
-                    notifyEndResults()
                     notifyException(e)
+                    notifyEndResults()
                     notifyProcessDetached()
                 }
             }
