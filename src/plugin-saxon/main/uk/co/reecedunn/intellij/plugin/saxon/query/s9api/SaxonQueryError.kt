@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,11 +35,10 @@ internal fun <T> check(
     return try {
         f()
     } catch (e: InvocationTargetException) {
-        val target = e.targetException.run { toXPathException(classLoader)?.toSaxonQueryError(queryFile) ?: this }
-        if (target is QueryError && target.standardCode == "FOER0000" && listener?.fatalError != null)
+        if (listener?.fatalError != null)
             throw listener.fatalError!!
         else
-            throw target
+            throw e.targetException.run { toXPathException(classLoader)?.toSaxonQueryError(queryFile) ?: this }
     }
 }
 
