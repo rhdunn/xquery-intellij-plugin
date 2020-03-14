@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 
 open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass) {
     companion object {
-        fun newInstance(value: Any?, type: String, classLoader: ClassLoader): XdmItem {
+        fun newInstance(value: Any?, type: String, processor: Processor): XdmItem {
+            val classLoader = processor.classLoader
             return when (type) {
                 "xs:QName" -> XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(classLoader))
                 "xs:numeric" -> XdmNumeric.newInstance(value as String, classLoader)
