@@ -24,6 +24,10 @@ open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObjec
             return when (type) {
                 "xs:QName" -> XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(classLoader))
                 "xs:numeric" -> XdmNumeric.newInstance(value as String, classLoader)
+                "comment()" -> XdmNode.newInstance(value, processor)
+                "document-node()" -> XdmNode.newInstance(value, processor)
+                "element()" -> XdmNode.newInstance(value, processor)
+                "processing-instruction()" -> XdmNode.newInstance(value, processor)
                 else -> XdmAtomicValue(value as String, type, classLoader)
             }
         }

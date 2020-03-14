@@ -15,4 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-class XdmNode(`object`: Any, `class`: Class<*>) : XdmItem(`object`, `class`)
+import org.w3c.dom.Node
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
+
+class XdmNode(`object`: Any, `class`: Class<*>) : XdmItem(`object`, `class`) {
+    companion object {
+        fun newInstance(value: Any?, processor: Processor): XdmItem {
+            val builder = processor.newDocumentBuilder()
+            return when (value) {
+                is XmlDocument -> builder.wrap(value.doc)
+                is XmlElement -> builder.wrap(value.element)
+                is Node -> builder.wrap(value)
+                else -> builder.build(value.toString().toStreamSource())
+            }
+        }
+    }
+}
