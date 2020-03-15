@@ -24,6 +24,8 @@ declare variable $apidoc as element(apidoc:apidoc) :=
     case document-node() return ./element()
     default return .;
 
+declare variable $language as xs:string := "xquery"; (: xquery | rest :)
+
 (: functions --------------------------------------------------------------- :)
 
 (: Several functions in the apidocs have duplicate parameter names in some versions, so fix these. :)
@@ -34,7 +36,16 @@ declare variable $param-fixes := map {
     "math:rank": ("arg1", "arg2", "options")
 };
 
-declare variable $functions as element(apidoc:function)* := $apidoc//apidoc:function;
+declare variable $functions as element(apidoc:function)* := $apidoc//apidoc:function[
+    local:function-language(.) = $language
+];
+
+declare function local:function-language($function as element(apidoc:function)) as xs:string {
+    let $bucket := $function/@bucket
+    return switch ($bucket)
+    case "REST Resources API" return "rest"
+    default return "xquery"
+};
 
 declare function local:function-name($function as element(apidoc:function)) as xs:string {
     ``[`{$function/@lib}`:`{$function/@name}`]``
