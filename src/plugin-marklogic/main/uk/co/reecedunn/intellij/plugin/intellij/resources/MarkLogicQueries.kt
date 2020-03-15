@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,8 @@ object MarkLogicQueries {
     val Version = resourceFile("queries/marklogic/version.xq")
     val Servers = resourceFile("queries/marklogic/servers.xq")
     val Databases = resourceFile("queries/marklogic/databases.xq")
+
+    val ApiDocs = resourceFile("queries/marklogic/apidocs.xq")
 
     object Log {
         val Logs = resourceFile("queries/marklogic/log/logs.xq")

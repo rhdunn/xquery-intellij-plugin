@@ -18,6 +18,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.zip.unzip
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApis
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
@@ -40,6 +44,13 @@ private data class MarkLogicZippedDocumentation(
     // endregion
     // region XdmDocumentationIndex
 
+    private val query = CacheableProperty {
+        val s9api = QueryProcessorApis.find { api -> api.id == "saxon.s9api" }!!
+        val saxon = s9api.newInstanceManager(javaClass.classLoader, null).create() as RunnableQueryProvider
+        val query = saxon.createRunnableQuery(MarkLogicQueries.ApiDocs, XQuery)
+        query
+    }
+
     private val apidocs = CacheableProperty {
         XQDocDocumentationDownloader.getInstance().load(this, download = true)?.let {
             val docs = XmlDocument.parse(ML_DOC_TEMPLATE, NAMESPACES)
@@ -53,6 +64,7 @@ private data class MarkLogicZippedDocumentation(
                 }
             }
             docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
+            query.get()!!.bindContextItem(docs, "document-node()")
             docs
         }
     }
