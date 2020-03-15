@@ -81,10 +81,13 @@ declare variable $marklogic-additional := map {
     "exsl": "http://exslt.org/common",
     "extusr": "http://marklogic.com/xdmp/external/user",
     "gr": "http://marklogic.com/xdmp/group",
+    "lang": "http://marklogic.com/xdmp/language",
     "list": "http://marklogic.com/manage/package/list",
+    "md": "urn:oasis:names:tc:SAML:2.0:metadata",
     "mt": "http://marklogic.com/xdmp/mimetypes",
     "pkg": "http://marklogic.com/manage/package",
     "s": "http://www.w3.org/2009/xpath-functions/analyze-string",
+    "sch": "http://purl.oclc.org/dsdl/schematron",
     "x509": "http://marklogic.com/xdmp/x509",
     "xdt": "http://www.w3.org/2004/10/xpath-datatypes",
     "xi": "http://www.w3.org/2001/XInclude"
@@ -149,16 +152,22 @@ declare function local:function-parameter($function as element(apidoc:function),
 };
 
 declare function local:function-parameter-type($function as element(apidoc:function), $name as xs:string) as xs:string {
-    if ($function/@lib = "exsl" and $function/@name = "object-type") then
-        "item()*" (: MarkLogic 7 and earlier docs have this as 'atomic type'. :)
-    else
-        let $type := local:function-parameter($function, $name)/@type/string()
-        return switch ($type)
-        case "binary())" return "binary()"
-        case "xs:string)" return "xs:string"
-        case "(element()|map:map)?" case "element()?|map:map?" return "(element()?|map:map?)"
-        case "(cts:order|xs:string)*" return "(cts:order*|xs:string*)"
-        default return replace($type, ",\.\.\.", "...")
+    let $type := local:function-parameter($function, $name)/@type/string()
+    return switch ($type)
+    case "atomic type" return "item()*"
+    case "xs:string)" return "xs:string"
+    case "xs:dateTime? | xs:date? | xs:string?" return "(xs:dateTime?|xs:date?|xs:string?)"
+    case "binary())" return "binary()"
+    case "element(sec:query-rolesets)*)" return "element(sec:query-rolesets)*"
+    case "function()" return "function(*)"
+    case "item()* | map:map" return "(item()*|map:map)"
+    case "(binary()|node())*" return "(binary()*|node()*)"
+    case "(binary()|node())?" return "(binary()?|node()?)"
+    case "(element()|map:map)?" case "element()?|map:map?" return "(element()?|map:map?)"
+    case "(node()? | map:map)?" return "(node()?|map:map?)"
+    case "(cts:order|xs:string)*" return "(cts:order*|xs:string*)"
+    case "[xs:string?]" return "xs:string?"
+    default return replace($type, ",\.\.\.", "...")
 };
 
 declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
@@ -167,9 +176,13 @@ declare function local:function-return-type($function as element(apidoc:function
     case "An XML representation of the certificate." return "element()?"
     case "element())" case "Element()" return "element()"
     case "element()|map:map" return "(element()|map:map)"
+    case "element(xsd:schema)*" return "element(xs:schema)*"
+    case "empty-sequence" return "empty-sequence()"
+    case "xs:string)" return "xs:string"
     case "xs:unsignedLong)" return "xs:unsignedLong"
     case "pkgins:install($pkgname)" return "element(pkg:install-status)"
     case "pkgins:revert($ticket)" return "element(pkg:revert-status)"
+    case "query-results-serialize($results)" return "item()*"
     case "The return data type is the data type of the date argument" return "item()"
     case "" return
         switch (local:function-name($function))
