@@ -32,7 +32,7 @@ declare variable $language as xs:string := "xquery"; (: xquery | rest :)
 declare variable $module-namespaces := map:merge(
     for $import in $apidoc//apidoc:module/apidoc:summary/(*:p|*:pre)
     let $match := fn:analyze-string(($import/*:code, $import)[1], "import module (namespace\s*([a-z0-9]+)\s*=\s*)?""([^""]+)""")/fn:match[1]
-    let $prefix := ($match//fn:group[@nr = "2"]/string(), $import/ancestor::apidoc:module/@lib)[1]
+    let $prefix := $import/ancestor::apidoc:module/@lib
     let $namespace := $match/fn:group[@nr = "3"]/string()
     where exists($namespace)
     return map:entry($prefix, $namespace)
@@ -59,6 +59,16 @@ declare variable $marklogic-5-builtin := map {
     "xdmp": "http://marklogic.com/xdmp"
 };
 
+declare variable $marklogic-6-builtin := map {
+    "err": "http://www.w3.org/2005/xqt-error"
+};
+
+declare variable $marklogic-7-builtin := map {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "sc": "http://marklogic.com/xdmp/schema-components",
+    "sql": "http://marklogic.com/xdmp/sql"
+};
+
 declare variable $marklogic-additional := map {
     "as": "http://marklogic.com/xdmp/assignments",
     "db": "http://marklogic.com/xdmp/database",
@@ -66,18 +76,21 @@ declare variable $marklogic-additional := map {
     "cl": "http://marklogic.com/xdmp/clusters",
     "exsl": "http://exslt.org/common",
     "gr": "http://marklogic.com/xdmp/group",
-    "xdt": "http://www.w3.org/2004/10/xpath-datatypes",
-    "xi": "http://www.w3.org/2001/XInclude",
+    "list": "http://marklogic.com/manage/package/list",
     "mt": "http://marklogic.com/xdmp/mimetypes",
     "pkg": "http://marklogic.com/manage/package",
     "s": "http://www.w3.org/2009/xpath-functions/analyze-string",
-    "x509": "http://marklogic.com/xdmp/x509"
+    "x509": "http://marklogic.com/xdmp/x509",
+    "xdt": "http://www.w3.org/2004/10/xpath-datatypes",
+    "xi": "http://www.w3.org/2001/XInclude"
 };
 
 declare variable $namespaces := map:merge((
     $module-namespaces,
     $xquery-namespaces,
     $marklogic-5-builtin,
+    $marklogic-6-builtin,
+    $marklogic-7-builtin,
     $marklogic-additional,
     ()
 ));
@@ -141,11 +154,14 @@ declare function local:function-parameter-type($function as element(apidoc:funct
 };
 
 declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
-    let $type := $function/apidoc:return/string()
+    let $type := normalize-space($function/apidoc:return)
     return switch ($type)
     case "An XML representation of the certificate." return "element()?"
     case "element())" return "element()"
     case "xs:unsignedLong)" return "xs:unsignedLong"
+    case "pkgins:install($pkgname)" return "element(pkg:install-status)"
+    case "pkgins:revert($ticket)" return "element(pkg:revert-status)"
+    case "The return data type is the data type of the date argument" return "item()"
     default return $type
 };
 
