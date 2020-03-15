@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmItem
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
 internal class SaxonXPathRunner(
@@ -59,8 +59,9 @@ internal class SaxonXPathRunner(
 
     private var context: XdmItem? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?) {
-        throw UnsupportedOperationException()
+    override fun bindVariable(name: String, value: Any?, type: String?) = check(queryFile, processor.classLoader) {
+        val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(processor.classLoader)
+        selector.setVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
