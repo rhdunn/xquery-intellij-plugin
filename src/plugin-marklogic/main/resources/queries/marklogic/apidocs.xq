@@ -16,6 +16,7 @@
 xquery version "3.1";
 
 declare namespace apidoc = "http://marklogic.com/xdmp/apidoc";
+declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
 declare variable $apidoc as element(apidoc:apidoc) :=
     typeswitch (.)
@@ -25,6 +26,14 @@ declare variable $apidoc as element(apidoc:apidoc) :=
 
 (: functions --------------------------------------------------------------- :)
 
+(: Several functions in the apidocs have duplicate parameter names in some versions, so fix these. :)
+declare variable $param-fixes := map {
+    "fn:subtract-dateTimes-yielding-dayTimeDuration": ("srcval1", "srcval2"),
+    "fn:subtract-dateTimes-yielding-yearMonthDuration": ("srcval1", "srcval2"),
+    "math:fmod": ("x", "y"),
+    "math:rank": ("arg1", "arg2", "options")
+};
+
 declare variable $functions as element(apidoc:function)* := $apidoc//apidoc:function;
 
 declare function local:function-name($function as element(apidoc:function)) as xs:string {
@@ -32,15 +41,29 @@ declare function local:function-name($function as element(apidoc:function)) as x
 };
 
 declare function local:function-parameters($function as element(apidoc:function)) as xs:string* {
-    let $names as xs:string* := $function/apidoc:params/apidoc:param/@name/string()
+    let $names as xs:string* :=
+        let $names := map:get($param-fixes, local:function-name($function))
+        return if (exists($names)) then
+            $names
+        else
+            $function/apidoc:params/apidoc:param/@name/string()
     return if (count($names) != count(distinct-values($names))) then
         fn:error(xs:QName("err:XQST0039"),``[Duplicate parameter name in `{local:function-name($function)}`]``)
     else
         $names
 };
 
+declare function local:function-parameter($function as element(apidoc:function), $name as xs:string) as element(apidoc:param) {
+    let $names := map:get($param-fixes, local:function-name($function))
+    return if (exists($names)) then
+        let $i := fn:index-of($names, $name)
+        return $function/apidoc:params/apidoc:param[$i]
+    else
+        $function/apidoc:params/apidoc:param[@name = $name]
+};
+
 declare function local:function-parameter-type($function as element(apidoc:function), $name as xs:string) as xs:string {
-    $function/apidoc:params/apidoc:param[@name = $name]/@type
+    local:function-parameter($function, $name)/@type
 };
 
 declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
