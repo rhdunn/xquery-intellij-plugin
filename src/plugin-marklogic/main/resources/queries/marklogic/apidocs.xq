@@ -23,4 +23,38 @@ declare variable $apidoc as element(apidoc:apidoc) :=
     case document-node() return ./element()
     default return .;
 
-()
+(: functions --------------------------------------------------------------- :)
+
+declare variable $functions as element(apidoc:function)* := $apidoc//apidoc:function;
+
+declare function local:function-name($function as element(apidoc:function)) as xs:string {
+    ``[`{$function/@lib}`:`{$function/@name}`]``
+};
+
+declare function local:function-parameters($function as element(apidoc:function)) as xs:string* {
+    $function/apidoc:params/apidoc:param/@name
+};
+
+declare function local:function-parameter-type($function as element(apidoc:function), $name as xs:string) as xs:string {
+    $function/apidoc:params/apidoc:param[@name = $name]/@type
+};
+
+declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
+    $function/apidoc:return
+};
+
+declare function local:function-xquery-signatures($function as element(apidoc:function)) as xs:string* {
+    let $name := local:function-name($function)
+    let $params :=
+        for $name in local:function-parameters($function)
+        let $type := local:function-parameter-type($function, $name)
+        return ``[$`{$name}` as `{$type}`]``
+    let $type := local:function-return-type($function)
+    return ``[declare function `{$name}`(`{string-join($params, ", ")}`) as `{$type}` external;]``
+};
+
+(: query ------------------------------------------------------------------- :)
+
+for $function in $functions
+order by $function/@lib, $function/@name
+return local:function-xquery-signatures($function)
