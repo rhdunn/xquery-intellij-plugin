@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,13 @@ class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) 
         } else {
             `class`.getMethod("setDestination", destinationClass).invoke(`object`, destination.saxonObject)
         }
+    }
+
+    fun setParameter(qname: QName, value: XdmValue) {
+        val xdmValueClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
+        `class`.getMethod("setParameter", qname.saxonClass, xdmValueClass).invoke(
+            `object`, qname.`object`, value.saxonObject
+        )
     }
 
     fun transform() {
