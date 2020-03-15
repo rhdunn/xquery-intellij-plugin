@@ -32,7 +32,11 @@ declare function local:function-name($function as element(apidoc:function)) as x
 };
 
 declare function local:function-parameters($function as element(apidoc:function)) as xs:string* {
-    $function/apidoc:params/apidoc:param/@name
+    let $names as xs:string* := $function/apidoc:params/apidoc:param/@name/string()
+    return if (count($names) != count(distinct-values($names))) then
+        fn:error(xs:QName("err:XQST0039"),``[Duplicate parameter name in `{local:function-name($function)}`]``)
+    else
+        $names
 };
 
 declare function local:function-parameter-type($function as element(apidoc:function), $name as xs:string) as xs:string {
