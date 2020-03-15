@@ -64,12 +64,9 @@ internal class SaxonXQueryRunner(
 
     private var context: XdmItem? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?) {
-        val classLoader = processor.classLoader
-        check(queryFile, classLoader) {
-            val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(classLoader)
-            evaluator.setExternalVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
-        }
+    override fun bindVariable(name: String, value: Any?, type: String?) = check(queryFile, processor.classLoader) {
+        val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(processor.classLoader)
+        evaluator.setExternalVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
