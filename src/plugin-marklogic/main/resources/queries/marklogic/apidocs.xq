@@ -134,7 +134,10 @@ declare function local:function-parameter-type($function as element(apidoc:funct
         "item()*" (: MarkLogic 7 and earlier docs have this as 'atomic type'. :)
     else
         let $type := local:function-parameter($function, $name)/@type/string()
-        return replace($type, ",\.\.\.", "...")
+        return switch ($type)
+        case "binary())" return "binary()"
+        case "xs:string)" return "xs:string"
+        default return replace($type, ",\.\.\.", "...")
 };
 
 declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
