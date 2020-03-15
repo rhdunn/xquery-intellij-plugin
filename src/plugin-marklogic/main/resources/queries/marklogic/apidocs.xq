@@ -73,6 +73,11 @@ declare variable $marklogic-7-builtin := map {
     "sql": "http://marklogic.com/xdmp/sql"
 };
 
+declare variable $marklogic-10-builtin := map {
+    "cntk": "http://marklogic.com/cntk",
+    "ort": "http://marklogic.com/onnxruntime"
+};
+
 declare variable $marklogic-additional := map {
     "as": "http://marklogic.com/xdmp/assignments",
     "db": "http://marklogic.com/xdmp/database",
@@ -99,6 +104,7 @@ declare variable $namespaces := map:merge((
     $marklogic-5-builtin,
     $marklogic-6-builtin,
     $marklogic-7-builtin,
+    $marklogic-10-builtin,
     $marklogic-additional,
     ()
 ));
@@ -177,7 +183,7 @@ declare function local:function-return-type($function as element(apidoc:function
     case "element())" case "Element()" return "element()"
     case "element()|map:map" return "(element()|map:map)"
     case "element(xsd:schema)*" return "element(xs:schema)*"
-    case "empty-sequence" return "empty-sequence()"
+    case "empty-sequence" case "empty sequence" return "empty-sequence()"
     case "xs:string)" return "xs:string"
     case "xs:unsignedLong)" return "xs:unsignedLong"
     case "pkgins:install($pkgname)" return "element(pkg:install-status)"
