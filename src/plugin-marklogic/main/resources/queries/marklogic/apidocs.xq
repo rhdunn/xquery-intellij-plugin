@@ -17,6 +17,7 @@ xquery version "3.1";
 
 declare namespace apidoc = "http://marklogic.com/xdmp/apidoc";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
+declare namespace xhtml = "http://www.w3.org/1999/xhtml";
 
 declare variable $apidoc as element(apidoc:apidoc) :=
     typeswitch (.)
@@ -25,6 +26,61 @@ declare variable $apidoc as element(apidoc:apidoc) :=
     default return .;
 
 declare variable $language as xs:string := "xquery"; (: xquery | rest :)
+
+(: namespaces -------------------------------------------------------------- :)
+
+declare variable $module-namespaces := map:merge(
+    for $import in $apidoc//apidoc:module/apidoc:summary/(*:p|*:pre)
+    let $match := fn:analyze-string(($import/*:code, $import)[1], "import module (namespace\s*([a-z0-9]+)\s*=\s*)?""([^""]+)""")/fn:match[1]
+    let $prefix := ($match//fn:group[@nr = "2"]/string(), $import/ancestor::apidoc:module/@lib)[1]
+    let $namespace := $match/fn:group[@nr = "3"]/string()
+    where exists($namespace)
+    return map:entry($prefix, $namespace)
+);
+
+declare variable $xquery-namespaces := map {
+    "local": "http://www.w3.org/2005/xquery-local-functions",
+    "fn": "http://www.w3.org/2005/xpath-functions",
+    "xml": "http://www.w3.org/XML/1998/namespace",
+    "xs": "http://www.w3.org/2001/XMLSchema",
+    "xsi": "http://www.w3.org/2001/XMLSchema-instance"
+};
+
+declare variable $marklogic-5-builtin := map {
+    "cts": "http://marklogic.com/cts",
+    "dbg": "http://marklogic.com/xdmp/dbg",
+    "dir": "http://marklogic.com/xdmp/directory",
+    "error": "http://marklogic.com/xdmp/error",
+    "map": "http://marklogic.com/xdmp/map",
+    "math": "http://marklogic.com/xdmp/math",
+    "prof": "http://marklogic.com/xdmp/profile",
+    "sec": "http://marklogic.com/security",
+    "spell": "http://marklogic.com/xdmp/spell",
+    "xdmp": "http://marklogic.com/xdmp"
+};
+
+declare variable $marklogic-additional := map {
+    "as": "http://marklogic.com/xdmp/assignments",
+    "db": "http://marklogic.com/xdmp/database",
+    "dg": "xdmp:document-get",
+    "cl": "http://marklogic.com/xdmp/clusters",
+    "exsl": "http://exslt.org/common",
+    "gr": "http://marklogic.com/xdmp/group",
+    "xdt": "http://www.w3.org/2004/10/xpath-datatypes",
+    "xi": "http://www.w3.org/2001/XInclude",
+    "mt": "http://marklogic.com/xdmp/mimetypes",
+    "pkg": "http://marklogic.com/manage/package",
+    "s": "http://www.w3.org/2009/xpath-functions/analyze-string",
+    "x509": "http://marklogic.com/xdmp/x509"
+};
+
+declare variable $namespaces := map:merge((
+    $module-namespaces,
+    $xquery-namespaces,
+    $marklogic-5-builtin,
+    $marklogic-additional,
+    ()
+));
 
 (: functions --------------------------------------------------------------- :)
 
@@ -74,11 +130,20 @@ declare function local:function-parameter($function as element(apidoc:function),
 };
 
 declare function local:function-parameter-type($function as element(apidoc:function), $name as xs:string) as xs:string {
-    local:function-parameter($function, $name)/@type
+    if ($function/@lib = "exsl" and $function/@name = "object-type") then
+        "item()*" (: MarkLogic 7 and earlier docs have this as 'atomic type'. :)
+    else
+        let $type := local:function-parameter($function, $name)/@type/string()
+        return replace($type, ",\.\.\.", "...")
 };
 
 declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
-    $function/apidoc:return
+    let $type := $function/apidoc:return/string()
+    return switch ($type)
+    case "An XML representation of the certificate." return "element()?"
+    case "element())" return "element()"
+    case "xs:unsignedLong)" return "xs:unsignedLong"
+    default return $type
 };
 
 declare function local:function-xquery-signatures($function as element(apidoc:function)) as xs:string* {
@@ -93,6 +158,11 @@ declare function local:function-xquery-signatures($function as element(apidoc:fu
 
 (: query ------------------------------------------------------------------- :)
 
+for $prefix in map:keys($namespaces)
+let $namespace := map:get($namespaces, $prefix)
+order by $prefix
+return ``[declare namespace `{$prefix}` = "`{$namespace}`";]``
+,
 for $function in $functions
 order by $function/@lib, $function/@name
 return local:function-xquery-signatures($function)
