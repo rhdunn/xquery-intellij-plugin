@@ -37,7 +37,7 @@ declare variable $param-fixes := map {
 };
 
 declare variable $functions as element(apidoc:function)* := $apidoc//apidoc:function[
-    local:function-language(.) = $language
+    local:function-language(.) = $language and not(@name = "")
 ];
 
 declare function local:function-language($function as element(apidoc:function)) as xs:string {
