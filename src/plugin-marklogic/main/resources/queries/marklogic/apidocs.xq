@@ -25,12 +25,16 @@ declare variable $apidoc as element(apidoc:apidoc) :=
     case document-node() return ./element()
     default return .;
 
-declare variable $language as xs:string := "xquery"; (: xquery | rest :)
+declare variable $language as xs:string := "xquery"; (: xquery | javascript | rest :)
+
+declare function local:apidoc-language($doc as element()) as xs:string {
+    ($doc/@class, "xquery")[1]
+};
 
 (: namespaces -------------------------------------------------------------- :)
 
 declare variable $module-namespaces := map:merge(
-    for $import in $apidoc//apidoc:module/apidoc:summary/(*:p|*:pre)
+    for $import in $apidoc//apidoc:module/apidoc:summary//(*:p|*:pre)
     let $match := fn:analyze-string(($import/*:code, $import)[1], "import module (namespace\s*([a-z0-9]+)\s*=\s*)?""([^""]+)""")/fn:match[1]
     let $prefix := $import/ancestor::apidoc:module/@lib
     let $namespace := $match/fn:group[@nr = "3"]/string()
@@ -75,6 +79,7 @@ declare variable $marklogic-additional := map {
     "dg": "xdmp:document-get",
     "cl": "http://marklogic.com/xdmp/clusters",
     "exsl": "http://exslt.org/common",
+    "extusr": "http://marklogic.com/xdmp/external/user",
     "gr": "http://marklogic.com/xdmp/group",
     "list": "http://marklogic.com/manage/package/list",
     "mt": "http://marklogic.com/xdmp/mimetypes",
@@ -101,6 +106,7 @@ declare variable $namespaces := map:merge((
 declare variable $param-fixes := map {
     "fn:subtract-dateTimes-yielding-dayTimeDuration": ("srcval1", "srcval2"),
     "fn:subtract-dateTimes-yielding-yearMonthDuration": ("srcval1", "srcval2"),
+    "geo:region-contains": ("target", "region", "options"),
     "math:fmod": ("x", "y"),
     "math:rank": ("arg1", "arg2", "options")
 };
@@ -113,7 +119,7 @@ declare function local:function-language($function as element(apidoc:function)) 
     let $bucket := $function/@bucket
     return switch ($bucket)
     case "REST Resources API" return "rest"
-    default return "xquery"
+    default return local:apidoc-language($function)
 };
 
 declare function local:function-name($function as element(apidoc:function)) as xs:string {
@@ -126,7 +132,7 @@ declare function local:function-parameters($function as element(apidoc:function)
         return if (exists($names)) then
             $names
         else
-            $function/apidoc:params/apidoc:param/@name/string()
+            $function/apidoc:params/apidoc:param[local:apidoc-language(.) = $language]/@name/string()
     return if (count($names) != count(distinct-values($names))) then
         fn:error(xs:QName("err:XQST0039"),``[Duplicate parameter name in `{local:function-name($function)}`]``)
     else
@@ -139,7 +145,7 @@ declare function local:function-parameter($function as element(apidoc:function),
         let $i := fn:index-of($names, $name)
         return $function/apidoc:params/apidoc:param[$i]
     else
-        $function/apidoc:params/apidoc:param[@name = $name]
+        $function/apidoc:params/apidoc:param[@name = $name and local:apidoc-language(.) = $language]
 };
 
 declare function local:function-parameter-type($function as element(apidoc:function), $name as xs:string) as xs:string {
@@ -150,18 +156,25 @@ declare function local:function-parameter-type($function as element(apidoc:funct
         return switch ($type)
         case "binary())" return "binary()"
         case "xs:string)" return "xs:string"
+        case "(element()|map:map)?" case "element()?|map:map?" return "(element()?|map:map?)"
+        case "(cts:order|xs:string)*" return "(cts:order*|xs:string*)"
         default return replace($type, ",\.\.\.", "...")
 };
 
 declare function local:function-return-type($function as element(apidoc:function)) as xs:string {
-    let $type := normalize-space($function/apidoc:return)
+    let $type := normalize-space($function/apidoc:return[local:apidoc-language(.) = $language])
     return switch ($type)
     case "An XML representation of the certificate." return "element()?"
-    case "element())" return "element()"
+    case "element())" case "Element()" return "element()"
+    case "element()|map:map" return "(element()|map:map)"
     case "xs:unsignedLong)" return "xs:unsignedLong"
     case "pkgins:install($pkgname)" return "element(pkg:install-status)"
     case "pkgins:revert($ticket)" return "element(pkg:revert-status)"
     case "The return data type is the data type of the date argument" return "item()"
+    case "" return
+        switch (local:function-name($function))
+        case "admin:appserver-set-output-indent-tabs" return "element(configuration)"
+        default return ""
     default return $type
 };
 
@@ -172,7 +185,10 @@ declare function local:function-xquery-signatures($function as element(apidoc:fu
         let $type := local:function-parameter-type($function, $name)
         return ``[$`{$name}` as `{$type}`]``
     let $type := local:function-return-type($function)
-    return ``[declare function `{$name}`(`{string-join($params, ", ")}`) as `{$type}` external;]``
+    return if ($type = "") then
+        ``[declare function `{$name}`(`{string-join($params, ", ")}`) external;]``
+    else
+        ``[declare function `{$name}`(`{string-join($params, ", ")}`) as `{$type}` external;]``
 };
 
 (: query ------------------------------------------------------------------- :)
