@@ -19,16 +19,24 @@ declare namespace apidoc = "http://marklogic.com/xdmp/apidoc";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace xhtml = "http://www.w3.org/1999/xhtml";
 
+declare variable $language as xs:string external := "xquery"; (: xquery | javascript | rest :)
+declare variable $namespace as xs:string external;
+declare variable $local-name as xs:string external;
+
 declare variable $apidoc as element(apidoc:apidoc) :=
     typeswitch (.)
     case xs:string return fn:parse-xml(.)/element()
     case document-node() return ./element()
     default return .;
 
-declare variable $language as xs:string := "xquery"; (: xquery | javascript | rest :)
-
 declare function local:apidoc-language($doc as element()) as xs:string {
     ($doc/@class, "xquery")[1]
+};
+
+declare function local:prefix($namespaces as map(*), $namespace as xs:string) as xs:string {
+    for $prefix in map:keys($namespaces)
+    where map:get($namespaces, $prefix) = $namespace
+    return $prefix
 };
 
 (: namespaces -------------------------------------------------------------- :)
@@ -212,11 +220,7 @@ declare function local:function-xquery-signatures($function as element(apidoc:fu
 
 (: query ------------------------------------------------------------------- :)
 
-for $prefix in map:keys($namespaces)
-let $namespace := map:get($namespaces, $prefix)
-order by $prefix
-return ``[declare namespace `{$prefix}` = "`{$namespace}`";]``
-,
+let $prefix := local:prefix($namespaces, $namespace)
 for $function in $functions
-order by $function/@lib, $function/@name
+where $function/@lib = $prefix and $function/@name = $local-name
 return local:function-xquery-signatures($function)

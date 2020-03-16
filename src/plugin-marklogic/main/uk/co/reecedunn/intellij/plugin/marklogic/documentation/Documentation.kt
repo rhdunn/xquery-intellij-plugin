@@ -15,12 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApis
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
@@ -28,6 +30,21 @@ import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import java.io.File
+
+private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
+    override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
+    override val href: String? = null
+    override val summary: String? = null
+    override val notes: String? = null
+    override val examples: Sequence<String> = sequenceOf()
+
+    override val operatorMapping: String? = null
+    override val signatures: String? = docs[0]
+    override val properties: String? = null
+    override val privileges: String? = null
+    override val rules: String? = null
+    override val errorConditions: String? = null
+}
 
 private data class MarkLogicZippedDocumentation(
     override val version: String,
@@ -75,7 +92,11 @@ private data class MarkLogicZippedDocumentation(
 
     override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
         apidocs.get()
-        return null
+        return ref.functionName?.let {
+            query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
+            query.get()?.bindVariable("local-name", it.localName?.data, "xs:string")
+            FunctionDocumentation(query.get()!!.run().results.map { result -> (result.value as String).nullize() })
+        }
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
