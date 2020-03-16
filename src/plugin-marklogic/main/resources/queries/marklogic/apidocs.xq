@@ -156,6 +156,14 @@ declare function local:function-parameters($function as element(apidoc:function)
         $names
 };
 
+declare function local:function-arity($function as element(apidoc:function)) as map(*) {
+    let $params := $function/apidoc:params/apidoc:param[local:apidoc-language(.) = $language]
+    return map {
+        "min": count($params[not(@optional = "true")]),
+        "max": count($params)
+    }
+};
+
 declare function local:function-parameter($function as element(apidoc:function), $name as xs:string) as element(apidoc:param) {
     let $names := map:get($param-fixes, local:function-name($function))
     return if (exists($names)) then
@@ -212,6 +220,9 @@ declare function local:function-xquery-signatures($function as element(apidoc:fu
         let $type := local:function-parameter-type($function, $name)
         return ``[$`{$name}` as `{$type}`]``
     let $type := local:function-return-type($function)
+    let $arity-range := local:function-arity($function)
+    for $arity in $arity-range?min to $arity-range?max
+    let $params := $params[position() = 1 to $arity]
     return if ($type = "") then
         ``[declare function `{$name}`(`{string-join($params, ", ")}`) external;]``
     else
@@ -223,4 +234,7 @@ declare function local:function-xquery-signatures($function as element(apidoc:fu
 let $prefix := local:prefix($namespaces, $namespace)
 for $function in $functions
 where $function/@lib = $prefix and $function/@name = $local-name
-return local:function-xquery-signatures($function)
+return (
+    ``[<pre>`{string-join(local:function-xquery-signatures($function), "&#xD;")}`]``,
+    ()
+)
