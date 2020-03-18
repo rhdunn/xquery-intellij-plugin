@@ -95,7 +95,10 @@ private data class MarkLogicZippedDocumentation(
         return ref.functionName?.let {
             query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
             query.get()?.bindVariable("local-name", it.localName?.data, "xs:string")
-            FunctionDocumentation(query.get()!!.run().results.map { result -> (result.value as String).nullize() })
+            val ret = query.get()!!.run().results.map { result -> (result.value as String).nullize() }
+            ret.takeIf { results -> results.isNotEmpty() }?.let { results ->
+                FunctionDocumentation(results)
+            }
         }
     }
 
