@@ -229,12 +229,63 @@ declare function local:function-xquery-signatures($function as element(apidoc:fu
         ``[declare function `{$name}`(`{string-join($params, ", ")}`) as `{$type}` external;]``
 };
 
+declare function local:function-html-signatures($function as element(apidoc:function)) as element(div)+ {
+    let $name := local:function-name($function)
+    let $params :=
+        for $name in local:function-parameters($function)
+        let $type := local:function-parameter-type($function, $name)
+        return <div>
+            <code class="arg">${$name}</code>,
+            <code class="as">&#xA0;as&#xA0;</code>,
+            <code class="type">{$type}</code>
+        </div>
+    let $type := local:function-return-type($function)
+    let $arity-range := local:function-arity($function)
+    for $arity in $arity-range?min to $arity-range?max
+    let $params := $params[position() = 1 to $arity]
+    return if (count($params) <= 2) then
+        <div class="proto">
+            <code class="function">{$name}</code>({
+                for $param at $i in $params
+                return (
+                    if ($i > 1) then ", " else (),
+                    $param/*
+                )
+            }){
+                if ($type != "") then (
+                    <code class="as">&#xA0;as&#xA0;</code>,
+                    <code class="return-type">xs:double</code>
+                ) else ()
+            }
+        </div>
+    else
+        <div class="proto">
+            <table class="proto">{
+                (: JEditorPanel does not support vertical-align on tr/td elements, so use valign instead. :)
+                <tr>
+                    <td valign="top" rowspan="{count($params)}"><code class="function">{$name}</code>(</td>
+                    <td valign="top">{$params[1]/code[@class="arg"]}</td>
+                    <td valign="top">{$params[1]/code[not(@class="arg")]},</td>
+                </tr>,
+                for $param at $i in $params[position() > 1]
+                return
+                    <tr>
+                        <td valign="top">{$param/code[@class="arg"]}</td>
+                        <td valign="top">{
+                            $param/code[not(@class="arg")],
+                            if ($i = count($params) - 1) then ")" else ","
+                        }</td>
+                    </tr>
+            }</table>
+        </div>
+};
+
 (: query ------------------------------------------------------------------- :)
 
 let $prefix := local:prefix($namespaces, $namespace)
 for $function in $functions
 where $function/@lib = $prefix and $function/@name = $local-name
 return (
-    ``[<pre>`{string-join(local:function-xquery-signatures($function), "&#xD;")}`]``,
+    string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
     ()
 )
