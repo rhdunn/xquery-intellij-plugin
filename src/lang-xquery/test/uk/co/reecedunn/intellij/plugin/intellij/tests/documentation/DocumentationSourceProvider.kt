@@ -44,7 +44,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
             override val notes: String? = null
 
-            override val examples: Sequence<String> = emptySequence()
+            override val examples: String? = null
 
             override val operatorMapping: String? = null
 
@@ -75,7 +75,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
             override val notes: String? = null
 
-            override val examples: Sequence<String> = emptySequence()
+            override val examples: String? = null
         }
     }
 

@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
@@ -28,7 +27,7 @@ interface XQDocDocumentation {
 
     val notes: String?
 
-    val examples: Sequence<String>
+    val examples: String?
 }
 
 interface XQDocFunctionDocumentation : XQDocDocumentation {
@@ -59,7 +58,7 @@ val XQDocDocumentation.sections: String
             XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules,
             XQDocBundle.message("section.error-conditions") to (this as? XQDocFunctionDocumentation)?.errorConditions,
             XQDocBundle.message("section.notes") to notes,
-            XQDocBundle.message("section.examples") to examples.joinToString("\n").nullize()
+            XQDocBundle.message("section.examples") to examples
         ).filter { it.second != null }
         return "<dl>${sections.joinToString("") { "<dt>${it.first}</dt><dd>${it.second}</dd>" }}</dl>"
     }

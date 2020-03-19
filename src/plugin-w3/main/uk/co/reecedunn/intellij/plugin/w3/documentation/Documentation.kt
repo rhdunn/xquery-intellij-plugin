@@ -48,7 +48,7 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val notes: String? get() = section("Notes")
 
-    override val examples: Sequence<String> get() = section("Examples")?.let { sequenceOf(it) } ?: emptySequence()
+    override val examples: String? get() = section("Examples")
 
     override val operatorMapping: String? get() = section("Operator Mapping")
 

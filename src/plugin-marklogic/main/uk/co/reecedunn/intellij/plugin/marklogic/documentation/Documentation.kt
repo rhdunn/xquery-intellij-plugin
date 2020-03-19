@@ -35,7 +35,7 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
     override val href: String? = docs[0]
     override val summary: String? = docs[1]
     override val notes: String? = docs[5]
-    override val examples: Sequence<String> = sequenceOf()
+    override val examples: String? = docs[6]
 
     override val operatorMapping: String? = null // W3C docs only.
     override val signatures: String? = docs[2]

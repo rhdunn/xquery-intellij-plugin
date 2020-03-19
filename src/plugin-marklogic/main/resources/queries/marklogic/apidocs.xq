@@ -342,5 +342,6 @@ return (
     fn:serialize(local:function-html-parameters($function)),
     fn:serialize($function/apidoc:privilege ! local:documentation-html(.)),
     fn:serialize($function/apidoc:usage ! local:documentation-html(.)),
+    fn:serialize($function/apidoc:example ! local:documentation-html(.)),
     ()
 )
