@@ -59,7 +59,7 @@ declare function local:documentation-html($doc as node()) as node()* {
     else if ($doc instance of text()) then
         let $text := $doc/normalize-space()
         return if ($text != "") then
-            text { $text }
+            $doc
         else ()
     else if ($doc instance of element()) then
         element { $doc/local-name() } {
@@ -330,11 +330,6 @@ declare function local:function-html-parameters($function as element(apidoc:func
     else ()
 };
 
-declare function local:function-html-privileges($function as element(apidoc:function)) as node()* {
-    for $privilege in $function/apidoc:privilege
-    return local:documentation-html($privilege)
-};
-
 (: query ------------------------------------------------------------------- :)
 
 let $prefix := local:prefix($namespaces, $namespace)
@@ -345,6 +340,7 @@ return (
     fn:serialize(local:documentation-html($function/apidoc:summary)),
     string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
     fn:serialize(local:function-html-parameters($function)),
-    fn:serialize(local:function-html-privileges($function)),
+    fn:serialize($function/apidoc:privilege ! local:documentation-html(.)),
+    fn:serialize($function/apidoc:usage ! local:documentation-html(.)),
     ()
 )

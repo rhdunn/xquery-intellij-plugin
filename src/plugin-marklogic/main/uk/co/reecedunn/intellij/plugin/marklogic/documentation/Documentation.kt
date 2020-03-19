@@ -34,7 +34,7 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
     override val href: String? = docs[0]
     override val summary: String? = docs[1]
-    override val notes: String? = null
+    override val notes: String? = docs[5]
     override val examples: Sequence<String> = sequenceOf()
 
     override val operatorMapping: String? = null // W3C docs only.
@@ -42,8 +42,8 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
     override val parameters: String? = docs[3]
     override val properties: String? = null // W3C docs only.
     override val privileges: String? = docs[4]
-    override val rules: String? = null
-    override val errorConditions: String? = null
+    override val rules: String? = null // W3C docs only.
+    override val errorConditions: String? = null // W3C/xqDocs docs only.
 }
 
 private data class MarkLogicZippedDocumentation(
