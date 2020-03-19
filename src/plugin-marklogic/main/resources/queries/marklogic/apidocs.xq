@@ -52,8 +52,10 @@ declare function local:documentation-html($doc as node()) as node()* {
             else
                 $node
         return if (exists($first) and (some $child in $doc/node() satisfies $child instance of element())) then
-            for $child in $doc/node()
-            return local:documentation-html($child)
+            if (local:apidoc-language($doc) = $language) then
+                for $child in $doc/node()
+                return local:documentation-html($child)
+            else ()
         else
             <p>{$doc/node()}</p>
     else if ($doc instance of text()) then
@@ -61,7 +63,7 @@ declare function local:documentation-html($doc as node()) as node()* {
         return if ($text != "") then
             $doc
         else ()
-    else if ($doc instance of element()) then
+    else if ($doc instance of element() and local:apidoc-language($doc) = $language) then
         element { $doc/local-name() } {
             for $child in $doc/node()
             return local:documentation-html($child)
