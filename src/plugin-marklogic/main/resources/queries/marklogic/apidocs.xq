@@ -45,7 +45,13 @@ declare function local:prefix($namespaces as map(*), $namespace as xs:string) as
 
 declare function local:documentation-html($doc as node()) as node()* {
     if ($doc/namespace-uri() = "http://marklogic.com/xdmp/apidoc") then
-        if (some $child in $doc/node() satisfies $child instance of element()) then
+        let $first :=
+            let $node := $doc/node()[position() = 1]
+            return if ($node instance of text() and string-length($node/normalize-space()) != 0) then
+                ()
+            else
+                $node
+        return if (exists($first) and (some $child in $doc/node() satisfies $child instance of element())) then
             for $child in $doc/node()
             return local:documentation-html($child)
         else
@@ -324,6 +330,11 @@ declare function local:function-html-parameters($function as element(apidoc:func
     else ()
 };
 
+declare function local:function-html-privileges($function as element(apidoc:function)) as node()* {
+    for $privilege in $function/apidoc:privilege
+    return local:documentation-html($privilege)
+};
+
 (: query ------------------------------------------------------------------- :)
 
 let $prefix := local:prefix($namespaces, $namespace)
@@ -334,5 +345,6 @@ return (
     fn:serialize(local:documentation-html($function/apidoc:summary)),
     string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
     fn:serialize(local:function-html-parameters($function)),
+    fn:serialize(local:function-html-privileges($function)),
     ()
 )

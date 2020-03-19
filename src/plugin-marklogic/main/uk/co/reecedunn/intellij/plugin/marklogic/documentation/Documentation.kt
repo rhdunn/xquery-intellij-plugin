@@ -41,7 +41,7 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
     override val signatures: String? = docs[2]
     override val parameters: String? = docs[3]
     override val properties: String? = null // W3C docs only.
-    override val privileges: String? = null
+    override val privileges: String? = docs[4]
     override val rules: String? = null
     override val errorConditions: String? = null
 }
