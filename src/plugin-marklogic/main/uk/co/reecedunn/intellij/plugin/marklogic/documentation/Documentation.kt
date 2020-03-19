@@ -32,15 +32,15 @@ import java.io.File
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
-    override val href: String? = null
-    override val summary: String? = docs[0]
+    override val href: String? = docs[0]
+    override val summary: String? = docs[1]
     override val notes: String? = null
     override val examples: Sequence<String> = sequenceOf()
 
-    override val operatorMapping: String? = null
-    override val signatures: String? = docs[1]
-    override val parameters: String? = docs[2]
-    override val properties: String? = null
+    override val operatorMapping: String? = null // W3C docs only.
+    override val signatures: String? = docs[2]
+    override val parameters: String? = docs[3]
+    override val properties: String? = null // W3C docs only.
     override val privileges: String? = null
     override val rules: String? = null
     override val errorConditions: String? = null
@@ -82,6 +82,7 @@ private data class MarkLogicZippedDocumentation(
             }
             docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
             query.get()!!.bindContextItem(docs, "document-node()")
+            query.get()?.bindVariable("marklogic-version", version, "xs:string")
             docs
         }
     }

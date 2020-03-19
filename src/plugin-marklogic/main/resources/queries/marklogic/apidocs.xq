@@ -19,6 +19,8 @@ declare namespace apidoc = "http://marklogic.com/xdmp/apidoc";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace xhtml = "http://www.w3.org/1999/xhtml";
 
+declare variable $marklogic-version as xs:string external;
+
 declare variable $language as xs:string external := "xquery"; (: xquery | javascript | rest :)
 declare variable $namespace as xs:string external;
 declare variable $local-name as xs:string external;
@@ -153,6 +155,10 @@ declare variable $param-fixes := map {
 declare variable $functions as element(apidoc:function)* := $apidoc//apidoc:function[
     local:function-language(.) = $language and not(@name = "")
 ];
+
+declare function local:function-uri($function as element(apidoc:function)) as xs:string {
+    ``[http://docs.marklogic.com/`{$marklogic-version}`/`{local:function-name($function)}`]``
+};
 
 declare function local:function-language($function as element(apidoc:function)) as xs:string {
     let $bucket := $function/@bucket
@@ -324,6 +330,7 @@ let $prefix := local:prefix($namespaces, $namespace)
 for $function in $functions
 where $function/@lib = $prefix and $function/@name = $local-name
 return (
+    local:function-uri($function),
     fn:serialize(local:documentation-html($function/apidoc:summary)),
     string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
     fn:serialize(local:function-html-parameters($function)),
