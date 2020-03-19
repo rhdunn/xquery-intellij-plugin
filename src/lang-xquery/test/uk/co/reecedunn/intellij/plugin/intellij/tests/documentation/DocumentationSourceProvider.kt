@@ -50,6 +50,8 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
             override val signatures: String? = null
 
+            override val parameters: String? = null
+
             override val properties: String? = null
 
             override val privileges: String? = null

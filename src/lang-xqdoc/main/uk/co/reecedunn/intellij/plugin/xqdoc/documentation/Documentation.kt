@@ -36,6 +36,8 @@ interface XQDocFunctionDocumentation : XQDocDocumentation {
 
     val signatures: String?
 
+    val parameters: String?
+
     val properties: String?
 
     val privileges: String?
@@ -51,6 +53,7 @@ val XQDocDocumentation.sections: String
             XQDocBundle.message("section.summary") to summary,
             XQDocBundle.message("section.operator-mapping") to (this as? XQDocFunctionDocumentation)?.operatorMapping,
             XQDocBundle.message("section.signatures") to (this as? XQDocFunctionDocumentation)?.signatures,
+            XQDocBundle.message("section.parameters") to (this as? XQDocFunctionDocumentation)?.parameters,
             XQDocBundle.message("section.properties") to (this as? XQDocFunctionDocumentation)?.properties,
             XQDocBundle.message("section.required-privileges") to (this as? XQDocFunctionDocumentation)?.privileges,
             XQDocBundle.message("section.rules") to (this as? XQDocFunctionDocumentation)?.rules,

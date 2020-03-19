@@ -52,15 +52,13 @@ declare function local:documentation-html($doc as node()) as node()* {
         let $text := $doc/normalize-space()
         return if ($text != "") then
             text { $text }
-        else
-            ()
+        else ()
     else if ($doc instance of element()) then
         element { $doc/local-name() } {
             for $child in $doc/node()
             return local:documentation-html($child)
         }
-    else
-        ()
+    else ()
 };
 
 (: namespaces -------------------------------------------------------------- :)
@@ -304,6 +302,22 @@ declare function local:function-html-signatures($function as element(apidoc:func
         </div>
 };
 
+declare function local:function-html-parameters($function as element(apidoc:function)) as element(table)? {
+    let $params := local:function-parameters($function)
+    return if (exists($params)) then
+        <table class="parameters">{
+            for $name in local:function-parameters($function)
+            let $type := local:function-parameter-type($function, $name)
+            let $summary := local:function-parameter($function, $name)
+            return
+                <tr valign="top">
+                    <td width="20%">${$name}</td>
+                    <td width="80%">{$summary/node()}</td>
+                </tr>
+        }</table>
+    else ()
+};
+
 (: query ------------------------------------------------------------------- :)
 
 let $prefix := local:prefix($namespaces, $namespace)
@@ -312,5 +326,6 @@ where $function/@lib = $prefix and $function/@name = $local-name
 return (
     fn:serialize(local:documentation-html($function/apidoc:summary)),
     string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
+    fn:serialize(local:function-html-parameters($function)),
     ()
 )

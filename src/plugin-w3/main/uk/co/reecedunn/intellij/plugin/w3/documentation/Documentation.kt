@@ -54,6 +54,8 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val signatures: String? get() = section("Signatures") ?: section("Signature")
 
+    override val parameters: String? = null
+
     override val properties: String? get() = section("Properties")
 
     override val privileges: String? = null

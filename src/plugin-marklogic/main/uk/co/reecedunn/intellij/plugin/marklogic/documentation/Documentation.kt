@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApis
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
@@ -40,6 +39,7 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
 
     override val operatorMapping: String? = null
     override val signatures: String? = docs[1]
+    override val parameters: String? = docs[2]
     override val properties: String? = null
     override val privileges: String? = null
     override val rules: String? = null
