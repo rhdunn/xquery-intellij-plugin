@@ -34,12 +34,12 @@ import java.io.File
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
     override val href: String? = null
-    override val summary: String? = null
+    override val summary: String? = docs[0]
     override val notes: String? = null
     override val examples: Sequence<String> = sequenceOf()
 
     override val operatorMapping: String? = null
-    override val signatures: String? = docs[0]
+    override val signatures: String? = docs[1]
     override val properties: String? = null
     override val privileges: String? = null
     override val rules: String? = null

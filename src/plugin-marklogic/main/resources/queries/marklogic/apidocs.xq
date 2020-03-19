@@ -29,6 +29,8 @@ declare variable $apidoc as element(apidoc:apidoc) :=
     case document-node() return ./element()
     default return .;
 
+(: documentation helpers --------------------------------------------------- :)
+
 declare function local:apidoc-language($doc as element()) as xs:string {
     ($doc/@class, "xquery")[1]
 };
@@ -37,6 +39,28 @@ declare function local:prefix($namespaces as map(*), $namespace as xs:string) as
     for $prefix in map:keys($namespaces)
     where map:get($namespaces, $prefix) = $namespace
     return $prefix
+};
+
+declare function local:documentation-html($doc as node()) as node()* {
+    if ($doc/namespace-uri() = "http://marklogic.com/xdmp/apidoc") then
+        if (some $child in $doc/node() satisfies $child instance of element()) then
+            for $child in $doc/node()
+            return local:documentation-html($child)
+        else
+            <p>{$doc/node()}</p>
+    else if ($doc instance of text()) then
+        let $text := $doc/normalize-space()
+        return if ($text != "") then
+            text { $text }
+        else
+            ()
+    else if ($doc instance of element()) then
+        element { $doc/local-name() } {
+            for $child in $doc/node()
+            return local:documentation-html($child)
+        }
+    else
+        ()
 };
 
 (: namespaces -------------------------------------------------------------- :)
@@ -286,6 +310,7 @@ let $prefix := local:prefix($namespaces, $namespace)
 for $function in $functions
 where $function/@lib = $prefix and $function/@name = $local-name
 return (
+    fn:serialize(local:documentation-html($function/apidoc:summary)),
     string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
     ()
 )
