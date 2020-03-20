@@ -262,7 +262,7 @@ in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
 
 When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
-variadic parameter is given a type, the elements in that array has that type.
+variadic parameter has a type, the elements in that array have that type.
 
 #### 3.6.2 Simple Inline Function Expressions
 

@@ -598,7 +598,7 @@ in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
 
 When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
-variadic parameter is given a type, the elements in that array has that type.
+variadic parameter has a type, the elements in that array have that type.
 
 #### 3.7.4 Literals
 
@@ -611,9 +611,9 @@ variadic parameter is given a type, the elements in that array has that type.
 
 MarkLogic 6.0 supports HTML4 and HTML5 predefined entity references in addition
 to XML entity references. Other XQuery processors only support XML entity
-references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, and `&apos;`). If the predefined
-entity reference is not supported by the XQuery processor, an `ije:IJVS0003`
-error is raised.
+references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, and `&apos;`). An `XPST0003`
+static error is raised if the XQuery processor does not support the predefined
+entity reference, which this plugin reports as an `ije:IJVS0003` static error.
 
 ### 3.8 JSON Constructors
 
@@ -783,7 +783,7 @@ follows:
 1.  If the expression is an empty sequence, the result is an empty sequence.
 1.  If the expression is an `xs:hexBinary`, the result is a binary node with
     the expression as its content.
-1.  If the expression is an `xs:untypedAtomic`, `xs:string`, or a type derived,
+1.  If the expression is an `xs:untypedAtomic`, `xs:string`, or a type derived
     from `xs:string`, the result is a binary node with the expression cast to
     `xs:hexBinary` as its content.
 1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
@@ -800,7 +800,7 @@ Casting from a binary node to a target type is performed as follows:
 1.  If the target type is `xs:boolean`, the result is `false()`.
 1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
 
-A binary node is not an instance of `xs:boolean`.
+A binary node is not an instance of `xs:hexBinary`.
 
 ### 3.13 Logical Expressions
 
@@ -959,7 +959,7 @@ in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
 
 When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
-variadic parameter is given a type, the elements in that array has that type.
+variadic parameter has a type, the elements in that array have that type.
 
 ### 4.6 Using Declaration
 
