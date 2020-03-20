@@ -14,9 +14,9 @@
 
   <description><![CDATA[
     <p>
-      XQuery language support, including all BaseX, MarkLogic, and Saxon
-      vendor extensions, and the W3C Full Text, Update Facility, and
-      Scripting Extensions specifications.
+      XQuery and XPath language support, including all BaseX, MarkLogic,
+      and Saxon vendor extensions, and the W3C Full Text, Update Facility,
+      and Scripting Extensions specifications.
     </p>
     <p>&#xA0;</p>
     <p>Query processor integration:</p>
@@ -90,6 +90,7 @@
         function expressions.
       </li>
       <li>Support quick documentation (Ctrl+Q) for W3C XQuery functions.</li>
+      <li>Support quick documentation (Ctrl+Q) for MarkLogic functions.</li>
       <li>
         Support displaying the XQuery file structure view in the navigation bar
         on IntelliJ 2020.1.
