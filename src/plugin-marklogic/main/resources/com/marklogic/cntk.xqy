@@ -161,6 +161,7 @@ declare %a:since("marklogic", "10.0") function cntk:elu-with-alpha($x as cntk:va
 declare %a:since("marklogic", "10.0") function cntk:elu-with-alpha($x as cntk:variable, $alpha as xs:double, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:embedding-layer($operand as cntk:variable, $additional-parameters as map:map) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:end-static-axis() as cntk:axis external;
+declare %a:since("marklogic", "10.0-3") function cts:entity-highlight($node as node(), $expr as item()*) as node() external;
 declare %a:since("marklogic", "10.0") function cntk:equal($left-operand as cntk:variable, $right-operand as cntk:variable) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:equal($left-operand as cntk:variable, $right-operand as cntk:variable, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:evaluate($model as cntk:function, $input-variable-value-map as json:array, $output-variables as cntk:variable*) as cntk:value* external;
@@ -501,11 +502,15 @@ declare %a:since("marklogic", "10.0") function cntk:sinh($operand as cntk:variab
 declare %a:since("marklogic", "10.0") function cntk:sinh($operand as cntk:variable, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:slice($operand as cntk:variable, $axis as xs:axis*, $begin-index as xs:integer*, $end-index as xs:integer*, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:slice-with-strides($x as cntk:variable, $axis as xs:axis*, $begin-index as xs:integer*, $end-index as xs:integer*, $strides as xs:integer*, $name as xs:string) as cntk:function external;
-declare %a:since("marklogic", "10.0") function cntk:soft-plus($x as cntk:variable, $name as xs:string) as cntk:function external;
-declare %a:since("marklogic", "10.0") function cntk:soft-sign($x as cntk:variable, $name as xs:string) as cntk:function external;
+declare %a:since("marklogic", "10.0")
+        %a:until("marklogic", "10.0-3", "cntk:softplus#2") function cntk:soft-plus($x as cntk:variable, $name as xs:string) as cntk:function external;
+declare %a:since("marklogic", "10.0")
+        %a:until("marklogic", "10.0-3", "cntk:softsign#2") function cntk:soft-sign($x as cntk:variable, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:softmax($operand as cntk:variable) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:softmax($operand as cntk:variable, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:softmax-on-axis($x as cntk:variable, $axis as cntk:axis, $name as xs:string) as cntk:function external;
+declare %a:since("marklogic", "10.0-3") function cntk:softplus($x as cntk:variable, $name as xs:string) as cntk:function external;
+declare %a:since("marklogic", "10.0-3") function cntk:softsign($x as cntk:variable, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:space-to-depth($operand as cntk:variable, $block-size as xs:unsignedLong, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:splice($inputs as cntk:variable*, $axis as cntk:axis, $name as xs:string) as cntk:function external;
 declare %a:since("marklogic", "10.0") function cntk:sqrt($operand as cntk:variable) as cntk:function external;

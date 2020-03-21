@@ -2,6 +2,8 @@
 
 ## 1.6 - (In Development)
 
+1.  Add definitions for the MarkLogic 10.0-3 built-in functions.
+
 References and Resolving:
 
 1.  Support `BracedURILiteral` references (`Q{...}`).

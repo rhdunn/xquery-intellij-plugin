@@ -75,6 +75,7 @@ declare %a:restrict-until("$item", "marklogic", "8.0", "item()")
 declare %a:since("marklogic", "5.0") function xdmp:cluster() as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:cluster($name as xs:string) as xs:unsignedLong external;
 declare %a:since("marklogic", "8.0") function xdmp:cluster-effective-version() as xs:unsingedLong external;
+declare %a:since("marklogic", "10.0-3") function xdmp:cluster-fedramp() as xs:boolean external;
 declare %a:since("marklogic", "5.0") function xdmp:cluster-name() as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:cluster-name($id as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:cluster-version-at-least($version as xs:unsignedInt) as xs:boolean external;
@@ -543,6 +544,8 @@ declare %a:restrict-until("$options", "marklogic", "10.0", "xs:string")
         %a:since("marklogic", "9.0") function xdmp:json-validate($node as node(), $schema as xs:string, $options as xs:string*) as node() external;
 declare %a:restrict-until("$options", "marklogic", "10.0", "xs:string")
         %a:since("marklogic", "9.0") function xdmp:json-validate-node($node as node(), $schema as node(), $options as xs:string*) as node() external;
+declare %a:since("marklogic", "10.0-3") function xdmp:json-validate-report($node as node(), $schema as xs:string, $options as xs:string*) as element(xdmp:validation-errors) external;
+declare %a:since("marklogic", "10.0-3") function xdmp:json-validate-report-node($node as node(), $schema as node(), $options as xs:string*) as element(xdmp:validation-errors) external;
 declare %a:since("marklogic", "5.0") function xdmp:key-from-QName($name as xs:QName) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-export($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-import($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
@@ -746,6 +749,7 @@ declare %a:since("marklogic", "7.0") function xdmp:server-modules-database($id a
 declare %a:since("marklogic", "5.0") function xdmp:server-name($id as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "7.0") function xdmp:server-port($id as xs:unsignedLong) as xs:unsignedInt? external;
 declare %a:since("marklogic", "7.0") function xdmp:server-root($id as xs:unsignedLong) as xs:string? external;
+declare %a:since("marklogic", "10.0-3") function xdmp:server-session-timeout($id as xs:unsignedLong) as xs:unsignedInt? external;
 declare %a:since("marklogic", "7.0") function xdmp:server-ssl-certificate-template($id as xs:unsignedLong) as xs:unsignedLong? external;
 declare %a:restrict-until("$server-id", "marklogic", "8.0", "xs:unsignedLong")
         %a:since("marklogic", "5.0") function xdmp:server-status($host-id as xs:unsignedLong, $server-id as xs:unsignedLong*) as element(server-status) external;

@@ -56,5 +56,6 @@ declare namespace tde = "http://marklogic.com/xdmp/tde";
 
 (: MarkLogic 10.0 :)
 declare namespace cntk = "http://marklogic.com/cntk";
+declare namespace ort = "http://marklogic.com/onnxruntime";
 
 ()
