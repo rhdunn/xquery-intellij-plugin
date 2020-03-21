@@ -1,49 +1,8 @@
 # Change Log
 
-## 1.6 - (In Development)
+## 2020
 
-1.  Add definitions for the MarkLogic 10.0-3 built-in functions.
-
-References and Resolving:
-
-1.  Support `BracedURILiteral` references (`Q{...}`).
-1.  Support navigating to Java classes specified by `java:` and unprefixed
-    classpath URIs (BaseX, eXist-db, Saxon).
-1.  Fix resolving `URIQualifiedName` functions and variables.
-
-Semantic Highlighting
-
-1.  Fixed QName prefix semantic highlighting and keyword in QName highlighting
-    removal when the QName contains a space.
-1.  Display the correct type name in the find usages UI for EQNames that are
-    annotations, attributes, decimal formats, elements, functions, namespaces,
-    options, parameters, pragmas, types, and variables in XQuery and XPath.
-1.  Semantic highlighting of usage types for annotations, attributes, decimal
-    formats, elements, functions, namespace declarations, options, parameters,
-    pragmas, types, and variables in XQuery and XPath.
-1.  Make XSLT elements use the template language colour style by default.
-
-IntelliJ Integration:
-
-1.  Rename refactoring support for variables and functions.
-1.  Implement inlay parameter hints for XQuery function calls and named arrow
-    function expressions.
-1.  Support quick documentation (Ctrl+Q) for W3C XQuery functions.
-1.  Support quick documentation (Ctrl+Q) for MarkLogic functions.
-1.  Support displaying the XQuery file structure view in the navigation bar on
-    IntelliJ 2020.1.
-1.  Provide spellchecking support with bundled dictionaries for XPath, XQuery,
-    and XSLT terms.
-1.  Support context information (Alt+Q) for XQuery function declarations.
-1.  Display the namespace signature and module path when holding Ctrl over a
-    module namespace URI or prefix.
-
-Run Configurations:
-
-1.  Don't crash on the run configurations page if there are no query processors.
-1.  Support using Saxon 10.
-
------
+*  [1.6 - 2020-03-21](docs/_posts/2020-03-21-release-1.6.md)
 
 ## 2019
 
