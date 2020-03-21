@@ -39,20 +39,19 @@ For those XQuery implementations, this plugin supports:
 This plugin provides support for the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references;
 1.  Code folding;
-1.  Find usages;
-1.  Semantic usage highlighting; __(Coming in 1.6)__
-1.  Rename refactoring for variables; __(Coming in 1.6)__
+1.  Find usages and semantic usage highlighting;
+1.  Rename refactoring for variables;
 1.  Code completion;
 1.  Parameter information;
-1.  Parameter inlay hints; __(Coming in 1.6)__
+1.  Parameter inlay hints;
 1.  Structure view;
 1.  Breadcrumb navigation;
 1.  Paired brace matching;
 1.  Commenting code;
-1.  Integrated function documentation ("Quick Documentation", Ctrl+Q); __(Coming in 1.6)__
-1.  Context information (Alt+Q) for XQuery function declarations; __(Coming in 1.6)__
+1.  Integrated function documentation ("Quick Documentation", Ctrl+Q);
+1.  Context information (Alt+Q) for XQuery function declarations;
 1.  Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT
-    terms. __(Coming in 1.6)__
+    terms.
 
 -----
 
