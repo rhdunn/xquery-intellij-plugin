@@ -91,20 +91,34 @@ private data class MarkLogicZippedDocumentation(
         apidocs.invalidate()
     }
 
+    private fun isMarkLogicNamespace(namespace: String?): Boolean {
+        return when {
+            namespace == null -> false
+            namespace.startsWith("http://marklogic.com/") -> true
+            namespace == "http://exslt.org/common" -> true
+            namespace == "http://www.georss.org/georss" -> true
+            namespace == "http://www.w3.org/1999/02/22-rdf-syntax-ns#" -> true
+            // NOTE: The fn namespace is handled by the W3C documentation.
+            else -> false
+        }
+    }
+
     override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
-        apidocs.get()
         return ref.functionName?.let {
-            query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
-            query.get()?.bindVariable("local-name", it.localName?.data, "xs:string")
-            val ret = query.get()!!.run().results.map { result -> (result.value as String).nullize() }
-            ret.takeIf { results -> results.isNotEmpty() }?.let { results ->
-                FunctionDocumentation(results)
-            }
+            if (isMarkLogicNamespace(it.namespace?.data)) {
+                apidocs.get()
+                query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
+                query.get()?.bindVariable("local-name", it.localName?.data, "xs:string")
+                val ret = query.get()!!.run().results.map { result -> (result.value as String).nullize() }
+                ret.takeIf { results -> results.isNotEmpty() }?.let { results ->
+                    FunctionDocumentation(results)
+                }
+            } else
+                null
         }
     }
 
     override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
-        apidocs.get()
         return null
     }
 
