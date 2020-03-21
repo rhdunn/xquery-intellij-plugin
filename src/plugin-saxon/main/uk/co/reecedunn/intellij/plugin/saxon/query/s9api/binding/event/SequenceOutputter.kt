@@ -16,9 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getConstructorOrNull
+import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 
 class SequenceOutputter(pipe: Any, classLoader: ClassLoader) : Receiver {
-    private val `class` = classLoader.loadClass("net.sf.saxon.event.SequenceOutputter")
+    private val `class` =
+        classLoader.loadClassOrNull("net.sf.saxon.event.SequenceOutputter") ?: // Saxon 9.9 and earlier
+        classLoader.loadClass("net.sf.saxon.event.SequenceCollector") // Saxon 10.0 and later
     override val saxonObject: Any
 
     init {

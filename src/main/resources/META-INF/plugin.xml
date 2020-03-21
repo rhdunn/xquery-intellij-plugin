@@ -112,6 +112,7 @@
     <p>Run Configurations:</p>
     <ol>
       <li>Don't crash on the run configurations page if there are no query processors.</li>
+      <li>Support using Saxon 10.</li>
     </ol>
   ]]></change-notes>
 

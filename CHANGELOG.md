@@ -41,6 +41,7 @@ IntelliJ Integration:
 Run Configurations:
 
 1.  Don't crash on the run configurations page if there are no query processors.
+1.  Support using Saxon 10.
 
 -----
 
