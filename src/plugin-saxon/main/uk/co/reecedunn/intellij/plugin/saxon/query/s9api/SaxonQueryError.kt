@@ -27,7 +27,7 @@ import java.lang.reflect.InvocationTargetException
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 
 internal fun <T> check(
-    queryFile: VirtualFile,
+    queryFile: VirtualFile?,
     classLoader: ClassLoader,
     listener: SaxonErrorListener?,
     f: () -> T
@@ -42,10 +42,10 @@ internal fun <T> check(
     }
 }
 
-internal fun <T> check(queryFile: VirtualFile, classLoader: ClassLoader, f: () -> T): T =
+internal fun <T> check(queryFile: VirtualFile?, classLoader: ClassLoader, f: () -> T): T =
     check(queryFile, classLoader, null, f)
 
-internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile): QueryError {
+internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile?): QueryError {
     val qname = getErrorCodeQName()
     val ns = qname?.getNamespaceURI()
     val prefix = qname?.getPrefix().nullize()

@@ -53,6 +53,8 @@ fun Throwable.toQueryUserMessage(): String {
             targetException.toQueryUserMessage()
         is HttpStatusException, is IllegalArgumentException, is IllegalStateException ->
             message!!
+        is QueryError ->
+            description!!
         else ->
             throw this
     }

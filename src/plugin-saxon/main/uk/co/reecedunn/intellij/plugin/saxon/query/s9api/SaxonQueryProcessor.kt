@@ -42,7 +42,9 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
             Processor(classLoader, source)
     }
 
-    override val version get(): String = processor.version
+    override val version get(): String = check(null, classLoader) {
+        processor.version
+    }
 
     override val servers: List<String> = listOf()
 
