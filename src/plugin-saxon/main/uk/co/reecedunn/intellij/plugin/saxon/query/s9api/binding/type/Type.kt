@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.type
 
 object Type {
-    fun getItemType(value: Any, classLoader: ClassLoader): Any {
+    fun getItemType(value: Any, typeHierarchy: Any?, classLoader: ClassLoader): Any {
         val itemClass = classLoader.loadClass("net.sf.saxon.om.Item")
         val typeClass = classLoader.loadClass("net.sf.saxon.type.Type")
         val typeHierarchyClass = classLoader.loadClass("net.sf.saxon.type.TypeHierarchy")
-        return typeClass.getMethod("getItemType", itemClass, typeHierarchyClass).invoke(null, value, null)
+        return typeClass.getMethod("getItemType", itemClass, typeHierarchyClass).invoke(null, value, typeHierarchy)
     }
 }

@@ -59,6 +59,14 @@ class Processor {
 
     val version: String get() = saxonEdition?.let { "$saxonProductVersion ($it)" } ?: saxonProductVersion
 
+    val typeHierarchy: Any
+        get() {
+            val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
+            val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
+            val hierarchy = configurationClass.getMethod("getTypeHierarchy").invoke(configuration)
+            return hierarchy
+        }
+
     fun setTraceListener(listener: TraceListener) {
         val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
         val listenerClass = `class`.classLoader.loadClassOrNull("net.sf.saxon.lib.TraceListener") // Saxon >= 9.3

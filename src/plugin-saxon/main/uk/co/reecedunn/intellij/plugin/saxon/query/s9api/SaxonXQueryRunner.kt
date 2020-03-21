@@ -86,7 +86,7 @@ internal class SaxonXQueryRunner(
         evaluator.run()
         val result = destination.getXdmValue()
 
-        SaxonQueryResultIterator(result.iterator()).asSequence()
+        SaxonQueryResultIterator(result.iterator(), processor).asSequence()
     }
 
     override fun run(): QueryResults {
