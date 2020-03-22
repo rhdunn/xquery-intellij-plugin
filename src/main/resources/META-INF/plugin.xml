@@ -57,6 +57,7 @@
     <p>Saxon 10 Syntax Extensions:</p>
     <ol>
       <li>Support for wildcards in element and attribute-based kind tests.</li>
+      <li>Support for <code>.{ ... }</code> style context item inline function expressions.</li>
     </ol>
   ]]></change-notes>
 

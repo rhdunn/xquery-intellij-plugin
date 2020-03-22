@@ -607,13 +607,14 @@ be determined statically.
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[81\] | `ContextItemFunctionExpr`      | ::= | `"fn" "{" Expr "}"`                       |         |
+| \[81\] | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`         |         |
 
 This is a Saxon 9.8 extension. It is a syntax variant of the focus
 function alternative for inline functions in proposal 5 of the EXPath
 syntax extensions for XPath and XQuery.
 
-The expression `fn{E}` is equivalent to:
+The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
+are equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
 #### 3.7.3 Inline Function Expressions
@@ -1131,7 +1132,7 @@ These changes include support for:
 | \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
 | \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
 | \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | | 
-| \[81\]   | `ContextItemFunctionExpr`      | ::= | `"fn" "{" Expr "}"`                       |                 |
+| \[81\]   | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`         |                 |
 | \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
 | \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
 | \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |

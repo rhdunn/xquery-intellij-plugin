@@ -149,7 +149,8 @@ open class XPathParser : PsiParser {
 
     enum class BlockOpen {
         REQUIRED,
-        OPTIONAL
+        OPTIONAL,
+        CONTEXT_FUNCTION
     }
 
     enum class BlockExpr {
@@ -165,7 +166,12 @@ open class XPathParser : PsiParser {
     ): Boolean {
         var haveErrors = false
         val marker = if (type == null) null else builder.mark()
-        if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
+        val openToken =
+            if (blockOpen === BlockOpen.CONTEXT_FUNCTION)
+                XPathTokenType.CONTEXT_FUNCTION
+            else
+                XPathTokenType.BLOCK_OPEN
+        if (!builder.matchTokenType(openToken)) {
             if (blockOpen == BlockOpen.OPTIONAL) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 haveErrors = true
@@ -1532,11 +1538,11 @@ open class XPathParser : PsiParser {
             parseLiteral(builder) ||
             parseVarRef(builder, type) ||
             parseParenthesizedExpr(builder) ||
-            parseContextItemExpr(builder) ||
             parseFunctionItemExpr(builder) ||
             parseFunctionCall(builder) ||
             parseMapConstructor(builder) ||
             parseArrayConstructor(builder) ||
+            parseContextItemExpr(builder) ||
             parseLookup(builder, XPathElementType.UNARY_LOOKUP)
         )
     }
@@ -1616,7 +1622,24 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.DOT)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.DOT)
+        if (marker != null) {
+            val whitespace = builder.mark()
+            val haveWhitespace = parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.tokenType === XPathTokenType.BLOCK_OPEN && haveWhitespace) {
+                whitespace.error(XPathBundle.message("parser.error.context-function.whitespace-between-dot-and-brace"))
+            } else {
+                whitespace.drop()
+            }
+
+            if (parseContextItemFunctionExpr(builder, marker)) {
+                // NOTE: marker is consumed by parseContextItemFunctionExpr.
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        return false
     }
 
     open fun parseFunctionCall(builder: PsiBuilder): Boolean {
@@ -1688,7 +1711,7 @@ open class XPathParser : PsiParser {
         return (
             parseNamedFunctionRef(builder) ||
             parseInlineFunctionExpr(builder) ||
-            parseContextItemFunctionExpr(builder)
+            parseContextItemFunctionExpr(builder, null)
         )
     }
 
@@ -1762,18 +1785,24 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseContextItemFunctionExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FN)
-        if (marker != null) {
+    private fun parseContextItemFunctionExpr(builder: PsiBuilder, contextItem: PsiBuilder.Marker?): Boolean {
+        val marker = contextItem ?: builder.mark()
+        if (contextItem != null || builder.matchTokenType(XPathTokenType.K_FN)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                marker.rollbackTo()
+                if (marker !== contextItem) {
+                    marker.rollbackTo()
+                }
                 return false
             }
 
             marker.done(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
             return true
+        } else if (parseEnclosedExprOrBlock(builder, null, BlockOpen.CONTEXT_FUNCTION, BlockExpr.REQUIRED)) {
+            marker.done(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
+            return true
         }
+        marker.drop()
         return false
     }
 

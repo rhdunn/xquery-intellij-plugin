@@ -1,0 +1,17 @@
+XQueryModuleImpl[FILE(0:10)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
+         XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:10)]
+            PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:4)]
+               LeafPsiElement[XPATH_CONTEXT_FUNCTION(0:2)]('.{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Missing expression.')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(3:4)]('}')
+            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+            XPathArgumentListImpl[XPATH_ARGUMENT_LIST(5:10)]
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+               XPathArgumentImpl[XPATH_ARGUMENT(7:9)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(9:10)](')')

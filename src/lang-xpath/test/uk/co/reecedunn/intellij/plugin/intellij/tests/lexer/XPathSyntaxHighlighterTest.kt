@@ -481,6 +481,7 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.STAR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PLUS).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMA).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.CONTEXT_FUNCTION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.MINUS).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.DOT).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.EQUAL).size, `is`(0))

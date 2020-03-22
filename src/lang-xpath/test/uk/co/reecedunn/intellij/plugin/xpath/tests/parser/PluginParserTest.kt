@@ -387,36 +387,84 @@ private class PluginParserTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) ContextItemFunctionExpr")
     internal inner class ContextItemFunctionExpr {
-        @Test
-        @DisplayName("simple inline function expression")
-        fun simpleInlineFunctionExpr() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Nested
+        @DisplayName("simple inline function")
+        internal inner class SimpleInlineFunction {
+            @Test
+            @DisplayName("simple inline function expression")
+            fun simpleInlineFunctionExpr() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("simple inline function expression; compact whitespace")
+            fun simpleInlineFunctionExpr_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing Expr")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing brace")
+            fun missingClosingBrace() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
 
-        @Test
-        @DisplayName("simple inline function expression; compact whitespace")
-        fun simpleInlineFunctionExpr_CompactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+        @Nested
+        @DisplayName("context inline function")
+        internal inner class ContextInlineFunction {
+            @Test
+            @DisplayName("context item function expression")
+            fun contextItemFunctionExpr() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("missing Expr")
-        fun missingExpr() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+            @Test
+            @DisplayName("context item function expression; compact whitespace")
+            fun contextItemFunctionExpr_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("missing closing brace")
-        fun missingClosingBrace() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            @Test
+            @DisplayName("missing Expr")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing brace")
+            fun missingClosingBrace() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("space between dot and brace")
+            fun spaceBetweenDotAndBrace() {
+                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.txt")
+                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

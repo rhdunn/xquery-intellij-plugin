@@ -34,6 +34,7 @@ object XPathTokenType {
     val BLOCK_OPEN = IElementType("XPATH_BLOCK_OPEN_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
     val COMMA = IElementType("XPATH_COMMA_TOKEN", XPath) // XPath 1.0
     val CONCATENATION = IElementType("XPATH_CONCATENATION", XPath) // XPath 3.0
+    val CONTEXT_FUNCTION = IElementType("XPATH_CONTEXT_FUNCTION", XPath) // Saxon 10.0
     val DIRECT_DESCENDANTS_PATH = IElementType("XPATH_DIRECT_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
     val DOT = IElementType("XPATH_DOT_TOKEN", XPath) // XPath 1.0
     val ELLIPSIS = IElementType("XQUERY_ELLIPSIS_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 1

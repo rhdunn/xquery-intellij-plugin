@@ -263,6 +263,11 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
                         mTokenRange.restore()
                         mType = XPathTokenType.DECIMAL_LITERAL
                     }
+                    CharacterClass.CURLY_BRACE_OPEN -> {
+                        mTokenRange.match()
+                        mType = XPathTokenType.CONTEXT_FUNCTION
+                        return
+                    }
                     else -> {
                         mType = XPathTokenType.DOT
                         return

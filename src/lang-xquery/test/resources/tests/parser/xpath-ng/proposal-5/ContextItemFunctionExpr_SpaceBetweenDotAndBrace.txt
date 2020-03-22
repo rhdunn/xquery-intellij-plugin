@@ -1,0 +1,27 @@
+XQueryModuleImpl[FILE(0:17)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
+         XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:17)]
+            PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:11)]
+               XPathContextItemExprImpl[XPATH_DOT_TOKEN(0:1)]('.')
+               PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: A space is not allowed between '.' and '{' in context functions.')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(2:3)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+               XQueryExprImpl[XQUERY_EXPR(4:10)]
+                  XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(4:10)]
+                     XPathContextItemExprImpl[XPATH_DOT_TOKEN(4:5)]('.')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                     LeafPsiElement[XPATH_PLUS_TOKEN(6:7)]('+')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(10:11)]('}')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            XPathArgumentListImpl[XPATH_ARGUMENT_LIST(12:17)]
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+               XPathArgumentImpl[XPATH_ARGUMENT(14:16)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')

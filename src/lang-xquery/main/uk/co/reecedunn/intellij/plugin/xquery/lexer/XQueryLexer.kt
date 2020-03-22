@@ -187,6 +187,11 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                         }
                         return
                     }
+                    cc == CharacterClass.CURLY_BRACE_OPEN -> {
+                        mTokenRange.match()
+                        mType = XPathTokenType.CONTEXT_FUNCTION
+                        return
+                    }
                     cc != CharacterClass.DIGIT -> {
                         mType = XPathTokenType.DOT
                         return

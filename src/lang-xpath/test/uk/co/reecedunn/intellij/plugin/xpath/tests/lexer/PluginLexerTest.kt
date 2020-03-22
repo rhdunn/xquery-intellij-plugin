@@ -211,6 +211,8 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "fn", XPathTokenType.K_FN)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+
+        matchSingleToken(lexer, ".{", XPathTokenType.CONTEXT_FUNCTION)
     }
 
     @Test

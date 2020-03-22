@@ -1265,7 +1265,12 @@ class XQueryParser : XPathParser() {
     ): Boolean {
         var haveErrors = false
         val marker = if (type == null) null else builder.mark()
-        if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
+        val openToken =
+            if (blockOpen === BlockOpen.CONTEXT_FUNCTION)
+                XPathTokenType.CONTEXT_FUNCTION
+            else
+                XPathTokenType.BLOCK_OPEN
+        if (!builder.matchTokenType(openToken)) {
             if (blockOpen == BlockOpen.OPTIONAL) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 haveErrors = true
