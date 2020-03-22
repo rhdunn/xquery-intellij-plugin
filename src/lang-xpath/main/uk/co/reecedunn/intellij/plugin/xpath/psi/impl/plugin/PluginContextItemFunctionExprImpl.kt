@@ -21,10 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSimpleInlineFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
 
-class PluginSimpleInlineFunctionExprImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSimpleInlineFunctionExpr, VersionConformance {
+class PluginContextItemFunctionExprImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginContextItemFunctionExpr, VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_9)
 
     override val conformanceElement get(): PsiElement = firstChild

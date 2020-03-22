@@ -18,6 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 import com.intellij.psi.PsiElement
 
 /**
- * A Saxon 9.8 `SimpleInlineFunctionExpr` node in the XQuery AST.
+ * A Saxon 9.8 `ContextItemFunctionExpr` node in the XQuery AST.
  */
-interface PluginSimpleInlineFunctionExpr : PsiElement
+interface PluginContextItemFunctionExpr : PsiElement

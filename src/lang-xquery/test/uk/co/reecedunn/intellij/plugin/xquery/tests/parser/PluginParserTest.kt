@@ -2481,8 +2481,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
-    internal inner class SimpleInlineFunctionExpr {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) ContextItemFunctionExpr")
+    internal inner class ContextItemFunctionExpr {
         @Test
         @DisplayName("simple inline function expression")
         fun simpleInlineFunctionExpr() {

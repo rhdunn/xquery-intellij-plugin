@@ -637,8 +637,8 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
-    fun simpleInlineFunctionExpr() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) ContextItemFunctionExpr")
+    fun contextItemFunctionExpr() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "fn", XPathTokenType.K_FN)

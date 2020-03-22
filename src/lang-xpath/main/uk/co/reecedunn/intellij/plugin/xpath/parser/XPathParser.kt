@@ -1688,7 +1688,7 @@ open class XPathParser : PsiParser {
         return (
             parseNamedFunctionRef(builder) ||
             parseInlineFunctionExpr(builder) ||
-            parseSimpleInlineFunctionExpr(builder)
+            parseContextItemFunctionExpr(builder)
         )
     }
 
@@ -1762,7 +1762,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseSimpleInlineFunctionExpr(builder: PsiBuilder): Boolean {
+    private fun parseContextItemFunctionExpr(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1771,7 +1771,7 @@ open class XPathParser : PsiParser {
                 return false
             }
 
-            marker.done(XPathElementType.SIMPLE_INLINE_FUNCTION_EXPR)
+            marker.done(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
             return true
         }
         return false

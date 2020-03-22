@@ -826,9 +826,9 @@ object XPathElementType {
         XPath
     )
 
-    val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
-        "XPATH_SIMPLE_INLINE_FUNCTION_EXPR",
-        PluginSimpleInlineFunctionExprImpl::class.java,
+    val CONTEXT_ITEM_FUNCTION_EXPR: IElementType = ICompositeElementType(
+        "XPATH_CONTEXT_ITEM_FUNCTION_EXPR",
+        PluginContextItemFunctionExprImpl::class.java,
         XPath
     )
 

@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:10)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
-         PluginSimpleInlineFunctionExprImpl[XPATH_SIMPLE_INLINE_FUNCTION_EXPR(0:10)]
+         PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:10)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
             PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
