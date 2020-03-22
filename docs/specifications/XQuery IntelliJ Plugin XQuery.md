@@ -87,8 +87,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
   - [IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions)
   - [eXist-db Extensions](#c5-exist-db-extensions)
-  - [XQuery 1.0 Working Draft 02 May 2003](#c6-xquery-10-working-draft-02-may-2003)
-  - [EXPath Syntax Extensions](#c7-expath-syntax-extensions)
+  - [EXPath Syntax Extensions](#c6-expath-syntax-extensions)
 - {: .toc-letter } [Error and Warning Conditions](#d-error-and-warning-conditions)
   - [Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
@@ -1329,12 +1328,7 @@ Older versions of eXist-db support the following working draft syntax:
 1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty-sequence()` in 4.0 and
     later; `empty()` in older versions.
 
-### C.6 XQuery 1.0 Working Draft 02 May 2003
-The XQuery 1.0 Working Draft 02 May 2003 specification supports the following
-differences to the XQuery 1.0 Recommendation, described in this document:
-1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
-
-### C.7 EXPath Syntax Extensions
+### C.6 EXPath Syntax Extensions
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
