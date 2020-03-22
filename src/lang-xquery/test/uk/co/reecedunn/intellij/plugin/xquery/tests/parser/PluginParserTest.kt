@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2870,6 +2870,34 @@ private class PluginParserTest : ParserTestCase() {
         fun missingNamespaceUri() {
             val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceUri.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceUri.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (111) ElementNameOrWildcard")
+    internal inner class ElementNameOrWildcard {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardPrefix.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardLocalName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

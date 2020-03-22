@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.6 XQuery
+title: XQuery IntelliJ Plugin 1.7 XQuery
 ---
 
 This document includes material copied from or derived from the XQuery
@@ -32,6 +32,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Sequence Types](#2126-sequence-types)
         - [Union](#21261-union)
         - [List](#21262-list)
+      - [Element Test](#2127-element-test)
 - [Expressions](#3-expressions)
   - [Node Constructors](#31-node-constructors)
   - [Quantified Expressions](#32-quantified-expressions)
@@ -153,6 +154,7 @@ not normative.
 | \[97\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[99\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
+| \[111\] | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -385,6 +387,21 @@ rational or complex numbers.
 > `complex` can be defined as:
 >
 >     declare type complex = (xs:double, xs:double);
+
+##### 2.1.2.7 Element Test
+
+{: .ebnf-symbols }
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[111\] | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
+
+This is a Saxon 10.0 extension. The element tests have been relaxed to support
+all wildcard forms, not just `*`.
+
+> __Example:__
+>
+>     $a instance of element(*:thead) and
+>     $b instance of element(xhtml:*, xs:string)
 
 ## 3 Expressions
 
@@ -1127,6 +1144,7 @@ These changes include support for:
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
 | \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |                 |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |                 |
+| \[111\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                                |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1244,6 +1262,9 @@ __XPath NG__
 *  EXPath. *If Without Else*. Proposal 7, version 1. See
    [https://github.com/expath/xpath-ng/blob/ef330f640be3617ecc5ec53868de84f7d34e0ac6/if-without-else-ChristianGruen.md]().
    Christian Grün, BaseX GmbH.
+*  EXPath. *Extended Element and Attribute Tests*. Proposal 13, version 1. See
+   [https://github.com/expath/xpath-ng/blob/5b482550d164c8bf54e17b92f3e1d55e9f77bc6d/extended-element-attribute-tests.md]().
+   Reece H. Dunn, 67 Bricks.
 
 ## C Vendor Extensions
 
@@ -1297,6 +1318,7 @@ in this document:
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
+1.  [Element Test](#2127-element-test) \[Saxon 10.0\] -- wildcard element names
 
 Older versions of Saxon support the following working draft syntax:
 1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
@@ -1332,13 +1354,13 @@ Older versions of eXist-db support the following working draft syntax:
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
-1.  [If Without Else](#314-conditional-expressions) expressions \[Proposal 7\]
-1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
-    \[Proposal 5\] -- focus functions
+1.  [Variadic Function Arguments](#45-function-declaration) \[Proposal 1, version 2\]
 1.  [Ternary If](#314-conditional-expressions) and [Elvis](#314-conditional-expressions)
     expressions \[Proposal 2\]
+1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
+    \[Proposal 5\] -- focus functions
 1.  [Union Type](#2121-union-type) \[Proposal 6\]
-1.  [Variadic Function Arguments](#45-function-declaration) \[Proposal 1, version 2\]
+1.  [If Without Else](#314-conditional-expressions) expressions \[Proposal 7\]
 
 ## D Error and Warning Conditions
 

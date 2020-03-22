@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (20) AndExpr")
     internal inner class AndExpr {
         @Test
         @DisplayName("single")
@@ -83,7 +83,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XPath 3.1 EBNF (52) ItemType")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType ; XPath 3.1 EBNF (52) ItemType")
     internal inner class UnionType_ItemType {
         @Test
         @DisplayName("NCName")
@@ -168,7 +168,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XPath 3.1 EBNF (77) SingleType")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType ; XPath 3.1 EBNF (77) SingleType")
     internal inner class UnionType_SingleType {
         @Test
         @DisplayName("single type")
@@ -188,7 +188,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType ; XPath 3.1 EBNF (107) TypedMapTest")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType ; XPath 3.1 EBNF (107) TypedMapTest")
     fun unionType_typedMapTest() {
         val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InTypedMapTest.txt")
         val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InTypedMapTest.xq")
@@ -196,7 +196,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) TupleType")
     internal inner class TupleType {
         @Test
         @DisplayName("tuple type")
@@ -248,7 +248,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType ; XQuery IntelliJ Plugin EBNF (24) TupleField")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) TupleType ; XQuery IntelliJ Plugin XPath EBNF (26) TupleField")
     internal inner class TupleType_TupleField {
         @Test
         @DisplayName("single")
@@ -341,7 +341,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (19) OrExpr")
     internal inner class OrExpr {
         @Test
         @DisplayName("single")
@@ -385,7 +385,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) SimpleInlineFunctionExpr")
     internal inner class SimpleInlineFunctionExpr {
         @Test
         @DisplayName("simple inline function expression")
@@ -421,7 +421,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (10) TernaryIfExpr")
     internal inner class TernaryIfExpr {
         @Test
         @DisplayName("ternary if")
@@ -469,7 +469,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
     internal inner class ElvisExpr {
         @Test
         @DisplayName("elvis")
@@ -501,7 +501,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (21) IfExpr")
     internal inner class IfExpr {
         @Test
         @DisplayName("if without else")
@@ -529,7 +529,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
     internal inner class ParamList {
         @Test
         @DisplayName("untyped")
@@ -552,6 +552,34 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleParams() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Multiple_LastParam.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Multiple_LastParam.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (29) ElementNameOrWildcard")
+    internal inner class ElementNameOrWildcard {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardPrefix.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardLocalName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

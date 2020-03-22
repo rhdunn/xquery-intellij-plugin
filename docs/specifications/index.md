@@ -10,12 +10,12 @@ title: Specifications
 
 ## XPath and XQuery Vendor Extensions
 
-1. [XQuery IntelliJ Plugin 1.6 XPath](XQuery%20IntelliJ%20Plugin%20XPath.html)
+1. [XQuery IntelliJ Plugin 1.7 XPath](XQuery%20IntelliJ%20Plugin%20XPath.html)
 
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions for XPath supported by the XQuery IntelliJ Plugin.
 
-1. [XQuery IntelliJ Plugin 1.6 XQuery](XQuery%20IntelliJ%20Plugin%20XQuery.html)
+1. [XQuery IntelliJ Plugin 1.7 XQuery](XQuery%20IntelliJ%20Plugin%20XQuery.html)
 
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions for XQuery supported by the XQuery IntelliJ Plugin.
@@ -28,12 +28,12 @@ title: Specifications
 
 ## Specifications
 
-1. [XQuery IntelliJ Plugin 1.6 XPath](XQuery%20IntelliJ%20Plugin%20XPath.html)
+1. [XQuery IntelliJ Plugin 1.7 XPath](XQuery%20IntelliJ%20Plugin%20XPath.html)
 
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions for XPath supported by the XQuery IntelliJ Plugin.
 
-1. [XQuery IntelliJ Plugin 1.6 XQuery](XQuery%20IntelliJ%20Plugin%20XQuery.html)
+1. [XQuery IntelliJ Plugin 1.7 XQuery](XQuery%20IntelliJ%20Plugin%20XQuery.html)
 
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions for XQuery supported by the XQuery IntelliJ Plugin.

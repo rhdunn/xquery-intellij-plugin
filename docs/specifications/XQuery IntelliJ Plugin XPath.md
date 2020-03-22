@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.6 XPath
+title: XQuery IntelliJ Plugin 1.7 XPath
 ---
 
 This document includes material copied from or derived from the XPath
@@ -21,6 +21,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [SequenceType Matching](#212-sequencetype-matching)
       - [Union Type](#2121-union-type)
       - [Tuple Type](#2122-tuple-type)
+      - [Element Test](#2123-element-test)
 - [Expressions](#3-expressions)
   - [Quantified Expressions](#31-quantified-expressions)
   - [Path Expressions](#32-path-expressions)
@@ -91,6 +92,7 @@ not normative.
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
 | \[17\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
+| \[29\] | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
 
 Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
 pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
@@ -142,6 +144,21 @@ In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field nam
 but allows other fields to be included in the map object.\] An *extensible*
 tuple is specified by having the last tuple field be the `*` wildcard operator.
 This is supported by Saxon 9.9.
+
+##### 2.1.2.3 Element Test
+
+{: .ebnf-symbols }
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[29\]  | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
+
+This is a Saxon 10.0 extension. The element tests have been relaxed to support
+all wildcard forms, not just `*`.
+
+> __Example:__
+>
+>     $a instance of element(*:thead) and
+>     $b instance of element(xhtml:*, xs:string)
 
 ## 3 Expressions
 
@@ -341,6 +358,7 @@ These changes include support for:
 | \[26\]  | `TupleField`                   | ::= | `NCName "?"? (":" SequenceType)?`   |                      |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*` |                  |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
+| \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |
 
 ### A.2 Reserved Function Names
 
@@ -406,6 +424,9 @@ __XPath NG__
 *  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
    [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
    Michael Kay, Saxonica.
+*  EXPath. *Extensions to unary and binary lookup expressions*. Proposal 3, version 1. See
+   [https://github.com/expath/xpath-ng/blob/19a56aa6c01cf195306fcdd47a136dcab496cfc8/lookup-operator-extensions.md]().
+   Michael Kay, Saxonica.
 *  EXPath. *Concise Inline Function Syntax*. Proposal 5, version 1. See
    [https://github.com/expath/xpath-ng/blob/95676fd84266c13c5a4ace01af69783dd017a5c9/concise-inline-functions.md]().
    Michael Kay, Saxonica.
@@ -415,6 +436,15 @@ __XPath NG__
 *  EXPath. *If Without Else*. Proposal 7, version 1. See
    [https://github.com/expath/xpath-ng/blob/ef330f640be3617ecc5ec53868de84f7d34e0ac6/if-without-else-ChristianGruen.md]().
    Christian Grün, BaseX GmbH.
+*  EXPath. *Sequence, Map, and Array Decomposition*. Proposal 8, version 2. See
+   [https://github.com/expath/xpath-ng/blob/bc6cb1b579d688ba0088abfe0e73b7e633f964aa/sequence-map-array-decomposition.md]().
+   Reece H. Dunn, 67 Bricks.
+*  EXPath. *Restricted sequences*. Proposal 11, version 3. See
+   [https://github.com/expath/xpath-ng/blob/b9800b9882ded23d812641ef82209cc59861d6cc/restricted-sequences.md]().
+   Reece H. Dunn, 67 Bricks.
+*  EXPath. *Extended Element and Attribute Tests*. Proposal 13, version 1. See
+   [https://github.com/expath/xpath-ng/blob/5b482550d164c8bf54e17b92f3e1d55e9f77bc6d/extended-element-attribute-tests.md]().
+   Reece H. Dunn, 67 Bricks.
 
 ## C Vendor Extensions
 
@@ -432,3 +462,4 @@ behaviour of those constructs:
 ### C.2 Saxon Vendor Extensions
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Element Test](#2123-element-test) \[Saxon 10.0\] -- wildcard element names

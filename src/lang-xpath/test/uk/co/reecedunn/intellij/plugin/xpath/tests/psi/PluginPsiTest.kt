@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
@@ -39,10 +40,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
 private class PluginPsiTest : ParserTestCase() {
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (2.1.2.1) Union Type")
+    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.1) Union Type")
     internal inner class UnionType {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType")
         internal inner class UnionType {
             @Test
             @DisplayName("NCName namespace resolution")
@@ -114,7 +115,7 @@ private class PluginPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (21) TypedMapTest")
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (17) TypedMapTest")
         internal inner class TypedMapTest {
             @Test
             @DisplayName("union key type")
@@ -135,10 +136,10 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (3.7.3) Inline Function Expressions")
+    @DisplayName("XQuery IntelliJ Plugin XPath (3.6.1) Inline Function Expressions")
     internal inner class InlineFunctionExpressions {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin EBNF (95) ParamList")
+        @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
         internal inner class InlineFunctionExpr {
             @Test
             @DisplayName("variadic")
@@ -156,7 +157,7 @@ private class PluginPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall ; XQuery IntelliJ Plugin EBNF (95) ParamList")
+        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall ; XQuery IntelliJ Plugin EBNF (22) ParamList")
         internal inner class FunctionCall {
             @Test
             @DisplayName("variadic; no arguments specified for the variadic parameter")
@@ -219,6 +220,30 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(0))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.7) Element Test")
+    internal inner class ElementTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (29) ElementNameOrWildcard")
+        internal inner class ElementNameOrWildcard {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val test = parse<XPathElementTest>("() instance of element ( *:test )")[0]
+                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("element(*:test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElementNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
         }
     }

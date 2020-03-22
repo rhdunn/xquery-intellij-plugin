@@ -2,6 +2,10 @@
 
 ## 1.7 - (In Development)
 
+Saxon 10 Syntax Extensions:
+
+1.  Support for wildcards in element-based kind tests.
+
 ## 2020
 
 *  [1.6 - 2020-03-21](docs/_posts/2020-03-21-release-1.6.md)

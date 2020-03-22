@@ -3273,7 +3273,6 @@ open class XPathParser : PsiParser {
     private val ATTRIBUTE_NAME: IElementType get() = QNAME
 
     private val ELEMENT_DECLARATION: IElementType get() = QNAME
-    private val ELEMENT_NAME: IElementType get() = QNAME
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseKindTest(builder: PsiBuilder): Boolean {
@@ -3544,10 +3543,7 @@ open class XPathParser : PsiParser {
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
-        return (
-            builder.matchTokenType(XPathTokenType.STAR) ||
-            this.parseEQNameOrWildcard(builder, ELEMENT_NAME, false) != null
-        )
+        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementName = true) != null
     }
 
     fun parseSchemaElementTest(builder: PsiBuilder): Boolean {
@@ -3655,9 +3651,14 @@ open class XPathParser : PsiParser {
     open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
     open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
 
-    fun parseEQNameOrWildcard(builder: PsiBuilder, type: IElementType, endQNameOnSpace: Boolean): IElementType? {
+    fun parseEQNameOrWildcard(
+        builder: PsiBuilder,
+        type: IElementType,
+        endQNameOnSpace: Boolean = false,
+        isElementName: Boolean = false
+    ): IElementType? {
         val marker = builder.mark()
-        val eqnameType = parseQNameOrWildcard(builder, type, endQNameOnSpace)
+        val eqnameType = parseQNameOrWildcard(builder, type, endQNameOnSpace, isElementName)
             ?: parseURIQualifiedNameOrWildcard(builder, type)
         if (eqnameType != null) {
             if (type === QNAME || type === NCNAME || type === XPathElementType.WILDCARD) {
@@ -3727,7 +3728,8 @@ open class XPathParser : PsiParser {
     fun parseQNameOrWildcard(
         builder: PsiBuilder,
         type: IElementType,
-        endQNameOnSpace: Boolean = false
+        endQNameOnSpace: Boolean = false,
+        isElementName: Boolean = false
     ): IElementType? {
         val marker = builder.mark()
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
@@ -3775,9 +3777,17 @@ open class XPathParser : PsiParser {
                     marker.done(QNAME)
                     QNAME
                 }
-            } else if (type === XPathElementType.WILDCARD && prefix == XPathTokenType.STAR) {
+            } else if (
+                (type === XPathElementType.WILDCARD || isElementName) && prefix == XPathTokenType.STAR
+            ) {
                 nameMarker.drop()
-                marker.done(XPathElementType.WILDCARD)
+                if (isElementName) {
+                    // Don't create a PSI element for `*` only wildcards for ElementNameOrWildcard symbols.
+                    // This is so that `element()` has the same PSI tree as `element(*)`.
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.WILDCARD)
+                }
                 return XPathElementType.WILDCARD
             } else {
                 nameMarker.drop()

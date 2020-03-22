@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1195,5 +1195,17 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_USING))
+    }
+
+    @Test
+    @DisplayName("XQuery 3.1 EBNF (199) ElementTest ; XQuery IntelliJ Plugin EBNF (111) ElementNameOrWildcard")
+    fun elementTest() {
+        val conformance = parse<XPathElementTest>("() instance of element(*:test)")[0] as VersionConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_10_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.WILDCARD))
     }
 }

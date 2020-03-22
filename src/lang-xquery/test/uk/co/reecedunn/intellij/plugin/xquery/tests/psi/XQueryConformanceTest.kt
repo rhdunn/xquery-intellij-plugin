@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1998,6 +1998,26 @@ private class XQueryConformanceTest : ParserTestCase() {
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (199) ElementTest ; XQuery 3.1 EBNF (200) ElementNameOrWildcard")
+    internal inner class ElementTest {
+        @Test
+        @DisplayName("any")
+        fun any() {
+            val conformance = parse<XPathElementTest>("() instance of element()")[0] as VersionConformance
+            assertThat(conformance.requiresConformance.size, `is`(0))
+            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_ELEMENT))
+        }
+
+        @Test
+        @DisplayName("EQName")
+        fun eqname() {
+            val conformance = parse<XPathElementTest>("() instance of element(ns:test)")[0] as VersionConformance
+            assertThat(conformance.requiresConformance.size, `is`(0))
+            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_ELEMENT))
         }
     }
 }
