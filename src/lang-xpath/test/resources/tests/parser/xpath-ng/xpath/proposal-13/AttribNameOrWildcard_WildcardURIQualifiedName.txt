@@ -1,0 +1,20 @@
+XPathImpl[FILE(0:52)]
+   XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:52)]
+      XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(0:2)]
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
+      PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')
+      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(12:14)]('of')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XPathAttributeTestImpl[XPATH_ATTRIBUTE_TEST(15:52)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(15:24)]('attribute')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
+         XPathWildcardImpl[XPATH_WILDCARD(25:51)]
+            XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(25:50)]
+               LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(25:27)]('Q{')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(27:49)]('http://www.example.com')
+               LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(49:50)]('}')
+            PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(50:51)]('*')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(51:52)](')')

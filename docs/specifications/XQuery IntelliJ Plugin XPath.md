@@ -22,6 +22,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Union Type](#2121-union-type)
       - [Tuple Type](#2122-tuple-type)
       - [Element Test](#2123-element-test)
+      - [Attribute Test](#2124-attribute-test)
 - [Expressions](#3-expressions)
   - [Quantified Expressions](#31-quantified-expressions)
   - [Path Expressions](#32-path-expressions)
@@ -92,7 +93,6 @@ not normative.
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
 | \[17\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
-| \[29\] | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
 
 Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
 pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
@@ -159,6 +159,21 @@ all wildcard forms, not just `*`.
 >
 >     $a instance of element(*:thead) and
 >     $b instance of element(xhtml:*, xs:string)
+
+##### 2.1.2.4 Attribute Test
+
+{: .ebnf-symbols }
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[30\]  | `AttribNameOrWildcard`  | ::= | `NameTest`                          |         |
+
+This is a Saxon 10.0 extension. The attribute tests have been relaxed to support
+all wildcard forms, not just `*`.
+
+> __Example:__
+>
+>     $a instance of attribute(xlink:*) and
+>     $b instance of attribute(*:id, xs:ID)
 
 ## 3 Expressions
 
@@ -359,6 +374,7 @@ These changes include support for:
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*` |                  |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
 | \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |
+| \[30\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                              |                  |
 
 ### A.2 Reserved Function Names
 
@@ -462,4 +478,4 @@ behaviour of those constructs:
 ### C.2 Saxon Vendor Extensions
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Element Test](#2123-element-test) \[Saxon 10.0\] -- wildcard element names
+1.  [Element Test](#2123-element-test) and [Attribute Test](#2124-attribute-test) \[Saxon 10.0\] -- wildcard names

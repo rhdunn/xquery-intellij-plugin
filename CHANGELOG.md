@@ -4,7 +4,7 @@
 
 Saxon 10 Syntax Extensions:
 
-1.  Support for wildcards in element-based kind tests.
+1.  Support for wildcards in element and attribute-based kind tests.
 
 ## 2020
 

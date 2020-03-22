@@ -16,4 +16,8 @@ title: EXPath XPath NG Implementation Report
 |  10 | [Annotation Sequence Types](https://github.com/expath/xpath-ng/pull/10)                        | No       | No       | No         | No             | No               |
 |  11 | [Restricted Sequences](https://github.com/expath/xpath-ng/pull/11)                             | 1.3      | 1.3      | No         | No             | No               |
 |  12 | [Lift Single-Item Restrictions on Switch Cases](https://github.com/expath/xpath-ng/pull/12)    | No       | No       | No         | No             | No               |
-|  13 | [Extended Element and Attribute Tests](https://github.com/expath/xpath-ng/pull/13)             | No       | No       | No         | No             | No               |
+|  13 | [Extended Element and Attribute Tests](https://github.com/expath/xpath-ng/pull/13)             | n/a      | 1.7      | 1.7        | n/a            | n/a              |
+
+The extended element and attribute tests implementation only supports the ability
+to use any wildcard names in `ElementTest` and `AttributeTest`. It does not currently
+support the unioned name syntax.

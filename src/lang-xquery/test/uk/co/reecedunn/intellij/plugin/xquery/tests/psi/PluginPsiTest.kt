@@ -1104,10 +1104,10 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.3) Element Test")
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.7) Element Test")
     internal inner class ElementTest {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (29) ElementNameOrWildcard")
+        @DisplayName("XQuery IntelliJ Plugin EBNF (111) ElementNameOrWildcard")
         internal inner class ElementNameOrWildcard {
             @Test
             @DisplayName("wildcard")
@@ -1119,6 +1119,30 @@ private class PluginPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("element(*:test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmElementNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.8) Attribute Test")
+    internal inner class AttributeTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (112) AttribNameOrWildcard")
+        internal inner class AttribNameOrWildcard {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
+                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute(*:test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))

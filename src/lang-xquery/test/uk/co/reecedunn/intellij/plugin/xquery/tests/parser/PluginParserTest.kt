@@ -2901,4 +2901,32 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (112) AttribNameOrWildcard")
+    internal inner class AttribNameOrWildcard {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardPrefix.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardLocalName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

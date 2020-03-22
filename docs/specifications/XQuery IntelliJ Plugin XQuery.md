@@ -33,6 +33,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
         - [Union](#21261-union)
         - [List](#21262-list)
       - [Element Test](#2127-element-test)
+      - [Attribute Test](#2128-attribute-test)
 - [Expressions](#3-expressions)
   - [Node Constructors](#31-node-constructors)
   - [Quantified Expressions](#32-quantified-expressions)
@@ -154,7 +155,6 @@ not normative.
 | \[97\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[99\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
-| \[111\] | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -402,6 +402,21 @@ all wildcard forms, not just `*`.
 >
 >     $a instance of element(*:thead) and
 >     $b instance of element(xhtml:*, xs:string)
+
+##### 2.1.2.8 Attribute Test
+
+{: .ebnf-symbols }
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[112\] | `AttribNameOrWildcard`  | ::= | `NameTest`                          |         |
+
+This is a Saxon 10.0 extension. The attribute tests have been relaxed to support
+all wildcard forms, not just `*`.
+
+> __Example:__
+>
+>     $a instance of attribute(xlink:*) and
+>     $b instance of attribute(*:id, xs:ID)
 
 ## 3 Expressions
 
@@ -1145,6 +1160,7 @@ These changes include support for:
 | \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |                 |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |                 |
 | \[111\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                                |                 |
+| \[112\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                                |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1318,7 +1334,7 @@ in this document:
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
-1.  [Element Test](#2127-element-test) \[Saxon 10.0\] -- wildcard element names
+1.  [Element Test](#2127-element-test) and [Attribute Test](#2128-attribute-test) \[Saxon 10.0\] -- wildcard names
 
 Older versions of Saxon support the following working draft syntax:
 1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
