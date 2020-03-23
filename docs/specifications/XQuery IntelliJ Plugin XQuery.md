@@ -65,6 +65,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Logical Expressions](#313-logical-expressions)
   - [Conditional Expressions](#314-conditional-expressions)
   - [Arrow Operator (=>)](#315-arrow-operator-)
+  - [Otherwise Operator](#316-otherwise-operator)
 - [Modules and Prologs](#4-modules-and-prologs)
   - [Type Declaration](#41-type-declaration)
   - [Annotations](#42-annotations)
@@ -903,6 +904,34 @@ This splits out the arrow function call grammar into a separate symbol, making
 it easier to bind the first argument of the referenced functions to the correct
 expression in the arrow sequence.
 
+### 3.16 Otherwise Operator
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[113\] | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
+| \[114\] | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
+
+This is a Saxon 10.0 extension that returns the first non-empty sequence in the
+otherwise expression.
+
+For two items or empty sequences `A` and `B`, the expression `A otherwise B` is
+equivalent to:
+
+    (A, B)[1]
+
+Otherwise, if either `A` or `B` have more than one item, the expression
+`A otherwise B` is equivalent to:
+
+    let $a := A
+    return if (exists($a)) then $a else B
+
+> __Note:__
+>
+> For sequences with more than one item `(A, B)[1]` will only return the first
+> item in the non-empty sequence, not the entire sequence. This is why the more
+> complicated expression is needed for that case.
+
 ## 4 Modules and Prologs
 
 {: .ebnf-symbols }
@@ -1162,6 +1191,8 @@ These changes include support for:
 | \[110\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |                 |
 | \[111\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                                |                 |
 | \[112\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                                |                 |
+| \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
+| \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1251,6 +1282,7 @@ __Working Drafts__
    [https://docs.marklogic.com/guide/app-dev/json]().
 
 ### B.4 Saxon References
+__Saxon Documentation__
 *  Saxonica. *Union types*. See
    [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types]().
 *  Saxonica. *Tuple types*. See
@@ -1261,6 +1293,16 @@ __Working Drafts__
    [http://saxonica.com/documentation/#!extensions/syntax-extensions/simple-inline-functions]().
 *  Saxonica. *Short-circuit boolean operators*. See
    [http://saxonica.com/documentation/#!extensions/syntax-extensions/short-circuit]().
+*  Saxonica. *Otherwise operator*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/otherwise]().
+*  Saxonica. *KindTests*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/kindtests]().
+*  Saxonica. *For-member expressions*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/for-member-expressions]().
+
+__Papers:__
+*  XML Prague 2020. *A Proposal for XSLT 4.0*. See [http://www.saxonica.com/papers/xmlprague-2020mhk.pdf]().
+   Michael Kay, Saxonica.
 
 ### B.5 EXPath References
 __XPath NG__
@@ -1336,6 +1378,7 @@ Saxon implements the following [EXPath Syntax Extensions](https://github.com/exp
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
 1.  [Element Test](#2127-element-test) and [Attribute Test](#2128-attribute-test) \[Saxon 10.0\] -- wildcard names
+1.  [Otherwise Operator](#316-otherwise-operator) \[Saxon 10.0\]
 
 Older versions of Saxon support the following working draft syntax:
 1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values

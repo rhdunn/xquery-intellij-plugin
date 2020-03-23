@@ -58,6 +58,7 @@
     <ol>
       <li>Support for wildcards in element and attribute-based kind tests.</li>
       <li>Support for <code>.{ ... }</code> style context item inline function expressions.</li>
+      <li>Support for <code>otherwise</code> expressions.</li>
     </ol>
   ]]></change-notes>
 

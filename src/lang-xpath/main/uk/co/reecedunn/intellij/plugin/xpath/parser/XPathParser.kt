@@ -884,13 +884,13 @@ open class XPathParser : PsiParser {
 
     private fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseUnionExpr(builder, type)) {
+        if (parseOtherwiseExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveMultiplicativeExpr = false
             while (builder.matchTokenType(XPathTokenType.MULTIPLICATIVE_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseUnionExpr(builder, type)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
+                if (!parseOtherwiseExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
                 } else {
                     haveMultiplicativeExpr = true
                 }
@@ -898,6 +898,30 @@ open class XPathParser : PsiParser {
 
             if (haveMultiplicativeExpr)
                 marker.done(XPathElementType.MULTIPLICATIVE_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseOtherwiseExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseUnionExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveOtherwiseExpr = false
+            while (builder.matchTokenType(XPathTokenType.K_OTHERWISE)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseUnionExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
+                } else {
+                    haveOtherwiseExpr = true
+                }
+            }
+
+            if (haveOtherwiseExpr)
+                marker.done(XPathElementType.OTHERWISE_EXPR)
             else
                 marker.drop()
             return true

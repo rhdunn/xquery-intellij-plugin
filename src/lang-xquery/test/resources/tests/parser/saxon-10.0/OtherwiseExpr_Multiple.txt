@@ -1,0 +1,22 @@
+XQueryModuleImpl[FILE(0:25)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:25)]
+         PluginOtherwiseExprImpl[XPATH_OTHERWISE_EXPR(0:25)]
+            XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+               XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OTHERWISE(2:11)]('otherwise')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            XPathNodeTestImpl[XPATH_NODE_TEST(12:14)]
+               XPathNameTestImpl[XPATH_NAME_TEST(12:14)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(12:14)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('b')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OTHERWISE(14:23)]('otherwise')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            XPathNodeTestImpl[XPATH_NODE_TEST(24:25)]
+               XPathNameTestImpl[XPATH_NAME_TEST(24:25)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(24:25)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('c')

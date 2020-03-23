@@ -747,4 +747,12 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "using", XPathTokenType.K_USING)
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (114) OtherwiseExpr")
+    fun otherwiseExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
+    }
 }

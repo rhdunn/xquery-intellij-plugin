@@ -34,6 +34,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [Inline Function Expressions](#361-inline-function-expressions)
     - [Simple Inline Function Expressions](#362-simple-inline-function-expressions)
   - [Arrow Operator (=>)](#37-arrow-operator-)
+  - [Otherwise Operator](#38-otherwise-operator)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [Reserved Function Names](#a2-reserved-function-names)
@@ -41,6 +42,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [W3C References](#b1-w3c-references)
   - [MarkLogic References](#b2-marklogic-references)
   - [EXPath References](#b3-expath-references)
+  - [Saxon References](#b4-saxon-references)
 - {: .toc-letter } [Vendor Extensions](#c-vendor-extensions)
   - [IntelliJ Plugin Extensions](#c1-intellij-plugin-extensions)
   - [Saxon Vendor Extensions](#c2-saxon-vendor-extensions)
@@ -323,6 +325,34 @@ This splits out the arrow function call grammar into a separate symbol, making
 it easier to bind the first argument of the referenced functions to the correct
 expression in the arrow sequence.
 
+### 3.8 Otherwise Operator
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
+| \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
+
+This is a Saxon 10.0 extension that returns the first non-empty sequence in the
+otherwise expression.
+
+For two items or empty sequences `A` and `B`, the expression `A otherwise B` is
+equivalent to:
+
+    (A, B)[1]
+
+Otherwise, if either `A` or `B` have more than one item, the expression
+`A otherwise B` is equivalent to:
+
+    let $a := A
+    return if (exists($a)) then $a else B
+
+> __Note:__
+>
+> For sequences with more than one item `(A, B)[1]` will only return the first
+> item in the non-empty sequence, not the entire sequence. This is why the more
+> complicated expression is needed for that case.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1 with Vendor Extensions
@@ -376,6 +406,8 @@ These changes include support for:
 | \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
 | \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |
 | \[30\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                              |                  |
+| \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
+| \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
 
 ### A.2 Reserved Function Names
 
@@ -463,6 +495,29 @@ __XPath NG__
    [https://github.com/expath/xpath-ng/blob/5b482550d164c8bf54e17b92f3e1d55e9f77bc6d/extended-element-attribute-tests.md]().
    Reece H. Dunn, 67 Bricks.
 
+### B.4 Saxon References
+__Saxon Documentation__
+*  Saxonica. *Union types*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types]().
+*  Saxonica. *Tuple types*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types]().
+*  Saxonica. *Type aliases*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/type-aliases]().
+*  Saxonica. *Simple inline functions. See
+   [http://saxonica.com/documentation/#!extensions/syntax-extensions/simple-inline-functions]().
+*  Saxonica. *Short-circuit boolean operators*. See
+   [http://saxonica.com/documentation/#!extensions/syntax-extensions/short-circuit]().
+*  Saxonica. *Otherwise operator*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/otherwise]().
+*  Saxonica. *KindTests*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/kindtests]().
+*  Saxonica. *For-member expressions*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/for-member-expressions]().
+
+__Papers:__
+*  XML Prague 2020. *A Proposal for XSLT 4.0*. See [http://www.saxonica.com/papers/xmlprague-2020mhk.pdf]().
+   Michael Kay, Saxonica.
+
 ## C Vendor Extensions
 
 ### C.1 IntelliJ Plugin Extensions
@@ -480,3 +535,4 @@ behaviour of those constructs:
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 1.  [Element Test](#2123-element-test) and [Attribute Test](#2124-attribute-test) \[Saxon 10.0\] -- wildcard names
+1.  [Otherwise Operator](#38-otherwise-operator) \[Saxon 10.0\]

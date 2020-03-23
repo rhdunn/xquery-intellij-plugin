@@ -117,6 +117,7 @@ private val KEYWORDS = mapOf(
     "or" to XPathTokenType.K_OR, // XPath 1.0
     "ordered" to XPathTokenType.K_ORDERED, // Full Text 1.0; XQuery 1.0
     "orElse" to XPathTokenType.K_ORELSE, // Saxon 9.9
+    "otherwise" to XPathTokenType.K_OTHERWISE, // Saxon 10.0
     "paragraph" to XPathTokenType.K_PARAGRAPH, // Full Text 1.0
     "paragraphs" to XPathTokenType.K_PARAGRAPHS, // Full Text 1.0
     "parent" to XPathTokenType.K_PARENT, // XPath 1.0

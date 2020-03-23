@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class PluginLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (20) AndExpr")
     fun andExpr() {
         val lexer = createLexer()
 
@@ -37,7 +37,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType")
     fun unionType() {
         val lexer = createLexer()
 
@@ -48,7 +48,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) TupleType")
     fun tupleType() {
         val lexer = createLexer()
 
@@ -59,7 +59,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (26) TupleField")
     fun tupleField() {
         val lexer = createLexer()
 
@@ -195,7 +195,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (19) OrExpr")
     fun orExpr() {
         val lexer = createLexer()
 
@@ -204,7 +204,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (81) ContextItemFunctionExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) ContextItemFunctionExpr")
     fun contextItemFunctionExpr() {
         val lexer = createLexer()
 
@@ -216,7 +216,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (10) TernaryIfExpr")
     fun ternaryIfExpr() {
         val lexer = createLexer()
 
@@ -225,7 +225,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
     fun elvis() {
         val lexer = createLexer()
 
@@ -233,11 +233,19 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
     fun paramList() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "...", XPathTokenType.ELLIPSIS)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (32) OtherwiseExpr")
+    fun otherwiseExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
     }
 }

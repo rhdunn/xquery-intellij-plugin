@@ -2977,4 +2977,32 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (114) OtherwiseExpr")
+    internal inner class OtherwiseExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/saxon-10.0/OtherwiseExpr.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/OtherwiseExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/saxon-10.0/OtherwiseExpr_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/OtherwiseExpr_MissingUnionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/saxon-10.0/OtherwiseExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/OtherwiseExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

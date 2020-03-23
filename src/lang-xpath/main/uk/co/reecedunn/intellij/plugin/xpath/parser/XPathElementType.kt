@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -874,6 +874,12 @@ object XPathElementType {
     val NILLABLE_TYPE_NAME: IElementType = ICompositeElementType(
         "XPATH_NILLABLE_TYPE_NAME",
         PluginNillableTypeNamePsiImpl::class.java,
+        XPath
+    )
+
+    val OTHERWISE_EXPR: IElementType = ICompositeElementType(
+        "XPATH_OTHERWISE_EXPR",
+        PluginOtherwiseExprPsiImpl::class.java,
         XPath
     )
 

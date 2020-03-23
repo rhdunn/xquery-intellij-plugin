@@ -659,4 +659,32 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (32) OtherwiseExpr")
+    internal inner class OtherwiseExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_MissingUnionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

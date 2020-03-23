@@ -147,6 +147,7 @@ object XPathTokenType {
     val K_OR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OR", XPath) // XPath 1.0
     val K_ORDERED = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ORDERED", XPath) // Full Text 1.0; XQuery 1.0
     val K_ORELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE", XPath) // Saxon 9.9
+    val K_OTHERWISE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OTHERWISE", XPath) // Saxon 10.0
     val K_PARAGRAPH = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PARAGRAPH", XPath) // Full Text 1.0
     val K_PARAGRAPHS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PARAGRAPHS", XPath) // Full Text 1.0
     val K_PARENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PARENT", XPath) // XPath 1.0
