@@ -3257,7 +3257,7 @@ open class XPathParser : PsiParser {
                 else {
                     builder.matchTokenType(XPathTokenType.OPTIONAL)
                     parseWhiteSpaceAndCommentTokens(builder)
-                    builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR)
+                    builder.matchTokenType(XPathTokenType.TUPLE_FIELD_SEQUENCE_INDICATOR)
                 }
 
             if (!haveSeparator) {
@@ -3265,7 +3265,7 @@ open class XPathParser : PsiParser {
                     marker.done(XPathElementType.TUPLE_FIELD)
                     return true
                 }
-                builder.error(XPathBundle.message("parser.error.expected", ":"))
+                builder.error(XPathBundle.message("parser.error.expected-either", ":", "as"))
                 haveError = true
             }
 

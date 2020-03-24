@@ -136,11 +136,18 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[25\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\] | `TupleField`            | ::= | `NCName "?"? (":" SequenceType)?`   |                       |
+| \[26\] | `TupleField`            | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |            |
 
-The `TupleType` is a new sequence type supported by Saxon 9.8.
+The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
+to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
 
 In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
+
+In Saxon 9.8, tuple fields are optional by default (that is, they have a default
+type of `item()*`). In Saxon 10.0, tuple fields are required by default (that is,
+they have a default type of `item()+`). To specify an optional field in Saxon 10.0,
+the sequence type must be optional (i.e. using either the `?` or `*` occurrence
+indicator for the specified sequence type).
 
 \[Definition: An *extensible* tuple is a tuple that has some fields specified,
 but allows other fields to be included in the map object.\] An *extensible*
@@ -401,7 +408,7 @@ These changes include support for:
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`       |                  |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\]  | `TupleField`                   | ::= | `NCName "?"? (":" SequenceType)?`   |                      |
+| \[26\]  | `TupleField`                   | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |           |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*` |                  |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
 | \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |

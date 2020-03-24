@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-private val SAXON98: List<Version> = listOf()
-private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
+private val SAXON9_8: List<Version> = listOf()
+private val SAXON9_9: List<Version> = listOf(Saxon.VERSION_9_9)
+private val SAXON10_0: List<Version> = listOf(Saxon.VERSION_10_0)
 
 private val OPTIONAL_TOKENS = TokenSet.create(
     XPathTokenType.OPTIONAL,
@@ -45,14 +46,22 @@ class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTu
     override val fieldType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val isOptional: Boolean get() = conformanceElement !== firstChild
+    override val isOptional: Boolean get() = optional != null
 
     // endregion
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = if (isOptional) SAXON99 else SAXON98
+    private val optional: PsiElement? get() = findChildByType(OPTIONAL_TOKENS)
+    private val asType: PsiElement? get() = findChildByType(XPathTokenType.K_AS)
 
-    override val conformanceElement get(): PsiElement = findChildByType(OPTIONAL_TOKENS) ?: firstChild
+    override val requiresConformance: List<Version>
+        get() = when {
+            optional != null -> SAXON9_9
+            asType != null -> SAXON10_0
+            else -> SAXON9_8
+        }
+
+    override val conformanceElement get(): PsiElement = optional ?: asType ?: firstChild
 
     // endregion
 }

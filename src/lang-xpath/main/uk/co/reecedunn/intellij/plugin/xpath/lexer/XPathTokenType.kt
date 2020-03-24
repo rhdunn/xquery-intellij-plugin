@@ -330,6 +330,8 @@ object XPathTokenType {
         STRING_LITERAL_CONTENTS
     )
 
+    val TUPLE_FIELD_SEQUENCE_INDICATOR = TokenSet.create(QNAME_SEPARATOR, K_AS)
+
     val UNARY_EXPR_TOKENS = ADDITIVE_EXPR_TOKENS
 
     val UNION_EXPR_TOKENS = TokenSet.create(UNION, K_UNION)

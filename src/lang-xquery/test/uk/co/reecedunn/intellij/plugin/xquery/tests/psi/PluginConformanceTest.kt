@@ -797,6 +797,18 @@ private class PluginConformanceTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("as SequenceType")
+        fun asType() {
+            val file = parseResource("tests/parser/saxon-10.0/TupleField.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as VersionConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_10_0))
+
+            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_AS))
+        }
+
+        @Test
         @DisplayName("optional tuple field")
         fun optional() {
             val file = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
