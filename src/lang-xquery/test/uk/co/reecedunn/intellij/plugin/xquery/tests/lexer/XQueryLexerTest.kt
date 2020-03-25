@@ -102,8 +102,8 @@ class XQueryLexerTest : LexerTestCase() {
         fun testBadCharacters() {
             val lexer = createLexer()
 
-            lexer.start("~\uFFFE\u0000\uFFFF")
-            matchToken(lexer, "~", 0, 0, 1, XPathTokenType.BAD_CHARACTER)
+            lexer.start("^\uFFFE\u0000\uFFFF")
+            matchToken(lexer, "^", 0, 0, 1, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "\uFFFE", 0, 1, 2, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "\u0000", 0, 2, 3, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "\uFFFF", 0, 3, 4, XPathTokenType.BAD_CHARACTER)

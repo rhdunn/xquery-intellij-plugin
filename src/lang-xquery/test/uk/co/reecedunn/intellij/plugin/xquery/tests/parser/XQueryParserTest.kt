@@ -56,11 +56,11 @@ private class XQueryParserTest : ParserTestCase() {
                     "XQueryModuleImpl[FILE(0:3)]\n" +
                     "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n" +
                     "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n" +
-                    "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n" +
+                    "      LeafPsiElement[BAD_CHARACTER(0:1)]('^')\n" +
                     "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n" +
                     "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n"
 
-            assertThat(prettyPrintASTNode(parseText("~\uFFFE\uFFFF")), `is`(expected))
+            assertThat(prettyPrintASTNode(parseText("^\uFFFE\uFFFF")), `is`(expected))
         }
 
         @Test

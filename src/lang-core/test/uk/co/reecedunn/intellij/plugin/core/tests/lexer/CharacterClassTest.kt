@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ class CharacterClassTest {
 
         assertThat(CharacterClass.getCharClass('\\'.toInt()), `is`(CharacterClass.CHAR))
         assertThat(CharacterClass.getCharClass('^'.toInt()), `is`(CharacterClass.CHAR))
-        assertThat(CharacterClass.getCharClass('~'.toInt()), `is`(CharacterClass.CHAR))
 
         // Excludes the surrogate blocks [0xD800-0xDFFF]
 
@@ -415,5 +414,11 @@ class CharacterClassTest {
     @DisplayName("U+0060 GRAVE ACCENT")
     fun testBackTick() {
         assertThat(CharacterClass.getCharClass('`'.toInt()), `is`(CharacterClass.BACK_TICK))
+    }
+
+    @Test
+    @DisplayName("U+007E TILDE")
+    fun testTilde() {
+        assertThat(CharacterClass.getCharClass('~'.toInt()), `is`(CharacterClass.TILDE))
     }
 }

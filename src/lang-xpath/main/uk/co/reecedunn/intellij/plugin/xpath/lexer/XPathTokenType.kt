@@ -60,6 +60,7 @@ object XPathTokenType {
     val STAR = IElementType("XPATH_STAR_TOKEN", XPath) // XPath 1.0
     val TERNARY_ELSE = IElementType("XPATH_TERNARY_ELSE_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 2
     val TERNARY_IF = IElementType("XPATH_TERNARY_IF_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 2
+    val TYPE_ALIAS = IElementType("XPATH_TYPE_ALIAS", XPath) // Saxon 9.8
     val UNION = IElementType("XPATH_UNION_TOKEN", XPath) // XPath 1.0
     val VARIABLE_INDICATOR = IElementType("XPATH_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 1.0
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -450,6 +450,10 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             CharacterClass.SQUARE_BRACE_OPEN -> {
                 mTokenRange.match()
                 mType = XPathTokenType.SQUARE_OPEN
+            }
+            CharacterClass.TILDE -> {
+                mTokenRange.match()
+                mType = XPathTokenType.TYPE_ALIAS
             }
             CharacterClass.VERTICAL_BAR -> {
                 mTokenRange.match()

@@ -755,4 +755,12 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (116) TypeAlias")
+    fun typeAlias() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "~", XPathTokenType.TYPE_ALIAS)
+    }
 }

@@ -34,6 +34,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
         - [List](#21262-list)
       - [Element Test](#2127-element-test)
       - [Attribute Test](#2128-attribute-test)
+      - [Type Alias](#2129-type-alias)
 - [Expressions](#3-expressions)
   - [Node Constructors](#31-node-constructors)
   - [Quantified Expressions](#32-quantified-expressions)
@@ -139,7 +140,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
@@ -429,6 +430,16 @@ all wildcard forms, not just `*`.
 >
 >     $a instance of attribute(xlink:*) and
 >     $b instance of attribute(*:id, xs:ID)
+
+##### 2.1.2.9 Type Alias
+
+{: .ebnf-symbols }
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[116\] | `TypeAlias`             | ::= | `~EQName`                           |         |
+
+This is a Saxon 9.8 extension. This is used to reference XQuery
+[type declarations](#41-type-declaration).
 
 ## 3 Expressions
 
@@ -968,6 +979,9 @@ prefix is resolved to a namespace URI using the
 If the type name has no namespace prefix, it is implicitly qualified by the
 [default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
 
+A type declaration is not resolvable as an atomic or union type. It needs to
+be referenced as a [type alias](#2129-type-alias).
+
 ### 4.2 Annotations
 
 {: .ebnf-symbols }
@@ -1114,7 +1128,7 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
@@ -1205,6 +1219,7 @@ These changes include support for:
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |                 |
 | \[115\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                  |                 |
+| \[116\]  | `TypeAlias`                    | ::= | `~EQName`                                 |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1383,7 +1398,7 @@ MarkLogic 8.0 supports the following JSON syntax extensions:
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
-1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
+1.  [Type Declaration](#41-type-declaration) and [Type Alias](#2129-type-alias) \[Saxon 9.8\]
 1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):

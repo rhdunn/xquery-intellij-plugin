@@ -23,4 +23,4 @@ let $items := (
 )
 return <test comment="One "" Two &quot; Three">Lorem ipsum.</test>
 
-~~~
+\^

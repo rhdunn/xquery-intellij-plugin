@@ -23,6 +23,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Tuple Type](#2122-tuple-type)
       - [Element Test](#2123-element-test)
       - [Attribute Test](#2124-attribute-test)
+      - [Type Alias](#2125-type-alias)
 - [Expressions](#3-expressions)
   - [Quantified Expressions](#31-quantified-expressions)
   - [Path Expressions](#32-path-expressions)
@@ -86,7 +87,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[13\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
@@ -187,6 +188,16 @@ all wildcard forms, not just `*`.
 >
 >     $a instance of attribute(xlink:*) and
 >     $b instance of attribute(*:id, xs:ID)
+
+##### 2.1.2.5 Type Alias
+
+{: .ebnf-symbols }
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
+| \[34\] | `TypeAlias`             | ::= | `~EQName`                           |           |
+
+This is a Saxon 9.8 extension. This is used to reference XSLT type aliases
+declared using `saxon:type-alias` XSLT elements.
 
 ## 3 Expressions
 
@@ -391,7 +402,7 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
@@ -420,6 +431,7 @@ These changes include support for:
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
 | \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                |                  |
+| \[34\]  | `TypeAlias`                    | ::= | `~EQName`                               |                  |
 
 ### A.2 Reserved Function Names
 
@@ -546,5 +558,6 @@ behaviour of those constructs:
 ### C.2 Saxon Vendor Extensions
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Type Alias](#2125-type-alias) \[Saxon 9.8\]
 1.  [Element Test](#2123-element-test) and [Attribute Test](#2124-attribute-test) \[Saxon 10.0\] -- wildcard names
 1.  [Otherwise Operator](#38-otherwise-operator) \[Saxon 10.0\]

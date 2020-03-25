@@ -7,4 +7,4 @@ return lorem[fn:position() = 2 and fn:true()]//self::ipsum[
     . contains text (# ext Lorem ipsum #) { }
 ]
 
-~~~
+\^

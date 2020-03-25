@@ -607,6 +607,10 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     mType = XQueryTokenType.INVALID
                 }
             }
+            CharacterClass.TILDE -> {
+                mTokenRange.match()
+                mType = XPathTokenType.TYPE_ALIAS
+            }
             else -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BAD_CHARACTER

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,6 +52,7 @@ object CharacterClass {
     const val PERCENT = 26
     const val AMPERSAND = 27
     const val BACK_TICK = 28
+    const val TILDE = 29
 
     private const val AMP = AMPERSAND
     private const val APO = APOSTROPHE
@@ -83,6 +84,7 @@ object CharacterClass {
     private const val SBC = SQUARE_BRACE_CLOSE
     private const val SBO = SQUARE_BRACE_OPEN
     private const val SMC = SEMICOLON
+    private const val TLD = TILDE
     private const val VTB = VERTICAL_BAR
     private const val WSP = WHITESPACE
 
@@ -95,7 +97,7 @@ object CharacterClass {
         /* 4x */ ATS, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
         /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, SBO, CHR, SBC, CHR, NSC,
         /* 6x */ BTK, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
-        /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CBO, VTB, CBC, CHR, INV
+        /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CBO, VTB, CBC, TLD, INV
     )
 
     // TODO: Classify any non-conforming XML Char value as INVALID, like with xdm.model.XmlChar.
