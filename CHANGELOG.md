@@ -8,6 +8,7 @@ Saxon 10 Syntax Extensions:
 1.  Support for `.{ ... }` style context item inline function expressions.
 1.  Support for `otherwise` expressions.
 1.  Support using `as` for specifying the tuple field type in a tuple sequence type.
+1.  Support `StringLiteral` tuple field names.
 
 ## 2020
 

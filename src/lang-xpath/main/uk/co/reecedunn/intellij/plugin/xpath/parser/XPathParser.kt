@@ -3247,7 +3247,7 @@ open class XPathParser : PsiParser {
 
     private fun parseTupleField(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseNCName(builder)) {
+        if (parseNCName(builder) || parseStringLiteral(builder)) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)

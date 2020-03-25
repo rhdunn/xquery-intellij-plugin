@@ -208,13 +208,17 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 ##### 2.1.2.2 Tuple Type
 
 {: .ebnf-symbols }
-| Ref    | Symbol                  |     | Expression                          | Options               |
-|--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\] | `TupleField`            | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |            |
+| Ref     | Symbol                  |     | Expression                          | Options               |
+|---------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[23\]  | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
+| \[24\]  | `TupleField`            | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |            |
+| \[115\] | `TupleFieldName`        | ::= | `NCName | StringLiteral`            |                       |
 
-The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
-to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
+The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses
+`:` to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
+
+In Saxon 9.8, a tuple field name can only be an `NCName`. In Saxon 10, it can
+also be a `StringLiteral`.
 
 In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
 
@@ -1114,7 +1118,7 @@ These changes include support for:
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\]   | `TupleField`                   | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |            |
+| \[24\]   | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
@@ -1200,6 +1204,7 @@ These changes include support for:
 | \[112\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                                |                 |
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |                 |
+| \[115\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                  |                 |
 
 ### A.2 Reserved Function Names
 

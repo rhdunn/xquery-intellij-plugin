@@ -136,10 +136,14 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[25\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\] | `TupleField`            | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |            |
+| \[26\] | `TupleField`            | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |
+| \[33\] | `TupleFieldName`        | ::= | `NCName | StringLiteral`            |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
 to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
+
+In Saxon 9.8, a tuple field name can only be an `NCName`. In Saxon 10, it can
+also be a `StringLiteral`.
 
 In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
 
@@ -408,13 +412,14 @@ These changes include support for:
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`       |                  |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\]  | `TupleField`                   | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |           |
+| \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*` |                  |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
 | \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |
 | \[30\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                              |                  |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
+| \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                |                  |
 
 ### A.2 Reserved Function Names
 

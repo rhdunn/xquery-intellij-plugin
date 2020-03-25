@@ -390,6 +390,26 @@ private class PluginParserTest : ParserTestCase() {
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
+
+        @Nested
+        @DisplayName("StringLiteral field name (Saxon 10.0)")
+        internal inner class StringLiteralFieldName {
+            @Test
+            @DisplayName("field name")
+            fun fieldName() {
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("field name; compact whitespace")
+            fun fieldName_compactWhitespace() {
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
     @Nested

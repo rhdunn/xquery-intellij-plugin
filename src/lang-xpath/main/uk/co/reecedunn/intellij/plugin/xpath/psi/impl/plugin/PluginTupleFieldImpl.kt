@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 private val SAXON9_8: List<Version> = listOf()
 private val SAXON9_9: List<Version> = listOf(Saxon.VERSION_9_9)
@@ -41,7 +41,11 @@ private val OPTIONAL_TOKENS = TokenSet.create(
 class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, VersionConformance {
     // region PluginTupleField
 
-    override val fieldName: XsNCNameValue get() = (firstChild as XsQNameValue).localName!!
+    override val fieldName: XsStringValue
+        get() = when (val name = firstChild) {
+            is XsQNameValue -> name.localName!!
+            else -> name as XsStringValue
+        }
 
     override val fieldType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()

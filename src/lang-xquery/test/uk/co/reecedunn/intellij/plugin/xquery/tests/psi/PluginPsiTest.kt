@@ -415,6 +415,46 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(type.lowerBound, `is`(1))
                 assertThat(type.upperBound, `is`(1))
             }
+
+            @Test
+            @DisplayName("StringLiteral name; no space in name")
+            fun stringLiteralName_noSpace() {
+                val field = parse<PluginTupleField>("() instance of tuple ( 'test' )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as PluginTupleType
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("StringLiteral name; space in name")
+            fun stringLiteralName_withSpace() {
+                val field = parse<PluginTupleField>("() instance of tuple ( 'test key name' )")[0]
+                assertThat(field.fieldName.data, `is`("test key name"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as PluginTupleType
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(\"test key name\")"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
         }
     }
 

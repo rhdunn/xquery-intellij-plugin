@@ -59,7 +59,8 @@
       <li>Support for wildcards in element and attribute-based kind tests.</li>
       <li>Support for <code>.{ ... }</code> style context item inline function expressions.</li>
       <li>Support for <code>otherwise</code> expressions.</li>
-      <li>Support using `as` for specifying the tuple field type in a tuple sequence type.</li>
+      <li>Support using <code>as</code> for specifying the tuple field type in a tuple sequence type.</li>
+      <li>Support <code>StringLiteral</code> tuple field names.</li>
     </ol>
   ]]></change-notes>
 

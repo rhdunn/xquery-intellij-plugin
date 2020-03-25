@@ -53,7 +53,13 @@ class PluginTupleTypeImpl(node: ASTNode) :
 
     private val cachedTypeName = CacheableProperty {
         val fields = fields.map {
-            val name = if (it.isOptional) "${it.fieldName.data}?" else it.fieldName.data
+            val fieldName = it.fieldName.data.let { name ->
+                if (name.contains("\\s".toRegex()))
+                    "\"$name\""
+                else
+                    name
+            }
+            val name = if (it.isOptional) "$fieldName?" else fieldName
             val type = it.fieldType?.let { type -> ": ${type.typeName}" } ?: ""
             "$name$type"
         }.filterNotNull().joinToString()
