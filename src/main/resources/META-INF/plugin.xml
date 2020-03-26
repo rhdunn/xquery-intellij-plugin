@@ -62,6 +62,7 @@
       <li>Support for Saxon 10.0 <code>otherwise</code> expressions.</li>
       <li>Support for Saxon 10.0 using <code>as</code> for specifying the tuple field type in a tuple sequence type.</li>
       <li>Support for Saxon 10.0 <code>StringLiteral</code> tuple field names.</li>
+      <li>Support for Saxon 10.0 <code>type(T)</code> type aliases.</li>
     </ol>
   ]]></change-notes>
 

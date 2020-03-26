@@ -135,10 +135,58 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (2.1.2.5) Type Alias")
+    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.3) Element Test")
+    internal inner class ElementTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (29) ElementNameOrWildcard")
+        internal inner class ElementNameOrWildcard {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val test = parse<XPathElementTest>("() instance of element ( *:test )")[0]
+                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("element(*:test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElementNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.4) Attribute Test")
+    internal inner class AttributeTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (30) AttribNameOrWildcard")
+        internal inner class AttribNameOrWildcard {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
+                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute(*:test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.5) Type Alias")
     internal inner class TypeAlias {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (34) TypeAlias")
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (34) TypeAlias")
         internal inner class TypeAlias {
             @Test
             @DisplayName("NCName namespace resolution")
@@ -155,13 +203,28 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("item type")
-            fun itemType() {
+            @DisplayName("item type; Saxon 9.8")
+            fun itemType_saxon9() {
                 val test = parse<PluginTypeAlias>("() instance of ~ test")[0]
                 assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
 
                 val type = test as XdmItemType
-                assertThat(type.typeName, `is`("~test"))
+                assertThat(type.typeName, `is`("type(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("item type; Saxon 10.0")
+            fun itemType_saxon10() {
+                val test = parse<PluginTypeAlias>("() instance of type ( test )")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("type(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
@@ -256,54 +319,6 @@ private class PluginPsiTest : ParserTestCase() {
 
                 val bindings = args.bindings
                 assertThat(bindings.size, `is`(0))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.7) Element Test")
-    internal inner class ElementTest {
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (29) ElementNameOrWildcard")
-        internal inner class ElementNameOrWildcard {
-            @Test
-            @DisplayName("wildcard")
-            fun wildcard() {
-                val test = parse<XPathElementTest>("() instance of element ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
-                assertThat(test.nodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("element(*:test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmElementNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.8) Attribute Test")
-    internal inner class AttributeTest {
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (30) AttribNameOrWildcard")
-        internal inner class AttribNameOrWildcard {
-            @Test
-            @DisplayName("wildcard")
-            fun wildcard() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
-                assertThat(test.nodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute(*:test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
             }
         }
     }

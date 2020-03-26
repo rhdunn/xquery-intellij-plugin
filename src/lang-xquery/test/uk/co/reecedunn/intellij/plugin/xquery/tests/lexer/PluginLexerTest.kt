@@ -762,5 +762,9 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "~", XPathTokenType.TYPE_ALIAS)
+
+        matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }

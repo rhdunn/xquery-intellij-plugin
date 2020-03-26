@@ -194,10 +194,12 @@ all wildcard forms, not just `*`.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[34\] | `TypeAlias`             | ::= | `~EQName`                           |           |
+| \[34\] | `TypeAlias`             | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |  |
 
 This is a Saxon 9.8 extension. This is used to reference XSLT type aliases
 declared using `saxon:type-alias` XSLT elements.
+
+Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 
 ## 3 Expressions
 
@@ -431,7 +433,7 @@ These changes include support for:
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
 | \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                |                  |
-| \[34\]  | `TypeAlias`                    | ::= | `~EQName`                               |                  |
+| \[34\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |             |
 
 ### A.2 Reserved Function Names
 

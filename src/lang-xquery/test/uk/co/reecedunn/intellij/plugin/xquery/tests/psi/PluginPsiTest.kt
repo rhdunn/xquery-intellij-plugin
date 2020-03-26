@@ -1226,13 +1226,28 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("item type")
-            fun itemType() {
+            @DisplayName("item type; Saxon 9.8")
+            fun itemType_saxon9() {
                 val test = parse<PluginTypeAlias>("() instance of ~ test")[0]
                 assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
 
                 val type = test as XdmItemType
-                assertThat(type.typeName, `is`("~test"))
+                assertThat(type.typeName, `is`("type(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("item type; Saxon 10.0")
+            fun itemType_saxon10() {
+                val test = parse<PluginTypeAlias>("() instance of type ( test )")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("type(test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))

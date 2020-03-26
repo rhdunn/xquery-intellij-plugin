@@ -25,9 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 
 class PluginTypeAliasPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginTypeAlias, XdmItemType, VersionConformance {
@@ -47,7 +45,7 @@ class PluginTypeAliasPsiImpl(node: ASTNode) :
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        "~${op_qname_presentation(type)}"
+        "type(${op_qname_presentation(type)})"
     }
 
     override val typeName get(): String = cachedTypeName.get()!!

@@ -763,28 +763,68 @@ private class PluginParserTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (34) TypeAlias")
     internal inner class TypeAlias {
-        @Test
-        @DisplayName("single")
-        fun typeAlias() {
-            val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias.txt")
-            val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Nested
+        @DisplayName("Saxon 9.8 syntax")
+        internal inner class Saxon9 {
+            @Test
+            @DisplayName("single")
+            fun typeAlias() {
+                val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias.txt")
+                val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing UnionExpr")
+            fun typeAlias_compactWhitespace() {
+                val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing EQName")
+            fun missingEQName() {
+                val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias_MissingEQName.txt")
+                val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias_MissingEQName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
 
-        @Test
-        @DisplayName("error recovery: missing UnionExpr")
-        fun typeAlias_compactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+        @Nested
+        @DisplayName("Saxon 10.0 syntax")
+        internal inner class Saxon10 {
+            @Test
+            @DisplayName("single")
+            fun typeAlias() {
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("missing EQName")
-        fun missingEQName() {
-            val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias_MissingEQName.txt")
-            val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias_MissingEQName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            @Test
+            @DisplayName("error recovery: missing UnionExpr")
+            fun typeAlias_compactWhitespace() {
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing EQName")
+            fun missingEQName() {
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingEQName.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingEQName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 }

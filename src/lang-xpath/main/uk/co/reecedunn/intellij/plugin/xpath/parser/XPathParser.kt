@@ -2987,8 +2987,8 @@ open class XPathParser : PsiParser {
             parseArrayTest(builder) ||
             parseTupleType(builder) ||
             parseUnionType(builder) ||
-            parseAtomicOrUnionType(builder) ||
             parseTypeAlias(builder) ||
+            parseAtomicOrUnionType(builder) ||
             parseParenthesizedItemType(builder)
         )
     }
@@ -3321,13 +3321,43 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseTypeAlias(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.TYPE_ALIAS)
+        // Saxon 9.8 syntax
+        var marker = builder.matchTokenTypeWithMarker(XPathTokenType.TYPE_ALIAS)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "EQName"))
                 marker.drop()
             } else {
+                marker.done(XPathElementType.TYPE_ALIAS)
+            }
+            return true
+        }
+
+        // Saxon 10.0 syntax
+        marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TYPE)
+        if (marker != null) {
+            var haveTypeAlias = true
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+                builder.error(XPathBundle.message("parser.error.expected", "EQName"))
+                haveTypeAlias = false
+                marker.drop()
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && haveTypeAlias) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            if (haveTypeAlias) {
                 marker.done(XPathElementType.TYPE_ALIAS)
             }
             return true
