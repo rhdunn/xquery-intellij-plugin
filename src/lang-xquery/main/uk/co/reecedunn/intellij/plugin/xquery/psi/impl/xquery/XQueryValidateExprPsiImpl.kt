@@ -30,7 +30,7 @@ private val VALIDATE_BY = TokenSet.create(
     XQueryTokenType.K_LAX,
     XQueryTokenType.K_FULL,
     XPathTokenType.K_AS,
-    XQueryTokenType.K_TYPE
+    XPathTokenType.K_TYPE
 )
 
 private val XQUERY10: List<Version> = listOf()

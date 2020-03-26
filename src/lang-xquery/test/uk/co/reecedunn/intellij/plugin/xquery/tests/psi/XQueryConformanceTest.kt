@@ -1860,7 +1860,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_TYPE))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_TYPE))
     }
 
     // endregion

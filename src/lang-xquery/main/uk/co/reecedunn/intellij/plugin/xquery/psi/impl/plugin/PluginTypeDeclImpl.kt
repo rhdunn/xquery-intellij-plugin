@@ -24,11 +24,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import javax.swing.Icon
 
 class PluginTypeDeclImpl(node: ASTNode) :
@@ -50,7 +50,7 @@ class PluginTypeDeclImpl(node: ASTNode) :
 
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.K_TYPE) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.K_TYPE) ?: firstChild
 
     // endregion
     // region NavigationItem

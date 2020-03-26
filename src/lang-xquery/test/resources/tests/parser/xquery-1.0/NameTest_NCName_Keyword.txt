@@ -1235,7 +1235,7 @@ XQueryModuleImpl[FILE(0:2120)]
             XPathNodeTestImpl[XPATH_NODE_TEST(1905:1909)]
                XPathNameTestImpl[XPATH_NAME_TEST(1905:1909)]
                   XQueryNCNameImpl[XQUERY_NCNAME(1905:1909)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(1905:1909)]('type')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TYPE(1905:1909)]('type')
             LeafPsiElement[XPATH_COMMA_TOKEN(1909:1910)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1910:1911)]('\n')
             XPathNodeTestImpl[XPATH_NODE_TEST(1911:1921)]

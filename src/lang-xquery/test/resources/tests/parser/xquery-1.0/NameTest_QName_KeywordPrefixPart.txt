@@ -1669,7 +1669,7 @@ XQueryModuleImpl[FILE(0:3554)]
             XPathNodeTestImpl[XPATH_NODE_TEST(3189:3199)]
                XPathNameTestImpl[XPATH_NAME_TEST(3189:3199)]
                   XQueryQNameImpl[XQUERY_QNAME(3189:3199)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(3189:3193)]('type')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TYPE(3189:3193)]('type')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3193:3194)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(3194:3199)]('ipsum')
             LeafPsiElement[XPATH_COMMA_TOKEN(3199:3200)](',')

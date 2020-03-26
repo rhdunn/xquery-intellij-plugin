@@ -3243,7 +3243,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
-        matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
+        matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

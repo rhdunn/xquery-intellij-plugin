@@ -1223,7 +1223,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseTypeDecl(builder: PsiBuilder): Boolean {
-        if (builder.matchTokenType(XQueryTokenType.K_TYPE)) {
+        if (builder.matchTokenType(XPathTokenType.K_TYPE)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)

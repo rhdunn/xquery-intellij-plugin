@@ -2086,7 +2086,7 @@ XPathImpl[FILE(0:9379)]
                LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(8389:8391)]('Q{')
                XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(8391:8419)]('http://www.example.com/test#')
                LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(8419:8420)]('}')
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(8420:8424)]('type')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TYPE(8420:8424)]('type')
    LeafPsiElement[XPATH_COMMA_TOKEN(8424:8425)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(8425:8426)]('\n')
    XPathNodeTestImpl[XPATH_NODE_TEST(8426:8467)]

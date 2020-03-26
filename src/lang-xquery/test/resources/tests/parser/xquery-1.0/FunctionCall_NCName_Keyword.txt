@@ -1602,7 +1602,7 @@ XQueryModuleImpl[FILE(0:4627)]
             PsiWhiteSpaceImpl[WHITE_SPACE(4231:4232)]('\n')
             XPathFunctionCallImpl[XPATH_FUNCTION_CALL(4232:4238)]
                XQueryNCNameImpl[XQUERY_NCNAME(4232:4236)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(4232:4236)]('type')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TYPE(4232:4236)]('type')
                XPathArgumentListImpl[XPATH_ARGUMENT_LIST(4236:4238)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(4236:4237)]('(')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(4237:4238)](')')

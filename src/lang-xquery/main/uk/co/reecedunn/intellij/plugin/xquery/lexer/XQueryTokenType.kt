@@ -169,7 +169,6 @@ object XQueryTokenType {
     val K_TRANSFORM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM", XQuery) // Update Facility 3.0
     val K_TRY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRY", XQuery) // XQuery 3.0
     val K_TUMBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUMBLING", XQuery) // XQuery 3.0
-    val K_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPE", XQuery) // XQuery 3.0
     val K_TYPESWITCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XQuery 1.0
     val K_UNASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE", XQuery) // Scripting Extension 1.0
     val K_UNORDERED = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED", XQuery) // XQuery 1.0
@@ -268,7 +267,7 @@ object XQueryTokenType {
 
     val REVALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_SKIP, K_STRICT)
 
-    val VALIDATE_EXPR_TOKENS = TokenSet.create(XPathTokenType.K_AS, K_TYPE)
+    val VALIDATE_EXPR_TOKENS = TokenSet.create(XPathTokenType.K_AS, XPathTokenType.K_TYPE)
 
     val VALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_STRICT, K_FULL)
 

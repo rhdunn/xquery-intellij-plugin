@@ -179,6 +179,7 @@ object XPathTokenType {
     val K_TO = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0
     val K_TREAT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TREAT", XPath) // XPath 2.0
     val K_TUPLE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TUPLE", XPath) // Saxon 9.8
+    val K_TYPE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TYPE", XPath) // XQuery 3.0 ; Saxon 10.0
     val K_UNION = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UNION", XPath) // XPath 2.0
     val K_UPPERCASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UPPERCASE", XPath) // Full Text 1.0
     val K_USING = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_USING", XPath) // Full Text 1.0 ; MarkLogic 6.0
