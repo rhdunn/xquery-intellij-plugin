@@ -96,6 +96,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.SCHEMA_ATTRIBUTE_TEST to XstUsageType.Attribute,
             XPathElementType.SCHEMA_ELEMENT_TEST to XstUsageType.Element,
             XPathElementType.SIMPLE_TYPE_NAME to XstUsageType.Type,
+            XPathElementType.TYPE_ALIAS to XstUsageType.Type,
             XPathElementType.TYPE_NAME to XstUsageType.Type,
             XPathElementType.UNION_TYPE to XstUsageType.Type,
             XPathElementType.VAR_NAME to XstUsageType.Variable

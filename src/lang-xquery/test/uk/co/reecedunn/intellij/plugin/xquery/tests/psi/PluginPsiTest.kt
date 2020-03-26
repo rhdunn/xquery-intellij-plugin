@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
@@ -36,10 +37,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -48,6 +45,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
@@ -1183,6 +1181,59 @@ private class PluginPsiTest : ParserTestCase() {
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("attribute(*:test)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.9) Type Alias")
+    internal inner class TypeAlias {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (116) TypeAlias")
+        internal inner class TypeAlias {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    () instance of ~ test
+                    """
+                )[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
+                assertThat(XQueryFindUsagesProvider.getType(qname.element!!), `is`("type"))
+                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("item type")
+            fun itemType() {
+                val test = parse<PluginTypeAlias>("() instance of ~ test")[0]
+                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("~test"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
                 assertThat(type.lowerBound, `is`(1))

@@ -907,6 +907,12 @@ object XPathElementType {
         XPath
     )
 
+    val TYPE_ALIAS: IElementType = ICompositeElementType(
+        "XPATH_TYPE_ALIAS",
+        PluginTypeAliasPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
 }
 

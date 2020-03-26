@@ -980,6 +980,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (116) TypeAlias")
+        fun typeAlias() {
+            val file = parse<XQueryModule>("() instance of ~test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (16:20) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
     }
 
     @Nested

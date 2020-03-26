@@ -1266,4 +1266,15 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (116) TypeAlias")
+    fun typeAlias() {
+        val conformance = parse<PluginTypeAlias>("a instance of ~b")[0] as VersionConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
+
+        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.TYPE_ALIAS))
+    }
 }

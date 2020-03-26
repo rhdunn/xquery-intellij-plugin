@@ -54,13 +54,14 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.7-dev:</h3>
-    <p>Saxon 10 Syntax Extensions:</p>
+    <p>Saxon Syntax Extensions:</p>
     <ol>
-      <li>Support for wildcards in element and attribute-based kind tests.</li>
-      <li>Support for <code>.{ ... }</code> style context item inline function expressions.</li>
-      <li>Support for <code>otherwise</code> expressions.</li>
-      <li>Support using <code>as</code> for specifying the tuple field type in a tuple sequence type.</li>
-      <li>Support <code>StringLiteral</code> tuple field names.</li>
+      <li>Support for Saxon 9.8 <code>~type</code> type aliases.</li>
+      <li>Support for Saxon 10.0 wildcards in element and attribute-based kind tests.</li>
+      <li>Support for Saxon 10.0 <code>.{ ... }</code> style context item inline function expressions.</li>
+      <li>Support for Saxon 10.0 <code>otherwise</code> expressions.</li>
+      <li>Support for Saxon 10.0 using <code>as</code> for specifying the tuple field type in a tuple sequence type.</li>
+      <li>Support for Saxon 10.0 <code>StringLiteral</code> tuple field names.</li>
     </ol>
   ]]></change-notes>
 

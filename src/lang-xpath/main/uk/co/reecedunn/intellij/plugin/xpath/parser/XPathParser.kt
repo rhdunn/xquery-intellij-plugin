@@ -2988,6 +2988,7 @@ open class XPathParser : PsiParser {
             parseTupleType(builder) ||
             parseUnionType(builder) ||
             parseAtomicOrUnionType(builder) ||
+            parseTypeAlias(builder) ||
             parseParenthesizedItemType(builder)
         )
     }
@@ -3314,6 +3315,21 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.UNION_TYPE)
+            return true
+        }
+        return false
+    }
+
+    private fun parseTypeAlias(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.TYPE_ALIAS)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+                builder.error(XPathBundle.message("parser.error.expected", "EQName"))
+                marker.drop()
+            } else {
+                marker.done(XPathElementType.TYPE_ALIAS)
+            }
             return true
         }
         return false
