@@ -1839,13 +1839,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("y"))
             }
-
-            @Test
-            @DisplayName("missing VarName")
-            fun missingVarName() {
-                val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XdmVariableReference
-                assertThat(expr.variableName, `is`(nullValue()))
-            }
         }
 
         @Nested

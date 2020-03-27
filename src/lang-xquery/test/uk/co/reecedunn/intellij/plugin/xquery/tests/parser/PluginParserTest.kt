@@ -3189,4 +3189,44 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (128) PrimaryExpr ; XQuery IntelliJ Plugin EBNF (118) ParamRef")
+    internal inner class PrimaryExpr_ParamRef {
+        @Test
+        @DisplayName("parameter reference")
+        fun paramRef() {
+            val expected = loadResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter reference; compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier ; XQuery IntelliJ Plugin XPath EBNF (37) ParamRef")
+    internal inner class ArrowFunctionSpecifier_ParamRef {
+        @Test
+        @DisplayName("parameter reference")
+        fun paramRef() {
+            val expected = loadResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter reference; compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

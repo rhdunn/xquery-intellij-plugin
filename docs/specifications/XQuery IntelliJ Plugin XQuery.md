@@ -665,6 +665,7 @@ are equivalent to:
 |---------|--------------------------------|-----|-------------------------------------------|---------|
 | \[117\] | `LambdaFunctionExpr`           | ::= | `"_" "{" Expr "}"`                        |         |
 | \[118\] | `ParamRef`                     | ::= | `"$" Digits`                              |         |
+| \[119\] | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` | |
 
 This is a Saxon 10.0 extension. This is a simplified syntax for *inline
 function expressions*.
@@ -1261,6 +1262,7 @@ These changes include support for:
 | \[116\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |              |
 | \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                           |                 |
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                              |                 |
+| \[119\]  | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` |       |
 
 ### A.2 Reserved Function Names
 

@@ -829,7 +829,7 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) LambdaFunctionExpr")
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (35) LambdaFunctionExpr")
     internal inner class LambdaFunctionExpr {
         @Test
         @DisplayName("lambda function expression")
@@ -868,6 +868,46 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (56) PrimaryExpr ; XQuery IntelliJ Plugin XPath EBNF (37) ParamRef")
+    internal inner class PrimaryExpr_ParamRef {
+        @Test
+        @DisplayName("parameter reference")
+        fun paramRef() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter reference; compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier ; XQuery IntelliJ Plugin XPath EBNF (37) ParamRef")
+    internal inner class ArrowFunctionSpecifier_ParamRef {
+        @Test
+        @DisplayName("parameter reference")
+        fun paramRef() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter reference; compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

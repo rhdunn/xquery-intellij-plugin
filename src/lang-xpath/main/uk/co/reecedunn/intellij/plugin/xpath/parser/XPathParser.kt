@@ -1189,7 +1189,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (
             this.parseEQNameOrWildcard(builder, QNAME, false) != null ||
-            parseVarRef(builder, null) ||
+            parseVarOrParamRef(builder, null) ||
             parseParenthesizedExpr(builder)
         ) {
             marker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
@@ -1561,7 +1561,7 @@ open class XPathParser : PsiParser {
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             parseLiteral(builder) ||
-            parseVarRef(builder, type) ||
+            parseVarOrParamRef(builder, type) ||
             parseParenthesizedExpr(builder) ||
             parseFunctionItemExpr(builder) ||
             parseFunctionCall(builder) ||
@@ -1610,20 +1610,22 @@ open class XPathParser : PsiParser {
         return true
     }
 
-    fun parseVarRef(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseVarOrParamRef(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (
-                this.parseEQNameOrWildcard(
-                    builder, XPathElementType.VAR_NAME,
-                    type === XPathElementType.MAP_CONSTRUCTOR_ENTRY
-                ) == null
-            ) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            val eqnameType = this.parseEQNameOrWildcard(
+                builder, XPathElementType.VAR_NAME,
+                type === XPathElementType.MAP_CONSTRUCTOR_ENTRY
+            )
+            when (eqnameType) {
+                null -> {
+                    builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                    marker.drop()
+                }
+                XPathElementType.PARAM_REF -> marker.done(XPathElementType.PARAM_REF)
+                else -> marker.done(XPathElementType.VAR_REF)
             }
-
-            marker.done(XPathElementType.VAR_REF)
             return true
         }
         return false
@@ -3779,10 +3781,12 @@ open class XPathParser : PsiParser {
         val eqnameType = parseQNameOrWildcard(builder, type, endQNameOnSpace, isElementOrAttributeName)
             ?: parseURIQualifiedNameOrWildcard(builder, type)
         if (eqnameType != null) {
-            if (type === QNAME || type === NCNAME || type === XPathElementType.WILDCARD) {
-                marker.drop()
-            } else {
-                marker.done(type)
+            when {
+                type === QNAME -> marker.drop()
+                type === NCNAME -> marker.drop()
+                type === XPathElementType.WILDCARD -> marker.drop()
+                type === XPathElementType.VAR_NAME && eqnameType === XPathElementType.PARAM_REF -> marker.drop()
+                else -> marker.done(type)
             }
             return eqnameType
         }
@@ -3963,11 +3967,16 @@ open class XPathParser : PsiParser {
             }
             builder.advanceLexer()
             return tokenType
-        } else if (tokenType == XPathTokenType.INTEGER_LITERAL && partType == QNamePart.LocalName) {
-            // The user has started the local name with a number, so treat it as part of the QName.
-            val errorMarker = builder.mark()
-            builder.advanceLexer()
-            errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
+        } else if (tokenType == XPathTokenType.INTEGER_LITERAL) {
+            if (partType == QNamePart.Prefix && elementType === XPathElementType.VAR_NAME) {
+                builder.advanceLexer()
+                return XPathElementType.PARAM_REF
+            } else if (partType == QNamePart.LocalName) {
+                // The user has started the local name with a number, so treat it as part of the QName.
+                val errorMarker = builder.mark()
+                builder.advanceLexer()
+                errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
+            }
         } else if (partType == QNamePart.LocalName) {
             // Don't consume the next token with an error, as it may be a valid part of the next construct
             // (e.g. the start of a string literal, or the '>' of a direct element constructor).

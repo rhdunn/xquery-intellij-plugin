@@ -889,6 +889,12 @@ object XPathElementType {
         XPath
     )
 
+    val PARAM_REF: IElementType = ICompositeElementType(
+        "XPATH_PARAM_REF",
+        PluginParamRefPsiImpl::class.java,
+        XPath
+    )
+
     val RETURN_CLAUSE: IElementType = ICompositeElementType(
         "XPATH_RETURN_CLAUSE",
         PluginReturnClausePsiImpl::class.java,

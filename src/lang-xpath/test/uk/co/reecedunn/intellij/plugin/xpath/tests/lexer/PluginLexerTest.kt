@@ -278,4 +278,12 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (37) ParamRef")
+    fun paramRef() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+    }
 }

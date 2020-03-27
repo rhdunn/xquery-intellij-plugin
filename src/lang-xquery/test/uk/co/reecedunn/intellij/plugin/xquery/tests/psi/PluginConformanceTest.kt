@@ -1305,4 +1305,15 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K__))
         }
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (118) ParamRef")
+    fun paramRef() {
+        val conformance = parse<PluginParamRef>("$ 1234")[0] as VersionConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_10_0))
+
+        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
+    }
 }

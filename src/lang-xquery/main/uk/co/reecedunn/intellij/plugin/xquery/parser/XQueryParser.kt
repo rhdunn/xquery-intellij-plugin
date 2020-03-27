@@ -3338,7 +3338,7 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            if (!parseVarRef(builder, null)) {
+            if (!parseVarOrParamRef(builder, null)) {
                 builder.error(XPathBundle.message("parser.error.expected", "VarDecl"))
             }
 
