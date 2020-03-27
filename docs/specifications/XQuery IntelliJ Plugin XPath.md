@@ -33,7 +33,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Conditional Expressions](#35-conditional-expressions)
   - [Primary Expressions](#36-primary-expressions)
     - [Inline Function Expressions](#361-inline-function-expressions)
-    - [Simple Inline Function Expressions](#362-simple-inline-function-expressions)
+      - [Context Item Function Expressions](#3611-context-item-function-expressions)
   - [Arrow Operator (=>)](#37-arrow-operator-)
   - [Otherwise Operator](#38-otherwise-operator)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
@@ -322,7 +322,7 @@ When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter has a type, the elements in that array have that type.
 
-#### 3.6.2 Simple Inline Function Expressions
+#### 3.6.1.1 Context Item Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |

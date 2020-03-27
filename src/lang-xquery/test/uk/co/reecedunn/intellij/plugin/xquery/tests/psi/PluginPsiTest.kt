@@ -1595,7 +1595,7 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (3.7.3) Inline Function Expressions")
+    @DisplayName("XQuery IntelliJ Plugin (3.7.2) Inline Function Expressions")
     internal inner class InlineFunctionExpressions {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin EBNF (95) ParamList")

@@ -48,8 +48,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Fuzzy Option](#3611-fuzzy-option)
   - [Primary Expressions](#37-primary-expressions)
     - [Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
-    - [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
-    - [Inline Function Expressions](#373-inline-function-expressions)
+    - [Inline Function Expressions](#372-inline-function-expressions)
+      - [Context Item Function Expressions](#3721-context-item-function-expressions)
     - [Literals](#374-literals)
   - [JSON Constructors](#38-json-constructors)
     - [Maps](#381-maps)
@@ -627,22 +627,7 @@ This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
 
-#### 3.7.2 Simple Inline Function Expressions
-
-{: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[81\] | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`         |         |
-
-This is a Saxon 9.8 extension. It is a syntax variant of the focus
-function alternative for inline functions in proposal 5 of the EXPath
-syntax extensions for XPath and XQuery.
-
-The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
-are equivalent to:
->     function ($arg as item()) as item()* { $arg ! (E) }
-
-#### 3.7.3 Inline Function Expressions
+#### 3.7.2 Inline Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -656,6 +641,21 @@ in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
 When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter has a type, the elements in that array have that type.
+
+#### 3.7.2.1 Context Item Function Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[81\] | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`         |         |
+
+This is a Saxon 9.8 extension. It is a syntax variant of the focus
+function alternative for inline functions in proposal 5 of the EXPath
+syntax extensions for XPath and XQuery.
+
+The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
+are equivalent to:
+>     function ($arg as item()) as item()* { $arg ! (E) }
 
 #### 3.7.4 Literals
 
