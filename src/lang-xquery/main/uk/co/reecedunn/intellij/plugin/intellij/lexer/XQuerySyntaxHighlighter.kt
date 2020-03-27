@@ -49,7 +49,7 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
 
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
         val default =
-            if (type is IKeywordOrNCNameType)
+            if (type is IKeywordOrNCNameType && type !== XPathTokenType.K__)
                 XQuerySyntaxHighlighterKeys.KEYWORD_KEYS
             else
                 DEFAULT

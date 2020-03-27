@@ -213,6 +213,11 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
 
         matchSingleToken(lexer, ".{", XPathTokenType.CONTEXT_FUNCTION)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+
+        matchSingleToken(lexer, ".", XPathTokenType.DOT)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -259,5 +264,18 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (35) LambdaFunctionExpr")
+    fun lambdaFunctionExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "_{", XPathTokenType.LAMBDA_FUNCTION)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+
+        matchSingleToken(lexer, "_", XPathTokenType.K__)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 }

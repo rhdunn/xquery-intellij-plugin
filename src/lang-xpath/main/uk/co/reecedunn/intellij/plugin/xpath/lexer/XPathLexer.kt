@@ -36,6 +36,7 @@ const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
 // endregion
 
 private val KEYWORDS = mapOf(
+    "_" to XPathTokenType.K__, // Saxon 10.0
     "all" to XPathTokenType.K_ALL, // Full Text 1.0
     "ancestor" to XPathTokenType.K_ANCESTOR, // XPath 1.0
     "ancestor-or-self" to XPathTokenType.K_ANCESTOR_OR_SELF, // XPath 1.0
@@ -385,6 +386,9 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
                     mTokenRange.match()
                     mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
+                } else if (c == '_'.toInt() && cc == CharacterClass.CURLY_BRACE_OPEN) {
+                    mTokenRange.match()
+                    mType = XPathTokenType.LAMBDA_FUNCTION
                 } else {
                     while (
                         cc == CharacterClass.NAME_START_CHAR ||

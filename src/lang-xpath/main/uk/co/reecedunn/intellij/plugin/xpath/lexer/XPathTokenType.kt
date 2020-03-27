@@ -43,6 +43,7 @@ object XPathTokenType {
     val FUNCTION_REF_OPERATOR = IElementType("XPATH_FUNCTION_REF_OPERATOR_TOKEN", XPath) // XPath 3.0
     val GREATER_THAN = IElementType("XPATH_GREATER_THAN_TOKEN", XPath) // XPath 1.0
     val GREATER_THAN_OR_EQUAL = IElementType("XPATH_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
+    val LAMBDA_FUNCTION = IElementType("XPATH_LAMBDA_FUNCTION", XPath) // Saxon 10.0
     val LESS_THAN = IElementType("XPATH_LESS_THAN_TOKEN", XPath) // XPath 1.0
     val LESS_THAN_OR_EQUAL = IElementType("XPATH_LESS_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
     val MAP_OPERATOR = IElementType("XPATH_MAP_OPERATOR_TOKEN", XPath) // XPath 3.0
@@ -67,6 +68,7 @@ object XPathTokenType {
     // endregion
     // region Keywords
 
+    val K__ = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME__", XPath) // Saxon 10.0
     val K_ALL = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ALL", XPath) // Full Text 1.0
     val K_ANCESTOR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ANCESTOR", XPath) // XPath 1.0
     val K_ANCESTOR_OR_SELF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF", XPath) // XPath 1.0

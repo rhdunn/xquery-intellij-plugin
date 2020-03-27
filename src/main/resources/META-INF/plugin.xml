@@ -59,6 +59,7 @@
       <li>Support for Saxon 9.8 <code>~type</code> type aliases.</li>
       <li>Support for Saxon 10.0 wildcards in element and attribute-based kind tests.</li>
       <li>Support for Saxon 10.0 <code>.{ ... }</code> style context item inline function expressions.</li>
+      <li>Support for Saxon 10.0 <code>_{ ... }</code> style lambda inline function expressions.</li>
       <li>Support for Saxon 10.0 <code>otherwise</code> expressions.</li>
       <li>Support for Saxon 10.0 using <code>as</code> for specifying the tuple field type in a tuple sequence type.</li>
       <li>Support for Saxon 10.0 <code>StringLiteral</code> tuple field names.</li>

@@ -871,6 +871,12 @@ object XPathElementType {
         XPath
     )
 
+    val LAMBDA_FUNCTION_EXPR: IElementType = ICompositeElementType(
+        "XPATH_LAMBDA_FUNCTION_EXPR",
+        PluginLambdaFunctionExprPsiImpl::class.java,
+        XPath
+    )
+
     val NILLABLE_TYPE_NAME: IElementType = ICompositeElementType(
         "XPATH_NILLABLE_TYPE_NAME",
         PluginNillableTypeNamePsiImpl::class.java,

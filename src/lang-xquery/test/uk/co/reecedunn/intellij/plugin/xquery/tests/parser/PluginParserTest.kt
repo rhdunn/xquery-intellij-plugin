@@ -3145,4 +3145,48 @@ private class PluginParserTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (117) LambdaFunctionExpr")
+    internal inner class LambdaFunctionExpr {
+        @Test
+        @DisplayName("lambda function expression")
+        fun lambdaFunctionExpr() {
+            val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("lambda function expression; compact whitespace")
+        fun lambdaFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("space between underscore and brace")
+        fun spaceBetweenUnderscoreAndBrace() {
+            val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

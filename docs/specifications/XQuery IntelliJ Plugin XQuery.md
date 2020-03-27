@@ -50,6 +50,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
     - [Inline Function Expressions](#372-inline-function-expressions)
       - [Context Item Function Expressions](#3721-context-item-function-expressions)
+      - [Lambda Function Expressions](#3722-lambda-function-expressions)
     - [Literals](#374-literals)
   - [JSON Constructors](#38-json-constructors)
     - [Maps](#381-maps)
@@ -609,8 +610,8 @@ This is a BaseX Full Text extension.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
-| \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | |
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 
 ### 3.7.1 Non-Deterministic Function Calls
 
@@ -656,6 +657,42 @@ syntax extensions for XPath and XQuery.
 The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
 are equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
+
+#### 3.7.2.2 Lambda Function Expressions
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[117\] | `LambdaFunctionExpr`           | ::= | `"_" "{" Expr "}"`                        |         |
+| \[118\] | `ParamRef`                     | ::= | `"$" Digits`                              |         |
+
+This is a Saxon 10.0 extension. This is a simplified syntax for *inline
+function expressions*.
+
+The parameters of a lambda function expression are not defined at the function
+signature. Instead, they are referenced in the expression itself using the
+`$number` syntax.
+
+> __Example:__
+>
+> The lambda function `_{ $1 + $2 }` is equivalent to the inline function
+> expression:
+>
+>     function ($arg1 as item()*, $arg2 as item()*) as item()* {
+>       $arg1 + $arg2
+>     }
+
+The arity of the lambda function is the maximum value of the `ParamRef` primary
+expressions in the lambda function body expression.
+
+> __Example:__
+>
+> The lambda function `_{ $2 mod 2 = 0 }` has an arity of 2.
+
+> __Note:__
+>
+> If there are no `ParamRef` primary expressions in the lambda function body
+> expression, the lambda function has an arity of 0.
 
 #### 3.7.4 Literals
 
@@ -1125,7 +1162,7 @@ These changes include support for:
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
-| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
@@ -1187,7 +1224,7 @@ These changes include support for:
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
 | \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
 | \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
-| \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | | 
+| \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | | 
 | \[81\]   | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`         |                 |
 | \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
 | \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
@@ -1222,6 +1259,8 @@ These changes include support for:
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |                 |
 | \[115\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                  |                 |
 | \[116\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |              |
+| \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                           |                 |
+| \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                              |                 |
 
 ### A.2 Reserved Function Names
 

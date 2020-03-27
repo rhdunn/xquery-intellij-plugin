@@ -268,6 +268,9 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     mTokenRange.match()
                     mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
+                } else if (c == '_'.toInt() && cc == CharacterClass.CURLY_BRACE_OPEN) {
+                    mTokenRange.match()
+                    mType = XPathTokenType.LAMBDA_FUNCTION
                 } else {
                     while (
                         cc == CharacterClass.NAME_START_CHAR ||

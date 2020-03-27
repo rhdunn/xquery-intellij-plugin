@@ -487,7 +487,6 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.STAR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PLUS).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMA).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XPathTokenType.CONTEXT_FUNCTION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.MINUS).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.DOT).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.EQUAL).size, `is`(0))
@@ -520,11 +519,14 @@ class XPathSyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ARROW).size, `is`(0))
 
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.CONTEXT_FUNCTION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ELLIPSIS).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_IF).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_ELSE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ELVIS).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.LAMBDA_FUNCTION).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_ELSE).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_IF).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.TYPE_ALIAS).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K__).size, `is`(0)) // Saxon 10.0 lambda function.
     }
 
     @Test

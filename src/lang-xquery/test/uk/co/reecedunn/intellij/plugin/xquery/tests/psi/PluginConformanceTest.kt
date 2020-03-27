@@ -1277,4 +1277,32 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.TYPE_ALIAS))
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (117) LambdaFunctionExpr")
+    internal inner class LambdaFunctionExpr {
+        @Test
+        @DisplayName("lambda function expression")
+        fun lambdaFunctionExpr() {
+            val file = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr.xq")
+            val versioned = file.walkTree().filterIsInstance<PluginLambdaFunctionExpr>().first() as VersionConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_10_0))
+
+            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.LAMBDA_FUNCTION))
+        }
+
+        @Test
+        @DisplayName("space between underscore and brace")
+        fun spaceBetweenUnderscoreAndBrace() {
+            val file = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.xq")
+            val versioned = file.walkTree().filterIsInstance<PluginLambdaFunctionExpr>().first() as VersionConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_10_0))
+
+            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K__))
+        }
+    }
 }

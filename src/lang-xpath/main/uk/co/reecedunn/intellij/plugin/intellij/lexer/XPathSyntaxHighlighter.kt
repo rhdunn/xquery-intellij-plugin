@@ -26,6 +26,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
     val DEFAULT: Array<out TextAttributesKey> = emptyArray()
@@ -34,7 +35,7 @@ object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
 
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
         val default =
-            if (type is IKeywordOrNCNameType)
+            if (type is IKeywordOrNCNameType && type !== XPathTokenType.K__)
                 XPathSyntaxHighlighterKeys.KEYWORD_KEYS
             else
                 DEFAULT

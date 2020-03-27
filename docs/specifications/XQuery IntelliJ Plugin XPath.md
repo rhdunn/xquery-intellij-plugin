@@ -34,6 +34,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Primary Expressions](#36-primary-expressions)
     - [Inline Function Expressions](#361-inline-function-expressions)
       - [Context Item Function Expressions](#3611-context-item-function-expressions)
+      - [Lambda Function Expressions](#3612-lambda-function-expressions)
   - [Arrow Operator (=>)](#37-arrow-operator-)
   - [Otherwise Operator](#38-otherwise-operator)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
@@ -305,7 +306,8 @@ the equivalent `IfExpr` is:
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[23\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | |
+| \[36\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
+| \[23\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 
 #### 3.6.1 Inline Function Expressions
 
@@ -336,6 +338,42 @@ syntax extensions for XPath and XQuery.
 The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
 are equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
+
+#### 3.6.1.2 Lambda Function Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[35\] | `LambdaFunctionExpr`           | ::= | `"_" "{" Expr "}"`                        |         |
+| \[37\] | `ParamRef`                     | ::= | `"$" Digits`                              |         |
+
+This is a Saxon 10.0 extension. This is a simplified syntax for *inline
+function expressions*.
+
+The parameters of a lambda function expression are not defined at the function
+signature. Instead, they are referenced in the expression itself using the
+`$number` syntax.
+
+> __Example:__
+>
+> The lambda function `_{ $1 + $2 }` is equivalent to the inline function
+> expression:
+>
+>     function ($arg1 as item()*, $arg2 as item()*) as item()* {
+>       $arg1 + $arg2
+>     }
+
+The arity of the lambda function is the maximum value of the `ParamRef` primary
+expressions in the lambda function body expression.
+
+> __Example:__
+>
+> The lambda function `_{ $2 mod 2 = 0 }` has an arity of 2.
+
+> __Note:__
+>
+> If there are no `ParamRef` primary expressions in the lambda function body
+> expression, the lambda function has an arity of 0.
 
 ### 3.7 Arrow Operator (=>)
 
@@ -422,7 +460,7 @@ These changes include support for:
 | \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
 | \[21\]  | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
-| \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr` | |
+| \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`       |                  |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
@@ -434,6 +472,9 @@ These changes include support for:
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
 | \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                |                  |
 | \[34\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |             |
+| \[35\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                         |                  |
+| \[36\]  | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
+| \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                            |                  |
 
 ### A.2 Reserved Function Names
 
