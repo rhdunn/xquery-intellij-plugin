@@ -28,7 +28,10 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Quantified Expressions](#31-quantified-expressions)
   - [Path Expressions](#32-path-expressions)
     - [Node Tests](#321-node-tests)
-  - [For Expressions](#33-for-expressions)
+  - [FLWOR Expressions](#33-flwor-expressions)
+    - [For Expressions](#331-for-expressions)
+    - [For Member Expressions](#332-for-member-expressions)
+    - [Let Expressions](#333-let-expressions)
   - [Logical Expressions](#34-logical-expressions)
   - [Conditional Expressions](#35-conditional-expressions)
   - [Primary Expressions](#36-primary-expressions)
@@ -207,7 +210,7 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| ForMemberExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 
 ### 3.1 Quantified Expressions
 
@@ -237,7 +240,9 @@ name (but not both) can be `WildcardIndicator`.
 
 A `WildcardIndicator` is an instance of `xdm:wildcard`.
 
-### 3.3 For Expressions
+### 3.3 FLWOR Expressions
+
+### 3.3.1 For Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -246,6 +251,58 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 | \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
 
 The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
+`FLWORExpr` grammar productions.
+
+### 3.3.2 For Member Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[40\] | `ForMemberExpr`                | ::= | `SimpleForMemberClause ReturnClause`      |         |
+| \[41\] | `SimpleForMemberClause`        | ::= | `"for" "member" SimpleForBinding ( "," SimpleForBinding )*` | |
+| \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
+
+This is a Saxon 10.0 syntax extension. It makes it easier to iterate over the
+members in an `array()`.
+
+The expression:
+
+    for member $m in E return R
+
+is equivalent to:
+
+    let $a as array(*) := E
+    for $i in 1 to (array:size($a) + 1)
+    let $m := array:get($a, $i)
+    return R
+
+> __Note:__
+>
+> This means that the for member expression will produce an XPTY0004 error if
+> `E` is not a single array.
+
+The expression:
+
+    for member $m_1 in E_1, $m_2 in E_2, ..., $m_n in E_n
+    return R
+
+is equivalent to:
+
+           for member $m_1 in E_1
+    return for member $m_2 in E_2
+    ...
+    return for member $m_n in E_n
+    return R
+
+### 3.3.3 Let Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[39\] | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`            |         |
+| \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
+
+The `LetExpr` follows the grammar production pattern used in XQuery 3.0 for
 `FLWORExpr` grammar productions.
 
 ### 3.4 Logical Expressions
@@ -445,9 +502,9 @@ These changes include support for:
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
 | \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                      |
-| \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
+| \[7\]   | `ForExpr`                      | ::= | `( SimpleForClause | SimpleForMemberClause ) ReturnClause` | |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
-| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| ForMemberExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 | \[10\]  | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
 | \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
@@ -477,6 +534,9 @@ These changes include support for:
 | \[36\]  | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
 | \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                            |                  |
 | \[38\]  | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` |      |
+| \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`          |                  |
+| \[40\]  | `ForMemberExpr`                | ::= | `SimpleForMemberClause ReturnClause`    |                  |
+| \[41\]  | `SimpleForMemberClause`        | ::= | `"for" "member" SimpleForBinding ( "," SimpleForBinding )*` | |
 
 ### A.2 Reserved Function Names
 
@@ -601,8 +661,16 @@ behaviour of those constructs:
 1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\]
 
 ### C.2 Saxon Vendor Extensions
+The Saxon XQuery Processor supports the following vendor extensions described
+in this document:
+1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
+1.  [Type Alias](#2125-type-alias) \[Saxon 9.8\]
+1.  [Logical Expressions](#34-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+1.  [Otherwise Operator](#38-otherwise-operator) \[Saxon 10.0\]
+1.  [For Member Expressions](#332-for-member-expressions) \[Saxon 10.0\]
+
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Type Alias](#2125-type-alias) \[Saxon 9.8\]
+1.  [Context Item Function Expressions](#3611-context-item-function-expressions) \[Saxon 9.8\]
+1.  [Lambda Function Expressions](#3612-lambda-function-expressions) \[Saxon 10.0\]
 1.  [Element Test](#2123-element-test) and [Attribute Test](#2124-attribute-test) \[Saxon 10.0\] -- wildcard names
-1.  [Otherwise Operator](#38-otherwise-operator) \[Saxon 10.0\]

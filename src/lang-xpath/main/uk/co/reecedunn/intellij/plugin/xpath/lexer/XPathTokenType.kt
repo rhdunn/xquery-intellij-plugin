@@ -133,6 +133,7 @@ object XPathTokenType {
     val K_LOWERCASE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LOWERCASE", XPath) // Full Text 1.0
     val K_LT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_LT", XPath) // XPath 2.0
     val K_MAP = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MAP", XPath) // XPath 3.1
+    val K_MEMBER = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MEMBER", XPath) // Saxon 10.0
     val K_MOD = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MOD", XPath) // XPath 1.0
     val K_MOST = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_MOST", XPath) // Full Text 1.0
     val K_NAMESPACE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NAMESPACE", XPath) // XPath 1.0

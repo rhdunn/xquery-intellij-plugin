@@ -101,6 +101,7 @@ private val KEYWORDS = mapOf(
     "lowercase" to XPathTokenType.K_LOWERCASE, // Full Text 1.0
     "lt" to XPathTokenType.K_LT, // XPath 2.0
     "map" to XPathTokenType.K_MAP, // XPath 3.1
+    "member" to XPathTokenType.K_MEMBER, // Saxon 10.0
     "mod" to XPathTokenType.K_MOD, // XPath 1.0
     "most" to XPathTokenType.K_MOST, // Full Text 1.0
     "namespace" to XPathTokenType.K_NAMESPACE, // XPath 1.0

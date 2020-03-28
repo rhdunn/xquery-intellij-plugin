@@ -68,6 +68,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Conditional Expressions](#314-conditional-expressions)
   - [Arrow Operator (=>)](#315-arrow-operator-)
   - [Otherwise Operator](#316-otherwise-operator)
+  - [FLWOR Expressions](#317-flwor-expressions)
+    - [For Member Clause](#3171-for-member-clause)
 - [Modules and Prologs](#4-modules-and-prologs)
   - [Type Declaration](#41-type-declaration)
   - [Annotations](#42-annotations)
@@ -994,6 +996,49 @@ Otherwise, if either `A` or `B` have more than one item, the expression
 > item in the non-empty sequence, not the entire sequence. This is why the more
 > complicated expression is needed for that case.
 
+### 3.17 FLWOR Expressions
+
+### 3.17.1 For Member Clause
+
+{: .ebnf-symbols }
+| Ref     | Symbol                        |     | Expression                                | Options |
+|---------|-------------------------------|-----|-------------------------------------------|---------|
+| \[120\] | `InitialClause`               | ::= | `ForClause \| LetClause \| WindowClause \| ForMemberClause` | |
+| \[121\] | `ForMemberClause`             | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |   |
+
+This is a Saxon 10.0 syntax extension. It makes it easier to iterate over the
+members in an `array()`. Saxon 10.0 currently supports this in the initial
+clause only. An XPST0003 error is raised if it is in an intermediate clause.
+
+The expression:
+
+    for member $m in E return R
+
+is equivalent to:
+
+    let $a as array(*) := E
+    for $i in 1 to (array:size($a) + 1)
+    let $m := array:get($a, $i)
+    return R
+
+> __Note:__
+>
+> This means that the for member expression will produce an XPTY0004 error if
+> `E` is not a single array.
+
+The expression:
+
+    for member $m_1 in E_1, $m_2 in E_2, ..., $m_n in E_n
+    return R
+
+is equivalent to:
+
+           for member $m_1 in E_1
+    return for member $m_2 in E_2
+    ...
+    return for member $m_n in E_n
+    return R
+
 ## 4 Modules and Prologs
 
 {: .ebnf-symbols }
@@ -1263,6 +1308,8 @@ These changes include support for:
 | \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                           |                 |
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                              |                 |
 | \[119\]  | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` |       |
+| \[120\]  | `InitialClause`                | ::= | `ForClause \| LetClause \| WindowClause \| ForMemberClause` | |
+| \[121\]  | `ForMemberClause`              | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |           |
 
 ### A.2 Reserved Function Names
 
@@ -1443,12 +1490,14 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) and [Type Alias](#2129-type-alias) \[Saxon 9.8\]
 1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+1.  [Otherwise Operator](#316-otherwise-operator) \[Saxon 10.0\]
+1.  [For Member Expressions](#3171-for-member-clause) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
+1.  [Context Item Function Expressions](#3721-context-item-function-expressions) \[Saxon 9.8\]
+1.  [Lambda Function Expressions](#3722-lambda-function-expressions) \[Saxon 10.0\]
 1.  [Element Test](#2127-element-test) and [Attribute Test](#2128-attribute-test) \[Saxon 10.0\] -- wildcard names
-1.  [Otherwise Operator](#316-otherwise-operator) \[Saxon 10.0\]
 
 Older versions of Saxon support the following working draft syntax:
 1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values

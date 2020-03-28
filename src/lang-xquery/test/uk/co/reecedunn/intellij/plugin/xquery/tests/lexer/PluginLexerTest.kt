@@ -785,4 +785,22 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (119) ParamRef")
+    fun paramRef() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (121) ForMemberClause")
+    fun forMemberClause() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
+        matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
 }

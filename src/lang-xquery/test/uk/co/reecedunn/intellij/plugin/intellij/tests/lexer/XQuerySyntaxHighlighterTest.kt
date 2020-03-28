@@ -496,6 +496,9 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MAP).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MAP)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
 
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MEMBER).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MEMBER)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MINUS_SIGN).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MINUS_SIGN)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
 
