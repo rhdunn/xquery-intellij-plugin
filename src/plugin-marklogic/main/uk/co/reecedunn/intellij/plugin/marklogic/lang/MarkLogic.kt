@@ -16,13 +16,29 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
 object MarkLogic : XpmProductType {
-    // region XdmProductType
+    // region XpmProductType
 
     override val id: String = "marklogic"
 
     override val name = "MarkLogic"
+
+    // endregion
+    // region Language Versions
+
+    val VERSION_6: XpmProductVersion = MarkLogicVersion(this, 6, "property::, namespace::, binary, transactions, etc.")
+    val VERSION_7: XpmProductVersion = MarkLogicVersion(this, 7, "schema kind tests: schema-type, etc.")
+    val VERSION_8: XpmProductVersion = MarkLogicVersion(this, 8, "json kind tests and constructors: object-node, etc.")
+    val VERSION_9: XpmProductVersion = MarkLogicVersion(this, 9, "arrow operator '=>'")
+
+    val languageVersions: List<XpmProductVersion> = listOf(
+        VERSION_6,
+        VERSION_7,
+        VERSION_8,
+        VERSION_9
+    )
 
     // endregion
 }

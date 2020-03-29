@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.saxon.lang
+package uk.co.reecedunn.intellij.plugin.existdb.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
-object SaxonHE : XpmProductType {
-    // region XpmProductType
+data class EXistDBVersion(
+    override val product: XpmProductType,
+    override val major: Int,
+    override val minor: Int,
+    override val features: String
+) : XpmProductVersion {
+    // region XpmProductVersion
 
-    override val id: String = "saxon/HE"
-
-    override val name = "Saxon Home Edition"
-
-    // endregion
-    // region Language Versions
-
-    val VERSION_9_6: XpmProductVersion = SaxonVersion(this, 9, 6, "XQuery 3.0 REC") // 9.5 for PE and EE
-    val VERSION_9_7: XpmProductVersion = SaxonVersion(this, 9, 7, "XQuery 3.1 REC")
-    val VERSION_10_0: XpmProductVersion = SaxonVersion(this, 10, 0, "XQuery 3.0 higher-order functions")
-
-    val languageVersions: List<XpmProductVersion> = listOf(
-        VERSION_9_6,
-        VERSION_9_7,
-        VERSION_10_0
-    )
+    override val id: String = "$major.$minor"
 
     // endregion
 }

@@ -16,13 +16,35 @@
 package uk.co.reecedunn.intellij.plugin.basex.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
 object BaseX : XpmProductType {
-    // region XdmProductType
+    // region XpmProductType
 
     override val id: String = "basex"
 
     override val name = "BaseX"
+
+    // endregion
+    // region Language Versions
+
+    val VERSION_6_1: XpmProductVersion = BaseXVersion(this, 6, 1, "Update Facility, Full Text, fuzzy")
+    val VERSION_7_7: XpmProductVersion = BaseXVersion(this, 7, 7, "XQuery 3.0 REC")
+    val VERSION_7_8: XpmProductVersion = BaseXVersion(this, 7, 8, "update")
+    val VERSION_8_4: XpmProductVersion = BaseXVersion(this, 8, 4, "non-deterministic")
+    val VERSION_8_5: XpmProductVersion = BaseXVersion(this, 8, 5, "update {}, transform with")
+    val VERSION_8_6: XpmProductVersion = BaseXVersion(this, 8, 6, "XQuery 3.1 REC")
+    val VERSION_9_1: XpmProductVersion = BaseXVersion(this, 9, 1, "ternary if, ?:, if without else")
+
+    val languageVersions: List<XpmProductVersion> = listOf(
+        VERSION_6_1,
+        VERSION_7_7,
+        VERSION_7_8,
+        VERSION_8_4,
+        VERSION_8_5,
+        VERSION_8_6,
+        VERSION_9_1
+    )
 
     // endregion
 }

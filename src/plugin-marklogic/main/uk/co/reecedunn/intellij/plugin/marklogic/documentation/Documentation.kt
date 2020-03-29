@@ -135,7 +135,7 @@ private data class MarkLogicZippedDocumentation(
 }
 
 object MarkLogicProductDocumentation : XpmProductType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
-    // region XdmProductType
+    // region XpmProductType
 
     override val id: String = "marklogic"
 

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.w3.lang
+package uk.co.reecedunn.intellij.plugin.xpm.lang
 
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
+interface XpmProductVersion {
+    val product: XpmProductType
 
-object W3CSpecifications : XpmProductType {
-    // region XpmProductType
+    val id: String
 
-    override val id: String = "w3c"
+    val major: Int
 
-    override val name = "W3C Specifications"
+    val minor: Int
 
-    // endregion
+    val features: String
 }

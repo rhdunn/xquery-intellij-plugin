@@ -16,13 +16,31 @@
 package uk.co.reecedunn.intellij.plugin.existdb.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
 object EXistDB : XpmProductType {
-    // region XdmProductType
+    // region XpmProductType
 
     override val id: String = "exist-db"
 
     override val name = "eXist-db"
+
+    // endregion
+    // region Language Versions
+
+    val VERSION_3_0: XpmProductVersion = EXistDBVersion(this, 3, 0, "XQuery 3.0 REC, array, map, json")
+    val VERSION_3_1: XpmProductVersion = EXistDBVersion(this, 3, 1, "arrow operator '=>', string constructors")
+    val VERSION_3_6: XpmProductVersion = EXistDBVersion(this, 3, 6, "declare context item")
+    val VERSION_4_0: XpmProductVersion = EXistDBVersion(this, 4, 0, "XQuery 3.1 REC")
+    val VERSION_4_3: XpmProductVersion = EXistDBVersion(this, 4, 0, "XMLSchema 1.1")
+
+    val languageVersions: List<XpmProductVersion> = listOf(
+        VERSION_3_0,
+        VERSION_3_1,
+        VERSION_3_6,
+        VERSION_4_0,
+        VERSION_4_3
+    )
 
     // endregion
 }
