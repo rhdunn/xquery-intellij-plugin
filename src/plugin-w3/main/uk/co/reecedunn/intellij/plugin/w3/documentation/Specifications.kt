@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
@@ -86,8 +85,6 @@ object FunctionsAndOperatorsDocumentation :
 
     override val name = "XQuery and XPath Functions and Operators"
 
-    override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
-
     // endregion
     // region XdmDocumentationSourceProvider
 
@@ -142,8 +139,6 @@ object XsltDocumentation : XpmSpecificationType, XQDocDocumentationSourceProvide
     override val id: String = "xslt"
 
     override val name = "XSL Transformations (XSLT)"
-
-    override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XPath)
 
     // endregion
     // region XdmDocumentationSourceProvider
