@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3429,6 +3429,340 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(variables[1].variableName?.localName?.data, `is`("y"))
                     assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
                     assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin (3.17.1) For Member Clause")
+        internal inner class ForMemberClause {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (45) ForBinding ; XQuery 3.1 EBNF (42) InitialClause")
+            internal inner class ForBinding_InitialClause {
+                @Test
+                @DisplayName("from VarName expression")
+                fun inExpr() {
+                    val element = parse<XPathFunctionCall>("for member \$x in test() return 1")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("from VarName expression; previous binding in scope")
+                fun inExpr_PreviousBindingInScope() {
+                    val element = parse<XPathFunctionCall>("for member \$x in 2, \$y in test() return 1")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(1))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
+                fun nestedFLWORExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in for member \$y in test() return 1 return 2"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("from return expression")
+                fun returnExpr() {
+                    val element = parse<XPathFunctionCall>("for member \$x in 1 return test()")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(1))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; return expression of inner nested FLWOR")
+                fun innerReturnExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in for member \$y in 2 return test() return 2"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(1))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; return expression of outer nested FLWOR")
+                fun outerReturnExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in for member \$y in 2 return 1 return test()"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(1))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; multiple bindings")
+                fun returnExpr_multipleBindings() {
+                    val element = parse<XPathFunctionCall>("for member \$x in 1, \$y in 2 return test()")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (45) ForBinding ; XQuery 3.1 EBNF (43) IntermediateClause")
+            internal inner class ForBinding_IntermediateClause {
+                @Test
+                @DisplayName("from VarName expression")
+                fun inExpr() {
+                    val element = parse<XPathFunctionCall>("for member \$x in 1 for member \$y in test() return 1")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(1))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from VarName expression; previous binding in scope")
+                fun inExpr_PreviousBindingInScope() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in 2 for member \$y in 3, \$z in test() return 1"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
+                fun nestedFLWORExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in 1 for member \$y in for member \$z in test() return 1 return 2"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(1))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression")
+                fun returnExpr() {
+                    val element = parse<XPathFunctionCall>("for member \$x in 1 for member \$y in 2 return test()")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; return expression of inner nested FLWOR")
+                fun innerReturnExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in 1 for member \$y in for member \$z in 2 return test() return 2"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("z"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; return expression of outer nested FLWOR")
+                fun outerReturnExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in 1 for member \$y in for member \$z in 2 return 1 return test()"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; multiple bindings")
+                fun returnExpr_multipleBindings() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x in 1 for member \$y in 2, \$z in 3 return test()"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(3))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("z"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[2].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
+            internal inner class PositionalVar {
+                @Test
+                @DisplayName("from VarName expression")
+                fun inExpr() {
+                    val element = parse<XPathFunctionCall>("for member \$x at \$a in test() return 1")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("from VarName expression; previous binding in scope")
+                fun inExpr_PreviousBindingInScope() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x at \$a in 2, \$y at \$b in test() return 1"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
+                fun nestedFLWORExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x at \$a in for member \$y at \$b in test() return 1 return 2"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("from return expression")
+                fun returnExpr() {
+                    val element = parse<XPathFunctionCall>("for member \$x at \$a in 1 return test()")[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; return expression of inner nested FLWOR")
+                fun innerReturnExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x at \$a in for member \$y at \$b in 2 return test() return 2"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("b"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; return expression of outer nested FLWOR")
+                fun outerReturnExpr() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x at \$a in for member \$y at \$b in 2 return 1 return test()"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(2))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("from return expression; multiple bindings")
+                fun returnExpr_multipleBindings() {
+                    val element = parse<XPathFunctionCall>(
+                        "for member \$x at \$a in 1, \$y at \$b in 2 return test()"
+                    )[0]
+                    val variables = element.inScopeVariables().toList()
+                    assertThat(variables.size, `is`(4))
+
+                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
+                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[2].variableName?.localName?.data, `is`("y"))
+                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+
+                    assertThat(variables[3].variableName?.localName?.data, `is`("b"))
+                    assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
+                    assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
                 }
             }
         }

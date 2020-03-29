@@ -12,6 +12,7 @@ Saxon Syntax Extensions:
 1.  Support for Saxon 10.0 using `as` for specifying the tuple field type in a tuple sequence type.
 1.  Support for Saxon 10.0 `StringLiteral` tuple field names.
 1.  Support for Saxon 10.0 `type(T)` type aliases.
+1.  Support for Saxon 10.0 `for member` expressions.
 
 ## 2020
 

@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginForMemberClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -116,7 +117,7 @@ private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): 
 private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XdmVariableBinding> {
     return children().flatMap { node ->
         when (node) {
-            is XQueryForClause, is XQueryLetClause ->
+            is XQueryForClause, is XQueryLetClause, is PluginForMemberClause ->
                 if (context.visitedFlworClauseAsIntermediateClause) {
                     context.visitedFlworClauseAsIntermediateClause = false
                     emptySequence()
@@ -180,7 +181,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XdmVariableDefinition> {
         .flatMap { node ->
             when (node) {
                 is XQueryProlog -> node.varDecls().filterNotNull()
-                is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
+                is XQueryForClause, is XQueryLetClause, is PluginForMemberClause -> node.flworClauseVariables(context)
                 is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     node.flworBindingVariables(node, context)
                 }
