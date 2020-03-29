@@ -324,12 +324,16 @@ open class XPathParser : PsiParser {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            return if (parseForClause(builder)) {
-                marker.done(XPathElementType.SIMPLE_FOR_CLAUSE)
-                true
-            } else {
-                marker.rollbackTo()
-                false
+            return when {
+                parseForClause(builder) -> {
+                    marker.done(XPathElementType.SIMPLE_FOR_CLAUSE)
+                    true
+                }
+                parseForMemberClause(builder, marker) -> true
+                else -> {
+                    marker.rollbackTo()
+                    false
+                }
             }
         }
         return false
@@ -407,6 +411,25 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.FT_SCORE_VAR)
+            return true
+        }
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: ForMemberExpr
+
+    open val FOR_MEMBER_CLAUSE: IElementType = XPathElementType.SIMPLE_FOR_MEMBER_CLAUSE
+
+    fun parseForMemberClause(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_MEMBER)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseForClause(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "ForBinding"))
+                marker.drop()
+                return true
+            }
+            marker.done(FOR_MEMBER_CLAUSE)
             return true
         }
         return false
@@ -628,7 +651,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
+    // region Grammar :: Expr :: TernaryIfExpr
 
     fun parseTernaryIfExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
@@ -680,6 +703,9 @@ open class XPathParser : PsiParser {
         marker.drop()
         return false
     }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr
 
     private fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()

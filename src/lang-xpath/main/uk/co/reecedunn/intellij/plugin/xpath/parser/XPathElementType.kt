@@ -907,6 +907,12 @@ object XPathElementType {
         XPath
     )
 
+    val SIMPLE_FOR_MEMBER_CLAUSE: IElementType = ICompositeElementType(
+        "XPATH_SIMPLE_FOR_MEMBER_CLAUSE",
+        PluginSimpleForMemberClausePsiImpl::class.java,
+        XPath
+    )
+
     val TUPLE_FIELD: IElementType = ICompositeElementType(
         "XPATH_TUPLE_FIELD",
         PluginTupleFieldImpl::class.java,

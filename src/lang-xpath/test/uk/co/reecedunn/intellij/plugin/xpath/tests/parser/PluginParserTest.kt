@@ -911,4 +911,48 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (40) ForMemberExpr ; XQuery IntelliJ Plugin XPath EBNF (41) SimpleForMemberClause")
+    internal inner class ForMemberExpr {
+        @Test
+        @DisplayName("single binding")
+        fun singleBinding() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single binding; compact whitespace")
+        fun singleBinding_compactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple bindings")
+        fun multipleBindings() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple bindings; compact whitespace")
+        fun multipleBindings_compactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing for binding")
+        fun missingForBinding() {
+            val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MissingForBinding.txt")
+            val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MissingForBinding.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

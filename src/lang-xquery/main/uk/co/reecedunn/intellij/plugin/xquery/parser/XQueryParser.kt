@@ -1580,26 +1580,19 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            return if (parseForClause(builder)) {
-                marker.done(XQueryElementType.FOR_CLAUSE)
-                true
-            } else if (parseTumblingWindowClause(builder) || parseSlidingWindowClause(builder)) {
-                marker.done(XQueryElementType.WINDOW_CLAUSE)
-                true
-            } else {
-                when (parseForMemberClause(builder)) {
-                    ParseStatus.MATCHED -> {
-                        marker.done(XQueryElementType.FOR_MEMBER_CLAUSE)
-                        true
-                    }
-                    ParseStatus.MATCHED_WITH_ERRORS -> {
-                        marker.drop()
-                        true
-                    }
-                    ParseStatus.NOT_MATCHED -> {
-                        marker.rollbackTo()
-                        false
-                    }
+            return when {
+                parseForClause(builder) -> {
+                    marker.done(XQueryElementType.FOR_CLAUSE)
+                    true
+                }
+                parseTumblingWindowClause(builder) || parseSlidingWindowClause(builder) -> {
+                    marker.done(XQueryElementType.WINDOW_CLAUSE)
+                    true
+                }
+                parseForMemberClause(builder, marker) -> true
+                else -> {
+                    marker.rollbackTo()
+                    false
                 }
             }
         }
@@ -1607,7 +1600,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: FLWORExpr :: ForClause
+    // region Grammar :: Expr :: FLWORExpr :: ForClause|ForMemberClause
 
     override fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
@@ -1699,20 +1692,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    // endregion
-    // region Grammar :: Expr :: FLWORExpr :: ForMemberClause
-
-    private fun parseForMemberClause(builder: PsiBuilder): ParseStatus {
-        if (builder.matchTokenType(XPathTokenType.K_MEMBER)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseForClause(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "ForBinding"))
-                return ParseStatus.MATCHED_WITH_ERRORS
-            }
-            return ParseStatus.MATCHED
-        }
-        return ParseStatus.NOT_MATCHED
-    }
+    override val FOR_MEMBER_CLAUSE: IElementType = XQueryElementType.FOR_MEMBER_CLAUSE
 
     // endregion
     // region Grammar :: Expr :: FLWORExpr :: LetClause
@@ -3062,7 +3042,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
+    // region Grammar :: Expr :: OrExpr
 
     override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
