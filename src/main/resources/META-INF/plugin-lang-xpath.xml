@@ -11,7 +11,7 @@
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage"/>
     <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
 
-    <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
+    <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
     <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
 

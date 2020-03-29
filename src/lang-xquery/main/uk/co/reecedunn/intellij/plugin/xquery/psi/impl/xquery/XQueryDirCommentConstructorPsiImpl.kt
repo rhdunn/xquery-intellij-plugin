@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldablePsiElement
+import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
