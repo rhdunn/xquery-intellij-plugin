@@ -1587,8 +1587,20 @@ class XQueryParser : XPathParser() {
                 marker.done(XQueryElementType.WINDOW_CLAUSE)
                 true
             } else {
-                marker.rollbackTo()
-                false
+                when (parseForMemberClause(builder)) {
+                    ParseStatus.MATCHED -> {
+                        marker.done(XQueryElementType.FOR_MEMBER_CLAUSE)
+                        true
+                    }
+                    ParseStatus.MATCHED_WITH_ERRORS -> {
+                        marker.drop()
+                        true
+                    }
+                    ParseStatus.NOT_MATCHED -> {
+                        marker.rollbackTo()
+                        false
+                    }
+                }
             }
         }
         return false
@@ -1685,6 +1697,21 @@ class XQueryParser : XPathParser() {
             return true
         }
         return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: ForMemberClause
+
+    private fun parseForMemberClause(builder: PsiBuilder): ParseStatus {
+        if (builder.matchTokenType(XPathTokenType.K_MEMBER)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseForClause(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "ForBinding"))
+                return ParseStatus.MATCHED_WITH_ERRORS
+            }
+            return ParseStatus.MATCHED
+        }
+        return ParseStatus.NOT_MATCHED
     }
 
     // endregion

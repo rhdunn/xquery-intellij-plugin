@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginForMemberClause
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -893,6 +894,12 @@ object XQueryElementType {
     val ELEMENT_DECL_TEST: IElementType = ICompositeElementType(
         "XQUERY_ELEMENT_DECL_TEST",
         PluginElementDeclTestPsiImpl::class.java,
+        XQuery
+    )
+
+    val FOR_MEMBER_CLAUSE: IElementType = ICompositeElementType(
+        "XQUERY_FOR_MEMBER_CLAUSE",
+        PluginForMemberClausePsiImpl::class.java,
         XQuery
     )
 
