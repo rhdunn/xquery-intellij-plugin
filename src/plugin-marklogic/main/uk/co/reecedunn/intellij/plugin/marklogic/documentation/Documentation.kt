@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApis
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import java.io.File
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
@@ -134,7 +134,7 @@ private data class MarkLogicZippedDocumentation(
     }
 }
 
-object MarkLogicProductDocumentation : XdmProductType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
+object MarkLogicProductDocumentation : XpmProductType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XdmProductType
 
     override val id: String = "marklogic"
