@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.lang
+package uk.co.reecedunn.intellij.plugin.xpm.lang
 
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
-interface XdmSpecificationType {
+interface XpmSpecificationType {
     val id: String
 
     val name: String

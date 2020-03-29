@@ -17,12 +17,12 @@ package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 object FunctionsAndOperatorsDocumentation :
-    XdmSpecificationType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
+    XpmSpecificationType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
 
     private val NAMESPACES_10_20030502 = mapOf(
@@ -116,8 +116,7 @@ object FunctionsAndOperatorsDocumentation :
     // endregion
 }
 
-object XsltDocumentation :
-    XdmSpecificationType, XQDocDocumentationSourceProvider {
+object XsltDocumentation : XpmSpecificationType, XQDocDocumentationSourceProvider {
     // region Namespaces
 
     private val NAMESPACES = mapOf<String, String>()
