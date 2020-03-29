@@ -1557,7 +1557,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseInitialClause(builder: PsiBuilder): Boolean {
-        return parseForOrWindowClause(builder) || parseLetClause(builder)
+        return parseForOrWindowClause(builder) != null || parseLetClause(builder)
     }
 
     private fun parseIntermediateClause(builder: PsiBuilder): Boolean {
@@ -1576,27 +1576,27 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseForOrWindowClause(builder: PsiBuilder): Boolean {
+    override fun parseForOrWindowClause(builder: PsiBuilder): IElementType? {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             return when {
                 parseForClause(builder) -> {
                     marker.done(XQueryElementType.FOR_CLAUSE)
-                    true
+                    XQueryElementType.FOR_CLAUSE
                 }
                 parseTumblingWindowClause(builder) || parseSlidingWindowClause(builder) -> {
                     marker.done(XQueryElementType.WINDOW_CLAUSE)
-                    true
+                    XQueryElementType.WINDOW_CLAUSE
                 }
-                parseForMemberClause(builder, marker) -> true
+                parseForMemberClause(builder, marker) -> FOR_MEMBER_CLAUSE
                 else -> {
                     marker.rollbackTo()
-                    false
+                    null
                 }
             }
         }
-        return false
+        return null
     }
 
     // endregion

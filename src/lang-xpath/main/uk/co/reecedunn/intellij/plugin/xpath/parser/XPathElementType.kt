@@ -871,6 +871,12 @@ object XPathElementType {
         XPath
     )
 
+    val FOR_MEMBER_EXPR: IElementType = ICompositeElementType(
+        "XPATH_FOR_MEMBER_EXPR",
+        PluginForMemberExprPsiImpl::class.java,
+        XPath
+    )
+
     val LAMBDA_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XPATH_LAMBDA_FUNCTION_EXPR",
         PluginLambdaFunctionExprPsiImpl::class.java,

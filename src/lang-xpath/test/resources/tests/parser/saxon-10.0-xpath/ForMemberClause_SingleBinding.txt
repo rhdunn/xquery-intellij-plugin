@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:30)]
-   XPathForExprImpl[XPATH_FOR_EXPR(0:30)]
+   PluginForMemberExprImpl[XPATH_FOR_MEMBER_EXPR(0:30)]
       PluginSimpleForMemberClauseImpl[XPATH_SIMPLE_FOR_MEMBER_CLAUSE(0:22)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
          PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')

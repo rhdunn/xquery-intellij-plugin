@@ -289,7 +289,8 @@ open class XPathParser : PsiParser {
 
     private fun parseForExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseForOrWindowClause(builder)) {
+        val match = parseForOrWindowClause(builder)
+        if (match != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseReturnClause(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
@@ -297,7 +298,11 @@ open class XPathParser : PsiParser {
                 parseExprSingle(builder)
             }
 
-            marker.done(XPathElementType.FOR_EXPR)
+            if (match === FOR_MEMBER_CLAUSE) {
+                marker.done(XPathElementType.FOR_MEMBER_EXPR)
+            } else {
+                marker.done(XPathElementType.FOR_EXPR)
+            }
             return true
         } else if (
             builder.errorOnTokenType(XPathTokenType.K_RETURN, XPathBundle.message("parser.error.return-without-flwor"))
@@ -320,23 +325,23 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseForOrWindowClause(builder: PsiBuilder): Boolean {
+    open fun parseForOrWindowClause(builder: PsiBuilder): IElementType? {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             return when {
                 parseForClause(builder) -> {
                     marker.done(XPathElementType.SIMPLE_FOR_CLAUSE)
-                    true
+                    XPathElementType.SIMPLE_FOR_CLAUSE
                 }
-                parseForMemberClause(builder, marker) -> true
+                parseForMemberClause(builder, marker) -> FOR_MEMBER_CLAUSE
                 else -> {
                     marker.rollbackTo()
-                    false
+                    null
                 }
             }
         }
-        return false
+        return null
     }
 
     fun parseForClause(builder: PsiBuilder): Boolean {
