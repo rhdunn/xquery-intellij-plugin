@@ -141,12 +141,6 @@ object MarkLogicProductDocumentation : XpmProductType, XQDocDocumentationSourceP
 
     override val name = "MarkLogic"
 
-    override val moduleTypes: Array<XdmModuleType> = arrayOf(
-        XdmModuleType.XQuery,
-        XdmModuleType.XPath,
-        XdmModuleType.JavaScript
-    )
-
     // endregion
     // region XdmDocumentationSourceProvider
 
