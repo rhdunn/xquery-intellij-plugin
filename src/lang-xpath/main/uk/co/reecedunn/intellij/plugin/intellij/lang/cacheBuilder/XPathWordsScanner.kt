@@ -20,7 +20,7 @@ import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
