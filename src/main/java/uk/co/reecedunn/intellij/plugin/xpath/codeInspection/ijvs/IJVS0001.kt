@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
+import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
+import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
@@ -59,7 +61,7 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
         val productVersion = settings.productVersion
         val xquery = file.XQueryVersion.getVersionOrDefault(file.project)
 
-        val descriptors = SmartList<ProblemDescriptor>()
+        val diagnostics = XpmInspectionDiagnostics(manager, isOnTheFly)
         file.walkTree().filterIsInstance<VersionConformance>().forEach { versioned ->
             val required = versioned.requiresConformance
             if (required.isEmpty()) return@forEach
@@ -81,15 +83,7 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
                             productVersion,
                             required.joinToString(", or ")
                         )
-                descriptors.add(
-                    manager.createProblemDescriptor(
-                        context,
-                        description,
-                        null as LocalQuickFix?,
-                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
-                        isOnTheFly
-                    )
-                )
+                diagnostics.error(context, XpmDiagnostics.XPST0003, description)
             } else {
                 val requiredXQuery = required.filter { req -> req is Specification || req.kind === MarkLogic }
                 if (requiredXQuery.isEmpty()) return@forEach
@@ -101,18 +95,10 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
                         xquery.versionId,
                         required.joinToString(", or ")
                     )
-                    descriptors.add(
-                        manager.createProblemDescriptor(
-                            context,
-                            description,
-                            null as LocalQuickFix?,
-                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
-                            isOnTheFly
-                        )
-                    )
+                    diagnostics.error(context, XpmDiagnostics.XPST0003, description)
                 }
             }
         }
-        return descriptors.toTypedArray()
+        return diagnostics.toTypedArray()
     }
 }
