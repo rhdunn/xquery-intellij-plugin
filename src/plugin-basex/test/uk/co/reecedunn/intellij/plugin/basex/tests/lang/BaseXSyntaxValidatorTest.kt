@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.basex.tests.lang
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
@@ -29,11 +30,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - BaseX")
-class BaseXSyntaxValidatorTest : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition) {
+class BaseXSyntaxValidatorTest :
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition),
+    XpmDiagnostics {
     // region ParsingTestCase
 
     @BeforeAll
@@ -51,6 +56,32 @@ class BaseXSyntaxValidatorTest : ParsingTestCase<XQueryModule>("xqy", XQueryPars
     override fun tearDown() {
         super.tearDown()
     }
+
+    // endregion
+    // region XpmDiagnostics
+
+    val report = StringBuffer()
+
+    @BeforeEach
+    fun reset() {
+        report.delete(0, report.length)
+    }
+
+    override fun error(element: PsiElement, code: String, description: String) {
+        if (report.isNotEmpty()) {
+            report.append('\n')
+        }
+        report.append("E $code(${element.textOffset}:${element.textOffset + element.textLength}): $description")
+    }
+
+    override fun warning(element: PsiElement, code: String, description: String) {
+        if (report.isNotEmpty()) {
+            report.append('\n')
+        }
+        report.append("W $code(${element.textOffset}:${element.textOffset + element.textLength}): $description")
+    }
+
+    val validator = XpmSyntaxValidation()
 
     // endregion
 }
