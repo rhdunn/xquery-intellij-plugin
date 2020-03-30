@@ -40,5 +40,7 @@
     <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
 
     <!-- Syntax Validators -->
+
+    <syntaxValidator implementation="uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator"/>
   </extensions>
 </idea-plugin>
