@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.basex.lang
+package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
-object BaseXSyntaxValidator : XpmSyntaxValidator {
-    // region XpmSyntaxValidator
-
-    override fun validate(element: PsiElement, reporter: XpmSyntaxErrorReporter) = when (element) {
-        else -> {}
-    }
-
-    // endregion
+interface XpmSyntaxErrorReporter {
+    fun requireProduct(element: PsiElement, productVersion: XpmProductVersion)
 }

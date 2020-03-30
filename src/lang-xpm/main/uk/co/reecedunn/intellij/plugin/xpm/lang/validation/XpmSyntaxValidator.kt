@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.psi.PsiElement
 
 interface XpmSyntaxValidator {
     companion object {
@@ -23,4 +24,6 @@ interface XpmSyntaxValidator {
 
         val validators: Sequence<XpmSyntaxValidator> get() = EP_NAME.extensions.asSequence()
     }
+
+    fun validate(element: PsiElement, reporter: XpmSyntaxErrorReporter)
 }
