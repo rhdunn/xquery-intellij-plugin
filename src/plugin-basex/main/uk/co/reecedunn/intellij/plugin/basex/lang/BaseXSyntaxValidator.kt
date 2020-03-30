@@ -15,15 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.lang
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 
 object BaseXSyntaxValidator : XpmSyntaxValidator {
     // region XpmSyntaxValidator
 
-    override fun validate(element: PsiElement, reporter: XpmSyntaxErrorReporter) = when (element) {
+    override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
         else -> {}
     }
 

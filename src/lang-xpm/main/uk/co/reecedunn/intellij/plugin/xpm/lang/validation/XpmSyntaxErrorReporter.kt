@@ -15,9 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
 interface XpmSyntaxErrorReporter {
-    fun requireProduct(element: PsiElement, productVersion: XpmProductVersion)
+    fun requireProduct(element: XpmSyntaxValidationElement, productVersion: XpmProductVersion)
 }

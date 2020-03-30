@@ -15,14 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
-import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.psi.PsiElement
 
-interface XpmSyntaxValidator {
-    companion object {
-        val EP_NAME = ExtensionPointName.create<XpmSyntaxValidator>("uk.co.reecedunn.intellij.syntaxValidator")
-
-        val validators: Sequence<XpmSyntaxValidator> get() = EP_NAME.extensions.asSequence()
-    }
-
-    fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter)
-}
+interface XpmSyntaxValidationElement : PsiElement

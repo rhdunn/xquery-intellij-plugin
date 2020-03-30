@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XpmBundle
@@ -29,17 +28,19 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
 
     private var requiredProduct: XpmProductVersion? = null
 
-    override fun requireProduct(element: PsiElement, productVersion: XpmProductVersion) {
+    override fun requireProduct(element: XpmSyntaxValidationElement, productVersion: XpmProductVersion) {
         if (!product!!.ge(productVersion)) {
             requiredProduct = productVersion
         }
     }
 
     fun validate(file: PsiFile, diagnostics: XpmDiagnostics) {
-        file.walkTree().forEach { validate(it, diagnostics) }
+        file.walkTree().filterIsInstance<XpmSyntaxValidationElement>().forEach {
+            validate(it, diagnostics)
+        }
     }
 
-    fun validate(element: PsiElement, diagnostics: XpmDiagnostics) {
+    fun validate(element: XpmSyntaxValidationElement, diagnostics: XpmDiagnostics) {
         requiredProduct = null
 
         XpmSyntaxValidator.validators.forEach {
