@@ -371,20 +371,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
-    fun testFTFuzzyOption() {
-        val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
-        val fuzzyOption = file.walkTree().filterIsInstance<PluginFTFuzzyOption>().first()
-        val conformance = fuzzyOption as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_6_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_FUZZY))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
     fun testMapConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")

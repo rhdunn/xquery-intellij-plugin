@@ -17,4 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
 import com.intellij.psi.PsiElement
 
-interface XpmSyntaxValidationElement : PsiElement
+interface XpmSyntaxValidationElement : PsiElement {
+    val conformanceElement: PsiElement
+}

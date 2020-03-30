@@ -19,6 +19,7 @@ import com.intellij.lang.LanguageASTFactory
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -84,4 +85,32 @@ class BaseXSyntaxValidatorTest :
     val validator = XpmSyntaxValidation()
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
+    internal inner class FTFuzzyOption {
+        @Test
+        @DisplayName("BaseX >= 6.1")
+        fun supported() {
+            val file = parse<XQueryModule>("title contains text \"lorem\" using fuzzy")[0]
+            validator.product = BaseX.VERSION_9_1
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("BaseX < 6.1")
+        fun notSupported() {
+            val file = parse<XQueryModule>("title contains text \"lorem\" using fuzzy")[0]
+            validator.product = BaseX.VERSION_6_0
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(34:39): BaseX 6.0 does not support BaseX 6.1 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
