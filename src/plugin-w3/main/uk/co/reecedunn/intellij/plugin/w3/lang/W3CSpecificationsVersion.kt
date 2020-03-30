@@ -18,19 +18,16 @@ package uk.co.reecedunn.intellij.plugin.w3.lang
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
-object W3CSpecifications : XpmProductType {
-    // region XpmProductType
+data class W3CSpecificationsVersion(override val product: XpmProductType) : XpmProductVersion {
+    // region XpmProductVersion
 
-    override val id: String = "w3c"
+    override val major: Int = 1
 
-    override val name = "W3C Specifications"
+    override val minor: Int = 0
 
-    // endregion
-    // region Language Versions
+    override val id: String = "$major.$minor"
 
-    val REC: XpmProductVersion = W3CSpecificationsVersion(this)
-
-    val languageVersions: List<XpmProductVersion> = listOf(REC)
+    override val features: String = ""
 
     // endregion
 }
