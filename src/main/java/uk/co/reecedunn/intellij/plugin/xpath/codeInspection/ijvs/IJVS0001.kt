@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs
 
 import com.intellij.codeInspection.InspectionManager
-import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
-import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiFile
-import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX as BaseXProduct
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
+import uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB as EXistDBProduct
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
+import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonEE
+import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonHE
+import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonPE
+import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic as MarkLogicProduct
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
@@ -53,6 +59,65 @@ private fun supports(a: Specification, b: Version): Boolean {
 }
 
 class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader) {
+    private fun getProductVersion(product: Product, version: Version): XpmProductVersion? = when (version) {
+        BaseX.VERSION_6_1 -> BaseXProduct.VERSION_6_1
+        BaseX.VERSION_7_7 -> BaseXProduct.VERSION_7_7
+        BaseX.VERSION_7_8 -> BaseXProduct.VERSION_7_8
+        BaseX.VERSION_8_4 -> BaseXProduct.VERSION_8_4
+        BaseX.VERSION_8_5 -> BaseXProduct.VERSION_8_5
+        BaseX.VERSION_8_6 -> BaseXProduct.VERSION_8_6
+        BaseX.VERSION_9_0 -> BaseXProduct.VERSION_8_6
+        BaseX.VERSION_9_1 -> BaseXProduct.VERSION_9_1
+        EXistDB.VERSION_3_0 -> EXistDBProduct.VERSION_3_0
+        EXistDB.VERSION_3_1 -> EXistDBProduct.VERSION_3_1
+        EXistDB.VERSION_3_6 -> EXistDBProduct.VERSION_3_6
+        EXistDB.VERSION_4_0 -> EXistDBProduct.VERSION_4_0
+        EXistDB.VERSION_4_3 -> EXistDBProduct.VERSION_4_3
+        MarkLogic.VERSION_4_0 -> MarkLogicProduct.VERSION_6
+        MarkLogic.VERSION_5_0 -> MarkLogicProduct.VERSION_6
+        MarkLogic.VERSION_6_0 -> MarkLogicProduct.VERSION_6
+        MarkLogic.VERSION_7_0 -> MarkLogicProduct.VERSION_7
+        MarkLogic.VERSION_8_0 -> MarkLogicProduct.VERSION_8
+        MarkLogic.VERSION_9_0 -> MarkLogicProduct.VERSION_9
+        MarkLogic.VERSION_10_0 -> MarkLogicProduct.VERSION_9
+        Saxon.VERSION_9_4 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_9_6
+            Saxon.PE -> SaxonPE.VERSION_9_4
+            else -> SaxonEE.VERSION_9_4
+        }
+        Saxon.VERSION_9_5 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_9_6
+            Saxon.PE -> SaxonPE.VERSION_9_5
+            else -> SaxonEE.VERSION_9_5
+        }
+        Saxon.VERSION_9_6 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_9_6
+            Saxon.PE -> SaxonPE.VERSION_9_5
+            else -> SaxonEE.VERSION_9_4
+        }
+        Saxon.VERSION_9_7 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_9_7
+            Saxon.PE -> SaxonPE.VERSION_9_7
+            else -> SaxonEE.VERSION_9_7
+        }
+        Saxon.VERSION_9_8 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_9_7
+            Saxon.PE -> SaxonPE.VERSION_9_8
+            else -> SaxonEE.VERSION_9_8
+        }
+        Saxon.VERSION_9_9 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_9_7
+            Saxon.PE -> SaxonPE.VERSION_9_9
+            else -> SaxonEE.VERSION_9_9
+        }
+        Saxon.VERSION_10_0 -> when (product) {
+            Saxon.HE -> SaxonHE.VERSION_10_0
+            Saxon.PE -> SaxonPE.VERSION_10_0
+            else -> SaxonEE.VERSION_10_0
+        }
+        else -> W3CSpecifications.REC
+    }
+
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
@@ -99,6 +164,11 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
                 }
             }
         }
+
+        val validator = XpmSyntaxValidation()
+        validator.product = getProductVersion(product, productVersion)
+        validator.validate(file, diagnostics)
+
         return diagnostics.toTypedArray()
     }
 }
