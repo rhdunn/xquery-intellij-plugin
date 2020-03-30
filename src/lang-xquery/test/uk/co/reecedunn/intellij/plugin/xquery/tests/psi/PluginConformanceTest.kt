@@ -854,21 +854,6 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
     internal inner class UpdateExpr {
         @Test
-        @DisplayName("inline")
-        fun testUpdateExpr() {
-            val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
-
-            val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-            val conformance = updateExpr as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_UPDATE))
-        }
-
-        @Test
         @DisplayName("enclosed expression")
         fun testUpdateExpr_Block() {
             val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")

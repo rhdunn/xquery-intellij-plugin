@@ -24,6 +24,7 @@ import com.intellij.psi.SmartPointerManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
@@ -34,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
@@ -53,6 +55,9 @@ abstract class InspectionTestCase :
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidator::class.java)
+        registerExtension(XpmSyntaxValidator.EP_NAME, BaseXSyntaxValidator)
     }
 
     @AfterAll

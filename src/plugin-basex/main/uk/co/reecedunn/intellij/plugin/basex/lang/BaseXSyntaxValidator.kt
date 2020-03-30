@@ -19,12 +19,14 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
 
 object BaseXSyntaxValidator : XpmSyntaxValidator {
     // region XpmSyntaxValidator
 
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
         is PluginFTFuzzyOption -> reporter.requireProduct(element, BaseX.VERSION_6_1)
+        is PluginUpdateExpr -> reporter.requireProduct(element, BaseX.VERSION_7_8)
         else -> {}
     }
 

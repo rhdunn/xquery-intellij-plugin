@@ -87,6 +87,38 @@ class BaseXSyntaxValidatorTest :
     // endregion
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
+    internal inner class UpdateExpr {
+        @Nested
+        @DisplayName("inline")
+        internal inner class Inline {
+            @Test
+            @DisplayName("BaseX >= 7.8")
+            fun supported() {
+                val file = parse<XQueryModule>("//item update delete node .")[0]
+                validator.product = BaseX.VERSION_9_1
+                validator.validate(file, this@BaseXSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("BaseX < 7.8")
+            fun notSupported() {
+                val file = parse<XQueryModule>("//item update delete node .")[0]
+                validator.product = BaseX.VERSION_6_0
+                validator.validate(file, this@BaseXSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(7:13): BaseX 6.0 does not support BaseX 7.8 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
     internal inner class FTFuzzyOption {
         @Test

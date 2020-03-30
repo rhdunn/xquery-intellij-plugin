@@ -2569,16 +2569,16 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: MarkLogic 7.0 does not support BaseX 7.8 constructs.")
+                        `is`("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_UPDATE))
+                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_DELETE))
 
                     assertThat(problems[1].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[1].descriptionTemplate,
-                        `is`("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs.")
+                        `is`("XPST0003: MarkLogic 7.0 does not support BaseX 7.8 constructs.")
                     )
-                    assertThat(problems[1].psiElement.elementType, `is`(XQueryTokenType.K_DELETE))
+                    assertThat(problems[1].psiElement.elementType, `is`(XQueryTokenType.K_UPDATE))
                 }
             }
 
