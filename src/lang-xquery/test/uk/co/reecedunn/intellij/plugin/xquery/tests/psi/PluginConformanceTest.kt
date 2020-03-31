@@ -476,22 +476,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (16) NonDeterministicFunctionCall")
-    fun testNonDeterministicFunctionCall() {
-        val file = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
-
-        val nonDeterministicFunctionCall =
-            file.walkTree().filterIsInstance<PluginNonDeterministicFunctionCall>().first()
-        val conformance = nonDeterministicFunctionCall as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_4))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_NON_DETERMINISTIC))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (58) NullConstructor")
     fun testNullConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")

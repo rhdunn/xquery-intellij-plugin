@@ -145,4 +145,32 @@ class BaseXSyntaxValidatorTest :
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (16) NonDeterministicFunctionCall")
+    internal inner class NonDeterministicFunctionCall {
+        @Test
+        @DisplayName("BaseX >= 8.4")
+        fun supported() {
+            val file = parse<XQueryModule>("let \$x := fn:true#0 return non-deterministic \$x()")[0]
+            validator.product = BaseX.VERSION_9_1
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("BaseX < 8.4")
+        fun notSupported() {
+            val file = parse<XQueryModule>("let \$x := fn:true#0 return non-deterministic \$x()")[0]
+            validator.product = BaseX.VERSION_6_0
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(27:44): BaseX 6.0 does not support BaseX 8.4 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
