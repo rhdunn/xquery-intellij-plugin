@@ -1071,19 +1071,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
-    fun ifExpr() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathIfExpr>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_IF))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
     fun paramList() {
         val file = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.xq")

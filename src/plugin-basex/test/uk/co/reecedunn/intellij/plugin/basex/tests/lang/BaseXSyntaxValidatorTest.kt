@@ -257,4 +257,45 @@ class BaseXSyntaxValidatorTest :
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
+    internal inner class IfExpr {
+        @Test
+        @DisplayName("if with else")
+        fun ifWithElse() {
+            val file = parse<XQueryModule>("if (1) then 2 else 3")[0]
+            validator.product = BaseX.VERSION_9_1
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Nested
+        @DisplayName("if without else")
+        internal inner class IfWithoutElse {
+            @Test
+            @DisplayName("BaseX >= 9.1")
+            fun supported() {
+                val file = parse<XQueryModule>("if (1) then 2")[0]
+                validator.product = BaseX.VERSION_9_1
+                validator.validate(file, this@BaseXSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("BaseX < 9.1")
+            fun notSupported() {
+                val file = parse<XQueryModule>("if (1) then 2")[0]
+                validator.product = BaseX.VERSION_6_0
+                validator.validate(file, this@BaseXSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(0:2): BaseX 6.0 does not support BaseX 9.1 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
 }

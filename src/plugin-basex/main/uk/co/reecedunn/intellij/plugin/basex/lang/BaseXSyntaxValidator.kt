@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.basex.lang
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -40,6 +41,7 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
             else
                 reporter.requireProduct(element, BaseX.VERSION_8_5)
         }
+        is XPathIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
         else -> {}
     }
 
