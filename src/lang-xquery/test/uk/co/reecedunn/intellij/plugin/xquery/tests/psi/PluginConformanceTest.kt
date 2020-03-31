@@ -1071,19 +1071,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
-    fun elvisExpr() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginElvisExpr>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.ELVIS))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
     fun ifExpr() {
         val file = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.xq")
