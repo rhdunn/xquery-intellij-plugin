@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.basex.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -30,6 +31,7 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
         is PluginFTFuzzyOption -> reporter.requireProduct(element, BaseX.VERSION_6_1)
         is PluginNonDeterministicFunctionCall -> reporter.requireProduct(element, BaseX.VERSION_8_4)
+        is PluginTernaryIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
         is PluginUpdateExpr -> {
             if (element.conformanceElement.elementType === XQueryTokenType.K_UPDATE)
                 reporter.requireProduct(element, BaseX.VERSION_7_8)

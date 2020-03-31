@@ -201,4 +201,32 @@ class BaseXSyntaxValidatorTest :
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
+    internal inner class TernaryIfExpr {
+        @Test
+        @DisplayName("BaseX >= 9.1")
+        fun supported() {
+            val file = parse<XQueryModule>("1 eq 2 ?? 3 !! 4")[0]
+            validator.product = BaseX.VERSION_9_1
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("BaseX < 9.1")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 eq 2 ?? 3 !! 4")[0]
+            validator.product = BaseX.VERSION_6_0
+            validator.validate(file, this@BaseXSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(7:9): BaseX 6.0 does not support BaseX 9.1 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
