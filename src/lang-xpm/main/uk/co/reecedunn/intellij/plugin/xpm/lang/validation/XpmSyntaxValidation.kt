@@ -29,11 +29,17 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
 
     private var requiredProduct: XpmProductVersion? = null
     private var conformanceElement: PsiElement? = null
+    private var conformanceName: String? = null
 
-    override fun requireProduct(element: XpmSyntaxValidationElement, productVersion: XpmProductVersion) {
+    override fun requireProduct(
+        element: XpmSyntaxValidationElement,
+        productVersion: XpmProductVersion,
+        conformanceName: String?
+    ) {
         if (!(product?.product === productVersion.product && product!!.ge(productVersion))) {
-            requiredProduct = productVersion
-            conformanceElement = element.conformanceElement
+            this.requiredProduct = productVersion
+            this.conformanceElement = element.conformanceElement
+            this.conformanceName = conformanceName
         }
     }
 
@@ -51,7 +57,17 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
         }
 
         if (requiredProduct != null) {
-            val message = XpmBundle.message("diagnostic.unsupported-syntax", product!!.displayName, requiredProduct!!.displayName)
+            val message =
+                if (conformanceName != null)
+                    XpmBundle.message(
+                        "diagnostic.unsupported-syntax-name",
+                        product!!.displayName, requiredProduct!!.displayName, conformanceName!!
+                    )
+                else
+                    XpmBundle.message(
+                        "diagnostic.unsupported-syntax",
+                        product!!.displayName, requiredProduct!!.displayName
+                    )
             diagnostics.error(conformanceElement!!, XpmDiagnostics.XPST0003, message)
         }
     }

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.lang
 
+import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXBundle
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
@@ -28,8 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object BaseXSyntaxValidator : XpmSyntaxValidator {
-    // region XpmSyntaxValidator
-
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
         is PluginElvisExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
         is PluginFTFuzzyOption -> reporter.requireProduct(element, BaseX.VERSION_6_1)
@@ -41,9 +40,7 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
             else
                 reporter.requireProduct(element, BaseX.VERSION_8_5)
         }
-        is XPathIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
+        is XPathIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1, BaseXBundle.message("conformance.if-without-else"))
         else -> {}
     }
-
-    // endregion
 }

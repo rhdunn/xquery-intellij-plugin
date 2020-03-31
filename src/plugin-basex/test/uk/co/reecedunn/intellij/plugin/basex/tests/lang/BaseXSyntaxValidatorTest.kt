@@ -291,7 +291,7 @@ class BaseXSyntaxValidatorTest :
                 assertThat(
                     report.toString(), `is`(
                         """
-                        E XPST0003(0:2): BaseX 6.0 does not support BaseX 9.1 constructs.
+                        E XPST0003(0:2): BaseX 6.0 does not support BaseX 9.1 'if' without 'else' constructs.
                         """.trimIndent()
                     )
                 )
