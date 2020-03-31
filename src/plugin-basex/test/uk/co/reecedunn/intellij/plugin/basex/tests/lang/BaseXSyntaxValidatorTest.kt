@@ -116,6 +116,34 @@ class BaseXSyntaxValidatorTest :
                 )
             }
         }
+
+        @Nested
+        @DisplayName("enclosed expression")
+        internal inner class EnclosedExpr {
+            @Test
+            @DisplayName("BaseX >= 8.5")
+            fun supported() {
+                val file = parse<XQueryModule>("//item update { delete node . }")[0]
+                validator.product = BaseX.VERSION_9_1
+                validator.validate(file, this@BaseXSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("BaseX < 8.5")
+            fun notSupported() {
+                val file = parse<XQueryModule>("//item update { delete node . }")[0]
+                validator.product = BaseX.VERSION_6_0
+                validator.validate(file, this@BaseXSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(14:15): BaseX 6.0 does not support BaseX 8.5 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
     }
 
     @Nested

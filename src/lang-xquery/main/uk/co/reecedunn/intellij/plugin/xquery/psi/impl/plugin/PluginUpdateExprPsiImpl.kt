@@ -19,25 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val BASEX78: List<Version> = listOf()
-private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
-
 class PluginUpdateExprPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginUpdateExpr, XpmSyntaxValidationElement, VersionConformance {
-    override val requiresConformance: List<Version>
-        get() {
-            if (findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN) != null) {
-                return BASEX85
-            }
-            return BASEX78
-        }
+    ASTWrapperPsiElement(node), PluginUpdateExpr, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() {
@@ -45,4 +33,6 @@ class PluginUpdateExprPsiImpl(node: ASTNode) :
             element = element ?: findChildByType(XQueryTokenType.K_UPDATE)
             return element ?: firstChild
         }
+
+    // endregion
 }
