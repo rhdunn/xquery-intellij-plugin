@@ -62,6 +62,10 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onQueryResultTime(resultTime, time) }
     }
 
+    fun notifyQueryResultsPsiFile(psiFile: PsiFile) {
+        queryResultListeners.forEach { it.onQueryResultsPsiFile(psiFile) }
+    }
+
     // endregion
     // region ProcessHandler
 

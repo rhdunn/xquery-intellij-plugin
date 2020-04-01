@@ -52,6 +52,9 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                         notifyProcessDetached()
                     }
                 }
+                if (file != null) {
+                    notifyQueryResultsPsiFile(file!!)
+                }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.defaultModalityState()) {
                     notifyException(e)

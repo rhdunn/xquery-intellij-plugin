@@ -67,6 +67,9 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                         notifyProcessDetached()
                     }
                 }
+                if (file != null) {
+                    notifyQueryResultsPsiFile(file!!)
+                }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.defaultModalityState()) {
                     notifyException(e)

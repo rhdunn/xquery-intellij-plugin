@@ -30,4 +30,6 @@ interface QueryResultListener : EventListener {
     fun onException(e: Throwable)
 
     fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue)
+
+    fun onQueryResultsPsiFile(psiFile: PsiFile)
 }

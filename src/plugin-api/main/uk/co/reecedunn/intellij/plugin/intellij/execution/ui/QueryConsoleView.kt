@@ -195,5 +195,8 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         }
     }
 
+    override fun onQueryResultsPsiFile(psiFile: PsiFile) {
+    }
+
     // endregion
 }

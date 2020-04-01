@@ -173,5 +173,8 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
     }
 
+    override fun onQueryResultsPsiFile(psiFile: PsiFile) {
+    }
+
     // endregion
 }
