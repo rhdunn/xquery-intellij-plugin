@@ -15,13 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.ui.table.TableView
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-data class QueryResultReference(val offset: Int)
+data class QueryResultReference(private val textOffset: Int, internal var element: PsiElement? = null) {
+    val offset: Int get() = element?.textOffset ?: textOffset
+}
 
 private val RESULT_INDEX_COLUMN = columnInfo<Pair<QueryResult, QueryResultReference>, Long>(
     heading = PluginApiBundle.message("query.result.table.index.column.label"),
@@ -83,5 +87,12 @@ class QueryResultTable : TableView<Pair<QueryResult, QueryResultReference>>(), Q
 
     fun addRow(entry: QueryResult, offset: Int) {
         listTableModel.addRow(Pair(entry, QueryResultReference(offset)))
+    }
+
+    fun updateQueryReferences(psiFile: PsiFile) {
+        (0 until itemCount).forEach {
+            val item = listTableModel.getItem(it)
+            item.second.element = psiFile.findElementAt(item.second.offset)
+        }
     }
 }
