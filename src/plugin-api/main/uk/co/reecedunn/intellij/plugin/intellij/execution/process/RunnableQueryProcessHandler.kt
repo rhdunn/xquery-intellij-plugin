@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.openapi.application.ModalityState
-import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -33,15 +32,12 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                 invokeLater(ModalityState.defaultModalityState()) {
                     try {
                         if (results.status.statusCode != 200) {
-                            notifyResult(
-                                QueryResult.fromItemType(0, results.status.toString(), "http:status-line"),
-                                isSingleResult = false
-                            )
+                            notifyResult(QueryResult.fromItemType(0, results.status.toString(), "http:status-line"))
                         }
                         if (results.results.size == 1) {
-                            notifyResult(results.results.first(), isSingleResult = true)
+                            notifyResult(results.results.first())
                         } else {
-                            results.results.forEach { result -> notifyResult(result, isSingleResult = false) }
+                            results.results.forEach { result -> notifyResult(result) }
                         }
                         notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
                     } catch (e: Throwable) {

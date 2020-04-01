@@ -55,8 +55,8 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onException(e) }
     }
 
-    fun notifyResult(result: QueryResult, isSingleResult: Boolean) {
-        queryResultListeners.forEach { it.onQueryResult(result, isSingleResult) }
+    fun notifyResult(result: QueryResult) {
+        queryResultListeners.forEach { it.onQueryResult(result) }
     }
 
     fun notifyResultTime(resultTime: QueryResultTime, time: XsDurationValue) {

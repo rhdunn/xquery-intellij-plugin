@@ -25,7 +25,7 @@ interface QueryResultListener : EventListener {
 
     fun onEndResults(): PsiFile?
 
-    fun onQueryResult(result: QueryResult, isSingleResult: Boolean)
+    fun onQueryResult(result: QueryResult)
 
     fun onException(e: Throwable)
 

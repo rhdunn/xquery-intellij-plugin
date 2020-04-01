@@ -54,9 +54,9 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                     try {
                         notifyProfileReport(results.report)
                         if (results.results.size == 1) {
-                            notifyResult(results.results.first(), isSingleResult = true)
+                            notifyResult(results.results.first())
                         } else {
-                            results.results.forEach { result -> notifyResult(result, isSingleResult = false) }
+                            results.results.forEach { result -> notifyResult(result) }
                         }
                         notifyResultTime(QueryResultTime.Elapsed, results.report.elapsed)
                     } catch (e: Throwable) {

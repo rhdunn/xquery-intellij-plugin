@@ -74,12 +74,10 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
 
     private var activeLanguage: Language? = null
     private var psiFile: PsiFile? = null
-    private var isSingleResult: Boolean = false
 
     override fun onBeginResults() {
         activeLanguage = null
         psiFile = null
-        isSingleResult = false
         clear()
     }
 
@@ -96,14 +94,13 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         return psiFile
     }
 
-    override fun onQueryResult(result: QueryResult, isSingleResult: Boolean) {
+    override fun onQueryResult(result: QueryResult) {
         when (result.type) {
             "binary()", "xs:hexBinary", "xs:base64Binary" -> {
                 val length = (result.value as? String)?.length ?: 0
                 print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
             }
             else -> {
-                this.isSingleResult = isSingleResult
                 val newLanguage = Language.getRegisteredLanguages().find { it.mimeTypes.contains(result.mimetype) }
                 when {
                     newLanguage == null -> {} // No language found to highlight.

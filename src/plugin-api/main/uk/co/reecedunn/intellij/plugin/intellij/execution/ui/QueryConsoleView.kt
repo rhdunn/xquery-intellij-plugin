@@ -176,7 +176,7 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         return null
     }
 
-    override fun onQueryResult(result: QueryResult, isSingleResult: Boolean) {
+    override fun onQueryResult(result: QueryResult) {
         (tables.first() as QueryResultTable).addRow(result, currentSize)
         currentSize = contentSize
     }
