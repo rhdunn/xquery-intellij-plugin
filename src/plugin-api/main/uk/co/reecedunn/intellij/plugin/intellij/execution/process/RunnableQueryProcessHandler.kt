@@ -32,9 +32,16 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                 invokeLater(ModalityState.defaultModalityState()) {
                     try {
                         if (results.status.statusCode != 200) {
-                            notifyResult(QueryResult.fromItemType(0, results.status.toString(), "http:status-line"))
+                            notifyResult(
+                                QueryResult.fromItemType(0, results.status.toString(), "http:status-line"),
+                                isSingleResult = false
+                            )
                         }
-                        results.results.forEach { result -> notifyResult(result) }
+                        if (results.results.size == 1) {
+                            notifyResult(results.results.first(), isSingleResult = true)
+                        } else {
+                            results.results.forEach { result -> notifyResult(result, isSingleResult = false) }
+                        }
                         notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
                     } catch (e: Throwable) {
                         notifyException(e)

@@ -75,7 +75,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         }
     }
 
-    override fun onQueryResult(result: QueryResult) {
+    override fun onQueryResult(result: QueryResult, isSingleResult: Boolean) {
         when (result.type) {
             "binary()", "xs:hexBinary", "xs:base64Binary" -> {
                 val length = (result.value as? String)?.length ?: 0
