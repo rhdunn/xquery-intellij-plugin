@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.lang.Language
 import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
@@ -81,7 +83,16 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 val length = (result.value as? String)?.length ?: 0
                 print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
             }
-            else -> print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
+            else -> {
+                if (isSingleResult) {
+                    val language = Language.getRegisteredLanguages().find { it.mimeTypes.contains(result.mimetype) }
+                    language?.associatedFileType?.let {
+                        val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+                        editor!!.highlighter = provider.getEditorHighlighter(project, it, null, editor!!.colorsScheme)
+                    }
+                }
+                print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)
+            }
         }
         print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
     }

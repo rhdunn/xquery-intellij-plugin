@@ -2,6 +2,13 @@
 
 ## 1.7 - (In Development)
 
+1.  Saxon 10.0 syntax extension support.
+
+Run Configurations:
+
+1.  Highlight single result run query output according to the mimetype of the
+    result.
+
 Saxon Syntax Extensions:
 
 1.  Support for Saxon 9.8 `~type` type aliases.

@@ -54,6 +54,13 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.7-dev:</h3>
+    <ol>
+      <li>Saxon 10.0 syntax extension support.</li>
+    </ol>
+    <p>Run Configurations:</p>
+    <ol>
+      <li>Highlight single result run query output according to the mimetype of the result.</li>
+    </ol>
     <p>Saxon Syntax Extensions:</p>
     <ol>
       <li>Support for Saxon 9.8 <code>~type</code> type aliases.</li>
