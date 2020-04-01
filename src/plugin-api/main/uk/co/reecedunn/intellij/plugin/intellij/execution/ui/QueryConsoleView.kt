@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiFile
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
@@ -170,8 +171,9 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         timer.start(10)
     }
 
-    override fun onEndResults() {
+    override fun onEndResults(): PsiFile? {
         tables.forEach { it.isRunning = false }
+        return null
     }
 
     override fun onQueryResult(result: QueryResult, isSingleResult: Boolean) {

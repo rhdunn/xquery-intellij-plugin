@@ -83,14 +83,14 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         clear()
     }
 
-    override fun onEndResults() {
+    override fun onEndResults(): PsiFile? {
         if (contentSize == 0) {
             print("()", ConsoleViewContentType.NORMAL_OUTPUT)
         }
 
         if (activeLanguage != null) {
-            val doc = editor?.document ?: return
-            psiFile = PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text) ?: return
+            val doc = editor?.document ?: return null
+            psiFile = PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text) ?: return null
             psiFile!!.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
 
             if (isSingleResult) {
@@ -98,6 +98,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 reformatter.run()
             }
         }
+        return psiFile
     }
 
     override fun onQueryResult(result: QueryResult, isSingleResult: Boolean) {

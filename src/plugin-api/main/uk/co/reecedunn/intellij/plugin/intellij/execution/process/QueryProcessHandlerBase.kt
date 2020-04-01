@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.psi.PsiFile
 import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -38,8 +39,15 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onBeginResults() }
     }
 
-    fun notifyEndResults() {
-        queryResultListeners.forEach { it.onEndResults() }
+    fun notifyEndResults(): PsiFile? {
+        var file: PsiFile? = null
+        queryResultListeners.forEach {
+            val resultFile = it.onEndResults()
+            if (file == null) {
+                file = resultFile
+            }
+        }
+        return file
     }
 
     fun notifyException(e: Throwable) {
