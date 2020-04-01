@@ -133,7 +133,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
     override fun getContentSize(): Int = editor?.document?.textLength ?: 0
 
     override fun createConsoleActions(): Array<AnAction> {
-        return arrayOf(
+        val actions = arrayOf(
             object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
                 override fun getEditor(e: AnActionEvent): Editor? = editor
             },
@@ -141,6 +141,22 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
             ActionManager.getInstance().getAction("Print"),
             ClearAllAction(this)
         )
+
+        val additional = createAdditionalConsoleActions()
+        if (additional.isNotEmpty()) {
+            val primary = DefaultActionGroup()
+            primary.addAll(*actions)
+
+            val secondary = DefaultActionGroup()
+            secondary.addAll(*additional)
+
+            return arrayOf(primary, Separator(), secondary)
+        }
+        return actions
+    }
+
+    open fun createAdditionalConsoleActions(): Array<AnAction> {
+        return arrayOf()
     }
 
     override fun getComponent(): JComponent {

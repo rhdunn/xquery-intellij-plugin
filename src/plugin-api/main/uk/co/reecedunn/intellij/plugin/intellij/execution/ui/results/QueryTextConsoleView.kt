@@ -15,13 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
+import com.intellij.codeInsight.actions.ReformatCodeProcessor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.lang.Language
 import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiFileFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
@@ -69,15 +73,30 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     // region QueryResultListener
 
     private var activeLanguage: Language? = null
+    private var psiFile: PsiFile? = null
+    private var isSingleResult: Boolean = false
 
     override fun onBeginResults() {
         activeLanguage = null
+        psiFile = null
+        isSingleResult = false
         clear()
     }
 
     override fun onEndResults() {
         if (contentSize == 0) {
             print("()", ConsoleViewContentType.NORMAL_OUTPUT)
+        }
+
+        if (activeLanguage != null) {
+            val doc = editor?.document ?: return
+            psiFile = PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text) ?: return
+            psiFile!!.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+
+            if (isSingleResult) {
+                val reformatter = ReformatCodeProcessor(psiFile!!, false)
+                reformatter.run()
+            }
         }
     }
 
@@ -88,6 +107,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
             }
             else -> {
+                this.isSingleResult = isSingleResult
                 val newLanguage = Language.getRegisteredLanguages().find { it.mimeTypes.contains(result.mimetype) }
                 when {
                     newLanguage == null -> {} // No language found to highlight.
