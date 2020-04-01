@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -290,9 +290,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var contextItemTab: JPanel? = null
 
     private var updating: JCheckBox? = null
+    private var reformatResults: JCheckBox? = null
 
     private fun createUIComponents() {
         updating = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.updating.label"))
+        reformatResults = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.reformat-results.label"))
 
         createQueryProcessorUI()
         createRdfOutputFormatUI()
@@ -361,6 +363,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (contextItem!!.path != configuration.contextItemValue)
             return true
+        if (reformatResults!!.isSelected != configuration.reformatResults)
+            return true
         return false
     }
 
@@ -383,6 +387,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         xpathSubset!!.selectedItem = configuration.xpathSubset
         contextItem!!.type = configuration.contextItemSource
         contextItem!!.path = configuration.contextItemValue
+        reformatResults!!.isSelected = configuration.reformatResults
 
         configureUI()
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
@@ -401,6 +406,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.xpathSubset = xpathSubset!!.selectedItem as XPathSubset
         configuration.contextItemSource = contextItem?.type
         configuration.contextItemValue = contextItem?.path
+        configuration.reformatResults = reformatResults!!.isSelected
     }
 
     // endregion

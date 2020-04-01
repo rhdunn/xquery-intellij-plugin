@@ -24,6 +24,16 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import java.io.OutputStream
 
 abstract class QueryProcessHandlerBase : ProcessHandler() {
+    // region Configuration
+
+    private var reformat: Boolean = false
+
+    fun reformat(reformat: Boolean): QueryProcessHandlerBase {
+        this.reformat = reformat
+        return this
+    }
+
+    // endregion
     // region Results
 
     private val queryResultListeners = ContainerUtil.createLockFreeCopyOnWriteList<QueryResultListener>()
@@ -63,7 +73,7 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onQueryResultTime(resultTime, time) }
     }
 
-    fun notifyQueryResultsPsiFile(psiFile: PsiFile, reformat: Boolean) {
+    fun notifyQueryResultsPsiFile(psiFile: PsiFile) {
         queryResultListeners.forEach { it.onQueryResultsPsiFile(psiFile) }
         if (reformat) {
             val reformatter = ReformatCodeProcessor(psiFile, false)

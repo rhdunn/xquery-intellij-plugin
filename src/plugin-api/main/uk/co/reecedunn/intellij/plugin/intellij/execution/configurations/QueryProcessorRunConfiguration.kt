@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,8 @@ data class QueryProcessorRunConfigurationData(
     var scriptFile: String? = null,
     var scriptSource: QueryProcessorDataSourceType = QueryProcessorDataSourceType.LocalFile,
     var contextItem: String? = null,
-    var contextItemSource: QueryProcessorDataSourceType? = null
+    var contextItemSource: QueryProcessorDataSourceType? = null,
+    var reformatResults: Boolean = false
 ) : RunConfigurationOptions()
 
 class QueryProcessorRunConfiguration(
@@ -120,6 +121,15 @@ class QueryProcessorRunConfiguration(
         get() = data.updating
         set(value) {
             data.updating = value
+        }
+
+    // endregion
+    // region Reformat Results
+
+    var reformatResults: Boolean
+        get() = data.reformatResults
+        set(value) {
+            data.reformatResults = value
         }
 
     // endregion

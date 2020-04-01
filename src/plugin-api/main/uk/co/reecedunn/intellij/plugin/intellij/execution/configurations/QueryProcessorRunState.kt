@@ -59,7 +59,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 query.server = configuration.server ?: ""
                 query.modulePath = configuration.modulePath ?: ""
                 configuration.contextItem?.let { query.bindContextItem(it, null) }
-                RunnableQueryProcessHandler(query)
+                RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 val query = (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)
@@ -70,7 +70,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 query.server = configuration.server ?: ""
                 query.modulePath = configuration.modulePath ?: ""
                 configuration.contextItem?.let { query.bindContextItem(it, null) }
-                ProfileableQueryProcessHandler(query)
+                ProfileableQueryProcessHandler(query).reformat(configuration.reformatResults)
             }
             else -> throw UnsupportedOperationException()
         }

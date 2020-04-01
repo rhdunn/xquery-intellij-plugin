@@ -3,11 +3,14 @@
 ## 1.7 - (In Development)
 
 1.  Saxon 10.0 syntax extension support.
+1.  Improved the query result output when running/profiling queries.
 
 Run Configurations:
 
-1.  Syntax highlight results in the run query output according to the mimetype of the
-    result if the results all have the same mimetype.
+1.  Syntax highlight results in the run query output according to the mimetype
+    of the result if the results all have the same mimetype.
+1.  Support reformatting the run query output if enabled in the run
+    configuration settings.
 
 Saxon Syntax Extensions:
 

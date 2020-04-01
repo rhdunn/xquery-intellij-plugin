@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.openapi.application.ModalityState
-import com.intellij.psi.PsiFile
 import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -64,7 +63,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                     } finally {
                         val file = notifyEndResults()
                         if (file != null) {
-                            notifyQueryResultsPsiFile(file, true)
+                            notifyQueryResultsPsiFile(file)
                         }
                         notifyProcessDetached()
                     }

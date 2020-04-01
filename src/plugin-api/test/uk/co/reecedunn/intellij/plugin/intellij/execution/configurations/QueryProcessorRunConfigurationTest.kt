@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,6 +53,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
 
         assertThat(settings.processorId, `is`(nullValue()))
         assertThat(settings.rdfOutputFormat, `is`(nullValue()))
+        assertThat(settings.reformatResults, `is`(false))
         assertThat(settings.updating, `is`(false))
         assertThat(settings.xpathSubset, `is`(XPathSubset.XPath))
         assertThat(settings.server, `is`(nullValue()))
@@ -66,6 +67,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         val state = settings.getState()!!
         assertThat(state.processorId, `is`(nullValue()))
         assertThat(state.rdfOutputFormat, `is`(nullValue()))
+        assertThat(state.reformatResults, `is`(false))
         assertThat(state.updating, `is`(false))
         assertThat(state.xpathSubset, `is`(XPathSubset.XPath))
         assertThat(state.server, `is`(nullValue()))
@@ -87,6 +89,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" value="1" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -113,6 +116,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" value="text/turtle" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -130,6 +134,33 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     }
 
     @Test
+    @DisplayName("setting: reformat results")
+    fun reformatResults() {
+        val serialized = """<configuration>
+            <option name="contextItem" />
+            <option name="contextItemSource" />
+            <option name="database" />
+            <option name="modulePath" />
+            <option name="processorId" />
+            <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="true" />
+            <option name="scriptFile" />
+            <option name="scriptSource" value="LocalFile" />
+            <option name="server" />
+            <option name="updating" value="false" />
+            <option name="xpathSubset" value="XPath" />
+        </configuration>""".replace("\n[ ]*".toRegex(), "")
+
+        val factory = XPathConfigurationType().configurationFactories[0]
+        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+
+        settings.reformatResults = true
+        assertThat(settings.reformatResults, `is`(true))
+
+        assertThat(serialize(settings), anyOf(`is`(serialized)))
+    }
+
+    @Test
     @DisplayName("setting: updating")
     fun updating() {
         val serialized = """<configuration>
@@ -139,6 +170,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -165,6 +197,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -191,6 +224,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" value="test-server" />
@@ -217,6 +251,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -243,6 +278,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" value="/test/path" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -269,6 +305,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="ActiveEditorFile" />
             <option name="server" />
@@ -295,6 +332,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" value="/test/script.xqy" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -321,6 +359,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />
@@ -347,6 +386,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
             <option name="modulePath" />
             <option name="processorId" />
             <option name="rdfOutputFormat" />
+            <option name="reformatResults" value="false" />
             <option name="scriptFile" />
             <option name="scriptSource" value="LocalFile" />
             <option name="server" />

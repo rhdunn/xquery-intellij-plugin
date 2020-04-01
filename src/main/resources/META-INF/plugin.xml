@@ -56,6 +56,7 @@
     <h3>Release 1.7-dev:</h3>
     <ol>
       <li>Saxon 10.0 syntax extension support.</li>
+      <li>Improved the query result output when running/profiling queries.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>
@@ -63,6 +64,7 @@
         Syntax highlight results in the run query output according to the mimetype of the
         result if the results all have the same mimetype.
       </li>
+      <li>Support reformatting the run query output if enabled in the run configuration settings.</li>
     </ol>
     <p>Saxon Syntax Extensions:</p>
     <ol>
