@@ -21,7 +21,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
-import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
@@ -71,7 +70,7 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
 
         table.selectionModel.addListSelectionListener {
             table.selectedObject?.second?.let { range ->
-                console.scrollToTop(range.from)
+                console.scrollToTop(range.offset)
             }
         }
 
@@ -176,9 +175,8 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
     }
 
     override fun onQueryResult(result: QueryResult, isSingleResult: Boolean) {
-        val size = contentSize
-        (tables.first() as QueryResultTable).addRow(result, Range(currentSize, size))
-        currentSize = size
+        (tables.first() as QueryResultTable).addRow(result, currentSize)
+        currentSize = contentSize
     }
 
     override fun onException(e: Throwable) {

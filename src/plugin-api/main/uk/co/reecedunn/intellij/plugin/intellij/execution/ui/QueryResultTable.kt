@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,31 +16,32 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.ui.table.TableView
-import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-private val RESULT_INDEX_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, Long>(
+data class QueryResultReference(val offset: Int)
+
+private val RESULT_INDEX_COLUMN = columnInfo<Pair<QueryResult, QueryResultReference>, Long>(
     heading = PluginApiBundle.message("query.result.table.index.column.label"),
     getter = { (first) -> first.position },
     sortable = false
 )
 
-private val RESULT_ITEM_TYPE_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, String>(
+private val RESULT_ITEM_TYPE_COLUMN = columnInfo<Pair<QueryResult, QueryResultReference>, String>(
     heading = PluginApiBundle.message("query.result.table.item-type.column.label"),
     getter = { (first) -> first.type },
     sortable = false
 )
 
-private val RESULT_MIME_TYPE_COLUMN = columnInfo<Pair<QueryResult, Range<Int>>, String>(
+private val RESULT_MIME_TYPE_COLUMN = columnInfo<Pair<QueryResult, QueryResultReference>, String>(
     heading = PluginApiBundle.message("query.result.table.mime-type.column.label"),
     getter = { (first) -> first.mimetype },
     sortable = false
 )
 
-class QueryResultTable : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable {
+class QueryResultTable : TableView<Pair<QueryResult, QueryResultReference>>(), QueryTable {
     init {
         columns {
             add(RESULT_INDEX_COLUMN)
@@ -80,5 +81,7 @@ class QueryResultTable : TableView<Pair<QueryResult, Range<Int>>>(), QueryTable 
 
     override val itemCount: Int get() = rowCount
 
-    fun addRow(entry: QueryResult, range: Range<Int>) = listTableModel.addRow(Pair(entry, range))
+    fun addRow(entry: QueryResult, offset: Int) {
+        listTableModel.addRow(Pair(entry, QueryResultReference(offset)))
+    }
 }
