@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                     } finally {
                         val file = notifyEndResults()
                         if (file != null) {
-                            notifyQueryResultsPsiFile(file, results.results.size == 1)
+                            notifyQueryResultsPsiFile(file, true)
                         }
                         notifyProcessDetached()
                     }

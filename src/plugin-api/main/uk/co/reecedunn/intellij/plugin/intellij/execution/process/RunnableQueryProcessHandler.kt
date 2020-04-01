@@ -45,7 +45,7 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                     } finally {
                         val file = notifyEndResults()
                         if (file != null) {
-                            notifyQueryResultsPsiFile(file, results.results.size == 1)
+                            notifyQueryResultsPsiFile(file, true)
                         }
                         notifyProcessDetached()
                     }
