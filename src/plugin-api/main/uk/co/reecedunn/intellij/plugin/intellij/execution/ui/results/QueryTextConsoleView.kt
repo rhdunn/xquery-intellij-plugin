@@ -92,11 +92,6 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
             val doc = editor?.document ?: return null
             psiFile = PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text) ?: return null
             psiFile!!.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
-
-            if (isSingleResult) {
-                val reformatter = ReformatCodeProcessor(psiFile!!, false)
-                reformatter.run()
-            }
         }
         return psiFile
     }

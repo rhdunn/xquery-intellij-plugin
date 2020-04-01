@@ -49,7 +49,6 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
         notifyBeginResults()
         executeOnPooledThread {
             try {
-                var file: PsiFile? = null
                 val results = query.profile()
                 invokeLater(ModalityState.defaultModalityState()) {
                     try {
@@ -63,12 +62,12 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                     } catch (e: Throwable) {
                         notifyException(e)
                     } finally {
-                        file = notifyEndResults()
+                        val file = notifyEndResults()
+                        if (file != null) {
+                            notifyQueryResultsPsiFile(file, results.results.size == 1)
+                        }
                         notifyProcessDetached()
                     }
-                }
-                if (file != null) {
-                    notifyQueryResultsPsiFile(file!!)
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.defaultModalityState()) {

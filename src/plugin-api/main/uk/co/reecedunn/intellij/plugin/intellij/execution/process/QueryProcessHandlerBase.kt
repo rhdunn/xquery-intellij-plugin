@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
+import com.intellij.codeInsight.actions.ReformatCodeProcessor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.psi.PsiFile
 import com.intellij.util.containers.ContainerUtil
@@ -62,8 +63,12 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onQueryResultTime(resultTime, time) }
     }
 
-    fun notifyQueryResultsPsiFile(psiFile: PsiFile) {
+    fun notifyQueryResultsPsiFile(psiFile: PsiFile, reformat: Boolean) {
         queryResultListeners.forEach { it.onQueryResultsPsiFile(psiFile) }
+        if (reformat) {
+            val reformatter = ReformatCodeProcessor(psiFile, false)
+            reformatter.run()
+        }
     }
 
     // endregion
