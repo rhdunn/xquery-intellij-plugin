@@ -20,6 +20,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.lang.Language
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
+import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
@@ -67,7 +68,10 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     // endregion
     // region QueryResultListener
 
+    private var activeLanguage: Language? = null
+
     override fun onBeginResults() {
+        activeLanguage = null
         clear()
     }
 
@@ -84,11 +88,28 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 print("Binary data ($length bytes)", ConsoleViewContentType.NORMAL_OUTPUT)
             }
             else -> {
-                if (isSingleResult) {
-                    val language = Language.getRegisteredLanguages().find { it.mimeTypes.contains(result.mimetype) }
-                    language?.associatedFileType?.let {
-                        val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
-                        editor!!.highlighter = provider.getEditorHighlighter(project, it, null, editor!!.colorsScheme)
+                val newLanguage = Language.getRegisteredLanguages().find { it.mimeTypes.contains(result.mimetype) }
+                when {
+                    newLanguage == null -> {} // No language found to highlight.
+                    newLanguage === activeLanguage -> {} // Same language as the current highlight language.
+                    activeLanguage === PlainTextLanguage.INSTANCE -> {} // Multiple file types.
+                    activeLanguage != null -> { // Multiple file types... don't highlight.
+                        activeLanguage = PlainTextLanguage.INSTANCE
+                        activeLanguage?.associatedFileType!!.let {
+                            val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+                            editor!!.highlighter = provider.getEditorHighlighter(
+                                project, it, null, editor!!.colorsScheme
+                            )
+                        }
+                    }
+                    else -> {
+                        newLanguage.associatedFileType!!.let {
+                            activeLanguage = newLanguage
+                            val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+                            editor!!.highlighter = provider.getEditorHighlighter(
+                                project, it, null, editor!!.colorsScheme
+                            )
+                        }
                     }
                 }
                 print(result.value.toString(), ConsoleViewContentType.NORMAL_OUTPUT)

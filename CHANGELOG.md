@@ -6,8 +6,8 @@
 
 Run Configurations:
 
-1.  Highlight single result run query output according to the mimetype of the
-    result.
+1.  Syntax highlight results in the run query output according to the mimetype of the
+    result if the results all have the same mimetype.
 
 Saxon Syntax Extensions:
 
