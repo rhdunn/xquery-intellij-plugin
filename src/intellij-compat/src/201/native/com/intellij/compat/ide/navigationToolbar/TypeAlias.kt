@@ -15,4 +15,5 @@
  */
 package com.intellij.compat.ide.navigationToolbar
 
+typealias AbstractNavBarModelExtension = com.intellij.ide.navigationToolbar.AbstractNavBarModelExtension
 typealias StructureAwareNavBarModelExtension = com.intellij.ide.navigationToolbar.StructureAwareNavBarModelExtension

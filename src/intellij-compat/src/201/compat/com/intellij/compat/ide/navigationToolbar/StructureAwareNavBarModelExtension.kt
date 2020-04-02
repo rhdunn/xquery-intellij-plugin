@@ -15,15 +15,8 @@
  */
 package com.intellij.compat.ide.navigationToolbar
 
-import com.intellij.ide.navigationToolbar.AbstractNavBarModelExtension
 import com.intellij.lang.Language
 
 abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension() {
-    abstract override fun getPresentableText(`object`: Any?): String?
-
-    open fun getPresentableText(`object`: Any?, forPopup: Boolean): String? {
-        return getPresentableText(`object`)
-    }
-
     abstract val language: Language
 }
