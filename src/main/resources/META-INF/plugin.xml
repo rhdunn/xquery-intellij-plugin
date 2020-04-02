@@ -57,6 +57,11 @@
     <ol>
       <li>Saxon 10.0 syntax extension support.</li>
       <li>Improved the query result output when running/profiling queries.</li>
+      <li>
+        Fixed displaying the active structure item in the nav bar when the element
+        under the cursor is an XPath element. This is a workaround for
+        <a href="https://youtrack.jetbrains.com/issue/IDEA-232100">IDEA-232100</a>.
+      </li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

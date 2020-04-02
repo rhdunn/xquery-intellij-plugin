@@ -1,5 +1,6 @@
 /*
  * Copyright 2000-2020 JetBrains s.r.o.
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +23,6 @@ import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.ide.ui.UISettings
 import com.intellij.ide.util.treeView.smartTree.NodeProvider
 import com.intellij.ide.util.treeView.smartTree.TreeElement
-import com.intellij.lang.Language
 import com.intellij.lang.LanguageStructureViewBuilder
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataContext
@@ -32,19 +32,23 @@ import com.intellij.psi.PsiFile
 import com.intellij.reference.SoftReference
 import com.intellij.util.Processor
 
+// The StructureAwareNavBarModelExtension class is copied and modified here to
+// fix IDEA-232100. Specifically, this version replaces the language property
+// with an acceptElement method.
 abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension() {
-    protected abstract val language: Language
     private var currentFile: SoftReference<PsiFile>? = null
     private var currentFileStructure: SoftReference<StructureViewModel>? = null
     private var currentFileModCount = -1L
+
+    abstract fun acceptElement(psiElement: PsiElement): Boolean
 
     override fun getLeafElement(dataContext: DataContext): PsiElement? {
         if (UISettings.instance.showMembersInNavigationBar) {
             val psiFile = CommonDataKeys.PSI_FILE.getData(dataContext)
             val editor = CommonDataKeys.EDITOR.getData(dataContext)
             if (psiFile == null || editor == null) return null
-            val psiElement = psiFile.findElementAt(editor.caretModel.offset)
-            if (psiElement?.language === language) {
+            val psiElement = psiFile.findElementAt(editor.caretModel.offset) ?: return null
+            if (acceptElement(psiElement)) {
                 buildStructureViewModel(psiFile, editor)?.let { model ->
                     return (model.currentEditorElement as? PsiElement)?.originalElement
                 }
@@ -58,7 +62,7 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
                                  processor: Processor<Any>
     ): Boolean {
         (`object` as? PsiElement)?.let { psiElement ->
-            if (psiElement.language == language) {
+            if (acceptElement(psiElement)) {
                 buildStructureViewModel(psiElement.containingFile)?.let { model ->
                     return processStructureViewChildren(model.root, `object`, processor)
                 }
@@ -68,7 +72,7 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
     }
 
     override fun getParent(psiElement: PsiElement?): PsiElement? {
-        if (psiElement?.language == language) {
+        if (psiElement != null && acceptElement(psiElement)) {
             val file = psiElement.containingFile ?: return null
             val model = buildStructureViewModel(file)
             if (model != null) {

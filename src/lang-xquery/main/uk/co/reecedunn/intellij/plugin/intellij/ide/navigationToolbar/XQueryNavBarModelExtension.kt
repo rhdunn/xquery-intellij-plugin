@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.ide.navigationToolbar
 
 import com.intellij.compat.ide.navigationToolbar.StructureAwareNavBarModelExtension
-import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
@@ -27,15 +26,15 @@ class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
     override fun getPresentableText(`object`: Any?): String? = getPresentableText(`object`, false)
 
     override fun getPresentableText(`object`: Any?, forPopup: Boolean): String? {
-        if ((`object` as? PsiElement)?.language !== language) return null
-        return when (`object`) {
-            is ItemPresentationEx -> if (forPopup) `object`.structurePresentableText else `object`.presentableText
-            is ItemPresentation -> `object`.presentableText
+        val element = (`object` as? PsiElement)?.takeIf { acceptElement(it) } ?: return null
+        return when (element) {
+            is ItemPresentationEx -> if (forPopup) element.structurePresentableText else element.presentableText
+            is ItemPresentation -> element.presentableText
             else -> null
         }
     }
 
     override fun getParent(psiElement: PsiElement?): PsiElement? = (psiElement?.containingFile as? XQueryModule)
 
-    override val language: Language = XQuery
+    override fun acceptElement(psiElement: PsiElement): Boolean = XQuery.isKindOf(psiElement.language)
 }

@@ -15,8 +15,8 @@
  */
 package com.intellij.compat.ide.navigationToolbar
 
-import com.intellij.lang.Language
+import com.intellij.psi.PsiElement
 
 abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension() {
-    abstract val language: Language
+    abstract fun acceptElement(psiElement: PsiElement): Boolean
 }

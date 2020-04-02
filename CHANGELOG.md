@@ -4,6 +4,9 @@
 
 1.  Saxon 10.0 syntax extension support.
 1.  Improved the query result output when running/profiling queries.
+1.  Fixed displaying the active structure item in the nav bar when the element
+    under the cursor is an XPath element. This is a workaround for
+    [IDEA-232100](https://youtrack.jetbrains.com/issue/IDEA-232100).
 
 Run Configurations:
 
@@ -16,10 +19,12 @@ Saxon Syntax Extensions:
 
 1.  Support for Saxon 9.8 `~type` type aliases.
 1.  Support for Saxon 10.0 wildcards in element and attribute-based kind tests.
-1.  Support for Saxon 10.0 `.{ ... }` style context item inline function expressions.
+1.  Support for Saxon 10.0 `.{ ... }` style context item inline function
+    expressions.
 1.  Support for Saxon 10.0 `_{ ... }` style lambda inline function expressions.
 1.  Support for Saxon 10.0 `otherwise` expressions.
-1.  Support for Saxon 10.0 using `as` for specifying the tuple field type in a tuple sequence type.
+1.  Support for Saxon 10.0 using `as` for specifying the tuple field type in a
+    tuple sequence type.
 1.  Support for Saxon 10.0 `StringLiteral` tuple field names.
 1.  Support for Saxon 10.0 `type(T)` type aliases.
 1.  Support for Saxon 10.0 `for member` expressions.
