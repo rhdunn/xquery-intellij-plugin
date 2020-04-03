@@ -217,4 +217,15 @@ fun Container.horizontalSpacer(constraints: Any? = null): Spacer {
     return spacer
 }
 
+fun Container.verticalSpacer(constraints: Any? = null): Spacer {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.VERTICAL
+        constraints.weighty = 1.0
+    }
+
+    val spacer = Spacer()
+    add(spacer, constraints)
+    return spacer
+}
+
 // endregion
