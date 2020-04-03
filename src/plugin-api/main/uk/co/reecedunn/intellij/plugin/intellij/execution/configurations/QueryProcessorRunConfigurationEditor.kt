@@ -316,7 +316,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Output Page
 
-    private val outputPanel: JPanel get() = tabbedPane!!.getComponentAt(3) as JPanel
+    private lateinit var reformatResults: JCheckBox
+
+    private val outputPanel: JPanel = panel {
+        reformatResults = checkBox(grid(0, 0)) {
+            text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
+        }
+        verticalSpacer(grid(0, 1))
+    }
 
     // endregion
     // region Form
@@ -324,11 +331,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var tabbedPane: JTabbedPane? = null
 
     private var updating: JCheckBox? = null
-    private var reformatResults: JCheckBox? = null
 
     private fun createUIComponents() {
         updating = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.updating.label"))
-        reformatResults = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.reformat-results.label"))
 
         createQueryProcessorUI()
         createRdfOutputFormatUI()
@@ -364,12 +369,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         val query = queryPanel
         val database = databasePanel
         val input = inputPanel
-        val output = outputPanel
 
         tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), query)
         tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), database)
         inputLabel?.let { tab(it, input) }
-        tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), output)
+        tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), outputPanel)
     }
 
     // endregion
@@ -398,7 +402,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (contextItem!!.path != configuration.contextItemValue)
             return true
-        if (reformatResults!!.isSelected != configuration.reformatResults)
+        if (reformatResults.isSelected != configuration.reformatResults)
             return true
         return false
     }
@@ -422,7 +426,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         xpathSubset!!.selectedItem = configuration.xpathSubset
         contextItem!!.type = configuration.contextItemSource
         contextItem!!.path = configuration.contextItemValue
-        reformatResults!!.isSelected = configuration.reformatResults
+        reformatResults.isSelected = configuration.reformatResults
 
         configureUI()
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
@@ -441,7 +445,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.xpathSubset = xpathSubset!!.selectedItem as XPathSubset
         configuration.contextItemSource = contextItem?.type
         configuration.contextItemValue = contextItem?.path
-        configuration.reformatResults = reformatResults!!.isSelected
+        configuration.reformatResults = reformatResults.isSelected
     }
 
     // endregion
