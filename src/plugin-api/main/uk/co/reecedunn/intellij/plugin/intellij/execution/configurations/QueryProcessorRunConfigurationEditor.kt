@@ -24,6 +24,7 @@ import com.intellij.openapi.ui.*
 import com.intellij.ui.AnActionButton
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.components.JBList
+import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -31,6 +32,8 @@ import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescripto
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -338,7 +341,12 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region SettingsUI
 
-    override var panel: JPanel? = null
+    override var panel: JPanel? = panel {
+        val constraints = grid(0, 0)
+        constraints.fill = GridConstraints.FILL_HORIZONTAL
+        constraints.weightx = 1.0
+        add(tabbedPane!!, constraints)
+    }
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
         if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id != configuration.processorId)
