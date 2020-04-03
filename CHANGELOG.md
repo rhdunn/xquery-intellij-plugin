@@ -14,6 +14,7 @@ Run Configurations:
     of the result if the results all have the same mimetype.
 1.  Support reformatting the run query output if enabled in the run
     configuration settings.
+1.  Fix profiling Saxon 10 queries.
 
 Saxon Syntax Extensions:
 

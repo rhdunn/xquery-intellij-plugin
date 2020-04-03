@@ -70,6 +70,7 @@
         result if the results all have the same mimetype.
       </li>
       <li>Support reformatting the run query output if enabled in the run configuration settings.</li>
+      <li>Fix profiling Saxon 10 queries.</li>
     </ol>
     <p>Saxon Syntax Extensions:</p>
     <ol>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import java.lang.reflect.Proxy
 
@@ -40,7 +41,8 @@ interface TraceListener {
 
 fun TraceListener.proxy(vararg classes: Class<*>): Any {
     val classLoader = classes[0].classLoader
-    val instructionInfoClass = classLoader.loadClass("net.sf.saxon.trace.InstructionInfo")
+    val traceableClass = classLoader.loadClassOrNull("net.sf.saxon.trace.Traceable")
+    val instructionInfoClass = traceableClass ?: classLoader.loadClass("net.sf.saxon.trace.InstructionInfo")
     return Proxy.newProxyInstance(classLoader, classes) { _, method, params ->
         when (method.name) {
             "setOutputDestination" -> setOutputDestination(params[0])
