@@ -27,6 +27,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
@@ -35,6 +36,7 @@ import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import java.awt.*
+import javax.swing.JCheckBox
 import javax.swing.JPanel
 import javax.swing.JTabbedPane
 
@@ -134,6 +136,21 @@ fun JTabbedPane.tab(title: String, component: Component) {
 
 // Components
 
+// region check box
+
+fun Container.checkBox(constraints: Any?, text: String? = null, init: JCheckBox.() -> Unit = {}): JCheckBox {
+    if (constraints is GridBagConstraints) {
+        constraints.fill = GridBagConstraints.HORIZONTAL
+        constraints.weightx = 1.0
+    }
+
+    val checkbox = JBCheckBox(text)
+    checkbox.init()
+    add(checkbox, constraints)
+    return checkbox
+}
+
+// endregion
 // region combo box
 
 fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): ComboBox<T> {
