@@ -24,17 +24,13 @@ import com.intellij.openapi.ui.*
 import com.intellij.ui.AnActionButton
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.components.JBList
-import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.grid
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -287,10 +283,45 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
+    // region Query Page
+
+    private val queryPanel: JPanel get() = tabbedPane!!.getComponentAt(0) as JPanel
+
+    // endregion
+    // region Database Page
+
+    private val databasePanel: JPanel get() = tabbedPane!!.getComponentAt(1) as JPanel
+
+    // endregion
+    // region Input Page
+
+    private val inputLabel: String?
+        get() {
+            return when {
+                languages.findByMimeType { it == "application/xslt+xml" } != null -> {
+                    // Use "Input" instead of "Context Item" for XSLT queries.
+                    PluginApiBundle.message("xquery.configurations.processor.group.input.label")
+                }
+                languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null -> {
+                    // Server-side JS, SPARQL, and SQL queries don't support an input/context item;
+                    // XSLT, XQuery, and XPath do.
+                    null
+                }
+                else -> PluginApiBundle.message("xquery.configurations.processor.group.context-item.label")
+            }
+        }
+
+    private val inputPanel: JPanel get() = tabbedPane!!.getComponentAt(2) as JPanel
+
+    // endregion
+    // region Output Page
+
+    private val outputPanel: JPanel get() = tabbedPane!!.getComponentAt(3) as JPanel
+
+    // endregion
     // region Form
 
     private var tabbedPane: JTabbedPane? = null
-    private var contextItemTab: JPanel? = null
 
     private var updating: JCheckBox? = null
     private var reformatResults: JCheckBox? = null
@@ -310,15 +341,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     private fun configureUI() {
-        if (languages.findByMimeType { it == "application/xslt+xml" } != null) {
-            // Use "Input" instead of "Context Item" for XSLT queries.
-            val title = PluginApiBundle.message("xquery.configurations.processor.group.input.label")
-            tabbedPane!!.setTitleAt(tabbedPane!!.indexOfComponent(contextItemTab), title)
-        } else if (languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null) {
-            // Server-side JS, SPARQL, and SQL queries don't support an input/context item; XSLT, XQuery, and XPath do.
-            tabbedPane!!.removeTabAt(tabbedPane!!.indexOfComponent(contextItemTab))
-        }
-
         if (languages.findByMimeType { it == "application/vnd+xpath" } == null) {
             xpathSubsetLabel!!.isVisible = false
             xpathSubset!!.isVisible = false
@@ -338,15 +360,20 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
     }
 
+    override var panel: JPanel? = tabbedPanel {
+        val query = queryPanel
+        val database = databasePanel
+        val input = inputPanel
+        val output = outputPanel
+
+        tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), query)
+        tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), database)
+        inputLabel?.let { tab(it, input) }
+        tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), output)
+    }
+
     // endregion
     // region SettingsUI
-
-    override var panel: JPanel? = panel {
-        val constraints = grid(0, 0)
-        constraints.fill = GridConstraints.FILL_HORIZONTAL
-        constraints.weightx = 1.0
-        add(tabbedPane!!, constraints)
-    }
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
         if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id != configuration.processorId)

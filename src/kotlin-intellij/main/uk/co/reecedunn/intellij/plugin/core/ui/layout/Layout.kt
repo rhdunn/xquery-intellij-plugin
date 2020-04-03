@@ -29,11 +29,14 @@ import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.ui.components.JBTabbedPane
+import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import java.awt.*
 import javax.swing.JPanel
+import javax.swing.JTabbedPane
 
 // Layouts
 
@@ -108,6 +111,23 @@ fun dialog(title: String, init: DialogBuilder.() -> Unit): DialogBuilder {
     builder.setTitle(title)
     builder.init()
     return builder
+}
+
+// endregion
+// region tabbed panel
+
+fun tabbedPanel(init: JTabbedPane.() -> Unit): JPanel = panel {
+    val constraints = grid(0, 0)
+    constraints.fill = GridConstraints.FILL_HORIZONTAL
+    constraints.weightx = 1.0
+
+    val pane = JBTabbedPane()
+    pane.init()
+    add(pane, constraints)
+}
+
+fun JTabbedPane.tab(title: String, component: Component) {
+    add(title, component)
 }
 
 // endregion
