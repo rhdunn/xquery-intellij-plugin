@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,6 +60,8 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
+        processor.setTraceListener(null)
+
         val queryText = query.decode()!!
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, query)
@@ -70,6 +72,8 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
     }
 
     override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
+        processor.setTraceListener(null)
+
         val queryText = query.decode()!!
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, query)
