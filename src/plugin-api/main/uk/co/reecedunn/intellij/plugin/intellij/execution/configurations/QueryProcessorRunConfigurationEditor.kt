@@ -22,7 +22,6 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.ui.AnActionButton
-import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.components.JBList
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
@@ -162,13 +161,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         xpathSubsetLabel = label(PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), grid(0, 4))
         xpathSubset = comboBox(grid(0, 4).horizontal().hgap().vgap()) {
-            renderer = object : ColoredListCellRenderer<XPathSubset>() {
-                override fun customizeCellRenderer(
-                    list: JList<out XPathSubset>, value: XPathSubset?, index: Int, selected: Boolean, hasFocus: Boolean
-                ) {
-                    clear()
-                    value?.let { append(it.displayName) }
-                }
+            renderer = coloredListCellRenderer { value ->
+                clear()
+                value?.let { append(it.displayName) }
             }
             addItem(XPathSubset.XPath)
             addItem(XPathSubset.XsltPattern)
