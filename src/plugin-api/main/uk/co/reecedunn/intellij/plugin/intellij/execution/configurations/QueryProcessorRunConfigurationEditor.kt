@@ -265,7 +265,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), grid(0, 1))
-        modulePath = textFieldWithBrowseButton(grid(1, 1).hgap().vgap()) {
+        modulePath = textFieldWithBrowseButton(grid(1, 1).horizontal().hgap().vgap()) {
             val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
             descriptor.title = PluginApiBundle.message("browser.choose.module-path")
 
@@ -310,7 +310,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private lateinit var reformatResults: JCheckBox
 
     private val outputPanel: JPanel = panel {
-        reformatResults = checkBox(grid(0, 0)) {
+        reformatResults = checkBox(grid(0, 0).horizontal()) {
             text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
         }
         spacer(grid(0, 1).vertical())

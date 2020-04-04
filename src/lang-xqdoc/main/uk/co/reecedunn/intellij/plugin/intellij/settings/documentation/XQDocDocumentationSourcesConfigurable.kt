@@ -38,7 +38,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
 
     override fun createComponent(): JComponent? = panel {
         label(XQDocBundle.message("documentation-source.cache-path.label"), grid(0, 0))
-        cachePath = textFieldWithBrowseButton(grid(1, 0).hgap().vgap()) {
+        cachePath = textFieldWithBrowseButton(grid(1, 0).horizontal().hgap().vgap()) {
             val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
             addBrowseFolderListener(null, null, null, descriptor)
         }

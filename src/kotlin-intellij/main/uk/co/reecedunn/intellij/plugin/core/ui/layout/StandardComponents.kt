@@ -33,11 +33,6 @@ import javax.swing.JCheckBox
 // region check box
 
 fun Container.checkBox(constraints: Any?, text: String? = null, init: JCheckBox.() -> Unit = {}): JCheckBox {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.weightx = 1.0
-    }
-
     val checkbox = JBCheckBox(text)
     checkbox.init()
     add(checkbox, constraints)
@@ -48,10 +43,6 @@ fun Container.checkBox(constraints: Any?, text: String? = null, init: JCheckBox.
 // region combo box
 
 fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): ComboBox<T> {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-    }
-
     val combobox = ComboBox<T>()
     combobox.init()
     add(combobox, constraints)
@@ -63,7 +54,6 @@ fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): Com
 
 fun Container.label(text: String, constraints: Any? = null): JBLabel {
     if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.NONE
         constraints.anchor = GridBagConstraints.WEST
     }
 
@@ -79,10 +69,6 @@ fun Container.textFieldWithBrowseButton(
     constraints: Any?,
     init: TextFieldWithBrowseButton.() -> Unit
 ): TextFieldWithBrowseButton {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-    }
-
     val field = TextFieldWithBrowseButton()
     field.init()
     add(field, constraints)
