@@ -33,6 +33,7 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
 import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
+import com.intellij.util.ui.JBInsets
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -56,7 +57,9 @@ fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
 fun Container.horizontalPanel(constraints: Any?, init: JPanel.() -> Unit): JPanel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.insets = JBUI.insets(2, 4, 2, 4)
+        if (constraints.insets !is JBInsets) {
+            constraints.insets = JBUI.insets(2, 4, 2, 4)
+        }
         constraints.weightx = 1.0
     }
 
@@ -82,6 +85,16 @@ fun GridBagConstraints.size(dx: Int, dy: Int): GridBagConstraints {
     return this
 }
 
+fun GridBagConstraints.padding(x: Int, y: Int): GridBagConstraints {
+    insets = JBInsets(y, x, y, x)
+    return this
+}
+
+fun GridBagConstraints.vgap(y: Int): GridBagConstraints {
+    insets = JBInsets(0, 0, y, 0)
+    return this
+}
+
 // endregion
 // region scrollable
 
@@ -91,7 +104,9 @@ fun Container.scrollable(view: Component?, constraints: Any?, init: JBScrollPane
         constraints.fill = GridBagConstraints.BOTH
         constraints.weightx = 1.0
         constraints.weighty = 1.0
-        constraints.insets = JBUI.emptyInsets()
+        if (constraints.insets !is JBInsets) {
+            constraints.insets = JBUI.emptyInsets()
+        }
     }
 
     val pane = JBScrollPane(view)
@@ -176,10 +191,12 @@ fun Container.label(text: String, constraints: Any? = null): JBLabel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.NONE
         constraints.anchor = GridBagConstraints.WEST
-        if (constraints.gridx == 0)
-            constraints.insets = JBUI.insets(0, 0, 4, 8)
-        else
-            constraints.insets = JBUI.insets(0, 8, 4, 8)
+        if (constraints.insets !is JBInsets) {
+            if (constraints.gridx == 0)
+                constraints.insets = JBUI.insets(0, 0, 4, 8)
+            else
+                constraints.insets = JBUI.insets(0, 8, 4, 8)
+        }
     }
 
     val label = JBLabel(text)
@@ -213,7 +230,6 @@ fun Container.textFieldWithBrowseButton(
 ): TextFieldWithBrowseButton {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.insets = JBUI.insetsBottom(4)
     }
 
     val field = TextFieldWithBrowseButton()
