@@ -26,10 +26,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui.layout
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.ui.components.JBCheckBox
-import com.intellij.ui.components.JBLabel
-import com.intellij.ui.components.JBRadioButton
-import com.intellij.ui.components.JBTextField
+import com.intellij.ui.components.*
 import java.awt.*
 import java.awt.event.ActionListener
 import javax.swing.*
@@ -97,6 +94,19 @@ fun Container.label(text: String, constraints: Any? = null): JBLabel {
     val label = JBLabel(text)
     add(label, constraints)
     return label
+}
+
+// endregion
+// region password field
+
+fun Container.passwordField(
+    constraints: Any?,
+    init: JPasswordField.() -> Unit = {}
+): JPasswordField {
+    val field = JBPasswordField()
+    field.init()
+    add(field, constraints)
+    return field
 }
 
 // endregion
