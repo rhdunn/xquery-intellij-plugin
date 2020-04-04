@@ -18,10 +18,12 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.components.JBTextField
 import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import java.awt.Container
 import javax.swing.*
 
 class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
@@ -90,7 +92,7 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
         localFilePath.textField.addActionListener { listener() }
     }
 
-    private val panel: JPanel = panel {
+    internal val panel: JPanel = panel {
         types = buttonGroup {
             notSpecifiedType = radio(grid(0, 0)) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
@@ -112,4 +114,15 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     }
 
     fun create(): JComponent = panel
+}
+
+fun Container.queryProcessorDataSource(
+    constraints: Any?,
+    allowUnspecified: Boolean = false,
+    init: QueryProcessorDataSource.() -> Unit = {}
+): QueryProcessorDataSource {
+    val ui = QueryProcessorDataSource(allowUnspecified)
+    ui.init()
+    add(ui.panel, constraints)
+    return ui
 }

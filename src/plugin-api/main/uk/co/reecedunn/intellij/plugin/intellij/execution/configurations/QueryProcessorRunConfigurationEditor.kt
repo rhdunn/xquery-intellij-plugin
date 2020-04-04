@@ -161,22 +161,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
-    // region Option :: Context Item
-
-    private var contextItem: QueryProcessorDataSource? = null
-    private var contextItemLayout: JComponent? = null
-
-    private fun createContextItemUI() {
-        val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
-        descriptor.title = PluginApiBundle.message("browser.choose.context-item")
-
-        contextItem = QueryProcessorDataSource(allowUnspecified = true)
-        contextItem!!.addBrowseFolderListener(null, null, project, descriptor)
-
-        contextItemLayout = contextItem!!.create()
-    }
-
-    // endregion
     // region Option :: XPath Subset
 
     private var xpathSubset: JComboBox<XPathSubset>? = null
@@ -198,12 +182,12 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
-    // region Query Page
+    // region "Query" Page
 
     private val queryPanel: JPanel get() = tabbedPane!!.getComponentAt(0) as JPanel
 
     // endregion
-    // region Database Page
+    // region "Database" Page
 
     private lateinit var server: JComboBox<String>
 
@@ -284,7 +268,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
-    // region Input Page
+    // region "Context Item"/"Input" Page
+
+    private lateinit var contextItem: QueryProcessorDataSource
 
     private val inputLabel: String?
         get() {
@@ -302,10 +288,17 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             }
         }
 
-    private val inputPanel: JPanel get() = tabbedPane!!.getComponentAt(1) as JPanel
+    private val inputPanel: JPanel = panel {
+        contextItem = queryProcessorDataSource(grid(0, 0).horizontal(), allowUnspecified = true) {
+            val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
+            descriptor.title = PluginApiBundle.message("browser.choose.context-item")
+            addBrowseFolderListener(null, null, project, descriptor)
+        }
+        spacer(grid(0, 1).vertical())
+    }
 
     // endregion
-    // region Output Page
+    // region "Output" Page
 
     private lateinit var reformatResults: JCheckBox
 
@@ -329,7 +322,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         createQueryProcessorUI()
         createRdfOutputFormatUI()
         createScriptFileUI()
-        createContextItemUI()
         createXPathSubsetUI()
     }
 
@@ -355,11 +347,10 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     override var panel: JPanel? = tabbedPanel {
         val query = queryPanel
-        val input = inputPanel
 
         tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), query)
         tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), databasePanel)
-        inputLabel?.let { tab(it, input) }
+        inputLabel?.let { tab(it, inputPanel) }
         tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), outputPanel)
     }
 
@@ -385,9 +376,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (xpathSubset!!.selectedItem != configuration.xpathSubset)
             return true
-        if (contextItem!!.type != configuration.contextItemSource)
+        if (contextItem.type != configuration.contextItemSource)
             return true
-        if (contextItem!!.path != configuration.contextItemValue)
+        if (contextItem.path != configuration.contextItemValue)
             return true
         if (reformatResults.isSelected != configuration.reformatResults)
             return true
@@ -411,8 +402,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         scriptFile!!.path = configuration.scriptFilePath
         updating!!.isSelected = configuration.updating
         xpathSubset!!.selectedItem = configuration.xpathSubset
-        contextItem!!.type = configuration.contextItemSource
-        contextItem!!.path = configuration.contextItemValue
+        contextItem.type = configuration.contextItemSource
+        contextItem.path = configuration.contextItemValue
         reformatResults.isSelected = configuration.reformatResults
 
         configureUI()
@@ -430,8 +421,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.scriptFilePath = scriptFile!!.path
         configuration.updating = updating!!.isSelected
         configuration.xpathSubset = xpathSubset!!.selectedItem as XPathSubset
-        configuration.contextItemSource = contextItem?.type
-        configuration.contextItemValue = contextItem?.path
+        configuration.contextItemSource = contextItem.type
+        configuration.contextItemValue = contextItem.path
         configuration.reformatResults = reformatResults.isSelected
     }
 
