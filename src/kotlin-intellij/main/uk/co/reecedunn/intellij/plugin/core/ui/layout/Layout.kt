@@ -116,6 +116,8 @@ fun GridBagConstraints.vgap(y: Int, position: LayoutPosition = LayoutPosition.Af
     return this
 }
 
+fun GridBagConstraints.vgap(position: LayoutPosition = LayoutPosition.After): GridBagConstraints = vgap(4, position)
+
 @Suppress("DuplicatedCode")
 fun GridBagConstraints.hgap(x: Int, position: LayoutPosition = LayoutPosition.Before): GridBagConstraints {
     val sx = JBUIScale.scale(x)
@@ -135,6 +137,8 @@ fun GridBagConstraints.hgap(x: Int, position: LayoutPosition = LayoutPosition.Be
     }
     return this
 }
+
+fun GridBagConstraints.hgap(position: LayoutPosition = LayoutPosition.Before): GridBagConstraints = hgap(6, position)
 
 // endregion
 // region scrollable

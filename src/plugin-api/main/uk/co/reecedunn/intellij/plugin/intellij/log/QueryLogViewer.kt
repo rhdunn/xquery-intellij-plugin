@@ -146,7 +146,7 @@ class QueryLogViewerUI(val project: Project) {
     val panel = panel {
         horizontalPanel(grid(0, 0).padding(4, 2)) {
             label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
-            queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0).hgap(6, LayoutPosition.Both)) {
+            queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0).hgap(LayoutPosition.Both)) {
                 preferredSize = Dimension(200, preferredSize.height)
 
                 val model = QueryProcessorSettingsModel()
@@ -161,7 +161,7 @@ class QueryLogViewerUI(val project: Project) {
             }
 
             label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
-            logFile = comboBox(grid(3, 0).hgap(6, LayoutPosition.Both)) {
+            logFile = comboBox(grid(3, 0).hgap(LayoutPosition.Both)) {
                 preferredSize = Dimension(200, preferredSize.height)
 
                 addActionListener {
