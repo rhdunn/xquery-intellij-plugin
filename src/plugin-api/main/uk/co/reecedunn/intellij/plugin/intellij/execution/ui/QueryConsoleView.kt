@@ -20,13 +20,13 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.panels.VerticalLayout
 import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
@@ -38,10 +38,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.toSeconds
 import java.awt.*
 import javax.swing.JComponent
 import javax.swing.JLabel
-import javax.swing.JPanel
 import javax.swing.border.EmptyBorder
 
-class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : ConsoleViewImpl(), QueryResultListener {
+class QueryConsoleView(val project: Project, private val console: ConsoleViewEx) :
+    ConsoleViewImpl(), QueryResultListener {
+
     companion object {
         private const val SPLITTER_KEY = "XQueryIntelliJPlugin.QueryResultView.Splitter"
     }
@@ -66,42 +67,21 @@ class QueryConsoleView(val project: Project, val console: ConsoleViewEx) : Conso
         tables.add(table)
     }
 
-    private fun createResultTable(): JComponent {
-        val table = QueryResultTable()
-
-        table.selectionModel.addListSelectionListener {
-            table.selectedObject?.second?.let { range ->
-                console.scrollToTop(range.offset)
+    private fun createResultPanel(): JComponent = panel {
+        panel(grid(0, 0).horizontal(), VerticalLayout(0)) {
+            summary = label { border = EmptyBorder(5, 4, 5, 4) }
+            border = Borders.TableHeaderBottom
+        }
+        scrollable(grid(0, 1).fill()) {
+            queryResultTable {
+                selectionModel.addListSelectionListener {
+                    selectedObject?.second?.let { range ->
+                        console.scrollToTop(range.offset)
+                    }
+                }
+                registerQueryTable(this)
             }
         }
-
-        registerQueryTable(table)
-        return JBScrollPane(table)
-    }
-
-    private fun createResultPanel(): JComponent {
-        summary = JLabel()
-
-        val infoPanel = JPanel(VerticalLayout(0))
-        summary!!.border = EmptyBorder(5, 4, 5, 4)
-        infoPanel.add(summary)
-
-        val panel = JPanel(GridBagLayout())
-        val constraints = GridBagConstraints(
-            0, 0, 1, 1, 1.0, 0.0,
-            GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL,
-            Insets(0, 0, 0, 0),
-            0, 0
-        )
-        panel.add(infoPanel, constraints)
-
-        constraints.gridy = 1
-        constraints.weighty = 1.0
-        constraints.fill = GridBagConstraints.BOTH
-        panel.add(createResultTable(), constraints)
-
-        infoPanel.border = Borders.TableHeaderBottom
-        return panel
     }
 
     // region ConsoleView

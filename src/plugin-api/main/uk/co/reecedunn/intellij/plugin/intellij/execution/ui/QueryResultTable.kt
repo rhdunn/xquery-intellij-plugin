@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import javax.swing.JScrollPane
 
 data class QueryResultReference(private val textOffset: Int, internal var element: PsiElement? = null) {
     val offset: Int get() = element?.textOffset ?: textOffset
@@ -95,4 +96,11 @@ class QueryResultTable : TableView<Pair<QueryResult, QueryResultReference>>(), Q
             item.second.element = psiFile.findElementAt(item.second.offset)
         }
     }
+}
+
+fun JScrollPane.queryResultTable(init: QueryResultTable.() -> Unit): QueryResultTable {
+    val view = QueryResultTable()
+    view.init()
+    setViewportView(view)
+    return view
 }

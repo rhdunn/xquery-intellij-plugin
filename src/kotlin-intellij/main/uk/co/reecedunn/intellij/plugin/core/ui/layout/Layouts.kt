@@ -45,12 +45,14 @@ fun panel(layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
 
 fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
 
-fun Container.panel(constraints: Any?, init: JPanel.() -> Unit): JPanel {
-    val panel = JPanel(GridBagLayout())
+fun Container.panel(constraints: Any?, layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
+    val panel = JPanel(layout)
     panel.init()
     add(panel, constraints)
     return panel
 }
+
+fun Container.panel(constraints: Any?, init: JPanel.() -> Unit): JPanel = panel(constraints, GridBagLayout(), init)
 
 // endregion
 // region grid
