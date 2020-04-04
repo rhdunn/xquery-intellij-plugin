@@ -42,6 +42,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
+import java.awt.event.ActionListener
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
@@ -65,7 +66,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
 class QueryProcessorRunConfigurationEditorUI(private val project: Project, private vararg val languages: Language) :
     SettingsUI<QueryProcessorRunConfiguration> {
-    // region Option :: Query Processor
+    // region Manage Query Processor Dialog
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>? = null
     private lateinit var model: QueryProcessorSettingsModel
@@ -97,27 +98,27 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         QueryProcessors.getInstance().removeProcessor(index)
     }
 
+    private fun createManageQueryProcessorsAction(): ActionListener = ActionListener {
+        val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
+            toolbarPanel(minimumSize = Dimension(300, 200)) {
+                addAction(::addQueryProcessor)
+                editAction(::editQueryProcessor)
+                removeAction(::removeQueryProcessor)
+
+                list = JBList(model)
+                list.cellRenderer = QueryProcessorSettingsCellRenderer()
+                list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
+                list
+            }
+        }
+        dialog.showAndGet()
+    }
+
     private fun createQueryProcessorUI() {
         model = QueryProcessorSettingsModel()
         QueryProcessors.getInstance().processors.addToModel(model)
 
-        queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
-        queryProcessor!!.addActionListener {
-            val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-                toolbarPanel(minimumSize = Dimension(300, 200)) {
-                    addAction(::addQueryProcessor)
-                    editAction(::editQueryProcessor)
-                    removeAction(::removeQueryProcessor)
-
-                    list = JBList(model)
-                    list.cellRenderer = QueryProcessorSettingsCellRenderer()
-                    list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
-                    list
-                }
-            }
-            dialog.showAndGet()
-        }
-
+        queryProcessor = ComponentWithBrowseButton(ComboBox(model), createManageQueryProcessorsAction())
         queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
         queryProcessor!!.childComponent.addActionListener {
             updateUI(false)
