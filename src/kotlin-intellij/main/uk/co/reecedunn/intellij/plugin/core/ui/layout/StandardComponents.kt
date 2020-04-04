@@ -28,10 +28,12 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBRadioButton
+import com.intellij.ui.components.JBTextField
 import java.awt.*
 import javax.swing.ButtonGroup
 import javax.swing.JCheckBox
 import javax.swing.JRadioButton
+import javax.swing.JTextField
 
 // region button group
 
@@ -96,6 +98,19 @@ fun ButtonGroupBuilder.radio(constraints: Any?, text: String? = null, init: JRad
 }
 
 // endregion
+// region text field
+
+fun Container.textField(
+    constraints: Any?,
+    init: JTextField.() -> Unit
+): JTextField {
+    val field = JBTextField()
+    field.init()
+    add(field, constraints)
+    return field
+}
+
+// endregion
 // region text field with browse button
 
 fun Container.textFieldWithBrowseButton(
@@ -106,10 +121,6 @@ fun Container.textFieldWithBrowseButton(
     field.init()
     add(field, constraints)
     return field
-}
-
-fun Container.textFieldWithBrowseButton(init: TextFieldWithBrowseButton.() -> Unit): TextFieldWithBrowseButton {
-    return textFieldWithBrowseButton(null, init)
 }
 
 // endregion
