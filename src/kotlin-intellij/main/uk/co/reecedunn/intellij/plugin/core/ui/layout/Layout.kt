@@ -35,7 +35,6 @@ import com.intellij.ui.scale.JBUIScale
 import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBInsets
-import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.*
@@ -74,7 +73,7 @@ fun grid(x: Int, y: Int): GridBagConstraints = GridBagConstraints(
     x, y, 1, 1, 0.0, 0.0,
     GridBagConstraints.CENTER,
     GridBagConstraints.NONE,
-    Insets(0, 0, 0, 0),
+    JBInsets(0, 0, 0, 0),
     0, 0
 )
 
@@ -230,12 +229,6 @@ fun Container.label(text: String, constraints: Any? = null): JBLabel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.NONE
         constraints.anchor = GridBagConstraints.WEST
-        if (constraints.insets !is JBInsets) {
-            if (constraints.gridx == 0)
-                constraints.insets = JBUI.insets(0, 0, 4, 8)
-            else
-                constraints.insets = JBUI.insets(0, 8, 4, 8)
-        }
     }
 
     val label = JBLabel(text)

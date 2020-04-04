@@ -259,13 +259,13 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private val databasePanel: JPanel = panel {
         label(PluginApiBundle.message("xquery.configurations.processor.server.label"), grid(0, 0))
-        server = comboBox(grid(1, 0).vgap(4)) {
+        server = comboBox(grid(1, 0).hgap(6).vgap(4)) {
             isEditable = true
             addItem(null)
         }
 
         label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), grid(0, 1))
-        modulePath = textFieldWithBrowseButton(grid(1, 1).vgap(4)) {
+        modulePath = textFieldWithBrowseButton(grid(1, 1).hgap(6).vgap(4)) {
             val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
             descriptor.title = PluginApiBundle.message("browser.choose.module-path")
 
@@ -274,7 +274,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), grid(0, 2))
-        database = comboBox(grid(1, 2)) {
+        database = comboBox(grid(1, 2).hgap(6)) {
             isEditable = true
             addItem(null)
         }
