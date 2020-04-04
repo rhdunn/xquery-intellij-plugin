@@ -24,16 +24,15 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBRadioButton
 import com.intellij.ui.components.JBTextField
 import java.awt.*
-import javax.swing.ButtonGroup
-import javax.swing.JCheckBox
-import javax.swing.JRadioButton
-import javax.swing.JTextField
+import java.awt.event.ActionListener
+import javax.swing.*
 
 // region button group
 
@@ -67,6 +66,19 @@ fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): Com
     combobox.init()
     add(combobox, constraints)
     return combobox
+}
+
+// endregion
+// region component with browse button
+
+fun <T : JComponent> Container.componentWithBrowseButton(
+    constraints: Any?,
+    browseActionListener: ActionListener,
+    component: () -> T
+): ComponentWithBrowseButton<T> {
+    val ui = ComponentWithBrowseButton(component(), browseActionListener)
+    add(ui, constraints)
+    return ui
 }
 
 // endregion
