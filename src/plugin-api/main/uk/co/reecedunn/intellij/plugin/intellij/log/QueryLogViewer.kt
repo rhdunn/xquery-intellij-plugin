@@ -144,7 +144,7 @@ class QueryLogViewerUI(val project: Project) {
     // region Form
 
     val panel = panel {
-        horizontalPanel(grid(0, 0).padding(4, 2)) {
+        panel(grid(0, 0).horizontal().padding(4, 2)) {
             label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
             queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0).hgap(LayoutPosition.Both)) {
                 preferredSize = Dimension(200, preferredSize.height)

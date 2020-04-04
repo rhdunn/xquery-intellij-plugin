@@ -45,12 +45,7 @@ fun panel(layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
 
 fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
 
-fun Container.horizontalPanel(constraints: Any?, init: JPanel.() -> Unit): JPanel {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.weightx = 1.0
-    }
-
+fun Container.panel(constraints: Any?, init: JPanel.() -> Unit): JPanel {
     val panel = JPanel(GridBagLayout())
     panel.init()
     add(panel, constraints)
