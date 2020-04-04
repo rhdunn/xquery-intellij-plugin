@@ -91,9 +91,49 @@ fun GridBagConstraints.padding(x: Int, y: Int): GridBagConstraints {
     return this
 }
 
-fun GridBagConstraints.vgap(y: Int): GridBagConstraints {
+enum class LayoutPosition {
+    Before,
+    After,
+    Both
+}
+
+@Suppress("DuplicatedCode")
+fun GridBagConstraints.vgap(y: Int, position: LayoutPosition = LayoutPosition.After): GridBagConstraints {
     val sy = JBUIScale.scale(y)
-    insets.set(0, 0, sy, 0)
+    when (position) {
+        LayoutPosition.Before -> {
+            insets.top = sy
+            insets.bottom = 0
+        }
+        LayoutPosition.After -> {
+            insets.top = 0
+            insets.bottom = sy
+        }
+        LayoutPosition.Both -> {
+            insets.top = sy
+            insets.bottom = sy
+        }
+    }
+    return this
+}
+
+@Suppress("DuplicatedCode")
+fun GridBagConstraints.hgap(x: Int, position: LayoutPosition = LayoutPosition.Before): GridBagConstraints {
+    val sx = JBUIScale.scale(x)
+    when (position) {
+        LayoutPosition.Before -> {
+            insets.left = sx
+            insets.right = 0
+        }
+        LayoutPosition.After -> {
+            insets.left = 0
+            insets.right = sx
+        }
+        LayoutPosition.Both -> {
+            insets.left = sx
+            insets.right = sx
+        }
+    }
     return this
 }
 
