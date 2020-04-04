@@ -58,9 +58,6 @@ fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
 fun Container.horizontalPanel(constraints: Any?, init: JPanel.() -> Unit): JPanel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.HORIZONTAL
-        if (constraints.insets !is JBInsets) {
-            constraints.insets = JBUI.insets(2, 4, 2, 4)
-        }
         constraints.weightx = 1.0
     }
 
