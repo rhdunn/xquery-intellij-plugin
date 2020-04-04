@@ -68,7 +68,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     SettingsUI<QueryProcessorRunConfiguration> {
     // region Manage Query Processor Dialog
 
-    private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>? = null
+    private lateinit var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>
     private lateinit var model: QueryProcessorSettingsModel
     private lateinit var list: JBList<QueryProcessorSettingsWithVersionCache>
 
@@ -77,14 +77,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         val dialog = QueryProcessorSettingsDialog(project)
         if (dialog.create(item)) {
             val settings = QueryProcessorSettingsWithVersionCache(item)
-            queryProcessor!!.childComponent.addItem(settings)
+            queryProcessor.childComponent.addItem(settings)
             QueryProcessors.getInstance().addProcessor(item)
         }
     }
 
     private fun editQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
         val index = list.selectedIndex
-        val item = queryProcessor!!.childComponent.getItemAt(index)
+        val item = queryProcessor.childComponent.getItemAt(index)
         val dialog = QueryProcessorSettingsDialog(project)
         if (dialog.edit(item.settings)) {
             QueryProcessors.getInstance().setProcessor(index, item.settings)
@@ -94,98 +94,92 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun removeQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
         val index = list.selectedIndex
-        queryProcessor!!.childComponent.removeItemAt(index)
+        queryProcessor.childComponent.removeItemAt(index)
         QueryProcessors.getInstance().removeProcessor(index)
     }
 
-    private fun createManageQueryProcessorsAction(): ActionListener = ActionListener {
-        val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-            toolbarPanel(minimumSize = Dimension(300, 200)) {
-                addAction(::addQueryProcessor)
-                editAction(::editQueryProcessor)
-                removeAction(::removeQueryProcessor)
+    private val manageQueryProcessorsAction: ActionListener
+        get() = ActionListener {
+            val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
+                toolbarPanel(minimumSize = Dimension(300, 200)) {
+                    addAction(::addQueryProcessor)
+                    editAction(::editQueryProcessor)
+                    removeAction(::removeQueryProcessor)
 
-                list = JBList(model)
-                list.cellRenderer = QueryProcessorSettingsCellRenderer()
-                list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
-                list
+                    list = JBList(model)
+                    list.cellRenderer = QueryProcessorSettingsCellRenderer()
+                    list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
+                    list
+                }
             }
+            dialog.showAndGet()
         }
-        dialog.showAndGet()
-    }
-
-    private fun createQueryProcessorUI() {
-        model = QueryProcessorSettingsModel()
-        QueryProcessors.getInstance().processors.addToModel(model)
-
-        queryProcessor = ComponentWithBrowseButton(ComboBox(model), createManageQueryProcessorsAction())
-        queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
-        queryProcessor!!.childComponent.addActionListener {
-            updateUI(false)
-            populateServerUI()
-            populateDatabaseUI()
-        }
-    }
-
-    // endregion
-    // region Option :: RDF Output Format
-
-    private var rdfOutputFormat: JComboBox<Language>? = null
-
-    private fun createRdfOutputFormatUI() {
-        rdfOutputFormat = ComboBox()
-        rdfOutputFormat!!.renderer = LanguageCellRenderer()
-
-        rdfOutputFormat!!.addItem(null)
-        RDF_FORMATS.forEach { rdfOutputFormat!!.addItem(it) }
-    }
-
-    // endregion
-    // region Option :: Script File
-
-    private var scriptFile: QueryProcessorDataSource? = null
-    private var scriptFileLayout: JComponent? = null
-
-    private fun createScriptFileUI() {
-        val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
-        descriptor.title = PluginApiBundle.message("browser.choose.script-file")
-
-        scriptFile = QueryProcessorDataSource()
-        scriptFile!!.addBrowseFolderListener(null, null, project, descriptor)
-        scriptFile!!.addActionListener {
-            if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
-                updateUI(true)
-            }
-        }
-
-        scriptFileLayout = scriptFile!!.create()
-    }
-
-    // endregion
-    // region Option :: XPath Subset
-
-    private var xpathSubset: JComboBox<XPathSubset>? = null
-    private var xpathSubsetLabel: JLabel? = null
-
-    private fun createXPathSubsetUI() {
-        xpathSubset = ComboBox()
-        xpathSubset!!.renderer = object : ColoredListCellRenderer<XPathSubset>() {
-            override fun customizeCellRenderer(
-                list: JList<out XPathSubset>, value: XPathSubset?, index: Int, selected: Boolean, hasFocus: Boolean
-            ) {
-                clear()
-                value?.let { append(it.displayName) }
-            }
-        }
-
-        xpathSubset!!.addItem(XPathSubset.XPath)
-        xpathSubset!!.addItem(XPathSubset.XsltPattern)
-    }
 
     // endregion
     // region "Query" Page
 
-    private val queryPanel: JPanel get() = tabbedPane!!.getComponentAt(0) as JPanel
+    private lateinit var rdfOutputFormat: JComboBox<Language>
+    private lateinit var scriptFile: QueryProcessorDataSource
+    private lateinit var xpathSubset: JComboBox<XPathSubset>
+    private lateinit var updating: JCheckBox
+
+    private lateinit var xpathSubsetLabel: JLabel
+
+    private val queryPanel: JPanel = panel {
+        model = QueryProcessorSettingsModel()
+        QueryProcessors.getInstance().processors.addToModel(model)
+
+        label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), grid(0, 0))
+        queryProcessor = componentWithBrowseButton(grid(1, 0).horizontal().hgap().vgap(), manageQueryProcessorsAction) {
+            comboBox<QueryProcessorSettingsWithVersionCache>(model) {
+                renderer = QueryProcessorSettingsCellRenderer()
+                addActionListener {
+                    updateUI(false)
+                    populateServerUI()
+                    populateDatabaseUI()
+                }
+            }
+        }
+
+        label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), grid(0, 1))
+        rdfOutputFormat = comboBox(grid(1, 1).horizontal().hgap().vgap()) {
+            renderer = LanguageCellRenderer()
+            addItem(null)
+            RDF_FORMATS.forEach { addItem(it) }
+        }
+
+        label(PluginApiBundle.message("xquery.configurations.processor.run-query-from.label"), grid(0, 2).spanCols().vgap(6, LayoutPosition.Both))
+        scriptFile = queryProcessorDataSource(grid(0, 3).horizontal().spanCols().vgap(6)) {
+            val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
+            descriptor.title = PluginApiBundle.message("browser.choose.script-file")
+            addBrowseFolderListener(null, null, project, descriptor)
+            addActionListener {
+                if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
+                    updateUI(true)
+                }
+            }
+        }
+
+        xpathSubsetLabel = label(PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), grid(0, 4))
+        xpathSubset = comboBox(grid(0, 4).horizontal().hgap().vgap()) {
+            renderer = object : ColoredListCellRenderer<XPathSubset>() {
+                override fun customizeCellRenderer(
+                    list: JList<out XPathSubset>, value: XPathSubset?, index: Int, selected: Boolean, hasFocus: Boolean
+                ) {
+                    clear()
+                    value?.let { append(it.displayName) }
+                }
+            }
+            addItem(XPathSubset.XPath)
+            addItem(XPathSubset.XsltPattern)
+        }
+
+        updating = checkBox(grid(0, 5).spanCols()) {
+            text = PluginApiBundle.message("xquery.configurations.processor.updating.label")
+        }
+
+        spacer(grid(0, 6).vertical())
+    }
 
     // endregion
     // region "Database" Page
@@ -198,7 +192,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun populateServerUI() {
         val settings =
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
                 ?: return
         executeOnPooledThread {
             try {
@@ -221,7 +215,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun populateDatabaseUI() {
         val settings =
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
                 ?: return
         executeOnPooledThread {
             try {
@@ -313,43 +307,28 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Form
 
-    private var tabbedPane: JTabbedPane? = null
-
-    private var updating: JCheckBox? = null
-
-    private fun createUIComponents() {
-        updating = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.updating.label"))
-
-        createQueryProcessorUI()
-        createRdfOutputFormatUI()
-        createScriptFileUI()
-        createXPathSubsetUI()
-    }
-
     private fun configureUI() {
         if (languages.findByMimeType { it == "application/vnd+xpath" } == null) {
-            xpathSubsetLabel!!.isVisible = false
-            xpathSubset!!.isVisible = false
+            xpathSubsetLabel.isVisible = false
+            xpathSubset.isVisible = false
         }
     }
 
     private fun updateUI(isSparql: Boolean) {
         val processor =
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache)?.settings
-        rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
-        updating!!.isEnabled = processor?.api?.canUpdate(languages[0]) == true
+            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache)?.settings
+        rdfOutputFormat.isEnabled = processor?.api?.canOutputRdf(null) == true
+        updating.isEnabled = processor?.api?.canUpdate(languages[0]) == true
 
         if (isSparql) {
-            val path = scriptFile!!.path ?: ""
+            val path = scriptFile.path ?: ""
             val lang = languages.findByAssociations(path) ?: languages[0]
-            updating!!.isSelected = !lang.getLanguageMimeTypes().contains("application/sparql-query")
+            updating.isSelected = !lang.getLanguageMimeTypes().contains("application/sparql-query")
         }
     }
 
     override var panel: JPanel? = tabbedPanel {
-        val query = queryPanel
-
-        tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), query)
+        tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), queryPanel)
         tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), databasePanel)
         inputLabel?.let { tab(it, inputPanel) }
         tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), outputPanel)
@@ -359,9 +338,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // region SettingsUI
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
-        if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id != configuration.processorId)
+        if ((queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id != configuration.processorId)
             return true
-        if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
+        if ((rdfOutputFormat.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
         if ((server.selectedItem as? String) != configuration.server)
             return true
@@ -369,13 +348,13 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if (modulePath.textField.text.nullize() != configuration.modulePath)
             return true
-        if (scriptFile!!.type != configuration.scriptSource)
+        if (scriptFile.type != configuration.scriptSource)
             return true
-        if (scriptFile!!.path != configuration.scriptFilePath)
+        if (scriptFile.path != configuration.scriptFilePath)
             return true
-        if (updating!!.isSelected != configuration.updating)
+        if (updating.isSelected != configuration.updating)
             return true
-        if (xpathSubset!!.selectedItem != configuration.xpathSubset)
+        if (xpathSubset.selectedItem != configuration.xpathSubset)
             return true
         if (contextItem.type != configuration.contextItemSource)
             return true
@@ -387,7 +366,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
-        queryProcessor?.childComponent?.let {
+        queryProcessor.childComponent.let {
             (0 until it.itemCount).forEach { i ->
                 if (it.getItemAt(i)?.settings?.id == configuration.processorId) {
                     it.selectedIndex = i
@@ -395,14 +374,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             }
         }
 
-        rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
+        rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
         server.selectedItem = configuration.server
         database.selectedItem = configuration.database
         modulePath.textField.text = configuration.modulePath ?: ""
-        scriptFile!!.type = configuration.scriptSource
-        scriptFile!!.path = configuration.scriptFilePath
-        updating!!.isSelected = configuration.updating
-        xpathSubset!!.selectedItem = configuration.xpathSubset
+        scriptFile.type = configuration.scriptSource
+        scriptFile.path = configuration.scriptFilePath
+        updating.isSelected = configuration.updating
+        xpathSubset.selectedItem = configuration.xpathSubset
         contextItem.type = configuration.contextItemSource
         contextItem.path = configuration.contextItemValue
         reformatResults.isSelected = configuration.reformatResults
@@ -413,15 +392,15 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId =
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
-        configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
+            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
+        configuration.rdfOutputFormat = rdfOutputFormat.selectedItem as? Language
         configuration.server = server.selectedItem as? String
         configuration.database = database.selectedItem as? String
         configuration.modulePath = modulePath.textField.text.nullize()
-        configuration.scriptSource = scriptFile?.type!!
-        configuration.scriptFilePath = scriptFile!!.path
-        configuration.updating = updating!!.isSelected
-        configuration.xpathSubset = xpathSubset!!.selectedItem as XPathSubset
+        configuration.scriptSource = scriptFile.type!!
+        configuration.scriptFilePath = scriptFile.path
+        configuration.updating = updating.isSelected
+        configuration.xpathSubset = xpathSubset.selectedItem as XPathSubset
         configuration.contextItemSource = contextItem.type
         configuration.contextItemValue = contextItem.path
         configuration.reformatResults = reformatResults.isSelected
