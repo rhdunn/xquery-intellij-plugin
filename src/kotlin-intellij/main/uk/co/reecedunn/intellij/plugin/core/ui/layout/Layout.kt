@@ -31,6 +31,7 @@ import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
+import com.intellij.ui.scale.JBUIScale
 import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBInsets
@@ -105,9 +106,6 @@ fun Container.scrollable(view: Component?, constraints: Any?, init: JBScrollPane
         constraints.fill = GridBagConstraints.BOTH
         constraints.weightx = 1.0
         constraints.weighty = 1.0
-        if (constraints.insets !is JBInsets) {
-            constraints.insets = JBUI.emptyInsets()
-        }
     }
 
     val pane = JBScrollPane(view)
