@@ -35,6 +35,7 @@ import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBUI
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.*
 import javax.swing.JCheckBox
 import javax.swing.JPanel
@@ -129,6 +130,10 @@ fun tabbedPanel(init: JTabbedPane.() -> Unit): JPanel = panel {
 }
 
 fun JTabbedPane.tab(title: String, component: Component) {
+    if (component is JPanel) {
+        component.border = Borders.TabPanel
+    }
+
     add(title, component)
 }
 
