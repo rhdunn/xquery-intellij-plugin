@@ -169,7 +169,7 @@ class QueryLogViewerUI(val project: Project) {
                 }
             }
 
-            horizontalSpacer(grid(4, 0))
+            spacer(grid(4, 0).horizontal())
         }
 
         logConsole = textConsole(project, grid(0, 1)) {

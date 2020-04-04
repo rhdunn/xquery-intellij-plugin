@@ -131,6 +131,18 @@ fun GridBagConstraints.hgap(x: Int, position: LayoutPosition = LayoutPosition.Be
 
 fun GridBagConstraints.hgap(position: LayoutPosition = LayoutPosition.Before): GridBagConstraints = hgap(6, position)
 
+fun GridBagConstraints.horizontal(weight: Double = 1.0): GridBagConstraints {
+    fill = GridBagConstraints.HORIZONTAL
+    weightx = weight
+    return this
+}
+
+fun GridBagConstraints.vertical(weight: Double = 1.0): GridBagConstraints {
+    fill = GridBagConstraints.VERTICAL
+    weighty = weight
+    return this
+}
+
 // endregion
 // region scrollable
 
@@ -188,23 +200,7 @@ fun JTabbedPane.tab(title: String, component: Component) {
 // endregion
 // region spacers
 
-fun Container.horizontalSpacer(constraints: Any? = null): Spacer {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.weightx = 1.0
-    }
-
-    val spacer = Spacer()
-    add(spacer, constraints)
-    return spacer
-}
-
-fun Container.verticalSpacer(constraints: Any? = null): Spacer {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.VERTICAL
-        constraints.weighty = 1.0
-    }
-
+fun Container.spacer(constraints: Any? = null): Spacer {
     val spacer = Spacer()
     add(spacer, constraints)
     return spacer

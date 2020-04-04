@@ -279,8 +279,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             addItem(null)
         }
 
-        verticalSpacer(grid(0, 3))
-        horizontalSpacer(grid(1, 3))
+        spacer(grid(0, 3).vertical())
+        spacer(grid(1, 3).horizontal())
     }
 
     // endregion
@@ -313,7 +313,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         reformatResults = checkBox(grid(0, 0)) {
             text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
         }
-        verticalSpacer(grid(0, 1))
+        spacer(grid(0, 1).vertical())
     }
 
     // endregion
