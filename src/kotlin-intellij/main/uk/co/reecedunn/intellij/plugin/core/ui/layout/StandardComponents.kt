@@ -102,7 +102,7 @@ fun ButtonGroupBuilder.radio(constraints: Any?, text: String? = null, init: JRad
 
 fun Container.textField(
     constraints: Any?,
-    init: JTextField.() -> Unit
+    init: JTextField.() -> Unit = {}
 ): JTextField {
     val field = JBTextField()
     field.init()
@@ -115,7 +115,7 @@ fun Container.textField(
 
 fun Container.textFieldWithBrowseButton(
     constraints: Any?,
-    init: TextFieldWithBrowseButton.() -> Unit
+    init: TextFieldWithBrowseButton.() -> Unit = {}
 ): TextFieldWithBrowseButton {
     val field = TextFieldWithBrowseButton()
     field.init()
