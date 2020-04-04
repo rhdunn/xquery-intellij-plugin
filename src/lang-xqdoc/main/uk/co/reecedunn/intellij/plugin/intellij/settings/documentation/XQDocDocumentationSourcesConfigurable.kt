@@ -43,7 +43,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
             addBrowseFolderListener(null, null, null, descriptor)
         }
 
-        toolbarPanel(grid(0, 1).fill()) {
+        toolbarPanel(grid(0, 1).fill().spanCols()) {
             action(XQDocBundle.message("action.download.label"), AllIcons.Actions.Download) {
                 sources.selectedObject?.let {
                     XQDocDocumentationDownloader.getInstance().download(it)

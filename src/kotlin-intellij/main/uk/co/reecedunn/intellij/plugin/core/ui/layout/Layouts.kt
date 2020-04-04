@@ -63,9 +63,13 @@ fun grid(x: Int, y: Int): GridBagConstraints = GridBagConstraints(
     0, 0
 )
 
-fun GridBagConstraints.size(dx: Int, dy: Int): GridBagConstraints {
-    gridwidth = dx
+fun GridBagConstraints.spanRows(dy: Int = GridBagConstraints.REMAINDER): GridBagConstraints {
     gridheight = dy
+    return this
+}
+
+fun GridBagConstraints.spanCols(dx: Int = GridBagConstraints.REMAINDER): GridBagConstraints {
+    gridwidth = dx
     return this
 }
 
@@ -149,10 +153,6 @@ fun GridBagConstraints.fill(weightx: Double = 1.0, weighty: Double = 1.0): GridB
 // region scrollable
 
 fun Container.scrollable(view: Component?, constraints: Any?, init: JBScrollPane.() -> Unit): JBScrollPane {
-    if (constraints is GridBagConstraints) {
-        constraints.gridwidth = GridBagConstraints.REMAINDER
-    }
-
     val pane = JBScrollPane(view)
     pane.init()
     add(pane, constraints)

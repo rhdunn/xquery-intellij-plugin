@@ -22,10 +22,8 @@ import com.intellij.ui.AnActionButtonRunnable
 import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.table.TableView
 import com.intellij.util.SmartList
-import com.intellij.util.ui.JBUI
 import java.awt.Container
 import java.awt.Dimension
-import java.awt.GridBagConstraints
 import javax.swing.*
 
 // NOTE: The ToolbarDecorator class is not easily usable as a DSL class, so this is a DSL wrapper around that class.
@@ -87,10 +85,6 @@ fun <T> DialogBuilder.toolbarPanel(minimumSize: Dimension?, init: ToolbarDecorat
 }
 
 fun <T> Container.toolbarPanel(constraints: Any?, init: ToolbarDecoratorBuilder.() -> T): JPanel {
-    if (constraints is GridBagConstraints) {
-        constraints.gridwidth = GridBagConstraints.REMAINDER
-    }
-
     val panel = toolbarDecorator(init).createPanel()
     add(panel, constraints)
     return panel
