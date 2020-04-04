@@ -72,12 +72,13 @@ fun Container.horizontalPanel(constraints: Any?, init: JPanel.() -> Unit): JPane
 // endregion
 // region grid
 
-fun grid(x: Int, y: Int): GridBagConstraints {
-    val constraints = GridBagConstraints()
-    constraints.gridx = x
-    constraints.gridy = y
-    return constraints
-}
+fun grid(x: Int, y: Int): GridBagConstraints = GridBagConstraints(
+    x, y, 1, 1, 0.0, 0.0,
+    GridBagConstraints.CENTER,
+    GridBagConstraints.NONE,
+    Insets(0, 0, 0, 0),
+    0, 0
+)
 
 fun GridBagConstraints.size(dx: Int, dy: Int): GridBagConstraints {
     gridwidth = dx
