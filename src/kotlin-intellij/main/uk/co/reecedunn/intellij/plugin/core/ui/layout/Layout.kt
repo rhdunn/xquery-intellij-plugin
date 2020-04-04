@@ -170,6 +170,7 @@ fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): Com
 fun Container.label(text: String, constraints: Any? = null): JBLabel {
     if (constraints is GridBagConstraints) {
         constraints.fill = GridBagConstraints.NONE
+        constraints.anchor = GridBagConstraints.WEST
         if (constraints.gridx == 0)
             constraints.insets = JBUI.insets(0, 0, 4, 8)
         else

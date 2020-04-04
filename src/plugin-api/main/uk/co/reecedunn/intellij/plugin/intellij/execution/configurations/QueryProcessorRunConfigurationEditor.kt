@@ -109,7 +109,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                     editAction(::editQueryProcessor)
                     removeAction(::removeQueryProcessor)
 
-                    list = JBList<QueryProcessorSettingsWithVersionCache>(model)
+                    list = JBList(model)
                     list.cellRenderer = QueryProcessorSettingsCellRenderer()
                     list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
                     list
@@ -137,91 +137,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         rdfOutputFormat!!.addItem(null)
         RDF_FORMATS.forEach { rdfOutputFormat!!.addItem(it) }
-    }
-
-    // endregion
-    // region Option :: Server
-
-    private var server: JComboBox<String>? = null
-
-    private fun createServerUI() {
-        server = ComboBox()
-        server!!.isEditable = true
-
-        server!!.addItem(null)
-    }
-
-    private fun populateServerUI() {
-        val settings =
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
-                ?: return
-        executeOnPooledThread {
-            val server = server!!
-            try {
-                val servers = settings.session.servers
-                invokeLater(ModalityState.any()) {
-                    val current = server.selectedItem
-                    server.removeAllItems()
-                    server.addItem(null)
-                    servers.forEach { name -> server.addItem(name) }
-                    server.selectedItem = current
-                }
-            } catch (e: Throwable) {
-                invokeLater(ModalityState.any()) {
-                    server.removeAllItems()
-                    server.addItem(null)
-                }
-            }
-        }
-    }
-
-    // endregion
-    // region Option :: Module Path
-
-    private var modulePath: TextFieldWithBrowseButton? = null
-
-    private fun createModulePathUI() {
-        val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-        descriptor.title = PluginApiBundle.message("browser.choose.module-path")
-
-        modulePath = TextFieldWithBrowseButton()
-        modulePath!!.addBrowseFolderListener(null, null, project, descriptor)
-    }
-
-    // endregion
-    // region Option :: Database
-
-    private var database: JComboBox<String>? = null
-
-    private fun createDatabaseUI() {
-        database = ComboBox()
-        database!!.isEditable = true
-
-        database!!.addItem(null)
-    }
-
-    private fun populateDatabaseUI() {
-        val settings =
-            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
-                ?: return
-        executeOnPooledThread {
-            val database = database!!
-            try {
-                val databases = settings.session.databases
-                invokeLater(ModalityState.any()) {
-                    val current = database.selectedItem
-                    database.removeAllItems()
-                    database.addItem(null)
-                    databases.forEach { name -> database.addItem(name) }
-                    database.selectedItem = current
-                }
-            } catch (e: Throwable) {
-                invokeLater(ModalityState.any()) {
-                    database.removeAllItems()
-                    database.addItem(null)
-                }
-            }
-        }
     }
 
     // endregion
@@ -290,7 +205,83 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Database Page
 
-    private val databasePanel: JPanel get() = tabbedPane!!.getComponentAt(1) as JPanel
+    private lateinit var server: JComboBox<String>
+
+    private lateinit var modulePath: TextFieldWithBrowseButton
+
+    private lateinit var database: JComboBox<String>
+
+    private fun populateServerUI() {
+        val settings =
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+                ?: return
+        executeOnPooledThread {
+            try {
+                val servers = settings.session.servers
+                invokeLater(ModalityState.any()) {
+                    val current = server.selectedItem
+                    server.removeAllItems()
+                    server.addItem(null)
+                    servers.forEach { name -> server.addItem(name) }
+                    server.selectedItem = current
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    server.removeAllItems()
+                    server.addItem(null)
+                }
+            }
+        }
+    }
+
+    private fun populateDatabaseUI() {
+        val settings =
+            (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+                ?: return
+        executeOnPooledThread {
+            try {
+                val databases = settings.session.databases
+                invokeLater(ModalityState.any()) {
+                    val current = database.selectedItem
+                    database.removeAllItems()
+                    database.addItem(null)
+                    databases.forEach { name -> database.addItem(name) }
+                    database.selectedItem = current
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    database.removeAllItems()
+                    database.addItem(null)
+                }
+            }
+        }
+    }
+
+    private val databasePanel: JPanel = panel {
+        label(PluginApiBundle.message("xquery.configurations.processor.server.label"), grid(0, 0))
+        server = comboBox(grid(1, 0)) {
+            isEditable = true
+            addItem(null)
+        }
+
+        label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), grid(0, 1))
+        modulePath = textFieldWithBrowseButton(grid(1, 1)) {
+            val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+            descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+
+            modulePath = TextFieldWithBrowseButton()
+            addBrowseFolderListener(null, null, project, descriptor)
+        }
+
+        label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), grid(0, 2))
+        database = comboBox(grid(1, 2)) {
+            isEditable = true
+            addItem(null)
+        }
+
+        verticalSpacer(grid(0, 3))
+        horizontalSpacer(grid(1, 3))
+    }
 
     // endregion
     // region Input Page
@@ -311,7 +302,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             }
         }
 
-    private val inputPanel: JPanel get() = tabbedPane!!.getComponentAt(2) as JPanel
+    private val inputPanel: JPanel get() = tabbedPane!!.getComponentAt(1) as JPanel
 
     // endregion
     // region Output Page
@@ -337,9 +328,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         createQueryProcessorUI()
         createRdfOutputFormatUI()
-        createServerUI()
-        createModulePathUI()
-        createDatabaseUI()
         createScriptFileUI()
         createContextItemUI()
         createXPathSubsetUI()
@@ -367,11 +355,10 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     override var panel: JPanel? = tabbedPanel {
         val query = queryPanel
-        val database = databasePanel
         val input = inputPanel
 
         tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), query)
-        tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), database)
+        tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), databasePanel)
         inputLabel?.let { tab(it, input) }
         tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), outputPanel)
     }
@@ -384,11 +371,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
-        if ((server!!.selectedItem as? String) != configuration.server)
+        if ((server.selectedItem as? String) != configuration.server)
             return true
-        if ((database!!.selectedItem as? String) != configuration.database)
+        if ((database.selectedItem as? String) != configuration.database)
             return true
-        if (modulePath!!.textField.text.nullize() != configuration.modulePath)
+        if (modulePath.textField.text.nullize() != configuration.modulePath)
             return true
         if (scriptFile!!.type != configuration.scriptSource)
             return true
@@ -417,9 +404,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
-        server!!.selectedItem = configuration.server
-        database!!.selectedItem = configuration.database
-        modulePath!!.textField.text = configuration.modulePath ?: ""
+        server.selectedItem = configuration.server
+        database.selectedItem = configuration.database
+        modulePath.textField.text = configuration.modulePath ?: ""
         scriptFile!!.type = configuration.scriptSource
         scriptFile!!.path = configuration.scriptFilePath
         updating!!.isSelected = configuration.updating
@@ -436,9 +423,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.processorId =
             (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
-        configuration.server = server!!.selectedItem as? String
-        configuration.database = database!!.selectedItem as? String
-        configuration.modulePath = modulePath!!.textField.text.nullize()
+        configuration.server = server.selectedItem as? String
+        configuration.database = database.selectedItem as? String
+        configuration.modulePath = modulePath.textField.text.nullize()
         configuration.scriptSource = scriptFile?.type!!
         configuration.scriptFilePath = scriptFile!!.path
         configuration.updating = updating!!.isSelected
