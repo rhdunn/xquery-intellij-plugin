@@ -85,12 +85,15 @@ fun GridBagConstraints.size(dx: Int, dy: Int): GridBagConstraints {
 }
 
 fun GridBagConstraints.padding(x: Int, y: Int): GridBagConstraints {
-    insets = JBInsets(y, x, y, x)
+    val sx = JBUIScale.scale(x)
+    val sy = JBUIScale.scale(y)
+    insets.set(sy, sx, sy, sx)
     return this
 }
 
 fun GridBagConstraints.vgap(y: Int): GridBagConstraints {
-    insets = JBInsets(0, 0, y, 0)
+    val sy = JBUIScale.scale(y)
+    insets.set(0, 0, sy, 0)
     return this
 }
 
