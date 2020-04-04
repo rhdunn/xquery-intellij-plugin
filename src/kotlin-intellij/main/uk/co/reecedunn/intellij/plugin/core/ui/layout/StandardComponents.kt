@@ -27,12 +27,18 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
+import com.intellij.ui.components.JBRadioButton
 import java.awt.*
 import javax.swing.JCheckBox
+import javax.swing.JRadioButton
 
 // region check box
 
 fun Container.checkBox(constraints: Any?, text: String? = null, init: JCheckBox.() -> Unit = {}): JCheckBox {
+    if (constraints is GridBagConstraints) {
+        constraints.anchor = GridBagConstraints.WEST
+    }
+
     val checkbox = JBCheckBox(text)
     checkbox.init()
     add(checkbox, constraints)
@@ -61,6 +67,21 @@ fun Container.label(text: String, constraints: Any? = null): JBLabel {
     add(label, constraints)
     return label
 }
+
+// endregion
+// region radio button
+
+fun Container.radio(constraints: Any?, text: String? = null, init: JRadioButton.() -> Unit = {}): JRadioButton {
+    if (constraints is GridBagConstraints) {
+        constraints.anchor = GridBagConstraints.WEST
+    }
+
+    val radio = JBRadioButton(text)
+    radio.init()
+    add(radio, constraints)
+    return radio
+}
+
 
 // endregion
 // region text field with browse button

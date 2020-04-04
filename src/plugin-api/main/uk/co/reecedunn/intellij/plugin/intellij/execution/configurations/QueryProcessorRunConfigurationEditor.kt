@@ -259,7 +259,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private val databasePanel: JPanel = panel {
         label(PluginApiBundle.message("xquery.configurations.processor.server.label"), grid(0, 0))
-        server = comboBox(grid(1, 0).hgap().vgap()) {
+        server = comboBox(grid(1, 0).horizontal().hgap().vgap()) {
             isEditable = true
             addItem(null)
         }
@@ -274,7 +274,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), grid(0, 2))
-        database = comboBox(grid(1, 2).hgap()) {
+        database = comboBox(grid(1, 2).horizontal().hgap()) {
             isEditable = true
             addItem(null)
         }
