@@ -30,12 +30,6 @@ import java.awt.*
 // region text console
 
 fun Container.textConsole(project: Project, constraints: Any?, init: TextConsoleView.() -> Unit): TextConsoleView {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.BOTH
-        constraints.weightx = 1.0
-        constraints.weighty = 1.0
-    }
-
     val view = TextConsoleView(project)
     val console = view.component
     view.init()

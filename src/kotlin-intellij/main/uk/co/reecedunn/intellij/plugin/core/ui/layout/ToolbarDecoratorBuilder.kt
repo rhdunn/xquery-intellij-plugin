@@ -89,10 +89,6 @@ fun <T> DialogBuilder.toolbarPanel(minimumSize: Dimension?, init: ToolbarDecorat
 fun <T> Container.toolbarPanel(constraints: Any?, init: ToolbarDecoratorBuilder.() -> T): JPanel {
     if (constraints is GridBagConstraints) {
         constraints.gridwidth = GridBagConstraints.REMAINDER
-        constraints.fill = GridBagConstraints.BOTH
-        constraints.weightx = 1.0
-        constraints.weighty = 1.0
-        constraints.insets = JBUI.emptyInsets()
     }
 
     val panel = toolbarDecorator(init).createPanel()

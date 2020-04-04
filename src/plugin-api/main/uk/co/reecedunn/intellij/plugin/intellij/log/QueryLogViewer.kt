@@ -172,7 +172,7 @@ class QueryLogViewerUI(val project: Project) {
             spacer(grid(4, 0).horizontal())
         }
 
-        logConsole = textConsole(project, grid(0, 1)) {
+        logConsole = textConsole(project, grid(0, 1).fill()) {
             setConsoleBorder(Borders.ConsoleToolbarTop)
             createActionToolbar(ActionPlaces.UNKNOWN)
         }

@@ -138,15 +138,19 @@ fun GridBagConstraints.vertical(weight: Double = 1.0): GridBagConstraints {
     return this
 }
 
+fun GridBagConstraints.fill(weightx: Double = 1.0, weighty: Double = 1.0): GridBagConstraints {
+    fill = GridBagConstraints.BOTH
+    this.weightx = weightx
+    this.weighty = weighty
+    return this
+}
+
 // endregion
 // region scrollable
 
 fun Container.scrollable(view: Component?, constraints: Any?, init: JBScrollPane.() -> Unit): JBScrollPane {
     if (constraints is GridBagConstraints) {
         constraints.gridwidth = GridBagConstraints.REMAINDER
-        constraints.fill = GridBagConstraints.BOTH
-        constraints.weightx = 1.0
-        constraints.weighty = 1.0
     }
 
     val pane = JBScrollPane(view)
