@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.ComboBox
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.ConfigurableImpl
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.coloredListCellRenderer
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import javax.swing.JComboBox
 import javax.swing.JPanel
 
@@ -45,7 +45,53 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
     private var mDialectForXQuery3_0: JComboBox<Versioned>? = null
     private var mDialectForXQuery3_1: JComboBox<Versioned>? = null
 
-    override var panel: JPanel? = null
+    @Suppress("PropertyName")
+    private val VERSION_RENDERER = coloredListCellRenderer<Version> { value ->
+        if (value != null) {
+            append(value.toFeatureString())
+        }
+    }
+
+    @Suppress("PropertyName")
+    private val VERSIONED_RENDERER = coloredListCellRenderer<Versioned> { value ->
+        if (value != null) {
+            append(value.name)
+        }
+    }
+
+    override var panel: JPanel? = panel {
+        label(XQueryBundle.message("xquery.settings.project.implementation.label"), grid(0, 0))
+        mImplementations = comboBox(grid(1, 0).horizontal().hgap().vgap())
+
+        label(XQueryBundle.message("xquery.settings.project.implementation.version.label"), grid(0, 1))
+        mImplementationVersions = comboBox(grid(1, 1).horizontal().hgap().vgap()) {
+            renderer = VERSION_RENDERER
+        }
+
+        label(XQueryBundle.message("xquery.settings.project.default.version.label"), grid(0, 2))
+        mVersion = comboBox(grid(1, 2).horizontal().hgap().vgap()) {
+            renderer = VERSION_RENDERER
+        }
+
+        label(XQueryBundle.message("xquery.settings.project.dialect.1.0.label"), grid(0, 3))
+        mDialectForXQuery1_0 = comboBox(grid(1, 3).horizontal().hgap().vgap()) {
+            renderer = VERSIONED_RENDERER
+        }
+
+        label(XQueryBundle.message("xquery.settings.project.dialect.3.0.label"), grid(0, 4))
+        mDialectForXQuery3_0 = comboBox(grid(1, 4).horizontal().hgap().vgap()) {
+            renderer = VERSIONED_RENDERER
+        }
+
+        label(XQueryBundle.message("xquery.settings.project.dialect.3.1.label"), grid(0, 5))
+        mDialectForXQuery3_1 = comboBox(grid(1, 5).horizontal().hgap().vgap()) {
+            renderer = VERSIONED_RENDERER
+        }
+
+        spacer(grid(0, 6).vertical())
+
+        createUIComponents()
+    }
 
     @Suppress("UNCHECKED_CAST")
     private fun <T> populateComboBox(control: JComboBox<T>, items: List<T>, defaultItem: T?) {
@@ -66,41 +112,6 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
     }
 
     private fun createUIComponents() {
-        mImplementations = ComboBox()
-        mImplementationVersions = ComboBox()
-        mVersion = ComboBox()
-        mDialectForXQuery1_0 = ComboBox()
-        mDialectForXQuery3_0 = ComboBox()
-        mDialectForXQuery3_1 = ComboBox()
-
-        mImplementations!!.name = "Implementation"
-        mImplementationVersions!!.name = "ImplementationVersion"
-        mVersion!!.name = "XQueryVersion"
-        mDialectForXQuery1_0!!.name = "DialectForXQuery1.0"
-        mDialectForXQuery3_0!!.name = "DialectForXQuery3.0"
-        mDialectForXQuery3_1!!.name = "DialectForXQuery3.1"
-
-        @Suppress("LocalVariableName")
-        val VERSION_RENDERER = coloredListCellRenderer<Version> { value ->
-            if (value != null) {
-                append(value.toFeatureString())
-            }
-        }
-
-        @Suppress("LocalVariableName")
-        val VERSIONED_RENDERER = coloredListCellRenderer<Versioned> { value ->
-            if (value != null) {
-                append(value.name)
-            }
-        }
-
-        mVersion!!.renderer = VERSION_RENDERER
-        mImplementationVersions!!.renderer = VERSION_RENDERER
-
-        mDialectForXQuery1_0!!.renderer = VERSIONED_RENDERER
-        mDialectForXQuery3_0!!.renderer = VERSIONED_RENDERER
-        mDialectForXQuery3_1!!.renderer = VERSIONED_RENDERER
-
         mImplementationVersions!!.addActionListener {
             val product = mImplementations!!.selectedItem as? Product
             val productVersion = mImplementationVersions!!.selectedItem as? Version
