@@ -23,26 +23,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogBuilder
-import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.ui.components.JBCheckBox
-import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
 import com.intellij.ui.scale.JBUIScale
 import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBInsets
-import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.*
-import javax.swing.JCheckBox
 import javax.swing.JPanel
 import javax.swing.JTabbedPane
-
-// Layouts
 
 // region panel
 
@@ -192,90 +183,6 @@ fun JTabbedPane.tab(title: String, component: Component) {
     }
 
     add(title, component)
-}
-
-// endregion
-
-// Components
-
-// region check box
-
-fun Container.checkBox(constraints: Any?, text: String? = null, init: JCheckBox.() -> Unit = {}): JCheckBox {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.weightx = 1.0
-    }
-
-    val checkbox = JBCheckBox(text)
-    checkbox.init()
-    add(checkbox, constraints)
-    return checkbox
-}
-
-// endregion
-// region combo box
-
-fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): ComboBox<T> {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-    }
-
-    val combobox = ComboBox<T>()
-    combobox.init()
-    add(combobox, constraints)
-    return combobox
-}
-
-// endregion
-// region label
-
-fun Container.label(text: String, constraints: Any? = null): JBLabel {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.NONE
-        constraints.anchor = GridBagConstraints.WEST
-    }
-
-    val label = JBLabel(text)
-    add(label, constraints)
-    return label
-}
-
-// endregion
-// region text console
-
-fun Container.textConsole(project: Project, constraints: Any?, init: TextConsoleView.() -> Unit): TextConsoleView {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.BOTH
-        constraints.weightx = 1.0
-        constraints.weighty = 1.0
-    }
-
-    val view = TextConsoleView(project)
-    val console = view.component
-    view.init()
-    add(console, constraints)
-    return view
-}
-
-// endregion
-// region text field with browse button
-
-fun Container.textFieldWithBrowseButton(
-    constraints: Any?,
-    init: TextFieldWithBrowseButton.() -> Unit
-): TextFieldWithBrowseButton {
-    if (constraints is GridBagConstraints) {
-        constraints.fill = GridBagConstraints.HORIZONTAL
-    }
-
-    val field = TextFieldWithBrowseButton()
-    field.init()
-    add(field, constraints)
-    return field
-}
-
-fun Container.textFieldWithBrowseButton(init: TextFieldWithBrowseButton.() -> Unit): TextFieldWithBrowseButton {
-    return textFieldWithBrowseButton(null, init)
 }
 
 // endregion
