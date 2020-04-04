@@ -86,15 +86,18 @@ fun <T : JComponent> Container.componentWithBrowseButton(
 // endregion
 // region label
 
-fun Container.label(text: String, constraints: Any? = null): JBLabel {
+fun Container.label(text: String?, constraints: Any? = null, init: JLabel.() -> Unit = {}): JBLabel {
     if (constraints is GridBagConstraints) {
         constraints.anchor = GridBagConstraints.WEST
     }
 
-    val label = JBLabel(text)
+    val label = if (text == null) JBLabel() else JBLabel(text)
+    label.init()
     add(label, constraints)
     return label
 }
+
+fun Container.label(constraints: Any? = null, init: JLabel.() -> Unit = {}): JBLabel = label(null, constraints, init)
 
 // endregion
 // region password field
