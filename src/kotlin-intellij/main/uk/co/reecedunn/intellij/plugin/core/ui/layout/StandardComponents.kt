@@ -62,9 +62,14 @@ fun Container.checkBox(constraints: Any?, text: String? = null, init: JCheckBox.
 // region combo box
 
 fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit): ComboBox<T> {
-    val combobox = ComboBox<T>()
+    @Suppress("UNCHECKED_CAST") val combobox = when (constraints) {
+        is ComboBoxModel<*> -> ComboBox(constraints as ComboBoxModel<T>)
+        else -> ComboBox()
+    }
     combobox.init()
-    add(combobox, constraints)
+    if (constraints !is ComboBoxModel<*>) {
+        add(combobox, constraints)
+    }
     return combobox
 }
 
