@@ -143,6 +143,34 @@ class MarkLogicSyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
+    internal inner class AnyMapNodeTest {
+        @Test
+        @DisplayName("MarkLogic >= 8.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of object-node()")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 8.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of object-node()")[0]
+            validator.product = MarkLogic.VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(14:25): MarkLogic 5.0 does not support MarkLogic 8.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (67) AnyKindTest")
     internal inner class AnyKindTest {
         @Test
