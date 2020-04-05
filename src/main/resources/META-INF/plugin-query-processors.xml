@@ -42,5 +42,6 @@
     <!-- Syntax Validators -->
 
     <syntaxValidator implementation="uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator"/>
+    <syntaxValidator implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator"/>
   </extensions>
 </idea-plugin>
