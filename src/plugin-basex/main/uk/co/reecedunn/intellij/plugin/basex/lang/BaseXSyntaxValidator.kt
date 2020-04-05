@@ -34,11 +34,9 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
         is PluginFTFuzzyOption -> reporter.requireProduct(element, BaseX.VERSION_6_1)
         is PluginNonDeterministicFunctionCall -> reporter.requireProduct(element, BaseX.VERSION_8_4)
         is PluginTernaryIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
-        is PluginUpdateExpr -> {
-            if (element.conformanceElement.elementType === XQueryTokenType.K_UPDATE)
-                reporter.requireProduct(element, BaseX.VERSION_7_8)
-            else
-                reporter.requireProduct(element, BaseX.VERSION_8_5)
+        is PluginUpdateExpr -> when (element.conformanceElement.elementType) {
+            XQueryTokenType.K_UPDATE -> reporter.requireProduct(element, BaseX.VERSION_7_8)
+            else -> reporter.requireProduct(element, BaseX.VERSION_8_5)
         }
         is XPathIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1, BaseXBundle.message("conformance.if-without-else"))
         else -> {}

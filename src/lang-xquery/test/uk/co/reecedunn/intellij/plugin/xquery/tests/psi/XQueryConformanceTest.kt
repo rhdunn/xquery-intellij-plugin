@@ -120,22 +120,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region AnyKindTest
-
-    @Test
-    fun testAnyKindTest() {
-        val file = parseResource("tests/parser/xquery-1.0/NodeTest_AnyKindTest.xq")
-
-        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_NODE))
-    }
-
-    // endregion
     // region AnyMapTest
 
     @Test

@@ -48,21 +48,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (67) AnyKindTest")
-    fun testAnyKindTest_Wildcard() {
-        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
-
-        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.STAR))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
     fun testAnyMapNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
