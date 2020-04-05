@@ -24,7 +24,6 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
-import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -33,18 +32,20 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
 
+private fun JTextField.textOrNull(): String? = text?.let { if (it.isEmpty()) null else it }
+
 class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryProcessorSettings>() {
+    // region Dialog
+
     override val resizable: Boolean = true
     override val createTitle: String = PluginApiBundle.message("xquery.settings.dialog.query-processor.create")
     override val editTitle: String = PluginApiBundle.message("xquery.settings.dialog.query-processor.edit")
 
-    override fun validate(editor: SettingsUI<QueryProcessorSettings>, onvalidate: (Boolean) -> Unit) {
-        (editor as QueryProcessorSettingsDialogUI).oninfo(
-            PluginApiBundle.message("xquery.settings.dialog.query-processor.validating-processor")
-        )
+    override fun validate(onvalidate: (Boolean) -> Unit) {
+        oninfo(PluginApiBundle.message("xquery.settings.dialog.query-processor.validating-processor"))
 
         val settings = QueryProcessorSettings()
-        editor.apply(settings)
+        apply(settings)
         executeOnPooledThread {
             try {
                 settings.session.version
@@ -53,23 +54,14 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
-                    editor.onerror(e.toQueryUserMessage())
+                    onerror(e.toQueryUserMessage())
                     onvalidate(false)
                 }
             }
         }
     }
 
-    override fun createSettingsUI(): SettingsUI<QueryProcessorSettings> {
-        return QueryProcessorSettingsDialogUI(project)
-    }
-}
-
-private fun JTextField.textOrNull(): String? {
-    return text?.let { if (it.isEmpty()) null else it }
-}
-
-class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<QueryProcessorSettings> {
+    // endregion
     // region Processor APIs
 
     private val selectQueryProcessor: ActionListener
@@ -95,13 +87,13 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
     // endregion
     // region Error Message
 
-    fun oninfo(message: String) {
+    private fun oninfo(message: String) {
         errorMessage.icon = AllIcons.General.Information
         errorMessage.text = message
         errorMessage.isVisible = true
     }
 
-    fun onerror(message: String) {
+    private fun onerror(message: String) {
         errorMessage.icon = AllIcons.General.Error
         errorMessage.text = message
         errorMessage.isVisible = true

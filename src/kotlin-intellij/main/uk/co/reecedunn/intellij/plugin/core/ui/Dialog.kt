@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,24 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui
 
-import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.ui.DialogWrapper
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 
-abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
+abstract class Dialog<Configuration> : SettingsUI<Configuration> {
     abstract val resizable: Boolean
     abstract val createTitle: String
     abstract val editTitle: String
 
-    open fun validate(editor: SettingsUI<Configuration>, onvalidate: (Boolean) -> Unit) {
-        onvalidate(true)
-    }
+    open fun validate(onvalidate: (Boolean) -> Unit) = onvalidate(true)
 
     private fun run(configuration: Configuration, title: String): Boolean {
-        val editor = createSettingsUI()
-
         val dialog = dialog(title) {
             resizable(resizable)
-            setCenterPanel(editor.panel!!)
+            setCenterPanel(panel!!)
             setPreferredFocusComponent(null)
             setOkOperation {
                 dialogWrapper.isOKActionEnabled = false
-                validate(editor) { valid ->
+                validate { valid ->
                     dialogWrapper.isOKActionEnabled = true
                     if (valid) {
                         dialogWrapper.close(DialogWrapper.OK_EXIT_CODE)
@@ -46,19 +41,15 @@ abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
             }
         }
 
-        editor.reset(configuration)
+        reset(configuration)
         if (dialog.showAndGet()) {
-            editor.apply(configuration)
+            apply(configuration)
             return true
         }
         return false
     }
 
-    fun create(configuration: Configuration): Boolean {
-        return run(configuration, createTitle)
-    }
+    fun create(configuration: Configuration): Boolean = run(configuration, createTitle)
 
-    fun edit(configuration: Configuration): Boolean {
-        return run(configuration, editTitle)
-    }
+    fun edit(configuration: Configuration): Boolean = run(configuration, editTitle)
 }
