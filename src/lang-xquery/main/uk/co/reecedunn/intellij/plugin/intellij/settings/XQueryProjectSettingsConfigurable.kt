@@ -18,26 +18,25 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 import com.intellij.openapi.project.Project
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.ConfigurableImpl
-import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import javax.swing.JComboBox
 import javax.swing.JPanel
 
+@Suppress("PrivatePropertyName")
 class XQueryProjectSettingsConfigurable(project: Project) :
     ConfigurableImpl<XQueryProjectSettings>(XQueryProjectSettings.getInstance(project)) {
+    // region Configurable
 
     @Nls
     override fun getDisplayName(): String = "XQuery"
 
     override fun getHelpTopic(): String? = null
 
-    override fun createSettingsUI(): SettingsUI<XQueryProjectSettings> = XQueryProjectSettingsConfigurableUI()
-}
+    // endregion
+    // region SettingsUI
 
-@Suppress("PrivatePropertyName")
-class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
     private var mVersion: JComboBox<Version>? = null
     private var mImplementations: JComboBox<Product>? = null
     private var mImplementationVersions: JComboBox<Version>? = null
@@ -187,4 +186,6 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
         mDialectForXQuery3_0!!.selectedItem = dialectById(configuration.XQuery30Dialect)
         mDialectForXQuery3_1!!.selectedItem = dialectById(configuration.XQuery31Dialect)
     }
+
+    // endregion
 }

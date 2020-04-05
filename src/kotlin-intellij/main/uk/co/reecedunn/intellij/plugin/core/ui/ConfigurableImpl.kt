@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,32 +20,17 @@ import com.intellij.openapi.options.ConfigurationException
 import javax.swing.JComponent
 
 abstract class ConfigurableImpl<in Configuration>(private val mConfiguration: Configuration) :
-    Configurable, SettingsUIFactory<Configuration> {
-
-    private var mSettings: SettingsUI<Configuration>? = null
+    Configurable, SettingsUI<Configuration> {
 
     override fun createComponent(): JComponent? {
-        mSettings = createSettingsUI()
-        mSettings!!.reset(mConfiguration)
-        return mSettings!!.panel
+        reset(mConfiguration)
+        return panel
     }
 
-    override fun isModified(): Boolean {
-        return mSettings!!.isModified(mConfiguration)
-    }
+    override fun isModified(): Boolean = isModified(mConfiguration)
 
     @Throws(ConfigurationException::class)
-    override fun apply() {
-        mSettings!!.apply(mConfiguration)
-    }
+    override fun apply() = apply(mConfiguration)
 
-    override fun reset() {
-        mSettings!!.reset(mConfiguration)
-    }
-
-    // NOTE: IntelliJ 2016.1 does not provide a default disposeUIResources
-    // implementation, so provide one here.
-    override fun disposeUIResources() {
-        mSettings = null
-    }
+    override fun reset() = reset(mConfiguration)
 }
