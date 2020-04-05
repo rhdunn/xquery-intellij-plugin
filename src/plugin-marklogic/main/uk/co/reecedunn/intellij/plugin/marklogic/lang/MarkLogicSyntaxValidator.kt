@@ -19,10 +19,12 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyArrayNodeTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyBooleanNodeTest
 
 object MarkLogicSyntaxValidator : XpmSyntaxValidator {
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
         is PluginAnyArrayNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+        is PluginAnyBooleanNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         else -> {}
     }
 }
