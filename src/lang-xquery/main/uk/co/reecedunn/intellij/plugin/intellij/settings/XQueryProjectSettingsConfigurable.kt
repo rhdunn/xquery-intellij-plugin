@@ -58,7 +58,7 @@ class XQueryProjectSettingsConfigurable(project: Project) :
         }
     }
 
-    override var panel: JPanel? = panel {
+    override val panel: JPanel = panel {
         label(XQueryBundle.message("xquery.settings.project.implementation.label"), grid(0, 0))
         mImplementations = comboBox(grid(1, 0).horizontal().hgap().vgap())
 

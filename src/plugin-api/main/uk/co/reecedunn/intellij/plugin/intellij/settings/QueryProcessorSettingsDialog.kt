@@ -113,7 +113,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     private lateinit var password: JPasswordField
     private lateinit var errorMessage: JLabel
 
-    override var panel: JPanel? = panel {
+    override val panel: JPanel = panel {
         label(PluginApiBundle.message("xquery.settings.dialog.query-processor.name.label"), grid(0, 0))
         description = textField(grid(1, 0).horizontal().hgap().vgap()) { minimumSize = Dimension(250, -1) }
 

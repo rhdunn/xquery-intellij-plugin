@@ -322,7 +322,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
     }
 
-    override var panel: JPanel? = tabbedPanel {
+    override val panel: JPanel = tabbedPanel {
         tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), queryPanel)
         tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), databasePanel)
         inputLabel?.let { tab(it, inputPanel) }
