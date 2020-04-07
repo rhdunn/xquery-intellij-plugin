@@ -27,7 +27,7 @@ object RelativeModuleLoader : XdmModuleLoader, XdmModuleLoaderFactory {
     // region XdmModuleLoader
 
     private fun findFileByPath(path: String, root: VirtualFile): VirtualFile? {
-        return root.originalFile.parent.findFileByRelativePath(path)
+        return root.originalFile.parent?.findFileByRelativePath(path)
     }
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
