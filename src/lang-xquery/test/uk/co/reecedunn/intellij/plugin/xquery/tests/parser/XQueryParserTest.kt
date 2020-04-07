@@ -5508,14 +5508,6 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("tag name: URIQualifiedName [XQuery 3.0]")
-        fun testCompElemConstructor_EQName() {
-            val expected = loadResource("tests/parser/xquery-3.0/CompElemConstructor_EQName.txt")
-            val actual = parseResource("tests/parser/xquery-3.0/CompElemConstructor_EQName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
         @DisplayName("tag name: string literal (error recovery)")
         fun testCompElemConstructor_StringLiteral() {
             val expected = loadResource("tests/parser/xquery-1.0/CompElemConstructor_StringLiteral.txt")
@@ -5607,14 +5599,6 @@ private class XQueryParserTest : ParserTestCase() {
         fun testCompAttrConstructor_MissingValueExpr() {
             val expected = loadResource("tests/parser/xquery-1.0/CompAttrConstructor_MissingValueExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompAttrConstructor_MissingValueExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("tag name: URIQualifiedName [XQuery 3.0]")
-        fun testCompAttrConstructor_EQName() {
-            val expected = loadResource("tests/parser/xquery-3.0/CompAttrConstructor_EQName.txt")
-            val actual = parseResource("tests/parser/xquery-3.0/CompAttrConstructor_EQName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -6301,1106 +6285,1183 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.0 :: DecimalFormatDecl
-
-    @Test
-    fun testDecimalFormatDecl() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (18) DecimalFormatDecl")
+    internal inner class DecimalFormatDecl {
+        @Test
+        @DisplayName("decimal format declaration")
+        fun decimalFormatDecl() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing EQName")
+        fun missingEQName() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingEQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingEQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("default")
+        fun default() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Default.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Default.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all properties")
+        fun allProperties() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing '='")
+        fun missingEquals() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingEquals.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingEquals.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing string literal")
+        fun missingStringLiteral() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingStringLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingStringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'decimal-format' keyword")
+        fun missingDecimalFormatKeyword() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingDecimalFormatKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingDecimalFormatKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (31) ContextItemDecl")
+    internal inner class ContextItemDecl {
+        @Test
+        @DisplayName("context item declaration")
+        fun contextItemDecl() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("context item declaration; compact whitespace")
+        fun contextItemDecl_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: using '=' instead of ':='")
+        fun equal() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_Equal.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_Equal.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing variable value")
+        fun missingVarValue() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingVarValue.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingVarValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ':='")
+        fun missingAssignment() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingAssignment.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingAssignment.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'item' keyword")
+        fun missingItemKeyword() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingItemKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingItemKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("as ItemType")
+        fun asItemType() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: as ItemType; missing ItemType")
+        fun missingItemType() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType_MissingItemType.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType_MissingItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("external")
+        fun external() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("external; default value")
+        fun external_DefaultValue() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: external; default value; using '=' instead of ':='")
+        fun external_DefaultValue_Equal() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_Equal.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_Equal.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: external; default value; missing value")
+        fun external_DefaultValue_MissingValue() {
+            val expected =
+                loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'context' keyword")
+        fun missingContextKeyword() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingContextKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingContextKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing semicolon")
+        fun missingSemicolon() {
+            val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingSemicolon.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingSemicolon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (26) AnnotatedDecl ; XQuery 3.0 EBNF (27) Annotation")
+    internal inner class AnnotatedDecl {
+        @Test
+        @DisplayName("annotation")
+        fun annotation() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("annotation; compact whitespace")
+        fun annotation_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing EQName")
+        fun missingEQName() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_MissingQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_MissingQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter list")
+        fun parameterList() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter list; compact whitespace")
+        fun parameterList_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: parameter list; missing literal")
+        fun parameterList_MissingLiteral() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_MissingLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_MissingLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter list; multiple")
+        fun parameterList_Multiple() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (28) VarDecl")
+    internal inner class VarDecl_XQuery30 {
+        @Test
+        @DisplayName("external; default value")
+        fun external_defaultValue() {
+            val expected = loadResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (41) FLWORExpr")
+    internal inner class FLWORExpr_XQuery30 {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (41) FLWORExpr")
+        internal inner class FLWORExpr {
+            @Test
+            @DisplayName("relaxed ordering")
+            fun relaxedOrdering() {
+                val expected = loadResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("nested FLWOR expressions without return clauses")
+            fun nestedWithoutReturnClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (43) IntermediateClause")
+        internal inner class IntermediateClause {
+            @Test
+            @DisplayName("where + for")
+            fun whereFor() {
+                val expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("for + where + let")
+            fun forWhereLet() {
+                val expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("for + order by + let")
+            fun forOrderByLet() {
+                val expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (60) WhereClause")
+        internal inner class WhereClause {
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/WhereClause_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (65) OrderByClause")
+        internal inner class OrderByClause {
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/OrderByClause_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (44) ForClause ; XQuery 3.0 EBNF (46) AllowingEmpty")
+    internal inner class AllowingEmpty {
+        @Test
+        @DisplayName("allowing empty")
+        fun sllowingEmpty() {
+            val expected = loadResource("tests/parser/xquery-3.0/AllowingEmpty.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'empty' keyword")
+        fun missingEmptyKeyword() {
+            val expected = loadResource("tests/parser/xquery-3.0/AllowingEmpty_MissingEmptyKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/AllowingEmpty_MissingEmptyKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'in' keyword")
+        fun missingInKeyword() {
+            val expected = loadResource("tests/parser/xquery-3.0/AllowingEmpty_ForBinding_MissingInKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/AllowingEmpty_ForBinding_MissingInKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (50) WindowClause")
+    internal inner class WindowClause {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (51) TumblingWindowClause")
+        internal inner class TumblingWindowClause {
+            @Test
+            @DisplayName("tumbling window clause")
+            fun tumblingWindowClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("tumbling window clause; compact whitespace")
+            fun tumblingWindowClause_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'window' keyword")
+            fun missingWindowKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingWindowKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingWindowKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing '$'")
+            fun missingVarIndicator() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable name")
+            fun missingVarName() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'in' keyword")
+            fun missingInKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingInKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingInKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing expression")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing start condition")
+            fun missingStartCondition() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingStartCondition.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingStartCondition.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("type declaration")
+            fun typeDecl() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: type declaration; missing 'in' keyword")
+            fun typeDecl_MissingInKeyword() {
+                val expected =
+                    loadResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (52) SlidingWindowClause")
+        internal inner class SlidingWindowClause {
+            @Test
+            @DisplayName("sliding window clause")
+            fun slidingWindowClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("sliding window clause; compact whitespace")
+            fun slidingWindowClause_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'window' keyword")
+            fun missingWindowKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingWindowKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingWindowKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing '$'")
+            fun missingVarIndicator() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable name")
+            fun missingVarName() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'in' keyword")
+            fun missingInKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingInKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingInKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing expression")
+            fun testSlidingWindowClause_MissingExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing start condition")
+            fun missingStartCondition() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingStartCondition.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingStartCondition.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing end condition")
+            fun missingEndCondition() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingEndCondition.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingEndCondition.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("type declaration")
+            fun typeDecl() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: type declaration; missing 'in' keyword")
+            fun typeDecl_MissingInKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl_MissingInKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl_MissingInKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (53) WindowStartCondition")
+        internal inner class WindowStartCondition {
+            @Test
+            @DisplayName("window start condition")
+            fun windowStartCondition() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error condition: missing 'when' keyword")
+            fun missingWhenKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowStartCondition_MissingWhenKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowStartCondition_MissingWhenKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error condition: missing expression")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowStartCondition_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowStartCondition_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (54) WindowEndCondition")
+        internal inner class WindowEndCondition {
+            @Test
+            @DisplayName("start and end")
+            fun both() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error condition: missing 'when' keyword")
+            fun missingWhenKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_MissingWhenKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_MissingWhenKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error condition: missing expression")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("end only")
+            fun only() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_Only.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_Only.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error condition: end only; missing 'end' keyword")
+            fun only_MissingEndKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_Only_MissingEndKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_Only_MissingEndKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (55) WindowVars")
+        internal inner class WindowVars {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("all variables")
+            fun allVars() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_AllVars.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_AllVars.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (55) WindowVars ; XQuery 3.0 EBNF (47) PositionalVar")
+        fun positionalVar() {
+            val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Position.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Position.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (55) WindowVars ; XQuery 3.0 EBNF (56) CurrentItem")
+        internal inner class CurrentItem {
+            @Test
+            @DisplayName("current item")
+            fun currentItem() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Current.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Current.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable name")
+            fun missingVarName() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Current_MissingVarName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Current_MissingVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (55) WindowVars ; XQuery 3.0 EBNF (57) PreviousItem")
+        internal inner class PreviousItem {
+            @Test
+            @DisplayName("previous item")
+            fun previousItem() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing '$'")
+            fun missingVarIndicator() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable name")
+            fun missingVarName() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (55) WindowVars ; XQuery 3.0 EBNF (58) NextItem")
+        internal inner class NextItem {
+            @Test
+            @DisplayName("next item")
+            fun nextItem() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing '$'")
+            fun missingVarIndicator() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable name")
+            fun missingVarName() {
+                val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (59) CountClause")
+    internal inner class CountClause {
+        @Test
+        @DisplayName("count clause")
+        fun countClause() {
+            val expected = loadResource("tests/parser/xquery-3.0/CountClause.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CountClause.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("count clause")
+        fun countClause_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing '$'")
+        fun missingVariableIndicator() {
+            val expected = loadResource("tests/parser/xquery-3.0/CountClause_MissingVariableIndicator.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CountClause_MissingVariableIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing variable name")
+        fun missingVarName() {
+            val expected = loadResource("tests/parser/xquery-3.0/CountClause_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CountClause_MissingVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (61) GroupByClause ; XQuery 3.0 EBNF (62) GroupingSpecList")
+    internal inner class GroupByClause {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (61) GroupByClause ; XQuery 3.0 EBNF (62) GroupingSpecList")
+        internal inner class GroupByClause {
+            @Test
+            @DisplayName("group by clause")
+            fun groupByClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("group by clause; compact whitespace")
+            fun groupByClause_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupByClause_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupByClause_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'by' keyword")
+            fun missingByKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupByClause_MissingByKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupByClause_MissingByKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing GroupingSpecList")
+            fun missingGroupingSpecList() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupByClause_MissingGroupingSpecList.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupByClause_MissingGroupingSpecList.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (62) GroupingSpecList")
+        internal inner class GroupingSpecList {
+            @Test
+            @DisplayName("single")
+            fun single() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: multiple; missing GroupingSpec")
+            fun multiple_MissingGroupingSpec() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple_MissingGroupingSpec.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple_MissingGroupingSpec.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (63) GroupingSpec")
+        internal inner class GroupingSpec {
+            @Test
+            @DisplayName("grouping spec")
+            fun testGroupingSpec() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("value")
+            fun value() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("value; compact whitespace")
+            fun value_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: value; using '=' instead of ':='")
+            fun value_Equal() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_Equal.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_Equal.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: value; missing value")
+            fun value_MissingValue() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_MissingValue.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_MissingValue.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("typed value")
+            fun typedValue() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("typed value; compact whitespace")
+            fun typedValue_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: typed value; using '=' instead of ':='")
+            fun typedValue_Equal() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_Equal.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_Equal.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: typed value; missing assignment")
+            fun missingAssignment() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingAssignment.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingAssignment.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: typed value; missing value")
+            fun typedValue_MissingValue() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingValue.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingValue.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("collation")
+            fun collation() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Collation.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Collation.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: collation; missing URI literal")
+            fun collation_MissingUriLiteral() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Collation_MissingUriLiteral.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Collation_MissingUriLiteral.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("value and collation")
+            fun valueAndCollation() {
+                val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_ValueAndCollation.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_ValueAndCollation.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (59) SwitchExpr ; XQuery 3.0 EBNF (59) SwitchCaseClause")
+    internal inner class SwitchExpr {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (59) SwitchExpr")
+        internal inner class SwitchExpr {
+            @Test
+            @DisplayName("switch expression")
+            fun switchExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("switch expression; compact whitespace")
+            fun switchExpr_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing expression")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing case clause")
+            fun missingCaseClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingCaseClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingCaseClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'default' keyword")
+            fun missingDefaultKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'return' keyword")
+            fun missingReturnKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing return expression")
+            fun missingReturnExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (59) SwitchCaseClause")
+        internal inner class SwitchCaseClause {
+            @Test
+            @DisplayName("single clause")
+            fun singleClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing case operand")
+            fun missingCaseOperand() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingCaseOperand.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingCaseOperand.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'return' keyword")
+            fun missingReturnKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing return expression")
+            fun missingReturnExpr() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple clauses")
+            fun multipleClauses() {
+                val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MultipleCases.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MultipleCases.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (75) CaseClause ; XQuery 3.0 EBNF (76) SequenceTypeUnion")
+    internal inner class CaseClause {
+        @Test
+        @DisplayName("sequence type union")
+        fun sequenceTypeUnion() {
+            val expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("sequence type union; compact whitespace")
+        fun sequenceTypeUnion_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (78) TryCatchExpr")
+    internal inner class TryCatchExpr {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (79) TryClause ; XQuery 3.0 EBNF (80) TryTargetExpr")
+        internal inner class TryClause {
+            @Test
+            @DisplayName("try clause")
+            fun tryClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/TryClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TryClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing brace")
+            fun missingClosingBrace() {
+                val expected = loadResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (81) CatchClause")
+        internal inner class CatchClause {
+            @Test
+            @DisplayName("catch clause")
+            fun catchClause() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("catch clause; compact whitespace")
+            fun catchClause_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing catch error list")
+            fun missingCatchErrorList() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingCatchErrorList.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingCatchErrorList.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing opening brace")
+            fun missingOpeningBrace() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingOpeningBrace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingOpeningBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing brace")
+            fun missingClosingBrace() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingClosingBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (82) CatchErrorList")
+        internal inner class CatchErrorList {
+            @Test
+            @DisplayName("single")
+            fun single() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchErrorList_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchErrorList_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple; compact whitespace")
+            fun multiple_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: multiple; missing name test")
+            fun multiple_MissingNameTest() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_MissingNameTest.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_MissingNameTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
-
-    @Test
-    fun testDecimalFormatDecl_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDecimalFormatDecl_MissingEQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingEQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingEQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDecimalFormatDecl_Default() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Default.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Default.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDecimalFormatDecl_Property_AllProperties() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDecimalFormatDecl_Property_MissingEquals() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingEquals.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingEquals.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDecimalFormatDecl_Property_MissingStringLiteral() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingStringLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingStringLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testDecimalFormatDecl_MissingDecimalFormatKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingDecimalFormatKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingDecimalFormatKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ContextItemDecl
-
-    @Test
-    fun testContextItemDecl() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_Equal() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_Equal.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_Equal.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_MissingVarValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingVarValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingVarValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_MissingAssignment() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingAssignment.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingAssignment.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_MissingItemKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingItemKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingItemKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_AsItemType() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_AsItemType_MissingItemType() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType_MissingItemType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_AsItemType_MissingItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_External() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_External_DefaultValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_External_DefaultValue_Equal() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_Equal.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_Equal.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_External_DefaultValue_MissingValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_MissingContextKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingContextKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingContextKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testContextItemDecl_MissingSemicolon() {
-        val expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingSemicolon.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingSemicolon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: AnnotatedDecl + Annotation
-
-    @Test
-    fun testAnnotation() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_MissingQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_MissingQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_MissingQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_ParameterList() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_ParameterList_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_ParameterList_MissingLiteral() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_MissingLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_MissingLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_ParameterList_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnnotation_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/Annotation_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Annotation_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: VarDecl
-
-    @Test
-    fun testVarDecl_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/VarDecl_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VarDecl_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testVarDecl_External_DefaultValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: FunctionDecl
-
-    @Test
-    fun testFunctionDecl_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionDecl_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionDecl_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: Param
-
-    @Test
-    fun testParam_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/Param_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Param_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: OptionDecl
-
-    @Test
-    fun testOptionDecl_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/OptionDecl_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/OptionDecl_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: FLWORExpr
-
-    @Test
-    fun testFLWORExpr_RelaxedOrdering() {
-        val expected = loadResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFLWORExpr_NestedWithoutReturnClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: IntermediateClause
-
-    @Test
-    fun testIntermediateClause_WhereFor() {
-        val expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIntermediateClause_ForWhereLet() {
-        val expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIntermediateClause_ForOrderByLet() {
-        val expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ForClause
-
-    @Test
-    fun testForClause_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/ForClause_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ForClause_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: AllowingEmpty + ForClause
-
-    @Test
-    fun testAllowingEmpty() {
-        val expected = loadResource("tests/parser/xquery-3.0/AllowingEmpty.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAllowingEmpty_MissingEmptyKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/AllowingEmpty_MissingEmptyKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AllowingEmpty_MissingEmptyKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAllowingEmpty_ForBinding_MissingInKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/AllowingEmpty_ForBinding_MissingInKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AllowingEmpty_ForBinding_MissingInKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: PositionalVar + ForClause
-
-    @Test
-    fun testPositionalVar_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/PositionalVar_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/PositionalVar_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: LetClause
-
-    @Test
-    fun testLetClause_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/LetClause_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/LetClause_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TumblingWindowClause
-
-    @Test
-    fun testTumblingWindowClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_MissingWindowKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingWindowKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingWindowKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_MissingInKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingInKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingInKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_MissingStartCondition() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingStartCondition.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_MissingStartCondition.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_TypeDecl() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTumblingWindowClause_TypeDecl_MissingInKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: SlidingWindowClause
-
-    @Test
-    fun testSlidingWindowClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingWindowKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingWindowKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingWindowKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingInKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingInKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingInKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingStartCondition() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingStartCondition.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingStartCondition.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_MissingEndCondition() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingEndCondition.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingEndCondition.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_TypeDecl() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSlidingWindowClause_TypeDecl_MissingInKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl_MissingInKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl_MissingInKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: WindowStartCondition
-
-    @Test
-    fun testWindowStartCondition() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowStartCondition_MissingWhenKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowStartCondition_MissingWhenKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowStartCondition_MissingWhenKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowStartCondition_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowStartCondition_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowStartCondition_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: WindowEndCondition
-
-    @Test
-    fun testWindowEndCondition() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowEndCondition_MissingWhenKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_MissingWhenKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_MissingWhenKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowEndCondition_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowEndCondition_Only() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_Only.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_Only.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowEndCondition_Only_MissingEndKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_Only_MissingEndKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_Only_MissingEndKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: WindowVars
-
-    @Test
-    fun testWindowVars_Empty() {
-        val expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Current() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Current.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Current.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Current_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Current_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Current_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Position() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Position.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Position.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Previous() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Previous_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Previous_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Next() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Next_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_Next_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWindowVars_AllVars() {
-        val expected = loadResource("tests/parser/xquery-3.0/WindowVars_AllVars.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WindowVars_AllVars.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: CountClause
-
-    @Test
-    fun testCountClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/CountClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CountClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCountClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCountClause_MissingVariableIndicator() {
-        val expected = loadResource("tests/parser/xquery-3.0/CountClause_MissingVariableIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CountClause_MissingVariableIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCountClause_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-3.0/CountClause_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CountClause_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: WhereClause
-
-    @Test
-    fun testWhereClause_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/WhereClause_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: GroupByClause
-
-    @Test
-    fun testGroupByClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupByClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupByClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupByClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupByClause_MissingByKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupByClause_MissingByKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupByClause_MissingByKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupByClause_MissingGroupingSpecList() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupByClause_MissingGroupingSpecList.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupByClause_MissingGroupingSpecList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: GroupingSpecList
-
-    @Test
-    fun testGroupingSpecList() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpecList_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpecList_Multiple_MissingGroupingSpec() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple_MissingGroupingSpec.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpecList_Multiple_MissingGroupingSpec.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: GroupingSpec
-
-    @Test
-    fun testGroupingSpec() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_Value() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_Value_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_Value_Equal() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_Equal.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_Equal.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_Value_MissingValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_MissingValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_MissingValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_TypedValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_TypedValue_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_TypedValue_Equal() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_Equal.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_Equal.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_TypedValue_MissingAssignment() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingAssignment.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingAssignment.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_TypedValue_MissingValue() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingValue.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingValue.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_Collation() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Collation.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Collation.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_Collation_MissingUriLiteral() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Collation_MissingUriLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Collation_MissingUriLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testGroupingSpec_ValueAndCollation() {
-        val expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_ValueAndCollation.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_ValueAndCollation.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: OrderByClause
-
-    @Test
-    fun testOrderByClause_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/OrderByClause_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: QuantifiedExpr
-
-    @Test
-    fun testQuantifiedExpr_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/QuantifiedExpr_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/QuantifiedExpr_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: SwitchExpr
-
-    @Test
-    fun testSwitchExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_MissingCaseClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingCaseClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingCaseClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_MissingDefaultKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_MissingReturnKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchExpr_MissingReturnExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: SwitchCaseClause
-
-    @Test
-    fun testSwitchCaseClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchCaseClause_MissingCaseOperand() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingCaseOperand.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingCaseOperand.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchCaseClause_MissingReturnKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchCaseClause_MissingReturnExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSwitchCaseClause_MultipleCases() {
-        val expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MultipleCases.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MultipleCases.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TypeswitchExpr
-
-    @Test
-    fun testTypeswitchExpr_Variable_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypeswitchExpr_Variable_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypeswitchExpr_Variable_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: CaseClause
-
-    @Test
-    fun testCaseClause_Variable_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/CaseClause_Variable_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CaseClause_Variable_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: CaseClause + SequenceTypeUnion
-
-    @Test
-    fun testSequenceTypeUnion() {
-        val expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSequenceTypeUnion_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSequenceTypeUnion_MissingSequenceType() {
-        val expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion_MissingSequenceType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion_MissingSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TryClause + TryTargetExpr + TryCatchExpr
-
-    @Test
-    fun testTryClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/TryClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TryClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTryClause_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: CatchClause + TryCatchExpr
-
-    @Test
-    fun testCatchClause() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_MissingCatchErrorList() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingCatchErrorList.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingCatchErrorList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_MissingOpeningBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingOpeningBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingOpeningBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: CatchErrorList + CatchClause + TryCatchExpr
-
-    @Test
-    fun testCatchErrorList() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchClause.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchErrorList_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchErrorList_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchErrorList_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchErrorList_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchErrorList_Multiple_MissingNameTest() {
-        val expected = loadResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_MissingNameTest.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CatchErrorList_Multiple_MissingNameTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (86) StringConcatExpr")
@@ -7446,54 +7507,41 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.0 :: ValidateExpr
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (101) ValidateExpr")
+    internal inner class ValidateExpr_XQuery30 {
+        @Test
+        @DisplayName("type")
+        fun type() {
+            val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testValidateExpr_Type() {
-        val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("type; compact whitespace")
+        fun type_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing type name")
+        fun missingTypeName() {
+            val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingTypeName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingTypeName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing opening brace")
+        fun missingOpeningBrace() {
+            val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testValidateExpr_Type_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testValidateExpr_Type_MissingTypeName() {
-        val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingTypeName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingTypeName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testValidateExpr_Type_MissingOpeningBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testValidateExpr_Type_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: Pragma
-
-    @Test
-    fun testPragma_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/Pragma_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Pragma_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (106) SimpleMapExpr")
@@ -7530,17 +7578,6 @@ private class XQueryParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
-
-    // region XQuery 3.0 :: ForwardStep
-
-    @Test
-    fun testForwardStep_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/ForwardStep_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ForwardStep_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (117) NodeTest ; XQuery 3.0 EBNF (172) KindTest")
@@ -7661,27 +7698,6 @@ private class XQueryParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
-
-    // region XQuery 3.0 :: VarRef + VarName
-
-    @Test
-    fun testVarRef_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/VarRef_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/VarRef_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: FunctionCall
-
-    @Test
-    fun testFunctionCall_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionCall_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionCall_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (133) FunctionCall ; XQuery 3.0 EBNF (121) ArgumentList")
@@ -7908,27 +7924,6 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.0 :: SingleType
-
-    @Test
-    fun testSingleType_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/SingleType_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SingleType_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TypeDeclaration + AtomicOrUnionType
-
-    @Test
-    fun testTypeDeclaration_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypeDeclaration_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypeDeclaration_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
     @Nested
     @DisplayName("XQuery 3.0 EBNF (170) ItemType ; XQuery 3.0 EBNF (172) KindTest")
     internal inner class ItemType_XQuery30 {
@@ -7940,47 +7935,6 @@ private class XQueryParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
-
-    // region XQuery 3.0 :: AttributeTest + AttribNameOrWildcard + AttributeName
-
-    @Test
-    fun testAttributeTest_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/AttributeTest_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AttributeTest_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: AttributeTest + TypeName
-
-    @Test
-    fun testAttributeTest_TypeName_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/AttributeTest_TypeName_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AttributeTest_TypeName_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ElementTest + ElementNameOrWildcard + ElementName
-
-    @Test
-    fun testElementTest_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/ElementTest_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ElementTest_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ElementTest + TypeName
-
-    @Test
-    fun testElementTest_TypeName_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.0/ElementTest_TypeName_EQName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ElementTest_TypeName_EQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (191) FunctionTest")
@@ -8211,71 +8165,296 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (196) EQName")
+    internal inner class EQName {
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (18) DecimalFormatDecl")
+        fun decimalFormatDecl() {
+            val expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testURIQualifiedName_Wildcard() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_Wildcard.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (27) Annotation")
+        fun annotation() {
+            val expected = loadResource("tests/parser/xquery-3.0/Annotation_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Annotation_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (28) VarDecl")
+        fun varDecl() {
+            val expected = loadResource("tests/parser/xquery-3.0/VarDecl_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VarDecl_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (32) FunctionDecl")
+        fun functionDecl() {
+            val expected = loadResource("tests/parser/xquery-3.0/FunctionDecl_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/FunctionDecl_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (34) Param")
+        fun param() {
+            val expected = loadResource("tests/parser/xquery-3.0/Param_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Param_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (37) OptionDecl")
+        fun optionDecl() {
+            val expected = loadResource("tests/parser/xquery-3.0/OptionDecl_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/OptionDecl_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (44) ForClause")
+        fun forClause() {
+            val expected = loadResource("tests/parser/xquery-3.0/ForClause_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ForClause_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (44) ForClause ; XQuery 3.0 EBNF (47) PositionalVar")
+        fun positionalVar() {
+            val expected = loadResource("tests/parser/xquery-3.0/PositionalVar_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/PositionalVar_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (48) LetClause")
+        fun letClause() {
+            val expected = loadResource("tests/parser/xquery-3.0/LetClause_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/LetClause_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (70) QuantifiedExpr")
+        fun quantifiedExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/QuantifiedExpr_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/QuantifiedExpr_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (74) TypeswitchExpr")
+        fun typeswitchExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/TypeswitchExpr_Variable_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/TypeswitchExpr_Variable_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (75) CaseClause")
+        fun caseClause() {
+            val expected = loadResource("tests/parser/xquery-3.0/CaseClause_Variable_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CaseClause_Variable_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (101) ValidateExpr ; XQuery 3.0 EBNF (190) TypeName")
+        fun validateExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (104) Pragma")
+        fun pragma() {
+            val expected = loadResource("tests/parser/xquery-3.0/Pragma_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/Pragma_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (111) ForwardStep")
+        fun forwardStep() {
+            val expected = loadResource("tests/parser/xquery-3.0/ForwardStep_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ForwardStep_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (127) VarRef ; XQuery 3.0 EBNF (128) VarName")
+        fun varRef() {
+            val expected = loadResource("tests/parser/xquery-3.0/VarRef_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/VarRef_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (133) FunctionCall")
+        fun functionCall() {
+            val expected = loadResource("tests/parser/xquery-3.0/FunctionCall_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/FunctionCall_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (153) CompElemConstructor")
+        fun compElemConstructor() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompElemConstructor_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompElemConstructor_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (155) CompAttrConstructor")
+        fun compAttrConstructor() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompAttrConstructor_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompAttrConstructor_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (166) SingleType")
+        fun singleType() {
+            val expected = loadResource("tests/parser/xquery-3.0/SingleType_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SingleType_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (167) TypeDeclaration ; XQuery 3.0 EBNF (171) AtomicOrUnionType")
+        fun typeDeclaration() {
+            val expected = loadResource("tests/parser/xquery-3.0/TypeDeclaration_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/TypeDeclaration_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (179) AttributeTest ; XQuery 3.0 EBNF (187) AttributeName")
+        fun attributeTest() {
+            val expected = loadResource("tests/parser/xquery-3.0/AttributeTest_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/AttributeTest_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (183) ElementTest ; XQuery 3.0 EBNF (188) ElementName")
+        fun elementTest() {
+            val expected = loadResource("tests/parser/xquery-3.0/ElementTest_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ElementTest_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (190) TypeName")
+        internal inner class TypeName {
+            @Test
+            @DisplayName("XQuery 3.0 EBNF (179) AttributeTest")
+            fun attributeTest() {
+                val expected = loadResource("tests/parser/xquery-3.0/AttributeTest_TypeName_EQName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/AttributeTest_TypeName_EQName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.0 EBNF (183) ElementTest")
+            fun elementTest() {
+                val expected = loadResource("tests/parser/xquery-3.0/ElementTest_TypeName_EQName.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/ElementTest_TypeName_EQName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    // endregion
-    // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral + PredefinedEntityRef
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (201) URIQualifiedName ; XQuery 3.0 EBNF (202) BracedURILiteral")
+    internal inner class URIQualifiedName {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (201) URIQualifiedName ; XQuery 3.0 EBNF (202) BracedURILiteral")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("error recovery: wildcard")
+            fun wildcard() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_Wildcard.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_Wildcard.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
 
-    @Test
-    fun testBracedURILiteral_PredefinedEntityRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (202) BracedURILiteral ; XQuery 3.0 EBNF (203) PredefinedEntityRef")
+        internal inner class PredefinedEntityRef {
+            @Test
+            @DisplayName("predefined entity reference")
+            fun predefinedEntityRef() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: incomplete reference")
+            fun incompleteRef() {
+                val expected =
+                    loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.txt")
+                val actual =
+                    parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: empty reference")
+            fun emptyRef() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_EmptyRef.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_EmptyRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (202) BracedURILiteral ; XQuery 3.0 EBNF (211) CharRef")
+        internal inner class CharRef {
+            @Test
+            @DisplayName("character reference")
+            fun charRef() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: incomplete reference")
+            fun incompleteRef() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_IncompleteRef.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_IncompleteRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: empty numeric reference")
+            fun emptyNumericRef() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyNumericRef.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyNumericRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: empty hexadecimal reference")
+            fun emptyHexadecimalRef() {
+                val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyHexadecimalRef.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyHexadecimalRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    @Test
-    fun testBracedURILiteral_PredefinedEntityRef_IncompleteRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBracedURILiteral_PredefinedEntityRef_EmptyRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_EmptyRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_EmptyRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral + CharRef
-
-    @Test
-    fun testBracedURILiteral_CharRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBracedURILiteral_CharRef_IncompleteRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_IncompleteRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_IncompleteRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBracedURILiteral_CharRef_EmptyNumericRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyNumericRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyNumericRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBracedURILiteral_CharRef_EmptyHexadecimalRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyHexadecimalRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyHexadecimalRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.1 :: DFPropertyName + DecimalFormatDecl
 
     @Test
