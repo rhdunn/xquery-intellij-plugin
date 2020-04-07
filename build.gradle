@@ -130,18 +130,6 @@ configure(allprojects - project(':src')) {
     }
 }
 
-sourceSets {
-    integrationTest {
-        java.srcDir file('src/integrationTest/java')
-        resources.srcDir file('src/integrationTest/resources')
-    }
-}
-
-task integrationTest(type: Test) {
-    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
-}
-
 dependencies {
     compile project(':src:plugin-basex')
     compile project(':src:plugin-existdb')
@@ -156,9 +144,6 @@ dependencies {
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
-
-    integrationTestCompile configurations.testCompile
-    integrationTestRuntime configurations.testRuntime
 }
 
 idea_version = project.property('idea_since_build').toInteger()
