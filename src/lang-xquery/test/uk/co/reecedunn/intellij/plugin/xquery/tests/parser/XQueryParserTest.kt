@@ -7541,6 +7541,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: missing expression")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
@@ -8455,46 +8463,117 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.1 :: DFPropertyName + DecimalFormatDecl
-
     @Test
-    fun testDecimalFormatDecl_Property_XQuery31() {
+    @DisplayName("XQuery 3.1 EBNF (18) DecimalFormatDecl ; XQuery 3.1 EBNF (19) DFPropertyName")
+    fun decimalFormatDecl_XQuery31() {
         val expected = loadResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.txt")
         val actual = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // endregion
-    // region XQuery 3.1 :: EnclosedExpr
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr")
+    internal inner class EnclosedExpr {
+        @Nested
+        @DisplayName("missing Expr")
+        internal inner class MissingExpr {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr")
+            fun enclosedExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-    @Test
-    fun testEnclosedExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (80) EnclosedTryTargetExpr")
+            fun enclosedTryTargetExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/TryClause_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/TryClause_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (81) CatchClause")
+            fun catchClause() {
+                val expected = loadResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (135) OrderedExpr")
+            fun orderedExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (136) UnorderedExpr")
+            fun unorderedExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (148) CommonContent ; XQuery 3.1 EBNF (144) DirAttributeValue")
+            fun dirAttributeValue() {
+                val expected = loadResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (148) CommonContent ; XQuery 3.1 EBNF (147) DirElemContent")
+            fun dirElemContent() {
+                val expected = loadResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (156) CompDocConstructor")
+            fun compDocConstructor() {
+                val expected = loadResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor ; XQuery 3.1 EBNF (162) EnclosedPrefixExpr")
+            fun enclosedPrefixExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor ; XQuery 3.1 EBNF (163) EnclosedURIExpr")
+            fun enclosedUriExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor")
+            fun compTextConstructor() {
+                val expected = loadResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (165) CompCommentConstructor")
+            fun compCommentConstructor() {
+                val expected = loadResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
-
-    // endregion
-    // region XQuery 3.1 :: TryClause + TryTargetExpr + TryCatchExpr
-
-    @Test
-    fun testTryClause_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/TryClause_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TryClause_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: CatchClause + TryCatchExpr
-
-    @Test
-    fun testCatchClause_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
@@ -8556,17 +8635,6 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.1 :: ValidateExpr + ValidationMode
-
-    @Test
-    fun testValidateExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
     @Nested
     @DisplayName("XQuery 3.1 EBNF (121) PostfixExpr ; XQuery 3.1 EBNF (125) Lookup ; XQuery 3.1 EBNF (126) KeySpecifier")
     internal inner class PostfixExpr_Lookup {
@@ -8618,94 +8686,6 @@ private class XQueryParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
-
-    // region XQuery 3.1 :: OrderedExpr
-
-    @Test
-    fun testOrderedExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: UnorderedExpr
-
-    @Test
-    fun testUnorderedExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: DirAttributeValue + CommonContent + EnclosedExpr
-
-    @Test
-    fun testDirAttributeValue_CommonContent_EnclosedExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: DirElemContent + CommonContent + EnclosedExpr
-
-    @Test
-    fun testDirElemContent_CommonContent_EnclosedExpr_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: CompDocConstructor
-
-    @Test
-    fun testCompDocConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: CompNamespaceConstructor
-
-    @Test
-    fun testCompNamespaceConstructor_PrefixExpr_MissingPrefixExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompNamespaceConstructor_MissingURIExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: CompTextConstructor
-
-    @Test
-    fun testCompTextConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: CompCommentConstructor
-
-    @Test
-    fun testCompCommentConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (170) MapConstructor ; XQuery 3.1 EBNF (171) MapConstructorEntry")
@@ -8967,68 +8947,83 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.1 :: StringConstructor + StringConstructorContent
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (177) StringConstructor")
+    internal inner class StringConstructor {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (177) StringConstructor ; XQuery 3.1 EBNF (178) StringConstructorContent")
+        internal inner class StringConstructor {
+            @Test
+            @DisplayName("string constructor")
+            fun stringConstructor() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructor.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructor.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-    @Test
-    fun testStringConstructor() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructor.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+            @Test
+            @DisplayName("error recovery: missing end of string")
+            fun missingEndOfString() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructor_MissingEndOfString.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructor_MissingEndOfString.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructor_Empty.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructor_Empty.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (180) StringConstructorInterpolation")
+        internal inner class StringConstructorInterpolation {
+            @Test
+            @DisplayName("string constructor interpolation")
+            fun stringConstructorInterpolation() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("string constructor interpolation; compact whitespace")
+            fun stringConstructorInterpolation_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing expression")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple expressions")
+            fun multipleExpr() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MultipleExpr.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MultipleExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("at the start of a string constructor")
+            fun atStart() {
+                val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_AtStart.txt")
+                val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_AtStart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
-
-    @Test
-    fun testStringConstructor_MissingEndOfString() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructor_MissingEndOfString.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructor_MissingEndOfString.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConstructor_Empty() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructor_Empty.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructor_Empty.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: StringConstructorInterpolation
-
-    @Test
-    fun testStringConstructorInterpolation() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConstructorInterpolation_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConstructorInterpolation_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConstructorInterpolation_MultipleExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MultipleExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MultipleExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConstructorInterpolation_AtStart() {
-        val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_AtStart.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_AtStart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup ; XQuery 3.1 EBNF (126) KeySpecifier")
