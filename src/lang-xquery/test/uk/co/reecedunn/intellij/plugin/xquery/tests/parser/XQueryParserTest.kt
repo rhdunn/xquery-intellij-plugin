@@ -353,20 +353,16 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("with 'at' sequence; multiple; compact whitespace")
             fun withAtSequence_Multiple_CompactWhitespace() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_CompactWhitespace.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_CompactWhitespace.xq")
+                val expected = loadResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: with 'at' sequence; multiple; missing NCName after comma")
             fun withAtSequence_Multiple_MissingNCNameAfterComma() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_MissingNCNameAfterComma.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_MissingNCNameAfterComma.xq")
+                val expected = loadResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_MissingNCNameAfterComma.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SchemaImport_WithAtSequence_Multiple_MissingNCNameAfterComma.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
@@ -714,10 +710,8 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("error recovery: missing 'element' or 'function' keyword")
         fun missingElementOrFunctionKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_MissingElementOrFunctionKeyword.txt")
-            val actual =
-                parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_MissingElementOrFunctionKeyword.xq")
+            val expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_MissingElementOrFunctionKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_MissingElementOrFunctionKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -756,28 +750,23 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("error recovery: element; missing 'namespace' keyword")
         fun element_MissingNamespaceKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingNamespaceKeyword.txt")
-            val actual =
-                parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingNamespaceKeyword.xq")
+            val expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingNamespaceKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingNamespaceKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("error recovery: function; missing 'namespace' keyword")
         fun function_MissingNamespaceKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingNamespaceKeyword.txt")
-            val actual =
-                parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingNamespaceKeyword.xq")
+            val expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingNamespaceKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingNamespaceKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("error recovery: element; missing 'default' keyword")
         fun element_MissingDefaultKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingDefaultKeyword.txt")
+            val expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingDefaultKeyword.txt")
             val actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingDefaultKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -785,8 +774,7 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("error recovery: function; missing 'default' keyword")
         fun function_MissingDefaultKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingDefaultKeyword.txt")
+            val expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingDefaultKeyword.txt")
             val actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingDefaultKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -3181,8 +3169,7 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("multiple pragmas; compact whitespace")
             fun multiplePragmas_CompactWhitespace() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas_CompactWhitespace.txt")
+                val expected =                    loadResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
@@ -3221,8 +3208,7 @@ private class XQueryParserTest : ParserTestCase() {
             @DisplayName("missing pragma contents; compact whitespace")
             fun missingPragmaContents_CompactWhitespace() {
                 // This is valid according to the XQuery grammar.
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents_CompactWhitespace.txt")
+                val expected =                    loadResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
@@ -5058,30 +5044,24 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("predefined entity reference")
             fun predefinedEntityRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: empty reference")
             fun emptyRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_EmptyRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_EmptyRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_EmptyRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_EmptyRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: incomplete reference")
             fun incompleteRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_IncompleteRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_IncompleteRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_IncompleteRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_PredefinedEntityRef_IncompleteRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
@@ -5116,30 +5096,24 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("error recovery: empty hexadecimal reference")
             fun emptyHexadecimalRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyHexadecimalRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyHexadecimalRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyHexadecimalRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyHexadecimalRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: empty numeric reference")
             fun emptyNumericRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyNumericRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyNumericRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyNumericRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_EmptyNumericRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: incomplete reference")
             fun incompleteRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_IncompleteRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_IncompleteRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_IncompleteRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_CharRef_IncompleteRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
@@ -5202,30 +5176,24 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("predefined entity reference")
             fun predefinedEntityRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: empty reference")
             fun emptyRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_EmptyRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_EmptyRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_EmptyRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_EmptyRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: incomplete reference")
             fun incompleteRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_IncompleteRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_IncompleteRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_IncompleteRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_PredefinedEntityRef_IncompleteRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
@@ -5244,30 +5212,24 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("error recovery: empty hexadecimal reference")
             fun emptyHexadecimalRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyHexadecimalRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyHexadecimalRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyHexadecimalRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyHexadecimalRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: empty numeric reference")
             fun emptyNumericRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyNumericRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyNumericRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyNumericRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_EmptyNumericRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("error recovery: incomplete reference")
             fun incompleteRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_IncompleteRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_IncompleteRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_IncompleteRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_CharRef_IncompleteRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
@@ -5483,8 +5445,7 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("tag name: expression; missing expression")
         fun testCompElemConstructor_ExprTagName_MissingTagNameExpr() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingTagNameExpr.txt")
+            val expected =                loadResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingTagNameExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingTagNameExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -5492,10 +5453,8 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("tag name: expression; missing closing brace")
         fun testCompElemConstructor_ExprTagName_MissingClosingTagNameBrace() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
+            val expected =                loadResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
+            val actual =                parseResource("tests/parser/xquery-1.0/CompElemConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -5578,8 +5537,7 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("tag name: expression; missing expression")
         fun testCompAttrConstructor_ExprTagName_MissingTagNameExpr() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingTagNameExpr.txt")
+            val expected =                loadResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingTagNameExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingTagNameExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -5587,10 +5545,8 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("tag name: expression; missing closing brace")
         fun testCompAttrConstructor_ExprTagName_MissingClosingTagNameBrace() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
+            val expected =                loadResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
+            val actual =                parseResource("tests/parser/xquery-1.0/CompAttrConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -5737,10 +5693,8 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("tag name: expression; missing closing brace")
         fun testCompPIConstructor_ExprTagName_MissingClosingTagNameBrace() {
-            val expected =
-                loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
+            val expected =                loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
+            val actual =                parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -6439,8 +6393,7 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("error recovery: external; default value; missing value")
         fun external_DefaultValue_MissingValue() {
-            val expected =
-                loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.txt")
+            val expected =                loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.txt")
             val actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_MissingValue.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -6719,8 +6672,7 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("error recovery: type declaration; missing 'in' keyword")
             fun typeDecl_MissingInKeyword() {
-                val expected =
-                    loadResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.txt")
+                val expected =                    loadResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.txt")
                 val actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause_TypeDecl_MissingInKeyword.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
@@ -7757,28 +7709,23 @@ private class XQueryParserTest : ParserTestCase() {
         @Test
         @DisplayName("tag name: expression; compact whitespace")
         fun testCompNamespaceConstructor_PrefixExpr_CompactWhitespace() {
-            val expected =
-                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.xq")
+            val expected =                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.txt")
+            val actual =                parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("tag name: expression; missing closing brace")
         fun testCompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace() {
-            val expected =
-                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.xq")
+            val expected =                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.txt")
+            val actual =                parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("content expression; missing expression")
         fun testCompNamespaceConstructor_PrefixExpr_MissingURIExpr() {
-            val expected =
-                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.txt")
+            val expected =                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.txt")
             val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -8410,10 +8357,8 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("error recovery: incomplete reference")
             fun incompleteRef() {
-                val expected =
-                    loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.xq")
+                val expected =                    loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.txt")
+                val actual =                    parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
@@ -8992,10 +8937,8 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("string constructor interpolation; compact whitespace")
             fun stringConstructorInterpolation_CompactWhitespace() {
-                val expected =
-                    loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.txt")
-                val actual =
-                    parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.xq")
+                val expected =                    loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.txt")
+                val actual =                    parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
