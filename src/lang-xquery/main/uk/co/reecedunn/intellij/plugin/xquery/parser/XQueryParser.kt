@@ -3628,11 +3628,14 @@ class XQueryParser : XPathParser() {
                     parseDirElemContent(builder, depth + 1)
 
                     if (builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)) {
-                        // NOTE: The XQueryLexer ensures that CLOSE_XML_TAG is followed by an NCNAME/QNAME.
-                        parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+                        var haveError = false
+                        if (parseQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+                            builder.error(XQueryBundle.message("parser.error.expected-qname"))
+                            haveError = true
+                        }
 
                         builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
-                        if (!builder.matchTokenType(XQueryTokenType.END_XML_TAG)) {
+                        if (!builder.matchTokenType(XQueryTokenType.END_XML_TAG) && !haveError) {
                             builder.error(XPathBundle.message("parser.error.expected", ">"))
                         }
                     } else {

@@ -62,6 +62,7 @@
         under the cursor is an XPath element. This is a workaround for
         <a href="https://youtrack.jetbrains.com/issue/IDEA-232100">IDEA-232100</a>.
       </li>
+      <li>Report an error when a closing XML tag does not contain a QName, e.g. <code>&lt;a&gt;error&lt;/&gt;`.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

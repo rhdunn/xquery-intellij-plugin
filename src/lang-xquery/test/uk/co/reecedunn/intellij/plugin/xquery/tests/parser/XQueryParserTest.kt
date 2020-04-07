@@ -4941,6 +4941,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: empty closing tag QName")
+        fun emptyCloseTagQName() {
+            val expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_EmptyCloseTag.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_EmptyCloseTag.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested

@@ -7,6 +7,8 @@
 1.  Fixed displaying the active structure item in the nav bar when the element
     under the cursor is an XPath element. This is a workaround for
     [IDEA-232100](https://youtrack.jetbrains.com/issue/IDEA-232100).
+1.  Report an error when a closing XML tag does not contain a QName, e.g.
+    `<a>error</>`.
 
 Run Configurations:
 
