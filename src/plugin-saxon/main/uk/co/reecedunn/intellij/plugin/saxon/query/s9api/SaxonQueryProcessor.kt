@@ -46,6 +46,7 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
             } catch (e: InvocationTargetException) {
                 when (((e.targetException as? RuntimeException)?.cause as? ClassNotFoundException)?.message) {
                     "com.saxonica.config.EnterpriseConfiguration" -> throw UnsupportedSaxonConfiguration("EE")
+                    "com.saxonica.config.ProfessionalConfiguration" -> throw UnsupportedSaxonConfiguration("PE")
                     else -> throw e
                 }
             }
