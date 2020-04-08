@@ -96,7 +96,7 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
         types = buttonGroup {
             notSpecifiedType = radio(grid(0, 0)) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
-                isVisible = !allowUnspecified
+                isVisible = allowUnspecified
             }
             localFileType = radio(grid(0, 1)) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
