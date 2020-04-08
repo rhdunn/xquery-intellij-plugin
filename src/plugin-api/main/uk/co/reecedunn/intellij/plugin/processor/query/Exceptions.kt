@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.lang.Language
 import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import java.io.FileNotFoundException
 import java.lang.UnsupportedOperationException
 import java.lang.reflect.InvocationTargetException
 import java.net.UnknownHostException
@@ -26,6 +27,8 @@ import java.net.UnknownHostException
 class MissingJarFileException(jarType: String) : RuntimeException("Missing JAR file for $jarType.")
 
 class UnsupportedJarFileException(jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
+
+class ConfigurationFileNotFoundException(cause: Throwable) : RuntimeException("Configuration file not found.", cause)
 
 class MissingHostNameException : RuntimeException("Missing hostname.")
 
@@ -35,6 +38,8 @@ class UnsupportedQueryType(val language: Language) : RuntimeException("Unsupport
 
 fun Throwable.toQueryUserMessage(): String {
     return when (this) {
+        is ConfigurationFileNotFoundException ->
+            PluginApiBundle.message("processor.exception.configuration-file-not-found")
         is MissingJarFileException ->
             PluginApiBundle.message("processor.exception.missing-jar")
         is UnsupportedJarFileException ->

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
 import java.io.Closeable
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.InputStream
 
 class QueryProcessorSettings : Closeable {
@@ -72,7 +73,14 @@ class QueryProcessorSettings : Closeable {
             apiId = value.id
         }
 
-    val configuration: InputStream? get() = configurationPath?.let { FileInputStream(it) }
+    val configuration: InputStream?
+        get() {
+            return try {
+                configurationPath?.let { FileInputStream(it) }
+            } catch (e: FileNotFoundException) {
+                throw ConfigurationFileNotFoundException(e)
+            }
+        }
 
     private var instance: QueryProcessorInstanceManager? = null
 
