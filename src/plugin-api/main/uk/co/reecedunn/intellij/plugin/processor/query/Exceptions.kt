@@ -24,42 +24,46 @@ import java.lang.UnsupportedOperationException
 import java.lang.reflect.InvocationTargetException
 import java.net.UnknownHostException
 
+class ConfigurationFileNotFoundException(cause: Throwable) : RuntimeException("Configuration file not found.", cause)
+
+class HostConnectionException(val host: String, cause: Throwable) : RuntimeException("Connection error.", cause)
+
+class MissingHostNameException : RuntimeException("Missing hostname.")
+
 class MissingJarFileException(jarType: String) : RuntimeException("Missing JAR file for $jarType.")
 
 class UnsupportedJarFileException(jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
 
-class ConfigurationFileNotFoundException(cause: Throwable) : RuntimeException("Configuration file not found.", cause)
-
-class MissingHostNameException : RuntimeException("Missing hostname.")
-
-class HostConnectionException(val host: String, cause: Throwable) : RuntimeException("Connection error.", cause)
-
 class UnsupportedQueryType(val language: Language) : RuntimeException("Unsupported query type: ${language.displayName}")
+
+class UnsupportedSaxonConfiguration(val edition: String) : RuntimeException("Unsupported Saxon edition: $edition")
 
 fun Throwable.toQueryUserMessage(): String {
     return when (this) {
         is ConfigurationFileNotFoundException ->
             PluginApiBundle.message("processor.exception.configuration-file-not-found")
-        is MissingJarFileException ->
-            PluginApiBundle.message("processor.exception.missing-jar")
-        is UnsupportedJarFileException ->
-            PluginApiBundle.message("processor.exception.unsupported-jar")
-        is MissingHostNameException ->
-            PluginApiBundle.message("processor.exception.missing-hostname")
-        is UnknownHostException ->
-            PluginApiBundle.message("processor.exception.host-connection-error", message ?: "")
-        is HttpHostConnectException ->
-            PluginApiBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
         is HostConnectionException ->
             PluginApiBundle.message("processor.exception.host-connection-error", host)
-        is UnsupportedOperationException ->
-            PluginApiBundle.message("processor.exception.unsupported-operation")
-        is InvocationTargetException ->
-            targetException.toQueryUserMessage()
+        is HttpHostConnectException ->
+            PluginApiBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
         is HttpStatusException, is IllegalArgumentException, is IllegalStateException ->
             message!!
+        is InvocationTargetException ->
+            targetException.toQueryUserMessage()
+        is MissingHostNameException ->
+            PluginApiBundle.message("processor.exception.missing-hostname")
+        is MissingJarFileException ->
+            PluginApiBundle.message("processor.exception.missing-jar")
+        is UnknownHostException ->
+            PluginApiBundle.message("processor.exception.host-connection-error", message ?: "")
+        is UnsupportedSaxonConfiguration ->
+            PluginApiBundle.message("processor.exception.saxon.unsupported-edition", this.edition)
         is QueryError ->
             description!!
+        is UnsupportedJarFileException ->
+            PluginApiBundle.message("processor.exception.unsupported-jar")
+        is UnsupportedOperationException ->
+            PluginApiBundle.message("processor.exception.unsupported-operation")
         else ->
             throw this
     }

@@ -28,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 import uk.co.reecedunn.intellij.plugin.saxon.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
+import java.lang.RuntimeException
+import java.lang.reflect.InvocationTargetException
 import javax.xml.transform.Source
 
 internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val source: Source?) :
@@ -39,12 +41,20 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
         if (source == null)
             Processor(classLoader, true)
         else
-            Processor(classLoader, source)
+            try {
+                Processor(classLoader, source)
+            } catch (e: InvocationTargetException) {
+                when (((e.targetException as? RuntimeException)?.cause as? ClassNotFoundException)?.message) {
+                    "com.saxonica.config.EnterpriseConfiguration" -> throw UnsupportedSaxonConfiguration("EE")
+                    else -> throw e
+                }
+            }
     }
 
-    override val version get(): String = check(null, classLoader) {
-        processor.version
-    }
+    override val version
+        get(): String = check(null, classLoader) {
+            processor.version
+        }
 
     override val servers: List<String> = listOf()
 
