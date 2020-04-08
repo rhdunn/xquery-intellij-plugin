@@ -120,15 +120,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             }
         }
 
-        label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), grid(0, 1))
-        rdfOutputFormat = comboBox(grid(1, 1).horizontal().hgap().vgap()) {
-            renderer = LanguageCellRenderer()
-            addItem(null)
-            RDF_FORMATS.forEach { addItem(it) }
-        }
-
-        label(PluginApiBundle.message("xquery.configurations.processor.run-query-from.label"), grid(0, 2).spanCols().vgap(6, LayoutPosition.Both))
-        scriptFile = queryProcessorDataSource(grid(0, 3).horizontal().spanCols().vgap(6)) {
+        label(PluginApiBundle.message("xquery.configurations.processor.run-query-from.label"), grid(0, 1).spanCols().vgap(6, LayoutPosition.Both))
+        scriptFile = queryProcessorDataSource(grid(0, 2).horizontal().spanCols().vgap(6)) {
             val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
             descriptor.title = PluginApiBundle.message("browser.choose.script-file")
             addBrowseFolderListener(null, null, project, descriptor)
@@ -139,8 +132,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             }
         }
 
-        xpathSubsetLabel = label(PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), grid(0, 4))
-        xpathSubset = comboBox(grid(0, 4).horizontal().hgap().vgap()) {
+        xpathSubsetLabel = label(PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), grid(0, 3))
+        xpathSubset = comboBox(grid(1, 3).horizontal().hgap().vgap()) {
             renderer = coloredListCellRenderer { value ->
                 clear()
                 value?.let { append(it.displayName) }
@@ -149,11 +142,11 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             addItem(XPathSubset.XsltPattern)
         }
 
-        updating = checkBox(grid(0, 5).spanCols()) {
+        updating = checkBox(grid(0, 4).spanCols()) {
             text = PluginApiBundle.message("xquery.configurations.processor.updating.label")
         }
 
-        spacer(grid(0, 6).vertical())
+        spacer(grid(0, 5).vertical())
     }
 
     // endregion
@@ -273,10 +266,19 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var reformatResults: JCheckBox
 
     private val outputPanel: JPanel = panel {
-        reformatResults = checkBox(grid(0, 0).horizontal()) {
+        label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), grid(0, 0))
+        rdfOutputFormat = comboBox(grid(1, 0).horizontal().hgap().vgap()) {
+            renderer = LanguageCellRenderer()
+            addItem(null)
+            RDF_FORMATS.forEach { addItem(it) }
+        }
+
+        reformatResults = checkBox(grid(0, 1).horizontal().spanCols(2)) {
             text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
         }
-        spacer(grid(0, 1).vertical())
+
+        spacer(grid(0, 2).vertical())
+        spacer(grid(1, 2).horizontal())
     }
 
     // endregion
