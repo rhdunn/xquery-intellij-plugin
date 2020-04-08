@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
-import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -46,25 +45,6 @@ import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
     SettingsEditor<QueryProcessorRunConfiguration>() {
-
-    private var editor: QueryProcessorRunConfigurationEditorUI? = null
-
-    override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationEditorUI(project, *languages)
-        return editor?.panel!!
-    }
-
-    override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
-        editor!!.reset(configuration)
-    }
-
-    override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
-        editor!!.apply(configuration)
-    }
-}
-
-class QueryProcessorRunConfigurationEditorUI(private val project: Project, private vararg val languages: Language) :
-    SettingsUI<QueryProcessorRunConfiguration> {
     // region Manage Query Processor Dialog
 
     private lateinit var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>
@@ -322,7 +302,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
     }
 
-    override val panel: JPanel = tabbedPanel {
+    private val panel: JPanel = tabbedPanel {
         tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), queryPanel)
         tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), databasePanel)
         inputLabel?.let { tab(it, inputPanel) }
@@ -330,37 +310,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
-    // region SettingsUI
+    // region SettingsEditor
 
-    override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
-        if ((queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id != configuration.processorId)
-            return true
-        if ((rdfOutputFormat.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
-            return true
-        if ((server.selectedItem as? String) != configuration.server)
-            return true
-        if ((database.selectedItem as? String) != configuration.database)
-            return true
-        if (modulePath.textField.text.nullize() != configuration.modulePath)
-            return true
-        if (scriptFile.type != configuration.scriptSource)
-            return true
-        if (scriptFile.path != configuration.scriptFilePath)
-            return true
-        if (updating.isSelected != configuration.updating)
-            return true
-        if (xpathSubset.selectedItem != configuration.xpathSubset)
-            return true
-        if (contextItem.type != configuration.contextItemSource)
-            return true
-        if (contextItem.path != configuration.contextItemValue)
-            return true
-        if (reformatResults.isSelected != configuration.reformatResults)
-            return true
-        return false
-    }
+    override fun createEditor(): JComponent = panel
 
-    override fun reset(configuration: QueryProcessorRunConfiguration) {
+    override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
         queryProcessor.childComponent.let {
             (0 until it.itemCount).forEach { i ->
                 if (it.getItemAt(i)?.settings?.id == configuration.processorId) {
@@ -385,7 +339,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
     }
 
-    override fun apply(configuration: QueryProcessorRunConfiguration) {
+    override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId =
             (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
         configuration.rdfOutputFormat = rdfOutputFormat.selectedItem as? Language
