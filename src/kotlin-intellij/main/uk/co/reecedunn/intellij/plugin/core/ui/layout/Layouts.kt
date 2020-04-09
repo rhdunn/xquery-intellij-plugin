@@ -28,7 +28,6 @@ import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
-import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBInsets
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
@@ -208,13 +207,11 @@ fun dialog(title: String, init: DialogBuilder.() -> Unit): DialogBuilder {
 // region tabbed panel
 
 fun tabbedPanel(init: JTabbedPane.() -> Unit): JPanel = panel {
-    val constraints = grid(0, 0)
-    constraints.fill = GridConstraints.FILL_HORIZONTAL
-    constraints.weightx = 1.0
-
-    val pane = JBTabbedPane()
-    pane.init()
-    add(pane, constraints)
+    row {
+        val pane = JBTabbedPane()
+        pane.init()
+        add(pane, column.horizontal())
+    }
 }
 
 fun JTabbedPane.tab(title: String, component: Component) {
