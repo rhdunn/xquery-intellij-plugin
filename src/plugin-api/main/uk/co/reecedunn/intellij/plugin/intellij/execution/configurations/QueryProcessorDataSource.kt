@@ -94,12 +94,6 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     internal val panel: JPanel = panel {
         types = buttonGroup {
             row {
-                notSpecifiedType = radio(column.vgap()) {
-                    text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
-                    isVisible = allowUnspecified
-                }
-            }
-            row {
                 localFileType = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
                 }
@@ -112,8 +106,14 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
                 databaseModulePath = textField(column.horizontal().hgap().vgap())
             }
             row {
-                activeEditorFileType = radio(column) {
+                activeEditorFileType = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
+                }
+            }
+            row {
+                notSpecifiedType = radio(column) {
+                    text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
+                    isVisible = allowUnspecified
                 }
             }
         }
