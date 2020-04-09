@@ -144,37 +144,42 @@ class QueryLogViewerUI(val project: Project) {
     // region Form
 
     val panel = panel {
-        panel(grid(0, 0).horizontal().padding(4, 2)) {
-            label(PluginApiBundle.message("logviewer.filter.query-processor"), grid(0, 0))
-            queryProcessor = comboBox<QueryProcessorSettingsWithVersionCache>(grid(1, 0).hgap(LayoutPosition.Both)) {
-                preferredSize = Dimension(200, preferredSize.height)
+        row {
+            panel(column.horizontal().padding(4, 2)) {
+                row {
+                    label(PluginApiBundle.message("logviewer.filter.query-processor"), column)
+                    queryProcessor = comboBox(column.hgap(LayoutPosition.Both)) {
+                        preferredSize = Dimension(200, preferredSize.height)
 
-                val model = QueryProcessorSettingsModel()
-                this.model = model
+                        val model = QueryProcessorSettingsModel()
+                        this.model = model
 
-                renderer = QueryProcessorSettingsCellRenderer()
-                addActionListener {
-                    populateLogFiles()
+                        renderer = QueryProcessorSettingsCellRenderer()
+                        addActionListener {
+                            populateLogFiles()
+                        }
+
+                        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
+                    }
+
+                    label(PluginApiBundle.message("logviewer.filter.log-file"), column)
+                    logFile = comboBox(column.hgap(LayoutPosition.Both)) {
+                        preferredSize = Dimension(200, preferredSize.height)
+
+                        addActionListener {
+                            populateLogFile(reloadLogFile = true)
+                        }
+                    }
+
+                    spacer(column.horizontal())
                 }
-
-                QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
             }
-
-            label(PluginApiBundle.message("logviewer.filter.log-file"), grid(2, 0))
-            logFile = comboBox(grid(3, 0).hgap(LayoutPosition.Both)) {
-                preferredSize = Dimension(200, preferredSize.height)
-
-                addActionListener {
-                    populateLogFile(reloadLogFile = true)
-                }
-            }
-
-            spacer(grid(4, 0).horizontal())
         }
-
-        logConsole = textConsole(project, grid(0, 1).fill()) {
-            setConsoleBorder(Borders.ConsoleToolbarTop)
-            createActionToolbar(ActionPlaces.UNKNOWN)
+        row {
+            logConsole = textConsole(project, column.fill()) {
+                setConsoleBorder(Borders.ConsoleToolbarTop)
+                createActionToolbar(ActionPlaces.UNKNOWN)
+            }
         }
 
         populateLogFiles()

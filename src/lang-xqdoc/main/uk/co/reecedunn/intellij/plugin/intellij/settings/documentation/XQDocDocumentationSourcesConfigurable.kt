@@ -37,30 +37,33 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
     override fun getDisplayName(): String = XQDocBundle.message("settings.document-sources.title")
 
     override fun createComponent(): JComponent? = panel {
-        label(XQDocBundle.message("documentation-source.cache-path.label"), grid(0, 0))
-        cachePath = textFieldWithBrowseButton(grid(1, 0).horizontal().hgap().vgap()) {
-            val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-            addBrowseFolderListener(null, null, null, descriptor)
+        row {
+            label(XQDocBundle.message("documentation-source.cache-path.label"), column)
+            cachePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                addBrowseFolderListener(null, null, null, descriptor)
+            }
         }
-
-        toolbarPanel(grid(0, 1).fill().spanCols()) {
-            action(XQDocBundle.message("action.download.label"), AllIcons.Actions.Download) {
-                sources.selectedObject?.let {
-                    XQDocDocumentationDownloader.getInstance().download(it)
-                }
-            }
-
-            sources = tableView {
-                columns {
-                    nameColumn()
-                    versionColumn()
-                    statusColumn()
+        row {
+            toolbarPanel(column.fill().spanCols()) {
+                action(XQDocBundle.message("action.download.label"), AllIcons.Actions.Download) {
+                    sources.selectedObject?.let {
+                        XQDocDocumentationDownloader.getInstance().download(it)
+                    }
                 }
 
-                XQDocDocumentationSourceProvider.allSources.forEach { source -> add(source) }
-                XQDocDocumentationDownloader.getInstance().addListener(this@XQDocDocumentationSourcesConfigurable)
+                sources = tableView {
+                    columns {
+                        nameColumn()
+                        versionColumn()
+                        statusColumn()
+                    }
+
+                    XQDocDocumentationSourceProvider.allSources.forEach { source -> add(source) }
+                    XQDocDocumentationDownloader.getInstance().addListener(this@XQDocDocumentationSourcesConfigurable)
+                }
+                sources
             }
-            sources
         }
     }
 

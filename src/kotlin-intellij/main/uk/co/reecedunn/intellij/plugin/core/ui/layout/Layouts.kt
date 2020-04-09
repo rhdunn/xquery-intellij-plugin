@@ -25,6 +25,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.compat.ui.scale.JBUIScale
 import com.intellij.openapi.ui.DialogBuilder
+import com.intellij.ui.components.JBPanel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
 import com.intellij.uiDesigner.core.GridConstraints
@@ -38,21 +39,30 @@ import javax.swing.JTabbedPane
 // region panel
 
 fun panel(layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
-    val panel = JPanel(layout)
+    val panel = JBPanel<JBPanel<*>>(layout)
     panel.init()
     return panel
 }
 
-fun panel(init: JPanel.() -> Unit): JPanel = panel(GridBagLayout(), init)
+fun panel(init: GridPanel.() -> Unit): GridPanel {
+    val panel = GridPanel()
+    panel.init()
+    return panel
+}
 
 fun Container.panel(constraints: Any?, layout: LayoutManager, init: JPanel.() -> Unit): JPanel {
-    val panel = JPanel(layout)
+    val panel = JBPanel<JBPanel<*>>(layout)
     panel.init()
     add(panel, constraints)
     return panel
 }
 
-fun Container.panel(constraints: Any?, init: JPanel.() -> Unit): JPanel = panel(constraints, GridBagLayout(), init)
+fun Container.panel(constraints: Any?, init: GridPanel.() -> Unit): GridPanel {
+    val panel = GridPanel()
+    panel.init()
+    add(panel, constraints)
+    return panel
+}
 
 // endregion
 // region grid
@@ -150,6 +160,23 @@ fun GridBagConstraints.fill(weightx: Double = 1.0, weighty: Double = 1.0): GridB
     this.weighty = weighty
     return this
 }
+
+// endregion
+// region grid panel
+
+class GridPanel : JBPanel<GridPanel>(GridBagLayout()) {
+    var currentRow: Int = 0
+    var currentCol: Int = 0
+}
+
+fun GridPanel.row(init: GridPanel.() -> Unit): GridPanel {
+    this.init()
+    currentCol = 0
+    currentRow++
+    return this
+}
+
+val GridPanel.column: GridBagConstraints get() = grid(currentCol++, currentRow)
 
 // endregion
 // region scrollable

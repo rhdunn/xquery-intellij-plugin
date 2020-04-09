@@ -93,23 +93,28 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
 
     internal val panel: JPanel = panel {
         types = buttonGroup {
-            notSpecifiedType = radio(grid(0, 0)) {
-                text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
-                isVisible = allowUnspecified
+            row {
+                notSpecifiedType = radio(column) {
+                    text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
+                    isVisible = allowUnspecified
+                }
             }
-
-            localFileType = radio(grid(0, 1)) {
-                text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
+            row {
+                localFileType = radio(column) {
+                    text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
+                }
+                localFilePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap())
             }
-            localFilePath = textFieldWithBrowseButton(grid(1, 1).horizontal().hgap().vgap())
-
-            databaseModuleType = radio(grid(0, 2)) {
-                text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
+            row {
+                databaseModuleType = radio(column) {
+                    text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
+                }
+                databaseModulePath = textField(column.horizontal().hgap().vgap())
             }
-            databaseModulePath = textField(grid(1, 2).horizontal().hgap().vgap())
-
-            activeEditorFileType = radio(grid(0, 3)) {
-                text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
+            row {
+                activeEditorFileType = radio(column) {
+                    text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
+                }
             }
         }
     }

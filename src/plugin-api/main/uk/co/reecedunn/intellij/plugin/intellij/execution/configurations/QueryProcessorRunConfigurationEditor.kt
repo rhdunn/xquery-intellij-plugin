@@ -108,45 +108,58 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         model = QueryProcessorSettingsModel()
         QueryProcessors.getInstance().processors.addToModel(model)
 
-        label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), grid(0, 0))
-        queryProcessor = componentWithBrowseButton(grid(1, 0).horizontal().hgap().vgap(), manageQueryProcessorsAction) {
-            comboBox<QueryProcessorSettingsWithVersionCache>(model) {
-                renderer = QueryProcessorSettingsCellRenderer()
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column)
+            queryProcessor = componentWithBrowseButton(column.horizontal().hgap().vgap(), manageQueryProcessorsAction) {
+                comboBox<QueryProcessorSettingsWithVersionCache>(model) {
+                    renderer = QueryProcessorSettingsCellRenderer()
+                    addActionListener {
+                        updateUI(false)
+                        populateServerUI()
+                        populateDatabaseUI()
+                    }
+                }
+            }
+        }
+        row {
+            label(
+                PluginApiBundle.message("xquery.configurations.processor.run-query-from.label"),
+                column.spanCols().vgap(6, LayoutPosition.Both)
+            )
+        }
+        row {
+            scriptFile = queryProcessorDataSource(column.horizontal().spanCols().vgap(6)) {
+                val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
+                descriptor.title = PluginApiBundle.message("browser.choose.script-file")
+                addBrowseFolderListener(null, null, project, descriptor)
                 addActionListener {
-                    updateUI(false)
-                    populateServerUI()
-                    populateDatabaseUI()
+                    if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
+                        updateUI(true)
+                    }
                 }
             }
         }
-
-        label(PluginApiBundle.message("xquery.configurations.processor.run-query-from.label"), grid(0, 1).spanCols().vgap(6, LayoutPosition.Both))
-        scriptFile = queryProcessorDataSource(grid(0, 2).horizontal().spanCols().vgap(6)) {
-            val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
-            descriptor.title = PluginApiBundle.message("browser.choose.script-file")
-            addBrowseFolderListener(null, null, project, descriptor)
-            addActionListener {
-                if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
-                    updateUI(true)
+        row {
+            xpathSubsetLabel = label(
+                PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), column
+            )
+            xpathSubset = comboBox(column.horizontal().hgap().vgap()) {
+                renderer = coloredListCellRenderer { value ->
+                    clear()
+                    value?.let { append(it.displayName) }
                 }
+                addItem(XPathSubset.XPath)
+                addItem(XPathSubset.XsltPattern)
             }
         }
-
-        xpathSubsetLabel = label(PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), grid(0, 3))
-        xpathSubset = comboBox(grid(1, 3).horizontal().hgap().vgap()) {
-            renderer = coloredListCellRenderer { value ->
-                clear()
-                value?.let { append(it.displayName) }
+        row {
+            updating = checkBox(column.spanCols()) {
+                text = PluginApiBundle.message("xquery.configurations.processor.updating.label")
             }
-            addItem(XPathSubset.XPath)
-            addItem(XPathSubset.XsltPattern)
         }
-
-        updating = checkBox(grid(0, 4).spanCols()) {
-            text = PluginApiBundle.message("xquery.configurations.processor.updating.label")
+        row {
+            spacer(column.vertical())
         }
-
-        spacer(grid(0, 5).vertical())
     }
 
     // endregion
@@ -205,29 +218,34 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     }
 
     private val databasePanel: JPanel = panel {
-        label(PluginApiBundle.message("xquery.configurations.processor.server.label"), grid(0, 0))
-        server = comboBox(grid(1, 0).horizontal().hgap().vgap()) {
-            isEditable = true
-            addItem(null)
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column)
+            server = comboBox(column.horizontal().hgap().vgap()) {
+                isEditable = true
+                addItem(null)
+            }
         }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column)
+            modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                descriptor.title = PluginApiBundle.message("browser.choose.module-path")
 
-        label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), grid(0, 1))
-        modulePath = textFieldWithBrowseButton(grid(1, 1).horizontal().hgap().vgap()) {
-            val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-            descriptor.title = PluginApiBundle.message("browser.choose.module-path")
-
-            modulePath = TextFieldWithBrowseButton()
-            addBrowseFolderListener(null, null, project, descriptor)
+                modulePath = TextFieldWithBrowseButton()
+                addBrowseFolderListener(null, null, project, descriptor)
+            }
         }
-
-        label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), grid(0, 2))
-        database = comboBox(grid(1, 2).horizontal().hgap()) {
-            isEditable = true
-            addItem(null)
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
+            database = comboBox(column.horizontal().hgap()) {
+                isEditable = true
+                addItem(null)
+            }
         }
-
-        spacer(grid(0, 3).vertical())
-        spacer(grid(1, 3).horizontal())
+        row {
+            spacer(column.vertical())
+            spacer(column.horizontal())
+        }
     }
 
     // endregion
@@ -252,12 +270,16 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
 
     private val inputPanel: JPanel = panel {
-        contextItem = queryProcessorDataSource(grid(0, 0).horizontal(), allowUnspecified = true) {
-            val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
-            descriptor.title = PluginApiBundle.message("browser.choose.context-item")
-            addBrowseFolderListener(null, null, project, descriptor)
+        row {
+            contextItem = queryProcessorDataSource(column.horizontal(), allowUnspecified = true) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
+                descriptor.title = PluginApiBundle.message("browser.choose.context-item")
+                addBrowseFolderListener(null, null, project, descriptor)
+            }
         }
-        spacer(grid(0, 1).vertical())
+        row {
+            spacer(column.vertical())
+        }
     }
 
     // endregion
@@ -266,19 +288,23 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var reformatResults: JCheckBox
 
     private val outputPanel: JPanel = panel {
-        label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), grid(0, 0))
-        rdfOutputFormat = comboBox(grid(1, 0).horizontal().hgap().vgap()) {
-            renderer = LanguageCellRenderer()
-            addItem(null)
-            RDF_FORMATS.forEach { addItem(it) }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), column)
+            rdfOutputFormat = comboBox(column.horizontal().hgap().vgap()) {
+                renderer = LanguageCellRenderer()
+                addItem(null)
+                RDF_FORMATS.forEach { addItem(it) }
+            }
         }
-
-        reformatResults = checkBox(grid(0, 1).horizontal().spanCols(2)) {
-            text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
+        row {
+            reformatResults = checkBox(column.horizontal().spanCols()) {
+                text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
+            }
         }
-
-        spacer(grid(0, 2).vertical())
-        spacer(grid(1, 2).horizontal())
+        row {
+            spacer(column.vertical())
+            spacer(column.horizontal())
+        }
     }
 
     // endregion

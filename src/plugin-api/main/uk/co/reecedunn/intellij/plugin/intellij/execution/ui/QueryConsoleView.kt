@@ -68,18 +68,20 @@ class QueryConsoleView(val project: Project, private val console: ConsoleViewEx)
     }
 
     private fun createResultPanel(): JComponent = panel {
-        panel(grid(0, 0).horizontal(), VerticalLayout(0)) {
-            summary = label { border = EmptyBorder(5, 4, 5, 4) }
-            border = Borders.TableHeaderBottom
+        row {
+            panel(column.horizontal(), VerticalLayout(0)) {
+                summary = label { border = EmptyBorder(5, 4, 5, 4) }
+                border = Borders.TableHeaderBottom
+            }
         }
-        scrollable(grid(0, 1).fill()) {
-            queryResultTable {
-                selectionModel.addListSelectionListener {
-                    selectedObject?.second?.let { range ->
-                        console.scrollToTop(range.offset)
+        row {
+            scrollable(column.fill()) {
+                queryResultTable {
+                    selectionModel.addListSelectionListener {
+                        selectedObject?.second?.let { console.scrollToTop(it.offset) }
                     }
+                    registerQueryTable(this)
                 }
-                registerQueryTable(this)
             }
         }
     }

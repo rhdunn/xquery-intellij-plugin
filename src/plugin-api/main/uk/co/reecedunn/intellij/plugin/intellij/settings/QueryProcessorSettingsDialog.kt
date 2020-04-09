@@ -114,64 +114,73 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     private lateinit var errorMessage: JLabel
 
     override val panel: JPanel = panel {
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.name.label"), grid(0, 0))
-        description = textField(grid(1, 0).horizontal().hgap().vgap()) { minimumSize = Dimension(250, -1) }
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.name.label"), column)
+            description = textField(column.horizontal().hgap().vgap()) { minimumSize = Dimension(250, -1) }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.implementation.label"), column)
+            api = comboBox(column.horizontal().hgap().vgap()) {
+                renderer = coloredListCellRenderer { value ->
+                    if (value != null) {
+                        append(value.displayName)
+                    }
+                }
 
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.implementation.label"), grid(0, 1))
-        api = comboBox(grid(1, 1).horizontal().hgap().vgap()) {
-            renderer = coloredListCellRenderer { value ->
-                if (value != null) {
-                    append(value.displayName)
+                QueryProcessorApis.forEach { value -> addItem(value) }
+                addActionListener(selectQueryProcessor)
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.api-jar.label"), column)
+            jar = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                addBrowseFolderListener(
+                    PluginApiBundle.message("browser.choose.implementation-api-jar"), null,
+                    project,
+                    FileTypeDescriptor(PluginApiBundle.message("browser.choose.implementation-api-jar"), "jar")
+                )
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.config-path.label"), column)
+            configuration = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                addBrowseFolderListener(
+                    PluginApiBundle.message("browser.choose.configuration"), null,
+                    project,
+                    FileChooserDescriptorFactory.createSingleFileDescriptor()
+                )
+            }
+        }
+        row {
+            standalone = checkBox(column.horizontal().spanCols().vgap()) {
+                text = PluginApiBundle.message("xquery.settings.dialog.query-processor.standalone.label")
+                addActionListener {
+                    val serverEnabled = !isSelected
+                    hostname.isEnabled = serverEnabled
+                    databasePort.isEnabled = serverEnabled
+                    username.isEnabled = serverEnabled
+                    password.isEnabled = serverEnabled
                 }
             }
-
-            QueryProcessorApis.forEach { value -> addItem(value) }
-            addActionListener(selectQueryProcessor)
         }
-
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.api-jar.label"), grid(0, 2))
-        jar = textFieldWithBrowseButton(grid(1, 2).horizontal().hgap().vgap()) {
-            addBrowseFolderListener(
-                PluginApiBundle.message("browser.choose.implementation-api-jar"), null,
-                project,
-                FileTypeDescriptor(PluginApiBundle.message("browser.choose.implementation-api-jar"), "jar")
-            )
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.hostname.label"), column)
+            hostname = textField(column.horizontal().hgap().vgap())
         }
-
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.config-path.label"), grid(0, 3))
-        configuration = textFieldWithBrowseButton(grid(1, 3).horizontal().hgap().vgap()) {
-            addBrowseFolderListener(
-                PluginApiBundle.message("browser.choose.configuration"), null,
-                project,
-                FileChooserDescriptorFactory.createSingleFileDescriptor()
-            )
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.database-port.label"), column)
+            databasePort = textField(column.horizontal().hgap().vgap())
         }
-
-        standalone = checkBox(grid(0, 4).horizontal().spanCols().vgap()) {
-            text = PluginApiBundle.message("xquery.settings.dialog.query-processor.standalone.label")
-            addActionListener {
-                val serverEnabled = !isSelected
-                hostname.isEnabled = serverEnabled
-                databasePort.isEnabled = serverEnabled
-                username.isEnabled = serverEnabled
-                password.isEnabled = serverEnabled
-            }
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.username.label"), column)
+            username = textField(column.horizontal().hgap().vgap())
         }
-
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.hostname.label"), grid(0, 5))
-        hostname = textField(grid(1, 5).horizontal().hgap().vgap())
-
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.database-port.label"), grid(0, 6))
-        databasePort = textField(grid(1, 6).horizontal().hgap().vgap())
-
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.username.label"), grid(0, 7))
-        username = textField(grid(1, 7).horizontal().hgap().vgap())
-
-        label(PluginApiBundle.message("xquery.settings.dialog.query-processor.password.label"), grid(0, 8))
-        password = passwordField(grid(1, 8).horizontal().hgap().vgap())
-
-        errorMessage = label(grid(0, 9).horizontal().spanCols()) {
-            isVisible = false
+        row {
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.password.label"), column)
+            password = passwordField(column.horizontal().hgap().vgap())
+        }
+        row {
+            errorMessage = label(column.horizontal().spanCols()) { isVisible = false }
         }
     }
 
