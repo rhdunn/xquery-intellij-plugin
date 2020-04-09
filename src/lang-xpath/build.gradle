@@ -11,6 +11,7 @@ processResources {
 }
 
 dependencies {
+    compile project(':src:lang-xpm')
     compile project(':src:lang-xqdoc')
     compile project(':src:plugin-api')
 

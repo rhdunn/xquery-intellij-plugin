@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,28 +19,20 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val BASEX78: List<Version> = listOf(BaseX.VERSION_7_8)
-private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
+class PluginUpdateExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginUpdateExpr, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
-class PluginUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUpdateExpr, VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
-            if (findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN) != null) {
-                return BASEX85
-            }
-            return BASEX78
-        }
-
-    override val conformanceElement
-        get(): PsiElement {
+    override val conformanceElement: PsiElement
+        get() {
             var element = findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN)
             element = element ?: findChildByType(XQueryTokenType.K_UPDATE)
             return element ?: firstChild
         }
+
+    // endregion
 }

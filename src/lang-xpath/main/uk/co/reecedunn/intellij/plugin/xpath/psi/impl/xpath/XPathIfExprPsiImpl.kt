@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val XQUERY10 = listOf<Version>()
-private val EXPATH7 = listOf(BaseX.VERSION_9_1)
-
-class XPathIfExprPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathIfExpr,
-    VersionConformance,
-    VersionConformanceName {
-
-    override val requiresConformance: List<Version>
-        get() = if (conformanceElement === firstChild) EXPATH7 else XQUERY10
+class XPathIfExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathIfExpr, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_ELSE) ?: firstChild
 
-    override val conformanceName: String? = XPathBundle.message("construct.if-without-else")
+    // endregion
 }

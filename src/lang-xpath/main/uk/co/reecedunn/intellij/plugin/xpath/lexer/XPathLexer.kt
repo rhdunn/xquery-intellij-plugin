@@ -162,7 +162,8 @@ private val KEYWORDS = mapOf(
     "words" to XPathTokenType.K_WORDS // Full Text 1.0
 )
 
-open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tokenRange) {
+open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(
+    STATE_DEFAULT, tokenRange) {
     // region States
 
     protected open fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {

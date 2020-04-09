@@ -22,8 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmProductType
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Documentation - MarkLogic Product Documentation")
@@ -31,10 +30,9 @@ private class MarkLogicDocumentationTest {
     @Test
     @DisplayName("product type")
     fun productType() {
-        val type: XdmProductType = MarkLogicProductDocumentation
+        val type: XpmProductType = MarkLogicProductDocumentation
         assertThat(type.id, `is`("marklogic"))
         assertThat(type.name, `is`("MarkLogic"))
-        assertThat(type.moduleTypes, `is`(arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath, XdmModuleType.JavaScript)))
     }
 
     @Test

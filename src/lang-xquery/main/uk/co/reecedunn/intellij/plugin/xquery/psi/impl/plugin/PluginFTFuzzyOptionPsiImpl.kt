@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class PluginFTFuzzyOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginFTFuzzyOption, VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(BaseX.VERSION_6_1)
+class PluginFTFuzzyOptionPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginFTFuzzyOption, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
+
+    // endregion
 }

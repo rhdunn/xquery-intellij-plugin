@@ -17,7 +17,7 @@
 
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryPairedBraceMatcher"/>
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryCommenter"/>
-    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
+    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
     <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.hint.XQueryFunctionDeclRangeHandler"/>

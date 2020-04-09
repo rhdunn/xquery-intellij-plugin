@@ -2,7 +2,8 @@
 
 ## Table of Contents
 1. [Core](#core)
-1. [Custom Language Support](#custom-language-support)
+1. [Language Support](#language-support)
+1. [Language Implementations](#language-implementations)
 1. [Importable and Declarable Module Support](#importable-and-declarable-module-support)
 1. [Plugin](#plugin)
 
@@ -14,13 +15,18 @@
 | `kotlin-hamcrest` | Helpers for using hamcrest in kotlin projects. |
 | `kotlin-intellij` | Helpers for using IntelliJ components in kotlin projects. |
 
-## Custom Language Support
+## Language Support
 | Package           | Description |
 |-------------------|-------------|
 | `lang-core`       | Custom language support helper classes and functions. |
 | `lang-xdm`        | XQuery and XPath data model. |
-| `lang-xpath`      | XPath language support for XSLT and XQuery. |
+| `lang-xpm`        | XQuery and XPath processing model. |
 | `lang-xqdoc`      | xqDoc documentation support. |
+
+## Language Implementations
+| Package           | Description |
+|-------------------|-------------|
+| `lang-xpath`      | XPath language support for XSLT and XQuery. |
 | `lang-xquery`     | XQuery language support. |
 | `lang-xslt`       | XSLT language support. |
 

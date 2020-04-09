@@ -24,8 +24,7 @@ import uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDoc
 import uk.co.reecedunn.intellij.plugin.w3.documentation.XsltDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Documentation - W3C Specification Document")
@@ -36,10 +35,9 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("specification type")
         fun specificationType() {
-            val type: XdmSpecificationType = FunctionsAndOperatorsDocumentation
+            val type: XpmSpecificationType = FunctionsAndOperatorsDocumentation
             assertThat(type.id, `is`("xpath-functions"))
             assertThat(type.name, `is`("XQuery and XPath Functions and Operators"))
-            assertThat(type.moduleTypes, `is`(arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)))
         }
 
         @Test
@@ -133,10 +131,9 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("specification type")
         fun specificationType() {
-            val type: XdmSpecificationType = XsltDocumentation
+            val type: XpmSpecificationType = XsltDocumentation
             assertThat(type.id, `is`("xslt"))
             assertThat(type.name, `is`("XSL Transformations (XSLT)"))
-            assertThat(type.moduleTypes, `is`(arrayOf(XdmModuleType.XPath)))
         }
 
         @Test

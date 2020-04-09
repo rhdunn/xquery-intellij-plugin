@@ -371,20 +371,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
-    fun testFTFuzzyOption() {
-        val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
-        val fuzzyOption = file.walkTree().filterIsInstance<PluginFTFuzzyOption>().first()
-        val conformance = fuzzyOption as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_6_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_FUZZY))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
     fun testMapConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
@@ -487,22 +473,6 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_NUMBER_NODE))
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (16) NonDeterministicFunctionCall")
-    fun testNonDeterministicFunctionCall() {
-        val file = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
-
-        val nonDeterministicFunctionCall =
-            file.walkTree().filterIsInstance<PluginNonDeterministicFunctionCall>().first()
-        val conformance = nonDeterministicFunctionCall as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_4))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_NON_DETERMINISTIC))
     }
 
     @Test
@@ -865,40 +835,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
-    internal inner class UpdateExpr {
-        @Test
-        @DisplayName("inline")
-        fun testUpdateExpr() {
-            val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
-
-            val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-            val conformance = updateExpr as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_UPDATE))
-        }
-
-        @Test
-        @DisplayName("enclosed expression")
-        fun testUpdateExpr_Block() {
-            val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
-
-            val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-            val conformance = updateExpr as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_5))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (27) ValidateExpr")
     internal inner class ValidateExpr {
         @Test
@@ -1132,45 +1068,6 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.ANY_ITEM_TYPE))
         }
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
-    fun ternaryIfExpr() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginTernaryIfExpr>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.TERNARY_IF))
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
-    fun elvisExpr() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginElvisExpr>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.ELVIS))
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
-    fun ifExpr() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathIfExpr>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_IF))
     }
 
     @Test

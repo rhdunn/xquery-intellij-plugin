@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.lang
+package uk.co.reecedunn.intellij.plugin.basex.lang
 
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
-interface XdmProductType {
-    val id: String
+data class BaseXVersion(
+    override val product: XpmProductType,
+    override val major: Int,
+    override val minor: Int,
+    override val features: String
+) : XpmProductVersion {
+    // region XpmProductVersion
 
-    val name: String
+    override val id: String = "$major.$minor"
 
-    val moduleTypes: Array<XdmModuleType>
+    // endregion
 }

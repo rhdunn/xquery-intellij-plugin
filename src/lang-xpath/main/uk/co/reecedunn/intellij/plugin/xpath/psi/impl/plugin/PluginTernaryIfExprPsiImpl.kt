@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,15 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginTernaryIfExprPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    PluginTernaryIfExpr,
-    VersionConformance {
+    ASTWrapperPsiElement(node), PluginTernaryIfExpr, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
-    override val requiresConformance get(): List<Version> = listOf(BaseX.VERSION_9_1)
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.TERNARY_IF)!!
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.TERNARY_IF)!!
+    // endregion
 }

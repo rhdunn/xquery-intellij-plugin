@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.lexer
+package uk.co.reecedunn.intellij.plugin.xpath.lexer
+
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
+import uk.co.reecedunn.intellij.plugin.core.lexer.EntityReferenceType
+import uk.co.reecedunn.intellij.plugin.core.lexer.matchEntityReference
 
 class XmlCodePointRangeImpl : CodePointRange {
     private val range: CodePointRange = CodePointRangeImpl()

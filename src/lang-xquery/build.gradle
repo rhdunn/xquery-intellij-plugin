@@ -13,6 +13,7 @@ processResources {
 dependencies {
     compile project(':src:lang-xpath')
     compile project(':src:lang-java')
+    compile project(':src:lang-xpm')
 
     testCompile project(':src:intellij-mock')
     testCompile project(':src:kotlin-hamcrest')

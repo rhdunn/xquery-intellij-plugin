@@ -21,9 +21,9 @@ import org.jsoup.nodes.TextNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.lang.XdmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 internal class W3CFunctionReference(private val node: Element, baseHref: String) :
     XQDocFunctionDocumentation {
@@ -66,7 +66,7 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 }
 
 internal data class W3CSpecificationDocument(
-    val type: XdmSpecificationType,
+    val type: XpmSpecificationType,
     override val href: String,
     val id: String,
     override val version: String,

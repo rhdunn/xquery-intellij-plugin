@@ -6,6 +6,7 @@ include 'src:intellij-mock'
 
 include 'src:lang-core'
 include 'src:lang-xdm'
+include 'src:lang-xpm'
 include 'src:plugin-api'
 
 include 'src:lang-java'
