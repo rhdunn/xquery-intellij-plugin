@@ -94,19 +94,19 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     internal val panel: JPanel = panel {
         types = buttonGroup {
             row {
-                notSpecifiedType = radio(column) {
+                notSpecifiedType = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
                     isVisible = allowUnspecified
                 }
             }
             row {
-                localFileType = radio(column) {
+                localFileType = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
                 }
                 localFilePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap())
             }
             row {
-                databaseModuleType = radio(column) {
+                databaseModuleType = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
                 }
                 databaseModulePath = textField(column.horizontal().hgap().vgap())

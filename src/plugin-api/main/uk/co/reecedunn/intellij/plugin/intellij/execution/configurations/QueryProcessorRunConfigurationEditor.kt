@@ -109,7 +109,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         QueryProcessors.getInstance().processors.addToModel(model)
 
         row {
-            label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column)
+            label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = componentWithBrowseButton(column.horizontal().hgap().vgap(), manageQueryProcessorsAction) {
                 comboBox<QueryProcessorSettingsWithVersionCache>(model) {
                     renderer = QueryProcessorSettingsCellRenderer()
@@ -141,7 +141,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
         row {
             xpathSubsetLabel = label(
-                PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), column
+                PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), column.vgap()
             )
             xpathSubset = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = coloredListCellRenderer { value ->
@@ -219,14 +219,14 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private val databasePanel: JPanel = panel {
         row {
-            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column)
+            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
             server = comboBox(column.horizontal().hgap().vgap()) {
                 isEditable = true
                 addItem(null)
             }
         }
         row {
-            label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column)
+            label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
             modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
@@ -289,7 +289,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private val outputPanel: JPanel = panel {
         row {
-            label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), column)
+            label(PluginApiBundle.message("xquery.configurations.processor.rdf-format.label"), column.vgap())
             rdfOutputFormat = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = LanguageCellRenderer()
                 addItem(null)

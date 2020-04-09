@@ -115,11 +115,11 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
 
     override val panel: JPanel = panel {
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.name.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.name.label"), column.vgap())
             description = textField(column.horizontal().hgap().vgap()) { minimumSize = Dimension(250, -1) }
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.implementation.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.implementation.label"), column.vgap())
             api = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = coloredListCellRenderer { value ->
                     if (value != null) {
@@ -132,7 +132,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             }
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.api-jar.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.api-jar.label"), column.vgap())
             jar = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
                 addBrowseFolderListener(
                     PluginApiBundle.message("browser.choose.implementation-api-jar"), null,
@@ -142,7 +142,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             }
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.config-path.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.config-path.label"), column.vgap())
             configuration = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
                 addBrowseFolderListener(
                     PluginApiBundle.message("browser.choose.configuration"), null,
@@ -164,19 +164,19 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             }
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.hostname.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.hostname.label"), column.vgap())
             hostname = textField(column.horizontal().hgap().vgap())
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.database-port.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.database-port.label"), column.vgap())
             databasePort = textField(column.horizontal().hgap().vgap())
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.username.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.username.label"), column.vgap())
             username = textField(column.horizontal().hgap().vgap())
         }
         row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.password.label"), column)
+            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.password.label"), column.vgap())
             password = passwordField(column.horizontal().hgap().vgap())
         }
         row {

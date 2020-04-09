@@ -60,36 +60,36 @@ class XQueryProjectSettingsConfigurable(project: Project) :
 
     override val panel: JPanel = panel {
         row {
-            label(XQueryBundle.message("xquery.settings.project.implementation.label"), column)
+            label(XQueryBundle.message("xquery.settings.project.implementation.label"), column.vgap())
             mImplementations = comboBox(column.horizontal().hgap().vgap())
         }
         row {
-            label(XQueryBundle.message("xquery.settings.project.implementation.version.label"), column)
+            label(XQueryBundle.message("xquery.settings.project.implementation.version.label"), column.vgap())
             mImplementationVersions = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = VERSION_RENDERER
             }
         }
         row {
-            label(XQueryBundle.message("xquery.settings.project.default.version.label"), column)
+            label(XQueryBundle.message("xquery.settings.project.default.version.label"), column.vgap())
             mVersion = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = VERSION_RENDERER
             }
         }
         row {
-            label(XQueryBundle.message("xquery.settings.project.dialect.1.0.label"), column)
+            label(XQueryBundle.message("xquery.settings.project.dialect.1.0.label"), column.vgap())
             mDialectForXQuery1_0 = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = VERSIONED_RENDERER
             }
         }
         row {
-            label(XQueryBundle.message("xquery.settings.project.dialect.3.0.label"), column)
+            label(XQueryBundle.message("xquery.settings.project.dialect.3.0.label"), column.vgap())
             mDialectForXQuery3_0 = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = VERSIONED_RENDERER
             }
         }
         row {
             label(XQueryBundle.message("xquery.settings.project.dialect.3.1.label"), column)
-            mDialectForXQuery3_1 = comboBox(column.horizontal().hgap().vgap()) {
+            mDialectForXQuery3_1 = comboBox(column.horizontal().hgap()) {
                 renderer = VERSIONED_RENDERER
             }
         }
