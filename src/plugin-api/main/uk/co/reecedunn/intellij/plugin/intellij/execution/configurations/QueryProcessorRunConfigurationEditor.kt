@@ -127,15 +127,13 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 column.spanCols().vgap(6, LayoutPosition.Both)
             )
         }
-        row {
-            scriptFile = queryProcessorDataSource(column.horizontal().spanCols().vgap(6)) {
-                val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
-                descriptor.title = PluginApiBundle.message("browser.choose.script-file")
-                addBrowseFolderListener(null, null, project, descriptor)
-                addActionListener {
-                    if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
-                        updateUI(true)
-                    }
+        scriptFile = queryProcessorDataSource {
+            val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
+            descriptor.title = PluginApiBundle.message("browser.choose.script-file")
+            addBrowseFolderListener(null, null, project, descriptor)
+            addActionListener {
+                if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
+                    updateUI(true)
                 }
             }
         }
@@ -270,12 +268,10 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
 
     private val inputPanel: JPanel = panel {
-        row {
-            contextItem = queryProcessorDataSource(column.horizontal(), allowUnspecified = true) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
-                descriptor.title = PluginApiBundle.message("browser.choose.context-item")
-                addBrowseFolderListener(null, null, project, descriptor)
-            }
+        contextItem = queryProcessorDataSource(allowUnspecified = true) {
+            val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
+            descriptor.title = PluginApiBundle.message("browser.choose.context-item")
+            addBrowseFolderListener(null, null, project, descriptor)
         }
         row {
             spacer(column.vertical())

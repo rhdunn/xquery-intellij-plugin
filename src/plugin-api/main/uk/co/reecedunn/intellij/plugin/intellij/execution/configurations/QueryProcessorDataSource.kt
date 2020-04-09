@@ -22,18 +22,17 @@ import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import java.awt.Container
 import javax.swing.*
 
 class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
-    private lateinit var localFilePath: TextFieldWithBrowseButton
-    private lateinit var databaseModulePath: JTextField
+    internal lateinit var localFilePath: TextFieldWithBrowseButton
+    internal lateinit var databaseModulePath: JTextField
 
-    private lateinit var types: ButtonGroup
-    private lateinit var notSpecifiedType: JRadioButton
-    private lateinit var localFileType: JRadioButton
-    private lateinit var databaseModuleType: JRadioButton
-    private lateinit var activeEditorFileType: JRadioButton
+    internal lateinit var types: ButtonGroup
+    internal lateinit var notSpecifiedType: JRadioButton
+    internal lateinit var localFileType: JRadioButton
+    internal lateinit var databaseModuleType: JRadioButton
+    internal lateinit var activeEditorFileType: JRadioButton
 
     var path: String?
         get() {
@@ -90,45 +89,38 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     fun addActionListener(listener: () -> Unit) {
         localFilePath.textField.addActionListener { listener() }
     }
-
-    internal val panel: JPanel = panel {
-        types = buttonGroup {
-            row {
-                localFileType = radio(column.vgap()) {
-                    text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
-                }
-                localFilePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap())
-            }
-            row {
-                databaseModuleType = radio(column.vgap()) {
-                    text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
-                }
-                databaseModulePath = textField(column.horizontal().hgap().vgap())
-            }
-            row {
-                activeEditorFileType = radio(column.vgap()) {
-                    text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
-                }
-            }
-            row {
-                notSpecifiedType = radio(column) {
-                    text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
-                    isVisible = allowUnspecified
-                }
-            }
-        }
-    }
-
-    fun create(): JComponent = panel
 }
 
-fun Container.queryProcessorDataSource(
-    constraints: Any?,
+fun GridPanel.queryProcessorDataSource(
     allowUnspecified: Boolean = false,
     init: QueryProcessorDataSource.() -> Unit = {}
 ): QueryProcessorDataSource {
     val ui = QueryProcessorDataSource(allowUnspecified)
+    ui.types = buttonGroup {
+        row {
+            ui.localFileType = radio(column.vgap()) {
+                text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
+            }
+            ui.localFilePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap())
+        }
+        row {
+            ui.databaseModuleType = radio(column.vgap()) {
+                text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
+            }
+            ui.databaseModulePath = textField(column.horizontal().hgap().vgap())
+        }
+        row {
+            ui.activeEditorFileType = radio(column.vgap()) {
+                text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
+            }
+        }
+        row {
+            ui.notSpecifiedType = radio(column) {
+                text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
+                isVisible = allowUnspecified
+            }
+        }
+    }
     ui.init()
-    add(ui.panel, constraints)
     return ui
 }
