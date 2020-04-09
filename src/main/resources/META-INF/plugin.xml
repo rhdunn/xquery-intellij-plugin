@@ -53,38 +53,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.6.1:</h3>
-    <ol>
-      <li>Saxon 10.0 syntax extension support.</li>
-      <li>Improved the query result output when running/profiling queries.</li>
-      <li>
-        Fixed displaying the active structure item in the nav bar when the element
-        under the cursor is an XPath element. This is a workaround for
-        <a href="https://youtrack.jetbrains.com/issue/IDEA-232100">IDEA-232100</a>.
-      </li>
-      <li>Report an error when a closing XML tag does not contain a QName, e.g. <code>&lt;a&gt;error&lt;/&gt;`.</li>
-    </ol>
-    <p>Run Configurations:</p>
-    <ol>
-      <li>
-        Syntax highlight results in the run query output according to the mimetype of the
-        result if the results all have the same mimetype.
-      </li>
-      <li>Support reformatting the run query output if enabled in the run configuration settings.</li>
-      <li>Fix profiling Saxon 10 queries.</li>
-    </ol>
-    <p>Saxon Syntax Extensions:</p>
-    <ol>
-      <li>Support for Saxon 9.8 <code>~type</code> type aliases.</li>
-      <li>Support for Saxon 10.0 wildcards in element and attribute-based kind tests.</li>
-      <li>Support for Saxon 10.0 <code>.{ ... }</code> style context item inline function expressions.</li>
-      <li>Support for Saxon 10.0 <code>_{ ... }</code> style lambda inline function expressions.</li>
-      <li>Support for Saxon 10.0 <code>otherwise</code> expressions.</li>
-      <li>Support for Saxon 10.0 using <code>as</code> for specifying the tuple field type in a tuple sequence type.</li>
-      <li>Support for Saxon 10.0 <code>StringLiteral</code> tuple field names.</li>
-      <li>Support for Saxon 10.0 <code>type(T)</code> type aliases.</li>
-      <li>Support for Saxon 10.0 <code>for member</code> expressions.</li>
-    </ol>
+    <h3>Release 1.7:</h3>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

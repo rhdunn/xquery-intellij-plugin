@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.7 - (In Development)
+
 ## 2020
 
 *  [1.6.1 - 2020-04-09](docs/_posts/2020-04-09-release-1.6.1.md)
