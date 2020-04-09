@@ -1,39 +1,8 @@
 # Change Log
 
-## 1.7 - (In Development)
-
-1.  Saxon 10.0 syntax extension support.
-1.  Improved the query result output when running/profiling queries.
-1.  Fixed displaying the active structure item in the nav bar when the element
-    under the cursor is an XPath element. This is a workaround for
-    [IDEA-232100](https://youtrack.jetbrains.com/issue/IDEA-232100).
-1.  Report an error when a closing XML tag does not contain a QName, e.g.
-    `<a>error</>`.
-
-Run Configurations:
-
-1.  Syntax highlight results in the run query output according to the mimetype
-    of the result if the results all have the same mimetype.
-1.  Support reformatting the run query output if enabled in the run
-    configuration settings.
-1.  Fix profiling Saxon 10 queries.
-
-Saxon Syntax Extensions:
-
-1.  Support for Saxon 9.8 `~type` type aliases.
-1.  Support for Saxon 10.0 wildcards in element and attribute-based kind tests.
-1.  Support for Saxon 10.0 `.{ ... }` style context item inline function
-    expressions.
-1.  Support for Saxon 10.0 `_{ ... }` style lambda inline function expressions.
-1.  Support for Saxon 10.0 `otherwise` expressions.
-1.  Support for Saxon 10.0 using `as` for specifying the tuple field type in a
-    tuple sequence type.
-1.  Support for Saxon 10.0 `StringLiteral` tuple field names.
-1.  Support for Saxon 10.0 `type(T)` type aliases.
-1.  Support for Saxon 10.0 `for member` expressions.
-
 ## 2020
 
+*  [1.6.1 - 2020-04-09](docs/_posts/2020-04-09-release-1.6.1.md)
 *  [1.6 - 2020-03-21](docs/_posts/2020-03-21-release-1.6.md)
 
 ## 2019
