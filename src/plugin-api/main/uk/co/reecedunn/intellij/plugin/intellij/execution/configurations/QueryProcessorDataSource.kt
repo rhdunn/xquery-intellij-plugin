@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.ui.components.JBTextField
 import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
@@ -98,19 +97,21 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
                 isVisible = allowUnspecified
             }
+
             localFileType = radio(grid(0, 1)) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
             }
+            localFilePath = textFieldWithBrowseButton(grid(1, 1).horizontal().hgap().vgap())
+
             databaseModuleType = radio(grid(0, 2)) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
             }
+            databaseModulePath = textField(grid(1, 2).horizontal().hgap().vgap())
+
             activeEditorFileType = radio(grid(0, 3)) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
             }
         }
-
-        localFilePath = textFieldWithBrowseButton(grid(1, 1).horizontal().hgap().vgap())
-        databaseModulePath = textField(grid(1, 2).horizontal().hgap().vgap())
     }
 
     fun create(): JComponent = panel
