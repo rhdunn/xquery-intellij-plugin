@@ -48,21 +48,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (62) CurlyArrayConstructor")
-    fun testArrayConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
-
-        val arrayConstructorPsi = file.descendants().filterIsInstance<XPathArrayConstructor>().first()
-        val versioned = arrayConstructorPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
     fun testAttributeDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")

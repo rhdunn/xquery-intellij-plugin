@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -32,6 +33,10 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginAnyNumberNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
             XPathTokenType.STAR -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+            else -> {}
+        }
+        is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_ARRAY_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
             else -> {}
         }
         else -> {}
