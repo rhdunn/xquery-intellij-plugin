@@ -255,7 +255,7 @@ class MarkLogicSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
+    @DisplayName("XQuery IntelliJ Plugin EBNF (55) NullNodeTest ; XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
     internal inner class AnyNullNodeTest {
         @Test
         @DisplayName("MarkLogic >= 8.0")
@@ -270,6 +270,34 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of null-node()")[0]
+            validator.product = MarkLogic.VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(14:23): MarkLogic 5.0 does not support MarkLogic 8.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (55) NullNodeTest ; XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
+    internal inner class NamedNullNodeTest {
+        @Test
+        @DisplayName("MarkLogic >= 8.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of null-node(\"key\")")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 8.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of null-node(\"key\")")[0]
             validator.product = MarkLogic.VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(

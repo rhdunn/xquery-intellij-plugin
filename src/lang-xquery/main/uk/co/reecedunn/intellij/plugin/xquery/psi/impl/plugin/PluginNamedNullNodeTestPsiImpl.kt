@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,14 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedNullNodeTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNullNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginNamedNullNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginNamedNullNodeTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginNamedNullNodeTest, XdmItemType, XpmSyntaxValidationElement {
     // region PluginNamedArrayNodeTest
 
     override val keyName: XsStringValue
@@ -52,9 +50,7 @@ class PluginNamedNullNodeTestPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmNullNode::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = firstChild
 
