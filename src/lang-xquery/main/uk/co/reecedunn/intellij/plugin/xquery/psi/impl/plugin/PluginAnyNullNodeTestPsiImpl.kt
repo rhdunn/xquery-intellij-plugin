@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,12 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyNullNodeTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNullNode
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginAnyNullNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnyNullNodeTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginAnyNullNodeTest, XdmItemType, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "null-node()"
@@ -43,9 +41,7 @@ class PluginAnyNullNodeTestPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmNullNode::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = firstChild
 
