@@ -115,6 +115,34 @@ class MarkLogicSyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (50) BooleanConstructor")
+    internal inner class BooleanConstructor {
+        @Test
+        @DisplayName("MarkLogic >= 8.0")
+        fun supported() {
+            val file = parse<XQueryModule>("boolean-node { \"true\" }")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 8.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("boolean-node { \"true\" }")[0]
+            validator.product = MarkLogic.VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(0:12): MarkLogic 5.0 does not support MarkLogic 8.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
     internal inner class AnyNumberNodeTest {
         @Test

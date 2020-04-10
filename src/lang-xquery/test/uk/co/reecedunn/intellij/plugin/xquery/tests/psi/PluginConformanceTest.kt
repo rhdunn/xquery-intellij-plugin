@@ -94,21 +94,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_BINARY))
     }
 
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (50) BooleanConstructor")
-    fun testBooleanConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
-
-        val booleanConstructorPsi = file.descendants().filterIsInstance<PluginBooleanConstructor>().first()
-        val conformance = booleanConstructorPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_BOOLEAN_NODE))
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
     internal inner class CatchClause {
