@@ -341,21 +341,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (58) NullConstructor")
-    fun testNullConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
-
-        val nullKindTestPsi = file.descendants().filterIsInstance<PluginNullConstructor>().first()
-        val conformance = nullKindTestPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_NULL_NODE))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (54) NumberConstructor")
     fun testNumberConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
