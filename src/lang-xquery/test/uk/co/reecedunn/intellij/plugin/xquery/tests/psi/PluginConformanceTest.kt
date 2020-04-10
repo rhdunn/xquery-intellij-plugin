@@ -251,21 +251,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
-    fun testMapConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
-
-        val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val versioned = objectConstructorPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_OBJECT_NODE))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (61) NamedArrayNodeTest")
     fun testNamedArrayNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")

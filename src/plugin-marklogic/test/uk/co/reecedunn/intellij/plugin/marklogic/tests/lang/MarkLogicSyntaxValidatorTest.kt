@@ -259,8 +259,8 @@ class MarkLogicSyntaxValidatorTest :
                 assertThat(
                     report.toString(), `is`(
                         """
-                    E XPST0003(0:10): MarkLogic 5.0 does not support MarkLogic 8.0 constructs.
-                    """.trimIndent()
+                        E XPST0003(0:10): MarkLogic 5.0 does not support MarkLogic 8.0 constructs.
+                        """.trimIndent()
                     )
                 )
             }
@@ -292,6 +292,47 @@ class MarkLogicSyntaxValidatorTest :
                     """.trimIndent()
                 )
             )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
+    internal inner class MapConstructor {
+        @Test
+        @DisplayName("map")
+        fun map() {
+            val file = parse<XQueryModule>("map { }")[0]
+            validator.product = MarkLogic.VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Nested
+        @DisplayName("object-node")
+        internal inner class ObjectNode {
+            @Test
+            @DisplayName("MarkLogic >= 8.0")
+            fun supported() {
+                val file = parse<XQueryModule>("object-node { }")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 8.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("object-node { }")[0]
+                validator.product = MarkLogic.VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(0:11): MarkLogic 5.0 does not support MarkLogic 8.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
         }
     }
 
