@@ -311,21 +311,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
-    fun testNamedNumberNodeTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
-
-        val numberTestPsi = file.walkTree().filterIsInstance<PluginNamedNumberNodeTest>().first()
-        val conformance = numberTestPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_NUMBER_NODE))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (40) SchemaComponentTest")
     fun testSchemaComponentTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
