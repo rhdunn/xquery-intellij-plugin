@@ -266,21 +266,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
-    fun testNamedBooleanNodeTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
-
-        val booleanTestPsi = file.walkTree().filterIsInstance<PluginNamedBooleanNodeTest>().first()
-        val conformance = booleanTestPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_BOOLEAN_NODE))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (68) NamedKindTest")
     fun testNamedKindTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
