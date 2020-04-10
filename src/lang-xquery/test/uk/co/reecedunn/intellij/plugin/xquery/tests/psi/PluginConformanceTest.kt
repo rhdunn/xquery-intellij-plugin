@@ -355,21 +355,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_IMPORT))
     }
 
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (71) NamedTextTest")
-    fun testTextTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
-
-        val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
-        val versioned = textTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (35) TransactionSeparator")
     internal inner class TransactionSeparator {
