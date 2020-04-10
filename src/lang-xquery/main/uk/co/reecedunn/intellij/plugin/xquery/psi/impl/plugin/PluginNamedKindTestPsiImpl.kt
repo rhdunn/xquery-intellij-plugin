@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,15 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedKindTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginNamedKindTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginNamedKindTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginNamedKindTest, XdmItemType, XpmSyntaxValidationElement {
     // region PluginNamedKindTest
 
     override val keyName: XsStringValue
@@ -53,9 +51,7 @@ class PluginNamedKindTestPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmNode::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType.STRING_LITERAL)!!
 

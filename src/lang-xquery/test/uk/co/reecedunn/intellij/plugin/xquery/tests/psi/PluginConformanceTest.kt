@@ -251,21 +251,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (68) NamedKindTest")
-    fun testNamedKindTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
-
-        val namedKindTestPsi = file.walkTree().filterIsInstance<PluginNamedKindTest>().first()
-        val versioned = namedKindTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (40) SchemaComponentTest")
     fun testSchemaComponentTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
