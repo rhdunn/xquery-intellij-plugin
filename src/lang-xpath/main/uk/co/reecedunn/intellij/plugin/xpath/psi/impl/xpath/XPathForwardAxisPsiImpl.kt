@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val MARKLOGIC_AXIS = TokenSet.create(XPathTokenType.K_NAMESPACE, XPathTokenType.K_PROPERTY)
-
-private val XQUERY10: List<Version> = listOf()
-private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
-
-class XPathForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForwardAxis, VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
-            val node = node.findChildByType(MARKLOGIC_AXIS)
-            if (node != null) {
-                return MARKLOGIC60
-            }
-            return XQUERY10
-        }
+class XPathForwardAxisPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathForwardAxis, XpmSyntaxValidationElement {
 
     override val conformanceElement get(): PsiElement = firstChild
 }

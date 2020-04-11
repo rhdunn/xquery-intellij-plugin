@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.lang
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
@@ -67,6 +68,11 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         }
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+            else -> {}
+        }
+        is XPathForwardAxis -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_NAMESPACE -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            XPathTokenType.K_PROPERTY -> reporter.requireProduct(element, MarkLogic.VERSION_6)
             else -> {}
         }
         is XPathMapConstructor -> when (element.conformanceElement.elementType) {

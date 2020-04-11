@@ -47,40 +47,6 @@ private class PluginConformanceTest : ParserTestCase() {
         return file.toPsiFile(myProject)!!
     }
 
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
-    internal inner class ForwardAxis {
-        @Test
-        @DisplayName("namespace::")
-        fun testForwardAxis_Namespace() {
-            val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
-
-            val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-            val versioned = forwardAxisPsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_NAMESPACE))
-        }
-
-        @Test
-        @DisplayName("property::")
-        fun testForwardAxis_Property() {
-            val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
-
-            val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-            val versioned = forwardAxisPsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_PROPERTY))
-        }
-    }
-
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (33) StylesheetImport")
     fun testStylesheetImport() {

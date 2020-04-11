@@ -92,6 +92,129 @@ class MarkLogicSyntaxValidatorTest :
     private val VERSION_5: XpmProductVersion = MarkLogicVersion(MarkLogic, 5, "")
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
+    internal inner class ForwardAxis {
+        @Test
+        @DisplayName("child")
+        fun child() {
+            val file = parse<XQueryModule>("child::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("descendant")
+        fun descendant() {
+            val file = parse<XQueryModule>("descendant::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("attribute")
+        fun attribute() {
+            val file = parse<XQueryModule>("attribute::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("self")
+        fun self() {
+            val file = parse<XQueryModule>("self::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("descendant-or-self")
+        fun descendantOrSelf() {
+            val file = parse<XQueryModule>("descendant-or-self::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("following-sibling")
+        fun followingSibling() {
+            val file = parse<XQueryModule>("following-sibling::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("following")
+        fun following() {
+            val file = parse<XQueryModule>("following::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Nested
+        @DisplayName("namespace")
+        internal inner class Namespace {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("namespace::para")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("namespace::para")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(0:9): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("property")
+        internal inner class Property {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("property::para")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("property::para")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(0:8): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
     internal inner class CompatibilityAnnotation {
         @Nested
