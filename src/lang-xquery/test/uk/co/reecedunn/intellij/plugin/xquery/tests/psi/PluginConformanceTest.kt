@@ -139,21 +139,6 @@ private class PluginConformanceTest : ParserTestCase() {
         }
     }
 
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (39) ElementDeclTest")
-    fun testElementDeclTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
-
-        val elementDeclTestPsi = file.walkTree().filterIsInstance<PluginElementDeclTest>().first()
-        val conformance = elementDeclTestPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_ELEMENT_DECL))
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
     internal inner class ForwardAxis {
