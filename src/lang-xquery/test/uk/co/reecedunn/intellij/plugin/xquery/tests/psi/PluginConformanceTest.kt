@@ -48,22 +48,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (30) BinaryConstructor")
-    fun testBinaryConstructor() {
-        val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
-
-        val binaryKindTestPsi = file.descendants().filterIsInstance<PluginBinaryConstructor>().first()
-        val conformance = binaryKindTestPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_BINARY))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
     fun testBinaryTest() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")

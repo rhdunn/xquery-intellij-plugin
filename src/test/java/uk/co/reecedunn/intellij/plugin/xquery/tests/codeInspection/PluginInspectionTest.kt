@@ -2623,7 +2623,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: Saxon 9.5 does not support MarkLogic 4.0, or XQuery 0.9-ml constructs.")
+                        `is`("XPST0003: Saxon Enterprise Edition 9.5 does not support MarkLogic 6.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_BINARY))
                 }

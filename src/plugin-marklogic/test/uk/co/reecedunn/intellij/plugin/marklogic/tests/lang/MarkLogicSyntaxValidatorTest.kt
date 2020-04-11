@@ -92,6 +92,34 @@ class MarkLogicSyntaxValidatorTest :
     private val VERSION_5: XpmProductVersion = MarkLogicVersion(MarkLogic, 5, "")
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (30) BinaryConstructor")
+    internal inner class BinaryConstructor {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("binary { \"A0\" }")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("binary { \"A0\" }")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(0:6): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
     internal inner class AttributeDeclTest {
         @Test

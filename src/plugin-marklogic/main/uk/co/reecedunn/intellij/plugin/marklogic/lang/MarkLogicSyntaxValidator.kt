@@ -33,6 +33,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginAnyNullNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginAnyNumberNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginAttributeDeclTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
+        is PluginBinaryConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_6)
         is PluginBooleanConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginNamedArrayNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginNamedBooleanNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
