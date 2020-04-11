@@ -2641,14 +2641,7 @@ private class PluginInspectionTest : InspectionTestCase() {
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
-                    assertThat(problems!!.size, `is`(1))
-
-                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
-                    assertThat(
-                        problems[0].descriptionTemplate,
-                        `is`("XPST0003: XQuery version string '0.9-ml' does not support MarkLogic 7.0 constructs.")
-                    )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
+                    assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
@@ -2677,7 +2670,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: Saxon 9.5 does not support MarkLogic 7.0 constructs.")
+                        `is`("XPST0003: Saxon Enterprise Edition 9.5 does not support MarkLogic 7.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
                 }
