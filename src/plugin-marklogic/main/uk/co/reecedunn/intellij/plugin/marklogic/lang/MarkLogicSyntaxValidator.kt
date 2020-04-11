@@ -49,6 +49,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginNumberConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginSchemaComponentTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginSchemaFacetTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
+        is PluginSchemaParticleTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
             XPathTokenType.STAR -> reporter.requireProduct(element, MarkLogic.VERSION_8)
             else -> {}

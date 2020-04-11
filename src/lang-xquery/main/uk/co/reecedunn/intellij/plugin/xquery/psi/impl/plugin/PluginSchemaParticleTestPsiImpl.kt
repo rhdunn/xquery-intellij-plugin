@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019 Reece H. Dunn
+ * Copyright (C) 2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,14 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaParticleTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSchemaParticle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginSchemaParticleTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSchemaParticleTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginSchemaParticleTest, XdmItemType, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -63,9 +61,7 @@ class PluginSchemaParticleTestPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmSchemaParticle::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = firstChild
 
