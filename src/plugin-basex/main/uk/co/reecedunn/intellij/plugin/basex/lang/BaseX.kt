@@ -28,7 +28,6 @@ object BaseX : XpmProductType {
     // endregion
     // region Language Versions
 
-    val VERSION_6_0: XpmProductVersion = BaseXVersion(this, 6, 0, "")
     val VERSION_6_1: XpmProductVersion = BaseXVersion(this, 6, 1, "Update Facility, Full Text, fuzzy")
     val VERSION_7_7: XpmProductVersion = BaseXVersion(this, 7, 7, "XQuery 3.0 REC")
     val VERSION_7_8: XpmProductVersion = BaseXVersion(this, 7, 8, "update")

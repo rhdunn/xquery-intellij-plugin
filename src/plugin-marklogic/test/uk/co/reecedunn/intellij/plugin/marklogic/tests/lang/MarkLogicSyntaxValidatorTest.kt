@@ -29,8 +29,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicVersion
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -86,6 +88,9 @@ class MarkLogicSyntaxValidatorTest :
 
     // endregion
 
+    @Suppress("PrivatePropertyName")
+    private val VERSION_5: XpmProductVersion = MarkLogicVersion(MarkLogic, 5, "")
+
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
     internal inner class AttributeDeclTest {
@@ -102,7 +107,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 7.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of attribute-decl()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -130,7 +135,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of boolean-node()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -158,7 +163,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of boolean-node(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -186,7 +191,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("boolean-node { \"true\" }")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -214,7 +219,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of number-node()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -242,7 +247,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of number-node(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -270,7 +275,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("number-node { 2 }")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -298,7 +303,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of null-node()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -326,7 +331,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of null-node(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -354,7 +359,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("null-node {}")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -382,7 +387,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of array-node()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -410,7 +415,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of array-node(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -429,7 +434,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("array")
         fun array() {
             val file = parse<XQueryModule>("array { 1 }")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -450,7 +455,7 @@ class MarkLogicSyntaxValidatorTest :
             @DisplayName("MarkLogic < 8.0")
             fun notSupported() {
                 val file = parse<XQueryModule>("array-node { 1 }")[0]
-                validator.product = MarkLogic.VERSION_5
+                validator.product = VERSION_5
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -479,7 +484,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of object-node()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -507,7 +512,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of object-node(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -526,7 +531,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("map")
         fun map() {
             val file = parse<XQueryModule>("map { }")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -547,7 +552,7 @@ class MarkLogicSyntaxValidatorTest :
             @DisplayName("MarkLogic < 8.0")
             fun notSupported() {
                 val file = parse<XQueryModule>("object-node { }")[0]
-                validator.product = MarkLogic.VERSION_5
+                validator.product = VERSION_5
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -567,7 +572,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("any kind test")
         fun anyKindTest() {
             val file = parse<XQueryModule>("1 instance of node()")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -588,7 +593,7 @@ class MarkLogicSyntaxValidatorTest :
             @DisplayName("MarkLogic < 8.0")
             fun notSupported() {
                 val file = parse<XQueryModule>("1 instance of node(*)")[0]
-                validator.product = MarkLogic.VERSION_5
+                validator.product = VERSION_5
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -617,7 +622,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of node(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -645,7 +650,7 @@ class MarkLogicSyntaxValidatorTest :
         @DisplayName("MarkLogic < 8.0")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of text(\"key\")")[0]
-            validator.product = MarkLogic.VERSION_5
+            validator.product = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(

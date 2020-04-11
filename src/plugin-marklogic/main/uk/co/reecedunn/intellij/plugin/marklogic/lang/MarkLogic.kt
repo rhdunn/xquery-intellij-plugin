@@ -28,7 +28,6 @@ object MarkLogic : XpmProductType {
     // endregion
     // region Language Versions
 
-    val VERSION_5: XpmProductVersion = MarkLogicVersion(this, 5, "")
     val VERSION_6: XpmProductVersion = MarkLogicVersion(this, 6, "property::, namespace::, binary, transactions, etc.")
     val VERSION_7: XpmProductVersion = MarkLogicVersion(this, 7, "schema kind tests: schema-type, etc.")
     val VERSION_8: XpmProductVersion = MarkLogicVersion(this, 8, "json kind tests and constructors: object-node, etc.")
