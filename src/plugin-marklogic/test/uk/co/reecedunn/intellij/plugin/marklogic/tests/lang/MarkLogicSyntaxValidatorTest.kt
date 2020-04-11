@@ -969,4 +969,32 @@ class MarkLogicSyntaxValidatorTest :
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (104) ModelGroupTest")
+    internal inner class ModelGroupTest {
+        @Test
+        @DisplayName("MarkLogic >= 7.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of model-group()")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 7.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of model-group()")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(14:25): MarkLogic 5.0 does not support MarkLogic 7.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
