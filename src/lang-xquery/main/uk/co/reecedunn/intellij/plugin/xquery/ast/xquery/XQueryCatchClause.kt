@@ -20,6 +20,4 @@ import com.intellij.psi.PsiElement
 /**
  * An XQuery 1.0 `CatchClause` node in the XQuery AST.
  */
-interface XQueryCatchClause : PsiElement {
-    val isMarkLogicExtension: Boolean
-}
+interface XQueryCatchClause : PsiElement

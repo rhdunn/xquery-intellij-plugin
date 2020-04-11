@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 
 object MarkLogicSyntaxValidator : XpmSyntaxValidator {
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
@@ -65,6 +66,10 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         }
         is XPathMapConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_OBJECT_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+            else -> {}
+        }
+        is XQueryCatchClause -> when (element.conformanceElement.elementType) {
+            XPathTokenType.PARENTHESIS_OPEN -> reporter.requireProduct(element, MarkLogic.VERSION_6)
             else -> {}
         }
         else -> {}

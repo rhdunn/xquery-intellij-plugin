@@ -48,60 +48,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
-    internal inner class CatchClause {
-        @Test
-        @DisplayName("catch clause")
-        fun testCatchClause() {
-            val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
-
-            val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-            val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-            val versioned = catchClausePsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_CATCH))
-        }
-
-        @Test
-        @DisplayName("enclosed expression")
-        fun testEnclosedExpr_CatchClause() {
-            val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
-
-            val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-            val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-            val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-            val versioned = enclosedExprPsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
-        }
-
-        @Test
-        @DisplayName("missing enclosed expression")
-        fun testEnclosedExpr_CatchClause_NoExpr() {
-            val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
-
-            val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-            val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-            val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-            val versioned = enclosedExprPsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(2))
-            assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-            assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
     internal inner class CompatibilityAnnotation {
         @Test

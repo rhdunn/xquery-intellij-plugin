@@ -226,23 +226,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region CatchClause
-
-    @Test
-    fun testCatchClause() {
-        val file = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val versioned = catchClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_CATCH))
-    }
-
-    // endregion
     // region CompNamespaceConstructor
 
     @Test
