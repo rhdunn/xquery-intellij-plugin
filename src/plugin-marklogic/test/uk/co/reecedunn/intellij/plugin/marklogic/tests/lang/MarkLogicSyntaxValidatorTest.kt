@@ -87,6 +87,34 @@ class MarkLogicSyntaxValidatorTest :
     // endregion
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
+    internal inner class AttributeDeclTest {
+        @Test
+        @DisplayName("MarkLogic >= 7.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of attribute-decl()")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 7.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of attribute-decl()")[0]
+            validator.product = MarkLogic.VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(14:28): MarkLogic 5.0 does not support MarkLogic 7.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (47) BooleanNodeTest ; XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
     internal inner class AnyBooleanNodeTest {
         @Test
