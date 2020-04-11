@@ -92,6 +92,66 @@ class MarkLogicSyntaxValidatorTest :
     private val VERSION_5: XpmProductVersion = MarkLogicVersion(MarkLogic, 5, "")
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
+    internal inner class CompatibilityAnnotation {
+        @Nested
+        @DisplayName("function declaration")
+        internal inner class FunctionDeclaration {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("declare private function test() external;")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("declare private function test() external;")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(8:15): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("variable declaration")
+        internal inner class VariableDeclaration {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("declare private variable \$x external;")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("declare private variable \$x external;")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(8:15): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
     internal inner class BinaryTest {
         @Test

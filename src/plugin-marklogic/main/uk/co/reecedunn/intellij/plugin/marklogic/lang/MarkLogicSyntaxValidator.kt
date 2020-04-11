@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object MarkLogicSyntaxValidator : XpmSyntaxValidator {
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
@@ -37,6 +38,10 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginBinaryConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_6)
         is PluginBinaryTest -> reporter.requireProduct(element, MarkLogic.VERSION_6)
         is PluginBooleanConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+        is PluginCompatibilityAnnotation -> when (element.conformanceElement.elementType) {
+            XQueryTokenType.K_PRIVATE -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            else -> {}
+        }
         is PluginComplexTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginElementDeclTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginModelGroupTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)

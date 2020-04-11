@@ -49,44 +49,6 @@ private class PluginConformanceTest : ParserTestCase() {
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
-    internal inner class CompatibilityAnnotation {
-        @Test
-        @DisplayName("function declaration")
-        fun testCompatibilityAnnotation_FunctionDecl() {
-            val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
-
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-            val compatibilityAnnotationPsi =
-                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = compatibilityAnnotationPsi as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_PRIVATE))
-        }
-
-        @Test
-        @DisplayName("variable declaration")
-        fun testCompatibilityAnnotation_VarDecl() {
-            val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
-
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-            val compatibilityAnnotationPsi =
-                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = compatibilityAnnotationPsi as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_PRIVATE))
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
     internal inner class ForwardAxis {
         @Test
         @DisplayName("namespace::")

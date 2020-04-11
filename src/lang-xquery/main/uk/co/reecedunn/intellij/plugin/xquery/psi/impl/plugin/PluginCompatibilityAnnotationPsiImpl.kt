@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -30,11 +28,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import javax.swing.Icon
 
-private val MARKLOGIC_60 = listOf(MarkLogic.VERSION_6_0)
+private val MARKLOGIC_60 = listOf<Version>()
 private val SCRIPTING_10 = listOf(ScriptingSpec.NOTE_1_0_20140918)
 private val UPDATE_10 = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 private val UPDATE_30 = listOf(UpdateFacilitySpec.NOTE_3_0_20170124)
@@ -44,6 +42,7 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     PluginCompatibilityAnnotation,
     XsQNameValue,
     XdmAnnotation,
+    XpmSyntaxValidationElement,
     VersionConformance,
     ItemPresentation {
     // region XsQNameValue
@@ -77,6 +76,9 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
                 else -> SCRIPTING_10
             }
         }
+
+    // endregion
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = firstChild
 
