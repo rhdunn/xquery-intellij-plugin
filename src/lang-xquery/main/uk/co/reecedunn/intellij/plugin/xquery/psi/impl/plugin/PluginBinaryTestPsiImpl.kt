@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmBinary
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryTest
 
 class PluginBinaryTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginBinaryTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginBinaryTest, XdmItemType, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "binary()"
@@ -41,9 +41,7 @@ class PluginBinaryTestPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmBinary::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = firstChild
 
