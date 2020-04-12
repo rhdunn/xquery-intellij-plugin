@@ -27,6 +27,7 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.xdebugger.XDebugProcessStarter
 import com.intellij.xdebugger.XDebuggerManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.startDebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 
 class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
@@ -42,8 +43,7 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
         FileDocumentManager.getInstance().saveAllDocuments()
         val starter = createProcessStarter(environment.runProfile as QueryProcessorRunConfiguration)
-        val session = XDebuggerManager.getInstance(environment.project).startSession(environment, starter)
-        return session.runContentDescriptor
+        return startDebugSession(environment) { session -> starter.start(session) }.runContentDescriptor
     }
 
     private fun createProcessStarter(configuration: QueryProcessorRunConfiguration): XDebugProcessStarter {
