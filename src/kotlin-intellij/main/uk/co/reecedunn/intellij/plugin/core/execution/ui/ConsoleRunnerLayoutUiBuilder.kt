@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.compat.execution.ui.setTopLeftToolbar
 import com.intellij.execution.console.ConsoleViewWrapperBase
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.RunContentBuilder
@@ -65,7 +66,7 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
             }
         }
         if (actions != null) {
-            layoutUi.options.setTopToolbar(actions!!, ActionPlaces.RUNNER_TOOLBAR)
+            layoutUi.setTopLeftToolbar(actions!!, ActionPlaces.RUNNER_TOOLBAR)
         }
     }
 
