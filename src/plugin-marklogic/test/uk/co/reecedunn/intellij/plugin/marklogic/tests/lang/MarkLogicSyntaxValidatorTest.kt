@@ -37,6 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 
+@Suppress("ClassName")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - MarkLogic")
 class MarkLogicSyntaxValidatorTest :
@@ -396,6 +397,112 @@ class MarkLogicSyntaxValidatorTest :
                     """.trimIndent()
                 )
             )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (35) TransactionSeparator")
+    internal inner class TransactionSeparator {
+        @Test
+        @DisplayName("single transaction; no semicolon")
+        fun single_noSemicolon() {
+            val file = parse<XQueryModule>("1234")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("single transaction; with semicolon")
+        fun single_semicolon() {
+            val file = parse<XQueryModule>("descendant::para")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Nested
+        @DisplayName("multiple transactions; semicolon at end")
+        internal inner class Multiple_SemicolonAtEnd {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("2; 3;")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("2; 3;")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(1:2): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("multiple transactions; no semicolon at end")
+        internal inner class Multiple_NoSemicolonAtEnd {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("2; 3")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("2; 3")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(1:2): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("multiple transactions; prolog in other transaction")
+        internal inner class Multiple_PrologInOtherTransaction {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2 ; xquery version \"1.0-ml\"; 3")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2; xquery version \"1.0-ml\"; 3")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(26:27): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
         }
     }
 

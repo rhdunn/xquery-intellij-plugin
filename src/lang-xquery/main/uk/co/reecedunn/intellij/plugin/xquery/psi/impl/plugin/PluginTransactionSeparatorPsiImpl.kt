@@ -19,9 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
@@ -33,8 +32,8 @@ private val MARKLOGIC60_SCRIPTING = listOf(
 )
 private val XQUERY = listOf<Version>()
 
-class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTransactionSeparator, VersionConformance {
+class PluginTransactionSeparatorPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginTransactionSeparator, XpmSyntaxValidationElement, VersionConformance {
     override val requiresConformance
         get(): List<Version> {
             return when {

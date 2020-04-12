@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 object MarkLogicSyntaxValidator : XpmSyntaxValidator {
     override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
@@ -63,6 +64,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginSchemaWildcardTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginSimpleTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginStylesheetImport -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+        is PluginTransactionSeparator -> validateTransaction(element, reporter)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
             XPathTokenType.STAR -> reporter.requireProduct(element, MarkLogic.VERSION_8)
             else -> {}
@@ -85,5 +87,19 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             else -> {}
         }
         else -> {}
+    }
+
+    private fun validateTransaction(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) {
+        when {
+            element.parent.elementType === XQueryElementType.MODULE -> {
+                // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
+                reporter.requireProduct(element, MarkLogic.VERSION_6)
+            }
+            element.nextSibling === null -> {
+                // The last TransactionSeparator in a QueryBody.
+                // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
+            }
+            else -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+        }
     }
 }
