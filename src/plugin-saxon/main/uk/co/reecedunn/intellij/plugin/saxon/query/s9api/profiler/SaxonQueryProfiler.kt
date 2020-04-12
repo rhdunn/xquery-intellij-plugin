@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonProfileTraceListener
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.toProfileReport
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonRunner
 
 internal class SaxonQueryProfiler(
     val runner: RunnableQuery,
