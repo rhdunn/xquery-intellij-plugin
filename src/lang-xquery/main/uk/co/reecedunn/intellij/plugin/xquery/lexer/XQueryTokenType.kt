@@ -271,6 +271,14 @@ object XQueryTokenType {
 
     val VALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_STRICT, K_FULL)
 
+    val VALIDATE_EXPR_MODE_OR_TYPE_TOKENS = TokenSet.create(
+        K_FULL,
+        K_LAX,
+        K_STRICT,
+        XPathTokenType.K_AS,
+        XPathTokenType.K_TYPE
+    )
+
     val STRING_LITERAL_TOKENS = TokenSet.create(
         XPathTokenType.STRING_LITERAL_CONTENTS,
         STRING_CONSTRUCTOR_CONTENTS,

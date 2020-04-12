@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,26 +18,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-
-private val VALIDATE_BY = TokenSet.create(
-    XQueryTokenType.K_STRICT,
-    XQueryTokenType.K_LAX,
-    XQueryTokenType.K_FULL,
-    XPathTokenType.K_AS,
-    XPathTokenType.K_TYPE
-)
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
-private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
+private val MARKLOGIC60: List<Version> = listOf()
 
-class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr, VersionConformance {
+class XQueryValidateExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryValidateExpr, XpmSyntaxValidationElement, VersionConformance {
     override val requiresConformance
         get(): List<Version> {
             val element = conformanceElement
@@ -50,5 +43,6 @@ class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
             return XQUERY10
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(VALIDATE_BY) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.VALIDATE_EXPR_MODE_OR_TYPE_TOKENS) ?: firstChild
 }

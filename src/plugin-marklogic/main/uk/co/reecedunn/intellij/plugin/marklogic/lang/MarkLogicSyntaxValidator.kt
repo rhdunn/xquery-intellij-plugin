@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
@@ -84,6 +85,11 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         }
         is XQueryCatchClause -> when (element.conformanceElement.elementType) {
             XPathTokenType.PARENTHESIS_OPEN -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            else -> {}
+        }
+        is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_AS -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            XQueryTokenType.K_FULL -> reporter.requireProduct(element, MarkLogic.VERSION_6)
             else -> {}
         }
         else -> {}

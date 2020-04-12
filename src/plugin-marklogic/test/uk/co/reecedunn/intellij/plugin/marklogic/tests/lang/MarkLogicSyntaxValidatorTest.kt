@@ -276,6 +276,93 @@ class MarkLogicSyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (27) ValidateExpr")
+    internal inner class ValidateExpr {
+        @Test
+        @DisplayName("lax mode")
+        fun laxMode() {
+            val file = parse<XQueryModule>("validate lax { \"true\" }")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("strict mode")
+        fun strictMode() {
+            val file = parse<XQueryModule>("validate strict { \"true\" }")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Nested
+        @DisplayName("full mode")
+        internal inner class FullMode {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("validate full { \"true\" }")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("validate full { \"true\" }")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(9:13): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+
+        @Test
+        @DisplayName("type TypeName")
+        fun typeTypeName() {
+            val file = parse<XQueryModule>("validate type xs:boolean { \"true\" }")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Nested
+        @DisplayName("as TypeName")
+        internal inner class AsTypeName {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("validate as xs:boolean { \"true\" }")[0]
+                validator.product = MarkLogic.VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("validate as xs:boolean { \"true\" }")[0]
+                validator.product = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(9:11): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
     internal inner class BinaryTest {
         @Test

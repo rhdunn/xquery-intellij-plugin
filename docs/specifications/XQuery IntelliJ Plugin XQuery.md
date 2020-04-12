@@ -844,7 +844,7 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 | \[27\]  | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
 | \[101\] | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |         |
 
-MarkLogic uses the `at` keyword instead of the XQuery 3.0 `type` keyword for
+MarkLogic uses the `as` keyword instead of the XQuery 3.0 `type` keyword for
 typed validation expressions.
 
 MarkLogic supports the `full` validation mode.

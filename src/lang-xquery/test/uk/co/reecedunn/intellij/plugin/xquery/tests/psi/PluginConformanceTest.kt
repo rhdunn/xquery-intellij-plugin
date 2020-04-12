@@ -162,40 +162,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (27) ValidateExpr")
-    internal inner class ValidateExpr {
-        @Test
-        @DisplayName("validate as")
-        fun validateAs() {
-            val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
-
-            val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-            val versioned = validateExprPsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_AS))
-        }
-
-        @Test
-        @DisplayName("validate full")
-        fun validateFull() {
-            val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateFull.xq")
-
-            val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-            val versioned = validateExprPsi as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_FULL))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
     internal inner class SequenceType {
         @Test
