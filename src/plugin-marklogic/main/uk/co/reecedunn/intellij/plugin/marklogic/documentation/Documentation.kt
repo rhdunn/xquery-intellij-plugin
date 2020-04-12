@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import java.io.File
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
@@ -50,7 +49,7 @@ private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
 ) : XQDocDocumentationSource, XQDocDocumentationIndex {
-    // region XdmDocumentationSource
+    // region XQDocDocumentationSource
 
     override val name: String = "MarkLogic"
 
@@ -59,7 +58,7 @@ private data class MarkLogicZippedDocumentation(
     override val path: String = "marklogic/$zip"
 
     // endregion
-    // region XdmDocumentationIndex
+    // region XQDocDocumentationIndex
 
     private val query = CacheableProperty {
         val s9api = QueryProcessorApis.find { api -> api.id == "saxon.s9api" }!!
@@ -134,15 +133,8 @@ private data class MarkLogicZippedDocumentation(
     }
 }
 
-object MarkLogicProductDocumentation : XpmProductType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
-    // region XpmProductType
-
-    override val id: String = "marklogic"
-
-    override val name = "MarkLogic"
-
-    // endregion
-    // region XdmDocumentationSourceProvider
+object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
+    // region XQDocDocumentationSourceProvider
 
     val MARKLOGIC_6: XQDocDocumentationSource = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
     val MARKLOGIC_7: XQDocDocumentationSource = MarkLogicZippedDocumentation("7.0", "MarkLogic_7_pubs.zip")
@@ -159,7 +151,7 @@ object MarkLogicProductDocumentation : XpmProductType, XQDocDocumentationSourceP
     )
 
     // endregion
-    // region XdmDocumentationIndex
+    // region XQDocDocumentationIndex
 
     override fun invalidate() {}
 

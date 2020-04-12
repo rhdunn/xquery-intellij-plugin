@@ -28,14 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 @DisplayName("IntelliJ - Custom Language Support - Documentation - MarkLogic Product Documentation")
 private class MarkLogicDocumentationTest {
     @Test
-    @DisplayName("product type")
-    fun productType() {
-        val type: XpmProductType = MarkLogicProductDocumentation
-        assertThat(type.id, `is`("marklogic"))
-        assertThat(type.name, `is`("MarkLogic"))
-    }
-
-    @Test
     @DisplayName("MarkLogic 6.0")
     fun marklogic6() {
         val spec: XQDocDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_6
