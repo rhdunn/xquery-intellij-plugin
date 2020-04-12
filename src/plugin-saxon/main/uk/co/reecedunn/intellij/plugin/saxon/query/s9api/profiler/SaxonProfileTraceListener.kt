@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.saxon.profiler
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize

@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvide
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
-import uk.co.reecedunn.intellij.plugin.saxon.profiler.SaxonProfileTraceListener
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import java.lang.RuntimeException
 import java.lang.reflect.InvocationTargetException
