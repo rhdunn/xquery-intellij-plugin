@@ -271,7 +271,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("if with else")
         fun ifWithElse() {
             val file = parse<XQueryModule>("if (1) then 2 else 3")[0]
-            validator.product = BaseX.VERSION_9_1
+            validator.product = VERSION_6_0
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }

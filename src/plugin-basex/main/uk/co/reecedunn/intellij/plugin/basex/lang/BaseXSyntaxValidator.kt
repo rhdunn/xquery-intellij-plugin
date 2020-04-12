@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -38,7 +39,12 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
             XQueryTokenType.K_UPDATE -> reporter.requireProduct(element, BaseX.VERSION_7_8)
             else -> reporter.requireProduct(element, BaseX.VERSION_8_5)
         }
-        is XPathIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1, BaseXBundle.message("conformance.if-without-else"))
+        is XPathIfExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_IF -> reporter.requireProduct(
+                element, BaseX.VERSION_9_1, BaseXBundle.message("conformance.if-without-else")
+            )
+            else -> {}
+        }
         else -> {}
     }
 }
