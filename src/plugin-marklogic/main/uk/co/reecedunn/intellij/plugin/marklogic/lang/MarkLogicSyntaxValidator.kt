@@ -66,6 +66,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginSimpleTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginStylesheetImport -> reporter.requireProduct(element, MarkLogic.VERSION_6)
         is PluginTransactionSeparator -> validateTransaction(element, reporter)
+        is PluginUsingDecl -> reporter.requireProduct(element, MarkLogic.VERSION_6)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
             XPathTokenType.STAR -> reporter.requireProduct(element, MarkLogic.VERSION_8)
             else -> {}

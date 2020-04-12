@@ -377,22 +377,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (105) UsingDecl")
-    fun testUsingDecl() {
-        val file = parseResource("tests/parser/marklogic-6.0/UsingDecl.xq")
-
-        val usingDeclPsi = file.walkTree().filterIsInstance<PluginUsingDecl>().first()
-        val conformance = usingDeclPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_USING))
-    }
-
-    @Test
     @DisplayName("XQuery 3.1 EBNF (199) ElementTest ; XQuery IntelliJ Plugin EBNF (111) ElementNameOrWildcard")
     fun elementTest() {
         val conformance = parse<XPathElementTest>("() instance of element(*:test)")[0] as VersionConformance

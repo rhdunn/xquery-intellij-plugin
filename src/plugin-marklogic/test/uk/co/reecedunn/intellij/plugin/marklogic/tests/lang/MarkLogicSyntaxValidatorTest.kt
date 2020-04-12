@@ -1443,4 +1443,32 @@ class MarkLogicSyntaxValidatorTest :
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (105) UsingDecl")
+    internal inner class UsingDecl {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("using namespace \"http://www.example.com/test\"; 2")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("using namespace \"http://www.example.com/test\"; 2")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(0:5): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }

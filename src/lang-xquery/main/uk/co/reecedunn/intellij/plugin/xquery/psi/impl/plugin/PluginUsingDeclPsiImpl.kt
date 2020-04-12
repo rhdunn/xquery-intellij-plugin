@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,16 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 
 class PluginUsingDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginUsingDecl, XdmDefaultNamespaceDeclaration, VersionConformance {
+    ASTWrapperPsiElement(node), PluginUsingDecl, XdmDefaultNamespaceDeclaration, XpmSyntaxValidationElement {
     // region XdmNamespaceDeclaration
 
     override val namespacePrefix
@@ -42,9 +42,7 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
     }
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement get(): PsiElement = firstChild
 
