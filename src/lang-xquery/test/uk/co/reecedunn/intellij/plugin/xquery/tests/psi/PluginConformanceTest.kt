@@ -47,21 +47,6 @@ private class PluginConformanceTest : ParserTestCase() {
         return file.toPsiFile(myProject)!!
     }
 
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (33) StylesheetImport")
-    fun testStylesheetImport() {
-        val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
-
-        val stylesheetImportPsi = file.descendants().filterIsInstance<PluginStylesheetImport>().first()
-        val conformance = stylesheetImportPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XQueryTokenType.K_IMPORT))
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (35) TransactionSeparator")
     internal inner class TransactionSeparator {

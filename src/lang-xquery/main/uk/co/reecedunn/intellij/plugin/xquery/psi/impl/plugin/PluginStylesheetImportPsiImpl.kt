@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,18 +20,15 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class PluginStylesheetImportPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginStylesheetImport, VersionConformance {
-    // region VersionConformance
+    ASTWrapperPsiElement(node), PluginStylesheetImport, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_6_0)
-
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.K_STYLESHEET)!!
 
     // endregion
     // region XQueryImport

@@ -372,6 +372,34 @@ class MarkLogicSyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (33) StylesheetImport")
+    internal inner class StylesheetImport {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("import stylesheet at \"test.xsl\"; 2")[0]
+            validator.product = MarkLogic.VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("import stylesheet at \"test.xsl\"; 2")[0]
+            validator.product = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(7:17): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
     internal inner class AttributeDeclTest {
         @Test
