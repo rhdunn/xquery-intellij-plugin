@@ -28,7 +28,7 @@ abstract class Dialog<Configuration> : SettingsUI<Configuration> {
     private fun run(configuration: Configuration, title: String): Boolean {
         val dialog = dialog(title) {
             resizable(resizable)
-            setCenterPanel(panel!!)
+            setCenterPanel(panel)
             setPreferredFocusComponent(null)
             setOkOperation {
                 dialogWrapper.isOKActionEnabled = false
