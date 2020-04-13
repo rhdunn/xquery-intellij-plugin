@@ -38,7 +38,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
         val processHandler = startProcess()
         val console = createConsole(executor!!)
-        console?.attachToProcess(processHandler)
+        console.attachToProcess(processHandler)
         return DefaultExecutionResult(console, processHandler)
     }
 
@@ -75,7 +75,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         }
     }
 
-    private fun createConsole(executor: Executor): ConsoleView? {
+    override fun createConsole(executor: Executor): ConsoleView {
         return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> {
                 QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))

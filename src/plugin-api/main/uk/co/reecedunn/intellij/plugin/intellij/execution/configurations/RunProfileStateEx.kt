@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.ui.ConsoleView
 
 interface RunProfileStateEx : RunProfileState {
+    fun createConsole(executor: Executor): ConsoleView
 }
