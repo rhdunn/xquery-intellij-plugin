@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -28,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonQueryDebugger
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonQueryProfiler
 import java.lang.RuntimeException
 import java.lang.reflect.InvocationTargetException
@@ -36,6 +39,7 @@ import javax.xml.transform.Source
 internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val source: Source?) :
     ProfileableQueryProvider,
     RunnableQueryProvider,
+    DebuggableQueryProvider,
     ValidatableQueryProvider {
 
     private val processor by lazy {
@@ -81,6 +85,11 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
             XSLT -> SaxonXsltRunner(processor, queryText, query)
             else -> throw UnsupportedQueryType(language)
         }
+    }
+
+    override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
+        val runner = createRunnableQuery(query, language)
+        return SaxonQueryDebugger(runner)
     }
 
     override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
