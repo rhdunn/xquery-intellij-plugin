@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.runners
 
-import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.configurations.RunnerSettings
@@ -24,11 +23,8 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.GenericProgramRunner
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import com.intellij.xdebugger.XDebugProcessStarter
-import com.intellij.xdebugger.XDebuggerManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.startDebugSession
-import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 
 class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
     override fun getRunnerId(): String = "XIJPQueryProcessorDebugger"
@@ -42,23 +38,8 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
 
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
         FileDocumentManager.getInstance().saveAllDocuments()
-        val starter = createProcessStarter(environment.runProfile as QueryProcessorRunConfiguration)
-        return startDebugSession(environment) { session -> starter.start(session) }.runContentDescriptor
-    }
-
-    private fun createProcessStarter(configuration: QueryProcessorRunConfiguration): XDebugProcessStarter {
-        val session = configuration.processor!!.session
-        val source = configuration.scriptFile
-            ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
-
-        val query = (session as DebuggableQueryProvider).createDebuggableQuery(source, configuration.language)
-        query.rdfOutputFormat = configuration.rdfOutputFormat
-        query.updating = configuration.updating
-        query.xpathSubset = configuration.xpathSubset
-        query.database = configuration.database ?: ""
-        query.server = configuration.server ?: ""
-        query.modulePath = configuration.modulePath ?: ""
-        configuration.contextItem?.let { query.bindContextItem(it, null) }
-        return query
+        return startDebugSession(environment) { session ->
+            TODO()
+        }.runContentDescriptor
     }
 }
