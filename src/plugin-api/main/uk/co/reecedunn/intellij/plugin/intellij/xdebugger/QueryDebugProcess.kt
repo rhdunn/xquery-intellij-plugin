@@ -15,10 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger
 
+import com.intellij.lang.Language
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSession
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation.QueryEditorsProvider
 
-class QueryDebugProcess(session: XDebugSession) : XDebugProcess(session) {
-    override fun getEditorsProvider(): XDebuggerEditorsProvider = TODO()
+class QueryDebugProcess(
+    session: XDebugSession,
+    language: Language
+) : XDebugProcess(session) {
+    private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
+
+    override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
 }
