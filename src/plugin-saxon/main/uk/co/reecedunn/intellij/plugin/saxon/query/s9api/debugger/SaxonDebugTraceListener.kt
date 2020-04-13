@@ -15,13 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 
-class SaxonDebugTraceListener : SaxonTraceListener(), DebugSession {
+class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), DebugSession {
     // region DebugSession
 
     override var listener: DebugSessionListener? = null
@@ -41,7 +42,7 @@ class SaxonDebugTraceListener : SaxonTraceListener(), DebugSession {
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
             state = QueryProcessState.Suspended
-            listener?.onsuspended(SaxonSuspendContext())
+            listener?.onsuspended(SaxonSuspendContext(query))
         }
 
         while (state === QueryProcessState.Suspended) {

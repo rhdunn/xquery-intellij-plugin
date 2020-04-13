@@ -15,12 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.frame.XExecutionStack
-import com.intellij.xdebugger.frame.XSuspendContext
+import com.intellij.xdebugger.frame.XStackFrame
 
-class SaxonSuspendContext(val query: VirtualFile) : XSuspendContext() {
-    private val activeExecutionStack = SaxonExecutionStack(query.name)
+class SaxonExecutionStack(displayName: String) : XExecutionStack(displayName) {
+    override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
+    }
 
-    override fun getActiveExecutionStack(): XExecutionStack? = activeExecutionStack
+    override fun getTopFrame(): XStackFrame? {
+        return null
+    }
 }

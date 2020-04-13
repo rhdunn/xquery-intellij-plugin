@@ -89,7 +89,7 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
         val runner = createRunnableQuery(query, language)
-        (runner as SaxonRunner).traceListener = SaxonDebugTraceListener()
+        (runner as SaxonRunner).traceListener = SaxonDebugTraceListener(query)
         return SaxonQueryDebugger(runner)
     }
 
