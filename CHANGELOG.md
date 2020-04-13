@@ -2,6 +2,10 @@
 
 ## 1.7 - (In Development)
 
+Run Configurations:
+
+1.  Support stopping Saxon queries.
+
 ## 2020
 
 *  [1.6.1 - 2020-04-09](docs/_posts/2020-04-09-release-1.6.1.md)

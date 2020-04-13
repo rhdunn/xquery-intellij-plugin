@@ -20,10 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
-import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
@@ -36,7 +33,7 @@ internal class SaxonXQueryRunner(
     val processor: Processor,
     val query: String,
     private val queryFile: VirtualFile
-) : RunnableQuery, ValidatableQuery, SaxonRunner {
+) : RunnableQuery, ValidatableQuery, StoppableQuery, SaxonRunner {
     // region XQuery Runner
 
     private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
@@ -91,6 +88,9 @@ internal class SaxonXQueryRunner(
     override var traceListener: SaxonTraceListener? = null
 
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
+        if (traceListener == null) {
+            traceListener = SaxonTraceListener()
+        }
         processor.setTraceListener(traceListener)
 
         context?.let { evaluator.setContextItem(it) }
@@ -124,6 +124,13 @@ internal class SaxonXQueryRunner(
         } catch (e: QueryError) {
             e
         }
+    }
+
+    // endregion
+    // region StoppableQuery
+
+    override fun stop() {
+        traceListener?.stop()
     }
 
     // endregion

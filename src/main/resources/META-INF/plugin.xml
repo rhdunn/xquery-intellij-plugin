@@ -54,6 +54,10 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.7:</h3>
+    <p>Run Configurations:</p>
+    <ol>
+      <li>Support stopping Saxon queries.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
