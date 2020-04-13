@@ -37,6 +37,8 @@ internal class SaxonXQueryRunner(
     val query: String,
     private val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
+    // region XQuery Runner
+
     private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
 
     private val compiler by lazy {
@@ -48,6 +50,9 @@ internal class SaxonXQueryRunner(
     private val executable by lazy { compiler.compile(query) }
 
     private val evaluator by lazy { executable.load() }
+
+    // endregion
+    // region Query
 
     override var rdfOutputFormat: Language? = null
 
@@ -80,6 +85,9 @@ internal class SaxonXQueryRunner(
         }
     }
 
+    // endregion
+    // region SaxonRunner
+
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
         context?.let { evaluator.setContextItem(it) }
 
@@ -92,12 +100,18 @@ internal class SaxonXQueryRunner(
         SaxonQueryResultIterator(result.iterator(), processor).asSequence()
     }
 
+    // endregion
+    // region RunnableQuery
+
     override fun run(): QueryResults {
         val start = System.nanoTime()
         val results = asSequence().toList()
         val end = System.nanoTime()
         return QueryResults(QueryResults.OK, results, XsDuration.ns(end - start))
     }
+
+    // endregion
+    // region ValidatableQuery
 
     override fun validate(): QueryError? {
         return try {
@@ -108,6 +122,12 @@ internal class SaxonXQueryRunner(
         }
     }
 
+    // endregion
+    // region Closeable
+
     override fun close() {
     }
+
+    // endregion
 }
+

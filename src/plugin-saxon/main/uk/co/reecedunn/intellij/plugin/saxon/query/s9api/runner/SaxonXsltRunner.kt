@@ -44,6 +44,8 @@ internal class SaxonXsltRunner(
     val query: String,
     private val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
+    // region XSLT Runner
+
     private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
 
     private val compiler by lazy {
@@ -55,6 +57,9 @@ internal class SaxonXsltRunner(
     private val executable by lazy { compiler.compile(query.toStreamSource()) }
 
     private val transformer by lazy { executable.load() }
+
+    // endregion
+    // region Query
 
     override var rdfOutputFormat: Language? = null
 
@@ -86,6 +91,9 @@ internal class SaxonXsltRunner(
         }
     }
 
+    // endregion
+    // region SaxonRunner
+
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
         if (context == null) {
             // The Saxon processor throws a NPE if source is null.
@@ -103,12 +111,18 @@ internal class SaxonXsltRunner(
         SaxonQueryResultIterator(result.iterator(), processor).asSequence()
     }
 
+    // endregion
+    // region RunnableQuery
+
     override fun run(): QueryResults {
         val start = System.nanoTime()
         val results = asSequence().toList()
         val end = System.nanoTime()
         return QueryResults(QueryResults.OK, results, XsDuration.ns(end - start))
     }
+
+    // endregion
+    // region ValidatableQuery
 
     override fun validate(): QueryError? {
         return try {
@@ -119,6 +133,11 @@ internal class SaxonXsltRunner(
         }
     }
 
+    // endregion
+    // region Closeable
+
     override fun close() {
     }
+
+    // endregion
 }

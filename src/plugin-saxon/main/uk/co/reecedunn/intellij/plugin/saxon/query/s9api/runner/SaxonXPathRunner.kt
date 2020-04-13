@@ -36,6 +36,8 @@ internal class SaxonXPathRunner(
     val query: String,
     private val queryFile: VirtualFile
 ) : RunnableQuery, ValidatableQuery, SaxonRunner {
+    // region XPath Runner
+
     private val compiler by lazy { processor.newXPathCompiler() }
 
     private val executable by lazy {
@@ -46,6 +48,9 @@ internal class SaxonXPathRunner(
     }
 
     private val selector by lazy { executable.load() }
+
+    // endregion
+    // region Query
 
     override var rdfOutputFormat: Language? = null
 
@@ -74,10 +79,16 @@ internal class SaxonXPathRunner(
         }
     }
 
+    // endregion
+    // region SaxonRunner
+
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader) {
         context?.let { selector.setContextItem(it) }
         SaxonQueryResultIterator(selector.iterator(), processor).asSequence()
     }
+
+    // endregion
+    // region RunnableQuery
 
     override fun run(): QueryResults {
         val start = System.nanoTime()
@@ -85,6 +96,9 @@ internal class SaxonXPathRunner(
         val end = System.nanoTime()
         return QueryResults(QueryResults.OK, results, XsDuration.ns(end - start))
     }
+
+    // endregion
+    // region ValidatableQuery
 
     override fun validate(): QueryError? {
         return try {
@@ -95,6 +109,11 @@ internal class SaxonXPathRunner(
         }
     }
 
+    // endregion
+    // region Closeable
+
     override fun close() {
     }
+
+    // endregion
 }
