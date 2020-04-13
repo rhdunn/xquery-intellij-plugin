@@ -15,8 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
-class SaxonInstructionFrame(val instruction: InstructionInfo) : XStackFrame() {
+class SaxonInstructionFrame(val instruction: InstructionInfo, file: VirtualFile?) : XStackFrame() {
+    private val sourcePosition = CacheableProperty {
+        val line = instruction.getLineNumber().let { if (it == -1) 1 else it } - 1
+        val column = instruction.getColumnNumber().let { if (it == -1) 1 else it } - 1
+        XDebuggerUtil.getInstance().createPosition(file, line, column)
+    }
+
+    override fun getSourcePosition(): XSourcePosition? {
+        return sourcePosition.get()
+    }
 }
