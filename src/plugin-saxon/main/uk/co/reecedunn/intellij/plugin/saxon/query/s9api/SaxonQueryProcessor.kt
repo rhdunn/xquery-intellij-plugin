@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonQueryDebu
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonQueryProfiler
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonXPathRunner
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonXQueryRunner
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonXsltRunner
 import java.lang.RuntimeException
 import java.lang.reflect.InvocationTargetException
 import javax.xml.transform.Source
