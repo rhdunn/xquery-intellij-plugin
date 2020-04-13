@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryP
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
@@ -74,7 +75,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
                 (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
             }
             DefaultDebugExecutor.EXECUTOR_ID -> {
-                (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
+                (session as DebuggableQueryProvider).createDebuggableQuery(source, configuration.language)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)

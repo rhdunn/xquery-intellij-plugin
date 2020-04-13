@@ -15,6 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
-import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-interface DebuggableQuery : Query
+interface DebuggableQuery : RunnableQuery
