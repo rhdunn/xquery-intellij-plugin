@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -41,7 +41,7 @@ class SaxonProfileInstruction(
     var count: Int = 1
 )
 
-class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : TraceListener {
+class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : SaxonTraceListener() {
     var elapsed: Long = 0
     var created: Date? = null
     private var started: Boolean = false
@@ -90,18 +90,6 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : T
             result.totalTime += current.totalTime
             result.count += 1
         }
-    }
-
-    override fun startCurrentItem(currentItem: Any) {
-    }
-
-    override fun endCurrentItem(currentItem: Any) {
-    }
-
-    override fun startRuleSearch() {
-    }
-
-    override fun endRuleSearch(rule: Any, mode: Any, item: Any) {
     }
 }
 

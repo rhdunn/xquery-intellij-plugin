@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 
-class SaxonDebugTraceListener : TraceListener {
+class SaxonDebugTraceListener : SaxonTraceListener() {
     // region Debug API
 
     private var state: QueryProcessState = QueryProcessState.Starting
