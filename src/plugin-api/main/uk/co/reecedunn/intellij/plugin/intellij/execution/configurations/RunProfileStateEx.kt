@@ -19,9 +19,12 @@ import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
 
 interface RunProfileStateEx : RunProfileState {
-    fun createProcess(): ProcessHandler
+    fun createQuery(): Query
+
+    fun createProcessHandler(query: Query): ProcessHandler
 
     fun createConsole(executor: Executor): ConsoleView
 }

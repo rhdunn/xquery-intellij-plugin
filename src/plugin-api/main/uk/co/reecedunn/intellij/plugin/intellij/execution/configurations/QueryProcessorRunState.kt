@@ -41,13 +41,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
-        val processHandler = createProcess()
+        val processHandler = createProcessHandler(createQuery())
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)
         return DefaultExecutionResult(console, processHandler)
     }
 
-    override fun createProcess(): ProcessHandler {
+    override fun createQuery(): Query {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
 
         val query = createQuery(environment.executor, configuration)
@@ -58,12 +58,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         query.server = configuration.server ?: ""
         query.modulePath = configuration.modulePath ?: ""
         configuration.contextItem?.let { query.bindContextItem(it, null) }
-
-        return when (query) {
-            is RunnableQuery -> RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)
-            is ProfileableQuery -> ProfileableQueryProcessHandler(query).reformat(configuration.reformatResults)
-            else -> throw UnsupportedOperationException()
-        }
+        return query
     }
 
     private fun createQuery(executor: Executor, configuration: QueryProcessorRunConfiguration): Query {
@@ -80,6 +75,15 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)
             }
+            else -> throw UnsupportedOperationException()
+        }
+    }
+
+    override fun createProcessHandler(query: Query): ProcessHandler {
+        val configuration = environment.runProfile as QueryProcessorRunConfiguration
+        return when (query) {
+            is RunnableQuery -> RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)
+            is ProfileableQuery -> ProfileableQueryProcessHandler(query).reformat(configuration.reformatResults)
             else -> throw UnsupportedOperationException()
         }
     }
