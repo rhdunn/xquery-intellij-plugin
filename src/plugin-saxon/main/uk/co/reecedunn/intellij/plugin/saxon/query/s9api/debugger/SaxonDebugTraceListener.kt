@@ -16,11 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
+import java.util.*
 
 class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), DebugSession {
     // region DebugSession
@@ -42,7 +44,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
             state = QueryProcessState.Suspended
-            listener?.onsuspended(SaxonSuspendContext(query))
+            listener?.onsuspended(SaxonSuspendContext(query, stackFrame))
         }
 
         while (state === QueryProcessState.Suspended) {
@@ -53,13 +55,19 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     // endregion
     // region TraceListener
 
+    private val stackFrame: Stack<XStackFrame> = Stack()
+
     override fun enter(instruction: InstructionInfo, context: Any) {
         super.enter(instruction, context)
+
+        stackFrame.push(SaxonInstructionFrame(instruction))
         checkIsSuspended()
     }
 
     override fun leave(instruction: InstructionInfo) {
         super.leave(instruction)
+
+        stackFrame.pop()
         checkIsSuspended()
     }
 

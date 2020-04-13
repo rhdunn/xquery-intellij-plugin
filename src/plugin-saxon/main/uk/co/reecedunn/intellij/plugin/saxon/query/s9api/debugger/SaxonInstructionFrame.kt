@@ -15,17 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
-import com.intellij.xdebugger.frame.XExecutionStack
 import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
-class SaxonExecutionStack(displayName: String, private val stackFrame: List<XStackFrame>) : XExecutionStack(displayName) {
-    override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
-        if (firstFrameIndex == 0) {
-            container?.addStackFrames(stackFrame, true)
-        } else {
-            container?.addStackFrames(stackFrame.drop(firstFrameIndex).toList(), true)
-        }
-    }
-
-    override fun getTopFrame(): XStackFrame? = stackFrame[0]
+class SaxonInstructionFrame(val instruction: InstructionInfo) : XStackFrame() {
 }
