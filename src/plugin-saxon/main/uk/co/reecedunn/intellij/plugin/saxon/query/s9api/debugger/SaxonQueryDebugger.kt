@@ -22,7 +22,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class SaxonQueryDebugger(
-    val runner: RunnableQuery
+    val runner: RunnableQuery,
+    val listener: SaxonDebugTraceListener
 ) : DebuggableQuery {
     // region Query
 

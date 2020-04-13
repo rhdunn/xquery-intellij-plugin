@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonDebugTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonQueryDebugger
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonQueryProfiler
 import java.lang.RuntimeException
@@ -89,7 +90,11 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
         val runner = createRunnableQuery(query, language)
-        return SaxonQueryDebugger(runner)
+
+        val listener = SaxonDebugTraceListener()
+        processor.setTraceListener(listener)
+
+        return SaxonQueryDebugger(runner, listener)
     }
 
     override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
