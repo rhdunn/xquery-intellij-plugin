@@ -21,11 +21,9 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonRunner
 
-internal class SaxonQueryDebugger(
-    val runner: RunnableQuery,
-    val listener: SaxonDebugTraceListener
-) : DebuggableQuery, StoppableQuery {
+internal class SaxonQueryDebugger(val runner: RunnableQuery) : DebuggableQuery, StoppableQuery {
     // region Query
 
     override var rdfOutputFormat: Language?
@@ -80,7 +78,9 @@ internal class SaxonQueryDebugger(
     // endregion
     // region StoppableQuery
 
-    override fun stop() = listener.stop()
+    override fun stop() {
+        (runner as SaxonRunner).traceListener?.stop()
+    }
 
     // endregion
     // region Closeable

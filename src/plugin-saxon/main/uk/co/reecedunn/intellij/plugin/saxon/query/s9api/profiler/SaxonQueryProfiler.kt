@@ -23,10 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonRunner
 
-internal class SaxonQueryProfiler(
-    val runner: RunnableQuery,
-    private val listener: SaxonProfileTraceListener
-) : ProfileableQuery, StoppableQuery {
+internal class SaxonQueryProfiler(val runner: RunnableQuery) : ProfileableQuery, StoppableQuery {
     // region Query
 
     override var rdfOutputFormat: Language?
@@ -78,13 +75,16 @@ internal class SaxonQueryProfiler(
 
     override fun profile(): ProfileQueryResults {
         val results = (runner as SaxonRunner).asSequence().toList()
+        val listener = (runner as SaxonRunner).traceListener as SaxonProfileTraceListener
         return ProfileQueryResults(results, listener.toProfileReport())
     }
 
     // endregion
     // region StoppableQuery
 
-    override fun stop() = listener.stop()
+    override fun stop() {
+        (runner as SaxonRunner).traceListener?.stop()
+    }
 
     // endregion
     // region Closeable

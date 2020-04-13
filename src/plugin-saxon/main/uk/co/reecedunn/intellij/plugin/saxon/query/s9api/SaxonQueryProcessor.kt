@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonDebugTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonQueryDebugger
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonQueryProfiler
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonRunner
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonXPathRunner
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonXQueryRunner
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonXsltRunner
@@ -72,16 +73,11 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
-
-        val listener = SaxonProfileTraceListener(processor.version, query)
-        processor.setTraceListener(listener)
-
-        return SaxonQueryProfiler(runner, listener)
+        (runner as SaxonRunner).traceListener = SaxonProfileTraceListener(processor.version, query)
+        return SaxonQueryProfiler(runner)
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
-        processor.setTraceListener(null)
-
         val queryText = query.decode()!!
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, query)
@@ -93,16 +89,11 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
         val runner = createRunnableQuery(query, language)
-
-        val listener = SaxonDebugTraceListener()
-        processor.setTraceListener(listener)
-
-        return SaxonQueryDebugger(runner, listener)
+        (runner as SaxonRunner).traceListener = SaxonDebugTraceListener()
+        return SaxonQueryDebugger(runner)
     }
 
     override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
-        processor.setTraceListener(null)
-
         val queryText = query.decode()!!
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, query)

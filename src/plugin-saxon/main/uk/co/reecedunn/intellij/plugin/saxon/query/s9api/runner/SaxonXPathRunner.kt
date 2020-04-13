@@ -82,7 +82,11 @@ internal class SaxonXPathRunner(
     // endregion
     // region SaxonRunner
 
+    override var traceListener: SaxonTraceListener? = null
+
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader) {
+        processor.setTraceListener(traceListener)
+
         context?.let { selector.setContextItem(it) }
         SaxonQueryResultIterator(selector.iterator(), processor).asSequence()
     }
@@ -113,6 +117,7 @@ internal class SaxonXPathRunner(
     // region Closeable
 
     override fun close() {
+        processor.setTraceListener(null)
     }
 
     // endregion

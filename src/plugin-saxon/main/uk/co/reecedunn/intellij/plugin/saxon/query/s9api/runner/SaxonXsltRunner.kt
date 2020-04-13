@@ -94,7 +94,11 @@ internal class SaxonXsltRunner(
     // endregion
     // region SaxonRunner
 
+    override var traceListener: SaxonTraceListener? = null
+
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
+        processor.setTraceListener(traceListener)
+
         if (context == null) {
             // The Saxon processor throws a NPE if source is null.
             val message = PluginApiBundle.message("error.missing-xslt-source")
@@ -137,6 +141,7 @@ internal class SaxonXsltRunner(
     // region Closeable
 
     override fun close() {
+        processor.setTraceListener(null)
     }
 
     // endregion

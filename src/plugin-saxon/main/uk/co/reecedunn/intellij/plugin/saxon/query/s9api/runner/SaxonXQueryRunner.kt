@@ -88,7 +88,11 @@ internal class SaxonXQueryRunner(
     // endregion
     // region SaxonRunner
 
+    override var traceListener: SaxonTraceListener? = null
+
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
+        processor.setTraceListener(traceListener)
+
         context?.let { evaluator.setContextItem(it) }
 
         val destination = RawDestination(processor.classLoader)
@@ -126,6 +130,7 @@ internal class SaxonXQueryRunner(
     // region Closeable
 
     override fun close() {
+        processor.setTraceListener(null)
     }
 
     // endregion
