@@ -19,7 +19,6 @@ import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
-import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
@@ -35,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextCo
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
-class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileState {
+class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
         val processHandler = startProcess()
         val console = createConsole(executor!!)
