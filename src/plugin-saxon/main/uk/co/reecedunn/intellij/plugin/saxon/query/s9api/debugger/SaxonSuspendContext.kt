@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
-enum class QueryProcessState {
-    Starting,
-    Running,
-    Suspending,
-    Suspended,
-    Stopping,
-    Stopped
+import com.intellij.xdebugger.frame.XSuspendContext
+
+class SaxonSuspendContext : XSuspendContext() {
 }

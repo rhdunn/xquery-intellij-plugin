@@ -28,11 +28,16 @@ class SaxonDebugTraceListener : SaxonTraceListener(), DebugSession {
 
     override fun suspend() {
         if (state === QueryProcessState.Running) {
-            state = QueryProcessState.Suspended
+            state = QueryProcessState.Suspending
         }
     }
 
     private fun checkIsSuspended() {
+        if (state === QueryProcessState.Suspending) {
+            state = QueryProcessState.Suspended
+            listener?.onsuspended(SaxonSuspendContext())
+        }
+
         while (state === QueryProcessState.Suspended) {
             Thread.sleep(100)
         }
