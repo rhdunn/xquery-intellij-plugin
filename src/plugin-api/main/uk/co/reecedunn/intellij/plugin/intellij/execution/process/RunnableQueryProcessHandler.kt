@@ -18,8 +18,10 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 import com.intellij.openapi.application.ModalityState
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
+import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
 
 class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProcessHandlerBase() {
     override fun startNotify() {
@@ -41,7 +43,9 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                         }
                         notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
                     } catch (e: Throwable) {
-                        notifyException(e)
+                        if (e !is ProcessTerminatedException) {
+                            notifyException(e)
+                        }
                     } finally {
                         val file = notifyEndResults()
                         if (file != null) {
@@ -52,11 +56,19 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.defaultModalityState()) {
-                    notifyException(e)
+                    if (e !is ProcessTerminatedException) {
+                        notifyException(e)
+                    }
                     notifyEndResults()
                     notifyProcessDetached()
                 }
             }
+        }
+    }
+
+    override fun destroyProcessImpl() {
+        if (query is StoppableQuery) {
+            query.stop()
         }
     }
 }

@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
+import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
 
 class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : QueryProcessHandlerBase() {
     // region Profile Report
@@ -59,7 +61,9 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                         }
                         notifyResultTime(QueryResultTime.Elapsed, results.report.elapsed)
                     } catch (e: Throwable) {
-                        notifyException(e)
+                        if (e !is ProcessTerminatedException) {
+                            notifyException(e)
+                        }
                     } finally {
                         val file = notifyEndResults()
                         if (file != null) {
@@ -70,12 +74,20 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.defaultModalityState()) {
-                    notifyException(e)
+                    if (e !is ProcessTerminatedException) {
+                        notifyException(e)
+                    }
                     notifyEndResults()
                     notifyProcessDetached()
                 }
             }
 
+        }
+    }
+
+    override fun destroyProcessImpl() {
+        if (query is StoppableQuery) {
+            query.stop()
         }
     }
 

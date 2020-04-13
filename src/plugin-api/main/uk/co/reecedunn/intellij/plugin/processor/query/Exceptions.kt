@@ -24,6 +24,8 @@ import java.lang.UnsupportedOperationException
 import java.lang.reflect.InvocationTargetException
 import java.net.UnknownHostException
 
+class ProcessTerminatedException : RuntimeException()
+
 class ConfigurationFileNotFoundException(cause: Throwable) : RuntimeException("Configuration file not found.", cause)
 
 class HostConnectionException(val host: String, cause: Throwable) : RuntimeException("Connection error.", cause)
