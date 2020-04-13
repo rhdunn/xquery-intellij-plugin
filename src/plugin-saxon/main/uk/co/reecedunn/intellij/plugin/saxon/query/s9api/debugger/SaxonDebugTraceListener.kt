@@ -23,8 +23,6 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListen
 class SaxonDebugTraceListener : SaxonTraceListener() {
     // region Debug API
 
-    private var state: QueryProcessState = QueryProcessState.Starting
-
     fun stop() {
         if (state != QueryProcessState.Stopped) {
             state = QueryProcessState.Stopping
@@ -42,20 +40,6 @@ class SaxonDebugTraceListener : SaxonTraceListener() {
     // region TraceListener
 
     override fun setOutputDestination(logger: Any) {
-    }
-
-    override fun open(controller: Any?) {
-        // Saxon <= 9.6 call open twice.
-        if (state != QueryProcessState.Starting) return
-
-        state = QueryProcessState.Running
-    }
-
-    override fun close() {
-        // Saxon <= 9.6 call close twice, or the query was stopped by the user.
-        if (state == QueryProcessState.Stopped) return
-
-        state = QueryProcessState.Stopped
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {

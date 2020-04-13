@@ -44,7 +44,6 @@ class SaxonProfileInstruction(
 class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : SaxonTraceListener() {
     var elapsed: Long = 0
     var created: Date? = null
-    private var started: Boolean = false
 
     private val instructions: Stack<SaxonProfileInstruction> = Stack()
     val results: HashMap<InstructionInfo, SaxonProfileInstruction> = HashMap()
@@ -52,21 +51,13 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : S
     override fun setOutputDestination(logger: Any) {
     }
 
-    override fun open(controller: Any?) {
-        // Saxon <= 9.6 call open twice.
-        if (started) return
-
-        started = true
+    override fun onstart() {
         elapsed = System.nanoTime()
         created = Date()
     }
 
-    override fun close() {
-        // Saxon <= 9.6 call close twice.
-        if (!started) return
-
+    override fun onfinish() {
         elapsed = System.nanoTime() - elapsed
-        started = false
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
