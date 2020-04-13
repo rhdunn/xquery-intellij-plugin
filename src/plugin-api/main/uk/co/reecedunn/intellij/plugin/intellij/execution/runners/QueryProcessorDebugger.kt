@@ -24,6 +24,7 @@ import com.intellij.execution.runners.GenericProgramRunner
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QueryDebugProcess
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.startDebugSession
 
 class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
@@ -39,7 +40,7 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
         FileDocumentManager.getInstance().saveAllDocuments()
         return startDebugSession(environment) { session ->
-            TODO()
+            QueryDebugProcess(session)
         }.runContentDescriptor
     }
 }
