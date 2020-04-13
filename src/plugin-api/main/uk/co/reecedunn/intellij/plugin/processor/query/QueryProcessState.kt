@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.debug
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-enum class DebugState {
+enum class QueryProcessState {
     Starting,
     Running,
     Stopping,

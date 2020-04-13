@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
-import uk.co.reecedunn.intellij.plugin.processor.debug.DebugState
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
@@ -23,17 +23,17 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 class SaxonDebugTraceListener : TraceListener {
     // region Debug API
 
-    private var state: DebugState = DebugState.Starting
+    private var state: QueryProcessState = QueryProcessState.Starting
 
     fun stop() {
-        if (state != DebugState.Stopped) {
-            state = DebugState.Stopping
+        if (state != QueryProcessState.Stopped) {
+            state = QueryProcessState.Stopping
         }
     }
 
     private fun checkIsStopping() {
-        if (state == DebugState.Stopping) {
-            state = DebugState.Stopped
+        if (state == QueryProcessState.Stopping) {
+            state = QueryProcessState.Stopped
             throw ProcessTerminatedException()
         }
     }
@@ -46,16 +46,16 @@ class SaxonDebugTraceListener : TraceListener {
 
     override fun open(controller: Any?) {
         // Saxon <= 9.6 call open twice.
-        if (state != DebugState.Starting) return
+        if (state != QueryProcessState.Starting) return
 
-        state = DebugState.Running
+        state = QueryProcessState.Running
     }
 
     override fun close() {
         // Saxon <= 9.6 call close twice, or the query was stopped by the user.
-        if (state == DebugState.Stopped) return
+        if (state == QueryProcessState.Stopped) return
 
-        state = DebugState.Stopped
+        state = QueryProcessState.Stopped
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
