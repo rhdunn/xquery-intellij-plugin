@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
@@ -25,7 +25,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonRunner
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.check
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
