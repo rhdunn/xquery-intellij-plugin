@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonRunner
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonRunner
 
 internal class SaxonQueryProfiler(
     val runner: RunnableQuery,
