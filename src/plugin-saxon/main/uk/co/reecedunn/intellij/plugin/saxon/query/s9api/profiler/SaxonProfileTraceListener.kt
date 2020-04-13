@@ -61,6 +61,8 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : S
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
+        super.enter(instruction, context)
+
         // The ClauseInfo instructions are different for each iteration, so ignore them.
         if (instruction.isClauseInfo()) return
 
@@ -68,6 +70,8 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : S
     }
 
     override fun leave(instruction: InstructionInfo) {
+        super.leave(instruction)
+
         // The ClauseInfo instructions are different for each iteration, so ignore them.
         if (instruction.isClauseInfo()) return
 

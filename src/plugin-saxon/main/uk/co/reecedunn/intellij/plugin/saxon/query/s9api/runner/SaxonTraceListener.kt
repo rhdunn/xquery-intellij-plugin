@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner
 
+import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
@@ -27,6 +28,19 @@ open class SaxonTraceListener : TraceListener {
     open fun onstart() {}
 
     open fun onfinish() {}
+
+    fun stop() {
+        if (state != QueryProcessState.Stopped) {
+            state = QueryProcessState.Stopping
+        }
+    }
+
+    private fun checkIsStopping() {
+        if (state == QueryProcessState.Stopping) {
+            state = QueryProcessState.Stopped
+            throw ProcessTerminatedException()
+        }
+    }
 
     // endregion
     // region TraceListener
@@ -51,20 +65,26 @@ open class SaxonTraceListener : TraceListener {
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
+        checkIsStopping()
     }
 
     override fun leave(instruction: InstructionInfo) {
+        checkIsStopping()
     }
 
     override fun startCurrentItem(currentItem: Any) {
+        checkIsStopping()
     }
 
     override fun endCurrentItem(currentItem: Any) {
+        checkIsStopping()
     }
 
     override fun startRuleSearch() {
+        checkIsStopping()
     }
 
     override fun endRuleSearch(rule: Any, mode: Any, item: Any) {
+        checkIsStopping()
     }
 }

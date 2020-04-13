@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,15 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonRunner
 
 internal class SaxonQueryProfiler(
     val runner: RunnableQuery,
     private val listener: SaxonProfileTraceListener
-) : ProfileableQuery {
+) : ProfileableQuery, StoppableQuery {
+    // region Query
+
     override var rdfOutputFormat: Language?
         get() = runner.rdfOutputFormat
         set(value) {
@@ -70,12 +73,25 @@ internal class SaxonQueryProfiler(
         runner.bindContextItem(value, type)
     }
 
+    // endregion
+    // region ProfileableQuery
+
     override fun profile(): ProfileQueryResults {
         val results = (runner as SaxonRunner).asSequence().toList()
         return ProfileQueryResults(results, listener.toProfileReport())
     }
 
+    // endregion
+    // region StoppableQuery
+
+    override fun stop() = listener.stop()
+
+    // endregion
+    // region Closeable
+
     override fun close() {
         runner.close()
     }
+
+    // endregion
 }
