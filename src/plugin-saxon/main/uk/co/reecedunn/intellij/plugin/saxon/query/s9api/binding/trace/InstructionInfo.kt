@@ -17,10 +17,11 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.QName
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
 
-open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) {
+open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) : Location {
     private val locationClass: Class<*> by lazy {
         if (`class`.getMethodOrNull("getLocation") == null)
             `class` // Saxon 9
@@ -36,17 +37,17 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
         return `class`.classLoader.loadClassOrNull("net.sf.saxon.expr.flwor.ClauseInfo")?.isInstance(saxonObject) == true
     }
 
-    fun getSystemId(): String? {
+    override fun getSystemId(): String? {
         val id = locationClass.getMethod("getSystemId").invoke(location) as String?
         // Saxon <= 9.6 report "*module with no systemId*" for the script being run.
         return if (id == "*module with no systemId*") null else id
     }
 
-    fun getLineNumber(): Int {
+    override fun getLineNumber(): Int {
         return locationClass.getMethod("getLineNumber").invoke(location) as Int
     }
 
-    fun getColumnNumber(): Int {
+    override fun getColumnNumber(): Int {
         return locationClass.getMethod("getColumnNumber").invoke(location) as Int
     }
 
