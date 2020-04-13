@@ -16,7 +16,37 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 
 class SaxonDebugTraceListener : SaxonTraceListener(), DebugSession {
+    // region DebugSession
+
+    override fun suspend() {
+        if (state === QueryProcessState.Running) {
+            state = QueryProcessState.Suspended
+        }
+    }
+
+    private fun checkIsSuspended() {
+        while (state === QueryProcessState.Suspended) {
+            Thread.sleep(100)
+        }
+    }
+
+    // endregion
+    // region TraceListener
+
+    override fun enter(instruction: InstructionInfo, context: Any) {
+        super.enter(instruction, context)
+        checkIsSuspended()
+    }
+
+    override fun leave(instruction: InstructionInfo) {
+        super.leave(instruction)
+        checkIsSuspended()
+    }
+
+    // endregion
 }

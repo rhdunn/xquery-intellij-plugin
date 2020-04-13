@@ -22,6 +22,7 @@ import com.intellij.lang.Language
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSession
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
+import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation.QueryEditorsProvider
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
@@ -48,4 +49,6 @@ class QueryDebugProcess(
 
     override fun stop() {
     }
+
+    override fun startPausing() = session.suspend()
 }

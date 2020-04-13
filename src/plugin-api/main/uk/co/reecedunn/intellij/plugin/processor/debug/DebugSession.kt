@@ -16,4 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
 interface DebugSession {
+    fun suspend()
 }
