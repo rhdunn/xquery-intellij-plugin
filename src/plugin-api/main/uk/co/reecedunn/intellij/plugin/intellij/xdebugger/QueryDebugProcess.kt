@@ -26,16 +26,21 @@ import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation.QueryEditorsProvider
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 
 class QueryDebugProcess(
     session: XDebugSession,
     language: Language,
     private val state: QueryProcessorRunState
-) : XDebugProcess(session) {
+) : XDebugProcess(session), DebugSessionListener {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
     private val query: DebuggableQuery = state.createQuery() as DebuggableQuery
-    private val session: DebugSession = query.session
+    private val debugger: DebugSession = query.session
+
+    init {
+        debugger.listener = this
+    }
 
     override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
 
@@ -48,7 +53,8 @@ class QueryDebugProcess(
     override fun doGetProcessHandler(): ProcessHandler? = state.createProcessHandler(query)
 
     override fun stop() {
+        debugger.listener = null
     }
 
-    override fun startPausing() = session.suspend()
+    override fun startPausing() = debugger.suspend()
 }

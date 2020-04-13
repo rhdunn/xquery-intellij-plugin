@@ -15,8 +15,5 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
-interface DebugSession {
-    var listener: DebugSessionListener?
-
-    fun suspend()
+interface DebugSessionListener {
 }

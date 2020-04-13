@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 
 class SaxonDebugTraceListener : SaxonTraceListener(), DebugSession {
     // region DebugSession
+
+    override var listener: DebugSessionListener? = null
 
     override fun suspend() {
         if (state === QueryProcessState.Running) {
