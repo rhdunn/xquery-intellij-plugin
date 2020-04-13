@@ -24,6 +24,7 @@ import com.intellij.xdebugger.XDebugSession
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation.QueryEditorsProvider
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 
 class QueryDebugProcess(
@@ -33,6 +34,7 @@ class QueryDebugProcess(
 ) : XDebugProcess(session) {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
     private val query: DebuggableQuery = state.createQuery() as DebuggableQuery
+    private val session: DebugSession = query.session
 
     override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
 

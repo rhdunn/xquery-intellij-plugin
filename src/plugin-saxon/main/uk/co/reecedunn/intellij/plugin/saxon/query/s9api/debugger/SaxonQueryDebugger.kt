@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
@@ -81,6 +82,11 @@ internal class SaxonQueryDebugger(val runner: RunnableQuery) : DebuggableQuery, 
     override fun stop() {
         (runner as SaxonRunner).traceListener?.stop()
     }
+
+    // endregion
+    // region DebuggableQuery
+
+    override val session: DebugSession get() = (runner as SaxonRunner).traceListener as DebugSession
 
     // endregion
     // region Closeable

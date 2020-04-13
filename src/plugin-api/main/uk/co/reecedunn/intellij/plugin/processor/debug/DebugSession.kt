@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,5 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
-import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-
-interface DebuggableQuery : RunnableQuery {
-    val session: DebugSession
+interface DebugSession {
 }

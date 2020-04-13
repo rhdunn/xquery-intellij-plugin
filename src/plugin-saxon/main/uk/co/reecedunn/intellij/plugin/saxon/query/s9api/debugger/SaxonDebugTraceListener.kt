@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 
-class SaxonDebugTraceListener : SaxonTraceListener() {
+class SaxonDebugTraceListener : SaxonTraceListener(), DebugSession {
 }
