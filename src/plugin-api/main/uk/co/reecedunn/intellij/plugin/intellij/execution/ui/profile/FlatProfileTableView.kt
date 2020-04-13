@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.SaveAction
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.debug.createNavigatable
+import uk.co.reecedunn.intellij.plugin.processor.debug.getSourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat
@@ -75,7 +75,7 @@ class FlatProfileTableView(val project: Project) :
             if (row >= 0) {
                 val index = results!!.convertRowIndexToModel(row)
                 val item = (results!!.model as ListTableModel<*>).getItem(index) as FlatProfileEntry
-                item.frame.createNavigatable(project)?.navigate(true)
+                item.frame.getSourcePosition(project)?.createNavigatable(project)?.navigate(true)
             }
         }
 

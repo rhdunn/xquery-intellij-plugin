@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results
 
-import com.intellij.codeInsight.actions.ReformatCodeProcessor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.lang.Language
@@ -32,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultLis
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.database.resolve
-import uk.co.reecedunn.intellij.plugin.processor.debug.createNavigatable
+import uk.co.reecedunn.intellij.plugin.processor.debug.getSourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -151,7 +150,9 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                     if (resolved == null)
                         print(it.module.path, ConsoleViewContentType.ERROR_OUTPUT)
                     else
-                        printHyperlink(it.module.path) { project -> it.createNavigatable(project)?.navigate(true) }
+                        printHyperlink(it.module.path) { project ->
+                            it.getSourcePosition(project)?.createNavigatable(project)?.navigate(true)
+                        }
                 }
                 print(":${it.lineNumber}:${it.columnNumber}\n", ConsoleViewContentType.ERROR_OUTPUT)
             }

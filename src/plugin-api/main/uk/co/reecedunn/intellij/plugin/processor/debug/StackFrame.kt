@@ -36,7 +36,3 @@ fun StackFrame.getSourcePosition(project: Project): XSourcePosition? {
     }
     return XDebuggerUtil.getInstance().createPosition(resolved, lineNumber - 1, columnNumber - 1)
 }
-
-fun StackFrame.createNavigatable(project: Project): Navigatable? {
-    return getSourcePosition(project)?.createNavigatable(project)
-}
