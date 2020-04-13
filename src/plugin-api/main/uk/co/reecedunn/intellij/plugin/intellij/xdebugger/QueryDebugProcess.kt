@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger
 
 import com.intellij.execution.executors.DefaultDebugExecutor
+import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ExecutionConsole
 import com.intellij.lang.Language
 import com.intellij.xdebugger.XDebugProcess
@@ -34,8 +35,12 @@ class QueryDebugProcess(
     override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
 
     override fun createConsole(): ExecutionConsole {
-        return state.createConsole(DefaultDebugExecutor.getDebugExecutorInstance())
+        val console = state.createConsole(DefaultDebugExecutor.getDebugExecutorInstance())
+        console.attachToProcess(processHandler)
+        return console
     }
+
+    override fun doGetProcessHandler(): ProcessHandler? = state.createProcess()
 
     override fun stop() {
     }

@@ -73,6 +73,9 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
             DefaultRunExecutor.EXECUTOR_ID -> {
                 (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
             }
+            DefaultDebugExecutor.EXECUTOR_ID -> {
+                (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
+            }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)
             }
