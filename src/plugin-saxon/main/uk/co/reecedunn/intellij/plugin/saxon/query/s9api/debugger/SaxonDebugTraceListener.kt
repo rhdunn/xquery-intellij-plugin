@@ -15,17 +15,30 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 
 class SaxonDebugTraceListener : TraceListener {
+    private var state: DebugState = DebugState.Starting
+
+    // region TraceListener
+
     override fun setOutputDestination(logger: Any) {
     }
 
     override fun open(controller: Any?) {
+        // Saxon <= 9.6 call open twice.
+        if (state != DebugState.Starting) return
+
+        state = DebugState.Running
     }
 
     override fun close() {
+        // Saxon <= 9.6 call close twice.
+        if (state == DebugState.Stopped) return
+
+        state = DebugState.Stopped
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
@@ -45,4 +58,6 @@ class SaxonDebugTraceListener : TraceListener {
 
     override fun endRuleSearch(rule: Any, mode: Any, item: Any) {
     }
+
+    // endregion
 }
