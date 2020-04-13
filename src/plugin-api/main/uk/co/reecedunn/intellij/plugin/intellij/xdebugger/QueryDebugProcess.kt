@@ -15,17 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger
 
+import com.intellij.execution.executors.DefaultDebugExecutor
+import com.intellij.execution.ui.ExecutionConsole
 import com.intellij.lang.Language
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSession
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
+import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation.QueryEditorsProvider
 
 class QueryDebugProcess(
     session: XDebugSession,
-    language: Language
+    language: Language,
+    private val state: QueryProcessorRunState
 ) : XDebugProcess(session) {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
 
     override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
+
+    override fun createConsole(): ExecutionConsole {
+        return state.createConsole(DefaultDebugExecutor.getDebugExecutorInstance())
+    }
 }

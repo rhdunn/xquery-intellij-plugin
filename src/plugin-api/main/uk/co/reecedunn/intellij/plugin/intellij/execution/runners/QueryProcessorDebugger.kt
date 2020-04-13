@@ -24,6 +24,7 @@ import com.intellij.execution.runners.GenericProgramRunner
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
+import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QueryDebugProcess
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.startDebugSession
 
@@ -41,7 +42,7 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
         FileDocumentManager.getInstance().saveAllDocuments()
         return startDebugSession(environment) { session ->
             val configuration = environment.runProfile as QueryProcessorRunConfiguration
-            QueryDebugProcess(session, configuration.language)
+            QueryDebugProcess(session, configuration.language, state as QueryProcessorRunState)
         }.runContentDescriptor
     }
 }

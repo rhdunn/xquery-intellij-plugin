@@ -19,6 +19,7 @@ import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
+import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
@@ -81,7 +82,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
 
     override fun createConsole(executor: Executor): ConsoleView {
         return when (executor.id) {
-            DefaultRunExecutor.EXECUTOR_ID -> {
+            DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID -> {
                 QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
