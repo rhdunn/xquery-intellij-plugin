@@ -36,4 +36,7 @@ class QueryDebugProcess(
     override fun createConsole(): ExecutionConsole {
         return state.createConsole(DefaultDebugExecutor.getDebugExecutorInstance())
     }
+
+    override fun stop() {
+    }
 }
