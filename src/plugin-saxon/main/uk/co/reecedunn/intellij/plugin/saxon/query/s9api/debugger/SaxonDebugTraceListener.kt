@@ -16,12 +16,29 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugState
+import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 
 class SaxonDebugTraceListener : TraceListener {
+    // region Debug API
+
     private var state: DebugState = DebugState.Starting
 
+    fun stop() {
+        if (state != DebugState.Stopped) {
+            state = DebugState.Stopping
+        }
+    }
+
+    private fun checkIsStopping() {
+        if (state == DebugState.Stopping) {
+            state = DebugState.Stopped
+            throw ProcessTerminatedException()
+        }
+    }
+
+    // endregion
     // region TraceListener
 
     override fun setOutputDestination(logger: Any) {
@@ -35,28 +52,34 @@ class SaxonDebugTraceListener : TraceListener {
     }
 
     override fun close() {
-        // Saxon <= 9.6 call close twice.
+        // Saxon <= 9.6 call close twice, or the query was stopped by the user.
         if (state == DebugState.Stopped) return
 
         state = DebugState.Stopped
     }
 
     override fun enter(instruction: InstructionInfo, context: Any) {
+        checkIsStopping()
     }
 
     override fun leave(instruction: InstructionInfo) {
+        checkIsStopping()
     }
 
     override fun startCurrentItem(currentItem: Any) {
+        checkIsStopping()
     }
 
     override fun endCurrentItem(currentItem: Any) {
+        checkIsStopping()
     }
 
     override fun startRuleSearch() {
+        checkIsStopping()
     }
 
     override fun endRuleSearch(rule: Any, mode: Any, item: Any) {
+        checkIsStopping()
     }
 
     // endregion

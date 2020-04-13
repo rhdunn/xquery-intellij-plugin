@@ -18,5 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.debug
 enum class DebugState {
     Starting,
     Running,
+    Stopping,
     Stopped
 }

@@ -20,11 +20,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
 
 internal class SaxonQueryDebugger(
     val runner: RunnableQuery,
     val listener: SaxonDebugTraceListener
-) : DebuggableQuery {
+) : DebuggableQuery, StoppableQuery {
     // region Query
 
     override var rdfOutputFormat: Language?
@@ -75,6 +76,11 @@ internal class SaxonQueryDebugger(
     // region RunnableQuery
 
     override fun run(): QueryResults = runner.run()
+
+    // endregion
+    // region StoppableQuery
+
+    override fun stop() = listener.stop()
 
     // endregion
     // region Closeable
