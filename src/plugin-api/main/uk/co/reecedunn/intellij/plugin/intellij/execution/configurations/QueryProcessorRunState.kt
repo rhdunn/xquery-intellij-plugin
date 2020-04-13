@@ -36,13 +36,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
-        val processHandler = startProcess()
+        val processHandler = createProcess()
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)
         return DefaultExecutionResult(console, processHandler)
     }
 
-    private fun startProcess(): ProcessHandler {
+    override fun createProcess(): ProcessHandler {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
         val source = configuration.scriptFile
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
