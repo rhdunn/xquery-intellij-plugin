@@ -19,4 +19,6 @@ interface DebugSession {
     var listener: DebugSessionListener?
 
     fun suspend()
+
+    fun resume()
 }

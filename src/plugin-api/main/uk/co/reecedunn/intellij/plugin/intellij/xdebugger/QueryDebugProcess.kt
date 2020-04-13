@@ -59,6 +59,8 @@ class QueryDebugProcess(
 
     override fun startPausing() = debugger.suspend()
 
+    override fun resume(context: XSuspendContext?) = debugger.resume()
+
     override fun onsuspended(context: XSuspendContext) {
         invokeLater { session.positionReached(context) }
     }
