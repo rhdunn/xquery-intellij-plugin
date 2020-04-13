@@ -30,13 +30,13 @@ open class SaxonTraceListener : TraceListener {
     open fun onfinish() {}
 
     fun stop() {
-        if (state != QueryProcessState.Stopped) {
+        if (state !== QueryProcessState.Stopped) {
             state = QueryProcessState.Stopping
         }
     }
 
     private fun checkIsStopping() {
-        if (state == QueryProcessState.Stopping) {
+        if (state === QueryProcessState.Stopping) {
             state = QueryProcessState.Stopped
             throw ProcessTerminatedException()
         }
@@ -50,7 +50,7 @@ open class SaxonTraceListener : TraceListener {
 
     override fun open(controller: Any?) {
         // Saxon <= 9.6 call open twice.
-        if (state != QueryProcessState.Starting) return
+        if (state !== QueryProcessState.Starting) return
 
         state = QueryProcessState.Running
         onstart()
@@ -58,7 +58,7 @@ open class SaxonTraceListener : TraceListener {
 
     override fun close() {
         // Saxon <= 9.6 call close twice, or the query was stopped by the user.
-        if (state == QueryProcessState.Stopped) return
+        if (state === QueryProcessState.Stopped) return
 
         state = QueryProcessState.Stopped
         onfinish()
@@ -87,4 +87,6 @@ open class SaxonTraceListener : TraceListener {
     override fun endRuleSearch(rule: Any, mode: Any, item: Any) {
         checkIsStopping()
     }
+
+    // endregion
 }
