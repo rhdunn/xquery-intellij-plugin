@@ -31,7 +31,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryP
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.profile.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.results.QueryTextConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
@@ -44,32 +47,33 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
 
     override fun createProcess(): ProcessHandler {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
+
+        val query = createQuery(environment.executor, configuration)
+        query.rdfOutputFormat = configuration.rdfOutputFormat
+        query.updating = configuration.updating
+        query.xpathSubset = configuration.xpathSubset
+        query.database = configuration.database ?: ""
+        query.server = configuration.server ?: ""
+        query.modulePath = configuration.modulePath ?: ""
+        configuration.contextItem?.let { query.bindContextItem(it, null) }
+
+        return when (query) {
+            is RunnableQuery -> RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)
+            is ProfileableQuery -> ProfileableQueryProcessHandler(query).reformat(configuration.reformatResults)
+            else -> throw UnsupportedOperationException()
+        }
+    }
+
+    private fun createQuery(executor: Executor, configuration: QueryProcessorRunConfiguration): Query {
         val source = configuration.scriptFile
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
-
         val session = configuration.processor!!.session
-        return when (environment.executor.id) {
+        return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> {
-                val query = (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
-                query.rdfOutputFormat = configuration.rdfOutputFormat
-                query.updating = configuration.updating
-                query.xpathSubset = configuration.xpathSubset
-                query.database = configuration.database ?: ""
-                query.server = configuration.server ?: ""
-                query.modulePath = configuration.modulePath ?: ""
-                configuration.contextItem?.let { query.bindContextItem(it, null) }
-                RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)
+                (session as RunnableQueryProvider).createRunnableQuery(source, configuration.language)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
-                val query = (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)
-                query.rdfOutputFormat = configuration.rdfOutputFormat
-                query.updating = configuration.updating
-                query.xpathSubset = configuration.xpathSubset
-                query.database = configuration.database ?: ""
-                query.server = configuration.server ?: ""
-                query.modulePath = configuration.modulePath ?: ""
-                configuration.contextItem?.let { query.bindContextItem(it, null) }
-                ProfileableQueryProcessHandler(query).reformat(configuration.reformatResults)
+                (session as ProfileableQueryProvider).createProfileableQuery(source, configuration.language)
             }
             else -> throw UnsupportedOperationException()
         }
