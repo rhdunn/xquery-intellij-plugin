@@ -21,11 +21,11 @@ import com.intellij.xdebugger.frame.XStackFrame
 class SaxonExecutionStack(displayName: String, private val stackFrame: List<XStackFrame>) : XExecutionStack(displayName) {
     override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
         if (firstFrameIndex == 0) {
-            container?.addStackFrames(stackFrame, true)
+            container?.addStackFrames(stackFrame.asReversed(), true)
         } else {
-            container?.addStackFrames(stackFrame.drop(firstFrameIndex).toList(), true)
+            container?.addStackFrames(stackFrame.asReversed().drop(firstFrameIndex).toList(), true)
         }
     }
 
-    override fun getTopFrame(): XStackFrame? = stackFrame[0]
+    override fun getTopFrame(): XStackFrame? = stackFrame.last()
 }
