@@ -19,6 +19,7 @@ import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ExecutionConsole
 import com.intellij.lang.Language
+import com.intellij.openapi.application.invokeLater
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSession
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
@@ -57,4 +58,8 @@ class QueryDebugProcess(
     }
 
     override fun startPausing() = debugger.suspend()
+
+    override fun onsuspended(context: XSuspendContext) {
+        invokeLater { session.positionReached(context) }
+    }
 }

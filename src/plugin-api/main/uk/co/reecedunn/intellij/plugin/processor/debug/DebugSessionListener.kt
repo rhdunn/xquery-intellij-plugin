@@ -15,5 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
+import com.intellij.xdebugger.frame.XSuspendContext
+
 interface DebugSessionListener {
+    fun onsuspended(context: XSuspendContext)
 }
