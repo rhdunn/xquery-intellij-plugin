@@ -22,8 +22,16 @@ import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
-class SaxonInstructionFrame(val instruction: InstructionInfo, file: VirtualFile?) : XStackFrame() {
+class SaxonInstructionFrame(val instruction: InstructionInfo, private val query: VirtualFile) : XStackFrame() {
+    private fun findFileByPath(path: String?): VirtualFile? {
+        return if (path == null)
+            query
+        else
+            query.findFileByRelativePath(path)
+    }
+
     private val sourcePosition = CacheableProperty {
+        val file = findFileByPath(instruction.getSystemId())
         val line = instruction.getLineNumber().let { if (it == -1) 1 else it } - 1
         val column = instruction.getColumnNumber().let { if (it == -1) 1 else it } - 1
         XDebuggerUtil.getInstance().createPosition(file, line, column)

@@ -60,8 +60,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     override fun enter(instruction: InstructionInfo, context: Any) {
         super.enter(instruction, context)
 
-        val path = instruction.getSystemId()
-        stackFrame.push(SaxonInstructionFrame(instruction, if (path == null) query else null))
+        stackFrame.push(SaxonInstructionFrame(instruction, query))
         checkIsSuspended()
     }
 
