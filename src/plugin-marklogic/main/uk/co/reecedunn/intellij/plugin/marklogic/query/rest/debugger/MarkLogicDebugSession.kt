@@ -19,6 +19,8 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 
 internal class MarkLogicDebugSession : DebugSession {
+    var requestId: String? = null
+
     override var listener: DebugSessionListener? = null
 
     override fun suspend() {
