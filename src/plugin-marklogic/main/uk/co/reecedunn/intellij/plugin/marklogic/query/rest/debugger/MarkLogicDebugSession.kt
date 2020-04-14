@@ -32,13 +32,19 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
     }
 
     override fun resume() {
+        if (state === QueryProcessState.Suspended) {
+            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Continue, XQuery)
+            query.bindVariable("requestId", requestId, "xs:unsignedLong")
+            query.run()
+        }
     }
 
     fun run(requestId: String) {
         this.requestId = requestId
-        state = QueryProcessState.Running
+        state = QueryProcessState.Suspended // MarkLogic requests are suspended at the start of the first expression.
 
-        while (state != QueryProcessState.Stopped) {
+        resume()
+        while (state !== QueryProcessState.Stopped) {
             Thread.sleep(100)
         }
     }

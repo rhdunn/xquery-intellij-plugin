@@ -35,6 +35,10 @@ object MarkLogicQueries {
 
     val ApiDocs = resourceFile("queries/marklogic/apidocs.xq")
 
+    object Debug {
+        val Continue = resourceFile("queries/marklogic/debug/continue.xq")
+    }
+
     object Log {
         val Logs = resourceFile("queries/marklogic/log/logs.xq")
         val Log = resourceFile("queries/marklogic/log/log.xq")
