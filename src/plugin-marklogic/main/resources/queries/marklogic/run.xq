@@ -350,6 +350,7 @@ declare function local:xquery() as item()* {
     let $options := local:eval-options()
     return if (string-length($query) ne 0) then
         switch ($mode)
+        case "debug" return dbg:eval($query, $variables, $options)
         case "profile" return prof:eval($query, $variables, $options)
         case "run" return
             let $start := xdmp:elapsed-time()
@@ -359,6 +360,7 @@ declare function local:xquery() as item()* {
         default return ()
     else
         switch ($mode)
+        case "debug" return dbg:invoke($module-path, $variables, $options)
         case "profile" return prof:invoke($module-path, $variables, $options)
         case "run" return
             let $start := xdmp:elapsed-time()
