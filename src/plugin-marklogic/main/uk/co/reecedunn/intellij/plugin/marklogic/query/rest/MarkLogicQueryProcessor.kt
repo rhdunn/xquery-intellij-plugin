@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugQuery
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
@@ -98,8 +99,7 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicRunQuery(builder, buildParameters(query, language, "run"), query, connection)
-                TODO()
+                MarkLogicDebugQuery(builder, buildParameters(query, language, "run"), query, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }
