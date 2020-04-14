@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
@@ -35,6 +37,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProv
 internal class MarkLogicQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     ProfileableQueryProvider,
     RunnableQueryProvider,
+    DebuggableQueryProvider,
     ValidatableQueryProvider,
     LogViewProvider {
 
@@ -85,6 +88,18 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
                 MarkLogicRunQuery(builder, buildParameters(query, language, "run"), query, connection)
+            }
+            else -> throw UnsupportedQueryType(language)
+        }
+    }
+
+    override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
+        return when (language) {
+            XQuery, XSLT -> {
+                val builder = RequestBuilder.post("$baseUri/v1/eval")
+                builder.addParameter("xquery", MarkLogicQueries.Run)
+                MarkLogicRunQuery(builder, buildParameters(query, language, "run"), query, connection)
+                TODO()
             }
             else -> throw UnsupportedQueryType(language)
         }
