@@ -5,6 +5,7 @@
 Run Configurations:
 
 1.  Support stopping Saxon queries.
+1.  Fix running/profiling update queries on MarkLogic 10.
 
 ## 2020
 
