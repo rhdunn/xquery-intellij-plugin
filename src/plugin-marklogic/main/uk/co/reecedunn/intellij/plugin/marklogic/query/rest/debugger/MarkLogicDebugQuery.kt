@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.BuildableQuery
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
@@ -40,7 +41,8 @@ internal class MarkLogicDebugQuery(
     private val builder: RequestBuilder,
     private val queryParams: JsonObject,
     private val queryFile: VirtualFile,
-    private val connection: HttpConnection
+    private val connection: HttpConnection,
+    processor: MarkLogicQueryProcessor
 ) : DebuggableQuery, BuildableQuery {
     // region Query
 
@@ -112,7 +114,7 @@ internal class MarkLogicDebugQuery(
     // endregion
     // region DebuggableQuery
 
-    override val session: DebugSession = MarkLogicDebugSession()
+    override val session: DebugSession = MarkLogicDebugSession(processor)
 
     // endregion
     // region Closeable

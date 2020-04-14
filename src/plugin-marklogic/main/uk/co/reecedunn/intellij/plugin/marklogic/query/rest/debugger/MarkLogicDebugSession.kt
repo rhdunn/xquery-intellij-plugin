@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 
-internal class MarkLogicDebugSession : DebugSession {
+internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProcessor) : DebugSession {
     var requestId: String? = null
 
     override var listener: DebugSessionListener? = null

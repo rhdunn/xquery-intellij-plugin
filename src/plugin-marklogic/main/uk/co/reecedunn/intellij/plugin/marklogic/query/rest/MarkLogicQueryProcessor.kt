@@ -99,7 +99,7 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicDebugQuery(builder, buildParameters(query, language, "debug"), query, connection)
+                MarkLogicDebugQuery(builder, buildParameters(query, language, "debug"), query, connection, this)
             }
             else -> throw UnsupportedQueryType(language)
         }
