@@ -243,13 +243,19 @@ declare function local:eval-options() {
 };
 
 declare function local:error($err:additional as element(error:error)) {
-    <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
+    let $code := $err:additional/error:code/text()
+    let $name := $err:additional/error:name/text()
+    let $message := $err:additional/error:message/text()
+    let $code := if ($code = $message) then $name else $code
+    return <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
         <err:code>{
-            let $code := $err:additional/error:code/text()
-            return if (exists($code) and not(starts-with($code, "XDMP-"))) then $code else "err:XPST0003"
+            if (exists($code) and not(starts-with($code, "XDMP-"))) then
+                $code
+            else
+                "err:FOER0000"
         }</err:code>
-        <err:vendor-code>{$err:additional/error:code/text()}</err:vendor-code>
-        <err:description>{$err:additional/error:message/text()}</err:description>
+        <err:vendor-code>{$code}</err:vendor-code>
+        <err:description>{$message}</err:description>
         <err:value count="{count($err:additional/error:data/error:datum)}">{
             $err:additional/error:data/error:datum/text() ! <err:item>{.}</err:item>
         }</err:value>
