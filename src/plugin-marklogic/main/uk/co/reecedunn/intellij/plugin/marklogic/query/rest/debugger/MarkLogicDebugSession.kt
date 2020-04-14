@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
@@ -39,5 +41,13 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
         while (state != QueryProcessState.Stopped) {
             Thread.sleep(100)
         }
+    }
+
+    fun stop() {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Request.Cancel, XQuery)
+        query.bindVariable("requestId", requestId, "xs:unsignedLong")
+        query.run()
+
+        state = QueryProcessState.Stopped
     }
 }

@@ -43,7 +43,7 @@ internal class MarkLogicDebugQuery(
     private val queryFile: VirtualFile,
     private val connection: HttpConnection,
     processor: MarkLogicQueryProcessor
-) : DebuggableQuery, BuildableQuery {
+) : DebuggableQuery, BuildableQuery, StoppableQuery {
     // region Query
 
     private var variables: JsonObject = JsonObject()
@@ -115,6 +115,11 @@ internal class MarkLogicDebugQuery(
     // region DebuggableQuery
 
     override val session: DebugSession = MarkLogicDebugSession(processor)
+
+    // endregion
+    // region StoppableQuery
+
+    override fun stop() = (session as MarkLogicDebugSession).stop()
 
     // endregion
     // region Closeable

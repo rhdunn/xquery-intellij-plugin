@@ -39,4 +39,8 @@ object MarkLogicQueries {
         val Logs = resourceFile("queries/marklogic/log/logs.xq")
         val Log = resourceFile("queries/marklogic/log/log.xq")
     }
+
+    object Request {
+        val Cancel = resourceFile("queries/marklogic/request/cancel.xq")
+    }
 }
