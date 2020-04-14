@@ -107,8 +107,8 @@ internal class MarkLogicDebugQuery(
         response.close()
 
         val id = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).first()
-        (session as MarkLogicDebugSession).requestId = id.value as String
-        return QueryResults(response.statusLine, listOf(id), XsDuration.ZERO)
+        (session as MarkLogicDebugSession).run(id.value as String)
+        return QueryResults(response.statusLine, listOf(), XsDuration.ZERO)
     }
 
     // endregion

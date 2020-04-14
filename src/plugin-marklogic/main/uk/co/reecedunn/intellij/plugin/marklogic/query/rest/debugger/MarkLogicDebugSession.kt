@@ -18,9 +18,11 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 
 internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProcessor) : DebugSession {
-    var requestId: String? = null
+    private var state: QueryProcessState = QueryProcessState.Starting
+    private var requestId: String? = null
 
     override var listener: DebugSessionListener? = null
 
@@ -28,5 +30,14 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
     }
 
     override fun resume() {
+    }
+
+    fun run(requestId: String) {
+        this.requestId = requestId
+        state = QueryProcessState.Running
+
+        while (state != QueryProcessState.Stopped) {
+            Thread.sleep(100)
+        }
     }
 }
