@@ -231,7 +231,12 @@ declare function local:eval-options() {
             (),
         let $major := local:version()
         let $minor := local:version-minor()
-        return if ($major lt 7.0 or ($major eq 8.0 and $minor lt 7.0) or ($major eq 9.0 and $minor lt 2.0) or $major gt 9.0) then
+        return if ($mode = "debug") then
+            if ($updating) then
+                fn:error(xs:QName("err:FOER0000"), "Debugging an update query is not supported by MarkLogic.")
+            else
+                ()
+        else if ($major lt 7.0 or ($major eq 8.0 and $minor lt 7.0) or ($major eq 9.0 and $minor lt 2.0)) then
             if ($updating) then
                 <transaction-mode>update</transaction-mode>
             else
