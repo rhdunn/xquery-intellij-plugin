@@ -32,6 +32,8 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 internal class MarkLogicDebugQuery(
@@ -103,8 +105,7 @@ internal class MarkLogicDebugQuery(
         response.close()
 
         val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
-        val duration = (results.next().value as String).toXsDuration()
-        return QueryResults(response.statusLine, results.asSequence().toList(), duration!!)
+        return QueryResults(response.statusLine, results.asSequence().toList(), XsDuration.ZERO)
     }
 
     // endregion
