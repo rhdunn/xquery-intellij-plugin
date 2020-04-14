@@ -60,8 +60,8 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : S
         elapsed = System.nanoTime() - elapsed
     }
 
-    override fun enter(instruction: InstructionInfo, context: Any) {
-        super.enter(instruction, context)
+    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
+        super.enter(instruction, properties, context)
 
         // The ClauseInfo instructions are different for each iteration, so ignore them.
         if (instruction.isClauseInfo()) return

@@ -26,7 +26,7 @@ interface TraceListener {
 
     fun close()
 
-    fun enter(instruction: InstructionInfo, context: Any)
+    fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any)
 
     fun leave(instruction: InstructionInfo)
 
@@ -48,7 +48,15 @@ fun TraceListener.proxy(vararg classes: Class<*>): Any {
             "setOutputDestination" -> setOutputDestination(params[0])
             "open" -> open(params?.getOrNull(0))
             "close" -> close()
-            "enter" -> enter(InstructionInfo(params[0], instructionInfoClass), params[1])
+            "enter" -> {
+                val instructionInfo = InstructionInfo(params[0], instructionInfoClass)
+                if (params.size == 2) { // Saxon < 10
+                    enter(instructionInfo, emptyMap(), params[1])
+                } else { // Saxon >= 10
+                    @Suppress("UNCHECKED_CAST") val properties = params[1] as Map<String, Any>
+                    enter(instructionInfo, properties, params[2])
+                }
+            }
             "leave" -> leave(InstructionInfo(params[0], instructionInfoClass))
             "startCurrentItem" -> startCurrentItem(params[0])
             "endCurrentItem" -> endCurrentItem(params[0])

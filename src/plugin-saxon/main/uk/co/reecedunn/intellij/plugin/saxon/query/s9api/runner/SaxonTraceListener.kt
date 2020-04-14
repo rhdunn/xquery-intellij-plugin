@@ -64,7 +64,7 @@ open class SaxonTraceListener : TraceListener {
         onfinish()
     }
 
-    override fun enter(instruction: InstructionInfo, context: Any) {
+    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
         checkIsStopping()
     }
 
