@@ -110,7 +110,7 @@ internal class MarkLogicDebugQuery(
     // endregion
     // region DebuggableQuery
 
-    override val session: DebugSession get() = TODO()
+    override val session: DebugSession = MarkLogicDebugSession()
 
     // endregion
     // region Closeable
