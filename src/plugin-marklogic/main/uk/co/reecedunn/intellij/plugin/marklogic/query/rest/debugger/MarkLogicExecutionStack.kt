@@ -23,9 +23,12 @@ internal class MarkLogicExecutionStack(
     private val session: MarkLogicDebugSession
 ) : XExecutionStack(displayName) {
 
+    private var frames: List<XStackFrame>? = null
+
     override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
-        val stack = session.stack()
+        frames = session.stack()
+        container?.addStackFrames(frames!!, true)
     }
 
-    override fun getTopFrame(): XStackFrame? = null
+    override fun getTopFrame(): XStackFrame? = frames?.firstOrNull()
 }

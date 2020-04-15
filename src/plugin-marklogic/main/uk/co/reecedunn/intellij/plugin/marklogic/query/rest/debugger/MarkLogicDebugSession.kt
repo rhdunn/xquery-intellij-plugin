@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
@@ -68,7 +70,7 @@ internal class MarkLogicDebugSession(
                 "running" -> QueryProcessState.Running
                 "stopped" -> {
                     if (state === QueryProcessState.Suspending) {
-                        listener?.onsuspended(MarkLogicSuspendContext(this.query, this))
+                        listener?.onsuspended(MarkLogicSuspendContext(this.query.name, this))
                     }
                     QueryProcessState.Suspended
                 }
@@ -83,9 +85,17 @@ internal class MarkLogicDebugSession(
         query.run()
     }
 
-    fun stack(): String {
+    fun stack(): List<XStackFrame> {
         val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
-        return query.run().results.first().value as String
+
+        val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
+        return stack.root.children("dbg:frame").map {
+            MarkLogicDebugFrame(it, this.query)
+        }.toList()
+    }
+
+    companion object {
+        private val DBG_STACK_NAMESPACES = mapOf("dbg" to "http://marklogic.com/xdmp/debug")
     }
 }
