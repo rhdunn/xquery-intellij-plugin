@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.java
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
 object JavaModuleLoader : XpmModuleLoaderFactory,
@@ -30,14 +30,14 @@ object JavaModuleLoader : XpmModuleLoaderFactory,
     // endregion
     // region XpmModuleLoader
 
-    override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
             is JavaModulePath -> JavaTypePath.getInstance(path.project).findClass(path.classPath)
             else -> null
         }
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
         return when (path) {
             is JavaTypePath -> path
             else -> null

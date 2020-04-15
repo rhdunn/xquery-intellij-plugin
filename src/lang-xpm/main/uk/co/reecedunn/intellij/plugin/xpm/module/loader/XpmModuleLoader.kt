@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 
 interface XpmModuleLoader {
-    fun resolve(path: XdmModulePath, context: PsiElement): PsiElement?
+    fun resolve(path: XpmModulePath, context: PsiElement): PsiElement?
 
-    fun context(path: XdmModulePath, context: PsiElement): XstContext?
+    fun context(path: XpmModulePath, context: PsiElement): XstContext?
 }

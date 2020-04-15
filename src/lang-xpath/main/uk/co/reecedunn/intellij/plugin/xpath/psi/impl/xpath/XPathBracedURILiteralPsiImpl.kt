@@ -24,11 +24,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 class XPathBracedURILiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue, XdmModulePath {
+    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue, XpmModulePath {
     // region PsiElement
 
     override fun subtreeChanged() {

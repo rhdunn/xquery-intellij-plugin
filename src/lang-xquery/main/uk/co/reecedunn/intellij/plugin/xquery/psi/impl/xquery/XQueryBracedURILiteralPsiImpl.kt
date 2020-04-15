@@ -28,12 +28,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue, XdmModulePath, VersionConformance {
+    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue, XpmModulePath, VersionConformance {
     // region PsiElement
 
     override fun subtreeChanged() {

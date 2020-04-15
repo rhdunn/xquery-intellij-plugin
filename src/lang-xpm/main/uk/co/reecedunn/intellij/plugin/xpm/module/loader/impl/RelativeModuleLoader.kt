@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
 object RelativeModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
@@ -32,7 +32,7 @@ object RelativeModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
         return root.originalFile.parent?.findFileByRelativePath(path)
     }
 
-    override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
             is XpmModuleLocationPath -> {
                 val file = context.containingFile.virtualFile ?: return null
@@ -42,7 +42,7 @@ object RelativeModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
         }
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
         return when (path) {
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null

@@ -23,7 +23,7 @@ import com.intellij.util.xmlb.annotations.Attribute
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -47,11 +47,11 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
 
     // region XpmModuleLoader
 
-    override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
         return loaders.get()?.asSequence()?.mapNotNull { it.resolve(path, context) }?.firstOrNull()
     }
 
-    override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
         return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
     }
 

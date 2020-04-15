@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
@@ -27,7 +27,7 @@ data class XpmModuleLocationPath internal constructor(
     val path: String,
     override val moduleTypes: Array<XdmModuleType>,
     val isResource: Boolean?
-) : XdmModulePath {
+) : XpmModulePath {
     companion object : XdmModulePathFactory {
         private const val EXISTDB_PATH = "xmldb:exist://"
         private const val RES_PATH = "resource:"

@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 class XPathUriLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XdmModulePath {
+    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XpmModulePath {
     // region PsiElement
 
     override fun subtreeChanged() {

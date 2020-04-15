@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryUriLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XdmModulePath {
+    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XpmModulePath {
     // region PsiElement
 
     override fun getReference(): PsiReference {
