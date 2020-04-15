@@ -31,6 +31,8 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
 
     override fun suspend() {
         if (state === QueryProcessState.Running) {
+            state = QueryProcessState.Suspending
+
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Break, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
             query.run()
@@ -58,7 +60,12 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
             state = when (val status = query.run().results.first().value as String) {
                 "none" -> QueryProcessState.Stopped
                 "running" -> QueryProcessState.Running
-                "stopped" -> QueryProcessState.Suspended
+                "stopped" -> {
+                    if (state === QueryProcessState.Suspending) {
+                        listener?.onsuspended(MarkLogicSuspendContext())
+                    }
+                    QueryProcessState.Suspended
+                }
                 else -> throw RuntimeException(status)
             }
         }
