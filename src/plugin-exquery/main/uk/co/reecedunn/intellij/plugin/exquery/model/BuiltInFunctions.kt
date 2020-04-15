@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.module.JarModuleResolver
+import uk.co.reecedunn.intellij.plugin.xpm.module.JarModuleResolver
 
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
