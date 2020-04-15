@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.frame.XExecutionStack
-import com.intellij.xdebugger.frame.XSuspendContext
+import com.intellij.xdebugger.frame.XStackFrame
 
-internal class MarkLogicSuspendContext(query: VirtualFile) : XSuspendContext() {
-    private val activeExecutionStack = MarkLogicExecutionStack(query.name)
+internal class MarkLogicExecutionStack(displayName: String) : XExecutionStack(displayName) {
+    override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
+    }
 
-    override fun getActiveExecutionStack(): XExecutionStack? = activeExecutionStack
+    override fun getTopFrame(): XStackFrame? = null
 }
