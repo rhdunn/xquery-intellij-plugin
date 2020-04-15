@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 object XpmModuleUriPath : XdmModulePathFactory {
