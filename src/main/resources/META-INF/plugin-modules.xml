@@ -31,7 +31,7 @@
     <moduleLoaderFactory name="java" implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleLoader"/>
     <moduleLoaderFactory name="module" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
     <moduleLoaderFactory name="package" implementation="uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage$Companion"/>
-    <moduleLoaderFactory name="relative" implementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.RelativeModuleLoader"/>
+    <moduleLoaderFactory name="relative" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader"/>
 
     <!-- Import Paths : Deprecated by Module Paths -->
 
