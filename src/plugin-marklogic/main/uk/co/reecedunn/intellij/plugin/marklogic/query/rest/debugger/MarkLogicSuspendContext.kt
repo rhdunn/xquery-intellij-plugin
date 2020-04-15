@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.frame.XSuspendContext
 
-internal class MarkLogicSuspendContext : XSuspendContext() {
+internal class MarkLogicSuspendContext(query: VirtualFile) : XSuspendContext() {
 }

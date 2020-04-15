@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
@@ -23,7 +24,10 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import java.lang.RuntimeException
 
-internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProcessor) : DebugSession {
+internal class MarkLogicDebugSession(
+    private val processor: MarkLogicQueryProcessor,
+    private val query: VirtualFile
+) : DebugSession {
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
 
@@ -64,7 +68,7 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
                 "running" -> QueryProcessState.Running
                 "stopped" -> {
                     if (state === QueryProcessState.Suspending) {
-                        listener?.onsuspended(MarkLogicSuspendContext())
+                        listener?.onsuspended(MarkLogicSuspendContext(this.query))
                     }
                     QueryProcessState.Suspended
                 }

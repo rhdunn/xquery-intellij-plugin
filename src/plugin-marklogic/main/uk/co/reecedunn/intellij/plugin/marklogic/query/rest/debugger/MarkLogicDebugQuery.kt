@@ -114,7 +114,7 @@ internal class MarkLogicDebugQuery(
     // endregion
     // region DebuggableQuery
 
-    override val session: DebugSession = MarkLogicDebugSession(processor)
+    override val session: DebugSession = MarkLogicDebugSession(processor, queryFile)
 
     // endregion
     // region StoppableQuery
