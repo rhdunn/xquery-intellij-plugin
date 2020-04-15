@@ -20,11 +20,10 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactoryBean
 
 interface XpmModuleLoaderFactory {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XdmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
+        val EP_NAME = ExtensionPointName.create<XpmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
 
         fun create(name: String, context: String?): XdmModuleLoader? {
             return EP_NAME.extensions.find { it.name == name }?.let {

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module.loader
+package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
 import com.intellij.util.xmlb.annotations.Attribute
 
-class XdmModuleLoaderFactoryBean : AbstractExtensionPointBean() {
+class XpmModuleLoaderFactoryBean : AbstractExtensionPointBean() {
     @Attribute("name")
     var name: String = ""
 

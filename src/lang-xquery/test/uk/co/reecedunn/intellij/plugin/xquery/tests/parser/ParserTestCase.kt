@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactoryBean
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -66,7 +66,7 @@ abstract class ParserTestCase :
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath)
 
-        registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XdmModuleLoaderFactoryBean::class.java)
+        registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
         registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion")
         registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader")
 
@@ -87,7 +87,7 @@ abstract class ParserTestCase :
     }
 
     private fun registerModuleLoader(name: String, implementation: String) {
-        val bean = XdmModuleLoaderFactoryBean()
+        val bean = XpmModuleLoaderFactoryBean()
         bean.name = name
         bean.implementation = implementation
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
