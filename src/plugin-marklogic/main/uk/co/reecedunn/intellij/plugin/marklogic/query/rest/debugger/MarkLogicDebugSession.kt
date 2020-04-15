@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProces
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
+import java.lang.RuntimeException
 
 internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProcessor) : DebugSession {
     private var state: QueryProcessState = QueryProcessState.Starting
@@ -46,6 +47,14 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
         resume()
         while (state !== QueryProcessState.Stopped) {
             Thread.sleep(100)
+
+            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Status, XQuery)
+            query.bindVariable("requestId", requestId, "xs:unsignedLong")
+            state = when (val status = query.run().results.first().value as String) {
+                "none" -> QueryProcessState.Stopped
+                "running" -> QueryProcessState.Running
+                else -> throw RuntimeException(status)
+            }
         }
     }
 
@@ -53,7 +62,5 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
         val query = processor.createRunnableQuery(MarkLogicQueries.Request.Cancel, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
         query.run()
-
-        state = QueryProcessState.Stopped
     }
 }

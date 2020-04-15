@@ -37,6 +37,7 @@ object MarkLogicQueries {
 
     object Debug {
         val Continue = resourceFile("queries/marklogic/debug/continue.xq")
+        val Status = resourceFile("queries/marklogic/debug/status.xq")
     }
 
     object Log {
