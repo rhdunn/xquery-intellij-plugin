@@ -18,8 +18,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 import com.intellij.xdebugger.frame.XExecutionStack
 import com.intellij.xdebugger.frame.XStackFrame
 
-internal class MarkLogicExecutionStack(displayName: String) : XExecutionStack(displayName) {
+internal class MarkLogicExecutionStack(
+    displayName: String,
+    private val session: MarkLogicDebugSession
+) : XExecutionStack(displayName) {
+
     override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
+        val stack = session.stack()
     }
 
     override fun getTopFrame(): XStackFrame? = null

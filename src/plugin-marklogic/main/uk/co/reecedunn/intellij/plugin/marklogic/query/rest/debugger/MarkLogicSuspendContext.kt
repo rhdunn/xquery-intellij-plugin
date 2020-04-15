@@ -19,8 +19,8 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.frame.XExecutionStack
 import com.intellij.xdebugger.frame.XSuspendContext
 
-internal class MarkLogicSuspendContext(query: VirtualFile) : XSuspendContext() {
-    private val activeExecutionStack = MarkLogicExecutionStack(query.name)
+internal class MarkLogicSuspendContext(query: VirtualFile, session: MarkLogicDebugSession) : XSuspendContext() {
+    private val activeExecutionStack = MarkLogicExecutionStack(query.name, session)
 
     override fun getActiveExecutionStack(): XExecutionStack? = activeExecutionStack
 }
