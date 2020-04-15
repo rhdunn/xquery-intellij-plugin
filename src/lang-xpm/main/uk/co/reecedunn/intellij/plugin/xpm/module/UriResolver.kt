@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.module
 
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
