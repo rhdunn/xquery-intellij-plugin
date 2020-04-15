@@ -21,7 +21,7 @@ import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.resolve
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.module.resolveUri
+import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 
 class XPathUriLiteralReference(element: XPathUriLiteral, range: TextRange) :
     PsiReferenceBase<XPathUriLiteral>(element, range) {

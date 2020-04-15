@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module
+package uk.co.reecedunn.intellij.plugin.xpm.module
 
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xdm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
