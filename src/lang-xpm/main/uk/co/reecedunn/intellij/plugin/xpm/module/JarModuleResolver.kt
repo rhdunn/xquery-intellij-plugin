@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module
 
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.JarModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader
 
 abstract class JarModuleResolver : ImportPathResolver {
     abstract val classLoader: ClassLoader
