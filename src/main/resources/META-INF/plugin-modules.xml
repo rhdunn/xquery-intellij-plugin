@@ -26,7 +26,7 @@
 
     <!-- Module Loaders -->
 
-    <moduleLoaderFactory name="fixed" implementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.FixedModuleLoader$Companion"/>
+    <moduleLoaderFactory name="fixed" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.FixedModuleLoader$Companion"/>
     <moduleLoaderFactory name="jar" implementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.JarModuleLoader$Companion"/>
     <moduleLoaderFactory name="java" implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleLoader"/>
     <moduleLoaderFactory name="module" implementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.JspModuleSourceRootLoader$Companion"/>
