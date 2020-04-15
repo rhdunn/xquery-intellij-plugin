@@ -38,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
@@ -64,7 +65,7 @@ abstract class ParserTestCase :
         myProject.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings())
 
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
-        registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath)
+        registerModulePathFactory(XpmModuleLocationPath)
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
         registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion")

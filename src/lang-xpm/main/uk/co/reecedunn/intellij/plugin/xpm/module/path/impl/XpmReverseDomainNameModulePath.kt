@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -25,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 object XpmReverseDomainNameModulePath : XdmModulePathFactory {
     private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
-    private fun createUri(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {
+    private fun createUri(project: Project, path: String, uri: XsAnyUriValue): XpmModuleLocationPath? {
         val parts = path.substringAfter("://").nullize()?.split('/') ?: return null
         val rdn = parts[0].split('.').reversed()
         val rest = parts.drop(1).map { it.replace('.', '/') }
@@ -35,21 +34,21 @@ object XpmReverseDomainNameModulePath : XdmModulePathFactory {
         }
     }
 
-    private fun createUrn(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {
+    private fun createUrn(project: Project, path: String, uri: XsAnyUriValue): XpmModuleLocationPath? {
         return createRelative(project, path.replace(':', '/'), uri)
     }
 
-    private fun createRelative(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {
+    private fun createRelative(project: Project, path: String, uri: XsAnyUriValue): XpmModuleLocationPath? {
         return when {
             path.isEmpty() -> null
             path.endsWith('/') -> {
-                XdmModuleLocationPath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", uri.moduleTypes, null)
+                XpmModuleLocationPath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", uri.moduleTypes, null)
             }
-            else -> XdmModuleLocationPath(project, path.replace(SPECIAL_CHARACTERS, "-"), uri.moduleTypes, null)
+            else -> XpmModuleLocationPath(project, path.replace(SPECIAL_CHARACTERS, "-"), uri.moduleTypes, null)
         }
     }
 
-    override fun create(project: Project, uri: XsAnyUriValue): XdmModuleLocationPath? {
+    override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? {
         return when (uri.context) {
             XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                 val path = uri.data
@@ -57,7 +56,7 @@ object XpmReverseDomainNameModulePath : XdmModulePathFactory {
                     path.startsWith("java:") /* Java paths are not converted by BaseX. */ -> null
                     path.startsWith("xmldb:exist://") /* Ignore eXist-db database paths. */ -> null
                     path.startsWith("file://") /* Keep file URLs intact. */ -> {
-                        XdmModuleLocationPath(project, path, uri.moduleTypes, null)
+                        XpmModuleLocationPath(project, path, uri.moduleTypes, null)
                     }
                     path.contains("://") /* BaseX */ -> createUri(project, path, uri)
                     path.contains(":") /* BaseX */ -> createUrn(project, path, uri)

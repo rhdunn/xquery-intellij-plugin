@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
@@ -42,7 +42,7 @@ class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
-            is XdmModuleLocationPath -> {
+            is XpmModuleLocationPath -> {
                 if (path.isResource == null) // BaseX reverse domain name module path
                     findFileByPath(path.path, path.moduleTypes)?.toPsiFile(path.project)
                 else
@@ -54,7 +54,7 @@ class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
 
     override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
         return when (path) {
-            is XdmModuleLocationPath -> resolve(path, context) as? XstContext
+            is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
     }

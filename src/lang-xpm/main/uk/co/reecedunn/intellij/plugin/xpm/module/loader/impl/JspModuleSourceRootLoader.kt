@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
@@ -52,7 +52,7 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
-            is XdmModuleLocationPath -> {
+            is XpmModuleLocationPath -> {
                 if (rootType === JavaSourceRootType.SOURCE || rootType === context.getSourceRootType(path.project)) {
                     if (path.isResource == null) // BaseX reverse domain name module path
                         findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile<PsiFile>(path.project)
@@ -67,7 +67,7 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
 
     override fun context(path: XdmModulePath, context: PsiElement): XstContext? {
         return when (path) {
-            is XdmModuleLocationPath -> resolve(path, context) as? XstContext
+            is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
     }

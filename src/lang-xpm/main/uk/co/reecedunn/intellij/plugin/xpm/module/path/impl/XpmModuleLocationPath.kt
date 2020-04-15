@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module.path
+package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
-data class XdmModuleLocationPath constructor(
+data class XpmModuleLocationPath internal constructor(
     val project: Project,
     val path: String,
     override val moduleTypes: Array<XdmModuleType>,
@@ -29,20 +32,20 @@ data class XdmModuleLocationPath constructor(
         private const val EXISTDB_PATH = "xmldb:exist://"
         private const val RES_PATH = "resource:"
 
-        override fun create(project: Project, uri: XsAnyUriValue): XdmModuleLocationPath? {
+        override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? {
             return when (uri.context) {
                 XdmUriContext.Location -> {
                     val path = uri.data
                     when {
                         path.isEmpty() -> null
                         path.startsWith(EXISTDB_PATH) /* eXist-db */ -> {
-                            XdmModuleLocationPath(project, path.substring(14), uri.moduleTypes, false)
+                            XpmModuleLocationPath(project, path.substring(14), uri.moduleTypes, false)
                         }
                         path.startsWith(RES_PATH) /* eXist-db */ -> {
-                            XdmModuleLocationPath(project, path.substring(9), uri.moduleTypes, true)
+                            XpmModuleLocationPath(project, path.substring(9), uri.moduleTypes, true)
                         }
                         path.contains(':') && !path.contains('/') -> null
-                        else -> XdmModuleLocationPath(project, path, uri.moduleTypes, false) // eXist-db, MarkLogic
+                        else -> XpmModuleLocationPath(project, path, uri.moduleTypes, false) // eXist-db, MarkLogic
                     }
                 }
                 else -> null
@@ -54,7 +57,7 @@ data class XdmModuleLocationPath constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as XdmModuleLocationPath
+        other as XpmModuleLocationPath
 
         if (project != other.project) return false
         if (path != other.path) return false
