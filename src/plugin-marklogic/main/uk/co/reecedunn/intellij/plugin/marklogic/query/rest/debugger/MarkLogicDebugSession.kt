@@ -41,6 +41,8 @@ internal class MarkLogicDebugSession(private val processor: MarkLogicQueryProces
 
     override fun resume() {
         if (state === QueryProcessState.Suspended) {
+            state = QueryProcessState.Resuming
+
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Continue, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
             query.run()

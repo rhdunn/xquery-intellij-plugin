@@ -16,10 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 enum class QueryProcessState {
-    Starting,
+    Resuming,
     Running,
-    Suspending,
-    Suspended,
+    Starting,
+    Stopped,
     Stopping,
-    Stopped
+    Suspended,
+    Suspending,
 }
