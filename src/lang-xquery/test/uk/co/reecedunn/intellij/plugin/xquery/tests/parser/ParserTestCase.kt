@@ -67,7 +67,7 @@ abstract class ParserTestCase :
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath)
 
         registerExtensionPoint(XdmModuleLoaderFactory.EP_NAME, XdmModuleLoaderFactoryBean::class.java)
-        registerModuleLoader("module",   "uk.co.reecedunn.intellij.plugin.xdm.module.loader.JspModuleSourceRootLoader\$Companion")
+        registerModuleLoader("module",   "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion")
         registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xdm.module.loader.RelativeModuleLoader")
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
