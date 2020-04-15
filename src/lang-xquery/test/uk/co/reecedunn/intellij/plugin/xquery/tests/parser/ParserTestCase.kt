@@ -34,10 +34,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactoryBean
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
@@ -61,7 +61,7 @@ abstract class ParserTestCase :
         myProject.registerService(ModuleManager::class.java, manager)
 
         myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
-        myProject.registerService(XdmModuleLoaderSettings::class.java, XdmModuleLoaderSettings())
+        myProject.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings())
 
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath)

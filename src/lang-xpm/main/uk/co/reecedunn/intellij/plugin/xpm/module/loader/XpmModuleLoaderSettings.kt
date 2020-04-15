@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module.loader
+package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
@@ -23,10 +23,15 @@ import com.intellij.util.xmlb.annotations.Attribute
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderBean
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.paths
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
-class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmModuleLoaderSettings> {
+class XpmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettings> {
     @Attribute("loader")
     var loaderBeans: List<XdmModuleLoaderBean> = arrayListOf(
         XdmModuleLoaderBean("java", null),
@@ -55,15 +60,27 @@ class XdmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XdmMod
     // endregion
     // region PersistentStateComponent
 
-    override fun getState(): XdmModuleLoaderSettings? = this
+    override fun getState(): XpmModuleLoaderSettings? = this
 
-    override fun loadState(state: XdmModuleLoaderSettings) = XmlSerializerUtil.copyBean(state, this)
+    override fun loadState(state: XpmModuleLoaderSettings) = XmlSerializerUtil.copyBean(state, this)
 
     // endregion
 
     companion object {
-        fun getInstance(project: Project): XdmModuleLoaderSettings {
-            return ServiceManager.getService(project, XdmModuleLoaderSettings::class.java)
+        fun getInstance(project: Project): XpmModuleLoaderSettings {
+            return ServiceManager.getService(project, XpmModuleLoaderSettings::class.java)
         }
     }
+}
+
+fun XsAnyUriValue.resolve(): PsiElement? {
+    val element = element!!
+    val loaders = XpmModuleLoaderSettings.getInstance(element.project)
+    return paths(element.project).mapNotNull { loaders.resolve(it, element) }.firstOrNull()
+}
+
+fun XsAnyUriValue.context(): XstContext? {
+    val element = element!!
+    val loaders = XpmModuleLoaderSettings.getInstance(element.project)
+    return paths(element.project).mapNotNull { loaders.context(it, element) }.firstOrNull()
 }
