@@ -20,13 +20,13 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
-object RelativeModuleLoader : XdmModuleLoader, XpmModuleLoaderFactory {
-    // region XdmModuleLoader
+object RelativeModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
+    // region XpmModuleLoader
 
     private fun findFileByPath(path: String, root: VirtualFile): VirtualFile? {
         return root.originalFile.parent?.findFileByRelativePath(path)
@@ -52,7 +52,7 @@ object RelativeModuleLoader : XdmModuleLoader, XpmModuleLoaderFactory {
     // endregion
     // region XpmModuleLoaderFactory
 
-    override fun loader(context: String?): XdmModuleLoader? = this
+    override fun loader(context: String?): XpmModuleLoader? = this
 
     // endregion
 }

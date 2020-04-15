@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
@@ -36,7 +36,7 @@ data class EXPathPackage internal constructor(
     private val filesystem: VirtualFileSystem,
     private val root: VirtualFile,
     private val descriptor: XmlDocument
-) : XdmModuleLoader {
+) : XpmModuleLoader {
     // region EXPath package descriptor
 
     val name: XsAnyUriValue? by lazy {
@@ -92,7 +92,7 @@ data class EXPathPackage internal constructor(
     }
 
     // endregion
-    // region XdmModuleLoader
+    // region XpmModuleLoader
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
@@ -141,7 +141,7 @@ data class EXPathPackage internal constructor(
             return EXPathPackage(pkg, pkg.findFileByPath("")!!, descriptor)
         }
 
-        override fun loader(context: String?): XdmModuleLoader? {
+        override fun loader(context: String?): XpmModuleLoader? {
             val file = context?.let { LocalFileSystem.getInstance().findFileByPath(context) } ?: return null
             return create(file)
         }

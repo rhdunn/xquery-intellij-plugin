@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import java.io.File
 import java.net.URLClassLoader
 
-class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res"), XdmModuleLoader {
+class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res"), XpmModuleLoader {
     // region VirtualFileSystem
 
     private val cache: HashMap<String, VirtualFile?> = HashMap()
@@ -56,7 +56,7 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
     override fun refresh(asynchronous: Boolean) = cache.clear()
 
     // endregion
-    // region XdmModuleLoader
+    // region XpmModuleLoader
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
@@ -76,7 +76,7 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
     // region XpmModuleLoaderFactory
 
     companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XdmModuleLoader? {
+        override fun loader(context: String?): XpmModuleLoader? {
             try {
                 val path = context?.let { File(context) } ?: return null
                 val classLoader = URLClassLoader(arrayOf(path.toURI().toURL()))

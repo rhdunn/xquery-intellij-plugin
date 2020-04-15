@@ -25,14 +25,14 @@ import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
-class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>) : XdmModuleLoader {
-    // region XdmModuleLoader
+class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>) : XpmModuleLoader {
+    // region XpmModuleLoader
 
     private fun findFileByPath(root: VirtualFile, path: String, moduleTypes: Array<XdmModuleType>?): VirtualFile? {
         moduleTypes?.forEach { type ->
@@ -76,7 +76,7 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
     // region XpmModuleLoaderFactory
 
     companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XdmModuleLoader? {
+        override fun loader(context: String?): XpmModuleLoader? {
             return when (context) {
                 "java:source" -> JspModuleSourceRootLoader(JavaSourceRootType.SOURCE)
                 "java:test-source" -> JspModuleSourceRootLoader(JavaSourceRootType.TEST_SOURCE)

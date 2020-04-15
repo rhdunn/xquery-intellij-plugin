@@ -21,14 +21,14 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
-class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
-    // region XdmModuleLoader
+class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
+    // region XpmModuleLoader
 
     private fun findFileByPath(path: String, moduleTypes: Array<XdmModuleType>?): VirtualFile? {
         moduleTypes?.forEach { type ->
@@ -63,13 +63,13 @@ class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
     // region XpmModuleLoaderFactory
 
     companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XdmModuleLoader? {
+        override fun loader(context: String?): XpmModuleLoader? {
             return context?.let {
                 LocalFileSystem.getInstance().findFileByPath(context)?.let { loader(it) }
             }
         }
 
-        fun loader(file: VirtualFile): XdmModuleLoader? = FixedModuleLoader(file.originalFile)
+        fun loader(file: VirtualFile): XpmModuleLoader? = FixedModuleLoader(file.originalFile)
     }
 
     // endregion

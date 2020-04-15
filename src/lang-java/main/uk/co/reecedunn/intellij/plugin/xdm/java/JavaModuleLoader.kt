@@ -17,17 +17,18 @@ package uk.co.reecedunn.intellij.plugin.xdm.java
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
-object JavaModuleLoader : XpmModuleLoaderFactory, XdmModuleLoader {
+object JavaModuleLoader : XpmModuleLoaderFactory,
+    XpmModuleLoader {
     // region XpmModuleLoaderFactory
 
-    override fun loader(context: String?): XdmModuleLoader = this
+    override fun loader(context: String?): XpmModuleLoader = this
 
     // endregion
-    // region XdmModuleLoader
+    // region XpmModuleLoader
 
     override fun resolve(path: XdmModulePath, context: PsiElement): PsiElement? {
         return when (path) {

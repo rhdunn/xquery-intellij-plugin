@@ -19,13 +19,12 @@ import com.intellij.compat.openapi.extensions.instantiateBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
 
 interface XpmModuleLoaderFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XpmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
 
-        fun create(name: String, context: String?): XdmModuleLoader? {
+        fun create(name: String, context: String?): XpmModuleLoader? {
             return EP_NAME.extensions.find { it.name == name }?.let {
                 val container = ApplicationManager.getApplication().picoContainer
                 val instance = it.instantiateBean<XpmModuleLoaderFactory>(it.implementation, container)
@@ -34,10 +33,10 @@ interface XpmModuleLoaderFactory {
         }
     }
 
-    fun loader(context: String?): XdmModuleLoader?
+    fun loader(context: String?): XpmModuleLoader?
 }
 
 @Tag("moduleLoader")
 data class XpmModuleLoaderBean(var name: String = "", var context: String? = null) {
-    val loader: XdmModuleLoader? get() = XpmModuleLoaderFactory.create(name, context)
+    val loader: XpmModuleLoader? get() = XpmModuleLoaderFactory.create(name, context)
 }
