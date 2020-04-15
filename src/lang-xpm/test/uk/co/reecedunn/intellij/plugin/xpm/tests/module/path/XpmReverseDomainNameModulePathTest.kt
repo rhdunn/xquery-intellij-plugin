@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.tests.module.path
+package uk.co.reecedunn.intellij.plugin.xpm.tests.module.path
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.mock.MockProjectEx
-import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmReverseDomainNameModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("Modules - BaseX Reverse Domain Name Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
+private class XpmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     private val TEST_MODULE_TYPES = arrayOf(XdmModuleType.DotNet) // A unique object to this test.
 
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
@@ -54,7 +53,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun empty() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -67,7 +66,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun schemeOnly() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("http://", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 assertThat(path, `is`(nullValue()))
             }
         }
@@ -77,7 +76,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("http://www.example.com/lorem/ipsum", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -96,7 +95,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withDotsInPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("http://www.example.com/lorem.ipsum", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -115,7 +114,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withReplacementCharactersInPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("http://www.example.com/lorem^ipsum\$dolor12sed*emit", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -134,7 +133,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withPathTrailingSlash() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("http://www.example.com/lorem/ipsum/", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -153,7 +152,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withoutPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("http://www.example.com", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -176,7 +175,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun schemeOnly() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("https://", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 assertThat(path, `is`(nullValue()))
             }
         }
@@ -186,7 +185,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("https://www.example.com/lorem/ipsum", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -205,7 +204,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withDotsInPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("https://www.example.com/lorem.ipsum", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -224,7 +223,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withReplacementCharactersInPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("https://www.example.com/lorem^ipsum\$dolor12sed*emit", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -243,7 +242,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withPathTrailingSlash() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("https://www.example.com/lorem/ipsum/", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -262,7 +261,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withoutPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("https://www.example.com", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -282,7 +281,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun fileScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("file:///C:/lorem/ipsum", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
@@ -304,7 +303,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun urn() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("urn:lorem:ipsum", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -323,7 +322,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withReplacementCharactersInPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("urn:a:b:lorem^ipsum\$dolor12sed*emit", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -343,7 +342,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun resourceScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("resource:org/lorem/ipsum.xqm", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
@@ -365,7 +364,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun classpath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("java:java.lang.String", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 assertThat(path, `is`(nullValue()))
             }
         }
@@ -375,7 +374,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun voidThis() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("java:java.lang.String?void=this", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 assertThat(path, `is`(nullValue()))
             }
         }
@@ -389,7 +388,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun relativePath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("lorem/ipsum", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -408,7 +407,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun trailingSlash() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("lorem/ipsum/", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -427,7 +426,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun withReplacementCharactersInPath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("a/b/lorem^ipsum\$dolor12sed*emit", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -446,7 +445,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
         fun localFile() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("lorem.xqy", context)
-                val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+                val path = XpmReverseDomainNameModulePath.create(myProject, uri)
                 when (context) {
                     XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                         assertThat(path, `is`(notNullValue()))
@@ -466,7 +465,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun markLogicDatabasePath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("/lorem/ipsum.xqy", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
@@ -485,7 +484,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun eXistDBDatabasePath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("xmldb:exist:///db/modules/lorem/ipsum.xqm", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -495,7 +494,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("java.lang.String", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
@@ -514,7 +513,7 @@ private class XdmReverseDomainNameModulePathTest : PlatformLiteFixture() {
     fun javaType() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("http://saxon.sf.net/java-type", context)
-            val path = XdmReverseDomainNameModulePath.create(myProject, uri)
+            val path = XpmReverseDomainNameModulePath.create(myProject, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))

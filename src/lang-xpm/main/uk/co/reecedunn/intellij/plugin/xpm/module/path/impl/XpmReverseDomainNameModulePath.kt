@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module.path
+package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
-object XdmReverseDomainNameModulePath : XdmModulePathFactory {
+object XpmReverseDomainNameModulePath : XdmModulePathFactory {
     private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
     private fun createUri(project: Project, path: String, uri: XsAnyUriValue): XdmModuleLocationPath? {

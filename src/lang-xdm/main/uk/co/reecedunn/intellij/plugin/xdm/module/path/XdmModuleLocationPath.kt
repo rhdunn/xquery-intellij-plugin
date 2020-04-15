@@ -19,7 +19,7 @@ import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
-data class XdmModuleLocationPath internal constructor(
+data class XdmModuleLocationPath constructor(
     val project: Project,
     val path: String,
     override val moduleTypes: Array<XdmModuleType>,
