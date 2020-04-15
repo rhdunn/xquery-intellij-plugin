@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.module.loader
+package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.compat.openapi.extensions.instantiateBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
+import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactoryBean
 
-interface XdmModuleLoaderFactory {
+interface XpmModuleLoaderFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XdmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
 
         fun create(name: String, context: String?): XdmModuleLoader? {
             return EP_NAME.extensions.find { it.name == name }?.let {
                 val container = ApplicationManager.getApplication().picoContainer
-                val instance = it.instantiateBean<XdmModuleLoaderFactory>(it.implementation, container)
+                val instance = it.instantiateBean<XpmModuleLoaderFactory>(it.implementation, container)
                 instance.loader(context)
             }
         }
@@ -37,6 +39,6 @@ interface XdmModuleLoaderFactory {
 }
 
 @Tag("moduleLoader")
-data class XdmModuleLoaderBean(var name: String = "", var context: String? = null) {
-    val loader: XdmModuleLoader? get() = XdmModuleLoaderFactory.create(name, context)
+data class XpmModuleLoaderBean(var name: String = "", var context: String? = null) {
+    val loader: XdmModuleLoader? get() = XpmModuleLoaderFactory.create(name, context)
 }

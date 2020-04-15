@@ -12,6 +12,7 @@ if (ext.idea_version >= 192) {
 
 dependencies {
     compile project(':src:lang-xdm')
+    compile project(':src:lang-xpm')
 
     testCompile project(':src:intellij-mock')
     testCompile project(':src:kotlin-hamcrest')

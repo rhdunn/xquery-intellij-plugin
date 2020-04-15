@@ -22,10 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
 class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
     // region XdmModuleLoader
@@ -60,9 +60,9 @@ class FixedModuleLoader(val root: VirtualFile) : XdmModuleLoader {
     }
 
     // endregion
-    // region XdmModuleLoaderFactory
+    // region XpmModuleLoaderFactory
 
-    companion object : XdmModuleLoaderFactory {
+    companion object : XpmModuleLoaderFactory {
         override fun loader(context: String?): XdmModuleLoader? {
             return context?.let {
                 LocalFileSystem.getInstance().findFileByPath(context)?.let { loader(it) }

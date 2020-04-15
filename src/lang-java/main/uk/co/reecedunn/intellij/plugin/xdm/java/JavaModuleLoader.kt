@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xdm.java
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
-object JavaModuleLoader : XdmModuleLoaderFactory, XdmModuleLoader {
-    // region XdmModuleLoaderFactory
+object JavaModuleLoader : XpmModuleLoaderFactory, XdmModuleLoader {
+    // region XpmModuleLoaderFactory
 
     override fun loader(context: String?): XdmModuleLoader = this
 

@@ -32,11 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactoryBean
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -66,8 +66,8 @@ abstract class ParserTestCase :
         registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
         registerModulePathFactory(uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath)
 
-        registerExtensionPoint(XdmModuleLoaderFactory.EP_NAME, XdmModuleLoaderFactoryBean::class.java)
-        registerModuleLoader("module",   "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion")
+        registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XdmModuleLoaderFactoryBean::class.java)
+        registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion")
         registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader")
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
@@ -90,7 +90,7 @@ abstract class ParserTestCase :
         val bean = XdmModuleLoaderFactoryBean()
         bean.name = name
         bean.implementation = implementation
-        registerExtension(XdmModuleLoaderFactory.EP_NAME, bean)
+        registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }
 
     private fun registerBuiltInFunctions(resolver: ImportPathResolver) {

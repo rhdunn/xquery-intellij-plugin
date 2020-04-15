@@ -27,10 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
 data class EXPathPackage internal constructor(
     private val filesystem: VirtualFileSystem,
@@ -114,9 +114,9 @@ data class EXPathPackage internal constructor(
     }
 
     // endregion
-    // region XdmModuleLoaderFactory
+    // region XpmModuleLoaderFactory
 
-    companion object : XdmModuleLoaderFactory {
+    companion object : XpmModuleLoaderFactory {
         private val NAMESPACES = mapOf("pkg" to "http://expath.org/ns/pkg")
 
         private const val DESCRIPTOR_FILE = "expath-pkg.xml"

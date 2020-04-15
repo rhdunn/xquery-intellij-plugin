@@ -24,7 +24,6 @@ import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderBean
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -33,11 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class XpmModuleLoaderSettings : XdmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettings> {
     @Attribute("loader")
-    var loaderBeans: List<XdmModuleLoaderBean> = arrayListOf(
-        XdmModuleLoaderBean("java", null),
-        XdmModuleLoaderBean("module", "java:source"),
-        XdmModuleLoaderBean("module", "java:test-source"),
-        XdmModuleLoaderBean("relative", null)
+    var loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
+        XpmModuleLoaderBean("java", null),
+        XpmModuleLoaderBean("module", "java:source"),
+        XpmModuleLoaderBean("module", "java:test-source"),
+        XpmModuleLoaderBean("relative", null)
     )
         set(value) {
             field = value

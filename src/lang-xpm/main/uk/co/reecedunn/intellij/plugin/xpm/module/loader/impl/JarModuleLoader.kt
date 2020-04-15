@@ -22,10 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import java.io.File
 import java.net.URLClassLoader
 
@@ -73,9 +73,9 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
     }
 
     // endregion
-    // region XdmModuleLoaderFactory
+    // region XpmModuleLoaderFactory
 
-    companion object : XdmModuleLoaderFactory {
+    companion object : XpmModuleLoaderFactory {
         override fun loader(context: String?): XdmModuleLoader? {
             try {
                 val path = context?.let { File(context) } ?: return null
