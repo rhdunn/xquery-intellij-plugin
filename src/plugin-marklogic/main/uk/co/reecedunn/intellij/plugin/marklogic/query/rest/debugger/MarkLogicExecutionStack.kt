@@ -26,7 +26,7 @@ internal class MarkLogicExecutionStack(
     private var frames: List<XStackFrame>? = null
 
     override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
-        frames = session.stack()
+        frames = session.stackFrames
         container?.addStackFrames(frames!!, true)
     }
 

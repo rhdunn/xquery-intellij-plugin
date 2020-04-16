@@ -85,15 +85,16 @@ internal class MarkLogicDebugSession(
         query.run()
     }
 
-    fun stack(): List<XStackFrame> {
-        val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
-        query.bindVariable("requestId", requestId, "xs:unsignedLong")
+    val stackFrames: List<XStackFrame>
+        get() {
+            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
+            query.bindVariable("requestId", requestId, "xs:unsignedLong")
 
-        val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
-        return stack.root.children("dbg:frame").map {
-            MarkLogicDebugFrame(it, this.query)
-        }.toList()
-    }
+            val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
+            return stack.root.children("dbg:frame").map {
+                MarkLogicDebugFrame(it, this.query)
+            }.toList()
+        }
 
     companion object {
         private val DBG_STACK_NAMESPACES = mapOf("dbg" to "http://marklogic.com/xdmp/debug")
