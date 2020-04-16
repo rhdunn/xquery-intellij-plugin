@@ -23,5 +23,5 @@ import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 class MarkLogicDebugFrame(frame: XmlElement, query: VirtualFile) : QueryStackFrame(query) {
     override val uri: String? = frame.child("dbg:uri")?.text()?.nullize()
     override val line: Int = frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1
-    override val column: Int = 1
+    override val column: Int = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 1
 }
