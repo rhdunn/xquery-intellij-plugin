@@ -44,7 +44,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
             state = QueryProcessState.Suspended
-            listener?.onsuspended(SaxonSuspendContext(query, stackFrame))
+            listener?.onsuspended(SaxonSuspendContext(query, currentStackFrames))
         }
 
         while (state === QueryProcessState.Suspended) {
@@ -55,19 +55,19 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     // endregion
     // region TraceListener
 
-    private val stackFrame: Stack<XStackFrame> = Stack()
+    private val currentStackFrames: Stack<XStackFrame> = Stack()
 
     override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
         super.enter(instruction, properties, context)
 
-        stackFrame.push(SaxonInstructionFrame(instruction, query))
+        currentStackFrames.push(SaxonInstructionFrame(instruction, query))
         checkIsSuspended()
     }
 
     override fun leave(instruction: InstructionInfo) {
         super.leave(instruction)
 
-        stackFrame.pop()
+        currentStackFrames.pop()
         checkIsSuspended()
     }
 
