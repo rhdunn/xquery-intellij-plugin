@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.ColoredTextContainer
+import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
@@ -34,10 +37,25 @@ abstract class QueryStackFrame(private val query: VirtualFile) : XStackFrame() {
             query.findFileByRelativePath(path)
     }
 
+    private val file = CacheableProperty {
+        uri?.let { findFileByPath(it) } ?: query
+    }
+
     private val sourcePosition = CacheableProperty {
-        val file = uri?.let { findFileByPath(it) } ?: query
-        XDebuggerUtil.getInstance().createPosition(file, line - 1, column - 1)
+        XDebuggerUtil.getInstance().createPosition(file.get(), line - 1, column - 1)
     }
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition.get()
+
+    override fun customizePresentation(component: ColoredTextContainer) {
+        component.append(file.get()!!.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        context?.let {
+            component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+            component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)
+        }
+
+        component.setIcon(AllIcons.Debugger.Frame)
+    }
 }
