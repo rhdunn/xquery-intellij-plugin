@@ -85,7 +85,7 @@ internal class MarkLogicDebugSession(
         query.run()
     }
 
-    val stackFrames: List<XStackFrame>
+    override val stackFrames: List<XStackFrame>
         get() {
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")

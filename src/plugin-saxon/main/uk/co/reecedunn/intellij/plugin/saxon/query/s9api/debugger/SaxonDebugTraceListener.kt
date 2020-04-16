@@ -41,6 +41,8 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
         }
     }
 
+    override val stackFrames: List<XStackFrame> get() = currentStackFrames.asReversed()
+
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
             state = QueryProcessState.Suspended

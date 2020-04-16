@@ -15,10 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
+import com.intellij.xdebugger.frame.XStackFrame
+
 interface DebugSession {
     var listener: DebugSessionListener?
 
     fun suspend()
 
     fun resume()
+
+    val stackFrames: List<XStackFrame>
 }
