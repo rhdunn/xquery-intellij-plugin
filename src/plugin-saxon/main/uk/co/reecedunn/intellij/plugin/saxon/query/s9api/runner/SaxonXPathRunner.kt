@@ -35,7 +35,15 @@ internal class SaxonXPathRunner(
 ) : RunnableQuery, ValidatableQuery, StoppableQuery, SaxonRunner {
     // region XPath Runner
 
-    private val compiler by lazy { processor.newXPathCompiler() }
+    private val compiler by lazy {
+        if (traceListener == null) {
+            traceListener = SaxonTraceListener()
+        }
+        processor.setTraceListener(traceListener)
+
+        val ret = processor.newXPathCompiler()
+        ret
+    }
 
     private val executable by lazy {
         when (xpathSubset) {
@@ -82,11 +90,6 @@ internal class SaxonXPathRunner(
     override var traceListener: SaxonTraceListener? = null
 
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader) {
-        if (traceListener == null) {
-            traceListener = SaxonTraceListener()
-        }
-        processor.setTraceListener(traceListener)
-
         context?.let { selector.setContextItem(it) }
         SaxonQueryResultIterator(selector.iterator(), processor).asSequence()
     }

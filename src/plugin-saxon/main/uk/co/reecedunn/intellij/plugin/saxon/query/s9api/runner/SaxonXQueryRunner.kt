@@ -39,6 +39,11 @@ internal class SaxonXQueryRunner(
     private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
 
     private val compiler by lazy {
+        if (traceListener == null) {
+            traceListener = SaxonTraceListener()
+        }
+        processor.setTraceListener(traceListener)
+
         val ret = processor.newXQueryCompiler()
         ret.setErrorListener(errorListener)
         ret
@@ -88,11 +93,6 @@ internal class SaxonXQueryRunner(
     override var traceListener: SaxonTraceListener? = null
 
     override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
-        if (traceListener == null) {
-            traceListener = SaxonTraceListener()
-        }
-        processor.setTraceListener(traceListener)
-
         context?.let { evaluator.setContextItem(it) }
 
         val destination = RawDestination(processor.classLoader)
