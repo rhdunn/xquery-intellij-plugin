@@ -6,13 +6,13 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" interface="uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory" dynamic="true"/>
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.moduleLoaderFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean" dynamic="true">
-      <with attribute="implementation" implements="uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderFactory"/>
+      <with attribute="implementation" implements="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory"/>
     </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath"/>
-    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.module.loader.XdmModuleLoaderSettings"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
