@@ -20,7 +20,6 @@ import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
@@ -71,7 +70,7 @@ internal class MarkLogicDebugSession(
                 "running" -> QueryProcessState.Running
                 "stopped" -> {
                     if (state === QueryProcessState.Suspending) {
-                        listener?.onsuspended(QuerySuspendContext(this.query.name, this))
+                        listener?.onsuspended(this.query.name)
                     }
                     QueryProcessState.Suspended
                 }

@@ -27,6 +27,7 @@ import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.evaluation.QueryEditorsProvider
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
@@ -62,7 +63,9 @@ class QueryDebugProcess(
 
     override fun resume(context: XSuspendContext?) = debugger.resume()
 
-    override fun onsuspended(context: XSuspendContext) {
-        invokeLater(ModalityState.defaultModalityState()) { session.positionReached(context) }
+    override fun onsuspended(displayName: String) {
+        invokeLater(ModalityState.defaultModalityState()) {
+            session.positionReached(QuerySuspendContext(displayName, debugger))
+        }
     }
 }
