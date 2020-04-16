@@ -17,27 +17,11 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
-import com.intellij.xdebugger.XDebuggerUtil
-import com.intellij.xdebugger.XSourcePosition
-import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 
-class MarkLogicDebugFrame(private val frame: XmlElement, private val query: VirtualFile) : XStackFrame() {
-    private fun findFileByPath(path: String?): VirtualFile? {
-        return if (path == null)
-            query
-        else
-            query.findFileByRelativePath(path)
-    }
-
-    private val sourcePosition = CacheableProperty {
-        val uri = frame.child("dbg:uri")?.text()?.nullize()
-
-        val file = uri?.let { findFileByPath(it) } ?: query
-        val line = frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1
-        XDebuggerUtil.getInstance().createPosition(file, line - 1, 0)
-    }
-
-    override fun getSourcePosition(): XSourcePosition? = sourcePosition.get()
+class MarkLogicDebugFrame(frame: XmlElement, query: VirtualFile) : QueryStackFrame(query) {
+    override val uri: String? = frame.child("dbg:uri")?.text()?.nullize()
+    override val line: Int = frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1
+    override val column: Int = 1
 }
