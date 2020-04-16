@@ -23,4 +23,5 @@ class SaxonInstructionFrame(location: Location, query: VirtualFile) : QueryStack
     override val uri: String? = location.getSystemId()
     override val line: Int = location.getLineNumber().let { if (it == -1) 1 else it }
     override val column: Int = location.getColumnNumber().let { if (it == -1) 1 else it }
+    override val context: String? = null
 }

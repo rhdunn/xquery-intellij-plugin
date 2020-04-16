@@ -24,4 +24,5 @@ class MarkLogicDebugFrame(frame: XmlElement, query: VirtualFile) : QueryStackFra
     override val uri: String? = frame.child("dbg:uri")?.text()?.nullize()
     override val line: Int = frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1
     override val column: Int = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 1
+    override val context: String? = frame.child("dbg:operation")?.text()?.nullize()
 }

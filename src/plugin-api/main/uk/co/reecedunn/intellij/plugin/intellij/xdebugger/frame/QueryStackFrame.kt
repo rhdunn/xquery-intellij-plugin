@@ -25,6 +25,7 @@ abstract class QueryStackFrame(private val query: VirtualFile) : XStackFrame() {
     abstract val uri: String?
     abstract val line: Int
     abstract val column: Int
+    abstract val context: String?
 
     private fun findFileByPath(path: String?): VirtualFile? {
         return if (path == null)
