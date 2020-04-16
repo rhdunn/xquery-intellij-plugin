@@ -17,11 +17,11 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
-class SaxonInstructionFrame(location: Location, query: VirtualFile) : QueryStackFrame(query) {
-    override val uri: String? = location.getSystemId()
-    override val line: Int = location.getLineNumber().let { if (it == -1) 1 else it }
-    override val column: Int = location.getColumnNumber().let { if (it == -1) 1 else it }
-    override val context: String? = null
+class SaxonInstructionFrame(instruction: InstructionInfo, query: VirtualFile) : QueryStackFrame(query) {
+    override val uri: String? = instruction.getSystemId()
+    override val line: Int = instruction.getLineNumber().let { if (it == -1) 1 else it }
+    override val column: Int = instruction.getColumnNumber().let { if (it == -1) 1 else it }
+    override val context: String? = instruction.getObjectName()?.toString()
 }
