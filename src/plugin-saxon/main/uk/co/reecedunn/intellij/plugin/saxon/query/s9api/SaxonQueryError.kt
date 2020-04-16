@@ -19,6 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
+import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathException
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
@@ -35,10 +36,16 @@ internal fun <T> check(
     return try {
         f()
     } catch (e: InvocationTargetException) {
-        if (listener?.fatalError != null)
-            throw listener.fatalError!!
-        else
-            throw e.targetException.run { toXPathException(classLoader)?.toSaxonQueryError(queryFile) ?: this }
+        throw if (listener?.fatalError != null)
+            listener.fatalError!!
+        else {
+            val target = e.targetException
+            when {
+                target is ProcessTerminatedException -> target
+                target.cause is ProcessTerminatedException -> target.cause!!
+                else -> target.run { toXPathException(classLoader)?.toSaxonQueryError(queryFile) ?: this }
+            }
+        }
     }
 }
 
