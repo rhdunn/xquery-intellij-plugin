@@ -25,8 +25,12 @@ class QueryExecutionStack(displayName: String, private val session: DebugSession
     private var frames: List<XStackFrame>? = null
 
     override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
-        frames = session.stackFrames
-        container?.addStackFrames(frames!!, true)
+        if (firstFrameIndex == 0) {
+            frames = session.stackFrames
+            container?.addStackFrames(frames!!, true)
+        } else {
+            container?.addStackFrames(frames!!.drop(firstFrameIndex), true)
+        }
     }
 
     override fun getTopFrame(): XStackFrame? = frames?.firstOrNull()

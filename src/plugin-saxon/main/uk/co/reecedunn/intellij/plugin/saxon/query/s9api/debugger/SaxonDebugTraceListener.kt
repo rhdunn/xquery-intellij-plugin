@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
@@ -46,7 +47,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
             state = QueryProcessState.Suspended
-            listener?.onsuspended(SaxonSuspendContext(query, currentStackFrames))
+            listener?.onsuspended(QuerySuspendContext(query.name, this))
         }
 
         while (state === QueryProcessState.Suspended) {
