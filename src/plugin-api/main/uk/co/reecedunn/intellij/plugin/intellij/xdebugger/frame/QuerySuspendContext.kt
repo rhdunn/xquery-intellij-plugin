@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
+package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
 
 import com.intellij.xdebugger.frame.XExecutionStack
 import com.intellij.xdebugger.frame.XSuspendContext
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryExecutionStack
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 
-internal class MarkLogicSuspendContext(displayName: String, session: MarkLogicDebugSession) : XSuspendContext() {
+class QuerySuspendContext(displayName: String, session: DebugSession) : XSuspendContext() {
     private val activeExecutionStack = QueryExecutionStack(displayName, session)
 
     override fun getActiveExecutionStack(): XExecutionStack? = activeExecutionStack
