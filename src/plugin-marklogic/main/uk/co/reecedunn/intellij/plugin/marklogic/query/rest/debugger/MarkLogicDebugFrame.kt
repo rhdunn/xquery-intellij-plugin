@@ -38,6 +38,7 @@ class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : Q
     private fun computeVariables(list: String, child: String): XValueChildrenList {
         val children = XValueChildrenList()
         frame.children(list).children(child).forEach { variable ->
+            children.add(MarkLogicVariable.create(variable))
         }
         return children
     }
