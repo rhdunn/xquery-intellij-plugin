@@ -155,3 +155,7 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
         }
     }
 }
+
+fun Sequence<XmlElement>.children(name: String): Sequence<XmlElement> = this.flatMap { it.children(name) }
+
+fun Sequence<XmlElement>.children(name: QName): Sequence<XmlElement> = this.flatMap { it.children(name) }
