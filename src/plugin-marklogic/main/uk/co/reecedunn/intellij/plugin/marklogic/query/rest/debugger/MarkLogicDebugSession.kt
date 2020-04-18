@@ -69,7 +69,8 @@ internal class MarkLogicDebugSession(
                 "none" -> QueryProcessState.Stopped
                 "running" -> QueryProcessState.Running
                 "stopped" -> {
-                    if (state === QueryProcessState.Suspending) {
+                    if (state !== QueryProcessState.Suspended) {
+                        state = QueryProcessState.Suspended
                         listener?.onsuspended(this.query.name)
                     }
                     QueryProcessState.Suspended
