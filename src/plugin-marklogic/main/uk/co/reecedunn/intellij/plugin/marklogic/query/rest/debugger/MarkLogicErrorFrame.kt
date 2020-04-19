@@ -21,17 +21,16 @@ import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 class MarkLogicErrorFrame(private val frame: XmlElement, query: VirtualFile) : XStackFrame() {
-    private val module = frame.children("dbg:module").first()
     private val sourcePosition = QuerySourcePosition.create(
-        file = module.text().nullize()?.let { path -> DatabaseModule(path) } ?: query,
-        line = (module.attribute("line")?.toIntOrNull() ?: 1) - 1,
-        column = (module.attribute("column")?.toIntOrNull() ?: 1) - 1
+        path = frame.child("error:uri")?.text()?.nullize(),
+        context = query,
+        line = (frame.child("error:line")?.text()?.toIntOrNull() ?: 1) - 1,
+        column = frame.child("error:column")?.text()?.toIntOrNull() ?: 0
     )
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 
-    val context: String? = frame.child("dbg:operation")?.text()?.nullize()
+    val context: String? = frame.child("error:operation")?.text()?.nullize()
 }

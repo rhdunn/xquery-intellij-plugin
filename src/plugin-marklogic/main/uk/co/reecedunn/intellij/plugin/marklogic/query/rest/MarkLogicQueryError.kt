@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val ERROR_NAMESPACES = mapOf(
     "err" to "http://www.w3.org/2005/xqt-errors",
+    "error" to "http://marklogic.com/xdmp/error",
     "dbg" to "http://reecedunn.co.uk/xquery/debug"
 )
 
@@ -32,7 +33,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
         vendorCode = doc.root.children("err:vendor-code").first().text(),
         description = doc.root.children("err:description").first().text(),
         value = doc.root.children("err:value").first().children("err:item").map { it.text()!! }.toList(),
-        frames = doc.root.children("dbg:stack").first().children("dbg:frame").map {
+        frames = doc.root.children("error:stack").first().children("error:frame").map {
             MarkLogicErrorFrame(it, queryFile)
         }.toList()
     )

@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2018-2019 Reece H. Dunn
+ : Copyright (C) 2018-2020 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -252,26 +252,20 @@ declare function local:error($err:additional as element(error:error)) {
     let $name := $err:additional/error:name/text()
     let $message := $err:additional/error:message/text()
     let $code := if ($code = $message) then $name else $code
-    return <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
+    return <err:error xmlns:error="http://marklogic.com/xdmp/error">{
         <err:code>{
             if (exists($code) and not(starts-with($code, "XDMP-"))) then
                 $code
             else
                 "err:FOER0000"
-        }</err:code>
-        <err:vendor-code>{$code}</err:vendor-code>
-        <err:description>{$message}</err:description>
+        }</err:code>,
+        <err:vendor-code>{$code}</err:vendor-code>,
+        <err:description>{$message}</err:description>,
         <err:value count="{count($err:additional/error:data/error:datum)}">{
             $err:additional/error:data/error:datum/text() ! <err:item>{.}</err:item>
-        }</err:value>
-        <dbg:stack>{
-            for $frame in $err:additional/error:stack/error:frame[position() != last()]
-            let $module := $frame/error:uri/text()
-            let $line := $frame/error:line/text() cast as xs:integer?
-            let $column := $frame/error:column/text() cast as xs:integer?
-            return <dbg:frame><dbg:module line="{$line}" column="{$column + 1}">{$module}</dbg:module></dbg:frame>
-        }</dbg:stack>
-    </err:error>
+        }</err:value>,
+        $err:additional/error:stack
+    }</err:error>
 };
 
 declare function local:javascript() as item()* {
