@@ -34,7 +34,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
     val message = doc.root.children("error:message").first().text()!!
     return QueryError(
         standardCode = name.replace("^err:".toRegex(), ""),
-        vendorCode = code,
+        vendorCode = if (code == message) null else code,
         description = message,
         value = doc.root.children("error:data").children("error:datum").map { it.text()!! }.toList(),
         frames = doc.root.children("error:stack").children("error:frame").map {

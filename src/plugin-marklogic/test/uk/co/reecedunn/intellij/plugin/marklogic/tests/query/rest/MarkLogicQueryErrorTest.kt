@@ -91,4 +91,29 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(52))
     }
+
+    @Test
+    @DisplayName("fn:error")
+    fun fnError() {
+        @Language("xml")
+        val exception = """
+            <error:error xmlns:error="http://marklogic.com/xdmp/error">
+                <error:code>An error message</error:code>
+                <error:name>err:FOER0000</error:name>
+                <error:message>An error message</error:message>
+                <error:data/>
+                <error:stack>
+                    <error:frame><error:line>1</error:line><error:column>5</error:column></error:frame>
+                </error:stack>
+            </error:error>
+        """
+
+        val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
+        assertThat(e.standardCode, `is`("FOER0000"))
+        assertThat(e.vendorCode, `is`(nullValue()))
+        assertThat(e.description, `is`("An error message"))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
+    }
 }
