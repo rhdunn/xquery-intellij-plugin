@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import java.awt.Color
@@ -79,17 +80,17 @@ private object TIME_CELL_RENDERER : DefaultTableCellRenderer() {
 
 private val MODULE_PATH_COLUMN = columnInfo<FlatProfileEntry, String>(
     heading = PluginApiBundle.message("profile.entry.table.module.column.label"),
-    getter = { item -> item.frame.module?.name ?: "" }
+    getter = { item -> item.frame.sourcePosition?.file?.name ?: "" }
 )
 
 private val LINE_NUMBER_COLUMN = columnInfo<FlatProfileEntry, Int>(
     heading = PluginApiBundle.message("profile.entry.table.line-number.column.label"),
-    getter = { item -> item.frame.lineNumber }
+    getter = { item -> (item.frame.sourcePosition?.line ?: 0) + 1 }
 )
 
 private val COLUMN_NUMBER_COLUMN = columnInfo<FlatProfileEntry, Int>(
     heading = PluginApiBundle.message("profile.entry.table.column-number.column.label"),
-    getter = { item -> item.frame.columnNumber }
+    getter = { item -> ((item.frame.sourcePosition as? QuerySourcePosition)?.column ?: 0) + 1 }
 )
 
 private val COUNT_COLUMN = columnInfo(

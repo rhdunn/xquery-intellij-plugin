@@ -16,12 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler
 
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonStackFrame
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import java.text.DateFormat
@@ -96,11 +95,7 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
         count = count,
         selfTime = totalTimeDuration,
         totalTime = totalTimeDuration,
-        frame = StackFrame(
-            instruction.getSystemId().nullize()?.let { DatabaseModule(it) } ?: query,
-            instruction.getLineNumber().run { if (this == -1) 1 else this },
-            instruction.getColumnNumber().run { if (this == -1) 1 else this }
-        )
+        frame = SaxonStackFrame(instruction, query)
     )
 }
 
@@ -112,7 +107,7 @@ fun SaxonProfileTraceListener.toProfileReport(): FlatProfileReport {
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
         results = sequenceOf(
-            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(query, 1, 1))),
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, QueryStackFrame(query, 0, 0))),
             results.values.asSequence().map { result -> result.toProfileEntry(query) }
         ).flatten()
     )

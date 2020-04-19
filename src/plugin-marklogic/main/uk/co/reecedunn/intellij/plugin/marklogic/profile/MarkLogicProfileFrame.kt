@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.text.nullize
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 
-class QueryStackFrame(file: VirtualFile, line: Int, column: Int) : XStackFrame() {
-    private val sourcePosition = QuerySourcePosition.create(null, file, line, column)
+class MarkLogicProfileFrame(private val frame: XmlElement, query: VirtualFile) : XStackFrame() {
+    private val sourcePosition = QuerySourcePosition.create(
+        path = frame.child("prof:uri")?.text()?.nullize(),
+        context = query,
+        line = (frame.child("prof:line")?.text()?.toIntOrNull() ?: 1) - 1,
+        column = frame.child("prof:column")?.text()?.toIntOrNull() ?: 0
+    )
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 }

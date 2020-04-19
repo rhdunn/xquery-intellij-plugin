@@ -33,7 +33,7 @@ class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : X
         path = frame.child("dbg:uri")?.text()?.nullize(),
         context = query,
         line = (frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1) - 1,
-        column = (frame.child("dbg:column")?.text()?.toIntOrNull() ?: 1) - 1
+        column = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 0
     )
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition

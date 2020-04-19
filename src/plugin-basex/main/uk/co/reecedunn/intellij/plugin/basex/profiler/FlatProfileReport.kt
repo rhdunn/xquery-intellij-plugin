@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.profiler
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXBundle
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -40,7 +40,7 @@ fun Map<String, Any>.toFlatProfileEntry(key: String, queryFile: VirtualFile, con
             count = 1,
             selfTime = if (key == "Total Time") XsDuration.ZERO else it,
             totalTime = it,
-            frame = StackFrame(queryFile, 1, 1)
+            frame = QueryStackFrame(queryFile, 0, 0)
         )
     }
 }

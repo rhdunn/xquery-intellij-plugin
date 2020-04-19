@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,36 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.profile
 
+import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.`is`
 import org.intellij.lang.annotations.Language
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsInteger
 
 @Suppress("XmlPathReference")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Profiler - MarkLogicProfile")
-class MarkLogicProfileTest {
+class MarkLogicProfileTest : PlatformLiteFixture() {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+
+        registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+    }
+
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
     @Test
     @DisplayName("empty")
     fun empty() {
@@ -54,9 +71,9 @@ class MarkLogicProfileTest {
 
         assertThat(results[0].id, `is`(""))
         assertThat(results[0].context, `is`(""))
-        assertThat(results[0].frame.module, `is`(DatabaseModule("test.xqy")))
-        assertThat(results[0].frame.lineNumber, `is`(1))
-        assertThat(results[0].frame.columnNumber, `is`(1))
+        assertThat(results[0].frame.sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(results[0].frame.sourcePosition?.line, `is`(0))
+        assertThat((results[0].frame.sourcePosition as QuerySourcePosition).column, `is`(0))
         assertThat(results[0].count, `is`(1))
         assertThat(results[0].selfTime.months, `is`(XsInteger.ZERO))
         assertThat(results[0].selfTime.seconds, `is`(XsDecimal.ZERO))
@@ -111,9 +128,9 @@ class MarkLogicProfileTest {
 
         assertThat(results[2].id, `is`("16683152708792260640"))
         assertThat(results[2].context, `is`("1 to 10"))
-        assertThat(results[2].frame.module, `is`(DatabaseModule("test.xqy")))
-        assertThat(results[2].frame.lineNumber, `is`(1))
-        assertThat(results[2].frame.columnNumber, `is`(13))
+        assertThat(results[2].frame.sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(results[2].frame.sourcePosition?.line, `is`(0))
+        assertThat((results[2].frame.sourcePosition as QuerySourcePosition).column, `is`(12))
         assertThat(results[2].count, `is`(2))
         assertThat(results[2].selfTime.months, `is`(XsInteger.ZERO))
         assertThat(results[2].selfTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))

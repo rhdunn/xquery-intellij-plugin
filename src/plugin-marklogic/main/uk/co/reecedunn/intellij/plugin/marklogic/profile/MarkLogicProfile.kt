@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
@@ -29,15 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 
 private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry {
-    val path = children("prof:uri").first().text()
     return FlatProfileEntry(
         id = children("prof:expr-id").first().text()!!,
         context = children("prof:expr-source").first().text()!!,
-        frame = StackFrame(
-            path?.nullize()?.let { DatabaseModule(it) } ?: queryFile,
-            children("prof:line").first().text()?.toIntOrNull() ?: 1,
-            children("prof:column").first().text()?.toIntOrNull()?.let { it + 1 } ?: 1
-        ),
+        frame = MarkLogicProfileFrame(this, queryFile),
         count = children("prof:count").first().text()!!.toInt(),
         selfTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
         totalTime = children("prof:deep-time").first().text()?.toXsDuration()!!
@@ -55,7 +48,7 @@ fun String.toMarkLogicProfileReport(queryFile: VirtualFile): FlatProfileReport {
         created = metadata.children("prof:created").first().text()!!,
         version = metadata.children("prof:server-version").first().text()!!,
         results = sequenceOf(
-            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, StackFrame(queryFile, 1, 1))),
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, QueryStackFrame(queryFile, 0, 0))),
             histogram.children("prof:expression").map { expression -> expression.toProfileEntry(queryFile) }
         ).flatten()
     )
