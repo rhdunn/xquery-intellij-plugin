@@ -15,14 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.ColoredTextContainer
+import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
-class SaxonStackFrame(location: Location, query: VirtualFile) : QueryStackFrame() {
+class SaxonStackFrame(location: Location, query: VirtualFile) : XStackFrame() {
     private val sourcePosition = QuerySourcePosition.create(
         path = location.systemId,
         context = query,
@@ -32,5 +35,17 @@ class SaxonStackFrame(location: Location, query: VirtualFile) : QueryStackFrame(
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 
-    override val context: String? = (location as? InstructionInfo)?.getObjectName()?.toString()
+    val context: String? = (location as? InstructionInfo)?.getObjectName()?.toString()
+
+    override fun customizePresentation(component: ColoredTextContainer) {
+        component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(sourcePosition.line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        context?.let {
+            component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+            component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)
+        }
+
+        component.setIcon(AllIcons.Debugger.Frame)
+    }
 }

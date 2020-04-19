@@ -15,17 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.ColoredTextContainer
+import com.intellij.ui.SimpleTextAttributes
 import com.intellij.util.text.nullize
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XCompositeNode
+import com.intellij.xdebugger.frame.XStackFrame
 import com.intellij.xdebugger.frame.XValueChildrenList
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 
-class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : QueryStackFrame() {
+class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : XStackFrame() {
     private val sourcePosition = QuerySourcePosition.create(
         path = frame.child("dbg:uri")?.text()?.nullize(),
         context = query,
@@ -35,7 +38,7 @@ class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : Q
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 
-    override val context: String? = frame.child("dbg:operation")?.text()?.nullize()
+    val context: String? = frame.child("dbg:operation")?.text()?.nullize()
 
     override fun computeChildren(node: XCompositeNode) {
         node.addChildren(computeVariables("dbg:global-variables", "dbg:global-variable"), false)
@@ -49,5 +52,17 @@ class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : Q
             children.add(MarkLogicVariable.create(variable))
         }
         return children
+    }
+
+    override fun customizePresentation(component: ColoredTextContainer) {
+        component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(sourcePosition.line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        context?.let {
+            component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+            component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)
+        }
+
+        component.setIcon(AllIcons.Debugger.Frame)
     }
 }
