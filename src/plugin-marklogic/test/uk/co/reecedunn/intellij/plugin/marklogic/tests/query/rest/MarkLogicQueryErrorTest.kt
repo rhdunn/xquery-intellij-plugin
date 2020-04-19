@@ -50,9 +50,8 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
             <err:error xmlns:err="http://www.w3.org/2005/xqt-errors" xmlns:error="http://marklogic.com/xdmp/error">
                 <err:code>err:XPST0003</err:code>
                 <err:vendor-code>XDMP-UNEXPECTED</err:vendor-code>
-                <err:description>Unexpected token</err:description>
+                <error:message>Unexpected token</error:message>
                 <error:data/>
-                <err:module line="1" column="6"/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>5</error:column></error:frame>
                 </error:stack>
@@ -76,9 +75,8 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
             <err:error xmlns:err="http://www.w3.org/2005/xqt-errors" xmlns:error="http://marklogic.com/xdmp/error">
                 <err:code>err:FOER0000</err:code>
                 <err:vendor-code>XDMP-XQUERYVERSIONSWITCH</err:vendor-code>
-                <err:description>All modules in a module sequence must use the same XQuery version</err:description>
+                <error:message>All modules in a module sequence must use the same XQuery version</error:message>
                 <error:data/>
-                <err:module line="1" column="53"/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>52</error:column></error:frame>
                 </error:stack>

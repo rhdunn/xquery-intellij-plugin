@@ -32,7 +32,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
     return QueryError(
         standardCode = doc.root.children("err:code").first().text()!!.replace("^err:".toRegex(), ""),
         vendorCode = doc.root.children("err:vendor-code").first().text(),
-        description = doc.root.children("err:description").first().text(),
+        description = doc.root.children("error:message").first().text(),
         value = doc.root.children("error:data").children("error:datum").map { it.text()!! }.toList(),
         frames = doc.root.children("error:stack").children("error:frame").map {
             MarkLogicErrorFrame(it, queryFile)

@@ -260,7 +260,7 @@ declare function local:error($err:additional as element(error:error)) {
                 "err:FOER0000"
         }</err:code>,
         <err:vendor-code>{$code}</err:vendor-code>,
-        <err:description>{$message}</err:description>,
+        $err:additional/error:message,
         $err:additional/error:data,
         $err:additional/error:stack
     }</err:error>
