@@ -215,7 +215,7 @@ class Response : PlatformLiteFixture() {
             "  <err:code>err:FOAR0001</err:code>",
             "  <err:vendor-code>XDMP-DIVBYZERO</err:vendor-code>",
             "  <err:description>Division by zero</err:description>",
-            "  <err:value count=\"0\"/>",
+            "  <error:data/>",
             "  <err:module line=\"23\" column=\"3\"/>",
             "  <error:stack>",
             "    <error:frame><error:line>23</error:line><error:column>2</error:column></error:frame>",

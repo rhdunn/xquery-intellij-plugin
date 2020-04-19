@@ -261,9 +261,7 @@ declare function local:error($err:additional as element(error:error)) {
         }</err:code>,
         <err:vendor-code>{$code}</err:vendor-code>,
         <err:description>{$message}</err:description>,
-        <err:value count="{count($err:additional/error:data/error:datum)}">{
-            $err:additional/error:data/error:datum/text() ! <err:item>{.}</err:item>
-        }</err:value>,
+        $err:additional/error:data,
         $err:additional/error:stack
     }</err:error>
 };
