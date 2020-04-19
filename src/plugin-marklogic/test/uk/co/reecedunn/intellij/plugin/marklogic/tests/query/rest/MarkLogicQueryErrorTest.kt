@@ -47,15 +47,15 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
     fun xqueryErrorCode() {
         @Language("xml")
         val exception = """
-            <err:error xmlns:err="http://www.w3.org/2005/xqt-errors" xmlns:error="http://marklogic.com/xdmp/error">
-                <err:code>err:XPST0003</err:code>
-                <err:vendor-code>XDMP-UNEXPECTED</err:vendor-code>
+            <error:error xmlns:error="http://marklogic.com/xdmp/error">
+                <error:code>XDMP-UNEXPECTED</error:code>
+                <error:name>err:XPST0003</error:name>
                 <error:message>Unexpected token</error:message>
                 <error:data/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>5</error:column></error:frame>
                 </error:stack>
-            </err:error>
+            </error:error>
         """
 
         val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
@@ -72,15 +72,15 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
     fun marklogicErrorCode() {
         @Language("xml")
         val exception = """
-            <err:error xmlns:err="http://www.w3.org/2005/xqt-errors" xmlns:error="http://marklogic.com/xdmp/error">
-                <err:code>err:FOER0000</err:code>
-                <err:vendor-code>XDMP-XQUERYVERSIONSWITCH</err:vendor-code>
+            <error:error xmlns:error="http://marklogic.com/xdmp/error">
+                <error:code>XDMP-XQUERYVERSIONSWITCH</error:code>
+                <error:name>err:FOER0000</error:name>
                 <error:message>All modules in a module sequence must use the same XQuery version</error:message>
                 <error:data/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>52</error:column></error:frame>
                 </error:stack>
-            </err:error>
+            </error:error>
         """
 
         val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))

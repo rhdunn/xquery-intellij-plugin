@@ -247,25 +247,6 @@ declare function local:eval-options() {
     }</options>
 };
 
-declare function local:error($err:additional as element(error:error)) {
-    let $code := $err:additional/error:code/text()
-    let $name := $err:additional/error:name/text()
-    let $message := $err:additional/error:message/text()
-    let $code := if ($code = $message) then $name else $code
-    return <err:error xmlns:error="http://marklogic.com/xdmp/error">{
-        <err:code>{
-            if (exists($code) and not(starts-with($code, "XDMP-"))) then
-                $code
-            else
-                "err:FOER0000"
-        }</err:code>,
-        <err:vendor-code>{$code}</err:vendor-code>,
-        $err:additional/error:message,
-        $err:additional/error:data,
-        $err:additional/error:stack
-    }</err:error>
-};
-
 declare function local:javascript() as item()* {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
     let $options := local:eval-options()
@@ -425,5 +406,5 @@ try {
         return $retval
 } catch * {
     let $_ := xdmp:add-response-header("X-Derived-1", "err:error")
-    return local:error($err:additional)
+    return $err:additional
 }
