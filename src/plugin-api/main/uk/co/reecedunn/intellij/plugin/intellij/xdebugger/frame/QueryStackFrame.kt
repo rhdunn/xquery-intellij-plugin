@@ -30,6 +30,8 @@ abstract class QueryStackFrame(private val query: VirtualFile) : XStackFrame() {
     abstract val column: Int
     abstract val context: String?
 
+    val file: VirtualFile get() = sourcePosition!!.file
+
     private fun findFileByPath(path: String?): VirtualFile? {
         return if (path == null)
             query
@@ -37,18 +39,15 @@ abstract class QueryStackFrame(private val query: VirtualFile) : XStackFrame() {
             query.findFileByRelativePath(path)
     }
 
-    private val file = CacheableProperty {
-        uri?.let { findFileByPath(it) } ?: query
+    private val cachedSourcePosition = CacheableProperty {
+        val file = uri?.let { findFileByPath(it) } ?: query
+        XDebuggerUtil.getInstance().createPosition(file, line - 1, column - 1)
     }
 
-    private val sourcePosition = CacheableProperty {
-        XDebuggerUtil.getInstance().createPosition(file.get(), line - 1, column - 1)
-    }
-
-    override fun getSourcePosition(): XSourcePosition? = sourcePosition.get()
+    override fun getSourcePosition(): XSourcePosition? = cachedSourcePosition.get()
 
     override fun customizePresentation(component: ColoredTextContainer) {
-        component.append(file.get()!!.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
         component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
         component.append(line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
         context?.let {
