@@ -20,6 +20,7 @@ import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
@@ -28,8 +29,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
 
-class MarkLogicVariable(val variableName: XsQNameValue) : XNamedValue(op_qname_presentation(variableName)!!) {
+class MarkLogicVariable private constructor(val variableName: XsQNameValue, val value: String?) :
+    XNamedValue(op_qname_presentation(variableName)!!) {
+
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
+        if (value != null) {
+            node.setPresentation(XPathIcons.Nodes.Variable, null, value, false)
+        }
     }
 
     companion object {
@@ -40,7 +46,8 @@ class MarkLogicVariable(val variableName: XsQNameValue) : XNamedValue(op_qname_p
             }
             val prefix = variable.child("prefix")?.text()?.let { XsNCName(it) }
             val qname = XsQName(namespace, prefix, localName, prefix != null || namespace == null)
-            return MarkLogicVariable(qname)
+            val value = variable.child("value")?.text()?.nullize()
+            return MarkLogicVariable(qname, value)
         }
     }
 }

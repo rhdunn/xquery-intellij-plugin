@@ -15,21 +15,67 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.debugger
 
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import com.intellij.util.ui.TextTransferable
+import com.intellij.xdebugger.frame.XFullValueEvaluator
+import com.intellij.xdebugger.frame.XNamedValue
+import com.intellij.xdebugger.frame.XValueNode
+import com.intellij.xdebugger.frame.XValuePlace
+import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
+import com.intellij.xdebugger.frame.presentation.XValuePresentation
+import com.intellij.xdebugger.impl.ui.tree.nodes.XValueTextRendererImpl
+import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicVariable
+import javax.swing.Icon
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Debugger - Variables")
-class MarkLogicVariableTest {
+class MarkLogicVariableTest : XValueNode {
     companion object {
         val DEBUG_XML_NAMESPACES = mapOf("dbg" to "http://marklogic.com/xdmp/debug")
     }
+
+    // region XValueNode
+
+    private var icon: Icon? = null
+    private var presentation: XValuePresentation? = null
+    private var hasChildren: Boolean = false
+
+    fun computePresentation(value: XNamedValue, place: XValuePlace) {
+        icon = null
+        presentation = null
+        value.computePresentation(this, place)
+    }
+
+    fun renderValue(): String? = presentation?.let {
+        val text = TextTransferable.ColoredStringBuilder()
+        val renderer = XValueTextRendererImpl(text)
+        it.renderValue(renderer)
+        text.builder.toString()
+    }
+
+    override fun setFullValueEvaluator(fullValueEvaluator: XFullValueEvaluator) = TODO()
+
+    override fun setPresentation(icon: Icon?, type: String?, value: String, hasChildren: Boolean) {
+        setPresentation(icon, XRegularValuePresentation(value, type), hasChildren)
+    }
+
+    override fun setPresentation(icon: Icon?, presentation: XValuePresentation, hasChildren: Boolean) {
+        this.icon = icon
+        this.presentation = presentation
+        this.hasChildren = hasChildren
+    }
+
+    override fun setPresentation(icon: Icon?, type: String?, separator: String, value: String?, hasChildren: Boolean) {
+        TODO("Don't call this deprecated API.")
+    }
+
+    // endregion
 
     @Nested
     @DisplayName("variable name")
@@ -95,6 +141,63 @@ class MarkLogicVariableTest {
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk/test"))
             assertThat(qname.localName!!.data, `is`("ipsum"))
             assertThat(qname.isLexicalQName, `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("values and types")
+    internal inner class ValuesAndTypes {
+        @Test
+        @DisplayName("computable value")
+        fun computableValue() {
+            @Language("xml")
+            val xml = """
+                <variable xmlns="http://marklogic.com/xdmp/debug">
+                    <name xmlns="">x</name>
+                    <prefix/>
+                </variable>
+            """
+
+            val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
+
+            computePresentation(v, XValuePlace.TREE)
+            assertThat(icon, `is`(nullValue()))
+            assertThat(presentation, `is`(nullValue()))
+            assertThat(hasChildren, `is`(false))
+
+            computePresentation(v, XValuePlace.TOOLTIP)
+            assertThat(icon, `is`(nullValue()))
+            assertThat(presentation, `is`(nullValue()))
+            assertThat(hasChildren, `is`(false))
+        }
+
+        @Test
+        @DisplayName("xs:string")
+        fun string() {
+            @Language("xml")
+            val xml = """
+                <variable xmlns="http://marklogic.com/xdmp/debug">
+                    <name xmlns="">x</name>
+                    <prefix/>
+                    <value>"test"</value>
+                </variable>
+            """
+
+            val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
+
+            computePresentation(v, XValuePlace.TREE)
+            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
+            assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+            assertThat(presentation?.type, `is`(nullValue()))
+            assertThat(renderValue(), `is`("\"test\""))
+            assertThat(hasChildren, `is`(false))
+
+            computePresentation(v, XValuePlace.TOOLTIP)
+            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
+            assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+            assertThat(presentation?.type, `is`(nullValue()))
+            assertThat(renderValue(), `is`("\"test\""))
+            assertThat(hasChildren, `is`(false))
         }
     }
 }
