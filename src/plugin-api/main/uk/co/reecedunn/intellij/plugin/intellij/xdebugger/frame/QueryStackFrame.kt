@@ -16,40 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
 
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.ColoredTextContainer
 import com.intellij.ui.SimpleTextAttributes
-import com.intellij.xdebugger.XDebuggerUtil
-import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 
-abstract class QueryStackFrame(private val query: VirtualFile) : XStackFrame() {
-    abstract val uri: String?
-    abstract val line: Int
-    abstract val column: Int
+abstract class QueryStackFrame : XStackFrame() {
     abstract val context: String?
 
-    val file: VirtualFile get() = sourcePosition!!.file
-
-    private fun findFileByPath(path: String?): VirtualFile? {
-        return if (path == null)
-            query
-        else
-            query.findFileByRelativePath(path)
-    }
-
-    private val cachedSourcePosition = CacheableProperty {
-        val file = uri?.let { findFileByPath(it) } ?: query
-        XDebuggerUtil.getInstance().createPosition(file, line - 1, column - 1)
-    }
-
-    override fun getSourcePosition(): XSourcePosition? = cachedSourcePosition.get()
-
     override fun customizePresentation(component: ColoredTextContainer) {
-        component.append(file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
         component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        component.append(line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(sourcePosition!!.line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
         context?.let {
             component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
             component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)

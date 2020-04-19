@@ -17,16 +17,24 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
+import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XValueChildrenList
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 
-class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : QueryStackFrame(query) {
-    override val uri: String? = frame.child("dbg:uri")?.text()?.nullize()
-    override val line: Int = frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1
-    override val column: Int = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 1
+class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : QueryStackFrame() {
+    private val sourcePosition = QuerySourcePosition.create(
+        path = frame.child("dbg:uri")?.text()?.nullize(),
+        context = query,
+        line = (frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1) - 1,
+        column = (frame.child("dbg:column")?.text()?.toIntOrNull() ?: 1) - 1
+    )
+
+    override fun getSourcePosition(): XSourcePosition? = sourcePosition
+
     override val context: String? = frame.child("dbg:operation")?.text()?.nullize()
 
     override fun computeChildren(node: XCompositeNode) {

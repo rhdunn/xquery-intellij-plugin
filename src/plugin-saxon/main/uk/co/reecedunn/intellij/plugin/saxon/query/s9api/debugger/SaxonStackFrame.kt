@@ -16,13 +16,21 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.XSourcePosition
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
-class SaxonStackFrame(location: Location, query: VirtualFile) : QueryStackFrame(query) {
-    override val uri: String? = location.systemId
-    override val line: Int = location.lineNumber.let { if (it == -1) 1 else it }
-    override val column: Int = location.columnNumber.let { if (it == -1) 1 else it }
+class SaxonStackFrame(location: Location, query: VirtualFile) : QueryStackFrame() {
+    private val sourcePosition = QuerySourcePosition.create(
+        path = location.systemId,
+        context = query,
+        line = location.lineNumber.let { if (it == -1) 1 else it } - 1,
+        column = location.columnNumber.let { if (it == -1) 1 else it } - 1
+    )
+
+    override fun getSourcePosition(): XSourcePosition? = sourcePosition
+
     override val context: String? = (location as? InstructionInfo)?.getObjectName()?.toString()
 }
