@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import java.lang.reflect.InvocationTargetException
 
@@ -55,6 +55,6 @@ fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
         vendorCode = null,
         description = parts[6],
         value = listOf(),
-        frames = listOf(StackFrame(path?.let { DatabaseModule(it) } ?: queryFile, line, col))
+        frames = listOf(QueryStackFrame(path?.let { DatabaseModule(it) } ?: queryFile, line - 1, col - 1))
     )
 }

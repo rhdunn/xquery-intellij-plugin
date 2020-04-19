@@ -22,10 +22,10 @@ import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
+import javax.xml.transform.SourceLocator
 
-class SaxonStackFrame(location: Location, query: VirtualFile) : XStackFrame() {
+class SaxonStackFrame(location: SourceLocator, query: VirtualFile) : XStackFrame() {
     private val sourcePosition = QuerySourcePosition.create(
         path = location.systemId,
         context = query,

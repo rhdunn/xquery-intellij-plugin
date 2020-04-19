@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.tests.query.session
 
+import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXQueryError
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseXQueryError")
-class BaseXQueryErrorTest {
+class BaseXQueryErrorTest : PlatformLiteFixture() {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+
+        registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+    }
+
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
     @Test
     @DisplayName("at runtime; BaseX 8.0")
     fun runtime80() {
@@ -33,9 +50,9 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Calculation is incomplete."))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(6))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
     }
 
     @Test
@@ -47,9 +64,9 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Calculation is incomplete."))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(5))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(4))
     }
 
     @Test
@@ -60,8 +77,8 @@ class BaseXQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Unknown type: array-node()."))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(1))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(0))
     }
 }

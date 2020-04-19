@@ -17,12 +17,11 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.XPathException
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trans.toXPathException
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonStackFrame
 import java.lang.reflect.InvocationTargetException
 
 private const val ERR_NS = "http://www.w3.org/2005/xqt-errors"
@@ -62,12 +61,6 @@ internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile?): QueryErr
         vendorCode = null,
         description = message,
         value = listOf(),
-        frames = listOf(
-            StackFrame(
-                locator?.systemId?.nullize()?.let { DatabaseModule(it) } ?: queryFile,
-                locator?.lineNumber ?: 1,
-                locator?.columnNumber ?: 1
-            )
-        )
+        frames = queryFile?.let { listOf(SaxonStackFrame(locator!!, it)) } ?: listOf()
     )
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,37 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.query.rest
 
+import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.apache.http.Header
 import org.apache.http.message.BasicHeader
-
 import org.hamcrest.CoreMatchers.*
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 @Suppress("Reformat")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogic MIME Response to Query Results")
-class Response {
+class Response : PlatformLiteFixture() {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+
+        registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+    }
+
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
     @Test
     @DisplayName("content length 0")
     fun emptySequence() {
@@ -204,14 +219,14 @@ class Response {
             BasicHeader("Content-Type", "multipart/mixed; boundary=fb98e57ec409700a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val e = assertThrows(QueryError::class.java) {
+        val e: QueryError = Assertions.assertThrows(QueryError::class.java) {
             MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
         }
 
         assertThat(e.description, `is`("Division by zero"))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(23))
-        assertThat(e.frames[0].columnNumber, `is`(3))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(22))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(2))
         assertThat(e.standardCode, `is`("FOAR0001"))
         assertThat(e.vendorCode, `is`("XDMP-DIVBYZERO"))
     }

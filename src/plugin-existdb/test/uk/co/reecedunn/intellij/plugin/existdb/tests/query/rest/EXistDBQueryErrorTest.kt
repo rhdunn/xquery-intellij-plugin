@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,33 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.tests.query.rest
 
+import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBQueryError
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - EXistDBQueryError")
-class EXistDBQueryErrorTest {
+class EXistDBQueryErrorTest : PlatformLiteFixture() {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+
+        registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+    }
+
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
     @Test
     @DisplayName("XPathException")
     fun xpathException() {
@@ -41,9 +58,9 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("unexpected token: null"))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(7))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(6))
     }
 
     @Test
@@ -61,9 +78,9 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(1))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(0))
     }
 
     @Test
@@ -81,9 +98,9 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(11))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(10))
     }
 
     @Test
@@ -105,8 +122,8 @@ class EXistDBQueryErrorTest {
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
-        assertThat(e.frames[0].module, `is`(DatabaseModule("test.xqy")))
-        assertThat(e.frames[0].lineNumber, `is`(1))
-        assertThat(e.frames[0].columnNumber, `is`(11))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(10))
     }
 }

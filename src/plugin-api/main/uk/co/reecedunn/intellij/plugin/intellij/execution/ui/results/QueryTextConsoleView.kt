@@ -29,9 +29,9 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.database.resolve
-import uk.co.reecedunn.intellij.plugin.processor.debug.getSourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -142,19 +142,26 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
             }
             e.frames.forEach {
                 print("    at ", ConsoleViewContentType.ERROR_OUTPUT)
-                if (it.module != null) {
-                    val resolved = when (it.module) {
-                        is DatabaseModule -> it.module.resolve(project).firstOrNull()
-                        else -> it.module
+                it.sourcePosition?.file?.let { module ->
+                    val resolved = when (module) {
+                        is DatabaseModule -> module.resolve(project).firstOrNull()
+                        else -> module
                     }
                     if (resolved == null)
-                        print(it.module.path, ConsoleViewContentType.ERROR_OUTPUT)
+                        print(module.path, ConsoleViewContentType.ERROR_OUTPUT)
                     else
-                        printHyperlink(it.module.path) { project ->
-                            it.getSourcePosition(project)?.createNavigatable(project)?.navigate(true)
+                        printHyperlink(module.path) { project ->
+                            it.sourcePosition?.createNavigatable(project)?.navigate(true)
                         }
                 }
-                print(":${it.lineNumber}:${it.columnNumber}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                when (val pos = it.sourcePosition!!) {
+                    is QuerySourcePosition -> {
+                        print(":${pos.line + 1}:${pos.column + 1}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                    }
+                    else -> {
+                        print(":${pos.line + 1}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                    }
+                }
             }
         } else {
             val writer = StringWriter()
