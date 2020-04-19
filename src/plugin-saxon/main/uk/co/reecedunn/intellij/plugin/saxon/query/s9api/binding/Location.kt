@@ -15,10 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-interface Location {
-    fun getSystemId(): String?
+import org.xml.sax.Locator
+import javax.xml.transform.SourceLocator
 
-    fun getLineNumber(): Int
+interface Location : SourceLocator, Locator {
+    override fun getSystemId(): String?
 
-    fun getColumnNumber(): Int
+    override fun getPublicId(): String?
+
+    override fun getLineNumber(): Int
+
+    override fun getColumnNumber(): Int
 }

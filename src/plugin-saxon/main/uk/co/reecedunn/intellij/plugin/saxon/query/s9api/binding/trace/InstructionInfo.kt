@@ -43,6 +43,10 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
         return if (id == "*module with no systemId*") null else id
     }
 
+    override fun getPublicId(): String? {
+        return locationClass.getMethod("getPublicId").invoke(location) as String?
+    }
+
     override fun getLineNumber(): Int {
         return locationClass.getMethod("getLineNumber").invoke(location) as Int
     }

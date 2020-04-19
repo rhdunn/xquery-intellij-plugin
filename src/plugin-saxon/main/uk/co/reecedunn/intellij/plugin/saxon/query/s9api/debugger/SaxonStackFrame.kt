@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 
 class SaxonStackFrame(location: Location, query: VirtualFile) : QueryStackFrame(query) {
-    override val uri: String? = location.getSystemId()
-    override val line: Int = location.getLineNumber().let { if (it == -1) 1 else it }
-    override val column: Int = location.getColumnNumber().let { if (it == -1) 1 else it }
+    override val uri: String? = location.systemId
+    override val line: Int = location.lineNumber.let { if (it == -1) 1 else it }
+    override val column: Int = location.columnNumber.let { if (it == -1) 1 else it }
     override val context: String? = (location as? InstructionInfo)?.getObjectName()?.toString()
 }
