@@ -205,6 +205,19 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:decimal")
+        fun decimal() {
+            check_value("1234.", "xs:decimal", XNumericValuePresentation::class.java)
+            check_value("-321.", "xs:decimal", XNumericValuePresentation::class.java)
+
+            check_value("12.34", "xs:decimal", XNumericValuePresentation::class.java)
+            check_value("-3.21", "xs:decimal", XNumericValuePresentation::class.java)
+
+            check_value(".1234", "xs:decimal", XNumericValuePresentation::class.java)
+            check_value("-.321", "xs:decimal", XNumericValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("xs:integer")
         fun integer() {
             check_value("1234", "xs:integer", XNumericValuePresentation::class.java)
