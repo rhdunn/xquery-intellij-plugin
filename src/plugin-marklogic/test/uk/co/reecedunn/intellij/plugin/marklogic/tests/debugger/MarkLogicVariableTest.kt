@@ -277,6 +277,12 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:language")
+        fun language() {
+            check_value("xs:language(\"fr-BE\")", "xs:language", "fr-BE", XStringValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("xs:long")
         fun long() {
             check_value("xs:long(\"1234\")", "xs:long", "1234", XNumericValuePresentation::class.java)
@@ -309,6 +315,15 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:normalizedString")
+        fun normalizedString() {
+            check_value(
+                "xs:normalizedString(\"Lorem &amp; ipsum\")", "xs:normalizedString", "Lorem &amp; ipsum",
+                XStringValuePresentation::class.java
+            )
+        }
+
+        @Test
         @DisplayName("xs:positiveInteger")
         fun positiveInteger() {
             check_value(
@@ -328,6 +343,12 @@ class MarkLogicVariableTest : XValueNode {
             check_value(
                 "\"Lorem &amp; ipsum\"", "xs:string", "Lorem &amp; ipsum", XStringValuePresentation::class.java
             )
+        }
+
+        @Test
+        @DisplayName("xs:token")
+        fun token() {
+            check_value("xs:token(\"test\")", "xs:token", "test", XStringValuePresentation::class.java)
         }
 
         @Test
@@ -352,6 +373,42 @@ class MarkLogicVariableTest : XValueNode {
         @DisplayName("xs:unsignedShort")
         fun unsignedShort() {
             check_value("xs:unsignedShort(\"1234\")", "xs:unsignedShort", "1234", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:ENTITY")
+        fun entity() {
+            check_value("xs:ENTITY(\"test\")", "xs:ENTITY", "test", XStringValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:ID")
+        fun id() {
+            check_value("xs:ID(\"test\")", "xs:ID", "test", XStringValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:IDREF")
+        fun idref() {
+            check_value("xs:IDREF(\"test\")", "xs:IDREF", "test", XStringValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:Name")
+        fun name() {
+            check_value("xs:Name(\"test\")", "xs:Name", "test", XStringValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:NCName")
+        fun ncname() {
+            check_value("xs:NCName(\"test\")", "xs:NCName", "test", XStringValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:NMTOKEN")
+        fun nmtoken() {
+            check_value("xs:NMTOKEN(\"test\")", "xs:NMTOKEN", "test", XStringValuePresentation::class.java)
         }
     }
 }

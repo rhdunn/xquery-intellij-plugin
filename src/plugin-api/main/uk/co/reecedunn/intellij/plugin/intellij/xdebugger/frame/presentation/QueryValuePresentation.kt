@@ -49,6 +49,15 @@ object QueryValuePresentation {
     )
 
     private val STRING_TYPES = setOf(
-        "xs:string"
+        "xs:language",
+        "xs:normalizedString",
+        "xs:string",
+        "xs:token",
+        "xs:ENTITY",
+        "xs:ID",
+        "xs:IDREF",
+        "xs:Name",
+        "xs:NCName",
+        "xs:NMTOKEN"
     )
 }
