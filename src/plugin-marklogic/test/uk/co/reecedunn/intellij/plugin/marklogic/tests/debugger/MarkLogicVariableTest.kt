@@ -88,7 +88,7 @@ class MarkLogicVariableTest : XValueNode {
             """
 
             val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
-            assertThat(v.name, `is`("ipsum"))
+            assertThat(v.name, `is`("\$ipsum"))
 
             val qname = v.variableName
             assertThat(qname.prefix, `is`(nullValue()))
@@ -109,7 +109,7 @@ class MarkLogicVariableTest : XValueNode {
             """
 
             val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
-            assertThat(v.name, `is`("lorem:ipsum"))
+            assertThat(v.name, `is`("\$lorem:ipsum"))
 
             val qname = v.variableName
             assertThat(qname.prefix!!.data, `is`("lorem"))
@@ -130,7 +130,7 @@ class MarkLogicVariableTest : XValueNode {
             """
 
             val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
-            assertThat(v.name, `is`("Q{http://www.example.co.uk/test}ipsum"))
+            assertThat(v.name, `is`("\$Q{http://www.example.co.uk/test}ipsum"))
 
             val qname = v.variableName
             assertThat(qname.prefix, `is`(nullValue()))

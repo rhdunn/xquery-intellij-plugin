@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
 
 class MarkLogicVariable private constructor(val variableName: XsQNameValue, val value: String?) :
-    XNamedValue(op_qname_presentation(variableName)!!) {
+    XNamedValue("\$${op_qname_presentation(variableName)!!}") {
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
         createPresentation()?.let {
