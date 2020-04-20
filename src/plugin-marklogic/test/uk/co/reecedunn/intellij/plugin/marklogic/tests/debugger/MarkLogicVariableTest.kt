@@ -205,6 +205,13 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:boolean")
+        fun boolean() {
+            check_value("fn:true()", "xs:boolean", XRegularValuePresentation::class.java)
+            check_value("fn:false()", "xs:boolean", XRegularValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("xs:decimal")
         fun decimal() {
             check_value("1234.", "xs:decimal", XNumericValuePresentation::class.java)

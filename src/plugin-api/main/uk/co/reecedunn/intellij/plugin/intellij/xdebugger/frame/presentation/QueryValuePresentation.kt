@@ -22,7 +22,9 @@ import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 object QueryValuePresentation {
     internal const val SEPARATOR = " := "
 
-    fun forValue(value: String): XRegularValuePresentation = XRegularValuePresentation(value, null, SEPARATOR)
+    fun forValue(value: String, type: String? = null): XRegularValuePresentation {
+        return XRegularValuePresentation(value, type, SEPARATOR)
+    }
 
     fun forString(value: String, type: String): XStringValuePresentation = StringValuePresentation(value, type)
 
