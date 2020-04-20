@@ -430,6 +430,13 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("array-node()")
+        fun arrayNode() {
+            check_value("array-node{}", "array-node()", XRegularValuePresentation::class.java)
+            check_value("array-node{number-node{1}}", "array-node()", XRegularValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("attribute()")
         fun attribute() {
             check_value(
@@ -459,6 +466,13 @@ class MarkLogicVariableTest : XValueNode {
         @DisplayName("empty-sequence()")
         fun emptySequence() {
             check_value("()", "empty-sequence()", XRegularValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("object-node()")
+        fun objectNode() {
+            check_value("object-node{}", "object-node()", XRegularValuePresentation::class.java)
+            check_value("object-node{\"one\":number-node{1}}", "object-node()", XRegularValuePresentation::class.java)
         }
 
         @Test

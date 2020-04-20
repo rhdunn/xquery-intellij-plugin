@@ -48,7 +48,6 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
         value.startsWith("<?") -> QueryValuePresentation.forValue(value, "processing-instruction()")
         value.startsWith("<") -> QueryValuePresentation.forValue(value, "element()")
         value.startsWith("\"") -> QueryValuePresentation.forValue(value.substring(1, value.length - 1), "xs:string")
-        value.startsWith("attribute{") -> QueryValuePresentation.forValue(value, "attribute()")
         value.startsWith("document{") -> QueryValuePresentation.forValue(value, "document-node()")
         value.startsWith("text{\"") -> QueryValuePresentation.forValue(value.substring(6, value.length - 2), "text()")
         value.matches(XS_BOOLEAN) -> QueryValuePresentation.forValue(value, "xs:boolean")
@@ -62,12 +61,17 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
             val matched = CONSTRUCTED.find(value)!!
             QueryValuePresentation.forValue(value, matched.groupValues[1])
         }
+        value.matches(NODE) -> {
+            val matched = NODE.find(value)!!
+            QueryValuePresentation.forValue(value, "${matched.groupValues[1]}()")
+        }
         else -> QueryValuePresentation.forValue(value)
     }
 
     companion object {
         private val CONSTRUCTED_FROM_STRING = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(\"([^\"]+)\"\\)$".toRegex()
         private val CONSTRUCTED = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(.*$".toRegex()
+        private val NODE = "^([a-zA-Z\\-]+)\\{.*$".toRegex()
         private val XS_BOOLEAN = "^fn:(true|false)\\(\\)$".toRegex()
         private val XS_DECIMAL = "^[-]?([0-9]+\\.[0-9]*|\\.[0-9]+)$".toRegex()
         private val XS_INTEGER = "^[-]?[0-9]+$".toRegex()
