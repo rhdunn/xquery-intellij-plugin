@@ -15,14 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.debugger
 
-import com.intellij.util.ui.TextTransferable
 import com.intellij.xdebugger.frame.XFullValueEvaluator
 import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
-import com.intellij.xdebugger.impl.ui.tree.nodes.XValueTextRendererImpl
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
@@ -53,10 +51,8 @@ class MarkLogicVariableTest : XValueNode {
     }
 
     fun renderValue(): String? = presentation?.let {
-        val text = TextTransferable.ColoredStringBuilder()
-        val renderer = XValueTextRendererImpl(text)
-        it.renderValue(renderer)
-        text.builder.toString()
+        it.renderValue(ValueTextRenderer)
+        ValueTextRenderer.rendered
     }
 
     override fun setFullValueEvaluator(fullValueEvaluator: XFullValueEvaluator) = TODO()
