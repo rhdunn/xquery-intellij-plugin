@@ -15,18 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation
 
-import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
-import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
+import com.intellij.xdebugger.frame.presentation.XValuePresentation
 
 object QueryValuePresentation {
     internal const val SEPARATOR = " := "
 
-    fun forValue(value: String, type: String? = null): XRegularValuePresentation {
-        return XRegularValuePresentation(value, type, SEPARATOR)
+    fun forValue(value: String, type: String? = null): XValuePresentation {
+        return when {
+            NUMERIC_TYPES.contains(type) -> NumericValuePresentation(value, type!!)
+            STRING_TYPES.contains(type) -> StringValuePresentation(value, type!!)
+            else -> XRegularValuePresentation(value, type, SEPARATOR)
+        }
     }
 
-    fun forString(value: String, type: String): XStringValuePresentation = StringValuePresentation(value, type)
+    private val NUMERIC_TYPES = setOf(
+        "xs:decimal",
+        "xs:integer"
+    )
 
-    fun forNumeric(value: String, type: String): XNumericValuePresentation = NumericValuePresentation(value, type)
+    private val STRING_TYPES = setOf(
+        "xs:string"
+    )
 }
