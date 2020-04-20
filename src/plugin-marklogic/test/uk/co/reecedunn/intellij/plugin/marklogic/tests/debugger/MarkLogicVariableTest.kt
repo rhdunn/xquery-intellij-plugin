@@ -159,6 +159,7 @@ class MarkLogicVariableTest : XValueNode {
             assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
             assertThat(presentation, `is`(instanceOf(presentationClass)))
             assertThat(presentation?.type, `is`(type))
+            assertThat(presentation?.separator, `is`(" := "))
             assertThat(renderValue(), `is`(value))
             assertThat(hasChildren, `is`(false))
 
@@ -166,6 +167,7 @@ class MarkLogicVariableTest : XValueNode {
             assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
             assertThat(presentation, `is`(instanceOf(presentationClass)))
             assertThat(presentation?.type, `is`(type))
+            assertThat(presentation?.separator, `is`(" := "))
             assertThat(renderValue(), `is`(value))
             assertThat(hasChildren, `is`(false))
         }

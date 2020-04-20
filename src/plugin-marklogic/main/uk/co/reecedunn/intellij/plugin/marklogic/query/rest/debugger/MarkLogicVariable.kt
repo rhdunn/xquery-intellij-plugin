@@ -19,8 +19,10 @@ import com.intellij.util.text.nullize
 import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
+import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
@@ -33,9 +35,14 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
     XNamedValue(op_qname_presentation(variableName)!!) {
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
-        if (value != null) {
-            node.setPresentation(XPathIcons.Nodes.Variable, null, value, false)
+        createPresentation()?.let {
+            node.setPresentation(XPathIcons.Nodes.Variable, it, false)
         }
+    }
+
+    private fun createPresentation(): XValuePresentation? = when {
+        value == null -> null
+        else -> QueryValuePresentation.forValue(value)
     }
 
     companion object {
