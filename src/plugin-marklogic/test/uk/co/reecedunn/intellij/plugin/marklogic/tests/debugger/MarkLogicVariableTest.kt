@@ -214,6 +214,12 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:byte")
+        fun byte() {
+            check_value("xs:byte(\"123\")", "xs:byte", "123", XNumericValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("xs:boolean")
         fun boolean() {
             check_value("fn:true()", "xs:boolean", XRegularValuePresentation::class.java)
@@ -240,9 +246,27 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:double")
+        fun double() {
+            check_value("xs:double(\"2.99e8\")", "xs:double", "2.99e8", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:float")
+        fun float() {
+            check_value("xs:float(\"2.99e8\")", "xs:float", "2.99e8", XNumericValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("xs:hexBinary")
         fun hexBinary() {
             check_value("xs:hexBinary(\"ABCD\")", "xs:hexBinary", "ABCD", XRegularValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:int")
+        fun int() {
+            check_value("xs:int(\"1234\")", "xs:int", "1234", XNumericValuePresentation::class.java)
         }
 
         @Test
@@ -253,11 +277,81 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:long")
+        fun long() {
+            check_value("xs:long(\"1234\")", "xs:long", "1234", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:negativeInteger")
+        fun negativeInteger() {
+            check_value(
+                "xs:negativeInteger(\"1234\")", "xs:negativeInteger", "1234", XNumericValuePresentation::class.java
+            )
+        }
+
+        @Test
+        @DisplayName("xs:nonNegativeInteger")
+        fun nonNegativeInteger() {
+            check_value(
+                "xs:nonNegativeInteger(\"1234\")", "xs:nonNegativeInteger", "1234",
+                XNumericValuePresentation::class.java
+            )
+        }
+
+        @Test
+        @DisplayName("xs:nonPositiveInteger")
+        fun nonPositiveInteger() {
+            check_value(
+                "xs:nonPositiveInteger(\"-1234\")", "xs:nonPositiveInteger", "-1234",
+                XNumericValuePresentation::class.java
+            )
+        }
+
+        @Test
+        @DisplayName("xs:positiveInteger")
+        fun positiveInteger() {
+            check_value(
+                "xs:positiveInteger(\"1234\")", "xs:positiveInteger", "1234", XNumericValuePresentation::class.java
+            )
+        }
+
+        @Test
+        @DisplayName("xs:short")
+        fun short() {
+            check_value("xs:short(\"1234\")", "xs:short", "1234", XNumericValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("xs:string")
         fun string() {
             check_value(
                 "\"Lorem &amp; ipsum\"", "xs:string", "Lorem &amp; ipsum", XStringValuePresentation::class.java
             )
+        }
+
+        @Test
+        @DisplayName("xs:unsignedByte")
+        fun unsignedByte() {
+            check_value("xs:unsignedByte(\"123\")", "xs:unsignedByte", "123", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:unsignedInt")
+        fun unsignedInt() {
+            check_value("xs:unsignedInt(\"1234\")", "xs:unsignedInt", "1234", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:unsignedLong")
+        fun unsignedLong() {
+            check_value("xs:unsignedLong(\"1234\")", "xs:unsignedLong", "1234", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:unsignedShort")
+        fun unsignedShort() {
+            check_value("xs:unsignedShort(\"1234\")", "xs:unsignedShort", "1234", XNumericValuePresentation::class.java)
         }
     }
 }

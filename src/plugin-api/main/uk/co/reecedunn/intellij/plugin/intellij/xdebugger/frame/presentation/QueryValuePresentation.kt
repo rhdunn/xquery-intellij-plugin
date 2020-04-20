@@ -30,8 +30,22 @@ object QueryValuePresentation {
     }
 
     private val NUMERIC_TYPES = setOf(
+        "xs:byte",
         "xs:decimal",
-        "xs:integer"
+        "xs:double",
+        "xs:float",
+        "xs:int",
+        "xs:integer",
+        "xs:long",
+        "xs:negativeInteger",
+        "xs:nonNegativeInteger",
+        "xs:nonPositiveInteger",
+        "xs:positiveInteger",
+        "xs:short",
+        "xs:unsignedByte",
+        "xs:unsignedInt",
+        "xs:unsignedLong",
+        "xs:unsignedShort"
     )
 
     private val STRING_TYPES = setOf(
