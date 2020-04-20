@@ -430,10 +430,18 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
-        @DisplayName("sequence")
+        @DisplayName("item()+")
         fun sequence() {
             check_value("(1, 2, 3)", "item()+", XRegularValuePresentation::class.java)
             check_value("(3, 6, 9, ...)", "item()+", XRegularValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("text()")
+        fun text() {
+            check_value(
+                "text{\"Lorem &amp; ipsum\"}", "text()", "Lorem &amp; ipsum", XStringValuePresentation::class.java
+            )
         }
     }
 }
