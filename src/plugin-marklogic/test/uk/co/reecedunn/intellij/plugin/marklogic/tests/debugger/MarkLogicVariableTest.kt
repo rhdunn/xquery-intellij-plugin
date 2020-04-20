@@ -147,6 +147,33 @@ class MarkLogicVariableTest : XValueNode {
     @Nested
     @DisplayName("values and types")
     internal inner class ValuesAndTypes {
+        private fun check_value(value: String, type: String?, presentationClass: Class<*>) {
+            @Language("xml")
+            val xml = """
+                <variable xmlns="http://marklogic.com/xdmp/debug">
+                    <name xmlns="">x</name>
+                    <prefix/>
+                    <value>$value</value>
+                </variable>
+            """
+
+            val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
+
+            computePresentation(v, XValuePlace.TREE)
+            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
+            assertThat(presentation, `is`(instanceOf(presentationClass)))
+            assertThat(presentation?.type, `is`(type))
+            assertThat(renderValue(), `is`(value))
+            assertThat(hasChildren, `is`(false))
+
+            computePresentation(v, XValuePlace.TOOLTIP)
+            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
+            assertThat(presentation, `is`(instanceOf(presentationClass)))
+            assertThat(presentation?.type, `is`(type))
+            assertThat(renderValue(), `is`(value))
+            assertThat(hasChildren, `is`(false))
+        }
+
         @Test
         @DisplayName("computable value")
         fun computableValue() {
@@ -174,30 +201,7 @@ class MarkLogicVariableTest : XValueNode {
         @Test
         @DisplayName("xs:string")
         fun string() {
-            @Language("xml")
-            val xml = """
-                <variable xmlns="http://marklogic.com/xdmp/debug">
-                    <name xmlns="">x</name>
-                    <prefix/>
-                    <value>"test"</value>
-                </variable>
-            """
-
-            val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
-
-            computePresentation(v, XValuePlace.TREE)
-            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
-            assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
-            assertThat(presentation?.type, `is`(nullValue()))
-            assertThat(renderValue(), `is`("\"test\""))
-            assertThat(hasChildren, `is`(false))
-
-            computePresentation(v, XValuePlace.TOOLTIP)
-            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
-            assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
-            assertThat(presentation?.type, `is`(nullValue()))
-            assertThat(renderValue(), `is`("\"test\""))
-            assertThat(hasChildren, `is`(false))
+            check_value("\"test\"", null, XRegularValuePresentation::class.java)
         }
     }
 }
