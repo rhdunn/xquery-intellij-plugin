@@ -19,6 +19,7 @@ import com.intellij.xdebugger.frame.XFullValueEvaluator
 import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
+import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
@@ -201,6 +202,13 @@ class MarkLogicVariableTest : XValueNode {
             assertThat(icon, `is`(nullValue()))
             assertThat(presentation, `is`(nullValue()))
             assertThat(hasChildren, `is`(false))
+        }
+
+        @Test
+        @DisplayName("xs:integer")
+        fun integer() {
+            check_value("1234", "xs:integer", XNumericValuePresentation::class.java)
+            check_value("-321", "xs:integer", XNumericValuePresentation::class.java)
         }
 
         @Test

@@ -43,10 +43,13 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
     private fun createPresentation(): XValuePresentation? = when {
         value == null -> null
         value.startsWith("\"") -> QueryValuePresentation.forString(value.substring(1, value.length - 1), "xs:string")
+        value.matches(XS_INTEGER) -> QueryValuePresentation.forNumeric(value, "xs:integer")
         else -> QueryValuePresentation.forValue(value)
     }
 
     companion object {
+        private val XS_INTEGER = "^[-]?[0-9]+$".toRegex()
+
         fun create(variable: XmlElement): MarkLogicVariable {
             val localName = XsNCName(variable.child("name")?.text()!!)
             val namespace = variable.child("name")?.element?.namespaceURI?.nullize()?.let {

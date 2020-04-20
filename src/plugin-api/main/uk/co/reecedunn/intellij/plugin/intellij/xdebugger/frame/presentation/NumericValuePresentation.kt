@@ -16,15 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation
 
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
-import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
-import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 
-object QueryValuePresentation {
-    internal const val SEPARATOR = " := "
+internal class NumericValuePresentation(value: String, private val type: String) : XNumericValuePresentation(value) {
+    override fun getSeparator(): String = QueryValuePresentation.SEPARATOR
 
-    fun forValue(value: String): XRegularValuePresentation = XRegularValuePresentation(value, null, SEPARATOR)
-
-    fun forString(value: String, type: String): XStringValuePresentation = StringValuePresentation(value, type)
-
-    fun forNumeric(value: String, type: String): XNumericValuePresentation = NumericValuePresentation(value, type)
+    override fun getType(): String? = type
 }
