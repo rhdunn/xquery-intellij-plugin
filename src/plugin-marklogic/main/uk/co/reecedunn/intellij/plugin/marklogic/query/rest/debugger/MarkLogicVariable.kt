@@ -42,6 +42,7 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
 
     private fun createPresentation(): XValuePresentation? = when {
         value == null -> null
+        value.startsWith("(") -> QueryValuePresentation.forValue(value, "item()+")
         value.startsWith("\"") -> QueryValuePresentation.forValue(value.substring(1, value.length - 1), "xs:string")
         value.matches(XS_BOOLEAN) -> QueryValuePresentation.forValue(value, "xs:boolean")
         value.matches(XS_DECIMAL) -> QueryValuePresentation.forValue(value, "xs:decimal")

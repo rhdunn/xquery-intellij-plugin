@@ -428,5 +428,12 @@ class MarkLogicVariableTest : XValueNode {
         fun nmtoken() {
             check_value("xs:NMTOKEN(\"test\")", "xs:NMTOKEN", "test", XStringValuePresentation::class.java)
         }
+
+        @Test
+        @DisplayName("sequence")
+        fun sequence() {
+            check_value("(1, 2, 3)", "item()+", XRegularValuePresentation::class.java)
+            check_value("(3, 6, 9, ...)", "item()+", XRegularValuePresentation::class.java)
+        }
     }
 }
