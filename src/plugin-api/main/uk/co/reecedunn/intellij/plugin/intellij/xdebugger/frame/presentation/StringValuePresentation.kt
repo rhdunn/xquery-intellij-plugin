@@ -15,13 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation
 
-import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 
-object QueryValuePresentation {
-    internal const val SEPARATOR = " := "
+internal class StringValuePresentation(value: String, private val type: String) : XStringValuePresentation(value) {
+    override fun getSeparator(): String = QueryValuePresentation.SEPARATOR
 
-    fun forValue(value: String): XRegularValuePresentation = XRegularValuePresentation(value, null, SEPARATOR)
-
-    fun forString(value: String, type: String): XStringValuePresentation = StringValuePresentation(value, type)
+    override fun getType(): String? = type
 }

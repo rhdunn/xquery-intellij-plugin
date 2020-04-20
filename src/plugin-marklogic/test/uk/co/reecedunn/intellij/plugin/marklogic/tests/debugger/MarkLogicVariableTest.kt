@@ -20,6 +20,7 @@ import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
+import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
@@ -143,13 +144,15 @@ class MarkLogicVariableTest : XValueNode {
     @Nested
     @DisplayName("values and types")
     internal inner class ValuesAndTypes {
-        private fun check_value(value: String, type: String?, presentationClass: Class<*>) {
+        private fun check_value(value: String, type: String?, presentationValue: String, presentationClass: Class<*>) {
+            val escapedValue = value.replace("&", "&amp;")
+
             @Language("xml")
             val xml = """
                 <variable xmlns="http://marklogic.com/xdmp/debug">
                     <name xmlns="">x</name>
                     <prefix/>
-                    <value>$value</value>
+                    <value>$escapedValue</value>
                 </variable>
             """
 
@@ -160,7 +163,7 @@ class MarkLogicVariableTest : XValueNode {
             assertThat(presentation, `is`(instanceOf(presentationClass)))
             assertThat(presentation?.type, `is`(type))
             assertThat(presentation?.separator, `is`(" := "))
-            assertThat(renderValue(), `is`(value))
+            assertThat(renderValue(), `is`(presentationValue))
             assertThat(hasChildren, `is`(false))
 
             computePresentation(v, XValuePlace.TOOLTIP)
@@ -168,8 +171,12 @@ class MarkLogicVariableTest : XValueNode {
             assertThat(presentation, `is`(instanceOf(presentationClass)))
             assertThat(presentation?.type, `is`(type))
             assertThat(presentation?.separator, `is`(" := "))
-            assertThat(renderValue(), `is`(value))
+            assertThat(renderValue(), `is`(presentationValue))
             assertThat(hasChildren, `is`(false))
+        }
+
+        private fun check_value(value: String, type: String?, presentationClass: Class<*>) {
+            check_value(value, type, value, presentationClass)
         }
 
         @Test
@@ -199,7 +206,9 @@ class MarkLogicVariableTest : XValueNode {
         @Test
         @DisplayName("xs:string")
         fun string() {
-            check_value("\"test\"", null, XRegularValuePresentation::class.java)
+            check_value(
+                "\"Lorem &amp; ipsum\"", "xs:string", "Lorem &amp; ipsum", XStringValuePresentation::class.java
+            )
         }
     }
 }
