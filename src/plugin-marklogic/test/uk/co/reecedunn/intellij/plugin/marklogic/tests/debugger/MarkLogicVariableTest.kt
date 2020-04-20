@@ -146,7 +146,7 @@ class MarkLogicVariableTest : XValueNode {
     @DisplayName("values and types")
     internal inner class ValuesAndTypes {
         private fun check_value(value: String, type: String?, presentationValue: String, presentationClass: Class<*>) {
-            val escapedValue = value.replace("&", "&amp;")
+            val escapedValue = value.replace("&", "&amp;").replace("<", "&lt;")
 
             @Language("xml")
             val xml = """
@@ -202,6 +202,24 @@ class MarkLogicVariableTest : XValueNode {
             assertThat(icon, `is`(nullValue()))
             assertThat(presentation, `is`(nullValue()))
             assertThat(hasChildren, `is`(false))
+        }
+
+        @Test
+        @DisplayName("cts:and-query")
+        fun andQuery() {
+            check_value("cts:and-query((), ())", "cts:and-query", XRegularValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("map:map")
+        fun map() {
+            check_value("map:map()", "map:map", XRegularValuePresentation::class.java)
+
+            check_value(
+                "map:map(<map:map xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" .../>)",
+                "map:map",
+                XRegularValuePresentation::class.java
+            )
         }
 
         @Test
