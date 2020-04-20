@@ -430,6 +430,14 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("attribute()")
+        fun attribute() {
+            check_value(
+                "attribute{fn:QName(\"\",\"test\")}{\"123\"}", "attribute()", XRegularValuePresentation::class.java
+            )
+        }
+
+        @Test
         @DisplayName("comment()")
         fun comment() {
             check_value("<!-- Lorem ipsum -->", "comment()", XRegularValuePresentation::class.java)

@@ -47,6 +47,7 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
         value.startsWith("<?") -> QueryValuePresentation.forValue(value, "processing-instruction()")
         value.startsWith("<") -> QueryValuePresentation.forValue(value, "element()")
         value.startsWith("\"") -> QueryValuePresentation.forValue(value.substring(1, value.length - 1), "xs:string")
+        value.startsWith("attribute{") -> QueryValuePresentation.forValue(value, "attribute()")
         value.startsWith("text{\"") -> QueryValuePresentation.forValue(value.substring(6, value.length - 2), "text()")
         value.matches(XS_BOOLEAN) -> QueryValuePresentation.forValue(value, "xs:boolean")
         value.matches(XS_DECIMAL) -> QueryValuePresentation.forValue(value, "xs:decimal")
