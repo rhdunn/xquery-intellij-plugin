@@ -444,6 +444,12 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("document-node()")
+        fun documentNode() {
+            check_value("document{<lorem>ipsum</lorem>}", "document-node()", XRegularValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("element()")
         fun element() {
             check_value("<lorem>ipsum</lorem>", "element()", XRegularValuePresentation::class.java)
