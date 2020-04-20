@@ -30,7 +30,7 @@ private val ERROR_NAMESPACES = mapOf(
 fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
     val doc = XmlDocument.parse(this, ERROR_NAMESPACES)
     val code = doc.root.children("error:code").first().text()!!
-    val name = doc.root.children("error:name").first().text()!!
+    val name = doc.root.children("error:name").firstOrNull()?.text() ?: "err:FOER0000"
     val message = doc.root.children("error:message").first().text()!!
     return QueryError(
         standardCode = name.replace("^err:".toRegex(), ""),
