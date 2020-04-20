@@ -430,6 +430,12 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("comment()")
+        fun comment() {
+            check_value("<!-- Lorem ipsum -->", "comment()", XRegularValuePresentation::class.java)
+        }
+
+        @Test
         @DisplayName("element()")
         fun element() {
             check_value("<lorem>ipsum</lorem>", "element()", XRegularValuePresentation::class.java)

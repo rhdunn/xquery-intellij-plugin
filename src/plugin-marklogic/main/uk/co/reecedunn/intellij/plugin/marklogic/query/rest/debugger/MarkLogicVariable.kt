@@ -43,6 +43,7 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
     private fun createPresentation(): XValuePresentation? = when {
         value == null -> null
         value.startsWith("(") -> QueryValuePresentation.forValue(value, "item()+")
+        value.startsWith("<!--") -> QueryValuePresentation.forValue(value, "comment()")
         value.startsWith("<") -> QueryValuePresentation.forValue(value, "element()")
         value.startsWith("\"") -> QueryValuePresentation.forValue(value.substring(1, value.length - 1), "xs:string")
         value.startsWith("text{\"") -> QueryValuePresentation.forValue(value.substring(6, value.length - 2), "text()")
