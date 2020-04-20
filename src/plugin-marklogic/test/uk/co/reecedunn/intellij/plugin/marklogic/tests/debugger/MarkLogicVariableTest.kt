@@ -205,10 +205,25 @@ class MarkLogicVariableTest : XValueNode {
         }
 
         @Test
+        @DisplayName("xs:anyURI")
+        fun anyURI() {
+            check_value(
+                "xs:anyURI(\"http://www.example.co.uk\")", "xs:anyURI", "http://www.example.co.uk",
+                XRegularValuePresentation::class.java
+            )
+        }
+
+        @Test
         @DisplayName("xs:boolean")
         fun boolean() {
             check_value("fn:true()", "xs:boolean", XRegularValuePresentation::class.java)
             check_value("fn:false()", "xs:boolean", XRegularValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:date")
+        fun date() {
+            check_value("xs:date(\"2001-03-22\")", "xs:date", "2001-03-22", XRegularValuePresentation::class.java)
         }
 
         @Test
@@ -222,6 +237,12 @@ class MarkLogicVariableTest : XValueNode {
 
             check_value(".1234", "xs:decimal", XNumericValuePresentation::class.java)
             check_value("-.321", "xs:decimal", XNumericValuePresentation::class.java)
+        }
+
+        @Test
+        @DisplayName("xs:hexBinary")
+        fun hexBinary() {
+            check_value("xs:hexBinary(\"ABCD\")", "xs:hexBinary", "ABCD", XRegularValuePresentation::class.java)
         }
 
         @Test

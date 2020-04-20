@@ -46,10 +46,15 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
         value.matches(XS_BOOLEAN) -> QueryValuePresentation.forValue(value, "xs:boolean")
         value.matches(XS_DECIMAL) -> QueryValuePresentation.forNumeric(value, "xs:decimal")
         value.matches(XS_INTEGER) -> QueryValuePresentation.forNumeric(value, "xs:integer")
+        value.matches(CONSTRUCTED_FROM_STRING) -> {
+            val matched = CONSTRUCTED_FROM_STRING.matchEntire(value)!!
+            QueryValuePresentation.forValue(matched.groupValues[2], matched.groupValues[1])
+        }
         else -> QueryValuePresentation.forValue(value)
     }
 
     companion object {
+        private val CONSTRUCTED_FROM_STRING = "^([a-zA-Z]+:[a-zA-Z]+)\\(\"([^\"]+)\"\\)$".toRegex()
         private val XS_BOOLEAN = "^fn:(true|false)\\(\\)$".toRegex()
         private val XS_DECIMAL = "^[-]?([0-9]+\\.[0-9]*|\\.[0-9]+)$".toRegex()
         private val XS_INTEGER = "^[-]?[0-9]+$".toRegex()
