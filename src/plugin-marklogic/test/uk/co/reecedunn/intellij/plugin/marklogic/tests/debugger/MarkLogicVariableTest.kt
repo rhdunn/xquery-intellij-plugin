@@ -148,7 +148,7 @@ class MarkLogicVariableTest : XValueNode {
     @Nested
     @DisplayName("values and types")
     internal inner class ValuesAndTypes {
-        private fun check_value(value: String, type: String?, presentationValue: String, presentationClass: Class<*>) {
+        private fun check_value(value: String, type: String?, presentationValue: String, presentationClass: Class<*>?) {
             val escapedValue = value.replace("&", "&amp;").replace("<", "&lt;")
 
             @Language("xml")
@@ -163,23 +163,33 @@ class MarkLogicVariableTest : XValueNode {
             val v = MarkLogicVariable.create(XmlDocument.parse(xml, DEBUG_XML_NAMESPACES).root)
 
             computePresentation(v, XValuePlace.TREE)
-            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
-            assertThat(presentation, `is`(instanceOf(presentationClass)))
-            assertThat(presentation?.type, `is`(type))
-            assertThat(presentation?.separator, `is`(" := "))
-            assertThat(renderValue(), `is`(presentationValue))
+            if (presentationClass == null) {
+                assertThat(icon, `is`(nullValue()))
+                assertThat(presentation, `is`(nullValue()))
+            } else {
+                assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
+                assertThat(presentation, `is`(instanceOf(presentationClass)))
+                assertThat(presentation?.type, `is`(type))
+                assertThat(presentation?.separator, `is`(" := "))
+                assertThat(renderValue(), `is`(presentationValue))
+            }
             assertThat(hasChildren, `is`(false))
 
             computePresentation(v, XValuePlace.TOOLTIP)
-            assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
-            assertThat(presentation, `is`(instanceOf(presentationClass)))
-            assertThat(presentation?.type, `is`(type))
-            assertThat(presentation?.separator, `is`(" := "))
-            assertThat(renderValue(), `is`(presentationValue))
+            if (presentationClass == null) {
+                assertThat(icon, `is`(nullValue()))
+                assertThat(presentation, `is`(nullValue()))
+            } else {
+                assertThat(icon, `is`(sameInstance(XPathIcons.Nodes.Variable)))
+                assertThat(presentation, `is`(instanceOf(presentationClass)))
+                assertThat(presentation?.type, `is`(type))
+                assertThat(presentation?.separator, `is`(" := "))
+                assertThat(renderValue(), `is`(presentationValue))
+            }
             assertThat(hasChildren, `is`(false))
         }
 
-        private fun check_value(value: String, type: String?, presentationClass: Class<*>) {
+        private fun check_value(value: String, type: String?, presentationClass: Class<*>?) {
             check_value(value, type, value, presentationClass)
         }
 
@@ -487,8 +497,8 @@ class MarkLogicVariableTest : XValueNode {
         @Test
         @DisplayName("item()+")
         fun sequence() {
-            check_value("(1, 2, 3)", "item()+", XRegularValuePresentation::class.java)
-            check_value("(3, 6, 9, ...)", "item()+", XRegularValuePresentation::class.java)
+            check_value("(1, 2, 3)", null, null)
+            check_value("(3, 6, 9, ...)", null, null)
         }
 
         @Test
