@@ -107,4 +107,32 @@ class MarkLogicValueTest : XValueNode {
         assertThat(renderValue(), `is`("1234"))
         assertThat(hasChildren, `is`(false))
     }
+
+    @Test
+    @DisplayName("multiple items")
+    fun multipleItems() {
+        val v = MarkLogicValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "xs:integer"),
+                QueryResult.fromItemType(1, "2", "xs:integer"),
+                QueryResult.fromItemType(2, "3", "xs:integer")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("item()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(false))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("item()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(false))
+    }
 }
