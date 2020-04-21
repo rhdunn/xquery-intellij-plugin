@@ -19,17 +19,9 @@ import com.intellij.xdebugger.frame.*
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-class MarkLogicValue(private val results: List<QueryResult>) : XValue() {
+class MarkLogicNamedValue(name: String, private val results: List<QueryResult>) : XNamedValue(name) {
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
         val presentation = QueryValuePresentation.forResults(results)
-        node.setPresentation(null, presentation, results.size > 1)
-    }
-
-    override fun computeChildren(node: XCompositeNode) {
-        val children = XValueChildrenList()
-        results.withIndex().forEach { (index, result) ->
-            children.add(MarkLogicNamedValue(index.toString(), listOf(result)))
-        }
-        node.addChildren(children, true)
+        node.setPresentation(null, presentation, false)
     }
 }

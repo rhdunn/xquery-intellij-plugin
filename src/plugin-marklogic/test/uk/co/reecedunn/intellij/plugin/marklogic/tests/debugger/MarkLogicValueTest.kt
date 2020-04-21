@@ -125,7 +125,7 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("xs:integer+"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("size = 3"))
-        assertThat(hasChildren, `is`(false))
+        assertThat(hasChildren, `is`(true))
 
         computePresentation(v, XValuePlace.TOOLTIP)
         assertThat(icon, `is`(nullValue()))
@@ -133,7 +133,7 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("xs:integer+"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("size = 3"))
-        assertThat(hasChildren, `is`(false))
+        assertThat(hasChildren, `is`(true))
     }
 
     @Test
@@ -153,7 +153,7 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("item()+"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("size = 3"))
-        assertThat(hasChildren, `is`(false))
+        assertThat(hasChildren, `is`(true))
 
         computePresentation(v, XValuePlace.TOOLTIP)
         assertThat(icon, `is`(nullValue()))
@@ -161,7 +161,7 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("item()+"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("size = 3"))
-        assertThat(hasChildren, `is`(false))
+        assertThat(hasChildren, `is`(true))
     }
 
     @Test
@@ -181,7 +181,7 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("xs:decimal+"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("size = 3"))
-        assertThat(hasChildren, `is`(false))
+        assertThat(hasChildren, `is`(true))
 
         computePresentation(v, XValuePlace.TOOLTIP)
         assertThat(icon, `is`(nullValue()))
@@ -189,6 +189,6 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("xs:decimal+"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("size = 3"))
-        assertThat(hasChildren, `is`(false))
+        assertThat(hasChildren, `is`(true))
     }
 }

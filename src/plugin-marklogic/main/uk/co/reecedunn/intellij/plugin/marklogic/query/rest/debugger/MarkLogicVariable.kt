@@ -33,18 +33,18 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
 
 class MarkLogicVariable private constructor(
     val variableName: XsQNameValue,
-    val value: String?,
+    var value: Any?,
     private val evaluator: XDebuggerEvaluator?
-) :
-    XNamedValue("\$${op_qname_presentation(variableName)!!}") {
+) : XNamedValue("\$${op_qname_presentation(variableName)!!}") {
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
-        val presentation = createPresentation()
+        val presentation = createPresentation(value as? String)
         if (presentation != null) {
             node.setPresentation(XPathIcons.Nodes.Variable, presentation, false)
         } else {
             evaluator?.evaluate(evaluationExpression!!, object : XDebuggerEvaluator.XEvaluationCallback {
                 override fun evaluated(result: XValue) {
+                    value = result
                     result.computePresentation(node, place)
                 }
 
@@ -55,7 +55,7 @@ class MarkLogicVariable private constructor(
         }
     }
 
-    private fun createPresentation(): XValuePresentation? = when {
+    private fun createPresentation(value: String?): XValuePresentation? = when {
         value == null -> null
         value == "()" -> QueryValuePresentation.EmptySequence
         value.startsWith("(") -> QueryValuePresentation.forValue(value, "item()+")
@@ -84,6 +84,10 @@ class MarkLogicVariable private constructor(
     }
 
     override fun getEvaluationExpression(): String? = name
+
+    override fun computeChildren(node: XCompositeNode) {
+        (value as? XValue)?.computeChildren(node)
+    }
 
     companion object {
         private val CONSTRUCTED_FROM_STRING = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(\"([^\"]+)\"\\)$".toRegex()
