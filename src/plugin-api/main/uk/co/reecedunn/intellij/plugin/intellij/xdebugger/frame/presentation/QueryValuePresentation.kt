@@ -17,18 +17,23 @@ package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation
 
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 object QueryValuePresentation {
     internal const val SEPARATOR = " := "
 
     val EmptySequence = XRegularValuePresentation("()", "empty-sequence()", SEPARATOR)
 
-    fun forValue(value: String, type: String? = null): XValuePresentation {
-        return when {
-            NUMERIC_TYPES.contains(type) -> NumericValuePresentation(value, type!!)
-            STRING_TYPES.contains(type) -> StringValuePresentation(value, type!!)
-            else -> XRegularValuePresentation(value, type, SEPARATOR)
-        }
+    fun forValue(value: String, type: String? = null): XValuePresentation = when {
+        NUMERIC_TYPES.contains(type) -> NumericValuePresentation(value, type!!)
+        STRING_TYPES.contains(type) -> StringValuePresentation(value, type!!)
+        else -> XRegularValuePresentation(value, type, SEPARATOR)
+    }
+
+    fun forResults(results: List<QueryResult>): XValuePresentation = when (results.size) {
+        0 -> EmptySequence
+        1 -> results.first().let { forValue(it.value.toString(), it.type) }
+        else -> forValue("size = ${results.size}", "item()+")
     }
 
     private val NUMERIC_TYPES = setOf(
