@@ -33,6 +33,8 @@ internal class MarkLogicDebugSession(
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
 
+    // region DebugSession
+
     override var listener: DebugSessionListener? = null
 
     override fun suspend() {
@@ -54,6 +56,19 @@ internal class MarkLogicDebugSession(
             query.run()
         }
     }
+
+    override val stackFrames: List<XStackFrame>
+        get() {
+            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
+            query.bindVariable("requestId", requestId, "xs:unsignedLong")
+
+            val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
+            return stack.root.children("dbg:frame").map {
+                MarkLogicDebugFrame(it, this.query, null)
+            }.toList()
+        }
+
+    // endregion
 
     fun run(requestId: String) {
         this.requestId = requestId
@@ -85,17 +100,6 @@ internal class MarkLogicDebugSession(
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
         query.run()
     }
-
-    override val stackFrames: List<XStackFrame>
-        get() {
-            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
-            query.bindVariable("requestId", requestId, "xs:unsignedLong")
-
-            val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
-            return stack.root.children("dbg:frame").map {
-                MarkLogicDebugFrame(it, this.query)
-            }.toList()
-        }
 
     companion object {
         private val DBG_STACK_NAMESPACES = mapOf("dbg" to "http://marklogic.com/xdmp/debug")

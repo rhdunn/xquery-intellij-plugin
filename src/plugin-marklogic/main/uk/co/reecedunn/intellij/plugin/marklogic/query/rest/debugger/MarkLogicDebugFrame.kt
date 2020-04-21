@@ -21,6 +21,7 @@ import com.intellij.ui.ColoredTextContainer
 import com.intellij.ui.SimpleTextAttributes
 import com.intellij.util.text.nullize
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
 import com.intellij.xdebugger.frame.XValueChildrenList
@@ -28,7 +29,11 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 
-class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : XStackFrame() {
+class MarkLogicDebugFrame(
+    private val frame: XmlElement,
+    query: VirtualFile,
+    private val debuggerEvaluator: XDebuggerEvaluator?
+) : XStackFrame() {
     private val sourcePosition = QuerySourcePosition.create(
         path = frame.child("dbg:uri")?.text()?.nullize(),
         context = query,
@@ -49,7 +54,7 @@ class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : X
     private fun computeVariables(list: String, child: String): XValueChildrenList {
         val children = XValueChildrenList()
         frame.children(list).children(child).forEach { variable ->
-            children.add(MarkLogicVariable.create(variable))
+            children.add(MarkLogicVariable.create(variable, evaluator))
         }
         return children
     }
@@ -65,4 +70,6 @@ class MarkLogicDebugFrame(private val frame: XmlElement, query: VirtualFile) : X
 
         component.setIcon(AllIcons.Debugger.Frame)
     }
+
+    override fun getEvaluator(): XDebuggerEvaluator? = debuggerEvaluator
 }

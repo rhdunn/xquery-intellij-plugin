@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.util.text.nullize
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
@@ -31,7 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
 
-class MarkLogicVariable private constructor(val variableName: XsQNameValue, val value: String?) :
+class MarkLogicVariable private constructor(
+    val variableName: XsQNameValue,
+    val value: String?,
+    private val evaluator: XDebuggerEvaluator?
+) :
     XNamedValue("\$${op_qname_presentation(variableName)!!}") {
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
@@ -76,7 +81,7 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
         private val XS_DECIMAL = "^[-]?([0-9]+\\.[0-9]*|\\.[0-9]+)$".toRegex()
         private val XS_INTEGER = "^[-]?[0-9]+$".toRegex()
 
-        fun create(variable: XmlElement): MarkLogicVariable {
+        fun create(variable: XmlElement, evaluator: XDebuggerEvaluator? = null): MarkLogicVariable {
             val localName = XsNCName(variable.child("name")?.text()!!)
             val namespace = variable.child("name")?.element?.namespaceURI?.nullize()?.let {
                 XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.XPATH_OR_XQUERY)
@@ -84,7 +89,7 @@ class MarkLogicVariable private constructor(val variableName: XsQNameValue, val 
             val prefix = variable.child("prefix")?.text()?.let { XsNCName(it) }
             val qname = XsQName(namespace, prefix, localName, prefix != null || namespace == null)
             val value = variable.child("value")?.text()?.nullize()
-            return MarkLogicVariable(qname, value)
+            return MarkLogicVariable(qname, value, evaluator)
         }
     }
 }
