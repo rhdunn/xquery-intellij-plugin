@@ -43,6 +43,7 @@ internal class MarkLogicDebugSession(
         query.bindVariable("expression", expression, "xs:string")
         try {
             val results = query.run().results
+            callback.evaluated(MarkLogicValue(results))
         } catch (e: Throwable) {
             e.message?.let {
                 callback.errorOccurred(it)
