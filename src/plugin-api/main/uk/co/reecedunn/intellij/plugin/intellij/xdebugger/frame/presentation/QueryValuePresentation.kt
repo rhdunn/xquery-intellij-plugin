@@ -64,6 +64,8 @@ object QueryValuePresentation {
     }
 
     private val PARENT_TYPES = mapOf(
+        "xs:anyAtomicType" to "xs:anySimpleType",
+        "xs:anySimpleType" to "xs:anyType",
         "xs:anyURI" to "xs:anyAtomicType",
         "xs:base64Binary" to "xs:anyAtomicType",
         "xs:boolean" to "xs:anyAtomicType",
@@ -89,6 +91,7 @@ object QueryValuePresentation {
         "xs:nonNegativeInteger" to "xs:integer",
         "xs:nonPositiveInteger" to "xs:integer",
         "xs:normalizedString" to "xs:string",
+        "xs:numeric" to "xs:anySimpleType",
         "xs:positiveInteger" to "xs:nonNegativeInteger",
         "xs:short" to "xs:int",
         "xs:string" to "xs:anyAtomicType",
@@ -98,14 +101,18 @@ object QueryValuePresentation {
         "xs:unsignedInt" to "xs:unsignedLong",
         "xs:unsignedLong" to "xs:nonNegativeInteger",
         "xs:unsignedShort" to "xs:unsignedInt",
+        "xs:untyped" to "xs:anyType",
         "xs:untypedAtomic" to "xs:anyAtomicType",
         "xs:yearMonthDuration" to "xs:duration",
+        "xs:ENTITIES" to "xs:anySimpleType",
         "xs:ENTITY" to "xs:NCName",
         "xs:ID" to "xs:NCName",
         "xs:IDREF" to "xs:NCName",
+        "xs:IDREFS" to "xs:anySimpleType",
         "xs:Name" to "xs:token",
         "xs:NCName" to "xs:Name",
         "xs:NMTOKEN" to "xs:normalizedString",
+        "xs:NMTOKENS" to "xs:anySimpleType",
         "xs:NOTATION" to "xs:anyAtomicType",
         "xs:QName" to "xs:anyAtomicType"
     )
