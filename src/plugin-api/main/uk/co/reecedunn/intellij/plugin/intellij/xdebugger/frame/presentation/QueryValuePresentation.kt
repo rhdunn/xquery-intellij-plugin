@@ -25,7 +25,7 @@ object QueryValuePresentation {
     val EmptySequence = XRegularValuePresentation("()", "empty-sequence()", SEPARATOR)
 
     fun forValue(value: String, type: String? = null): XValuePresentation = when {
-        NUMERIC_TYPES.contains(type) -> NumericValuePresentation(value, type!!)
+        derivedFromUnion(type, "xs:numeric") -> NumericValuePresentation(value, type!!)
         derivedFrom(type, "xs:string") || type == "text()" -> StringValuePresentation(value, type!!)
         else -> XRegularValuePresentation(value, type, SEPARATOR)
     }
@@ -46,24 +46,13 @@ object QueryValuePresentation {
         }
     }
 
-    private val NUMERIC_TYPES = setOf(
-        "xs:byte",
-        "xs:decimal",
-        "xs:double",
-        "xs:float",
-        "xs:int",
-        "xs:integer",
-        "xs:long",
-        "xs:negativeInteger",
-        "xs:nonNegativeInteger",
-        "xs:nonPositiveInteger",
-        "xs:positiveInteger",
-        "xs:short",
-        "xs:unsignedByte",
-        "xs:unsignedInt",
-        "xs:unsignedLong",
-        "xs:unsignedShort"
-    )
+    @Suppress("SameParameterValue")
+    private fun derivedFromUnion(aType: String?, bType: String): Boolean = when (bType) {
+        "xs:numeric" -> {
+            derivedFrom(aType, "xs:decimal") || derivedFrom(aType, "xs:float") || derivedFrom(aType, "xs:double")
+        }
+        else -> false
+    }
 
     private fun derivedFrom(aType: String?, bType: String): Boolean {
         val parent = PARENT_TYPES[aType]
@@ -75,9 +64,22 @@ object QueryValuePresentation {
     }
 
     private val PARENT_TYPES = mapOf(
+        "xs:byte" to "xs:short",
+        "xs:int" to "xs:long",
+        "xs:integer" to "xs:decimal",
         "xs:language" to "xs:token",
+        "xs:long" to "xs:integer",
+        "xs:negativeInteger" to "xs:nonPositiveInteger",
+        "xs:nonNegativeInteger" to "xs:integer",
+        "xs:nonPositiveInteger" to "xs:integer",
         "xs:normalizedString" to "xs:string",
+        "xs:positiveInteger" to "xs:nonNegativeInteger",
+        "xs:short" to "xs:int",
         "xs:token" to "xs:normalizedString",
+        "xs:unsignedByte" to "xs:unsignedShort",
+        "xs:unsignedInt" to "xs:unsignedLong",
+        "xs:unsignedLong" to "xs:nonNegativeInteger",
+        "xs:unsignedShort" to "xs:unsignedInt",
         "xs:ENTITY" to "xs:NCName",
         "xs:ID" to "xs:NCName",
         "xs:IDREF" to "xs:NCName",
