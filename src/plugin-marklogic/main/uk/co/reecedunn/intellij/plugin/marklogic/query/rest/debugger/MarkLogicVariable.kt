@@ -73,6 +73,8 @@ class MarkLogicVariable private constructor(
         else -> QueryValuePresentation.forValue(value)
     }
 
+    override fun getEvaluationExpression(): String? = name
+
     companion object {
         private val CONSTRUCTED_FROM_STRING = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(\"([^\"]+)\"\\)$".toRegex()
         private val CONSTRUCTED = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(.*$".toRegex()
