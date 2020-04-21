@@ -35,15 +35,15 @@ object QueryValuePresentation {
         1 -> results.first().let { forValue(it.value.toString(), it.type) }
         else -> {
             var itemType: String? = null
-            results.forEach { result ->
-                itemType = when {
-                    itemType == null -> result.type
-                    itemType == result.type -> itemType
-                    else -> "item()"
-                }
-            }
+            results.forEach { result -> itemType = itemTypeUnion(result.type, itemType) }
             forValue("size = ${results.size}", "${itemType}+")
         }
+    }
+
+    private fun itemTypeUnion(aType: String, bType: String?): String = when {
+        bType == null -> aType
+        bType == aType -> bType
+        else -> "item()"
     }
 
     @Suppress("SameParameterValue")
