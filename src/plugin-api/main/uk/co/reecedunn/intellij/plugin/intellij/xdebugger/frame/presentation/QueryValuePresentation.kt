@@ -26,7 +26,7 @@ object QueryValuePresentation {
 
     fun forValue(value: String, type: String? = null): XValuePresentation = when {
         NUMERIC_TYPES.contains(type) -> NumericValuePresentation(value, type!!)
-        STRING_TYPES.contains(type) -> StringValuePresentation(value, type!!)
+        derivedFrom(type, "xs:string") || type == "text()" -> StringValuePresentation(value, type!!)
         else -> XRegularValuePresentation(value, type, SEPARATOR)
     }
 
@@ -65,17 +65,24 @@ object QueryValuePresentation {
         "xs:unsignedShort"
     )
 
-    private val STRING_TYPES = setOf(
-        "text()",
-        "xs:language",
-        "xs:normalizedString",
-        "xs:string",
-        "xs:token",
-        "xs:ENTITY",
-        "xs:ID",
-        "xs:IDREF",
-        "xs:Name",
-        "xs:NCName",
-        "xs:NMTOKEN"
+    private fun derivedFrom(aType: String?, bType: String): Boolean {
+        val parent = PARENT_TYPES[aType]
+        return when {
+            aType == bType -> true
+            parent == null -> false
+            else -> derivedFrom(parent, bType)
+        }
+    }
+
+    private val PARENT_TYPES = mapOf(
+        "xs:language" to "xs:token",
+        "xs:normalizedString" to "xs:string",
+        "xs:token" to "xs:normalizedString",
+        "xs:ENTITY" to "xs:NCName",
+        "xs:ID" to "xs:NCName",
+        "xs:IDREF" to "xs:NCName",
+        "xs:Name" to "xs:token",
+        "xs:NCName" to "xs:Name",
+        "xs:NMTOKEN" to "xs:normalizedString"
     )
 }
