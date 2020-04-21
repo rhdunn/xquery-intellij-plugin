@@ -44,6 +44,8 @@ object QueryValuePresentation {
         bType == null -> aType
         subtypeItemType(aType, bType) -> bType
         subtypeItemType(bType, aType) -> aType
+        isAtomicOrUnionType(aType) && isAtomicOrUnionType(bType) -> commonSimpleOrComplexType(aType, bType) ?: "item()"
+        isKindTest(aType) && isKindTest(bType) -> "node()"
         else -> "item()"
     }
 
@@ -79,6 +81,12 @@ object QueryValuePresentation {
             parent == null -> false
             else -> derivesFrom(parent, bType)
         }
+    }
+
+    private fun commonSimpleOrComplexType(aType: String, bType: String?): String? = when {
+        bType == null -> null
+        derivesFrom(aType, bType) -> bType
+        else -> commonSimpleOrComplexType(aType, PARENT_TYPES[bType])
     }
 
     private val PARENT_TYPES = mapOf(
