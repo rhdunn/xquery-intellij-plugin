@@ -26,12 +26,8 @@ class MarkLogicValue(private val results: List<QueryResult>) : XValue() {
     }
 
     private fun createPresentation(): XValuePresentation = when (results.size) {
-        0 -> EmptySequence
+        0 -> QueryValuePresentation.EmptySequence
         1 -> results.first().let { QueryValuePresentation.forValue(it.value.toString(), it.type) }
         else -> QueryValuePresentation.forValue("size = ${results.size}", "item()+")
-    }
-
-    companion object {
-        val EmptySequence = QueryValuePresentation.forValue("()", "empty-sequence()")
     }
 }

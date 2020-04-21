@@ -21,6 +21,8 @@ import com.intellij.xdebugger.frame.presentation.XValuePresentation
 object QueryValuePresentation {
     internal const val SEPARATOR = " := "
 
+    val EmptySequence = XRegularValuePresentation("()", "empty-sequence()", SEPARATOR)
+
     fun forValue(value: String, type: String? = null): XValuePresentation {
         return when {
             NUMERIC_TYPES.contains(type) -> NumericValuePresentation(value, type!!)

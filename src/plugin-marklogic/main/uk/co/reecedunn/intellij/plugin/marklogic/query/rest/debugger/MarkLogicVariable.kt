@@ -47,7 +47,7 @@ class MarkLogicVariable private constructor(
 
     private fun createPresentation(): XValuePresentation? = when {
         value == null -> null
-        value == "()" -> QueryValuePresentation.forValue(value, "empty-sequence()")
+        value == "()" -> QueryValuePresentation.EmptySequence
         value.startsWith("(") -> QueryValuePresentation.forValue(value, "item()+")
         value.startsWith("<!--") -> QueryValuePresentation.forValue(value, "comment()")
         value.startsWith("<?") -> QueryValuePresentation.forValue(value, "processing-instruction()")
