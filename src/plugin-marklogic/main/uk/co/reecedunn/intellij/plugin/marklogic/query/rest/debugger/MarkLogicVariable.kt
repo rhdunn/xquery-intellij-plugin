@@ -17,9 +17,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.util.text.nullize
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
-import com.intellij.xdebugger.frame.XNamedValue
-import com.intellij.xdebugger.frame.XValueNode
-import com.intellij.xdebugger.frame.XValuePlace
+import com.intellij.xdebugger.frame.*
+import com.intellij.xdebugger.frame.presentation.XErrorValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
@@ -40,8 +39,19 @@ class MarkLogicVariable private constructor(
     XNamedValue("\$${op_qname_presentation(variableName)!!}") {
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
-        createPresentation()?.let {
-            node.setPresentation(XPathIcons.Nodes.Variable, it, false)
+        val presentation = createPresentation()
+        if (presentation != null) {
+            node.setPresentation(XPathIcons.Nodes.Variable, presentation, false)
+        } else {
+            evaluator?.evaluate(evaluationExpression!!, object : XDebuggerEvaluator.XEvaluationCallback {
+                override fun evaluated(result: XValue) {
+                    result.computePresentation(node, place)
+                }
+
+                override fun errorOccurred(errorMessage: String) {
+                    node.setPresentation(XPathIcons.Nodes.Variable, XErrorValuePresentation(errorMessage), false)
+                }
+            }, null)
         }
     }
 
