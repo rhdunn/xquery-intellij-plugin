@@ -16,12 +16,19 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.xdebugger.frame.*
+import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 class MarkLogicValue(private val results: List<QueryResult>) : XValue() {
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
-        node.setPresentation(null, EmptySequence, false)
+        node.setPresentation(null, createPresentation(), false)
+    }
+
+    private fun createPresentation(): XValuePresentation = when (results.size) {
+        0 -> EmptySequence
+        1 -> results.first().let { QueryValuePresentation.forValue(it.value.toString(), it.type) }
+        else -> EmptySequence
     }
 
     companion object {

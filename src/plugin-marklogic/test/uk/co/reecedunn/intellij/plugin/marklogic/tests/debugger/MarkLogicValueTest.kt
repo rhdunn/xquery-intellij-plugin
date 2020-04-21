@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.debugger
 
 import com.intellij.xdebugger.frame.*
+import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import org.hamcrest.CoreMatchers.*
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicValue
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.Icon
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Debugger - Values")
@@ -81,6 +83,28 @@ class MarkLogicValueTest : XValueNode {
         assertThat(presentation?.type, `is`("empty-sequence()"))
         assertThat(presentation?.separator, `is`(" := "))
         assertThat(renderValue(), `is`("()"))
+        assertThat(hasChildren, `is`(false))
+    }
+
+    @Test
+    @DisplayName("single item")
+    fun singleItem() {
+        val v = MarkLogicValue(listOf(QueryResult.fromItemType(0, "1234", "xs:integer")))
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XNumericValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("xs:integer"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("1234"))
+        assertThat(hasChildren, `is`(false))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XNumericValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("xs:integer"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("1234"))
         assertThat(hasChildren, `is`(false))
     }
 }
