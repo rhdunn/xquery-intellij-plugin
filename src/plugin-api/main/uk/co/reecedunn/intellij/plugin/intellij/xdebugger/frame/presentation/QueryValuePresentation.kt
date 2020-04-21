@@ -25,8 +25,8 @@ object QueryValuePresentation {
     val EmptySequence = XRegularValuePresentation("()", "empty-sequence()", SEPARATOR)
 
     fun forValue(value: String, type: String? = null): XValuePresentation = when {
-        derivedFromUnion(type, "xs:numeric") -> NumericValuePresentation(value, type!!)
-        derivedFrom(type, "xs:string") || type == "text()" -> StringValuePresentation(value, type!!)
+        derivesFromUnion(type, "xs:numeric") -> NumericValuePresentation(value, type!!)
+        derivesFrom(type, "xs:string") || type == "text()" -> StringValuePresentation(value, type!!)
         else -> XRegularValuePresentation(value, type, SEPARATOR)
     }
 
@@ -47,19 +47,19 @@ object QueryValuePresentation {
     }
 
     @Suppress("SameParameterValue")
-    private fun derivedFromUnion(aType: String?, bType: String): Boolean = when (bType) {
+    private fun derivesFromUnion(aType: String?, bType: String): Boolean = when (bType) {
         "xs:numeric" -> {
-            derivedFrom(aType, "xs:decimal") || derivedFrom(aType, "xs:float") || derivedFrom(aType, "xs:double")
+            derivesFrom(aType, "xs:decimal") || derivesFrom(aType, "xs:float") || derivesFrom(aType, "xs:double")
         }
         else -> false
     }
 
-    private fun derivedFrom(aType: String?, bType: String): Boolean {
+    private fun derivesFrom(aType: String?, bType: String): Boolean {
         val parent = PARENT_TYPES[aType]
         return when {
             aType == bType -> true
             parent == null -> false
-            else -> derivedFrom(parent, bType)
+            else -> derivesFrom(parent, bType)
         }
     }
 
