@@ -100,6 +100,7 @@ object QueryValuePresentation {
         "xs:dateTime" to "xs:anyAtomicType",
         "xs:dateTimeStamp" to "xs:dateTime",
         "xs:dayTimeDuration" to "xs:duration",
+        "xs:decimal" to "xs:anyAtomicType",
         "xs:double" to "xs:anyAtomicType",
         "xs:duration" to "xs:anyAtomicType",
         "xs:float" to "xs:anyAtomicType",

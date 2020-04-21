@@ -163,4 +163,32 @@ class MarkLogicValueTest : XValueNode {
         assertThat(renderValue(), `is`("size = 3"))
         assertThat(hasChildren, `is`(false))
     }
+
+    @Test
+    @DisplayName("multiple items with a type subtype-itemType to the other types")
+    fun multipleItemsSubtypeItemType() {
+        val v = MarkLogicValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "xs:integer"),
+                QueryResult.fromItemType(1, "2.0", "xs:decimal"),
+                QueryResult.fromItemType(2, "3", "xs:integer")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("xs:decimal+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(false))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("xs:decimal+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(false))
+    }
 }
