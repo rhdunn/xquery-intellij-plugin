@@ -64,7 +64,23 @@ object QueryValuePresentation {
     }
 
     private val PARENT_TYPES = mapOf(
+        "xs:anyURI" to "xs:anyAtomicType",
+        "xs:base64Binary" to "xs:anyAtomicType",
+        "xs:boolean" to "xs:anyAtomicType",
         "xs:byte" to "xs:short",
+        "xs:date" to "xs:anyAtomicType",
+        "xs:dateTime" to "xs:anyAtomicType",
+        "xs:dateTimeStamp" to "xs:dateTime",
+        "xs:dayTimeDuration" to "xs:duration",
+        "xs:double" to "xs:anyAtomicType",
+        "xs:duration" to "xs:anyAtomicType",
+        "xs:float" to "xs:anyAtomicType",
+        "xs:gDay" to "xs:anyAtomicType",
+        "xs:gMonth" to "xs:anyAtomicType",
+        "xs:gMonthDay" to "xs:anyAtomicType",
+        "xs:gYear" to "xs:anyAtomicType",
+        "xs:gYearMonth" to "xs:anyAtomicType",
+        "xs:hexBinary" to "xs:anyAtomicType",
         "xs:int" to "xs:long",
         "xs:integer" to "xs:decimal",
         "xs:language" to "xs:token",
@@ -75,16 +91,22 @@ object QueryValuePresentation {
         "xs:normalizedString" to "xs:string",
         "xs:positiveInteger" to "xs:nonNegativeInteger",
         "xs:short" to "xs:int",
+        "xs:string" to "xs:anyAtomicType",
+        "xs:time" to "xs:anyAtomicType",
         "xs:token" to "xs:normalizedString",
         "xs:unsignedByte" to "xs:unsignedShort",
         "xs:unsignedInt" to "xs:unsignedLong",
         "xs:unsignedLong" to "xs:nonNegativeInteger",
         "xs:unsignedShort" to "xs:unsignedInt",
+        "xs:untypedAtomic" to "xs:anyAtomicType",
+        "xs:yearMonthDuration" to "xs:duration",
         "xs:ENTITY" to "xs:NCName",
         "xs:ID" to "xs:NCName",
         "xs:IDREF" to "xs:NCName",
         "xs:Name" to "xs:token",
         "xs:NCName" to "xs:Name",
-        "xs:NMTOKEN" to "xs:normalizedString"
+        "xs:NMTOKEN" to "xs:normalizedString",
+        "xs:NOTATION" to "xs:anyAtomicType",
+        "xs:QName" to "xs:anyAtomicType"
     )
 }
