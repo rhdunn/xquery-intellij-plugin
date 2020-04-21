@@ -18,11 +18,14 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 import com.intellij.xdebugger.frame.*
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import javax.swing.Icon
 
 class MarkLogicValue(private val results: List<QueryResult>) : XValue() {
+    var icon: Icon? = null
+
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
         val presentation = QueryValuePresentation.forResults(results)
-        node.setPresentation(null, presentation, results.size > 1)
+        node.setPresentation(icon, presentation, results.size > 1)
     }
 
     override fun computeChildren(node: XCompositeNode) {

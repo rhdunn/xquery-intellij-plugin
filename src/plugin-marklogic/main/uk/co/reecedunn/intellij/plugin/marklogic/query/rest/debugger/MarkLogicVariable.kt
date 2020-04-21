@@ -45,6 +45,7 @@ class MarkLogicVariable private constructor(
             evaluator?.evaluate(evaluationExpression!!, object : XDebuggerEvaluator.XEvaluationCallback {
                 override fun evaluated(result: XValue) {
                     value = result
+                    (result as? MarkLogicValue)?.icon = XPathIcons.Nodes.Variable
                     result.computePresentation(node, place)
                 }
 
