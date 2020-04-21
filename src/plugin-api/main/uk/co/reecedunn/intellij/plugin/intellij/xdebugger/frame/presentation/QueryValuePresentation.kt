@@ -42,9 +42,27 @@ object QueryValuePresentation {
 
     private fun itemTypeUnion(aType: String, bType: String?): String = when {
         bType == null -> aType
-        bType == aType -> bType
+        subtypeItemType(aType, bType) -> bType
+        subtypeItemType(bType, aType) -> aType
         else -> "item()"
     }
+
+    private fun subtypeItemType(aType: String, bType: String): Boolean = when {
+        isAtomicOrUnionType(aType) && isAtomicOrUnionType(bType) -> when (bType) {
+            "xs:numeric" -> derivesFromUnion(aType, bType)
+            else -> derivesFrom(aType, bType)
+        }
+        aType == "xs:error" -> isAtomicOrUnionType(bType)
+        bType == "item()" -> true
+        bType == "node()" -> isKindTest(aType)
+        else -> aType == bType
+    }
+
+    private fun isAtomicOrUnionType(type: String): Boolean {
+        return derivesFrom(type, "xs:anyAtomicType") || type == "xs:numeric"
+    }
+
+    private fun isKindTest(type: String): Boolean = KIND_TYPES.contains(type)
 
     @Suppress("SameParameterValue")
     private fun derivesFromUnion(aType: String?, bType: String): Boolean = when (bType) {
@@ -115,5 +133,20 @@ object QueryValuePresentation {
         "xs:NMTOKENS" to "xs:anySimpleType",
         "xs:NOTATION" to "xs:anyAtomicType",
         "xs:QName" to "xs:anyAtomicType"
+    )
+
+    private val KIND_TYPES = setOf(
+        "array-node()", // MarkLogic
+        "attribute()",
+        "boolean-node()", // MarkLogic
+        "comment()",
+        "document-node()",
+        "element()",
+        "namespace-node()",
+        "null-node()", // MarkLogic
+        "number-node()", // MarkLogic
+        "object-node()", // MarkLogic
+        "processing-instruction()",
+        "text()"
     )
 }
