@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -29,10 +31,26 @@ import java.lang.RuntimeException
 internal class MarkLogicDebugSession(
     private val processor: MarkLogicQueryProcessor,
     private val query: VirtualFile
-) : DebugSession {
+) : XDebuggerEvaluator(), DebugSession {
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
 
+    // region XDebuggerEvaluator
+
+    override fun evaluate(expression: String, callback: XEvaluationCallback, expressionPosition: XSourcePosition?) {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Value, XQuery)
+        query.bindVariable("requestId", requestId, "xs:unsignedLong")
+        query.bindVariable("expression", expression, "xs:string")
+        try {
+            val results = query.run().results
+        } catch (e: Throwable) {
+            e.message?.let {
+                callback.errorOccurred(it)
+            }
+        }
+    }
+
+    // endregion
     // region DebugSession
 
     override var listener: DebugSessionListener? = null
@@ -64,7 +82,7 @@ internal class MarkLogicDebugSession(
 
             val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
             return stack.root.children("dbg:frame").map {
-                MarkLogicDebugFrame(it, this.query, null)
+                MarkLogicDebugFrame(it, this.query, this)
             }.toList()
         }
 
