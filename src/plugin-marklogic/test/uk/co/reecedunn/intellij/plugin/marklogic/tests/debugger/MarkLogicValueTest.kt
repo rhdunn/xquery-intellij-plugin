@@ -109,12 +109,40 @@ class MarkLogicValueTest : XValueNode {
     }
 
     @Test
-    @DisplayName("multiple items")
-    fun multipleItems() {
+    @DisplayName("multiple items of the same type")
+    fun multipleItemsOfSameType() {
         val v = MarkLogicValue(
             listOf(
                 QueryResult.fromItemType(0, "1", "xs:integer"),
                 QueryResult.fromItemType(1, "2", "xs:integer"),
+                QueryResult.fromItemType(2, "3", "xs:integer")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("xs:integer+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(false))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("xs:integer+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(false))
+    }
+
+    @Test
+    @DisplayName("multiple items of different item() types")
+    fun multipleItemsOfDifferentItemTypes() {
+        val v = MarkLogicValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "xs:integer"),
+                QueryResult.fromItemType(1, "2", "text()"),
                 QueryResult.fromItemType(2, "3", "xs:integer")
             )
         )

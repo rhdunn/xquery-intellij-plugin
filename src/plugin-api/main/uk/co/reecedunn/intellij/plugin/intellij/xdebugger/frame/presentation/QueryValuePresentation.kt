@@ -33,7 +33,17 @@ object QueryValuePresentation {
     fun forResults(results: List<QueryResult>): XValuePresentation = when (results.size) {
         0 -> EmptySequence
         1 -> results.first().let { forValue(it.value.toString(), it.type) }
-        else -> forValue("size = ${results.size}", "item()+")
+        else -> {
+            var itemType: String? = null
+            results.forEach { result ->
+                itemType = when {
+                    itemType == null -> result.type
+                    itemType == result.type -> itemType
+                    else -> "item()"
+                }
+            }
+            forValue("size = ${results.size}", "${itemType}+")
+        }
     }
 
     private val NUMERIC_TYPES = setOf(
