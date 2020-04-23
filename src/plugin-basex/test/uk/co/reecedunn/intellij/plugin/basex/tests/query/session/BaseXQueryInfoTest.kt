@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,12 +33,34 @@ class BaseXQueryInfoTest {
             "Updated: 0 Items",
             "Total Time: 413.16 ms",
             ""
-        ).joinToString("\r\n")
+        )
 
         @Test
-        @DisplayName("toBaseXInfo")
-        fun info() {
-            val info = response.toBaseXInfo()
+        @DisplayName("Windows line endings")
+        fun windows() {
+            val info = response.joinToString("\r\n").toBaseXInfo()
+
+            assertThat(info.size, `is`(3))
+            assertThat(info["Results"], `is`("4 Items"))
+            assertThat(info["Updated"], `is`("0 Items"))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(413160000)))
+        }
+
+        @Test
+        @DisplayName("Linux line endings")
+        fun linux() {
+            val info = response.joinToString("\n").toBaseXInfo()
+
+            assertThat(info.size, `is`(3))
+            assertThat(info["Results"], `is`("4 Items"))
+            assertThat(info["Updated"], `is`("0 Items"))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(413160000)))
+        }
+
+        @Test
+        @DisplayName("Mac line endings")
+        fun mac() {
+            val info = response.joinToString("\r").toBaseXInfo()
 
             assertThat(info.size, `is`(3))
             assertThat(info["Results"], `is`("4 Items"))
@@ -50,12 +72,33 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 info")
     inner class BaseX80 {
-        private val response = "\r\nQuery executed in 448.43 ms."
+        private val response = listOf(
+            "",
+            "Query executed in 448.43 ms."
+        )
 
         @Test
-        @DisplayName("toBaseXInfo")
-        fun info() {
-            val info = response.toBaseXInfo()
+        @DisplayName("Windows line endings")
+        fun windows() {
+            val info = response.joinToString("\r\n").toBaseXInfo()
+
+            assertThat(info.size, `is`(1))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
+        }
+
+        @Test
+        @DisplayName("Windows line endings")
+        fun linux() {
+            val info = response.joinToString("\n").toBaseXInfo()
+
+            assertThat(info.size, `is`(1))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
+        }
+
+        @Test
+        @DisplayName("Mac line endings")
+        fun mac() {
+            val info = response.joinToString("\r").toBaseXInfo()
 
             assertThat(info.size, `is`(1))
             assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
