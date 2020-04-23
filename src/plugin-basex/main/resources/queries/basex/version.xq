@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2018 Reece H. Dunn
+ : Copyright (C) 2018, 2020 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -21,7 +21,10 @@ declare option o:implementation "basex/6.0";
 
 let $info := db:system()
 return if ($info instance of element(system)) then (: BaseX >= 7.1 :)
-    $info/generalinformation/version/string()
+    (: NOTE: The element containing the version may be localized, so look for version-like strings. :)
+    for $text in $info//*/text()
+    where fn:matches($text, "^([789]|[1-9][0-9]+)\.[0-9]+(\.[0-9]+)?$")
+    return $text
 else (: BaseX == 7.0 :)
     for $line in fn:tokenize($info, "(\r\n?|\n)")
     where fn:starts-with($line, " Version: ")
