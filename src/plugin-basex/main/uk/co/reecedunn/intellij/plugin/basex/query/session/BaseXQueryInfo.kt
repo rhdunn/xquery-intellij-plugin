@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
+
+private val RE_TOTAL_TIME = "([0-9.]+) ms[ .]".toRegex()
 
 private fun String.toBaseXInfoBlocks(): Sequence<String> {
     return replace("\r\n", "\n").replace('\r', '\n').split("\n\n").asSequence().map {
@@ -53,8 +55,8 @@ fun String.toBaseXInfo(): Map<String, Any> {
             part == "Optimized Query:" -> {
                 info["Optimized Query"] = block.substringAfter('\n')
             }
-            block.startsWith("Query executed in ") -> {
-                info["Total Time"] = XsDuration.ms(block.subSequence(18, block.length - 4).toString())
+            else -> RE_TOTAL_TIME.find(block)?.let { total ->
+                info["Total Time"] = XsDuration.ms(total.groupValues[1])
             }
         }
     }

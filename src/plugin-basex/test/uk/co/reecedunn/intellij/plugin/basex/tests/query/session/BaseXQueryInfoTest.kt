@@ -28,7 +28,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 7.0 info")
     inner class BaseX70 {
-        private val response = listOf(
+        private val responseEn = listOf(
             "Results: 4 Items",
             "Updated: 0 Items",
             "Total Time: 413.16 ms",
@@ -38,7 +38,7 @@ class BaseXQueryInfoTest {
         @Test
         @DisplayName("Windows line endings")
         fun windows() {
-            val info = response.joinToString("\r\n").toBaseXInfo()
+            val info = responseEn.joinToString("\r\n").toBaseXInfo()
 
             assertThat(info.size, `is`(3))
             assertThat(info["Results"], `is`("4 Items"))
@@ -49,7 +49,7 @@ class BaseXQueryInfoTest {
         @Test
         @DisplayName("Linux line endings")
         fun linux() {
-            val info = response.joinToString("\n").toBaseXInfo()
+            val info = responseEn.joinToString("\n").toBaseXInfo()
 
             assertThat(info.size, `is`(3))
             assertThat(info["Results"], `is`("4 Items"))
@@ -60,7 +60,7 @@ class BaseXQueryInfoTest {
         @Test
         @DisplayName("Mac line endings")
         fun mac() {
-            val info = response.joinToString("\r").toBaseXInfo()
+            val info = responseEn.joinToString("\r").toBaseXInfo()
 
             assertThat(info.size, `is`(3))
             assertThat(info["Results"], `is`("4 Items"))
@@ -72,33 +72,61 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 info")
     inner class BaseX80 {
-        private val response = listOf(
+        private val responseEn = listOf(
             "",
             "Query executed in 448.43 ms."
         )
 
+        private val responseFr = listOf(
+            "",
+            "Requête executée en 448.43 ms."
+        )
+
+        private val responseJa = listOf(
+            "",
+            "448.43 ms のクエリーが実行されました。"
+        )
+
         @Test
-        @DisplayName("Windows line endings")
+        @DisplayName("English; Windows line endings")
         fun windows() {
-            val info = response.joinToString("\r\n").toBaseXInfo()
+            val info = responseEn.joinToString("\r\n").toBaseXInfo()
 
             assertThat(info.size, `is`(1))
             assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
         }
 
         @Test
-        @DisplayName("Windows line endings")
+        @DisplayName("English; Windows line endings")
         fun linux() {
-            val info = response.joinToString("\n").toBaseXInfo()
+            val info = responseEn.joinToString("\n").toBaseXInfo()
 
             assertThat(info.size, `is`(1))
             assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
         }
 
         @Test
-        @DisplayName("Mac line endings")
+        @DisplayName("English; Mac line endings")
         fun mac() {
-            val info = response.joinToString("\r").toBaseXInfo()
+            val info = responseEn.joinToString("\r").toBaseXInfo()
+
+            assertThat(info.size, `is`(1))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
+        }
+
+        @Test
+        @DisplayName("French")
+        fun french() {
+            val info = responseFr.joinToString("\r").toBaseXInfo()
+
+            assertThat(info.size, `is`(1))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
+        }
+
+        @Test
+        @DisplayName("Japanese")
+        fun japanese() {
+            val info = responseJa.joinToString("\r").toBaseXInfo()
 
             assertThat(info.size, `is`(1))
             assertThat(info["Total Time"], `is`(XsDuration.ns(448430000)))
@@ -108,7 +136,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 queryinfo")
     inner class BaseX80QueryInfo {
-        private val response = listOf(
+        private val responseEn = listOf(
             "",
             "Query:",
             "for \$n in 1 to 10 let \$v := fn:sum(1 to \$n) return 2 * \$v",
@@ -138,7 +166,7 @@ class BaseXQueryInfoTest {
         @Test
         @DisplayName("toBaseXInfo")
         fun info() {
-            val info = response.toBaseXInfo()
+            val info = responseEn.toBaseXInfo()
             val compiling = listOf(
                 "pre-evaluate range expression to range sequence: (1 to 10)",
                 "inline \$v_1"
@@ -163,7 +191,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 xmlplan")
     inner class BaseX80XmlPlan {
-        private val response = listOf(
+        private val responseEn = listOf(
             "",
             "Query Plan:",
             "<QueryPlan compiled=\"true\" updating=\"false\">",
@@ -189,7 +217,7 @@ class BaseXQueryInfoTest {
         @Test
         @DisplayName("toBaseXInfo")
         fun info() {
-            val info = response.toBaseXInfo()
+            val info = responseEn.toBaseXInfo()
             val queryPlan = listOf(
                 "<QueryPlan compiled=\"true\" updating=\"false\">",
                 "  <GFLWOR type=\"xs:anyAtomicType*\">",
@@ -218,7 +246,7 @@ class BaseXQueryInfoTest {
     @Nested
     @DisplayName("BaseX 8.0 queryinfo and xmlplan")
     inner class BaseX80QueryInfoAndXmlPlan {
-        private val response = listOf(
+        private val responseEn = listOf(
             "",
             "Query Plan:",
             "<QueryPlan compiled=\"true\" updating=\"false\">",
@@ -266,7 +294,7 @@ class BaseXQueryInfoTest {
         @Test
         @DisplayName("toBaseXInfo")
         fun info() {
-            val info = response.toBaseXInfo()
+            val info = responseEn.toBaseXInfo()
             val queryPlan = listOf(
                 "<QueryPlan compiled=\"true\" updating=\"false\">",
                 "  <GFLWOR type=\"xs:anyAtomicType*\">",
