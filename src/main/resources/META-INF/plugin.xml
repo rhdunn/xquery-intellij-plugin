@@ -58,6 +58,7 @@
     <ol>
       <li>Support stopping Saxon queries.</li>
       <li>Fix running/profiling update queries on MarkLogic 10.</li>
+      <li>Fix using BaseX in a language other than English.</li>
     </ol>
   ]]></change-notes>
 

@@ -22,9 +22,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import java.lang.reflect.InvocationTargetException
 
 private val RE_BASEX_EXCEPTION =
-    "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
+    "^(.* (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 private val RE_BASEX_EXCEPTION_LINE_COL =
-    "^(Stopped at ()line ([0-9]+), column ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
+    "^(.* ()([0-9]+), .* ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 
 fun <T> check(classLoader: ClassLoader, queryFile: VirtualFile, f: () -> T): T {
     val basexExceptionClass = classLoader.loadClass("org.basex.core.BaseXException")
