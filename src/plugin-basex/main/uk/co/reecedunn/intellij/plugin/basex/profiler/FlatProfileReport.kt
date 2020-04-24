@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.basex.profiler
 
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXBundle
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
@@ -32,31 +31,23 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
     format
 }
 
-fun Map<String, Any>.toFlatProfileEntry(key: String, queryFile: VirtualFile, context: String): FlatProfileEntry? {
-    return (this[key] as? XsDurationValue)?.let {
-        FlatProfileEntry(
-            id = key,
-            context = context,
-            count = 1,
-            selfTime = if (key == "Total Time") XsDuration.ZERO else it,
-            totalTime = it,
-            frame = QueryStackFrame(queryFile, 0, 0)
-        )
-    }
-}
-
 fun Map<String, Any>.toFlatProfileReport(queryFile: VirtualFile): FlatProfileReport {
     return FlatProfileReport(
         xml = null,
         elapsed = this["Total Time"] as XsDurationValue,
         created = XMLSCHEMA_DATETIME_FORMAT.format(Date()),
         version = "",
-        results = sequenceOf(
-            toFlatProfileEntry("Total Time", queryFile, ""),
-            toFlatProfileEntry("Parsing", queryFile, BaseXBundle.message("basex.profile.parsing")),
-            toFlatProfileEntry("Compiling", queryFile, BaseXBundle.message("basex.profile.compiling")),
-            toFlatProfileEntry("Evaluating", queryFile, BaseXBundle.message("basex.profile.evaluating")),
-            toFlatProfileEntry("Printing", queryFile, BaseXBundle.message("basex.profile.printing"))
-        ).filterNotNull()
+        results = asSequence().map { (key, value) ->
+            (value as? XsDurationValue)?.let {
+                FlatProfileEntry(
+                    id = key,
+                    context = key,
+                    count = 1,
+                    selfTime = if (key == "Total Time") XsDuration.ZERO else it,
+                    totalTime = it,
+                    frame = QueryStackFrame(queryFile, 0, 0)
+                )
+            }
+        }.filterNotNull()
     )
 }
