@@ -163,9 +163,36 @@ class BaseXQueryInfoTest {
             "Query executed in 1.71 ms."
         ).joinToString("\r\n")
 
+        private val responseFr = listOf(
+            "",
+            "Requête:",
+            "for \$n in 1 to 10 let \$v := fn:sum(1 to \$n) return 2 * \$v",
+            "",
+            "Compilation:",
+            "- pre-evaluate range expression to range sequence: (1 to 10)",
+            "- inline \$v_1",
+            "",
+            "Requête Optimisée:",
+            "for \$n_0 in (1 to 10) return (2 * sum((1 to \$n_0)))",
+            "",
+            "Analyse: 0.44 ms",
+            "Compilation: 0.34 ms",
+            "Évaluation: 0.01 ms",
+            "Impression: 0.93 ms",
+            "Temps total: 1.71 ms",
+            "",
+            "Hit(s): 10 Items",
+            "Mis à jour: 0 Items",
+            "Imprimé: 29 b",
+            "Blocage en lecture: (none)",
+            "Blocage en écriture: (none)",
+            "",
+            "Requête executée en 1.71 ms."
+        ).joinToString("\r\n")
+
         @Test
-        @DisplayName("toBaseXInfo")
-        fun info() {
+        @DisplayName("toBaseXInfo; English")
+        fun english() {
             val info = responseEn.toBaseXInfo()
             val compiling = listOf(
                 "pre-evaluate range expression to range sequence: (1 to 10)",
@@ -185,6 +212,25 @@ class BaseXQueryInfoTest {
             assertThat(info["Printed"], `is`("29 b"))
             assertThat(info["Read Locking"], `is`("(none)"))
             assertThat(info["Write Locking"], `is`("(none)"))
+        }
+
+        @Test
+        @DisplayName("toBaseXInfo; French")
+        fun french() {
+            val info = responseFr.toBaseXInfo()
+
+            assertThat(info.size, `is`(11))
+            assertThat(info["Analyse"], `is`(XsDuration.ns(440000)))
+            assertThat(info["Compilation"], `is`(XsDuration.ns(340000)))
+            assertThat(info["Évaluation"], `is`(XsDuration.ns(10000)))
+            assertThat(info["Impression"], `is`(XsDuration.ns(930000)))
+            assertThat(info["Temps total"], `is`(XsDuration.ns(1710000)))
+            assertThat(info["Total Time"], `is`(XsDuration.ns(1710000)))
+            assertThat(info["Hit(s)"], `is`("10 Items"))
+            assertThat(info["Mis à jour"], `is`("0 Items"))
+            assertThat(info["Imprimé"], `is`("29 b"))
+            assertThat(info["Blocage en lecture"], `is`("(none)"))
+            assertThat(info["Blocage en écriture"], `is`("(none)"))
         }
     }
 
