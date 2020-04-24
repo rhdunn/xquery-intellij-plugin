@@ -30,10 +30,19 @@ private fun String.toBaseXInfoBlocks(): Sequence<String> {
 }
 
 private fun String.parseBaseXInfoBlock(info: HashMap<String, Any>) {
+    @Suppress("UNCHECKED_CAST")
+    var profile = info["Profile"] as? HashMap<String, XsDuration>
     split('\n').forEach { row ->
         val data = row.split(": ")
         if (data[1].endsWith(" ms")) {
-            info[data[0]] = XsDuration.ms(data[1].substringBefore(" ms"))
+            if (profile == null) {
+                profile = HashMap()
+                info["Profile"] = profile!!
+            }
+            profile?.put(data[0], XsDuration.ms(data[1].substringBefore(" ms")))
+            if (data[0] == "Total Time") {
+                info[data[0]] = XsDuration.ms(data[1].substringBefore(" ms"))
+            }
         } else {
             info[data[0]] = data[1]
         }

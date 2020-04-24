@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -32,22 +33,22 @@ private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
 }
 
 fun Map<String, Any>.toFlatProfileReport(queryFile: VirtualFile): FlatProfileReport {
+    @Suppress("UNCHECKED_CAST")
+    val profile = this["Profile"] as HashMap<String, XsDuration>
     return FlatProfileReport(
         xml = null,
         elapsed = this["Total Time"] as XsDurationValue,
         created = XMLSCHEMA_DATETIME_FORMAT.format(Date()),
         version = "",
-        results = asSequence().map { (key, value) ->
-            (value as? XsDurationValue)?.let {
-                FlatProfileEntry(
-                    id = key,
-                    context = key,
-                    count = 1,
-                    selfTime = if (key == "Total Time") XsDuration.ZERO else it,
-                    totalTime = it,
-                    frame = QueryStackFrame(queryFile, 0, 0)
-                )
-            }
-        }.filterNotNull()
+        results = profile.asSequence().map { (key, value) ->
+            FlatProfileEntry(
+                id = key,
+                context = key,
+                count = 1,
+                selfTime = value,
+                totalTime = value,
+                frame = QueryStackFrame(queryFile, 0, 0)
+            )
+        }
     )
 }

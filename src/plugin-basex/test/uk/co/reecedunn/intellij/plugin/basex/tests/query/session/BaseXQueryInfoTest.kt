@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXInfo
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
+@Suppress("UNCHECKED_CAST")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseX info text")
 class BaseXQueryInfoTest {
     @Nested
@@ -40,10 +41,14 @@ class BaseXQueryInfoTest {
         fun windows() {
             val info = responseEn.joinToString("\r\n").toBaseXInfo()
 
-            assertThat(info.size, `is`(3))
+            assertThat(info.size, `is`(4))
             assertThat(info["Results"], `is`("4 Items"))
             assertThat(info["Updated"], `is`("0 Items"))
             assertThat(info["Total Time"], `is`(XsDuration.ns(413160000)))
+
+            val profile = info["Profile"] as HashMap<String, XsDuration>
+            assertThat(profile["Total Time"], `is`(XsDuration.ns(413160000)))
+            assertThat(profile.size, `is`(1))
         }
 
         @Test
@@ -51,10 +56,14 @@ class BaseXQueryInfoTest {
         fun linux() {
             val info = responseEn.joinToString("\n").toBaseXInfo()
 
-            assertThat(info.size, `is`(3))
+            assertThat(info.size, `is`(4))
             assertThat(info["Results"], `is`("4 Items"))
             assertThat(info["Updated"], `is`("0 Items"))
             assertThat(info["Total Time"], `is`(XsDuration.ns(413160000)))
+
+            val profile = info["Profile"] as HashMap<String, XsDuration>
+            assertThat(profile["Total Time"], `is`(XsDuration.ns(413160000)))
+            assertThat(profile.size, `is`(1))
         }
 
         @Test
@@ -62,10 +71,14 @@ class BaseXQueryInfoTest {
         fun mac() {
             val info = responseEn.joinToString("\r").toBaseXInfo()
 
-            assertThat(info.size, `is`(3))
+            assertThat(info.size, `is`(4))
             assertThat(info["Results"], `is`("4 Items"))
             assertThat(info["Updated"], `is`("0 Items"))
             assertThat(info["Total Time"], `is`(XsDuration.ns(413160000)))
+
+            val profile = info["Profile"] as HashMap<String, XsDuration>
+            assertThat(profile["Total Time"], `is`(XsDuration.ns(413160000)))
+            assertThat(profile.size, `is`(1))
         }
     }
 
@@ -199,19 +212,23 @@ class BaseXQueryInfoTest {
                 "inline \$v_1"
             )
 
-            assertThat(info.size, `is`(12))
+            assertThat(info.size, `is`(9))
             assertThat(info["Compilation"], `is`(compiling))
             assertThat(info["Optimized Query"], `is`("for \$n_0 in (1 to 10) return (2 * sum((1 to \$n_0)))"))
-            assertThat(info["Parsing"], `is`(XsDuration.ns(440000)))
-            assertThat(info["Compiling"], `is`(XsDuration.ns(340000)))
-            assertThat(info["Evaluating"], `is`(XsDuration.ns(10000)))
-            assertThat(info["Printing"], `is`(XsDuration.ns(930000)))
             assertThat(info["Total Time"], `is`(XsDuration.ns(1710000)))
             assertThat(info["Hit(s)"], `is`("10 Items"))
             assertThat(info["Updated"], `is`("0 Items"))
             assertThat(info["Printed"], `is`("29 b"))
             assertThat(info["Read Locking"], `is`("(none)"))
             assertThat(info["Write Locking"], `is`("(none)"))
+
+            val profile = info["Profile"] as HashMap<String, XsDuration>
+            assertThat(profile["Total Time"], `is`(XsDuration.ns(1710000)))
+            assertThat(profile["Parsing"], `is`(XsDuration.ns(440000)))
+            assertThat(profile["Compiling"], `is`(XsDuration.ns(340000)))
+            assertThat(profile["Evaluating"], `is`(XsDuration.ns(10000)))
+            assertThat(profile["Printing"], `is`(XsDuration.ns(930000)))
+            assertThat(profile.size, `is`(5))
         }
 
         @Test
@@ -219,18 +236,21 @@ class BaseXQueryInfoTest {
         fun french() {
             val info = responseFr.toBaseXInfo()
 
-            assertThat(info.size, `is`(11))
-            assertThat(info["Analyse"], `is`(XsDuration.ns(440000)))
-            assertThat(info["Compilation"], `is`(XsDuration.ns(340000)))
-            assertThat(info["Évaluation"], `is`(XsDuration.ns(10000)))
-            assertThat(info["Impression"], `is`(XsDuration.ns(930000)))
-            assertThat(info["Temps total"], `is`(XsDuration.ns(1710000)))
+            assertThat(info.size, `is`(7))
             assertThat(info["Total Time"], `is`(XsDuration.ns(1710000)))
             assertThat(info["Hit(s)"], `is`("10 Items"))
             assertThat(info["Mis à jour"], `is`("0 Items"))
             assertThat(info["Imprimé"], `is`("29 b"))
             assertThat(info["Blocage en lecture"], `is`("(none)"))
             assertThat(info["Blocage en écriture"], `is`("(none)"))
+
+            val profile = info["Profile"] as HashMap<String, XsDuration>
+            assertThat(profile["Temps total"], `is`(XsDuration.ns(1710000)))
+            assertThat(profile["Analyse"], `is`(XsDuration.ns(440000)))
+            assertThat(profile["Compilation"], `is`(XsDuration.ns(340000)))
+            assertThat(profile["Évaluation"], `is`(XsDuration.ns(10000)))
+            assertThat(profile["Impression"], `is`(XsDuration.ns(930000)))
+            assertThat(profile.size, `is`(5))
         }
     }
 
@@ -364,20 +384,24 @@ class BaseXQueryInfoTest {
                 "inline \$v_1"
             )
 
-            assertThat(info.size, `is`(13))
+            assertThat(info.size, `is`(10))
             assertThat(info["Query Plan"], `is`(queryPlan))
             assertThat(info["Compilation"], `is`(compiling))
             assertThat(info["Optimized Query"], `is`("for \$n_0 in (1 to 10) return (2 * sum((1 to \$n_0)))"))
-            assertThat(info["Parsing"], `is`(XsDuration.ns(788890000)))
-            assertThat(info["Compiling"], `is`(XsDuration.ns(63720000)))
-            assertThat(info["Evaluating"], `is`(XsDuration.ns(740000)))
-            assertThat(info["Printing"], `is`(XsDuration.ns(1590000)))
             assertThat(info["Total Time"], `is`(XsDuration.ns(854940000)))
             assertThat(info["Hit(s)"], `is`("10 Items"))
             assertThat(info["Updated"], `is`("0 Items"))
             assertThat(info["Printed"], `is`("29 b"))
             assertThat(info["Read Locking"], `is`("(none)"))
             assertThat(info["Write Locking"], `is`("(none)"))
+
+            val profile = info["Profile"] as HashMap<String, XsDuration>
+            assertThat(profile["Total Time"], `is`(XsDuration.ns(854940000)))
+            assertThat(profile["Parsing"], `is`(XsDuration.ns(788890000)))
+            assertThat(profile["Compiling"], `is`(XsDuration.ns(63720000)))
+            assertThat(profile["Evaluating"], `is`(XsDuration.ns(740000)))
+            assertThat(profile["Printing"], `is`(XsDuration.ns(1590000)))
+            assertThat(profile.size, `is`(5))
         }
     }
 }
