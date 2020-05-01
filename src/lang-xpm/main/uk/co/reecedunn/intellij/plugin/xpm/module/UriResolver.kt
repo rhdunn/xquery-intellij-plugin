@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module
 
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -22,9 +23,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extensions.asSequence()
 
-fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? {
+fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? = this.resolveUri(element!!.project)
+
+fun <T : PsiFile> XsAnyUriValue.resolveUri(project: Project): T? {
     val path = data
-    val project = element!!.project
     return STATIC_IMPORT_RESOLVERS
         .filter { resolver -> resolver.match(path) }
         .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(project) }
