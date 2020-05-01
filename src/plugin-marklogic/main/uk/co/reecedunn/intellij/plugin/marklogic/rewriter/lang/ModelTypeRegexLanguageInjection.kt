@@ -44,17 +44,11 @@ class ModelTypeRegexLanguageInjection : MultiHostInjector {
     }
 
     private fun isModelTypeRegex(tag: XmlTag): Boolean {
-        return when (tag.eqname(NAMESPACES)) {
+        return when (tag.eqname(Rewriter.NAMESPACES)) {
             "rw:match-header" -> true
             "rw:match-path" -> true
             "rw:match-string" -> true
             else -> false
         }
-    }
-
-    companion object {
-        val NAMESPACES = mapOf(
-            "rw" to "http://marklogic.com/xdmp/rewriter"
-        )
     }
 }
