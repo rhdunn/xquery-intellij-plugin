@@ -2,6 +2,10 @@
 
 ## 1.7 - (In Development)
 
+MarkLogic Rewriter XML Integration:
+
+1.  Use the regular expression language for `matches` attributes.
+
 Run Configurations:
 
 1.  Support stopping Saxon queries.

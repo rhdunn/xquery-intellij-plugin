@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlTag
 
 fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
     // Case #1: The file is an XML file.
@@ -28,3 +29,13 @@ fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
 }
 
 val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
+
+fun XmlAttribute.eqname(namespaces: Map<String, String>): String {
+    val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
+    return "${prefix.key}:$localName"
+}
+
+fun XmlTag.eqname(namespaces: Map<String, String>): String {
+    val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
+    return "${prefix.key}:$localName"
+}

@@ -54,6 +54,10 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.7:</h3>
+    <p>MarkLogic Rewriter XML Integration:</p>
+    <ol>
+      <li>Use the regular expression language for <code>matches</code> attributes.</li>
+    </ol>
     <p>Run Configurations:</p>
     <ol>
       <li>Support stopping Saxon queries.</li>
@@ -78,6 +82,8 @@
   <xi:include href="plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
+  <xi:include href="plugin-marklogic.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable groupId="language" displayName="XQuery and XSLT" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XdmProfileConfigurable">

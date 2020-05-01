@@ -1,0 +1,5 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.ModelTypeRegexLanguageInjection"/>
+  </extensions>
+</idea-plugin>
