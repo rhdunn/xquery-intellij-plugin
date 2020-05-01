@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,14 +71,16 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
     }
 }
 
-fun XsAnyUriValue.resolve(): PsiElement? {
-    val element = element!!
+fun XsAnyUriValue.resolve(): PsiElement? = element?.let { this.resolve(it) }
+
+fun XsAnyUriValue.resolve(element: PsiElement): PsiElement? {
     val loaders = XpmModuleLoaderSettings.getInstance(element.project)
     return paths(element.project).mapNotNull { loaders.resolve(it, element) }.firstOrNull()
 }
 
-fun XsAnyUriValue.context(): XstContext? {
-    val element = element!!
+fun XsAnyUriValue.context(): XstContext? = element?.let { this.context(it) }
+
+fun XsAnyUriValue.context(element: PsiElement): XstContext? {
     val loaders = XpmModuleLoaderSettings.getInstance(element.project)
     return paths(element.project).mapNotNull { loaders.context(it, element) }.firstOrNull()
 }
