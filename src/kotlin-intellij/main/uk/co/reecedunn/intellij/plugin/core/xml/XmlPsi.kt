@@ -19,7 +19,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
 fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
     // Case #1: The file is an XML file.
@@ -38,4 +40,8 @@ fun XmlAttribute.eqname(namespaces: Map<String, String>): String {
 fun XmlTag.eqname(namespaces: Map<String, String>): String {
     val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
     return "${prefix.key}:$localName"
+}
+
+fun XmlTag.select(namespace: String, localName: String): Sequence<XmlTag> {
+    return walkTree().filterIsInstance<XmlTag>().filter { it.namespace == namespace && it.localName == localName }
 }

@@ -15,11 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
 object MarkLogicIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, MarkLogicIcons::class.java)
+
+    object Markers {
+        val Dispatch: Icon = AllIcons.General.Web
+    }
 
     object JavaScript {
         val RunConfiguration: Icon = getIcon("/icons/js/runConfiguration.svg")
