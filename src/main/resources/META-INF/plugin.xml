@@ -25,6 +25,7 @@
       <li>Profile BaseX, MarkLogic, and Saxon XQuery and XSLT.</li>
       <li>Log viewer for BaseX and MarkLogic.</li>
       <li>Built-in namespace and function support for BaseX, eXist-db, MarkLogic, and Saxon.</li>
+      <li>Support for MarkLogic rewriter XML files.</li>
     </ol>
     <p>XPath and XSLT:</p>
     <ol>
@@ -58,6 +59,7 @@
     <ol>
       <li>Use the regular expression language for <code>matches</code> attributes.</li>
       <li>Add code completion for <code>match-method</code> elements.</li>
+      <li>Support resolving `dispatch` elements to the XQuery/SJS file they reference.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

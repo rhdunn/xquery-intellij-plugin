@@ -34,6 +34,10 @@ For those XQuery implementations, this plugin supports:
 1.  Profiling XQuery and XSLT queries;
 1.  Viewing access and error log files.
 
+This plugin provides additional integration support for the following query
+processor file types:
+1.  MarkLogic rewriter XML files.
+
 ### IntelliJ Integration
 
 This plugin provides support for the following IntelliJ features:

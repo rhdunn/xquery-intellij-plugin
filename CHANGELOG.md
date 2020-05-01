@@ -6,6 +6,7 @@ MarkLogic Rewriter XML Integration:
 
 1.  Use the regular expression language for `matches` attributes.
 1.  Add code completion for `match-method` elements.
+1.  Support resolving `dispatch` elements to the XQuery/SJS file they reference.
 
 Run Configurations:
 

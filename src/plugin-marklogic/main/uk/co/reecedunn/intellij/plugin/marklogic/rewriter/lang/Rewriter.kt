@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang
 
 object Rewriter {
-    val NAMESPACES = mapOf(
-        "rw" to "http://marklogic.com/xdmp/rewriter"
-    )
+    const val NAMESPACE = "http://marklogic.com/xdmp/rewriter"
+
+    val NAMESPACES = mapOf("rw" to NAMESPACE)
 }
