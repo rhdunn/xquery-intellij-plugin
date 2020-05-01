@@ -57,6 +57,7 @@
     <p>MarkLogic Rewriter XML Integration:</p>
     <ol>
       <li>Use the regular expression language for <code>matches</code> attributes.</li>
+      <li>Add code completion for <code>match-method</code> elements.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

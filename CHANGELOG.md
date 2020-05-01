@@ -5,6 +5,7 @@
 MarkLogic Rewriter XML Integration:
 
 1.  Use the regular expression language for `matches` attributes.
+1.  Add code completion for `match-method` elements.
 
 Run Configurations:
 
