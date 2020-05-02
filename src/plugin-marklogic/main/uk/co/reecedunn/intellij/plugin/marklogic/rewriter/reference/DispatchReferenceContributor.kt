@@ -29,7 +29,11 @@ class DispatchReferenceContributor : PsiReferenceContributor() {
 
         registrar.registerReferenceProvider(dispatch, object : PsiReferenceProvider() {
             override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
-                return arrayOf(DispatchReference(element as XmlTag))
+                val dispatchTag = element as XmlTag
+                return when {
+                    dispatchTag.value.text.isBlank() -> arrayOf()
+                    else -> arrayOf(DispatchReference(dispatchTag))
+                }
             }
         })
     }
