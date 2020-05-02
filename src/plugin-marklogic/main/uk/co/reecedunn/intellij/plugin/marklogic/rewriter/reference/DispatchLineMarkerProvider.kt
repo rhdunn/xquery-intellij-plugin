@@ -24,10 +24,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.core.xml.select
+import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
@@ -46,7 +45,7 @@ class DispatchLineMarkerProvider : LineMarkerProvider {
     private fun getDispatchElements(element: XQueryQueryBody): List<XmlTag> {
         val elements = ArrayList<XmlTag>()
         getRewriterFiles(element.project) { root ->
-            root.select(Rewriter.NAMESPACE, "dispatch")
+            root.descendants(Rewriter.NAMESPACE, "dispatch")
                 .filter { DispatchReference(it).resolve() === element }
                 .forEach { elements.add(it) }
         }
