@@ -31,13 +31,16 @@ object DispatchLineMarkerCellRenderer : PsiElementListCellRenderer<XmlTag>() {
         val matchMethod = element.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()
             ?.getAttributeValue("any-of")
         val matchPath = element.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()
-            ?.getAttributeValue("matches")
 
         if (matchPath != null) {
+            val matches = matchPath.getAttributeValue("matches")
+            val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
+            val pathName = matches ?: anyOf ?: return element.localName
+
             if (matchMethod != null) {
-                return "[$matchMethod] $matchPath"
+                return "[$matchMethod] $pathName"
             }
-            return matchPath
+            return pathName
         }
         return element.localName
     }
