@@ -15,15 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion
 
+import com.intellij.codeInsight.completion.CompletionContributor
+import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.xml.XmlFile
-import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 
-class RewriterCompletionContributor : CompletionContributorEx() {
+class RewriterCompletionContributor : CompletionContributor() {
     @Suppress("PropertyName")
     val Xml = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XmlFile::class.java))
 
     init {
-        builder(Xml).withFilter(MethodValueTypeFilter).addCompletions(MethodValueTypeProvider)
+        extend(CompletionType.BASIC, Xml, MethodValueTypeProvider)
     }
 }

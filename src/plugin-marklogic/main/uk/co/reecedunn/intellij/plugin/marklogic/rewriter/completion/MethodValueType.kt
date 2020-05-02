@@ -15,25 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion
 
+import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
-import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.eqname
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
 
-object MethodValueTypeFilter : CompletionFilter {
-    override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
-        val attribute = element.toXmlAttributeValue()?.attribute ?: return false
-        return attribute.localName == "any-of" && attribute.parent.eqname(Rewriter.NAMESPACES) == "rw:match-method"
-    }
-}
-
-object MethodValueTypeProvider : CompletionProviderEx {
+object MethodValueTypeProvider : CompletionProvider<CompletionParameters>() {
     private val METHOD_VALUE_TYPES = listOf(
         XPathKeywordLookup("ACL"),
         XPathKeywordLookup("CONNECT"),
@@ -56,7 +49,18 @@ object MethodValueTypeProvider : CompletionProviderEx {
         XPathKeywordLookup("UNLOCK")
     )
 
-    override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
+    private fun accepts(element: PsiElement): Boolean {
+        val attribute = element.toXmlAttributeValue()?.attribute ?: return false
+        return attribute.localName == "any-of" && attribute.parent.eqname(Rewriter.NAMESPACES) == "rw:match-method"
+    }
+
+    override fun addCompletions(
+        parameters: CompletionParameters,
+        context: ProcessingContext,
+        result: CompletionResultSet
+    ) {
+        if (!accepts(parameters.position)) return
+
         result.addAllElements(METHOD_VALUE_TYPES)
     }
 }
