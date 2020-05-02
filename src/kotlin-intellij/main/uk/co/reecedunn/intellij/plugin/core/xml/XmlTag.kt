@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.xml
 
-import com.intellij.psi.PsiElement
-import com.intellij.psi.util.PsiTreeUtil
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlAttributeValue
-import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-
-fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
-    // Case #1: The file is an XML file.
-    if (this is XmlAttributeValue) return this
-    // Case #2: The file is an injected language file.
-    return PsiTreeUtil.getContextOfType(this, XmlAttributeValue::class.java)
-}
-
-val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
-
-fun XmlAttribute.eqname(namespaces: Map<String, String>): String {
-    val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
-    return "${prefix.key}:$localName"
-}
 
 fun XmlTag.eqname(namespaces: Map<String, String>): String {
     val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
