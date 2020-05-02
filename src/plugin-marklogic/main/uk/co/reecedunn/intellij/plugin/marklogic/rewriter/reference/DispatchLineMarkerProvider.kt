@@ -38,6 +38,7 @@ class DispatchLineMarkerProvider : LineMarkerProvider {
             NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Dispatch)
                 .setTargets(it)
                 .setTooltipText(PluginApiBundle.message("line-marker.rewriter-dispatch.tooltip-text"))
+                .setCellRenderer(DispatchLineMarkerCellRenderer)
                 .createLineMarkerInfo(element)
         }
     }

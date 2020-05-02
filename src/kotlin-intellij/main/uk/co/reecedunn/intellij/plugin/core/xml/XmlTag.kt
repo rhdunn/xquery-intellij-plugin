@@ -23,6 +23,16 @@ fun XmlTag.eqname(namespaces: Map<String, String>): String {
     return "${prefix.key}:$localName"
 }
 
+// region XPath Selectors
+
+fun XmlTag.ancestors(namespace: String, localName: String): Sequence<XmlTag> {
+    return generateSequence(parentTag) { it.parentTag }.filter {
+        it.namespace == namespace && it.localName == localName
+    }
+}
+
 fun XmlTag.descendants(namespace: String, localName: String): Sequence<XmlTag> {
     return walkTree().filterIsInstance<XmlTag>().filter { it.namespace == namespace && it.localName == localName }
 }
+
+// endregion
