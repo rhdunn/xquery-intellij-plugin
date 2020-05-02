@@ -35,7 +35,8 @@ object DispatchLineMarkerCellRenderer : PsiElementListCellRenderer<XmlTag>() {
         if (matchPath != null) {
             val matches = matchPath.getAttributeValue("matches")
             val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
-            val pathName = matches ?: anyOf ?: return element.localName
+            val prefix = matchPath.getAttributeValue("prefix")
+            val pathName = matches ?: anyOf ?: prefix ?: return element.localName
 
             if (matchMethod != null) {
                 return "[$matchMethod] $pathName"
