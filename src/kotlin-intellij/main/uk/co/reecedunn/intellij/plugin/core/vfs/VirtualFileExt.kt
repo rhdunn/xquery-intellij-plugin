@@ -22,10 +22,7 @@ import com.intellij.psi.PsiManager
 import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 
-@Suppress("UNCHECKED_CAST")
-fun <File : PsiFile> VirtualFile.toPsiFile(project: Project): File? {
-    return PsiManager.getInstance(project).findFile(this) as File?
-}
+fun VirtualFile.toPsiFile(project: Project): PsiFile? = PsiManager.getInstance(project).findFile(this)
 
 fun VirtualFile.decode(): String? = inputStream?.decode(charset)
 

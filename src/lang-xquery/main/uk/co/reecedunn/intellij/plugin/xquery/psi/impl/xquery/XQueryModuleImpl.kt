@@ -75,7 +75,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
                 var context = product?.implementation?.staticContext(product, productVersion, xquery)
                 if (context == null) context = defaultStaticContext(xquery)
 
-                val file = context?.let { StaticContextDefinitions.resolve(it)?.toPsiFile<XQueryModule>(project) }
+                val file = context?.let { StaticContextDefinitions.resolve(it)?.toPsiFile(project) as? XQueryModule }
                 val module = file?.children()?.filterIsInstance<XQueryMainModule>()?.firstOrNull()
                 staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             }

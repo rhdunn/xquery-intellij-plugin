@@ -63,7 +63,7 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
     fun parseXml(resource: String): XmlFile {
         if (resource.endsWith(".xsl")) {
             val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-            return file.toPsiFile(myProject)!!
+            return file.toPsiFile(myProject) as XmlFile
         }
         return super.parseText(resource)
     }

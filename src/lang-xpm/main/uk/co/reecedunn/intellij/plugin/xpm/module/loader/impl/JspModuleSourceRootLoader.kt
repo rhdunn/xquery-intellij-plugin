@@ -55,9 +55,9 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
             is XpmModuleLocationPath -> {
                 if (rootType === JavaSourceRootType.SOURCE || rootType === context.getSourceRootType(path.project)) {
                     if (path.isResource == null) // BaseX reverse domain name module path
-                        findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile<PsiFile>(path.project)
+                        findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile(path.project)
                     else
-                        findFileByPath(path.project, path.path, null)?.toPsiFile<PsiFile>(path.project)
+                        findFileByPath(path.project, path.path, null)?.toPsiFile(path.project)
                 } else
                     null
             }

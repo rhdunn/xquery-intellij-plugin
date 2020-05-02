@@ -73,7 +73,7 @@ import java.math.BigInteger
 private class XQueryPsiTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
+        return file.toPsiFile(myProject) as XQueryModule
     }
 
     override fun registerModules(manager: MockModuleManager) {

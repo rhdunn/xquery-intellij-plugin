@@ -225,7 +225,7 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File {
-        return createVirtualFile("testcase.xqy", text).toPsiFile(myProject)!!
+        return createVirtualFile("testcase.xqy", text).toPsiFile(myProject) as File
     }
 
     protected inline fun <reified T> parse(xquery: String): List<T> {

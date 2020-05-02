@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 private class XPathParserTest : ParserTestCase() {
     fun parseResource(resource: String): XPath {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
+        return file.toPsiFile(myProject) as XPath
     }
 
     fun loadResource(resource: String): String? {

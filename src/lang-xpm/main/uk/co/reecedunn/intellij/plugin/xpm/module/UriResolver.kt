@@ -29,6 +29,9 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(project: Project): T? {
     val path = data
     return STATIC_IMPORT_RESOLVERS
         .filter { resolver -> resolver.match(path) }
-        .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(project) }
+        .map { resolver ->
+            @Suppress("UNCHECKED_CAST")
+            resolver.resolve(path)?.toPsiFile(project) as? T?
+        }
         .filterNotNull().firstOrNull()
 }

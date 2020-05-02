@@ -103,7 +103,7 @@ data class EXPathPackage internal constructor(
                         else -> false
                     }
                 }
-                component?.let { load(it)?.toPsiFile<PsiFile>(context.project) }
+                component?.let { load(it)?.toPsiFile(context.project) }
             }
             else -> null
         }
