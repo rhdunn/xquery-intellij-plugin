@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class DispatchLineMarkerProvider : LineMarkerProvider {
+class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XQueryQueryBody) return null
 
