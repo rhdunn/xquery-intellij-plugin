@@ -32,7 +32,7 @@ class DispatchReferenceContributor : PsiReferenceContributor() {
                 val dispatchTag = element as XmlTag
                 return when {
                     dispatchTag.value.text.isBlank() -> arrayOf()
-                    else -> arrayOf(DispatchReference(dispatchTag))
+                    else -> arrayOf(ModuleUriElementReference(dispatchTag))
                 }
             }
         })

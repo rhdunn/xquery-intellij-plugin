@@ -47,7 +47,7 @@ class DispatchLineMarkerProvider : LineMarkerProvider {
         val elements = ArrayList<XmlTag>()
         getRewriterFiles(element.project) { root ->
             root.descendants(Rewriter.NAMESPACE, "dispatch")
-                .filter { DispatchReference(it).resolve() === element }
+                .filter { ModuleUriElementReference(it).resolve() === element }
                 .forEach { elements.add(it) }
         }
         return elements

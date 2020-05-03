@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class DispatchReference(element: XmlTag) : PsiReferenceBase<XmlTag>(element) {
+class ModuleUriElementReference(element: XmlTag) : PsiReferenceBase<XmlTag>(element) {
     private val uri: XsAnyUriValue by lazy {
         XsAnyUri(element.value.text, XdmUriContext.Location, arrayOf(XdmModuleType.XQuery))
     }
