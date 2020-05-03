@@ -19,7 +19,7 @@ import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.*
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 
-class DispatchReferenceContributor : PsiReferenceContributor() {
+class ModuleUriElementReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         val dispatch = XmlPatterns.xmlTag()
             .withNamespace(Rewriter.NAMESPACE).withLocalName("dispatch")
