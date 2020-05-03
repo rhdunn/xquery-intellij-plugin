@@ -35,7 +35,7 @@ class DispatchLineMarkerProvider : LineMarkerProvider {
         if (element !is XQueryQueryBody) return null
 
         return getDispatchElements(element).takeIf { it.isNotEmpty() }?.let {
-            NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Dispatch)
+            NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
                 .setTargets(it)
                 .setTooltipText(PluginApiBundle.message("line-marker.rewriter-dispatch.tooltip-text"))
                 .setCellRenderer(ModuleUriElementListCellRenderer)

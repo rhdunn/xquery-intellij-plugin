@@ -46,7 +46,7 @@ object ModuleUriElementListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
         return element.localName
     }
 
-    override fun getIcon(element: PsiElement?): Icon = MarkLogicIcons.Markers.Dispatch
+    override fun getIcon(element: PsiElement?): Icon = MarkLogicIcons.Markers.Endpoint
 
     override fun getIconFlags(): Int = 0
 }
