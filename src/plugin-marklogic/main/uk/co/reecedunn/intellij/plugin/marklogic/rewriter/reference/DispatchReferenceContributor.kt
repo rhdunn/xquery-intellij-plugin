@@ -17,8 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
 import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.*
-import com.intellij.psi.xml.XmlTag
-import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 
 class DispatchReferenceContributor : PsiReferenceContributor() {
@@ -27,14 +25,6 @@ class DispatchReferenceContributor : PsiReferenceContributor() {
             .withNamespace(Rewriter.NAMESPACE).withLocalName("dispatch")
             .withoutAttributeValue("xdbc", "true")
 
-        registrar.registerReferenceProvider(dispatch, object : PsiReferenceProvider() {
-            override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
-                val dispatchTag = element as XmlTag
-                return when {
-                    dispatchTag.value.text.isBlank() -> arrayOf()
-                    else -> arrayOf(ModuleUriElementReference(dispatchTag))
-                }
-            }
-        })
+        registrar.registerReferenceProvider(dispatch, ModuleUriElementReference)
     }
 }

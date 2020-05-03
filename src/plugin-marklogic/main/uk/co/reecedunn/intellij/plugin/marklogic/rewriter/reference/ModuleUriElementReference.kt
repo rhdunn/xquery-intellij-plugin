@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
 import com.intellij.psi.*
 import com.intellij.psi.xml.XmlTag
+import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
@@ -40,4 +41,14 @@ class ModuleUriElementReference(element: XmlTag) : PsiReferenceBase<XmlTag>(elem
     }
 
     override fun getVariants(): Array<Any> = arrayOf()
+
+    companion object : PsiReferenceProvider() {
+        override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
+            val tag = element as XmlTag
+            return when {
+                tag.value.text.isBlank() -> arrayOf()
+                else -> arrayOf(ModuleUriElementReference(tag))
+            }
+        }
+    }
 }
