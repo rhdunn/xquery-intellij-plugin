@@ -35,14 +35,17 @@ class RewriterCompletionContributor : CompletionContributor() {
         if (element.namespace != Rewriter.NAMESPACE) return
 
         when (attribute.localName) {
+            "all-of" -> when (element.localName) {
+                "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
+            }
             "any-of" -> when (element.localName) {
                 "match-accept" -> result.addAllElements(MIMETYPE)
                 "match-content-type" -> result.addAllElements(MIMETYPE)
                 "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
                 "match-method" -> result.addAllElements(HTTP_METHOD)
             }
-            "all-of" -> when (element.localName) {
-                "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
+            "name" -> when (element.localName) {
+                "match-header" -> result.addAllElements(HTTP_HEADER)
             }
         }
     }
@@ -56,6 +59,10 @@ class RewriterCompletionContributor : CompletionContributor() {
 
         private val EXECUTE_PRIVILEGE: List<LookupElement> by lazy {
             completionList("code-completion/execute-privilege.lst")
+        }
+
+        private val HTTP_HEADER: List<LookupElement> by lazy {
+            completionList("code-completion/http-header.lst")
         }
 
         private val HTTP_METHOD: List<LookupElement> by lazy {

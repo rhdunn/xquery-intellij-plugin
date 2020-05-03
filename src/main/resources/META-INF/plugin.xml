@@ -60,7 +60,7 @@
       <li>Use the regular expression language for <code>matches</code> attributes.</li>
       <li>
         Add code completion for <code>match-accept</code>, <code>match-content-type</code>,
-        <code>match-execute-privilege</code>, and <code>match-method</code> elements.
+        <code>match-execute-privilege</code>, <code>match-header</code>, and <code>match-method</code> elements.
       </li>
       <li>Support resolving <code>dispatch</code> elements to the XQuery/MJS/SJS file they reference.</li>
       <li>Add a line marker to XQuery files referenced in a rewriter file.</li>
