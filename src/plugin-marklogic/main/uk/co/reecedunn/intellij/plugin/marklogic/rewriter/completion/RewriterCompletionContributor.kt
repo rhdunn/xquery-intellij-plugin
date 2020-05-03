@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.lang.Language
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
@@ -32,20 +34,16 @@ class RewriterCompletionContributor : CompletionContributor() {
         val element = attribute.parent
         if (element.namespace != Rewriter.NAMESPACE) return
 
-        when {
-            acceptsHttpMethod(attribute, element) -> result.addAllElements(HTTP_METHOD)
+        when (attribute.localName) {
+            "any-of" -> when (element.localName) {
+                "match-accept" -> result.addAllElements(MIMETYPE)
+                "match-content-type" -> result.addAllElements(MIMETYPE)
+                "match-method" -> result.addAllElements(HTTP_METHOD)
+            }
         }
     }
 
-    private fun acceptsHttpMethod(attribute: XmlAttribute, element: XmlTag): Boolean {
-        return attribute.localName == ANY_OF && element.localName == MATCH_METHOD
-    }
-
     companion object {
-        const val MATCH_METHOD = "match-method"
-
-        const val ANY_OF = "any-of"
-
         private val HTTP_METHOD = listOf(
             LookupElementBuilder.create("ACL"),
             LookupElementBuilder.create("CONNECT"),
@@ -67,5 +65,29 @@ class RewriterCompletionContributor : CompletionContributor() {
             LookupElementBuilder.create("TRACE"),
             LookupElementBuilder.create("UNLOCK")
         )
+
+        private val MIMETYPE: List<LookupElement> by lazy {
+            val mimetypes = HashSet<String>()
+
+            Language.getRegisteredLanguages().forEach { language ->
+                mimetypes.addAll(language.mimeTypes)
+
+                mimetypes.add("application/rdf+json")
+                mimetypes.add("application/rdf+xml")
+                mimetypes.add("application/sparql-query")
+                mimetypes.add("application/sparql-update")
+                mimetypes.add("application/sql")
+                mimetypes.add("application/trig")
+                mimetypes.add("application/xslt+xml")
+
+                mimetypes.add("text/csv")
+                mimetypes.add("text/n-quads")
+                mimetypes.add("text/n-triples")
+                mimetypes.add("text/n3")
+                mimetypes.add("text/turtle")
+            }
+
+            mimetypes.map { LookupElementBuilder.create(it) }
+        }
     }
 }

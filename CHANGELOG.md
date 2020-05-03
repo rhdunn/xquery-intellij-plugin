@@ -5,9 +5,10 @@
 MarkLogic Rewriter XML Integration:
 
 1.  Use the regular expression language for `matches` attributes.
-1.  Add code completion for `match-method` elements.
-1.  Support resolving `dispatch` elements to the XQuery/SJS file they reference.
-1.  Add a line marker to query files referenced in a rewriter file.
+1.  Add code completion for `match-accept`, `match-content-type`, and
+    `match-method` elements.
+1.  Support resolving `dispatch` elements to the XQuery/MJS/SJS file they reference.
+1.  Add a line marker to XQuery files referenced in a rewriter file.
 
 Run Configurations:
 
