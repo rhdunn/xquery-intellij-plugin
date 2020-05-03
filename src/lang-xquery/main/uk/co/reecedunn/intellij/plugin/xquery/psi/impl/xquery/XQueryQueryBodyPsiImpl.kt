@@ -17,12 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
+import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 
-class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQueryBody, ItemPresentation {
+class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQueryBody, ItemPresentationEx {
     // region NavigationItem
 
     override fun getPresentation(): ItemPresentation? = this
@@ -34,7 +36,9 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQue
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = XQueryBundle.message("structure-view.query-body")
+    override fun getPresentableText(): String? = "$structurePresentableText [${containingFile.resourcePath()}]"
+
+    override val structurePresentableText: String? get() = XQueryBundle.message("structure-view.query-body")
 
     // endregion
     // region SortableTreeElement

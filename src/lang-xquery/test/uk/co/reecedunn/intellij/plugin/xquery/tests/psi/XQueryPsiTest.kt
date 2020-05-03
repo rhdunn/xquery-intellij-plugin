@@ -4242,10 +4242,11 @@ private class XQueryPsiTest : ParserTestCase() {
         fun queryBody() {
             val decl = parse<XQueryQueryBody>("1 div 2")[0]
 
-            val presentation = decl.presentation!!
+            val presentation = decl.presentation!! as ItemPresentationEx
             assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
             assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
-            assertThat(presentation.presentableText, `is`("query body"))
+            assertThat(presentation.structurePresentableText, `is`("query body"))
+            assertThat(presentation.presentableText, startsWith("query body ["))
             assertThat(presentation.locationString, `is`(nullValue()))
         }
     }
