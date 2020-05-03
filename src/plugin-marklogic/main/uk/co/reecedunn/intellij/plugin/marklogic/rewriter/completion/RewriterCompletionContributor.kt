@@ -16,15 +16,56 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion
 
 import com.intellij.codeInsight.completion.CompletionContributor
-import com.intellij.codeInsight.completion.CompletionType
-import com.intellij.patterns.PlatformPatterns
-import com.intellij.psi.xml.XmlFile
+import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.xml.attribute
+import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 
 class RewriterCompletionContributor : CompletionContributor() {
-    @Suppress("PropertyName")
-    val Xml = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XmlFile::class.java))
+    override fun fillCompletionVariants(parameters: CompletionParameters, result: CompletionResultSet) {
+        val attribute = parameters.position.toXmlAttributeValue()?.attribute ?: return
 
-    init {
-        extend(CompletionType.BASIC, Xml, MethodValueTypeProvider)
+        val element = attribute.parent
+        if (element.namespace != Rewriter.NAMESPACE) return
+
+        when {
+            acceptsHttpMethod(attribute, element) -> result.addAllElements(HTTP_METHOD)
+        }
+    }
+
+    private fun acceptsHttpMethod(attribute: XmlAttribute, element: XmlTag): Boolean {
+        return attribute.localName == ANY_OF && element.localName == MATCH_METHOD
+    }
+
+    companion object {
+        const val MATCH_METHOD = "match-method"
+
+        const val ANY_OF = "any-of"
+
+        private val HTTP_METHOD = listOf(
+            LookupElementBuilder.create("ACL"),
+            LookupElementBuilder.create("CONNECT"),
+            LookupElementBuilder.create("COPY"),
+            LookupElementBuilder.create("DELETE"),
+            LookupElementBuilder.create("GET"),
+            LookupElementBuilder.create("HEAD"),
+            LookupElementBuilder.create("LOCK"),
+            LookupElementBuilder.create("MKCALENDAR"),
+            LookupElementBuilder.create("MKCOL"),
+            LookupElementBuilder.create("MOVE"),
+            LookupElementBuilder.create("OPTIONS"),
+            LookupElementBuilder.create("PATCH"),
+            LookupElementBuilder.create("POST"),
+            LookupElementBuilder.create("PROPFIND"),
+            LookupElementBuilder.create("PROPPATCH"),
+            LookupElementBuilder.create("PUT"),
+            LookupElementBuilder.create("REPORT"),
+            LookupElementBuilder.create("TRACE"),
+            LookupElementBuilder.create("UNLOCK")
+        )
     }
 }
