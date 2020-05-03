@@ -21,10 +21,12 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 
 class ModuleUriElementReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        val dispatch = XmlPatterns.xmlTag()
-            .withNamespace(Rewriter.NAMESPACE).withLocalName("dispatch")
-            .withoutAttributeValue("xdbc", "true")
+        val rewriter = XmlPatterns.xmlTag().withNamespace(Rewriter.NAMESPACE)
 
+        val dispatch = rewriter.withLocalName("dispatch").withoutAttributeValue("xdbc", "true")
         registrar.registerReferenceProvider(dispatch, ModuleUriElementReference)
+
+        val setPath = rewriter.withLocalName("set-path")
+        registrar.registerReferenceProvider(setPath, ModuleUriElementReference)
     }
 }
