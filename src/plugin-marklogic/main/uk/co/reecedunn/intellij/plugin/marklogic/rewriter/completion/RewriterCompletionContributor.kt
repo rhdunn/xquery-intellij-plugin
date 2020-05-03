@@ -58,27 +58,9 @@ class RewriterCompletionContributor : CompletionContributor() {
             completionList("code-completion/execute-privilege.lst")
         }
 
-        private val HTTP_METHOD = listOf(
-            LookupElementBuilder.create("ACL"),
-            LookupElementBuilder.create("CONNECT"),
-            LookupElementBuilder.create("COPY"),
-            LookupElementBuilder.create("DELETE"),
-            LookupElementBuilder.create("GET"),
-            LookupElementBuilder.create("HEAD"),
-            LookupElementBuilder.create("LOCK"),
-            LookupElementBuilder.create("MKCALENDAR"),
-            LookupElementBuilder.create("MKCOL"),
-            LookupElementBuilder.create("MOVE"),
-            LookupElementBuilder.create("OPTIONS"),
-            LookupElementBuilder.create("PATCH"),
-            LookupElementBuilder.create("POST"),
-            LookupElementBuilder.create("PROPFIND"),
-            LookupElementBuilder.create("PROPPATCH"),
-            LookupElementBuilder.create("PUT"),
-            LookupElementBuilder.create("REPORT"),
-            LookupElementBuilder.create("TRACE"),
-            LookupElementBuilder.create("UNLOCK")
-        )
+        private val HTTP_METHOD: List<LookupElement> by lazy {
+            completionList("code-completion/http-method.lst")
+        }
 
         private val MIMETYPE: List<LookupElement> by lazy {
             val mimetypes = HashSet<String>()

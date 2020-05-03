@@ -1,5 +1,8 @@
 # Code Completion Lists
 
 The `execute-privilege.lst` file is derived from
-https://docs.marklogic.com/guide/admin/exec_privs. It is used for the autocomplete
-functionality for `match-execute-privilege` rewriter XML elements.
+https://docs.marklogic.com/guide/admin/exec_privs. It is used for the
+autocomplete functionality for `match-execute-privilege` rewriter XML elements.
+
+The `http-method.lst` file is derived from the `MethodValueType` simple type
+definition in the `Config/rewriter.xsd` file in a MarkLogic installation.
