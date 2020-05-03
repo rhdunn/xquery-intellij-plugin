@@ -63,8 +63,8 @@
         <code>match-execute-privilege</code>, <code>match-header</code>, and <code>match-method</code> elements.
       </li>
       <li>
-        Support resolving <code>dispatch</code>, and <code>set-path</code> elements to the XQuery/MJS/SJS file
-        they reference.
+        Support resolving <code>dispatch</code>, <code>set-error-handler</code>, and <code>set-path</code>
+        elements to the XQuery/MJS/SJS file they reference.
       </li>
       <li>Add a line marker to XQuery files referenced in a rewriter file.</li>
     </ol>

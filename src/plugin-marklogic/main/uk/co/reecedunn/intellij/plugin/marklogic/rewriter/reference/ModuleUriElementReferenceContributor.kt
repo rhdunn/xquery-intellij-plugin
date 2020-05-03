@@ -28,5 +28,8 @@ class ModuleUriElementReferenceContributor : PsiReferenceContributor() {
 
         val setPath = rewriter.withLocalName("set-path")
         registrar.registerReferenceProvider(setPath, ModuleUriElementReference)
+
+        val setErrorHandler = rewriter.withLocalName("set-error-handler")
+        registrar.registerReferenceProvider(setErrorHandler, ModuleUriElementReference)
     }
 }
