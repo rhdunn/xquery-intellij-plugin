@@ -28,8 +28,3 @@ fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
 }
 
 val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
-
-fun XmlAttribute.eqname(namespaces: Map<String, String>): String {
-    val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
-    return "${prefix.key}:$localName"
-}

@@ -21,7 +21,7 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.eqname
+import uk.co.reecedunn.intellij.plugin.core.xml.self
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
@@ -51,7 +51,7 @@ object MethodValueTypeProvider : CompletionProvider<CompletionParameters>() {
 
     private fun accepts(element: PsiElement): Boolean {
         val attribute = element.toXmlAttributeValue()?.attribute ?: return false
-        return attribute.localName == "any-of" && attribute.parent.eqname(Rewriter.NAMESPACES) == "rw:match-method"
+        return attribute.localName == "any-of" && attribute.parent.self(Rewriter.NAMESPACE, "match-method") != null
     }
 
     override fun addCompletions(

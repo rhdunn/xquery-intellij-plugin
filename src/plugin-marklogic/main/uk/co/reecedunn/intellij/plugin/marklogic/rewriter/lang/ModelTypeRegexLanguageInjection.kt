@@ -23,7 +23,6 @@ import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 import org.intellij.lang.regexp.RegExpLanguage
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.eqname
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 
 class ModelTypeRegexLanguageInjection : MultiHostInjector {
@@ -44,11 +43,8 @@ class ModelTypeRegexLanguageInjection : MultiHostInjector {
     }
 
     private fun isModelTypeRegex(tag: XmlTag): Boolean {
-        return when (tag.eqname(Rewriter.NAMESPACES)) {
-            "rw:match-header" -> true
-            "rw:match-path" -> true
-            "rw:match-string" -> true
-            else -> false
-        }
+        return tag.namespace == Rewriter.NAMESPACE && MODEL_TYPE_LOCAL_NAMES.contains(tag.localName)
     }
+
+    private val MODEL_TYPE_LOCAL_NAMES = setOf("match-header", "match-path", "match-string")
 }

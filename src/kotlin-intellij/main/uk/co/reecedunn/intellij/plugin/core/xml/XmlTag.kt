@@ -18,12 +18,11 @@ package uk.co.reecedunn.intellij.plugin.core.xml
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
-fun XmlTag.eqname(namespaces: Map<String, String>): String {
-    val prefix = namespaces.entries.find { (_, value) -> value == namespace } ?: return "Q{$namespace}$localName"
-    return "${prefix.key}:$localName"
-}
-
 // region XPath Selectors
+
+fun XmlTag?.self(namespace: String, localName: String): XmlTag? {
+    return takeIf { it?.namespace == namespace && it.localName == localName }
+}
 
 fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> {
     return filter { it.namespace == namespace && it.localName == localName }
