@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import javax.swing.Icon
 
-object DispatchLineMarkerCellRenderer : PsiElementListCellRenderer<XmlTag>() {
+object ModuleUriElementListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
     override fun getContainerText(element: XmlTag, name: String?): String? = element.containingFile.resourcePath()
 
     override fun getElementText(element: XmlTag): String {
