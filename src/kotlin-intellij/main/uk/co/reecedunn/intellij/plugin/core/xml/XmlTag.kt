@@ -18,21 +18,44 @@ package uk.co.reecedunn.intellij.plugin.core.xml
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
-// region XPath Selectors
+// region XPath Selectors :: self
 
 fun XmlTag?.self(namespace: String, localName: String): XmlTag? {
     return takeIf { it?.namespace == namespace && it.localName == localName }
+}
+
+fun XmlTag?.self(namespace: String, localName: Set<String>): XmlTag? {
+    return takeIf { it?.namespace == namespace && localName.contains(it.localName) }
 }
 
 fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> {
     return filter { it.namespace == namespace && it.localName == localName }
 }
 
+fun Sequence<XmlTag>.self(namespace: String, localName: Set<String>): Sequence<XmlTag> {
+    return filter { it.namespace == namespace && localName.contains(it.localName) }
+}
+
+// endregion
+// region XPath Selectors :: ancestor
+
 fun XmlTag.ancestors(namespace: String, localName: String): Sequence<XmlTag> {
     return generateSequence(parentTag) { it.parentTag }.self(namespace, localName)
 }
 
+@Suppress("unused")
+fun XmlTag.ancestors(namespace: String, localName: Set<String>): Sequence<XmlTag> {
+    return generateSequence(parentTag) { it.parentTag }.self(namespace, localName)
+}
+
+// endregion
+// region XPath Selectors :: descendant
+
 fun XmlTag.descendants(namespace: String, localName: String): Sequence<XmlTag> {
+    return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
+}
+
+fun XmlTag.descendants(namespace: String, localName: Set<String>): Sequence<XmlTag> {
     return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
 }
 

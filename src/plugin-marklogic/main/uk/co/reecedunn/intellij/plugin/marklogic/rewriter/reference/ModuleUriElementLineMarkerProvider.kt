@@ -34,19 +34,19 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XQueryQueryBody) return null
 
-        return getDispatchElements(element).takeIf { it.isNotEmpty() }?.let {
+        return getModuleUriElements(element).takeIf { it.isNotEmpty() }?.let {
             NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
                 .setTargets(it)
-                .setTooltipText(PluginApiBundle.message("line-marker.rewriter-dispatch.tooltip-text"))
+                .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
                 .setCellRenderer(ModuleUriElementListCellRenderer)
                 .createLineMarkerInfo(element)
         }
     }
 
-    private fun getDispatchElements(element: XQueryQueryBody): List<XmlTag> {
+    private fun getModuleUriElements(element: XQueryQueryBody): List<XmlTag> {
         val elements = ArrayList<XmlTag>()
         getRewriterFiles(element.project) { root ->
-            root.descendants(Rewriter.NAMESPACE, "dispatch")
+            root.descendants(Rewriter.NAMESPACE, MODULE_URI_ELEMENTS)
                 .filter { ModuleUriElementReference(it).resolve() === element }
                 .forEach { elements.add(it) }
         }
@@ -62,5 +62,9 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
             }
             true
         }
+    }
+
+    companion object {
+        private val MODULE_URI_ELEMENTS = setOf("dispatch", "set-error-handler", "set-path")
     }
 }
