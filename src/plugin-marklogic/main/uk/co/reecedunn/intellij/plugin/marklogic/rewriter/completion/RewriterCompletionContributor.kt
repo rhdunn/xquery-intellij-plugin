@@ -21,8 +21,8 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.lang.Language
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
@@ -38,12 +38,26 @@ class RewriterCompletionContributor : CompletionContributor() {
             "any-of" -> when (element.localName) {
                 "match-accept" -> result.addAllElements(MIMETYPE)
                 "match-content-type" -> result.addAllElements(MIMETYPE)
+                "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
                 "match-method" -> result.addAllElements(HTTP_METHOD)
+            }
+            "all-of" -> when (element.localName) {
+                "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
             }
         }
     }
 
     companion object {
+        private fun completionList(filename: String): List<LookupElement> {
+            return ResourceVirtualFile.create(this::class.java.classLoader, filename).decode()!!.lineSequence()
+                .map { LookupElementBuilder.create(it) }
+                .toList()
+        }
+
+        private val EXECUTE_PRIVILEGE: List<LookupElement> by lazy {
+            completionList("code-completion/execute-privilege.lst")
+        }
+
         private val HTTP_METHOD = listOf(
             LookupElementBuilder.create("ACL"),
             LookupElementBuilder.create("CONNECT"),
