@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
-import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
@@ -45,9 +44,8 @@ object SaxonS9API : QueryProcessorApi {
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
-        val debug = executorId == DefaultDebugExecutor.EXECUTOR_ID
         return when (language) {
-            XQuery, XSLT -> run || profile || debug
+            XQuery, XSLT -> run || profile
             XPath -> run
             else -> false
         }
