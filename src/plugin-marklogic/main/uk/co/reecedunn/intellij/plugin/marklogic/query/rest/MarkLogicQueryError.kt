@@ -31,11 +31,15 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
     val doc = XmlDocument.parse(this, ERROR_NAMESPACES)
     val code = doc.root.children("error:code").first().text()!!
     val name = doc.root.children("error:name").firstOrNull()?.text() ?: "err:FOER0000"
-    val message = doc.root.children("error:message").first().text()!!
+    val message = doc.root.children("error:message").first().text()
+    val formatString = doc.root.children("error:format-string").first().text()?.let {
+        val value = if (it.startsWith("$code: ")) it.substringAfter(": ") else it
+        if (value.startsWith("($name) ")) value.substringAfter(") ") else value
+    }
     return QueryError(
         standardCode = name.replace("^err:".toRegex(), ""),
         vendorCode = if (code == message) null else code,
-        description = message,
+        description = message ?: formatString,
         value = doc.root.children("error:data").children("error:datum").map { it.text()!! }.toList(),
         frames = doc.root.children("error:stack").children("error:frame").map {
             MarkLogicErrorFrame(it, queryFile)

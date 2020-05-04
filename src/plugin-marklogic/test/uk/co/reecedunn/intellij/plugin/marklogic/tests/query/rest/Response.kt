@@ -214,6 +214,7 @@ class Response : PlatformLiteFixture() {
             "  <error:code>XDMP-DIVBYZERO</error:code>",
             "  <error:name>err:FOAR0001</error:name>",
             "  <error:message>Division by zero</error:message>",
+            "  <error:format-string>XDMP-DIVBYZERO: (err:FOAR0001) Division by zero</error:format-string>",
             "  <error:data/>",
             "  <error:stack>",
             "    <error:frame><error:line>23</error:line><error:column>2</error:column></error:frame>",

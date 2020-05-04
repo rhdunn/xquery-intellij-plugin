@@ -51,6 +51,7 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
                 <error:code>XDMP-UNEXPECTED</error:code>
                 <error:name>err:XPST0003</error:name>
                 <error:message>Unexpected token</error:message>
+                <error:format-string>XDMP-UNEXPECTED: (err:XPST0003) Unexpected token</error:format-string>
                 <error:data/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>5</error:column></error:frame>
@@ -76,6 +77,7 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
                 <error:code>XDMP-XQUERYVERSIONSWITCH</error:code>
                 <error:name>err:FOER0000</error:name>
                 <error:message>All modules in a module sequence must use the same XQuery version</error:message>
+                <error:format-string>XDMP-XQUERYVERSIONSWITCH: (err:FOER0000) All modules in a module sequence must use the same XQuery version</error:format-string>
                 <error:data/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>52</error:column></error:frame>
@@ -101,6 +103,7 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
                 <error:code>An error message</error:code>
                 <error:name>err:FOER0000</error:name>
                 <error:message>An error message</error:message>
+                <error:format-string>(err:FOAR0001) Division by zero</error:format-string>
                 <error:data/>
                 <error:stack>
                     <error:frame><error:line>1</error:line><error:column>5</error:column></error:frame>
