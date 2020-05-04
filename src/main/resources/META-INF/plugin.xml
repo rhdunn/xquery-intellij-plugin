@@ -14,9 +14,9 @@
 
   <description><![CDATA[
     <p>
-      XQuery and XPath language support, including all BaseX, MarkLogic,
-      and Saxon vendor extensions, and the W3C Full Text, Update Facility,
-      and Scripting Extensions specifications.
+      XQuery 1.0-3.1, XPath 2.0-3.1, and XSLT 3.0 language support with BaseX,
+      MarkLogic, Saxon, and W3C extensions; run and profile queries; log viewer;
+      and more.
     </p>
     <p>&#xA0;</p>
     <p>Query processor integration:</p>
@@ -54,7 +54,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.7:</h3>
+    <h3>Release 1.6.2:</h3>
     <p>MarkLogic Rewriter XML Integration:</p>
     <ol>
       <li>Use the regular expression language for <code>matches</code> attributes.</li>

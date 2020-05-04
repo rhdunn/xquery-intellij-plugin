@@ -2,23 +2,9 @@
 
 ## 1.7 - (In Development)
 
-MarkLogic Rewriter XML Integration:
-
-1.  Use the regular expression language for `matches` attributes.
-1.  Add code completion for `match-accept`, `match-content-type`,
-    `match-execute-privilege`, `match-header`, and `match-method` elements.
-1.  Support resolving `dispatch`, `set-error-handler`, and `set-path`
-    elements to the XQuery/MJS/SJS file they reference.
-1.  Add a line marker to XQuery files referenced in a rewriter file.
-
-Run Configurations:
-
-1.  Support stopping Saxon queries.
-1.  Fix running/profiling update queries on MarkLogic 10.
-1.  Fix using BaseX in a language other than English.
-
 ## 2020
 
+*  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)
 *  [1.6.1 - 2020-04-09](docs/_posts/2020-04-09-release-1.6.1.md)
 *  [1.6 - 2020-03-21](docs/_posts/2020-03-21-release-1.6.md)
 
