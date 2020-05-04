@@ -326,7 +326,10 @@ declare function local:function-html-parameters($function as element(apidoc:func
             return
                 <tr valign="top">
                     <td width="20%">${$name}</td>
-                    <td width="80%">{$summary/node()}</td>
+                    <td width="80%">{
+                        for $child in $summary/node()
+                        return local:documentation-html($child)
+                    }</td>
                 </tr>
         }</table>
     else ()
