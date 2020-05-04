@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
+import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
@@ -51,9 +52,10 @@ object MarkLogicRest : QueryProcessorApi {
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
+        val debug = executorId == DefaultDebugExecutor.EXECUTOR_ID
         return when (language) {
             ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL -> run
-            XQuery -> run || profile
+            XQuery -> run || profile || debug
             XSLT -> run || profile
             else -> false
         }
