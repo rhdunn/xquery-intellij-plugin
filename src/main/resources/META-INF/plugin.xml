@@ -54,26 +54,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.6.2:</h3>
-    <p>MarkLogic Rewriter XML Integration:</p>
-    <ol>
-      <li>Use the regular expression language for <code>matches</code> attributes.</li>
-      <li>
-        Add code completion for <code>match-accept</code>, <code>match-content-type</code>,
-        <code>match-execute-privilege</code>, <code>match-header</code>, and <code>match-method</code> elements.
-      </li>
-      <li>
-        Support resolving <code>dispatch</code>, <code>set-error-handler</code>, and <code>set-path</code>
-        elements to the XQuery/MJS/SJS file they reference.
-      </li>
-      <li>Add a line marker to XQuery files referenced in a rewriter file.</li>
-    </ol>
-    <p>Run Configurations:</p>
-    <ol>
-      <li>Support stopping Saxon queries.</li>
-      <li>Fix running/profiling update queries on MarkLogic 10.</li>
-      <li>Fix using BaseX in a language other than English.</li>
-    </ol>
+    <h3>Release 1.7-dev:</h3>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
