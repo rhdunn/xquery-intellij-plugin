@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import java.io.File
+import java.io.IOException
 
 enum class XQDocDocumentationDownloadStatus(val label: String) {
     NotDownloaded(XQDocBundle.message("download-status.not-downloaded")),
@@ -46,7 +47,11 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
     fun download(source: XQDocDocumentationSource): Boolean {
         return tasks.backgroundable(XQDocBundle.message("documentation-source.download.title"), source) { indicator ->
             val file = File("$basePath/${source.path}")
-            HttpRequests.request(source.href).saveToFile(file, indicator)
+            try {
+                HttpRequests.request(source.href).saveToFile(file, indicator)
+            } catch (e: IOException) {
+                return@backgroundable
+            }
             (source as? XQDocDocumentationIndex)?.invalidate()
         }
     }
