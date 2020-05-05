@@ -119,4 +119,33 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
     }
+
+    @Test
+    @DisplayName("syntax error")
+    fun syntaxError() {
+        @Language("xml")
+        val exception = """
+            <error:error xmlns:error="http://marklogic.com/xdmp/error">
+                <error:code>XDMP-UNEXPECTED</error:code>
+                <error:name>err:XPST0003</error:name>
+                <error:message>Unexpected token</error:message>
+                <error:format-string>XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected ${'$'}end, expecting Function30_ or Percent_</error:format-string>
+                <error:data>
+                    <error:datum>syntax error, unexpected ${'$'}end, expecting Function30_ or Percent_</error:datum>
+                    <error:datum/>
+                </error:data>
+                <error:stack>
+                    <error:frame><error:line>1</error:line><error:column>5</error:column></error:frame>
+                </error:stack>
+            </error:error>
+        """
+
+        val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
+        assertThat(e.standardCode, `is`("XPST0003"))
+        assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
+        assertThat(e.description, `is`("Unexpected token"))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.line, `is`(0))
+        assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
+    }
 }

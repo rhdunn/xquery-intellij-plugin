@@ -40,7 +40,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
         standardCode = name.replace("^err:".toRegex(), ""),
         vendorCode = if (code == message) null else code,
         description = message ?: formatString,
-        value = doc.root.children("error:data").children("error:datum").map { it.text()!! }.toList(),
+        value = doc.root.children("error:data").children("error:datum").mapNotNull { it.text() }.toList(),
         frames = doc.root.children("error:stack").children("error:frame").map {
             MarkLogicErrorFrame(it, queryFile)
         }.toList()
