@@ -2,6 +2,11 @@
 
 ## 1.7 - (In Development)
 
+Run Configurations:
+
+1.  Fixed scrolling to an item in the results pane when the detected filetype
+    is plain text.
+
 ## 2020
 
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)

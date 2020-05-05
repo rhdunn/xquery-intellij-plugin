@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.codeInsight.actions.ReformatCodeProcessor
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.psi.PsiFile
 import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -74,6 +75,8 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
     }
 
     fun notifyQueryResultsPsiFile(psiFile: PsiFile) {
+        if (psiFile.language == PlainTextLanguage.INSTANCE) return
+
         queryResultListeners.forEach { it.onQueryResultsPsiFile(psiFile) }
         if (reformat) {
             val reformatter = ReformatCodeProcessor(psiFile, false)
