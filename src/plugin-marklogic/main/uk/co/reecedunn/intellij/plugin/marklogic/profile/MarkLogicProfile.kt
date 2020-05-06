@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.profile
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
@@ -48,7 +48,7 @@ fun String.toMarkLogicProfileReport(queryFile: VirtualFile): FlatProfileReport {
         created = metadata.children("prof:created").first().text()!!,
         version = metadata.children("prof:server-version").first().text()!!,
         results = sequenceOf(
-            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, QueryStackFrame(queryFile, 0, 0))),
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, VirtualFileStackFrame(queryFile))),
             histogram.children("prof:expression").map { expression -> expression.toProfileEntry(queryFile) }
         ).flatten()
     )

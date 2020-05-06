@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -50,11 +51,15 @@ fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
     val path = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
     val line = parts?.get(3)?.toIntOrNull() ?: 1
     val col = parts?.get(4)?.toIntOrNull() ?: 1
+    val frame = when (path) {
+        null -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
+        else -> QueryStackFrame(DatabaseModule(path), line - 1, col - 1)
+    }
     return QueryError(
         standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),
         vendorCode = null,
         description = parts[6],
         value = listOf(),
-        frames = listOf(QueryStackFrame(path?.let { DatabaseModule(it) } ?: queryFile, line - 1, col - 1))
+        frames = listOf(frame)
     )
 }

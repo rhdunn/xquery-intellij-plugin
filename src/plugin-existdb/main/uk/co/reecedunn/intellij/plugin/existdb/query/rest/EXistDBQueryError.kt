@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -39,13 +40,15 @@ fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
     val line = locationParts?.get(1)?.toIntOrNull() ?: 1
     val col = locationParts?.get(2)?.toIntOrNull() ?: 1
 
+    val frame = when (path) {
+        null, "/db" -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
+        else -> QueryStackFrame(DatabaseModule(path), line - 1, col - 1)
+    }
     return QueryError(
         standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),
         vendorCode = null,
         description = parts[4].substringBefore(" [at "),
         value = listOf(),
-        frames = listOf(
-            QueryStackFrame(if (path == "/db" || path == null) queryFile else DatabaseModule(path), line - 1, col - 1)
-        )
+        frames = listOf(frame)
     )
 }

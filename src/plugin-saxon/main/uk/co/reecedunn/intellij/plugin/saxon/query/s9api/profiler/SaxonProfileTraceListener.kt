@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler
 
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
@@ -107,7 +107,7 @@ fun SaxonProfileTraceListener.toProfileReport(): FlatProfileReport {
         created = created?.let { XMLSCHEMA_DATETIME_FORMAT.format(it) } ?: "",
         version = version,
         results = sequenceOf(
-            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, QueryStackFrame(query, 0, 0))),
+            sequenceOf(FlatProfileEntry("", "", 1, XsDuration.ZERO, elapsed, VirtualFileStackFrame(query))),
             results.values.asSequence().map { result -> result.toProfileEntry(query) }
         ).flatten()
     )
