@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import java.lang.reflect.InvocationTargetException
 
@@ -53,7 +52,7 @@ fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
     val col = parts?.get(4)?.toIntOrNull() ?: 1
     val frame = when (path) {
         null -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
-        else -> QueryStackFrame(DatabaseModule(path), line - 1, col - 1)
+        else -> ModuleUriStackFrame(path, line - 1, col - 1)
     }
     return QueryError(
         standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),

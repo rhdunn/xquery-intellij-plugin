@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.QueryStackFrame
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val RE_EXISTDB_MESSAGE =
@@ -42,7 +41,7 @@ fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
 
     val frame = when (path) {
         null, "/db" -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
-        else -> QueryStackFrame(DatabaseModule(path), line - 1, col - 1)
+        else -> ModuleUriStackFrame(path, line - 1, col - 1)
     }
     return QueryError(
         standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),

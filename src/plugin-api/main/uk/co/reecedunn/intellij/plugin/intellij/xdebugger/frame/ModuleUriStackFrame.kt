@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
 
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
-class QueryStackFrame(file: VirtualFile, line: Int, column: Int) : XStackFrame() {
-    private val sourcePosition = QuerySourcePosition.create(null, file, line, column)
+class ModuleUriStackFrame(path: String, line: Int, column: Int) : XStackFrame() {
+    private val sourcePosition = QuerySourcePosition.create(DatabaseModule(path), line, column)
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 }
