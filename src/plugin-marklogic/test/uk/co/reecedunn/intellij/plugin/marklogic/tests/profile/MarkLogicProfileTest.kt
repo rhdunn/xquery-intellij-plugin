@@ -16,15 +16,20 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.profile
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.mock.MockFileTypeManager
+import com.intellij.mock.MockLanguageFileType
+import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.testFramework.LightVirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.sameInstance
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsInteger
 
@@ -35,9 +40,12 @@ class MarkLogicProfileTest : PlatformLiteFixture() {
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        initApplication()
+        val app = initApplication()
 
         registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+
+        val fileType = MockLanguageFileType(XQuery, "xq")
+        app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
     }
 
     @AfterAll
@@ -60,7 +68,8 @@ class MarkLogicProfileTest : PlatformLiteFixture() {
             </prof:report>
         """
 
-        val p = profile.toMarkLogicProfileReport(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
+        val p = profile.toMarkLogicProfileReport(testFile)
         assertThat(p.elapsed.months, `is`(XsInteger.ZERO))
         assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000564".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T09:44:37.9608193Z"))
@@ -71,7 +80,7 @@ class MarkLogicProfileTest : PlatformLiteFixture() {
 
         assertThat(results[0].id, `is`(""))
         assertThat(results[0].context, `is`(""))
-        assertThat(results[0].frame.sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(results[0].frame.sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(results[0].frame.sourcePosition?.line, `is`(0))
         assertThat((results[0].frame.sourcePosition as QuerySourcePosition).column, `is`(0))
         assertThat(results[0].count, `is`(1))
@@ -117,7 +126,8 @@ class MarkLogicProfileTest : PlatformLiteFixture() {
             </prof:report>
         """
 
-        val p = profile.toMarkLogicProfileReport(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
+        val p = profile.toMarkLogicProfileReport(testFile)
         assertThat(p.elapsed.months, `is`(XsInteger.ZERO))
         assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000435".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T10:50:34.2913686Z"))
@@ -128,7 +138,7 @@ class MarkLogicProfileTest : PlatformLiteFixture() {
 
         assertThat(results[2].id, `is`("16683152708792260640"))
         assertThat(results[2].context, `is`("1 to 10"))
-        assertThat(results[2].frame.sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(results[2].frame.sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(results[2].frame.sourcePosition?.line, `is`(0))
         assertThat((results[2].frame.sourcePosition as QuerySourcePosition).column, `is`(12))
         assertThat(results[2].count, `is`(2))
