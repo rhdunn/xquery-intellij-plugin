@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.ColoredTextContainer
+import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
@@ -30,4 +34,17 @@ class VirtualFileStackFrame(
     private val sourcePosition = QuerySourcePosition.create(file, line, column)
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
+
+    @Suppress("DuplicatedCode")
+    override fun customizePresentation(component: ColoredTextContainer) {
+        component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        component.append(sourcePosition.line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
+        context?.let {
+            component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+            component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)
+        }
+
+        component.setIcon(AllIcons.Debugger.Frame)
+    }
 }
