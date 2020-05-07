@@ -19,7 +19,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.impl.QuerySourcePositionImpl
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 interface QuerySourcePosition : XSourcePosition {
     val column: Int
@@ -28,16 +27,6 @@ interface QuerySourcePosition : XSourcePosition {
         fun create(file: VirtualFile, line: Int, column: Int): QuerySourcePosition? {
             val position = XDebuggerUtil.getInstance().createPosition(file, line, column) ?: return null
             return QuerySourcePositionImpl(position, column)
-        }
-
-        fun create(path: String?, context: VirtualFile, line: Int, column: Int): QuerySourcePosition? {
-            val file = path?.let {
-                when (context) {
-                    is DatabaseModule -> null
-                    else -> context.findFileByRelativePath(it)
-                } ?: DatabaseModule(it)
-            } ?: context
-            return create(file, line, column)
         }
     }
 }

@@ -15,37 +15,31 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.ColoredTextContainer
-import com.intellij.ui.SimpleTextAttributes
-import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
+import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ComputeChildren
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import javax.xml.transform.SourceLocator
 
-class SaxonStackFrame(location: SourceLocator, query: VirtualFile) : XStackFrame() {
-    private val sourcePosition = QuerySourcePosition.create(
-        path = location.systemId,
-        context = query,
-        line = location.lineNumber.let { if (it == -1) 1 else it } - 1,
-        column = location.columnNumber.let { if (it == -1) 1 else it } - 1
-    )
+class SaxonStackFrame private constructor() : ComputeChildren {
+    override fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?) {
+    }
 
-    override fun getSourcePosition(): XSourcePosition? = sourcePosition
-
-    val context: String? = (location as? InstructionInfo)?.getObjectName()?.toString()
-
-    override fun customizePresentation(component: ColoredTextContainer) {
-        component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        component.append(sourcePosition.line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        context?.let {
-            component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
-            component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)
+    companion object {
+        fun create(locator: SourceLocator, queryFile: VirtualFile): XStackFrame {
+            val path = locator.systemId
+            val line = locator.lineNumber.let { if (it == -1) 1 else it } - 1
+            val column = locator.columnNumber.let { if (it == -1) 1 else it } - 1
+            val context = (locator as? InstructionInfo)?.getObjectName()?.toString()
+            val children = SaxonStackFrame()
+            return when (path) {
+                null -> VirtualFileStackFrame(queryFile, line, column, context, children, null)
+                else -> ModuleUriStackFrame(path, line, column, context, children, null)
+            }
         }
-
-        component.setIcon(AllIcons.Debugger.Frame)
     }
 }
