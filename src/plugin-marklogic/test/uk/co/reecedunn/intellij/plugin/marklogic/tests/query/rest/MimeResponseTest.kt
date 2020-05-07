@@ -16,6 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.query.rest
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.mock.MockFileTypeManager
+import com.intellij.mock.MockLanguageFileType
+import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.testFramework.LightVirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.apache.http.Header
@@ -24,21 +28,24 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 @Suppress("Reformat")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogic MIME Response to Query Results")
-class Response : PlatformLiteFixture() {
+class MimeResponseTest : PlatformLiteFixture() {
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        initApplication()
+        val app = initApplication()
 
         registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+
+        val fileType = MockLanguageFileType(XQuery, "xq")
+        app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
     }
 
     @AfterAll
@@ -49,19 +56,19 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("content length 0")
     fun emptySequence() {
-        // query: ()
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
         val body = ""
         val headers = arrayOf<Header>(
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(0))
     }
 
     @Test
     @DisplayName("xs:integer -- X-Primitive header")
     fun integer() {
-        // query: 1
+        val testFile = LightVirtualFile("test.xq", XQuery, "1")
         val body = listOf(
             "",
             "--f260e14402e96a50",
@@ -76,7 +83,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=f260e14402e96a50"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -88,7 +95,7 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("xs:integer+ -- multipart response")
     fun integerSequence() {
-        // query: 1, 2, 3
+        val testFile = LightVirtualFile("test.xq", XQuery, "1, 2, 3")
         val body = listOf(
             "",
             "--869b5d54aa36954a",
@@ -113,7 +120,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=869b5d54aa36954a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(3))
 
         assertThat(results[0].position, `is`(0L))
@@ -135,7 +142,7 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("xs:numeric+ -- X-Primitive and X-Derived-N headers")
     fun numericSequence() {
-        // query: 5 cast as xs:short, 8 cast as xs:long
+        val testFile = LightVirtualFile("test.xq", XQuery, "5 cast as xs:short, 8 cast as xs:long")
         val body = listOf(
             "",
             "--3734bc5a2395b3de",
@@ -157,7 +164,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=3734bc5a2395b3de"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -174,7 +181,7 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("array-node() -- application/json Content-Type header")
     fun arrayNode() {
-        // query: array-node { 1, 2, 3 }
+        val testFile = LightVirtualFile("test.xq", XQuery, "array-node { 1, 2, 3 }")
         val body = listOf(
             "",
             "--b857af6eabb53cb2",
@@ -190,7 +197,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b857af6eabb53cb2"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -202,7 +209,7 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("fn:error -- MarkLogicQueryError")
     fun error() {
-        // query: 1 div 0
+        val testFile = LightVirtualFile("test.xq", XQuery, "1 div 0")
         val body = listOf(
             "",
             "--fb98e57ec409700a",
@@ -230,11 +237,11 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Length", body.length.toString())
         )
         val e: QueryError = Assertions.assertThrows(QueryError::class.java) {
-            MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+            MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         }
 
         assertThat(e.description, `is`("Division by zero"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(22))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(2))
         assertThat(e.standardCode, `is`("FOAR0001"))
@@ -244,7 +251,9 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("xdmp:set-response-content-type -- Custom Content-Type header")
     fun responseContentType() {
-        // query: xdmp:set-response-content-type("text/css"), "strong { font-weight: bold; }"
+        val testFile = LightVirtualFile(
+            "test.xq", XQuery, "xdmp:set-response-content-type(\"text/css\"), \"strong { font-weight: bold; }\""
+        )
         val body = listOf(
             "",
             "--40d8fa04d13bdcb1",
@@ -260,7 +269,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=40d8fa04d13bdcb1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -272,12 +281,15 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("sem:triple+ -- overriding the default Content-Type")
     fun triples() {
-        // rdf-output-format: ""
-        // query:
-        //     import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
-        //     sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-        //                    <http://www.example.co.uk/test1> a rdf:Property .
-        //                    <http://www.example.co.uk/test2> a rdf:Property .", "turtle")
+        val testFile = LightVirtualFile(
+            "test.xq", XQuery,
+            """
+            import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
+            sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                           <http://www.example.co.uk/test1> a rdf:Property .
+                           <http://www.example.co.uk/test2> a rdf:Property .", "turtle")
+            """
+        )
         val body = listOf(
             "",
             "--b54154d3ae21a0f1",
@@ -297,7 +309,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b54154d3ae21a0f1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -314,12 +326,15 @@ class Response : PlatformLiteFixture() {
     @Test
     @DisplayName("sem:triple+ -- rdf-output-format")
     fun triplesRdfOutputFormat() {
-        // rdf-output-format: ""
-        // query:
-        //     import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
-        //     sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-        //                    <http://www.example.co.uk/test1> a rdf:Property .
-        //                    <http://www.example.co.uk/test2> a rdf:Property .", "turtle")
+        val testFile = LightVirtualFile(
+            "test.xq", XQuery,
+            """
+            import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
+            sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                           <http://www.example.co.uk/test1> a rdf:Property .
+                           <http://www.example.co.uk/test2> a rdf:Property .", "turtle")
+            """
+        )
         val body = listOf(
             "",
             "--e59349f9cdb07885",
@@ -336,7 +351,7 @@ class Response : PlatformLiteFixture() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=e59349f9cdb07885"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(DatabaseModule("test.xqy")).toList()
+        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         val value = listOf(
