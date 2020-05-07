@@ -20,6 +20,7 @@ import com.intellij.ui.ColoredTextContainer
 import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
+import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
@@ -29,6 +30,7 @@ class ModuleUriStackFrame(
     line: Int,
     column: Int,
     val context: String? = null,
+    private val children: ComputeChildren? = null,
     private val debuggerEvaluator: XDebuggerEvaluator? = null
 ) : XStackFrame() {
 
@@ -50,4 +52,8 @@ class ModuleUriStackFrame(
     }
 
     override fun getEvaluator(): XDebuggerEvaluator? = debuggerEvaluator
+
+    override fun computeChildren(node: XCompositeNode) {
+        children?.computeChildren(node)
+    }
 }
