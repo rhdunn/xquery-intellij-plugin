@@ -21,6 +21,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.ColoredTextContainer
 import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 
@@ -28,7 +29,8 @@ class VirtualFileStackFrame(
     file: VirtualFile,
     line: Int = 0,
     column: Int = 0,
-    val context: String? = null
+    val context: String? = null,
+    private val debuggerEvaluator: XDebuggerEvaluator? = null
 ) : XStackFrame() {
 
     private val sourcePosition = QuerySourcePosition.create(file, line, column)
@@ -47,4 +49,6 @@ class VirtualFileStackFrame(
 
         component.setIcon(AllIcons.Debugger.Frame)
     }
+
+    override fun getEvaluator(): XDebuggerEvaluator? = debuggerEvaluator
 }

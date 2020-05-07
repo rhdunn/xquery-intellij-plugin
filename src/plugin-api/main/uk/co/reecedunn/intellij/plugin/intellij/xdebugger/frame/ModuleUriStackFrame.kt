@@ -19,6 +19,7 @@ import com.intellij.icons.AllIcons
 import com.intellij.ui.ColoredTextContainer
 import com.intellij.ui.SimpleTextAttributes
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
@@ -27,7 +28,8 @@ class ModuleUriStackFrame(
     path: String,
     line: Int,
     column: Int,
-    val context: String? = null
+    val context: String? = null,
+    private val debuggerEvaluator: XDebuggerEvaluator? = null
 ) : XStackFrame() {
 
     private val sourcePosition = QuerySourcePosition.create(DatabaseModule(path), line, column)
@@ -46,4 +48,6 @@ class ModuleUriStackFrame(
 
         component.setIcon(AllIcons.Debugger.Frame)
     }
+
+    override fun getEvaluator(): XDebuggerEvaluator? = debuggerEvaluator
 }
