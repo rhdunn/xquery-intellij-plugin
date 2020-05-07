@@ -16,6 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.existdb.tests.query.rest
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.mock.MockFileTypeManager
+import com.intellij.mock.MockLanguageFileType
+import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.testFramework.LightVirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
@@ -23,8 +27,8 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBQueryError
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - EXistDBQueryError")
@@ -32,9 +36,12 @@ class EXistDBQueryErrorTest : PlatformLiteFixture() {
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        initApplication()
+        val app = initApplication()
 
         registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+
+        val fileType = MockLanguageFileType(XQuery, "xq")
+        app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
     }
 
     @AfterAll
@@ -54,11 +61,12 @@ class EXistDBQueryErrorTest : PlatformLiteFixture() {
             </exception>
         """
 
-        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "1")
+        val e = exception.toEXistDBQueryError(testFile)
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("unexpected token: null"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(6))
     }
@@ -74,11 +82,12 @@ class EXistDBQueryErrorTest : PlatformLiteFixture() {
             </exception>
         """
 
-        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "1")
+        val e = exception.toEXistDBQueryError(testFile)
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(0))
     }
@@ -94,11 +103,12 @@ class EXistDBQueryErrorTest : PlatformLiteFixture() {
             </exception>
         """
 
-        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "1")
+        val e = exception.toEXistDBQueryError(testFile)
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(10))
     }
@@ -118,11 +128,12 @@ class EXistDBQueryErrorTest : PlatformLiteFixture() {
             </exception>
         """
 
-        val e = exception.toEXistDBQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "1")
+        val e = exception.toEXistDBQueryError(testFile)
         assertThat(e.standardCode, `is`("XPTY0004"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("Too many operands at the left of *"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(10))
     }
