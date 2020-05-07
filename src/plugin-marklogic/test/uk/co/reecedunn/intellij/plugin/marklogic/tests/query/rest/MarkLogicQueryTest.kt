@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,15 +26,16 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
-@DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - Running a MarkLogic query")
-class MarkLogicRunQueryTest {
+@DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogic queries")
+class MarkLogicQueryTest {
     @Test
-    @DisplayName("invoke XQuery module")
-    fun invokeXQueryModule() {
+    @DisplayName("runnable; invoke XQuery module")
+    fun runnable_invokeXQueryModule() {
         val params = listOf(
             "xquery" to MarkLogicQueries.Run,
             "vars" to listOf(
@@ -58,6 +59,40 @@ class MarkLogicRunQueryTest {
         val query = processor.createRunnableQuery(DatabaseModule("/test/script.xqy"), XQuery)
 
         val request = (query as BuildableQuery).request()
+        assertThat(request.method, `is`("POST"))
+        assertThat(request.uri.toASCIIString(), `is`("http://localhost:8000/v1/eval"))
+
+        val body = (request as HttpEntityEnclosingRequest).entity
+        assertThat(body.contentType.value, `is`("application/x-www-form-urlencoded; charset=UTF-8"))
+        assertThat(body.content.decode(Charsets.US_ASCII), `is`(params.toFormParamString()))
+    }
+
+    @Test
+    @DisplayName("profileable; invoke XQuery module")
+    fun profileable_invokeXQueryModule() {
+        val params = listOf(
+            "xquery" to MarkLogicQueries.Run,
+            "vars" to listOf(
+                "mode" to "profile",
+                "mimetype" to "application/xquery",
+                "module-path" to "/test/script.xqy",
+                "query" to "",
+                "vars" to "{}",
+                "types" to "{}",
+                "rdf-output-format" to "",
+                "updating" to "false",
+                "server" to "",
+                "database" to "",
+                "module-root" to "",
+                "context-value" to "",
+                "context-path" to ""
+            )
+        )
+
+        val processor = create("localhost", 8000, "testuser") as ProfileableQueryProvider
+        val query = processor.createProfileableQuery(DatabaseModule("/test/script.xqy"), XQuery)
+        val request = (query as BuildableQuery).request()
+
         assertThat(request.method, `is`("POST"))
         assertThat(request.uri.toASCIIString(), `is`("http://localhost:8000/v1/eval"))
 
