@@ -15,43 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.ColoredTextContainer
-import com.intellij.ui.SimpleTextAttributes
 import com.intellij.util.text.nullize
-import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
 import com.intellij.xdebugger.frame.XValueChildrenList
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ComputeChildren
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 
-class MarkLogicDebugFrame(
-    private val frame: XmlElement,
-    query: VirtualFile,
-    private val debuggerEvaluator: XDebuggerEvaluator?
-) : XStackFrame() {
-    private val sourcePosition = QuerySourcePosition.create(
-        path = frame.child("dbg:uri")?.text()?.nullize(),
-        context = query,
-        line = (frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1) - 1,
-        column = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 0
-    )
-
-    override fun getSourcePosition(): XSourcePosition? = sourcePosition
-
-    val context: String? = frame.child("dbg:operation")?.text()?.nullize()
-
-    override fun computeChildren(node: XCompositeNode) {
-        node.addChildren(computeVariables("dbg:global-variables", "dbg:global-variable"), false)
-        node.addChildren(computeVariables("dbg:external-variables", "dbg:external-variable"), false)
-        node.addChildren(computeVariables("dbg:variables", "dbg:variable"), true)
+class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : ComputeChildren {
+    override fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?) {
+        node.addChildren(computeVariables("dbg:global-variables", "dbg:global-variable", evaluator), false)
+        node.addChildren(computeVariables("dbg:external-variables", "dbg:external-variable", evaluator), false)
+        node.addChildren(computeVariables("dbg:variables", "dbg:variable", evaluator), true)
     }
 
-    private fun computeVariables(list: String, child: String): XValueChildrenList {
+    private fun computeVariables(list: String, child: String, evaluator: XDebuggerEvaluator?): XValueChildrenList {
         val children = XValueChildrenList()
         frame.children(list).children(child).forEach { variable ->
             children.add(MarkLogicVariable.create(variable, evaluator))
@@ -59,17 +42,17 @@ class MarkLogicDebugFrame(
         return children
     }
 
-    override fun customizePresentation(component: ColoredTextContainer) {
-        component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        component.append(sourcePosition.line.toString(), SimpleTextAttributes.REGULAR_ATTRIBUTES)
-        context?.let {
-            component.append(", ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
-            component.append(it, SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES)
+    companion object {
+        fun create(frame: XmlElement, queryFile: VirtualFile, evaluator: XDebuggerEvaluator) : XStackFrame {
+            val path = frame.child("dbg:uri")?.text()?.nullize()
+            val line = (frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1) - 1
+            val column = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 0
+            val context = frame.child("dbg:operation")?.text()?.nullize()
+            val children = MarkLogicDebugFrame(frame)
+            return when (path) {
+                null -> VirtualFileStackFrame(queryFile, line, column, context, children, evaluator)
+                else -> ModuleUriStackFrame(path, line, column, context, children, evaluator)
+            }
         }
-
-        component.setIcon(AllIcons.Debugger.Frame)
     }
-
-    override fun getEvaluator(): XDebuggerEvaluator? = debuggerEvaluator
 }

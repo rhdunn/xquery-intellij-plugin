@@ -16,8 +16,9 @@
 
 package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
 
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 
 interface ComputeChildren {
-    fun computeChildren(node: XCompositeNode)
+    fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?)
 }

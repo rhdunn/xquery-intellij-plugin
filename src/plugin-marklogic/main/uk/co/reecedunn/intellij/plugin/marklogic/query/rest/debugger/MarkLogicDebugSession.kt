@@ -83,7 +83,7 @@ internal class MarkLogicDebugSession(
 
             val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
             return stack.root.children("dbg:frame").map {
-                MarkLogicDebugFrame(it, this.query, this)
+                MarkLogicDebugFrame.create(it, this.query, this)
             }.toList()
         }
 

@@ -55,6 +55,6 @@ class VirtualFileStackFrame(
     override fun getEvaluator(): XDebuggerEvaluator? = debuggerEvaluator
 
     override fun computeChildren(node: XCompositeNode) {
-        children?.computeChildren(node)
+        children?.computeChildren(node, evaluator)
     }
 }
