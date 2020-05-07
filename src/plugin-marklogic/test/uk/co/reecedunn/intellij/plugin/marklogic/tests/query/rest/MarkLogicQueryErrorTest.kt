@@ -16,15 +16,19 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.query.rest
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.mock.MockFileTypeManager
+import com.intellij.mock.MockLanguageFileType
+import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.testFramework.LightVirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogicQueryError")
@@ -32,9 +36,12 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        initApplication()
+        val app = initApplication()
 
         registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+
+        val fileType = MockLanguageFileType(XQuery, "xq")
+        app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
     }
 
     @AfterAll
@@ -59,11 +66,12 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
             </error:error>
         """
 
-        val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
+        val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
         assertThat(e.description, `is`("Unexpected token"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
     }
@@ -85,11 +93,12 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
             </error:error>
         """
 
-        val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
+        val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
         assertThat(e.description, `is`("All modules in a module sequence must use the same XQuery version"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(52))
     }
@@ -111,11 +120,12 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
             </error:error>
         """
 
-        val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
+        val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
         assertThat(e.description, `is`("An error message"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
     }
@@ -140,11 +150,12 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
             </error:error>
         """
 
-        val e = exception.toMarkLogicQueryError(DatabaseModule("test.xqy"))
+        val testFile = LightVirtualFile("test.xq", XQuery, "()")
+        val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
         assertThat(e.description, `is`("Unexpected token"))
-        assertThat(e.frames[0].sourcePosition?.file, `is`(DatabaseModule("test.xqy")))
+        assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
     }
