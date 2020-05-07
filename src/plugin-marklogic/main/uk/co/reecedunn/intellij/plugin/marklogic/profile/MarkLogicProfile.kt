@@ -16,8 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
@@ -27,10 +29,18 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 
 private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry {
+    val path = child("prof:uri")?.text()?.nullize()
+    val line = (child("prof:line")?.text()?.toIntOrNull() ?: 1) - 1
+    val column = child("prof:column")?.text()?.toIntOrNull() ?: 0
+    val frame = when (path) {
+        null -> VirtualFileStackFrame(queryFile, line, column)
+        else -> ModuleUriStackFrame(path, line, column)
+    }
+
     return FlatProfileEntry(
         id = children("prof:expr-id").first().text()!!,
         context = children("prof:expr-source").first().text()!!,
-        frame = MarkLogicProfileFrame(this, queryFile),
+        frame = frame,
         count = children("prof:count").first().text()!!.toInt(),
         selfTime = children("prof:shallow-time").first().text()?.toXsDuration()!!,
         totalTime = children("prof:deep-time").first().text()?.toXsDuration()!!
