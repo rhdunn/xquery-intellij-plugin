@@ -20,7 +20,13 @@ import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 
-class ModuleUriStackFrame(path: String, line: Int, column: Int) : XStackFrame() {
+class ModuleUriStackFrame(
+    path: String,
+    line: Int,
+    column: Int,
+    val context: String? = null
+) : XStackFrame() {
+
     private val sourcePosition = QuerySourcePosition.create(DatabaseModule(path), line, column)
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
