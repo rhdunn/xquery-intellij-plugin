@@ -24,12 +24,9 @@ import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.lang.Language
-import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
@@ -37,24 +34,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfi
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule as DatabaseModuleImpl
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import java.io.File
-
-enum class QueryProcessorDataSourceType {
-    LocalFile, DatabaseModule, ActiveEditorFile;
-
-    fun find(path: String?, project: Project): VirtualFile? {
-        return when (this) {
-            LocalFile -> path?.let {
-                val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
-                url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
-            }
-            DatabaseModule -> path?.let { DatabaseModuleImpl(path) }
-            ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
-        }
-    }
-}
 
 data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
