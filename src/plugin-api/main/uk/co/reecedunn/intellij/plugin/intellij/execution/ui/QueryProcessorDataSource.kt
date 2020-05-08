@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
+package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.project.Project
@@ -21,6 +21,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorDataSourceType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import javax.swing.*
 
