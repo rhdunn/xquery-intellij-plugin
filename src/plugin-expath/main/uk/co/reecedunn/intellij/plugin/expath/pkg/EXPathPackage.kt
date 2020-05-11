@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
@@ -29,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriPsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
@@ -96,14 +96,14 @@ data class EXPathPackage internal constructor(
 
     override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
         return when (path) {
-            is XsAnyUriValue -> {
+            is XsAnyUriPsiElement -> {
                 val component = components.find {
                     path.moduleTypes.contains(it.moduleType) && when (it) {
                         is EXPathPackageImport -> path.data == it.importUri?.data
                         else -> false
                     }
                 }
-                component?.let { load(it)?.toPsiFile(context.project) }
+                component?.let { load(it)?.toPsiFile(path.project) }
             }
             else -> null
         }

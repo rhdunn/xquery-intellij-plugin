@@ -88,6 +88,8 @@ interface XsAnyUriValue : XsAnyAtomicType {
     val moduleTypes: Array<XdmModuleType>
 }
 
+interface XsAnyUriPsiElement : PsiElement, XsAnyUriValue
+
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.18) xs:QName
 

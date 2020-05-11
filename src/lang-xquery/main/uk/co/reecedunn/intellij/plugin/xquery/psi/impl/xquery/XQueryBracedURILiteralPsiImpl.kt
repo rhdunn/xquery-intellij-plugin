@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,17 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriPsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriValue, XpmModulePath, VersionConformance {
+    ASTWrapperPsiElement(node), XPathBracedURILiteral, XsAnyUriPsiElement, XpmModulePath, VersionConformance {
     // region PsiElement
 
     override fun subtreeChanged() {

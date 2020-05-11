@@ -24,12 +24,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriPsiElement
 
 class XPathUriLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriValue, XpmModulePath {
+    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriPsiElement, XpmModulePath {
     // region PsiElement
 
     override fun subtreeChanged() {
