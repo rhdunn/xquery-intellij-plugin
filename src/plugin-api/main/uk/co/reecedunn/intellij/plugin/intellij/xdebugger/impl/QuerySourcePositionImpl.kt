@@ -19,10 +19,12 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.pom.Navigatable
+import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.resolve
+import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 
 class QuerySourcePositionImpl(private val position: XSourcePosition, override val column: Int) : QuerySourcePosition {
     override fun getFile(): VirtualFile = position.file
@@ -32,10 +34,13 @@ class QuerySourcePositionImpl(private val position: XSourcePosition, override va
     override fun getOffset(): Int = position.offset
 
     override fun createNavigatable(project: Project): Navigatable {
-        val resolved = (file as? XpmModuleUri)?.resolve(project)?.firstOrNull() ?: file
+        val resolved = (file as? XpmModuleUri)?.let {
+            it.resolve(project, it.contextFile) ?: it.resolveUri(project) as? PsiElement
+        }
+        val file = resolved?.containingFile?.virtualFile ?: file
         return if (offset != -1)
-            OpenFileDescriptor(project, resolved, offset)
+            OpenFileDescriptor(project, file, offset)
         else
-            OpenFileDescriptor(project, resolved, line, column)
+            OpenFileDescriptor(project, file, line, column)
     }
 }

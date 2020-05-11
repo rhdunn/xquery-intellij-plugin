@@ -75,15 +75,21 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
 fun XsAnyUriValue.resolve(): PsiElement? = element?.let { this.resolve(it) }
 
 fun XsAnyUriValue.resolve(element: PsiElement): PsiElement? {
-    val loaders = XpmModuleLoaderSettings.getInstance(element.project)
-    val file = element.containingFile?.virtualFile
-    return paths(element.project).mapNotNull { loaders.resolve(it, file) }.firstOrNull()
+    return resolve(element.project, element.containingFile?.virtualFile)
+}
+
+fun XsAnyUriValue.resolve(project: Project, file: VirtualFile?): PsiElement? {
+    val loaders = XpmModuleLoaderSettings.getInstance(project)
+    return paths(project).mapNotNull { loaders.resolve(it, file) }.firstOrNull()
 }
 
 fun XsAnyUriValue.context(): XstContext? = element?.let { this.context(it) }
 
 fun XsAnyUriValue.context(element: PsiElement): XstContext? {
-    val loaders = XpmModuleLoaderSettings.getInstance(element.project)
-    val file = element.containingFile?.virtualFile
-    return paths(element.project).mapNotNull { loaders.context(it, file) }.firstOrNull()
+    return context(element.project, element.containingFile?.virtualFile)
+}
+
+fun XsAnyUriValue.context(project: Project, file: VirtualFile?): XstContext? {
+    val loaders = XpmModuleLoaderSettings.getInstance(project)
+    return paths(project).mapNotNull { loaders.context(it, file) }.firstOrNull()
 }

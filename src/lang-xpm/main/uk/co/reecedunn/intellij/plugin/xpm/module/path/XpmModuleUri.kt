@@ -15,11 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.path
 
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
-import org.jetbrains.jps.model.java.JavaSourceRootType
-import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -83,11 +80,4 @@ class XpmModuleUri(val contextFile: VirtualFile?, private val path: String) : Vi
     override fun hashCode(): Int = path.hashCode()
 
     // endregion
-}
-
-fun XpmModuleUri.resolve(project: Project): Sequence<VirtualFile> {
-    return project.sourceFolders()
-        .filter { folder -> folder.file != null && folder.rootType === JavaSourceRootType.SOURCE }
-        .map { folder -> folder.file?.findFileByRelativePath(path) }
-        .filterNotNull()
 }

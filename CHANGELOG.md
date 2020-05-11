@@ -8,6 +8,7 @@ Run Configurations:
     is plain text.
 1.  Fixed a null pointer exception when processing MarkLogic syntax error
     responses.
+1.  Fixed navigating to module paths in query errors.
 
 ## 2020
 
