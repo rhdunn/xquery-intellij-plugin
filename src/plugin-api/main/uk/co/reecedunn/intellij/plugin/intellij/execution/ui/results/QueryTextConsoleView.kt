@@ -33,8 +33,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.resolve
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
@@ -140,26 +138,22 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                     print("   and ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
                 }
             }
-            e.frames.forEach {
+            e.frames.asSequence().mapNotNull { it.sourcePosition }.forEach { position ->
                 print("    at ", ConsoleViewContentType.ERROR_OUTPUT)
-                it.sourcePosition?.file?.let { module ->
-                    val resolved = when (module) {
-                        is XpmModuleUri -> module.resolve(project).firstOrNull()
-                        else -> module
-                    }
-                    if (resolved == null)
-                        print(module.path, ConsoleViewContentType.ERROR_OUTPUT)
-                    else
-                        printHyperlink(module.path) { project ->
-                            it.sourcePosition?.createNavigatable(project)?.navigate(true)
-                        }
+
+                val navigatable = position.createNavigatable(project)
+                if (navigatable.canNavigate()) {
+                    printHyperlink(position.file.path) { navigatable.navigate(true) }
+                } else {
+                    print(position.file.path, ConsoleViewContentType.ERROR_OUTPUT)
                 }
-                when (val pos = it.sourcePosition!!) {
+
+                when (position) {
                     is QuerySourcePosition -> {
-                        print(":${pos.line + 1}:${pos.column + 1}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                        print(":${position.line + 1}:${position.column + 1}\n", ConsoleViewContentType.ERROR_OUTPUT)
                     }
                     else -> {
-                        print(":${pos.line + 1}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                        print(":${position.line + 1}\n", ConsoleViewContentType.ERROR_OUTPUT)
                     }
                 }
             }

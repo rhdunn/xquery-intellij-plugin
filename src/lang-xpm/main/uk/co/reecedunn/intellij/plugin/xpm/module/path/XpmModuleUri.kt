@@ -37,7 +37,7 @@ class XpmModuleUri(private val path: String) : VirtualFile(), XsAnyUriValue {
 
     override fun getPath(): String = path
 
-    override fun isDirectory(): Boolean = TODO("not implemented")
+    override fun isDirectory(): Boolean = path.endsWith('/')
 
     override fun getTimeStamp(): Long = TODO("not implemented")
 
@@ -45,11 +45,11 @@ class XpmModuleUri(private val path: String) : VirtualFile(), XsAnyUriValue {
 
     override fun contentsToByteArray(): ByteArray = TODO("not implemented")
 
-    override fun isValid(): Boolean = TODO("not implemented")
+    override fun isValid(): Boolean = false
 
     override fun getInputStream(): InputStream = TODO("not implemented")
 
-    override fun getParent(): VirtualFile = TODO("not implemented")
+    override fun getParent(): VirtualFile? = null
 
     override fun getChildren(): Array<VirtualFile> = TODO("not implemented")
 
