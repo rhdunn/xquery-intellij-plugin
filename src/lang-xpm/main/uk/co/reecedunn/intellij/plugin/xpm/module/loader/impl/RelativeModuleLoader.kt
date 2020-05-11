@@ -32,17 +32,16 @@ object RelativeModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
         return root.originalFile.parent?.findFileByRelativePath(path)
     }
 
-    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
-            is XpmModuleLocationPath -> {
-                val file = context.containingFile.virtualFile ?: return null
-                findFileByPath(path.path, file)?.toPsiFile(path.project)
+            is XpmModuleLocationPath -> context?.let {
+                findFileByPath(path.path, context)?.toPsiFile(path.project)
             }
             else -> null
         }
     }
 
-    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return when (path) {
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null

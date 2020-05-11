@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.java
 
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 
-object JavaModuleLoader : XpmModuleLoaderFactory,
-    XpmModuleLoader {
+object JavaModuleLoader : XpmModuleLoaderFactory, XpmModuleLoader {
     // region XpmModuleLoaderFactory
 
     override fun loader(context: String?): XpmModuleLoader = this
@@ -30,14 +30,14 @@ object JavaModuleLoader : XpmModuleLoaderFactory,
     // endregion
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
             is JavaModulePath -> JavaTypePath.getInstance(path.project).findClass(path.classPath)
             else -> null
         }
     }
 
-    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return when (path) {
             is JavaTypePath -> path
             else -> null

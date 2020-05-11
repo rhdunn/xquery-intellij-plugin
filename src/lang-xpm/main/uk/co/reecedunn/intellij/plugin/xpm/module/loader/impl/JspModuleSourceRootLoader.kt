@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
@@ -50,10 +49,10 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
         }.filterNotNull().firstOrNull()
     }
 
-    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
             is XpmModuleLocationPath -> {
-                if (rootType === JavaSourceRootType.SOURCE || rootType === context.getSourceRootType(path.project)) {
+                if (rootType === JavaSourceRootType.SOURCE || rootType === context?.getSourceRootType(path.project)) {
                     if (path.isResource == null) // BaseX reverse domain name module path
                         findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile(path.project)
                     else
@@ -65,7 +64,7 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
         }
     }
 
-    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return when (path) {
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null

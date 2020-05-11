@@ -40,7 +40,7 @@ class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
         return root.findFileByRelativePath(path)
     }
 
-    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
             is XpmModuleLocationPath -> {
                 if (path.isResource == null) // BaseX reverse domain name module path
@@ -52,7 +52,7 @@ class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
         }
     }
 
-    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return when (path) {
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null

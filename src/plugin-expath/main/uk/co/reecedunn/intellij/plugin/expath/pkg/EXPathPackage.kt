@@ -94,7 +94,7 @@ data class EXPathPackage internal constructor(
     // endregion
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
             is XsAnyUriPsiElement -> {
                 val component = components.find {
@@ -109,7 +109,7 @@ data class EXPathPackage internal constructor(
         }
     }
 
-    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return resolve(path, context) as? XstContext
     }
 

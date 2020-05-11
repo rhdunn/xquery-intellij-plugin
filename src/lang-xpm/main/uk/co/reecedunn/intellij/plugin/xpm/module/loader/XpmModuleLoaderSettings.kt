@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Attribute
@@ -47,11 +48,11 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
 
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: PsiElement): PsiElement? {
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return loaders.get()?.asSequence()?.mapNotNull { it.resolve(path, context) }?.firstOrNull()
     }
 
-    override fun context(path: XpmModulePath, context: PsiElement): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
     }
 
@@ -75,12 +76,14 @@ fun XsAnyUriValue.resolve(): PsiElement? = element?.let { this.resolve(it) }
 
 fun XsAnyUriValue.resolve(element: PsiElement): PsiElement? {
     val loaders = XpmModuleLoaderSettings.getInstance(element.project)
-    return paths(element.project).mapNotNull { loaders.resolve(it, element) }.firstOrNull()
+    val file = element.containingFile?.virtualFile
+    return paths(element.project).mapNotNull { loaders.resolve(it, file) }.firstOrNull()
 }
 
 fun XsAnyUriValue.context(): XstContext? = element?.let { this.context(it) }
 
 fun XsAnyUriValue.context(element: PsiElement): XstContext? {
     val loaders = XpmModuleLoaderSettings.getInstance(element.project)
-    return paths(element.project).mapNotNull { loaders.context(it, element) }.firstOrNull()
+    val file = element.containingFile?.virtualFile
+    return paths(element.project).mapNotNull { loaders.context(it, file) }.firstOrNull()
 }
