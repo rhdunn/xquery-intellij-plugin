@@ -20,7 +20,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule as DatabaseModuleImpl
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import java.io.File
 
 enum class QueryProcessorDataSourceType {
@@ -32,7 +32,7 @@ enum class QueryProcessorDataSourceType {
                 val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
                 url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
             }
-            DatabaseModule -> path?.let { DatabaseModuleImpl(path) }
+            DatabaseModule -> path?.let { XpmModuleUri(path) }
             ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
         }
     }

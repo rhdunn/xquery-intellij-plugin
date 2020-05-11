@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,14 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
-import org.apache.http.StatusLine
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Query
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class BaseXRunnableQuery(
     val session: Session,
@@ -54,7 +53,7 @@ internal class BaseXRunnableQuery(
 
     override fun bindContextItem(value: Any?, type: String?) {
         contextItem = when (value) {
-            is DatabaseModule -> Pair(value.path, mapType(type))
+            is XpmModuleUri -> Pair(value.path, mapType(type))
             is VirtualFile -> Pair(value.decode()!!, mapType(type))
             else -> Pair(value.toString(), mapType(type))
         }

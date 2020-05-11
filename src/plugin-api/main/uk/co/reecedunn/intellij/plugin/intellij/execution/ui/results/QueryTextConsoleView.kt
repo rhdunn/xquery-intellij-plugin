@@ -30,11 +30,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHa
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
-import uk.co.reecedunn.intellij.plugin.processor.database.resolve
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.resolve
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
@@ -144,7 +144,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 print("    at ", ConsoleViewContentType.ERROR_OUTPUT)
                 it.sourcePosition?.file?.let { module ->
                     val resolved = when (module) {
-                        is DatabaseModule -> module.resolve(project).firstOrNull()
+                        is XpmModuleUri -> module.resolve(project).firstOrNull()
                         else -> module
                     }
                     if (resolved == null)

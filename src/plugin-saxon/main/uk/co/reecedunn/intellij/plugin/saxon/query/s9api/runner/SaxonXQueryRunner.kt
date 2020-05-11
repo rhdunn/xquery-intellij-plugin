@@ -19,7 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener
@@ -28,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.check
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class SaxonXQueryRunner(
     val processor: Processor,
@@ -81,7 +81,7 @@ internal class SaxonXQueryRunner(
 
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
         context = when (value) {
-            is DatabaseModule -> XdmItem.newInstance(value.path, type ?: "xs:string", processor)
+            is XpmModuleUri -> XdmItem.newInstance(value.path, type ?: "xs:string", processor)
             is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", processor)
             else -> XdmItem.newInstance(value, type ?: "xs:string", processor)
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,10 @@ import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class MarkLogicProfileQuery(
     private val builder: RequestBuilder,
@@ -67,7 +67,7 @@ internal class MarkLogicProfileQuery(
     override fun bindContextItem(value: Any?, type: String?) {
         // NOTE: Only supported for XSLT files.
         when (value) {
-            is DatabaseModule -> contextPath = value.path
+            is XpmModuleUri -> contextPath = value.path
             is VirtualFile -> contextValue = value.decode()!!
             else -> contextValue = value.toString()
         }

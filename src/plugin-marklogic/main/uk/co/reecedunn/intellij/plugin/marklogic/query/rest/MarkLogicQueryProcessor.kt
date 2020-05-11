@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugQuery
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -34,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class MarkLogicQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     ProfileableQueryProvider,
@@ -62,7 +62,7 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
         queryParams.addProperty("mode", mode)
         queryParams.addProperty("mimetype", language.getLanguageMimeTypes()[0])
 
-        if (query is DatabaseModule) {
+        if (query is XpmModuleUri) {
             queryParams.addProperty("module-path", query.path)
             queryParams.addProperty("query", "")
         } else {

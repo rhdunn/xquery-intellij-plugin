@@ -23,7 +23,7 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 class ModuleUriStackFrame(
     path: String,
@@ -34,7 +34,7 @@ class ModuleUriStackFrame(
     private val debuggerEvaluator: XDebuggerEvaluator? = null
 ) : XStackFrame() {
 
-    private val sourcePosition = QuerySourcePosition.create(DatabaseModule(path), line, column)
+    private val sourcePosition = QuerySourcePosition.create(XpmModuleUri(path), line, column)
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 

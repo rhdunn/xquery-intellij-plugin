@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.database
+package uk.co.reecedunn.intellij.plugin.xpm.module.path
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
@@ -23,7 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import java.io.InputStream
 import java.io.OutputStream
 
-class DatabaseModule(private val path: String) : VirtualFile() {
+class XpmModuleUri(private val path: String) : VirtualFile() {
+    // region VirtualFile
+
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO("not implemented")
 
     override fun getLength(): Long = TODO("not implemented")
@@ -56,21 +58,22 @@ class DatabaseModule(private val path: String) : VirtualFile() {
         newTimeStamp: Long
     ): OutputStream = TODO("not implemented")
 
-    override fun toString(): String {
-        return path
-    }
+    // endregion
+    // region Object
+
+    override fun toString(): String = path
 
     override fun equals(other: Any?): Boolean {
-        if (other !is DatabaseModule) return false
+        if (other !is XpmModuleUri) return false
         return path == other.path
     }
 
-    override fun hashCode(): Int {
-        return path.hashCode()
-    }
+    override fun hashCode(): Int = path.hashCode()
+
+    // endregion
 }
 
-fun DatabaseModule.resolve(project: Project): Sequence<VirtualFile> {
+fun XpmModuleUri.resolve(project: Project): Sequence<VirtualFile> {
     return project.sourceFolders()
         .filter { folder -> folder.file != null && folder.rootType === JavaSourceRootType.SOURCE }
         .map { folder -> folder.file?.findFileByRelativePath(path) }

@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener
@@ -33,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.check
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import javax.xml.transform.Source
 import javax.xml.transform.dom.DOMSource
 
@@ -84,7 +84,7 @@ internal class SaxonXsltRunner(
 
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
         context = when (value) {
-            is DatabaseModule -> value.path.toStreamSource()
+            is XpmModuleUri -> value.path.toStreamSource()
             is VirtualFile -> value.decode()?.toStreamSource()
             is XmlDocument -> DOMSource(value.doc)
             is XmlElement -> DOMSource(value.element)

@@ -28,14 +28,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
-import uk.co.reecedunn.intellij.plugin.processor.database.DatabaseModule
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class MarkLogicDebugQuery(
     private val builder: RequestBuilder,
@@ -72,7 +70,7 @@ internal class MarkLogicDebugQuery(
     override fun bindContextItem(value: Any?, type: String?) {
         // NOTE: Only supported for XSLT files.
         when (value) {
-            is DatabaseModule -> contextPath = value.path
+            is XpmModuleUri -> contextPath = value.path
             is VirtualFile -> contextValue = value.decode()!!
             else -> contextValue = value.toString()
         }
