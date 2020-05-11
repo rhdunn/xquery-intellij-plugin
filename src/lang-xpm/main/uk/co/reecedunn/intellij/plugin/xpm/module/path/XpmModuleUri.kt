@@ -20,10 +20,13 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import java.io.InputStream
 import java.io.OutputStream
 
-class XpmModuleUri(private val path: String) : VirtualFile() {
+class XpmModuleUri(private val path: String) : VirtualFile(), XsAnyUriValue {
     // region VirtualFile
 
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO("not implemented")
@@ -57,6 +60,15 @@ class XpmModuleUri(private val path: String) : VirtualFile() {
         newModificationStamp: Long,
         newTimeStamp: Long
     ): OutputStream = TODO("not implemented")
+
+    // endregion
+    // region XsAnyUriValue
+
+    override val data: String = path
+
+    override val context: XdmUriContext = XdmUriContext.Location
+
+    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.MODULE
 
     // endregion
     // region Object

@@ -37,6 +37,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
         val MARKLOGIC = arrayOf(XPath, XQuery, JavaScript)
         val MODULE = arrayOf(XQuery, Java, DotNet)
         val MODULE_OR_SCHEMA = arrayOf(XQuery, XMLSchema, Java, DotNet)
+        val MODULE_URI = arrayOf(XQuery, XSLT)
         val NONE = arrayOf<XdmModuleType>()
         val XPATH_OR_XQUERY = arrayOf(XPath, XQuery)
         val RESOURCE = arrayOf(Resource)
