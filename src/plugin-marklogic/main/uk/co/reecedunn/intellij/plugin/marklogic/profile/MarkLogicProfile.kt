@@ -34,7 +34,7 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry 
     val column = child("prof:column")?.text()?.toIntOrNull() ?: 0
     val frame = when (path) {
         null -> VirtualFileStackFrame(queryFile, line, column)
-        else -> VirtualFileStackFrame(XpmModuleUri(path), line, column)
+        else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column)
     }
 
     return FlatProfileEntry(

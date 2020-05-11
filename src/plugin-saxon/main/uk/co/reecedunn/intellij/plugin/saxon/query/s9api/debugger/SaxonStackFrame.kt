@@ -38,7 +38,7 @@ class SaxonStackFrame private constructor() : ComputeChildren {
             val children = SaxonStackFrame()
             return when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context, children, null)
-                else -> VirtualFileStackFrame(XpmModuleUri(path), line, column, context, children, null)
+                else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context, children, null)
             }
         }
     }

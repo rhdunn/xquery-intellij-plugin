@@ -51,7 +51,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
             val context = frame.child("error:operation")?.text()?.nullize()
             when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context)
-                else -> VirtualFileStackFrame(XpmModuleUri(path), line, column, context)
+                else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context)
             }
         }.toList()
     )

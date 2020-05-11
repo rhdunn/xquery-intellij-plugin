@@ -52,7 +52,7 @@ fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
     val col = parts?.get(4)?.toIntOrNull() ?: 1
     val frame = when (path) {
         null -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
-        else -> VirtualFileStackFrame(XpmModuleUri(path), line - 1, col - 1)
+        else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line - 1, col - 1)
     }
     return QueryError(
         standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),

@@ -56,7 +56,7 @@ class MarkLogicQueryTest {
         )
 
         val processor = create("localhost", 8000, "testuser") as RunnableQueryProvider
-        val query = processor.createRunnableQuery(XpmModuleUri("/test/script.xqy"), XQuery)
+        val query = processor.createRunnableQuery(XpmModuleUri(null, "/test/script.xqy"), XQuery)
 
         val request = (query as BuildableQuery).request()
         assertThat(request.method, `is`("POST"))
@@ -90,7 +90,7 @@ class MarkLogicQueryTest {
         )
 
         val processor = create("localhost", 8000, "testuser") as ProfileableQueryProvider
-        val query = processor.createProfileableQuery(XpmModuleUri("/test/script.xqy"), XQuery)
+        val query = processor.createProfileableQuery(XpmModuleUri(null, "/test/script.xqy"), XQuery)
         val request = (query as BuildableQuery).request()
 
         assertThat(request.method, `is`("POST"))

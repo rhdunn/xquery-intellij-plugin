@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import java.io.InputStream
 import java.io.OutputStream
 
-class XpmModuleUri(private val path: String) : VirtualFile(), XsAnyUriValue {
+class XpmModuleUri(val contextFile: VirtualFile?, private val path: String) : VirtualFile(), XsAnyUriValue {
     // region VirtualFile
 
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO("not implemented")

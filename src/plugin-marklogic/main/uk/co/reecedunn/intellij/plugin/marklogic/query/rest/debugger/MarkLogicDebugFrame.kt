@@ -51,7 +51,7 @@ class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : C
             val children = MarkLogicDebugFrame(frame)
             return when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context, children, evaluator)
-                else -> VirtualFileStackFrame(XpmModuleUri(path), line, column, context, children, evaluator)
+                else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context, children, evaluator)
             }
         }
     }

@@ -41,7 +41,7 @@ fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
 
     val frame = when (path) {
         null, "/db" -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
-        else -> VirtualFileStackFrame(XpmModuleUri(path), line - 1, col - 1)
+        else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line - 1, col - 1)
     }
     return QueryError(
         standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),

@@ -32,7 +32,7 @@ enum class QueryProcessorDataSourceType {
                 val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
                 url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
             }
-            DatabaseModule -> path?.let { XpmModuleUri(path) }
+            DatabaseModule -> path?.let { XpmModuleUri(null, path) }
             ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
         }
     }
