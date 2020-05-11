@@ -24,8 +24,8 @@ import com.intellij.xdebugger.frame.XValueChildrenList
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ComputeChildren
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : ComputeChildren {
     override fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?) {
@@ -51,7 +51,7 @@ class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : C
             val children = MarkLogicDebugFrame(frame)
             return when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context, children, evaluator)
-                else -> ModuleUriStackFrame(path, line, column, context, children, evaluator)
+                else -> VirtualFileStackFrame(XpmModuleUri(path), line, column, context, children, evaluator)
             }
         }
     }

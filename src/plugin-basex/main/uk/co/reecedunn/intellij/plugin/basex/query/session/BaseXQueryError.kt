@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import java.lang.reflect.InvocationTargetException
 
 private val RE_BASEX_EXCEPTION =
@@ -52,7 +52,7 @@ fun String.toBaseXQueryError(queryFile: VirtualFile): QueryError {
     val col = parts?.get(4)?.toIntOrNull() ?: 1
     val frame = when (path) {
         null -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
-        else -> ModuleUriStackFrame(path, line - 1, col - 1)
+        else -> VirtualFileStackFrame(XpmModuleUri(path), line - 1, col - 1)
     }
     return QueryError(
         standardCode = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $this"),

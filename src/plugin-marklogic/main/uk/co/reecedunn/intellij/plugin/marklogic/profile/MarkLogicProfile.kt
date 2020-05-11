@@ -19,12 +19,12 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 private val PROFILE_NAMESPACES = mapOf("prof" to "http://marklogic.com/xdmp/profile")
 
@@ -34,7 +34,7 @@ private fun XmlElement.toProfileEntry(queryFile: VirtualFile): FlatProfileEntry 
     val column = child("prof:column")?.text()?.toIntOrNull() ?: 0
     val frame = when (path) {
         null -> VirtualFileStackFrame(queryFile, line, column)
-        else -> ModuleUriStackFrame(path, line, column)
+        else -> VirtualFileStackFrame(XpmModuleUri(path), line, column)
     }
 
     return FlatProfileEntry(

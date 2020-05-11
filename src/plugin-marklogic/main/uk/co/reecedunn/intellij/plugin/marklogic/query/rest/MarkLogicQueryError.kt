@@ -19,9 +19,9 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 private val ERROR_NAMESPACES = mapOf(
     "err" to "http://www.w3.org/2005/xqt-errors",
@@ -51,7 +51,7 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
             val context = frame.child("error:operation")?.text()?.nullize()
             when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context)
-                else -> ModuleUriStackFrame(path, line, column, context)
+                else -> VirtualFileStackFrame(XpmModuleUri(path), line, column, context)
             }
         }.toList()
     )

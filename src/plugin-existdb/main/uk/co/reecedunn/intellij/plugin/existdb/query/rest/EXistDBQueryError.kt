@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 private val RE_EXISTDB_MESSAGE =
     "^(exerr:ERROR )?(org.exist.xquery.XPathException: )?([^ ]+) (.*)\n?$".toRegex()
@@ -41,7 +41,7 @@ fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
 
     val frame = when (path) {
         null, "/db" -> VirtualFileStackFrame(queryFile, line - 1, col - 1)
-        else -> ModuleUriStackFrame(path, line - 1, col - 1)
+        else -> VirtualFileStackFrame(XpmModuleUri(path), line - 1, col - 1)
     }
     return QueryError(
         standardCode = (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), ""),

@@ -39,7 +39,6 @@ class VirtualFileStackFrame(
 
     override fun getSourcePosition(): XSourcePosition? = sourcePosition
 
-    @Suppress("DuplicatedCode")
     override fun customizePresentation(component: ColoredTextContainer) {
         component.append(sourcePosition!!.file.name, SimpleTextAttributes.REGULAR_ATTRIBUTES)
         component.append(":", SimpleTextAttributes.REGULAR_ATTRIBUTES)

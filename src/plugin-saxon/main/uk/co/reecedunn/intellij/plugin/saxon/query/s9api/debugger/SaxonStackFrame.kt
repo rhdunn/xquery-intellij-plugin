@@ -20,9 +20,9 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ComputeChildren
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.ModuleUriStackFrame
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import javax.xml.transform.SourceLocator
 
 class SaxonStackFrame private constructor() : ComputeChildren {
@@ -38,7 +38,7 @@ class SaxonStackFrame private constructor() : ComputeChildren {
             val children = SaxonStackFrame()
             return when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context, children, null)
-                else -> ModuleUriStackFrame(path, line, column, context, children, null)
+                else -> VirtualFileStackFrame(XpmModuleUri(path), line, column, context, children, null)
             }
         }
     }
