@@ -26,9 +26,12 @@ import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
@@ -36,11 +39,10 @@ internal class MarkLogicRunQuery(
     private val builder: RequestBuilder,
     private val queryParams: JsonObject,
     private val queryFile: VirtualFile,
-    private val connection: HttpConnection
-) :
-    RunnableQuery,
-    ValidatableQuery,
-    BuildableQuery {
+    private val connection: HttpConnection,
+    private val processor: MarkLogicQueryProcessor,
+    private var queryId: String?
+) : RunnableQuery, ValidatableQuery, BuildableQuery, StoppableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -96,9 +98,14 @@ internal class MarkLogicRunQuery(
         val body = EntityUtils.toString(response.entity)
         response.close()
 
-        val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
-        val duration = (results.next().value as String).toXsDuration()
-        return QueryResults(response.statusLine, results.asSequence().toList(), duration!!)
+        return if (queryId != null) {
+            val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
+            val duration = (results.next().value as String).toXsDuration()
+            QueryResults(response.statusLine, results.asSequence().toList(), duration!!)
+        } else {
+            // The query has been cancelled.
+            QueryResults(QueryResults.OK, listOf(), XsDuration.ZERO)
+        }
     }
 
     override fun validate(): QueryError? {
@@ -116,6 +123,15 @@ internal class MarkLogicRunQuery(
         } catch (e: QueryError) {
             e
         }
+    }
+
+    override fun stop() {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Request.Cancel, XQuery)
+        query.bindVariable("server", "App-Services", "xs:string")
+        query.bindVariable("queryId", queryId, "xs:string")
+
+        queryId = null
+        query.run()
     }
 
     override fun close() {

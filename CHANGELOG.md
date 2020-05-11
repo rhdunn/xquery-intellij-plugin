@@ -4,6 +4,7 @@
 
 Run Configurations:
 
+1.  Support stopping MarkLogic queries.
 1.  Fixed scrolling to an item in the results pane when the detected filetype
     is plain text.
 1.  Fixed a null pointer exception when processing MarkLogic syntax error

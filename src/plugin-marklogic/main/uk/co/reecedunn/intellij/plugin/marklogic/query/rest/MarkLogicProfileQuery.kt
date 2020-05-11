@@ -26,20 +26,25 @@ import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class MarkLogicProfileQuery(
     private val builder: RequestBuilder,
     private val queryParams: JsonObject,
     private val queryFile: VirtualFile,
-    private val connection: HttpConnection
-) :
-    ProfileableQuery,
-    BuildableQuery {
+    private val connection: HttpConnection,
+    private val processor: MarkLogicQueryProcessor,
+    private var queryId: String?
+) : ProfileableQuery, BuildableQuery, StoppableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -95,13 +100,27 @@ internal class MarkLogicProfileQuery(
         val body = EntityUtils.toString(response.entity)
         response.close()
 
-        if (response.statusLine.statusCode != 200) {
-            throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
-        }
+        return if (queryId != null) {
+            if (response.statusLine.statusCode != 200) {
+                throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
+            }
 
-        val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
-        val report = (results.next().value as String).toMarkLogicProfileReport(queryFile)
-        return ProfileQueryResults(results.asSequence().toList(), report)
+            val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
+            val report = (results.next().value as String).toMarkLogicProfileReport(queryFile)
+            ProfileQueryResults(results.asSequence().toList(), report)
+        } else {
+            // The query has been cancelled.
+            ProfileQueryResults(listOf(), FlatProfileReport(null, XsDuration.ZERO, "", "", sequenceOf()))
+        }
+    }
+
+    override fun stop() {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Request.Cancel, XQuery)
+        query.bindVariable("server", "App-Services", "xs:string")
+        query.bindVariable("queryId", queryId, "xs:string")
+
+        queryId = null
+        query.run()
     }
 
     override fun close() {

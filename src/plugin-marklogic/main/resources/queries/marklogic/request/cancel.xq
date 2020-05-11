@@ -14,13 +14,29 @@
  : limitations under the License.
  :)
 xquery version "1.0-ml";
+
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
+declare namespace ss = "http://marklogic.com/xdmp/status/server";
+
 declare option o:implementation "marklogic/6.0";
 
 (: Cancel a running request. :)
 
 declare variable $hostId as xs:unsignedLong external := xdmp:host();
 declare variable $server as xs:string external := "TaskServer";
-declare variable $requestId as xs:unsignedLong external;
+declare variable $queryId as xs:string? external := (); (: from a run/profile request :)
+declare variable $requestId as xs:unsignedLong? external := (); (: from a debug request :)
 
-xdmp:request-cancel($hostId, xdmp:server($server), $requestId)
+let $serverId := xdmp:server($server)
+return if (exists($queryId)) then
+    let $ss := xdmp:server-status($hostId, $serverId)/ss:request-statuses/ss:request-status
+    let $req := $ss[ss:request-kind = "eval" and starts-with(ss:request-text, $queryId)]
+    let $requestId := xs:unsignedLong($req/ss:request-id)
+    return if (exists($requestId)) then
+        xdmp:request-cancel($hostId, $serverId, $requestId)
+    else
+        ()
+else if (exists($requestId)) then
+    xdmp:request-cancel($hostId, $serverId, $requestId)
+else
+    ()

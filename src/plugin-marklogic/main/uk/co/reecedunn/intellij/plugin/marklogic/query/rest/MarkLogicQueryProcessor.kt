@@ -42,20 +42,14 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
     ValidatableQueryProvider,
     LogViewProvider {
 
-    override val version
-        get(): String {
-            return createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value as String
-        }
+    override val version: String
+        get() = createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value as String
 
-    override val servers
-        get(): List<String> {
-            return createRunnableQuery(MarkLogicQueries.Servers, XQuery).run().results.map { it.value as String }
-        }
+    override val servers: List<String>
+        get() = createRunnableQuery(MarkLogicQueries.Servers, XQuery).run().results.map { it.value as String }
 
-    override val databases
-        get(): List<String> {
-            return createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }
-        }
+    override val databases: List<String>
+        get() = createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }
 
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()
@@ -76,8 +70,10 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
         return when (language) {
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), query, connection)
+                val queryId = "(: xijp:queryId=${builder.hashCode()}:${System.nanoTime()} :)"
+                val params = buildParameters(query, language, "profile")
+                builder.addParameter("xquery", "$queryId${MarkLogicQueries.Run}")
+                MarkLogicProfileQuery(builder, params, query, connection, this, queryId)
             }
             else -> throw UnsupportedQueryType(language)
         }
@@ -87,8 +83,10 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
         return when (language) {
             ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicRunQuery(builder, buildParameters(query, language, "run"), query, connection)
+                val queryId = "(: xijp:queryId=${builder.hashCode()}:${System.nanoTime()} :)"
+                val params = buildParameters(query, language, "run")
+                builder.addParameter("xquery", "$queryId${MarkLogicQueries.Run}")
+                MarkLogicRunQuery(builder, params, query, connection, this, queryId)
             }
             else -> throw UnsupportedQueryType(language)
         }
@@ -110,7 +108,7 @@ internal class MarkLogicQueryProcessor(private val baseUri: String, private val 
             XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicRunQuery(builder, buildParameters(query, language, "validate"), query, connection)
+                MarkLogicRunQuery(builder, buildParameters(query, language, "validate"), query, connection, this, null)
             }
             else -> throw UnsupportedQueryType(language)
         }
