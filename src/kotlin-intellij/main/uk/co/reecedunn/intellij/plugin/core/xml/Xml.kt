@@ -30,7 +30,6 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-
 private class NodeListIterator(val nodes: NodeList) : Iterator<Node> {
     private var current: Int = 0
 
@@ -93,15 +92,6 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
         return buffer.toString()
     }
 
-    fun innerXml(): String {
-        val buffer = StringWriter()
-        val result = StreamResult(buffer)
-        element.childNodes.asSequence().forEach {
-            transformer.transform(DOMSource(it), result)
-        }
-        return buffer.toString()
-    }
-
     companion object {
         private val transformer by lazy {
             val transformer = TransformerFactory.newInstance().newTransformer()
@@ -114,12 +104,6 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 class XmlDocument internal constructor(val doc: Document, namespaces: Map<String, String>) {
     val root: XmlElement = XmlElement(doc.documentElement, namespaces)
 
-    fun toXmlString(): String {
-        val writer = StringWriter()
-        formatter.transform(DOMSource(doc), StreamResult(writer))
-        return writer.buffer.toString()
-    }
-
     fun save(file: File) {
         FileWriter(file).use {
             formatter.transform(DOMSource(doc), StreamResult(it))
@@ -127,13 +111,13 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
     }
 
     companion object {
-        private val builder by lazy {
+        internal val builder by lazy {
             val factory = DocumentBuilderFactory.newInstance()
             factory.isNamespaceAware = true
             factory.newDocumentBuilder()
         }
 
-        private val formatter by lazy {
+        internal val formatter by lazy {
             val factory = TransformerFactory.newInstance()
             factory.newTransformer()
         }
@@ -159,3 +143,40 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
 fun Sequence<XmlElement>.children(name: String): Sequence<XmlElement> = this.flatMap { it.children(name) }
 
 fun Sequence<XmlElement>.children(name: QName): Sequence<XmlElement> = this.flatMap { it.children(name) }
+
+val Document.xml: String
+    get() {
+        val writer = StringWriter()
+        XmlDocument.formatter.transform(DOMSource(this), StreamResult(writer))
+        return writer.buffer.toString()
+    }
+
+// region DSL
+
+fun document(init: Document.() -> Unit): Document {
+    val doc = XmlDocument.builder.newDocument()
+    doc.init()
+    return doc
+}
+
+fun Document.element(namespaceUri: String, localname: String, init: Element.() -> Unit) {
+    val e = createElementNS(namespaceUri, localname)
+    e.init()
+    appendChild(e)
+}
+
+fun Node.element(namespaceUri: String, localname: String, init: Element.() -> Unit) {
+    val e = ownerDocument.createElementNS(namespaceUri, localname)
+    e.init()
+    appendChild(e)
+}
+
+fun Element.cdata(text: String) {
+    appendChild(ownerDocument.createCDATASection(text))
+}
+
+fun Element.text(text: String) {
+    appendChild(ownerDocument.createTextNode(text))
+}
+
+// endregion

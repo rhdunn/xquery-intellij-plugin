@@ -22,8 +22,7 @@ import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
+import uk.co.reecedunn.intellij.plugin.core.xml.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -38,8 +37,10 @@ internal class EXistDBQuery(
     private val connection: HttpConnection
 ) : RunnableQuery, BuildableQuery {
     companion object {
+        private const val EXIST_NAMESPACE = "http://exist.sourceforge.net/NS/exist"
+
         private val EXIST_NAMESPACES = mapOf(
-            "exist" to "http://exist.sourceforge.net/NS/exist"
+            "exist" to EXIST_NAMESPACE
         )
     }
 
@@ -64,10 +65,15 @@ internal class EXistDBQuery(
     }
 
     override fun request(): HttpUriRequest {
-        val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate, mapOf())
-        xml.root.children("text").first().appendChild(xml.doc.createCDATASection(queryFile.decode()!!))
-
-        builder.entity = StringEntity(xml.toXmlString())
+        builder.entity = StringEntity(document {
+            element(EXIST_NAMESPACE, "query") {
+                setAttribute("start", "1")
+                setAttribute("max", "18446744073709551615")
+                setAttribute("cache", "no")
+                setAttribute("session-id", "")
+                element(EXIST_NAMESPACE, "text") { cdata(queryFile.decode()!!) }
+            }
+        }.xml)
         return builder.build()
     }
 
