@@ -23,6 +23,7 @@ import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.*
+import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -64,7 +65,10 @@ internal class EXistDBQuery(
 
     override fun request(): HttpUriRequest {
         builder.entity = StringEntity(exist_query {
-            exist_text(queryFile.decode()!!)
+            exist_text(EXistDBQueries.Run)
+            exist_variables {
+                exist_variable("query") { exist_value(queryFile.decode()!!, "xs:string") }
+            }
         }.xml)
         return builder.build()
     }

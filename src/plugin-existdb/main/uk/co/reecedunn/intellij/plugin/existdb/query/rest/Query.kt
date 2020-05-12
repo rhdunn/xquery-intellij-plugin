@@ -20,8 +20,11 @@ import org.w3c.dom.Element
 import uk.co.reecedunn.intellij.plugin.core.xml.cdata
 import uk.co.reecedunn.intellij.plugin.core.xml.document
 import uk.co.reecedunn.intellij.plugin.core.xml.element
+import uk.co.reecedunn.intellij.plugin.core.xml.text
 
 private const val EXIST_NAMESPACE = "http://exist.sourceforge.net/NS/exist"
+
+private const val SERIALIZED_NAMESPACE = "http://exist-db.org/xquery/types/serialized"
 
 fun exist_query(init: Element.() -> Unit): Document = document {
     element(EXIST_NAMESPACE, "query") {
@@ -33,6 +36,18 @@ fun exist_query(init: Element.() -> Unit): Document = document {
     }
 }
 
-fun Element.exist_text(text: String) {
-    element(EXIST_NAMESPACE, "text") { cdata(text) }
+fun Element.exist_text(text: String) = element(EXIST_NAMESPACE, "text") { cdata(text) }
+
+fun Element.exist_variables(init: Element.() -> Unit) = element(EXIST_NAMESPACE, "variables", init)
+
+fun Element.exist_variable(name: String, init: Element.() -> Unit) = element(EXIST_NAMESPACE, "variable") {
+    element(EXIST_NAMESPACE, "qname") {
+        element(EXIST_NAMESPACE, "localname") { text(name) }
+    }
+    element(SERIALIZED_NAMESPACE, "sequence", init)
+}
+
+fun Element.exist_value(value: String, type: String) = element(SERIALIZED_NAMESPACE, "value") {
+    setAttribute("type", type)
+    cdata(value)
 }

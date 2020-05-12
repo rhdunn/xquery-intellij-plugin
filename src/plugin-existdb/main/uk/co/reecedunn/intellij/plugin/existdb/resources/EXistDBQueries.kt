@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.resources
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 
 object EXistDBQueries {
     private fun resourceFile(path: String): VirtualFile {
@@ -25,6 +26,8 @@ object EXistDBQueries {
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
     }
+
+    val Run = resourceFile("queries/existdb/run.xq").decode()!!
 
     val Version = resourceFile("queries/existdb/version.xq")
 }
