@@ -290,7 +290,7 @@ declare function local:function-html-signatures($function as element(apidoc:func
             }){
                 if ($type != "") then (
                     <code class="as">&#xA0;as&#xA0;</code>,
-                    <code class="return-type">xs:double</code>
+                    <code class="return-type">{$type}</code>
                 ) else ()
             }
         </div>

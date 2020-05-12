@@ -55,6 +55,10 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.7-dev:</h3>
+    <p>Documentation:</p>
+    <ol>
+      <li>Fix the return type in the MarkLogic documentation.</li>
+    </ol>
     <p>Run Configurations:</p>
     <ol>
       <li>Support stopping MarkLogic queries.</li>

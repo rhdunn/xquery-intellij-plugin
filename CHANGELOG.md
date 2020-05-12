@@ -2,6 +2,10 @@
 
 ## 1.7 - (In Development)
 
+Documentation:
+
+1.  Fix the return type in the MarkLogic documentation.
+
 Run Configurations:
 
 1.  Support stopping MarkLogic queries.
