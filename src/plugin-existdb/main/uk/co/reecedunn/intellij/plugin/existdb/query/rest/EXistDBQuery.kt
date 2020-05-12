@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,23 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
-import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
 internal class EXistDBQuery(
     private val builder: RequestBuilder,
     private val queryFile: VirtualFile,
     private val connection: HttpConnection
-) : RunnableQuery {
+) : RunnableQuery, BuildableQuery {
     companion object {
         private val EXIST_NAMESPACES = mapOf(
             "exist" to "http://exist.sourceforge.net/NS/exist"
@@ -59,11 +60,13 @@ internal class EXistDBQuery(
         throw UnsupportedOperationException()
     }
 
-    override fun run(): QueryResults {
-        val request = builder.build()
+    override fun request(): HttpUriRequest {
+        return builder.build()
+    }
 
+    override fun run(): QueryResults {
         val start = System.nanoTime()
-        val response = connection.execute(request)
+        val response = connection.execute(request())
         val end = System.nanoTime()
 
         val body = EntityUtils.toString(response.entity)
