@@ -19,9 +19,23 @@ declare option o:implementation "exist-db/3.0";
 
 (:~ Run a query on an eXist-db server.
  :
+ : @param $username The database user to run the query as.
+ : @param $password The password of the database user.
  : @param $query The query script to evaluate.
+ :
+ : This script has additional logic to map the semantics of the REST API to
+ : the semantics of the API implemented in the xquery-intellij-plugin to support
+ : the Run/Debug Configurations of the IntelliJ IDEs. Specifically:
+ :
+ : 1. The user passed to the HTTP authentication is not logged in when the
+ :    given query is run.
  :)
 
+declare variable $username as xs:string external;
+declare variable $password as xs:string external;
 declare variable $query as xs:string external;
 
-util:eval($query)
+if (xmldb:login("", $username, $password, false())) then
+    util:eval($query)
+else
+    response:set-status-code(403)

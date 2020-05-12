@@ -2,13 +2,18 @@
 
 ## 1.7 - (In Development)
 
-Documentation:
+MarkLogic:
 
 1.  Fix the return type in the MarkLogic documentation.
+1.  Support stopping MarkLogic queries.
+
+eXist-db:
+
+1.  Log in as the query processor user to run the query. This fixes calling
+    APIs that require specific permissions.
 
 Run Configurations:
 
-1.  Support stopping MarkLogic queries.
 1.  Fixed scrolling to an item in the results pane when the detected filetype
     is plain text.
 1.  Fixed a null pointer exception when processing MarkLogic syntax error

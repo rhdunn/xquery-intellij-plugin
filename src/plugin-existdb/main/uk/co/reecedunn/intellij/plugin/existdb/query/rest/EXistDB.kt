@@ -28,6 +28,6 @@ class EXistDB : QueryProcessorInstanceManager {
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
         val baseUrl = "http://${settings.hostname}:${settings.databasePort}/exist/rest"
-        return EXistDBQueryProcessor(baseUrl, HttpConnection(settings))
+        return EXistDBQueryProcessor(baseUrl, HttpConnection(settings), settings)
     }
 }

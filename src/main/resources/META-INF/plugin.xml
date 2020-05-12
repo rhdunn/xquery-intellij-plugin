@@ -55,13 +55,20 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.7-dev:</h3>
-    <p>Documentation:</p>
+    <p>MarkLogic:</p>
     <ol>
       <li>Fix the return type in the MarkLogic documentation.</li>
+      <li>Support stopping MarkLogic queries.</li>
+    </ol>
+    <p>eXist-db:</p>
+    <ol>
+      <li>
+        Log in as the query processor user to run the query. This fixes calling APIs that require
+        specific permissions.
+      </li>
     </ol>
     <p>Run Configurations:</p>
     <ol>
-      <li>Support stopping MarkLogic queries.</li>
       <li>Fixed scrolling to an item in the results pane when the detected filetype is plain text.</li>
       <li>Fixed a null pointer exception when processing MarkLogic syntax error responses.</li>
       <li>Fixed navigating to module paths in query errors.</li>

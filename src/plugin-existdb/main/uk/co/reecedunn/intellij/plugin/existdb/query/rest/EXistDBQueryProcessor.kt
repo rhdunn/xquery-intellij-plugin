@@ -23,8 +23,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
-internal class EXistDBQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
-    RunnableQueryProvider {
+internal class EXistDBQueryProcessor(
+    private val baseUri: String,
+    private val connection: HttpConnection,
+    private val settings: ConnectionSettings
+) : RunnableQueryProvider {
 
     override val version: String
         get() = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
@@ -37,7 +40,7 @@ internal class EXistDBQueryProcessor(private val baseUri: String, private val co
         return when (language) {
             XQuery -> {
                 val builder = RequestBuilder.post("$baseUri/db")
-                EXistDBQuery(builder, query, connection)
+                EXistDBQuery(builder, query, connection, settings)
             }
             else -> throw UnsupportedQueryType(language)
         }
