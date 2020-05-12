@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
@@ -42,7 +43,8 @@ internal class MarkLogicRunQuery(
     private val connection: HttpConnection,
     private val processor: MarkLogicQueryProcessor,
     private var queryId: String?
-) : RunnableQuery, ValidatableQuery, BuildableQuery, StoppableQuery {
+) : RunnableQuery, ValidatableQuery,
+    BuildableQuery, StoppableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()

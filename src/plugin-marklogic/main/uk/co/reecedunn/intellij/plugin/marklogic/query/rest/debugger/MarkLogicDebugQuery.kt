@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.BuildableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession

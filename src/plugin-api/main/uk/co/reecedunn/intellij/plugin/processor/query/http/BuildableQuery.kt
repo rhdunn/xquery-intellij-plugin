@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
+package uk.co.reecedunn.intellij.plugin.processor.query.http
 
 import org.apache.http.client.methods.HttpUriRequest
 
