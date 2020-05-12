@@ -19,8 +19,11 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
+import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -61,6 +64,10 @@ internal class EXistDBQuery(
     }
 
     override fun request(): HttpUriRequest {
+        val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate, mapOf())
+        xml.root.children("text").first().appendChild(xml.doc.createCDATASection(queryFile.decode()!!))
+
+        builder.entity = StringEntity(xml.toXmlString())
         return builder.build()
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,6 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.entity.StringEntity
-import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -29,10 +26,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 internal class EXistDBQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     RunnableQueryProvider {
 
-    override val version
-        get(): String {
-            return createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
-        }
+    override val version: String
+        get() = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
 
     override val servers: List<String> = listOf()
 
@@ -41,11 +36,7 @@ internal class EXistDBQueryProcessor(private val baseUri: String, private val co
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
-                val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate, mapOf())
-                xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.decode()!!))
-
                 val builder = RequestBuilder.post("$baseUri/db")
-                builder.entity = StringEntity(xml.toXmlString())
                 EXistDBQuery(builder, query, connection)
             }
             else -> throw UnsupportedQueryType(language)
