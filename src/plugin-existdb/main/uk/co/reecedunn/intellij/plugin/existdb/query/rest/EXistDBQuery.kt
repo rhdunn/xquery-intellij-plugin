@@ -37,10 +37,8 @@ internal class EXistDBQuery(
     private val connection: HttpConnection
 ) : RunnableQuery, BuildableQuery {
     companion object {
-        private const val EXIST_NAMESPACE = "http://exist.sourceforge.net/NS/exist"
-
         private val EXIST_NAMESPACES = mapOf(
-            "exist" to EXIST_NAMESPACE
+            "exist" to "http://exist.sourceforge.net/NS/exist"
         )
     }
 
@@ -65,14 +63,8 @@ internal class EXistDBQuery(
     }
 
     override fun request(): HttpUriRequest {
-        builder.entity = StringEntity(document {
-            element(EXIST_NAMESPACE, "query") {
-                setAttribute("start", "1")
-                setAttribute("max", "18446744073709551615")
-                setAttribute("cache", "no")
-                setAttribute("session-id", "")
-                element(EXIST_NAMESPACE, "text") { cdata(queryFile.decode()!!) }
-            }
+        builder.entity = StringEntity(exist_query {
+            exist_text(queryFile.decode()!!)
         }.xml)
         return builder.build()
     }
