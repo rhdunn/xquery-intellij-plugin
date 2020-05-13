@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
+import com.google.gson.JsonObject
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
@@ -45,6 +46,9 @@ internal class EXistDBQuery(
         )
     }
 
+    private var variables: JsonObject = JsonObject()
+    private var types: JsonObject = JsonObject()
+
     override var rdfOutputFormat: Language? = null
 
     override var updating: Boolean = false
@@ -58,7 +62,8 @@ internal class EXistDBQuery(
     override var modulePath: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
-        throw UnsupportedOperationException()
+        variables.addProperty(name, value as String? ?: "")
+        types.addProperty(name, type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
@@ -72,6 +77,8 @@ internal class EXistDBQuery(
                 exist_variable("username") { exist_value(settings.username ?: "", "xs:string") }
                 exist_variable("password") { exist_value(settings.password ?: "", "xs:string") }
                 exist_variable("query") { exist_value(queryFile.decode()!!, "xs:string") }
+                exist_variable("vars") { exist_value(variables.toString(), "xs:string") }
+                exist_variable("types") { exist_value(types.toString(), "xs:string") }
             }
         }.xml)
         return builder.build()
