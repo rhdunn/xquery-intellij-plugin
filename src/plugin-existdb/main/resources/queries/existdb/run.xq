@@ -14,7 +14,10 @@
  : limitations under the License.
  :)
 xquery version "3.1";
+
+declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
+
 declare option o:implementation "exist-db/4.0";
 
 (:~ Run a query on an eXist-db server.
@@ -30,7 +33,13 @@ declare option o:implementation "exist-db/4.0";
  : the Run/Debug Configurations of the IntelliJ IDEs. Specifically:
  :
  : 1. The user passed to the HTTP authentication is not logged in when the
- :    given query is run.
+ :    given query is run, due to one or more issues in the calling code.
+ :
+ : 2. When returning node types (element, text, etc.), those are included in
+ :    the XML results as is.
+ :
+ : 3. Text and attribute nodes are included as their text content in the XML
+ :    output, with adjacent text from the different nodes concatenated.
  :)
 
 declare variable $username as xs:string external;
@@ -94,8 +103,41 @@ declare function local:parse-vars($values as map(*), $types as map(*)) as item()
     return (fn:QName("", $key), $value)
 };
 
+declare function local:serialize-type($value) {
+    typeswitch ($value)
+    case array(*) return "array(*)"
+    case map(*) return "map(*)"
+    case function(*) return "function(*)"
+    (: nodes :)
+    case attribute() return "attribute()"
+    case comment() return "comment()"
+    case document-node() return "document-node()"
+    case element() return "element()"
+    case namespace-node() return "namespace-node()"
+    case processing-instruction() return "processing-instruction()"
+    case text() return "text()"
+    default return ()
+};
+
+declare function local:serialize-value($value) {
+    typeswitch ($value)
+    case attribute() | namespace-node() return $value/string()
+    case array(*) | map(*) return fn:serialize($value, map { "method": "json" })
+    case function(*) return fn:function-name($value) || "#" || fn:function-arity($value)
+    default return fn:serialize($value)
+};
+
+declare function local:serialize($value) {
+    let $type := local:serialize-type($value)
+    return if (exists($type)) then
+        <exist:value exist:type="{$type}">{local:serialize-value($value)}</exist:value>
+    else
+        $value
+};
+
 if (xmldb:login("", $username, $password, false())) then
     let $variables := local:parse-vars(fn:parse-json($vars), fn:parse-json($types))
-    return util:eval($query, false(), $variables)
+    for $result in util:eval($query, false(), $variables)
+    return local:serialize($result)
 else
     response:set-status-code(403)

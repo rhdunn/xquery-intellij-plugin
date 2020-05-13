@@ -62,11 +62,9 @@
     </ol>
     <p>eXist-db:</p>
     <ol>
-      <li>
-        Log in as the query processor user to run the query. This fixes calling APIs that require
-        specific permissions.
-      </li>
       <li>Display the log files in the Query Log panel.</li>
+      <li>Fixed calling APIs that require specific permissions that the query processor user has.</li>
+      <li>Fixed displaying <code>node()</code> and <code>function(*)</code> types in the query results view.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

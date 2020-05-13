@@ -9,9 +9,10 @@ MarkLogic:
 
 eXist-db:
 
-1.  Log in as the query processor user to run the query. This fixes calling
-    APIs that require specific permissions.
 1.  Display the log files in the Query Log panel.
+1.  Fixed calling APIs that require specific permissions that the query
+    processor user has.
+1.  Fix displaying `node()` and `function(*)` types in the query results view.
 
 Run Configurations:
 
