@@ -91,7 +91,7 @@ declare function local:cast-as($value, $type) {
 declare function local:parse-vars($values as map(*), $types as map(*)) as item()* {
     for $key in map:keys($values)
     let $value := local:cast-as(map:get($values, $key), map:get($types, $key))
-    return (xs:QName($key), $value)
+    return (fn:QName("", $key), $value)
 };
 
 if (xmldb:login("", $username, $password, false())) then

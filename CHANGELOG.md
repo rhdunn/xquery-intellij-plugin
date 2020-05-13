@@ -11,6 +11,7 @@ eXist-db:
 
 1.  Log in as the query processor user to run the query. This fixes calling
     APIs that require specific permissions.
+1.  Display the log files in the Query Log panel.
 
 Run Configurations:
 

@@ -20,6 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
@@ -27,7 +28,7 @@ internal class EXistDBQueryProcessor(
     private val baseUri: String,
     private val connection: HttpConnection,
     private val settings: ConnectionSettings
-) : RunnableQueryProvider {
+) : RunnableQueryProvider, LogViewProvider {
 
     override val version: String
         get() = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
@@ -45,6 +46,19 @@ internal class EXistDBQueryProcessor(
             else -> throw UnsupportedQueryType(language)
         }
     }
+
+    override fun logs(): List<String> {
+        return createRunnableQuery(EXistDBQueries.Log.Logs, XQuery).run().results.map { it.value as String }
+    }
+
+    override fun log(name: String): List<String> {
+        return createRunnableQuery(EXistDBQueries.Log.Log, XQuery).use { query ->
+            query.bindVariable("name", name, "xs:string")
+            query.run().results.map { it.value as String }
+        }
+    }
+
+    override fun defaultLogFile(logs: List<String>): String? = "exist.log"
 
     override fun close() = connection.close()
 }

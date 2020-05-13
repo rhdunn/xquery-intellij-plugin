@@ -66,6 +66,7 @@
         Log in as the query processor user to run the query. This fixes calling APIs that require
         specific permissions.
       </li>
+      <li>Display the log files in the Query Log panel.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

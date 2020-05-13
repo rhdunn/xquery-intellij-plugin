@@ -30,4 +30,9 @@ object EXistDBQueries {
     val Run = resourceFile("queries/existdb/run.xq").decode()!!
 
     val Version = resourceFile("queries/existdb/version.xq")
+
+    object Log {
+        val Logs = resourceFile("queries/existdb/log/logs.xq")
+        val Log = resourceFile("queries/existdb/log/log.xq")
+    }
 }
