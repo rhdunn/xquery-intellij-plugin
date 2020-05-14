@@ -546,7 +546,7 @@ The addition is then:
 | Symbol           | Type         | Interface         | Representation |
 |------------------|--------------|-------------------|----------------|
 | `DecimalLiteral` | `xs:decimal` | `XsDecimalValue`  | `BigDecimal`   |
-| `DoubleLiteral`  | `xs:double`  | `XsDoubleLiteral` | `Double`       |
+| `DoubleLiteral`  | `xs:double`  | `XsDoubleValue`   | `Double`       |
 | `IntegerLiteral` | `xs:integer` | `XsIntegerValue`  | `BigInteger`   |
 | `StringLiteral`  | `xs:string`  | `XsStringValue`   | `String`       |
 | `URILiteral`     | `xs:anyURI`  | `XsAnyUriValue`   | `String`       |
