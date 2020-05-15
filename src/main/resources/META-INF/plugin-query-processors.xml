@@ -4,6 +4,8 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi" dynamic="true"/>
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.syntaxValidator" interface="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator" dynamic="true"/>
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.vendor" interface="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType" dynamic="true"/>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
@@ -32,6 +34,13 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- Vendors -->
+
+    <vendor implementation="uk.co.reecedunn.intellij.plugin.basex.lang.BaseX"/>
+    <vendor implementation="uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB"/>
+    <vendor implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic"/>
+    <vendor implementation="uk.co.reecedunn.intellij.plugin.saxon.lang.Saxonica"/>
+
     <!-- Query Processors -->
 
     <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>

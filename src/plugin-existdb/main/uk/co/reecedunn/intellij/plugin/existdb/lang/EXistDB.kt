@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.existdb.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 
-object EXistDB : XpmProductType {
-    // region XpmProductType
+object EXistDB : XpmVendorType, XpmProductType {
+    // region XpmVendorType / XpmProductType
 
     override val id: String = "exist-db"
 
