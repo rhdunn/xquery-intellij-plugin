@@ -100,5 +100,9 @@
     <applicationConfigurable groupId="language" displayName="Documentation Sources" id="preferences.xqueryAndXslt.documentation"
                              instance="uk.co.reecedunn.intellij.plugin.intellij.settings.documentation.XQDocDocumentationSourcesConfigurable"
                              parentId="preferences.xqueryAndXslt"/>
+
+    <projectConfigurable groupId="language" displayName="Modules and Packages" id="preferences.xqueryAndXslt.modules"
+                         instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XpmModuleConfigurable"
+                         parentId="preferences.xqueryAndXslt"/>
   </extensions>
 </idea-plugin>
