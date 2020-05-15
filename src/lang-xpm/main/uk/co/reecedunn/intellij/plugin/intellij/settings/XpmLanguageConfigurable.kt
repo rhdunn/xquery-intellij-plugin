@@ -19,7 +19,7 @@ import com.intellij.openapi.options.Configurable
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
 import javax.swing.JComponent
 
-class XdmProfileConfigurable : Configurable {
+class XpmLanguageConfigurable : Configurable {
     // region Configurable
 
     override fun getDisplayName(): String = "XQuery and XSLT"
