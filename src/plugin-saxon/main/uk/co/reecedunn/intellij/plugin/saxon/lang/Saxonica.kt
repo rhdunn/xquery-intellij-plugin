@@ -25,4 +25,9 @@ object Saxonica : XpmVendorType {
     override val name = "Saxonica"
 
     // endregion
+    // region XpmVendorType
+
+    override fun isValidInstallDir(installDir: String): Boolean = false
+
+    // endregion
 }

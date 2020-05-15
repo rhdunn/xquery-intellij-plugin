@@ -28,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettings> {
@@ -52,6 +54,8 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
     // region Settings :: Database Path
 
     var databasePath: String = ""
+
+    val vendor: XpmVendorType? get() = XpmVendorType.types.find { it.isValidInstallDir(databasePath) }
 
     // endregion
     // region XpmModuleLoader

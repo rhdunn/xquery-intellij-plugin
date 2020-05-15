@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.lang
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
+import java.io.File
 
 object EXistDB : XpmVendorType, XpmProductType {
     // region XpmVendorType / XpmProductType
@@ -25,6 +26,13 @@ object EXistDB : XpmVendorType, XpmProductType {
     override val id: String = "exist-db"
 
     override val name = "eXist-db"
+
+    // endregion
+    // region XpmVendorType
+
+    override fun isValidInstallDir(installDir: String): Boolean {
+        return File("$installDir/exist.log").exists()
+    }
 
     // endregion
     // region Language Versions

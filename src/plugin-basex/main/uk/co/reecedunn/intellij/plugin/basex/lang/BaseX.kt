@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.basex.lang
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
+import java.io.File
 
 object BaseX : XpmVendorType, XpmProductType {
     // region XpmVendorType / XpmProductType
@@ -25,6 +26,19 @@ object BaseX : XpmVendorType, XpmProductType {
     override val id: String = "basex"
 
     override val name = "BaseX"
+
+    // endregion
+    // region XpmVendorType
+
+    private val basexJar = listOf(
+        "BaseX.jar",
+        "basex.jar",
+        "BaseX6.jar"
+    )
+
+    override fun isValidInstallDir(installDir: String): Boolean {
+        return basexJar.find { File("$installDir/$it").exists() } != null
+    }
 
     // endregion
     // region Language Versions

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.lang
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
+import java.io.File
 
 object MarkLogic : XpmVendorType, XpmProductType {
     // region XpmVendorType / XpmProductType
@@ -25,6 +26,18 @@ object MarkLogic : XpmVendorType, XpmProductType {
     override val id: String = "marklogic"
 
     override val name = "MarkLogic"
+
+    // endregion
+    // region XpmVendorType
+
+    private val markLogicExecutable = listOf(
+        "MarkLogic.exe", // Windows
+        "bin/MarkLogic" // Linux / Mac OS
+    )
+
+    override fun isValidInstallDir(installDir: String): Boolean {
+        return markLogicExecutable.find { File("$installDir/$it").exists() } != null
+    }
 
     // endregion
     // region Language Versions

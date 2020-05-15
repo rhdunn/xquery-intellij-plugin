@@ -20,9 +20,13 @@ import com.intellij.openapi.extensions.ExtensionPointName
 interface XpmVendorType {
     companion object {
         val EP_NAME = ExtensionPointName.create<XpmVendorType>("uk.co.reecedunn.intellij.vendor")
+
+        val types get() = EP_NAME.extensions.asSequence()
     }
 
     val id: String
 
     val name: String
+
+    fun isValidInstallDir(installDir: String): Boolean
 }
