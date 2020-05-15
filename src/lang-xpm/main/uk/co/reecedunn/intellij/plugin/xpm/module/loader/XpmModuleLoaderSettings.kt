@@ -31,6 +31,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettings> {
+    // region Settings :: Module Loaders
+
     @Attribute("loader")
     var loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
         XpmModuleLoaderBean("java", null),
@@ -46,6 +48,12 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
     @Transient
     private val loaders = CacheableProperty { loaderBeans.mapNotNull { it.loader } }
 
+    // endregion
+    // region Settings :: Database Path
+
+    var databasePath: String = ""
+
+    // endregion
     // region XpmModuleLoader
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {

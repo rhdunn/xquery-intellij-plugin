@@ -230,8 +230,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
-
-                modulePath = TextFieldWithBrowseButton()
                 addBrowseFolderListener(null, null, project, descriptor)
             }
         }
