@@ -29,4 +29,6 @@ interface XpmVendorType {
     val name: String
 
     fun isValidInstallDir(installDir: String): Boolean
+
+    val modulePath: String?
 }

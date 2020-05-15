@@ -29,5 +29,7 @@ object Saxonica : XpmVendorType {
 
     override fun isValidInstallDir(installDir: String): Boolean = false
 
+    override val modulePath: String? = null
+
     // endregion
 }

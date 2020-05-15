@@ -40,6 +40,8 @@ object BaseX : XpmVendorType, XpmProductType {
         return basexJar.find { File("$installDir/$it").exists() } != null
     }
 
+    override val modulePath: String? = null
+
     // endregion
     // region Language Versions
 

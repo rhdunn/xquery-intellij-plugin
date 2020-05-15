@@ -20,7 +20,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
-import com.intellij.util.xmlb.annotations.Attribute
+import com.intellij.util.xmlb.annotations.Tag
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
@@ -28,14 +28,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettings> {
     // region Settings :: Module Loaders
 
-    @Attribute("loader")
+    @Tag("loaders")
     var loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
         XpmModuleLoaderBean("java", null),
         XpmModuleLoaderBean("module", "java:source"),
@@ -50,10 +49,41 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
     @Transient
     private val loaders = CacheableProperty { loaderBeans.mapNotNull { it.loader } }
 
+    private fun registerModulePath(path: String) {
+        if (loaderBeans.find { it.name == "fixed" && it.context == path } == null) {
+            (loaderBeans as ArrayList).add(XpmModuleLoaderBean("fixed", path))
+            loaders.invalidate()
+        }
+    }
+
+    private fun unregisterModulePath(path: String) {
+        loaderBeans.find { it.name == "fixed" && it.context == path }?.let {
+            (loaderBeans as ArrayList).remove(it)
+            loaders.invalidate()
+        }
+    }
+
     // endregion
     // region Settings :: Database Path
 
+    private fun registerDatabasePath(vendor: XpmVendorType) {
+        // Add the module path to the list of module loaders.
+        vendor.modulePath?.let { registerModulePath("$databasePath$it") }
+    }
+
+    private fun unregisterDatabasePath(vendor: XpmVendorType) {
+        // Remove the module path to the list of module loaders.
+        vendor.modulePath?.let { unregisterModulePath("$databasePath$it") }
+    }
+
     var databasePath: String = ""
+        set(value) {
+            if (value != field) {
+                vendor?.let { unregisterDatabasePath(it) }
+                field = value
+                vendor?.let { registerDatabasePath(it) }
+            }
+        }
 
     val vendor: XpmVendorType? get() = XpmVendorType.types.find { it.isValidInstallDir(databasePath) }
 

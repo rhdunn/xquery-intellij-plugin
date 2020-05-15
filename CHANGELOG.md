@@ -6,6 +6,7 @@ MarkLogic:
 
 1.  Fix the return type in the MarkLogic documentation.
 1.  Support stopping MarkLogic queries.
+1.  Support resolving MarkLogic imports from a configured database install path.
 
 eXist-db:
 

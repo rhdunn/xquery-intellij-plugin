@@ -34,6 +34,8 @@ object EXistDB : XpmVendorType, XpmProductType {
         return File("$installDir/exist.log").exists()
     }
 
+    override val modulePath: String? = null
+
     // endregion
     // region Language Versions
 

@@ -39,6 +39,8 @@ object MarkLogic : XpmVendorType, XpmProductType {
         return markLogicExecutable.find { File("$installDir/$it").exists() } != null
     }
 
+    override val modulePath: String? = "/Modules"
+
     // endregion
     // region Language Versions
 
