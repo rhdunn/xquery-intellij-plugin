@@ -2797,7 +2797,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("attribute value content")
             fun attributeValue() {
                 val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmAttributeNode
-                val literal = psi.nodeValue as XsUntypedAtomicValue
+                val literal = psi.typedValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2806,7 +2806,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("unclosed attribute value content")
             fun unclosedAttributeValue() {
                 val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com")[0] as XdmAttributeNode
-                val literal = psi.nodeValue as XsUntypedAtomicValue
+                val literal = psi.typedValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("http://www.example.com"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2815,7 +2815,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
                 val psi = parse<PluginDirAttribute>("<a b='''\"\"{{}}'")[0] as XdmAttributeNode
-                val literal = psi.nodeValue as XsUntypedAtomicValue
+                val literal = psi.typedValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("'\"\"{}"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2824,7 +2824,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
                 val psi = parse<PluginDirAttribute>("<a b=\"''\"\"{{}}\"")[0] as XdmAttributeNode
-                val literal = psi.nodeValue as XsUntypedAtomicValue
+                val literal = psi.typedValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("''\"{}"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2834,7 +2834,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
                 val psi = parse<PluginDirAttribute>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XdmAttributeNode
-                val literal = psi.nodeValue as XsUntypedAtomicValue
+                val literal = psi.typedValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2843,7 +2843,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("CharRef tokens")
             fun charRef() {
                 val psi = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;\"")[0] as XdmAttributeNode
-                val literal = psi.nodeValue as XsUntypedAtomicValue
+                val literal = psi.typedValue as XsUntypedAtomicValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
@@ -2852,7 +2852,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("EnclosedExpr tokens")
             fun enclosedExpr() {
                 val psi = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"")[0] as XdmAttributeNode
-                assertThat(psi.nodeValue, `is`(nullValue()))
+                assertThat(psi.typedValue, `is`(nullValue()))
             }
         }
     }
@@ -2926,7 +2926,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(name.prefix!!.data, `is`("a"))
                 assertThat(name.localName!!.data, `is`("b"))
 
-                assertThat(attr.nodeValue, `is`(nullValue()))
+                assertThat(attr.typedValue, `is`(nullValue()))
             }
 
             @Test
@@ -2934,7 +2934,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun nodeNameExpr() {
                 val attr = parse<XQueryCompAttrConstructor>("attribute { \"a:\" || \"b\" } {}")[0] as XdmAttributeNode
                 assertThat(attr.nodeName, `is`(nullValue()))
-                assertThat(attr.nodeValue, `is`(nullValue()))
+                assertThat(attr.typedValue, `is`(nullValue()))
             }
 
             @Test
@@ -2942,7 +2942,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun nodeValueStringLiteral() {
                 val attr = parse<XQueryCompAttrConstructor>("attribute test { \"lorem-ipsum\" }")[0] as XdmAttributeNode
                 assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
-                assertThat(attr.nodeValue, `is`(nullValue()))
+                assertThat(attr.typedValue, `is`(nullValue()))
             }
 
             @Test
@@ -2950,7 +2950,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun nodeValueExpr() {
                 val attr = parse<XQueryCompAttrConstructor>("attribute test { 1 + 2 }")[0] as XdmAttributeNode
                 assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
-                assertThat(attr.nodeValue, `is`(nullValue()))
+                assertThat(attr.typedValue, `is`(nullValue()))
             }
 
             @Test

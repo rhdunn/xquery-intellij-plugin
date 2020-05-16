@@ -31,7 +31,7 @@ class XQueryCompAttrConstructorPsiImpl(node: ASTNode) :
 
     override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val nodeValue: XsAnyAtomicType? get() = null
+    override val typedValue: XsAnyAtomicType? get() = null
 
     // endregion
 }

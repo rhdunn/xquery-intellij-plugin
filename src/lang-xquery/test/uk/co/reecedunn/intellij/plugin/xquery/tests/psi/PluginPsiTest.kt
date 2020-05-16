@@ -1289,7 +1289,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
-                val value = node.nodeValue as XsAnyUriValue
+                val value = node.typedValue as XsAnyUriValue
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
@@ -1318,7 +1318,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
-                assertThat(node.nodeValue, `is`(nullValue()))
+                assertThat(node.typedValue, `is`(nullValue()))
             }
 
             @Test
@@ -1347,7 +1347,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
-                val value = node.nodeValue as XsAnyUriValue
+                val value = node.typedValue as XsAnyUriValue
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
@@ -1375,7 +1375,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
-                val value = node.nodeValue as XsIDValue
+                val value = node.typedValue as XsIDValue
                 assertThat(value.data, `is`("lorem-ipsum"))
                 assertThat(value.element, `is`(expr as PsiElement))
             }
@@ -1404,7 +1404,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
-                val value = node.nodeValue as XsUntypedAtomicValue
+                val value = node.typedValue as XsUntypedAtomicValue
                 assertThat(value.data, `is`("http://www.example.com"))
                 assertThat(value.element, `is`(expr as PsiElement))
             }
