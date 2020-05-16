@@ -5,6 +5,7 @@
 MarkLogic:
 
 1.  Fix the return type in the MarkLogic documentation.
+1.  Support autocompleting multi-valued `match-method` elements in rewriter files.
 1.  Support stopping MarkLogic queries.
 1.  Support resolving MarkLogic imports from a configured database install path.
 1.  Support registering MarkLogic schema files.

@@ -21,6 +21,7 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.core.completion.schemaListCompletions
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
@@ -42,7 +43,7 @@ class RewriterCompletionContributor : CompletionContributor() {
                 "match-accept" -> result.addAllElements(MIMETYPE)
                 "match-content-type" -> result.addAllElements(MIMETYPE)
                 "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
-                "match-method" -> result.addAllElements(HTTP_METHOD)
+                "match-method" -> result.addAllElements(parameters.schemaListCompletions(HTTP_METHOD))
             }
             "name" -> when (element.localName) {
                 "match-header" -> result.addAllElements(HTTP_HEADER)
@@ -51,22 +52,20 @@ class RewriterCompletionContributor : CompletionContributor() {
     }
 
     companion object {
-        private fun completionList(filename: String): List<LookupElement> {
+        private fun completionList(filename: String): Sequence<String> {
             return ResourceVirtualFile.create(this::class.java.classLoader, filename).decode()!!.lineSequence()
-                .map { LookupElementBuilder.create(it) }
-                .toList()
         }
 
         private val EXECUTE_PRIVILEGE: List<LookupElement> by lazy {
-            completionList("code-completion/execute-privilege.lst")
+            completionList("code-completion/execute-privilege.lst").map { LookupElementBuilder.create(it) }.toList()
         }
 
         private val HTTP_HEADER: List<LookupElement> by lazy {
-            completionList("code-completion/http-header.lst")
+            completionList("code-completion/http-header.lst").map { LookupElementBuilder.create(it) }.toList()
         }
 
-        private val HTTP_METHOD: List<LookupElement> by lazy {
-            completionList("code-completion/http-method.lst")
+        private val HTTP_METHOD: List<String> by lazy {
+            completionList("code-completion/http-method.lst").toList()
         }
 
         private val MIMETYPE: List<LookupElement> by lazy {
