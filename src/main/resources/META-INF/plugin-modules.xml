@@ -11,7 +11,7 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath"/>
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings"/>
   </extensions>
 
@@ -20,15 +20,15 @@
 
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath$Companion"/>
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath$Companion"/>
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath$Companion"/>
+    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath$Companion"/>
+    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath$Companion"/>
     <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleUriPath"/>
 
     <!-- Module Loaders -->
 
     <moduleLoaderFactory name="fixed" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.FixedModuleLoader$Companion"/>
     <moduleLoaderFactory name="jar" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader$Companion"/>
-    <moduleLoaderFactory name="java" implementation="uk.co.reecedunn.intellij.plugin.xdm.java.JavaModuleLoader"/>
+    <moduleLoaderFactory name="java" implementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModuleLoader"/>
     <moduleLoaderFactory name="module" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
     <moduleLoaderFactory name="package" implementation="uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage$Companion"/>
     <moduleLoaderFactory name="relative" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader"/>

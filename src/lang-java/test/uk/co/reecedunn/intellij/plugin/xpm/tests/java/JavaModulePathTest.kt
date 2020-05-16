@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.tests.java
+package uk.co.reecedunn.intellij.plugin.xpm.tests.java
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.mock.MockProjectEx
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.java.JavaModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
