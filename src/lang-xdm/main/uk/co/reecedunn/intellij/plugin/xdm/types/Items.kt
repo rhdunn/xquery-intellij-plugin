@@ -25,7 +25,7 @@ interface XdmNode : XdmItem
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 
-interface XdmAttributeNode : XdmNode {
+interface XdmAttributeNode : XdmNode, XdmAccessors {
     val nodeName: XsQNameValue?
 
     val nodeValue: XsAnyAtomicType?
@@ -34,12 +34,12 @@ interface XdmAttributeNode : XdmNode {
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : document-node()
 
-interface XdmDocumentNode : XdmNode
+interface XdmDocumentNode : XdmNode, XdmAccessors
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
 
-interface XdmElementNode : XdmNode {
+interface XdmElementNode : XdmNode, XdmAccessors {
     val nodeName: XsQNameValue?
 
     val closingTag: XsQNameValue?
@@ -48,22 +48,22 @@ interface XdmElementNode : XdmNode {
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : comment()
 
-interface XdmCommentNode : XdmNode
+interface XdmCommentNode : XdmNode, XdmAccessors
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : namespace-node()
 
-interface XdmNamespaceNode : XdmNode
+interface XdmNamespaceNode : XdmNode, XdmAccessors
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : processing-instruction()
 
-interface XdmProcessingInstructionNode : XdmNode
+interface XdmProcessingInstructionNode : XdmNode, XdmAccessors
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : text()
 
-interface XdmTextNode : XdmNode
+interface XdmTextNode : XdmNode, XdmAccessors
 
 // endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : array-node() [MarkLogic]
