@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.text.pascalCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 /**
@@ -34,7 +34,7 @@ data class JavaModulePath internal constructor(
 ) : XpmModulePath {
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.JAVA
 
-    companion object : XdmModulePathFactory {
+    companion object : XpmModulePathFactory {
         private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
         private fun createJava(project: Project, path: String): JavaModulePath? {

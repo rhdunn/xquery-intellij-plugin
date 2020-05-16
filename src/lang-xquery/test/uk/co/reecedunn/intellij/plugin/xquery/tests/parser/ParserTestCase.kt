@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
@@ -64,7 +64,7 @@ abstract class ParserTestCase :
         myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
         myProject.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(myProject))
 
-        registerExtensionPoint(XdmModulePathFactory.EP_NAME, XdmModulePathFactory::class.java)
+        registerExtensionPoint(XpmModulePathFactory.EP_NAME, XpmModulePathFactory::class.java)
         registerModulePathFactory(XpmModuleLocationPath)
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
@@ -83,8 +83,8 @@ abstract class ParserTestCase :
         super.tearDown()
     }
 
-    private fun registerModulePathFactory(factory: XdmModulePathFactory) {
-        registerExtension(XdmModulePathFactory.EP_NAME, factory)
+    private fun registerModulePathFactory(factory: XpmModulePathFactory) {
+        registerExtension(XpmModulePathFactory.EP_NAME, factory)
     }
 
     private fun registerModuleLoader(name: String, implementation: String) {

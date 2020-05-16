@@ -17,11 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
-object XpmReverseDomainNameModulePath : XdmModulePathFactory {
+object XpmReverseDomainNameModulePath : XpmModulePathFactory {
     private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
     private fun createUri(project: Project, path: String, uri: XsAnyUriValue): XpmModuleLocationPath? {

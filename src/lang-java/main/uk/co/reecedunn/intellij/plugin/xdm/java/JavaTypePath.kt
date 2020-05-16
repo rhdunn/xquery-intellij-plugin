@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XdmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.lang.reflect.InvocationTargetException
 
@@ -62,7 +62,7 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XstContext {
 
     // endregion
 
-    companion object : XdmModulePathFactory {
+    companion object : XpmModulePathFactory {
         private const val JAVA_TYPE_NS = "http://saxon.sf.net/java-type"
 
         fun getInstance(project: Project): JavaTypePath {
