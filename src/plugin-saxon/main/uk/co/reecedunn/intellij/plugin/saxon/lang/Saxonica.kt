@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSchemaFile
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 
 object Saxonica : XpmVendorType {
@@ -30,6 +31,8 @@ object Saxonica : XpmVendorType {
     override fun isValidInstallDir(installDir: String): Boolean = false
 
     override val modulePath: String? = null
+
+    override fun schemaFiles(path: String): Sequence<XpmSchemaFile> = sequenceOf()
 
     // endregion
 }

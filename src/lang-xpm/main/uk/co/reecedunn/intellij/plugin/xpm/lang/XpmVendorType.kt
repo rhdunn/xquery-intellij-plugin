@@ -31,4 +31,6 @@ interface XpmVendorType {
     fun isValidInstallDir(installDir: String): Boolean
 
     val modulePath: String?
+
+    fun schemaFiles(path: String): Sequence<XpmSchemaFile>
 }

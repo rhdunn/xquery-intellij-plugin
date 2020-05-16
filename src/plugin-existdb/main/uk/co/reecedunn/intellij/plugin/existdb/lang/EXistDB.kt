@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSchemaFile
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 import java.io.File
 
@@ -35,6 +36,8 @@ object EXistDB : XpmVendorType, XpmProductType {
     }
 
     override val modulePath: String? = null
+
+    override fun schemaFiles(path: String): Sequence<XpmSchemaFile> = sequenceOf()
 
     // endregion
     // region Language Versions

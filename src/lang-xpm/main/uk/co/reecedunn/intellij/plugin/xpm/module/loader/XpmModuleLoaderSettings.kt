@@ -15,12 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
+import com.intellij.javaee.ExternalResourceManagerEx
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.runInEdt
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
@@ -59,25 +64,66 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
     }
 
     // endregion
-    // region Settings :: Database Path
+    // region Settings :: Schema Files
 
-    private fun registerDatabasePath(vendor: XpmVendorType) {
-        // Add the module path to the list of module loaders.
-        vendor.modulePath?.let { registerModulePath("$databasePath$it") }
+    private inner class SchemaFileRegistration {
+        var unregisterVendor: XpmVendorType? = null
+        var unregisterDatabasePath: String? = null
+
+        var registerVendor: XpmVendorType? = null
+        var registerDatabasePath: String? = null
     }
 
-    private fun unregisterDatabasePath(vendor: XpmVendorType) {
+    private val tasks = TaskManager<SchemaFileRegistration>()
+
+    private fun registerSchemaFiles(settings: SchemaFileRegistration): Boolean {
+        return tasks.backgroundable(XpmBundle.message("task.schema-file-registration.title"), settings) {
+            runInEdt {
+                ApplicationManager.getApplication().runWriteAction {
+                    val manager = ExternalResourceManagerEx.getInstanceEx()
+                    settings.unregisterVendor?.schemaFiles(settings.unregisterDatabasePath!!)?.forEach { schema ->
+                        manager.removeResource(schema.targetNamespace, project)
+                    }
+                    settings.registerVendor?.schemaFiles(settings.registerDatabasePath!!)?.forEach { schema ->
+                        manager.addResource(schema.targetNamespace, schema.location, project)
+                    }
+                }
+            }
+        }
+    }
+
+    // endregion
+    // region Settings :: Database Path
+
+    private fun registerDatabasePath(vendor: XpmVendorType, databasePath: String, settings: SchemaFileRegistration) {
+        // Add the module path to the list of module loaders.
+        vendor.modulePath?.let { registerModulePath("$databasePath$it") }
+
+        // Defer registering schema files to avoid blocking the settings page.
+        settings.registerVendor = vendor
+        settings.registerDatabasePath = databasePath
+    }
+
+    private fun unregisterDatabasePath(vendor: XpmVendorType, databasePath: String, settings: SchemaFileRegistration) {
         // Remove the module path to the list of module loaders.
         vendor.modulePath?.let { unregisterModulePath("$databasePath$it") }
+
+        // Defer unregistering schema files to avoid blocking the settings page.
+        settings.unregisterVendor = vendor
+        settings.unregisterDatabasePath = databasePath
     }
 
     var databasePath: String
         get() = data.databasePath
         set(value) {
             if (value != data.databasePath) {
-                vendor?.let { unregisterDatabasePath(it) }
+                val settings = SchemaFileRegistration()
+                vendor?.let { unregisterDatabasePath(it, data.databasePath, settings) }
+
                 data.databasePath = value
-                vendor?.let { registerDatabasePath(it) }
+
+                vendor?.let { registerDatabasePath(it, data.databasePath, settings) }
+                registerSchemaFiles(settings)
             }
         }
 

@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSchemaFile
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 import java.io.File
 
@@ -35,11 +36,31 @@ object MarkLogic : XpmVendorType, XpmProductType {
         "bin/MarkLogic" // Linux / Mac OS
     )
 
+    private val excludeSchemaNamespaces = listOf(
+        "http://www.w3.org/1999/xhtml",
+        "http://www.w3.org/1999/xlink",
+        "http://www.w3.org/1999/XSL/Transform",
+        "http://www.w3.org/2001/XMLSchema",
+        "http://www.w3.org/XML/1998/namespace"
+    )
+
     override fun isValidInstallDir(installDir: String): Boolean {
         return markLogicExecutable.find { File("$installDir/$it").exists() } != null
     }
 
     override val modulePath: String? = "/Modules"
+
+    private fun isMarkLogicSchemaFile(targetNamespace: String): Boolean {
+        return !excludeSchemaNamespaces.contains(targetNamespace)
+    }
+
+    override fun schemaFiles(path: String): Sequence<XpmSchemaFile> {
+        val files = File("$path/Config").listFiles { _, name -> name.endsWith(".xsd") }?.asSequence() ?: sequenceOf()
+        return files.mapNotNull {
+            val schema = XpmSchemaFile(it)
+            schema.takeIf { isMarkLogicSchemaFile(schema.targetNamespace) }
+        }
+    }
 
     // endregion
     // region Language Versions
