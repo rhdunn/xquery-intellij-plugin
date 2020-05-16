@@ -40,7 +40,8 @@ data class XpmModuleLoaderSettingsData(
         XpmModuleLoaderBean("module", "java:test-source"),
         XpmModuleLoaderBean("relative", null)
     ),
-    var databasePath: String = ""
+    var databasePath: String = "",
+    var registerSchemaFile: Boolean = true
 )
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
@@ -65,6 +66,12 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
 
     // endregion
     // region Settings :: Schema Files
+
+    var registerSchemaFile: Boolean
+        get() = data.registerSchemaFile
+        set(value) {
+            data.registerSchemaFile = value
+        }
 
     private inner class SchemaFileRegistration {
         var unregisterVendor: XpmVendorType? = null
@@ -100,8 +107,10 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
         vendor.modulePath?.let { registerModulePath("$databasePath$it") }
 
         // Defer registering schema files to avoid blocking the settings page.
-        settings.registerVendor = vendor
-        settings.registerDatabasePath = databasePath
+        if (data.registerSchemaFile) {
+            settings.registerVendor = vendor
+            settings.registerDatabasePath = databasePath
+        }
     }
 
     private fun unregisterDatabasePath(vendor: XpmVendorType, databasePath: String, settings: SchemaFileRegistration) {
@@ -109,8 +118,10 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
         vendor.modulePath?.let { unregisterModulePath("$databasePath$it") }
 
         // Defer unregistering schema files to avoid blocking the settings page.
-        settings.unregisterVendor = vendor
-        settings.unregisterDatabasePath = databasePath
+        if (data.registerSchemaFile) {
+            settings.unregisterVendor = vendor
+            settings.unregisterDatabasePath = databasePath
+        }
     }
 
     var databasePath: String

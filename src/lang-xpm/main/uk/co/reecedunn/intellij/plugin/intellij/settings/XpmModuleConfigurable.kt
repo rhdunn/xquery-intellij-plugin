@@ -22,6 +22,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import javax.swing.JCheckBox
 import javax.swing.JComponent
 
 class XpmModuleConfigurable(val project: Project) : Configurable {
@@ -30,16 +31,22 @@ class XpmModuleConfigurable(val project: Project) : Configurable {
     // region Configurable
 
     private lateinit var databasePath: TextFieldWithBrowseButton
+    private lateinit var registerSchemaFiles: JCheckBox
 
     override fun getDisplayName(): String = XpmBundle.message("preferences.module.title")
 
     override fun createComponent(): JComponent? = panel {
         row {
-            label(XpmBundle.message("preferences.module.database-path.label"), column)
-            databasePath = textFieldWithBrowseButton(column.hgap().horizontal()) {
+            label(XpmBundle.message("preferences.module.database-path.label"), column.vgap())
+            databasePath = textFieldWithBrowseButton(column.vgap().hgap().horizontal()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = XpmBundle.message("preferences.module.database-path.choose-path")
                 addBrowseFolderListener(null, null, project, descriptor)
+            }
+        }
+        row {
+            registerSchemaFiles = checkBox(column.horizontal().spanCols(2)) {
+                text = XpmBundle.message("preferences.module.register-schema-files.label")
             }
         }
         row {
@@ -50,15 +57,18 @@ class XpmModuleConfigurable(val project: Project) : Configurable {
 
     override fun isModified(): Boolean {
         if (databasePath.textField.text != settings.databasePath) return true
+        if (registerSchemaFiles.isSelected != settings.registerSchemaFile) return true
         return false
     }
 
     override fun apply() {
         settings.databasePath = databasePath.textField.text
+        settings.registerSchemaFile = registerSchemaFiles.isSelected
     }
 
     override fun reset() {
         databasePath.textField.text = settings.databasePath
+        registerSchemaFiles.isSelected = settings.registerSchemaFile
     }
 
     // endregion
