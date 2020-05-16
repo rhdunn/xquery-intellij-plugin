@@ -25,9 +25,7 @@ interface XdmNode : XdmItem
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 
-interface XdmAttributeNode : XdmNode, XdmAccessors {
-    val typedValue: XsAnyAtomicType?
-}
+interface XdmAttributeNode : XdmNode, XdmAccessors
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : document-node()

@@ -600,9 +600,14 @@ an instance of `xdm:wildcard` to indicate that any value matches.
 The `XdmAccessors` interface defines support for the XQuery and XPath Data
 Model Accessors properties. These are mapped as follows:
 
-| Accessor       | Property   | Return Type     |
-|----------------|------------|-----------------|
-| `dm:node-name` | `nodeName` | `XsQNameValue?` |
+| Accessor         | Property     | Return Type        |
+|------------------|--------------|--------------------|
+| `dm:node-name`   | `nodeName`   | `XsQNameValue?`    |
+| `dm:typed-value` | `typedValue` | `XsAnyAtomicType?` |
+
+__NOTE:__ The *typed value* property only returns a single item, compared to
+the XQuery and XPath Data Model accessor property which returns a sequence of
+values.
 
 #### 4.3.1 Document Nodes
 
