@@ -20,8 +20,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
-import com.intellij.util.xmlb.annotations.Tag
-import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
@@ -30,35 +28,32 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 
-@State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
-class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettings> {
-    // region Settings :: Module Loaders
-
-    @Tag("loaders")
-    var loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
+data class XpmModuleLoaderSettingsData(
+    var loaders: List<XpmModuleLoaderBean> = arrayListOf(
         XpmModuleLoaderBean("java", null),
         XpmModuleLoaderBean("module", "java:source"),
         XpmModuleLoaderBean("module", "java:test-source"),
         XpmModuleLoaderBean("relative", null)
-    )
-        set(value) {
-            field = value
-            loaders.invalidate()
-        }
+    ),
+    var databasePath: String = ""
+)
 
-    @Transient
-    private val loaders = CacheableProperty { loaderBeans.mapNotNull { it.loader } }
+@State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
+class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettingsData> {
+    // region Settings :: Module Loaders
+
+    private val loaders = CacheableProperty { data.loaders.mapNotNull { it.loader } }
 
     private fun registerModulePath(path: String) {
-        if (loaderBeans.find { it.name == "fixed" && it.context == path } == null) {
-            (loaderBeans as ArrayList).add(XpmModuleLoaderBean("fixed", path))
+        if (data.loaders.find { it.name == "fixed" && it.context == path } == null) {
+            (data.loaders as ArrayList).add(XpmModuleLoaderBean("fixed", path))
             loaders.invalidate()
         }
     }
 
     private fun unregisterModulePath(path: String) {
-        loaderBeans.find { it.name == "fixed" && it.context == path }?.let {
-            (loaderBeans as ArrayList).remove(it)
+        data.loaders.find { it.name == "fixed" && it.context == path }?.let {
+            (data.loaders as ArrayList).remove(it)
             loaders.invalidate()
         }
     }
@@ -76,11 +71,12 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
         vendor.modulePath?.let { unregisterModulePath("$databasePath$it") }
     }
 
-    var databasePath: String = ""
+    var databasePath: String
+        get() = data.databasePath
         set(value) {
-            if (value != field) {
+            if (value != data.databasePath) {
                 vendor?.let { unregisterDatabasePath(it) }
-                field = value
+                data.databasePath = value
                 vendor?.let { registerDatabasePath(it) }
             }
         }
@@ -101,9 +97,11 @@ class XpmModuleLoaderSettings : XpmModuleLoader, PersistentStateComponent<XpmMod
     // endregion
     // region PersistentStateComponent
 
-    override fun getState(): XpmModuleLoaderSettings? = this
+    private val data = XpmModuleLoaderSettingsData()
 
-    override fun loadState(state: XpmModuleLoaderSettings) = XmlSerializerUtil.copyBean(state, this)
+    override fun getState(): XpmModuleLoaderSettingsData? = data
+
+    override fun loadState(state: XpmModuleLoaderSettingsData) = XmlSerializerUtil.copyBean(state, data)
 
     // endregion
 
