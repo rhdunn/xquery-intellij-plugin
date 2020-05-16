@@ -26,8 +26,6 @@ interface XdmNode : XdmItem
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 
 interface XdmAttributeNode : XdmNode, XdmAccessors {
-    val nodeName: XsQNameValue?
-
     val nodeValue: XsAnyAtomicType?
 }
 
@@ -40,8 +38,6 @@ interface XdmDocumentNode : XdmNode, XdmAccessors
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
 
 interface XdmElementNode : XdmNode, XdmAccessors {
-    val nodeName: XsQNameValue?
-
     val closingTag: XsQNameValue?
 }
 

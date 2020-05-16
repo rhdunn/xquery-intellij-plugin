@@ -16,4 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.xdm.types
 
 interface XdmAccessors {
+    val nodeName: XsQNameValue?
 }

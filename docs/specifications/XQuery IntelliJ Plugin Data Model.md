@@ -42,7 +42,14 @@ various inspections.
 - [Data Model](#4-data-model)
   - [Literals](#41-literals)
   - [EQNames and Wildcards](#42-eqnames-and-wildcards)
-  - [Nodes](#43-nodes)
+  - [Accessors](#43-accessors)
+    - [Document Nodes](#431-document-nodes)
+    - [Element Nodes](#432-element-nodes)
+    - [Attribute Nodes](#433-attribute-nodes)
+    - [Namespace Nodes](#434-namespace-nodes)
+    - [Processing Instruction Nodes](#435-processing-instruction-nodes)
+    - [Comment Nodes](#436-comment-nodes)
+    - [Text Nodes](#437-text-nodes)
   - [Annotations](#44-annotations)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
@@ -588,19 +595,35 @@ The `Wildcard` symbol is also an `XsQNameValue`, with the properties mirroring
 the `NCName`, `QName`, or `URIQualifiedName`. The prefix or local parts can be
 an instance of `xdm:wildcard` to indicate that any value matches.
 
-### 4.3 Nodes
+### 4.3 Accessors
 
-| Symbol                | Interface          | node name | node value |
-|-----------------------|--------------------|-----------|------------|
-| `CompAttrConstructor` | `XdmAttributeNode` | yes       | no         |
-| `CompElemConstructor` | `XdmElementNode`   | yes       | no         |
-| `DirAttribute`        | `XdmAttributeNode` | yes       | yes        |
-| `DirElemConstructor`  | `XdmElementNode`   | yes       | no         |
+The `XdmAccessors` interface defines support for the XQuery and XPath Data
+Model Accessors properties. These are mapped as follows:
+
+| Accessor       | Property   | Return Type     |
+|----------------|------------|-----------------|
+| `dm:node-name` | `nodeName` | `XsQNameValue?` |
+
+#### 4.3.1 Document Nodes
+
+#### 4.3.2 Element Nodes
+
+| Symbol                | Interface          |
+|-----------------------|--------------------|
+| `CompElemConstructor` | `XdmElementNode`   |
+| `DirElemConstructor`  | `XdmElementNode`   |
 
 The `XdmElementNode` interface has an additional *closing tag* property. This
 is used for the `err:XQST0118` error condition inspection. For a
 `CompElemConstructor` or self-closing `DirElemConstructor` the *closing tag*
 property is the same as the*node name* property.
+
+#### 4.3.3 Attribute Nodes
+
+| Symbol                | Interface          |
+|-----------------------|--------------------|
+| `CompAttrConstructor` | `XdmAttributeNode` |
+| `DirAttribute`        | `XdmAttributeNode` |
 
 The type of the *node value* property for `DirAttribute` depends on the *node
 name* property, and is determined as follows.
@@ -615,6 +638,14 @@ name* property, and is determined as follows.
 If the `DirAttributeValue` contains an `EnclosedExpr`, the *node value* of the
 element at static evaluation time (accessible in the `DirAttribute` PSI element)
 is `null`.
+
+#### 4.3.4 Namespace Nodes
+
+#### 4.3.5 Processing Instruction Nodes
+
+#### 4.3.6 Comment Nodes
+
+#### 4.3.7 Text Nodes
 
 ### 4.4 Annotations
 
