@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSou
 fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.nameColumn() {
     val column = columnInfo<XQDocDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.name.title"),
-        getter = { item -> item.name }
+        getter = { item -> item.presentation.presentableText!! }
     )
     add(column)
 }

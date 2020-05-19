@@ -44,7 +44,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("1.0 Working Draft 02 May 2003")
         fun spec20030502() {
             val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.WD_1_0_20030502
-            assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (Working Draft 02 May 2003)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2003/WD-xpath-functions-20030502/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20030502.html"))
@@ -58,7 +58,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("1.0 Recommendation 23 Jan 2007")
         fun spec20070123() {
             val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20070123
-            assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (First Edition)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2007/REC-xpath-functions-20070123/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20070123.html"))
@@ -72,7 +72,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("1.0 Recommendation 14 Dec 2010")
         fun spec20101214() {
             val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20101214
-            assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (Second Edition)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2010/REC-xpath-functions-20101214/"))
             assertThat(spec.path, `is`("w3/xpath-functions-1.0-20101214.html"))
@@ -86,7 +86,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("3.0 Working Draft 13 Dec 2011")
         fun spec20111213() {
             val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.WD_3_0_20111213
-            assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.0 (Working Draft 13 Dec 2011)"))
             assertThat(spec.href, `is`("http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/"))
             assertThat(spec.path, `is`("w3/xpath-functions-3.0-20111213.html"))
@@ -100,7 +100,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("3.0 Recommendation 08 Apr 2014")
         fun spec20140408() {
             val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_0_20140408
-            assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.0"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/"))
             assertThat(spec.path, `is`("w3/xpath-functions-3.0-20140408.html"))
@@ -114,7 +114,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("3.1 Recommendation 21 Apr 2017")
         fun spec20170321() {
             val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_1_20170321
-            assertThat(spec.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.1"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/"))
             assertThat(spec.path, `is`("w3/xpath-functions-3.1-20170321.html"))
@@ -140,7 +140,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("1.0 Recommendation 16 Nov 1999")
         fun spec19991116() {
             val spec: XQDocDocumentationSource = XsltDocumentation.REC_1_0_19991116
-            assertThat(spec.name, `is`("XSL Transformations (XSLT)"))
+            assertThat(spec.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
             assertThat(spec.version, `is`("1.0"))
             assertThat(spec.href, `is`("http://www.w3.org/TR/1999/REC-xslt-19991116/"))
             assertThat(spec.path, `is`("w3/xslt-1.0-19991116.html"))
@@ -154,7 +154,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("2.0 Recommendation 23 Jan 2007")
         fun spec20070123() {
             val spec: XQDocDocumentationSource = XsltDocumentation.REC_2_0_20070123
-            assertThat(spec.name, `is`("XSL Transformations (XSLT)"))
+            assertThat(spec.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
             assertThat(spec.version, `is`("2.0"))
             assertThat(spec.href, `is`("http://www.w3.org/TR/2007/REC-xslt20-20070123/"))
             assertThat(spec.path, `is`("w3/xslt-2.0-20070123.html"))
@@ -168,7 +168,7 @@ private class W3CSpecificationDocumentationTest {
         @DisplayName("3.0 Recommendation 08 Jun 2017")
         fun spec20170608() {
             val spec: XQDocDocumentationSource = XsltDocumentation.REC_3_0_20170608
-            assertThat(spec.name, `is`("XSL Transformations (XSLT)"))
+            assertThat(spec.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
             assertThat(spec.version, `is`("3.0"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xslt-30-20170608/"))
             assertThat(spec.path, `is`("w3/xslt-3.0-20170608.html"))

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
+import com.intellij.navigation.ItemPresentation
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
@@ -74,7 +75,7 @@ internal data class W3CSpecificationDocument(
 ) : XQDocDocumentationSource, XQDocDocumentationIndex {
     // region XQDocDocumentationSource
 
-    override val name: String = type.presentation.presentableText!!
+    override val presentation: ItemPresentation = type.presentation
 
     override val path: String = "w3/${type.id}-$id.html"
 

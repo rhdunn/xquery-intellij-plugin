@@ -15,12 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApis
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
@@ -28,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import java.io.File
+import javax.swing.Icon
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
@@ -51,7 +54,7 @@ private data class MarkLogicZippedDocumentation(
 ) : XQDocDocumentationSource, XQDocDocumentationIndex {
     // region XQDocDocumentationSource
 
-    override val name: String = "MarkLogic"
+    override val presentation: ItemPresentation = MarkLogic
 
     override val href: String = "https://docs.marklogic.com/$zip"
 
