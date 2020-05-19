@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,17 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
+import javax.swing.table.DefaultTableCellRenderer
 
 fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.nameColumn() {
     val column = columnInfo<XQDocDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.name.title"),
-        getter = { item -> item.presentation.presentableText!! }
+        getter = { item -> item.presentation.presentableText!! },
+        renderer = { value ->
+            val renderer = DefaultTableCellRenderer()
+            renderer.icon = value.presentation.getIcon(false)
+            renderer
+        }
     )
     add(column)
 }

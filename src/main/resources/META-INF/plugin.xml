@@ -76,6 +76,10 @@
       <li>Fixed navigating to module paths in query errors.</li>
       <li>Add icons to the query processors.</li>
     </ol>
+    <p>Documentation:</p>
+    <ol>
+      <li>Add icons to the documentation sources.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

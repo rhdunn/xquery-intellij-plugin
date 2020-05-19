@@ -26,6 +26,10 @@ Run Configurations:
 1.  Fixed navigating to module paths in query errors.
 1.  Add icons to the query processors.
 
+Documentation:
+
+1.  Add icons to the documentation sources.
+
 ## 2020
 
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)
