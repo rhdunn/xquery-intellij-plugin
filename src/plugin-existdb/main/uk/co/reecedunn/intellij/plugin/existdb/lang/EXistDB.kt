@@ -40,8 +40,6 @@ object EXistDB : ItemPresentation, XpmVendorType, XpmProductType {
 
     override val presentation: ItemPresentation get() = this
 
-    override val name = "eXist-db"
-
     // endregion
     // region XpmVendorType
 

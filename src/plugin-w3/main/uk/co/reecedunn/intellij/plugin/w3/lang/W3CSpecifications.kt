@@ -15,15 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.lang
 
+import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.intellij.resources.W3Icons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import javax.swing.Icon
 
-object W3CSpecifications : XpmProductType {
+object W3CSpecifications : ItemPresentation, XpmProductType {
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "W3C Specifications"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+
+    // endregion
     // region XpmProductType
 
     override val id: String = "w3c"
 
-    override val name = "W3C Specifications"
+    override val presentation: ItemPresentation get() = this
 
     // endregion
     // region Language Versions

@@ -40,8 +40,6 @@ object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
 
     override val presentation: ItemPresentation get() = this
 
-    override val name = "MarkLogic"
-
     // endregion
     // region XpmVendorType
 

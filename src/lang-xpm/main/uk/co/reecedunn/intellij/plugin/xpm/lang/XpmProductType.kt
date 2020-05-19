@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang
 
+import com.intellij.navigation.ItemPresentation
+
 interface XpmProductType {
     val id: String
 
-    val name: String
+    val presentation: ItemPresentation
 }

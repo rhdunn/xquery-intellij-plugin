@@ -15,15 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
+import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.intellij.resources.SaxonIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import javax.swing.Icon
 
-object SaxonHE : XpmProductType {
+object SaxonHE : ItemPresentation, XpmProductType {
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "Saxon Home Edition"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = SaxonIcons.Product
+
+    // endregion
     // region XpmProductType
 
     override val id: String = "saxon/HE"
 
-    override val name = "Saxon Home Edition"
+    override val presentation: ItemPresentation get() = this
 
     // endregion
     // region Language Versions
