@@ -72,14 +72,14 @@ internal data class W3CSpecificationDocument(
     override val version: String,
     private val namespaces: Map<String, String>
 ) : XQDocDocumentationSource, XQDocDocumentationIndex {
-    // region XdmDocumentationSource
+    // region XQDocDocumentationSource
 
-    override val name: String = type.name
+    override val name: String = type.presentation.presentableText!!
 
     override val path: String = "w3/${type.id}-$id.html"
 
     // endregion
-    // region XdmDocumentationIndex
+    // region XQDocDocumentationIndex
 
     private val doc = CacheableProperty {
         val file = XQDocDocumentationDownloader.getInstance().load(this, download = true)

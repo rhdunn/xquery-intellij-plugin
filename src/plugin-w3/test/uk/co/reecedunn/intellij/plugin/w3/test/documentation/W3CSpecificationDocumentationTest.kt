@@ -37,7 +37,7 @@ private class W3CSpecificationDocumentationTest {
         fun specificationType() {
             val type: XpmSpecificationType = FunctionsAndOperatorsDocumentation
             assertThat(type.id, `is`("xpath-functions"))
-            assertThat(type.name, `is`("XQuery and XPath Functions and Operators"))
+            assertThat(type.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
         }
 
         @Test
@@ -133,7 +133,7 @@ private class W3CSpecificationDocumentationTest {
         fun specificationType() {
             val type: XpmSpecificationType = XsltDocumentation
             assertThat(type.id, `is`("xslt"))
-            assertThat(type.name, `is`("XSL Transformations (XSLT)"))
+            assertThat(type.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
         }
 
         @Test

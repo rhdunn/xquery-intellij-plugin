@@ -15,13 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
+import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.intellij.resources.W3Icons
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
+import javax.swing.Icon
 
 object FunctionsAndOperatorsDocumentation :
-    XpmSpecificationType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
+    ItemPresentation, XpmSpecificationType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
 
     private val NAMESPACES_10_20030502 = mapOf(
@@ -79,14 +82,23 @@ object FunctionsAndOperatorsDocumentation :
     )
 
     // endregion
-    // region XdmSpecificationType
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "XQuery and XPath Functions and Operators"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+
+    // endregion
+    // region XpmSpecificationType
 
     override val id: String = "xpath-functions"
 
-    override val name = "XQuery and XPath Functions and Operators"
+    override val presentation: ItemPresentation get() = this
 
     // endregion
-    // region XdmDocumentationSourceProvider
+    // region XQDocDocumentationSourceProvider
 
     override val sources: List<XQDocDocumentationSource> = listOf(
         WD_1_0_20030502,
@@ -98,7 +110,7 @@ object FunctionsAndOperatorsDocumentation :
     )
 
     // endregion
-    // region XdmDocumentationIndex
+    // region XQDocDocumentationIndex
 
     override fun invalidate() {}
 
@@ -113,7 +125,7 @@ object FunctionsAndOperatorsDocumentation :
     // endregion
 }
 
-object XsltDocumentation : XpmSpecificationType, XQDocDocumentationSourceProvider {
+object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocumentationSourceProvider {
     // region Namespaces
 
     private val NAMESPACES = mapOf<String, String>()
@@ -134,14 +146,23 @@ object XsltDocumentation : XpmSpecificationType, XQDocDocumentationSourceProvide
     )
 
     // endregion
-    // region XdmSpecificationType
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "XSL Transformations (XSLT)"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+
+    // endregion
+    // region XpmSpecificationType
 
     override val id: String = "xslt"
 
-    override val name = "XSL Transformations (XSLT)"
+    override val presentation: ItemPresentation get() = this
 
     // endregion
-    // region XdmDocumentationSourceProvider
+    // region XQDocDocumentationSourceProvider
 
     override val sources: List<XQDocDocumentationSource> = listOf(
         REC_1_0_19991116,
