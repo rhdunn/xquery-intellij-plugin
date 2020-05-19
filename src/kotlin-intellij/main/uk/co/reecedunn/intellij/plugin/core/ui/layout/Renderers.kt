@@ -28,16 +28,20 @@ import javax.swing.*
 
 // region colored list cell renderer
 
-fun <T> coloredListCellRenderer(customize: ColoredListCellRenderer<T>.(value: T?) -> Unit): ColoredListCellRenderer<T> {
+fun <T> coloredListCellRenderer(
+    customize: ColoredListCellRenderer<T>.(
+        list: JList<out T>, value: T?, index: Int, selected: Boolean, hasFocus: Boolean
+    ) -> Unit
+): ColoredListCellRenderer<T> {
     return object : ColoredListCellRenderer<T>() {
         override fun customizeCellRenderer(
             list: JList<out T>,
-            value: T,
+            value: T?,
             index: Int,
             selected: Boolean,
             hasFocus: Boolean
         ) {
-            customize(value)
+            customize(list, value, index, selected, hasFocus)
         }
     }
 }

@@ -45,14 +45,14 @@ class XQueryProjectSettingsConfigurable(project: Project) :
     private var mDialectForXQuery3_1: JComboBox<Versioned>? = null
 
     @Suppress("PropertyName")
-    private val VERSION_RENDERER = coloredListCellRenderer<Version> { value ->
+    private val VERSION_RENDERER = coloredListCellRenderer<Version> { _, value, _, _, _ ->
         if (value != null) {
             append(value.toFeatureString())
         }
     }
 
     @Suppress("PropertyName")
-    private val VERSIONED_RENDERER = coloredListCellRenderer<Versioned> { value ->
+    private val VERSIONED_RENDERER = coloredListCellRenderer<Versioned> { _, value, _, _, _ ->
         if (value != null) {
             append(value.name)
         }

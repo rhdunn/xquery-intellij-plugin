@@ -144,7 +144,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), column.vgap()
             )
             xpathSubset = comboBox(column.horizontal().hgap().vgap()) {
-                renderer = coloredListCellRenderer { value ->
+                renderer = coloredListCellRenderer { _, value, _, _, _ ->
                     clear()
                     value?.let { append(it.displayName) }
                 }
