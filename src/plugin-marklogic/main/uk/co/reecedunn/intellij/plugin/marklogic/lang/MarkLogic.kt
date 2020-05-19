@@ -15,16 +15,30 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
+import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSchemaFile
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 import java.io.File
+import javax.swing.Icon
 
-object MarkLogic : XpmVendorType, XpmProductType {
+object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "MarkLogic"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Product
+
+    // endregion
     // region XpmVendorType / XpmProductType
 
     override val id: String = "marklogic"
+
+    override val presentation: ItemPresentation get() = this
 
     override val name = "MarkLogic"
 

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.extensions.ExtensionPointName
 
 interface XpmVendorType {
@@ -26,7 +27,7 @@ interface XpmVendorType {
 
     val id: String
 
-    val name: String
+    val presentation: ItemPresentation
 
     fun isValidInstallDir(installDir: String): Boolean
 
