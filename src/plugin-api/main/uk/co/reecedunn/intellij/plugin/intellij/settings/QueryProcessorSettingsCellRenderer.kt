@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,28 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
+import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettingsWithVersionCache>() {
-    private fun render(value: QueryProcessorSettings, version: String?) {
+    private fun render(value: QueryProcessorSettings, version: String?, index: Int) {
         clear()
+
+        icon = value.api.presentation.getIcon(false)
+        ipad = Insets.listCellRenderer(index)
+
         append(value.api.presentation.presentableText!!)
         version?.let { append(" $it") }
         value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
     }
 
-    private fun renderError(value: QueryProcessorSettings, message: String) {
+    private fun renderError(value: QueryProcessorSettings, message: String, index: Int) {
         clear()
+
+        icon = value.api.presentation.getIcon(false)
+        ipad = Insets.listCellRenderer(index)
+
         append(value.api.presentation.presentableText!!, SimpleTextAttributes.ERROR_ATTRIBUTES)
         value.name?.let { append(" ($it)", SimpleTextAttributes.ERROR_ATTRIBUTES) }
         append(" [$message]", SimpleTextAttributes.ERROR_ATTRIBUTES)
@@ -41,10 +50,10 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
         if (value != null) {
-            render(value.settings, value.version as? String)
+            render(value.settings, value.version as? String, index)
             (value.version as? Throwable)?.let {
                 try {
-                    renderError(value.settings, it.toQueryUserMessage())
+                    renderError(value.settings, it.toQueryUserMessage(), index)
                 } catch (e: Throwable) {
                     // Cannot display the error, so do nothing.
                 }

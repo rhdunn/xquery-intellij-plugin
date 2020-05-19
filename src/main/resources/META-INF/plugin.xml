@@ -74,6 +74,7 @@
       <li>Fixed scrolling to an item in the results pane when the detected filetype is plain text.</li>
       <li>Fixed a null pointer exception when processing MarkLogic syntax error responses.</li>
       <li>Fixed navigating to module paths in query errors.</li>
+      <li>Add icons to the query processors.</li>
     </ol>
   ]]></change-notes>
 

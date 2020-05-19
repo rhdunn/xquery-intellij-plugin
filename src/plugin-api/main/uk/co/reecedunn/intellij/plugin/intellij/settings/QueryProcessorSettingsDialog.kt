@@ -24,6 +24,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
+import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -121,7 +122,10 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.implementation.label"), column.vgap())
             api = comboBox(column.horizontal().hgap().vgap()) {
-                renderer = coloredListCellRenderer { _, value, _, _, _ ->
+                renderer = coloredListCellRenderer { _, value, index, _, _ ->
+                    icon = value?.presentation?.getIcon(false)
+                    ipad = Insets.listCellRenderer(index)
+
                     value?.presentation?.presentableText?.let { append(it) }
                 }
 
