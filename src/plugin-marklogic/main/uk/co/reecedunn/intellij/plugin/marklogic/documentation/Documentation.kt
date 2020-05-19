@@ -23,14 +23,13 @@ import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApis
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import java.io.File
-import javax.swing.Icon
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
@@ -64,7 +63,7 @@ private data class MarkLogicZippedDocumentation(
     // region XQDocDocumentationIndex
 
     private val query = CacheableProperty {
-        val s9api = QueryProcessorApis.find { api -> api.id == "saxon.s9api" }!!
+        val s9api = QueryProcessorApi.apis.find { api -> api.id == "saxon.s9api" }!!
         val saxon = s9api.newInstanceManager(javaClass.classLoader, null).create() as RunnableQueryProvider
         val query = saxon.createRunnableQuery(MarkLogicQueries.ApiDocs, XQuery)
         query

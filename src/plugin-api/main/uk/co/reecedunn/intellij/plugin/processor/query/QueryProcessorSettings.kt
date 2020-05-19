@@ -43,7 +43,7 @@ class QueryProcessorSettings : Closeable {
     var name: String? = null
 
     @Suppress("MemberVisibilityCanBePrivate") // Needed in the settings file!
-    var apiId: String = QueryProcessorApis.first().id
+    var apiId: String = QueryProcessorApi.apis.first().id
         set(value) {
             field = value
             instance = null
@@ -68,7 +68,7 @@ class QueryProcessorSettings : Closeable {
         }
 
     var api: QueryProcessorApi
-        get() = QueryProcessorApis.find { value -> value.id == apiId }!!
+        get() = QueryProcessorApi.apis.find { value -> value.id == apiId }!!
         set(value) {
             apiId = value.id
         }

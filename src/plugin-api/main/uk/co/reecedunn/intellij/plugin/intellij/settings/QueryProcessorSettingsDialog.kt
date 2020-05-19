@@ -129,7 +129,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                     value?.presentation?.presentableText?.let { append(it) }
                 }
 
-                QueryProcessorApis.forEach { value -> addItem(value) }
+                QueryProcessorApi.apis.forEach { value -> addItem(value) }
                 addActionListener(selectQueryProcessor)
             }
         }

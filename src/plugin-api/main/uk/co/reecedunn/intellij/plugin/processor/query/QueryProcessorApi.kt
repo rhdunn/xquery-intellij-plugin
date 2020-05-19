@@ -23,6 +23,9 @@ import java.io.InputStream
 interface QueryProcessorApi {
     companion object {
         val EP_NAME = ExtensionPointName.create<QueryProcessorApi>("uk.co.reecedunn.intellij.queryProcessorApi")
+
+        val apis: Sequence<QueryProcessorApi>
+            get() = EP_NAME.extensions.asSequence().sortedBy { api -> api.presentation.presentableText }
     }
 
     val id: String
