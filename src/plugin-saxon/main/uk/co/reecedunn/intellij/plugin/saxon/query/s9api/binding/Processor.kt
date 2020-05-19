@@ -32,7 +32,7 @@ class Processor {
             `class` = classLoader.loadClass("net.sf.saxon.s9api.Processor")
             `object` = `class`.getConstructor(Boolean::class.java).newInstance(licensedEdition)
         } catch (e: ClassNotFoundException) {
-            throw UnsupportedJarFileException(SaxonS9API.displayName)
+            throw UnsupportedJarFileException(SaxonS9API.presentation.presentableText!!)
         }
 
         // Using the Saxon EE optimizer can generate a NoClassDefFoundError

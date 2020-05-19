@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
@@ -24,7 +25,7 @@ import java.io.InputStream
 
 object EXistDBRest : QueryProcessorApi {
     override val id: String = "existdb.rest"
-    override val displayName: String = "eXist-db"
+    override val presentation: ItemPresentation = uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB.presentation
 
     override val requireJar: Boolean = false
     override val hasConfiguration: Boolean = false

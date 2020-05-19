@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -25,7 +26,7 @@ import java.io.InputStream
 
 object BaseXSession : QueryProcessorApi {
     override val id: String = "basex.session"
-    override val displayName: String = "BaseX"
+    override val presentation: ItemPresentation = uk.co.reecedunn.intellij.plugin.basex.lang.BaseX.presentation
 
     override val requireJar: Boolean = true
     override val hasConfiguration: Boolean = false
@@ -48,11 +49,11 @@ object BaseXSession : QueryProcessorApi {
 
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         if (jar == null)
-            throw MissingJarFileException(displayName)
+            throw MissingJarFileException(presentation.presentableText!!)
         return try {
             BaseX(File(jar))
         } catch (e: ClassNotFoundException) {
-            throw UnsupportedJarFileException(displayName)
+            throw UnsupportedJarFileException(presentation.presentableText!!)
         }
     }
 
@@ -60,7 +61,7 @@ object BaseXSession : QueryProcessorApi {
         return try {
             BaseX(classLoader)
         } catch (e: ClassNotFoundException) {
-            throw UnsupportedJarFileException(displayName)
+            throw UnsupportedJarFileException(presentation.presentableText!!)
         }
     }
 }

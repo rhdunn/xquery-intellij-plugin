@@ -18,17 +18,32 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.intellij.resources.SaxonIcons
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.saxon.lang.Saxonica
 import java.io.File
 import java.io.InputStream
+import javax.swing.Icon
 
-object SaxonS9API : QueryProcessorApi {
+object SaxonS9API : ItemPresentation, QueryProcessorApi {
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "Saxon"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = SaxonIcons.Product
+
+    // endregion
+    // region QueryProcessorApi
+
     override val id: String = "saxon.s9api"
-    override val displayName: String = "Saxon"
+    override val presentation: ItemPresentation get() = this
 
     override val requireJar: Boolean = true
     override val hasConfiguration: Boolean = true
@@ -55,11 +70,11 @@ object SaxonS9API : QueryProcessorApi {
 
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         if (jar == null)
-            throw MissingJarFileException(displayName)
+            throw MissingJarFileException(presentation.presentableText!!)
         return try {
             Saxon(File(jar), config)
         } catch (e: ClassNotFoundException) {
-            throw UnsupportedJarFileException(displayName)
+            throw UnsupportedJarFileException(presentation.presentableText!!)
         }
     }
 
@@ -67,7 +82,9 @@ object SaxonS9API : QueryProcessorApi {
         return try {
             Saxon(classLoader, config)
         } catch (e: ClassNotFoundException) {
-            throw UnsupportedJarFileException(displayName)
+            throw UnsupportedJarFileException(presentation.presentableText!!)
         }
     }
+
+    // endregion
 }

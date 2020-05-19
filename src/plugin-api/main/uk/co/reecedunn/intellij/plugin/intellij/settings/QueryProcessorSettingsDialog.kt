@@ -122,9 +122,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.implementation.label"), column.vgap())
             api = comboBox(column.horizontal().hgap().vgap()) {
                 renderer = coloredListCellRenderer { value ->
-                    if (value != null) {
-                        append(value.displayName)
-                    }
+                    value?.presentation?.presentableText?.let { append(it) }
                 }
 
                 QueryProcessorApis.forEach { value -> addItem(value) }

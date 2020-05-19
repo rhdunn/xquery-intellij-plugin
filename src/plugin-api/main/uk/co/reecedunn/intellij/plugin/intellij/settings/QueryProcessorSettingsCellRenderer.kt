@@ -23,14 +23,14 @@ import javax.swing.JList
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettingsWithVersionCache>() {
     private fun render(value: QueryProcessorSettings, version: String?) {
         clear()
-        append(value.api.displayName)
+        append(value.api.presentation.presentableText!!)
         version?.let { append(" $it") }
         value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
     }
 
     private fun renderError(value: QueryProcessorSettings, message: String) {
         clear()
-        append(value.api.displayName, SimpleTextAttributes.ERROR_ATTRIBUTES)
+        append(value.api.presentation.presentableText!!, SimpleTextAttributes.ERROR_ATTRIBUTES)
         value.name?.let { append(" ($it)", SimpleTextAttributes.ERROR_ATTRIBUTES) }
         append(" [$message]", SimpleTextAttributes.ERROR_ATTRIBUTES)
     }

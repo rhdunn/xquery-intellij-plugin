@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
@@ -30,7 +31,7 @@ object MarkLogicRest : QueryProcessorApi {
     )
 
     override val id: String = "marklogic.rest"
-    override val displayName: String = "MarkLogic"
+    override val presentation: ItemPresentation = uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic.presentation
 
     override val requireJar: Boolean = false
     override val hasConfiguration: Boolean = false
