@@ -69,6 +69,10 @@
       <li>Fixed calling APIs that require specific permissions that the query processor user has.</li>
       <li>Fixed displaying <code>node()</code> and <code>function(*)</code> types in the query results view.</li>
     </ol>
+    <p>BaseX:</p>
+    <ol>
+      <li>Fix validating in the query processor UI.</li>
+    </ol>
     <p>Run Configurations:</p>
     <ol>
       <li>Fixed scrolling to an item in the results pane when the detected filetype is plain text.</li>

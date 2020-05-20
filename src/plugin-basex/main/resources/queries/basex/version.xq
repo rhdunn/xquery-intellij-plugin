@@ -23,7 +23,7 @@ let $info := db:system()
 return if ($info instance of element(system)) then (: BaseX >= 7.1 :)
     (: NOTE: The element containing the version may be localized, so look for version-like strings. :)
     for $text in $info//*/text()
-    where fn:matches($text, "^([789]|[1-9][0-9]+)\.[0-9]+(\.[0-9]+)?$")
+    where fn:matches($text, "^([789]|[1-9][0-9]+)\.[0-9]+(\.[0-9]+)?( [a-z]+)?$")
     return $text
 else (: BaseX == 7.0 :)
     for $line in fn:tokenize($info, "(\r\n?|\n)")

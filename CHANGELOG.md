@@ -17,6 +17,10 @@ eXist-db:
     processor user has.
 1.  Fix displaying `node()` and `function(*)` types in the query results view.
 
+BaseX:
+
+1.  Fix validating beta releases in the query processor UI.
+
 Run Configurations:
 
 1.  Fixed scrolling to an item in the results pane when the detected filetype
