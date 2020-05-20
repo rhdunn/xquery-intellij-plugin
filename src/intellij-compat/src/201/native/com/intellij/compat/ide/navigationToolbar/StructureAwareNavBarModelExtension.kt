@@ -68,10 +68,12 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
         rootElement: Any?,
         processor: Processor<Any>
     ): Boolean {
-        (`object` as? PsiElement)?.let { psiElement ->
-            if (acceptElement(psiElement)) {
-                buildStructureViewModel(psiElement.containingFile)?.let { model ->
-                    return processStructureViewChildren(model.root, `object`, processor)
+        if (UISettings.instance.showMembersInNavigationBar) {
+            (`object` as? PsiElement)?.let { psiElement ->
+                if (acceptElement(psiElement)) {
+                    buildStructureViewModel(psiElement.containingFile)?.let { model ->
+                        return processStructureViewChildren(model.root, `object`, processor)
+                    }
                 }
             }
         }
