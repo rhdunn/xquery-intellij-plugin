@@ -32,6 +32,12 @@ import com.intellij.psi.PsiFile
 import com.intellij.reference.SoftReference
 import com.intellij.util.Processor
 
+@Suppress("unused")
+private fun <T> Array<T>.toListOrSelf(): List<T> = toList() // For IntelliJ 2020.1.
+
+@Suppress("unused")
+private fun <T> List<T>.toListOrSelf(): List<T> = this // For IntelliJ 2020.2+.
+
 // The StructureAwareNavBarModelExtension class is copied and modified here to
 // fix IDEA-232100. Specifically, this version replaces the language property
 // with an acceptElement method.
@@ -57,9 +63,10 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
         return null
     }
 
-    override fun processChildren(`object`: Any,
-                                 rootElement: Any?,
-                                 processor: Processor<Any>
+    override fun processChildren(
+        `object`: Any,
+        rootElement: Any?,
+        processor: Processor<Any>
     ): Boolean {
         (`object` as? PsiElement)?.let { psiElement ->
             if (acceptElement(psiElement)) {
@@ -114,9 +121,10 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
         return model
     }
 
-    private fun processStructureViewChildren(parent: StructureViewTreeElement,
-                                             `object`: Any,
-                                             processor: Processor<Any>
+    private fun processStructureViewChildren(
+        parent: StructureViewTreeElement,
+        `object`: Any,
+        processor: Processor<Any>
     ): Boolean {
         if (parent.value == `object`) {
             return childrenFromNodeAndProviders(parent)
@@ -130,8 +138,12 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
     }
 
     private fun childrenFromNodeAndProviders(parent: StructureViewTreeElement): List<TreeElement> {
-        val children = if (parent is PsiTreeElementBase<*>) parent.childrenWithoutCustomRegions else parent.children
-        return children.toList() + applicableNodeProviders.flatMap { it.provideNodes(parent) }
+        val children =
+            if (parent is PsiTreeElementBase<*>)
+                parent.childrenWithoutCustomRegions.toListOrSelf()
+            else
+                parent.children.toList()
+        return children + applicableNodeProviders.flatMap { it.provideNodes(parent) }
     }
 
     override fun normalizeChildren() = false
