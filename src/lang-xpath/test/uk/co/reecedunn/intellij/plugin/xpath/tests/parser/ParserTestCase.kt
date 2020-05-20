@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
+import com.intellij.compat.mock.registerPomModel
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
@@ -34,7 +35,7 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        registerPomModel()
+        registerPomModel(myProject)
         registerPsiModification()
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())

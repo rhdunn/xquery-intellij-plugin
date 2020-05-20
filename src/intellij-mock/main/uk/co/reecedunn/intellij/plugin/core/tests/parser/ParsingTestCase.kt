@@ -34,7 +34,6 @@ import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.fileTypes.FileType
@@ -49,7 +48,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.pom.PomModel
-import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
 import com.intellij.psi.impl.PsiFileFactoryImpl
@@ -71,7 +69,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.core.tests.pom.MockPomModelImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -146,12 +143,6 @@ abstract class ParsingTestCase<File : PsiFile>(
                     MockLanguageFileType(language!!, mFileExt)
             app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
         }
-    }
-
-    protected fun registerPomModel() {
-        val pomModel = MockPomModelImpl(myProject)
-        myProject.registerService(PomModel::class.java, pomModel)
-        TreeAspect(pomModel)
     }
 
     protected fun registerPsiModification() {

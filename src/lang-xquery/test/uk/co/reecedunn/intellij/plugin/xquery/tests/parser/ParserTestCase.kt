@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
+import com.intellij.compat.mock.registerPomModel
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
@@ -49,7 +50,7 @@ abstract class ParserTestCase :
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        registerPomModel()
+        registerPomModel(myProject)
         registerPsiModification()
 
         myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
