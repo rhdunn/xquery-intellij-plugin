@@ -19,3 +19,9 @@ if (ext.intellij_version >= 201) {
 } else {
     sourceSets.main.java.srcDirs += 'src/201/compat'
 }
+
+if (ext.intellij_version >= 202) {
+    sourceSets.main.java.srcDirs += 'src/202/native'
+} else {
+    sourceSets.main.java.srcDirs += 'src/202/compat'
+}

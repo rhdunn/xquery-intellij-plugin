@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.tests.editor
+package com.intellij.compat.mock
 
-import com.intellij.compat.mock.MockEditorFactory
-import com.intellij.openapi.editor.Document
-import com.intellij.openapi.editor.Editor
-
-class MockEditorFactoryEx : MockEditorFactory() {
-    override fun createEditor(document: Document): Editor {
-        return MockEditor(document)
-    }
-}
+// IntelliJ 2020.2 makes MockEditorFactory final.
+typealias MockEditorFactory = com.intellij.mock.MockEditorFactory
