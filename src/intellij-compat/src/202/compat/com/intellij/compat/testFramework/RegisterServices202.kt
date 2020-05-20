@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.mock
+package com.intellij.compat.testFramework
 
 import com.intellij.mock.MockProject
+import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.project.Project
 import com.intellij.pom.PomModel
 import com.intellij.pom.PomTransaction
@@ -32,4 +33,8 @@ fun registerPomModel(project: MockProject) {
     val pomModel = MockPomModelImpl(project)
     project.registerService(PomModel::class.java, pomModel)
     TreeAspect(pomModel)
+}
+
+@Suppress("unused")
+fun MockProjectEx.registerCodeStyleCachingService() {
 }

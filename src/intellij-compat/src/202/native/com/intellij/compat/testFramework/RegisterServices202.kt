@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.mock
+package com.intellij.compat.testFramework
 
+import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
+import com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl
 import com.intellij.mock.MockProject
+import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.project.Project
 import com.intellij.pom.PomModel
 import com.intellij.pom.PomTransaction
@@ -31,4 +34,8 @@ private class MockPomModelImpl(project: Project) : PomModelImpl(project) {
 fun registerPomModel(project: MockProject) {
     project.registerService(TreeAspect::class.java, TreeAspect())
     project.registerService(PomModel::class.java, MockPomModelImpl(project))
+}
+
+fun MockProjectEx.registerCodeStyleCachingService() {
+    registerService(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
 }

@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import com.intellij.compat.mock.registerPomModel
+import com.intellij.compat.testFramework.registerCodeStyleCachingService
+import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
@@ -52,6 +53,7 @@ abstract class ParserTestCase :
         super.setUp()
         registerPomModel(myProject)
         registerPsiModification()
+        myProject.registerCodeStyleCachingService()
 
         myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())

@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
-import com.intellij.compat.mock.registerPomModel
+import com.intellij.compat.testFramework.registerCodeStyleCachingService
+import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
@@ -37,6 +38,7 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         super.setUp()
         registerPomModel(myProject)
         registerPsiModification()
+        myProject.registerCodeStyleCachingService()
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
