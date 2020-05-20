@@ -55,7 +55,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(nullValue()))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("descendant"))
@@ -131,7 +131,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("string"))
@@ -166,7 +166,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("xsd:integer"))
@@ -215,7 +215,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(nullValue()))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("math"))

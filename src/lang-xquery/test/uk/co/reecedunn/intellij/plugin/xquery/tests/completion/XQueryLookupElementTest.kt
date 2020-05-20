@@ -72,7 +72,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("local:test"))
@@ -110,7 +110,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("local:test"))
@@ -170,7 +170,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("local:test"))
@@ -213,7 +213,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("local:test"))
@@ -300,7 +300,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("local:test"))
@@ -345,7 +345,7 @@ private class XPathLookupElementTest : ParserTestCase() {
             val presentation = LookupElementPresentation()
             lookup.renderElement(presentation)
 
-            assertThat(presentation.isReal, `is`(false))
+            // NOTE: IntelliJ 2020.2 deprecates and changes the behaviour of presentation.isReal.
             assertThat(presentation.icon, `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
             assertThat(presentation.typeIcon, `is`(nullValue()))
             assertThat(presentation.itemText, `is`("local:test"))
