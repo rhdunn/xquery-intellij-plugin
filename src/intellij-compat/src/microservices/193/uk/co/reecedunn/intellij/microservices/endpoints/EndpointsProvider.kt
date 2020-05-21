@@ -19,15 +19,17 @@ import com.intellij.microservices.EndpointType
 import com.intellij.microservices.EndpointsProvider
 import com.intellij.microservices.EndpointsViewProvider
 import com.intellij.microservices.VisibilityScope
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
+import javax.swing.JComponent
 
 @Suppress("UnstableApiUsage")
-abstract class EndpointsProvider : EndpointsProvider<Any, Any> {
+abstract class EndpointsProvider : EndpointsProvider<Any, Any>, EndpointsViewProvider<Any, Any> {
     // region EndpointsProvider
 
     override val endpointType: EndpointType = EndpointType.API_DEFINITION
 
-    override val viewProvider: EndpointsViewProvider<Any, Any> get() = TODO()
+    override val viewProvider: EndpointsViewProvider<Any, Any> get() = this
 
     override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<Any> = listOf()
 
@@ -38,6 +40,27 @@ abstract class EndpointsProvider : EndpointsProvider<Any, Any> {
     }
 
     override fun isAvailable(project: Project): Boolean = true
+
+    // endregion
+    // region EndpointsViewProvider
+
+    override val frameworkPresentation: ItemPresentation get() = TODO()
+
+    override val frameworkTag: String get() = TODO()
+
+    override fun getEndpointData(group: Any, endpoint: Any, dataId: String): Any? = null
+
+    override fun getEndpointDetails(group: Any, endpoint: Any): JComponent? = null
+
+    override fun getEndpointPresentation(group: Any, endpoint: Any): ItemPresentation = TODO()
+
+    override fun getGroupData(group: Any, dataId: String): Any? = null
+
+    override fun getGroupPresentation(group: Any): ItemPresentation = TODO()
+
+    override fun isValidEndpoint(group: Any, endpoint: Any): Boolean = false
+
+    override fun isValidGroup(group: Any): Boolean = false
 
     // endregion
 }
