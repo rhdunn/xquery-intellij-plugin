@@ -24,12 +24,15 @@ import com.intellij.openapi.project.Project
 import javax.swing.JComponent
 
 @Suppress("UnstableApiUsage")
-abstract class EndpointsProvider : EndpointsProvider<Any, Any>, EndpointsViewProvider<Any, Any> {
+abstract class EndpointsProvider :
+    EndpointsProvider<Any, Any>,
+    EndpointsViewProvider<Any, Any>,
+    EndpointsFramework {
     // region EndpointsProvider
 
     override val endpointType: EndpointType = EndpointType.API_DEFINITION
 
-    override val id: String get() = TODO()
+    abstract override val id: String
 
     override val viewProvider: EndpointsViewProvider<Any, Any> get() = this
 
@@ -46,7 +49,7 @@ abstract class EndpointsProvider : EndpointsProvider<Any, Any>, EndpointsViewPro
     // endregion
     // region EndpointsViewProvider
 
-    override val frameworkPresentation: ItemPresentation get() = TODO()
+    override val frameworkPresentation: ItemPresentation get() = presentation
 
     override val frameworkTag: String get() = id
 

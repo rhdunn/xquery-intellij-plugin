@@ -15,4 +15,10 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-abstract class EndpointsProvider : EndpointsFramework
+import com.intellij.navigation.ItemPresentation
+
+interface EndpointsFramework {
+    val id: String
+
+    val presentation: ItemPresentation
+}

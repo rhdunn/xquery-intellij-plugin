@@ -15,7 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
+import javax.swing.Icon
 
-object RewriterEndpointsProvider : EndpointsProvider() {
+object RewriterEndpointsProvider : EndpointsProvider(), ItemPresentation {
+    // region ItemPresentation
+
+    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Product
+
+    override fun getLocationString(): String? = null
+
+    override fun getPresentableText(): String? = MarkLogicBundle.message("endpoints.rewriter.label")
+
+    // endregion
+    // region EndpointsFramework
+
+    override val id: String = "xijp.marklogic-rewriter"
+
+    override val presentation: ItemPresentation get() = this
+
+    // endregion
 }

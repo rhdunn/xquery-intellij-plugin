@@ -28,6 +28,8 @@ if (ext.intellij_version >= 202) {
 
 // Microservices
 
+sourceSets.main.java.srcDirs += 'src/microservices/api'
+
 if (intellij.type == 'IU') {
     if (ext.intellij_version == 193) {
         sourceSets.main.java.srcDirs += 'src/microservices/193'
