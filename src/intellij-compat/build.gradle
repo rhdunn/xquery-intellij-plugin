@@ -25,3 +25,17 @@ if (ext.intellij_version >= 202) {
 } else {
     sourceSets.main.java.srcDirs += 'src/202/compat'
 }
+
+// Microservices
+
+if (intellij.type == 'IU') {
+    if (ext.intellij_version == 193) {
+        sourceSets.main.java.srcDirs += 'src/microservices/193'
+    } else if (ext.intellij_version == 201) {
+        sourceSets.main.java.srcDirs += 'src/microservices/201'
+    } else {
+        sourceSets.main.java.srcDirs += 'src/microservices/compat'
+    }
+} else {
+    sourceSets.main.java.srcDirs += 'src/microservices/compat'
+}
