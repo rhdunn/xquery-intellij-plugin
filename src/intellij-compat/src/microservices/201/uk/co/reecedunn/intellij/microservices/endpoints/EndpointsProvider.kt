@@ -25,8 +25,8 @@ import javax.swing.JComponent
 
 @Suppress("UnstableApiUsage")
 abstract class EndpointsProvider :
-    EndpointsProvider<EndpointsGroup, Any>,
-    EndpointsViewProvider<EndpointsGroup, Any>,
+    EndpointsProvider<EndpointsGroup, Endpoint>,
+    EndpointsViewProvider<EndpointsGroup, Endpoint>,
     EndpointsFramework {
     // region EndpointsProvider
 
@@ -34,11 +34,11 @@ abstract class EndpointsProvider :
 
     abstract override val id: String
 
-    override val viewProvider: EndpointsViewProvider<EndpointsGroup, Any> get() = this
+    override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint> get() = this
 
     override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> = listOf()
 
-    override fun getEndpoints(group: EndpointsGroup): List<Any> = listOf()
+    override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = listOf()
 
     override fun hasEndpointGroups(project: Project, scope: VisibilityScope): Boolean {
         return getEndpointGroups(project, scope).isNotEmpty()
@@ -53,17 +53,17 @@ abstract class EndpointsProvider :
 
     override val frameworkTag: String get() = id
 
-    override fun getEndpointData(group: EndpointsGroup, endpoint: Any, dataId: String): Any? = null
+    override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? = null
 
-    override fun getEndpointDetails(group: EndpointsGroup, endpoint: Any): JComponent? = null
+    override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? = null
 
-    override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Any): ItemPresentation = TODO()
+    override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation = TODO()
 
     override fun getGroupData(group: EndpointsGroup, dataId: String): Any? = null
 
     override fun getGroupPresentation(group: EndpointsGroup): ItemPresentation = TODO()
 
-    override fun isValidEndpoint(group: EndpointsGroup, endpoint: Any): Boolean = false
+    override fun isValidEndpoint(group: EndpointsGroup, endpoint: Endpoint): Boolean = false
 
     override fun isValidGroup(group: EndpointsGroup): Boolean = true
 
