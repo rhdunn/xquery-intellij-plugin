@@ -36,7 +36,7 @@ abstract class EndpointsProvider :
 
     override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint> get() = this
 
-    override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> = listOf()
+    override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> = groups(project)
 
     override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = listOf()
 

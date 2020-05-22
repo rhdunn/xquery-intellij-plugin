@@ -16,9 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.psi.xml.XmlFile
+import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import javax.swing.Icon
 
 object RewriterEndpointsProvider : EndpointsProvider(), ItemPresentation {
@@ -36,6 +42,19 @@ object RewriterEndpointsProvider : EndpointsProvider(), ItemPresentation {
     override val id: String = "xijp.marklogic-rewriter"
 
     override val presentation: ItemPresentation get() = this
+
+    override fun groups(project: Project): List<EndpointsGroup> {
+        val groups = ArrayList<EndpointsGroup>()
+        ProjectRootManager.getInstance(project).fileIndex.iterateContent {
+            val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
+            val root = file.rootTag ?: return@iterateContent true
+            if (root.namespace == Rewriter.NAMESPACE && root.localName == "rewriter") {
+                groups.add(RewriterEndpointsGroup(root))
+            }
+            true
+        }
+        return groups
+    }
 
     // endregion
 }

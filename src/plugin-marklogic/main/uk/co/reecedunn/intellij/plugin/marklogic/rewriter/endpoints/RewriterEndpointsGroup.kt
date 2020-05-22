@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.microservices.endpoints
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.project.Project
+import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 
-interface EndpointsFramework {
-    val id: String
-
-    val presentation: ItemPresentation
-
-    fun groups(project: Project): List<EndpointsGroup>
+class RewriterEndpointsGroup(val rewriter: XmlTag) : EndpointsGroup {
 }
