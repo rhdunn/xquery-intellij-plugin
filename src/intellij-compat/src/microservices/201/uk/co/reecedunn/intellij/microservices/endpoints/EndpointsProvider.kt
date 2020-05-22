@@ -61,7 +61,7 @@ abstract class EndpointsProvider :
 
     override fun getGroupData(group: EndpointsGroup, dataId: String): Any? = null
 
-    override fun getGroupPresentation(group: EndpointsGroup): ItemPresentation = TODO()
+    override fun getGroupPresentation(group: EndpointsGroup): ItemPresentation = group.presentation
 
     override fun isValidEndpoint(group: EndpointsGroup, endpoint: Endpoint): Boolean = false
 

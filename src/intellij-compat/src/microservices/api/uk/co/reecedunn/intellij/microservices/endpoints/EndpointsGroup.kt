@@ -15,5 +15,8 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
+import com.intellij.navigation.ItemPresentation
+
 interface EndpointsGroup {
+    val presentation: ItemPresentation
 }
