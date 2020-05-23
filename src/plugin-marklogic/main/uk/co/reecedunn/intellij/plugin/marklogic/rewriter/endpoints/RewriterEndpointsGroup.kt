@@ -21,7 +21,7 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import javax.swing.Icon
 
-class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation {
+class RewriterEndpointsGroup(val rewriter: XmlTag) : EndpointsGroup, ItemPresentation {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = AllIcons.FileTypes.Xml
