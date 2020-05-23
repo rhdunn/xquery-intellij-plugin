@@ -19,10 +19,8 @@ import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
-import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
@@ -30,22 +28,18 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XQueryQueryBody) return null
 
-        return getModuleUriElements(element).takeIf { it.isNotEmpty() }?.let {
+        return getModuleUriElements(element).takeIf { it.any() }?.let {
             NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
-                .setTargets(it)
+                .setTargets(it.toList())
                 .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
                 .setCellRenderer(ModuleUriElementListCellRenderer)
                 .createLineMarkerInfo(element)
         }
     }
 
-    private fun getModuleUriElements(element: XQueryQueryBody): List<XmlTag> {
-        val elements = ArrayList<XmlTag>()
-        RewriterEndpointsProvider.groups(element.project).asSequence().forEach { group ->
-            group.endpoints
-                .filter { it.reference?.resolve() === element }
-                .forEach { elements.add((it as RewriterEndpoint).endpoint) }
+    private fun getModuleUriElements(element: XQueryQueryBody): Sequence<PsiElement> {
+        return RewriterEndpointsProvider.groups(element.project).asSequence().flatMap { group ->
+            group.endpoints.filter { it.reference?.resolve() === element }.map { it.element }
         }
-        return elements
     }
 }

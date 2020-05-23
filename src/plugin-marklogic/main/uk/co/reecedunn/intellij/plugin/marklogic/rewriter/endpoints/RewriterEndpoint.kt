@@ -15,12 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 
-class RewriterEndpoint(val endpoint: XmlTag) : Endpoint {
+class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint {
     // region Endpoint
 
     override val reference: PsiReference?
@@ -28,6 +29,8 @@ class RewriterEndpoint(val endpoint: XmlTag) : Endpoint {
             endpoint.value.text.isBlank() -> null
             else -> ModuleUriElementReference(endpoint)
         }
+
+    override val element: PsiElement = endpoint
 
     // endregion
 }
