@@ -36,7 +36,7 @@ abstract class EndpointsProvider :
 
     override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> = groups(project)
 
-    override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = listOf()
+    override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = group.endpoints.toList()
 
     override fun hasEndpointGroups(project: Project, scope: VisibilityScope): Boolean {
         return getEndpointGroups(project, scope).isNotEmpty()

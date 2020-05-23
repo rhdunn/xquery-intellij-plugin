@@ -18,10 +18,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
+import uk.co.reecedunn.intellij.plugin.core.xml.descendants
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import javax.swing.Icon
 
-class RewriterEndpointsGroup(val rewriter: XmlTag) : EndpointsGroup, ItemPresentation {
+class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = AllIcons.FileTypes.Xml
@@ -34,6 +37,9 @@ class RewriterEndpointsGroup(val rewriter: XmlTag) : EndpointsGroup, ItemPresent
     // region EndpointsGroup
 
     override val presentation: ItemPresentation get() = this
+
+    override val endpoints: Sequence<Endpoint>
+        get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }
 
     // endregion
 }

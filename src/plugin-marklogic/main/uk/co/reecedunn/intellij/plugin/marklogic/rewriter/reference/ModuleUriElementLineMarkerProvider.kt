@@ -20,12 +20,10 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsGroup
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
 class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
@@ -44,14 +42,10 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
     private fun getModuleUriElements(element: XQueryQueryBody): List<XmlTag> {
         val elements = ArrayList<XmlTag>()
         RewriterEndpointsProvider.groups(element.project).asSequence().forEach { group ->
-            (group as RewriterEndpointsGroup).rewriter.descendants(Rewriter.NAMESPACE, MODULE_URI_ELEMENTS)
-                .filter { ModuleUriElementReference(it).resolve() === element }
-                .forEach { elements.add(it) }
+            group.endpoints
+                .filter { ModuleUriElementReference((it as RewriterEndpoint).endpoint).resolve() === element }
+                .forEach { elements.add((it as RewriterEndpoint).endpoint) }
         }
         return elements
-    }
-
-    companion object {
-        private val MODULE_URI_ELEMENTS = setOf("dispatch", "set-error-handler", "set-path")
     }
 }
