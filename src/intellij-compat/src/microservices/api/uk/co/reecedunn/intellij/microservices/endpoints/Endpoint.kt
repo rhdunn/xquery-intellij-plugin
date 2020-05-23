@@ -15,5 +15,8 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
+import com.intellij.psi.PsiReference
+
 interface Endpoint {
+    val reference: PsiReference?
 }

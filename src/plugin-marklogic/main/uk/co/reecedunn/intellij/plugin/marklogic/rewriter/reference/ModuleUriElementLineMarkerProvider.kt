@@ -43,7 +43,7 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
         val elements = ArrayList<XmlTag>()
         RewriterEndpointsProvider.groups(element.project).asSequence().forEach { group ->
             group.endpoints
-                .filter { ModuleUriElementReference((it as RewriterEndpoint).endpoint).resolve() === element }
+                .filter { it.reference?.resolve() === element }
                 .forEach { elements.add((it as RewriterEndpoint).endpoint) }
         }
         return elements
