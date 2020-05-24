@@ -30,7 +30,7 @@ import javax.swing.Icon
 object RewriterEndpointsProvider : EndpointsProvider(), ItemPresentation {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Product
+    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsFramework
 
     override fun getLocationString(): String? = null
 

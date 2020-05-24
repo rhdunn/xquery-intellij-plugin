@@ -15,19 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import javax.swing.Icon
 
 class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = AllIcons.FileTypes.Xml
+    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsGroup
 
     override fun getLocationString(): String? = null
 

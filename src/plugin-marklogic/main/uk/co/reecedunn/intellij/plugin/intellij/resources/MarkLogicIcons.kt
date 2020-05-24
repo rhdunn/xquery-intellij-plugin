@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.IconLoader
+import com.intellij.ui.LayeredIcon
+import com.intellij.util.PlatformIcons
 import javax.swing.Icon
 
 object MarkLogicIcons {
@@ -26,6 +28,13 @@ object MarkLogicIcons {
 
     object Markers {
         val Endpoint: Icon = AllIcons.General.Web
+        val EndpointOverlay = getIcon("/icons/web_overlay.svg")
+    }
+
+    object Rewriter {
+        val EndpointsFramework: Icon = Product
+        val EndpointsGroup: Icon = AllIcons.FileTypes.Xml
+        val Endpoint: Icon = LayeredIcon.create(PlatformIcons.XML_TAG_ICON, Markers.EndpointOverlay)
     }
 
     object JavaScript {
