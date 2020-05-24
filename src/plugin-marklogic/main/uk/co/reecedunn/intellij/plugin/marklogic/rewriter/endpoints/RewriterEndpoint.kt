@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import javax.swing.Icon
 
-class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint, ItemPresentation {
+class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), ItemPresentation {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.Endpoint

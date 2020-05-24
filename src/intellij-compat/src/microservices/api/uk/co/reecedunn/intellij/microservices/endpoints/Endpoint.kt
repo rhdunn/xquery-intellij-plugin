@@ -19,14 +19,14 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 
-interface Endpoint {
-    val presentation: ItemPresentation
+abstract class Endpoint {
+    abstract val presentation: ItemPresentation
 
-    val reference: PsiReference?
+    abstract val reference: PsiReference?
 
-    val element: PsiElement
+    abstract val element: PsiElement
 
-    val method: String?
+    abstract val method: String?
 
-    val path: String?
+    abstract val path: String?
 }
