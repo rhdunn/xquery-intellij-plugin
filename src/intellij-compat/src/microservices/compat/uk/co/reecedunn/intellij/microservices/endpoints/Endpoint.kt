@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import javax.swing.JComponent
 
 abstract class Endpoint : ItemPresentation {
     // region ItemPresentation
@@ -30,6 +31,8 @@ abstract class Endpoint : ItemPresentation {
     // region Endpoint
 
     open val presentation: ItemPresentation get() = this
+
+    abstract val details: JComponent?
 
     abstract val reference: PsiReference?
 

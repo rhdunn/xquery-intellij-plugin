@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import javax.swing.Icon
+import javax.swing.JComponent
 
 class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider {
     // region ItemPresentation
@@ -34,6 +35,8 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
 
     // endregion
     // region Endpoint
+
+    override val details: JComponent? = null
 
     override val reference: PsiReference?
         get() = when {

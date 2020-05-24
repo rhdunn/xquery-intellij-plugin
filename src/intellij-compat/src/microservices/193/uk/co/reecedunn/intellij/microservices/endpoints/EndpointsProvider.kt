@@ -56,7 +56,7 @@ abstract class EndpointsProvider :
         return (endpoint as? DataProvider)?.getData(dataId)
     }
 
-    override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? = null
+    override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? = endpoint.details
 
     override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation {
         return endpoint.presentation
