@@ -19,8 +19,17 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 
-abstract class Endpoint {
-    abstract val presentation: ItemPresentation
+abstract class Endpoint : ItemPresentation {
+    // region ItemPresentation
+
+    override fun getLocationString(): String? = null
+
+    override fun getPresentableText(): String? = path
+
+    // endregion
+    // region Endpoint
+
+    open val presentation: ItemPresentation get() = this
 
     abstract val reference: PsiReference?
 
@@ -29,4 +38,6 @@ abstract class Endpoint {
     abstract val method: String?
 
     abstract val path: String?
+
+    // endregion
 }

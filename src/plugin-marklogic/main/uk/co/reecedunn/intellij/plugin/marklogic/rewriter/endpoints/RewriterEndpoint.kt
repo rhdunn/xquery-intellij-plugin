@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
@@ -26,19 +25,13 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import javax.swing.Icon
 
-class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), ItemPresentation {
+class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint() {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.Endpoint
 
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String? = path
-
     // endregion
     // region Endpoint
-
-    override val presentation: ItemPresentation get() = this
 
     override val reference: PsiReference?
         get() = when {
