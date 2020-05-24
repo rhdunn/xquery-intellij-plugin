@@ -20,7 +20,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
+import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import javax.swing.Icon
 
@@ -31,7 +33,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint, ItemPresentatio
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = null
+    override fun getPresentableText(): String? = path
 
     // endregion
     // region Endpoint
@@ -45,6 +47,14 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint, ItemPresentatio
         }
 
     override val element: PsiElement = endpoint
+
+    override val path: String?
+        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
+            val matches = matchPath.getAttributeValue("matches")
+            val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
+            val prefix = matchPath.getAttributeValue("prefix")
+            matches ?: anyOf ?: prefix
+        }
 
     // endregion
 }

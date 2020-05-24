@@ -25,4 +25,6 @@ interface Endpoint {
     val reference: PsiReference?
 
     val element: PsiElement
+
+    val path: String?
 }
