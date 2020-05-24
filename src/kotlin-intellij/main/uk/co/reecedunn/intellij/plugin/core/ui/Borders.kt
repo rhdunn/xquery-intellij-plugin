@@ -26,4 +26,6 @@ object Borders {
     val ConsoleToolbarRight = MatteBorder(0, 0, 0, 1, Color(202, 202, 202))
 
     val TabPanel = EmptyBorder(4, 5, 4, 5)
+
+    val EndpointDetails = EmptyBorder(6, 6, 6, 6)
 }

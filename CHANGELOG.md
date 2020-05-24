@@ -4,8 +4,6 @@
 
 MarkLogic:
 
-1.  Fix the return type in the MarkLogic documentation.
-1.  Support autocompleting multi-valued `match-method` elements in rewriter files.
 1.  Support stopping MarkLogic queries.
 1.  Support resolving MarkLogic imports from a configured database install path.
 1.  Support registering MarkLogic schema files.
@@ -30,8 +28,14 @@ Run Configurations:
 1.  Fixed navigating to module paths in query errors.
 1.  Add icons to the query processors.
 
+Endpoints:
+
+1.  Support autocompleting multi-valued `match-method` elements in MarkLogic rewriter files.
+1.  Support displaying MarkLogic rewriter files in the Endpoints tool window.
+
 Documentation:
 
+1.  Fix the return type in the MarkLogic documentation.
 1.  Add icons to the documentation sources.
 
 ## 2020

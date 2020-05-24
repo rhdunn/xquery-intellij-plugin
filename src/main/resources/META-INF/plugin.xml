@@ -58,8 +58,6 @@
     <h3>Release 1.7-dev:</h3>
     <p>MarkLogic:</p>
     <ol>
-      <li>Fix the return type in the MarkLogic documentation.</li>
-      <li>Support autocompleting multi-valued `match-method` elements in rewriter files.</li>
       <li>Support stopping MarkLogic queries.</li>
       <li>Support resolving MarkLogic imports from a configured database install path.</li>
       <li>Support registering MarkLogic schema files.</li>
@@ -81,8 +79,14 @@
       <li>Fixed navigating to module paths in query errors.</li>
       <li>Add icons to the query processors.</li>
     </ol>
+    <p>Endpoints:</p>
+    <ol>
+      <li>Support autocompleting multi-valued `match-method` elements in MarkLogic rewriter files.</li>
+      <li>Support displaying MarkLogic rewriter files in the Endpoints tool window.</li>
+    </ol>
     <p>Documentation:</p>
     <ol>
+      <li>Fix the return type in the MarkLogic documentation.</li>
       <li>Add icons to the documentation sources.</li>
     </ol>
   ]]></change-notes>
