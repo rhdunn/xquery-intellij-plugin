@@ -63,7 +63,7 @@ abstract class EndpointsProvider :
 
     override fun getGroupPresentation(group: EndpointsGroup): ItemPresentation = group.presentation
 
-    override fun isValidEndpoint(group: EndpointsGroup, endpoint: Endpoint): Boolean = false
+    override fun isValidEndpoint(group: EndpointsGroup, endpoint: Endpoint): Boolean = true
 
     override fun isValidGroup(group: EndpointsGroup): Boolean = true
 
