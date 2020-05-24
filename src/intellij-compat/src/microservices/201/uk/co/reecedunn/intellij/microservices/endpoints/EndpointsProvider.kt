@@ -31,18 +31,23 @@ abstract class EndpointsProvider :
     EndpointsFramework {
     // region EndpointsProvider
 
+    private var cachedEndpointGroups: List<EndpointsGroup> = listOf()
+
     override val endpointType: EndpointType = EndpointType.API_DEFINITION
 
     abstract override val id: String
 
     override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint> get() = this
 
-    override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> = groups(project)
+    override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> {
+        return cachedEndpointGroups
+    }
 
     override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = group.endpoints.toList()
 
     override fun hasEndpointGroups(project: Project, scope: VisibilityScope): Boolean {
-        return getEndpointGroups(project, scope).isNotEmpty()
+        cachedEndpointGroups = groups(project)
+        return cachedEndpointGroups.isNotEmpty()
     }
 
     override fun isAvailable(project: Project): Boolean = true
