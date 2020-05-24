@@ -54,7 +54,9 @@ abstract class EndpointsProvider :
 
     override val frameworkTag: String get() = id
 
-    override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? = null
+    override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? {
+        return (endpoint as? DataProvider)?.getData(dataId)
+    }
 
     override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? = null
 

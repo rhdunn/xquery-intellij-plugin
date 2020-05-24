@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
@@ -25,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import javax.swing.Icon
 
-class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint() {
+class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.Endpoint
@@ -51,6 +53,14 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint() {
             val prefix = matchPath.getAttributeValue("prefix")
             matches ?: anyOf ?: prefix
         }
+
+    // endregion
+    // region DataProvider
+
+    override fun getData(dataId: String): Any? = when (dataId) {
+        CommonDataKeys.PSI_ELEMENT.name -> endpoint
+        else -> null
+    }
 
     // endregion
 }
