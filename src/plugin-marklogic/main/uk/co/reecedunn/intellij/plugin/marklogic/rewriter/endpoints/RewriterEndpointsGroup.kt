@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
@@ -24,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import javax.swing.Icon
 
-class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation {
+class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation, DataProvider {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsGroup
@@ -40,6 +42,14 @@ class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, Ite
 
     override val endpoints: Sequence<Endpoint>
         get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }
+
+    // endregion
+    // region DataProvider
+
+    override fun getData(dataId: String): Any? = when (dataId) {
+        CommonDataKeys.PSI_ELEMENT.name -> rewriter
+        else -> null
+    }
 
     // endregion
 }

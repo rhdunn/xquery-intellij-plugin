@@ -20,6 +20,7 @@ import com.intellij.microservices.EndpointsProvider
 import com.intellij.microservices.EndpointsViewProvider
 import com.intellij.microservices.VisibilityScope
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.project.Project
 import javax.swing.JComponent
 
@@ -59,7 +60,9 @@ abstract class EndpointsProvider :
         return endpoint.presentation
     }
 
-    override fun getGroupData(group: EndpointsGroup, dataId: String): Any? = null
+    override fun getGroupData(group: EndpointsGroup, dataId: String): Any? {
+        return (group as? DataProvider)?.getData(dataId)
+    }
 
     override fun getGroupPresentation(group: EndpointsGroup): ItemPresentation = group.presentation
 
