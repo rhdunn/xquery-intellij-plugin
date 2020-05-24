@@ -15,10 +15,13 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 
 interface Endpoint {
+    val presentation: ItemPresentation
+
     val reference: PsiReference?
 
     val element: PsiElement

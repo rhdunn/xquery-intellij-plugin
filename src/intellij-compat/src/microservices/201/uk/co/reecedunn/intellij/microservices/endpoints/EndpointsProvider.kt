@@ -57,7 +57,9 @@ abstract class EndpointsProvider :
 
     override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? = null
 
-    override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation = TODO()
+    override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation {
+        return endpoint.presentation
+    }
 
     override fun getGroupData(group: EndpointsGroup, dataId: String): Any? = null
 
