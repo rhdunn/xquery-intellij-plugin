@@ -26,5 +26,7 @@ interface Endpoint {
 
     val element: PsiElement
 
+    val method: String?
+
     val path: String?
 }

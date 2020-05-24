@@ -48,6 +48,9 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint, ItemPresentatio
 
     override val element: PsiElement = endpoint
 
+    override val method: String?
+        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
+
     override val path: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
             val matches = matchPath.getAttributeValue("matches")

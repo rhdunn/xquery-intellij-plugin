@@ -19,31 +19,18 @@ import com.intellij.ide.util.PsiElementListCellRenderer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
 import javax.swing.Icon
 
 object ModuleUriElementListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
     override fun getContainerText(element: XmlTag, name: String?): String? = element.containingFile.resourcePath()
 
     override fun getElementText(element: XmlTag): String {
-        val matchMethod = element.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()
-            ?.getAttributeValue("any-of")
-        val matchPath = element.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()
-
-        if (matchPath != null) {
-            val matches = matchPath.getAttributeValue("matches")
-            val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
-            val prefix = matchPath.getAttributeValue("prefix")
-            val pathName = matches ?: anyOf ?: prefix ?: return element.localName
-
-            if (matchMethod != null) {
-                return "[$matchMethod] $pathName"
-            }
-            return pathName
-        }
-        return element.localName
+        val endpoint = RewriterEndpoint(element)
+        return endpoint.path?.let { path ->
+            endpoint.method?.let { method -> "[$method] $path" } ?: path
+        } ?: element.localName
     }
 
     override fun getIcon(element: PsiElement?): Icon = MarkLogicIcons.Markers.Endpoint
