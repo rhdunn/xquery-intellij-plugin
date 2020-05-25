@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.functions
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
@@ -43,4 +44,6 @@ interface XdmFunctionDeclaration {
     val paramListPresentation: ItemPresentation?
 
     val isVariadic: Boolean
+
+    val annotations: Sequence<XdmAnnotation>
 }

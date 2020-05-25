@@ -58,7 +58,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // region RestXqEndpoint
 
     val annotations: Sequence<XdmAnnotation>
-        get() = (endpoint as PsiElement).parent.children().filterIsInstance<XdmAnnotation>().filter { annotation ->
+        get() = endpoint.annotations.filter { annotation ->
             annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
         }
 

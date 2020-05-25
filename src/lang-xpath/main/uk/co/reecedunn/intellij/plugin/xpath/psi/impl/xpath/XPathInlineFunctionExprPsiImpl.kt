@@ -23,6 +23,7 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -66,6 +67,8 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val paramListPresentation get(): ItemPresentation? = paramList?.presentation
 
     override val isVariadic get(): Boolean = paramList?.isVariadic == true
+
+    override val annotations: Sequence<XdmAnnotation> get() = children().filterIsInstance<XdmAnnotation>()
 
     // endregion
 }
