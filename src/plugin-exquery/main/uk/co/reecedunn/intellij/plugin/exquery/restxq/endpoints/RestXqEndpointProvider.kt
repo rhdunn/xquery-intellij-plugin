@@ -17,10 +17,14 @@ package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import javax.swing.Icon
 
 object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
@@ -40,7 +44,16 @@ object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
     override val presentation: ItemPresentation get() = this
 
     override fun groups(project: Project): List<EndpointsGroup> {
-        return listOf()
+        val groups = ArrayList<EndpointsGroup>()
+        ProjectRootManager.getInstance(project).fileIndex.iterateContent {
+            val module = it.toPsiFile(project) as? XQueryModule
+            (module?.mainOrLibraryModule as? XQueryLibraryModule)?.prolog?.forEach { prolog ->
+                val group = RestXqEndpointsGroup(prolog)
+                groups.add(group)
+            }
+            true
+        }
+        return groups
     }
 
     // endregion

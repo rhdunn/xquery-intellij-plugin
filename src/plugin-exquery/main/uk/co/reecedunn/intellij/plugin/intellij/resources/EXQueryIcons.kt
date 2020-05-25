@@ -23,5 +23,6 @@ object EXQueryIcons {
 
     object Rewriter {
         val EndpointsFramework: Icon = getIcon("/icons/restxq.svg")
+        val EndpointsGroup: Icon = XQueryIcons.FileType
     }
 }
