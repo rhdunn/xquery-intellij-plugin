@@ -101,6 +101,7 @@
 
   <xi:include href="plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
+  <xi:include href="plugin-lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-sjs.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
@@ -111,7 +112,6 @@
   <xi:include href="plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="plugin-modules.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-marklogic.xml" xpointer="xpointer(/idea-plugin/*)"/>

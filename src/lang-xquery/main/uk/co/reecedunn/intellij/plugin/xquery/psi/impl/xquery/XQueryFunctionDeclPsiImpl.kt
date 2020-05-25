@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
@@ -72,7 +73,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XPathIcons.Nodes.FunctionDecl
+    override fun getIcon(unused: Boolean): Icon? {
+        return XpmFunctionDecorator.getIcon(this) ?: XPathIcons.Nodes.FunctionDecl
+    }
 
     override fun getLocationString(): String? = null
 
