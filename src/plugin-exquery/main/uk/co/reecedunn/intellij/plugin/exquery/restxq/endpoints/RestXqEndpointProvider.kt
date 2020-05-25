@@ -20,12 +20,13 @@ import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import javax.swing.Icon
 
 object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = null
+    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.Rewriter.EndpointsFramework
 
     override fun getLocationString(): String? = null
 
