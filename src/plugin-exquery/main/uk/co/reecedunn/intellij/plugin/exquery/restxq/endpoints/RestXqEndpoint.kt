@@ -20,11 +20,8 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import javax.swing.Icon
 import javax.swing.JComponent
@@ -39,7 +36,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
 
     override val details: JComponent? = null
 
-    override val reference: PsiReference? = null
+    override val reference: PsiReference? = (endpoint as PsiElement).reference
 
     override val element: PsiElement = endpoint as PsiElement
 
