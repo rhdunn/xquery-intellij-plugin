@@ -38,6 +38,12 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     // 3.2.4 Produces Annotation
     val produces: Sequence<String> get() = strings("produces")
 
+    // 3.3.1 Query Parameters
+    val queryParam: Sequence<String>
+        get() = annotations.asSequence().filter { it.name?.localName?.data == "query-param" }.mapNotNull {
+            it.values.filterIsInstance<XsStringValue>().firstOrNull()?.data
+        }
+
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.
         private val METHODS = setOf(
