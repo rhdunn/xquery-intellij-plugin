@@ -25,10 +25,9 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import java.awt.Color
 import javax.swing.Icon
-import javax.swing.JComponent
+import javax.swing.JPanel
 
 class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(), DataProvider {
     // region ItemPresentation
@@ -38,7 +37,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // endregion
     // region Endpoint
 
-    override val details: JComponent?
+    override val details: JPanel
         get() = panel {
             border = Borders.EndpointDetails
             row /* RESTXQ 3.2.1 Path Annotation */ {

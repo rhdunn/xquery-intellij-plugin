@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import java.awt.Color
 import javax.swing.Icon
-import javax.swing.JComponent
+import javax.swing.JPanel
 
 class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider {
     // region ItemPresentation
@@ -40,7 +40,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
     // endregion
     // region Endpoint
 
-    override val details: JComponent?
+    override val details: JPanel
         get() = panel {
             border = Borders.EndpointDetails
             row /* dispatch / set-error-handler / set-path */ {

@@ -22,6 +22,7 @@ import com.intellij.microservices.VisibilityScope
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.project.Project
+import com.intellij.ui.components.JBScrollPane
 import javax.swing.JComponent
 
 @Suppress("UnstableApiUsage")
@@ -61,7 +62,9 @@ abstract class EndpointsProvider :
         return (endpoint as? DataProvider)?.getData(dataId)
     }
 
-    override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? = endpoint.details
+    override fun getEndpointDetails(group: EndpointsGroup, endpoint: Endpoint): JComponent? {
+        return JBScrollPane(endpoint.details)
+    }
 
     override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation {
         return endpoint.presentation

@@ -20,7 +20,7 @@ import com.intellij.microservices.presentation.HttpMethodPresentation
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import javax.swing.JComponent
+import javax.swing.JPanel
 
 @Suppress("UnstableApiUsage")
 abstract class Endpoint : ItemPresentation, EndpointMethodPresentation {
@@ -43,7 +43,7 @@ abstract class Endpoint : ItemPresentation, EndpointMethodPresentation {
 
     open val presentation: ItemPresentation get() = this
 
-    abstract val details: JComponent?
+    abstract val details: JPanel
 
     abstract val reference: PsiReference?
 
