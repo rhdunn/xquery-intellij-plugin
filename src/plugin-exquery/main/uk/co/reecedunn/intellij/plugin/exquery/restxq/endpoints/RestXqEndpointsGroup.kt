@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
-import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 import javax.swing.Icon
 
 class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, ItemPresentation, DataProvider {
@@ -45,7 +44,7 @@ class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, I
         get() {
             return prolog.annotatedDeclarations<XdmFunctionDeclaration>()
                 .mapNotNull { function -> function?.functionName?.let { RestXqEndpoint(function) } }
-                .filter { it.annotations != null }
+                .filter { it.rest != null }
         }
 
     // endregion

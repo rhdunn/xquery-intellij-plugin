@@ -40,9 +40,9 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
 
     override val element: PsiElement = endpoint as PsiElement
 
-    override val method: String? = annotations?.methods?.joinToString(" ")
+    override val method: String? = rest?.methods?.joinToString(" ")
 
-    override val path: String? = annotations?.path
+    override val path: String? = rest?.path
 
     // endregion
     // region DataProvider
@@ -55,7 +55,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // endregion
     // region RestXqEndpoint
 
-    val annotations: RestXqAnnotations?
+    val rest: RestXqAnnotations?
         get() {
             val annotations = endpoint.annotations
                 .filter { annotation ->
