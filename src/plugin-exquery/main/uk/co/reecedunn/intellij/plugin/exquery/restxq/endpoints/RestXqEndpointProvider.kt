@@ -19,6 +19,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
+import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
 import javax.swing.Icon
 
 object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
@@ -28,7 +29,7 @@ object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = null
+    override fun getPresentableText(): String? = EXQueryBundle.message("endpoints.rewriter.label")
 
     // endregion
     // region EndpointsFramework
