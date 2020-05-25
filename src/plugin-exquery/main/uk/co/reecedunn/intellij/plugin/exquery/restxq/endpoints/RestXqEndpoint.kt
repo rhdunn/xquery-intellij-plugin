@@ -43,7 +43,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
 
     override val element: PsiElement = endpoint as PsiElement
 
-    override val method: String? = null
+    override val method: String? = annotations?.methods?.joinToString(" ")
 
     override val path: String? = annotations?.path
 
