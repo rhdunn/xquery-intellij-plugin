@@ -21,10 +21,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 
 class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
-    private fun annotation(name: String): XdmAnnotation? = annotations.find { it.name?.localName?.data == name }
-
     private fun strings(name: String): Sequence<String> {
-        return annotation(name)?.values?.filterIsInstance<XsStringValue>()?.map { it.data } ?: sequenceOf()
+        return annotations.asSequence().filter { it.name?.localName?.data == name }.flatMap {
+            it.values.filterIsInstance<XsStringValue>().map { string -> string.data }
+        }
     }
 
     private fun params(name: String): Sequence<String> {
