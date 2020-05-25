@@ -114,18 +114,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // endregion
     // region RestXqEndpoint
 
-    val rest: RestXqAnnotations?
-        get() {
-            val annotations = endpoint.annotations
-                .filter { annotation ->
-                    annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
-                }
-            return annotations.takeIf { it.any() }?.let { RestXqAnnotations(it.toList()) }
-        }
-
-    companion object {
-        const val RESTXQ_NAMESPACE = "http://exquery.org/ns/restxq"
-    }
+    val rest: RestXqAnnotations? get() = RestXqAnnotations.create(endpoint)
 
     // endregion
 }

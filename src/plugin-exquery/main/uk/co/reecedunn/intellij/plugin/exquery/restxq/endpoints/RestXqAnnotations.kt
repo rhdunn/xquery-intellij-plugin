@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 
 class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     private fun annotation(name: String): XdmAnnotation? = annotations.find { it.name?.localName?.data == name }
@@ -66,5 +68,14 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
             "PUT", // HTTP 1.1 (9.6)
             "DELETE" // HTTP 1.1 (9.7)
         )
+
+        const val RESTXQ_NAMESPACE = "http://exquery.org/ns/restxq"
+
+        fun create(function: XdmFunctionDeclaration): RestXqAnnotations? {
+            val annotations = function.annotations.filter { annotation ->
+                annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
+            }
+            return annotations.takeIf { it.any() }?.let { RestXqAnnotations(it.toList()) }
+        }
     }
 }
