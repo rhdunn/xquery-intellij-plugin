@@ -34,7 +34,7 @@ abstract class EndpointsProvider :
 
     private var cachedEndpointGroups: List<EndpointsGroup> = listOf()
 
-    override val endpointType: EndpointType = EndpointType.API_DEFINITION
+    override val endpointType: EndpointType = EndpointType.SERVER
 
     override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint> get() = this
 
