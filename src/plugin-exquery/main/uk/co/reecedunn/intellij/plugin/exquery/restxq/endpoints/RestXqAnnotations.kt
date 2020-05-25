@@ -50,6 +50,9 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     // 3.3.2 Form Parameters
     val formParams: Sequence<String> get() = params("form-param")
 
+    // 3.3.3 HTTP Header Parameters
+    val headerParams: Sequence<String> get() = params("header-param")
+
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.
         private val METHODS = setOf(

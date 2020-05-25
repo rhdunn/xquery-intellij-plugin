@@ -77,6 +77,12 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
                 }
                 label(rest?.formParams?.joinToString(" "), column.hgap().vgap())
             }
+            row /* RESTXQ 3.3.3 HTTP Header Parameters */ {
+                label(EXQueryBundle.message("endpoints.restxq.header-params.label"), column.vgap()) {
+                    foreground = Color.GRAY
+                }
+                label(rest?.headerParams?.joinToString(" "), column.hgap().vgap())
+            }
             row {
                 spacer(column.vertical())
                 spacer(column.horizontal())
