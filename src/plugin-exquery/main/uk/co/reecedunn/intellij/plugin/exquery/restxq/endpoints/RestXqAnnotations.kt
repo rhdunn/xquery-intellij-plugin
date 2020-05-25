@@ -53,6 +53,9 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     // 3.3.3 HTTP Header Parameters
     val headerParams: Sequence<String> get() = params("header-param")
 
+    // 3.3.4 Cookie Parameters
+    val cookieParams: Sequence<String> get() = params("cookie-param")
+
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.
         private val METHODS = setOf(

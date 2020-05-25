@@ -83,6 +83,12 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
                 }
                 label(rest?.headerParams?.joinToString(" "), column.hgap().vgap())
             }
+            row /* RESTXQ 3.3.4 Cookie Parameters */ {
+                label(EXQueryBundle.message("endpoints.restxq.cookie-params.label"), column.vgap()) {
+                    foreground = Color.GRAY
+                }
+                label(rest?.cookieParams?.joinToString(" "), column.hgap().vgap())
+            }
             row {
                 spacer(column.vertical())
                 spacer(column.horizontal())
