@@ -15,43 +15,39 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
-import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 import javax.swing.Icon
+import javax.swing.JComponent
 
-class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, ItemPresentation, DataProvider {
+class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(), DataProvider {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsGroup
-
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String? = prolog.containingFile.name
+    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.Endpoint
 
     // endregion
-    // region EndpointsGroup
+    // region Endpoint
 
-    override val presentation: ItemPresentation get() = this
+    override val details: JComponent? = null
 
-    override val endpoints: Sequence<Endpoint>
-        get() {
-            return prolog.annotatedDeclarations<XdmFunctionDeclaration>()
-                .mapNotNull { function -> function?.functionName?.let { RestXqEndpoint(function) } }
-        }
+    override val reference: PsiReference? = null
+
+    override val element: PsiElement = endpoint as PsiElement
+
+    override val method: String? = null
+
+    override val path: String? = null
 
     // endregion
     // region DataProvider
 
     override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> prolog
+        CommonDataKeys.PSI_ELEMENT.name -> endpoint as PsiElement
         else -> null
     }
 

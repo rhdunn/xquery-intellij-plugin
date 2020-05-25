@@ -30,7 +30,7 @@ import javax.swing.Icon
 object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.Rewriter.EndpointsFramework
+    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsFramework
 
     override fun getLocationString(): String? = null
 
@@ -49,7 +49,9 @@ object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
             val module = it.toPsiFile(project) as? XQueryModule
             (module?.mainOrLibraryModule as? XQueryLibraryModule)?.prolog?.forEach { prolog ->
                 val group = RestXqEndpointsGroup(prolog)
-                groups.add(group)
+                if (group.endpoints.any()) {
+                    groups.add(group)
+                }
             }
             true
         }

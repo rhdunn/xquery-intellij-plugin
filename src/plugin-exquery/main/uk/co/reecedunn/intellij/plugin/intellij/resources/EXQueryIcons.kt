@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,12 @@ import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
 object EXQueryIcons {
+    @Suppress("SameParameterValue")
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, EXQueryIcons::class.java)
 
-    object Rewriter {
+    object RESTXQ {
         val EndpointsFramework: Icon = getIcon("/icons/restxq.svg")
         val EndpointsGroup: Icon = XQueryIcons.FileType
+        val Endpoint: Icon = XQueryIcons.Endpoints.FunctionEndpoint
     }
 }

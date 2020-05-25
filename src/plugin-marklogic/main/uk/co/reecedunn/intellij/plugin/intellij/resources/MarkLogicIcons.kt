@@ -28,13 +28,12 @@ object MarkLogicIcons {
 
     object Markers {
         val Endpoint: Icon = AllIcons.General.Web
-        val EndpointOverlay = getIcon("/icons/web_overlay.svg")
     }
 
     object Rewriter {
         val EndpointsFramework: Icon = Product
         val EndpointsGroup: Icon = AllIcons.FileTypes.Xml
-        val Endpoint: Icon = LayeredIcon.create(PlatformIcons.XML_TAG_ICON, Markers.EndpointOverlay)
+        val Endpoint: Icon = LayeredIcon.create(PlatformIcons.XML_TAG_ICON, XQueryIcons.Endpoints.EndpointOverlay)
     }
 
     object JavaScript {

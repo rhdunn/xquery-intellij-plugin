@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.IconLoader
+import com.intellij.ui.LayeredIcon
 import javax.swing.Icon
 
 object XQueryIcons {
@@ -24,6 +25,11 @@ object XQueryIcons {
 
     val FileType: Icon = getIcon("/icons/xquery/fileType.svg")
     val RunConfiguration: Icon = getIcon("/icons/xquery/runConfiguration.svg")
+
+    object Endpoints {
+        val EndpointOverlay = getIcon("/icons/web_overlay.svg")
+        val FunctionEndpoint: Icon = LayeredIcon.create(XPathIcons.Nodes.FunctionDecl, EndpointOverlay)
+    }
 
     object Nodes {
         val Annotation = AllIcons.Nodes.Annotationtype
