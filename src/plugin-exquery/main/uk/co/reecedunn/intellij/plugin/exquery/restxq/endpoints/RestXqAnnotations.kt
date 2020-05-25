@@ -35,6 +35,9 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     // 3.2.3 Consumes Annotation
     val consumes: Sequence<String> get() = strings("consumes")
 
+    // 3.2.4 Produces Annotation
+    val produces: Sequence<String> get() = strings("produces")
+
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.
         private val METHODS = setOf(
