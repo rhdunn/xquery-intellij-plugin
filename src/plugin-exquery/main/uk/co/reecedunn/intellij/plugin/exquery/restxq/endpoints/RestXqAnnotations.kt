@@ -25,6 +25,12 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
         return annotation(name)?.values?.filterIsInstance<XsStringValue>()?.map { it.data } ?: sequenceOf()
     }
 
+    private fun params(name: String): Sequence<String> {
+        return annotations.asSequence().filter { it.name?.localName?.data == name }.mapNotNull {
+            it.values.filterIsInstance<XsStringValue>().firstOrNull()?.data
+        }
+    }
+
     // 3.2.1 Path Annotation
     val path: String? get() = strings("path").firstOrNull()
 
@@ -39,10 +45,10 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     val produces: Sequence<String> get() = strings("produces")
 
     // 3.3.1 Query Parameters
-    val queryParam: Sequence<String>
-        get() = annotations.asSequence().filter { it.name?.localName?.data == "query-param" }.mapNotNull {
-            it.values.filterIsInstance<XsStringValue>().firstOrNull()?.data
-        }
+    val queryParams: Sequence<String> get() = params("query-param")
+
+    // 3.3.2 Form Parameters
+    val formParams: Sequence<String> get() = params("form-param")
 
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.

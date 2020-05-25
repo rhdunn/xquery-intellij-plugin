@@ -65,11 +65,17 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
                 }
                 label(rest?.produces?.joinToString(" "), column.hgap().vgap())
             }
-            row /* 3.3.1 Query Parameters */ {
-                label(EXQueryBundle.message("endpoints.restxq.query-param.label"), column.vgap()) {
+            row /* RESTXQ 3.3.1 Query Parameters */ {
+                label(EXQueryBundle.message("endpoints.restxq.query-params.label"), column.vgap()) {
                     foreground = Color.GRAY
                 }
-                label(rest?.queryParam?.joinToString(" "), column.hgap().vgap())
+                label(rest?.queryParams?.joinToString(" "), column.hgap().vgap())
+            }
+            row /* RESTXQ 3.3.2 Form Parameters */ {
+                label(EXQueryBundle.message("endpoints.restxq.form-params.label"), column.vgap()) {
+                    foreground = Color.GRAY
+                }
+                label(rest?.formParams?.joinToString(" "), column.hgap().vgap())
             }
             row {
                 spacer(column.vertical())
