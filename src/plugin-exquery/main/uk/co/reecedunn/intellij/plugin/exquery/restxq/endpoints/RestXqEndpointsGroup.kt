@@ -45,7 +45,7 @@ class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, I
         get() {
             return prolog.annotatedDeclarations<XdmFunctionDeclaration>()
                 .mapNotNull { function -> function?.functionName?.let { RestXqEndpoint(function) } }
-                .filter { it.annotations.any() }
+                .filter { it.annotations != null }
         }
 
     // endregion

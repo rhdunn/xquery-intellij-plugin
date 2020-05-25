@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import javax.swing.Icon
 import javax.swing.JComponent
@@ -44,7 +45,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
 
     override val method: String? = null
 
-    override val path: String? = null
+    override val path: String? = annotations?.path
 
     // endregion
     // region DataProvider
@@ -57,9 +58,13 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // endregion
     // region RestXqEndpoint
 
-    val annotations: Sequence<XdmAnnotation>
-        get() = endpoint.annotations.filter { annotation ->
-            annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
+    val annotations: RestXqAnnotations?
+        get() {
+            val annotations = endpoint.annotations
+                .filter { annotation ->
+                    annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
+                }
+            return annotations.takeIf { it.any() }?.let { RestXqAnnotations(it.toList()) }
         }
 
     companion object {
