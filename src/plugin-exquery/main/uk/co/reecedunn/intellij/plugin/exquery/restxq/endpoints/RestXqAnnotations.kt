@@ -21,12 +21,19 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     private fun annotation(name: String): XdmAnnotation? = annotations.find { it.name?.localName?.data == name }
 
+    private fun strings(name: String): Sequence<String> {
+        return annotation(name)?.values?.filterIsInstance<XsStringValue>()?.map { it.data } ?: sequenceOf()
+    }
+
     // 3.2.1 Path Annotation
-    val path: String? = annotation("path")?.values?.filterIsInstance<XsStringValue>()?.firstOrNull()?.data
+    val path: String? get() = strings("path").firstOrNull()
 
     // 3.2.2 Method Annotation
     val methods: Sequence<String>
         get() = annotations.asSequence().mapNotNull { it.name?.localName?.data }.filter { METHODS.contains(it) }
+
+    // 3.2.3 Consumes Annotation
+    val consumes: Sequence<String> get() = strings("consumes")
 
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.

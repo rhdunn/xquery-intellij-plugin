@@ -53,6 +53,12 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
                 }
                 label(rest?.methods?.joinToString(" "), column.hgap().vgap())
             }
+            row /* RESTXQ 3.2.3 Consumes Annotation */ {
+                label(EXQueryBundle.message("endpoints.restxq.consumes.label"), column.vgap()) {
+                    foreground = Color.GRAY
+                }
+                label(rest?.consumes?.joinToString(" "), column.hgap().vgap())
+            }
             row {
                 spacer(column.vertical())
                 spacer(column.horizontal())
