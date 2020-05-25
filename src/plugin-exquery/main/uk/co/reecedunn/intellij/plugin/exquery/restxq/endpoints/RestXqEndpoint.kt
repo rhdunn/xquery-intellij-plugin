@@ -20,9 +20,13 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
+import uk.co.reecedunn.intellij.plugin.core.ui.Borders
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
+import java.awt.Color
 import javax.swing.Icon
 import javax.swing.JComponent
 
@@ -34,7 +38,26 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // endregion
     // region Endpoint
 
-    override val details: JComponent? = null
+    override val details: JComponent?
+        get() = panel {
+            border = Borders.EndpointDetails
+            row /* RESTXQ 3.2.1 Path Annotation */ {
+                label(EXQueryBundle.message("endpoints.restxq.path.label"), column.vgap()) {
+                    foreground = Color.GRAY
+                }
+                label(rest?.path, column.hgap().vgap())
+            }
+            row /* RESTXQ 3.2.2 Method Annotation */ {
+                label(EXQueryBundle.message("endpoints.restxq.method.label"), column.vgap()) {
+                    foreground = Color.GRAY
+                }
+                label(rest?.methods?.joinToString(" "), column.hgap().vgap())
+            }
+            row {
+                spacer(column.vertical())
+                spacer(column.horizontal())
+            }
+        }
 
     override val reference: PsiReference? = (endpoint as PsiElement).reference
 

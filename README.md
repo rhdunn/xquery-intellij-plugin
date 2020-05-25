@@ -35,8 +35,9 @@ For those XQuery implementations, this plugin supports:
 1.  Viewing access and error log files.
 
 This plugin provides additional integration support for the following query
-processor file types:
-1.  MarkLogic rewriter XML files.
+processor file types and standards:
+1.  MarkLogic rewriter XML files;
+1.  EXQuery RESTXQ 1.0.
 
 ### IntelliJ Integration
 
@@ -56,6 +57,10 @@ This plugin provides support for the following IntelliJ features:
 1.  Context information (Alt+Q) for XQuery function declarations;
 1.  Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT
     terms.
+
+The plugin also supports the following IntelliJ Ultimate features:
+1.  Support displaying MarkLogic rewriter files in the Endpoints tool window;
+1.  Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.
 
 -----
 

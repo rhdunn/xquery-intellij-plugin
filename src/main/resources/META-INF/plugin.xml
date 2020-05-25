@@ -26,7 +26,7 @@
       <li>Profile BaseX, MarkLogic, and Saxon XQuery and XSLT.</li>
       <li>Log viewer for BaseX and MarkLogic.</li>
       <li>Built-in namespace and function support for BaseX, eXist-db, MarkLogic, and Saxon.</li>
-      <li>Support for MarkLogic rewriter XML files.</li>
+      <li>Support for MarkLogic rewriter XML files and EXQuery RESTXQ endpoints.</li>
     </ol>
     <p>XPath and XSLT:</p>
     <ol>
@@ -51,6 +51,11 @@
       <li>Integrated function documentation ("Quick Documentation", Ctrl+Q).</li>
       <li>Context information (Alt+Q) for XQuery function declarations.</li>
       <li>Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT terms.</li>
+    </ol>
+    <p>IntelliJ Ultimate integration:</p>
+    <ol>
+      <li>Support displaying MarkLogic rewriter files in the Endpoints tool window.</li>
+      <li>Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.</li>
     </ol>
   ]]></description>
 
@@ -83,6 +88,7 @@
     <ol>
       <li>Support autocompleting multi-valued `match-method` elements in MarkLogic rewriter files.</li>
       <li>Support displaying MarkLogic rewriter files in the Endpoints tool window.</li>
+      <li>Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.</li>
     </ol>
     <p>Documentation:</p>
     <ol>

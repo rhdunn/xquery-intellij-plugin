@@ -32,6 +32,7 @@ Endpoints:
 
 1.  Support autocompleting multi-valued `match-method` elements in MarkLogic rewriter files.
 1.  Support displaying MarkLogic rewriter files in the Endpoints tool window.
+1.  Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.
 
 Documentation:
 

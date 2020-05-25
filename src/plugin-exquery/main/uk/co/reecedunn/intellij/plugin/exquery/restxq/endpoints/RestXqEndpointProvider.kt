@@ -34,7 +34,7 @@ object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = EXQueryBundle.message("endpoints.rewriter.label")
+    override fun getPresentableText(): String? = EXQueryBundle.message("endpoints.restxq.label")
 
     // endregion
     // region EndpointsFramework
