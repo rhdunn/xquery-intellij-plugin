@@ -20,8 +20,11 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import javax.swing.Icon
 import javax.swing.JComponent
 
@@ -49,6 +52,18 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     override fun getData(dataId: String): Any? = when (dataId) {
         CommonDataKeys.PSI_ELEMENT.name -> endpoint as PsiElement
         else -> null
+    }
+
+    // endregion
+    // region RestXqEndpoint
+
+    val annotations: Sequence<XdmAnnotation>
+        get() = (endpoint as PsiElement).parent.children().filterIsInstance<XdmAnnotation>().filter { annotation ->
+            annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
+        }
+
+    companion object {
+        const val RESTXQ_NAMESPACE = "http://exquery.org/ns/restxq"
     }
 
     // endregion
