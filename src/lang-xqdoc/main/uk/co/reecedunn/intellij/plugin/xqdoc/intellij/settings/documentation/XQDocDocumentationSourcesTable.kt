@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.settings.documentation
+package uk.co.reecedunn.intellij.plugin.xqdoc.intellij.settings.documentation
 
 import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
+import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import javax.swing.table.DefaultTableCellRenderer

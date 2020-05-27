@@ -23,7 +23,7 @@ import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocBundle
+import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
 import java.io.File
 import java.io.IOException
 

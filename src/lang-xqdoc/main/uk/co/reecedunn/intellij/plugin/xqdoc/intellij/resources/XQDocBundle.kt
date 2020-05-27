@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.resources
+package uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources
 
 import com.intellij.BundleBase
 import org.jetbrains.annotations.NonNls

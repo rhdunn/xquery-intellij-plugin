@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQDocTemplates
+import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocTemplates
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
