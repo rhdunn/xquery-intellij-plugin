@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.context
 
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.xdm.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 
 enum class XstUsageType(val label: String, val namespaceType: XdmNamespaceType) {
