@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages
+package uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.findUsages
 
 import com.intellij.lang.HelpID
 import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XPathWordsScanner
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.cacheBuilder.XPathWordsScanner
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
 object XPathFindUsagesProvider : FindUsagesProvider {

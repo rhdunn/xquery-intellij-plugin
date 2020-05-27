@@ -3,9 +3,9 @@
     <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
     <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
 
-    <lang.namesValidator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.refactoring.XPathNamesValidator"/>
+    <lang.namesValidator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathNamesValidator"/>
 
-    <lang.findUsagesProvider language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider"/>
+    <lang.findUsagesProvider language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.findUsages.XPathFindUsagesProvider"/>
 
     <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XPathColorSettingsPage"/>
@@ -13,7 +13,7 @@
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
-    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler" />
+    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler" />
 
     <spellchecker.support language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker.XPathSpellcheckingStrategy"/>
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker.XPathBundledDictionaryProvider"/>

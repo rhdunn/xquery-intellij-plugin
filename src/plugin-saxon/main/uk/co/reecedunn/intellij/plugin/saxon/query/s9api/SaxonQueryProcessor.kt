@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery

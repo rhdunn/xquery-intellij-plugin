@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.co.reecedunn.intellij.plugin.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xpath.intellij.lang
 
 import com.intellij.codeInsight.hints.HintInfo
 import com.intellij.codeInsight.hints.InlayInfo

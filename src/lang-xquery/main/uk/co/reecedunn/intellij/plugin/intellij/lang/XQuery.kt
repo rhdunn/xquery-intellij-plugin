@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
 /**
  * XML Query Language

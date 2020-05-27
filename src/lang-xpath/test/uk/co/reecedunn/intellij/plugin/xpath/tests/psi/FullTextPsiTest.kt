@@ -21,7 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID

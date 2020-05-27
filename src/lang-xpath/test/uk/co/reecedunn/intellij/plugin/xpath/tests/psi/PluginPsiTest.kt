@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XPathFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference

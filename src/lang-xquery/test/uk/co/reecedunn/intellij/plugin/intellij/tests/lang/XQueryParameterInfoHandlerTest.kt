@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation

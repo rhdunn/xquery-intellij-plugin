@@ -24,7 +24,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType

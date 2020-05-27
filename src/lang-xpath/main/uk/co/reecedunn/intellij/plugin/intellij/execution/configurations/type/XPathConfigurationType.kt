@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import javax.swing.Icon
 

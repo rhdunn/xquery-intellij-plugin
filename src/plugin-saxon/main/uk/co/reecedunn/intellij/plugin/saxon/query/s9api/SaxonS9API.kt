@@ -20,7 +20,7 @@ import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.intellij.resources.SaxonIcons

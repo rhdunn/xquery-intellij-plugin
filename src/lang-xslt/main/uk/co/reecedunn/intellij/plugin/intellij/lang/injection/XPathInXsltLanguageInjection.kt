@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
 import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled

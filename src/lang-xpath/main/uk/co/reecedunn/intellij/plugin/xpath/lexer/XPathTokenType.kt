@@ -20,7 +20,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.lexer
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
 object XPathTokenType {
     // region Symbols

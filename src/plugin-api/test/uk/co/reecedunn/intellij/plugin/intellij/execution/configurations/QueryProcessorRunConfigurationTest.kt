@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Turtle
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory

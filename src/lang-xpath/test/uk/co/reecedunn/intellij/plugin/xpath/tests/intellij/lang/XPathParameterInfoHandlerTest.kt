@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
+package uk.co.reecedunn.intellij.plugin.xpath.tests.intellij.lang
 
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import org.hamcrest.CoreMatchers.*
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathParameterInfoHandler
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase

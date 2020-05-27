@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker
 import com.intellij.psi.PsiElement
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
 import com.intellij.spellchecker.tokenizer.Tokenizer
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
 object XPathSpellcheckingStrategy : SpellcheckingStrategy() {
     override fun getTokenizer(element: PsiElement?): Tokenizer<*> {
