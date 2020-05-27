@@ -20,7 +20,7 @@ import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 
 object XPathSyntaxHighlighterColors {
     // region Syntax Highlighting (Lexical Tokens)

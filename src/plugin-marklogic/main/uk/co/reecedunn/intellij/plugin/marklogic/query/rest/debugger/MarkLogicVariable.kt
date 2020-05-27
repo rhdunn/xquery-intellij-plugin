@@ -21,7 +21,7 @@ import com.intellij.xdebugger.frame.*
 import com.intellij.xdebugger.frame.presentation.XErrorValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType

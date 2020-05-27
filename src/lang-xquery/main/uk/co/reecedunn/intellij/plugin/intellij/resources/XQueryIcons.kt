@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.IconLoader
 import com.intellij.ui.LayeredIcon
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import javax.swing.Icon
 
 object XQueryIcons {
