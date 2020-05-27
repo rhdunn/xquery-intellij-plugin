@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions
+package uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.editorActions
 
 import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
