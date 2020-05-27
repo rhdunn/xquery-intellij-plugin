@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
+import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
@@ -53,6 +55,10 @@ internal class MarkLogicDebugSession(
 
     // endregion
     // region DebugSession
+
+    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
+        return arrayOf()
+    }
 
     override var listener: DebugSessionListener? = null
 

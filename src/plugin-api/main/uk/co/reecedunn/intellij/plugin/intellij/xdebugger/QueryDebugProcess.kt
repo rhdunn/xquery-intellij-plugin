@@ -22,6 +22,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.application.ModalityState
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSession
+import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
 import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -34,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 
 class QueryDebugProcess(
     session: XDebugSession,
-    language: Language,
+    private val language: Language,
     private val state: QueryProcessorRunState
 ) : XDebugProcess(session), DebugSessionListener {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
@@ -46,6 +47,8 @@ class QueryDebugProcess(
     }
 
     override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
+
+    override fun getBreakpointHandlers(): Array<XBreakpointHandler<*>> = debugger.getBreakpointHandlers(language)
 
     override fun createConsole(): ExecutionConsole {
         val console = state.createConsole(DefaultDebugExecutor.getDebugExecutorInstance())

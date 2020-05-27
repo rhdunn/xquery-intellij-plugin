@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
@@ -26,6 +28,10 @@ import java.util.*
 
 class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), DebugSession {
     // region DebugSession
+
+    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
+        return arrayOf()
+    }
 
     override var listener: DebugSessionListener? = null
 

@@ -15,9 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
+import com.intellij.lang.Language
+import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.frame.XStackFrame
 
 interface DebugSession {
+    fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>>
+
     var listener: DebugSessionListener?
 
     fun suspend()
