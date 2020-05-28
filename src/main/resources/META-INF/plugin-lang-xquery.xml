@@ -11,7 +11,7 @@
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
     <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
 
-    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter$Factory"/>
+    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryColorSettingsPage"/>
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
 
