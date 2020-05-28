@@ -20,7 +20,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
-import uk.co.reecedunn.intellij.plugin.intellij.editor.XsltSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.editor.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathQueries
