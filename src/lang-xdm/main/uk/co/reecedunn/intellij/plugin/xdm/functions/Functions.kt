@@ -45,5 +45,7 @@ interface XdmFunctionDeclaration {
 
     val isVariadic: Boolean
 
+    val functionRefPresentableText: String?
+
     val annotations: Sequence<XdmAnnotation>
 }

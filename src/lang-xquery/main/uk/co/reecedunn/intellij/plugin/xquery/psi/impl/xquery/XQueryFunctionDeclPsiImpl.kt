@@ -42,7 +42,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         super.subtreeChanged()
         cachedPresentableText.invalidate()
         cachedStructurePresentableText.invalidate()
-        cachedAlphaSortKey.invalidate()
+        cachedFunctionRefPresentableText.invalidate()
     }
 
     // endregion
@@ -62,7 +62,13 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val isVariadic get(): Boolean = paramList?.isVariadic == true
 
+    override val functionRefPresentableText: String? get() = cachedFunctionRefPresentableText.get()
+
     override val annotations: Sequence<XdmAnnotation> get() = parent.children().filterIsInstance<XdmAnnotation>()
+
+    private val cachedFunctionRefPresentableText = CacheableProperty {
+        functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
+    }
 
     // endregion
     // region NavigationItem
@@ -107,11 +113,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region SortableTreeElement
 
-    private val cachedAlphaSortKey = CacheableProperty {
-        functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
-    }
-
-    override fun getAlphaSortKey(): String = cachedAlphaSortKey.get()!!
+    override fun getAlphaSortKey(): String = functionRefPresentableText ?: ""
 
     // endregion
 }

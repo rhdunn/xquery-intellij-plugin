@@ -68,6 +68,8 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
 
     override val isVariadic get(): Boolean = paramList?.isVariadic == true
 
+    override val functionRefPresentableText: String? = null
+
     override val annotations: Sequence<XdmAnnotation> get() = children().filterIsInstance<XdmAnnotation>()
 
     // endregion

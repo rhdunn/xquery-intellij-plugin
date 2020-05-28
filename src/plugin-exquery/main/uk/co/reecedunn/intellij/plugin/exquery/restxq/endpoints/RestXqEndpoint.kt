@@ -32,6 +32,8 @@ import javax.swing.JPanel
 class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(), DataProvider {
     // region ItemPresentation
 
+    override fun getLocationString(): String? = endpoint.functionRefPresentableText
+
     override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.Endpoint
 
     // endregion
