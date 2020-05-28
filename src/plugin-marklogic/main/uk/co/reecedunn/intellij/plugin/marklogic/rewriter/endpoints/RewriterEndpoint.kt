@@ -35,6 +35,8 @@ import javax.swing.JPanel
 class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider {
     // region ItemPresentation
 
+    override fun getLocationString(): String? = dispatch.split("/").lastOrNull()
+
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.Endpoint
 
     // endregion
