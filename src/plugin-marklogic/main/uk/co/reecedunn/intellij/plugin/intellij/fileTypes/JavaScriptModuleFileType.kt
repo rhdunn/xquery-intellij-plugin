@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.JavaScriptModule
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.JavaScriptModule
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import javax.swing.Icon
 

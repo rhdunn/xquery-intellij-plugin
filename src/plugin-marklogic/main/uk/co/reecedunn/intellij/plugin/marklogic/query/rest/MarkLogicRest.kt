@@ -20,7 +20,10 @@ import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLQuery
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLUpdate
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.ServerSideJavaScript
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
