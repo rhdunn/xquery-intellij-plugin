@@ -32,7 +32,7 @@
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.documentation.XQueryDocumentationProvider"/>
 
-    <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.ui.XQueryBreadcrumbProvider"/>
+    <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.XQueryBreadcrumbProvider"/>
 
     <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathInlayParameterHintsProvider"/>
 
