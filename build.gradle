@@ -164,10 +164,8 @@ if (idea_version >= 192) {
 }
 
 if (intellij.type == 'IU') {
-    if (idea_version == 193) {
+    if (idea_version >= 193) {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/193'
-    } else if (idea_version == 201) {
-        sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/201'
     } else {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/compat'
     }
