@@ -9,6 +9,6 @@
 
     <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.editor.XsltNSColorProvider"/>
 
-    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XsltBundledDictionaryProvider"/>
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.spellchecker.XsltBundledDictionaryProvider"/>
   </extensions>
 </idea-plugin>
