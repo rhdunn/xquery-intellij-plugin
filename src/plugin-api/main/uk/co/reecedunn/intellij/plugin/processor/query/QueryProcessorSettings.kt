@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsModel
+import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
 import java.io.Closeable
 import java.io.FileInputStream
 import java.io.FileNotFoundException
