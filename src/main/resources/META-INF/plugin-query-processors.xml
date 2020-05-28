@@ -21,9 +21,9 @@
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorDebugger"/>
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorProfiler"/>
 
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.ServerSideJavaScriptConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SQLConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.ServerSideJavaScriptConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.SPARQLConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.SQLConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.execution.configurations.type.XPathConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.configurations.type.XQueryConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.execution.configurations.type.XsltConfigurationType"/>

@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type
+package uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.ServerSideJavaScript
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
-class SQLConfigurationType : ConfigurationType {
-    override fun getIcon(): Icon = MarkLogicIcons.SQL.RunConfiguration
+class ServerSideJavaScriptConfigurationType : ConfigurationType {
+    override fun getIcon(): Icon = MarkLogicIcons.JavaScript.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
 
-    override fun getId(): String = "XIJPSQLProcessorConfiguration"
+    override fun getId(): String = "XIJPMLJavaScriptProcessorConfiguration"
 
-    override fun getDisplayName(): String = "SQL"
+    override fun getDisplayName(): String = MarkLogicBundle.message("language.sjs.display-name")
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(QueryProcessorConfigurationFactory(this, SQL))
+        return arrayOf(QueryProcessorConfigurationFactory(this, ServerSideJavaScript))
     }
 }
