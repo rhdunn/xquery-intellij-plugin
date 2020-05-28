@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
-import com.intellij.xdebugger.frame.*
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presentation.QueryValuePresentation
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
 
-class MarkLogicNamedValue(name: String, private val results: List<QueryResult>) : XNamedValue(name) {
-    override fun computePresentation(node: XValueNode, place: XValuePlace) {
-        val presentation = QueryValuePresentation.forResults(results)
-        node.setPresentation(null, presentation, false)
-    }
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
+import com.intellij.xdebugger.frame.XCompositeNode
+
+interface ComputeChildren {
+    fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?)
 }

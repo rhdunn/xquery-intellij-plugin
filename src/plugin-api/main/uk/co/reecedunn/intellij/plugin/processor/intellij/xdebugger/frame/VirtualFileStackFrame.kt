@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
@@ -24,7 +24,7 @@ import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 
 class VirtualFileStackFrame(
     file: VirtualFile,

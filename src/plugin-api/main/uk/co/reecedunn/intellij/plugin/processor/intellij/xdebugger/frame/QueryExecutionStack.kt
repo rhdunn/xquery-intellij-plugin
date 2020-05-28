@@ -13,14 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
 
 import com.intellij.xdebugger.frame.XExecutionStack
-import com.intellij.xdebugger.frame.XSuspendContext
+import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 
-class QuerySuspendContext(displayName: String, session: DebugSession) : XSuspendContext() {
-    private val activeExecutionStack = QueryExecutionStack(displayName, session)
+class QueryExecutionStack(displayName: String, private val session: DebugSession) :
+    XExecutionStack(displayName) {
 
-    override fun getActiveExecutionStack(): XExecutionStack? = activeExecutionStack
+    private var frames: List<XStackFrame>? = null
+
+    override fun computeStackFrames(firstFrameIndex: Int, container: XStackFrameContainer?) {
+        if (firstFrameIndex == 0) {
+            frames = session.stackFrames
+            container?.addStackFrames(frames!!, true)
+        } else {
+            container?.addStackFrames(frames!!.drop(firstFrameIndex), true)
+        }
+    }
+
+    override fun getTopFrame(): XStackFrame? = frames?.firstOrNull()
 }

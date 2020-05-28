@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.xdebugger
+package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
-import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.impl.QuerySourcePositionImpl
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.impl.QuerySourcePositionImpl
 
 interface QuerySourcePosition : XSourcePosition {
     val column: Int
