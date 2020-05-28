@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.javaee
 
 import com.intellij.javaee.ResourceRegistrar
 import com.intellij.javaee.StandardResourceProvider
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 
 class XsltResourceProvider : StandardResourceProvider {
     override fun registerResources(registrar: ResourceRegistrar?) {

@@ -19,7 +19,7 @@ import com.intellij.codeInsight.daemon.impl.analysis.XmlNSColorProvider
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.xml.XmlElement
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
 
 class XsltNSColorProvider : XmlNSColorProvider {

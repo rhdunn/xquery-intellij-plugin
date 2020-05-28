@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.dom
 import com.intellij.compat.ide.plugins.PluginManagerCore
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.xml.XmlFile
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 
 private val INTELLIJ_XPATH_PLUGIN_ID = PluginId.getId("XPathView")
 

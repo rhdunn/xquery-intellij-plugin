@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 
 internal class MarkLogicQueryProcessor(private val baseUri: String, private val connection: HttpConnection) :
     ProfileableQueryProvider,
