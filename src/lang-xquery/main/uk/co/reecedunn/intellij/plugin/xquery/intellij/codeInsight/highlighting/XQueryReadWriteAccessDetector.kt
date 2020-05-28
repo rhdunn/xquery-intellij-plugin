@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting
+package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
 
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector
 import com.intellij.psi.PsiElement

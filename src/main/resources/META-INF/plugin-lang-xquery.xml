@@ -9,7 +9,7 @@
     <lang.namesValidator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathNamesValidator"/>
 
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
-    <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
+    <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryColorSettingsPage"/>
@@ -20,14 +20,14 @@
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
     <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.hint.XQueryFunctionDeclRangeHandler"/>
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.hint.XQueryFunctionDeclRangeHandler"/>
 
     <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewBuilder$Companion"/>
     <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.projectView.XQueryTreeStructureProvider"/>
     <navbar implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.navigationToolbar.XQueryNavBarModelExtension"/>
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
-    <typedHandler implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.editorActions.XQueryTypedHandler"/>
+    <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.editorActions.XQueryTypedHandler"/>
     <codeInsight.parameterInfo language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler" />
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider"/>

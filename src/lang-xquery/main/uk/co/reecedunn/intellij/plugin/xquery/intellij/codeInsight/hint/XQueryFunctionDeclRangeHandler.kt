@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.codeInsight.hint
+package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.hint
 
 import com.intellij.codeInsight.hint.DeclarationRangeHandler
 import com.intellij.openapi.util.TextRange
