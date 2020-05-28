@@ -30,7 +30,7 @@
 
     <!-- Log Viewer -->
 
-    <toolWindow id="Query Log" anchor="bottom" secondary="true" factoryClass="uk.co.reecedunn.intellij.plugin.intellij.log.QueryLogViewer"/>
+    <toolWindow id="Query Log" anchor="bottom" secondary="true" factoryClass="uk.co.reecedunn.intellij.plugin.processor.intellij.log.QueryLogViewer"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
