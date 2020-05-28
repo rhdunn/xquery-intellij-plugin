@@ -31,9 +31,9 @@ class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, I
 
     override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsGroup
 
-    override fun getLocationString(): String? = null
+    override fun getLocationString(): String? = prolog.containingFile.name
 
-    override fun getPresentableText(): String? = prolog.containingFile.name
+    override fun getPresentableText(): String? = EndpointsGroup.ROOT_PATH
 
     // endregion
     // region EndpointsGroup

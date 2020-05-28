@@ -21,4 +21,8 @@ interface EndpointsGroup {
     val presentation: ItemPresentation
 
     val endpoints: Sequence<Endpoint>
+
+    companion object {
+        const val ROOT_PATH = "/"
+    }
 }

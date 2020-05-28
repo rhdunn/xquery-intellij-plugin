@@ -31,9 +31,9 @@ class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, Ite
 
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsGroup
 
-    override fun getLocationString(): String? = null
+    override fun getLocationString(): String? = rewriter.containingFile.name
 
-    override fun getPresentableText(): String? = rewriter.containingFile.name
+    override fun getPresentableText(): String? = EndpointsGroup.ROOT_PATH
 
     // endregion
     // region EndpointsGroup
