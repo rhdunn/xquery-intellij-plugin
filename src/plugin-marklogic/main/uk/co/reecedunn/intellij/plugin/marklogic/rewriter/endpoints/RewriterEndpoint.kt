@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBun
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
-import java.awt.Color
 import javax.swing.Icon
 import javax.swing.JPanel
 
@@ -43,78 +42,23 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
 
     override val details: JPanel
         get() = detailsPanel {
-            row /* dispatch / set-error-handler / set-path */ {
-                label(column.vgap()) {
-                    text = when (endpoint.localName) {
-                        "dispatch" -> MarkLogicBundle.message("endpoints.rewriter.dispatch.label")
-                        "set-error-handler" -> MarkLogicBundle.message("endpoints.rewriter.set-error-handler.label")
-                        "set-path" -> MarkLogicBundle.message("endpoints.rewriter.set-path.label")
-                        else -> null
-                    }
-                    foreground = Color.GRAY
-                }
-                label(dispatch, column.hgap().vgap())
+            val detailsLabel = when (endpoint.localName) {
+                "dispatch" -> MarkLogicBundle.message("endpoints.rewriter.dispatch.label")
+                "set-error-handler" -> MarkLogicBundle.message("endpoints.rewriter.set-error-handler.label")
+                "set-path" -> MarkLogicBundle.message("endpoints.rewriter.set-path.label")
+                else -> null
             }
-            row /* match-path */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.path.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(paths, column.hgap().vgap())
-            }
-            row /* match-method */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.method.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(method, column.hgap().vgap())
-            }
-            row /* match-accept */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.accept.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(accept, column.hgap().vgap())
-            }
-            row /* match-content-type */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.content-type.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(contentType, column.hgap().vgap())
-            }
-            row /* match-cookie */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.cookie.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(cookie, column.hgap().vgap())
-            }
-            row /* match-execute-privilege */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.execute-privilege.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(executePrivilege, column.hgap().vgap())
-            }
-            row /* match-header */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.header.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(header, column.hgap().vgap())
-            }
-            row /* match-query-param */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.query-param.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(queryParam, column.hgap().vgap())
-            }
-            row /* match-role */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.role.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(role, column.hgap().vgap())
-            }
-            row /* match-user */ {
-                label(MarkLogicBundle.message("endpoints.rewriter.user.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(user, column.hgap().vgap())
-            }
+            detailsLabel?.let { details(it, dispatch) }
+            details(MarkLogicBundle.message("endpoints.rewriter.path.label"), paths)
+            details(MarkLogicBundle.message("endpoints.rewriter.method.label"), method)
+            details(MarkLogicBundle.message("endpoints.rewriter.accept.label"), accept)
+            details(MarkLogicBundle.message("endpoints.rewriter.content-type.label"), contentType)
+            details(MarkLogicBundle.message("endpoints.rewriter.cookie.label"), cookie)
+            details(MarkLogicBundle.message("endpoints.rewriter.execute-privilege.label"), executePrivilege)
+            details(MarkLogicBundle.message("endpoints.rewriter.header.label"), header)
+            details(MarkLogicBundle.message("endpoints.rewriter.query-param.label"), queryParam)
+            details(MarkLogicBundle.message("endpoints.rewriter.role.label"), role)
+            details(MarkLogicBundle.message("endpoints.rewriter.user.label"), user)
         }
 
     override val reference: PsiReference?

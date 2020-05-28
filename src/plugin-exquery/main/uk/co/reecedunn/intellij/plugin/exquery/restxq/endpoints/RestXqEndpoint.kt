@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import java.awt.Color
 import javax.swing.Icon
 import javax.swing.JPanel
 
@@ -40,54 +39,15 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
 
     override val details: JPanel
         get() = detailsPanel {
-            row /* RESTXQ 3.2.1 Path Annotation */ {
-                label(EXQueryBundle.message("endpoints.restxq.path.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.path, column.hgap().vgap())
-            }
-            row /* RESTXQ 3.2.2 Method Annotation */ {
-                label(EXQueryBundle.message("endpoints.restxq.method.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.methods?.joinToString(" "), column.hgap().vgap())
-            }
-            row /* RESTXQ 3.2.3 Consumes Annotation */ {
-                label(EXQueryBundle.message("endpoints.restxq.consumes.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.consumes?.joinToString(" "), column.hgap().vgap())
-            }
-            row /* RESTXQ 3.2.4 Produces Annotation */ {
-                label(EXQueryBundle.message("endpoints.restxq.produces.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.produces?.joinToString(" "), column.hgap().vgap())
-            }
-            row /* RESTXQ 3.3.1 Query Parameters */ {
-                label(EXQueryBundle.message("endpoints.restxq.query-params.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.queryParams?.joinToString(" "), column.hgap().vgap())
-            }
-            row /* RESTXQ 3.3.2 Form Parameters */ {
-                label(EXQueryBundle.message("endpoints.restxq.form-params.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.formParams?.joinToString(" "), column.hgap().vgap())
-            }
-            row /* RESTXQ 3.3.3 HTTP Header Parameters */ {
-                label(EXQueryBundle.message("endpoints.restxq.header-params.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.headerParams?.joinToString(" "), column.hgap().vgap())
-            }
-            row /* RESTXQ 3.3.4 Cookie Parameters */ {
-                label(EXQueryBundle.message("endpoints.restxq.cookie-params.label"), column.vgap()) {
-                    foreground = Color.GRAY
-                }
-                label(rest?.cookieParams?.joinToString(" "), column.hgap().vgap())
-            }
+            val rest = rest ?: return@detailsPanel
+            details(EXQueryBundle.message("endpoints.restxq.path.label"), rest.path)
+            details(EXQueryBundle.message("endpoints.restxq.method.label"), rest.methods)
+            details(EXQueryBundle.message("endpoints.restxq.consumes.label"), rest.consumes)
+            details(EXQueryBundle.message("endpoints.restxq.produces.label"), rest.produces)
+            details(EXQueryBundle.message("endpoints.restxq.query-params.label"), rest.queryParams)
+            details(EXQueryBundle.message("endpoints.restxq.form-params.label"), rest.formParams)
+            details(EXQueryBundle.message("endpoints.restxq.header-params.label"), rest.headerParams)
+            details(EXQueryBundle.message("endpoints.restxq.cookie-params.label"), rest.cookieParams)
         }
 
     override val reference: PsiReference? = (endpoint as PsiElement).reference

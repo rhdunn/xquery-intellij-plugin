@@ -189,6 +189,20 @@ fun detailsPanel(init: GridPanel.() -> Unit): GridPanel = panel {
     }
 }
 
+fun GridPanel.details(label: String, text: String?) {
+    row {
+        label(label, column.vgap()) { foreground = Color.GRAY }
+        label(text, column.hgap().vgap())
+    }
+}
+
+fun GridPanel.details(label: String, text: Sequence<String>) {
+    row {
+        label(label, column.vgap()) { foreground = Color.GRAY }
+        label(text.joinToString(" "), column.hgap().vgap())
+    }
+}
+
 // endregion
 // region scrollable
 
