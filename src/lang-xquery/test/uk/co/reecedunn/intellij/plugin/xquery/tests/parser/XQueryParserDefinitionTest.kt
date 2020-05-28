@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
