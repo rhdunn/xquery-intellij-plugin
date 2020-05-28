@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.resources
+package uk.co.reecedunn.intellij.plugin.exquery.intellij.resources
 
 import com.intellij.openapi.util.IconLoader
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons

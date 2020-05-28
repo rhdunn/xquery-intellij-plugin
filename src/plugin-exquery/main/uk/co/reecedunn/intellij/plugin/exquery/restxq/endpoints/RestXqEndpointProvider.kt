@@ -21,8 +21,8 @@ import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
-import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
+import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryBundle
+import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import javax.swing.Icon

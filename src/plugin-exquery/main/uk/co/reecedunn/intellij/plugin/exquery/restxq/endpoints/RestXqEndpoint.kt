@@ -22,8 +22,8 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryBundle
-import uk.co.reecedunn.intellij.plugin.intellij.resources.EXQueryIcons
+import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryBundle
+import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import java.awt.Color
 import javax.swing.Icon
