@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.lang.findUsages
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lang.findUsages
 
 import com.intellij.lang.HelpID
 import com.intellij.psi.PsiElement
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall

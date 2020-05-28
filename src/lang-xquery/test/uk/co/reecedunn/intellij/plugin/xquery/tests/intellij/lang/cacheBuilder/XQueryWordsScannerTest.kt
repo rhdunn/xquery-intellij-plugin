@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.lang.cacheBuilder
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lang.cacheBuilder
 
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.cacheBuilder.WordOccurrences
-import uk.co.reecedunn.intellij.plugin.intellij.lang.cacheBuilder.XQueryWordsScanner
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.cacheBuilder.XQueryWordsScanner
 
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - XQuery WordsScanner")
 class XQueryWordsScannerTest {

@@ -8,15 +8,15 @@
 
     <lang.namesValidator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathNamesValidator"/>
 
-    <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
+    <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
     <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryColorSettingsPage"/>
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
 
-    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryPairedBraceMatcher"/>
-    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryCommenter"/>
+    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQueryPairedBraceMatcher"/>
+    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQueryCommenter"/>
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
     <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"

@@ -26,7 +26,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXQueryError
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

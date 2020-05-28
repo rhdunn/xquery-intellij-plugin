@@ -27,7 +27,7 @@ import org.hamcrest.CoreMatchers.sameInstance
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileReport
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal

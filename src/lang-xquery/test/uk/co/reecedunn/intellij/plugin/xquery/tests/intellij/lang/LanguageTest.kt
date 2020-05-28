@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lang
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 @DisplayName("IntelliJ - Custom Language Support - Language")
 class LanguageTest {

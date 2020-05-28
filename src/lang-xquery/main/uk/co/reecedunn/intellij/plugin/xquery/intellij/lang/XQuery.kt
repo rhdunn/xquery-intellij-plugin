@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang
 
-import com.intellij.lang.Commenter
+import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
-class XQueryCommenter : Commenter {
-    override fun getLineCommentPrefix(): String? = null
-
-    override fun getBlockCommentPrefix(): String? = "(:"
-
-    override fun getBlockCommentSuffix(): String? = ":)"
-
-    override fun getCommentedBlockCommentPrefix(): String? = null
-
-    override fun getCommentedBlockCommentSuffix(): String? = null
+/**
+ * XML Query Language
+ */
+object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery") {
+    override fun isCaseSensitive(): Boolean = true
 }

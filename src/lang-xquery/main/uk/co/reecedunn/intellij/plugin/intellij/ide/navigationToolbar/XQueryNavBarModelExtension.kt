@@ -19,7 +19,7 @@ import com.intellij.compat.ide.navigationToolbar.StructureAwareNavBarModelExtens
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {

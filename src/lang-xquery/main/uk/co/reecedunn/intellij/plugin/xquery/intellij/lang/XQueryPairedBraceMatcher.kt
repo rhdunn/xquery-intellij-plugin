@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang
 
 import com.intellij.lang.BracePair
 import com.intellij.lang.PairedBraceMatcher
