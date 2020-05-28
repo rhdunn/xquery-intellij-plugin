@@ -1,6 +1,6 @@
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
-    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.javaee.XsltResourceProvider"/>
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.injection.XPathInXsltLanguageInjection"/>
 

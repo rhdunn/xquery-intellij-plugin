@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.javaee
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.javaee
 
 import com.intellij.javaee.ResourceRegistrar
 import com.intellij.javaee.StandardResourceProvider
