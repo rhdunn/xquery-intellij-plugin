@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener

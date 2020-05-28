@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 import com.intellij.lang.Language
 import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
-import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import java.io.FileNotFoundException
 import java.lang.UnsupportedOperationException
 import java.lang.reflect.InvocationTargetException
