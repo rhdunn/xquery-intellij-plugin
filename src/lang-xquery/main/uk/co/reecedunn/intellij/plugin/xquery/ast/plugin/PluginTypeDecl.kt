@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**

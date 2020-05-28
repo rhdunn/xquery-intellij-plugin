@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.ide.structureView
+package uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView
 
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.psi.NavigatablePsiElement

@@ -21,7 +21,7 @@ import com.intellij.ide.projectView.impl.nodes.AbstractPsiBasedNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
-import uk.co.reecedunn.intellij.plugin.intellij.ide.structureView.XQueryStructureViewElement
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
 
 class XQueryLeafNode(node: XQueryStructureViewElement, viewSettings: ViewSettings) :
     AbstractPsiBasedNode<XQueryStructureViewElement>(node.project, node, viewSettings) {
