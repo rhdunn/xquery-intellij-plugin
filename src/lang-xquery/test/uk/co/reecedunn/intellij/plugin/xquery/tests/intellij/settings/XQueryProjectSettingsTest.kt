@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.settings
 
 import com.intellij.util.xmlb.XmlSerializer
 import org.hamcrest.CoreMatchers.`is`
@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 
 @DisplayName("IntelliJ - Settings - Languages and Frameworks - XQuery Project Settings")
 class XQueryProjectSettingsTest {

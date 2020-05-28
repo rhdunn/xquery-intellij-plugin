@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.util.text.StringUtil
@@ -21,9 +21,8 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.editor.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryColorSettingsPage
 import java.util.*
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Color Settings Page")

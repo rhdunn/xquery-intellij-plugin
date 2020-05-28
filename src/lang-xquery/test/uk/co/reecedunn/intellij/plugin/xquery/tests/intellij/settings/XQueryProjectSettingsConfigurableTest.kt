@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.settings
 
 import com.intellij.ide.ui.UISettings
 import org.hamcrest.CoreMatchers.`is`
@@ -22,8 +22,8 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettingsConfigurable
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

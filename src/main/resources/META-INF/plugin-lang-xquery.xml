@@ -12,7 +12,7 @@
     <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter$Factory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryColorSettingsPage"/>
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
 
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryPairedBraceMatcher"/>
@@ -36,14 +36,14 @@
 
     <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathInlayParameterHintsProvider"/>
 
-    <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XQuerySpellcheckingStrategy"/>
-    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.spellchecker.XQueryBundledDictionaryProvider"/>
+    <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker.XQuerySpellcheckingStrategy"/>
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker.XQueryBundledDictionaryProvider"/>
 
 
     <!-- Application / Project Settings -->
 
-    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings"/>
 
-    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
+    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettingsConfigurable"/>
   </extensions>
 </idea-plugin>
