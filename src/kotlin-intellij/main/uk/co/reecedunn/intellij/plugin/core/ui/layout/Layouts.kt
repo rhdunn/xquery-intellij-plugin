@@ -190,16 +190,20 @@ fun detailsPanel(init: GridPanel.() -> Unit): GridPanel = panel {
 }
 
 fun GridPanel.details(label: String, text: String?) {
-    row {
-        label(label, column.vgap()) { foreground = Color.GRAY }
-        label(text, column.hgap().vgap())
+    if (text != null) {
+        row {
+            label(label, column.vgap()) { foreground = Color.GRAY }
+            label(text, column.hgap().vgap())
+        }
     }
 }
 
 fun GridPanel.details(label: String, text: Sequence<String>) {
-    row {
-        label(label, column.vgap()) { foreground = Color.GRAY }
-        label(text.joinToString(" "), column.hgap().vgap())
+    if (text.any()) {
+        row {
+            label(label, column.vgap()) { foreground = Color.GRAY }
+            label(text.joinToString(" "), column.hgap().vgap())
+        }
     }
 }
 
