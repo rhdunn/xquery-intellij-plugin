@@ -19,8 +19,8 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
-import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
-import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
 class ServerSideJavaScriptConfigurationType : ConfigurationType {

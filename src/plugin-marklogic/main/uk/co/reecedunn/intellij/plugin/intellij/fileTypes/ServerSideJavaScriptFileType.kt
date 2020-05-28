@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
-import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import javax.swing.Icon
 
 object ServerSideJavaScriptFileType : LanguageFileType(ServerSideJavaScript) {

@@ -19,7 +19,7 @@ import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
