@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.editor
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 
 object XsltSyntaxHighlighterColors {
     val XSLT_DIRECTIVE = TextAttributesKey.createTextAttributesKey(
