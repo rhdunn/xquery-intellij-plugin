@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.queryProcessorDataSource
-import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
+import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsCellRenderer

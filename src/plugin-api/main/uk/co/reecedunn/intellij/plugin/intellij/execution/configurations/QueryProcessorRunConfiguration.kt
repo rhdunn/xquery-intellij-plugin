@@ -31,7 +31,7 @@ import com.intellij.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
+import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
