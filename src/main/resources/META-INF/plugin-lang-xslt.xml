@@ -4,7 +4,7 @@
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.injection.XPathInXsltLanguageInjection"/>
 
-    <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.completion.XPathCompletionContributor"/>
+    <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.XPathCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.editorActions.XPathTypedHandler"/>
 
     <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.editor.XsltNSColorProvider"/>

@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathSyntaxSubset
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathVersion
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XsltVersion
+import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathSyntaxSubset
+import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
+import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XsltVersion
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Code Completion - Properties")

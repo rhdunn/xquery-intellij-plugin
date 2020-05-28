@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.completion.property
+package uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property
 
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 object XPathVersion : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
