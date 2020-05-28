@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.fileTypes
+package uk.co.reecedunn.intellij.plugin.marklogic.tests.intellij.fileTypes
 
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.fileTypes.ServerSideJavaScriptFileType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
