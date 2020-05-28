@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.intellij.resources.SaxonIcons
+import uk.co.reecedunn.intellij.plugin.saxon.intellij.resources.SaxonIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import javax.swing.Icon
