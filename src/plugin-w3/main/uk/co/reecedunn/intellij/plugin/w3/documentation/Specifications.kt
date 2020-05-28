@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.intellij.resources.W3Icons
+import uk.co.reecedunn.intellij.plugin.w3.intellij.resources.W3Icons
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
