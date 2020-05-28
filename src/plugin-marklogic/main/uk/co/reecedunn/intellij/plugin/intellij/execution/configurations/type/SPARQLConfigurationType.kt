@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
-import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.intellij.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.SPARQLUpdate
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons

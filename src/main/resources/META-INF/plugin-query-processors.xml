@@ -15,11 +15,11 @@
 
     <!-- Run/Debug Configurations -->
 
-    <executor implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor"/>
+    <executor implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor"/>
 
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorDebugger"/>
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorProfiler"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorRunner"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorDebugger"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorProfiler"/>
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.ServerSideJavaScriptConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLConfigurationType"/>

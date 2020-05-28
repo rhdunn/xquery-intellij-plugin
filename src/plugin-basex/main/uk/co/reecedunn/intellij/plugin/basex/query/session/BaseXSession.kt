@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
