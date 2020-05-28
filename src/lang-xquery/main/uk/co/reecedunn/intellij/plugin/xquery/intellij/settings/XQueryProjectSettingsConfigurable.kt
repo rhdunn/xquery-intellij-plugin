@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.ConfigurableImpl
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
 import javax.swing.JComboBox
 import javax.swing.JPanel
 

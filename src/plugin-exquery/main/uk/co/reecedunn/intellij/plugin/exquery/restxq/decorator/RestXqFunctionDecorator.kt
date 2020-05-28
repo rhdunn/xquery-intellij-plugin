@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.decorator
 
 import uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints.RestXqAnnotations
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
 import javax.swing.Icon
