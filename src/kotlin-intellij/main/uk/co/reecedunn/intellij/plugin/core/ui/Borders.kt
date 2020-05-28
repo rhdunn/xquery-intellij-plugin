@@ -27,5 +27,5 @@ object Borders {
 
     val TabPanel = EmptyBorder(4, 5, 4, 5)
 
-    val EndpointDetails = EmptyBorder(6, 6, 6, 6)
+    val Details = EmptyBorder(6, 6, 6, 6)
 }

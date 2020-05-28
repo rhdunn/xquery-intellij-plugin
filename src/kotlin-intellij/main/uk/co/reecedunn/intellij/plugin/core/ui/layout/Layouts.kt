@@ -178,6 +178,18 @@ fun GridPanel.row(init: GridPanel.() -> Unit): GridPanel {
 val GridPanel.column: GridBagConstraints get() = grid(currentCol++, currentRow)
 
 // endregion
+// region details panel
+
+fun detailsPanel(init: GridPanel.() -> Unit): GridPanel = panel {
+    border = Borders.Details
+    init()
+    row {
+        spacer(column.vertical())
+        spacer(column.horizontal())
+    }
+}
+
+// endregion
 // region scrollable
 
 fun Container.scrollable(view: Component?, constraints: Any?, init: JBScrollPane.() -> Unit): JBScrollPane {

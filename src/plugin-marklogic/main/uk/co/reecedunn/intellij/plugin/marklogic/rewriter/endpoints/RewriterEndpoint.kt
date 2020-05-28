@@ -21,7 +21,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
-import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
@@ -43,8 +42,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
     // region Endpoint
 
     override val details: JPanel
-        get() = panel {
-            border = Borders.EndpointDetails
+        get() = detailsPanel {
             row /* dispatch / set-error-handler / set-path */ {
                 label(column.vgap()) {
                     text = when (endpoint.localName) {
@@ -116,10 +114,6 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
                     foreground = Color.GRAY
                 }
                 label(user, column.hgap().vgap())
-            }
-            row {
-                spacer(column.vertical())
-                spacer(column.horizontal())
             }
         }
 

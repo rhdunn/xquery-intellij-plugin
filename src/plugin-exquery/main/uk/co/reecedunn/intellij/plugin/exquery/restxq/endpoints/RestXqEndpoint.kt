@@ -20,7 +20,6 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
-import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
@@ -40,8 +39,7 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
     // region Endpoint
 
     override val details: JPanel
-        get() = panel {
-            border = Borders.EndpointDetails
+        get() = detailsPanel {
             row /* RESTXQ 3.2.1 Path Annotation */ {
                 label(EXQueryBundle.message("endpoints.restxq.path.label"), column.vgap()) {
                     foreground = Color.GRAY
@@ -89,10 +87,6 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
                     foreground = Color.GRAY
                 }
                 label(rest?.cookieParams?.joinToString(" "), column.hgap().vgap())
-            }
-            row {
-                spacer(column.vertical())
-                spacer(column.horizontal())
             }
         }
 
