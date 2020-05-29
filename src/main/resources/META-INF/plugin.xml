@@ -67,8 +67,9 @@
       <li>Support resolving MarkLogic imports from a configured database install path.</li>
       <li>Support registering MarkLogic schema files.</li>
     </ol>
-    <p>eXist-db:</p>
+    <p>eXist-db / FusionDB:</p>
     <ol>
+      <li>Detect FusionDB so it is correctly displayed in the query processor lists.</li>
       <li>Display the log files in the Query Log panel.</li>
       <li>Fixed calling APIs that require specific permissions that the query processor user has.</li>
       <li>Fixed displaying <code>node()</code> and <code>function(*)</code> types in the query results view.</li>

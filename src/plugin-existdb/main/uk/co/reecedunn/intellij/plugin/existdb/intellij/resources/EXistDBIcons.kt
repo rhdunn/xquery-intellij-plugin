@@ -21,5 +21,8 @@ import javax.swing.Icon
 object EXistDBIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, EXistDBIcons::class.java)
 
-    val Product = getIcon("/icons/exist-db.png")
+    object Product {
+        val EXistDB = getIcon("/icons/exist-db.png")
+        val FusionDB = getIcon("/icons/fusion-db.png")
+    }
 }

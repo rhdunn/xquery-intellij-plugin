@@ -27,11 +27,11 @@ import javax.swing.Icon
 object EXistDB : ItemPresentation, XpmVendorType, XpmProductType {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "eXist-db"
+    override fun getPresentableText(): String? = "eXist-db / FusionDB"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = EXistDBIcons.Product
+    override fun getIcon(unused: Boolean): Icon? = EXistDBIcons.Product.EXistDB
 
     // endregion
     // region XpmVendorType / XpmProductType

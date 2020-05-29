@@ -38,7 +38,11 @@ internal class EXistDBQueryProcessor(
     override val presentation: ItemPresentation
         get() {
             val version = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results
-            return ItemPresentationImpl(EXistDBIcons.Product, "${version[0].value} ${version[1].value}")
+            val icon = when (version[0].value) {
+                "FusionDB" -> EXistDBIcons.Product.FusionDB
+                else -> EXistDBIcons.Product.EXistDB
+            }
+            return ItemPresentationImpl(icon, "${version[0].value} ${version[1].value}")
         }
 
     override val servers: List<String> = listOf()

@@ -8,8 +8,9 @@ MarkLogic:
 1.  Support resolving MarkLogic imports from a configured database install path.
 1.  Support registering MarkLogic schema files.
 
-eXist-db:
+eXist-db / FusionDB:
 
+1.  Detect FusionDB so it is correctly displayed in the query processor lists.
 1.  Display the log files in the Query Log panel.
 1.  Fixed calling APIs that require specific permissions that the query
     processor user has.
