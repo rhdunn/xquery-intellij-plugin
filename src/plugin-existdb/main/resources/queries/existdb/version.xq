@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2018 Reece H. Dunn
+ : Copyright (C) 2018, 2020 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -19,4 +19,7 @@ declare option o:implementation "exist-db/3.0";
 
 (: Return the version string for eXist-db. :)
 
+let $get-product-name := fn:function-lookup(xs:QName("system:get-product-name"), 0)
+return if (exists($get-product-name)) then $get-product-name() else "eXist-db"
+,
 system:get-version()

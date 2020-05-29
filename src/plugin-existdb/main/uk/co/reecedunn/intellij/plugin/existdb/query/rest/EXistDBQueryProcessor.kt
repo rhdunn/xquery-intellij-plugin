@@ -37,8 +37,8 @@ internal class EXistDBQueryProcessor(
 
     override val presentation: ItemPresentation
         get() {
-            val version = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value
-            return ItemPresentationImpl(EXistDBIcons.Product, "eXist-db $version")
+            val version = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results
+            return ItemPresentationImpl(EXistDBIcons.Product, "${version[0].value} ${version[1].value}")
         }
 
     override val servers: List<String> = listOf()
