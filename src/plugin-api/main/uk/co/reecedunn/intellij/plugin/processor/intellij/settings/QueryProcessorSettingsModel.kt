@@ -28,19 +28,19 @@ class QueryProcessorSettingsModel : DefaultComboBoxModel<CachedQueryProcessorSet
     }
 
     fun updateElement(item: CachedQueryProcessorSettings) {
-        if (item.version != null) return
+        if (item.presentation != null) return
         executeOnPooledThread {
             try {
-                val version = item.settings.session.version
+                val presentation = item.settings.session.presentation
                 invokeLater(ModalityState.any()) {
                     val index = getIndexOf(item)
-                    item.version = version
+                    item.presentation = presentation
                     fireContentsChanged(item, index, index)
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
                     val index = getIndexOf(item)
-                    item.version = e
+                    item.presentation = e
                     fireContentsChanged(item, index, index)
                 }
             }

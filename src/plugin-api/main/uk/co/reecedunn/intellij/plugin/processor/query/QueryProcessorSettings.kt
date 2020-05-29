@@ -113,7 +113,7 @@ class QueryProcessorSettings : Closeable {
 
 data class CachedQueryProcessorSettings(
     val settings: QueryProcessorSettings,
-    var version: Any? = null
+    var presentation: Any? = null
 )
 
 fun List<QueryProcessorSettings>.addToModel(

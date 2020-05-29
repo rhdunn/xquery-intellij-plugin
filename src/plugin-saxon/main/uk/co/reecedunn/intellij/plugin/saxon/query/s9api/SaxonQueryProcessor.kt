@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -29,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvide
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
+import uk.co.reecedunn.intellij.plugin.saxon.intellij.resources.SaxonIcons
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonDebugTraceListener
@@ -66,11 +68,9 @@ internal class SaxonQueryProcessor(
             }
     }
 
-    override val presentation: ItemPresentation = SaxonS9API.presentation
-
-    override val version
-        get(): String = check(null, classLoader) {
-            processor.version
+    override val presentation: ItemPresentation
+        get() = check(null, classLoader) {
+            ItemPresentationImpl(SaxonIcons.Product, "Saxon ${processor.version}")
         }
 
     override val servers: List<String> = listOf()

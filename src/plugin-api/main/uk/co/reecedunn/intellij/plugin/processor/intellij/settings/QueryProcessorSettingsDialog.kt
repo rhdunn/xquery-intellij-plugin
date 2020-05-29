@@ -49,7 +49,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         apply(settings)
         executeOnPooledThread {
             try {
-                settings.session.version
+                settings.session.presentation
                 invokeLater(ModalityState.any()) {
                     onvalidate(true)
                 }

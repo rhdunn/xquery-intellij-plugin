@@ -19,6 +19,8 @@ import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
+import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBIcons
 import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -33,10 +35,11 @@ internal class EXistDBQueryProcessor(
     LogViewProvider {
     // region QueryProcessor
 
-    override val presentation: ItemPresentation = EXistDBRest.presentation
-
-    override val version: String
-        get() = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
+    override val presentation: ItemPresentation
+        get() {
+            val version = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value
+            return ItemPresentationImpl(EXistDBIcons.Product, "eXist-db $version")
+        }
 
     override val servers: List<String> = listOf()
 

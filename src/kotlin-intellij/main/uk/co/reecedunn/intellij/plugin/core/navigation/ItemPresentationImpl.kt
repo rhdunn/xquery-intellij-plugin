@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.intellij.plugin.core.navigation
 
 import com.intellij.navigation.ItemPresentation
-import java.io.Closeable
+import javax.swing.Icon
 
-interface QueryProcessor : Closeable {
-    val presentation: ItemPresentation
+class ItemPresentationImpl(
+    private val icon: Icon,
+    private val presentableText: String,
+    private val locationString: String? = null
+) : ItemPresentation {
+    override fun getIcon(unused: Boolean): Icon? = icon
 
-    val servers: List<String>
+    override fun getLocationString(): String? = locationString
 
-    val databases: List<String>
+    override fun getPresentableText(): String? = presentableText
 }

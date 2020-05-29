@@ -18,8 +18,10 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXIcons
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXQueries
+import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
@@ -35,11 +37,10 @@ internal class BaseXQueryProcessor(
     LogViewProvider {
     // region QueryProcessor
 
-    override val presentation: ItemPresentation = BaseXSession.presentation
-
-    override val version
-        get(): String {
-            return createRunnableQuery(BaseXQueries.Version, XQuery).run().results.first().value as String
+    override val presentation: ItemPresentation
+        get() {
+            val version = createRunnableQuery(BaseXQueries.Version, XQuery).run().results.first().value
+            return ItemPresentationImpl(BaseXIcons.Product, "BaseX $version")
         }
 
     override val servers: List<String> = listOf()

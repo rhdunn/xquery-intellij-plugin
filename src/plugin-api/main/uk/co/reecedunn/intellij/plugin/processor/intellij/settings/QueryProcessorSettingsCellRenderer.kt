@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.intellij.settings
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.core.ui.Insets
@@ -22,14 +23,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<CachedQueryProcessorSettings>() {
-    private fun render(value: QueryProcessorSettings, version: String?, index: Int) {
+    private fun render(value: QueryProcessorSettings, presentation: ItemPresentation, index: Int) {
         clear()
 
-        icon = value.api.presentation.getIcon(false)
+        icon = presentation.getIcon(false)
         ipad = Insets.listCellRenderer(index)
 
-        append(value.api.presentation.presentableText!!)
-        version?.let { append(" $it") }
+        append(presentation.presentableText!!)
         value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
     }
 
@@ -49,10 +49,10 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<CachedQueryPr
         value: CachedQueryProcessorSettings?,
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
-        if (value != null) when (val version = value.version) {
-            null -> render(value.settings, null, index)
-            is String -> render(value.settings, version, index)
-            is Throwable -> renderError(value.settings, version.toQueryUserMessage(), index)
+        if (value != null) when (val presentation = value.presentation) {
+            null -> render(value.settings, value.settings.api.presentation, index)
+            is ItemPresentation -> render(value.settings, presentation, index)
+            is Throwable -> renderError(value.settings, presentation.toQueryUserMessage(), index)
         }
     }
 }
