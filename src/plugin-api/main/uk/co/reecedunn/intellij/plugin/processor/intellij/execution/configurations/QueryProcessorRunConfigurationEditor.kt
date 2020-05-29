@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcesso
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
+import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
 import java.awt.event.ActionListener
@@ -49,15 +49,15 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     SettingsEditor<QueryProcessorRunConfiguration>() {
     // region Manage Query Processor Dialog
 
-    private lateinit var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettingsWithVersionCache>>
+    private lateinit var queryProcessor: ComponentWithBrowseButton<JComboBox<CachedQueryProcessorSettings>>
     private lateinit var model: QueryProcessorSettingsModel
-    private lateinit var list: JBList<QueryProcessorSettingsWithVersionCache>
+    private lateinit var list: JBList<CachedQueryProcessorSettings>
 
     private fun addQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
         val item = QueryProcessorSettings()
         val dialog = QueryProcessorSettingsDialog(project)
         if (dialog.create(item)) {
-            val settings = QueryProcessorSettingsWithVersionCache(item)
+            val settings = CachedQueryProcessorSettings(item)
             queryProcessor.childComponent.addItem(settings)
             QueryProcessors.getInstance().addProcessor(item)
         }
@@ -113,7 +113,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = componentWithBrowseButton(column.horizontal().hgap().vgap(), manageQueryProcessorsAction) {
-                comboBox<QueryProcessorSettingsWithVersionCache>(model) {
+                comboBox<CachedQueryProcessorSettings>(model) {
                     renderer = QueryProcessorSettingsCellRenderer()
                     addActionListener {
                         updateUI(false)
@@ -173,7 +173,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private fun populateServerUI() {
         val settings =
-            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings
                 ?: return
         executeOnPooledThread {
             try {
@@ -196,7 +196,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private fun populateDatabaseUI() {
         val settings =
-            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings
                 ?: return
         executeOnPooledThread {
             try {
@@ -315,7 +315,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private fun updateUI(isSparql: Boolean) {
         val processor =
-            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache)?.settings
+            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings)?.settings
         rdfOutputFormat.isEnabled = processor?.api?.canOutputRdf(null) == true
         updating.isEnabled = processor?.api?.canUpdate(languages[0]) == true
 
@@ -365,7 +365,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId =
-            (queryProcessor.childComponent.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings?.id
+            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings?.id
         configuration.rdfOutputFormat = rdfOutputFormat.selectedItem as? Language
         configuration.server = server.selectedItem as? String
         configuration.database = database.selectedItem as? String

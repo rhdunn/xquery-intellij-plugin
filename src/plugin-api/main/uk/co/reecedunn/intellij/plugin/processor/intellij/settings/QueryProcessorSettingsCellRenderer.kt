@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.swing.JList
 
-class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettingsWithVersionCache>() {
+class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<CachedQueryProcessorSettings>() {
     private fun render(value: QueryProcessorSettings, version: String?, index: Int) {
         clear()
 
@@ -45,8 +45,8 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
     }
 
     override fun customizeCellRenderer(
-        list: JList<out QueryProcessorSettingsWithVersionCache>,
-        value: QueryProcessorSettingsWithVersionCache?,
+        list: JList<out CachedQueryProcessorSettings>,
+        value: CachedQueryProcessorSettings?,
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
         if (value != null) when (val version = value.version) {

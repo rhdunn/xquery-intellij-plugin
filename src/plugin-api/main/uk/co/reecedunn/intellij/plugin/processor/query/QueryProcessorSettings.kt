@@ -111,7 +111,7 @@ class QueryProcessorSettings : Closeable {
     }
 }
 
-data class QueryProcessorSettingsWithVersionCache(
+data class CachedQueryProcessorSettings(
     val settings: QueryProcessorSettings,
     var version: Any? = null
 )
@@ -122,7 +122,7 @@ fun List<QueryProcessorSettings>.addToModel(
 ) {
     forEach { processor ->
         if (processor.connection != null || !serversOnly) {
-            val settings = QueryProcessorSettingsWithVersionCache(processor)
+            val settings = CachedQueryProcessorSettings(processor)
             model.addElement(settings)
         }
     }

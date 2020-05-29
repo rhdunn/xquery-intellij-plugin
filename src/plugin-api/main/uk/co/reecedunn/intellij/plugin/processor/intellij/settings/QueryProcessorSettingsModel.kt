@@ -18,16 +18,16 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.settings
 import com.intellij.openapi.application.ModalityState
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
+import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import javax.swing.DefaultComboBoxModel
 
-class QueryProcessorSettingsModel : DefaultComboBoxModel<QueryProcessorSettingsWithVersionCache>() {
-    override fun addElement(item: QueryProcessorSettingsWithVersionCache?) {
+class QueryProcessorSettingsModel : DefaultComboBoxModel<CachedQueryProcessorSettings>() {
+    override fun addElement(item: CachedQueryProcessorSettings?) {
         super.addElement(item)
         item?.let { updateElement(it) }
     }
 
-    fun updateElement(item: QueryProcessorSettingsWithVersionCache) {
+    fun updateElement(item: CachedQueryProcessorSettings) {
         if (item.version != null) return
         executeOnPooledThread {
             try {

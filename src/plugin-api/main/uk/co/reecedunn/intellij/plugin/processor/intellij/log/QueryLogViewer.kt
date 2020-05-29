@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcesso
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettingsWithVersionCache
+import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
 import javax.swing.JComboBox
@@ -58,7 +58,7 @@ class QueryLogViewer : ToolWindowFactory, DumbAware {
 class QueryLogViewerUI(val project: Project) {
     // region Filter :: Server
 
-    private var queryProcessor: JComboBox<QueryProcessorSettingsWithVersionCache>? = null
+    private var queryProcessor: JComboBox<CachedQueryProcessorSettings>? = null
 
     // endregion
     // region Filter :: Log File
@@ -66,7 +66,7 @@ class QueryLogViewerUI(val project: Project) {
     private var logFile: JComboBox<String>? = null
 
     private fun populateLogFiles() {
-        val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+        val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
         executeOnPooledThread {
             try {
                 val logViewProvider = (settings?.session as? LogViewProvider)
@@ -102,7 +102,7 @@ class QueryLogViewerUI(val project: Project) {
     private fun populateLogFile(reloadLogFile: Boolean) {
         if (updatingLogList) return
 
-        val settings = (queryProcessor?.selectedItem as? QueryProcessorSettingsWithVersionCache?)?.settings
+        val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
         val logFile = logFile?.selectedItem as? String
         executeOnPooledThread {
             try {
