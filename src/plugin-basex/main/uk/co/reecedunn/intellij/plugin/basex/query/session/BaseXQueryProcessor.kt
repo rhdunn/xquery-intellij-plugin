@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,13 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassLoader) :
-    ProfileableQueryProvider,
+internal class BaseXQueryProcessor(
+    val session: Session,
+    val classLoader: ClassLoader
+) : ProfileableQueryProvider,
     RunnableQueryProvider,
     LogViewProvider {
+    // region QueryProcessor
 
     override val version
         get(): String {
@@ -40,6 +43,9 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
 
     override val databases: List<String> = listOf()
 
+    // endregion
+    // region ProfileableQueryProvider
+
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         return when (language) {
             XQuery -> BaseXProfileableQuery(session, query.decode()!!, query, classLoader)
@@ -47,12 +53,18 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
         }
     }
 
+    // endregion
+    // region RunnableQueryProvider
+
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classLoader)
             else -> throw UnsupportedQueryType(language)
         }
     }
+
+    // endregion
+    // region LogViewProvider
 
     override fun logs(): List<String> {
         return createRunnableQuery(BaseXQueries.Log.Logs, XQuery).run().results.map { it.value as String }
@@ -69,7 +81,12 @@ internal class BaseXQueryProcessor(val session: Session, val classLoader: ClassL
         return logs.lastOrNull()
     }
 
+    // endregion
+    // region Closeable
+
     override fun close() {
         session.close()
     }
+
+    // endregion
 }

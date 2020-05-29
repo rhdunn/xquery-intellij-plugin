@@ -41,11 +41,14 @@ import java.lang.RuntimeException
 import java.lang.reflect.InvocationTargetException
 import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val source: Source?) :
-    ProfileableQueryProvider,
+internal class SaxonQueryProcessor(
+    val classLoader: ClassLoader,
+    private val source: Source?
+) : ProfileableQueryProvider,
     RunnableQueryProvider,
     DebuggableQueryProvider,
     ValidatableQueryProvider {
+    // region QueryProcessor
 
     private val processor by lazy {
         if (source == null)
@@ -71,11 +74,17 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
 
     override val databases: List<String> = listOf()
 
+    // endregion
+    // region ProfileableQueryProvider
+
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         val runner = createRunnableQuery(query, language)
         (runner as SaxonRunner).traceListener = SaxonProfileTraceListener(processor.version, query)
         return SaxonQueryProfiler(runner)
     }
+
+    // endregion
+    // region RunnableQueryProvider
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         val queryText = query.decode()!!
@@ -87,11 +96,17 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
         }
     }
 
+    // endregion
+    // region DebuggableQueryProvider
+
     override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
         val runner = createRunnableQuery(query, language)
         (runner as SaxonRunner).traceListener = SaxonDebugTraceListener(query)
         return SaxonQueryDebugger(runner)
     }
+
+    // endregion
+    // region ValidatableQueryProvider
 
     override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
         val queryText = query.decode()!!
@@ -103,6 +118,11 @@ internal class SaxonQueryProcessor(val classLoader: ClassLoader, private val sou
         }
     }
 
+    // endregion
+    // region Closeable
+
     override fun close() {
     }
+
+    // endregion
 }

@@ -28,7 +28,9 @@ internal class EXistDBQueryProcessor(
     private val baseUri: String,
     private val connection: HttpConnection,
     private val settings: ConnectionSettings
-) : RunnableQueryProvider, LogViewProvider {
+) : RunnableQueryProvider,
+    LogViewProvider {
+    // region QueryProcessor
 
     override val version: String
         get() = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String
@@ -36,6 +38,9 @@ internal class EXistDBQueryProcessor(
     override val servers: List<String> = listOf()
 
     override val databases: List<String> = listOf()
+
+    // endregion
+    // region RunnableQueryProvider
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
@@ -46,6 +51,9 @@ internal class EXistDBQueryProcessor(
             else -> throw UnsupportedQueryType(language)
         }
     }
+
+    // endregion
+    // region LogViewProvider
 
     override fun logs(): List<String> {
         return createRunnableQuery(EXistDBQueries.Log.Logs, XQuery).run().results.map { it.value as String }
@@ -60,5 +68,10 @@ internal class EXistDBQueryProcessor(
 
     override fun defaultLogFile(logs: List<String>): String? = "exist.log"
 
+    // endregion
+    // region Closeable
+
     override fun close() = connection.close()
+
+    // endregion
 }
