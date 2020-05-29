@@ -67,6 +67,6 @@ fun Throwable.toQueryUserMessage(): String {
         is UnsupportedOperationException ->
             PluginApiBundle.message("processor.exception.unsupported-operation")
         else ->
-            throw this
+            message ?: javaClass.name
     }
 }

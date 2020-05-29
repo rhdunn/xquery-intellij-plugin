@@ -49,15 +49,10 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         value: QueryProcessorSettingsWithVersionCache?,
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
-        if (value != null) {
-            render(value.settings, value.version as? String, index)
-            (value.version as? Throwable)?.let {
-                try {
-                    renderError(value.settings, it.toQueryUserMessage(), index)
-                } catch (e: Throwable) {
-                    // Cannot display the error, so do nothing.
-                }
-            }
+        if (value != null) when (val version = value.version) {
+            null -> render(value.settings, null, index)
+            is String -> render(value.settings, version, index)
+            is Throwable -> renderError(value.settings, version.toQueryUserMessage(), index)
         }
     }
 }
