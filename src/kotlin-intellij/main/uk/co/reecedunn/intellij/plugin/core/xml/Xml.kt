@@ -134,6 +134,7 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
             return parse(InputSource(xml), namespaces)
         }
 
+        @Synchronized
         fun parse(xml: InputSource, namespaces: Map<String, String>): XmlDocument {
             return XmlDocument(builder.parse(xml), namespaces)
         }
