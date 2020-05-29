@@ -57,9 +57,10 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         val item = QueryProcessorSettings()
         val dialog = QueryProcessorSettingsDialog(project)
         if (dialog.create(item)) {
-            val settings = CachedQueryProcessorSettings(item)
-            queryProcessor.childComponent.addItem(settings)
             QueryProcessors.getInstance().addProcessor(item)
+
+            val settings = CachedQueryProcessorSettings(item, dialog.presentation)
+            queryProcessor.childComponent.addItem(settings)
         }
     }
 
@@ -69,6 +70,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         val dialog = QueryProcessorSettingsDialog(project)
         if (dialog.edit(item.settings)) {
             QueryProcessors.getInstance().setProcessor(index, item.settings)
+
+            item.presentation = dialog.presentation
             model.updateElement(item)
         }
     }

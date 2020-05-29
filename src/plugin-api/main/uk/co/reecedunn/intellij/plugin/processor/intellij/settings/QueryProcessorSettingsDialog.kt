@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.intellij.settings
 
 import com.intellij.icons.AllIcons
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
@@ -38,6 +39,8 @@ private fun JTextField.textOrNull(): String? = text?.let { if (it.isEmpty()) nul
 class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryProcessorSettings>() {
     // region Dialog
 
+    var presentation: ItemPresentation? = null
+
     override val resizable: Boolean = true
     override val createTitle: String = PluginApiBundle.message("xquery.settings.dialog.query-processor.create")
     override val editTitle: String = PluginApiBundle.message("xquery.settings.dialog.query-processor.edit")
@@ -49,7 +52,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         apply(settings)
         executeOnPooledThread {
             try {
-                settings.session.presentation
+                presentation = settings.session.presentation
                 invokeLater(ModalityState.any()) {
                     onvalidate(true)
                 }
