@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import com.intellij.navigation.ItemPresentation
 import java.io.Closeable
 
 interface QueryProcessor : Closeable {
+    val presentation: ItemPresentation
+
     val version: String
 
     val servers: List<String>

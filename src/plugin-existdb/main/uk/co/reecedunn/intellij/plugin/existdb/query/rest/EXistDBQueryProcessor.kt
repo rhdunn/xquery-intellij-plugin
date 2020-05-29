@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBQueries
@@ -31,6 +32,8 @@ internal class EXistDBQueryProcessor(
 ) : RunnableQueryProvider,
     LogViewProvider {
     // region QueryProcessor
+
+    override val presentation: ItemPresentation = EXistDBRest.presentation
 
     override val version: String
         get() = createRunnableQuery(EXistDBQueries.Version, XQuery).run().results.first().value as String

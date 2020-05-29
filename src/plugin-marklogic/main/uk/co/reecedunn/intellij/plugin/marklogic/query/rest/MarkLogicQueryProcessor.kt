@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import com.google.gson.JsonObject
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
@@ -49,6 +50,8 @@ internal class MarkLogicQueryProcessor(
     ValidatableQueryProvider,
     LogViewProvider {
     // region QueryProcessor
+
+    override val presentation: ItemPresentation = MarkLogicRest.presentation
 
     override val version: String
         get() = createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value as String

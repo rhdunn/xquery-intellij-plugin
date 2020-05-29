@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXQueries
@@ -33,6 +34,8 @@ internal class BaseXQueryProcessor(
     RunnableQueryProvider,
     LogViewProvider {
     // region QueryProcessor
+
+    override val presentation: ItemPresentation = BaseXSession.presentation
 
     override val version
         get(): String {
