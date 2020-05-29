@@ -145,6 +145,7 @@ fun Sequence<XmlElement>.children(name: String): Sequence<XmlElement> = this.fla
 
 fun Sequence<XmlElement>.children(name: QName): Sequence<XmlElement> = this.flatMap { it.children(name) }
 
+@get:Synchronized
 val Document.xml: String
     get() {
         val writer = StringWriter()
