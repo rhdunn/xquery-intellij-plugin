@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration
 
+import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
@@ -50,6 +51,16 @@ class RoxyConfiguration(private val project: Project) {
             field = name
             env = getPropertiesFile(name)
         }
+
+    fun getProperty(property: String): Sequence<IProperty> {
+        return sequenceOf(
+            env?.findPropertyByKey(property),
+            build?.findPropertyByKey(property),
+            default?.findPropertyByKey(property)
+        ).filterNotNull()
+    }
+
+    fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
 
     companion object {
         fun getInstance(project: Project): RoxyConfiguration {
