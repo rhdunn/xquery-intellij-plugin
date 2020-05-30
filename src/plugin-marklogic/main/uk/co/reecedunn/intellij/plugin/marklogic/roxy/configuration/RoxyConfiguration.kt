@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration
 
+import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
 class RoxyConfiguration(private val project: Project) {
     val baseDir: VirtualFile? by lazy {
@@ -32,6 +34,16 @@ class RoxyConfiguration(private val project: Project) {
         }
         baseDir
     }
+
+    private val deployDir = baseDir?.findChild("deploy")
+
+    private fun getPropertiesFile(name: String): PropertiesFile? {
+        return deployDir?.findChild("$name.properties")?.toPsiFile(project) as? PropertiesFile
+    }
+
+    private val default: PropertiesFile? = getPropertiesFile("default") // Default roxy properties
+    private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
+    private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
     companion object {
         fun getInstance(project: Project): RoxyConfiguration {
