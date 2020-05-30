@@ -34,12 +34,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
 
 data class XpmModuleLoaderSettingsData(
-    var loaders: List<XpmModuleLoaderBean> = arrayListOf(
-        XpmModuleLoaderBean("java", null),
-        XpmModuleLoaderBean("module", "java:source"),
-        XpmModuleLoaderBean("module", "java:test-source"),
-        XpmModuleLoaderBean("relative", null)
-    ),
     var databasePath: String = "",
     var registerSchemaFile: Boolean = true
 )
@@ -48,18 +42,25 @@ data class XpmModuleLoaderSettingsData(
 class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettingsData> {
     // region Settings :: Module Loaders
 
-    private val loaders = CacheableProperty { data.loaders.mapNotNull { it.loader } }
+    private val loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
+        XpmModuleLoaderBean("java", null),
+        XpmModuleLoaderBean("module", "java:source"),
+        XpmModuleLoaderBean("module", "java:test-source"),
+        XpmModuleLoaderBean("relative", null)
+    )
+
+    private val loaders = CacheableProperty { loaderBeans.mapNotNull { it.loader } }
 
     private fun registerModulePath(path: String) {
-        if (data.loaders.find { it.name == "fixed" && it.context == path } == null) {
-            (data.loaders as ArrayList).add(XpmModuleLoaderBean("fixed", path))
+        if (loaderBeans.find { it.name == "fixed" && it.context == path } == null) {
+            (loaderBeans as ArrayList).add(XpmModuleLoaderBean("fixed", path))
             loaders.invalidate()
         }
     }
 
     private fun unregisterModulePath(path: String) {
-        data.loaders.find { it.name == "fixed" && it.context == path }?.let {
-            (data.loaders as ArrayList).remove(it)
+        loaderBeans.find { it.name == "fixed" && it.context == path }?.let {
+            (loaderBeans as ArrayList).remove(it)
             loaders.invalidate()
         }
     }
