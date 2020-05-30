@@ -46,6 +46,7 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
         XpmModuleLoaderBean("java", null),
         XpmModuleLoaderBean("module", "java:source"),
         XpmModuleLoaderBean("module", "java:test-source"),
+        XpmModuleLoaderBean("roxy", "xquery.dir"),
         XpmModuleLoaderBean("relative", null)
     )
 

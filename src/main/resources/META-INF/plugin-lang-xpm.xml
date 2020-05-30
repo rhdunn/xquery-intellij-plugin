@@ -37,6 +37,7 @@
     <moduleLoaderFactory name="module" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
     <moduleLoaderFactory name="package" implementation="uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage$Companion"/>
     <moduleLoaderFactory name="relative" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader"/>
+    <moduleLoaderFactory name="roxy" implementation="uk.co.reecedunn.intellij.plugin.marklogic.roxy.module.RoxyModuleLoader$Companion"/>
 
     <!-- Import Paths : Deprecated by Module Paths -->
 
