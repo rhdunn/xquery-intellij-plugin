@@ -5,5 +5,8 @@
     <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReferenceContributor"/>
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementLineMarkerProvider"/>
+
+    <!-- Roxy -->
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration"/>
   </extensions>
 </idea-plugin>
