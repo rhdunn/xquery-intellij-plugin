@@ -23,6 +23,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
+@Suppress("MemberVisibilityCanBePrivate")
 class RoxyConfiguration(private val project: Project) {
     val baseDir: VirtualFile? by lazy {
         var baseDir: VirtualFile? = null
@@ -61,6 +62,12 @@ class RoxyConfiguration(private val project: Project) {
     }
 
     fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
+
+    fun getDirectory(property: String): VirtualFile? {
+        return getPropertyValue(property)?.takeIf { it.startsWith("\${basedir}") }?.let {
+            baseDir?.findFileByRelativePath(it.substringAfter("\${basedir}"))
+        }
+    }
 
     companion object {
         fun getInstance(project: Project): RoxyConfiguration {
