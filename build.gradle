@@ -148,7 +148,6 @@ dependencies {
 
 intellij.plugins = [
     'coverage',
-    'java',
     'com.intellij.properties'
 ]
 
