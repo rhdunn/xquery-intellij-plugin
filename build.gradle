@@ -58,7 +58,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.4.17"
+    id "org.jetbrains.intellij" version "0.4.21"
 }
 
 configure(allprojects - project(':src')) {
@@ -146,13 +146,16 @@ dependencies {
     testCompile project(':src:intellij-mock')
 }
 
+intellij.plugins = [
+    'coverage',
+    'java',
+    'com.intellij.properties'
+]
+
 idea_version = project.property('idea_since_build').toInteger()
 if (idea_version >= 192) {
     // 'java' is a separate plugin in IntelliJ >= 2019.2
-    intellij.plugins = ['coverage', 'java']
-} else {
-    // 'java' is not a separate plugin in IntelliJ <= 2019.1
-    intellij.plugins = ['coverage']
+    intellij.plugins += 'java'
 }
 
 // region resources
