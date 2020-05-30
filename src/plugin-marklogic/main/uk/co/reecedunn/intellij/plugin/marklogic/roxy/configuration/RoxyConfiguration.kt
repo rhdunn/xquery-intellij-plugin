@@ -45,6 +45,12 @@ class RoxyConfiguration(private val project: Project) {
     private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
+    var environmentName: String = "local"
+        set(name) {
+            field = name
+            env = getPropertiesFile(name)
+        }
+
     companion object {
         fun getInstance(project: Project): RoxyConfiguration {
             return ServiceManager.getService(project, RoxyConfiguration::class.java)
