@@ -5,7 +5,6 @@
 MarkLogic:
 
 1.  Support stopping MarkLogic queries.
-1.  Support resolving MarkLogic imports from a configured database install path.
 1.  Support registering MarkLogic schema files.
 
 eXist-db / FusionDB:
@@ -28,6 +27,11 @@ Run Configurations:
     responses.
 1.  Fixed navigating to module paths in query errors.
 1.  Add icons to the query processors.
+
+Module Imports:
+
+1.  Support resolving MarkLogic imports from a configured database install path.
+1.  Support resolving imports from the Roxy `xquery.dir` path.
 
 Endpoints:
 

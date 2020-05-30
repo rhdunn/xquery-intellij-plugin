@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.roxy.module
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
@@ -31,7 +33,10 @@ class RoxyModuleLoader(private val property: String) : XpmModuleLoader {
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
-            is XpmModuleLocationPath -> null
+            is XpmModuleLocationPath -> {
+                val root = RoxyConfiguration.getInstance(path.project).getDirectory(property)
+                return root?.findFileByRelativePath(path.path)?.toPsiFile(path.project)
+            }
             else -> null
         }
     }
