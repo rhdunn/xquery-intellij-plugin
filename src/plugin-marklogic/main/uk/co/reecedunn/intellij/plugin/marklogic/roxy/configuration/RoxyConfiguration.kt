@@ -17,11 +17,27 @@ package uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration
 
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.vfs.VirtualFile
 
 class RoxyConfiguration(private val project: Project) {
+    val baseDir: VirtualFile? by lazy {
+        var baseDir: VirtualFile? = null
+        ProjectRootManager.getInstance(project).fileIndex.iterateContent { vf ->
+            if (!vf.isDirectory && ML_COMMAND.contains(vf.name)) {
+                baseDir = vf.parent
+                return@iterateContent false
+            }
+            true
+        }
+        baseDir
+    }
+
     companion object {
         fun getInstance(project: Project): RoxyConfiguration {
             return ServiceManager.getService(project, RoxyConfiguration::class.java)
         }
+
+        private val ML_COMMAND = setOf("ml", "ml.bat")
     }
 }
