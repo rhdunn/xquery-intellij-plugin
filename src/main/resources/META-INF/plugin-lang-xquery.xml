@@ -39,6 +39,7 @@
     <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker.XQuerySpellcheckingStrategy"/>
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker.XQueryBundledDictionaryProvider"/>
 
+    <xdebugger.breakpointType implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType"/>
 
     <!-- Application / Project Settings -->
 
