@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
-import com.intellij.xdebugger.breakpoints.XBreakpointProperties
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
 import com.intellij.xdebugger.impl.XSourcePositionImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
@@ -47,9 +47,10 @@ class XQueryExpressionBreakpointType :
     override fun computeVariants(project: Project, position: XSourcePosition): MutableList<out XLineBreakpointVariant> {
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return mutableListOf()
         return getExpressionsAt(module, position.line)
-            .distinctBy { it.hashCode() }
-            .mapNotNull { element ->
-                XSourcePositionImpl.createByElement(element)?.let { XLinePsiElementBreakpointVariant(it, element) }
+            .withIndex()
+            .distinctBy { it.value.hashCode() }
+            .mapNotNull { (ordinal, element) ->
+                XSourcePositionImpl.createByElement(element)?.let { ExpressionBreakpointVariant(it, element, ordinal) }
             }
             .sortedBy { it.highlightRange?.startOffset }
             .toMutableList().asReversed()
@@ -58,6 +59,21 @@ class XQueryExpressionBreakpointType :
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XPathExpr> {
         return module.lineElements(line).flatMap { element ->
             element.ancestorsAndSelf().filterIsInstance<XPathExpr>()
+        }
+    }
+
+    // endregion
+    // region ExpressionBreakpointVariant
+
+    inner class ExpressionBreakpointVariant(
+        position: XSourcePosition,
+        element: PsiElement,
+        private val exprOrdinal: Int
+    ) : XLinePsiElementBreakpointVariant(position, element) {
+        override fun createProperties(): XQueryBreakpointProperties? {
+            val properties = super.createProperties() ?: return null
+            properties.exprOrdinal = exprOrdinal
+            return properties
         }
     }
 

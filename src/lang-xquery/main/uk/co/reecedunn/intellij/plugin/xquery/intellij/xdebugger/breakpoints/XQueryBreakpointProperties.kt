@@ -18,8 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties
 
 class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointProperties>() {
+    var exprOrdinal: Int = -1
+
     override fun getState(): XQueryBreakpointProperties? = this
 
     override fun loadState(state: XQueryBreakpointProperties) {
+        exprOrdinal = state.exprOrdinal
     }
 }
