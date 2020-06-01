@@ -31,7 +31,6 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.mock.*
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -47,7 +46,6 @@ import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
-import com.intellij.pom.PomModel
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
 import com.intellij.psi.impl.PsiFileFactoryImpl
@@ -65,6 +63,7 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
@@ -223,13 +222,9 @@ abstract class ParsingTestCase<File : PsiFile>(
         return parseText(xquery).walkTree().filterIsInstance<T>().toList()
     }
 
-    fun getDocument(file: PsiFile): Document {
-        return PsiDocumentManager.getInstance(myProject).getDocument(file)!!
-    }
-
     @Suppress("MemberVisibilityCanBePrivate")
     fun getEditor(file: PsiFile): Editor {
-        return EditorFactory.getInstance().createEditor(getDocument(file))
+        return EditorFactory.getInstance().createEditor(file.document!!)
     }
 
     fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
