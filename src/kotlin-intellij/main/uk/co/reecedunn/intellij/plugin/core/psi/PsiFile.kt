@@ -17,6 +17,12 @@ package uk.co.reecedunn.intellij.plugin.core.psi
 
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 
 val PsiFile.document: Document? get() = PsiDocumentManager.getInstance(project).getDocument(this)
+
+fun PsiFile.lineElements(line: Int): Sequence<PsiElement> {
+    val offsets = document?.let { IntRange(it.getLineStartOffset(line), it.getLineEndOffset(line)).asSequence() }
+    return offsets?.mapNotNull { findElementAt(it) } ?: sequenceOf()
+}

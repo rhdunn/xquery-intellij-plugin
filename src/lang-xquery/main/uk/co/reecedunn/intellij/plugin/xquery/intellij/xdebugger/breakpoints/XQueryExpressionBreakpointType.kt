@@ -15,14 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 
-import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
+import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
 
 class XQueryExpressionBreakpointType :
@@ -32,17 +33,10 @@ class XQueryExpressionBreakpointType :
     override fun createBreakpointProperties(file: VirtualFile, line: Int): XBreakpointProperties<*>? = null
 
     override fun canPutAt(file: VirtualFile, line: Int, project: Project): Boolean {
-        val document = FileDocumentManager.getInstance().getDocument(file) ?: return false
-        var isExpr = false
-        XDebuggerUtil.getInstance().iterateLine(project, document, line) { element ->
-            if (element.ancestorsAndSelf().any { it is XPathExpr }) {
-                isExpr = true
-                false
-            } else {
-                true
-            }
+        val psiFile = file.toPsiFile(project) as? XQueryModule ?: return false
+        return psiFile.lineElements(line).any { element ->
+            element.ancestorsAndSelf().any { it is XPathExpr }
         }
-        return isExpr
     }
 
     // endregion
