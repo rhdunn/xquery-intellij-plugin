@@ -51,9 +51,7 @@ class XQueryExpressionBreakpointType :
 
     override fun computeVariants(project: Project, position: XSourcePosition): MutableList<out XLineBreakpointVariant> {
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return mutableListOf()
-        return getExpressionsAt(module, position.line)
-            .withIndex()
-            .distinctBy { it.value.hashCode() }
+        return getExpressionsAt(module, position.line).withIndex()
             .mapNotNull { (ordinal, element) ->
                 XSourcePositionImpl.createByElement(element)?.let { ExpressionBreakpointVariant(it, element, ordinal) }
             }
@@ -66,9 +64,9 @@ class XQueryExpressionBreakpointType :
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XPathExpr> {
-        return module.lineElements(line).flatMap { element ->
-            element.ancestorsAndSelf().filterIsInstance<XPathExpr>()
-        }
+        return module.lineElements(line)
+            .flatMap { it.ancestorsAndSelf().filterIsInstance<XPathExpr>() }
+            .distinctBy { it.hashCode() }
     }
 
     private fun getExpression(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): XPathExpr? {
