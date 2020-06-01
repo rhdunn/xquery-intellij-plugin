@@ -29,10 +29,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
 
 class XQueryExpressionBreakpointType :
-    XLineBreakpointType<XBreakpointProperties<*>>("xijp.xquery-expr", XQueryBundle.message("breakpoint.expression")) {
+    XLineBreakpointType<XQueryBreakpointProperties>(
+        "xijp.xquery-expr",
+        XQueryBundle.message("breakpoint.expression")
+    ) {
     // region XLineBreakpointType
 
-    override fun createBreakpointProperties(file: VirtualFile, line: Int): XBreakpointProperties<*>? = null
+    override fun createBreakpointProperties(file: VirtualFile, line: Int): XQueryBreakpointProperties? {
+        return XQueryBreakpointProperties()
+    }
 
     override fun canPutAt(file: VirtualFile, line: Int, project: Project): Boolean {
         val module = file.toPsiFile(project) as? XQueryModule ?: return false
