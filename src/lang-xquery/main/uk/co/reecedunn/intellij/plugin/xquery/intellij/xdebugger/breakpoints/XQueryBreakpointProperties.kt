@@ -15,14 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 
+import com.intellij.util.xmlb.XmlSerializerUtil
+import com.intellij.util.xmlb.annotations.OptionTag
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties
 
 class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointProperties>() {
+    @OptionTag("expr-ordinal")
     var exprOrdinal: Int = -1
 
     override fun getState(): XQueryBreakpointProperties? = this
 
-    override fun loadState(state: XQueryBreakpointProperties) {
-        exprOrdinal = state.exprOrdinal
-    }
+    override fun loadState(state: XQueryBreakpointProperties) = XmlSerializerUtil.copyBean(state, this)
 }

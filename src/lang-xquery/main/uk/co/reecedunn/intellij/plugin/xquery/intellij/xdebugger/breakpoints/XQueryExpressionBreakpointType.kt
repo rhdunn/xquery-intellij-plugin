@@ -41,6 +41,10 @@ class XQueryExpressionBreakpointType :
     // region XLineBreakpointType
 
     override fun createBreakpointProperties(file: VirtualFile, line: Int): XQueryBreakpointProperties? {
+        return createProperties()
+    }
+
+    override fun createProperties(): XQueryBreakpointProperties? {
         return XQueryBreakpointProperties()
     }
 
