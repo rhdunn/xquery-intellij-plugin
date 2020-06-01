@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.ScriptingApplyExprPsiImpl
+import javax.swing.Icon
 
-open class XQueryExprPsiImpl(node: ASTNode) : ScriptingApplyExprPsiImpl(node), XPathExpr
+open class XQueryExprPsiImpl(node: ASTNode) : ScriptingApplyExprPsiImpl(node), XPathExpr {
+    override fun getIcon(flags: Int): Icon? = presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
+}
