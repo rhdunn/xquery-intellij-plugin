@@ -16,11 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.TextRange
+import com.intellij.openapi.util.UserDataHolder
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.breakpoints.XBreakpoint
+import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
 import com.intellij.xdebugger.impl.XSourcePositionImpl
+import com.intellij.xdebugger.impl.breakpoints.XBreakpointBase
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -56,10 +61,27 @@ class XQueryExpressionBreakpointType :
             .toMutableList().asReversed()
     }
 
+    override fun getHighlightRange(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): TextRange? {
+        return getExpression(breakpoint)?.textRange
+    }
+
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XPathExpr> {
         return module.lineElements(line).flatMap { element ->
             element.ancestorsAndSelf().filterIsInstance<XPathExpr>()
         }
+    }
+
+    private fun getExpression(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): XPathExpr? {
+        val position = breakpoint?.sourcePosition ?: return null
+        val properties = breakpoint.properties ?: return null
+        val project = getProject(breakpoint) ?: return null
+        val module = position.file.toPsiFile(project) as? XQueryModule ?: return null
+        return getExpressionsAt(module, position.line).withIndex().find { it.index == properties.exprOrdinal }?.value
+    }
+
+    private fun getProject(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>): Project? {
+        @Suppress("UNCHECKED_CAST")
+        return (breakpoint as? XBreakpointBase<XBreakpoint<*>, *, *>)?.getProject()
     }
 
     // endregion
