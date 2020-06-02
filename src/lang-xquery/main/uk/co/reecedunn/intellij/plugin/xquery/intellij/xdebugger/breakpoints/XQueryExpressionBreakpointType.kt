@@ -19,6 +19,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.util.UserDataHolder
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XBreakpoint
@@ -30,8 +31,10 @@ import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
+import javax.swing.Icon
 
 class XQueryExpressionBreakpointType :
     XLineBreakpointType<XQueryBreakpointProperties>(
@@ -91,13 +94,17 @@ class XQueryExpressionBreakpointType :
 
     inner class ExpressionBreakpointVariant(
         position: XSourcePosition,
-        element: PsiElement,
+        private val element: PsiElement,
         private val exprOrdinal: Int
     ) : XLinePsiElementBreakpointVariant(position, element) {
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null
             properties.exprOrdinal = exprOrdinal
             return properties
+        }
+
+        override fun getIcon(): Icon? {
+            return (element as? NavigatablePsiElement)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
         }
     }
 
