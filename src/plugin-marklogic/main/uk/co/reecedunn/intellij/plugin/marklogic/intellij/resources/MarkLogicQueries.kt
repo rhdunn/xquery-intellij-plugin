@@ -36,6 +36,7 @@ object MarkLogicQueries {
     val ApiDocs = resourceFile("queries/marklogic/apidocs.xq")
 
     object Debug {
+        val AddBreakpoint = resourceFile("queries/marklogic/debug/add-breakpoint.xq")
         val Break = resourceFile("queries/marklogic/debug/break.xq")
         val Continue = resourceFile("queries/marklogic/debug/continue.xq")
         val Stack = resourceFile("queries/marklogic/debug/stack.xq")

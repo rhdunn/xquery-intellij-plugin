@@ -99,6 +99,15 @@ internal class MarkLogicDebugSession(
 
     // endregion
 
+    fun registerBreakpoint(uri: String, line: Int, column: Int): Boolean {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Debug.AddBreakpoint, XQuery)
+        query.bindVariable("requestId", requestId, "xs:unsignedLong")
+        query.bindVariable("exprUri", uri, "xs:string")
+        query.bindVariable("exprLine", line.toString(), "xs:nonNegativeInteger")
+        query.bindVariable("exprColumn", column.toString(), "xs:nonNegativeInteger")
+        return query.run().results.first().value == "true"
+    }
+
     fun run(requestId: String) {
         this.requestId = requestId
         state = QueryProcessState.Suspended // MarkLogic requests are suspended at the start of the first expression.
