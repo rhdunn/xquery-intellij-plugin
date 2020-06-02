@@ -21,4 +21,16 @@ declare option o:implementation "marklogic/6.0";
 
 declare variable $requestId as xs:unsignedLong external;
 
-(dbg:status($requestId)/dbg:request/dbg:request-status/text(), "none")[1]
+try {
+    (dbg:status($requestId)/dbg:request/dbg:request-status/text(), "none")[1]
+} catch ($e) {
+    (: The DBG-REQUESTRECORD "Request record not found" error may be raised in
+     : the case when, e.g.:
+     : 1.  the user has entered a breakpoint at the end of the query body;
+     : 2.  the user then resumed the program.
+     :
+     : In this case, the run loop waits for 100ms before requessting the status,
+     : by which time the request has stopped and has been cleaned up.
+     :)
+    "none"
+}
