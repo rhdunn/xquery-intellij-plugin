@@ -39,6 +39,10 @@ internal class MarkLogicDebugSession(
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
 
+    private val breakpointHandlers: Array<XBreakpointHandler<*>> = arrayOf(
+        MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java)
+    )
+
     // region XDebuggerEvaluator
 
     override fun evaluate(expression: String, callback: XEvaluationCallback, expressionPosition: XSourcePosition?) {
@@ -58,11 +62,7 @@ internal class MarkLogicDebugSession(
     // endregion
     // region DebugSession
 
-    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
-        return arrayOf(
-            MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java)
-        )
-    }
+    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> = breakpointHandlers
 
     override var listener: DebugSessionListener? = null
 
