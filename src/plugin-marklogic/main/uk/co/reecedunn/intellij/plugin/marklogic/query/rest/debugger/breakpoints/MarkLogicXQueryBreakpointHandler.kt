@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints
 
+import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.breakpoints.XBreakpointType
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
@@ -25,7 +26,11 @@ class MarkLogicXQueryBreakpointHandler(
 ) : XBreakpointHandler<XLineBreakpoint<XQueryBreakpointProperties>>(type) {
     // region XBreakpointHandler
 
+    val expressionBreakpoints = ArrayList<PsiElement>()
+
     override fun registerBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>) {
+        val expr = breakpoint.properties.getExpression(breakpoint) ?: return
+        expressionBreakpoints.add(expr)
     }
 
     override fun unregisterBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>, temporary: Boolean) {

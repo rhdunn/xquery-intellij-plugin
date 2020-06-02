@@ -16,11 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.lang.Language
+import com.intellij.openapi.application.runInEdt
+import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
@@ -99,7 +103,7 @@ internal class MarkLogicDebugSession(
 
     // endregion
 
-    fun registerBreakpoint(uri: String, line: Int, column: Int): Boolean {
+    private fun registerBreakpoint(uri: String, line: Int, column: Int): Boolean {
         val query = processor.createRunnableQuery(MarkLogicQueries.Debug.AddBreakpoint, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
         query.bindVariable("exprUri", uri, "xs:string")
@@ -108,11 +112,38 @@ internal class MarkLogicDebugSession(
         return query.run().results.first().value == "true"
     }
 
+    private fun registerBreakpoint(element: PsiElement): Boolean {
+        val document = element.containingFile.document ?: return false
+        val offset = element.textOffset
+        val line = document.getLineNumber(offset)
+        val column = offset - document.getLineStartOffset(line)
+        return registerBreakpoint("", line + 1, column)
+    }
+
+    private fun registerBreakpoints() {
+        // Accessing the containing file and associated document need to be
+        // accessed via a read action on the EDT thread.
+        runInEdt {
+            runReadAction {
+                val xquery = breakpointHandlers[0] as MarkLogicXQueryBreakpointHandler
+                xquery.expressionBreakpoints.forEach { registerBreakpoint(it) }
+
+                // MarkLogic requests are suspended at the start of the first expression.
+                state = QueryProcessState.Suspended
+            }
+        }
+
+        // Wait for the breakpoints to be processed.
+        while (state !== QueryProcessState.Suspended) {
+            Thread.sleep(100)
+        }
+    }
+
     fun run(requestId: String) {
         this.requestId = requestId
-        state = QueryProcessState.Suspended // MarkLogic requests are suspended at the start of the first expression.
 
-        resume()
+        registerBreakpoints()
+        resume() // MarkLogic requests are suspended at the start of the first expression.
         while (state !== QueryProcessState.Stopped) {
             Thread.sleep(100)
 
