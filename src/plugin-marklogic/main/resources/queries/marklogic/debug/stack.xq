@@ -21,4 +21,15 @@ declare option o:implementation "marklogic/6.0";
 
 declare variable $requestId as xs:unsignedLong external;
 
-dbg:stack($requestId)
+if (dbg:status($requestId)/dbg:request/dbg:request-status = "stopped") then
+    dbg:stack($requestId)
+else
+    (: Stack frames are only available for stopped queries.
+     :
+     : The request may not be in the stopped state if the following happens:
+     : 1.  the user pauses the request;
+     : 2.  IntelliJ initiates a request for the stack frame on a separate thread;
+     : 3.  the user resumes the request before the stack frame has been queried;
+     : 4.  the stack frame is queried on a resumed request.
+     :)
+    <dbg:stack/>
