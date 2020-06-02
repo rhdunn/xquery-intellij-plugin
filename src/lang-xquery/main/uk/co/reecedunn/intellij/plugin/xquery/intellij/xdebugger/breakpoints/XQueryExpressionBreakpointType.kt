@@ -21,11 +21,9 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
-import com.intellij.xdebugger.breakpoints.XBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
 import com.intellij.xdebugger.impl.XSourcePositionImpl
-import com.intellij.xdebugger.impl.breakpoints.XBreakpointBase
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -67,24 +65,11 @@ class XQueryExpressionBreakpointType :
     }
 
     override fun getHighlightRange(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): TextRange? {
-        return getExpression(breakpoint)?.textRange
+        return breakpoint?.properties?.getExpression(breakpoint)?.textRange
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XPathExpr> {
         return module.lineElements(line).flatMap { it.ancestorsAndSelf().filterIsInstance<XPathExpr>() }
-    }
-
-    private fun getExpression(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): XPathExpr? {
-        val position = breakpoint?.sourcePosition ?: return null
-        val properties = breakpoint.properties ?: return null
-        val project = getProject(breakpoint) ?: return null
-        val module = position.file.toPsiFile(project) as? XQueryModule ?: return null
-        return getExpressionsAt(module, position.line).find { it.textOffset == properties.exprOffset }
-    }
-
-    private fun getProject(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>): Project? {
-        @Suppress("UNCHECKED_CAST")
-        return (breakpoint as? XBreakpointBase<XBreakpoint<*>, *, *>)?.getProject()
     }
 
     // endregion
