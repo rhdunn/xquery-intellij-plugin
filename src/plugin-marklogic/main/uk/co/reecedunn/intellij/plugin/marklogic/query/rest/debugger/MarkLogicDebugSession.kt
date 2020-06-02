@@ -25,9 +25,11 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints.MarkLogicXQueryBreakpointHandler
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType
 import java.lang.RuntimeException
 
 internal class MarkLogicDebugSession(
@@ -57,7 +59,9 @@ internal class MarkLogicDebugSession(
     // region DebugSession
 
     override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
-        return arrayOf()
+        return arrayOf(
+            MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java)
+        )
     }
 
     override var listener: DebugSessionListener? = null
