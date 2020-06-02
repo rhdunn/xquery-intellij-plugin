@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
-import com.intellij.openapi.util.UserDataHolder
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
@@ -58,9 +57,10 @@ class XQueryExpressionBreakpointType :
 
     override fun computeVariants(project: Project, position: XSourcePosition): MutableList<out XLineBreakpointVariant> {
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return mutableListOf()
-        return getExpressionsAt(module, position.line).withIndex()
-            .mapNotNull { (ordinal, element) ->
-                XSourcePositionImpl.createByElement(element)?.let { ExpressionBreakpointVariant(it, element, ordinal) }
+        return getExpressionsAt(module, position.line)
+            .distinctBy { it.hashCode() }
+            .mapNotNull { element ->
+                XSourcePositionImpl.createByElement(element)?.let { ExpressionBreakpointVariant(it, element) }
             }
             .sortedBy { it.highlightRange?.startOffset }
             .toMutableList().asReversed()
@@ -71,9 +71,7 @@ class XQueryExpressionBreakpointType :
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XPathExpr> {
-        return module.lineElements(line)
-            .flatMap { it.ancestorsAndSelf().filterIsInstance<XPathExpr>() }
-            .distinctBy { it.hashCode() }
+        return module.lineElements(line).flatMap { it.ancestorsAndSelf().filterIsInstance<XPathExpr>() }
     }
 
     private fun getExpression(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): XPathExpr? {
@@ -81,7 +79,7 @@ class XQueryExpressionBreakpointType :
         val properties = breakpoint.properties ?: return null
         val project = getProject(breakpoint) ?: return null
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return null
-        return getExpressionsAt(module, position.line).withIndex().find { it.index == properties.exprOrdinal }?.value
+        return getExpressionsAt(module, position.line).find { it.textOffset == properties.exprOffset }
     }
 
     private fun getProject(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>): Project? {
@@ -94,12 +92,11 @@ class XQueryExpressionBreakpointType :
 
     inner class ExpressionBreakpointVariant(
         position: XSourcePosition,
-        private val element: PsiElement,
-        private val exprOrdinal: Int
+        private val element: PsiElement
     ) : XLinePsiElementBreakpointVariant(position, element) {
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null
-            properties.exprOrdinal = exprOrdinal
+            properties.exprOffset = element.textOffset
             return properties
         }
 

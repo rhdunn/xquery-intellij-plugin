@@ -20,8 +20,8 @@ import com.intellij.util.xmlb.annotations.OptionTag
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties
 
 class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointProperties>() {
-    @OptionTag("expr-ordinal")
-    var exprOrdinal: Int = -1
+    @OptionTag("expr-offset")
+    var exprOffset: Int = -1
 
     override fun getState(): XQueryBreakpointProperties? = this
 
