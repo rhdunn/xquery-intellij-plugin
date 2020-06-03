@@ -107,21 +107,22 @@ internal class MarkLogicDebugSession(
 
     // endregion
 
-    private fun registerBreakpoint(uri: String, line: Int, column: Int): Boolean {
-        val query = processor.createRunnableQuery(MarkLogicQueries.Debug.AddBreakpoint, XQuery)
+    private fun updateBreakpoint(uri: String, line: Int, column: Int, register: Boolean): Boolean {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Breakpoint, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
+        query.bindVariable("register", register.toString(), "xs:boolean")
         query.bindVariable("exprUri", uri, "xs:string")
         query.bindVariable("exprLine", line.toString(), "xs:nonNegativeInteger")
         query.bindVariable("exprColumn", column.toString(), "xs:nonNegativeInteger")
         return query.run().results.first().value == "true"
     }
 
-    private fun registerBreakpoint(element: PsiElement): Boolean {
+    private fun updateBreakpoint(element: PsiElement, register: Boolean): Boolean {
         val document = element.containingFile.document ?: return false
         val offset = element.textOffset
         val line = document.getLineNumber(offset)
         val column = offset - document.getLineStartOffset(line)
-        return registerBreakpoint("", line + 1, column)
+        return updateBreakpoint("", line + 1, column, register = register)
     }
 
     private fun registerBreakpoints() {
@@ -130,7 +131,7 @@ internal class MarkLogicDebugSession(
         runInEdt {
             runReadAction {
                 val xquery = breakpointHandlers[0] as MarkLogicXQueryBreakpointHandler
-                xquery.expressionBreakpoints.forEach { registerBreakpoint(it) }
+                xquery.expressionBreakpoints.forEach { updateBreakpoint(it, register = true) }
 
                 // MarkLogic requests are suspended at the start of the first expression.
                 state = QueryProcessState.Suspended

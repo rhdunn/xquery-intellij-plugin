@@ -17,9 +17,10 @@ xquery version "1.0-ml";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:implementation "marklogic/6.0";
 
-(: Add a breakpoint to a request. :)
+(: Add/remove a breakpoint for a request. :)
 
 declare variable $requestId as xs:unsignedLong external;
+declare variable $register as xs:boolean external;
 declare variable $exprUri as xs:string external;
 declare variable $exprLine as xs:nonNegativeInteger external;
 declare variable $exprColumn as xs:nonNegativeInteger external;
@@ -30,6 +31,11 @@ let $expr :=
     where $expr/dbg:line eq $exprLine and $expr/dbg:column eq $exprColumn
     return $expr
 return if (exists($expr)) then
-    (dbg:break($requestId, $expr[1]/dbg:expr-id), true())
+    let $_ :=
+        if ($register) then
+            dbg:break($requestId, $expr[1]/dbg:expr-id)
+        else
+            dbg:clear($requestId, $expr[1]/dbg:expr-id)
+    return true()
 else
     false()
