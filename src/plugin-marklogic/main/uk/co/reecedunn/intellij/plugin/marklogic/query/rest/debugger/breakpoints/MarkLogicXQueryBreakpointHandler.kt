@@ -22,10 +22,11 @@ import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugSession
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryBreakpointProperties
 import java.lang.ref.WeakReference
+import kotlin.math.exp
 
 internal class MarkLogicXQueryBreakpointHandler(
     type: Class<out XBreakpointType<XLineBreakpoint<XQueryBreakpointProperties>, XQueryBreakpointProperties>>,
-    session: WeakReference<MarkLogicDebugSession>
+    private val session: WeakReference<MarkLogicDebugSession>
 ) : XBreakpointHandler<XLineBreakpoint<XQueryBreakpointProperties>>(type) {
     // region XBreakpointHandler
 
@@ -34,11 +35,13 @@ internal class MarkLogicXQueryBreakpointHandler(
     override fun registerBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>) {
         val expr = breakpoint.properties.getExpression(breakpoint) ?: return
         expressionBreakpoints.add(expr)
+        session.get()?.updateBreakpoint(expr, register = true)
     }
 
     override fun unregisterBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>, temporary: Boolean) {
         val expr = breakpoint.properties.getExpression(breakpoint) ?: return
         expressionBreakpoints.remove(expr)
+        session.get()?.updateBreakpoint(expr, register = false)
     }
 
     // endregion

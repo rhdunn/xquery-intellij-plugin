@@ -118,7 +118,9 @@ internal class MarkLogicDebugSession(
         return query.run().results.first().value == "true"
     }
 
-    private fun updateBreakpoint(element: PsiElement, register: Boolean): Boolean {
+    fun updateBreakpoint(element: PsiElement, register: Boolean, initializing: Boolean = false): Boolean {
+        if (!initializing && state === QueryProcessState.Starting) return true
+
         val currentState = state
         state = QueryProcessState.UpdatingState
 
@@ -140,7 +142,7 @@ internal class MarkLogicDebugSession(
         runInEdt {
             runReadAction {
                 val xquery = breakpointHandlers[0] as MarkLogicXQueryBreakpointHandler
-                xquery.expressionBreakpoints.forEach { updateBreakpoint(it, register = true) }
+                xquery.expressionBreakpoints.forEach { updateBreakpoint(it, register = true, initializing = true) }
 
                 // MarkLogic requests are suspended at the start of the first expression.
                 state = QueryProcessState.Suspended
