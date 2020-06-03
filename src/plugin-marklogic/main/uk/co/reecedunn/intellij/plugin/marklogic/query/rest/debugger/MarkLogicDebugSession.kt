@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType
 import java.lang.RuntimeException
+import java.lang.ref.WeakReference
 
 internal class MarkLogicDebugSession(
     private val processor: MarkLogicQueryProcessor,
@@ -44,7 +45,7 @@ internal class MarkLogicDebugSession(
     private var requestId: String? = null
 
     private val breakpointHandlers: Array<XBreakpointHandler<*>> = arrayOf(
-        MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java)
+        MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java, WeakReference(this))
     )
 
     // region XDebuggerEvaluator

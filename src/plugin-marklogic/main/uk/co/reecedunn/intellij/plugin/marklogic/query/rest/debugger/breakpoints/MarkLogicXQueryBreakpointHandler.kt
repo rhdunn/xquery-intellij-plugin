@@ -19,10 +19,13 @@ import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.breakpoints.XBreakpointType
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugSession
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryBreakpointProperties
+import java.lang.ref.WeakReference
 
-class MarkLogicXQueryBreakpointHandler(
-    type: Class<out XBreakpointType<XLineBreakpoint<XQueryBreakpointProperties>, XQueryBreakpointProperties>>
+internal class MarkLogicXQueryBreakpointHandler(
+    type: Class<out XBreakpointType<XLineBreakpoint<XQueryBreakpointProperties>, XQueryBreakpointProperties>>,
+    session: WeakReference<MarkLogicDebugSession>
 ) : XBreakpointHandler<XLineBreakpoint<XQueryBreakpointProperties>>(type) {
     // region XBreakpointHandler
 
