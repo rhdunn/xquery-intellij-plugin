@@ -34,6 +34,8 @@ class MarkLogicXQueryBreakpointHandler(
     }
 
     override fun unregisterBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>, temporary: Boolean) {
+        val expr = breakpoint.properties.getExpression(breakpoint) ?: return
+        expressionBreakpoints.remove(expr)
     }
 
     // endregion
