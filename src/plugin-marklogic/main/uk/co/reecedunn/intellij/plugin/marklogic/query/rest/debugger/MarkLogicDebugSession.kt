@@ -151,27 +151,30 @@ internal class MarkLogicDebugSession(
         while (state !== QueryProcessState.Stopped) {
             Thread.sleep(100)
 
-            if (state === QueryProcessState.UpdatingState) {
-                // Wait for the state changing MarkLogic request to complete
-                // before getting the new state from MarkLogic.
-                continue
-            }
-
-            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Status, XQuery)
-            query.bindVariable("requestId", requestId, "xs:unsignedLong")
-            state = when (val status = query.run().results.first().value as String) {
+            val newState = when (val status = status()) {
                 "none" -> QueryProcessState.Stopped
                 "running" -> QueryProcessState.Running
-                "stopped" -> {
+                "stopped" -> QueryProcessState.Suspending
+                else -> throw RuntimeException(status)
+            }
+
+            if (state !== QueryProcessState.UpdatingState) {
+                if (newState === QueryProcessState.Suspending) {
                     if (state !== QueryProcessState.Suspended) {
                         state = QueryProcessState.Suspended
                         listener?.onsuspended(this.query.name)
                     }
-                    QueryProcessState.Suspended
+                } else {
+                    state = newState
                 }
-                else -> throw RuntimeException(status)
             }
         }
+    }
+
+    fun status(): String {
+        val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Status, XQuery)
+        query.bindVariable("requestId", requestId, "xs:unsignedLong")
+        return query.run().results.first().value as String
     }
 
     fun stop() {
