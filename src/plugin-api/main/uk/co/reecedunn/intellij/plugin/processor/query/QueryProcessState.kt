@@ -23,4 +23,5 @@ enum class QueryProcessState {
     Stopping,
     Suspended,
     Suspending,
+    UpdatingState,
 }

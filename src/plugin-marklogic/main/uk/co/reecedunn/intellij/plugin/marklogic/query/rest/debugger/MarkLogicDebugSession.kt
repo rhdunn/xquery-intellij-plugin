@@ -72,21 +72,25 @@ internal class MarkLogicDebugSession(
 
     override fun suspend() {
         if (state === QueryProcessState.Running) {
-            state = QueryProcessState.Suspending
+            state = QueryProcessState.UpdatingState
 
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Break, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
             query.run()
+
+            state = QueryProcessState.Suspending
         }
     }
 
     override fun resume() {
         if (state === QueryProcessState.Suspended) {
-            state = QueryProcessState.Resuming
+            state = QueryProcessState.UpdatingState
 
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Continue, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
             query.run()
+
+            state = QueryProcessState.Resuming
         }
     }
 
@@ -147,6 +151,12 @@ internal class MarkLogicDebugSession(
         while (state !== QueryProcessState.Stopped) {
             Thread.sleep(100)
 
+            if (state === QueryProcessState.UpdatingState) {
+                // Wait for the state changing MarkLogic request to complete
+                // before getting the new state from MarkLogic.
+                continue
+            }
+
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Status, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
             state = when (val status = query.run().results.first().value as String) {
@@ -165,9 +175,13 @@ internal class MarkLogicDebugSession(
     }
 
     fun stop() {
+        state = QueryProcessState.UpdatingState
+
         val query = processor.createRunnableQuery(MarkLogicQueries.Request.Cancel, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
         query.run()
+
+        state = QueryProcessState.Stopping
     }
 
     companion object {
