@@ -30,9 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints.MarkLogicXQueryBreakpointHandler
+import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType
 import java.lang.RuntimeException
 import java.lang.ref.WeakReference
@@ -41,6 +43,8 @@ internal class MarkLogicDebugSession(
     private val processor: MarkLogicQueryProcessor,
     private val query: VirtualFile
 ) : XDebuggerEvaluator(), DebugSession {
+    var modulePath: String = "/"
+
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
 
@@ -108,6 +112,20 @@ internal class MarkLogicDebugSession(
 
     // endregion
 
+    private fun getModuleUri(element: PsiElement): String? {
+        val file = element.containingFile.virtualFile
+        if (file == query) return ""
+
+        val project = element.project
+        val path = XpmModuleLoaderSettings.getInstance(project).relativePathTo(file, project)
+        return when {
+            path == null -> null
+            path.startsWith("/MarkLogic/") -> path
+            modulePath.endsWith("/") -> "$modulePath$path"
+            else -> "$modulePath/$path"
+        }
+    }
+
     private fun updateBreakpoint(uri: String, line: Int, column: Int, register: Boolean): Boolean {
         val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Breakpoint, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
@@ -124,11 +142,12 @@ internal class MarkLogicDebugSession(
         val currentState = state
         state = QueryProcessState.UpdatingState
 
+        val uri = getModuleUri(element) ?: return false
         val document = element.containingFile.document ?: return false
         val offset = element.textOffset
         val line = document.getLineNumber(offset)
         val column = offset - document.getLineStartOffset(line)
-        val ret = updateBreakpoint("", line + 1, column, register = register)
+        val ret = updateBreakpoint(uri, line + 1, column, register = register)
 
         if (state == QueryProcessState.UpdatingState) {
             state = currentState
