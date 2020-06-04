@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
@@ -57,6 +59,10 @@ class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
+    }
+
+    override fun relativePathTo(file: VirtualFile, project: Project): String? {
+        return root.relativePathTo(file)
     }
 
     // endregion

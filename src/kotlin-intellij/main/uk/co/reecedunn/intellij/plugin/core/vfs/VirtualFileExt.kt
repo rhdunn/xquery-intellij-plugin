@@ -27,3 +27,20 @@ fun VirtualFile.toPsiFile(project: Project): PsiFile? = PsiManager.getInstance(p
 fun VirtualFile.decode(): String? = inputStream?.decode(charset)
 
 val VirtualFile.originalFile: VirtualFile get() = (this as? LightVirtualFileBase)?.originalFile ?: this
+
+fun VirtualFile.isAncestorOf(file: VirtualFile): Boolean {
+    val fileParent = file.parent ?: return false
+    return this == fileParent || isAncestorOf(fileParent)
+}
+
+fun VirtualFile.relativePathTo(file: VirtualFile): String? {
+    return if (isAncestorOf(file))
+        relativePathTo(file.parent, file.name)
+    else
+        null
+}
+
+private fun VirtualFile.relativePathTo(file: VirtualFile?, path: String): String {
+    if (file == null || this == file) return path
+    return relativePathTo(file.parent, "${file.name}/$path")
+}

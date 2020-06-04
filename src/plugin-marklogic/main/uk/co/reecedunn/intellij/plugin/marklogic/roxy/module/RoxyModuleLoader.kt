@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.roxy.module
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
@@ -46,6 +48,11 @@ class RoxyModuleLoader(private val property: String) : XpmModuleLoader {
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
+    }
+
+    override fun relativePathTo(file: VirtualFile, project: Project): String? {
+        val root = RoxyConfiguration.getInstance(project).getDirectory(property)
+        return root?.relativePathTo(file)
     }
 
     // endregion

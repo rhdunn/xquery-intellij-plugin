@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
@@ -24,4 +25,6 @@ interface XpmModuleLoader {
     fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement?
 
     fun context(path: XpmModulePath, context: VirtualFile?): XstContext?
+
+    fun relativePathTo(file: VirtualFile, project: Project): String?
 }

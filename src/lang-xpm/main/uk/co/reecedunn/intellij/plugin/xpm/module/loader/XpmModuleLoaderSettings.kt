@@ -153,6 +153,10 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
         return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
     }
 
+    override fun relativePathTo(file: VirtualFile, project: Project): String? {
+        return loaders.get()?.asSequence()?.mapNotNull { it.relativePathTo(file, project) }?.firstOrNull()
+    }
+
     // endregion
     // region PersistentStateComponent
 

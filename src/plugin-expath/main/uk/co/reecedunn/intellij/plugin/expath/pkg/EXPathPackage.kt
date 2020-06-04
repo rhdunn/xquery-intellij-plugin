@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.expath.pkg
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
@@ -112,6 +113,8 @@ data class EXPathPackage internal constructor(
     override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
         return resolve(path, context) as? XstContext
     }
+
+    override fun relativePathTo(file: VirtualFile, project: Project): String? = null
 
     // endregion
     // region XpmModuleLoaderFactory

@@ -22,6 +22,7 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
+import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
@@ -69,6 +70,12 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
             is XpmModuleLocationPath -> resolve(path, context) as? XstContext
             else -> null
         }
+    }
+
+    override fun relativePathTo(file: VirtualFile, project: Project): String? {
+        return project.sourceFolders(rootType).map { folder ->
+            folder.file?.relativePathTo(file)
+        }.filterNotNull().firstOrNull()
     }
 
     // endregion
