@@ -15,12 +15,10 @@
  */
 package com.intellij.compat.roots
 
-import org.jetbrains.annotations.ApiStatus
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 @Suppress("NonExtendableApiUsage")
-@ApiStatus.NonExtendable
 interface SourceFolder : com.intellij.openapi.roots.SourceFolder {
     fun <P : JpsElement?> changeType(newType: JpsModuleSourceRootType<P>?, properties: P)
 }
