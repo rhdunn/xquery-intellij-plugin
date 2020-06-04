@@ -28,18 +28,24 @@ declare variable $exprColumn as xs:nonNegativeInteger external;
 let $status := dbg:status($requestId)/dbg:request/dbg:request-status
 let $_ := if ($status = "running") then dbg:break($requestId) else ()
 
-let $expr :=
-    for $expressionId in dbg:line($requestId, $exprUri, $exprLine)
-    let $expr := dbg:expr($requestId, $expressionId)
-    where $expr/dbg:line eq $exprLine and $expr/dbg:column eq $exprColumn
-    return $expr
-let $_ :=
-    if (exists($expr)) then
-        if ($register) then
-            dbg:break($requestId, $expr[1]/dbg:expr-id)
-        else
-            dbg:clear($requestId, $expr[1]/dbg:expr-id)
-    else ()
+let $result := try {
+    let $expr :=
+        for $expressionId in dbg:line($requestId, $exprUri, $exprLine)
+        let $expr := dbg:expr($requestId, $expressionId)
+        where $expr/dbg:line eq $exprLine and $expr/dbg:column eq $exprColumn
+        return $expr
+    let $_ :=
+        if (exists($expr)) then
+            if ($register) then
+                dbg:break($requestId, $expr[1]/dbg:expr-id)
+            else
+                dbg:clear($requestId, $expr[1]/dbg:expr-id)
+        else ()
+    return true()
+} catch ($e) {
+    (: Can throw a "Module not found" error. :)
+    false()
+}
 
 let $_ := if ($status = "running") then dbg:continue($requestId) else ()
-return exists($expr)
+return $result
