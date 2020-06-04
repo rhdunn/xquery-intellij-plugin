@@ -139,14 +139,15 @@ internal class MarkLogicDebugSession(
     fun updateBreakpoint(element: PsiElement, register: Boolean, initializing: Boolean = false): Boolean {
         if (!initializing && state === QueryProcessState.Starting) return true
 
-        val currentState = state
-        state = QueryProcessState.UpdatingState
-
         val uri = getModuleUri(element) ?: return false
         val document = element.containingFile.document ?: return false
         val offset = element.textOffset
         val line = document.getLineNumber(offset)
         val column = offset - document.getLineStartOffset(line)
+
+        val currentState = state
+        state = QueryProcessState.UpdatingState
+
         val ret = updateBreakpoint(uri, line + 1, column, register = register)
 
         if (state == QueryProcessState.UpdatingState) {
