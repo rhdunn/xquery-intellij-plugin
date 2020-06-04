@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.roots
 
+import com.intellij.compat.roots.SourceFolder
 import com.intellij.openapi.roots.ContentEntry
-import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRoot
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
@@ -52,5 +53,9 @@ class MockSourceFolder(private val file: VirtualFile, private val rootType: JpsM
 
     override fun getJpsElement(): JpsModuleSourceRoot {
         TODO("not implemented")
+    }
+
+    override fun <P : JpsElement?> changeType(newType: JpsModuleSourceRootType<P>?, properties: P) {
+        TODO("Not implemented")
     }
 }
