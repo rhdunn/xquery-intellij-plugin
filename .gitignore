@@ -16,3 +16,5 @@ classes/
 out/
 
 project-dependencies.*
+
+!src/**/gradle
