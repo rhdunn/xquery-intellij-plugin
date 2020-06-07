@@ -20,21 +20,25 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
 class RoxyModuleLoader : XpmModuleLoader {
     // region XpmModuleLoader
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
-            is XpmModuleLocationPath -> RoxyConfiguration.getInstance(path.project).modulePaths.map {
-                it.findFileByRelativePath(path.path)?.toPsiFile(path.project)
-            }.firstOrNull()
+            is XpmModuleLocationPath -> {
+                XpmProjectConfigurations.getInstance(path.project).configurations.flatMap { configuration ->
+                    configuration.modulePaths.map { root ->
+                        root.findFileByRelativePath(path.path)?.toPsiFile(path.project)
+                    }
+                }.firstOrNull()
+            }
             else -> null
         }
     }
@@ -47,8 +51,8 @@ class RoxyModuleLoader : XpmModuleLoader {
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? {
-        return RoxyConfiguration.getInstance(project).modulePaths.map {
-            it.relativePathTo(file)
+        return XpmProjectConfigurations.getInstance(project).configurations.flatMap { configuration ->
+            configuration.modulePaths.map { root -> root.relativePathTo(file) }
         }.firstOrNull()
     }
 

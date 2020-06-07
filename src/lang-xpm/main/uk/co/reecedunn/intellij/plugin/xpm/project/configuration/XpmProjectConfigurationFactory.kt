@@ -16,9 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.openapi.project.Project
 
 interface XpmProjectConfigurationFactory {
     companion object {
         val EP_NAME = ExtensionPointName.create<XpmProjectConfigurationFactory>("uk.co.reecedunn.intellij.projectConfigurationFactory")
     }
+
+    fun getInstance(project: Project): XpmProjectConfiguration
 }

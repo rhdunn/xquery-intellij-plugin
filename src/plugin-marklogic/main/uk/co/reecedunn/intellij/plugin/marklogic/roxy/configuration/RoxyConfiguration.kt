@@ -83,7 +83,7 @@ class RoxyConfiguration(private val project: Project) : XpmProjectConfiguration 
     // region XpmProjectConfigurationFactory
 
     companion object : XpmProjectConfigurationFactory {
-        fun getInstance(project: Project): XpmProjectConfiguration {
+        override fun getInstance(project: Project): XpmProjectConfiguration {
             return ServiceManager.getService(project, RoxyConfiguration::class.java)
         }
 

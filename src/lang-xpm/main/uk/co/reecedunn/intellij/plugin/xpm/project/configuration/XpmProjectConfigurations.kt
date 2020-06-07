@@ -17,8 +17,17 @@ package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 
 class XpmProjectConfigurations(private val project: Project) {
+    private val cachedConfigurations = CacheableProperty {
+        XpmProjectConfigurationFactory.EP_NAME.extensions.asSequence().map {
+            it.getInstance(project)
+        }.toList()
+    }
+
+    val configurations: Sequence<XpmProjectConfiguration> get() = cachedConfigurations.get()!!.asSequence()
+
     companion object {
         fun getInstance(project: Project): XpmProjectConfigurations {
             return ServiceManager.getService(project, XpmProjectConfigurations::class.java)
