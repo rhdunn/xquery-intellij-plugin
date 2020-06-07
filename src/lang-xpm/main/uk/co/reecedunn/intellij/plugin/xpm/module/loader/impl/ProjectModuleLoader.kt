@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
-class ProjectModuleLoader : XpmModuleLoader {
+object ProjectModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
     // region XpmModuleLoader
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
@@ -59,9 +59,7 @@ class ProjectModuleLoader : XpmModuleLoader {
     // endregion
     // region XpmModuleLoaderFactory
 
-    companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XpmModuleLoader? = ProjectModuleLoader()
-    }
+    override fun loader(context: String?): XpmModuleLoader? = this
 
     // endregion
 }
