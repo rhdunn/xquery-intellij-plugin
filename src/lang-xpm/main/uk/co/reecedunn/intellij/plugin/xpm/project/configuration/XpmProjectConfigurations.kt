@@ -20,6 +20,7 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.extensions.ExtensionPointListener
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 
 class XpmProjectConfigurations(private val project: Project) :
@@ -45,9 +46,15 @@ class XpmProjectConfigurations(private val project: Project) :
     // endregion
 
     private val cachedConfigurations = CacheableProperty {
-        XpmProjectConfigurationFactory.EP_NAME.extensions.asSequence().map {
-            it.getInstance(project)
-        }.toList()
+        val configurations = ArrayList<XpmProjectConfiguration>()
+        ProjectRootManager.getInstance(project).fileIndex.iterateContent { vf ->
+            if (!vf.isDirectory) return@iterateContent true
+            XpmProjectConfigurationFactory.EP_NAME.extensionList.forEach {
+                it.create(project, vf)?.let { configuration -> configurations.add(configuration) }
+            }
+            true
+        }
+        configurations
     }
 
     val configurations: Sequence<XpmProjectConfiguration> get() = cachedConfigurations.get()!!.asSequence()

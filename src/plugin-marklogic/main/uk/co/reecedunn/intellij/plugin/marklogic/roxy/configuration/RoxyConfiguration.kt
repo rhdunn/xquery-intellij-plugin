@@ -17,31 +17,17 @@ package uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration
 
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
 @Suppress("MemberVisibilityCanBePrivate")
-class RoxyConfiguration(private val project: Project) : XpmProjectConfiguration {
+class RoxyConfiguration(private val project: Project, val baseDir: VirtualFile) : XpmProjectConfiguration {
     // region Roxy
 
-    val baseDir: VirtualFile? by lazy {
-        var baseDir: VirtualFile? = null
-        ProjectRootManager.getInstance(project).fileIndex.iterateContent { vf ->
-            if (!vf.isDirectory && ML_COMMAND.contains(vf.name)) {
-                baseDir = vf.parent
-                return@iterateContent false
-            }
-            true
-        }
-        baseDir
-    }
-
-    private val deployDir = baseDir?.findChild("deploy")
+    private val deployDir = baseDir.findChild("deploy")
 
     private fun getPropertiesFile(name: String): PropertiesFile? {
         return deployDir?.findChild("$name.properties")?.toPsiFile(project) as? PropertiesFile
@@ -69,7 +55,7 @@ class RoxyConfiguration(private val project: Project) : XpmProjectConfiguration 
 
     fun getDirectory(property: String): VirtualFile? {
         return getPropertyValue(property)?.takeIf { it.startsWith("\${basedir}") }?.let {
-            baseDir?.findFileByRelativePath(it.substringAfter("\${basedir}"))
+            baseDir.findFileByRelativePath(it.substringAfter("\${basedir}"))
         }
     }
 
@@ -83,8 +69,8 @@ class RoxyConfiguration(private val project: Project) : XpmProjectConfiguration 
     // region XpmProjectConfigurationFactory
 
     companion object : XpmProjectConfigurationFactory {
-        override fun getInstance(project: Project): XpmProjectConfiguration {
-            return ServiceManager.getService(project, RoxyConfiguration::class.java)
+        override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
+            return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let { RoxyConfiguration(project, baseDir) }
         }
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
