@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
-class GradleConfiguration(private val project: Project, val baseDir: VirtualFile) : XpmProjectConfiguration {
+class GradleConfiguration(private val project: Project, override val baseDir: VirtualFile) : XpmProjectConfiguration {
     // region ml-gradle
 
     private fun getPropertiesFile(name: String?): PropertiesFile? {

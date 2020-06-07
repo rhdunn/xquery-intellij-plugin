@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 import com.intellij.openapi.vfs.VirtualFile
 
 interface XpmProjectConfiguration {
+    val baseDir: VirtualFile
+
     var environmentName: String
 
     val modulePaths: Sequence<VirtualFile>

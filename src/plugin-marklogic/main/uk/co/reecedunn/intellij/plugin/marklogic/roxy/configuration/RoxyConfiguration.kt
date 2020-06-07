@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfi
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
 @Suppress("MemberVisibilityCanBePrivate")
-class RoxyConfiguration(private val project: Project, val baseDir: VirtualFile) : XpmProjectConfiguration {
+class RoxyConfiguration(private val project: Project, override val baseDir: VirtualFile) : XpmProjectConfiguration {
     // region Roxy
 
     private val deployDir = baseDir.findChild("deploy")
