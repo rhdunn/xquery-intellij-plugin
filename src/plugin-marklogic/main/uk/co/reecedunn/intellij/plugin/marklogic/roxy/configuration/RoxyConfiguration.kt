@@ -22,6 +22,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyConfiguration(private val project: Project) {
@@ -69,7 +70,7 @@ class RoxyConfiguration(private val project: Project) {
         }
     }
 
-    companion object {
+    companion object : XpmProjectConfigurationFactory {
         fun getInstance(project: Project): RoxyConfiguration {
             return ServiceManager.getService(project, RoxyConfiguration::class.java)
         }

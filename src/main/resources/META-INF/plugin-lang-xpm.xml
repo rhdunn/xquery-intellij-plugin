@@ -13,6 +13,9 @@
 
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionDecorator" interface="uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator" dynamic="true"/>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.projectConfigurationFactory" interface="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory" dynamic="true"/>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
