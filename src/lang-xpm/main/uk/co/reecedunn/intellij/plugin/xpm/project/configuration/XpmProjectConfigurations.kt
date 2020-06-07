@@ -15,24 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
+import com.intellij.compat.openapi.extensions.ExtensionPointListener
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ServiceManager
-import com.intellij.openapi.extensions.ExtensionPointListener
-import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 
 class XpmProjectConfigurations(private val project: Project) :
-    ExtensionPointListener<XpmProjectConfigurationFactory>,
+    ExtensionPointListener<XpmProjectConfigurationFactory>(),
     Disposable {
     // region ExtensionPointListener
 
-    override fun extensionAdded(extension: XpmProjectConfigurationFactory, pluginDescriptor: PluginDescriptor) {
+    override fun extensionAdded(extension: XpmProjectConfigurationFactory) {
         cachedConfigurations.invalidate()
     }
 
-    override fun extensionRemoved(extension: XpmProjectConfigurationFactory, pluginDescriptor: PluginDescriptor) {
+    override fun extensionRemoved(extension: XpmProjectConfigurationFactory) {
         cachedConfigurations.invalidate()
     }
 
