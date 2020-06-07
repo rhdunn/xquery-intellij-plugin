@@ -89,7 +89,8 @@
     <p>Module Imports:</p>
     <ol>
       <li>Support resolving MarkLogic imports from a configured database install path.</li>
-      <li>Support resolving imports from the Roxy <code>xquery.dir</code> path.</li>
+      <li>Support resolving imports from the Roxy <code>xquery.dir</code> property path.</li>
+      <li>Support resolving imports from the ml-gradle <code>mlModulePaths</code> property paths.</li>
     </ol>
     <p>Endpoints:</p>
     <ol>

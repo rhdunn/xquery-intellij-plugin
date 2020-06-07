@@ -31,7 +31,8 @@ Run Configurations:
 Module Imports:
 
 1.  Support resolving MarkLogic imports from a configured database install path.
-1.  Support resolving imports from the Roxy `xquery.dir` path.
+1.  Support resolving imports from the Roxy `xquery.dir` property path.
+1.  Support resolving imports from the ml-gradle `mlModulePaths` property paths.
 
 Endpoints:
 

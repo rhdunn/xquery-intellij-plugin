@@ -55,7 +55,7 @@ class GradleConfiguration(private val project: Project, val baseDir: VirtualFile
     override val modulePaths: Sequence<VirtualFile>
         get() {
             val modulePaths = getPropertyValue(ML_MODULE_PATHS) ?: ML_MODULE_PATHS_DEFAULT
-            return modulePaths.split(",").asSequence().mapNotNull { baseDir.findFileByRelativePath(it) }
+            return modulePaths.split(",").asSequence().mapNotNull { baseDir.findFileByRelativePath("$it/root") }
         }
 
     // endregion
