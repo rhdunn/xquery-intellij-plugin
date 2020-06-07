@@ -56,6 +56,8 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
     // endregion
     // region XpmProjectConfiguration
 
+    override val applicationName: String? get() = getPropertyValue(APP_NAME)
+
     override var environmentName: String = "local"
         set(name) {
             field = name
@@ -75,6 +77,7 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
+        private const val APP_NAME = "app-name"
         private const val XQUERY_DIR = "xquery.dir"
     }
 

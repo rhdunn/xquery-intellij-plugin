@@ -20,6 +20,7 @@ import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
@@ -45,6 +46,8 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
 
     // endregion
     // region XpmProjectConfiguration
+
+    override val applicationName: String? get() = getPropertyValue(ML_APP_NAME)
 
     override var environmentName: String = "local"
         set(name) {

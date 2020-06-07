@@ -20,6 +20,8 @@ import com.intellij.openapi.vfs.VirtualFile
 interface XpmProjectConfiguration {
     val baseDir: VirtualFile
 
+    val applicationName: String?
+
     var environmentName: String
 
     val modulePaths: Sequence<VirtualFile>
