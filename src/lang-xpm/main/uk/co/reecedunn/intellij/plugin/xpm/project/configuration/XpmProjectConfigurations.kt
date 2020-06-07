@@ -15,11 +15,35 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.extensions.ExtensionPointListener
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 
-class XpmProjectConfigurations(private val project: Project) {
+class XpmProjectConfigurations(private val project: Project) :
+    ExtensionPointListener<XpmProjectConfigurationFactory>,
+    Disposable {
+    // region ExtensionPointListener
+
+    override fun extensionAdded(extension: XpmProjectConfigurationFactory, pluginDescriptor: PluginDescriptor) {
+        cachedConfigurations.invalidate()
+    }
+
+    override fun extensionRemoved(extension: XpmProjectConfigurationFactory, pluginDescriptor: PluginDescriptor) {
+        cachedConfigurations.invalidate()
+    }
+
+    // endregion
+    // region Disposable
+
+    override fun dispose() {
+        XpmProjectConfigurationFactory.EP_NAME.getPoint(null).removeExtensionPointListener(this)
+    }
+
+    // endregion
+
     private val cachedConfigurations = CacheableProperty {
         XpmProjectConfigurationFactory.EP_NAME.extensions.asSequence().map {
             it.getInstance(project)
@@ -27,6 +51,10 @@ class XpmProjectConfigurations(private val project: Project) {
     }
 
     val configurations: Sequence<XpmProjectConfiguration> get() = cachedConfigurations.get()!!.asSequence()
+
+    init {
+        XpmProjectConfigurationFactory.EP_NAME.getPoint(null).addExtensionPointListener(this, false, this)
+    }
 
     companion object {
         fun getInstance(project: Project): XpmProjectConfigurations {
