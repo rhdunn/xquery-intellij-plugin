@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.roxy.module
+package uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
-class RoxyModuleLoader : XpmModuleLoader {
+class ProjectModuleLoader : XpmModuleLoader {
     // region XpmModuleLoader
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
@@ -60,7 +60,7 @@ class RoxyModuleLoader : XpmModuleLoader {
     // region XpmModuleLoaderFactory
 
     companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XpmModuleLoader? = RoxyModuleLoader()
+        override fun loader(context: String?): XpmModuleLoader? = ProjectModuleLoader()
     }
 
     // endregion
