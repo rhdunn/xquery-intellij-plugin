@@ -21,6 +21,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath"/>
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
