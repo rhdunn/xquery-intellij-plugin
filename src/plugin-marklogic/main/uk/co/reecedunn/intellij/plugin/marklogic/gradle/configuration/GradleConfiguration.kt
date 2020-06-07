@@ -34,12 +34,6 @@ class GradleConfiguration(private val project: Project, val baseDir: VirtualFile
     private val build: PropertiesFile? = getPropertiesFile("default") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
-    var environmentName: String = "local"
-        set(name) {
-            field = name
-            env = getPropertiesFile(name)
-        }
-
     private fun getProperty(property: String): Sequence<IProperty> {
         return sequenceOf(
             env?.findPropertyByKey(property),
@@ -51,6 +45,12 @@ class GradleConfiguration(private val project: Project, val baseDir: VirtualFile
 
     // endregion
     // region XpmProjectConfiguration
+
+    override var environmentName: String = "local"
+        set(name) {
+            field = name
+            env = getPropertiesFile(name)
+        }
 
     override val modulePaths: Sequence<VirtualFile>
         get() {
