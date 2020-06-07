@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.gradle.configuration
 
+import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
@@ -23,10 +24,39 @@ import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfi
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
 class GradleConfiguration(private val project: Project, val baseDir: VirtualFile) : XpmProjectConfiguration {
+    // region ml-gradle
+
+    private fun getPropertiesFile(name: String?): PropertiesFile? {
+        val filename = name?.let { "gradle-${name}.properties" } ?: GRADLE_PROPERTIES
+        return baseDir.findChild(filename)?.toPsiFile(project) as? PropertiesFile
+    }
+
+    private val build: PropertiesFile? = getPropertiesFile("default") // Project-specific properties
+    private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
+
+    var environmentName: String = "local"
+        set(name) {
+            field = name
+            env = getPropertiesFile(name)
+        }
+
+    private fun getProperty(property: String): Sequence<IProperty> {
+        return sequenceOf(
+            env?.findPropertyByKey(property),
+            build?.findPropertyByKey(property)
+        ).filterNotNull()
+    }
+
+    private fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
+
+    // endregion
     // region XpmProjectConfiguration
 
     override val modulePaths: Sequence<VirtualFile>
-        get() = sequenceOf()
+        get() {
+            val modulePaths = getPropertyValue(ML_MODULE_PATHS) ?: ML_MODULE_PATHS_DEFAULT
+            return modulePaths.split(",").asSequence().mapNotNull { baseDir.findFileByRelativePath(it) }
+        }
 
     // endregion
     // region XpmProjectConfigurationFactory
@@ -38,7 +68,11 @@ class GradleConfiguration(private val project: Project, val baseDir: VirtualFile
         }
 
         private const val GRADLE_PROPERTIES = "gradle.properties"
+
         private const val ML_APP_NAME = "mlAppName"
+        private const val ML_MODULE_PATHS = "mlModulePaths"
+
+        private const val ML_MODULE_PATHS_DEFAULT = "src/main/ml-modules"
     }
 
     // endregion
