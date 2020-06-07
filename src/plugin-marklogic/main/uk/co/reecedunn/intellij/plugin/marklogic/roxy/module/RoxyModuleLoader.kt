@@ -24,21 +24,17 @@ import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfigur
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
-import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
-import java.io.File
-import java.net.URLClassLoader
 
-class RoxyModuleLoader(private val property: String) : XpmModuleLoader {
+class RoxyModuleLoader : XpmModuleLoader {
     // region XpmModuleLoader
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
         return when (path) {
-            is XpmModuleLocationPath -> {
-                val root = RoxyConfiguration.getInstance(path.project).getDirectory(property)
-                return root?.findFileByRelativePath(path.path)?.toPsiFile(path.project)
-            }
+            is XpmModuleLocationPath -> RoxyConfiguration.getInstance(path.project).modulePaths.map {
+                it.findFileByRelativePath(path.path)?.toPsiFile(path.project)
+            }.firstOrNull()
             else -> null
         }
     }
@@ -51,17 +47,16 @@ class RoxyModuleLoader(private val property: String) : XpmModuleLoader {
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? {
-        val root = RoxyConfiguration.getInstance(project).getDirectory(property)
-        return root?.relativePathTo(file)
+        return RoxyConfiguration.getInstance(project).modulePaths.map {
+            it.relativePathTo(file)
+        }.firstOrNull()
     }
 
     // endregion
     // region XpmModuleLoaderFactory
 
     companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XpmModuleLoader? {
-            return context?.let { RoxyModuleLoader(it) }
-        }
+        override fun loader(context: String?): XpmModuleLoader? = RoxyModuleLoader()
     }
 
     // endregion

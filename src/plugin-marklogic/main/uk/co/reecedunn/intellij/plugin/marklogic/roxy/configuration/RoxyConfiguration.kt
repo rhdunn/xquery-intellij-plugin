@@ -27,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfi
 
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyConfiguration(private val project: Project) : XpmProjectConfiguration {
+    // region Roxy
+
     val baseDir: VirtualFile? by lazy {
         var baseDir: VirtualFile? = null
         ProjectRootManager.getInstance(project).fileIndex.iterateContent { vf ->
@@ -71,11 +73,24 @@ class RoxyConfiguration(private val project: Project) : XpmProjectConfiguration 
         }
     }
 
+    // endregion
+    // region XpmProjectConfiguration
+
+    override val modulePaths: Sequence<VirtualFile>
+        get() = sequenceOf(getDirectory(XQUERY_DIR)).filterNotNull()
+
+    // endregion
+    // region XpmProjectConfigurationFactory
+
     companion object : XpmProjectConfigurationFactory {
-        fun getInstance(project: Project): RoxyConfiguration {
+        fun getInstance(project: Project): XpmProjectConfiguration {
             return ServiceManager.getService(project, RoxyConfiguration::class.java)
         }
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
+
+        private const val XQUERY_DIR = "xquery.dir"
     }
+
+    // endregion
 }
