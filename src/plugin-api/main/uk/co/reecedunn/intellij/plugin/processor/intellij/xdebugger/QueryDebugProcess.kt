@@ -68,6 +68,8 @@ class QueryDebugProcess(
 
     override fun startStepInto(context: XSuspendContext?) = debugger.stepInto()
 
+    override fun startStepOver(context: XSuspendContext?) = debugger.stepOver()
+
     override fun positionReached() {
         invokeLater(ModalityState.defaultModalityState()) {
             session.positionReached(debugger.suspendContext)

@@ -31,6 +31,8 @@ interface DebugSession {
 
     fun stepInto()
 
+    fun stepOver()
+
     val stackFrames: List<XStackFrame>
 
     val suspendContext: XSuspendContext

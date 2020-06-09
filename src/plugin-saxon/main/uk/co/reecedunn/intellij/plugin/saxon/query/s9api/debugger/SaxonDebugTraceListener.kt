@@ -52,6 +52,9 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     override fun stepInto() {
     }
 
+    override fun stepOver() {
+    }
+
     override val stackFrames: List<XStackFrame> get() = currentStackFrames.asReversed()
 
     override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)

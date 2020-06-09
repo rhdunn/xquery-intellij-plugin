@@ -101,6 +101,10 @@ internal class MarkLogicDebugSession(
         performAction(MarkLogicQueries.Debug.StepInto, QueryProcessState.Suspended, QueryProcessState.Resuming)
     }
 
+    override fun stepOver() {
+        performAction(MarkLogicQueries.Debug.StepOver, QueryProcessState.Suspended, QueryProcessState.Resuming)
+    }
+
     override val stackFrames: List<XStackFrame>
         get() {
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
