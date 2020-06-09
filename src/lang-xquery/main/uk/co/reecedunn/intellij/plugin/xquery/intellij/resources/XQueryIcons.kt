@@ -29,7 +29,7 @@ object XQueryIcons {
 
     object Endpoints {
         val EndpointOverlay = getIcon("/icons/web_overlay.svg")
-        val FunctionEndpoint: Icon = LayeredIcon.create(XPathIcons.Nodes.FunctionDecl, EndpointOverlay)
+        val FunctionEndpoint: Icon = getIcon("/icons/nodes/functionEndpoint.svg")
     }
 
     object Nodes {
