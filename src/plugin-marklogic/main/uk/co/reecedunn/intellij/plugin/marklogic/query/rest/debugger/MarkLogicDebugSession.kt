@@ -77,28 +77,28 @@ internal class MarkLogicDebugSession(
 
     override var listener: DebugSessionListener? = null
 
-    override fun suspend() {
-        if (state === QueryProcessState.Running) {
+    private fun performAction(queryFile: VirtualFile, ifState: QueryProcessState, nextState: QueryProcessState) {
+        if (state === ifState) {
             state = QueryProcessState.UpdatingState
 
-            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Break, XQuery)
+            val query = processor.createRunnableQuery(queryFile, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
             query.run()
 
-            state = QueryProcessState.Suspending
+            state = nextState
         }
     }
 
+    override fun suspend() {
+        performAction(MarkLogicQueries.Debug.Break, QueryProcessState.Running, QueryProcessState.Suspending)
+    }
+
     override fun resume() {
-        if (state === QueryProcessState.Suspended) {
-            state = QueryProcessState.UpdatingState
+        performAction(MarkLogicQueries.Debug.Continue, QueryProcessState.Suspended, QueryProcessState.Resuming)
+    }
 
-            val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Continue, XQuery)
-            query.bindVariable("requestId", requestId, "xs:unsignedLong")
-            query.run()
-
-            state = QueryProcessState.Resuming
-        }
+    override fun stepInto() {
+        performAction(MarkLogicQueries.Debug.StepInto, QueryProcessState.Suspended, QueryProcessState.Resuming)
     }
 
     override val stackFrames: List<XStackFrame>

@@ -41,6 +41,7 @@ object MarkLogicQueries {
         val Continue = resourceFile("queries/marklogic/debug/continue.xq")
         val Stack = resourceFile("queries/marklogic/debug/stack.xq")
         val Status = resourceFile("queries/marklogic/debug/status.xq")
+        val StepInto = resourceFile("queries/marklogic/debug/step-into.xq")
         val Value = resourceFile("queries/marklogic/debug/value.xq")
     }
 
