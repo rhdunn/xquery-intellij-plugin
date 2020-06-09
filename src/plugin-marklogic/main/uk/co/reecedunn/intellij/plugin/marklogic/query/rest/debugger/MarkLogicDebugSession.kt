@@ -198,7 +198,7 @@ internal class MarkLogicDebugSession(
                 if (newState === QueryProcessState.Suspending) {
                     if (state !== QueryProcessState.Suspended) {
                         state = QueryProcessState.Suspended
-                        listener?.onsuspended(this.query.name)
+                        listener?.positionReached()
                     }
                 } else {
                     state = newState
@@ -207,7 +207,7 @@ internal class MarkLogicDebugSession(
         }
     }
 
-    fun status(): String {
+    private fun status(): String {
         val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Status, XQuery)
         query.bindVariable("requestId", requestId, "xs:unsignedLong")
         return query.run().results.first().value as String

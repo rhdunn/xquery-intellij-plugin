@@ -16,5 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
 interface DebugSessionListener {
-    fun onsuspended(displayName: String)
+    fun positionReached()
 }

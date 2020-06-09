@@ -56,7 +56,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
             state = QueryProcessState.Suspended
-            listener?.onsuspended(query.name)
+            listener?.positionReached()
         }
 
         while (state === QueryProcessState.Suspended) {
