@@ -34,14 +34,15 @@ let $result := try {
         let $expr := dbg:expr($requestId, $expressionId)
         where $expr/dbg:line eq $exprLine and $expr/dbg:column eq $exprColumn
         return $expr
-    let $_ :=
-        if (exists($expr)) then
+    return if (exists($expr)) then
+        let $_ :=
             if ($register) then
                 dbg:break($requestId, $expr[1]/dbg:expr-id)
             else
                 dbg:clear($requestId, $expr[1]/dbg:expr-id)
-        else ()
-    return true()
+        return true()
+    else
+        false()
 } catch ($e) {
     (: Can throw a "Module not found" error. :)
     false()
