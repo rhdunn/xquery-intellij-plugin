@@ -6,6 +6,7 @@ MarkLogic:
 
 1.  Support stopping MarkLogic queries.
 1.  Support registering MarkLogic schema files.
+1.  Support for debugging MarkLogic XQuery-based queries.
 
 eXist-db / FusionDB:
 

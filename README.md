@@ -32,6 +32,7 @@ For those XQuery implementations, this plugin supports:
 1.  Running XQuery, XSLT, XPath, SPARQL, SQL, and JavaScript queries where
     supported by the implementation;
 1.  Profiling XQuery and XSLT queries;
+1.  Debugging MarkLogic XQuery-based queries; __\[Next Release]__
 1.  Viewing access and error log files.
 
 This plugin provides additional integration support for the following query

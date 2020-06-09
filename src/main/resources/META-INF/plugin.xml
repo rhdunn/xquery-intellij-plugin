@@ -67,6 +67,7 @@
     <ol>
       <li>Support stopping MarkLogic queries.</li>
       <li>Support registering MarkLogic schema files.</li>
+      <li>Support for debugging MarkLogic XQuery-based queries.</li>
     </ol>
     <p>eXist-db / FusionDB:</p>
     <ol>
