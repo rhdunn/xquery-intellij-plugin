@@ -68,7 +68,7 @@ class QueryDebugProcess(
 
     override fun onsuspended(displayName: String) {
         invokeLater(ModalityState.defaultModalityState()) {
-            session.positionReached(QuerySuspendContext(displayName, debugger))
+            session.positionReached(debugger.suspendContext)
         }
     }
 }

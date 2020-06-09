@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.debug
 import com.intellij.lang.Language
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.frame.XStackFrame
+import com.intellij.xdebugger.frame.XSuspendContext
 
 interface DebugSession {
     fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>>
@@ -29,4 +30,6 @@ interface DebugSession {
     fun resume()
 
     val stackFrames: List<XStackFrame>
+
+    val suspendContext: XSuspendContext
 }

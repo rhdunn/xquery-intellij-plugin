@@ -19,8 +19,10 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.frame.XStackFrame
+import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
@@ -48,6 +50,8 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     }
 
     override val stackFrames: List<XStackFrame> get() = currentStackFrames.asReversed()
+
+    override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)
 
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {

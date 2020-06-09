@@ -24,6 +24,7 @@ import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XStackFrame
+import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -33,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints
 import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType
@@ -109,6 +111,8 @@ internal class MarkLogicDebugSession(
                 MarkLogicDebugFrame.create(it, this.query, this)
             }.toList()
         }
+
+    override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)
 
     // endregion
 
