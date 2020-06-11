@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
-import com.intellij.compat.openapi.extensions.instantiateBean
+import com.intellij.compat.extensions.instantiateBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag

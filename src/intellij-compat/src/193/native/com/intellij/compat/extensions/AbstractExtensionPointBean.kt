@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.openapi.extensions
+package com.intellij.compat.extensions
 
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
 import org.picocontainer.PicoContainer

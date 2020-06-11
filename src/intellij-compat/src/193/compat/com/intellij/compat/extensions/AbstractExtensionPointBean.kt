@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.openapi.extensions
+package com.intellij.compat.extensions
 
-import com.intellij.openapi.extensions.PluginDescriptor
+import com.intellij.openapi.extensions.AbstractExtensionPointBean
+import org.picocontainer.PicoContainer
 
-abstract class ExtensionPointListener<T> : com.intellij.openapi.extensions.ExtensionPointListener<T> {
-    override fun extensionAdded(extension: T, pluginDescriptor: PluginDescriptor?) = extensionAdded(extension)
-
-    abstract fun extensionAdded(extension: T)
-
-    override fun extensionRemoved(extension: T, pluginDescriptor: PluginDescriptor?) = extensionRemoved(extension)
-
-    abstract fun extensionRemoved(extension: T)
+// instantiate is deprecated in IntelliJ 2019.3.
+fun <T> AbstractExtensionPointBean.instantiateBean(className: String, container: PicoContainer): T {
+    return this.instantiate<T>(className, container)
 }
