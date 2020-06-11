@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
+import com.intellij.compat.extensions.extensionPoint
 import com.intellij.compat.openapi.extensions.ExtensionPointListener
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ServiceManager
@@ -39,7 +40,7 @@ class XpmProjectConfigurations(private val project: Project) :
     // region Disposable
 
     override fun dispose() {
-        XpmProjectConfigurationFactory.EP_NAME.getPoint(null).removeExtensionPointListener(this)
+        XpmProjectConfigurationFactory.EP_NAME.extensionPoint.removeExtensionPointListener(this)
     }
 
     // endregion
@@ -59,7 +60,7 @@ class XpmProjectConfigurations(private val project: Project) :
     val configurations: Sequence<XpmProjectConfiguration> get() = cachedConfigurations.get()!!.asSequence()
 
     init {
-        XpmProjectConfigurationFactory.EP_NAME.getPoint(null).addExtensionPointListener(this, false, this)
+        XpmProjectConfigurationFactory.EP_NAME.extensionPoint.addExtensionPointListener(this, false, this)
     }
 
     companion object {
