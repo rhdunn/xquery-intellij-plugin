@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
+import com.intellij.compat.serviceContainer.LazyExtensionInstance
 import com.intellij.compat.extensions.instantiateBean
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.extensions.AbstractExtensionPointBean
 import com.intellij.util.xmlb.annotations.Attribute
 
-class XpmModuleLoaderFactoryBean : AbstractExtensionPointBean() {
+class XpmModuleLoaderFactoryBean : LazyExtensionInstance<XpmModuleLoaderFactory>() {
     @Attribute("name")
     var name: String = ""
 
