@@ -18,6 +18,7 @@ package com.intellij.compat.testFramework
 
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
@@ -112,11 +113,11 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     // region Registering Extension Points
 
     fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
-        registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
+        registerExtensionPoint(ApplicationManager.getApplication().extensionArea, extensionPointName, aClass)
     }
 
     fun registerExtensionPoint(epClassName: String, epField: String, aClass: Class<*>? = null) {
-        registerExtensionPoint(Extensions.getRootArea(), epClassName, epField, aClass)
+        registerExtensionPoint(ApplicationManager.getApplication().extensionArea, epClassName, epField, aClass)
     }
 
     fun <T> registerExtensionPoint(
@@ -176,7 +177,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
-        registerExtension(Extensions.getRootArea(), extensionPointName, extension)
+        registerExtension(ApplicationManager.getApplication().extensionArea, extensionPointName, extension)
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
@@ -202,7 +203,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     fun <T : Any> registerExtension(epClassName: String, epField: String, extension: T) {
-        registerExtension(Extensions.getRootArea(), epClassName, epField, extension)
+        registerExtension(ApplicationManager.getApplication().extensionArea, epClassName, epField, extension)
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
