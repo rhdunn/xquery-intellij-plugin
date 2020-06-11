@@ -30,8 +30,6 @@ class MockPsiDocumentManagerEx(project: Project) : PsiDocumentManagerBase(projec
 
     override fun getPsiFile(document: Document): PsiFile? = TODO()
 
-    override fun getCachedPsiFile(document: Document): PsiFile? = TODO()
-
     override fun getDocument(file: PsiFile): Document? {
         val vFile = file.viewProvider.virtualFile
         return FileDocumentManager.getInstance().getDocument(vFile)
@@ -56,7 +54,7 @@ class MockPsiDocumentManagerEx(project: Project) : PsiDocumentManagerBase(projec
 
     override fun getLastCommittedDocument(file: PsiFile): Document? = null
 
-    override fun getUncommittedDocuments(): Array<Document?> = TODO()
+    override fun getUncommittedDocuments(): Array<Document> = TODO()
 
     override fun isUncommited(document: Document): Boolean = TODO()
 
