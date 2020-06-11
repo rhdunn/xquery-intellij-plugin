@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
-import com.intellij.compat.extensions.instantiateBean
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
 
@@ -25,11 +23,7 @@ interface XpmModuleLoaderFactory {
         val EP_NAME = ExtensionPointName.create<XpmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
 
         fun create(name: String, context: String?): XpmModuleLoader? {
-            return EP_NAME.extensions.find { it.name == name }?.let {
-                val container = ApplicationManager.getApplication().picoContainer
-                val instance = it.instantiateBean<XpmModuleLoaderFactory>(it.implementation, container)
-                instance.loader(context)
-            }
+            return EP_NAME.extensions.find { it.name == name }?.getInstance()?.loader(context)
         }
     }
 

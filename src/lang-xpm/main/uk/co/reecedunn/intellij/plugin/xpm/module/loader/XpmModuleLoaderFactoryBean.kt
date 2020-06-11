@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
+import com.intellij.compat.extensions.instantiateBean
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
 import com.intellij.util.xmlb.annotations.Attribute
 
@@ -24,4 +26,9 @@ class XpmModuleLoaderFactoryBean : AbstractExtensionPointBean() {
 
     @Attribute("implementation")
     var implementation: String = ""
+
+    fun getInstance(): XpmModuleLoaderFactory {
+        val container = ApplicationManager.getApplication().picoContainer
+        return instantiateBean(implementation, container)
+    }
 }
