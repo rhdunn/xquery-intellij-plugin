@@ -104,7 +104,6 @@ private class FullTextPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("() contains text (# test #) {}")[0] as XsQNameValue
-                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("pragma"))
                 assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Pragma))
 
                 assertThat(qname.isLexicalQName, `is`(true))

@@ -48,7 +48,6 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathEQName>("() instance of union(test)")[0] as XsQNameValue
-                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
                 assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -192,7 +191,6 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathEQName>("() instance of ~ test")[0] as XsQNameValue
-                assertThat(XPathFindUsagesProvider.getType(qname.element!!), `is`("type"))
                 assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
