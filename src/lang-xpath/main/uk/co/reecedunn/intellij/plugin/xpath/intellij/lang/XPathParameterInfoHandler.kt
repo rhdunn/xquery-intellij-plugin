@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
-object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XdmFunctionDeclaration> {
+class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XdmFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
 
     override fun getParametersForLookup(item: LookupElement?, context: ParameterInfoContext?): Array<Any>? {
@@ -100,6 +100,8 @@ object XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XdmFu
         return functionName?.staticallyKnownFunctions()?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
     }
 
-    private const val PARAM_SEPARATOR = ", "
-    private const val VARIADIC_MARKER = " ..."
+    companion object {
+        private const val PARAM_SEPARATOR = ", "
+        private const val VARIADIC_MARKER = " ..."
+    }
 }
