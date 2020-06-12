@@ -15,8 +15,15 @@
  */
 package com.intellij.compat.serviceContainer
 
+import com.intellij.compat.extensions.instantiateBean
+import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
+import com.intellij.openapi.extensions.PluginDescriptor
 
 abstract class LazyExtensionInstance<T> : AbstractExtensionPointBean() {
     protected abstract fun getImplementationClassName(): String
+
+    fun getInstance(componentManager: ComponentManager, pluginDescriptor: PluginDescriptor): T {
+        return instantiateBean(getImplementationClassName(), componentManager.picoContainer)
+    }
 }

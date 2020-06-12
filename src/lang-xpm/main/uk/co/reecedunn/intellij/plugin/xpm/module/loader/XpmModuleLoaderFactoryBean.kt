@@ -16,28 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.compat.serviceContainer.LazyExtensionInstance
-import com.intellij.compat.extensions.instantiateBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.util.xmlb.annotations.Attribute
 
 class XpmModuleLoaderFactoryBean : LazyExtensionInstance<XpmModuleLoaderFactory>() {
-    // region XpmModuleLoaderFactoryBean
-
     @Attribute("name")
     var name: String = ""
 
     @Attribute("implementation")
     var implementation: String = ""
 
-    fun getInstance(): XpmModuleLoaderFactory {
-        val container = ApplicationManager.getApplication().picoContainer
-        return instantiateBean(implementation, container)
-    }
-
-    // endregion
-    // region LazyExtensionInstance
+    fun getInstance(): XpmModuleLoaderFactory = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
 
     override fun getImplementationClassName(): String = implementation
-
-    // endregion
 }

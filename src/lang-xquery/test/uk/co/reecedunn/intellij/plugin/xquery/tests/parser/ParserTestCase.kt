@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import com.intellij.compat.testFramework.registerCodeStyleCachingService
 import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import org.junit.jupiter.api.AfterAll
@@ -94,9 +96,11 @@ abstract class ParserTestCase :
     }
 
     private fun registerModuleLoader(name: String, implementation: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModuleLoaderFactoryBean()
         bean.name = name
         bean.implementation = implementation
+        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader)
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }
 
