@@ -20,7 +20,7 @@ import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
 import com.intellij.spellchecker.tokenizer.Tokenizer
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
-object XPathSpellcheckingStrategy : SpellcheckingStrategy() {
+class XPathSpellcheckingStrategy : SpellcheckingStrategy() {
     override fun getTokenizer(element: PsiElement?): Tokenizer<*> {
         if (element?.language !== XPath) return EMPTY_TOKENIZER
         return super.getTokenizer(element)
