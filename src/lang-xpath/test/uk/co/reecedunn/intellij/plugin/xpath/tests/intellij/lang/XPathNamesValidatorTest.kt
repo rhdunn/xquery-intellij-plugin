@@ -23,66 +23,68 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathName
 
 @DisplayName("IntelliJ - Custom Language Support - Rename Refactoring - Names Validator")
 class XPathNamesValidatorTest {
+    private val validator = XPathNamesValidator()
+
     @Test
     @DisplayName("empty")
     fun empty() {
-        assertThat(XPathNamesValidator.isKeyword("", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("", null), `is`(false))
+        assertThat(validator.isKeyword("", null), `is`(false))
+        assertThat(validator.isIdentifier("", null), `is`(false))
     }
 
     @Test
     @DisplayName("keyword")
     fun keyword() {
-        assertThat(XPathNamesValidator.isKeyword("for", null), `is`(false)) // Is a valid identifier name.
-        assertThat(XPathNamesValidator.isIdentifier("for", null), `is`(true))
+        assertThat(validator.isKeyword("for", null), `is`(false)) // Is a valid identifier name.
+        assertThat(validator.isIdentifier("for", null), `is`(true))
     }
 
     @Test
     @DisplayName("NCName")
     fun ncname() {
-        assertThat(XPathNamesValidator.isKeyword("abc2def.GHI-jkl\u0330mno", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("abc2def.GHI-jkl\u0330mno", null), `is`(true))
+        assertThat(validator.isKeyword("abc2def.GHI-jkl\u0330mno", null), `is`(false))
+        assertThat(validator.isIdentifier("abc2def.GHI-jkl\u0330mno", null), `is`(true))
     }
 
     @Test
     @DisplayName("whitespace before")
     fun whitespaceBefore() {
-        assertThat(XPathNamesValidator.isKeyword(" \t  test", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier(" \t  test", null), `is`(true))
+        assertThat(validator.isKeyword(" \t  test", null), `is`(false))
+        assertThat(validator.isIdentifier(" \t  test", null), `is`(true))
     }
 
     @Test
     @DisplayName("whitespace after")
     fun whitespaceAfter() {
-        assertThat(XPathNamesValidator.isKeyword("test \t  ", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("test \t  ", null), `is`(true))
+        assertThat(validator.isKeyword("test \t  ", null), `is`(false))
+        assertThat(validator.isIdentifier("test \t  ", null), `is`(true))
     }
 
     @Test
     @DisplayName("invalid NCName start character")
     fun invalidNCNameStartChar() {
-        assertThat(XPathNamesValidator.isKeyword("123test", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("123test", null), `is`(false))
+        assertThat(validator.isKeyword("123test", null), `is`(false))
+        assertThat(validator.isIdentifier("123test", null), `is`(false))
     }
 
     @Test
     @DisplayName("number (not an identifier)")
     fun number() {
-        assertThat(XPathNamesValidator.isKeyword("123", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("123", null), `is`(false))
+        assertThat(validator.isKeyword("123", null), `is`(false))
+        assertThat(validator.isIdentifier("123", null), `is`(false))
     }
 
     @Test
     @DisplayName("VarRef")
     fun varRef() {
-        assertThat(XPathNamesValidator.isKeyword("\$test", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("\$test", null), `is`(false))
+        assertThat(validator.isKeyword("\$test", null), `is`(false))
+        assertThat(validator.isIdentifier("\$test", null), `is`(false))
     }
 
     @Test
     @DisplayName("multiple tokens")
     fun multipleTokens() {
-        assertThat(XPathNamesValidator.isKeyword("lorem ipsum", null), `is`(false))
-        assertThat(XPathNamesValidator.isIdentifier("lorem ipsum", null), `is`(false))
+        assertThat(validator.isKeyword("lorem ipsum", null), `is`(false))
+        assertThat(validator.isIdentifier("lorem ipsum", null), `is`(false))
     }
 }

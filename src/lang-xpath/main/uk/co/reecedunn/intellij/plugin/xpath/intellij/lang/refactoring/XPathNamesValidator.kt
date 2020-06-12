@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-object XPathNamesValidator : NamesValidator {
+class XPathNamesValidator : NamesValidator {
     private val lexer = XPathLexer(CodePointRangeImpl())
 
     override fun isKeyword(name: String, project: Project?): Boolean = false
