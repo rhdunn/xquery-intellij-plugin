@@ -23,6 +23,7 @@ import com.intellij.openapi.extensions.PluginDescriptor
 abstract class LazyExtensionInstance<T> : AbstractExtensionPointBean() {
     protected abstract fun getImplementationClassName(): String
 
+    @Suppress("UNUSED_PARAMETER")
     fun getInstance(componentManager: ComponentManager, pluginDescriptor: PluginDescriptor): T {
         return instantiateBean(getImplementationClassName(), componentManager.picoContainer)
     }

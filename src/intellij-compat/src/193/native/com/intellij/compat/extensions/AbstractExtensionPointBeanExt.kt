@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,12 @@
  */
 package com.intellij.compat.extensions
 
-import com.intellij.openapi.extensions.AbstractExtensionPointBean
+import com.intellij.compat.serviceContainer.LazyExtensionInstance
 import org.picocontainer.PicoContainer
 
 // instantiate is deprecated in IntelliJ 2019.3.
-fun <T> AbstractExtensionPointBean.instantiateBean(className: String, container: PicoContainer): T {
+// AbstractExtensionPointBean is deprecated in IntelliJ 2020.2.
+@Suppress("unused")
+fun <T> LazyExtensionInstance<T>.instantiateBean(className: String, container: PicoContainer): T {
     return this.instantiateClass<T>(className, container)
 }
