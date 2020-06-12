@@ -24,7 +24,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import java.util.ArrayList
 
-open class FoldingBuilderImpl : FoldingBuilderEx() {
+class FoldingBuilderImpl : FoldingBuilderEx() {
     private fun getRange(element: FoldablePsiElement): TextRange? {
         if (!element.textContains('\n')) {
             return null
