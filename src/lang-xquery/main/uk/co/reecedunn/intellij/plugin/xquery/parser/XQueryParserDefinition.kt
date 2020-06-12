@@ -74,10 +74,10 @@ object XQueryParserDefinition : ParserDefinition {
     override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
         val leftType = left?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
         val rightType = right?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
-        return spaceExistenceTypeBetweenTokens(leftType, rightType)
+        return spaceRequirements(leftType, rightType)
     }
 
-    fun spaceExistenceTypeBetweenTokens(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
-        return XPathParserDefinition.spaceExistenceTypeBetweenTokens(left, right)
+    fun spaceRequirements(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
+        return XPathParserDefinition.spaceRequirements(left, right)
     }
 }

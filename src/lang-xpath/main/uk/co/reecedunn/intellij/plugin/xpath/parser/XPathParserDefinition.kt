@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 
-object XPathParserDefinition : ParserDefinition {
+class XPathParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     override fun createParser(project: Project): PsiParser = XPathParser()
@@ -60,43 +60,45 @@ object XPathParserDefinition : ParserDefinition {
     override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
         val leftType = left?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
         val rightType = right?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
-        return spaceExistenceTypeBetweenTokens(leftType, rightType)
+        return spaceRequirements(leftType, rightType)
     }
 
-    fun spaceExistenceTypeBetweenTokens(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
-        return when {
-            isNonDelimiting(left) && isNonDelimiting(right) -> ParserDefinition.SpaceRequirements.MUST
-            left is INCNameType && isNCNamePart(right) -> ParserDefinition.SpaceRequirements.MUST
-            isNumericLiteral(left) && right === XPathTokenType.DOT -> ParserDefinition.SpaceRequirements.MUST
-            left === XPathTokenType.DOT && isNumericLiteral(right) -> ParserDefinition.SpaceRequirements.MUST
-            else -> ParserDefinition.SpaceRequirements.MAY
+    companion object {
+        fun spaceRequirements(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
+            return when {
+                isNonDelimiting(left) && isNonDelimiting(right) -> ParserDefinition.SpaceRequirements.MUST
+                left is INCNameType && isNCNamePart(right) -> ParserDefinition.SpaceRequirements.MUST
+                isNumericLiteral(left) && right === XPathTokenType.DOT -> ParserDefinition.SpaceRequirements.MUST
+                left === XPathTokenType.DOT && isNumericLiteral(right) -> ParserDefinition.SpaceRequirements.MUST
+                else -> ParserDefinition.SpaceRequirements.MAY
+            }
         }
-    }
 
-    private fun isNonDelimiting(symbol: IElementType): Boolean {
-        return when (symbol) {
-            is INCNameType -> true
-            XPathTokenType.INTEGER_LITERAL -> true
-            XPathTokenType.DECIMAL_LITERAL -> true
-            XPathTokenType.DOUBLE_LITERAL -> true
-            else -> false
+        private fun isNonDelimiting(symbol: IElementType): Boolean {
+            return when (symbol) {
+                is INCNameType -> true
+                XPathTokenType.INTEGER_LITERAL -> true
+                XPathTokenType.DECIMAL_LITERAL -> true
+                XPathTokenType.DOUBLE_LITERAL -> true
+                else -> false
+            }
         }
-    }
 
-    private fun isNCNamePart(symbol: IElementType): Boolean {
-        return when (symbol) {
-            XPathTokenType.DOT -> true
-            XPathTokenType.MINUS -> true
-            else -> false
+        private fun isNCNamePart(symbol: IElementType): Boolean {
+            return when (symbol) {
+                XPathTokenType.DOT -> true
+                XPathTokenType.MINUS -> true
+                else -> false
+            }
         }
-    }
 
-    private fun isNumericLiteral(symbol: IElementType): Boolean {
-        return when (symbol) {
-            XPathTokenType.INTEGER_LITERAL -> true
-            XPathTokenType.DECIMAL_LITERAL -> true
-            XPathTokenType.DOUBLE_LITERAL -> true
-            else -> false
+        private fun isNumericLiteral(symbol: IElementType): Boolean {
+            return when (symbol) {
+                XPathTokenType.INTEGER_LITERAL -> true
+                XPathTokenType.DECIMAL_LITERAL -> true
+                XPathTokenType.DOUBLE_LITERAL -> true
+                else -> false
+            }
         }
     }
 }

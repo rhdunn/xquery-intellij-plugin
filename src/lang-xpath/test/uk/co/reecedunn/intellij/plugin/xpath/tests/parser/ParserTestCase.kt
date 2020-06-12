@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefinition) {
+abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefinition()) {
     @BeforeAll
     override fun setUp() {
         super.setUp()

@@ -112,14 +112,14 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     internal inner class TerminalDelimitation {
         fun required(left: IElementType, right: IElementType) {
             assertThat(
-                XQueryParserDefinition.spaceExistenceTypeBetweenTokens(left, right),
+                XQueryParserDefinition.spaceRequirements(left, right),
                 `is`(ParserDefinition.SpaceRequirements.MUST)
             )
         }
 
         fun optional(left: IElementType, right: IElementType) {
             assertThat(
-                XPathParserDefinition.spaceExistenceTypeBetweenTokens(left, right),
+                XPathParserDefinition.spaceRequirements(left, right),
                 `is`(ParserDefinition.SpaceRequirements.MAY)
             )
         }

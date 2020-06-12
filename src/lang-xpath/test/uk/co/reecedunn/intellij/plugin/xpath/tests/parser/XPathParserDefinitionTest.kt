@@ -35,35 +35,37 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - XPath ParserDefinition")
 private class XPathParserDefinitionTest : ParserTestCase() {
+    val definition = XPathParserDefinition()
+
     @Test
     @DisplayName("createLexer")
     fun testLexer() {
-        assertThat(XPathParserDefinition.createLexer(myProject).javaClass.name, `is`(XPathLexer::class.java.name))
+        assertThat(definition.createLexer(myProject).javaClass.name, `is`(XPathLexer::class.java.name))
     }
 
     @Test
     @DisplayName("createParser")
     fun testParser() {
-        assertThat(XPathParserDefinition.createParser(myProject).javaClass.name, `is`(XPathParser::class.java.name))
+        assertThat(definition.createParser(myProject).javaClass.name, `is`(XPathParser::class.java.name))
     }
 
     @Test
     @DisplayName("fileNodeType")
     fun testFileNodeType() {
-        assertThat(XPathParserDefinition.fileNodeType, `is`(XPathElementType.XPATH))
+        assertThat(definition.fileNodeType, `is`(XPathElementType.XPATH))
     }
 
     @Test
     @DisplayName("whitespaceTokens")
     fun testWhitespaceTokens() {
-        val tokens = XPathParserDefinition.whitespaceTokens
+        val tokens = definition.whitespaceTokens
         assertThat(tokens.types.size, `is`(0))
     }
 
     @Test
     @DisplayName("commentTokens")
     fun testCommentTokens() {
-        val tokens = XPathParserDefinition.commentTokens
+        val tokens = definition.commentTokens
         assertThat(tokens.types.size, `is`(1))
         assertThat(tokens.contains(XPathTokenType.COMMENT), `is`(true))
     }
@@ -71,7 +73,7 @@ private class XPathParserDefinitionTest : ParserTestCase() {
     @Test
     @DisplayName("stringLiteralElements")
     fun testStringLiteralElements() {
-        val tokens = XPathParserDefinition.stringLiteralElements
+        val tokens = definition.stringLiteralElements
         assertThat(tokens.types.size, `is`(1))
         assertThat(tokens.contains(XPathTokenType.STRING_LITERAL_CONTENTS), `is`(true))
     }
@@ -81,7 +83,7 @@ private class XPathParserDefinitionTest : ParserTestCase() {
     fun testCreateElement() {
         // foreign ASTNode
         val e = Assertions.assertThrows(AssertionError::class.java) {
-            XPathParserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL))
+            definition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL))
         }
         assertThat(
             e.message,
@@ -93,7 +95,7 @@ private class XPathParserDefinitionTest : ParserTestCase() {
     @DisplayName("createFile")
     fun testCreateFile() {
         val file = createVirtualFile("test.xpath", "")
-        val psiFile = XPathParserDefinition.createFile(getFileViewProvider(myProject, file, false))
+        val psiFile = definition.createFile(getFileViewProvider(myProject, file, false))
         assertThat(psiFile.javaClass.name, `is`(XPathImpl::class.java.name))
         assertThat(psiFile.fileType, `is`(XPathFileType))
     }
@@ -103,14 +105,14 @@ private class XPathParserDefinitionTest : ParserTestCase() {
     internal inner class TerminalDelimitation {
         fun required(left: IElementType, right: IElementType) {
             assertThat(
-                XPathParserDefinition.spaceExistenceTypeBetweenTokens(left, right),
+                XPathParserDefinition.spaceRequirements(left, right),
                 `is`(ParserDefinition.SpaceRequirements.MUST)
             )
         }
 
         fun optional(left: IElementType, right: IElementType) {
             assertThat(
-                XPathParserDefinition.spaceExistenceTypeBetweenTokens(left, right),
+                XPathParserDefinition.spaceRequirements(left, right),
                 `is`(ParserDefinition.SpaceRequirements.MAY)
             )
         }
