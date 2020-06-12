@@ -21,6 +21,8 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.util.xmlb.annotations.Attribute
 
 class XpmModuleLoaderFactoryBean : LazyExtensionInstance<XpmModuleLoaderFactory>() {
+    // region XpmModuleLoaderFactoryBean
+
     @Attribute("name")
     var name: String = ""
 
@@ -31,4 +33,11 @@ class XpmModuleLoaderFactoryBean : LazyExtensionInstance<XpmModuleLoaderFactory>
         val container = ApplicationManager.getApplication().picoContainer
         return instantiateBean(implementation, container)
     }
+
+    // endregion
+    // region LazyExtensionInstance
+
+    override fun getImplementationClassName(): String = implementation
+
+    // endregion
 }

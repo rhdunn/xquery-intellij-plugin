@@ -17,5 +17,6 @@ package com.intellij.compat.serviceContainer
 
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
 
-open class LazyExtensionInstance<T> : AbstractExtensionPointBean() {
+abstract class LazyExtensionInstance<T> : AbstractExtensionPointBean() {
+    protected abstract fun getImplementationClassName(): String
 }
