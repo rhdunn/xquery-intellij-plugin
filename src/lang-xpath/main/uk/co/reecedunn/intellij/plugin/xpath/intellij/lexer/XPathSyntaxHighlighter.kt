@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
-    val DEFAULT: Array<out TextAttributesKey> = emptyArray()
+    private val DEFAULT: Array<out TextAttributesKey> = emptyArray()
 
     override fun getHighlightingLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
@@ -42,7 +42,7 @@ object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
         return XPathSyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
     }
 
-    object Factory : SyntaxHighlighterFactory() {
+    class Factory : SyntaxHighlighterFactory() {
         override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
             return XPathSyntaxHighlighter
         }

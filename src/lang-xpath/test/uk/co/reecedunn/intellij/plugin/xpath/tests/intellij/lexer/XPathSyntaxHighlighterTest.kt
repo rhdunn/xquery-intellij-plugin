@@ -29,7 +29,7 @@ class XPathSyntaxHighlighterTest {
     @Test
     @DisplayName("syntax highlighter factory")
     fun testFactory() {
-        val highlighter = XPathSyntaxHighlighter.Factory.getSyntaxHighlighter(null, null)
+        val highlighter = XPathSyntaxHighlighter.Factory().getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(XPathSyntaxHighlighter::class.java.name))
     }
 
