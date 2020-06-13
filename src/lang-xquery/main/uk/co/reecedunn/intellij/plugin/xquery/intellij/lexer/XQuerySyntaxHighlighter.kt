@@ -56,7 +56,7 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         return XQuerySyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
     }
 
-    object Factory : SyntaxHighlighterFactory() {
+    class Factory : SyntaxHighlighterFactory() {
         override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
             return XQuerySyntaxHighlighter
         }

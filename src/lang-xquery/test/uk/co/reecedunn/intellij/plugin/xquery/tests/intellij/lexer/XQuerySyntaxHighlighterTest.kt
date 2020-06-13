@@ -31,7 +31,7 @@ class XQuerySyntaxHighlighterTest {
     @Test
     @DisplayName("syntax highlighter factory")
     fun testFactory() {
-        val highlighter = XQuerySyntaxHighlighter.Factory.getSyntaxHighlighter(null, null)
+        val highlighter = XQuerySyntaxHighlighter.Factory().getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(XQuerySyntaxHighlighter::class.java.name))
     }
 
