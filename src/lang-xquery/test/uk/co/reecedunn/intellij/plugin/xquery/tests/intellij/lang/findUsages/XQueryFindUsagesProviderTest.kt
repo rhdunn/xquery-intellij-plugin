@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
 private class XQueryFindUsagesProviderTest : ParserTestCase() {
-    val provider = XQueryFindUsagesProvider
+    val provider = XQueryFindUsagesProvider()
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")

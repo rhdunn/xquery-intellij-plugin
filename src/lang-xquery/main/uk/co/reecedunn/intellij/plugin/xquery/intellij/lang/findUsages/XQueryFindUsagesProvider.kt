@@ -23,7 +23,7 @@ import com.intellij.psi.PsiNamedElement
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
-object XQueryFindUsagesProvider : FindUsagesProvider {
+class XQueryFindUsagesProvider : FindUsagesProvider {
     override fun getWordsScanner(): WordsScanner? = XQueryWordsScanner()
 
     override fun canFindUsagesFor(psiElement: PsiElement): Boolean = psiElement is PsiNamedElement
