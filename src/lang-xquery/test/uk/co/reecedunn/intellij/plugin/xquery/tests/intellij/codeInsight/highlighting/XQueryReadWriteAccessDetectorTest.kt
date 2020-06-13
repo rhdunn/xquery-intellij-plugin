@@ -35,7 +35,7 @@ import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as A
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Read/Write Usage Detector - XQuery")
 private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
-    val detector: ReadWriteAccessDetector = XQueryReadWriteAccessDetector
+    val detector: ReadWriteAccessDetector = XQueryReadWriteAccessDetector()
 
     fun variable(text: String): Pair<PsiElement, PsiReference> {
         val module = parseText(text)

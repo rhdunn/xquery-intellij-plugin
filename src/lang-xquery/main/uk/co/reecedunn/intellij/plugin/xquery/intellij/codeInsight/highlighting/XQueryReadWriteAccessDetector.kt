@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
-object XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
+class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     override fun isReadWriteAccessible(element: PsiElement): Boolean {
         if (element.containingFile !is XQueryModule) return false
         return element is XPathEQName && (element.parent is XPathVarName || element.parent is XPathParam)
