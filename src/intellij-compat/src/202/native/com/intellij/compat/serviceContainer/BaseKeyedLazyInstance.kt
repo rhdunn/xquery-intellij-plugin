@@ -15,6 +15,7 @@
  */
 package com.intellij.compat.serviceContainer
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginAware
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.serviceContainer.LazyExtensionInstance
@@ -32,4 +33,6 @@ abstract class BaseKeyedLazyInstance<T> : LazyExtensionInstance<T>(), PluginAwar
     override fun setPluginDescriptor(pluginDescriptor: PluginDescriptor) {
         this.pluginDescriptor = pluginDescriptor
     }
+
+    fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
 }

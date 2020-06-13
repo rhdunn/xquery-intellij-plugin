@@ -16,6 +16,7 @@
 package com.intellij.compat.serviceContainer
 
 import com.intellij.compat.extensions.instantiateBean
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.AbstractExtensionPointBean
 import com.intellij.openapi.extensions.PluginDescriptor
@@ -27,4 +28,6 @@ abstract class BaseKeyedLazyInstance<T> : AbstractExtensionPointBean() {
     fun getInstance(componentManager: ComponentManager, pluginDescriptor: PluginDescriptor): T {
         return instantiateBean(getImplementationClassName(), componentManager.picoContainer)
     }
+
+    fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
 }

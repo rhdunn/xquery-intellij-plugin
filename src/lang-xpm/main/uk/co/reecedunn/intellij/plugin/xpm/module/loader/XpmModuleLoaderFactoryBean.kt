@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.compat.serviceContainer.BaseKeyedLazyInstance
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.util.xmlb.annotations.Attribute
 
 class XpmModuleLoaderFactoryBean : BaseKeyedLazyInstance<XpmModuleLoaderFactory>() {
@@ -25,8 +24,6 @@ class XpmModuleLoaderFactoryBean : BaseKeyedLazyInstance<XpmModuleLoaderFactory>
 
     @Attribute("implementation")
     var implementation: String = ""
-
-    fun getInstance(): XpmModuleLoaderFactory = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
 
     override fun getImplementationClassName(): String = implementation
 }
