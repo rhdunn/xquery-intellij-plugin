@@ -29,15 +29,17 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Breadcrumb Provider - XQuery")
 private class XQueryBreadcrumbProviderTest : ParserTestCase() {
+    private val breadcrumbProvider = XQueryBreadcrumbProvider()
+
     fun breadcrumbs(text: String, name: String = "breadcrumbs"): List<PsiElement> {
         var crumb: PsiElement? = parse<XPathEQName>(text).first { (it as XsQNameValue).localName?.data == name }
 
         val crumbs = mutableListOf<PsiElement>()
         while (crumb != null) {
-            if (XQueryBreadcrumbProvider.acceptElement(crumb)) {
+            if (breadcrumbProvider.acceptElement(crumb)) {
                 crumbs.add(crumb)
             }
-            crumb = XQueryBreadcrumbProvider.getParent(crumb)
+            crumb = breadcrumbProvider.getParent(crumb)
         }
         return crumbs
     }
@@ -45,8 +47,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
     @Test
     @DisplayName("languages")
     fun languages() {
-        assertThat(XQueryBreadcrumbProvider.languages.size, `is`(1))
-        assertThat(XQueryBreadcrumbProvider.languages[0], `is`(sameInstance(XQuery)))
+        assertThat(breadcrumbProvider.languages.size, `is`(1))
+        assertThat(breadcrumbProvider.languages[0], `is`(sameInstance(XQuery)))
     }
 
     @Nested
@@ -58,8 +60,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("declare function local:test((::)) { breadcrumbs };")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("local:test"))
             assertThat(tooltip, `is`("declare function local:test()"))
@@ -71,8 +73,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("declare function local:test((::)) as (::) node((::)) { breadcrumbs };")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("local:test"))
             assertThat(tooltip, `is`("declare function local:test() as node()"))
@@ -86,8 +88,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             )
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("local:test"))
             assertThat(tooltip, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*)"))
@@ -101,8 +103,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             )
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("local:test"))
             assertThat(tooltip, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*) as item()+"))
@@ -118,8 +120,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("<lorem-ipsum>{ breadcrumbs }</lorem-ipsum>")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("lorem-ipsum"))
             assertThat(tooltip, `is`("element lorem-ipsum {...}"))
@@ -131,8 +133,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("<lorem:ipsum>{ breadcrumbs }</lorem:ipsum>")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("lorem:ipsum"))
             assertThat(tooltip, `is`("element lorem:ipsum {...}"))
@@ -148,8 +150,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("element lorem-ipsum { breadcrumbs }")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("lorem-ipsum"))
             assertThat(tooltip, `is`("element lorem-ipsum {...}"))
@@ -161,8 +163,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("element lorem:ipsum { breadcrumbs }")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("lorem:ipsum"))
             assertThat(tooltip, `is`("element lorem:ipsum {...}"))
@@ -174,8 +176,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("element { \"lorem:\" || \"ipsum\" } { breadcrumbs }")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("element"))
             assertThat(tooltip, `is`("element <dynamic> {...}"))
@@ -191,8 +193,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("function ((::)) { breadcrumbs };")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("function"))
             assertThat(tooltip, `is`("function ()"))
@@ -204,8 +206,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             val crumbs = breadcrumbs("function ((::)) as (::) node((::)) { breadcrumbs };")
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("function"))
             assertThat(tooltip, `is`("function () as node()"))
@@ -219,8 +221,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             )
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("function"))
             assertThat(tooltip, `is`("function (\$x as xs:int, \$n as xs:float*)"))
@@ -234,8 +236,8 @@ private class XQueryBreadcrumbProviderTest : ParserTestCase() {
             )
             assertThat(crumbs.size, `is`(1))
 
-            val info = XQueryBreadcrumbProvider.getElementInfo(crumbs[0])
-            val tooltip = XQueryBreadcrumbProvider.getElementTooltip(crumbs[0])
+            val info = breadcrumbProvider.getElementInfo(crumbs[0])
+            val tooltip = breadcrumbProvider.getElementTooltip(crumbs[0])
 
             assertThat(info, `is`("function"))
             assertThat(tooltip, `is`("function (\$x as xs:int, \$n as xs:float*) as item()+"))

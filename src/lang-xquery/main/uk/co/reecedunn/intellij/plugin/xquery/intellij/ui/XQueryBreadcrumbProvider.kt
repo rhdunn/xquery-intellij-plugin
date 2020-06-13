@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 
-object XQueryBreadcrumbProvider : BreadcrumbsProvider {
+class XQueryBreadcrumbProvider : BreadcrumbsProvider {
     private val languages: Array<Language> = arrayOf(XQuery)
 
     override fun getLanguages(): Array<Language> = languages
