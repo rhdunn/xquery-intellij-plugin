@@ -38,59 +38,65 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 
-object XQueryDocumentationProvider : AbstractDocumentationProvider() {
-    private fun getQuickNavigateInfo(decl: XdmNamespaceDeclaration, element: PsiElement): String? {
-        val prefix = decl.namespacePrefix?.data
-        val uri = decl.namespaceUri?.data ?: return null
-        val path = decl.namespaceUri?.element?.containingFile?.resourcePath()
-        return if (element is XQueryModuleDecl)
-            prefix?.let { "module namespace $it = \"$uri\"\nat \"$path\"" }
-                ?: "module namespace \"$uri\"\nat \"$path\""
-        else
-            prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
-    }
+class XQueryDocumentationProvider : AbstractDocumentationProvider() {
+    companion object {
+        private fun getElementPresentationText(decl: XdmNamespaceDeclaration, element: PsiElement): String? {
+            val prefix = decl.namespacePrefix?.data
+            val uri = decl.namespaceUri?.data ?: return null
+            val path = decl.namespaceUri?.element?.containingFile?.resourcePath()
+            return if (element is XQueryModuleDecl)
+                prefix?.let { "module namespace $it = \"$uri\"\nat \"$path\"" }
+                    ?: "module namespace \"$uri\"\nat \"$path\""
+            else
+                prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
+        }
 
-    override fun getQuickNavigateInfo(element: PsiElement?, originalElement: PsiElement?): String? {
-        return when (val parent = element?.parent) {
-            is XQueryFunctionDecl -> {
-                val sig = (parent.presentation as? ItemPresentationEx)?.structurePresentableText
-                "declare function $sig"
-            }
-            is XPathInlineFunctionExpr -> {
-                (parent as XdmFunctionDeclaration).let {
-                    val params = it.paramListPresentation?.presentableText ?: "()"
-                    val returnType = it.returnType
-                    if (returnType == null)
-                        "function $params"
-                    else
-                        "function $params as ${returnType.typeName}"
+        fun getElementPresentationText(element: PsiElement?): String? {
+            return when (val parent = element?.parent) {
+                is XQueryFunctionDecl -> {
+                    val sig = (parent.presentation as? ItemPresentationEx)?.structurePresentableText
+                    "declare function $sig"
                 }
-            }
-            is XPathVarName -> {
-                (parent.parent as? XQueryVarDecl)?.let {
-                    val sig = it.presentation?.presentableText
-                    "declare variable \$$sig"
-                }
-            }
-            is XPathNCName -> {
-                (parent.parent as? XdmNamespaceDeclaration)?.let { decl ->
-                    getQuickNavigateInfo(decl, parent.parent)
-                }
-            }
-            is XdmElementNode -> {
-                val dynamic = XQueryBundle.message("element.dynamic")
-                "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
-            }
-            else -> (element as? XQueryModule)?.let {
-                when (val module = it.mainOrLibraryModule) {
-                    is XQueryLibraryModule -> {
-                        val moduleDecl = module.firstChild
-                        getQuickNavigateInfo(moduleDecl as XdmNamespaceDeclaration, moduleDecl)
+                is XPathInlineFunctionExpr -> {
+                    (parent as XdmFunctionDeclaration).let {
+                        val params = it.paramListPresentation?.presentableText ?: "()"
+                        val returnType = it.returnType
+                        if (returnType == null)
+                            "function $params"
+                        else
+                            "function $params as ${returnType.typeName}"
                     }
-                    else -> null
+                }
+                is XPathVarName -> {
+                    (parent.parent as? XQueryVarDecl)?.let {
+                        val sig = it.presentation?.presentableText
+                        "declare variable \$$sig"
+                    }
+                }
+                is XPathNCName -> {
+                    (parent.parent as? XdmNamespaceDeclaration)?.let { decl ->
+                        getElementPresentationText(decl, parent.parent)
+                    }
+                }
+                is XdmElementNode -> {
+                    val dynamic = XQueryBundle.message("element.dynamic")
+                    "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
+                }
+                else -> (element as? XQueryModule)?.let {
+                    when (val module = it.mainOrLibraryModule) {
+                        is XQueryLibraryModule -> {
+                            val moduleDecl = module.firstChild
+                            getElementPresentationText(moduleDecl as XdmNamespaceDeclaration, moduleDecl)
+                        }
+                        else -> null
+                    }
                 }
             }
         }
+    }
+
+    override fun getQuickNavigateInfo(element: PsiElement?, originalElement: PsiElement?): String? {
+        return getElementPresentationText(element)
     }
 
     // Generate the main documentation for the documentation pane.

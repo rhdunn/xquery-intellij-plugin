@@ -51,6 +51,6 @@ object XQueryBreadcrumbProvider : BreadcrumbsProvider {
     }
 
     override fun getElementTooltip(element: PsiElement): String? {
-        return XQueryDocumentationProvider.getQuickNavigateInfo(element.firstChild, null) ?: ""
+        return XQueryDocumentationProvider.getElementPresentationText(element.firstChild) ?: ""
     }
 }

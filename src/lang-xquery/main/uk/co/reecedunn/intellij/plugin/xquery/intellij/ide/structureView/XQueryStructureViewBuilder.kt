@@ -33,7 +33,7 @@ class XQueryStructureViewBuilder(private val psiFile: PsiFile) : TreeBasedStruct
             .withSorters(Sorter.ALPHA_SORTER)
     }
 
-    companion object : PsiStructureViewFactory {
+    class Factory : PsiStructureViewFactory {
         override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? {
             return XQueryStructureViewBuilder(psiFile)
         }

@@ -41,6 +41,8 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun body(substring: String): Matcher<out String?> = StringContains.containsString("<body>$substring</body>")
     }
 
+    private val documentationProvider = XQueryDocumentationProvider()
+
     @BeforeAll
     override fun setUp() {
         super.setUp()
@@ -69,7 +71,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun builtin() {
             val ref = parse("declare namespace fn = \"http://www.w3.org/2005/xpath-functions\";")
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, startsWith("module namespace fn = \"http://www.w3.org/2005/xpath-functions\"\nat \""))
             assertThat(quickDoc, endsWith("/org/w3/www/2005/xpath-functions.xqy\""))
         }
@@ -97,7 +99,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 """
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("namespace ex = \"http://www.example.com\""))
         }
 
@@ -112,7 +114,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 """
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`(nullValue()))
         }
 
@@ -125,17 +127,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>module summary=[prefix=ex namespace=http://www.example.com]</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>module summary=[prefix=ex namespace=http://www.example.com]</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("module href=[prefix=ex namespace=http://www.example.com]"))
             )
         }
@@ -157,7 +159,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun builtin() {
             val ref = parse("fn:true()")
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("namespace fn = \"http://www.w3.org/2005/xpath-functions\""))
         }
 
@@ -172,7 +174,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 """
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("namespace ex = \"http://www.example.com\""))
         }
 
@@ -187,7 +189,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 """
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`(nullValue()))
         }
 
@@ -202,7 +204,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 """
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("module namespace ex = \"http://www.example.com\"\nat \"/testcase.xqy\""))
         }
 
@@ -217,7 +219,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 """
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`(nullValue()))
         }
 
@@ -230,17 +232,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>module summary=[prefix=ex namespace=http://www.example.com]</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>module summary=[prefix=ex namespace=http://www.example.com]</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("module href=[prefix=ex namespace=http://www.example.com]"))
             )
         }
@@ -258,17 +260,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0"))
             )
         }
@@ -282,17 +284,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("function href=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=true]#0"))
             )
         }
@@ -306,17 +308,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=true]#0"))
             )
         }
@@ -338,7 +340,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun noType() {
             val ref = parse("declare variable \$ local:test := 2; \$local:test")
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare variable \$local:test"))
         }
 
@@ -347,7 +349,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun type() {
             val ref = parse("declare variable \$ local:test  as  xs:float := 2; \$local:test")
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare variable \$local:test as xs:float"))
         }
     }
@@ -368,7 +370,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun emptyParams_noReturnType() {
             val ref = parse("declare function local:test((::)) {}; local:test()")
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test()"))
         }
 
@@ -377,7 +379,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun emptyParams_returnType() {
             val ref = parse("declare function local:test((::)) as (::) node((::)) {}; local:test()")
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test() as node()"))
         }
 
@@ -388,7 +390,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 "declare function local:test( \$x as (::) xs:int , \$n  as  xs:float *) {}; local:test(1,2)"
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*)"))
         }
 
@@ -399,7 +401,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
                 "declare function local:test( \$x as (::) xs:int , \$n as xs:float *) as item((::)) + {}; local:test(1,2)"
             )
 
-            val quickDoc = XQueryDocumentationProvider.getQuickNavigateInfo(ref.second, ref.first)
+            val quickDoc = documentationProvider.getQuickNavigateInfo(ref.second, ref.first)
             assertThat(quickDoc, `is`("declare function local:test(\$x as xs:int, \$n as xs:float*) as item()+"))
         }
 
@@ -412,17 +414,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2"))
             )
         }
@@ -436,17 +438,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("function href=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2"))
             )
         }
@@ -460,17 +462,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.localName?.element),
+                documentationProvider.generateDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.localName?.element),
+                documentationProvider.generateHoverDoc(element, target.localName?.element),
                 body("<dl><dt>Summary</dt><dd>function summary=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.localName?.element),
+                documentationProvider.getUrlFor(element, target.localName?.element),
                 `is`(listOf("function href=[prefix=(null) namespace=http://www.w3.org/2005/xpath-functions localname=concat]#2"))
             )
         }
@@ -488,17 +490,17 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             val element = target.element?.containingFile as PsiElement
 
             assertThat(
-                XQueryDocumentationProvider.generateDoc(element, target.prefix?.element),
+                documentationProvider.generateDoc(element, target.prefix?.element),
                 body("<dl><dt>Summary</dt><dd>module summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.generateHoverDoc(element, target.prefix?.element),
+                documentationProvider.generateHoverDoc(element, target.prefix?.element),
                 body("<dl><dt>Summary</dt><dd>module summary=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]</dd></dl>")
             )
 
             assertThat(
-                XQueryDocumentationProvider.getUrlFor(element, target.prefix?.element),
+                documentationProvider.getUrlFor(element, target.prefix?.element),
                 `is`(listOf("module href=[prefix=fn namespace=http://www.w3.org/2005/xpath-functions]"))
             )
         }
