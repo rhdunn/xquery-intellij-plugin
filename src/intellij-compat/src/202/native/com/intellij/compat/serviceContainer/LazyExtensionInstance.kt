@@ -24,6 +24,7 @@ abstract class LazyExtensionInstance<T> : com.intellij.serviceContainer.LazyExte
     @Suppress("UNUSED_PARAMETER")
     fun <T> instantiateClass(className: String, container: PicoContainer): T = TODO()
 
+    @Transient
     lateinit var pluginDescriptor: PluginDescriptor
         private set
 
