@@ -47,7 +47,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPat
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
     open fun registerModules(manager: MockModuleManager) {}
 

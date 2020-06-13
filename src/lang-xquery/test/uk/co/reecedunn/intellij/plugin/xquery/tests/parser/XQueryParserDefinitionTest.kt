@@ -38,35 +38,37 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - XQuery ParserDefinition")
 private class XQueryParserDefinitionTest : ParserTestCase() {
+    private val parserDefinition = XQueryParserDefinition()
+
     @Test
     @DisplayName("createLexer")
     fun testLexer() {
-        assertThat(XQueryParserDefinition.createLexer(myProject).javaClass.name, `is`(CombinedLexer::class.java.name))
+        assertThat(parserDefinition.createLexer(myProject).javaClass.name, `is`(CombinedLexer::class.java.name))
     }
 
     @Test
     @DisplayName("createParser")
     fun testParser() {
-        assertThat(XQueryParserDefinition.createParser(myProject).javaClass.name, `is`(XQueryParser::class.java.name))
+        assertThat(parserDefinition.createParser(myProject).javaClass.name, `is`(XQueryParser::class.java.name))
     }
 
     @Test
     @DisplayName("fileNodeType")
     fun testFileNodeType() {
-        assertThat(XQueryParserDefinition.fileNodeType, `is`(XQueryElementType.MODULE))
+        assertThat(parserDefinition.fileNodeType, `is`(XQueryElementType.MODULE))
     }
 
     @Test
     @DisplayName("whitespaceTokens")
     fun testWhitespaceTokens() {
-        val tokens = XQueryParserDefinition.whitespaceTokens
+        val tokens = parserDefinition.whitespaceTokens
         assertThat(tokens.types.size, `is`(0))
     }
 
     @Test
     @DisplayName("commentTokens")
     fun testCommentTokens() {
-        val tokens = XQueryParserDefinition.commentTokens
+        val tokens = parserDefinition.commentTokens
         assertThat(tokens.types.size, `is`(3))
         assertThat(tokens.contains(XQDocTokenType.CONTENTS), `is`(true))
         assertThat(tokens.contains(XPathTokenType.COMMENT), `is`(true))
@@ -76,7 +78,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     @Test
     @DisplayName("stringLiteralElements")
     fun testStringLiteralElements() {
-        val tokens = XQueryParserDefinition.stringLiteralElements
+        val tokens = parserDefinition.stringLiteralElements
         assertThat(tokens.types.size, `is`(4))
         assertThat(tokens.contains(XPathTokenType.STRING_LITERAL_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS), `is`(true))
@@ -89,7 +91,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     fun testCreateElement() {
         // foreign ASTNode
         val e = Assertions.assertThrows(AssertionError::class.java) {
-            XQueryParserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL))
+            parserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL))
         }
         assertThat(
             e.message, `is`(
@@ -102,7 +104,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     @DisplayName("createFile")
     fun testCreateFile() {
         val file = createVirtualFile("test.xqy", "")
-        val psiFile = XQueryParserDefinition.createFile(getFileViewProvider(myProject, file, false))
+        val psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false))
         assertThat(psiFile.javaClass.name, `is`(XQueryModuleImpl::class.java.name))
         assertThat(psiFile.fileType, `is`(XQueryFileType))
     }
@@ -112,7 +114,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     internal inner class TerminalDelimitation {
         fun required(left: IElementType, right: IElementType) {
             assertThat(
-                XQueryParserDefinition.spaceRequirements(left, right),
+                parserDefinition.spaceRequirements(left, right),
                 `is`(ParserDefinition.SpaceRequirements.MUST)
             )
         }

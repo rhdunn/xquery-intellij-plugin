@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 
-object XQueryParserDefinition : ParserDefinition {
+class XQueryParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(

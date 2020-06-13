@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - MarkLogic")
 class MarkLogicSyntaxValidatorTest :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition, XPathParserDefinition()),
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
     XpmDiagnostics {
     // region ParsingTestCase
 
