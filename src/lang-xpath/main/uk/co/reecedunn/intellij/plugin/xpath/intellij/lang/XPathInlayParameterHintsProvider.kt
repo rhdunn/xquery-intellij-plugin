@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
-object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
+class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getParameterHints(element: PsiElement): List<InlayInfo> {
         if (element !is XPathArgumentList) return emptyList()
         return element.bindings.mapIndexedNotNull { index, binding ->
@@ -40,7 +40,7 @@ object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         }
     }
 
-    override fun getDefaultBlackList(): Set<String> = defaultBlackList
+    override fun getDefaultBlackList(): Set<String> = DEFAULT_BLACKLIST
 
     override fun getHintInfo(element: PsiElement): HintInfo.MethodInfo? {
         if (element !is XPathArgumentList) return null
@@ -51,7 +51,9 @@ object XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         return HintInfo.MethodInfo(eqname, params)
     }
 
-    private val defaultBlackList = setOf(
-        "(arg)" // e.g. fn:string#1, xs:QName#1
-    )
+    companion object {
+        private val DEFAULT_BLACKLIST = setOf(
+            "(arg)" // e.g. fn:string#1, xs:QName#1
+        )
+    }
 }
