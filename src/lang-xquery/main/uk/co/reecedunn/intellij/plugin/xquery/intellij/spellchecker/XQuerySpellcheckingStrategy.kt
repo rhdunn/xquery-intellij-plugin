@@ -19,7 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
 import com.intellij.spellchecker.tokenizer.Tokenizer
 
-object XQuerySpellcheckingStrategy : SpellcheckingStrategy() {
+class XQuerySpellcheckingStrategy : SpellcheckingStrategy() {
     override fun getTokenizer(element: PsiElement?): Tokenizer<*> {
         return super.getTokenizer(element)
     }
