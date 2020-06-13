@@ -15,16 +15,21 @@
  */
 package com.intellij.compat.serviceContainer
 
-import com.intellij.compat.extensions.instantiateBean
-import com.intellij.openapi.components.ComponentManager
-import com.intellij.openapi.extensions.AbstractExtensionPointBean
+import com.intellij.openapi.extensions.PluginAware
 import com.intellij.openapi.extensions.PluginDescriptor
+import com.intellij.serviceContainer.LazyExtensionInstance
+import org.picocontainer.PicoContainer
 
-abstract class LazyExtensionInstance<T> : AbstractExtensionPointBean() {
-    protected abstract fun getImplementationClassName(): String
-
+abstract class BaseKeyedLazyInstance<T> : LazyExtensionInstance<T>(), PluginAware {
+    // For the AbstractExtensionPointBean#instantiateBean compatibility API on IntelliJ 2020.1 and earlier.
     @Suppress("UNUSED_PARAMETER")
-    fun getInstance(componentManager: ComponentManager, pluginDescriptor: PluginDescriptor): T {
-        return instantiateBean(getImplementationClassName(), componentManager.picoContainer)
+    fun <T> instantiateClass(className: String, container: PicoContainer): T = TODO()
+
+    @Transient
+    lateinit var pluginDescriptor: PluginDescriptor
+        private set
+
+    override fun setPluginDescriptor(pluginDescriptor: PluginDescriptor) {
+        this.pluginDescriptor = pluginDescriptor
     }
 }

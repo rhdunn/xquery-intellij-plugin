@@ -15,12 +15,12 @@
  */
 package com.intellij.compat.extensions
 
-import com.intellij.compat.serviceContainer.LazyExtensionInstance
+import com.intellij.compat.serviceContainer.BaseKeyedLazyInstance
 import org.picocontainer.PicoContainer
 
 // instantiate is deprecated in IntelliJ 2019.3.
 // AbstractExtensionPointBean is deprecated in IntelliJ 2020.2.
 @Suppress("unused")
-fun <T> LazyExtensionInstance<T>.instantiateBean(className: String, container: PicoContainer): T {
+fun <T> BaseKeyedLazyInstance<T>.instantiateBean(className: String, container: PicoContainer): T {
     return this.instantiateClass<T>(className, container)
 }
