@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import javax.swing.Icon
 
-object RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
+class RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsFramework
