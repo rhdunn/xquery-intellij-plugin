@@ -34,5 +34,5 @@ abstract class BaseKeyedLazyInstance<T> : LazyExtensionInstance<T>(), PluginAwar
         this.pluginDescriptor = pluginDescriptor
     }
 
-    fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
+    open fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
 }

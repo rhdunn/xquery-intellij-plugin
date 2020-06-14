@@ -29,5 +29,5 @@ abstract class BaseKeyedLazyInstance<T> : AbstractExtensionPointBean() {
         return instantiateBean(getImplementationClassName(), componentManager.picoContainer)
     }
 
-    fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
+    open fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
 }
