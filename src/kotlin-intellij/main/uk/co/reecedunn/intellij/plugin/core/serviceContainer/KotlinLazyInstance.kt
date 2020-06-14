@@ -36,17 +36,22 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
     override fun getInstance(): T = instance ?: createInstance()
 
     private fun createInstance(): T {
-        instance = when (fieldName) {
-            "" -> getInstance(ApplicationManager.getApplication(), pluginDescriptor)
-            else -> getFieldInstance()
+        instance = when {
+            fieldName != "" -> getFieldInstance(getImplementationClassName(), fieldName)
+            getImplementationClassName().endsWith("\$Companion") -> getCompanionObjectInstance()
+            else -> getInstance(ApplicationManager.getApplication(), pluginDescriptor)
         }
         return instance!!
     }
 
-    private fun getFieldInstance(): T {
+    private fun getCompanionObjectInstance(): T {
+        return getFieldInstance(getImplementationClassName().substringBefore("\$Companion"), "Companion")
+    }
+
+    private fun getFieldInstance(className: String, fieldName: String): T {
         try {
             @Suppress("UNCHECKED_CAST")
-            val aClass = Class.forName(getImplementationClassName(), true, pluginDescriptor.pluginClassLoader) as Class<T>
+            val aClass = Class.forName(className, true, pluginDescriptor.pluginClassLoader) as Class<T>
 
             val field = aClass.getDeclaredField(fieldName)
             field.isAccessible = true
