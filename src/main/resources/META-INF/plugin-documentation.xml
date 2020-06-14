@@ -1,7 +1,9 @@
 <idea-plugin>
   <extensionPoints>
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.documentationSourceProvider" interface="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.documentationSourceProvider" beanClass="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
@@ -9,7 +11,7 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
-    <documentationSourceProvider implementation="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation"/>
-    <documentationSourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation"/>
+    <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation" fieldName="INSTANCE"/>
+    <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.documentation
 
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
@@ -31,6 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -47,13 +52,22 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     override fun setUp() {
         super.setUp()
 
-        registerExtensionPoint(XQDocDocumentationSourceProvider.EP_NAME, XQDocDocumentationSourceProvider::class.java)
-        registerExtension(XQDocDocumentationSourceProvider.EP_NAME, DocumentationSourceProvider)
+        registerExtensionPoint(XQDocDocumentationSourceProvider.EP_NAME, XQDocDocumentationSourceProviderBean::class.java)
+        registerDocumentationSourceProvider(DocumentationSourceProvider::class.java, "INSTANCE")
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
+    }
+
+    private fun registerDocumentationSourceProvider(implementation: Class<*>, fieldName: String) {
+        val classLoader = XQueryDocumentationProviderTest::class.java.classLoader
+        val bean = XQDocDocumentationSourceProviderBean()
+        bean.implementationClass = implementation.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerDocumentationSourceProvider"), classLoader))
+        registerExtension(XQDocDocumentationSourceProvider.EP_NAME, bean)
     }
 
     @Nested

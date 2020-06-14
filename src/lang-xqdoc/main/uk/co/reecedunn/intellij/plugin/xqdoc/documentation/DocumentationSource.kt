@@ -32,21 +32,24 @@ interface XQDocDocumentationSource {
 
 interface XQDocDocumentationSourceProvider {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XQDocDocumentationSourceProvider>(
+        val EP_NAME = ExtensionPointName.create<XQDocDocumentationSourceProviderBean>(
             "uk.co.reecedunn.intellij.documentationSourceProvider"
         )
 
+        private val providers: Sequence<XQDocDocumentationSourceProvider>
+            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
+
         val allSources: Sequence<XQDocDocumentationSource>
-            get() = EP_NAME.extensions.asSequence().flatMap { it.sources.asSequence() }
+            get() = providers.flatMap { it.sources.asSequence() }
 
         fun lookup(ref: XdmFunctionReference): Sequence<XQDocDocumentation> {
-            return EP_NAME.extensions.asSequence().mapNotNull {
+            return providers.mapNotNull {
                 (it as? XQDocDocumentationIndex)?.lookup(ref)
             }
         }
 
         fun lookup(decl: XdmNamespaceDeclaration): Sequence<XQDocDocumentation> {
-            return EP_NAME.extensions.asSequence().mapNotNull {
+            return providers.mapNotNull {
                 (it as? XQDocDocumentationIndex)?.lookup(decl)
             }
         }
