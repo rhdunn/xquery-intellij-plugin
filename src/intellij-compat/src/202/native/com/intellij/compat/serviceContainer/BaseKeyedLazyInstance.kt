@@ -27,12 +27,12 @@ abstract class BaseKeyedLazyInstance<T> : LazyExtensionInstance<T>(), PluginAwar
     fun <T> instantiateClass(className: String, container: PicoContainer): T = TODO()
 
     @Transient
-    lateinit var pluginDescriptor: PluginDescriptor
+    var pluginDescriptor: PluginDescriptor? = null
         private set
 
     override fun setPluginDescriptor(pluginDescriptor: PluginDescriptor) {
         this.pluginDescriptor = pluginDescriptor
     }
 
-    open fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
+    open fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor!!)
 }

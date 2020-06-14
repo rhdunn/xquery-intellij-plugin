@@ -39,7 +39,7 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
         instance = when {
             fieldName != "" -> getFieldInstance(getImplementationClassName(), fieldName)
             getImplementationClassName().endsWith("\$Companion") -> getCompanionObjectInstance()
-            else -> getInstance(ApplicationManager.getApplication(), pluginDescriptor)
+            else -> getInstance(ApplicationManager.getApplication(), pluginDescriptor!!)
         }
         return instance!!
     }
@@ -51,7 +51,7 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
     private fun getFieldInstance(className: String, fieldName: String): T {
         try {
             @Suppress("UNCHECKED_CAST")
-            val aClass = Class.forName(className, true, pluginDescriptor.pluginClassLoader) as Class<T>
+            val aClass = Class.forName(className, true, pluginDescriptor!!.pluginClassLoader) as Class<T>
 
             val field = aClass.getDeclaredField(fieldName)
             field.isAccessible = true
@@ -59,7 +59,7 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
             @Suppress("UNCHECKED_CAST")
             return field.get(null) as T
         } catch (e: Throwable) {
-            throw PluginException(e, pluginDescriptor.pluginId)
+            throw PluginException(e, pluginDescriptor!!.pluginId)
         }
     }
 
