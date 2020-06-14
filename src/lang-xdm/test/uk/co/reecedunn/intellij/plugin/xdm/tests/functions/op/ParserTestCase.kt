@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSet
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
@@ -52,7 +53,7 @@ abstract class ParserTestCase :
         registerModules(manager)
         myProject.registerService(ModuleManager::class.java, manager)
 
-        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
+        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
     }
 
     @AfterAll

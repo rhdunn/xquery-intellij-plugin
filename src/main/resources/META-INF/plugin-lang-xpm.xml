@@ -1,7 +1,9 @@
 <idea-plugin>
   <extensionPoints>
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" interface="uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver"/>
+    </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" interface="uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory" dynamic="true"/>
@@ -45,15 +47,15 @@
 
     <!-- Import Paths : Deprecated by Module Paths -->
 
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.xquery.model.Annotations" fieldName="INSTANCE"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions" fieldName="INSTANCE"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions" fieldName="INSTANCE"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions" fieldName="INSTANCE"/>
 
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions"/>
-    <importPathResolver implementation="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions" fieldName="INSTANCE"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions" fieldName="INSTANCE"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions" fieldName="INSTANCE"/>
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions" fieldName="INSTANCE"/>
 
     <!-- Function Decorators -->
     <functionDecorator implementation="uk.co.reecedunn.intellij.plugin.exquery.restxq.decorator.RestXqFunctionDecorator"/>

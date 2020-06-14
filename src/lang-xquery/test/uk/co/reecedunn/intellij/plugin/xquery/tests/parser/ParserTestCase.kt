@@ -41,6 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
@@ -77,11 +78,11 @@ abstract class ParserTestCase :
         registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion", "")
         registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader", "INSTANCE")
 
-        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
+        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions, "INSTANCE")
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions, "INSTANCE")
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions, "INSTANCE")
+        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions, "INSTANCE")
 
         registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecorator::class.java)
     }
@@ -105,8 +106,13 @@ abstract class ParserTestCase :
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }
 
-    private fun registerBuiltInFunctions(resolver: ImportPathResolver) {
-        registerExtension(ImportPathResolver.EP_NAME, resolver)
+    private fun registerBuiltInFunctions(resolver: ImportPathResolver, fieldName: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
+        val bean = ImportPathResolverBean()
+        bean.implementationClass = resolver.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerBuiltInFunctions"), classLoader))
+        registerExtension(ImportPathResolver.EP_NAME, bean)
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)

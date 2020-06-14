@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
-private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extensions.asSequence()
+private val STATIC_IMPORT_RESOLVERS get() = ImportPathResolver.EP_NAME.extensions.asSequence().map { it.getInstance() }
 
 fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? = this.resolveUri(element!!.project)
 

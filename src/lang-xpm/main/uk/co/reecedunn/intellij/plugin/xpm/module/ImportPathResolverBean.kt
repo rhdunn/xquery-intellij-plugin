@@ -15,15 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module
 
-import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.xmlb.annotations.Attribute
+import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-interface ImportPathResolver {
-    companion object {
-        val EP_NAME = ExtensionPointName.create<ImportPathResolverBean>("uk.co.reecedunn.intellij.importPathResolver")
-    }
+class ImportPathResolverBean : KotlinLazyInstance<ImportPathResolver>() {
+    @Attribute("implementationClass")
+    override var implementationClass: String = ""
 
-    fun match(path: String): Boolean
-
-    fun resolve(path: String): VirtualFile?
+    @Attribute("fieldName")
+    override var fieldName: String = ""
 }
