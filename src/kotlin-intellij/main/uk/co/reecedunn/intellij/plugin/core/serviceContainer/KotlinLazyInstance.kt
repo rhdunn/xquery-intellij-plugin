@@ -19,6 +19,15 @@ import com.intellij.compat.serviceContainer.BaseKeyedLazyInstance
 import com.intellij.openapi.application.ApplicationManager
 
 abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
+    // region Bean Properties
+
+    abstract var implementationClass: String
+
+    override fun getImplementationClassName(): String = implementationClass
+
+    // endregion
+    // region Instance
+
     private var instance: T? = null
 
     override fun getInstance(): T = instance ?: createInstance()
@@ -27,4 +36,6 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
         instance = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
         return instance!!
     }
+
+    // endregion
 }
