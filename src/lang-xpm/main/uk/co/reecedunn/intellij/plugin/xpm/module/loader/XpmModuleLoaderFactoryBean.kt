@@ -24,4 +24,7 @@ class XpmModuleLoaderFactoryBean : KotlinLazyInstance<XpmModuleLoaderFactory>() 
 
     @Attribute("implementationClass")
     override var implementationClass: String = ""
+
+    @Attribute("fieldName")
+    override var fieldName: String = ""
 }

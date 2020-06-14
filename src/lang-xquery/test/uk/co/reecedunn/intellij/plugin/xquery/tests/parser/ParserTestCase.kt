@@ -74,8 +74,8 @@ abstract class ParserTestCase :
         registerModulePathFactory(XpmModuleLocationPath)
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
-        registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion")
-        registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader")
+        registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion", "")
+        registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader", "INSTANCE")
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolver::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
@@ -95,11 +95,12 @@ abstract class ParserTestCase :
         registerExtension(XpmModulePathFactory.EP_NAME, factory)
     }
 
-    private fun registerModuleLoader(name: String, implementation: String) {
+    private fun registerModuleLoader(name: String, implementation: String, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModuleLoaderFactoryBean()
         bean.name = name
         bean.implementationClass = implementation
+        bean.fieldName = fieldName
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader))
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }

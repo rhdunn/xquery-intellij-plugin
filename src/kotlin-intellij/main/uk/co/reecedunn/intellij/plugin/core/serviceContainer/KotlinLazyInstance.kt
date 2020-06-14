@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.serviceContainer
 
 import com.intellij.compat.serviceContainer.BaseKeyedLazyInstance
+import com.intellij.diagnostic.PluginException
 import com.intellij.openapi.application.ApplicationManager
 
 abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
@@ -25,6 +26,8 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
 
     override fun getImplementationClassName(): String = implementationClass
 
+    abstract var fieldName: String
+
     // endregion
     // region Instance
 
@@ -33,8 +36,26 @@ abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
     override fun getInstance(): T = instance ?: createInstance()
 
     private fun createInstance(): T {
-        instance = getInstance(ApplicationManager.getApplication(), pluginDescriptor)
+        instance = when (fieldName) {
+            "" -> getInstance(ApplicationManager.getApplication(), pluginDescriptor)
+            else -> getFieldInstance()
+        }
         return instance!!
+    }
+
+    private fun getFieldInstance(): T {
+        try {
+            @Suppress("UNCHECKED_CAST")
+            val aClass = Class.forName(getImplementationClassName(), true, pluginDescriptor.pluginClassLoader) as Class<T>
+
+            val field = aClass.getDeclaredField(fieldName)
+            field.isAccessible = true
+
+            @Suppress("UNCHECKED_CAST")
+            return field.get(null) as T
+        } catch (e: Throwable) {
+            throw PluginException(e, pluginDescriptor.pluginId)
+        }
     }
 
     // endregion
