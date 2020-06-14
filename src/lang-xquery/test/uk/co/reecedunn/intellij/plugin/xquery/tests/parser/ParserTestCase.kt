@@ -99,7 +99,7 @@ abstract class ParserTestCase :
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModuleLoaderFactoryBean()
         bean.name = name
-        bean.implementation = implementation
+        bean.implementationClass = implementation
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader))
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }

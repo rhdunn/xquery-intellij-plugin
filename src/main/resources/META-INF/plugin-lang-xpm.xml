@@ -8,7 +8,7 @@
 
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.moduleLoaderFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean" dynamic="true">
-      <with attribute="implementation" implements="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory"/>
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory"/>
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
@@ -35,13 +35,13 @@
 
     <!-- Module Loaders -->
 
-    <moduleLoaderFactory name="fixed" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.FixedModuleLoader$Companion"/>
-    <moduleLoaderFactory name="jar" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader$Companion"/>
-    <moduleLoaderFactory name="java" implementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModuleLoader"/>
-    <moduleLoaderFactory name="module" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
-    <moduleLoaderFactory name="package" implementation="uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage$Companion"/>
-    <moduleLoaderFactory name="project" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.ProjectModuleLoader"/>
-    <moduleLoaderFactory name="relative" implementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader"/>
+    <moduleLoaderFactory name="fixed" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.FixedModuleLoader$Companion"/>
+    <moduleLoaderFactory name="jar" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader$Companion"/>
+    <moduleLoaderFactory name="java" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModuleLoader"/>
+    <moduleLoaderFactory name="module" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
+    <moduleLoaderFactory name="package" implementationClass="uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage$Companion"/>
+    <moduleLoaderFactory name="project" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.ProjectModuleLoader"/>
+    <moduleLoaderFactory name="relative" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader"/>
 
     <!-- Import Paths : Deprecated by Module Paths -->
 

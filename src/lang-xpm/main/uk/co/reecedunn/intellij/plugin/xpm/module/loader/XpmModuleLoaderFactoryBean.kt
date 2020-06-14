@@ -22,8 +22,8 @@ class XpmModuleLoaderFactoryBean : BaseKeyedLazyInstance<XpmModuleLoaderFactory>
     @Attribute("name")
     var name: String = ""
 
-    @Attribute("implementation")
-    var implementation: String = ""
+    @Attribute("implementationClass")
+    var implementationClass: String = ""
 
-    override fun getImplementationClassName(): String = implementation
+    override fun getImplementationClassName(): String = implementationClass
 }
