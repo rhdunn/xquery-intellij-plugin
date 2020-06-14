@@ -16,7 +16,9 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionDecorator" interface="uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionDecorator" beanClass="uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecoratorBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator"/>
+    </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.projectConfigurationFactory" interface="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory" dynamic="true"/>
@@ -60,6 +62,6 @@
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions" fieldName="INSTANCE"/>
 
     <!-- Function Decorators -->
-    <functionDecorator implementation="uk.co.reecedunn.intellij.plugin.exquery.restxq.decorator.RestXqFunctionDecorator"/>
+    <functionDecorator implementationClass="uk.co.reecedunn.intellij.plugin.exquery.restxq.decorator.RestXqFunctionDecorator" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

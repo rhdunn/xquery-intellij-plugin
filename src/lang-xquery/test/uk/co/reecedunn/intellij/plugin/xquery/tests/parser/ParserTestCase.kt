@@ -41,6 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecoratorBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
@@ -85,7 +86,7 @@ abstract class ParserTestCase :
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions, "INSTANCE")
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions, "INSTANCE")
 
-        registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecorator::class.java)
+        registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
     }
 
     @AfterAll

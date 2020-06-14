@@ -15,18 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.function
 
-import com.intellij.openapi.extensions.ExtensionPointName
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import javax.swing.Icon
+import com.intellij.util.xmlb.annotations.Attribute
+import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-interface XpmFunctionDecorator {
-    companion object {
-        val EP_NAME = ExtensionPointName.create<XpmFunctionDecoratorBean>("uk.co.reecedunn.intellij.functionDecorator")
+class XpmFunctionDecoratorBean : KotlinLazyInstance<XpmFunctionDecorator>() {
+    @Attribute("implementationClass")
+    override var implementationClass: String = ""
 
-        fun getIcon(function: XdmFunctionDeclaration): Icon? {
-            return EP_NAME.extensions.asSequence().mapNotNull { it.getInstance().getIcon(function) }.firstOrNull()
-        }
-    }
-
-    fun getIcon(function: XdmFunctionDeclaration): Icon?
+    @Attribute("fieldName")
+    override var fieldName: String = ""
 }
