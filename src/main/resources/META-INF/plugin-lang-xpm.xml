@@ -6,7 +6,9 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" interface="uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory"/>
+    </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.moduleLoaderFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean" dynamic="true">
@@ -29,11 +31,11 @@
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <!-- Module Paths -->
 
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath"/>
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath$Companion"/>
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath$Companion"/>
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath$Companion"/>
-    <modulePathFactory implementation="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleUriPath"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath" fieldName="INSTANCE"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleUriPath" fieldName="INSTANCE"/>
 
     <!-- Module Loaders -->
 

@@ -21,12 +21,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 interface XpmModulePathFactory {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmModulePathFactory>("uk.co.reecedunn.intellij.modulePathFactory")
+        val EP_NAME = ExtensionPointName.create<XpmModulePathFactoryBean>("uk.co.reecedunn.intellij.modulePathFactory")
     }
 
     fun create(project: Project, uri: XsAnyUriValue): XpmModulePath?
 }
 
 fun XsAnyUriValue.paths(project: Project): Sequence<XpmModulePath> {
-    return XpmModulePathFactory.EP_NAME.extensions.asSequence().mapNotNull { it.create(project, this) }
+    return XpmModulePathFactory.EP_NAME.extensions.asSequence().mapNotNull { it.getInstance().create(project, this) }
 }

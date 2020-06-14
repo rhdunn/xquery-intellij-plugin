@@ -44,6 +44,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -71,8 +72,8 @@ abstract class ParserTestCase :
         myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
         myProject.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(myProject))
 
-        registerExtensionPoint(XpmModulePathFactory.EP_NAME, XpmModulePathFactory::class.java)
-        registerModulePathFactory(XpmModuleLocationPath)
+        registerExtensionPoint(XpmModulePathFactory.EP_NAME, XpmModulePathFactoryBean::class.java)
+        registerModulePathFactory(XpmModuleLocationPath, "")
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
         registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion", "")
@@ -92,8 +93,13 @@ abstract class ParserTestCase :
         super.tearDown()
     }
 
-    private fun registerModulePathFactory(factory: XpmModulePathFactory) {
-        registerExtension(XpmModulePathFactory.EP_NAME, factory)
+    private fun registerModulePathFactory(factory: XpmModulePathFactory, fieldName: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
+        val bean = XpmModulePathFactoryBean()
+        bean.implementationClass = factory.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModulePathFactory"), classLoader))
+        registerExtension(XpmModulePathFactory.EP_NAME, bean)
     }
 
     private fun registerModuleLoader(name: String, implementation: String, fieldName: String) {
