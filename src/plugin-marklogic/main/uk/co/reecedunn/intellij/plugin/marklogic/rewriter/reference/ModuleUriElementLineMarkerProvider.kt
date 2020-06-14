@@ -38,7 +38,7 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
     }
 
     private fun getModuleUriElements(element: XQueryQueryBody): Sequence<PsiElement> {
-        return RewriterEndpointsProvider.groups(element.project).asSequence().flatMap { group ->
+        return RewriterEndpointsProvider.find(element.project).asSequence().flatMap { group ->
             group.endpoints.filter { it.reference?.resolve() === element }.map { it.element }
         }
     }
