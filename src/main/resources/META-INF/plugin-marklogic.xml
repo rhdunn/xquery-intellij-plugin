@@ -9,9 +9,9 @@
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <!-- Roxy -->
-    <projectConfigurationFactory implementation="uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration$Companion"/>
+    <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration$Companion"/>
 
     <!-- ml-gradle -->
-    <projectConfigurationFactory implementation="uk.co.reecedunn.intellij.plugin.marklogic.gradle.configuration.GradleConfiguration$Companion"/>
+    <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.gradle.configuration.GradleConfiguration$Companion"/>
   </extensions>
 </idea-plugin>

@@ -24,15 +24,15 @@ import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 
 class XpmProjectConfigurations(private val project: Project) :
-    ExtensionPointListener<XpmProjectConfigurationFactory>(),
+    ExtensionPointListener<XpmProjectConfigurationFactoryBean>(),
     Disposable {
     // region ExtensionPointListener
 
-    override fun extensionAdded(extension: XpmProjectConfigurationFactory) {
+    override fun extensionAdded(extension: XpmProjectConfigurationFactoryBean) {
         cachedConfigurations.invalidate()
     }
 
-    override fun extensionRemoved(extension: XpmProjectConfigurationFactory) {
+    override fun extensionRemoved(extension: XpmProjectConfigurationFactoryBean) {
         cachedConfigurations.invalidate()
     }
 
@@ -50,7 +50,7 @@ class XpmProjectConfigurations(private val project: Project) :
         ProjectRootManager.getInstance(project).fileIndex.iterateContent { vf ->
             if (!vf.isDirectory) return@iterateContent true
             XpmProjectConfigurationFactory.EP_NAME.extensionList.forEach {
-                it.create(project, vf)?.let { configuration -> configurations.add(configuration) }
+                it.getInstance().create(project, vf)?.let { configuration -> configurations.add(configuration) }
             }
             true
         }

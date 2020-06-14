@@ -21,7 +21,9 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.projectConfigurationFactory" interface="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.projectConfigurationFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">

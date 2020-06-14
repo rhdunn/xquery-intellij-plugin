@@ -15,14 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
-import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.xmlb.annotations.Attribute
+import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-interface XpmProjectConfigurationFactory {
-    companion object {
-        val EP_NAME = ExtensionPointName.create<XpmProjectConfigurationFactoryBean>("uk.co.reecedunn.intellij.projectConfigurationFactory")
-    }
+class XpmProjectConfigurationFactoryBean : KotlinLazyInstance<XpmProjectConfigurationFactory>() {
+    @Attribute("implementationClass")
+    override var implementationClass: String = ""
 
-    fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration?
+    @Attribute("fieldName")
+    override var fieldName: String = ""
 }
