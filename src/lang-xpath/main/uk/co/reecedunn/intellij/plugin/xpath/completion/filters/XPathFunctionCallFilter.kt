@@ -23,12 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.isLocalNameOrNCName
 
-object XPathVarRefFilter : CompletionFilter {
-    override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
-        return element.ancestors().find { it is XPathVarRef } != null
-    }
-}
-
 object XPathFunctionCallFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
