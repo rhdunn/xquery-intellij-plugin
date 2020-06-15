@@ -15,21 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.variables
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 interface XdmVariableName {
     val variableName: XsQNameValue?
 }
-
-interface XdmVariableType {
-    val variableType: XdmSequenceType?
-}
-
-interface XdmVariableDefinition : XdmVariableName
-
-interface XdmVariableDeclaration : XdmVariableDefinition
-
-interface XdmVariableBinding : XdmVariableDefinition
-
-interface XdmVariableReference : XdmVariableName
