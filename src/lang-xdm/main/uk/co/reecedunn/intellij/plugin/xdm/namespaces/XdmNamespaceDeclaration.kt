@@ -18,22 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xdm.namespaces
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 
-enum class XdmNamespaceType {
-    DefaultElementOrType,
-    DefaultFunctionDecl,
-    DefaultFunctionRef,
-    None,
-    Prefixed,
-    Undefined,
-    XQuery,
-}
-
 interface XdmNamespaceDeclaration {
     val namespacePrefix: XsNCNameValue?
 
     val namespaceUri: XsAnyUriValue?
-}
-
-interface XdmDefaultNamespaceDeclaration : XdmNamespaceDeclaration {
-    fun accepts(namespaceType: XdmNamespaceType): Boolean
 }
