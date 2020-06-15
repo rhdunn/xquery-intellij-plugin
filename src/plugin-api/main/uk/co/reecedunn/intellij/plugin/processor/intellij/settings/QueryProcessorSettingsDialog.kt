@@ -22,6 +22,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
@@ -33,8 +34,6 @@ import java.awt.Dimension
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
-
-private fun JTextField.textOrNull(): String? = text?.let { if (it.isEmpty()) null else it }
 
 class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryProcessorSettings>() {
     // region Dialog
@@ -215,15 +214,15 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     }
 
     override fun apply(configuration: QueryProcessorSettings) {
-        configuration.name = description.textOrNull()
+        configuration.name = description.text.nullize()
         configuration.api = api.selectedItem as QueryProcessorApi
-        configuration.jar = jar.textField.textOrNull()
-        configuration.configurationPath = this.configuration.textField.textOrNull()
+        configuration.jar = jar.textField.text.nullize()
+        configuration.configurationPath = this.configuration.textField.text.nullize()
         if (!standalone.isSelected) {
             val dbPort = databasePort.text.toInt()
-            val user = username.textOrNull()
+            val user = username.text.nullize()
             configuration.connection = ConnectionSettings(hostname.text, dbPort, user)
-            configuration.connection!!.setPassword(password.password?.let { if (it.isEmpty()) null else it })
+            configuration.connection!!.setPassword(password.password?.nullize())
         } else {
             configuration.connection = null
         }
