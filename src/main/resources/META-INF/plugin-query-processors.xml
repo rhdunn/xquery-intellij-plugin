@@ -1,7 +1,10 @@
 <idea-plugin>
   <extensionPoints>
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" beanClass="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApiBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
+    </extensionPoint>
+
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.syntaxValidator" interface="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator" dynamic="true"/>
     <!--suppress PluginXmlValidity -->
@@ -43,10 +46,10 @@
 
     <!-- Query Processors -->
 
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest"/>
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest"/>
-    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession" fieldName="INSTANCE"/>
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest" fieldName="INSTANCE"/>
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest" fieldName="INSTANCE"/>
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API" fieldName="INSTANCE"/>
 
     <!-- Syntax Validators -->
 
