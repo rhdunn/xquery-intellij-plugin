@@ -15,9 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.profile
 
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
-data class ProfileQueryResults(
-    val results: List<QueryResult>,
-    val report: FlatProfileReport
+data class FlatProfileEntry(
+    val id: String,
+    val context: String,
+    val count: Int,
+    val selfTime: XsDurationValue,
+    val totalTime: XsDurationValue,
+    val frame: XStackFrame
 )

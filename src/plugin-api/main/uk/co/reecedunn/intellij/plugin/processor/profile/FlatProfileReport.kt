@@ -15,9 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.profile
 
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
-data class ProfileQueryResults(
-    val results: List<QueryResult>,
-    val report: FlatProfileReport
+data class FlatProfileReport(
+    val xml: String?,
+    val elapsed: XsDurationValue,
+    val created: String,
+    val version: String,
+    val results: Sequence<FlatProfileEntry>
 )
