@@ -23,11 +23,6 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import kotlin.collections.ArrayList
 
-data class QueryProcessorsData(
-    var currentProcessorId: Int = 0,
-    var processors: List<QueryProcessorSettings> = ArrayList()
-)
-
 @State(name = "XIJPQueryProcessors", storages = [Storage("xijp_processors_config.xml")])
 class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
     private val data = QueryProcessorsData()
