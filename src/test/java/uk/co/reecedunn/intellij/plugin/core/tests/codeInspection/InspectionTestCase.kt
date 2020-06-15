@@ -20,6 +20,8 @@ import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.SmartPointerManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -37,6 +39,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
@@ -57,9 +60,18 @@ abstract class InspectionTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
-        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidator::class.java)
-        registerExtension(XpmSyntaxValidator.EP_NAME, BaseXSyntaxValidator)
-        registerExtension(XpmSyntaxValidator.EP_NAME, MarkLogicSyntaxValidator)
+        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
+        registerSyntaxValidator(BaseXSyntaxValidator, "INSTANCE")
+        registerSyntaxValidator(MarkLogicSyntaxValidator, "INSTANCE")
+    }
+
+    private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
+        val classLoader = InspectionTestCase::class.java.classLoader
+        val bean = XpmSyntaxValidatorBean()
+        bean.implementationClass = factory.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
+        registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
     @AfterAll

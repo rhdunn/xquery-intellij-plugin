@@ -6,7 +6,10 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.syntaxValidator" interface="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.syntaxValidator" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator"/>
+    </extensionPoint>
+
     <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.vendor" interface="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType" dynamic="true"/>
   </extensionPoints>
@@ -53,7 +56,7 @@
 
     <!-- Syntax Validators -->
 
-    <syntaxValidator implementation="uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator"/>
-    <syntaxValidator implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator"/>
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator" fieldName="INSTANCE"/>
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

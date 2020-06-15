@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.lang
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
@@ -36,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean
 
 @Suppress("ClassName")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -52,8 +55,17 @@ class MarkLogicSyntaxValidatorTest :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
-        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidator::class.java)
-        registerExtension(XpmSyntaxValidator.EP_NAME, MarkLogicSyntaxValidator)
+        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
+        registerSyntaxValidator(MarkLogicSyntaxValidator, "INSTANCE")
+    }
+
+    private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
+        val classLoader = MarkLogicSyntaxValidatorTest::class.java.classLoader
+        val bean = XpmSyntaxValidatorBean()
+        bean.implementationClass = factory.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
+        registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
     @AfterAll

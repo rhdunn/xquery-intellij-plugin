@@ -15,14 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
-import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.util.xmlb.annotations.Attribute
+import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-interface XpmSyntaxValidator {
-    companion object {
-        val EP_NAME = ExtensionPointName.create<XpmSyntaxValidatorBean>("uk.co.reecedunn.intellij.syntaxValidator")
+class XpmSyntaxValidatorBean : KotlinLazyInstance<XpmSyntaxValidator>() {
+    @Attribute("implementationClass")
+    override var implementationClass: String = ""
 
-        val validators: Sequence<XpmSyntaxValidator> get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
-    }
-
-    fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter)
+    @Attribute("fieldName")
+    override var fieldName: String = ""
 }
