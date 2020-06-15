@@ -15,29 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.parser
 
-import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-
-private val DESCRIPTION_LINE_TOKENS = TokenSet.create(
-    XQDocTokenType.CONTENTS,
-    XQDocTokenType.WHITE_SPACE,
-    XQDocTokenType.OPEN_XML_TAG,
-    XQDocTokenType.END_XML_TAG,
-    XQDocTokenType.CLOSE_XML_TAG,
-    XQDocTokenType.SELF_CLOSING_XML_TAG,
-    XQDocTokenType.XML_TAG,
-    XQDocTokenType.XML_EQUAL,
-    XQDocTokenType.XML_ATTRIBUTE_VALUE_START,
-    XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS,
-    XQDocTokenType.XML_ATTRIBUTE_VALUE_END,
-    XQDocTokenType.XML_ELEMENT_CONTENTS,
-    XQDocTokenType.CHARACTER_REFERENCE,
-    XQDocTokenType.PREDEFINED_ENTITY_REFERENCE,
-    XQDocTokenType.PARTIAL_ENTITY_REFERENCE,
-    XQDocTokenType.EMPTY_ENTITY_REFERENCE
-)
 
 class XQDocCommentLineExtractor(private val comment: CharSequence) {
     private val lexer = XQDocLexer()
@@ -91,7 +71,7 @@ class XQDocCommentLineExtractor(private val comment: CharSequence) {
     private fun parseDescriptionLine() {
         val start = lexer.tokenStart
         var end = lexer.tokenEnd
-        while (DESCRIPTION_LINE_TOKENS.contains(lexer.tokenType)) {
+        while (XQDocTokenType.DESCRIPTION_LINE_TOKENS.contains(lexer.tokenType)) {
             end = lexer.tokenEnd
             lexer.advance()
         }
