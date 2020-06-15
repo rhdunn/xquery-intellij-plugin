@@ -27,12 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
 import java.io.File
 import java.io.IOException
 
-enum class XQDocDocumentationDownloadStatus(val label: String) {
-    NotDownloaded(XQDocBundle.message("download-status.not-downloaded")),
-    Downloading(XQDocBundle.message("download-status.downloading")),
-    Downloaded(XQDocBundle.message("download-status.downloaded"))
-}
-
 @State(name = "XdmDocumentationDownloader", storages = [Storage("xijp_settings.xml")])
 class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentationDownloader> {
     var basePath: String? = null
