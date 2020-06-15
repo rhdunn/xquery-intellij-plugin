@@ -17,37 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
 
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 
-// region State Constants
-
-private const val STATE_CONTENTS = 1
-private const val STATE_TAGGED_CONTENTS = 2
-private const val STATE_ELEM_CONSTRUCTOR = 3
-private const val STATE_ELEM_CONTENTS = 4
-private const val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
-private const val STATE_ATTRIBUTE_VALUE_QUOTE = 6
-private const val STATE_ATTRIBUTE_VALUE_APOS = 7
-private const val STATE_TRIM = 8
-private const val STATE_PARAM_TAG_CONTENTS_START = 9
-private const val STATE_PARAM_TAG_VARNAME = 10
-private const val STATE_XQUERY_CONTENTS = 11
-private const val STATE_XQUERY_CONTENTS_TRIM = 12
-
-// endregion
-// region Special Tag Names
-
-private val TAG_NAMES = mapOf(
-    "author" to XQDocTokenType.T_AUTHOR,
-    "deprecated" to XQDocTokenType.T_DEPRECATED,
-    "error" to XQDocTokenType.T_ERROR,
-    "param" to XQDocTokenType.T_PARAM,
-    "return" to XQDocTokenType.T_RETURN,
-    "see" to XQDocTokenType.T_SEE,
-    "since" to XQDocTokenType.T_SINCE,
-    "version" to XQDocTokenType.T_VERSION
-)
-
-// endregion
-
 class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
     // region States
 
@@ -455,4 +424,34 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
     }
 
     // endregion
+
+    companion object {
+        // region State Constants
+
+        private const val STATE_CONTENTS = 1
+        private const val STATE_TAGGED_CONTENTS = 2
+        private const val STATE_ELEM_CONSTRUCTOR = 3
+        private const val STATE_ELEM_CONTENTS = 4
+        private const val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
+        private const val STATE_ATTRIBUTE_VALUE_QUOTE = 6
+        private const val STATE_ATTRIBUTE_VALUE_APOS = 7
+        private const val STATE_TRIM = 8
+        private const val STATE_PARAM_TAG_CONTENTS_START = 9
+        private const val STATE_PARAM_TAG_VARNAME = 10
+        private const val STATE_XQUERY_CONTENTS = 11
+        private const val STATE_XQUERY_CONTENTS_TRIM = 12
+
+        // endregion
+
+        private val TAG_NAMES = mapOf(
+            "author" to XQDocTokenType.T_AUTHOR,
+            "deprecated" to XQDocTokenType.T_DEPRECATED,
+            "error" to XQDocTokenType.T_ERROR,
+            "param" to XQDocTokenType.T_PARAM,
+            "return" to XQDocTokenType.T_RETURN,
+            "see" to XQDocTokenType.T_SEE,
+            "since" to XQDocTokenType.T_SINCE,
+            "version" to XQDocTokenType.T_VERSION
+        )
+    }
 }
