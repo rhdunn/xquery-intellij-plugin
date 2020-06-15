@@ -17,6 +17,4 @@ package uk.co.reecedunn.intellij.plugin.xdm.context
 
 import com.intellij.psi.PsiElement
 
-interface XstContext {
-    fun getUsageType(element: PsiElement): XstUsageType?
-}
+val PsiElement.staticContext get(): XstContext? = this.containingFile as? XstContext
