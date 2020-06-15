@@ -36,21 +36,6 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.De
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
-data class QueryProcessorRunConfigurationData(
-    var processorId: Int? = null,
-    var rdfOutputFormat: String? = null,
-    var updating: Boolean = false,
-    var xpathSubset: XPathSubset = XPathSubset.XPath,
-    var server: String? = null,
-    var database: String? = null,
-    var modulePath: String? = null,
-    var scriptFile: String? = null,
-    var scriptSource: QueryProcessorDataSourceType = QueryProcessorDataSourceType.LocalFile,
-    var contextItem: String? = null,
-    var contextItemSource: QueryProcessorDataSourceType? = null,
-    var reformatResults: Boolean = false
-) : RunConfigurationOptions()
-
 class QueryProcessorRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,
