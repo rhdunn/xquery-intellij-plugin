@@ -11,7 +11,9 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.vendor" interface="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType" dynamic="true"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.vendor" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorTypeBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
@@ -42,10 +44,10 @@
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <!-- Vendors -->
 
-    <vendor implementation="uk.co.reecedunn.intellij.plugin.basex.lang.BaseX"/>
-    <vendor implementation="uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB"/>
-    <vendor implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic"/>
-    <vendor implementation="uk.co.reecedunn.intellij.plugin.saxon.lang.Saxonica"/>
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.basex.lang.BaseX" fieldName="INSTANCE"/>
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB" fieldName="INSTANCE"/>
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic" fieldName="INSTANCE"/>
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.saxon.lang.Saxonica" fieldName="INSTANCE"/>
 
     <!-- Query Processors -->
 

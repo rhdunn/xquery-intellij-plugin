@@ -15,23 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang
 
-import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.util.xmlb.annotations.Attribute
+import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-interface XpmVendorType {
-    companion object {
-        val EP_NAME = ExtensionPointName.create<XpmVendorTypeBean>("uk.co.reecedunn.intellij.vendor")
+class XpmVendorTypeBean : KotlinLazyInstance<XpmVendorType>() {
+    @Attribute("implementationClass")
+    override var implementationClass: String = ""
 
-        val types: Sequence<XpmVendorType> get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
-    }
-
-    val id: String
-
-    val presentation: ItemPresentation
-
-    fun isValidInstallDir(installDir: String): Boolean
-
-    val modulePath: String?
-
-    fun schemaFiles(path: String): Sequence<XpmSchemaFile>
+    @Attribute("fieldName")
+    override var fieldName: String = ""
 }
