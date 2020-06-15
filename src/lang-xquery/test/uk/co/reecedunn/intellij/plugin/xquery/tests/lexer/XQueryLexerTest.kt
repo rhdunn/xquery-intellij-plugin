@@ -25,8 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -36,10 +34,12 @@ class XQueryLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
-            XQueryLexer(), 0x50000000, 0, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
+            XQueryLexer(), 0x50000000, 0,
+            XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
         )
         lexer.addState(
-            XQueryLexer(), 0x60000000, 0, STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
+            XQueryLexer(), 0x60000000, 0,
+            XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
         )
         return lexer
     }
@@ -1005,7 +1005,7 @@ class XQueryLexerTest : LexerTestCase() {
         fun testDirElemConstructor_MaybeDirElem() {
             val lexer = createLexer()
 
-            lexer.start("<one:two/>", 0, 10, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
+            lexer.start("<one:two/>", 0, 10, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 29, 0, 1, XPathTokenType.LESS_THAN)
             matchToken(lexer, "one", 29, 1, 4, XPathTokenType.NCNAME)
             matchToken(lexer, ":", 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
@@ -1013,7 +1013,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "/>", 29, 8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 29, 10, 10, null)
 
-            lexer.start("<one:two>", 0, 9, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
+            lexer.start("<one:two>", 0, 9, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 29, 0, 1, XPathTokenType.LESS_THAN)
             matchToken(lexer, "one", 29, 1, 4, XPathTokenType.NCNAME)
             matchToken(lexer, ":", 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
@@ -1021,7 +1021,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, ">", 29, 8, 9, XPathTokenType.GREATER_THAN)
             matchToken(lexer, "", 29, 9, 9, null)
 
-            lexer.start("<  one:two  ", 0, 12, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
+            lexer.start("<  one:two  ", 0, 12, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 29, 0, 1, XPathTokenType.LESS_THAN)
             matchToken(lexer, "  ", 29, 1, 3, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "one", 29, 3, 6, XPathTokenType.NCNAME)
@@ -1036,7 +1036,7 @@ class XQueryLexerTest : LexerTestCase() {
         fun testDirElemConstructor_StartDirElem() {
             val lexer = createLexer()
 
-            lexer.start("<one:two/>", 0, 10, STATE_START_DIR_ELEM_CONSTRUCTOR)
+            lexer.start("<one:two/>", 0, 10, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
             matchToken(lexer, "one", 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
             matchToken(lexer, ":", 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
@@ -1044,7 +1044,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "/>", 11, 8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 10, 10, null)
 
-            lexer.start("<one:two>", 0, 9, STATE_START_DIR_ELEM_CONSTRUCTOR)
+            lexer.start("<one:two>", 0, 9, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
             matchToken(lexer, "one", 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
             matchToken(lexer, ":", 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
@@ -1052,7 +1052,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, ">", 11, 8, 9, XQueryTokenType.END_XML_TAG)
             matchToken(lexer, "", 17, 9, 9, null)
 
-            lexer.start("<  one:two  ", 0, 12, STATE_START_DIR_ELEM_CONSTRUCTOR)
+            lexer.start("<  one:two  ", 0, 12, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
             matchToken(lexer, "  ", 30, 1, 3, XQueryTokenType.XML_WHITE_SPACE)
             matchToken(lexer, "one", 11, 3, 6, XQueryTokenType.XML_TAG_NCNAME)

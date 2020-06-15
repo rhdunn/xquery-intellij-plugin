@@ -18,142 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
-// region State Constants
-
-private const val STATE_XML_COMMENT = 5
-private const val STATE_CDATA_SECTION = 7
-private const val STATE_DIR_ELEM_CONSTRUCTOR = 11
-private const val STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12
-private const val STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13
-private const val STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE = 14
-private const val STATE_DEFAULT_ATTRIBUTE_QUOT = 15
-private const val STATE_DEFAULT_ATTRIBUTE_APOSTROPHE = 16
-private const val STATE_DIR_ELEM_CONTENT = 17
-private const val STATE_DEFAULT_ELEM_CONTENT = 18
-private const val STATE_XML_COMMENT_ELEM_CONTENT = 19
-private const val STATE_CDATA_SECTION_ELEM_CONTENT = 20
-private const val STATE_PROCESSING_INSTRUCTION = 21
-private const val STATE_PROCESSING_INSTRUCTION_CONTENTS = 22
-private const val STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23
-private const val STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24
-private const val STATE_DIR_ATTRIBUTE_LIST = 25
-private const val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
-private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
-const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
-const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
-
-// endregion
-
-private val KEYWORDS = mapOf(
-    "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
-    "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
-    "ascending" to XQueryTokenType.K_ASCENDING,
-    "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
-    "attribute-decl" to XQueryTokenType.K_ATTRIBUTE_DECL, // MarkLogic 7.0
-    "base-uri" to XQueryTokenType.K_BASE_URI,
-    "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
-    "binary" to XQueryTokenType.K_BINARY, // MarkLogic 6.0
-    "block" to XQueryTokenType.K_BLOCK, // Scripting Extension 1.0
-    "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
-    "by" to XQueryTokenType.K_BY,
-    "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
-    "collation" to XQueryTokenType.K_COLLATION,
-    "complex-type" to XQueryTokenType.K_COMPLEX_TYPE, // MarkLogic 7.0
-    "construction" to XQueryTokenType.K_CONSTRUCTION,
-    "context" to XQueryTokenType.K_CONTEXT, // XQuery 3.0
-    "copy" to XQueryTokenType.K_COPY, // Update Facility 1.0
-    "copy-namespaces" to XQueryTokenType.K_COPY_NAMESPACES,
-    "count" to XQueryTokenType.K_COUNT, // XQuery 3.0
-    "decimal-format" to XQueryTokenType.K_DECIMAL_FORMAT, // XQuery 3.0
-    "decimal-separator" to XQueryTokenType.K_DECIMAL_SEPARATOR, // XQuery 3.0
-    "declare" to XQueryTokenType.K_DECLARE,
-    "delete" to XQueryTokenType.K_DELETE, // Update Facility 1.0
-    "descending" to XQueryTokenType.K_DESCENDING,
-    "digit" to XQueryTokenType.K_DIGIT, // XQuery 3.0
-    "document" to XQueryTokenType.K_DOCUMENT,
-    "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
-    "encoding" to XQueryTokenType.K_ENCODING,
-    "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
-    "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
-    "external" to XQueryTokenType.K_EXTERNAL,
-    "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
-    "fn" to XPathTokenType.K_FN, // Saxon 9.8
-    "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
-    "full" to XQueryTokenType.K_FULL, // MarkLogic 6.0
-    "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
-    "greatest" to XQueryTokenType.K_GREATEST,
-    "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
-    "grouping-separator" to XQueryTokenType.K_GROUPING_SEPARATOR, // XQuery 3.0
-    "import" to XQueryTokenType.K_IMPORT,
-    "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
-    "inherit" to XQueryTokenType.K_INHERIT,
-    "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
-    "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
-    "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
-    "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
-    "lax" to XQueryTokenType.K_LAX,
-    "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
-    "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
-    "module" to XQueryTokenType.K_MODULE,
-    "model-group" to XQueryTokenType.K_MODEL_GROUP, // MarkLogic 7.0
-    "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
-    "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
-    "no-inherit" to XQueryTokenType.K_NO_INHERIT,
-    "no-preserve" to XQueryTokenType.K_NO_PRESERVE,
-    "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
-    "non-deterministic" to XQueryTokenType.K_NON_DETERMINISTIC, // BaseX 8.4
-    "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
-    "order" to XQueryTokenType.K_ORDER,
-    "ordering" to XQueryTokenType.K_ORDERING,
-    "pattern-separator" to XQueryTokenType.K_PATTERN_SEPARATOR, // XQuery 3.0
-    "per-mille" to XQueryTokenType.K_PER_MILLE, // XQuery 3.0
-    "percent" to XQueryTokenType.K_PERCENT, // XQuery 3.0
-    "preserve" to XQueryTokenType.K_PRESERVE,
-    "previous" to XQueryTokenType.K_PREVIOUS, // XQuery 3.0
-    "private" to XQueryTokenType.K_PRIVATE, // MarkLogic 6.0
-    "public" to XQueryTokenType.K_PUBLIC, // XQuery 3.0 Annotations
-    "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0
-    "replace" to XQueryTokenType.K_REPLACE, // Update Facility 1.0
-    "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
-    "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
-    "schema" to XQueryTokenType.K_SCHEMA,
-    "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
-    "schema-facet" to XQueryTokenType.K_SCHEMA_FACET, // MarkLogic 7.0
-    "schema-particle" to XQueryTokenType.K_SCHEMA_PARTICLE, // MarkLogic 7.0
-    "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0
-    "schema-type" to XQueryTokenType.K_SCHEMA_TYPE, // MarkLogic 7.0
-    "schema-wildcard" to XQueryTokenType.K_SCHEMA_WILDCARD, // MarkLogic 7.0
-    "sequential" to XQueryTokenType.K_SEQUENTIAL, // Scripting Extension 1.0
-    "simple" to XQueryTokenType.K_SIMPLE, // Scripting Extension 1.0
-    "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0
-    "skip" to XQueryTokenType.K_SKIP, // Update Facility 1.0
-    "sliding" to XQueryTokenType.K_SLIDING, // XQuery 3.0
-    "stable" to XQueryTokenType.K_STABLE,
-    "strict" to XQueryTokenType.K_STRICT,
-    "strip" to XQueryTokenType.K_STRIP,
-    "stylesheet" to XQueryTokenType.K_STYLESHEET, // MarkLogic 6.0
-    "switch" to XQueryTokenType.K_SWITCH, // XQuery 3.0
-    "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
-    "try" to XQueryTokenType.K_TRY, // XQuery 3.0
-    "tumbling" to XQueryTokenType.K_TUMBLING, // XQuery 3.0
-    "tuple" to XPathTokenType.K_TUPLE, // Saxon 9.8
-    "typeswitch" to XQueryTokenType.K_TYPESWITCH,
-    "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // Scripting Extension 1.0
-    "unordered" to XQueryTokenType.K_UNORDERED,
-    "update" to XQueryTokenType.K_UPDATE, // BaseX 7.8
-    "updating" to XQueryTokenType.K_UPDATING, // Update Facility 1.0
-    "validate" to XQueryTokenType.K_VALIDATE,
-    "value" to XQueryTokenType.K_VALUE, // Update Facility 1.0
-    "variable" to XQueryTokenType.K_VARIABLE,
-    "version" to XQueryTokenType.K_VERSION,
-    "when" to XQueryTokenType.K_WHEN, // XQuery 3.0
-    "where" to XQueryTokenType.K_WHERE,
-    "while" to XQueryTokenType.K_WHILE, // Scripting Extension 1.0
-    "with" to XQueryTokenType.K_WITH, // Update Facility 1.0
-    "xquery" to XQueryTokenType.K_XQUERY,
-    "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
-)
-
 class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
     // region States
 
@@ -1262,4 +1126,142 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
     }
 
     // endregion
+
+    companion object {
+        // region State Constants
+
+        private const val STATE_XML_COMMENT = 5
+        private const val STATE_CDATA_SECTION = 7
+        private const val STATE_DIR_ELEM_CONSTRUCTOR = 11
+        private const val STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12
+        private const val STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13
+        private const val STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE = 14
+        private const val STATE_DEFAULT_ATTRIBUTE_QUOT = 15
+        private const val STATE_DEFAULT_ATTRIBUTE_APOSTROPHE = 16
+        private const val STATE_DIR_ELEM_CONTENT = 17
+        private const val STATE_DEFAULT_ELEM_CONTENT = 18
+        private const val STATE_XML_COMMENT_ELEM_CONTENT = 19
+        private const val STATE_CDATA_SECTION_ELEM_CONTENT = 20
+        private const val STATE_PROCESSING_INSTRUCTION = 21
+        private const val STATE_PROCESSING_INSTRUCTION_CONTENTS = 22
+        private const val STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23
+        private const val STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24
+        private const val STATE_DIR_ATTRIBUTE_LIST = 25
+        private const val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
+        private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
+        const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
+        const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
+
+        // endregion
+
+        private val KEYWORDS = mapOf(
+            "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
+            "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
+            "ascending" to XQueryTokenType.K_ASCENDING,
+            "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
+            "attribute-decl" to XQueryTokenType.K_ATTRIBUTE_DECL, // MarkLogic 7.0
+            "base-uri" to XQueryTokenType.K_BASE_URI,
+            "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
+            "binary" to XQueryTokenType.K_BINARY, // MarkLogic 6.0
+            "block" to XQueryTokenType.K_BLOCK, // Scripting Extension 1.0
+            "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
+            "by" to XQueryTokenType.K_BY,
+            "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
+            "collation" to XQueryTokenType.K_COLLATION,
+            "complex-type" to XQueryTokenType.K_COMPLEX_TYPE, // MarkLogic 7.0
+            "construction" to XQueryTokenType.K_CONSTRUCTION,
+            "context" to XQueryTokenType.K_CONTEXT, // XQuery 3.0
+            "copy" to XQueryTokenType.K_COPY, // Update Facility 1.0
+            "copy-namespaces" to XQueryTokenType.K_COPY_NAMESPACES,
+            "count" to XQueryTokenType.K_COUNT, // XQuery 3.0
+            "decimal-format" to XQueryTokenType.K_DECIMAL_FORMAT, // XQuery 3.0
+            "decimal-separator" to XQueryTokenType.K_DECIMAL_SEPARATOR, // XQuery 3.0
+            "declare" to XQueryTokenType.K_DECLARE,
+            "delete" to XQueryTokenType.K_DELETE, // Update Facility 1.0
+            "descending" to XQueryTokenType.K_DESCENDING,
+            "digit" to XQueryTokenType.K_DIGIT, // XQuery 3.0
+            "document" to XQueryTokenType.K_DOCUMENT,
+            "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
+            "encoding" to XQueryTokenType.K_ENCODING,
+            "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
+            "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
+            "external" to XQueryTokenType.K_EXTERNAL,
+            "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
+            "fn" to XPathTokenType.K_FN, // Saxon 9.8
+            "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
+            "full" to XQueryTokenType.K_FULL, // MarkLogic 6.0
+            "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
+            "greatest" to XQueryTokenType.K_GREATEST,
+            "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
+            "grouping-separator" to XQueryTokenType.K_GROUPING_SEPARATOR, // XQuery 3.0
+            "import" to XQueryTokenType.K_IMPORT,
+            "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
+            "inherit" to XQueryTokenType.K_INHERIT,
+            "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
+            "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
+            "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
+            "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
+            "lax" to XQueryTokenType.K_LAX,
+            "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
+            "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
+            "module" to XQueryTokenType.K_MODULE,
+            "model-group" to XQueryTokenType.K_MODEL_GROUP, // MarkLogic 7.0
+            "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
+            "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
+            "no-inherit" to XQueryTokenType.K_NO_INHERIT,
+            "no-preserve" to XQueryTokenType.K_NO_PRESERVE,
+            "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
+            "non-deterministic" to XQueryTokenType.K_NON_DETERMINISTIC, // BaseX 8.4
+            "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
+            "order" to XQueryTokenType.K_ORDER,
+            "ordering" to XQueryTokenType.K_ORDERING,
+            "pattern-separator" to XQueryTokenType.K_PATTERN_SEPARATOR, // XQuery 3.0
+            "per-mille" to XQueryTokenType.K_PER_MILLE, // XQuery 3.0
+            "percent" to XQueryTokenType.K_PERCENT, // XQuery 3.0
+            "preserve" to XQueryTokenType.K_PRESERVE,
+            "previous" to XQueryTokenType.K_PREVIOUS, // XQuery 3.0
+            "private" to XQueryTokenType.K_PRIVATE, // MarkLogic 6.0
+            "public" to XQueryTokenType.K_PUBLIC, // XQuery 3.0 Annotations
+            "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0
+            "replace" to XQueryTokenType.K_REPLACE, // Update Facility 1.0
+            "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
+            "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
+            "schema" to XQueryTokenType.K_SCHEMA,
+            "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
+            "schema-facet" to XQueryTokenType.K_SCHEMA_FACET, // MarkLogic 7.0
+            "schema-particle" to XQueryTokenType.K_SCHEMA_PARTICLE, // MarkLogic 7.0
+            "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0
+            "schema-type" to XQueryTokenType.K_SCHEMA_TYPE, // MarkLogic 7.0
+            "schema-wildcard" to XQueryTokenType.K_SCHEMA_WILDCARD, // MarkLogic 7.0
+            "sequential" to XQueryTokenType.K_SEQUENTIAL, // Scripting Extension 1.0
+            "simple" to XQueryTokenType.K_SIMPLE, // Scripting Extension 1.0
+            "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0
+            "skip" to XQueryTokenType.K_SKIP, // Update Facility 1.0
+            "sliding" to XQueryTokenType.K_SLIDING, // XQuery 3.0
+            "stable" to XQueryTokenType.K_STABLE,
+            "strict" to XQueryTokenType.K_STRICT,
+            "strip" to XQueryTokenType.K_STRIP,
+            "stylesheet" to XQueryTokenType.K_STYLESHEET, // MarkLogic 6.0
+            "switch" to XQueryTokenType.K_SWITCH, // XQuery 3.0
+            "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
+            "try" to XQueryTokenType.K_TRY, // XQuery 3.0
+            "tumbling" to XQueryTokenType.K_TUMBLING, // XQuery 3.0
+            "tuple" to XPathTokenType.K_TUPLE, // Saxon 9.8
+            "typeswitch" to XQueryTokenType.K_TYPESWITCH,
+            "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // Scripting Extension 1.0
+            "unordered" to XQueryTokenType.K_UNORDERED,
+            "update" to XQueryTokenType.K_UPDATE, // BaseX 7.8
+            "updating" to XQueryTokenType.K_UPDATING, // Update Facility 1.0
+            "validate" to XQueryTokenType.K_VALIDATE,
+            "value" to XQueryTokenType.K_VALUE, // Update Facility 1.0
+            "variable" to XQueryTokenType.K_VARIABLE,
+            "version" to XQueryTokenType.K_VERSION,
+            "when" to XQueryTokenType.K_WHEN, // XQuery 3.0
+            "where" to XQueryTokenType.K_WHERE,
+            "while" to XQueryTokenType.K_WHILE, // Scripting Extension 1.0
+            "with" to XQueryTokenType.K_WITH, // Update Facility 1.0
+            "xquery" to XQueryTokenType.K_XQUERY,
+            "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
+        )
+    }
 }
