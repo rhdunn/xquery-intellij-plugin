@@ -16,35 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-
-interface XQDocDocumentation {
-    val moduleTypes: Array<XdmModuleType>
-
-    val href: String?
-
-    val summary: String?
-
-    val notes: String?
-
-    val examples: String?
-}
-
-interface XQDocFunctionDocumentation : XQDocDocumentation {
-    val operatorMapping: String?
-
-    val signatures: String?
-
-    val parameters: String?
-
-    val properties: String?
-
-    val privileges: String?
-
-    val rules: String?
-
-    val errorConditions: String?
-}
 
 val XQDocDocumentation.sections: String
     get() {
