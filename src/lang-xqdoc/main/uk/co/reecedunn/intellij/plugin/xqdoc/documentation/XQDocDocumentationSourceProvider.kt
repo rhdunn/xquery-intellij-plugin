@@ -15,20 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
-
-interface XQDocDocumentationSource {
-    val presentation: ItemPresentation
-
-    val version: String
-
-    val href: String
-
-    val path: String
-}
 
 interface XQDocDocumentationSourceProvider {
     companion object {
