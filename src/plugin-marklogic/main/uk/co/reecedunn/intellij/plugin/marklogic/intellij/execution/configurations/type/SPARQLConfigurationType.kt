@@ -16,14 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLUpdate
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
-class SPARQLConfigurationType : ConfigurationType {
+class SPARQLConfigurationType : ConfigurationTypeEx {
     override fun getIcon(): Icon = MarkLogicIcons.SPARQL.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
@@ -35,4 +35,6 @@ class SPARQLConfigurationType : ConfigurationType {
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, SPARQLQuery, SPARQLUpdate))
     }
+
+    override val factoryId: String = "SPARQL"
 }

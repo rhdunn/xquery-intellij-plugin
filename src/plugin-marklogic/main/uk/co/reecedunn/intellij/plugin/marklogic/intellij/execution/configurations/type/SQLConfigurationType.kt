@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
-class SQLConfigurationType : ConfigurationType {
+class SQLConfigurationType : ConfigurationTypeEx {
     override fun getIcon(): Icon = MarkLogicIcons.SQL.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
@@ -34,4 +34,6 @@ class SQLConfigurationType : ConfigurationType {
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, SQL))
     }
+
+    override val factoryId: String = "SQL"
 }

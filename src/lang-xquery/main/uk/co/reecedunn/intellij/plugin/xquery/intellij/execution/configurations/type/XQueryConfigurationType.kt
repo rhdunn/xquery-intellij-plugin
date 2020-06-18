@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import javax.swing.Icon
 
-class XQueryConfigurationType : ConfigurationType {
+class XQueryConfigurationType : ConfigurationTypeEx {
     override fun getIcon(): Icon = XQueryIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
@@ -34,4 +34,6 @@ class XQueryConfigurationType : ConfigurationType {
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, XQuery))
     }
+
+    override val factoryId: String = "XQuery"
 }

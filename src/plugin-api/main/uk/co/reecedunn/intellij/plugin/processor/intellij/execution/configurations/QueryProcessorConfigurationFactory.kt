@@ -21,9 +21,12 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.lang.Language
 import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 
 class QueryProcessorConfigurationFactory(type: ConfigurationType, private vararg val language: Language) :
     ConfigurationFactory(type) {
+
+    override fun getId(): String = (type as ConfigurationTypeEx).factoryId
 
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
         return QueryProcessorRunConfiguration(project, this, *language)

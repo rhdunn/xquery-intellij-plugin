@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xpath.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import javax.swing.Icon
 
-class XPathConfigurationType : ConfigurationType {
+class XPathConfigurationType : ConfigurationTypeEx {
     override fun getIcon(): Icon = XPathIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
@@ -34,4 +34,6 @@ class XPathConfigurationType : ConfigurationType {
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, XPath))
     }
+
+    override val factoryId: String = "XPath"
 }

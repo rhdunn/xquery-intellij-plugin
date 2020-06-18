@@ -16,14 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.ServerSideJavaScript
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
-class ServerSideJavaScriptConfigurationType : ConfigurationType {
+class ServerSideJavaScriptConfigurationType : ConfigurationTypeEx {
     override fun getIcon(): Icon = MarkLogicIcons.JavaScript.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
@@ -35,4 +35,6 @@ class ServerSideJavaScriptConfigurationType : ConfigurationType {
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, ServerSideJavaScript))
     }
+
+    override val factoryId: String = "Server-side JavaScript"
 }

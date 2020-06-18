@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xslt.intellij.execution.configurations.type
 
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltIcons
 import javax.swing.Icon
 
-class XsltConfigurationType : ConfigurationType {
+class XsltConfigurationType : ConfigurationTypeEx {
     override fun getIcon(): Icon = XsltIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
@@ -34,4 +34,6 @@ class XsltConfigurationType : ConfigurationType {
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, XSLT))
     }
+
+    override val factoryId: String = "XSLT"
 }
