@@ -44,6 +44,9 @@ object XQueryVarRefProvider : CompletionProviderEx {
                         result.addElement(XPathVarNameLookup(localName, prefix, variable))
                     } else { // Variable declaration may have a different prefix to the current module.
                         variable.variableName?.expand()?.firstOrNull()?.let { name ->
+                            if (name.namespace?.data == "") {
+                                result.addElement(XPathVarNameLookup(localName, null, variable))
+                            }
                             namespaces.forEach { ns ->
                                 // Unprefixed variables use an empty namespace URI, not the default
                                 // element/type namespace.

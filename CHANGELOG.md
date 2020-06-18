@@ -46,6 +46,10 @@ Documentation:
 1.  Fix the return type in the MarkLogic documentation.
 1.  Add icons to the documentation sources.
 
+Code Completion:
+
+1.  Include declared variables without a namespace prefix in the completion list.
+
 ## 2020
 
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)
