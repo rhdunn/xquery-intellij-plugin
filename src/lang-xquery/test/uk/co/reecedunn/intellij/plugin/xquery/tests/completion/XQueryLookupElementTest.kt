@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
-private class XPathLookupElementTest : ParserTestCase() {
+private class XQueryLookupElementTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
