@@ -79,7 +79,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             val info = provider.getHintInfo(args)!!
             assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
             assertThat(info.language, `is`(nullValue()))
-            assertThat(info.getMethodName(), `is`("org/2005/xpath-functions}abs"))
+            assertThat(info.getMethodName(), `is`("abs"))
 
             assertThat(info.paramNames.size, `is`(1))
             assertThat(info.paramNames[0], `is`("arg"))

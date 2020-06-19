@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.co.reecedunn.intellij.plugin.xpath.intellij.lang
 
 import com.intellij.codeInsight.hints.HintInfo
@@ -44,11 +43,12 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
 
     override fun getHintInfo(element: PsiElement): HintInfo.MethodInfo? {
         if (element !is XPathArgumentList) return null
-        val eqname = element.functionReference?.functionName?.let { op_qname_presentation(it, true) } ?: return null
+        val functionName = element.functionReference?.functionName
+        val eqname = functionName?.let { op_qname_presentation(it, true) } ?: return null
         val params = element.bindings.mapNotNull {
             it.param.variableName?.let { param -> op_qname_presentation(param) }
         }
-        return HintInfo.MethodInfo(eqname, params)
+        return XPathMethodInfo(eqname, functionName.localName!!.data, params)
     }
 
     companion object {
