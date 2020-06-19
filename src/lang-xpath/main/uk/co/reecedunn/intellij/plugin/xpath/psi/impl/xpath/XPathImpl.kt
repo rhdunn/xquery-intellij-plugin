@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -49,6 +50,8 @@ class XPathImpl(provider: FileViewProvider) :
     // region XstContext
 
     override fun getUsageType(element: PsiElement): XstUsageType? = USAGE_TYPES[element.parent.elementType]
+
+    override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
 
     // endregion
     // region XPathStaticContext

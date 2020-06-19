@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginForMemberClause

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath and XQuery Functions and Operators 3.1")

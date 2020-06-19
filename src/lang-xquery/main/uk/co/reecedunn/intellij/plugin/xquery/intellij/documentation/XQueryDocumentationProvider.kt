@@ -35,8 +35,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 
 class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     companion object {

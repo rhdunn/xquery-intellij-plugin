@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import java.lang.reflect.InvocationTargetException
 
 data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext {
@@ -59,6 +60,8 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext 
     // region XstContext
 
     override fun getUsageType(element: PsiElement): XstUsageType? = null
+
+    override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
 
     // endregion
 

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XdmFunctionDeclaration?> {

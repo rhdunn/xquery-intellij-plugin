@@ -131,6 +131,8 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         }
     }
 
+    override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = qname.expandQName()
+
     // endregion
     // region XPathStaticContext
 

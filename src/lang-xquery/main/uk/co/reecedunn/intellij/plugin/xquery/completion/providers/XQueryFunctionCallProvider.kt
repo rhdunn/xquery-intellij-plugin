@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 object XQueryFunctionCallProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {

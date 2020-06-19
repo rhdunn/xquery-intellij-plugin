@@ -103,7 +103,7 @@ fun XsQNameValue.getNamespaceType(): XdmNamespaceType {
     return (this as? PsiElement)?.getUsageType()?.namespaceType ?: return XdmNamespaceType.Undefined
 }
 
-fun XsQNameValue.expand(): Sequence<XsQNameValue> {
+fun XsQNameValue.expandQName(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null /* NCName */ -> {
             when (val type = getNamespaceType()) {

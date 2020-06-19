@@ -47,11 +47,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 

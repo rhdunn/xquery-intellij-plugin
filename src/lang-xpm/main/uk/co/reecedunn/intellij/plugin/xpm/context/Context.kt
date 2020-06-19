@@ -16,5 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpm.context
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 val PsiElement.staticContext get(): XpmStaticContext? = this.containingFile as? XpmStaticContext
+
+fun XsQNameValue.expand(): Sequence<XsQNameValue> = element?.staticContext?.expandQName(this) ?: emptySequence()

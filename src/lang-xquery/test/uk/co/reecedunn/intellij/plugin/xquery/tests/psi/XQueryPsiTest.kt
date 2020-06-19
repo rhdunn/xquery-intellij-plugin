@@ -57,9 +57,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase

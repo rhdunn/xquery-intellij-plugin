@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
-import uk.co.reecedunn.intellij.plugin.xquery.model.expand
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 object XQueryVarRefProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
