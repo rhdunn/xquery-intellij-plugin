@@ -46,9 +46,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         if (element !is XPathArgumentList) return null
         val functionName = element.functionReference?.functionName?.expand()?.firstOrNull()
         val eqname = functionName?.let { op_qname_presentation(it, true) } ?: return null
-        val params = element.bindings.mapNotNull {
-            it.param.variableName?.let { param -> op_qname_presentation(param) }
-        }
+        val params = element.bindings.mapNotNull { it.param.variableName?.localName?.data }
         return XPathMethodInfo(eqname, functionName.localName!!.data, params)
     }
 

@@ -145,5 +145,51 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info, `is`(nullValue()))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (34) Param")
+        internal inner class Param {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
+            fun ncname() {
+                val args = parse<XPathArgumentList>("declare function local:test(\$x) {}; local:test(2)")[0]
+
+                val info = provider.getHintInfo(args)!!
+                assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))
+                assertThat(info.language, `is`(nullValue()))
+                assertThat(info.getMethodName(), `is`("test"))
+
+                assertThat(info.paramNames.size, `is`(1))
+                assertThat(info.paramNames[0], `is`("x"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
+            fun qname() {
+                val args = parse<XPathArgumentList>("declare function local:test(\$fn:x) {}; local:test(2)")[0]
+
+                val info = provider.getHintInfo(args)!!
+                assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))
+                assertThat(info.language, `is`(nullValue()))
+                assertThat(info.getMethodName(), `is`("test"))
+
+                assertThat(info.paramNames.size, `is`(1))
+                assertThat(info.paramNames[0], `is`("x"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
+            fun uriQualifiedName() {
+                val args = parse<XPathArgumentList>("declare function local:test(\$Q{http://www.example.com}x) {}; local:test(2)")[0]
+
+                val info = provider.getHintInfo(args)!!
+                assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))
+                assertThat(info.language, `is`(nullValue()))
+                assertThat(info.getMethodName(), `is`("test"))
+
+                assertThat(info.paramNames.size, `is`(1))
+                assertThat(info.paramNames[0], `is`("x"))
+            }
+        }
     }
 }
