@@ -20,7 +20,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.lang.reflect.InvocationTargetException
 
-data class JavaTypePath(val project: Project) : XpmModulePath, XstContext {
+data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext {
     private val facadeClass: Class<*>? = javaClass.classLoader.loadClassOrNull("com.intellij.psi.JavaPsiFacade")
     private val facade: Any? = try {
         facadeClass?.getMethod("getInstance", Project::class.java)?.invoke(null, project)

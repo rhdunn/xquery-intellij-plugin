@@ -26,7 +26,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
@@ -149,7 +149,7 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
         return loaders.get()?.asSequence()?.mapNotNull { it.resolve(path, context) }?.firstOrNull()
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
         return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
     }
 
@@ -186,13 +186,13 @@ fun XsAnyUriValue.resolve(project: Project, file: VirtualFile?): PsiElement? {
     return paths(project).mapNotNull { loaders.resolve(it, file) }.firstOrNull()
 }
 
-fun XsAnyUriValue.context(): XstContext? = element?.let { this.context(it) }
+fun XsAnyUriValue.context(): XpmStaticContext? = element?.let { this.context(it) }
 
-fun XsAnyUriValue.context(element: PsiElement): XstContext? {
+fun XsAnyUriValue.context(element: PsiElement): XpmStaticContext? {
     return context(element.project, element.containingFile?.virtualFile)
 }
 
-fun XsAnyUriValue.context(project: Project, file: VirtualFile?): XstContext? {
+fun XsAnyUriValue.context(project: Project, file: VirtualFile?): XpmStaticContext? {
     val loaders = XpmModuleLoaderSettings.getInstance(project)
     return paths(project).mapNotNull { loaders.context(it, file) }.firstOrNull()
 }

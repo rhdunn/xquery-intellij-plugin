@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.java
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
@@ -38,7 +38,7 @@ object JavaModuleLoader : XpmModuleLoaderFactory, XpmModuleLoader {
         }
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
         return when (path) {
             is JavaTypePath -> path
             else -> null

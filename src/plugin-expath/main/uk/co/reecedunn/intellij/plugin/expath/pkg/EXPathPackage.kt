@@ -23,7 +23,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
@@ -110,8 +110,8 @@ data class EXPathPackage internal constructor(
         }
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
-        return resolve(path, context) as? XstContext
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
+        return resolve(path, context) as? XpmStaticContext
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? = null

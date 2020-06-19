@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.context
+package uk.co.reecedunn.intellij.plugin.xpm.context
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 
-val PsiElement.staticContext get(): XstContext? = this.containingFile as? XstContext
+interface XpmStaticContext {
+    fun getUsageType(element: PsiElement): XstUsageType?
+}

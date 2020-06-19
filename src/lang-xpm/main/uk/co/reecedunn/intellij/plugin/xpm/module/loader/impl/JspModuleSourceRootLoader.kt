@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstContext
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
@@ -65,9 +65,9 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
         }
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XstContext? {
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
         return when (path) {
-            is XpmModuleLocationPath -> resolve(path, context) as? XstContext
+            is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
             else -> null
         }
     }
