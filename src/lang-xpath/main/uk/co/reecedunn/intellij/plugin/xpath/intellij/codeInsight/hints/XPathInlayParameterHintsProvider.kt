@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
 class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
@@ -43,7 +44,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
 
     override fun getHintInfo(element: PsiElement): HintInfo.MethodInfo? {
         if (element !is XPathArgumentList) return null
-        val functionName = element.functionReference?.functionName
+        val functionName = element.functionReference?.functionName?.expand()?.firstOrNull()
         val eqname = functionName?.let { op_qname_presentation(it, true) } ?: return null
         val params = element.bindings.mapNotNull {
             it.param.variableName?.let { param -> op_qname_presentation(param) }
