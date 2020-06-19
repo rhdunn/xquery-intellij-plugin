@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints
 
 import com.intellij.codeInsight.hints.HintInfo
 

@@ -13,25 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.hints
 
-import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext
-import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
-import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathInlayParameterHintsProvider
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
