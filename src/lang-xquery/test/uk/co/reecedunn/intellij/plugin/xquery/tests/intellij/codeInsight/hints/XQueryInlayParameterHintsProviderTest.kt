@@ -19,7 +19,10 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -76,6 +79,70 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
 
                 assertThat(info.paramNames.size, `is`(1))
                 assertThat(info.paramNames[0], `is`("arg"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+            fun varRef() {
+                val args = parse<XPathArgumentList>("let \$a := abs#1 return 2 => \$a()")[0]
+
+                val info = provider.getHintInfo(args)
+                assertThat(info, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
+            fun ncname() {
+                val args = parse<XPathArgumentList>("2 => abs()")[0]
+
+                val info = provider.getHintInfo(args)!!
+                assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
+                assertThat(info.language, `is`(nullValue()))
+                assertThat(info.getMethodName(), `is`("abs"))
+
+                assertThat(info.paramNames.size, `is`(1))
+                assertThat(info.paramNames[0], `is`("arg"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
+            fun qname() {
+                val args = parse<XPathArgumentList>("2 => fn:abs()")[0]
+
+                val info = provider.getHintInfo(args)!!
+                assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
+                assertThat(info.language, `is`(nullValue()))
+                assertThat(info.getMethodName(), `is`("abs"))
+
+                assertThat(info.paramNames.size, `is`(1))
+                assertThat(info.paramNames[0], `is`("arg"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
+            fun uriQualifiedName() {
+                val args = parse<XPathArgumentList>("2 => Q{http://www.w3.org/2005/xpath-functions}abs()")[0]
+
+                val info = provider.getHintInfo(args)!!
+                assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
+                assertThat(info.language, `is`(nullValue()))
+                assertThat(info.getMethodName(), `is`("abs"))
+
+                assertThat(info.paramNames.size, `is`(1))
+                assertThat(info.paramNames[0], `is`("arg"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr")
+            fun parenthesizedExpr() {
+                val args = parse<XPathArgumentList>("2 => (fn:abs#1)()")[0]
+
+                val info = provider.getHintInfo(args)
+                assertThat(info, `is`(nullValue()))
             }
         }
     }
