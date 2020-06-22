@@ -54,6 +54,7 @@ Inlay Parameter Hints:
 
 1.  Don't display a hint when the argument variable name matches the parameter name.
 1.  Don't display a hint when the path step element/attribute name matches the parameter name.
+1.  Don't display a hint when the forward step name matches the parameter name.
 
 ## 2020
 

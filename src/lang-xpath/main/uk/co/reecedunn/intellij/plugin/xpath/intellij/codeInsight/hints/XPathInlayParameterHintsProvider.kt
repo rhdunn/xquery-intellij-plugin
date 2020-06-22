@@ -23,10 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAbbrevForwardStep
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathRelativePathExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
@@ -66,7 +63,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 is XdmVariableName -> element.variableName
                 is XPathRelativePathExpr -> when (val step = element.lastChild) {
                     is XPathNodeTest -> step.firstChild.firstChild as? XsQNameValue
-                    is XPathAbbrevForwardStep -> when (step.lastChild) {
+                    is XPathAbbrevForwardStep, is XPathForwardStep -> when (step.lastChild) {
                         is XPathNodeTest -> step.lastChild.firstChild.firstChild as? XsQNameValue
                         else -> null
                     }
