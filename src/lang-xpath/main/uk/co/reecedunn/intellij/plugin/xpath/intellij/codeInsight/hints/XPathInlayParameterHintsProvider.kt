@@ -63,7 +63,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 is XdmVariableName -> element.variableName
                 is XPathRelativePathExpr -> when (val step = element.lastChild) {
                     is XPathNodeTest -> step.firstChild.firstChild as? XsQNameValue
-                    is XPathAbbrevForwardStep, is XPathForwardStep -> when (step.lastChild) {
+                    is XPathAbbrevForwardStep, is XPathForwardStep, is XPathReverseStep -> when (step.lastChild) {
                         is XPathNodeTest -> step.lastChild.firstChild.firstChild as? XsQNameValue
                         else -> null
                     }

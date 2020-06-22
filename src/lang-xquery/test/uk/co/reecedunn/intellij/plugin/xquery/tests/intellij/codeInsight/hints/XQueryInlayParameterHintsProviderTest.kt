@@ -407,6 +407,54 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                     assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
                 }
             }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (115) ReverseStep")
+            internal inner class ReverseStep {
+                @Test
+                @DisplayName("name test not matching the parameter names")
+                fun different() {
+                    val args = parse<XPathArgumentList>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
+                        |local:f(${'$'}x/parent::one, ${'$'}x/lorem//parent::two)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(51))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg2"))
+                    assertThat(hints[1].offset, `is`(67))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+
+                @Test
+                @DisplayName("name test matching the parameter names")
+                fun same() {
+                    val args = parse<XPathArgumentList>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
+                        |local:f(${'$'}x/parent::one, ${'$'}x/parent::arg2, ${'$'}x/lorem//parent::three)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(58))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg3"))
+                    assertThat(hints[1].offset, `is`(91))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+            }
         }
 
         @Nested
@@ -613,6 +661,54 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
 
                     assertThat(hints[1].text, `is`("arg4"))
                     assertThat(hints[1].offset, `is`(104))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (115) ReverseStep")
+            internal inner class ReverseStep {
+                @Test
+                @DisplayName("name test not matching the parameter names")
+                fun different() {
+                    val args = parse<XPathArgumentList>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
+                        |${'$'}one => local:f(${'$'}x/parent::two, ${'$'}x/lorem//parent::three)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg2"))
+                    assertThat(hints[0].offset, `is`(66))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg3"))
+                    assertThat(hints[1].offset, `is`(82))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+
+                @Test
+                @DisplayName("name test matching the parameter names")
+                fun same() {
+                    val args = parse<XPathArgumentList>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
+                        |${'$'}one => local:f(${'$'}x/parent::two, ${'$'}x/parent::arg3, ${'$'}x/lorem//parent::four)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg2"))
+                    assertThat(hints[0].offset, `is`(73))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg4"))
+                    assertThat(hints[1].offset, `is`(106))
                     assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
                 }
             }

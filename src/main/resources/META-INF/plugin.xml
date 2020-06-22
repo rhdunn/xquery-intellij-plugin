@@ -110,9 +110,9 @@
     </ol>
     <p>Inlay Parameter Hints:</p>
     <ol>
-      <li>Don't display a hint when the argument variable name matches the parameter name.</li>
+      <li>Don't display a hint when the variable name matches the parameter name.</li>
       <li>Don't display a hint when the path step element/attribute name matches the parameter name.</li>
-      <li>Don't display a hint when the forward step name matches the parameter name.</li>
+      <li>Don't display a hint when the forward/reverse step name matches the parameter name.</li>
     </ol>
   ]]></change-notes>
 
