@@ -192,4 +192,117 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("get parameter hints")
+    internal inner class GetParameterHints {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
+        internal inner class FunctionCall {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
+            fun integerLiteral() {
+                val args = parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2) {}; local:f(3, 6)")[0]
+
+                val hints = provider.getParameterHints(args)
+                assertThat(hints.size, `is`(2))
+
+                assertThat(hints[0].text, `is`("arg1"))
+                assertThat(hints[0].offset, `is`(51))
+                assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                assertThat(hints[1].text, `is`("arg2"))
+                assertThat(hints[1].offset, `is`(54))
+                assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
+            fun integerLiteral() {
+                val args = parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2) {}; 3 => local:f(6)")[0]
+
+                val hints = provider.getParameterHints(args)
+                assertThat(hints.size, `is`(1))
+
+                assertThat(hints[0].text, `is`("arg2"))
+                assertThat(hints[0].offset, `is`(56))
+                assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+        internal inner class ParamList {
+            @Test
+            @DisplayName("incomplete variable name")
+            fun incompleteVariableName() {
+                val args = parse<XPathArgumentList>("declare function local:f(\$, \$arg2) {}; local:f(3, 4)")[0]
+
+                val hints = provider.getParameterHints(args)
+                assertThat(hints.size, `is`(1))
+
+                assertThat(hints[0].text, `is`("arg2"))
+                assertThat(hints[0].offset, `is`(50))
+                assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+            }
+
+            @Nested
+            @DisplayName("variadic")
+            internal inner class Variadic {
+                @Test
+                @DisplayName("zero")
+                fun zero() {
+                    val args =
+                        parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3)")[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(1))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(55))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+                }
+
+                @Test
+                @DisplayName("one")
+                fun one() {
+                    val args =
+                        parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3, 6)")[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(55))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg2"))
+                    assertThat(hints[1].offset, `is`(58))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+
+                @Test
+                @DisplayName("many")
+                fun many() {
+                    val args =
+                        parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3, 6, 9, 12)")[0]
+
+                    val hints = provider.getParameterHints(args)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(55))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg2"))
+                    assertThat(hints[1].offset, `is`(58))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+            }
+        }
+    }
 }
