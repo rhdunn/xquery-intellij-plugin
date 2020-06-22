@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathRelativePathExpr
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
@@ -61,6 +63,10 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         private fun getName(element: PsiElement): XsQNameValue? {
             return when (element) {
                 is XdmVariableName -> element.variableName
+                is XPathRelativePathExpr -> when (element.lastChild) {
+                    is XPathNodeTest -> element.lastChild.firstChild.firstChild as? XsQNameValue
+                    else -> null
+                }
                 else -> null
             }
         }

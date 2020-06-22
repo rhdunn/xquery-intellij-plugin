@@ -111,6 +111,7 @@
     <p>Inlay Parameter Hints:</p>
     <ol>
       <li>Don't display a hint when the argument variable name matches the parameter name.</li>
+      <li>Don't display a hint when the path step element name matches the parameter name.</li>
     </ol>
   ]]></change-notes>
 
