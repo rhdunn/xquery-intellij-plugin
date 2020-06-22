@@ -50,6 +50,10 @@ Code Completion:
 
 1.  Include declared variables without a namespace prefix in the completion list.
 
+Inlay Parameter Hints:
+
+1.  Don't display a hint when the argument variable name matches the parameter name.
+
 ## 2020
 
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)

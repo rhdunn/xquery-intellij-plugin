@@ -108,6 +108,10 @@
     <ol>
       <li>Include declared variables without a namespace prefix in the completion list.</li>
     </ol>
+    <p>Inlay Parameter Hints:</p>
+    <ol>
+      <li>Don't display a hint when the argument variable name matches the parameter name.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

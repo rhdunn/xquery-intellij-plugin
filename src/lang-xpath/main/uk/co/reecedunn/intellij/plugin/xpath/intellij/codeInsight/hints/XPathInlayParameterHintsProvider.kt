@@ -20,6 +20,8 @@ import com.intellij.codeInsight.hints.InlayInfo
 import com.intellij.codeInsight.hints.InlayParameterHintsProvider
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
@@ -33,6 +35,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 binding.param.variableName == null -> null // Parameter with incomplete variable name.
                 binding.isEmpty() -> null // Empty variadic parameter.
                 index == 0 && element.parent is PluginArrowFunctionCall -> null // Arrow function call context argument.
+                getName(binding[0].firstChild)?.localName?.data == binding.param.variableName?.localName?.data -> null
                 else -> op_qname_presentation(binding.param.variableName!!)?.let {
                     InlayInfo(it, binding[0].textOffset, false)
                 }
@@ -54,5 +57,12 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         private val DEFAULT_BLACKLIST = setOf(
             "(arg)" // e.g. fn:string#1, xs:QName#1
         )
+
+        private fun getName(element: PsiElement): XsQNameValue? {
+            return when (element) {
+                is XdmVariableName -> element.variableName
+                else -> null
+            }
+        }
     }
 }
