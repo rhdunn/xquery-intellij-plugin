@@ -90,7 +90,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("only content of a DirElemConstructor")
         fun testEnclosedExpr_OnlyContentForDirElem() {
-            val file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem.xq")
+            val file = parseResource("tests/folding/DirElemConstructor_EnclosedExprOnly.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
