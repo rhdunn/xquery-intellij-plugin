@@ -112,7 +112,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("only content of a DirElemConstructor with attributes across multiple lines")
         fun testEnclosedExpr_OnlyContentForDirElem_MultiLineAttributes() {
-            val file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem_MultiLineAttributes.xq")
+            val file = parseResource("tests/folding/DirElemConstructor_EnclosedExprOnly_MultiLineAttributes.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
