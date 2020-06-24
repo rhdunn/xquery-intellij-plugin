@@ -68,7 +68,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("multiple lines")
         fun testEnclosedExpr_MultiLine() {
-            val file = parseResource("tests/folding/EnclosedExpr_MultiLine.xq")
+            val file = parseResource("tests/folding/FunctionBody_MultiLine.xq")
             val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
