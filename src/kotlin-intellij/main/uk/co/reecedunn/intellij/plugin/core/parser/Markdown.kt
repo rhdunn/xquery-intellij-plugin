@@ -37,7 +37,7 @@ import java.io.InputStream
  *     line (1em top margin) at the start of the description.
  */
 object Markdown {
-    val md = MarkdownProcessor()
+    private val md = MarkdownProcessor()
 
     fun parse(text: String): String {
         var ret = md.markdown(text)

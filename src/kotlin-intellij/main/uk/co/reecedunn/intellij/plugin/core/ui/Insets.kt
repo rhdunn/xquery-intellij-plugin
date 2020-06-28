@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.core.ui
 import com.intellij.util.ui.JBInsets
 
 object Insets {
-    val ListCellField = JBInsets(1, 2, 1, 2)
+    private val ListCellField = JBInsets(1, 2, 1, 2)
 
-    val ListCellDropdown = JBInsets(1, 4, 1, 2)
+    private val ListCellDropdown = JBInsets(1, 4, 1, 2)
 
     fun listCellRenderer(index: Int): JBInsets = if (index < 0) ListCellField else ListCellDropdown
 }

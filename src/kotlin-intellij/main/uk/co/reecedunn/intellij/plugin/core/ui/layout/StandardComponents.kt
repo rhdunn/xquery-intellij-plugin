@@ -115,7 +115,11 @@ fun Container.passwordField(
 // endregion
 // region radio button
 
-fun ButtonGroupBuilder.radio(constraints: Any?, text: String? = null, init: JRadioButton.() -> Unit = {}): JRadioButton {
+fun ButtonGroupBuilder.radio(
+    constraints: Any?,
+    text: String? = null,
+    init: JRadioButton.() -> Unit = {}
+): JRadioButton {
     if (constraints is GridBagConstraints) {
         constraints.anchor = GridBagConstraints.WEST
     }

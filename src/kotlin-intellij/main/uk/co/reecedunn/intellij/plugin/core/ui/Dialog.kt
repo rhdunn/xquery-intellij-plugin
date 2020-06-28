@@ -23,7 +23,7 @@ abstract class Dialog<Configuration> : SettingsUI<Configuration> {
     abstract val createTitle: String
     abstract val editTitle: String
 
-    open fun validate(onvalidate: (Boolean) -> Unit) = onvalidate(true)
+    open fun validate(onvalidate: (Boolean) -> Unit): Unit = onvalidate(true)
 
     private fun run(configuration: Configuration, title: String): Boolean {
         val dialog = dialog(title) {

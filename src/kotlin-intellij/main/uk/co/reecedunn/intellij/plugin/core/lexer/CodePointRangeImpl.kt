@@ -30,8 +30,8 @@ class CodePointRangeImpl : CodePointRange {
     override var bufferEnd: Int = 0
         private set
 
-    override val codePoint
-        get(): Int {
+    override val codePoint: Int
+        get() {
             if (end == bufferEnd)
                 return CodePointRange.END_OF_BUFFER
             val high = bufferSequence[end]

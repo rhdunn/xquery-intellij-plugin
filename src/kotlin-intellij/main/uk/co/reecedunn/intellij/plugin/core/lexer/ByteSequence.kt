@@ -24,7 +24,7 @@ class ByteSequence private constructor(
 ) : CharSequence {
     constructor(data: ByteArray) : this(data, 0, data.size)
 
-    override val length get(): Int = mLength
+    override val length: Int get() = mLength
 
     override fun get(index: Int): Char {
         if (index < 0 || index >= mLength) {

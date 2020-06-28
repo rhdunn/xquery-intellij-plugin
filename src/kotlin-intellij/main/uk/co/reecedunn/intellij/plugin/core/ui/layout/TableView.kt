@@ -21,7 +21,7 @@ import com.intellij.util.ui.ListTableModel
 import com.intellij.ui.table.TableView as TableViewBase
 
 class TableView<Item> : TableViewBase<Item>() {
-    fun add(item: Item) = listTableModel.addRow(item)
+    fun add(item: Item): Unit = listTableModel.addRow(item)
 
     fun updateAll() {
         (0 until rowCount).forEach { row -> update(listTableModel.getItem(row)) }
@@ -42,7 +42,7 @@ fun <Item> JBScrollPane.tableView(init: TableView<Item>.() -> Unit): TableView<I
     return view
 }
 
-fun <Item> ToolbarDecoratorBuilder.tableView(init: TableView<Item>.() -> Unit): TableView<Item> {
+fun <Item> tableView(init: TableView<Item>.() -> Unit): TableView<Item> {
     val view = TableView<Item>()
     view.setEnableAntialiasing(true)
     view.init()

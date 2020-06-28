@@ -20,6 +20,7 @@ private enum class CachingBehaviour {
      * The computed property value can be cached.
      */
     Cache,
+
     /**
      * The value has not been calculated yet, so its cacheability cannot be determined.
      */

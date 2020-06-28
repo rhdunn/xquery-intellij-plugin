@@ -71,6 +71,6 @@ class ZipFileSystem private constructor() : VirtualFileSystemImpl("zip") {
     // endregion
 
     companion object {
-        val DIR_CONTENTS = ByteArray(0)
+        val DIR_CONTENTS: ByteArray = ByteArray(0)
     }
 }

@@ -39,6 +39,6 @@ interface CodePointRange {
     fun restore()
 
     companion object {
-        const val END_OF_BUFFER = -1
+        const val END_OF_BUFFER: Int = -1
     }
 }

@@ -19,7 +19,7 @@ import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
 import java.util.*
 
-const val STATE_DEFAULT = 0
+const val STATE_DEFAULT: Int = 0
 
 abstract class LexerImpl(private val baseState: Int, protected val mTokenRange: CodePointRange) : LexerBase() {
     protected var mType: IElementType? = null

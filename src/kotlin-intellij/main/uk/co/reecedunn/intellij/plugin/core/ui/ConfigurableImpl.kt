@@ -30,7 +30,7 @@ abstract class ConfigurableImpl<in Configuration>(private val mConfiguration: Co
     override fun isModified(): Boolean = isModified(mConfiguration)
 
     @Throws(ConfigurationException::class)
-    override fun apply() = apply(mConfiguration)
+    override fun apply(): Unit = apply(mConfiguration)
 
-    override fun reset() = reset(mConfiguration)
+    override fun reset(): Unit = reset(mConfiguration)
 }

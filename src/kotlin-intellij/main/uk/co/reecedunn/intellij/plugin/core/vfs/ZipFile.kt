@@ -99,7 +99,7 @@ data class ZipFile(
 
     override fun getLength(): Long = entry.size
 
-    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO()
+    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
 
     override fun getInputStream(): InputStream {
         return if (isDirectory) throw UnsupportedOperationException() else ByteArrayInputStream(contents)

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.event
 
 import com.intellij.openapi.application.ApplicationManager
+import java.util.concurrent.Future
 
 abstract class Stopwatch {
     private var startTime: Long = 0
@@ -24,7 +25,7 @@ abstract class Stopwatch {
 
     val elapsedTime: Long get() = endTime - startTime
 
-    fun start(interval: Long) = ApplicationManager.getApplication().executeOnPooledThread {
+    fun start(interval: Long): Future<*> = ApplicationManager.getApplication().executeOnPooledThread {
         startTime = System.nanoTime()
         while (isRunning()) {
             ApplicationManager.getApplication().invokeLater {

@@ -23,7 +23,7 @@ import com.intellij.openapi.util.Key
 
 interface LanguageData {
     companion object {
-        val KEY = Key.create<LanguageData>("uk.co.reecedunn.intellij.plugin.key.languageData")
+        val KEY: Key<LanguageData> = Key.create("uk.co.reecedunn.intellij.plugin.key.languageData")
     }
 
     val associations: List<FileNameMatcher>

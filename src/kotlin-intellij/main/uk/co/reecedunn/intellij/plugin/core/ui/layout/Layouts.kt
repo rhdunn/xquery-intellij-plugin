@@ -74,6 +74,7 @@ fun grid(x: Int, y: Int): GridBagConstraints = GridBagConstraints(
     0, 0
 )
 
+@Suppress("unused")
 fun GridBagConstraints.spanRows(dy: Int = GridBagConstraints.REMAINDER): GridBagConstraints {
     gridheight = dy
     return this
@@ -221,6 +222,7 @@ fun Container.scrollable(constraints: Any?, init: JBScrollPane.() -> Unit): JBSc
     return scrollable(null, constraints, init)
 }
 
+@Suppress("unused")
 fun Container.scrollable(init: JBScrollPane.() -> Unit): JBScrollPane = scrollable(null, null, init)
 
 // endregion

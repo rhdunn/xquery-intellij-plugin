@@ -91,7 +91,7 @@ class ResourceVirtualFile private constructor(
         return if (mFile == null || mFile!!.isDirectory) 0 else mFile!!.length()
     }
 
-    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO()
+    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
 
     @Throws(IOException::class)
     override fun getInputStream(): InputStream? {

@@ -33,12 +33,13 @@ class TaskManager<Item> {
     private val active = ContainerUtil.createLockFreeCopyOnWriteList<Item>()
     private val listeners = ContainerUtil.createLockFreeCopyOnWriteList<TaskProgressListener<Item>>()
 
-    fun addListener(listener: TaskProgressListener<Item>) = listeners.add(listener)
+    fun addListener(listener: TaskProgressListener<Item>): Boolean = listeners.add(listener)
 
-    fun removeListener(listener: TaskProgressListener<Item>) = listeners.remove(listener)
+    fun removeListener(listener: TaskProgressListener<Item>): Boolean = listeners.remove(listener)
 
     fun isActive(context: Item): Boolean = active.contains(context)
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun backgroundable(title: String, project: Project?, context: Item, task: (ProgressIndicator) -> Unit): Boolean {
         if (isActive(context)) return false
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, title) {

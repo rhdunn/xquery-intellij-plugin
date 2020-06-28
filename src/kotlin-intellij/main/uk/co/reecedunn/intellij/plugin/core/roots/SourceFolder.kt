@@ -20,7 +20,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
@@ -47,8 +46,4 @@ fun VirtualFile.getSourceRootType(project: Project): JpsModuleSourceRootType<*> 
         }
     }
     return rootType
-}
-
-fun PsiElement.getSourceRootType(project: Project): JpsModuleSourceRootType<*>? {
-    return containingFile?.virtualFile?.getSourceRootType(project)
 }
