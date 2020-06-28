@@ -58,10 +58,8 @@ data class XmlChar(val codepoint: Int) {
      *   -  U+0085 NEL (NEXT LINE)
      */
     @Suppress("unused")
-    val isUnsupportedControlCharacter
-        get(): Boolean {
-            return (codepoint in 0x00..0x1F || codepoint in 0x7F..0x9F) && codepoint !in VALID_CONTROL_CHARACTERS
-        }
+    val isUnsupportedControlCharacter: Boolean
+        get() = (codepoint in 0x00..0x1F || codepoint in 0x7F..0x9F) && codepoint !in VALID_CONTROL_CHARACTERS
 
     /**
      * Is the codepoint a UTF-16 surrogate?
@@ -89,13 +87,11 @@ data class XmlChar(val codepoint: Int) {
      * invalid.
      */
     @Suppress("unused")
-    val isPermanentlyUnassigned
-        get(): Boolean {
-            return (codepoint and 0x00FFFF) in 0xFFFE..0xFFFF || codepoint in 0xFDD0..0xFDEF
-        }
+    val isPermanentlyUnassigned: Boolean
+        get() = (codepoint and 0x00FFFF) in 0xFFFE..0xFFFF || codepoint in 0xFDD0..0xFDEF
 
     companion object {
-        const val REPLACEMENT_CODEPOINT = "\uFFFD"
+        const val REPLACEMENT_CODEPOINT: String = "\uFFFD"
         private val VALID_CONTROL_CHARACTERS = arrayOf(0x09, 0x0A, 0x0D, 0x85) // TAB, LF, CR, NEL
     }
 }
