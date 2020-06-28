@@ -45,7 +45,7 @@ class MockPsiManager(project: Project) : PsiManagerEx() {
         try {
             val language = LanguageUtil.getLanguageForPsi(project, file) ?: return null
             return PsiFileFactory.getInstance(project).createFileFromText(
-                file.name, language, file.decode()!!, true, false, false, file
+                file.name, language, file.decode() ?: return null, true, false, false, file
             )
         } catch (e: IOException) {
             return null
@@ -82,9 +82,9 @@ class MockPsiManager(project: Project) : PsiManagerEx() {
 
     override fun isDisposed(): Boolean = false
 
-    override fun dropResolveCaches() = fileManager.cleanupForNextTest()
+    override fun dropResolveCaches(): Unit = fileManager.cleanupForNextTest()
 
-    override fun dropPsiCaches() = dropResolveCaches()
+    override fun dropPsiCaches(): Unit = dropResolveCaches()
 
     override fun isInProject(element: PsiElement): Boolean = false
 

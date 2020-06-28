@@ -23,7 +23,7 @@ import java.util.*
 class WordOccurrences : Processor<WordOccurrence> {
     private val mWordOccurrences = ArrayList<Pair<WordOccurrence.Kind, CharSequence>>()
 
-    val wordOccurrences get(): List<Pair<WordOccurrence.Kind, CharSequence>> = mWordOccurrences
+    val wordOccurrences: List<Pair<WordOccurrence.Kind, CharSequence>> get() = mWordOccurrences
 
     override fun process(occurrence: WordOccurrence): Boolean {
         val value = Pair<WordOccurrence.Kind, CharSequence>(

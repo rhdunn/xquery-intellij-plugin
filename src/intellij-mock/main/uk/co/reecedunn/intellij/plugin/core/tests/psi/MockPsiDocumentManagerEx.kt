@@ -44,7 +44,7 @@ class MockPsiDocumentManagerEx(project: Project) : PsiDocumentManagerBase(projec
 
     override fun commitAllDocumentsUnderProgress(): Boolean = true
 
-    override fun performForCommittedDocument(document: Document, action: Runnable) = action.run()
+    override fun performForCommittedDocument(document: Document, action: Runnable): Unit = action.run()
 
     override fun commitDocument(document: Document) {}
 
@@ -62,23 +62,23 @@ class MockPsiDocumentManagerEx(project: Project) : PsiDocumentManagerBase(projec
 
     override fun hasUncommitedDocuments(): Boolean = TODO()
 
-    override fun commitAndRunReadAction(runnable: Runnable) = TODO()
+    override fun commitAndRunReadAction(runnable: Runnable): Unit = TODO()
 
     override fun <T> commitAndRunReadAction(computation: Computable<T>): T = TODO()
 
-    override fun addListener(listener: Listener) = TODO()
+    override fun addListener(listener: Listener): Unit = TODO()
 
-    override fun removeListener(listener: Listener) = TODO()
+    override fun removeListener(listener: Listener): Unit = TODO()
 
     override fun isDocumentBlockedByPsi(doc: Document): Boolean = TODO()
 
-    override fun doPostponedOperationsAndUnblockDocument(doc: Document) = TODO()
+    override fun doPostponedOperationsAndUnblockDocument(doc: Document): Unit = TODO()
 
     override fun performWhenAllCommitted(action: Runnable): Boolean = TODO()
 
-    override fun reparseFiles(files: Collection<VirtualFile?>, includeOpenFiles: Boolean) = TODO()
+    override fun reparseFiles(files: Collection<VirtualFile?>, includeOpenFiles: Boolean): Unit = TODO()
 
-    override fun performLaterWhenAllCommitted(runnable: Runnable) = TODO()
+    override fun performLaterWhenAllCommitted(runnable: Runnable): Unit = TODO()
 
-    override fun performLaterWhenAllCommitted(runnable: Runnable, modalityState: ModalityState?) = TODO()
+    override fun performLaterWhenAllCommitted(runnable: Runnable, modalityState: ModalityState?): Unit = TODO()
 }

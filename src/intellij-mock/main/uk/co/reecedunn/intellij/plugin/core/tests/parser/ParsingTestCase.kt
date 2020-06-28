@@ -74,7 +74,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
-@Suppress("SameParameterValue")
+@Suppress("SameParameterValue", "ReplaceNotNullAssertionWithElvisReturn")
 abstract class ParsingTestCase<File : PsiFile>(
     private var mFileExt: String?,
     vararg definitions: ParserDefinition

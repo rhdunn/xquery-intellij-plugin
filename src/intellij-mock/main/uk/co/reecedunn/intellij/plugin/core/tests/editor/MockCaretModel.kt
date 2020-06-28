@@ -26,7 +26,7 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
 
     override fun getVisualLineStart(): Int = TODO()
 
-    override fun removeSecondaryCarets() = TODO()
+    override fun removeSecondaryCarets(): Unit = TODO()
 
     override fun removeCaret(caret: Caret): Boolean = TODO()
 
@@ -36,7 +36,7 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
 
     override fun getOffset(): Int = offset
 
-    override fun removeCaretListener(listener: CaretListener) = TODO()
+    override fun removeCaretListener(listener: CaretListener): Unit = TODO()
 
     override fun getCaretAt(pos: VisualPosition): Caret? = TODO()
 
@@ -54,7 +54,7 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
         TODO()
     }
 
-    override fun setCaretsAndSelections(caretStates: MutableList<out CaretState>) = TODO()
+    override fun setCaretsAndSelections(caretStates: MutableList<out CaretState>): Unit = TODO()
 
     override fun setCaretsAndSelections(caretStates: MutableList<out CaretState>, updateSystemSelection: Boolean) {
         TODO()
@@ -62,9 +62,9 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
 
     override fun getLogicalPosition(): LogicalPosition = TODO()
 
-    override fun addCaretListener(listener: CaretListener) = TODO()
+    override fun addCaretListener(listener: CaretListener): Unit = TODO()
 
-    override fun moveToVisualPosition(pos: VisualPosition) = TODO()
+    override fun moveToVisualPosition(pos: VisualPosition): Unit = TODO()
 
     override fun supportsMultipleCarets(): Boolean = TODO()
 
@@ -78,19 +78,19 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
 
     override fun addCaret(pos: LogicalPosition, makePrimary: Boolean): Caret? = TODO()
 
-    override fun runForEachCaret(action: CaretAction) = TODO()
+    override fun runForEachCaret(action: CaretAction): Unit = TODO()
 
-    override fun runForEachCaret(action: CaretAction, reverseOrder: Boolean) = TODO()
+    override fun runForEachCaret(action: CaretAction, reverseOrder: Boolean): Unit = TODO()
 
     override fun getAllCarets(): MutableList<Caret> = TODO()
 
-    override fun addCaretActionListener(listener: CaretActionListener, disposable: Disposable) = TODO()
+    override fun addCaretActionListener(listener: CaretActionListener, disposable: Disposable): Unit = TODO()
 
-    override fun runBatchCaretOperation(runnable: Runnable) = TODO()
+    override fun runBatchCaretOperation(runnable: Runnable): Unit = TODO()
 
-    override fun moveToLogicalPosition(pos: LogicalPosition) = TODO()
+    override fun moveToLogicalPosition(pos: LogicalPosition): Unit = TODO()
 
-    override fun moveToOffset(offset: Int) = moveToOffset(offset, false)
+    override fun moveToOffset(offset: Int): Unit = moveToOffset(offset, false)
 
     override fun moveToOffset(offset: Int, locateBeforeSoftWrap: Boolean) {
         if (offset > editor.document.textLength)

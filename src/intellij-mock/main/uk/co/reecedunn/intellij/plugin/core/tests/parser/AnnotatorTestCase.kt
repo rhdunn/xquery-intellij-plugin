@@ -33,9 +33,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 @Suppress("SameParameterValue")
 abstract class AnnotatorTestCase<File : PsiFile>(
-    private var mFileExt: String?,
+    fileExt: String?,
     vararg definitions: ParserDefinition
-) : ParsingTestCase<File>(mFileExt, *definitions) {
+) : ParsingTestCase<File>(fileExt, *definitions) {
 
     private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {
         if (node is CompositeElement) {

@@ -30,7 +30,7 @@ import com.intellij.psi.PsiLanguageInjectionHost
 class MockInjectedLanguageManager : InjectedLanguageManager() {
     override fun mightHaveInjectedFragmentAtOffset(hostDocument: Document, hostOffset: Int): Boolean = TODO()
 
-    override fun enumerate(host: PsiElement, visitor: PsiLanguageInjectionHost.InjectedPsiVisitor) = TODO()
+    override fun enumerate(host: PsiElement, visitor: PsiLanguageInjectionHost.InjectedPsiVisitor): Unit = TODO()
 
     override fun getTopLevelFile(element: PsiElement): PsiFile {
         return element.containingFile
@@ -60,13 +60,13 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
         TODO()
     }
 
-    override fun dropFileCaches(file: PsiFile) = TODO()
+    override fun dropFileCaches(file: PsiFile): Unit = TODO()
 
     override fun getNonEditableFragments(window: DocumentWindow): MutableList<TextRange> = TODO()
 
-    override fun registerMultiHostInjector(injector: MultiHostInjector) = TODO()
+    override fun registerMultiHostInjector(injector: MultiHostInjector): Unit = TODO()
 
-    override fun registerMultiHostInjector(injector: MultiHostInjector, parentDisposable: Disposable) = TODO()
+    override fun registerMultiHostInjector(injector: MultiHostInjector, parentDisposable: Disposable): Unit = TODO()
 
     override fun isInjectedFragment(injectedFile: PsiFile): Boolean = TODO()
 

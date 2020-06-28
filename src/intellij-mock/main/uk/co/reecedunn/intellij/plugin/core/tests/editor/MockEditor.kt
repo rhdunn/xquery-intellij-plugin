@@ -45,7 +45,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun getComponent(): JComponent = TODO()
 
-    override fun <T : Any?> putUserData(key: Key<T>, value: T?) = TODO()
+    override fun <T : Any?> putUserData(key: Key<T>, value: T?): Unit = TODO()
 
     override fun visualPositionToPoint2D(pos: VisualPosition): Point2D = TODO()
 
@@ -79,13 +79,13 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun getSoftWrapModel(): SoftWrapModel = TODO()
 
-    override fun removeEditorMouseListener(listener: EditorMouseListener) = TODO()
+    override fun removeEditorMouseListener(listener: EditorMouseListener): Unit = TODO()
 
     override fun isDisposed(): Boolean = TODO()
 
     override fun getEditorKind(): EditorKind = TODO()
 
-    override fun addEditorMouseListener(listener: EditorMouseListener) = TODO()
+    override fun addEditorMouseListener(listener: EditorMouseListener): Unit = TODO()
 
     override fun getSettings(): EditorSettings = TODO()
 
@@ -99,7 +99,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun getMouseEventArea(e: MouseEvent): EditorMouseEventArea? = TODO()
 
-    override fun setBorder(border: Border?) = TODO()
+    override fun setBorder(border: Border?): Unit = TODO()
 
     override fun getMarkupModel(): MarkupModel = TODO()
 
@@ -107,7 +107,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun getInsets(): Insets = TODO()
 
-    override fun addEditorMouseMotionListener(listener: EditorMouseMotionListener) = TODO()
+    override fun addEditorMouseMotionListener(listener: EditorMouseMotionListener): Unit = TODO()
 
     override fun logicalToVisualPosition(logicalPos: LogicalPosition): VisualPosition = TODO()
 
@@ -116,13 +116,13 @@ class MockEditor(private val document: Document) : Editor {
     @Suppress("UnstableApiUsage")
     override fun getInlayModel(): InlayModel = TODO()
 
-    override fun setHeaderComponent(header: JComponent?) = TODO()
+    override fun setHeaderComponent(header: JComponent?): Unit = TODO()
 
     override fun <T : Any?> getUserData(key: Key<T>): T? = TODO()
 
     override fun getHeaderComponent(): JComponent? = TODO()
 
-    override fun removeEditorMouseMotionListener(listener: EditorMouseMotionListener) = TODO()
+    override fun removeEditorMouseMotionListener(listener: EditorMouseMotionListener): Unit = TODO()
 
     override fun hasHeaderComponent(): Boolean = TODO()
 
