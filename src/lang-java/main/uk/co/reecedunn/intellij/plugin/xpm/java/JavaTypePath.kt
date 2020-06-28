@@ -38,8 +38,6 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext 
         null
     }
 
-    val isJavaPluginEnabled: Boolean = facade != null
-
     fun findClass(qualifiedName: String): PsiElement? {
         return facade?.let {
             val scope = GlobalSearchScope.allScope(project)
