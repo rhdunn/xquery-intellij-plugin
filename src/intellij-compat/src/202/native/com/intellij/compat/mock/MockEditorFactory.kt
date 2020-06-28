@@ -63,9 +63,9 @@ open class MockEditorFactory : EditorFactory() {
     override fun releaseEditor(editor: Editor) {
     }
 
-    override fun editors( document: Document, project: Project?): Stream<Editor> = Stream.empty()
+    override fun editors(document: Document, project: Project?): Stream<Editor> = Stream.empty()
 
-    override fun getAllEditors(): Array<Editor?> = arrayOf()
+    override fun getAllEditors(): Array<Editor> = arrayOf()
 
     override fun addEditorFactoryListener(listener: EditorFactoryListener) {
     }

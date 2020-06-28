@@ -18,11 +18,11 @@ package com.intellij.compat.extensions
 import com.intellij.openapi.extensions.PluginDescriptor
 
 abstract class ExtensionPointListener<T> : com.intellij.openapi.extensions.ExtensionPointListener<T> {
-    override fun extensionAdded(extension: T, pluginDescriptor: PluginDescriptor?) = extensionAdded(extension)
+    override fun extensionAdded(extension: T, pluginDescriptor: PluginDescriptor?): Unit = extensionAdded(extension)
 
     abstract fun extensionAdded(extension: T)
 
-    override fun extensionRemoved(extension: T, pluginDescriptor: PluginDescriptor?) = extensionRemoved(extension)
+    override fun extensionRemoved(extension: T, pluginDescriptor: PluginDescriptor?): Unit = extensionRemoved(extension)
 
     abstract fun extensionRemoved(extension: T)
 }

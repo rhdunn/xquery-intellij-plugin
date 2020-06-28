@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 abstract class Annotator : com.intellij.lang.annotation.Annotator {
     private var currentHolder: AnnotationHolder? = null
 
+    @Suppress("ReplaceNotNullAssertionWithElvisReturn")
     override fun annotate(element: PsiElement, holder: com.intellij.lang.annotation.AnnotationHolder) {
         if (currentHolder?.holder != holder) {
             currentHolder = AnnotationHolder(holder)

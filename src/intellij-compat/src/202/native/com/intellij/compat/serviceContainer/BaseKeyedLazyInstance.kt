@@ -34,5 +34,6 @@ abstract class BaseKeyedLazyInstance<T> : LazyExtensionInstance<T>(), PluginAwar
         this.pluginDescriptor = pluginDescriptor
     }
 
+    @Suppress("ReplaceNotNullAssertionWithElvisReturn")
     open fun getInstance(): T = getInstance(ApplicationManager.getApplication(), pluginDescriptor!!)
 }

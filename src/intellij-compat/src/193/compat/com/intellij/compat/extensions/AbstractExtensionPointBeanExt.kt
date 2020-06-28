@@ -20,5 +20,5 @@ import org.picocontainer.PicoContainer
 
 // instantiate is deprecated in IntelliJ 2019.3.
 fun <T> AbstractExtensionPointBean.instantiateBean(className: String, container: PicoContainer): T {
-    return this.instantiate<T>(className, container)
+    return this.instantiate(className, container)
 }

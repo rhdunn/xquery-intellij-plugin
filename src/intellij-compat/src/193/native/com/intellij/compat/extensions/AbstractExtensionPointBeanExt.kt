@@ -22,5 +22,5 @@ import org.picocontainer.PicoContainer
 // AbstractExtensionPointBean is deprecated in IntelliJ 2020.2.
 @Suppress("unused")
 fun <T> BaseKeyedLazyInstance<T>.instantiateBean(className: String, container: PicoContainer): T {
-    return this.instantiateClass<T>(className, container)
+    return this.instantiateClass(className, container)
 }

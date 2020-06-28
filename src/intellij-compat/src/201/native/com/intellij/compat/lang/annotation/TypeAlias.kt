@@ -17,5 +17,5 @@ package com.intellij.compat.lang.annotation
 
 typealias AnnotationHolder = com.intellij.lang.annotation.AnnotationHolder
 
-@Suppress("UnstableApiUsage")
+@Suppress("unused", "UnstableApiUsage")
 typealias AnnotationBuilder = com.intellij.lang.annotation.AnnotationBuilder

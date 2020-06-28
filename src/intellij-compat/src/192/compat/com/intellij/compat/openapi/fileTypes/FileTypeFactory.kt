@@ -22,7 +22,7 @@ import com.intellij.openapi.fileTypes.FileType
 
 class FileTypeFactory : com.intellij.openapi.fileTypes.FileTypeFactory() {
     companion object {
-        val EP_NAME = ExtensionPointName.create<FileTypeBean>("com.intellij.fileType")
+        val EP_NAME: ExtensionPointName<FileTypeBean> = ExtensionPointName.create("com.intellij.fileType")
     }
 
     override fun createFileTypes(consumer: FileTypeConsumer) {

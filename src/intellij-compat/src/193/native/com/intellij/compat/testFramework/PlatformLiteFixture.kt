@@ -71,6 +71,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     // endregion
     // region Registering Application Services
 
+    @Suppress("ReplaceNotNullAssertionWithElvisReturn")
     fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
         myApp!!.registerService(aClass, `object`, testRootDisposable)
     }

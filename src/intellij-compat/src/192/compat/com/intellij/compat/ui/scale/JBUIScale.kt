@@ -18,7 +18,8 @@ package com.intellij.compat.ui.scale
 import com.intellij.util.ui.JBUI
 
 object JBUIScale {
-    fun scale(i: Int) = JBUI.scale(i)
+    fun scale(i: Int): Int = JBUI.scale(i)
 
-    fun scale(f: Float) = JBUI.scale(f)
+    @Suppress("unused")
+    fun scale(f: Float): Float = JBUI.scale(f)
 }

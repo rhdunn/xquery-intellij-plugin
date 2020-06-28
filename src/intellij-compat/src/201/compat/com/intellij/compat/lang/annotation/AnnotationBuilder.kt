@@ -99,6 +99,7 @@ class AnnotationBuilder(
         return this
     }
 
+    @Suppress("ReplaceNotNullAssertionWithElvisReturn")
     fun create() {
         val textRange: TextRange = textRange ?: holder.currentElement!!.textRange
         if (tooltip == null && message != null) {

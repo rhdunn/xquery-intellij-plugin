@@ -16,6 +16,9 @@
 package com.intellij.compat.execution.ui
 
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.execution.ui.layout.LayoutViewOptions
 import com.intellij.openapi.actionSystem.ActionGroup
 
-fun RunnerLayoutUi.setTopLeftToolbar(actions: ActionGroup, place: String) = options.setTopToolbar(actions, place)
+fun RunnerLayoutUi.setTopLeftToolbar(actions: ActionGroup, place: String): LayoutViewOptions {
+    return options.setTopToolbar(actions, place)
+}

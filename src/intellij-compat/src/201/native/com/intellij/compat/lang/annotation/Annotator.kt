@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import org.jetbrains.annotations.TestOnly
 
 abstract class Annotator : com.intellij.lang.annotation.Annotator {
-    override fun annotate(element: PsiElement, holder: AnnotationHolder) = annotateElement(element, holder)
+    override fun annotate(element: PsiElement, holder: AnnotationHolder): Unit = annotateElement(element, holder)
 
     abstract fun annotateElement(element: PsiElement, holder: AnnotationHolder)
 }

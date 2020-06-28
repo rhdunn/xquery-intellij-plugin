@@ -23,6 +23,6 @@ interface EndpointsGroup {
     val endpoints: Sequence<Endpoint>
 
     companion object {
-        const val ROOT_PATH = "/"
+        const val ROOT_PATH: String = "/"
     }
 }

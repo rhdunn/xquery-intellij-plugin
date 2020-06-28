@@ -148,7 +148,7 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
         return children + applicableNodeProviders.flatMap { it.provideNodes(parent) }
     }
 
-    override fun normalizeChildren() = false
+    override fun normalizeChildren(): Boolean = false
 
     protected open val applicableNodeProviders: List<NodeProvider<*>> = emptyList()
 }
