@@ -35,7 +35,7 @@ buildscript {
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2020.1'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
-    ext.kotlin_version = "1.3.61"
+    ext.kotlin_version = "1.3.72"
 
     ext.plugin_version = '1.7'
     ext.suffix = '-dev'
