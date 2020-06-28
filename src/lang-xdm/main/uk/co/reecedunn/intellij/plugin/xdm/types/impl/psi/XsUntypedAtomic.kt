@@ -27,5 +27,5 @@ data class XsUntypedAtomic(
 
     constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
 
-    override val element get(): PsiElement? = reference?.get()
+    override val element: PsiElement? get() = reference?.get()
 }

@@ -36,7 +36,7 @@ data class XsAnyUri(
         element: PsiElement?
     ) : this(data, context, moduleTypes, element?.let { WeakReference(it) })
 
-    override val element get(): PsiElement? = reference?.get()
+    override val element: PsiElement? get() = reference?.get()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -20,7 +20,7 @@ import java.math.BigDecimal
 
 data class XsDecimal(override val data: BigDecimal) : XsDecimalValue {
     companion object {
-        val ZERO = XsDecimal(BigDecimal.ZERO)
+        val ZERO: XsDecimal = XsDecimal(BigDecimal.ZERO)
 
         fun milli(value: String): XsDecimal = XsDecimal(BigDecimal(value).scaleByPowerOfTen(-3).stripTrailingZeros())
 

@@ -33,7 +33,7 @@ data class XsDuration(
     }
 
     companion object {
-        val ZERO = XsDuration(XsInteger.ZERO, XsDecimal.ZERO)
+        val ZERO: XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.ZERO)
 
         fun ms(value: String): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.milli(value))
 

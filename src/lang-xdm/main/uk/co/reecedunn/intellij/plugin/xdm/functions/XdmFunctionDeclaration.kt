@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 
 interface XdmFunctionDeclaration {
     companion object {
-        val ARITY_ZERO = Range(0, 0)
+        val ARITY_ZERO: Range<Int> = Range(0, 0)
     }
 
     val functionName: XsQNameValue?

@@ -26,10 +26,12 @@ enum class XdmUriContext {
      * This represents the Static Base URIs.
      */
     BaseUri,
+
     /**
      * This represents a string collation.
      */
     Collation,
+
     /**
      * This represents a location URI for import statements.
      *
@@ -56,10 +58,12 @@ enum class XdmUriContext {
      * URIs are not used for resolving SchemaImports.
      */
     Location,
+
     /**
      * This represents a namespace not part of an import or declaration.
      */
     Namespace,
+
     /**
      * This represents a namespace declaration.
      *
@@ -86,20 +90,24 @@ enum class XdmUriContext {
      * Saxon HE also supports integrated extension functions.
      */
     NamespaceDeclaration,
+
     /**
      * This represents an EXPath package name or home path.
      */
     Package,
+
     /**
      * This represents an EXPath package resource public URI.
      */
     Resource,
+
     /**
      * This represents a word list location.
      *
      * This is an XQuery and XPath Full Text feature.
      */
     StopWords,
+
     /**
      * This represents the target namespace URI for import statements.
      *
@@ -117,6 +125,7 @@ enum class XdmUriContext {
      * SchemaImports.
      */
     TargetNamespace,
+
     /**
      * This represents a thesaurus location.
      *

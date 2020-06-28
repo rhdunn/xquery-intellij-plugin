@@ -19,7 +19,6 @@ enum class XdmModuleType(val extensions: Array<String>) {
     DotNet(arrayOf()), // Saxon
     DTD(arrayOf()), // EXPath Package
     Java(arrayOf()), // BaseX, eXist-db, Saxon
-    JavaScript(arrayOf()), // MarkLogic
     NVDL(arrayOf()), // EXPath Package
     RelaxNG(arrayOf()), // EXPath Package
     RelaxNGCompact(arrayOf()), // EXPath Package
@@ -32,16 +31,13 @@ enum class XdmModuleType(val extensions: Array<String>) {
     XSLT(arrayOf()); // MarkLogic, EXPath Package
 
     companion object {
-        val JAVA = arrayOf(Java)
-        val JAVASCRIPT = arrayOf(JavaScript)
-        val MARKLOGIC = arrayOf(XPath, XQuery, JavaScript)
-        val MODULE = arrayOf(XQuery, Java, DotNet)
-        val MODULE_OR_SCHEMA = arrayOf(XQuery, XMLSchema, Java, DotNet)
-        val MODULE_URI = arrayOf(XQuery, XSLT)
-        val NONE = arrayOf<XdmModuleType>()
-        val XPATH_OR_XQUERY = arrayOf(XPath, XQuery)
-        val RESOURCE = arrayOf(Resource)
-        val SCHEMA = arrayOf(XMLSchema)
-        val STYLESHEET = arrayOf(XSLT)
+        val JAVA: Array<XdmModuleType> = arrayOf(Java)
+        val MODULE: Array<XdmModuleType> = arrayOf(XQuery, Java, DotNet)
+        val MODULE_OR_SCHEMA: Array<XdmModuleType> = arrayOf(XQuery, XMLSchema, Java, DotNet)
+        val NONE: Array<XdmModuleType> = arrayOf()
+        val XPATH_OR_XQUERY: Array<XdmModuleType> = arrayOf(XPath, XQuery)
+        val RESOURCE: Array<XdmModuleType> = arrayOf(Resource)
+        val SCHEMA: Array<XdmModuleType> = arrayOf(XMLSchema)
+        val STYLESHEET: Array<XdmModuleType> = arrayOf(XSLT)
     }
 }

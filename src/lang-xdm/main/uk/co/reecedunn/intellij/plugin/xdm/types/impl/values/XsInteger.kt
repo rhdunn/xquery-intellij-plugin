@@ -20,6 +20,6 @@ import java.math.BigInteger
 
 data class XsInteger(override val data: BigInteger) : XsIntegerValue {
     companion object {
-        val ZERO = XsInteger(BigInteger.ZERO)
+        val ZERO: XsInteger = XsInteger(BigInteger.ZERO)
     }
 }

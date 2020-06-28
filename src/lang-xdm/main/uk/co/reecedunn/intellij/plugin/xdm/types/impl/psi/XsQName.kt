@@ -38,5 +38,5 @@ data class XsQName(
         element: PsiElement?
     ) : this(namespace, prefix, localName, isLexicalQName, element?.let { WeakReference(it) })
 
-    override val element get(): PsiElement? = reference?.get()
+    override val element: PsiElement? get() = reference?.get()
 }
