@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSetti
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
 import javax.swing.JComboBox
+import javax.swing.JPanel
 
 class QueryLogViewerUI(val project: Project) {
     // region Filter :: Server
@@ -122,7 +123,7 @@ class QueryLogViewerUI(val project: Project) {
     // endregion
     // region Form
 
-    val panel = panel {
+    val panel: JPanel = panel {
         row {
             panel(column.horizontal().padding(4, 2)) {
                 row {

@@ -22,22 +22,6 @@ import java.io.FileNotFoundException
 import java.io.InputStream
 
 class QueryProcessorSettings : Closeable {
-    constructor()
-
-    constructor(
-        name: String?,
-        apiId: String,
-        jar: String?,
-        configurationPath: String?,
-        connection: ConnectionSettings?
-    ) {
-        this.name = name
-        this.apiId = apiId
-        this.jar = jar
-        this.configurationPath = configurationPath
-        this.connection = connection
-    }
-
     var id: Int = 0
 
     var name: String? = null

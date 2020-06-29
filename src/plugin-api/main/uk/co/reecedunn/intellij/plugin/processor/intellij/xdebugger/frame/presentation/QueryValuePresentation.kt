@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 object QueryValuePresentation {
     internal const val SEPARATOR = " := "
 
-    val EmptySequence = XRegularValuePresentation("()", "empty-sequence()", SEPARATOR)
+    val EmptySequence: XValuePresentation = XRegularValuePresentation("()", "empty-sequence()", SEPARATOR)
 
     fun forValue(value: String, type: String? = null): XValuePresentation = when {
         derivesFromUnion(type, "xs:numeric") -> NumericValuePresentation(value, type!!)

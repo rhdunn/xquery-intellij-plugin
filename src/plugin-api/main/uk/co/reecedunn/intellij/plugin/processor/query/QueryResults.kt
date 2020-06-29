@@ -26,6 +26,6 @@ data class QueryResults(
     val elapsed: XsDurationValue
 ) {
     companion object {
-        val OK = BasicStatusLine(ProtocolVersion("HTTP", 1, 1), 200, "OK")
+        val OK: StatusLine = BasicStatusLine(ProtocolVersion("HTTP", 1, 1), 200, "OK")
     }
 }

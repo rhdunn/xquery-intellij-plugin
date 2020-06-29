@@ -22,7 +22,9 @@ import java.io.InputStream
 
 interface QueryProcessorApi {
     companion object {
-        val EP_NAME = ExtensionPointName.create<QueryProcessorApiBean>("uk.co.reecedunn.intellij.queryProcessorApi")
+        private val EP_NAME: ExtensionPointName<QueryProcessorApiBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.queryProcessorApi"
+        )
 
         val apis: Sequence<QueryProcessorApi>
             get() {

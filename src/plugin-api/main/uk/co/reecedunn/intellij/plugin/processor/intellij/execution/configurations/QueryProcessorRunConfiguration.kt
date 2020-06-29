@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurati
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
-import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
@@ -148,7 +147,7 @@ class QueryProcessorRunConfiguration(
             data.scriptSource = value
         }
 
-    val scriptFile get(): VirtualFile? = data.scriptSource.find(data.scriptFile, project)
+    val scriptFile: VirtualFile? get() = data.scriptSource.find(data.scriptFile, project)
 
     // endregion
     // region Context Item
@@ -165,7 +164,7 @@ class QueryProcessorRunConfiguration(
             data.contextItemSource = value
         }
 
-    val contextItem get(): VirtualFile? = data.contextItemSource?.find(data.contextItem, project)
+    val contextItem: VirtualFile? get() = data.contextItemSource?.find(data.contextItem, project)
 
     // endregion
     // region RunConfigurationBase

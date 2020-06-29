@@ -28,7 +28,6 @@ import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.evaluation.QueryEditorsProvider
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
@@ -62,15 +61,15 @@ class QueryDebugProcess(
         debugger.listener = null
     }
 
-    override fun startPausing() = debugger.suspend()
+    override fun startPausing(): Unit = debugger.suspend()
 
-    override fun resume(context: XSuspendContext?) = debugger.resume()
+    override fun resume(context: XSuspendContext?): Unit = debugger.resume()
 
-    override fun startStepInto(context: XSuspendContext?) = debugger.stepInto()
+    override fun startStepInto(context: XSuspendContext?): Unit = debugger.stepInto()
 
-    override fun startStepOver(context: XSuspendContext?) = debugger.stepOver()
+    override fun startStepOver(context: XSuspendContext?): Unit = debugger.stepOver()
 
-    override fun startStepOut(context: XSuspendContext?) = debugger.stepOut()
+    override fun startStepOut(context: XSuspendContext?): Unit = debugger.stepOut()
 
     override fun positionReached() {
         invokeLater(ModalityState.defaultModalityState()) {

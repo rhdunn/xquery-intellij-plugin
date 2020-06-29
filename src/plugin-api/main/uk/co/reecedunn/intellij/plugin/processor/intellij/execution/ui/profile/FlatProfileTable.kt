@@ -190,5 +190,5 @@ class FlatProfileTable : TableView<FlatProfileEntry>(), QueryTable {
 
     var elapsed: XsDurationValue? = null
 
-    fun addRow(entry: FlatProfileEntry) = listTableModel.addRow(entry)
+    fun addRow(entry: FlatProfileEntry): Unit = listTableModel.addRow(entry)
 }

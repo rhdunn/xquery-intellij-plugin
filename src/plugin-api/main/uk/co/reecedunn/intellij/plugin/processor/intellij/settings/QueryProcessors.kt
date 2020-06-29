@@ -52,7 +52,7 @@ class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
 
     override fun getState(): QueryProcessorsData? = data
 
-    override fun loadState(state: QueryProcessorsData) = XmlSerializerUtil.copyBean(state, data)
+    override fun loadState(state: QueryProcessorsData): Unit = XmlSerializerUtil.copyBean(state, data)
 
     // endregion
     // region Instance
