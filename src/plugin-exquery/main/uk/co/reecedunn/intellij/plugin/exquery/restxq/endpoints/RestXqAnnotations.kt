@@ -69,7 +69,7 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
             "DELETE" // HTTP 1.1 (9.7)
         )
 
-        const val RESTXQ_NAMESPACE = "http://exquery.org/ns/restxq"
+        private const val RESTXQ_NAMESPACE: String = "http://exquery.org/ns/restxq"
 
         fun create(function: XdmFunctionDeclaration): RestXqAnnotations? {
             val annotations = function.annotations.filter { annotation ->
